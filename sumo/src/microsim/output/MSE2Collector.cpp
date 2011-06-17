@@ -80,7 +80,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
             myKnownVehicles.push_back(&veh);
         }
     }
-    if (newPos - veh.getVehicleType().getLength() > myEndPos) {
+    if (newPos - veh.getVehicleType().getLengthWithGap() > myEndPos) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -93,7 +93,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLengthWithGap() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -106,12 +106,12 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::N
 
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw() {
-    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
+    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() < myEndPos) {
         // vehicle is on detector
         myKnownVehicles.push_back(&veh);
         return true;
     }
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myEndPos) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myEndPos) {
         // vehicle is beyond detector
         return false;
     }
@@ -163,13 +163,13 @@ MSE2Collector::update(SUMOTime) throw() {
     for (std::list<SUMOVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
         MSVehicle *veh = static_cast<MSVehicle*>(*i);
 
-        SUMOReal length = veh->getVehicleType().getLength();
+        SUMOReal length = veh->getVehicleType().getLengthWithGap();
         if (veh->getLane()==getLane()) {
-            if (veh->getPositionOnLane() - veh->getVehicleType().getLength() < myStartPos) {
+            if (veh->getPositionOnLane() - veh->getVehicleType().getLengthWithGap() < myStartPos) {
                 // vehicle entered detector partially
-                length -= (veh->getVehicleType().getLength() - (veh->getPositionOnLane()-myStartPos));
+                length -= (veh->getVehicleType().getLengthWithGap() - (veh->getPositionOnLane()-myStartPos));
             }
-            if (veh->getPositionOnLane()>myEndPos && veh->getPositionOnLane()-veh->getVehicleType().getLength()<=myEndPos) {
+            if (veh->getPositionOnLane()>myEndPos && veh->getPositionOnLane()-veh->getVehicleType().getLengthWithGap()<=myEndPos) {
                 // vehicle left detector partially
                 length -= (veh->getPositionOnLane()-myEndPos);
             }
@@ -266,12 +266,12 @@ MSE2Collector::update(SUMOTime) throw() {
         SUMOReal jamLengthInMeters =
             (*(*i)->firstStandingVehicle)->getPositionOnLane()
             - (*(*i)->lastStandingVehicle)->getPositionOnLane()
-            + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
+            + (*(*i)->lastStandingVehicle)->getVehicleType().getLengthWithGap();
         const MSVehicle* const occ = myLane->getPartialOccupator();
         if (occ && occ == *(*i)->firstStandingVehicle && occ != *(*i)->lastStandingVehicle) {
-            jamLengthInMeters = myLane->getPartialOccupatorEnd() +occ->getVehicleType().getLength()
+            jamLengthInMeters = myLane->getPartialOccupatorEnd() +occ->getVehicleType().getLengthWithGap()
                                 - (*(*i)->lastStandingVehicle)->getPositionOnLane()
-                                + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
+                                + (*(*i)->lastStandingVehicle)->getVehicleType().getLengthWithGap();
         }
         unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics

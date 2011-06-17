@@ -45,12 +45,13 @@
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter() throw()
-        : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH), maxSpeed(DEFAULT_VEH_MAXSPEED),
+        : id(DEFAULT_VTYPE_ID), lengthWithGap(DEFAULT_VEH_LENGTH_WITH_GAP),
+        minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
         defaultProbability(DEFAULT_VEH_PROB),
         speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
         emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
         vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
-        offset(DEFAULT_VEH_GUIOFFSET), shape(DEFAULT_VEH_SHAPE),
+        shape(DEFAULT_VEH_SHAPE),
         cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
         setParameter(0), saved(false), onlyReferenced(false) {
 }
@@ -63,7 +64,10 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     }
     dev << "   <vtype id=\"" << id << '"';
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
-        dev << " length=\"" << length << '"';
+        dev << " length=\"" << lengthWithGap << '"';
+    }
+    if (wasSet(VTYPEPARS_MINGAP_SET)) {
+        dev << " minGap=\"" << minGap << '"';
     }
     if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
         dev << " maxspeed=\"" << maxSpeed << '"';
@@ -85,9 +89,6 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     }
     if (wasSet(VTYPEPARS_SHAPE_SET)) {
         dev << " guiShape=\"" << getVehicleShapeName(shape) << '"';
-    }
-    if (wasSet(VTYPEPARS_OFFSET_SET)) {
-        dev << " guiOffset=\"" << offset << '"';
     }
     if (wasSet(VTYPEPARS_WIDTH_SET)) {
         dev << " guiWidth=\"" << width << '"';

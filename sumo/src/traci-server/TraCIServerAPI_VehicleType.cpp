@@ -58,7 +58,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
     if (variable!=ID_LIST&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_ACCEL&&variable!=VAR_DECEL
             &&variable!=VAR_TAU&&variable!=VAR_VEHICLECLASS&&variable!=VAR_EMISSIONCLASS&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_IMPERFECTION
-            &&variable!=VAR_GUIOFFSET&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
+            &&variable!=VAR_MINGAP&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
         server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -95,7 +95,11 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType 
     switch (variable) {
     case VAR_LENGTH:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(v.getLength());
+        tempMsg.writeDouble(v.getLengthWithGap());
+        break;
+    case VAR_MINGAP:
+        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+        tempMsg.writeDouble(v.getMinGap());
         break;
     case VAR_MAXSPEED:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -137,10 +141,6 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType 
         tempMsg.writeUnsignedByte(TYPE_STRING);
         tempMsg.writeString(getVehicleShapeName(v.getGuiShape()));
         break;
-    case VAR_GUIOFFSET:
-        tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(v.getGuiOffset());
-        break;
     case VAR_WIDTH:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
         tempMsg.writeDouble(v.getGuiWidth());
@@ -166,7 +166,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_VEHICLECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
-            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPECLASS
+            &&variable!=VAR_WIDTH&&variable!=VAR_MINGAP&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU&&variable!=VAR_COLOR
        ) {
@@ -201,11 +201,11 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             return false;
         }
 		double val = inputStorage.readDouble();
-		if (val == 0.0 || abs(val) == std::numeric_limits<double>::infinity()) {
+		if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
             server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid length.", outputStorage);
             return false;
         }
-        v.setLength(val);
+        v.setLengthWithGap(val);
     }
     break;
     case VAR_MAXSPEED: {
@@ -214,7 +214,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             return false;
         }
 		double val = inputStorage.readDouble();
-		if (val == 0.0 || abs(val) == std::numeric_limits<double>::infinity()) {
+		if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
             server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid maximum speed.", outputStorage);
             return false;
         }
@@ -261,12 +261,12 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
         v.setWidth(inputStorage.readDouble());
     }
     break;
-    case VAR_GUIOFFSET: {
+    case VAR_MINGAP: {
         if (valueDataType!=TYPE_DOUBLE) {
-            server.writeStatusCmd(cmd, RTYPE_ERR, "Setting gui offset requires a double.", outputStorage);
+            server.writeStatusCmd(cmd, RTYPE_ERR, "Setting minimum gap requires a double.", outputStorage);
             return false;
         }
-        v.setOffset(inputStorage.readDouble());
+        v.setMinGap(inputStorage.readDouble());
     }
     break;
     case VAR_SHAPECLASS: {

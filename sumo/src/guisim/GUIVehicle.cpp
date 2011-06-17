@@ -328,7 +328,7 @@ GUIVehicle::getCenteringBoundary() const throw() {
 
 inline void
 drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
-    SUMOReal length = veh.getVehicleType().getLength();
+    SUMOReal length = veh.getVehicleType().getLengthWithGap();
     glPushMatrix();
     glScaled(upscale, upscale, 1);
     if (length<8) {
@@ -356,11 +356,11 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
 
 inline void
 drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
-    SUMOReal length = veh.getVehicleType().getLength();
-    SUMOReal offset = veh.getVehicleType().getGuiOffset();
+    SUMOReal length = veh.getVehicleType().getLengthWithGap();
+    SUMOReal offset = veh.getVehicleType().getMinGap();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
-    //glTranslated(veh.getVehicleType().getGuiOffset(), 0, 0);
+    //glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
     glScaled(1, veh.getVehicleType().getGuiWidth(), 1.);
     glScaled(upscale, upscale, 1);
     glBegin(GL_TRIANGLE_FAN);
@@ -400,11 +400,11 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
 
-    SUMOReal length = veh.getVehicleType().getLength();
+    SUMOReal length = veh.getVehicleType().getLengthWithGap();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
-    glTranslated(veh.getVehicleType().getGuiOffset(), 0, 0);
-    glScaled(length-veh.getVehicleType().getGuiOffset(), veh.getVehicleType().getGuiWidth(), 1.);
+    glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
+    glScaled(length-veh.getVehicleType().getMinGap(), veh.getVehicleType().getGuiWidth(), 1.);
     glScaled(upscale, upscale, 1);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
 
@@ -418,7 +418,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
         break;
     case SVS_PEDESTRIAN:
-        //glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
+        //glScaled(1./(length-veh.getVehicleType().getMinGap()), 1, 1.);
         glTranslated(0, 0, .045);
         GLHelper::drawFilledCircle(1);
         glTranslated(0, 0, -.045);
@@ -432,7 +432,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_MOTORCYCLE: {
         glPushMatrix();
         glTranslated(.5, 0, 0);
-        glScaled(.25/(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
+        glScaled(.25/(length-veh.getVehicleType().getMinGap()), 1, 1.);
         glTranslated(0, 0, .045);
         GLHelper::drawFilledCircle(1);
         glScaled(.7, 2, 1);
@@ -476,7 +476,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_TRANSPORT:
     case SVS_TRANSPORT_SEMITRAILER:
     case SVS_TRANSPORT_1TRAILER:
-        glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
+        glScaled(1./(length-veh.getVehicleType().getMinGap()), 1, 1.);
         drawPoly(vehiclePoly_TransportBody, 4);
         glColor3d(0, 0, 0);
         drawPoly(vehiclePoly_TransportFrontGlass, 4.5);
@@ -486,8 +486,8 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_BUS:
     case SVS_BUS_TROLLEY:
     case SVS_BUS_CITY: {
-        SUMOReal ml = length - veh.getVehicleType().getGuiOffset();
-        glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
+        SUMOReal ml = length - veh.getVehicleType().getMinGap();
+        glScaled(1./(length-veh.getVehicleType().getMinGap()), 1, 1.);
         glTranslated(0, 0, .04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(ml/2., 0);
@@ -538,7 +538,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_RAIL_SLOW:
     case SVS_RAIL_FAST:
     case SVS_RAIL_CARGO:
-        glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
+        glScaled(1./(length-veh.getVehicleType().getMinGap()), 1, 1.);
         glTranslated(0, 0, .04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(length/2., 0);
@@ -626,7 +626,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_PEDESTRIAN:
         break;
     case SVS_BICYCLE:
-        //glScaled(length-veh.getVehicleType().getGuiOffset(), 1, 1.);
+        //glScaled(length-veh.getVehicleType().getMinGap(), 1, 1.);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(1/2., 0);
         glVertex2d(0, 0);
@@ -642,7 +642,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glEnd();
         break;
     case SVS_MOTORCYCLE:
-        //glScaled(length-veh.getVehicleType().getGuiOffset(), 1, 1.);
+        //glScaled(length-veh.getVehicleType().getMinGap(), 1, 1.);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(1/2., 0);
         glVertex2d(0, 0);
@@ -678,15 +678,15 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_TRANSPORT:
         GLHelper::setColor(current);
-        GLHelper::drawBoxLine(Position(2.3, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.3, .5);
+        GLHelper::drawBoxLine(Position(2.3, 0), 90., length-veh.getVehicleType().getMinGap()-2.3, .5);
         break;
     case SVS_TRANSPORT_SEMITRAILER:
         GLHelper::setColor(current);
-        GLHelper::drawBoxLine(Position(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
+        GLHelper::drawBoxLine(Position(2.8, 0), 90., length-veh.getVehicleType().getMinGap()-2.8, .5);
         break;
     case SVS_TRANSPORT_1TRAILER: {
         GLHelper::setColor(current);
-        SUMOReal l = length-veh.getVehicleType().getGuiOffset()-2.3;
+        SUMOReal l = length-veh.getVehicleType().getMinGap()-2.3;
         l = l/2.;
         GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
         GLHelper::drawBoxLine(Position(2.3+l+.5, 0), 90., l-.5, .5);
@@ -805,11 +805,11 @@ inline void
 drawAction_drawBlinker(const GUIVehicle &veh, double dir) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
-    glTranslated(dir, BLINKER_POS_FRONT+veh.getVehicleType().getGuiOffset(), 0);
+    glTranslated(dir, BLINKER_POS_FRONT+veh.getVehicleType().getMinGap(), 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(dir, veh.getVehicleType().getLength()-BLINKER_POS_BACK, 0);
+    glTranslated(dir, veh.getVehicleType().getLengthWithGap()-BLINKER_POS_BACK, 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -843,11 +843,11 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle &veh) {
     }
     glColor3f(1.f, .2f, 0);
     glPushMatrix();
-    glTranslated(-veh.getVehicleType().getGuiWidth()+BRAKELIGHT_POS, veh.getVehicleType().getLength(), 0);
+    glTranslated(-veh.getVehicleType().getGuiWidth()+BRAKELIGHT_POS, veh.getVehicleType().getLengthWithGap(), 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(veh.getVehicleType().getGuiWidth()-BRAKELIGHT_POS, veh.getVehicleType().getLength(), 0);
+    glTranslated(veh.getVehicleType().getGuiWidth()-BRAKELIGHT_POS, veh.getVehicleType().getLengthWithGap(), 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -948,7 +948,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         */
     }
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
+    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLengthWithGap() / 2),
             s.scale, s.vehicleName);
     glPopName();
 }

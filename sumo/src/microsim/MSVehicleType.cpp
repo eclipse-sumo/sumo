@@ -49,23 +49,22 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
-                             SUMOReal maxSpeed, SUMOReal prob,
+MSVehicleType::MSVehicleType(const std::string &id, SUMOReal lengthWithGap,
+                             SUMOReal minGap, SUMOReal maxSpeed, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
                              SUMOVehicleClass vclass,
                              SUMOEmissionClass emissionClass,
-                             SUMOVehicleShape shape,
-                             SUMOReal guiWidth, SUMOReal guiOffset,
+                             SUMOReal guiWidth, SUMOVehicleShape shape,
                              const std::string &lcModel,
                              const RGBColor &c) throw()
-        : myID(id), myLength(length), myMaxSpeed(maxSpeed),
+        : myID(id), myLengthWithGap(lengthWithGap),
+        myMinGap(minGap), myMaxSpeed(maxSpeed),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
-        mySpeedDev(speedDev), myVehicleClass(vclass),
-        myLaneChangeModel(lcModel),
+        mySpeedDev(speedDev), myLaneChangeModel(lcModel),
         myEmissionClass(emissionClass), myColor(c),
-        myWidth(guiWidth), myOffset(guiOffset), myShape(shape),
+         myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
         myOriginalType(0) {
-    assert(myLength > 0);
+    assert(myLengthWithGap > 0);
     assert(getMaxSpeed() > 0);
 }
 
@@ -78,13 +77,13 @@ MSVehicleType::~MSVehicleType() throw() {
 void
 MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeString(os, myID);
-    FileHelpers::writeFloat(os, myLength);
+    FileHelpers::writeFloat(os, myLengthWithGap);
+    FileHelpers::writeFloat(os, myMinGap);
     FileHelpers::writeFloat(os, getMaxSpeed());
     FileHelpers::writeInt(os, (int) myVehicleClass);
     FileHelpers::writeInt(os, (int) myEmissionClass);
     FileHelpers::writeInt(os, (int) myShape);
     FileHelpers::writeFloat(os, myWidth);
-    FileHelpers::writeFloat(os, myOffset);
     FileHelpers::writeFloat(os, myDefaultProbability);
     FileHelpers::writeFloat(os, mySpeedFactor);
     FileHelpers::writeFloat(os, mySpeedDev);
@@ -99,12 +98,23 @@ MSVehicleType::saveState(std::ostream &os) {
 
 // ------------ Setter methods
 void
-MSVehicleType::setLength(const SUMOReal &length) throw() {
+MSVehicleType::setLengthWithGap(const SUMOReal &lengthWithGap) throw() {
     assert(myOriginalType!=0);
-    if (length<0) {
-        myLength = myOriginalType->myLength;
+    if (lengthWithGap<0) {
+        myLengthWithGap = myOriginalType->myLengthWithGap;
     } else {
-        myLength = length;
+        myLengthWithGap = lengthWithGap;
+    }
+}
+
+
+void
+MSVehicleType::setMinGap(const SUMOReal &minGap) throw() {
+    assert(myOriginalType!=0);
+    if (minGap<0) {
+        myMinGap = myOriginalType->myMinGap;
+    } else {
+        myMinGap = minGap;
     }
 }
 
@@ -183,17 +193,6 @@ MSVehicleType::setWidth(const SUMOReal &width) throw() {
 
 
 void
-MSVehicleType::setOffset(const SUMOReal &offset) throw() {
-    assert(myOriginalType!=0);
-    if (offset<0) {
-        myOffset = myOriginalType->myOffset;
-    } else {
-        myOffset = offset;
-    }
-}
-
-
-void
 MSVehicleType::setShape(SUMOVehicleShape shape) throw() {
     myShape = shape;
 }
@@ -214,9 +213,9 @@ MSVehicleType::get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, S
 MSVehicleType *
 MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
     MSVehicleType *vtype = new MSVehicleType(
-        from.id, from.length, from.maxSpeed,
+        from.id, from.lengthWithGap, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
-        from.shape, from.width, from.offset, from.lcModel, from.color);
+        from.width, from.shape, from.lcModel, from.color);
     MSCFModel *model = 0;
     switch (from.cfModel) {
     case SUMO_TAG_CF_IDM:
@@ -224,7 +223,6 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
                                   get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
                                   get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
                                   get(from.cfParameter, SUMO_ATTR_CF_IDM_TIMEHEADWAY, 1.5),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_MINGAP, 5.),
                                   get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
         break;
     case SUMO_TAG_CF_BKERNER:
@@ -275,9 +273,9 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
 MSVehicleType *
 MSVehicleType::build(const std::string &id, const MSVehicleType *from) throw() {
     MSVehicleType *vtype = new MSVehicleType(
-        id, from->myLength, from->myMaxSpeed,
+        id, from->myLengthWithGap, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
-        from->myShape, from->myWidth, from->myOffset, from->myLaneChangeModel, from->myColor);
+        from->myWidth, from->myShape, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
     vtype->myOriginalType = from->myOriginalType!=0 ? from->myOriginalType : from;
     return vtype;

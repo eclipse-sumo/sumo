@@ -413,8 +413,8 @@
 // shape class (get: vehicle types)
 #define VAR_SHAPECLASS 0x4b
 
-// offset (brake gap) (get: vehicle types)
-#define VAR_GUIOFFSET 0x4c
+// minimum gap (get: vehicle types)
+#define VAR_MINGAP 0x4c
 
 // width (get: vehicle types, lanes)
 #define VAR_WIDTH 0x4d

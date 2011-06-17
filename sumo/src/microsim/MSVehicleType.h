@@ -71,24 +71,25 @@ public:
     /** @brief Constructor.
      *
      * @param[in] id The vehicle type's id
-     * @param[in] length The length of vehicles that are of this type
+     * @param[in] lengthWithGap The length of vehicles that are of this type
+     * @param[in] minGap The free space in front of the vehicles of this class
      * @param[in] maxSpeed The maximum velocity vehicles of this type may drive with
      * @param[in] prob The probability of this vehicle type
      * @param[in] speedFactor The speed factor to scale maximum speed with
      * @param[in] speedDev The speed deviation
      * @param[in] vclass The class vehicles of this type belong to
      * @param[in] emissionClass The emission class vehicles of this type belong to
-     * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] guiWidth The width of the vehicles when being drawn
-     * @param[in] guiOffset The free space in front of the vehicles of this class
+     * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
-    MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
+    MSVehicleType(const std::string &id, SUMOReal lengthWithGap,
+                  SUMOReal minGap, SUMOReal maxSpeed,
                   SUMOReal prob, SUMOReal speedFactor,
                   SUMOReal speedDev, SUMOVehicleClass vclass,
-                  SUMOEmissionClass emissionClass, SUMOVehicleShape shape,
-                  SUMOReal guiWidth, SUMOReal guiOffset,
+                  SUMOEmissionClass emissionClass, 
+                  SUMOReal guiWidth, SUMOVehicleShape shape,
                   const std::string &lcModel,
                   const RGBColor &c) throw();
 
@@ -112,8 +113,16 @@ public:
     /** @brief Get vehicle's length [m]
      * @return The length vehicles of this type have in m
      */
-    SUMOReal getLength() const throw() {
-        return myLength;
+    SUMOReal getLengthWithGap() const throw() {
+        return myLengthWithGap;
+    }
+
+
+    /** @brief Get the free space in front of vehicles of this class
+     * @return The place before the vehicle
+     */
+    SUMOReal getMinGap() const throw() {
+        return myMinGap;
     }
 
 
@@ -217,6 +226,13 @@ public:
     /// @name Atomar getter for visualization
     /// @{
 
+    /** @brief Get the width which vehicles of this class shall have when being drawn
+     * @return The width of this type's vehicles
+     */
+    SUMOReal getGuiWidth() const throw() {
+        return myWidth;
+    }
+
     /** @brief Get this vehicle type's shape
      * @return The shape of this vehicle type
      * @see SUMOVehicleShape
@@ -225,21 +241,6 @@ public:
         return myShape;
     }
 
-
-    /** @brief Get the width which vehicles of this class shall have when being drawn
-     * @return The width of this type's vehicles
-     */
-    SUMOReal getGuiWidth() const throw() {
-        return myWidth;
-    }
-
-
-    /** @brief Get the free space (not drawn) in front of vehicles of this class
-     * @return The place before the vehicle
-     */
-    SUMOReal getGuiOffset() const throw() {
-        return myOffset;
-    }
     /// @}
 
 
@@ -261,7 +262,17 @@ public:
      *
      * @param[in] length The new length of this type
      */
-    void setLength(const SUMOReal &length) throw();
+    void setLengthWithGap(const SUMOReal &lengthWithGap) throw();
+
+
+    /** @brief Set a new value for this type's minimum gap
+     *
+     * If the given value<0 then the one from the original type will
+     *  be used.
+     *
+     * @param[in] offset The new minimum gap of this type
+     */
+    void setMinGap(const SUMOReal &minGap) throw();
 
 
     /** @brief Set a new value for this type's maximum speed
@@ -332,16 +343,6 @@ public:
     void setWidth(const SUMOReal &width) throw();
 
 
-    /** @brief Set a new value for this type's gui offset
-     *
-     * If the given value<0 then the one from the original type will
-     *  be used.
-     *
-     * @param[in] offset The new gui offset of this type
-     */
-    void setOffset(const SUMOReal &offset) throw();
-
-
     /** @brief Set a new value for this type's shape
      * @param[in] shape The new shape of this type
      */
@@ -392,13 +393,13 @@ private:
     std::string myID;
 
     /// @brief Vehicles' length [m]
-    SUMOReal myLength;
+    SUMOReal myLengthWithGap;
+
+    /// @brief This class' free space in front of the vehicle itself
+    SUMOReal myMinGap;
 
     /// @brief Vehicles' maximum speed [m/s]
     SUMOReal myMaxSpeed;
-
-    /// @brief The vehicles' class
-    SUMOVehicleClass myVehicleClass;
 
     /// @brief The probability when being added to a distribution without an explicit probability
     SUMOReal myDefaultProbability;
@@ -421,15 +422,15 @@ private:
     /// @brief The color
     RGBColor myColor;
 
+    /// @brief The vehicles' class
+    SUMOVehicleClass myVehicleClass;
+
 
     /// @name Values for drawing this class' vehicles
     /// @{
 
     /// @brief This class' width
     SUMOReal myWidth;
-
-    /// @brief This class' free space in front of the vehicle itself
-    SUMOReal myOffset;
 
     /// @brief This class' shape
     SUMOVehicleShape myShape;

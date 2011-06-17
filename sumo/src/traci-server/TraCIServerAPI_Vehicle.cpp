@@ -76,7 +76,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_SIGNALS
             &&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_VEHICLECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
-            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPECLASS
+            &&variable!=VAR_WIDTH&&variable!=VAR_MINGAP&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES&&variable!=DISTANCE_REQUEST
        ) {
@@ -352,7 +352,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_SIGNALS&&variable!=VAR_MOVE_TO
             &&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_VEHICLECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_EMISSIONCLASS
-            &&variable!=VAR_WIDTH&&variable!=VAR_GUIOFFSET&&variable!=VAR_SHAPECLASS
+            &&variable!=VAR_WIDTH&&variable!=VAR_MINGAP&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU
             &&variable!=VAR_SPEED&&variable!=VAR_COLOR

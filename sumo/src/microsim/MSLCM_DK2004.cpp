@@ -127,7 +127,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked)!=0) {
-        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
+        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLengthWithGap()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
             if (myVehicle.getSpeed()<ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
@@ -156,7 +156,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal rv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                   ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
+    rv += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
 
@@ -170,7 +170,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         //   if there is a leader and he wants to change to left (we want to change to right)
         if (neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getOwnState()&LCA_LEFT)!=0) {
             // save at least his length in myLeadingBlockerLength
-            myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+            myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
             // save the left space
             myLeftSpace = currentDist-myVehicle.getPositionOnLane();
         }
@@ -346,7 +346,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked)!=0) {
-        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
+        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLengthWithGap()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
             if (myVehicle.getSpeed()<ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
@@ -375,7 +375,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal lv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                   ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    lv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
+    lv += myVehicle.getVehicleType().getLengthWithGap() * (SUMOReal) 2.;
 
 
     SUMOReal tdist = currentDist-myVehicle.getPositionOnLane() - best.occupation * (SUMOReal) JAM_FACTOR2;
@@ -391,7 +391,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         //   if there is a leader and he wants to change to right (we want to change to left)
         if (neighLead.first!=0&&(neighLead.first->getLaneChangeModel().getOwnState()&LCA_RIGHT)!=0) {
             // save at least his length in myLeadingBlockerLength
-            myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLength(), myLeadingBlockerLength);
+            myLeadingBlockerLength = MAX2(neighLead.first->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
             // save the left space
             myLeftSpace = currentDist-myVehicle.getPositionOnLane();
         }

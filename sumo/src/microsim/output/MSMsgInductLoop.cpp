@@ -85,10 +85,10 @@ MSMsgInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // entered the detector by move
         SUMOReal entryTimestep = (SUMOReal)
                                  ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
-        if (newPos - veh.getVehicleType().getLength() > myPosition) {
+        if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition) {
             // entered and passed detector in a single timestep
             SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
+                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed));
             enterDetectorByMove(veh, entryTimestep);
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
@@ -98,10 +98,10 @@ MSMsgInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
-        if (newPos - veh.getVehicleType().getLength() >= myPosition) {
+        if (newPos - veh.getVehicleType().getLengthWithGap() >= myPosition) {
             // vehicle passed the detector
             SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
+                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed));
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }
@@ -122,7 +122,7 @@ MSMsgInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder:
 
 bool
 MSMsgInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw() {
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
     }
@@ -143,7 +143,7 @@ MSMsgInductLoop::getCurrentSpeed() const throw() {
 SUMOReal
 MSMsgInductLoop::getCurrentLength() const throw() {
     if (myCurrentVehicle!=0) {
-        return myCurrentVehicle->getVehicleType().getLength();
+        return myCurrentVehicle->getVehicleType().getLengthWithGap();
     }
     return -1;
 }
@@ -230,7 +230,7 @@ MSMsgInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
     SUMOReal entryTimestep = it->second;
     myVehiclesOnDet.erase(it);
     assert(entryTimestep < leaveTimestep);
-    myVehicleDataCont.push_back(VehicleData(veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
+    myVehicleDataCont.push_back(VehicleData(veh.getVehicleType().getLengthWithGap(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTime = leaveTimestep;
     myCurrentID = myCurrentVehicle->getID();

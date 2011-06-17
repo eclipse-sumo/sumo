@@ -377,7 +377,7 @@ MSVehicle::getAngle() const throw() {
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     Position p2 = myFurtherLanes.size()>0
                     ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
-                    : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLength());
+                    : myLane->getShape().positionAtLengthPosition(myState.pos()-myType->getLengthWithGap());
     if (p1!=p2) {
         return atan2(p1.x()-p2.x(), p2.y()-p1.y())*180./PI;
     } else {
@@ -530,7 +530,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
                 }
                 if (stop.busstop!=0) {
                     // let the bus stop know the vehicle
-                    stop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
+                    stop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLengthWithGap());
                 }
             }
             // decelerate
@@ -657,7 +657,7 @@ MSVehicle::moveChecked() {
                 break;
             }
             //
-            const bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, getVehicleType().getLength());
+            const bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, getVehicleType().getLengthWithGap());
             // vehicles should decelerate when approaching a minor link
             if (opened&&!lastWasGreenCont&&!link->havePriority()&&(*i).myDistance>getCarFollowModel().getMaxDecel()) {
                 vSafe = (*i).myVLinkWait;
@@ -792,8 +792,8 @@ MSVehicle::moveChecked() {
     }
     myFurtherLanes.clear();
     if(!ends()) {
-        if (myState.myPos-getVehicleType().getLength()<0&&passedLanes.size()>0) {
-            SUMOReal leftLength = getVehicleType().getLength()-myState.myPos;
+        if (myState.myPos-getVehicleType().getLengthWithGap()<0&&passedLanes.size()>0) {
+            SUMOReal leftLength = getVehicleType().getLengthWithGap()-myState.myPos;
             std::vector<MSLane*>::reverse_iterator i=passedLanes.rbegin() + 1;
             while (leftLength>0&&i!=passedLanes.rend()) {
                 myFurtherLanes.push_back(*i);
@@ -814,11 +814,11 @@ MSVehicle::getSpaceTillLastStanding(MSLane *l, bool &foundStopped) throw() {
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
         if ((*i)->getSpeed()<.1) {
             foundStopped = true;
-            SUMOReal ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLength() - lengths;
+            SUMOReal ret = (*i)->getPositionOnLane() - (*i)->getVehicleType().getLengthWithGap() - lengths;
             l->releaseVehicles();
             return ret;
         }
-        lengths += (*i)->getVehicleType().getLength();
+        lengths += (*i)->getVehicleType().getLengthWithGap();
     }
     l->releaseVehicles();
     return l->getLength() - lengths;
@@ -892,7 +892,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             } else {
                 if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
                     SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
-                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLength() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
+                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
                     SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
                     availableSpace.push_back(m);
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
@@ -921,7 +921,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i= (int)(myLFLinkLanes.size()-1); i>0; --i) {
             DriveProcessItem &item = myLFLinkLanes[i-1];
-            bool opened = item.myLink!=0&&item.myLink->opened(t, .1, getVehicleType().getLength());
+            bool opened = item.myLink!=0&&item.myLink->opened(t, .1, getVehicleType().getLengthWithGap());
             bool check1 = item.myLink==0||item.myLink->isCont()||!hadVehicles[i];
             bool allowsContinuation = check1||opened;
             if (!opened&&item.myLink!=0) {
@@ -945,12 +945,12 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             }
             /*
             SUMOReal impatienceCorrection = MAX2(SUMOReal(0), SUMOReal(SUMOReal(myWaitingTime)));
-            if (seenSpace<getVehicleType().getLength()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
+            if (seenSpace<getVehicleType().getLengthWithGap()-impatienceCorrection/10.&&nextSeenNonInternal!=0) {
                 removalBegin = lastLinkToInternal;
             }
             */
 
-            SUMOReal leftSpace = availableSpace[i]-getVehicleType().getLength();
+            SUMOReal leftSpace = availableSpace[i]-getVehicleType().getLengthWithGap();
             if (leftSpace<0&&item.myLink->willHaveBlockedFoe()) {
                 SUMOReal impatienceCorrection = 0;
                 /*
@@ -1203,7 +1203,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         addReminder(*rem);
     }
     activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
-    SUMOReal leftLength = myState.myPos-getVehicleType().getLength();
+    SUMOReal leftLength = myState.myPos-getVehicleType().getLengthWithGap();
     if (leftLength<0) {
         // we have to rebuild "further lanes"
         const MSRoute &route = getRoute();
@@ -1251,7 +1251,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     }
     myAmOnNet = true;
     // build the list of lanes the vehicle is lapping into
-    SUMOReal leftLength = myType->getLength() - pos;
+    SUMOReal leftLength = myType->getLengthWithGap() - pos;
     MSLane *clane = enteredLane;
     while (leftLength>0) {
         clane = clane->getLogicalPredecessorLane();

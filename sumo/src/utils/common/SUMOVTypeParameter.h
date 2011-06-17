@@ -47,16 +47,16 @@ class OptionsCont;
 // value definitions
 // ===========================================================================
 const int VTYPEPARS_LENGTH_SET = 1;
-const int VTYPEPARS_MAXSPEED_SET = 2;
-const int VTYPEPARS_PROBABILITY_SET = 4;
-const int VTYPEPARS_SPEEDFACTOR_SET = 8;
-const int VTYPEPARS_SPEEDDEVIATION_SET = 16;
-const int VTYPEPARS_EMISSIONCLASS_SET = 32;
-const int VTYPEPARS_COLOR_SET = 64;
-const int VTYPEPARS_VEHICLECLASS_SET = 128;
-const int VTYPEPARS_WIDTH_SET = 256;
-const int VTYPEPARS_OFFSET_SET = 512;
-const int VTYPEPARS_SHAPE_SET = 1024;
+const int VTYPEPARS_MINGAP_SET = 2;
+const int VTYPEPARS_MAXSPEED_SET = 2 << 2;
+const int VTYPEPARS_PROBABILITY_SET = 2 << 3;
+const int VTYPEPARS_SPEEDFACTOR_SET = 2 << 4;
+const int VTYPEPARS_SPEEDDEVIATION_SET = 2 << 5;
+const int VTYPEPARS_EMISSIONCLASS_SET = 2 << 6;
+const int VTYPEPARS_COLOR_SET = 2 << 7;
+const int VTYPEPARS_VEHICLECLASS_SET = 2 << 8;
+const int VTYPEPARS_WIDTH_SET = 2 << 9;
+const int VTYPEPARS_SHAPE_SET = 2 << 10;
 
 
 // ===========================================================================
@@ -100,7 +100,9 @@ public:
     std::string id;
 
     /// @brief The physical vehicle length + the standing gap in m
-    SUMOReal length;
+    SUMOReal lengthWithGap;
+    /// @brief This class' free space in front of the vehicle itself
+    SUMOReal minGap;
     /// @brief The vehicle type's maximum speed [m/s]
     SUMOReal maxSpeed;
     /// @brief The probability when being added to a distribution without an explicit probability
@@ -122,9 +124,6 @@ public:
 
     /// @brief This class' width
     SUMOReal width;
-
-    /// @brief This class' free space in front of the vehicle itself
-    SUMOReal offset;
 
     /// @brief This class' shape
     SUMOVehicleShape shape;

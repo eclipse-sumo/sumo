@@ -56,7 +56,7 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
     myAccel(accel),
     mySecurity(security),
     myEstimation(estimation),
-    myAX(vtype->getLength() - vtype->getGuiOffset() + 1 + 2 * security),
+    myAX(vtype->getLengthWithGap() - vtype->getMinGap() + 1 + 2 * security),
     myCX(25 * (1 + security + estimation)),
     myMinAccel(0.2 * myAccel) // +noise?
 {

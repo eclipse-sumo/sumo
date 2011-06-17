@@ -386,8 +386,20 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
     bool ok = true;
     vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        vtype->length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
+        if (!attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
+            WRITE_WARNING("The length does not include the gap to the preceeding vehicle anymore! Please recheck your values.");
+        }
+        vtype->lengthWithGap = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
+        vtype->minGap = attrs.getSUMORealReporting(SUMO_ATTR_MINGAP, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_MINGAP_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_GUIOFFSET)) {
+        WRITE_WARNING("The guiOffset attribute is deprecated! Please use minGap instead.");
+        vtype->minGap = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_MINGAP_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
         vtype->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, vtype->id.c_str(), ok);
@@ -412,10 +424,6 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
     if (attrs.hasAttribute(SUMO_ATTR_GUIWIDTH)) {
         vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIWIDTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_WIDTH_SET;
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_GUIOFFSET)) {
-        vtype->offset = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, vtype->id.c_str(), ok);
-        vtype->setParameter |= VTYPEPARS_OFFSET_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
         vtype->shape = parseGuiShape(attrs, vtype->id);
@@ -503,7 +511,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         idmParams.insert(SUMO_ATTR_DECEL);
         idmParams.insert(SUMO_ATTR_TAU);
         idmParams.insert(SUMO_ATTR_CF_IDM_TIMEHEADWAY);
-        idmParams.insert(SUMO_ATTR_CF_IDM_MINGAP);
+        idmParams.insert(SUMO_ATTR_MINGAP);
         allowedCFModelAttrs[SUMO_TAG_CF_IDM] = idmParams; 
 
         std::set<SumoXMLAttr> bkernerParams;

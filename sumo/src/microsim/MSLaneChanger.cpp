@@ -164,7 +164,7 @@ MSLaneChanger::change() {
             (myCandi - 1)->lane->enteredByLaneChange(vehicle);
             vehicle->myLastLaneChangeOffset = 0;
             vehicle->getLaneChangeModel().changed();
-            (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getVehicleType().getLength();
+            (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getVehicleType().getLengthWithGap();
             return true;
         }
         if ((state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
@@ -199,7 +199,7 @@ MSLaneChanger::change() {
             (myCandi + 1)->lane->enteredByLaneChange(vehicle);
             vehicle->myLastLaneChangeOffset = 0;
             vehicle->getLaneChangeModel().changed();
-            (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getVehicleType().getLength();
+            (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getVehicleType().getLengthWithGap();
             return true;
         }
         if ((state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {
@@ -247,7 +247,7 @@ MSLaneChanger::change() {
            ) {
 
             // check for position and speed
-            if (prohibitor->getVehicleType().getLength()-vehicle->getVehicleType().getLength()==0) {
+            if (prohibitor->getVehicleType().getLengthWithGap()-vehicle->getVehicleType().getLengthWithGap()==0) {
                 // ok, may be swapped
                 // remove vehicle to swap with
                 MSLane::VehCont::iterator i = find(target->lane->myTmpVehicles.begin(), target->lane->myTmpVehicles.end(), prohibitor);
@@ -279,8 +279,8 @@ MSLaneChanger::change() {
                     vehicle->myLastLaneChangeOffset = 0;
                     prohibitor->getLaneChangeModel().changed();
                     prohibitor->myLastLaneChangeOffset = 0;
-                    (myCandi)->dens += prohibitor->getVehicleType().getLength();
-                    (target)->dens += vehicle->getVehicleType().getLength();
+                    (myCandi)->dens += prohibitor->getVehicleType().getLengthWithGap();
+                    (target)->dens += vehicle->getVehicleType().getLengthWithGap();
                     return true;
                 }
             }
@@ -289,7 +289,7 @@ MSLaneChanger::change() {
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_front(veh(myCandi));
     vehicle->myLastLaneChangeOffset += DELTA_T;
-    (myCandi)->dens += vehicle->getVehicleType().getLength();
+    (myCandi)->dens += vehicle->getVehicleType().getLengthWithGap();
     return false;
 }
 
@@ -318,13 +318,13 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target) const throw() {
             return std::pair<MSVehicle *, SUMOReal>(static_cast<MSVehicle *>(0), -1);
         }
         SUMOReal gap =
-            leader->getPositionOnLane()-leader->getVehicleType().getLength()
+            leader->getPositionOnLane()-leader->getVehicleType().getLengthWithGap()
             +
             (myCandi->lane->getLength()-veh(myCandi)->getPositionOnLane());
         return std::pair<MSVehicle * const, SUMOReal>(leader, MAX2((SUMOReal) 0, gap));
     } else {
         MSVehicle *candi = veh(myCandi);
-        SUMOReal gap = leader->getPositionOnLane()-leader->getVehicleType().getLength()-candi->getPositionOnLane();
+        SUMOReal gap = leader->getPositionOnLane()-leader->getVehicleType().getLengthWithGap()-candi->getPositionOnLane();
         return std::pair<MSVehicle * const, SUMOReal>(leader, MAX2((SUMOReal) 0, gap));
     }
 }
@@ -357,7 +357,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target) const throw() {
         return target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
     } else {
         MSVehicle *candi = veh(myCandi);
-        return std::pair<MSVehicle * const, SUMOReal>(neighLead, neighLead->getPositionOnLane()-neighLead->getVehicleType().getLength()-candi->getPositionOnLane());
+        return std::pair<MSVehicle * const, SUMOReal>(neighLead, neighLead->getPositionOnLane()-neighLead->getVehicleType().getLengthWithGap()-candi->getPositionOnLane());
     }
 }
 
@@ -380,11 +380,11 @@ MSLaneChanger::getRealFollower(const ChangerIt &target) const throw() {
         SUMOReal dist = speed * speed / (2.*4.) + SPEED2DIST(speed);
         dist = MIN2(dist, (SUMOReal) 500.);
         MSVehicle *candi = veh(myCandi);
-        SUMOReal seen = candi->getPositionOnLane()-candi->getVehicleType().getLength();
-        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLength(), 4.5);
+        SUMOReal seen = candi->getPositionOnLane()-candi->getVehicleType().getLengthWithGap();
+        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLengthWithGap(), 4.5);
     } else {
         MSVehicle *candi = veh(myCandi);
-        return std::pair<MSVehicle * const, SUMOReal>(neighFollow, candi->getPositionOnLane()-candi->getVehicleType().getLength()-neighFollow->getPositionOnLane());
+        return std::pair<MSVehicle * const, SUMOReal>(neighFollow, candi->getPositionOnLane()-candi->getVehicleType().getLengthWithGap()-neighFollow->getPositionOnLane());
     }
 }
 

@@ -236,12 +236,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedFactor",    SUMO_ATTR_SPEEDFACTOR },
     { "speedDev",       SUMO_ATTR_SPEEDDEV },
     { "laneChangeModel", SUMO_ATTR_LANE_CHANGE_MODEL },
+    { "minGap",         SUMO_ATTR_MINGAP },
 
-    { "carFollowModel", SUMO_ATTR_CAR_FOLLOW_MODEL },
     { "sigma",          SUMO_ATTR_SIGMA },
     { "tau",            SUMO_ATTR_TAU },
     { "timeHeadWay",    SUMO_ATTR_TIME_HEADWAY_GAP },
-    { "mingap",         SUMO_ATTR_MINIMUM_DISTANCE },
 
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
@@ -371,7 +370,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tauLast",        SUMO_ATTR_CF_PWAGNER2009_TAULAST },
     { "apProb",         SUMO_ATTR_CF_PWAGNER2009_APPROB },
     { "timeHeadWay",    SUMO_ATTR_CF_IDM_TIMEHEADWAY },
-    { "minGap",         SUMO_ATTR_CF_IDM_MINGAP },
     //{ "k",              SUMO_ATTR_CF_KERNER_K },
     { "phi",            SUMO_ATTR_CF_KERNER_PHI },
 

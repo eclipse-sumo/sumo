@@ -4,7 +4,7 @@
 /// @date    Thu, 03 Sep 2009
 /// @version $Id$
 ///
-// The Intellignet Driver Model (IDM) car-following model
+// The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -48,10 +48,10 @@ public:
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
      * @param[in] timeHeadWay
-     * @param[in] mingap
+     * @param[in] tau
      */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                  SUMOReal timeHeadWay, SUMOReal mingap, SUMOReal tau) throw();
+                  SUMOReal timeHeadWay, SUMOReal tau) throw();
 
 
     /// @brief Destructor
@@ -175,18 +175,17 @@ private:
     /// @{
 
     /// @brief The vehicle's maximum acceleration [m/s^2]
-    SUMOReal myAccel;
+    const SUMOReal myAccel;
 
     /// @brief The driver's desired time headway [s]
-    SUMOReal myTimeHeadWay;
-
-    /// @brief The desired minimum Gap to the leading vehicle (no matter the speed)
-    SUMOReal myMinSpace;
+    const SUMOReal myTimeHeadWay;
 
     /// @brief The driver's reaction time [s]
-    SUMOReal myTau;
+    const SUMOReal myTau;
     /// @}
 
+    /// @brief A computational shortcut
+    const SUMOReal myTwoSqrtAccelDecel;
 };
 
 #endif	/* MSCFMODEL_IDM_H */

@@ -4,7 +4,7 @@
 /// @date    Thu, 03 Sep 2009
 /// @version $Id$
 ///
-// The Intellignet Driver Model (IDM) car-following model
+// The Intelligent Driver Model (IDM) car-following model
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -44,10 +44,9 @@
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel,
-                             SUMOReal timeHeadWay, SUMOReal mingap, SUMOReal tau) throw()
+                             SUMOReal timeHeadWay, SUMOReal tau) throw()
         : MSCFModel(vtype, decel),
-        myAccel(accel), myTimeHeadWay(timeHeadWay), myMinSpace(mingap), myTau(tau) {
-
+        myAccel(accel), myTimeHeadWay(timeHeadWay), myTau(tau), myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))) {
 }
 
 
@@ -95,25 +94,17 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
     return MAX2(gap, SPEED2DIST(vNext));
 }
 
-
-/// @todo update logic to IDM
+ 
 SUMOReal
 MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw() {
-    SUMOReal delta_v = mySpeed - predSpeed;
-    SUMOReal s_star_raw = myMinSpace + mySpeed*myTimeHeadWay + (mySpeed*delta_v)/(2*sqrt(myAccel*myDecel));
-    SUMOReal s_star = MAX2(s_star_raw, myMinSpace);
-    SUMOReal acc = myAccel * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
-    SUMOReal vNext = mySpeed + ACCEL2SPEED(acc);
-    return vNext;
+    const SUMOReal delta_v = mySpeed - predSpeed;
+    const SUMOReal s_star = myType->getMinGap() + MAX2(SUMOReal(0), mySpeed*myTimeHeadWay + mySpeed*delta_v/myTwoSqrtAccelDecel);
+    const SUMOReal acc = myAccel * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
+    return MAX2(SUMOReal(0), mySpeed + ACCEL2SPEED(acc));
 }
 
 
 MSCFModel *
 MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const throw() {
-    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTimeHeadWay, myMinSpace, myTau);
+    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTimeHeadWay, myTau);
 }
-
-
-
-//void MSCFModel::saveState(std::ostream &os) {}
-
