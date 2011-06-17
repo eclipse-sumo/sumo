@@ -100,7 +100,7 @@ public:
     std::string id;
 
     /// @brief The physical vehicle length + the standing gap in m
-    SUMOReal lengthWithGap;
+    SUMOReal length;
     /// @brief This class' free space in front of the vehicle itself
     SUMOReal minGap;
     /// @brief The vehicle type's maximum speed [m/s]

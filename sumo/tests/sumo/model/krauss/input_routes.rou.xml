@@ -1,5 +1,5 @@
 <routes>
-    <vtype id="krauss" length="7">
+    <vtype id="krauss" length="5" minGap="2">
         <carFollowing-KraussOrig1/>
     </vtype>
     <flow id="0" type="krauss" begin="0" end="600" period="1">

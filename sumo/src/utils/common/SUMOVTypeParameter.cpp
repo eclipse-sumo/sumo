@@ -45,7 +45,7 @@
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter() throw()
-        : id(DEFAULT_VTYPE_ID), lengthWithGap(DEFAULT_VEH_LENGTH_WITH_GAP),
+        : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH),
         minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
         defaultProbability(DEFAULT_VEH_PROB),
         speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
@@ -64,7 +64,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     }
     dev << "   <vtype id=\"" << id << '"';
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
-        dev << " length=\"" << lengthWithGap << '"';
+        dev << " length=\"" << length << '"';
     }
     if (wasSet(VTYPEPARS_MINGAP_SET)) {
         dev << " minGap=\"" << minGap << '"';

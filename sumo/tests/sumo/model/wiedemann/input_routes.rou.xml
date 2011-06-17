@@ -1,5 +1,5 @@
 <routes>
-    <vtype id="wiedemann" length="7">
+    <vtype id="wiedemann" length="5" minGap="2">
         <carFollowing-Wiedemann/>
     </vtype>
     <flow id="0" type="wiedemann" begin="0" end="600" period="1">

@@ -138,7 +138,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) 
     }
     vars->accelSign = accel > 0 ? 1 : -1;
     const SUMOReal vNew = v + ACCEL2SPEED(accel);
-    return MAX2(0.0, vNew); // don't allow negative speeds
+    return MAX2(SUMOReal(0), vNew); // don't allow negative speeds
 }
 
 

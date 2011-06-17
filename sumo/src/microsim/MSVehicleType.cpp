@@ -213,7 +213,7 @@ MSVehicleType::get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, S
 MSVehicleType *
 MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
     MSVehicleType *vtype = new MSVehicleType(
-        from.id, from.lengthWithGap, from.minGap, from.maxSpeed,
+        from.id, from.length+from.minGap, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.width, from.shape, from.lcModel, from.color);
     MSCFModel *model = 0;

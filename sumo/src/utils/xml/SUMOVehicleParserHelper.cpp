@@ -389,7 +389,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
         if (!attrs.hasAttribute(SUMO_ATTR_MINGAP)) {
             WRITE_WARNING("The length does not include the gap to the preceeding vehicle anymore! Please recheck your values.");
         }
-        vtype->lengthWithGap = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
+        vtype->length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_LENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_MINGAP)) {

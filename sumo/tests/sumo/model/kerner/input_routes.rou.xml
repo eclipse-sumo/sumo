@@ -1,5 +1,5 @@
 <routes>
-    <vtype id="kerner" length="7">
+    <vtype id="kerner" length="5" minGap="2">
         <carFollowing-BKerner/>
     </vtype>
     <flow id="0" type="kerner" begin="0" end="600" period="1">

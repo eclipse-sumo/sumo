@@ -18,25 +18,25 @@
 
 
 
-   <vtype id="passenger" length="7.5" guiShape="passenger"/>
+   <vtype id="passenger" length="5" minGap="2.5" guiShape="passenger"/>
    <vehicle id="passenger" route="always_right" depart="0" type="passenger"/>
 
-   <vtype id="passenger/sedan" length="7.5" guiShape="passenger/sedan"/>
+   <vtype id="passenger/sedan" length="5" minGap="2.5" guiShape="passenger/sedan"/>
    <vehicle id="passenger/sedan" route="always_right" depart="0" type="passenger/sedan"/>
 
-   <vtype id="passenger/hatchback" length="7.5" guiShape="passenger/hatchback"/>
+   <vtype id="passenger/hatchback" length="5" minGap="2.5" guiShape="passenger/hatchback"/>
    <vehicle id="passenger/hatchback" route="always_right" depart="0" type="passenger/hatchback"/>
 
-   <vtype id="passenger/wagon" length="7.5" guiShape="passenger/wagon"/>
+   <vtype id="passenger/wagon" length="5" minGap="2.5" guiShape="passenger/wagon"/>
    <vehicle id="passenger/wagon" route="always_right" depart="0" type="passenger/wagon"/>
 
-   <vtype id="passenger/van" length="7.5" guiShape="passenger/van"/>
+   <vtype id="passenger/van" length="5" minGap="2.5" guiShape="passenger/van"/>
    <vehicle id="passenger/van" route="always_right" depart="0" type="passenger/van"/>
 
 
 
 
-   <vtype id="delivery" length="7.5" guiShape="delivery"/>
+   <vtype id="delivery" length="5" minGap="2.5" guiShape="delivery"/>
    <vehicle id="delivery" route="always_right" depart="0" type="delivery"/>
 
 
@@ -68,27 +68,27 @@
 
 
 
-   <vtype id="rail" length="7.5" guiShape="rail"/>
+   <vtype id="rail" length="5" minGap="2.5" guiShape="rail"/>
    <vehicle id="rail" route="always_right" depart="0" type="rail"/>
 
-   <vtype id="rail/light" length="7.5" guiShape="rail/light"/>
+   <vtype id="rail/light" length="5" minGap="2.5" guiShape="rail/light"/>
    <vehicle id="rail/light" route="always_right" depart="0" type="rail/light"/>
 
-   <vtype id="rail/city" length="7.5" guiShape="rail/city"/>
+   <vtype id="rail/city" length="5" minGap="2.5" guiShape="rail/city"/>
    <vehicle id="rail/city" route="always_right" depart="0" type="rail/city"/>
 
-   <vtype id="rail/slow" length="7.5" guiShape="rail/slow"/>
+   <vtype id="rail/slow" length="5" minGap="2.5" guiShape="rail/slow"/>
    <vehicle id="rail/slow" route="always_right" depart="0" type="rail/slow"/>
 
-   <vtype id="rail/fast" length="7.5" guiShape="rail/fast"/>
+   <vtype id="rail/fast" length="5" minGap="2.5" guiShape="rail/fast"/>
    <vehicle id="rail/fast" route="always_right" depart="0" type="rail/fast"/>
 
-   <vtype id="rail/cargo" length="7.5" guiShape="rail/cargo"/>
+   <vtype id="rail/cargo" length="5" minGap="2.5" guiShape="rail/cargo"/>
    <vehicle id="rail/cargo" route="always_right" depart="0" type="rail/cargo"/>
 
 
 
-   <vtype id="evehicle" length="7.5" guiShape="evehicle"/>
+   <vtype id="evehicle" length="5" minGap="2.5" guiShape="evehicle"/>
    <vehicle id="evehicle" route="always_right" depart="0" type="evehicle"/>
 
 

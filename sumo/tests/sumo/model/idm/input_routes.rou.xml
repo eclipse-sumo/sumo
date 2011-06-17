@@ -1,5 +1,5 @@
 <routes>
-    <vtype id="idm" length="7">
+    <vtype id="idm" length="5" minGap="2">
         <carFollowing-IDM/>
     </vtype>
     <flow id="0" type="idm" begin="0" end="600" period="1">
