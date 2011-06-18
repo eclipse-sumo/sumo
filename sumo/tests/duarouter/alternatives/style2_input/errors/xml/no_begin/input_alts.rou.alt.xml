@@ -1,5 +1,5 @@
 
-   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
+   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxspeed="70" color="1,1,0"/>
 
    <vehicle id="0" type="KRAUSS_DEFAULT" route="0" depart="0"/>
    <routeDistribution last="0">

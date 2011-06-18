@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:24:03 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on Sun Jun 19 00:04:34 2011 by SUMO duarouter Version dev-SVN-r10652
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <alternatives value="input_alts.rou.alt.xml"/>
-        <weights value="input_weights.dump.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
+        <weight-files value="input_weights.dump.xml"/>
     </input>
 
     <output>
@@ -14,7 +16,7 @@
     </output>
 
     <processing>
-        <continue-on-unbuild value="true"/>
+        <ignore-errors value="true"/>
     </processing>
 
     <time>
@@ -30,7 +32,7 @@
 -->
 
 <route-alternatives>
-   <vtype id="CarA" length="2.00" maxspeed="180.00">
+   <vtype id="CarA" length="2.00" minGap="0.00" maxspeed="180.00">
       <carFollowing-Krauss accel="2.00" decel="6.00" sigma="0.00" tau="1.00"/>
    </vtype>
     <vehicle id="veh0" type="CarA" depart="1.00" color="1.00,0.00,0.00">

@@ -49,7 +49,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const std::string &id, SUMOReal lengthWithGap,
+MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
                              SUMOReal minGap, SUMOReal maxSpeed, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
                              SUMOVehicleClass vclass,
@@ -57,7 +57,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal lengthWithGap,
                              SUMOReal guiWidth, SUMOVehicleShape shape,
                              const std::string &lcModel,
                              const RGBColor &c) throw()
-        : myID(id), myLengthWithGap(lengthWithGap),
+        : myID(id), myLength(length),
         myMinGap(minGap), myMaxSpeed(maxSpeed),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myLaneChangeModel(lcModel),
@@ -77,7 +77,7 @@ MSVehicleType::~MSVehicleType() throw() {
 void
 MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeString(os, myID);
-    FileHelpers::writeFloat(os, myLengthWithGap);
+    FileHelpers::writeFloat(os, myLength);
     FileHelpers::writeFloat(os, myMinGap);
     FileHelpers::writeFloat(os, getMaxSpeed());
     FileHelpers::writeInt(os, (int) myVehicleClass);
@@ -98,12 +98,12 @@ MSVehicleType::saveState(std::ostream &os) {
 
 // ------------ Setter methods
 void
-MSVehicleType::setLengthWithGap(const SUMOReal &lengthWithGap) throw() {
+MSVehicleType::setLength(const SUMOReal &length) throw() {
     assert(myOriginalType!=0);
-    if (lengthWithGap<0) {
-        myLengthWithGap = myOriginalType->myLengthWithGap;
+    if (length<0) {
+        myLength = myOriginalType->myLength;
     } else {
-        myLengthWithGap = lengthWithGap;
+        myLength = length;
     }
 }
 
@@ -273,7 +273,7 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
 MSVehicleType *
 MSVehicleType::build(const std::string &id, const MSVehicleType *from) throw() {
     MSVehicleType *vtype = new MSVehicleType(
-        id, from->myLengthWithGap, from->myMinGap, from->myMaxSpeed,
+        id, from->myLength, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
         from->myWidth, from->myShape, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);

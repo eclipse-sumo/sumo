@@ -16,7 +16,7 @@
 -->
 
 <route-alternatives>
-   <vtype id="0" length="5.50" maxspeed="70.00">
+   <vtype id="0" length="3.50" minGap="2.00" maxspeed="70.00">
       <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
    </vtype>
     <vehicle id="0" type="0" depart="0.00">
@@ -24,7 +24,7 @@
             <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-   <vtype id="1" length="5.50" maxspeed="70.00">
+   <vtype id="1" length="3.50" minGap="2.00" maxspeed="70.00">
       <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
    </vtype>
     <vehicle id="1" type="1" depart="0.00">

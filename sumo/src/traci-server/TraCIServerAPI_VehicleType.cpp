@@ -95,7 +95,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType 
     switch (variable) {
     case VAR_LENGTH:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(v.getLengthWithGap());
+        tempMsg.writeDouble(v.getLength());
         break;
     case VAR_MINGAP:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -205,7 +205,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid length.", outputStorage);
             return false;
         }
-        v.setLengthWithGap(val);
+        v.setLength(val);
     }
     break;
     case VAR_MAXSPEED: {

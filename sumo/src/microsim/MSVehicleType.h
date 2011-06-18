@@ -71,7 +71,7 @@ public:
     /** @brief Constructor.
      *
      * @param[in] id The vehicle type's id
-     * @param[in] lengthWithGap The length of vehicles that are of this type
+     * @param[in] length The length of vehicles that of this type
      * @param[in] minGap The free space in front of the vehicles of this class
      * @param[in] maxSpeed The maximum velocity vehicles of this type may drive with
      * @param[in] prob The probability of this vehicle type
@@ -113,8 +113,16 @@ public:
     /** @brief Get vehicle's length [m]
      * @return The length vehicles of this type have in m
      */
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
+
+
+    /** @brief Get vehicle's length including the minimum gap [m]
+     * @return The length vehicles of this type have (including the minimum gap in m
+     */
     SUMOReal getLengthWithGap() const throw() {
-        return myLengthWithGap;
+        return myLength + myMinGap;
     }
 
 
@@ -262,7 +270,7 @@ public:
      *
      * @param[in] length The new length of this type
      */
-    void setLengthWithGap(const SUMOReal &lengthWithGap) throw();
+    void setLength(const SUMOReal &length) throw();
 
 
     /** @brief Set a new value for this type's minimum gap
@@ -393,7 +401,7 @@ private:
     std::string myID;
 
     /// @brief Vehicles' length [m]
-    SUMOReal myLengthWithGap;
+    SUMOReal myLength;
 
     /// @brief This class' free space in front of the vehicle itself
     SUMOReal myMinGap;
