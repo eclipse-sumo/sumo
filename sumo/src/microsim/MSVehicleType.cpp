@@ -64,7 +64,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
         myEmissionClass(emissionClass), myColor(c),
          myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
         myOriginalType(0) {
-    assert(myLengthWithGap > 0);
+    assert(myLength > 0);
     assert(getMaxSpeed() > 0);
 }
 
