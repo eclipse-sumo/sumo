@@ -64,7 +64,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
         myEmissionClass(emissionClass), myColor(c),
          myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
         myOriginalType(0) {
-    assert(myLength > 0);
+    assert(myLengthWithGap > 0);
     assert(getMaxSpeed() > 0);
 }
 
@@ -213,7 +213,7 @@ MSVehicleType::get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, S
 MSVehicleType *
 MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
     MSVehicleType *vtype = new MSVehicleType(
-        from.id, from.length+from.minGap, from.minGap, from.maxSpeed,
+        from.id, from.length, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.width, from.shape, from.lcModel, from.color);
     MSCFModel *model = 0;
