@@ -889,7 +889,7 @@ protected:
 
 
     /// @brief information how long ago the vehicle has performed a lane-change
-    SUMOReal myLastLaneChangeOffset;
+    SUMOTime myLastLaneChangeOffset;
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
     SUMOTime myWaitingTime;

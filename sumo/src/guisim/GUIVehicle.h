@@ -156,12 +156,12 @@ public:
 
 
 
-    /** @brief Returns the time since the last lane change
+    /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset
-     * @return The time since the last lane change
+     * @return The time since the last lane change in seconds
      */
     SUMOReal getLastLaneChangeOffset() const throw() {
-        return myLastLaneChangeOffset;
+        return STEPS2TIME(myLastLaneChangeOffset);
     }
 
 
