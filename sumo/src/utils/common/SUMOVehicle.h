@@ -60,8 +60,8 @@ public:
     /// @brief Destructor
     virtual ~SUMOVehicle() throw() {}
 
-    /** @brief Get the vehicle's position along the lane
-     * @return The position of the vehicle (in m from the lane's begin)
+    /** @brief Get the vehicle's ID
+     * @return The the ID of the vehicle
      */
     virtual const std::string& getID() const throw() = 0;
 
