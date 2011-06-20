@@ -63,16 +63,16 @@ def setZoom(viewID, zoom):
     traci._sendDoubleCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
 
 def setOffset(viewID, x, y):
-    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID, 1+4+4)
-    traci._message.string += struct.pack("!Bff", tc.POSITION_2D, x, y)
+    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID, 1+8+8)
+    traci._message.string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
     traci._sendExact()
 
 def setSchema(viewID, schemeName):
     traci._sendStringCmd(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_SCHEMA, viewID, schemeName)
 
 def setBoundary(viewID, xmin, ymin, xmax, ymax):
-    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1+4+4+4+4)
-    traci._message.string += struct.pack("!Bffff", tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
+    traci._beginMessage(tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1+8+8+8+8)
+    traci._message.string += struct.pack("!Bdddd", tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
     traci._sendExact()
 
 def screenshot(viewID, filename):
