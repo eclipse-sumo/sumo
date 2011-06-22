@@ -186,6 +186,9 @@ private:
 
     /// @brief A computational shortcut
     const SUMOReal myTwoSqrtAccelDecel;
+
+    /// @brief The number of iterations in speed calculations
+    const int myIterations;
 };
 
 #endif	/* MSCFMODEL_IDM_H */
