@@ -12,9 +12,10 @@ All rights reserved
 """
 
 import os, subprocess, sys, xml.sax
+from optparse import OptionParser
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
-_TESTDATA_EXT = [".xml", ".cfg", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen"]
+_TESTDATA_EXT = [".xml", ".cfg", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen", ".scenario"]
 _VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat", ".props", ".vcxproj", ".filters"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
@@ -32,7 +33,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'target':
             self._file = attrs['path']
-            seen.add(os.path.join(sumoRoot, self._file))
+            seen.add(os.path.join(svnRoot, self._file))
         if name == 'property':
             self._property = attrs['name']
 
@@ -84,13 +85,20 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadKeywords = False
 
 
+optParser = OptionParser()
+optParser.add_option("-v", "--verbose", action="store_true",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-f", "--fix", action="store_true",
+                      default=False, help="fix invalid svn properties")
+(options, args) = optParser.parse_args()
 seen = set()
-doFix = len(sys.argv) == 2 and sys.argv[1] in ["-f" , "--fix"]
-sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", sumoRoot], stdout=subprocess.PIPE).communicate()[0]
-xml.sax.parseString(output, PropertyReader(doFix))
+svnRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if len(args) > 0:
+    svnRoot = os.path.abspath(args[0])
+output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", svnRoot], stdout=subprocess.PIPE).communicate()[0]
+xml.sax.parseString(output, PropertyReader(options.fix))
 
-for root, dirs, files in os.walk(sumoRoot):
+for root, dirs, files in os.walk(svnRoot):
     for name in files:
         fullName = os.path.join(root, name)
         if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):
@@ -98,7 +106,7 @@ for root, dirs, files in os.walk(sumoRoot):
         ext = os.path.splitext(name)[1]
         if ext in _SOURCE_EXT or ext in _TESTDATA_EXT or ext in _VS_EXT:
             print fullName, "svn:eol-style"
-            if doFix:
+            if options.fix:
                 if ext in _VS_EXT:
                     subprocess.call(["svn", "ps", "svn:eol-style", "CRLF", fullName])
                 else:
@@ -107,7 +115,7 @@ for root, dirs, files in os.walk(sumoRoot):
                     subprocess.call(["svn", "ps", "svn:eol-style", "LF", fullName])
         if ext in _SOURCE_EXT:
             print fullName, "svn:keywords"
-            if doFix:
+            if options.fix:
                 subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
     for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui', 'netedit', 'contributed']:
         if ignoreDir in dirs:
