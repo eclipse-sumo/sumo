@@ -24,10 +24,9 @@ All rights reserved
 """
 
 import sys, os
-from xml.sax import saxutils, make_parser, handler
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 if len(sys.argv)<2:
@@ -98,11 +97,7 @@ for tlsFile in allTLS:
     allOffsets.append(offset)
     allLink2Indices.append(links2index)
 
-parser = make_parser()
-net1 = sumonet.NetReader()
-parser.setContentHandler(net1)
-parser.parse(sys.argv[2])
-net1 = net1.getNet()
+net1 = sumolib.net.readNet(sys.argv[2])
 
 print "<add>"
 for keyIndex, key in enumerate(allKeys):
@@ -215,7 +210,3 @@ for keyIndex, key in enumerate(allKeys):
         print pd
     print "    </tlLogic>"
 print "</add>\n"
-
-
-    
-

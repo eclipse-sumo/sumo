@@ -18,12 +18,10 @@ All rights reserved
 """
 
 
-import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
+import os, sys
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 def writeNodes(net, file):
     fd = open(file, "w")
@@ -57,15 +55,12 @@ if len(sys.argv) < 4:
     print "Usage: " + sys.argv[0] + " <net> <prefix> <nodes>"
     sys.exit()
 print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
+net = sumolib.net.readNet(sys.argv[1])
 
 edges = set()
 nodes = set()
 for n in sys.argv[3].split(","):
-    n = net.getNet().getNode(n)
+    n = net.getNode(n)
     nodes.add(n)
     for e in n._incoming:
         edges.add(e)
@@ -73,11 +68,12 @@ for n in sys.argv[3].split(","):
     for e in n._outgoing:
         edges.add(e)
         nodes.add(e._to)
-net = sumonet.Net()
+
+net = sumolib.net.Net()
 for e in edges:
     c = net.addEdge(e._id, e._from._id, e._to._id, e._priority, e._function)
     for l in e._lanes:
-        lane = sumonet.NetLane(c, l.getSpeed(), l.getLength())
+        lane = sumolib.net.NetLane(c, l.getSpeed(), l.getLength())
         lane.setShape(l.getShape())
     c.rebuildShape()
 for n in nodes:
@@ -87,4 +83,3 @@ print "Writing nodes..."
 writeNodes(net, sys.argv[2]+"_nodes.nod.xml")
 print "Writing edges..."
 writeEdges(net, sys.argv[2]+"_edges.edg.xml")
-

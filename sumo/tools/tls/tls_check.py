@@ -14,21 +14,15 @@ All rights reserved
 """
 
 import sys, os
-from xml.sax import saxutils, make_parser, handler
-
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 if len(sys.argv)<2:
     print >> sys.stderr, "Call: tls_csv2SUMO.py <NET>"
     sys.exit()
 
-parser = make_parser()
-net1 = sumonet.NetReader(withPrograms=True)
-parser.setContentHandler(net1)
-parser.parse(sys.argv[1])
-net1 = net1.getNet()
+net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
 
 for tlsID in net1._id2tls:
     print "Checking tls '%s'" % tlsID 

@@ -9,9 +9,8 @@ Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, os
-from xml.sax import saxutils, make_parser, handler
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 from optparse import OptionParser
 
 # initialise 
@@ -49,11 +48,7 @@ detectorFile = open(dest, "w")
 print >> detectorFile, "<additional>"
 
 print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(netfile)
-net = net.getNet()
+net = sumolib.net.readNet(netfile)
 
 lanes_ready = {}
 for tls in net._tlss:

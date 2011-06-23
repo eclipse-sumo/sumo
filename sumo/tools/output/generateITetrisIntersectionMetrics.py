@@ -11,9 +11,9 @@ All rights reserved
 from optparse import OptionParser
 import os, sys
 from numpy import mean
-from xml.sax import saxutils, make_parser, handler
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+from xml.sax import parse, handler
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 def getBasicStats(net, lanesInfo, T):
     tlsInfo = {}
@@ -294,29 +294,22 @@ if not options.netfile:
 netfile = options.netfile
 e2OutputFile = os.path.join(options.path, 'e2_output.xml')
 
-net = sumonet.NetReader()
-parser = make_parser()
-parser.setContentHandler(net)
-parser.parse(netfile)
-net = net.getNet()
+net = sumolib.net.readNet(netfile)
 
 e2Output = E2OutputReader()
-parser.setContentHandler(e2Output)
-parser.parse(e2OutputFile)
+parse(e2OutputFile, e2Output)
 
 tlsID2NodeID = tlsIDToNodeID(net)
 tlsInfo = getBasicStats(net, e2Output._lanes, e2Output._maxT)
 
 if options.harmonoiseFile:
     harmonoiseOutput = HarmonoiseReader(net, tlsID2NodeID)
-    parser.setContentHandler(harmonoiseOutput)
-    parser.parse(options.harmonoiseFile)
+    parse(options.harmonoiseFile, harmonoiseOutput)
     mergeInfos(tlsInfo, harmonoiseOutput._tlsNoise, 'noise')
 
 if options.hbefaFile:
     hbefaOutput = HBEFAReader(net, tlsID2NodeID)
-    parser.setContentHandler(hbefaOutput)
-    parser.parse(hbefaFile)
+    parse(hbefaFile, hbefaOutput)
     mergeInfos(tlsInfo, hbefaOutput._tlsCO, 'CO')
     mergeInfos(tlsInfo, hbefaOutput._tlsCO2, 'CO2')
     mergeInfos(tlsInfo, hbefaOutput._tlsHC, 'HC')

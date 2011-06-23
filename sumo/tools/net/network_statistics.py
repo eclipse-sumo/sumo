@@ -15,19 +15,14 @@ All rights reserved
 """
 
 import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 if len(sys.argv) < 2:
 	print "No net-file given. Usage: " + sys.argv[0] + " <network file>."
 	sys.exit()
 print("Reading network ...\n")
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-net = net.getNet()
+net = sumolib.net.readNet(sys.argv[1])
 
 # ----------
 narea = (net._ranges[0][1] - net._ranges[0][0]) * (net._ranges[1][1] - net._ranges[1][0])

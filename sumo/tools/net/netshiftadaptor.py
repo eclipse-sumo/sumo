@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    netshiftadaptor.py
 @author  Daniel.Krajzewicz@dlr.de
@@ -21,13 +20,6 @@ When "reproject" is called, all nodes' position
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-
-
-
-
-import os, string, sys
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
 
 
 class NetShiftAdaptor:
@@ -56,9 +48,9 @@ class NetShiftAdaptor:
             x0 = n._coord[0]
             y0 = n._coord[1]
             b0 =  (x22 - x21) * (y23 - y21) - (x23 - x21) * (y22 - y21);
-            b1 = ((x22 - x0)  * (y23 - y0)  - (x23 - x0)  * (y22 - y0)) / b0; 
+            b1 = ((x22 - x0)  * (y23 - y0)  - (x23 - x0)  * (y22 - y0)) / b0;
             b2 = ((x23 - x0)  * (y21 - y0)  - (x21 - x0)  * (y23 - y0)) / b0;
-            b3 = ((x21 - x0)  * (y22 - y0)  - (x22 - x0)  * (y21 - y0)) / b0;		
+            b3 = ((x21 - x0)  * (y22 - y0)  - (x22 - x0)  * (y21 - y0)) / b0;
             x = (b1 * x11 + b2 * x12 + b3 * x13);
             y = (b1 * y11 + b2 * y12 + b3 * y13);
             n._coord[0] = x

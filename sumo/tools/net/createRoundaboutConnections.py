@@ -16,8 +16,8 @@ All rights reserved
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net as sumonet
 
 def writeConnections(net):
     fd = open("roundabout-connection.con.xml", "w")

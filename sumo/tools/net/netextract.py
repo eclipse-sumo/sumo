@@ -19,11 +19,10 @@ All rights reserved
 """
 
 
-import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
+import os, sys
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 def writeNodes(net):
@@ -41,10 +40,10 @@ def writeEdges(net):
     fd = open("edges.xml", "w")
     fd.write("<edges>\n")
     for edge in net._edges:
-        fd.write("   <edge id=\"" + edge._id + "\" fromnode=\"" + edge._from._id + "\" tonode=\"" + edge._to._id)
+        fd.write("   <edge id=\"" + edge._id + "\" from=\"" + edge._from._id + "\" to=\"" + edge._to._id)
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
-        fd.write("\" spread_type=\"center")
+        fd.write("\" spreadType=\"center")
         fd.write("\" nolanes=\"" + str(len(edge._lanes)) + "\"")
         shape = edge.getShape()
         fd.write(" shape=\"")
@@ -62,12 +61,8 @@ if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>"
     sys.exit()
 print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
+net = sumolib.net.readNet(sys.argv[1])
 print "Writing nodes..."
-writeNodes(net.getNet())
+writeNodes(net)
 print "Writing edges..."
-writeEdges(net.getNet())
-
+writeEdges(net)

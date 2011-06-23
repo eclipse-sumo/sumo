@@ -17,11 +17,10 @@ All rights reserved
 import os, string, sys, StringIO
 import math
 from optparse import OptionParser
-from xml.sax import saxutils, make_parser, handler
 from matplotlib.collections import LineCollection
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 import netshiftadaptor
 
 
@@ -44,7 +43,7 @@ def relAngle(angle1, angle2):
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-    # i/o
+# i/o
 optParser.add_option("-1", "--net1", dest="net1",
                      help="SUMO network to use (mandatory)", metavar="FILE")
 optParser.add_option("-2", "--net2", dest="net2",
@@ -60,20 +59,14 @@ optParser.add_option("-b", "--nodes2", dest="nodes2",
 # read networks
 if options.verbose:
     print "Reading net#1..."
-parser = make_parser()
-net1 = sumonet.NetReader()
-parser.setContentHandler(net1)
-parser.parse(options.net1)
+net1 = sumolib.net.readNet(options.net1)
 
 if options.verbose:
     print "Reading net#2..."
-parser = make_parser()
-net2 = sumonet.NetReader()
-parser.setContentHandler(net2)
-parser.parse(options.net2)
+net2 = sumolib.net.readNet(options.net2)
 
 # reproject the visum net onto the navteq net
-adaptor = netshiftadaptor.NetShiftAdaptor(net1.getNet(), net2.getNet(), options.nodes1.split(","), options.nodes2.split(","))
+adaptor = netshiftadaptor.NetShiftAdaptor(net1, net2, options.nodes1.split(","), options.nodes2.split(","))
 adaptor.reproject(options.verbose)
 
 # build a speed-up grid
@@ -81,12 +74,12 @@ xmin = 100000
 xmax = -100000
 ymin = 100000
 ymax = -100000
-for n in net1.getNet()._nodes:
+for n in net1._nodes:
 	xmin = min(xmin, n._coord[0])
 	xmax = max(xmax, n._coord[0])
 	ymin = min(ymin, n._coord[1])
 	ymax = max(ymax, n._coord[1])
-for n in net2.getNet()._nodes:
+for n in net2._nodes:
 	xmin = min(xmin, n._coord[0])
 	xmax = max(xmax, n._coord[0])
 	ymin = min(ymin, n._coord[1])
@@ -109,11 +102,11 @@ for y in range(0, CELLSIZE):
 
 cw = (xmax-xmin)/float(CELLSIZE)
 ch = (ymax-ymin)/float(CELLSIZE)
-for n in net2.getNet()._nodes:
+for n in net2._nodes:
 	cx = (n._coord[0] - xmin) / cw
 	cy = (n._coord[1] - ymin) / ch
 	arr1[int(cy)][int(cx)].append(n)
-for n in net1.getNet()._nodes:
+for n in net1._nodes:
 	cx = (n._coord[0] - xmin) / cw
 	cy = (n._coord[1] - ymin) / ch
 	arr2[int(cy)][int(cx)].append(n)
@@ -122,8 +115,8 @@ for n in net1.getNet()._nodes:
 # map
 nmap1to2 = {}
 nmap2to1 = {}
-nodes1 = net2.getNet()._nodes
-nodes2 = net1.getNet()._nodes
+nodes1 = net2._nodes
+nodes2 = net1._nodes
 highwayNodes2 = set()
 highwaySinks2 = set()
 highwaySources2 = set()
@@ -294,8 +287,8 @@ for d in nmap1to2:
 	for n2 in nmap1to2[d]:
 		if n2 in connectedNodesConnections:
 			continue
-		n1i = net1.getNet().addNode("i" + n2._id, nnn[n2]._coord)
-		n1o = net1.getNet().addNode("o" + n2._id, nnn[n2]._coord)
+		n1i = net1.addNode("i" + n2._id, nnn[n2]._coord)
+		n1o = net1.addNode("o" + n2._id, nnn[n2]._coord)
 		haveIncoming = False
 		incomingLaneNo = 0
 		for e in n2._incoming:
@@ -309,23 +302,23 @@ for d in nmap1to2:
 				haveOutgoing = True
 				outgoingLaneNo = outgoingLaneNo + e.getLaneNumber()
 		if haveIncoming:
-			e1 = net1.getNet().addEdge("o" + n2._id, n2._id, n1o._id, -2)
+			e1 = net1.addEdge("o" + n2._id, n2._id, n1o._id, -2)
 			if haveOutgoing:
-				net1.getNet().addLane(e1, 20, 100.)
+				net1.addLane(e1, 20, 100.)
 			else:
 				for i in range(0, incomingLaneNo):
-					net1.getNet().addLane(e1, 20, 100.)
+					net1.addLane(e1, 20, 100.)
 					if len(n2._incoming)==1:
 						fdd.write('    <connection from="' + n2._incoming[0]._id + '" to="' + e1._id + '" lane="' + str(i) + ':' + str(i) + '"/>\n')
 		if haveOutgoing:
 			if options.verbose:
 				print "has outgoing"
-			e2 = net1.getNet().addEdge("i" + n2._id, n1i._id, n2._id, -2)
+			e2 = net1.addEdge("i" + n2._id, n1i._id, n2._id, -2)
 			if haveIncoming:
-				net1.getNet().addLane(e2, 20, 100.)
+				net1.addLane(e2, 20, 100.)
 			else:
 				for i in range(0, outgoingLaneNo):
-					net1.getNet().addLane(e2, 20, 100.)
+					net1.addLane(e2, 20, 100.)
 					if len(n2._outgoing)==1:
 						fdd.write('    <connection from="' + e2._id + '" to="' + n2._outgoing[0]._id + '" lane="' + str(i) + ':' + str(i) + '"/>\n')
 		connectedNodesConnections[n2] = [ n1i, n1o ]
@@ -376,21 +369,21 @@ for d in nmap1to2:
 			p2[1] = p2[1] + nnn[n]._coord[1]
 		p2[0] = (p1[0] + p2[0]) / float(len(origDistrictNodes[d])*2)
 		p2[1] = (p1[1] + p2[1]) / float(len(origDistrictNodes[d])*2)
-		dn2i = net1.getNet().addNode("cci" + d, p2)
-		dn2o = net1.getNet().addNode("cci" + d, p2)
+		dn2i = net1.addNode("cci" + d, p2)
+		dn2o = net1.addNode("cci" + d, p2)
 		p11[0] = p1[0] / float(len(origDistrictNodes[d]))
 		p11[1] = p1[1] / float(len(origDistrictNodes[d]))
-		dn1o = net1.getNet().addNode("co" + d, p11)
-		e1 = net1.getNet().addEdge("co" + d, dn1o._id, dn2o._id, -2)
+		dn1o = net1.addNode("co" + d, p11)
+		e1 = net1.addEdge("co" + d, dn1o._id, dn2o._id, -2)
 		for i in range(0, incomingLaneNoG):
-			net1.getNet().addLane(e1, 22, 100.)
+			net1.addLane(e1, 22, 100.)
 		districtSinks[d] = e1._id
 		p12[0] = p1[0] / float(len(origDistrictNodes[d]))
 		p12[1] = p1[1] / float(len(origDistrictNodes[d]))
-		dn1i = net1.getNet().addNode("ci" + d, p12)
-		e2 = net1.getNet().addEdge("ci" + d, dn2i._id, dn1i._id, -2)
+		dn1i = net1.addNode("ci" + d, p12)
+		e2 = net1.addEdge("ci" + d, dn2i._id, dn1i._id, -2)
 		for i in range(0, outgoingLaneNoG):
-			net1.getNet().addLane(e2, 21, 100.)
+			net1.addLane(e2, 21, 100.)
 		districtSources[d] = e2._id
 		runningOutLaneNumber = 0
 		runningInLaneNumber = 0
@@ -403,27 +396,27 @@ for d in nmap1to2:
 				for e in n2._incoming:
 					if e._id[0]!="i" and e._id[0]!="o":
 						incomingLaneNo = incomingLaneNo + e.getLaneNumber()
-				e1 = net1.getNet().addEdge("o" + d + "#"  + n2._id, no._id, dn1o._id, -2)
+				e1 = net1.addEdge("o" + d + "#"  + n2._id, no._id, dn1o._id, -2)
 				for i in range(0, incomingLaneNo):
-					net1.getNet().addLane(e1, 19, 100.)
+					net1.addLane(e1, 19, 100.)
 					fdd.write('    <connection from="' + "o" + d + "#"  + n2._id + '" to="' + dn1o._outgoing[0]._id + '" lane="' + str(i) + ':' + str(runningOutLaneNumber) + '"/>\n')
 					runningOutLaneNumber = runningOutLaneNumber + 1
 				fdd.write('    <connection from="' + dn1o._outgoing[0]._id + '"/>\n')
 				if incomingLaneNo==0:
-					net1.getNet().addLane(e1, 19, 100.)
+					net1.addLane(e1, 19, 100.)
 					runningOutLaneNumber = runningOutLaneNumber + 1
 			if len(ni._outgoing)>0:
 				outgoingLaneNo = 0
 				for e in n2._outgoing:
 					if e._id[0]!="i" and e._id[0]!="o":
 						outgoingLaneNo = outgoingLaneNo + e.getLaneNumber()
-				e2 = net1.getNet().addEdge("i" + d + "#"  + n2._id, dn1i._id, ni._id, -2)
+				e2 = net1.addEdge("i" + d + "#"  + n2._id, dn1i._id, ni._id, -2)
 				for i in range(0, outgoingLaneNo):
-					net1.getNet().addLane(e2, 18, 100.)
+					net1.addLane(e2, 18, 100.)
 					fdd.write('    <connection from="' + dn1i._incoming[0]._id + '" to="' + "i" + d + "#"  + n2._id + '" lane="' + str(runningInLaneNumber) + ':' + str(i) + '"/>\n')
 					runningInLaneNumber = runningInLaneNumber + 1
 				if outgoingLaneNo==0:
-					net1.getNet().addLane(e2, 18, 100.)
+					net1.addLane(e2, 18, 100.)
 					runningInLaneNumber = runningInLaneNumber + 1
 
 fd = open("districts.xml", "w")
@@ -480,6 +473,6 @@ def writeEdges(net):
     fd.close()
 
 fdd.write("</connections>\n");
-writeNodes(net1.getNet())
-writeEdges(net1.getNet())
+writeNodes(net1)
+writeEdges(net1)
 
