@@ -16,9 +16,9 @@
 -->
 
 <routes>
-   <vtype id="0" length="3.50" minGap="2.00" maxspeed="70.00" vclass="lightrail">
+   <vType id="0" length="3.50" minGap="2.00" maxspeed="70.00" vclass="lightrail">
       <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
-   </vtype>
+   </vType>
     <vehicle id="0" type="0" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>

@@ -1,24 +1,24 @@
-<tripdefs>
-	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="5" minGap="2" maxspeed="30" color="1,0,0"/>
-	<vtype id="1" accel="1.6" decel="5.5" sigma="0.9" length="5" minGap="2" maxspeed="30" color="1,0,0"/>
-	<tripdef depart="0" from="beg" to="rend" type="0"/>
-	<tripdef depart="1" from="beg" to="rend" type="1"/>
-	<tripdef depart="10" from="beg" to="rend" type="0"/>
-	<tripdef depart="11" from="beg" to="rend" type="1"/>
-	<tripdef depart="20" from="beg" to="rend" type="0"/>
-	<tripdef depart="21" from="beg" to="rend" type="1"/>
-	<tripdef depart="30" from="beg" to="rend" type="0"/>
-	<tripdef depart="31" from="beg" to="rend" type="1"/>
-	<tripdef depart="40" from="beg" to="rend" type="0"/>
-	<tripdef depart="41" from="beg" to="rend" type="1"/>
-	<tripdef depart="50" from="beg" to="rend" type="0"/>
-	<tripdef depart="51" from="beg" to="rend" type="1"/>
-	<tripdef depart="60" from="beg" to="rend" type="0"/>
-	<tripdef depart="61" from="beg" to="rend" type="1"/>
-	<tripdef depart="70" from="beg" to="rend" type="0"/>
-	<tripdef depart="71" from="beg" to="rend" type="1"/>
-	<tripdef depart="80" from="beg" to="rend" type="0"/>
-	<tripdef depart="81" from="beg" to="rend" type="1"/>
-	<tripdef depart="90" from="beg" to="rend" type="0"/>
-	<tripdef depart="91" from="beg" to="rend" type="1"/>
-</tripdefs>
+<trips>
+	<vType id="0" accel="1.6" decel="5.5" sigma="0.9" length="5" minGap="2" maxspeed="30" color="1,0,0"/>
+	<vType id="1" accel="1.6" decel="5.5" sigma="0.9" length="5" minGap="2" maxspeed="30" color="1,0,0"/>
+	<trip depart="0" from="beg" to="rend" type="0"/>
+	<trip depart="1" from="beg" to="rend" type="1"/>
+	<trip depart="10" from="beg" to="rend" type="0"/>
+	<trip depart="11" from="beg" to="rend" type="1"/>
+	<trip depart="20" from="beg" to="rend" type="0"/>
+	<trip depart="21" from="beg" to="rend" type="1"/>
+	<trip depart="30" from="beg" to="rend" type="0"/>
+	<trip depart="31" from="beg" to="rend" type="1"/>
+	<trip depart="40" from="beg" to="rend" type="0"/>
+	<trip depart="41" from="beg" to="rend" type="1"/>
+	<trip depart="50" from="beg" to="rend" type="0"/>
+	<trip depart="51" from="beg" to="rend" type="1"/>
+	<trip depart="60" from="beg" to="rend" type="0"/>
+	<trip depart="61" from="beg" to="rend" type="1"/>
+	<trip depart="70" from="beg" to="rend" type="0"/>
+	<trip depart="71" from="beg" to="rend" type="1"/>
+	<trip depart="80" from="beg" to="rend" type="0"/>
+	<trip depart="81" from="beg" to="rend" type="1"/>
+	<trip depart="90" from="beg" to="rend" type="0"/>
+	<trip depart="91" from="beg" to="rend" type="1"/>
+</trips>

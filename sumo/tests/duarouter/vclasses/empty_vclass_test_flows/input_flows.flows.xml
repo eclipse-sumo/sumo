@@ -1,4 +1,4 @@
 <flowdefs>
-	<vtype id="0" vclass=""/>
+	<vType id="0" vclass=""/>
 	<flow id="0" from="absBeg" to="absEnd" begin="0" end="1" no="1" type="0"/>
 </flowdefs>
