@@ -1,5 +1,5 @@
 <add>
 
-	<meandata-lane id="dump_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
+	<laneData id="dump_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
 
 </add>
