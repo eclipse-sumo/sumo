@@ -5,6 +5,6 @@
         <detEntry lane="3/1to2/1_0" pos="100"/>
         <detExit lane="3/1to2/1_0" pos="300"/>
     </e3Detector>
-    <meandata-edge id="dump_15" freq="100" file="meandataedge.xml" excludeEmpty="true"/>
-    <meandata-lane id="dump_15" freq="100" file="meandatalane.xml" excludeEmpty="true"/>
+    <edgeData id="dump_15" freq="100" file="meandataedge.xml" excludeEmpty="true"/>
+    <laneData id="dump_15" freq="100" file="meandatalane.xml" excludeEmpty="true"/>
 </add>

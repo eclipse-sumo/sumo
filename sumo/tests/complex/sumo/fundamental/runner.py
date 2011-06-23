@@ -42,7 +42,7 @@ while density<=1.:
     vehicleOffset = (length - .1) / float(VEHICLENUMBER)
     fd = open("input_routes.rou.xml", "w")
     print >> fd, '<routes>'
-    print >> fd, '    <vtype id="t1" accel="0.8" decel="4.5" sigma="0.5" length="%s" maxspeed="36"/>' % (VEHICLELENGTH)
+    print >> fd, '    <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="%s" maxspeed="36"/>' % (VEHICLELENGTH)
     print >> fd, '    <route id="r1" multi_ref="x" edges="a b a b a b a"/>'
     pos = 0
     for i in range(0, VEHICLENUMBER):

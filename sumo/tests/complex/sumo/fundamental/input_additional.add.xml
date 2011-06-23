@@ -4,5 +4,5 @@
     <rerouter id="rerouterA" edges="a" pos="0" file="input_definitionA.def.xml"/>
     <rerouter id="rerouterB" edges="b" pos="0" file="input_definitionB.def.xml"/>
     <e1-detector id="det" lane="a_0" pos="20" file="detector.xml" freq="1000000"/>
-    <meandata-lane id="dump_15" freq="1000000" file="aggregated.xml"/>
+    <laneData id="dump_15" freq="1000000" file="aggregated.xml"/>
 </additional>
