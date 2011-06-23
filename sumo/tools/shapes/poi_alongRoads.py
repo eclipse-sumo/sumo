@@ -21,10 +21,9 @@ Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 if len(sys.argv) < 4:
 	print >> sys.stderr, "Usage: " + sys.argv[0] + " <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>"
@@ -55,11 +54,7 @@ def poiAppend(poi_edge, poi_nr, poi_x, poi_y, poi_buf):
 	return
 
 print("Reading net ...")
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-net = net.getNet()
+net = sumolib.net.readNet(sys.argv[1])
 
 # find all predecessor/successor nodes for the given edges
 nodeList = []

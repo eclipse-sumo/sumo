@@ -13,8 +13,8 @@ All rights reserved
 
 import os, sys, random, bisect, datetime, subprocess
 from optparse import OptionParser
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 def randomEdge(edges, cumWeights):
     r = random.random() * cumWeights[-1]
@@ -46,7 +46,7 @@ if not options.netfile:
     optParser.print_help()
     sys.exit()
 
-net = sumonet.readNet(options.netfile)
+net = sumolib.net.readNet(options.netfile)
 if options.seed:
     random.seed(options.seed)
 probs=[]
@@ -64,15 +64,15 @@ idx = 0
 fouttrips = file(options.tripfile, 'w')
 print >> fouttrips, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<tripdefs>""" % datetime.datetime.now()
+<trips>""" % datetime.datetime.now()
 for depart in range(options.begin, options.end, options.period):
     label = "%s%s" % (options.tripprefix, idx)
     sourceEdge = randomEdge(net._edges, probs)
     sinkEdge = randomEdge(net._edges, probs)
-    print >> fouttrips, '    <tripdef id="%s" depart="%s" from="%s" to="%s" %s/>' \
+    print >> fouttrips, '    <trip id="%s" depart="%s" from="%s" to="%s" %s/>' \
                         % (label, depart, sourceEdge.getID(), sinkEdge.getID(), options.trippar)
     idx += 1
-fouttrips.write("</tripdefs>")
+fouttrips.write("</trips>")
 fouttrips.close()
 
 if options.routefile:

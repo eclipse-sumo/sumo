@@ -10,7 +10,7 @@ Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-from xml.sax import handler
+from xml.sax import handler, parse
 
 
 class PoI:
@@ -36,3 +36,9 @@ class PoIReader(handler.ContentHandler):
                 poi = PoI(attrs['id'], attrs['type'], int(attrs['layer']), attrs['color'], float(attrs['pos']), attrs['lane'])
             self._id2poi[poi._id] = poi
             self._pois.append(poi)
+
+
+def readPois(filename):
+    pois = PoIReader()
+    parse(filename, pois)
+    return pois._pois

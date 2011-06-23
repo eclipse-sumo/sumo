@@ -12,8 +12,8 @@ from optparse import OptionParser
 import os, sys
 from numpy import *
 from xml.sax import saxutils, make_parser, handler
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 def quantil(a, alpha):
@@ -85,12 +85,7 @@ class VehRoutesReader(handler.ContentHandler):
             self._routes.append((attrs['edges'], self._arrival-self._depart))
 
 def getAvgNrLanesPerStreet(netfile):
-    parser = make_parser()
-    net = sumonet.NetReader()
-    parser.setContentHandler(net)
-    parser.parse(netfile)
-    net = net.getNet()
-    
+    net = sumolib.net.readNet(netfile)
     nrLanes = 0
     for edge in net._edges:
         nrLanes += len(edge._lanes)

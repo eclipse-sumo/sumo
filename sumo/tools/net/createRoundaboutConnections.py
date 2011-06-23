@@ -14,10 +14,8 @@ All rights reserved
 
 
 import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net as sumonet
+import sumolib.net
 
 def writeConnections(net):
     fd = open("roundabout-connection.con.xml", "w")
@@ -42,9 +40,6 @@ if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>"
     sys.exit()
 print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
+net = sumolib.net.readNet(sys.argv[1])
 print "Writing connections..."
-writeConnections(net.getNet())
+writeConnections(net)

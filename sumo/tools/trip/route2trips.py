@@ -15,7 +15,7 @@ All rights reserved
 """
 import sys, datetime
 
-from xml.sax import make_parser, handler
+from xml.sax import parse, handler
 
 class RouteReader(handler.ContentHandler):
 
@@ -31,7 +31,7 @@ class RouteReader(handler.ContentHandler):
         if name == 'vehicle':
             self._vehicleAttrs = attrs
             self._vID = attrs['id']
-            print '    <tripdef',
+            print '    <trip',
             for key in attrs.keys():
                 if key == "route":
                     self._routeString = self._routes[attrs['route']]
@@ -46,7 +46,7 @@ class RouteReader(handler.ContentHandler):
         elif name == 'routes':
             print """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<tripdefs>""" % datetime.datetime.now()
+<trips>""" % datetime.datetime.now()
 
     def endElement(self, name):
         if name == 'route':
@@ -60,7 +60,7 @@ class RouteReader(handler.ContentHandler):
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
-            print "</tripdefs>"
+            print "</trips>"
 
     def characters(self, content):
         self._routeString += content
@@ -70,6 +70,4 @@ class RouteReader(handler.ContentHandler):
 if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <routes>"
     sys.exit()
-parser = make_parser()
-parser.setContentHandler(RouteReader())
-parser.parse(sys.argv[1])
+parse(sys.argv[1], RouteReader())

@@ -18,11 +18,8 @@ All rights reserved
 
 
 import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
-
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
-import sumopoi
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib
 
 
 if len(sys.argv) < 4:
@@ -30,16 +27,10 @@ if len(sys.argv) < 4:
     sys.exit()
 parser = make_parser()
 print "Reading net..."
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-net = net.getNet()
+net = sumolib.net.readNet(sys.argv[1])
 
 print "Reading PoIs..."
-pois = sumopoi.PoIReader()
-parser.setContentHandler(pois)
-parser.parse(sys.argv[2])
-pois = pois._pois
+pois = sumolib.poi.readPois(sys.argv[2])
 
 fdo = open(sys.argv[3], "w")
 print >> fdo, '<additional>'

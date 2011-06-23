@@ -12,11 +12,9 @@ Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import sys, os
-from xml.sax import saxutils, make_parser, handler
-
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 if len(sys.argv)<2:
@@ -24,11 +22,7 @@ if len(sys.argv)<2:
     sys.exit()
 
 print("Reading net...")
-parser = make_parser()
-net1 = sumonet.NetReader(withPrograms=True)
-parser.setContentHandler(net1)
-parser.parse(sys.argv[1])
-net1 = net1.getNet()
+net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
 
 
 print("Writing output...")

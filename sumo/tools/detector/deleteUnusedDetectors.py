@@ -14,11 +14,9 @@ All rights reserved
 
 
 import os, string, sys, StringIO
-from xml.sax import saxutils, make_parser, handler
 from xml.dom.minidom import *
-
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
-import sumonet
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 def writeDetectors(usedDet):
     """ Writes the detectors which are used in the network in a xml file. """
@@ -43,15 +41,15 @@ def deleteUnused(detectors, net):
 the detectors are used in the network. Returns: all detectors which are located
 in an edge from the network. """
 
-    detAttributes= detectors.getElementsByTagName('e1-detector')
-    edgelist= []
+    detAttributes = detectors.getElementsByTagName('e1-detector')
+    edgelist = []
     # get all edges from the network
     for edge in net._edges:
         edgelist.append(str(edge._id))
-    usedDet= []
+    usedDet = []
     # get all detectors which are located inside the network
     for i in detAttributes:
-        laneID= i.getAttribute('lane')
+        laneID = i.getAttribute('lane')
         # the id from lanes have as preffix the id from edges
         # the last two characters are not important they describe the position within the edge
         if laneID[: len(laneID)-2] in edgelist:
@@ -64,14 +62,9 @@ if len(sys.argv) < 3:
     sys.exit()
     
 print "Reading net..."
-parser = make_parser()
-net = sumonet.NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
+net = sumolib.net.readNet(sys.argv[1])
 
 print "Reading detectors..."
-detectors= parse(sys.argv[2])
-detectors= deleteUnused(detectors, net.getNet())
+detectors = parse(sys.argv[2])
+detectors = deleteUnused(detectors, net)
 writeDetectors(detectors)
-
-
