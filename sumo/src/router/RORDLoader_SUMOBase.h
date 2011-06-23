@@ -214,6 +214,8 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter *myCurrentVType;
 
+    bool myHaveWarnedAboutDeprecatedVType;
+
 private:
     /// @brief Invalidated copy constructor
     RORDLoader_SUMOBase(const RORDLoader_SUMOBase &src);

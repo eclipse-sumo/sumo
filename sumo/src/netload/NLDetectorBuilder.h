@@ -280,12 +280,12 @@ public:
     std::string getCurrentE3ID() const throw();
 
 
-    /** @brief Builds a vtypeprobe and adds it to the net
+    /** @brief Builds a vTypeProbe and adds it to the net
      *
      * Checks the given values, first. If one of the values is invalid
      *  (sampling frequency<=0), an InvalidArgument is thrown.
      *
-     * Otherwise the vtypeprobe is built (directly).
+     * Otherwise the vTypeProbe is built (directly).
      *
      * @param[in] id The id the detector shall have
      * @param[in] vtype The name of the vehicle type the detector shall observe

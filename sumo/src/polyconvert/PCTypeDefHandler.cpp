@@ -57,7 +57,7 @@ PCTypeDefHandler::~PCTypeDefHandler() throw() {}
 void
 PCTypeDefHandler::myStartElement(int element,
                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    if (element==SUMO_TAG_POLYTYPE) {
+    if (element==SUMO_TAG_POLYTYPE||element==SUMO_TAG_POLYTYPE__DEPRECATED) {
         bool ok = true;
         // get the id, report an error if not given or empty...
         std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);

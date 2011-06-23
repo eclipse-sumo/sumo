@@ -59,7 +59,7 @@ MSVTypeProbe::~MSVTypeProbe() {
 SUMOTime
 MSVTypeProbe::execute(SUMOTime currentTime) {
     const std::string indent("    ");
-    myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
+    myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vType=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();

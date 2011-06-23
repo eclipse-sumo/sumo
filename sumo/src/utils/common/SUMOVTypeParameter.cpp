@@ -62,7 +62,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     if (onlyReferenced) {
         return;
     }
-    dev << "   <vtype id=\"" << id << '"';
+    dev << "   <vType id=\"" << id << '"';
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
         dev << " length=\"" << length << '"';
     }
@@ -110,7 +110,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
             dev << ' ' << toString(*i) << "=\"" << cfParameter.find(*i)->second << '"';
         }
         dev << "/>\n";
-        dev << "   </vtype>\n";
+        dev << "   </vType>\n";
     } else {
         dev << "/>\n";
     }

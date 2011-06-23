@@ -495,7 +495,7 @@ main(int argc, char **argv) {
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        if (!OutputDevice::createDeviceByOption("output-file", "tripdefs")) {
+        if (!OutputDevice::createDeviceByOption("output-file", "trips")) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");

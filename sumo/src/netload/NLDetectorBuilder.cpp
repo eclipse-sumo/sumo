@@ -403,10 +403,10 @@ NLDetectorBuilder::buildVTypeProbe(const std::string &id,
                                    const std::string &vtype, SUMOTime frequency,
                                    OutputDevice& device) throw(InvalidArgument) {
     if (frequency<0) {
-        throw InvalidArgument("Negative frequency (in vtypeprobe '" + id + "').");
+        throw InvalidArgument("Negative frequency (in vTypeProbe '" + id + "').");
     }
     if (frequency==0) {
-        throw InvalidArgument("Frequency must not be zero (in vtypeprobe '" + id + "').");
+        throw InvalidArgument("Frequency must not be zero (in vTypeProbe '" + id + "').");
     }
     new MSVTypeProbe(id, vtype, device, frequency);
 }

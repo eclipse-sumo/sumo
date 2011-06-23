@@ -72,8 +72,10 @@ enum SumoXMLTag {
     SUMO_TAG_E3DETECTOR,
 	SUMO_TAG_ENTRY_EXIT_DETECTOR,
     /** an edge based mean data detector */
+    SUMO_TAG_MEANDATA_EDGE__DEPRECATED,
     SUMO_TAG_MEANDATA_EDGE,
     /** a lane based mean data detector */
+    SUMO_TAG_MEANDATA_LANE__DEPRECATED,
     SUMO_TAG_MEANDATA_LANE,
     /** an e3 entry point*/
     SUMO_TAG_DET_ENTRY__DEPRECATED,
@@ -92,12 +94,15 @@ enum SumoXMLTag {
     /// @brief A bus stop
     SUMO_TAG_BUS_STOP,
     /** a vtypeprobe detector */
+    SUMO_TAG_VTYPEPROBE__DEPRECATED,
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
+    SUMO_TAG_ROUTEPROBE__DEPRECATED,
     SUMO_TAG_ROUTEPROBE,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
+    SUMO_TAG_VTYPE__DEPRECATED,
     SUMO_TAG_VTYPE,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
@@ -124,7 +129,8 @@ enum SumoXMLTag {
     /** a single phase description */
     SUMO_TAG_PHASE,
     /** a single trip definition (used by router) */
-    SUMO_TAG_TRIPDEF,
+    SUMO_TAG_TRIP__DEPRECATED,
+    SUMO_TAG_TRIP,
     /** a flow definition (used by router) */
     SUMO_TAG_FLOW,
     /** trigger: a step description */
@@ -134,9 +140,11 @@ enum SumoXMLTag {
     /// The definition of a periodic event
     SUMO_TAG_TIMEDEVENT__DEPRECATED,
     SUMO_TAG_TIMEDEVENT,
-    /// Incoming edge specification (jp-router)
+    /// Incoming edge specification (jtrrouter)
+    SUMO_TAG_FROMEDGE__DEPRECATED,
     SUMO_TAG_FROMEDGE,
-    /// Outgoing edge specification (jp-router)
+    /// Outgoing edge specification (jtrrouter)
+    SUMO_TAG_TOEDGE__DEPRECATED,
     SUMO_TAG_TOEDGE,
     /// Sink(s) specification
     SUMO_TAG_SINK,
@@ -155,6 +163,7 @@ enum SumoXMLTag {
     SUMO_TAG_CLOSING_REROUTE,
     SUMO_TAG_ROUTE_PROB_REROUTE__DEPRECATED,
     SUMO_TAG_ROUTE_PROB_REROUTE,
+    SUMO_TAG_POLYTYPE__DEPRECATED,
     SUMO_TAG_POLYTYPE,
     SUMO_TAG_CONNECTION,
     SUMO_TAG_PROHIBITION,
@@ -164,6 +173,7 @@ enum SumoXMLTag {
     SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED,
     SUMO_TAG_DETECTOR_DEFINITION,
     SUMO_TAG_ROUTE_DISTRIBUTION,
+    SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED,
     SUMO_TAG_VTYPE_DISTRIBUTION,
     SUMO_TAG_VAPORIZER,
     SUMO_TAG_ROUNDABOUT,

@@ -138,6 +138,7 @@ private:
 
     /// @brief Whether the loader has warned about deprecated usage of characters
     bool myHaveWarnedAboutDeprecatedSources, myHaveWarnedAboutDeprecatedSinks;
+    bool myHaveWarnedAboutDeprecatedFromEdge, myHaveWarnedAboutDeprecatedToEdge;
 
 };
 

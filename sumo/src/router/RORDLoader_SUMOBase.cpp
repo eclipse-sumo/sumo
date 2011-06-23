@@ -59,7 +59,9 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myCurrentAlternatives(0),
         myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
         myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
-        mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0) {
+        mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
+        myHaveWarnedAboutDeprecatedVType(false) 
+{
 }
 
 
@@ -89,6 +91,11 @@ RORDLoader_SUMOBase::myStartElement(int element,
         }
         myCurrentIsOk = myVehicleParameter!=0;
         break;
+    case SUMO_TAG_VTYPE__DEPRECATED:
+	    if(!myHaveWarnedAboutDeprecatedVType) {
+		    myHaveWarnedAboutDeprecatedVType = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+        }
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
         break;
@@ -103,7 +110,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
         break;
     }
     // parse embedded vtype information
-    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE&&element!=SUMO_TAG_VTYPE__DEPRECATED) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
@@ -286,6 +293,7 @@ RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
         myVehicleParameter = 0;
         myHaveNextRoute = true;
         break;
+    case SUMO_TAG_VTYPE__DEPRECATED:
     case SUMO_TAG_VTYPE: {
         SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
         myNet.addVehicleType(myCurrentVType);

@@ -45,9 +45,9 @@ AGActivityTripWriter::initialize() {
 
 void
 AGActivityTripWriter::vtypes() {
-    routes << "\t<vtype id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
-    routes << "\t<vtype id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
-    routes << "\t<vtype id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxspeed=\"70\"/>" << std::endl << std::endl;
+    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxspeed=\"70\"/>" << std::endl << std::endl;
 
     colors["default"] = "1,0,0";
     colors["bus"] = "0,1,0";
@@ -60,27 +60,26 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
     int time = (trip.getDay()-1)*86400 + trip.getTime();
 
     //the vehicle:
-    routes << "\t<vehicle";
-    routes << " id=\"" << trip.getVehicleName();
-    routes << "\" type=\"" << trip.getType();
-    routes << "\" depart=\"" << time;
-    routes << "\" departpos=\"" << trip.getDep().getPosition();
-    routes << "\" arrivalpos=\"" << trip.getArr().getPosition();
-    routes << "\" departspeed=\"" << 0;
-    routes << "\" arrivalspeed=\"" << 0;
-    routes << "\" color=\"" << colors[trip.getType()];
-    routes << "\">" << std::endl;
+    routes << "    <vehicle"
+        << " id=\"" << trip.getVehicleName()
+        << "\" type=\"" << trip.getType()
+        << "\" depart=\"" << time
+        << "\" departpos=\"" << trip.getDep().getPosition()
+        << "\" arrivalpos=\"" << trip.getArr().getPosition()
+        << "\" departspeed=\"" << 0
+        << "\" arrivalspeed=\"" << 0
+        << "\" color=\"" << colors[trip.getType()]
+        << "\">" << std::endl;
 
     //the route
-    routes << "\t\t<route edges=\"";
-    routes << trip.getDep().getStreet().getName();
+    routes << "        <route edges=\"" << trip.getDep().getStreet().getName();
     for (it=trip.getPassed()->begin() ; it!=trip.getPassed()->end() ; ++it) {
         routes << " " << it->getStreet().getName();
     }
     routes << " " << trip.getArr().getStreet().getName();
-    routes << "\" />" << std::endl;
+    routes << "\"/>" << std::endl;
 
-    routes << "\t</vehicle>" << std::endl;
+    routes << "    </vehicle>" << std::endl;
 }
 
 void

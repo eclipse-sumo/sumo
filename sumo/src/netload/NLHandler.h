@@ -166,13 +166,9 @@ protected:
 
     /** @brief Builds edge or lane base mean data collector using the given specification
      * @param[in] attrs The attributes that define the detector
+     * @param[in] objecttype The type (lane/edge) of the parsed mean data definition
      */
-    virtual void addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objecttype);
-
-    /** @brief Ends the detector building
-     * @todo Remove this
-     */
-    void endDetector();
+    virtual void addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype);
 
     /// Closes the process of building an edge
     virtual void closeEdge();
@@ -329,6 +325,8 @@ protected:
 	bool myHaveWarnedAboutDeprecatedTimeThreshold, 
 		myHaveWarnedAboutDeprecatedSpeedThreshold,
 		myHaveWarnedAboutDeprecatedJamDistThreshold;
+    bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
+        myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
 
 
 private:

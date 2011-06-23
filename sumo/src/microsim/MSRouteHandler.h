@@ -178,6 +178,7 @@ protected:
     SUMOVTypeParameter *myCurrentVType;
 
 	bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
+    bool myHaveWarnedAboutDeprecatedVType, myHaveWarnedAboutDeprecatedVTypeDistribution;
 
 private:
     /// Checks whether the route file is sorted by departure time if needed

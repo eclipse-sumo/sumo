@@ -72,7 +72,9 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myCurrentVType(0),
 	myScale(-1.),
 	myHaveWarnedAboutDeprecatedFriendlyPos(false),
-	myHaveWarnedAboutDeprecatedBusStop(false)
+	myHaveWarnedAboutDeprecatedBusStop(false),
+    myHaveWarnedAboutDeprecatedVType(false), 
+    myHaveWarnedAboutDeprecatedVTypeDistribution(false)
 {
     OptionsCont &oc = OptionsCont::getOptions();
 	if (oc.isSet("incremental-dua-step")) {
@@ -180,9 +182,19 @@ MSRouteHandler::myStartElement(int element,
             closeRoute();
         }
         break;
+    case SUMO_TAG_VTYPE__DEPRECATED:
+	    if(!myHaveWarnedAboutDeprecatedVType) {
+		    myHaveWarnedAboutDeprecatedVType = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+        }
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
         break;
+    case SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED:
+	    if(!myHaveWarnedAboutDeprecatedVTypeDistribution) {
+		    myHaveWarnedAboutDeprecatedVTypeDistribution = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "'.");
+        }
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         openVehicleTypeDistribution(attrs);
         break;
@@ -195,7 +207,8 @@ MSRouteHandler::myStartElement(int element,
     case SUMO_TAG_STOP:
         addStop(attrs);
         break;
-    case SUMO_TAG_TRIPDEF: {
+    case SUMO_TAG_TRIP__DEPRECATED:
+    case SUMO_TAG_TRIP: {
         bool ok = true;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
 		myVehicleParameter->setParameter |= VEHPARS_FORCE_REROUTE;
@@ -223,7 +236,7 @@ MSRouteHandler::myStartElement(int element,
         break;
     }
     // parse embedded vtype information
-    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE&&element!=SUMO_TAG_VTYPE__DEPRECATED) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
@@ -325,12 +338,14 @@ MSRouteHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_FLOW:
         closeFlow();
         break;
+    case SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED:
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         closeVehicleTypeDistribution();
         break;
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         closeRouteDistribution();
         break;
+    case SUMO_TAG_VTYPE__DEPRECATED:
     case SUMO_TAG_VTYPE: {
         SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
         MSVehicleType *vehType = MSVehicleType::build(*myCurrentVType);

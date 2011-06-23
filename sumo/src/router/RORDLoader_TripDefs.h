@@ -149,7 +149,7 @@ protected:
 
     /** @brief Information whether empty destinations are allowed
         This is a feature used for the handling of explicit routes within the
-        jp-router where the destination is not necessary */
+        jtrrouter where the destination is not necessary */
     const bool myEmptyDestinationsAllowed;
 
     /// @brief Information whether zones (districts) are used as origins / destinations
@@ -163,6 +163,8 @@ protected:
 
     SUMOVehicleParameter *myParameter;
     SUMOTime myDepartureTime;
+
+    bool myHaveWarnedAboutDeprecatedTripDef;
 
 private:
     /// @brief Invalidated copy constructor

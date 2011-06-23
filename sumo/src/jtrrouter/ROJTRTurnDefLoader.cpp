@@ -35,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
 #include "ROJTREdge.h"
@@ -52,7 +53,10 @@ ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         : SUMOSAXHandler("turn-ratio-file"), myNet(net),
         myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
         myHaveWarnedAboutDeprecatedSources(false),
-        myHaveWarnedAboutDeprecatedSinks(false) {}
+        myHaveWarnedAboutDeprecatedSinks(false),
+        myHaveWarnedAboutDeprecatedFromEdge(false), 
+        myHaveWarnedAboutDeprecatedToEdge(false)
+{}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
@@ -67,9 +71,19 @@ ROJTRTurnDefLoader::myStartElement(int element,
         myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
         myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
         break;
+    case SUMO_TAG_FROMEDGE__DEPRECATED:
+	    if(!myHaveWarnedAboutDeprecatedFromEdge) {
+		    myHaveWarnedAboutDeprecatedFromEdge = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
+        }
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);
         break;
+    case SUMO_TAG_TOEDGE__DEPRECATED:
+	    if(!myHaveWarnedAboutDeprecatedToEdge) {
+		    myHaveWarnedAboutDeprecatedToEdge = true;
+			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
+        }
     case SUMO_TAG_TOEDGE:
         addToEdge(attrs);
         break;

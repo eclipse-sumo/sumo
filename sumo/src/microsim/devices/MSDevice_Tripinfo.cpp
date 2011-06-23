@@ -143,7 +143,7 @@ MSDevice_Tripinfo::generateOutput() const throw(IOError) {
         str << (*i)->getID();
     }
     os << "\" devices=\"" << str.str()
-    << "\" vtype=\"" << myHolder.getVehicleType().getID()
+    << "\" vType=\"" << myHolder.getVehicleType().getID()
     << "\" vaporized=\"" << (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0")
     << "\"";
     if (devices.size() > 1) {

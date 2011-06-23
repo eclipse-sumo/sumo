@@ -85,7 +85,11 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
 		myHaveWarnedAboutDeprecatedTLSTiming(false),
         myHaveWarnedAboutDeprecatedTimeThreshold(false), 
 		myHaveWarnedAboutDeprecatedSpeedThreshold(false),
-		myHaveWarnedAboutDeprecatedJamDistThreshold(false)
+		myHaveWarnedAboutDeprecatedJamDistThreshold(false),
+        myHaveWarnedAboutDeprecatedVTypeProbe(false), 
+        myHaveWarnedAboutDeprecatedRouteProbe(false),
+        myHaveWarnedAboutDeprecatedEdgeMean(false), 
+        myHaveWarnedAboutDeprecatedLaneMean(false)
 {}
 
 
@@ -212,17 +216,37 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_BUS_STOP:
             myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
             break;
+        case SUMO_TAG_VTYPEPROBE__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedVTypeProbe) {
+				myHaveWarnedAboutDeprecatedVTypeProbe = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
+			}
         case SUMO_TAG_VTYPEPROBE:
             addVTypeProbeDetector(attrs);
             break;
+        case SUMO_TAG_ROUTEPROBE__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedRouteProbe) {
+				myHaveWarnedAboutDeprecatedRouteProbe = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
+			}
         case SUMO_TAG_ROUTEPROBE:
             addRouteProbeDetector(attrs);
             break;
+        case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedEdgeMean) {
+				myHaveWarnedAboutDeprecatedEdgeMean = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
+			}
         case SUMO_TAG_MEANDATA_EDGE:
-            addEdgeLaneMeanData(attrs, "meandata_edge");
+            addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
             break;
+        case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
+			if(!myHaveWarnedAboutDeprecatedLaneMean) {
+				myHaveWarnedAboutDeprecatedLaneMean = true;
+				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
+			}
         case SUMO_TAG_MEANDATA_LANE:
-            addEdgeLaneMeanData(attrs, "meandata_lane");
+            addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
             break;
         case SUMO_TAG_TIMEDEVENT__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedTimedEvent) {
@@ -1020,7 +1044,7 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objecttype) {
+NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
@@ -1040,7 +1064,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, const char* objec
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, std::string(objecttype)=="meandata_lane", !excludeEmpty, withInternal, trackVehicles,
+                type, toString(objecttype)=="laneData", !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {

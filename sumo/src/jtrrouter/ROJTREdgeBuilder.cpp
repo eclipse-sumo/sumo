@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// The builder for jp-edges
+// The builder for jtrrouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
