@@ -1,6 +1,6 @@
 <routes>
-	<vtype id="1"/>
-	<vtype id="1"/>
+	<vType id="1"/>
+	<vType id="1"/>
    <vehicle id="0" depart="0">
       <route edges="beg middle end rend"/>
    </vehicle>
