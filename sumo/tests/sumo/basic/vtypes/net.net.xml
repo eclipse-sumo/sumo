@@ -6,12 +6,12 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./sumo/basic/vtypes/nodes.nod.xml"/>
-        <xml-edge-files value="./sumo/basic/vtypes/edges.edg.xml"/>
+        <xml-node-files value="./sumo/basic/vTypes/nodes.nod.xml"/>
+        <xml-edge-files value="./sumo/basic/vTypes/edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/basic/vtypes/net.net.xml"/>
+        <output-file value="./sumo/basic/vTypes/net.net.xml"/>
     </output>
 
     <report>

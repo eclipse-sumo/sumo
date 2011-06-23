@@ -18,7 +18,7 @@
 -->
 
 <tripinfos>
-    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="177.00" arrivalLane="end_0" arrivalPos="2.28" arrivalSpeed="6.67" duration="177.00" routeLength="2481.63" waitSteps="0" rerouteNo="0" devices="tripinfo_v1" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="177.00" arrivalLane="end_0" arrivalPos="2.28" arrivalSpeed="6.67" duration="177.00" routeLength="2481.63" waitSteps="0" rerouteNo="0" devices="tripinfo_v1" vType="DEFAULT_VEHTYPE" vaporized=""/>
     <personinfo id="p1" depart="0.00">
         <stop arrival="0.00"/>
         <ride depart="-0.00" arrival="-0.00"/>

@@ -1,9 +1,9 @@
 <routes>
    <route id="0" multi_ref="x" edges="beg middle end rend"/>
-   <vtypeDistribution id="vt1">
-       <vtype id="t1" probability="0.8" sigma="0"/>
-       <vtype id="t2" probability="0" sigma="0"/>
-   </vtypeDistribution>
+   <vTypeDistribution id="vt1">
+       <vType id="t1" probability="0.8" sigma="0"/>
+       <vType id="t2" probability="0" sigma="0"/>
+   </vTypeDistribution>
 
    <vehicle id="0" route="0" depart="0" type="vt1"/>
    <vehicle id="1" route="0" depart="10" type="vt1"/>
