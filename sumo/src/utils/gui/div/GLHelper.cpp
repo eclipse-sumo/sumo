@@ -327,11 +327,39 @@ GLHelper::drawText(const std::string &text, const Position& pos,
     SUMOReal w = pfdkGetStringWidth(text.c_str());
     glRotated(180, 1, 0, 0);
     glRotated(angle, 0, 0, 1);
-    glTranslated(-w/2., 0.4, 0);
+    glTranslated(-w/2., 0, 0);
     pfDrawString(text.c_str());
     glPopMatrix();
 }
 
+void 
+GLHelper::drawTextBox(const std::string &text, const Position& pos, 
+        const SUMOReal layer, const SUMOReal size, 
+        const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor, 
+        const SUMOReal angle) 
+{
+    SUMOReal boxAngle = angle + 90;
+    if (boxAngle > 360) {
+        boxAngle -= 360;
+    }
+    const SUMOReal borderWidth = size / 20;
+    const SUMOReal boxHeight = size * 0.8;
+    glPushMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glTranslated(0, 0, layer);
+    setColor(borderColor);
+    pfSetScale(size);
+    SUMOReal w = pfdkGetStringWidth(text.c_str()) + size / 2;
+    Position left = pos;
+    left.sub(w/2, -boxHeight/2.7);
+    drawBoxLine(left, boxAngle, w, boxHeight);
+    left.add(borderWidth*1.5, 0);
+    setColor(bgColor);
+    glTranslated(0, 0, 0.01);
+    drawBoxLine(left, boxAngle, w - 3*borderWidth, boxHeight - 2*borderWidth);
+    glPopMatrix();
+    drawText(text, pos, layer+0.02, size, txtColor, angle);
+}
 
 /****************************************************************************/
 

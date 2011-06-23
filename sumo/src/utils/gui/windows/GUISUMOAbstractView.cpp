@@ -240,10 +240,10 @@ GUISUMOAbstractView::paintGL() {
     }
     // check whether the select mode /tooltips)
     //  shall be computed, too
-    swapBuffers();
     if (myUseToolTips&&id!=0) {
         showToolTipFor(id);
     }
+    swapBuffers();
 }
 
 
@@ -344,16 +344,13 @@ void
 GUISUMOAbstractView::showToolTipFor(unsigned int id) {
     if (id!=0) {
         GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        int x, y;
-        FXuint b;
-        myApp->getCursorPosition(x, y, b);
-        myToolTip->setObjectTip(object, x + myApp->getX(), y + myApp->getY());
         if (object!=0) {
+            Position pos = getPositionInformation();
+            pos.add(0, p2m(15));
+            GLHelper::drawTextBox(object->getFullName(), pos, GLO_MAX-1, p2m(20), RGBColor(0,0,0), RGBColor(1, 0.7, 0));
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
-    } else {
-        myToolTip->hide();
-    }
+    } 
 }
 
 
