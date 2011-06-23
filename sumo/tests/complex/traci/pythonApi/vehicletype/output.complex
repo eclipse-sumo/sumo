@@ -4,7 +4,7 @@ step 1
 step 2
 vehicletypes ['DEFAULT_VEHTYPE']
 examining DEFAULT_VEHTYPE
-length 7.5
+length 5.0
 maxSpeed 70.0
 speedFactor 1.0
 speedDev 0.0
@@ -15,7 +15,7 @@ tau 1.0
 vClass unknown
 emissionclass 
 shape 
-guiOffset 2.5
+MinGap 2.5
 width 2.0
 color (255, 255, 0, 255)
 {65: 70.0}
@@ -36,7 +36,7 @@ tau 1.1
 vClass bicycle
 emissionclass zero
 shape bicycle
-guiOffset 1.1
+MinGap 1.1
 width 1.1
 color (1, 0, 0, 255)
 (14, 127, 0) OK Goodbye

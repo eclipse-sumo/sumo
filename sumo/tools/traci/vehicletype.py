@@ -25,7 +25,7 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                      tc.VAR_VEHICLECLASS:    traci.Storage.readString,
                      tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
                      tc.VAR_SHAPECLASS:      traci.Storage.readString,
-                     tc.VAR_GUIOFFSET:       traci.Storage.readDouble,
+                     tc.VAR_MINGAP:          traci.Storage.readDouble,
                      tc.VAR_WIDTH:           traci.Storage.readDouble,
                      tc.VAR_COLOR:           lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
@@ -70,8 +70,8 @@ def getEmissionClass(typeID):
 def getShapeClass(typeID):
     return _getUniversal(tc.VAR_SHAPECLASS, typeID)
 
-def getGUIOffset(typeID):
-    return _getUniversal(tc.VAR_GUIOFFSET, typeID)
+def getMinGap(typeID):
+    return _getUniversal(tc.VAR_MINGAP, typeID)
 
 def getWidth(typeID):
     return _getUniversal(tc.VAR_WIDTH, typeID)
@@ -119,8 +119,8 @@ def setEmissionClass(typeID, clazz):
 def setWidth(typeID, width):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_WIDTH, typeID, width)
 
-def setGUIOffset(typeID, offset):
-    traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_GUIOFFSET, typeID, offset)
+def setMinGap(typeID, minGap):
+    traci._sendDoubleCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP, typeID, minGap)
 
 def setShapeClass(typeID, clazz):
     traci._sendStringCmd(tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)

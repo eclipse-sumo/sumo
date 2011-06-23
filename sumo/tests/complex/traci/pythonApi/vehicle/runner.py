@@ -51,7 +51,7 @@ def check(vehID):
     print "vClass", traci.vehicle.getVehicleClass(vehID)
     print "emissionclass", traci.vehicle.getEmissionClass(vehID)
     print "shape", traci.vehicle.getShapeClass(vehID)
-    print "guiOffset", traci.vehicle.getGUIOffset(vehID)
+    print "MinGap", traci.vehicle.getMinGap(vehID)
     print "width", traci.vehicle.getWidth(vehID)
 
 vehID = "horiz"
@@ -73,7 +73,7 @@ traci.vehicle.setTau(vehID, 1.1)
 traci.vehicle.setVehicleClass(vehID, "bicycle")
 traci.vehicle.setEmissionClass(vehID, "zero")
 traci.vehicle.setShapeClass(vehID, "bicycle")
-traci.vehicle.setGUIOffset(vehID, 1.1)
+traci.vehicle.setMinGap(vehID, 1.1)
 traci.vehicle.setWidth(vehID, 1.1)
 traci.vehicle.setColor(vehID, (1, 0, 0, 1))
 check(vehID)

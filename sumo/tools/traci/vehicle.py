@@ -64,7 +64,7 @@ RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
                      tc.VAR_SPEED_DEVIATION: traci.Storage.readDouble,
                      tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
                      tc.VAR_WIDTH:           traci.Storage.readDouble,
-                     tc.VAR_GUIOFFSET:       traci.Storage.readDouble,
+                     tc.VAR_MINGAP:          traci.Storage.readDouble,
                      tc.VAR_SHAPECLASS:      traci.Storage.readString,
                      tc.VAR_ACCEL:           traci.Storage.readDouble,
                      tc.VAR_DECEL:           traci.Storage.readDouble,
@@ -180,8 +180,8 @@ def getEmissionClass(vehID):
 def getWidth(vehID):
     return _getUniversal(tc.VAR_WIDTH, vehID)
 
-def getGUIOffset(vehID):
-    return _getUniversal(tc.VAR_GUIOFFSET, vehID)
+def getMinGap(vehID):
+    return _getUniversal(tc.VAR_MINGAP, vehID)
 
 def getShapeClass(vehID):
     return _getUniversal(tc.VAR_SHAPECLASS, vehID)
@@ -336,8 +336,8 @@ def setEmissionClass(vehID, clazz):
 def setWidth(vehID, width):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_WIDTH, vehID, width)
 
-def setGUIOffset(vehID, offset):
-    traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_GUIOFFSET, vehID, offset)
+def setMinGap(vehID, minGap):
+    traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MINGAP, vehID, minGap)
 
 def setShapeClass(vehID, clazz):
     traci._sendStringCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SHAPECLASS, vehID, clazz)

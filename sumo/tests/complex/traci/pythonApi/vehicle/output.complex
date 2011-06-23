@@ -6,7 +6,7 @@ vehicles ['horiz']
 examining horiz
 speed 3.15664314177
 speed w/o traci 3.15664314177
-pos (987.758645196256, 501.65000000000003)
+pos (987.758645196256, 501.65)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -28,7 +28,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
-length 7.5
+length 5.0
 maxSpeed 70.0
 speedFactor 1.0
 speedDev 0.0
@@ -39,20 +39,20 @@ tau 1.0
 vClass unknown
 emissionclass 
 shape 
-guiOffset 2.5
+MinGap 2.5
 width 2.0
 {80: '2fi', 86: 12.241354803744027}
 step 3
-{80: '2fi', 86: 17.826391087307016}
+{80: '2fi', 86: 17.826391087307012}
 step 4
-{80: '2fi', 86: 25.237914606580347}
+{80: '2fi', 86: 25.237914606580343}
 step 5
 {80: '2fi', 86: 34.31388491275196}
 vehicles ['horiz']
 examining horiz
 speed 9.07597030617
 speed w/o traci 9.07597030617
-pos (965.686115087248, 501.65000000000003)
+pos (965.686115087248, 501.65)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -85,7 +85,7 @@ tau 1.1
 vClass bicycle
 emissionclass zero
 shape bicycle
-guiOffset 1.1
+MinGap 1.1
 width 1.1
 vehicles ['horiz']
 examining 1
@@ -113,7 +113,7 @@ traveltime -1001.0
 effort -1001.0
 route valid True
 signals 0
-length 7.5
+length 5.0
 maxSpeed 70.0
 speedFactor 1.0
 speedDev 0.0
@@ -124,6 +124,6 @@ tau 1.0
 vClass unknown
 emissionclass 
 shape 
-guiOffset 2.5
+MinGap 2.5
 width 2.0
 (14, 127, 0) OK Goodbye
