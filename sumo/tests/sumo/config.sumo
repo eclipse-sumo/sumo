@@ -26,7 +26,7 @@ aggregated300:aggregated_300.xml
 aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 tripinfos:tripinfos.xml
-vtypeprobe:vtypeprobe.xml
+vTypeProbe:vTypeProbe.xml
 vehroutes:vehroutes.xml
 tls_state:tls_state.xml
 tls_switch:tls_switch.xml
@@ -62,7 +62,7 @@ aggregated300:xml version{->}-->
 aggregated900:xml version{->}-->
 rawdump:xml version{->}-->
 tripinfos:xml version{->}-->
-vtypeprobe:xml version{->}-->
+vTypeProbe:xml version{->}-->
 vehroutes:xml version{->}-->
 tls_state:xml version{->}-->
 tls_switch:xml version{->}-->
