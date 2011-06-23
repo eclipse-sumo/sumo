@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
 import os,subprocess,sys,time,shutil
-import sumodump, sumoInductLoop
+sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+if "SUMO_HOME" in os.environ:
+    sumoHome = os.environ["SUMO_HOME"]
+sys.path.append(os.path.join(sumoHome, "tools"))
+import sumolib
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'netconvert'))
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
+netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(sumoHome, 'bin', 'netconvert'))
 
 def call(command, log):
     print >> log, "-" * 79
@@ -32,11 +36,11 @@ while density<=1.:
     length = VEHICLENUMBER * VEHICLELENGTH / density
     fd = open("input_edges.edg.xml", "w")
     print >> fd, '<edges>'
-    print >> fd, '    <edge id="a" fromnode="a" tonode="b" nolanes="1" speed="36." length="%s" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>' % (length-.1)
-    print >> fd, '    <edge id="b" fromnode="b" tonode="a" nolanes="1" speed="36." length=".1"/>'
+    print >> fd, '    <edge id="a" from="a" to="b" nolanes="1" speed="36." length="%s" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>' % (length-.1)
+    print >> fd, '    <edge id="b" from="b" to="a" nolanes="1" speed="36." length=".1"/>'
     print >> fd, '</edges>'
     fd.close()
-    call(netconvertBinary + " -c netconvert.netc.cfg", log)
+    call([netconvertBinary, "-c", "netconvert.netc.cfg"], log)
 
     print ">>> Building the routes (at density %s)" % (density)
     vehicleOffset = (length - .1) / float(VEHICLENUMBER)
@@ -56,16 +60,13 @@ while density<=1.:
 
 
     print ">>> Simulating (at density %s)" % (density)
-    call(sumoBinary + " -c sumo.sumo.cfg -v", log)
+    call([sumoBinary, "-c", "sumo.sumo.cfg", "-v"], log)
 
     shutil.copy("aggregated.xml", "backup/" + str(density) + "_aggregated.xml")
     shutil.copy("detector.xml", "backup/" + str(density) + "_detector.xml")
-    dump = sumodump.readDump("aggregated.xml", ["occupancy"])
-    il = sumoInductLoop.readInductLoop("detector.xml", ["flow"])
+    dump = sumolib.output.dump.readDump("aggregated.xml", ["occupancy"])
+    il = sumolib.output.inductionloop.readInductLoop("detector.xml", ["flow"])
     print >> fdo, "%s;%s;%s" % (density, dump.get("occupancy")[-1]["a_0"], il.get("flow")[-1]["det"])
 
     density = density + DENSITYSTEP
 fdo.close()
-
-
-

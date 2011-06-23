@@ -1,4 +1,4 @@
 <edges>
-    <edge id="a" fromnode="a" tonode="b" nolanes="1" speed="36." length="149999.9" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>
-    <edge id="b" fromnode="b" tonode="a" nolanes="1" speed="36." length=".1"/>
+    <edge id="a" from="a" to="b" nolanes="1" speed="36." length="749999.9" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>
+    <edge id="b" from="b" to="a" nolanes="1" speed="36." length=".1"/>
 </edges>

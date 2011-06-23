@@ -1,5 +1,5 @@
 <rerouter>
     <interval begin="0" end="86400">
-        <route_prob_reroute id="completeA"/>
+        <routeProbReroute id="completeA"/>
     </interval>
 </rerouter>
