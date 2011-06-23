@@ -56,7 +56,7 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
     myAccel(accel),
     mySecurity(security),
     myEstimation(estimation),
-    myAX(vtype->getLengthWithGap() - vtype->getMinGap() + 1 + 2 * security),
+    myAX(vtype->getLength() + 1 + 2 * security),
     myCX(25 * (1 + security + estimation)),
     myMinAccel(0.2 * myAccel) // +noise?
 {
@@ -85,8 +85,14 @@ MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, const MSVehicle * const p
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
-    return _v(veh, 0, gap2pred);
+MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+    /* Wiedemann does not handle approaching junctions or stops very well:
+     * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
+     * for dv ~ 0 the standard decision tree will switch to following() which
+     * does a lousy jop of closing in on a stop / junction
+     * hence we borrow from Krauss here
+     */
+    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(krauss_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
 }
 
 
@@ -106,7 +112,7 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const throw() {
 SUMOReal 
 MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    const SUMOReal dx = gap + myType->getLengthWithGap() - myType->getMinGap(); // wiedemann uses brutto gap
+    const SUMOReal dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const SUMOReal v = veh->getSpeed();
     const SUMOReal vpref = veh->getMaxSpeed();
     const SUMOReal dv = v - predSpeed;
@@ -136,9 +142,11 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) 
             accel = fullspeed(v, vpref, dx, bx);
         }
     }
+    // since we have hard constrainst on accel we may as well use them here
+    accel = MAX2(MIN2(accel, myAccel), -myDecel);
     vars->accelSign = accel > 0 ? 1 : -1;
-    const SUMOReal vNew = v + ACCEL2SPEED(accel);
-    return MAX2(SUMOReal(0), vNew); // don't allow negative speeds
+    const SUMOReal vNew = MAX2(SUMOReal(0), v + ACCEL2SPEED(accel)); // don't allow negative speeds
+    return vNew; 
 }
 
 
@@ -162,10 +170,8 @@ MSCFModel_Wiedemann::following(SUMOReal sign) const {
 
 SUMOReal 
 MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
-    SUMOReal accel = 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
-    // there are different ways to handel the singularity in the above formula ...
-    // since we have hard constrainst on accel we may as well use them here
-    return MAX2(MIN2(accel, myAccel), -myDecel);
+    // there is singularity in the formula. we do the sanity check outside
+    return 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
 
@@ -179,8 +185,7 @@ MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
         // one would assume that in an emergency accel must be negative. However the
         // wiedemann formula allows for accel = 0 whenever dv = 0
         assert(accel <= 0);
-        // since we have hard constrainst on accel we may as well use them here
-        return MAX2(accel, -myDecel);
+        return accel;
     } else {
         return = -myDecel;
     }
@@ -188,4 +193,17 @@ MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
 
     // emergency according to C.Werner
     return -myDecel;
+}
+
+
+SUMOReal
+MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
+    if (predSpeed==0&&gap<0.01) {
+        return 0;
+    }
+    const SUMOReal tauDecel = myDecel * getTau();
+    const SUMOReal speedReduction = ACCEL2SPEED(myDecel); 
+    const int predSteps = int(predSpeed / speedReduction);
+    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
+    return (SUMOReal)(-tauDecel + sqrt(tauDecel*tauDecel + leaderContrib));
 }

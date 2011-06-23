@@ -101,12 +101,12 @@ public:
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @param[in] gap The (netto) distance to the the obstacle
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
+    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap) const throw();
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -220,6 +220,9 @@ private:
     static const SUMOReal D_MAX;
     /// @}
     
+    /// @brief vsafe from krauss since Wiedemann is deficient at approaching
+    // standing obstacles (see MSCFModel_Krauss::_vsafe) 
+    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw(); 
 };
 
 #endif	/* MSCFModel_Wiedemann_H */
