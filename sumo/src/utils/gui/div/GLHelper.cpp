@@ -327,7 +327,7 @@ GLHelper::drawText(const std::string &text, const Position& pos,
     SUMOReal w = pfdkGetStringWidth(text.c_str());
     glRotated(180, 1, 0, 0);
     glRotated(angle, 0, 0, 1);
-    glTranslated(-w/2., 0, 0);
+    glTranslated(-w/2., 0.4, 0);
     pfDrawString(text.c_str());
     glPopMatrix();
 }
@@ -342,23 +342,34 @@ GLHelper::drawTextBox(const std::string &text, const Position& pos,
     if (boxAngle > 360) {
         boxAngle -= 360;
     }
+    pfSetScale(size);
+    const SUMOReal stringWidth = pfdkGetStringWidth(text.c_str());
     const SUMOReal borderWidth = size / 20;
     const SUMOReal boxHeight = size * 0.8;
+    const SUMOReal boxWidth = stringWidth + size / 2;
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glTranslated(0, 0, layer);
     setColor(borderColor);
-    pfSetScale(size);
-    SUMOReal w = pfdkGetStringWidth(text.c_str()) + size / 2;
     Position left = pos;
-    left.sub(w/2, -boxHeight/2.7);
-    drawBoxLine(left, boxAngle, w, boxHeight);
+    left.sub(boxWidth/2, -boxHeight/2.7);
+    drawBoxLine(left, boxAngle, boxWidth, boxHeight);
     left.add(borderWidth*1.5, 0);
     setColor(bgColor);
     glTranslated(0, 0, 0.01);
-    drawBoxLine(left, boxAngle, w - 3*borderWidth, boxHeight - 2*borderWidth);
+    drawBoxLine(left, boxAngle, boxWidth - 3*borderWidth, boxHeight - 2*borderWidth);
+    // actually we should be able to use drawText here. however, there's
+    // something about the constant 0.4 offset which causes trouble
+    //drawText(text, pos, layer+0.02, size, txtColor, angle);
+    setColor(txtColor);
+    glTranslated(pos.x(), pos.y(), 0.01);
+    pfSetPosition(0, 0);
+    pfSetScale(size);
+    glRotated(180, 1, 0, 0);
+    glRotated(angle, 0, 0, 1);
+    glTranslated(-stringWidth/2., 0, 0);
+    pfDrawString(text.c_str());
     glPopMatrix();
-    drawText(text, pos, layer+0.02, size, txtColor, angle);
 }
 
 /****************************************************************************/
