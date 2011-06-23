@@ -17,6 +17,6 @@
 </configuration>
 -->
 
-<tripdefs>
-    <tripdef id="0" depart="1809.00" from="131" to="204[1][1]" fromtaz="131" totaz="204[1][1]" departlane="free" departspeed="max"/>
-</tripdefs>
+<trips>
+    <trip id="0" depart="1809.00" from="131" to="204[1][1]" fromtaz="131" totaz="204[1][1]" departlane="free" departspeed="max"/>
+</trips>
