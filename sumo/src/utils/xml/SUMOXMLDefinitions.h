@@ -328,6 +328,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_COST,
     SUMO_ATTR_PROB,
     SUMO_ATTR_ROUTES,
+    SUMO_ATTR_VTYPES__DEPRECATED,
     SUMO_ATTR_VTYPES,
     /* trip definition attributes */
     SUMO_ATTR_LANE,

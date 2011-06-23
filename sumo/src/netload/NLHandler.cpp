@@ -89,7 +89,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedVTypeProbe(false), 
         myHaveWarnedAboutDeprecatedRouteProbe(false),
         myHaveWarnedAboutDeprecatedEdgeMean(false), 
-        myHaveWarnedAboutDeprecatedLaneMean(false)
+        myHaveWarnedAboutDeprecatedLaneMean(false),
+        myHaveWarnedAboutDeprecatedVTypes(false)
 {}
 
 
@@ -1058,7 +1059,14 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
     const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), ok, false);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "performance");
-    const std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    if (attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
+        vtypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, id.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedVTypes) {
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_VTYPES) + "'.");
+            myHaveWarnedAboutDeprecatedVTypes = true;
+        }   
+    }
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
@@ -1067,7 +1075,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, toString(objecttype)=="laneData", !excludeEmpty, withInternal, trackVehicles,
+                type, objecttype==SUMO_TAG_MEANDATA_LANE, !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {

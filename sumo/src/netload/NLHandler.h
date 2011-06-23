@@ -327,6 +327,7 @@ protected:
 		myHaveWarnedAboutDeprecatedJamDistThreshold;
     bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
         myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
+    bool myHaveWarnedAboutDeprecatedVTypes;
 
 
 private:

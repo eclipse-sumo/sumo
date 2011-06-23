@@ -259,7 +259,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "cost",           SUMO_ATTR_COST },
     { "probability",    SUMO_ATTR_PROB },
     { "routes",         SUMO_ATTR_ROUTES },
-    { "vtypes",         SUMO_ATTR_VTYPES },
+    { "vtypes",         SUMO_ATTR_VTYPES__DEPRECATED },
+    { "vTypes",         SUMO_ATTR_VTYPES },
 
     { "lane",           SUMO_ATTR_LANE },
     { "lanes",          SUMO_ATTR_LANES },

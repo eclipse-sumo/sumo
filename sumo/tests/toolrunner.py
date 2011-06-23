@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os,subprocess,sys
 if len(sys.argv) < 2:
-    sys.exit('required argumet <tool> missing')
+    sys.exit('required argument <tool> missing')
 tool = [os.path.join(os.path.dirname(sys.argv[0]), "..", sys.argv[-1])]
 if tool[0].endswith(".jar"):
     tool = ["java", "-jar"] + tool
