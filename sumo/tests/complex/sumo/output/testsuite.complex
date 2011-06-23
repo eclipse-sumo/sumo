@@ -1,6 +1,3 @@
-# no traffic, just plain output
-no_vehicles
-
 # one vehicle is moving
 one_vehicle
 
@@ -15,7 +12,3 @@ two_vehicles_diff_speed
 
 # two vehicles are moving; the first is 5m long, the second 15m
 two_vehicles_diff_length
-
-# Testing error cases
-errors
-
