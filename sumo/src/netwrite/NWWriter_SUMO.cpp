@@ -569,7 +569,7 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
     std::vector<SUMOReal> sinkW = d.getSinkWeights();
     VectorHelper<SUMOReal>::normaliseSum(sinkW, 1.0);
     // write the head and the id of the district
-	into.openTag(SUMO_TAG_DISTRICT) << " id=\"" << d.getID() << "\"";
+	into.openTag(SUMO_TAG_TAZ) << " id=\"" << d.getID() << "\"";
     if (d.getShape().size()>0) {
         into << " shape=\"" << d.getShape() << "\"";
     }
@@ -579,14 +579,14 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
     const std::vector<NBEdge*> &sources = d.getSourceEdges();
     for (i=0; i<sources.size(); i++) {
         // write the head and the id of the source
-		into.openTag(SUMO_TAG_DSOURCE) << " id=\"" << sources[i]->getID() << "\" weight=\"" << sourceW[i] << "\"";
+		into.openTag(SUMO_TAG_TAZSOURCE) << " id=\"" << sources[i]->getID() << "\" weight=\"" << sourceW[i] << "\"";
 		into.closeTag(true);
     }
     // write all sinks
     const std::vector<NBEdge*> &sinks = d.getSinkEdges();
     for (i=0; i<sinks.size(); i++) {
         // write the head and the id of the sink
-        into.openTag(SUMO_TAG_DSINK) << " id=\"" << sinks[i]->getID() << "\" weight=\"" << sinkW[i] << "\"";
+        into.openTag(SUMO_TAG_TAZSINK) << " id=\"" << sinks[i]->getID() << "\" weight=\"" << sinkW[i] << "\"";
 		into.closeTag(true);
     }
     // write the tail

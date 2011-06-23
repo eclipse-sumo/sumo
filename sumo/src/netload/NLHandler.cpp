@@ -262,13 +262,16 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_LOCATION:
             setLocation(attrs);
             break;
-        case SUMO_TAG_DISTRICT:
+        case SUMO_TAG_DISTRICT__DEPRECATED:
+        case SUMO_TAG_TAZ:
             addDistrict(attrs);
             break;
-        case SUMO_TAG_DSOURCE:
+        case SUMO_TAG_DSOURCE__DEPRECATED:
+        case SUMO_TAG_TAZSOURCE:
             addDistrictEdge(attrs, true);
             break;
-        case SUMO_TAG_DSINK:
+        case SUMO_TAG_DSINK__DEPRECATED:
+        case SUMO_TAG_TAZSINK:
             addDistrictEdge(attrs, false);
             break;
         default:

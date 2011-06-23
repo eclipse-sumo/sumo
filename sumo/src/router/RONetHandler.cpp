@@ -83,13 +83,16 @@ RONetHandler::myStartElement(int element,
     case SUMO_TAG_SUCCLANE:
         parseConnectedEdge(attrs);
         break;
-    case SUMO_TAG_DISTRICT:
+    case SUMO_TAG_DISTRICT__DEPRECATED:
+    case SUMO_TAG_TAZ:
         parseDistrict(attrs);
         break;
-    case SUMO_TAG_DSOURCE:
+    case SUMO_TAG_DSOURCE__DEPRECATED:
+    case SUMO_TAG_TAZSOURCE:
         parseDistrictEdge(attrs, true);
         break;
-    case SUMO_TAG_DSINK:
+    case SUMO_TAG_DSINK__DEPRECATED:
+    case SUMO_TAG_TAZSINK:
         parseDistrictEdge(attrs, false);
         break;
     default:

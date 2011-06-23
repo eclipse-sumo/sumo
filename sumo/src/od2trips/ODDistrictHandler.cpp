@@ -58,13 +58,16 @@ void
 ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_DISTRICT:
+    case SUMO_TAG_DISTRICT__DEPRECATED:
+    case SUMO_TAG_TAZ:
         openDistrict(attrs);
         break;
-    case SUMO_TAG_DSOURCE:
+    case SUMO_TAG_DSOURCE__DEPRECATED:
+    case SUMO_TAG_TAZSOURCE:
         addSource(attrs);
         break;
-    case SUMO_TAG_DSINK:
+    case SUMO_TAG_DSINK__DEPRECATED:
+    case SUMO_TAG_TAZSINK:
         addSink(attrs);
         break;
     default:
@@ -75,7 +78,7 @@ ODDistrictHandler::myStartElement(int element,
 
 void
 ODDistrictHandler::myEndElement(int element) throw(ProcessError) {
-    if (element==SUMO_TAG_DISTRICT) {
+    if (element==SUMO_TAG_DISTRICT__DEPRECATED||element==SUMO_TAG_TAZ) {
         closeDistrict();
     }
 }
