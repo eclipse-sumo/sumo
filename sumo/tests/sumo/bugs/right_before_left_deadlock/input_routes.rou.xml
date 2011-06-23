@@ -1,5 +1,5 @@
 <routes>
-    <vtype id="g" sigma="0" /> 
+    <vType id="g" sigma="0" /> 
     <route id="up" edges="1i 2o"/>
     <vehicle id="u" type="g" route="up" depart="0" departpos="400"/>
     <route id="right" edges="3i 4o"/>

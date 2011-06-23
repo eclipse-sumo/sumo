@@ -31,6 +31,6 @@
         <stop arrival="25.00"/>
         <ride depart="26.00" arrival="195.00"/>
     </personinfo>
-    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="3.00" departSpeed="7.00" departDelay="0.00" arrival="195.00" arrivalLane="end_0" arrivalPos="3.83" arrivalSpeed="6.90" duration="195.00" routeLength="2480.18" waitSteps="0" rerouteNo="0" devices="tripinfo_p person_p" vtype="DEFAULT_VEHTYPE" vaporized="">
+    <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="3.00" departSpeed="7.00" departDelay="0.00" arrival="195.00" arrivalLane="end_0" arrivalPos="3.83" arrivalSpeed="6.90" duration="195.00" routeLength="2480.18" waitSteps="0" rerouteNo="0" devices="tripinfo_p person_p" vType="DEFAULT_VEHTYPE" vaporized="">
     </tripinfo>
 </tripinfos>
