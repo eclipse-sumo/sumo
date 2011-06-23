@@ -85,8 +85,12 @@ public:
     /// recenters the view
     void recenterView();
 
-    /// centers to the chosen artifact
-    void centerTo(GUIGlID id);
+    /** @brief centers to the chosen artifact
+     * @param[in] id The id of the artifact to center to
+     * @param[in] applyZoom Whether to zoom in
+     * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
+     */
+    void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist=20);
 
     /// centers to the chosen artifact
     void centerTo(const Boundary& bound);

@@ -238,7 +238,9 @@ GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data) {
 
 void
 GUIGlChildWindow::setView(GUIGlID id) {
-    myView->centerTo(id);
+    // this is used by the locator widget. zoom using fixed distance makes it easier to identify objects 
+    // (long streets in particular)
+    myView->centerTo(id, true);
 }
 
 /****************************************************************************/

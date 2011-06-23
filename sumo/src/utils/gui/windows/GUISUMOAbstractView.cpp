@@ -201,7 +201,7 @@ GUISUMOAbstractView::paintGL() {
     }
 
     if (getTrackedID()>0) {
-        centerTo(getTrackedID());
+        centerTo(getTrackedID(), false);
     }
 
     unsigned int id = 0;
@@ -480,10 +480,14 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(GUIGlID id) {
+GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
     GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
-        myChanger->setViewport(o->getCenteringBoundary());
+        if (applyZoom && zoomDist < 0) {
+            myChanger->setViewport(o->getCenteringBoundary());
+        } else {
+            myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
+        }
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
     update();
