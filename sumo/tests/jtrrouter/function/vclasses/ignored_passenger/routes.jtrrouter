@@ -23,7 +23,7 @@
 -->
 
 <routes>
-   <vtype id="passenger" vclass="passenger"/>
+   <vType id="passenger" vclass="passenger"/>
     <vehicle id="0_0" type="passenger" depart="0.00">
         <route edges="beg middle end"/>
     </vehicle>
