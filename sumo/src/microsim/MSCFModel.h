@@ -92,29 +92,6 @@ public:
     virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
 
 
-    /** @brief Computes the vehicle's safe speed (no dawdling)
-     *
-     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] gap2pred The (netto) distance to the LEADER
-     * @param[in] predSpeed The speed of LEADER
-     * @return EGO's safe speed
-     * @todo used by MSLCM_DK2004, allows hypothetic values of gap2pred and predSpeed
-     */
-    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
-
-
-    /** @brief Computes the vehicle's safe speed (no dawdling)
-     *
-     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] pred The LEADER
-     * @return EGO's safe speed
-     * @todo generic Interface, models can call for the values they need
-     */
-    virtual SUMOReal ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() = 0;
-
-
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      *
      * Returns the velocity of the vehicle when approaching a static object (such as the end of a lane) assuming no reaction time is needed.

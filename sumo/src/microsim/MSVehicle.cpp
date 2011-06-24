@@ -578,7 +578,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     }
     if (myCurrEdge == myRoute->end() - 1) {
         if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-            vBeg = MIN2(cfModel.ffeV(this, myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
+            vBeg = MIN2(cfModel.ffeV(this, getSpeed(), myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
         } else {
             vBeg = myLane->getMaxSpeed();
         }
@@ -591,7 +591,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             // collision occured!
             return true;
         }
-        vBeg = MIN2(vBeg, cfModel.ffeV(this, pred));
+        vBeg = MIN2(vBeg, cfModel.ffeV(this, getSpeed(), gap2pred(*pred), pred->getSpeed()));
     } else {
         // (potential) interaction with a vehicle extending partially into this lane
         MSVehicle *predP = myLane->getPartialOccupator();
@@ -601,7 +601,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
                 // collision occured!
                 return true;
             }
-            vBeg = MIN2(vBeg, cfModel.ffeV(this, gap, predP->getSpeed()));
+            vBeg = MIN2(vBeg, cfModel.ffeV(this, getSpeed(), gap, predP->getSpeed()));
         }
     }
     // interaction with left-lane leader (do not overtake right)
@@ -1037,7 +1037,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
             SUMOReal laneEndVSafe = cfModel.ffeS(this, seen);
             if (myCurrEdge + view == myRoute->end()) {
                 if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                    laneEndVSafe = cfModel.ffeV(this, seen, myParameter->arrivalSpeed);
+                    laneEndVSafe = cfModel.ffeV(this, getSpeed(), seen, myParameter->arrivalSpeed);
                 } else {
                     laneEndVSafe = vLinkPass;
                 }
@@ -1066,7 +1066,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
-        SUMOReal vmaxNextLane = MAX2(cfModel.ffeV(this, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
+        SUMOReal vmaxNextLane = MAX2(cfModel.ffeV(this, getSpeed(), seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -1074,7 +1074,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         std::pair<MSVehicle*, SUMOReal> lastOnNext = nextLane->getLastVehicleInformation();
         if (lastOnNext.first!=0) {
             if (seen+lastOnNext.second>=0) {
-                vsafePredNextLane = cfModel.ffeV(this, seen+lastOnNext.second, lastOnNext.first->getSpeed());
+                vsafePredNextLane = cfModel.ffeV(this, getSpeed(), seen+lastOnNext.second, lastOnNext.first->getSpeed());
             } else {
                 vsafePredNextLane = cfModel.ffeS(this, seen);
             }
@@ -1106,7 +1106,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // check whether we approach the final edge
         if (myCurrEdge + view == myRoute->end()) {
             if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                const SUMOReal vsafe = cfModel.ffeV(this, seen + myArrivalPos, myParameter->arrivalSpeed);
+                const SUMOReal vsafe = cfModel.ffeV(this, getSpeed(), seen + myArrivalPos, myParameter->arrivalSpeed);
                 vLinkPass = MIN2(vLinkPass, vsafe);
                 vLinkWait = MIN2(vLinkWait, vsafe);
             }

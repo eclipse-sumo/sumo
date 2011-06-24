@@ -66,7 +66,7 @@ void
 MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLengthWithGap()-ego->getPositionOnLane());
-        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
+        SUMOReal nVSafe = ffeV(ego, ego->getSpeed(), mgap, neigh->getSpeed());
         if (mgap-neigh->getSpeed()>=0) {
             vSafe = MIN2(vSafe, nVSafe);
         }

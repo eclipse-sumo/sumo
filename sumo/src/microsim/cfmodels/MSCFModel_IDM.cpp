@@ -63,20 +63,14 @@ MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pr
 
 
 SUMOReal
-MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-    return _updateSpeed(gap2pred, veh->getSpeed(), predSpeed, desiredSpeed(veh));
-}
-
-
-SUMOReal
-MSCFModel_IDM::ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() {
-    return _updateSpeed(veh->gap2pred(*pred), veh->getSpeed(), pred->getSpeed(), desiredSpeed(veh));
-}
-
-
-/// @todo gap adaption if multiple iterations
-SUMOReal
 MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
+    if (gap2pred<0.01) {
+        return 0;
+    }
+    const SUMOReal tauDecel = myDecel * getTau();
+    return (SUMOReal)(-tauDecel + sqrt(tauDecel*tauDecel + 2. * myDecel * gap2pred));
+
+    return _updateSpeed(gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
     SUMOReal egoSpeed = veh->getSpeed();
     for (int i = 0; i < myIterations; i++) {
         const SUMOReal s_star = egoSpeed*myTimeHeadWay + egoSpeed*egoSpeed/myTwoSqrtAccelDecel;
@@ -114,7 +108,7 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predS
         egoSpeed += ACCEL2SPEED(acc);// /myIterations;
 //        gap2pred -= SPEED2DIST(egoSpeed)/myIterations;
 //    }
-    return MAX3(SUMOReal(0), egoSpeed-ACCEL2SPEED(myDecel), egoSpeed);
+    return MAX2(SUMOReal(0), egoSpeed);
 }
 
 

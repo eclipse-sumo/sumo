@@ -54,18 +54,6 @@ MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal g
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
-    return _v(veh, veh->getSpeed(), gap, predSpeed);
-}
-
-
-SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
-    return _v(veh, veh->getSpeed(), veh->gap2pred(*pred), pred->getSpeed());
-}
-
-
-SUMOReal
 MSCFModel_PWag2009::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
     return _v(veh, veh->getSpeed(), gap, 0);
 }

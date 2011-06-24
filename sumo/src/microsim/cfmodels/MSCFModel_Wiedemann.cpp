@@ -73,18 +73,6 @@ MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal 
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-    return _v(veh, predSpeed, gap2pred);
-}
-
-
-SUMOReal
-MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() {
-    return _v(veh, pred->getSpeed(), veh->gap2pred(*pred));
-}
-
-
-SUMOReal
 MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)

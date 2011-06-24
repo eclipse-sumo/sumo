@@ -69,18 +69,6 @@ MSCFModel_Krauss::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, predSpeed), maxNextSpeed(veh->getSpeed())));
-}
-
-
-SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(veh->gap2pred(*pred), pred->getSpeed()), maxNextSpeed(veh->getSpeed())));
-}
-
-
-SUMOReal
 MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
     return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
 }

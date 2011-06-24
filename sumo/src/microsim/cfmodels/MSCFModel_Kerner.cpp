@@ -54,22 +54,8 @@ MSCFModel_Kerner::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal
 
 
 SUMOReal
-MSCFModel_Kerner::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
-    SUMOReal speed = veh->getSpeed();
-    return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
-}
-
-
-SUMOReal
-MSCFModel_Kerner::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const throw() {
-    SUMOReal speed = veh->getSpeed();
-    return MIN2(_v(speed, maxNextSpeed(speed), veh->gap2pred(*pred), pred->getSpeed()), maxNextSpeed(speed));
-}
-
-
-SUMOReal
 MSCFModel_Kerner::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
-    SUMOReal speed = veh->getSpeed();
+    const SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), gap, 0), maxNextSpeed(speed));
 }
 
