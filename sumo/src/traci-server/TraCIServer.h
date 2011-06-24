@@ -118,7 +118,7 @@ private:
 
     // Destructor
     // final cleanup
-    virtual ~TraCIServer(void);
+    virtual ~TraCIServer();
 
     int dispatchCommand();
 
