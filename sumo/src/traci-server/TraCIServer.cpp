@@ -69,10 +69,8 @@
 #include "TraCIServerAPI_Simulation.h"
 
 
-
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
-#include <microsim/trigger/MSCalibrator.h>
 #include <microsim/MSGlobals.h>
 
 #include <string>
