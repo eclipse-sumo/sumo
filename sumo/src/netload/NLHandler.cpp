@@ -322,7 +322,9 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_WAUT:
         closeWAUT();
         break;
+    case SUMO_TAG_E3DETECTOR__DEPRECATED:
     case SUMO_TAG_E3DETECTOR:
+    case SUMO_TAG_ENTRY_EXIT_DETECTOR:
         endE3Detector();
         break;
     default:
