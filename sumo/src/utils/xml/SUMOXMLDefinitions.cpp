@@ -111,8 +111,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "WAUT",	          SUMO_TAG_WAUT },
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
     { "wautJunction",     SUMO_TAG_WAUT_JUNCTION },
-    { "routedistelem",	  SUMO_TAG_ROUTEDISTELEM },
-    { "vtypedistelem",	  SUMO_TAG_VTYPEDISTELEM },
     { "emit",        	  SUMO_TAG_EMIT },
     { "reset",        	  SUMO_TAG_RESET },
     { "stop",        	  SUMO_TAG_STOP },

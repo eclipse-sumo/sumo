@@ -44,7 +44,6 @@ class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
 class MSBusStop;
-class MSCalibrator;
 
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
@@ -135,6 +134,7 @@ public:
     void parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
+#ifdef HAVE_MESOSIM
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -144,6 +144,7 @@ public:
      */
     void parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
                                  const std::string &base) throw(InvalidArgument);
+#endif
     //@}
 
 
@@ -188,22 +189,6 @@ protected:
     virtual void buildBusStop(MSNet &net,
                               const std::string &id, const std::vector<std::string> &lines,
                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
-
-
-    /** @brief builds a calibrator for online simulation
-     *
-     * Simply calls the MSCalibrator constructor.
-     *
-     * @param[in] net The net the calibrator belongs to
-     * @param[in] id The id of the calibrator
-     * @param[in] destLane The lane the calibrator is placed on
-     * @param[in] pos Position of the calibrator on the given lane
-     * @param[in] file Name of the file to read the calibration definitions from
-     * @todo Recheck and describe parameter
-     */
-    virtual void buildLaneCalibrator(MSNet &net,
-                                     const std::string &id, MSLane *destLane, SUMOReal pos,
-                                     const std::string &file) throw();
 
 
 #ifdef HAVE_MESOSIM

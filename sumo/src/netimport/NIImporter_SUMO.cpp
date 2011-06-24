@@ -221,7 +221,6 @@ NIImporter_SUMO::myStartElement(int element,
      * 4) those which are of concern neither to NBNetBuilder nor NETEDIT and
      *    must be copied over - need to patch NBNetBuilder for this.
      *    copy unknown by default
-     *    (MSCalibrator ?)
      */
     switch (element) {
     case SUMO_TAG_EDGE:

@@ -41,7 +41,6 @@
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <microsim/trigger/MSCalibrator.h>
 
 
 #ifdef HAVE_MESOSIM
@@ -180,6 +179,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 }
 
 
+#ifdef HAVE_MESOSIM
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument) {
@@ -192,7 +192,6 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     // get the file name to read further definitions from
     MSLane *lane = getLane(attrs, "calibrator", id);
     const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
-#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
 	    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
         std::string file = getFileName(attrs, base, true);
@@ -202,14 +201,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
-    } else {
-#endif
-        std::string file = getFileName(attrs, base);
-        buildLaneCalibrator(net, id, lane, pos, file);
-#ifdef HAVE_MESOSIM
     }
-#endif
 }
+#endif
 
 
 void
@@ -257,14 +251,6 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet&/*net*/, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
                                         const std::string &file) throw(ProcessError) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
-}
-
-
-void
-NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
-                                      MSLane *destLane, SUMOReal pos,
-                                      const std::string &file) throw() {
-    new MSCalibrator(id, net, destLane, pos, file);
 }
 
 
