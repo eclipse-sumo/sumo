@@ -35,3 +35,6 @@ one_vehicle_.1s
 # Testing error cases
 errors
 
+# Tests for deprecated markup
+_deprecated_
+

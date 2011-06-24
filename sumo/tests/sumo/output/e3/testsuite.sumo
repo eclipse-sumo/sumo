@@ -21,3 +21,6 @@ errors
 
 # reported bugs
 bugs
+
+# Tests for deprecated markup
+_deprecated_
