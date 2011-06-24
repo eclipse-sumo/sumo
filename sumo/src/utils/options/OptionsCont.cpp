@@ -554,6 +554,10 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     // check whether something has to be done with options
     // whether the current options shall be saved
     if (isSet("save-configuration", false)) { // sumo-gui does not register these
+        if (getString("save-configuration") == "-" || getString("save-configuration") == "stdout") {
+            writeConfiguration(std::cout, true, false, getBool("save-commented"));
+            return true;
+        }
         std::ofstream out(getString("save-configuration").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
@@ -567,6 +571,10 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     }
     // whether the template shall be saved
     if (isSet("save-template", false)) { // sumo-gui does not register these
+        if (getString("save-template") == "-" || getString("save-template") == "stdout") {
+            writeConfiguration(std::cout, false, true, getBool("save-commented"));
+            return true;
+        }
         std::ofstream out(getString("save-template").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + getString("save-template") + "'");
@@ -579,6 +587,10 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         }
     }
     if (isSet("save-schema", false)) { // sumo-gui does not register these
+        if (getString("save-schema") == "-" || getString("save-schema") == "stdout") {
+            writeSchema(std::cout, getBool("save-commented"));
+            return true;
+        }
         std::ofstream out(getString("save-schema").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
@@ -731,6 +743,10 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                         }
                         os << (*s);
                     }
+                }
+                os << "\" type=\"" << o->getTypeName();
+                if (!addComments) {
+                    os << "\" help=\"" << o->getDescription();
                 }
             }
             os << "\"/>" << std::endl;
