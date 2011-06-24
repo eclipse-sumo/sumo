@@ -2,7 +2,6 @@ import_config_file:../config_all
 binary:$SUMO_BINARY
 copy_test_path:net.net.xml
 copy_test_path:three_split.net.xml
-copy_test_path:input_emitter.def.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
