@@ -89,7 +89,7 @@ MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &
 // MSDevice_Vehroutes::StateListener-methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw() {
+MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) {
     if (to == MSNet::VEHICLE_STATE_NEWROUTE) {
         myDevices[vehicle]->addRoute();
     }

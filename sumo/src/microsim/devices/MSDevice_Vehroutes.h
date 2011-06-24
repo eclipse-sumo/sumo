@@ -161,13 +161,13 @@ private:
     class StateListener : public MSNet::VehicleStateListener {
     public:
         /// @brief Destructor
-        ~StateListener()throw(){}
+        ~StateListener() {}
 
         /** @brief Called if a vehicle changes its state
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) throw();
+        void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to);
 
         /// @brief A map for internal notification
         std::map<const SUMOVehicle*, MSDevice_Vehroutes*> myDevices;
