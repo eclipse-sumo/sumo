@@ -47,12 +47,24 @@ public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
-     * @param[in] tau the headway gap
+     * @param[in] headwayTime the headway gap
      * @param[in] delta a model constant
      * @param[in] internalStepping internal time step size
      */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                  SUMOReal tau, SUMOReal delta, SUMOReal internalStepping);
+                  SUMOReal headwayTime, SUMOReal delta, SUMOReal internalStepping);
+
+
+    /** @brief Constructor
+     * @param[in] accel The maximum acceleration
+     * @param[in] decel The maximum deceleration
+     * @param[in] headwayTime the headway gap
+     * @param[in] delta a model constant
+     * @param[in] internalStepping internal time step size
+     */
+    MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
+                  SUMOReal headwayTime, SUMOReal adaptationFactor, SUMOReal adaptationTime,
+                  SUMOReal internalStepping);
 
 
     /// @brief Destructor
@@ -61,6 +73,14 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
+
+    /** @brief Applies interaction with stops and lane changing model influences
+     * @param[in] veh The ego vehicle
+     * @param[in] vPos The possible velocity
+     * @return The velocity after applying interactions with stops and lane change model influences
+     */
+    SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const;
+
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
@@ -113,8 +133,25 @@ public:
     MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 
+    VehicleVariables* createVehicleVariables() const {
+        if (myExpFactor > 0.) {
+            return new VehicleVariables();
+        }
+        return 0;
+    }
+
+
 private:
-    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
+    class VehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        VehicleVariables() : levelOfService(1.) {}
+        /// @brief state variable for remembering speed deviation history (lambda)
+        SUMOReal levelOfService;
+    };
+
+
+private:
+    SUMOReal _v(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
 
     SUMOReal desiredSpeed(const MSVehicle * const veh) const {
         return MIN2(myType->getMaxSpeed(), veh->getLane()->getMaxSpeed());
@@ -124,6 +161,15 @@ private:
 private:
     /// @brief The IDM delta exponent
     const SUMOReal myDelta;
+
+    /// @brief The IDMM adaptation factor beta
+    const SUMOReal myAdaptationFactor;
+
+    /// @brief The IDMM adaptation time tau
+    const SUMOReal myAdaptationTime;
+
+    /// @brief A computational shortcut for IDMM
+    const SUMOReal myExpFactor;
 
     /// @brief The number of iterations in speed calculations
     const int myIterations;

@@ -47,7 +47,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal tau);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime);
 
 
     /// @brief Destructor
@@ -73,7 +73,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
+    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -83,14 +83,14 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
+    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
      */
-    int getModelID() const {
+    virtual int getModelID() const {
         return SUMO_TAG_CF_KRAUSS_ORIG1;
     }
 
@@ -112,8 +112,7 @@ public:
      */
     void setMaxDecel(SUMOReal decel) {
         myDecel = decel;
-        myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
-        myTauDecel = myDecel*myTau;
+        myTauDecel = myDecel*myHeadwayTime;
     }
 
 
@@ -126,21 +125,20 @@ public:
 
 
     /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] accel The new driver reaction time (in s)
+     * @param[in] headwayTime The new driver reaction time (in s)
      */
-    void setTau(SUMOReal tau) {
-        myTau = tau;
-        myTauDecel = myDecel*myTau;
+    void setHeadwayTime(SUMOReal headwayTime) {
+        myHeadwayTime = headwayTime;
+        myTauDecel = myDecel*headwayTime;
     }
     /// @}
-
 
 
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const;
+    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 private:
     /** @brief Returns the "safe" velocity
@@ -148,24 +146,21 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    virtual SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    SUMOReal dawdle(SUMOReal speed) const;
+    virtual SUMOReal dawdle(SUMOReal speed) const;
 
-private:
+protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
     /// @brief The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
-
-    /// @brief The precomputed value for 1/(2*myDecel)
-    SUMOReal myInverseTwoDecel;
 };
 
 #endif	/* MSCFModel_KraussOrig1_H */

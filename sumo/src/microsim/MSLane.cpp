@@ -189,7 +189,7 @@ MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SU
         }
     }
     SUMOReal vHlp = 0.5*(mspeed + vIn);
-    xIn = xIn - vHlp * veh.getCarFollowModel().getTau();
+    xIn = xIn - vHlp * veh.getCarFollowModel().getHeadwayTime();
     if (xIn<minPos) {
         return false;
     } else if (xIn>maxPos) {
@@ -222,7 +222,7 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) throw() {
         }
         const SUMOReal gap = leaderRearPos - follower->getPositionOnLane();
         const SUMOReal fSpeed = follower->getSpeed();
-        const SUMOReal maxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getTau() - fSpeed;
+        const SUMOReal maxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getHeadwayTime() - fSpeed;
         if (maxSpeed > 0) {
             if (isInsertionSuccess(&veh, MIN2(maxSpeed, mspeed), (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLengthWithGap()) / 2, true)) {
                 return true;

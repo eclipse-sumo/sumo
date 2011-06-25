@@ -37,8 +37,8 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
-                                   SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi)
-        : MSCFModel(vtype, accel, decel, tau), myK(k), myPhi(phi), myTauDecel(decel*tau) {
+                                   SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi)
+        : MSCFModel(vtype, accel, decel, headwayTime), myK(k), myPhi(phi), myTauDecel(decel*headwayTime) {
 }
 
 
@@ -75,10 +75,5 @@ MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal pred
 
 MSCFModel *
 MSCFModel_Kerner::duplicate(const MSVehicleType *vtype) const {
-    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myTau, myK, myPhi);
+    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myHeadwayTime, myK, myPhi);
 }
-
-
-
-//void MSCFModel::saveState(std::ostream &os) {}
-

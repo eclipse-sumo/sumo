@@ -47,7 +47,7 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi);
+    MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi);
 
 
     /// @brief Destructor

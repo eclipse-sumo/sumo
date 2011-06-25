@@ -38,9 +38,8 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-        SUMOReal dawdle, SUMOReal tau)
-        : MSCFModel(vtype, accel, decel, tau), myDawdle(dawdle), myTauDecel(decel*tau),
-          myInverseTwoDecel(SUMOReal(1./(2.*decel))) {
+        SUMOReal dawdle, SUMOReal headwayTime)
+        : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel*headwayTime) {
 }
 
 
@@ -99,9 +98,5 @@ SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
 
 MSCFModel *
 MSCFModel_KraussOrig1::duplicate(const MSVehicleType *vtype) const {
-    return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myTau);
+    return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }
-
-
-//void MSCFModel::saveState(std::ostream &os) {}
-

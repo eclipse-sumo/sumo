@@ -37,8 +37,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel::MSCFModel(const MSVehicleType* vtype, const SUMOReal accel, const SUMOReal decel, const SUMOReal tau)
-        : myType(vtype), myAccel(accel), myDecel(decel), myTau(tau) {
+MSCFModel::MSCFModel(const MSVehicleType* vtype, const SUMOReal accel,
+                     const SUMOReal decel, const SUMOReal headwayTime)
+        : myType(vtype), myAccel(accel), myDecel(decel), myHeadwayTime(headwayTime) {
 }
 
 
@@ -68,8 +69,8 @@ MSCFModel::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
     // i.e that with this gap there will be no interaction.
     const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
     const SUMOReal gap = (vNext - vL) *
-                   ((veh->getSpeed() + vL) / (2.*myDecel) + myTau) +
-                   vL * myTau;
+                   ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
+                   vL * myHeadwayTime;
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));
@@ -100,7 +101,7 @@ MSCFModel::brakeGap(SUMOReal speed) const {
        for small values of steps (up to 10 maybe) and store them in an array */
     const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
     const int steps = int(speed / speedReduction);
-    return SPEED2DIST(steps * speed - speedReduction * steps *(steps+1) / 2) + speed * getTau();
+    return SPEED2DIST(steps * speed - speedReduction * steps *(steps+1) / 2) + speed * myHeadwayTime;
 }
 
 

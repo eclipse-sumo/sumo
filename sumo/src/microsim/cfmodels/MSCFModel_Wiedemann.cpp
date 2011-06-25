@@ -55,14 +55,23 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
     MSCFModel(vtype, accel, decel, 1.0),
     mySecurity(security),
     myEstimation(estimation),
-    myAX(vtype->getLength() + 1 + 2 * security),
-    myCX(25 * (1 + security + estimation)),
+    myAX(vtype->getLength() + 1. + 2. * security),
+    myCX(25. * (1. + security + estimation)),
     myMinAccel(0.2 * myAccel) // +noise?
 {
 }
 
 
 MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
+
+
+SUMOReal
+MSCFModel_Wiedemann::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
+    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+    vars->accelSign = vNext > veh->getSpeed() ? 1. : -1.;
+    return vNext;
+}
 
 
 SUMOReal
@@ -76,7 +85,7 @@ MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
-     * does a lousy jop of closing in on a stop / junction
+     * does a lousy job of closing in on a stop / junction
      * hence we borrow from Krauss here
      */
     return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(krauss_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
@@ -98,7 +107,7 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const {
 
 SUMOReal 
 MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
-    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+    const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const SUMOReal dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const SUMOReal v = veh->getSpeed();
     const SUMOReal vpref = veh->getMaxSpeed();
@@ -131,7 +140,6 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) 
     }
     // since we have hard constrainst on accel we may as well use them here
     accel = MAX2(MIN2(accel, myAccel), -myDecel);
-    vars->accelSign = accel > 0 ? 1 : -1;
     const SUMOReal vNew = MAX2(SUMOReal(0), v + ACCEL2SPEED(accel)); // don't allow negative speeds
     return vNew; 
 }
@@ -188,7 +196,7 @@ MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    const SUMOReal tauDecel = myDecel * getTau();
+    const SUMOReal tauDecel = myDecel * myHeadwayTime;
     const SUMOReal speedReduction = ACCEL2SPEED(myDecel); 
     const int predSteps = int(predSpeed / speedReduction);
     const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));

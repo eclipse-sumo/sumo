@@ -892,7 +892,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             } else {
                 if (last->signalSet(VEH_SIGNAL_BRAKELIGHT)) {
                     SUMOReal lastBrakeGap = last->getCarFollowModel().brakeGap(approachedLane->getLastVehicle()->getSpeed());
-                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getTau();
+                    SUMOReal lastGap = last->getPositionOnLane() - last->getVehicleType().getLengthWithGap() + lastBrakeGap - last->getSpeed()*last->getCarFollowModel().getHeadwayTime();
                     SUMOReal m = MAX2(seenSpace, seenSpace + lastGap);
                     availableSpace.push_back(m);
                     seenSpace = seenSpace + getSpaceTillLastStanding(approachedLane, foundStopped);// - approachedLane->getVehLenSum() + approachedLane->getLength();
@@ -1115,7 +1115,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         setRequest |= ((*link)->getState()!=LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
         bool yellow = (*link)->getState()==LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState()==LINKSTATE_TL_RED;
-        if ((yellow||red)&&seen>cfModel.brakeGap(myState.mySpeed)-SPEED2DIST(myState.mySpeed)*cfModel.getTau()) { // !!! we should reuse brakeGap with no reaction time...
+        if ((yellow||red)&&seen>cfModel.brakeGap(myState.mySpeed)-SPEED2DIST(myState.mySpeed)*cfModel.getHeadwayTime()) { // !!! we should reuse brakeGap with no reaction time...
             vLinkPass = vLinkWait;
             setRequest = false;
             assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));

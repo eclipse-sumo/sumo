@@ -28,7 +28,7 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSCFModel.h>
+#include "MSCFModel_KraussOrig1.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -39,15 +39,15 @@
  * @brief Krauss car-following model, with acceleration decrease and faster start
  * @see MSCFModel
  */
-class MSCFModel_Krauss : public MSCFModel {
+class MSCFModel_Krauss : public MSCFModel_KraussOrig1 {
 public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
      * @param[in] dawdle The driver imperfection
-     * @param[in] tau The driver's reaction time
+     * @param[in] headwayTime The driver's reaction time
      */
-    MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal tau);
+    MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal dawdle, SUMOReal headwayTime);
 
 
     /// @brief Destructor
@@ -56,14 +56,6 @@ public:
 
     /// @name Implementations of the MSCFModel interface
     /// @{
-
-    /** @brief Applies interaction with stops and lane changing model influences
-     * @param[in] veh The ego vehicle
-     * @param[in] vPos The possible velocity
-     * @return The velocity after applying interactions with stops and lane change model influences
-     */
-    SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const;
-
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
@@ -106,47 +98,7 @@ public:
     int getModelID() const {
         return SUMO_TAG_CF_KRAUSS;
     }
-
-
-    /** @brief Get the driver's imperfection
-     * @return The imperfection of drivers of this class
-     */
-    SUMOReal getImperfection() const {
-        return myDawdle;
-    }
     /// @}
-
-
-
-    /// @name Setter methods
-    /// @{
-    /** @brief Sets a new value for maximum deceleration [m/s^2]
-     * @param[in] accel The new deceleration in m/s^2
-     */
-    void setMaxDecel(SUMOReal decel) {
-        myDecel = decel;
-        myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
-        myTauDecel = myDecel*myTau;
-    }
-
-
-    /** @brief Sets a new value for driver imperfection
-     * @param[in] accel The new driver imperfection
-     */
-    void setImperfection(SUMOReal imperfection) {
-        myDawdle = imperfection;
-    }
-
-
-    /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] accel The new driver reaction time (in s)
-     */
-    void setTau(SUMOReal tau) {
-        myTau = tau;
-        myTauDecel = myDecel*myTau;
-    }
-    /// @}
-
 
 
     /** @brief Duplicates the car-following model
@@ -170,16 +122,6 @@ private:
      * @return The speed after dawdling
      */
     SUMOReal dawdle(SUMOReal speed) const;
-
-private:
-    /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
-    SUMOReal myDawdle;
-
-    /// @brief The precomputed value for myDecel*myTau
-    SUMOReal myTauDecel;
-
-    /// @brief The precomputed value for 1/(2*myDecel)
-    SUMOReal myInverseTwoDecel;
 };
 
 #endif	/* MSCFMODEL_KRAUSS_H */

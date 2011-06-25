@@ -119,7 +119,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType 
         break;
     case VAR_TAU:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-        tempMsg.writeDouble(v.getCarFollowModel().getTau());
+        tempMsg.writeDouble(v.getCarFollowModel().getHeadwayTime());
         break;
     case VAR_SPEED_FACTOR:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -303,10 +303,10 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
     break;
     case VAR_TAU: {
         if (valueDataType!=TYPE_DOUBLE) {
-            server.writeStatusCmd(cmd, RTYPE_ERR, "Setting reaction time requires a double.", outputStorage);
+            server.writeStatusCmd(cmd, RTYPE_ERR, "Setting headway time requires a double.", outputStorage);
             return false;
         }
-        v.getCarFollowModel().setTau(inputStorage.readDouble());
+        v.getCarFollowModel().setHeadwayTime(inputStorage.readDouble());
     }
     break;
     case VAR_COLOR: {

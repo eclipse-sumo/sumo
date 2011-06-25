@@ -39,9 +39,20 @@
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel,
-                             SUMOReal tau, SUMOReal delta,
+                             SUMOReal headwayTime, SUMOReal delta,
                              SUMOReal internalStepping)
-        : MSCFModel(vtype, accel, decel, tau), myDelta(delta),
+        : MSCFModel(vtype, accel, decel, headwayTime), myDelta(delta),
+        myAdaptationFactor(1.), myAdaptationTime(0.), myExpFactor(0),
+        myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
+}
+
+
+MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
+                             SUMOReal accel, SUMOReal decel, SUMOReal headwayTime,
+                             SUMOReal adaptationFactor, SUMOReal adaptationTime,
+                             SUMOReal internalStepping)
+        : MSCFModel(vtype, accel, decel, headwayTime), myDelta(4.),
+        myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime), myExpFactor(exp(-TS/adaptationTime)),
         myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
 }
 
@@ -50,8 +61,20 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 SUMOReal
+MSCFModel_IDM::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
+    if (myExpFactor > 0.) {
+        VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+        vars->levelOfService *= myExpFactor;
+        vars->levelOfService += vNext/desiredSpeed(veh) * myAdaptationTime * (1. - myExpFactor);
+    }
+    return vNext;
+}
+
+
+SUMOReal
 MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
-    return _updateSpeed(gap2pred, speed, predSpeed, desiredSpeed(veh));
+    return _v(veh, gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
 
@@ -60,7 +83,7 @@ MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const {
     if (gap2pred<0.01) {
         return 0;
     }
-    return _updateSpeed(gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
+    return _v(veh, gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
 }
 
 
@@ -80,14 +103,19 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
 
  
 SUMOReal
-MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
+MSCFModel_IDM::_v(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
     gap2pred += myType->getMinGap();
+    SUMOReal headwayTime = myHeadwayTime;
+    if (myExpFactor > 0.) {
+        const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+        headwayTime *= myAdaptationFactor + vars->levelOfService*(1.-myAdaptationFactor);
+    }
     for (int i = 0; i < myIterations; i++) {
         const SUMOReal delta_v = egoSpeed - predSpeed;
-        const SUMOReal s = myType->getMinGap() + MAX2(SUMOReal(0), egoSpeed*myTau + egoSpeed*delta_v/myTwoSqrtAccelDecel);
+        const SUMOReal s = myType->getMinGap() + MAX2(SUMOReal(0), egoSpeed*headwayTime + egoSpeed*delta_v/myTwoSqrtAccelDecel);
         const SUMOReal acc = myAccel * (1. - pow(egoSpeed / desSpeed, myDelta) - (s*s)/(gap2pred*gap2pred));
         egoSpeed += ACCEL2SPEED(acc)/myIterations;
-        gap2pred -= SPEED2DIST(egoSpeed)/myIterations;
+        gap2pred -= MAX2(SUMOReal(0), SPEED2DIST(egoSpeed - predSpeed)/myIterations);
     }
     return MAX2(SUMOReal(0), egoSpeed);
 }
@@ -95,5 +123,5 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predS
 
 MSCFModel *
 MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const {
-    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTau, myDelta, TS/myIterations);
+    return new MSCFModel_IDM(vtype, myAccel, myDecel, myHeadwayTime, myDelta, TS/myIterations);
 }

@@ -38,29 +38,12 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                                   SUMOReal dawdle, SUMOReal tau)
-        : MSCFModel(vtype, accel, decel, tau), myDawdle(dawdle), myTauDecel(decel*tau),
-          myInverseTwoDecel(SUMOReal(1./(2.*decel))) {
+                                   SUMOReal dawdle, SUMOReal headwayTime)
+        : MSCFModel_KraussOrig1(vtype, accel, decel, dawdle, headwayTime) {
 }
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
-
-
-SUMOReal
-MSCFModel_Krauss::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
-    const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
-    const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-    const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
-    const SUMOReal vMax = MIN3(veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
-    assert(vMin<=vMax);
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
-}
 
 
 SUMOReal
@@ -107,7 +90,7 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
 
 MSCFModel *
 MSCFModel_Krauss::duplicate(const MSVehicleType *vtype) const {
-    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myDawdle, myTau);
+    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }
 
 

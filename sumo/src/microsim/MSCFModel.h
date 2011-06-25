@@ -61,7 +61,7 @@ public:
     /** @brief Constructor
      *  @param[in] rvtype a reference to the corresponding vtype
      */
-    MSCFModel(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal tau);
+    MSCFModel(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal headwayTime);
 
 
     /// @brief Destructor
@@ -185,8 +185,8 @@ public:
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
      */
-    virtual SUMOReal getTau() const {
-        return myTau;
+    virtual SUMOReal getHeadwayTime() const {
+        return myHeadwayTime;
     }
     /// @}
 
@@ -276,10 +276,10 @@ public:
 
 
     /** @brief Sets a new value for driver reaction time [s]
-     * @param[in] accel The new driver reaction time (in s)
+     * @param[in] headwayTime The new driver reaction time (in s)
      */
-    virtual void setTau(SUMOReal tau) {
-        myTau = tau;
+    virtual void setHeadwayTime(SUMOReal headwayTime) {
+        myHeadwayTime = headwayTime;
     }
     /// @}
 
@@ -294,8 +294,8 @@ protected:
     /// @brief The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
 
-    /// @brief The driver's desired time headway (aka reaction time) [s]
-    SUMOReal myTau;
+    /// @brief The driver's desired time headway (aka reaction time tau) [s]
+    SUMOReal myHeadwayTime;
 };
 
 
