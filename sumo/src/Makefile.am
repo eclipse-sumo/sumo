@@ -55,8 +55,8 @@ sumo_LDADD   = ./netload/libnetload.a \
 $(MESO_LIBS) \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
-$(COMMON_LIBS) \
 $(TRACI_LIBS) \
+$(COMMON_LIBS) \
 $(PROJ_LIBS)
 
 

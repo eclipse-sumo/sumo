@@ -32,16 +32,17 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
+#include <utils/common/SUMOVehicleParameter.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
-#include <microsim/MSEdgeWeightsStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

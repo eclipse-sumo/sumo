@@ -32,11 +32,11 @@
 #include <version.h>
 #endif
 
-#include "TraCIConstants.h"
-#include "TraCIServer.h"
-
 #ifndef NO_TRACI
 
+#include <string>
+#include <map>
+#include <iostream>
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
 #include <utils/common/SUMOTime.h>
@@ -44,6 +44,9 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
+#include <utils/common/SUMOVehicleParameter.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/shapes/Polygon.h>
@@ -54,7 +57,12 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSEdgeControl.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include "TraCIConstants.h"
+#include "TraCIServer.h"
 #include "TraCIServerAPI_InductionLoop.h"
 #include "TraCIServerAPI_Junction.h"
 #include "TraCIServerAPI_Lane.h"
@@ -67,18 +75,6 @@
 #include "TraCIServerAPI_Polygon.h"
 #include "TraCIServerAPI_Edge.h"
 #include "TraCIServerAPI_Simulation.h"
-
-
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSGlobals.h>
-
-#include <string>
-#include <map>
-#include <iostream>
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
-
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
