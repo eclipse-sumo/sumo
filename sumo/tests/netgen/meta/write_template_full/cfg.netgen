@@ -3,112 +3,112 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
     <grid_network>
-        <grid value="false" synonymes="g grid-net"/>
-        <grid.number value="5" synonymes="grid-number number"/>
-        <grid.length value="100" synonymes="grid-length length"/>
-        <grid.x-number value="5" synonymes="grid-x-number x-no"/>
-        <grid.y-number value="5" synonymes="grid-y-number y-no"/>
-        <grid.x-length value="100" synonymes="grid-x-length x-length"/>
-        <grid.y-length value="100" synonymes="grid-y-length y-length"/>
-        <grid.attach-length value="0" synonymes="attach-length"/>
+        <grid value="false" synonymes="g grid-net" type="BOOL" help="Forces NETGEN to build a grid-like network"/>
+        <grid.number value="5" synonymes="grid-number number" type="INT" help="The number of junctions in both dirs"/>
+        <grid.length value="100" synonymes="grid-length length" type="FLOAT" help="The length of streets in both dirs"/>
+        <grid.x-number value="5" synonymes="grid-x-number x-no" type="INT" help="The number of junctions in x-dir; Overrides --grid-number"/>
+        <grid.y-number value="5" synonymes="grid-y-number y-no" type="INT" help="The number of junctions in y-dir; Overrides --grid-number"/>
+        <grid.x-length value="100" synonymes="grid-x-length x-length" type="FLOAT" help="The length of horizontal streets; Overrides --grid-length"/>
+        <grid.y-length value="100" synonymes="grid-y-length y-length" type="FLOAT" help="The length of vertical streets; Overrides --grid-length"/>
+        <grid.attach-length value="0" synonymes="attach-length" type="FLOAT" help="The length of streets attached at the boundary; 0 means no streets are attached"/>
     </grid_network>
 
     <spider_network>
-        <spider value="false" synonymes="s spider-net"/>
-        <spider.arm-number value="13" synonymes="arms spider-arm-number"/>
-        <spider.circle-number value="20" synonymes="circles spider-circle-number"/>
-        <spider.space-radius value="100" synonymes="radius spider-space-rad"/>
-        <spider.omit-center value="false" synonymes="nocenter spider-omit-center"/>
+        <spider value="false" synonymes="s spider-net" type="BOOL" help="Forces NETGEN to build a spider-net-like network"/>
+        <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
+        <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
+        <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT" help="The distances between the circles"/>
+        <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL" help="Omit the central node of the network"/>
     </spider_network>
 
     <random_network>
-        <rand value="false" synonymes="r random-net"/>
-        <rand.iterations value="2000" synonymes="iterations rand-iterations"/>
-        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability"/>
-        <rand.max-distance value="250" synonymes="max-dist rand-max-distance"/>
-        <rand.min-distance value="100" synonymes="min-dist rand-min-distance"/>
-        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee"/>
-        <rand.num-tries value="50" synonymes="num-tries rand-num-tries"/>
-        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity"/>
-        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1"/>
-        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2"/>
-        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3"/>
-        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4"/>
-        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5"/>
-        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6"/>
+        <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
+        <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
+        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
+        <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help=""/>
+        <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help=""/>
+        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT" help=""/>
+        <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT" help=""/>
+        <rand.connectivity value="0.95" synonymes="connectivity rand-connectivity" type="FLOAT" help=""/>
+        <rand.neighbor-dist1 value="0" synonymes="dist1 rand-neighbor-dist1" type="FLOAT" help=""/>
+        <rand.neighbor-dist2 value="0" synonymes="dist2 rand-neighbor-dist2" type="FLOAT" help=""/>
+        <rand.neighbor-dist3 value="10" synonymes="dist3 rand-neighbor-dist3" type="FLOAT" help=""/>
+        <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help=""/>
+        <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help=""/>
+        <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help=""/>
     </random_network>
 
     <output>
-        <output-file value="" synonymes="o output sumo-output"/>
-        <plain-output-prefix value="" synonymes="plain-output"/>
-        <map-output value="" synonymes="M"/>
-        <matsim-output value=""/>
-        <output.no-names value="false"/>
+        <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
+        <plain-output-prefix value="" synonymes="plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
+        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSIM format."/>
+        <output.no-names value="false" type="BOOL" help="Edge names will not be included in the output."/>
     </output>
 
     <tls_building>
-        <tls.set value="" synonymes="explicite-tls"/>
-        <tls.unset value="" synonymes="explicite-no-tls"/>
-        <tls.guess value="false" synonymes="guess-tls"/>
-        <tls-guess.joining value="false"/>
-        <tls.join value="false" synonymes="try-join-tls"/>
-        <tls.green.time value="31" synonymes="traffic-light-green"/>
-        <tls.yellow.min-decel value="3" synonymes="D min-decel"/>
-        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow"/>
-        <tls.yellow.time value="" synonymes="traffic-light-yellow"/>
-        <tls.half-offset value="" synonymes="tl-logics.half-offset"/>
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset"/>
+        <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
+        <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
+        <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
+        <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
+        <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
+        <tls.green.time value="31" synonymes="traffic-light-green" type="INT" help="Use INT as green phase duration"/>
+        <tls.yellow.min-decel value="3" synonymes="D min-decel" type="FLOAT" help="Defines smallest vehicle deceleration"/>
+        <tls.yellow.patch-small value="false" synonymes="patch-small-tyellow" type="BOOL" help="Given yellow times are patched even if being too short"/>
+        <tls.yellow.time value="" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
     </tls_building>
 
     <edge_removal>
-        <keep-edges.min-speed value="" synonymes="edges-min-speed"/>
-        <remove-edges.explicit value="" synonymes="remove-edges"/>
-        <keep-edges.explicit value="" synonymes="keep-edges"/>
-        <keep-edges.input-file value=""/>
-        <keep-edges.in-boundary value=""/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Remove edges with speed < FLOAT"/>
+        <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Remove edges not in STR"/>
+        <keep-edges.input-file value="" type="FILE" help="Removed edges not in FILE"/>
+        <keep-edges.in-boundary value="" type="STR" help="Keeps edges which are located within the given boundary"/>
     </edge_removal>
 
     <unregulated_nodes>
-        <keep-nodes-unregulated value="false" synonymes="keep-unregulated"/>
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes"/>
-        <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes"/>
+        <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL" help="All nodes will be not regulated"/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR" help="Do not regulate nodes in STR"/>
+        <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL" help="Do not regulate district nodes"/>
     </unregulated_nodes>
 
     <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="false"/>
-        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds"/>
-        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions"/>
-        <offset.x value="0" synonymes="x-offset-to-apply"/>
-        <offset.y value="0" synonymes="y-offset-to-apply"/>
-        <flip-y-axis value="false" synonymes="flip-y"/>
-        <roundabouts.guess value="false" synonymes="guess-roundabouts"/>
-        <lefthand value="false"/>
-        <junctions.join value="false"/>
-        <junctions.join-dist value="15"/>
+        <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
+        <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
+        <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
+        <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
+        <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
+        <junctions.join-dist value="15" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 15)"/>
     </processing>
 
     <building_defaults>
-        <default.lanenumber value="1" synonymes="L lanenumber"/>
-        <default.speed value="13.9" synonymes="S speed"/>
-        <default.priority value="-1" synonymes="P priority"/>
-        <default-junction-type value="" synonymes="j junctions"/>
+        <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
+        <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
+        <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left] Determines the type of the build junctions"/>
     </building_defaults>
 
     <report>
-        <verbose value="false" synonymes="v"/>
-        <print-options value="false" synonymes="p"/>
-        <help value="false" synonymes="?"/>
-        <version value="false" synonymes="V"/>
-        <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log value="" synonymes="l log-file"/>
-        <message-log value=""/>
-        <error-log value=""/>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
     </report>
 
     <random_number>
-        <random value="false" synonymes="abs-rand"/>
-        <seed value="23423" synonymes="srand"/>
+        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
 </configuration>

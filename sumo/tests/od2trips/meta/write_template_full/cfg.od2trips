@@ -3,53 +3,53 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
 
     <input>
-        <net-file value="" synonymes="n net"/>
-        <od-matrix-files value="" synonymes="d od od-files"/>
+        <net-file value="" synonymes="n net" type="FILE" help="Loads network (districts) from FILE"/>
+        <od-matrix-files value="" synonymes="d od od-files" type="FILE" help="Loads O/D-files from FILE(s)"/>
     </input>
 
     <output>
-        <output-file value="" synonymes="o output"/>
-        <ignore-vehicle-type value="false" synonymes="no-vtype"/>
+        <output-file value="" synonymes="o output" type="FILE" help="Writes trip definitions into FILE"/>
+        <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
     </output>
 
     <time>
-        <begin value="0" synonymes="b"/>
-        <end value="2147483" synonymes="e"/>
+        <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous trips will be discarded"/>
+        <end value="2147483" synonymes="e" type="TIME" help="Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"/>
     </time>
 
     <processing>
-        <scale value="1" synonymes="s"/>
-        <spread.uniform value="false"/>
-        <vtype value=""/>
-        <prefix value=""/>
-        <timeline value=""/>
-        <timeline.day-in-hours value="false"/>
-        <dismiss-loading-errors value="false"/>
+        <scale value="1" synonymes="s" type="FLOAT" help="Scales the loaded flows by FLOAT"/>
+        <spread.uniform value="false" type="BOOL" help="Spreads trips uniformly over each time period"/>
+        <vtype value="" type="STR" help="Defines the name of the vehicle type to use"/>
+        <prefix value="" type="STR" help="Defines the prefix for vehicle names"/>
+        <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
+        <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
+        <dismiss-loading-errors value="false" type="BOOL" help="Continue on broken input"/>
     </processing>
 
     <defaults>
-        <departlane value="free"/>
-        <departpos value=""/>
-        <departspeed value="max"/>
-        <arrivallane value=""/>
-        <arrivalpos value=""/>
-        <arrivalspeed value=""/>
+        <departlane value="free" type="STR" help="Assigns a default depart lane"/>
+        <departpos value="" type="STR" help="Assigns a default depart position"/>
+        <departspeed value="max" type="STR" help="Assigns a default depart speed"/>
+        <arrivallane value="" type="STR" help="Assigns a default arrival lane"/>
+        <arrivalpos value="" type="STR" help="Assigns a default arrival position"/>
+        <arrivalspeed value="" type="STR" help="Assigns a default arrival speed"/>
     </defaults>
 
     <report>
-        <verbose value="false" synonymes="v"/>
-        <print-options value="false" synonymes="p"/>
-        <help value="false" synonymes="?"/>
-        <version value="false" synonymes="V"/>
-        <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log value="" synonymes="l log-file"/>
-        <message-log value=""/>
-        <error-log value=""/>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
     </report>
 
     <random_number>
-        <random value="false" synonymes="abs-rand"/>
-        <seed value="23423" synonymes="srand"/>
+        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
 </configuration>

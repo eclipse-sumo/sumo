@@ -3,70 +3,70 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/dfrouterConfiguration.xsd">
 
     <input>
-        <net-file value="" synonymes="n net"/>
-        <detector-files value="" synonymes="d detectors"/>
-        <measure-files value="" synonymes="detector-flow-files detflows f"/>
+        <net-file value="" synonymes="n net" type="FILE" help="Loads the SUMO-network FILE"/>
+        <detector-files value="" synonymes="d detectors" type="FILE" help="Loads detector descriptions from FILE"/>
+        <measure-files value="" synonymes="detector-flow-files detflows f" type="FILE" help="Loads detector flows from FILE(s)"/>
     </input>
 
     <output>
-        <routes-output value="" synonymes="o"/>
-        <routes-for-all value="false"/>
-        <detector-output value="" synonymes="detectors-output"/>
-        <detectors-poi-output value=""/>
-        <emitters-output value=""/>
-        <emitters-poi-output value=""/>
-        <variable-speed-sign-output value="" synonymes="speed-trigger-output"/>
-        <end-reroute-output value=""/>
-        <validation-output value=""/>
-        <validation-output.add-sources value="false"/>
+        <routes-output value="" synonymes="o" type="FILE" help="Saves computed routes to FILE"/>
+        <routes-for-all value="false" type="BOOL" help="Forces DFROUTER to compute routes for in-between detectors"/>
+        <detector-output value="" synonymes="detectors-output" type="FILE" help="Saves typed detectors to FILE"/>
+        <detectors-poi-output value="" type="FILE" help="Saves detector positions as pois to FILE"/>
+        <emitters-output value="" type="FILE" help="Saves emitter definitions for source detectors to FILE"/>
+        <emitters-poi-output value="" type="FILE" help="Saves emitter positions as pois to FILE"/>
+        <variable-speed-sign-output value="" synonymes="speed-trigger-output" type="FILE" help="Saves variable seed sign definitions for sink detectors to FILE"/>
+        <end-reroute-output value="" type="FILE" help="Saves rerouter definitions for sink detectors to FILE"/>
+        <validation-output value="" type="FILE" help=""/>
+        <validation-output.add-sources value="false" type="BOOL" help=""/>
     </output>
 
     <processing>
-        <guess-empty-flows value="false"/>
-        <highway-mode value="false" synonymes="h"/>
-        <ignore-invalid-detectors value="false"/>
-        <revalidate-detectors value="false"/>
-        <revalidate-routes value="false"/>
-        <all-end-follower value="false"/>
-        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends"/>
-        <keep-longer-routes value="false"/>
-        <max-search-depth value="30" synonymes="max-nodet-follower"/>
-        <emissions-only value="false"/>
-        <disallowed-edges value=""/>
-        <keep-turnarounds value="false"/>
-        <min-route-length value="-1" synonymes="min-dist min-distance"/>
-        <time-factor value="60"/>
-        <time-offset value="0"/>
-        <time-step value="60"/>
-        <calibrator-output value="false" synonymes="write-calibrators"/>
-        <include-unused-routes value="false"/>
-        <revalidate-flows value="false"/>
-        <remove-empty-detectors value="false"/>
-        <strict-sources value="false"/>
-        <scale value="1"/>
+        <guess-empty-flows value="false" type="BOOL" help=""/>
+        <highway-mode value="false" synonymes="h" type="BOOL" help="Switches to highway-mode"/>
+        <ignore-invalid-detectors value="false" type="BOOL" help="Only warn about unparseable detectors"/>
+        <revalidate-detectors value="false" type="BOOL" help="Recomputes detector types even if given"/>
+        <revalidate-routes value="false" type="BOOL" help="Recomputes routes even if given"/>
+        <all-end-follower value="false" type="BOOL" help="Continues routes till the first street after a sink"/>
+        <keep-unfinished-routes value="false" synonymes="keep-unfound-ends" type="BOOL" help="Keeps routes even if they have exhausted max-search-depth"/>
+        <keep-longer-routes value="false" type="BOOL" help="Keeps routes even if a shorter one exists"/>
+        <max-search-depth value="30" synonymes="max-nodet-follower" type="INT" help="Number of edges to follow a route without passing a detector"/>
+        <emissions-only value="false" type="BOOL" help="Writes only emission times"/>
+        <disallowed-edges value="" type="STR" help="Do not route on these edges"/>
+        <keep-turnarounds value="false" type="BOOL" help="Allow turnarounds as route continuations"/>
+        <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT" help="Minimum distance in meters between start and end node of every route."/>
+        <time-factor value="60" type="TIME" help="Multiply flow times with TIME to get seconds"/>
+        <time-offset value="0" type="TIME" help="Subtracts TIME seconds from (scaled) flow times"/>
+        <time-step value="60" type="TIME" help="Expected distance between two successive data sets"/>
+        <calibrator-output value="false" synonymes="write-calibrators" type="BOOL" help="Write calibrators to FILE"/>
+        <include-unused-routes value="false" type="BOOL" help=""/>
+        <revalidate-flows value="false" type="BOOL" help=""/>
+        <remove-empty-detectors value="false" type="BOOL" help="Removes empty detectors from the list"/>
+        <strict-sources value="false" type="BOOL" help=""/>
+        <scale value="1" type="FLOAT" help="Scale factor for flows"/>
     </processing>
 
     <time>
-        <begin value="0" synonymes="b"/>
-        <end value="86400" synonymes="e"/>
+        <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; Previous defs will be discarded"/>
+        <end value="86400" synonymes="e" type="TIME" help="Defines the end time; Later defs will be discarded; Defaults to one day"/>
     </time>
 
     <report>
-        <verbose value="false" synonymes="v"/>
-        <print-options value="false" synonymes="p"/>
-        <help value="false" synonymes="?"/>
-        <version value="false" synonymes="V"/>
-        <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log value="" synonymes="l log-file"/>
-        <message-log value=""/>
-        <error-log value=""/>
-        <report-empty-detectors value="false"/>
-        <print-absolute-flows value="false"/>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <report-empty-detectors value="false" type="BOOL" help="Lists detectors with no flow (enable -v)"/>
+        <print-absolute-flows value="false" type="BOOL" help="Prints aggregated detector flows"/>
     </report>
 
     <random_number>
-        <random value="false" synonymes="abs-rand"/>
-        <seed value="23423" synonymes="srand"/>
+        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
 </configuration>
