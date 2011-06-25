@@ -47,11 +47,11 @@ public:
      * @param[in] dawdle The driver imperfection
      * @param[in] tau The driver's reaction time
      */
-    MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi) throw();
+    MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi);
 
 
     /// @brief Destructor
-    ~MSCFModel_Kerner() throw();
+    ~MSCFModel_Kerner();
 
 
     /// @name Implementations of the MSCFModel interface
@@ -65,7 +65,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -75,56 +75,15 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
-
-
-    /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
-     *
-     * "interaction" means that the LEADER influences EGO's speed.
-     * @param[in] veh The EGO vehicle
-     * @param[in] vL LEADER's speed
-     * @return The interaction gap
-     * @see MSCFModel::interactionGap
-     * @todo evaluate signature
-     */
-    SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw();
-
-
-    /** @brief Get the vehicle's maximum acceleration [m/s^2]
-     *
-     * As some models describe that a vehicle is accelerating slower the higher its
-     *  speed is, the velocity is given.
-     *
-     * @param[in] v The vehicle's velocity
-     * @return The maximum acceleration
-     */
-    SUMOReal getMaxAccel(SUMOReal v) const throw() {
-        UNUSED_PARAMETER(v);
-        return myAccel;
-    }
+    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
      */
-    int getModelID() const throw() {
+    int getModelID() const {
         return SUMO_TAG_CF_BKERNER;
-    }
-
-
-    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
-     * @return The maximum acceleration (in m/s^2) of vehicles of this class
-     */
-    SUMOReal getMaxAccel() const throw() {
-        return myAccel;
-    }
-
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
-     */
-    SUMOReal getTau() const throw() {
-        return myTau;
     }
     /// @}
 
@@ -134,7 +93,7 @@ public:
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
+    MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 
 private:
@@ -143,24 +102,17 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const throw();
+    SUMOReal _v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const;
 
 
 
 private:
     /// @name model parameter
     /// @{
-
-    /// @brief The vehicle's maximum acceleration [m/s^2]
-    SUMOReal myAccel;
-
-    /// @brief The driver's reaction time [s]
-    SUMOReal myTau;
-
-    /// @brief The driver's reaction time [s]
+    /// @brief Kerner's k
     SUMOReal myK;
 
-    /// @brief The driver's reaction time [s]
+    /// @brief Kerner's phi
     SUMOReal myPhi;
 
     /// @brief The precomputed value for myDecel*myTau

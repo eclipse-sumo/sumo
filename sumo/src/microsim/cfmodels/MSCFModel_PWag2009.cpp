@@ -37,45 +37,30 @@
 // method definitions
 // ===========================================================================
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
-                                       SUMOReal dawdle, SUMOReal tau, SUMOReal tauLast, SUMOReal apProb) throw()
-        : MSCFModel(vtype, decel), myAccel(accel), myDawdle(dawdle), myTau(tau),
+                                       SUMOReal dawdle, SUMOReal tau, SUMOReal tauLast, SUMOReal apProb)
+        : MSCFModel(vtype, accel, decel, tau), myDawdle(dawdle),
           myTauDecel(decel * tau), myDecelDivTau(decel / tau), myTauLastDecel(decel * tauLast),
           myActionPointProbability(apProb) {
 }
 
 
-MSCFModel_PWag2009::~MSCFModel_PWag2009() throw() {}
+MSCFModel_PWag2009::~MSCFModel_PWag2009() {}
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
     return _v(veh, speed, gap, predSpeed);
 }
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+MSCFModel_PWag2009::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
     return _v(veh, veh->getSpeed(), gap, 0);
 }
 
 
 SUMOReal
-MSCFModel_PWag2009::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
-    // Resolve the vsafe equation to gap. Assume predecessor has
-    // speed != 0 and that vsafe will be the current speed plus acceleration,
-    // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
-    SUMOReal gap = (vNext - vL) *
-                   ((veh->getSpeed() + vL) * myInverseTwoDecel + myTau) +
-                   vL * myTau;
-
-    // Don't allow timeHeadWay < deltaT situations.
-    return MAX2(gap, SPEED2DIST(vNext));
-}
-
-
-SUMOReal
-MSCFModel_PWag2009::dawdle(SUMOReal speed) const throw() {
+MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
     return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
 }
 
@@ -84,7 +69,7 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const throw() {
 // more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
 // seen so far in data ... 
 SUMOReal
-MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
@@ -108,6 +93,6 @@ MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap
 
 
 MSCFModel *
-MSCFModel_PWag2009::duplicate(const MSVehicleType *vtype) const throw() {
+MSCFModel_PWag2009::duplicate(const MSVehicleType *vtype) const {
     return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myTau, myTauLastDecel/myDecel, myActionPointProbability);
 }

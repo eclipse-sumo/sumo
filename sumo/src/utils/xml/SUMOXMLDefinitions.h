@@ -319,8 +319,6 @@ enum SumoXMLAttr {
     /* Car following model attributes */
     SUMO_ATTR_SIGMA,    // used by: Krauss
     SUMO_ATTR_TAU,      // Krauss
-    SUMO_ATTR_MINIMUM_DISTANCE, // IDM
-    SUMO_ATTR_TIME_HEADWAY_GAP, // IDM
     /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
@@ -475,8 +473,8 @@ enum SumoXMLAttr {
 
     SUMO_ATTR_CF_PWAGNER2009_TAULAST,
     SUMO_ATTR_CF_PWAGNER2009_APPROB,
-    SUMO_ATTR_CF_IDM_TIMEHEADWAY,
-    //SUMO_ATTR_CF_KERNER_K,
+    SUMO_ATTR_CF_IDM_DELTA,
+    SUMO_ATTR_CF_IDM_STEPPING,
     SUMO_ATTR_CF_KERNER_PHI,
     SUMO_ATTR_CF_WIEDEMANN_SECURITY,
     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,

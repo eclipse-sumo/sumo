@@ -35,64 +35,44 @@
 
 
 // ===========================================================================
-// definitions
-// ===========================================================================
-#define DELTA_IDM 4.0
-#define TS_IDM .1
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel,
-                             SUMOReal timeHeadWay, SUMOReal tau) throw()
-        : MSCFModel(vtype, decel),
-        myAccel(accel), myTimeHeadWay(timeHeadWay), myTau(tau),
-        myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, (int)(TS/TS_IDM+.5))) {
+                             SUMOReal tau, SUMOReal delta,
+                             SUMOReal internalStepping)
+        : MSCFModel(vtype, accel, decel, tau), myDelta(delta),
+        myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
 }
 
 
-MSCFModel_IDM::~MSCFModel_IDM() throw() {}
+MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 SUMOReal
-MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
     return _updateSpeed(gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
 
 SUMOReal
-MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
+MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const {
     if (gap2pred<0.01) {
         return 0;
     }
-    const SUMOReal tauDecel = myDecel * getTau();
-    return (SUMOReal)(-tauDecel + sqrt(tauDecel*tauDecel + 2. * myDecel * gap2pred));
-
     return _updateSpeed(gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
-    SUMOReal egoSpeed = veh->getSpeed();
-    for (int i = 0; i < myIterations; i++) {
-        const SUMOReal s_star = egoSpeed*myTimeHeadWay + egoSpeed*egoSpeed/myTwoSqrtAccelDecel;
-        const SUMOReal acc = myAccel * (1. - pow((double)(egoSpeed/desiredSpeed(veh)), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
-        egoSpeed += ACCEL2SPEED(acc)/myIterations;
-//        gap2pred -= SPEED2DIST(egoSpeed)/myIterations;
-    }
-    return MAX3(SUMOReal(0), egoSpeed-ACCEL2SPEED(myDecel), egoSpeed);
 }
 
 
-/// @todo update logic to IDM
+/// @todo update interactionGap logic to IDM
 SUMOReal
-MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
+MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal acc = myAccel * (1. - pow((double)(veh->getSpeed()/desiredSpeed(veh)), (double) DELTA_IDM));
+    SUMOReal acc = myAccel * (1. - pow(veh->getSpeed()/desiredSpeed(veh), myDelta));
     SUMOReal vNext = veh->getSpeed() + acc;
-    SUMOReal gap = (vNext - vL) *
-                   ((veh->getSpeed() + vL) * myInverseTwoDecel) +
-                   vL * 1;
+    SUMOReal gap = (vNext - vL) * (veh->getSpeed() + vL) / (2*myDecel) + vL;
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));
@@ -100,19 +80,20 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
 
  
 SUMOReal
-MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw() {
-//    for (int i = 0; i < myIterations; i++) {
+MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
+    gap2pred += myType->getMinGap();
+    for (int i = 0; i < myIterations; i++) {
         const SUMOReal delta_v = egoSpeed - predSpeed;
-        const SUMOReal s_star = myType->getMinGap() + MAX2(SUMOReal(0), egoSpeed*myTimeHeadWay + egoSpeed*delta_v/myTwoSqrtAccelDecel);
-        const SUMOReal acc = myAccel * (1. - pow((double)(egoSpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
-        egoSpeed += ACCEL2SPEED(acc);// /myIterations;
-//        gap2pred -= SPEED2DIST(egoSpeed)/myIterations;
-//    }
+        const SUMOReal s = myType->getMinGap() + MAX2(SUMOReal(0), egoSpeed*myTau + egoSpeed*delta_v/myTwoSqrtAccelDecel);
+        const SUMOReal acc = myAccel * (1. - pow(egoSpeed / desSpeed, myDelta) - (s*s)/(gap2pred*gap2pred));
+        egoSpeed += ACCEL2SPEED(acc)/myIterations;
+        gap2pred -= SPEED2DIST(egoSpeed)/myIterations;
+    }
     return MAX2(SUMOReal(0), egoSpeed);
 }
 
 
 MSCFModel *
-MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const throw() {
-    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTimeHeadWay, myTau);
+MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const {
+    return new MSCFModel_IDM(vtype, myAccel, myDecel, myTau, myDelta, TS/myIterations);
 }

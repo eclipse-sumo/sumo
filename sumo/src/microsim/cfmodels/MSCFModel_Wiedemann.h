@@ -57,11 +57,11 @@ public:
      */
     MSCFModel_Wiedemann(const MSVehicleType* vtype, 
             SUMOReal accel, SUMOReal decel,
-            SUMOReal security, SUMOReal estimation) throw();
+            SUMOReal security, SUMOReal estimation);
 
 
     /// @brief Destructor
-    ~MSCFModel_Wiedemann() throw();
+    ~MSCFModel_Wiedemann();
 
 
     /// @name Implementations of the MSCFModel interface
@@ -75,7 +75,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -85,7 +85,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap) const throw();
+    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -97,54 +97,26 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const throw();
-
-
-    /** @brief Get the vehicle's maximum acceleration [m/s^2]
-     *
-     * As some models describe that a vehicle is accelerating slower the higher its
-     *  speed is, the velocity is given.
-     *
-     * @param[in] v The vehicle's velocity
-     * @return The maximum acceleration
-     */
-    SUMOReal getMaxAccel(SUMOReal v) const throw() {
-        UNUSED_PARAMETER(v);
-        return myAccel;
-    }
+    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const;
 
 
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
      */
-    int getModelID() const throw() {
+    int getModelID() const {
         return SUMO_TAG_CF_WIEDEMANN;
     }
 
-
-    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
-     * @return The maximum acceleration (in m/s^2) of vehicles of this class
-     */
-    SUMOReal getMaxAccel() const throw() {
-        return myAccel;
-    }
-
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
-     */
-    SUMOReal getTau() const throw() {
-        return 1.0;
-    }
 
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
+    MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 
-    VehicleVariables* createVehicleVariables() const throw() {
+    VehicleVariables* createVehicleVariables() const {
         return new VehicleVariables();
     }
     /// @}
@@ -177,9 +149,6 @@ private:
     /// @name model parameter
     /// @{
 
-    /// @brief The vehicle's maximum acceleration [m/s^2]
-    const SUMOReal myAccel;
-
     /// @brief The driver's security parameter // also 'ZF1'
     const SUMOReal mySecurity;
 
@@ -201,7 +170,7 @@ private:
     
     /// @brief vsafe from krauss since Wiedemann is deficient at approaching
     // standing obstacles (see MSCFModel_Krauss::_vsafe) 
-    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw(); 
+    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const; 
 };
 
 #endif	/* MSCFModel_Wiedemann_H */

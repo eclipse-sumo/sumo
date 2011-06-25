@@ -222,15 +222,16 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         model = new MSCFModel_IDM(vtype,
                                   get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
                                   get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_TIMEHEADWAY, 1.5),
-                                  get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
+                                  get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_DELTA, 4.),
+                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
         break;
     case SUMO_TAG_CF_BKERNER:
         model = new MSCFModel_Kerner(vtype,
                                      get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
                                      get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
                                      get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                     get(from.cfParameter, SUMO_ATTR_CF_KERNER_PHI, .5),
+                                     get(from.cfParameter, SUMO_ATTR_K, .5),
                                      get(from.cfParameter, SUMO_ATTR_CF_KERNER_PHI, 5.));
         break;
     case SUMO_TAG_CF_KRAUSS_ORIG1:

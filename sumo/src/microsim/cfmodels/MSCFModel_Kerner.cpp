@@ -37,46 +37,29 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
-                                   SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi) throw()
-        : MSCFModel(vtype, decel), myAccel(accel), myTau(tau), myK(k), myPhi(phi) {
-
-    myTauDecel = decel * myTau;
+                                   SUMOReal decel, SUMOReal tau, SUMOReal k, SUMOReal phi)
+        : MSCFModel(vtype, accel, decel, tau), myK(k), myPhi(phi), myTauDecel(decel*tau) {
 }
 
 
-MSCFModel_Kerner::~MSCFModel_Kerner() throw() {}
+MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
 
 SUMOReal
-MSCFModel_Kerner::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_Kerner::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
     return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_Kerner::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+MSCFModel_Kerner::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
     const SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), gap, 0), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_Kerner::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
-    // Resolve the vsafe equation to gap. Assume predecessor has
-    // speed != 0 and that vsafe will be the current speed plus acceleration,
-    // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
-    SUMOReal gap = (vNext - vL) *
-                   ((veh->getSpeed() + vL) * myInverseTwoDecel + myTau) +
-                   vL * myTau;
-
-    // Don't allow timeHeadWay < deltaT situations.
-    return MAX2(gap, SPEED2DIST(vNext));
-}
-
-
-SUMOReal
-MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
@@ -91,7 +74,7 @@ MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal pred
 
 
 MSCFModel *
-MSCFModel_Kerner::duplicate(const MSVehicleType *vtype) const throw() {
+MSCFModel_Kerner::duplicate(const MSVehicleType *vtype) const {
     return new MSCFModel_Kerner(vtype, myAccel, myDecel, myTau, myK, myPhi);
 }
 

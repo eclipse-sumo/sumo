@@ -61,11 +61,11 @@ public:
     /** @brief Constructor
      *  @param[in] rvtype a reference to the corresponding vtype
      */
-    MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw();
+    MSCFModel(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel, SUMOReal tau);
 
 
     /// @brief Destructor
-    virtual ~MSCFModel() throw();
+    virtual ~MSCFModel();
 
 
     /// @name Methods to override by model implementation
@@ -76,7 +76,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    virtual SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const throw();
+    virtual SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -89,7 +89,7 @@ public:
      * @return EGO's safe speed
      * @todo used by MSLane, can hopefully be removed eventually
      */
-    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
+    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -100,7 +100,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() = 0;
+    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const = 0;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -111,7 +111,7 @@ public:
      * @return The interaction gap
      * @todo evaluate signature
      */
-    virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() = 0;
+    virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const;
 
 
     /** @brief Get the vehicle's maximum acceleration [m/s^2]
@@ -122,8 +122,10 @@ public:
      * @param[in] v The vehicle's velocity
      * @return The maximum acceleration
      */
-    virtual SUMOReal getMaxAccel(SUMOReal v) const throw() = 0;
-
+    virtual SUMOReal getMaxAccel(SUMOReal v) const {
+        UNUSED_PARAMETER(v);
+        return myAccel;
+    }
 
     /** @brief Saves the model's definition into the state
      * @param[in] os The output to write the definition into
@@ -134,20 +136,20 @@ public:
     /** @brief Returns the model's ID; the XML-Tag number is used
      * @return The model's ID
      */
-    virtual int getModelID() const throw() = 0;
+    virtual int getModelID() const = 0;
 
 
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const throw() = 0;
+    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const = 0;
 
 
     /** @brief Returns model specific values which are stored inside a vehicle
      * and must be used with casting
      */
-    virtual VehicleVariables* createVehicleVariables() const throw() {
+    virtual VehicleVariables* createVehicleVariables() const {
         return 0;
     }
     /// @}
@@ -159,15 +161,15 @@ public:
     /** @brief Get the vehicle type's maximum acceleration [m/s^2]
      * @return The maximum acceleration (in m/s^2) of vehicles of this class
      */
-    virtual SUMOReal getMaxAccel() const throw() {
-        return -1;
+    virtual SUMOReal getMaxAccel() const {
+        return myAccel;
     }
 
 
     /** @brief Get the vehicle type's maximum deceleration [m/s^2]
      * @return The maximum deceleration (in m/s^2) of vehicles of this class
      */
-    virtual SUMOReal getMaxDecel() const throw() {
+    virtual SUMOReal getMaxDecel() const {
         return myDecel;
     }
 
@@ -175,7 +177,7 @@ public:
     /** @brief Get the driver's imperfection
      * @return The imperfection of drivers of this class
      */
-    virtual SUMOReal getImperfection() const throw() {
+    virtual SUMOReal getImperfection() const {
         return -1;
     }
 
@@ -183,8 +185,8 @@ public:
     /** @brief Get the driver's reaction time [s]
      * @return The reaction time of this class' drivers in s
      */
-    virtual SUMOReal getTau() const throw() {
-        return 1.;
+    virtual SUMOReal getTau() const {
+        return myTau;
     }
     /// @}
 
@@ -200,7 +202,7 @@ public:
      * @param[in] neigh The neighbor vehicle on the left lane
      * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
      */
-    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw();
+    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const;
 
 
     /** @brief Returns the maximum speed given the current speed
@@ -214,14 +216,14 @@ public:
      * @param[in] speed The vehicle's current speed
      * @return The maximum possible speed for the next step
      */
-    SUMOReal maxNextSpeed(SUMOReal speed) const throw();
+    SUMOReal maxNextSpeed(SUMOReal speed) const;
 
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
      * @param[in] speed The vehicle's current speed
      * @return The distance needed to halt
      */
-    SUMOReal brakeGap(SUMOReal speed) const throw();
+    SUMOReal brakeGap(SUMOReal speed) const;
 
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
@@ -229,7 +231,7 @@ public:
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
-    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const throw() {
+    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const {
         const int leaderSteps = int(leaderSpeed / ACCEL2SPEED(leaderMaxDecel));
         const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps+1) / 2);
         return MAX2((SUMOReal) 0, brakeGap(speed) - leaderBreak);
@@ -240,7 +242,7 @@ public:
      * @param[in] v The velocity
      * @return The velocity after maximum deceleration
      */
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const throw() {
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
         return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
     /// @}
@@ -252,24 +254,23 @@ public:
     /** @brief Sets a new value for maximum acceleration [m/s^2]
      * @param[in] accel The new acceleration in m/s^2
      */
-    virtual void setMaxAccel(SUMOReal accel) throw() {
-        UNUSED_PARAMETER(accel);
+    virtual void setMaxAccel(SUMOReal accel) {
+        myAccel = accel;
     }
 
 
     /** @brief Sets a new value for maximum deceleration [m/s^2]
      * @param[in] accel The new deceleration in m/s^2
      */
-    virtual void setMaxDecel(SUMOReal decel) throw() {
+    virtual void setMaxDecel(SUMOReal decel) {
         myDecel = decel;
-        myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
     }
 
 
     /** @brief Sets a new value for driver imperfection
      * @param[in] accel The new driver imperfection
      */
-    virtual void setImperfection(SUMOReal imperfection) throw() {
+    virtual void setImperfection(SUMOReal imperfection) {
         UNUSED_PARAMETER(imperfection);
     }
 
@@ -277,8 +278,8 @@ public:
     /** @brief Sets a new value for driver reaction time [s]
      * @param[in] accel The new driver reaction time (in s)
      */
-    virtual void setTau(SUMOReal tau) throw() {
-        UNUSED_PARAMETER(tau);
+    virtual void setTau(SUMOReal tau) {
+        myTau = tau;
     }
     /// @}
 
@@ -287,13 +288,14 @@ protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
 
+    /// @brief The vehicle's maximum acceleration [m/s^2]
+    SUMOReal myAccel;
+
     /// @brief The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
 
-    /// @brief The precomputed value for 1/(2*d)
-    SUMOReal myInverseTwoDecel;
-
-
+    /// @brief The driver's desired time headway (aka reaction time) [s]
+    SUMOReal myTau;
 };
 
 

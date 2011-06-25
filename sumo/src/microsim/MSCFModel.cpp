@@ -37,17 +37,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel::MSCFModel(const MSVehicleType* vtype, SUMOReal decel) throw()
-        : myType(vtype), myDecel(decel) {
-    myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * decel);
+MSCFModel::MSCFModel(const MSVehicleType* vtype, const SUMOReal accel, const SUMOReal decel, const SUMOReal tau)
+        : myType(vtype), myAccel(accel), myDecel(decel), myTau(tau) {
 }
 
 
-MSCFModel::~MSCFModel() throw() {}
+MSCFModel::~MSCFModel() {}
 
 
 SUMOReal
-MSCFModel::moveHelper(MSVehicle * const veh, SUMOReal vPos) const throw() {
+MSCFModel::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
     const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -62,8 +61,23 @@ MSCFModel::moveHelper(MSVehicle * const veh, SUMOReal vPos) const throw() {
 }
 
 
+SUMOReal
+MSCFModel::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
+    // Resolve the vsafe equation to gap. Assume predecessor has
+    // speed != 0 and that vsafe will be the current speed plus acceleration,
+    // i.e that with this gap there will be no interaction.
+    const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
+    const SUMOReal gap = (vNext - vL) *
+                   ((veh->getSpeed() + vL) / (2.*myDecel) + myTau) +
+                   vL * myTau;
+
+    // Don't allow timeHeadWay < deltaT situations.
+    return MAX2(gap, SPEED2DIST(vNext));
+}
+
+
 void
-MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
+MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const {
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLengthWithGap()-ego->getPositionOnLane());
         SUMOReal nVSafe = ffeV(ego, ego->getSpeed(), mgap, neigh->getSpeed());
@@ -75,13 +89,13 @@ MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const
 
 
 SUMOReal
-MSCFModel::maxNextSpeed(SUMOReal speed) const throw() {
+MSCFModel::maxNextSpeed(SUMOReal speed) const {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel(speed)), myType->getMaxSpeed());
 }
 
 
 SUMOReal
-MSCFModel::brakeGap(SUMOReal speed) const throw() {
+MSCFModel::brakeGap(SUMOReal speed) const {
     /* one possiblity to speed this up is to precalculate speedReduction * steps * (steps+1) / 2
        for small values of steps (up to 10 maybe) and store them in an array */
     const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());

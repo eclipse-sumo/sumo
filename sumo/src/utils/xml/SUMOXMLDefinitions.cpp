@@ -251,7 +251,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "sigma",          SUMO_ATTR_SIGMA },
     { "tau",            SUMO_ATTR_TAU },
-    { "timeHeadWay",    SUMO_ATTR_TIME_HEADWAY_GAP },
 
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
@@ -381,8 +380,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "tauLast",        SUMO_ATTR_CF_PWAGNER2009_TAULAST },
     { "apProb",         SUMO_ATTR_CF_PWAGNER2009_APPROB },
-    { "timeHeadWay",    SUMO_ATTR_CF_IDM_TIMEHEADWAY },
-    //{ "k",              SUMO_ATTR_CF_KERNER_K },
+    { "delta",          SUMO_ATTR_CF_IDM_DELTA },
+    { "stepping",       SUMO_ATTR_CF_IDM_STEPPING },
     { "phi",            SUMO_ATTR_CF_KERNER_PHI },
 
     { "security",       SUMO_ATTR_CF_WIEDEMANN_SECURITY },

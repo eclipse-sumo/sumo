@@ -39,7 +39,7 @@
 // class definitions
 // ===========================================================================
 /** @class MSCFModel_IDM
- * @brief The Intellignet Driver Model (IDM) car-following model
+ * @brief The Intelligent Driver Model (IDM) car-following model
  * @see MSCFModel
  */
 class MSCFModel_IDM : public MSCFModel {
@@ -47,15 +47,16 @@ public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
-     * @param[in] timeHeadWay
-     * @param[in] tau
+     * @param[in] tau the headway gap
+     * @param[in] delta a model constant
+     * @param[in] internalStepping internal time step size
      */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
-                  SUMOReal timeHeadWay, SUMOReal tau) throw();
+                  SUMOReal tau, SUMOReal delta, SUMOReal internalStepping);
 
 
     /// @brief Destructor
-    ~MSCFModel_IDM() throw();
+    ~MSCFModel_IDM();
 
 
     /// @name Implementations of the MSCFModel interface
@@ -69,7 +70,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -79,7 +80,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
+    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -91,44 +92,15 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const throw();
-
-
-    /** @brief Get the vehicle's maximum acceleration [m/s^2]
-     *
-     * As some models describe that a vehicle is accelerating slower the higher its
-     *  speed is, the velocity is given.
-     *
-     * @param[in] v The vehicle's velocity
-     * @return The maximum acceleration
-     */
-    SUMOReal getMaxAccel(SUMOReal v) const throw() {
-        UNUSED_PARAMETER(v);
-        return myAccel;
-    }
+    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const;
 
 
     /** @brief Returns the model's name
      * @return The model's name
      * @see MSCFModel::getModelName
      */
-    int getModelID() const throw() {
+    int getModelID() const {
         return SUMO_TAG_CF_IDM;
-    }
-
-
-    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
-     * @return The maximum acceleration (in m/s^2) of vehicles of this class
-     */
-    SUMOReal getMaxAccel() const throw() {
-        return myAccel;
-    }
-
-    /** @brief Get the driver's reaction time [s]
-     * @return The reaction time of this class' drivers in s
-     */
-    SUMOReal getTau() const throw() {
-        return myTau;
     }
     /// @}
 
@@ -138,36 +110,26 @@ public:
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const throw();
+    MSCFModel *duplicate(const MSVehicleType *vtype) const;
 
 
 private:
-    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
+    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
 
-    SUMOReal desiredSpeed(const MSVehicle * const veh) const throw() {
+    SUMOReal desiredSpeed(const MSVehicle * const veh) const {
         return MIN2(myType->getMaxSpeed(), veh->getLane()->getMaxSpeed());
     }
 
 
 private:
-    /// @name model parameter
-    /// @{
-
-    /// @brief The vehicle's maximum acceleration [m/s^2]
-    const SUMOReal myAccel;
-
-    /// @brief The driver's desired time headway [s]
-    const SUMOReal myTimeHeadWay;
-
-    /// @brief The driver's reaction time [s]
-    const SUMOReal myTau;
-    /// @}
-
-    /// @brief A computational shortcut
-    const SUMOReal myTwoSqrtAccelDecel;
+    /// @brief The IDM delta exponent
+    const SUMOReal myDelta;
 
     /// @brief The number of iterations in speed calculations
     const int myIterations;
+
+    /// @brief A computational shortcut
+    const SUMOReal myTwoSqrtAccelDecel;
 };
 
 #endif	/* MSCFMODEL_IDM_H */

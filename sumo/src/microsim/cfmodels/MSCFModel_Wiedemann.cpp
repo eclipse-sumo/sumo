@@ -51,9 +51,8 @@ const SUMOReal MSCFModel_Wiedemann::D_MAX = 150;
 // ===========================================================================
 MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype, 
             SUMOReal accel, SUMOReal decel,
-            SUMOReal security, SUMOReal estimation) throw() : 
-    MSCFModel(vtype, decel),
-    myAccel(accel),
+            SUMOReal security, SUMOReal estimation) : 
+    MSCFModel(vtype, accel, decel, 1.0),
     mySecurity(security),
     myEstimation(estimation),
     myAX(vtype->getLength() + 1 + 2 * security),
@@ -63,17 +62,17 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
 }
 
 
-MSCFModel_Wiedemann::~MSCFModel_Wiedemann() throw() {}
+MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
     return _v(veh, predSpeed, gap2pred);
 }
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
@@ -85,14 +84,14 @@ MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw
 
 
 SUMOReal 
-MSCFModel_Wiedemann::interactionGap(const MSVehicle * const , SUMOReal vL) const throw() {
+MSCFModel_Wiedemann::interactionGap(const MSVehicle * const , SUMOReal vL) const {
     UNUSED_PARAMETER(vL);
     return D_MAX;
 }
 
 
 MSCFModel *
-MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const throw() {
+MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const {
     return new MSCFModel_Wiedemann(vtype, myAccel, myDecel, mySecurity, myEstimation);
 }
 
@@ -185,7 +184,7 @@ MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
 
 
 SUMOReal
-MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
+MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
