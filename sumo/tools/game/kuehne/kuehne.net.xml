@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue May 31 14:30:47 2011 by SUMO netgen Version dev-SVN-r10480
+<!-- generated on Mon Jun 27 08:58:38 2011 by SUMO netgen Version dev-SVN-r10725
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -12,7 +12,7 @@
     </grid_network>
 
     <output>
-        <output value="square.tmp.net.xml"/>
+        <output-file value="square.tmp.net.xml"/>
     </output>
 
     <building_defaults>
@@ -510,40 +510,40 @@
     </ROWLogic>
 
     <tlLogic id="0/0" type="static" programID="0" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
-    </tlLogic>
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+   </tlLogic>
 
-    <tlLogic id="0/0" type="static" programID="1" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+   <tlLogic id="0/0" type="static" programID="1" offset="0">
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="0/1" type="static" programID="0" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
-    </tlLogic>
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+   </tlLogic>
 
-    <tlLogic id="0/1" type="static" programID="1" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+   <tlLogic id="0/1" type="static" programID="1" offset="0">
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="1/0" type="static" programID="0" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
-    </tlLogic>
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+   </tlLogic>
 
-    <tlLogic id="1/0" type="static" programID="1" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+   <tlLogic id="1/0" type="static" programID="1" offset="0">
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="1/1" type="static" programID="0" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
-    </tlLogic>
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+   </tlLogic>
 
-    <tlLogic id="1/1" type="static" programID="1" offset="0">
-        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
-        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+   <tlLogic id="1/1" type="static" programID="1" offset="0">
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="10000" state="GGggrrrrGGggrrrr"/>
     </tlLogic>
     <tlLogic id="bottom0" type="static" programID="0" offset="0">
         <phase duration="31" state="G"/>

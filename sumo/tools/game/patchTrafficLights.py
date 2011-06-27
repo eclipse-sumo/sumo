@@ -34,15 +34,15 @@ for line in open(options.netfile):
             skip = True
             print >> out, """      <phase duration="%s" state="rrrrrrrrrrrrrrrr"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
-   </tl-logic>
+   </tlLogic>
 
-   <tl-logic id="%s" type="static" programID="1" offset="0">
+   <tlLogic id="%s" type="static" programID="1" offset="0">
       <phase duration="%s" state="rrrrrrrrrrrrrrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>""" % (options.switch, tlid, options.switch)
-    m = re.search('<tl-logic id="([^"]+)"', line)
+    m = re.search('<tlLogic id="([^"]+)"', line)
     if m:
         tlid = m.group(1)
-    if re.search('</tl-logic>', line):
+    if re.search('</tlLogic>', line):
         skip = False
         tlid = ""
     if not skip:

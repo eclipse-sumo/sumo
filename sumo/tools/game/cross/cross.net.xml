@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Wed May 11 15:31:36 2011 by SUMO netconvert Version dev-SVN-r10294
+<!-- generated on Mon Jun 27 08:58:38 2011 by SUMO netconvert Version dev-SVN-r10725
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -12,7 +12,7 @@
     </input>
 
     <output>
-        <output value="cross/cross.net.xml"/>
+        <output-file value="cross/cross.net.xml"/>
     </output>
 
     <processing>
@@ -33,10 +33,10 @@
         <lane id=":0_1_0" depart="0" maxspeed="13.89" length="16.51" shape="207.68,205.51 202.45,204.62 198.56,203.21 195.28,201.84 191.85,201.08"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" depart="0" maxspeed="13.89" length="4.67" shape="207.91,202.22 201.14,198.70"/>
+        <lane id=":0_2_0" depart="0" maxspeed="13.89" length="4.67" shape="207.91,202.22 203.74,201.10 203.48,200.87"/>
     </edge>
     <edge id=":0_12" function="internal">
-        <lane id=":0_12_0" depart="0" maxspeed="13.89" length="13.71" shape="201.14,198.70 200.89,198.46 199.36,194.28 199.16,188.56"/>
+        <lane id=":0_12_0" depart="0" maxspeed="13.89" length="13.71" shape="203.48,200.87 200.89,198.46 199.36,194.28 199.16,188.56"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" depart="0" maxspeed="13.89" length="10.88" shape="205.74,189.03 205.63,193.28 206.00,196.34 206.84,198.22 208.15,198.92"/>
@@ -45,10 +45,10 @@
         <lane id=":0_4_0" depart="0" maxspeed="13.89" length="22.98" shape="205.74,189.03 204.73,196.04 203.16,202.10 201.66,207.24 200.84,211.44"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" depart="0" maxspeed="13.89" length="7.97" shape="202.45,188.80 200.40,196.37"/>
+        <lane id=":0_5_0" depart="0" maxspeed="13.89" length="7.97" shape="202.45,188.80 201.44,194.43 200.38,196.41"/>
     </edge>
     <edge id=":0_13" function="internal">
-        <lane id=":0_13_0" depart="0" maxspeed="13.89" length="10.41" shape="200.40,196.37 199.34,198.35 196.14,200.57 191.85,201.08"/>
+        <lane id=":0_13_0" depart="0" maxspeed="13.89" length="10.41" shape="200.38,196.41 199.34,198.35 196.14,200.57 191.85,201.08"/>
     </edge>
     <edge id=":0_6" function="internal">
         <lane id=":0_6_0" depart="0" maxspeed="13.89" length="7.85" shape="192.55,191.20 195.36,191.21 197.40,190.77 198.66,189.89 199.16,188.56"/>
@@ -57,10 +57,10 @@
         <lane id=":0_7_0" depart="0" maxspeed="13.89" length="16.51" shape="192.32,194.49 197.55,195.38 201.44,196.79 204.72,198.16 208.15,198.92"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" depart="0" maxspeed="13.89" length="4.67" shape="192.09,197.78 198.86,201.30"/>
+        <lane id=":0_8_0" depart="0" maxspeed="13.89" length="4.67" shape="192.09,197.78 196.26,198.90 196.52,199.13"/>
     </edge>
     <edge id=":0_14" function="internal">
-        <lane id=":0_14_0" depart="0" maxspeed="13.89" length="13.71" shape="198.86,201.30 199.11,201.54 200.64,205.72 200.84,211.44"/>
+        <lane id=":0_14_0" depart="0" maxspeed="13.89" length="13.71" shape="196.52,199.13 199.11,201.54 200.64,205.72 200.84,211.44"/>
     </edge>
     <edge id=":0_9" function="internal">
         <lane id=":0_9_0" depart="0" maxspeed="13.89" length="10.88" shape="194.26,210.97 194.37,206.72 194.00,203.66 193.16,201.78 191.85,201.08"/>
@@ -69,10 +69,10 @@
         <lane id=":0_10_0" depart="0" maxspeed="13.89" length="22.98" shape="194.26,210.97 195.27,203.96 196.84,197.90 198.34,192.76 199.16,188.56"/>
     </edge>
     <edge id=":0_11" function="internal">
-        <lane id=":0_11_0" depart="0" maxspeed="13.89" length="7.97" shape="197.55,211.20 199.60,203.63"/>
+        <lane id=":0_11_0" depart="0" maxspeed="13.89" length="7.97" shape="197.55,211.20 198.56,205.57 199.62,203.59"/>
     </edge>
     <edge id=":0_15" function="internal">
-        <lane id=":0_15_0" depart="0" maxspeed="13.89" length="10.41" shape="199.60,203.63 200.66,201.65 203.86,199.43 208.15,198.92"/>
+        <lane id=":0_15_0" depart="0" maxspeed="13.89" length="10.41" shape="199.62,203.59 200.66,201.65 203.86,199.43 208.15,198.92"/>
     </edge>
     <edge id=":m1_0" function="internal">
         <lane id=":m1_0_0" depart="0" maxspeed="13.89" length="3.00" shape="51.38,191.10 48.39,190.89"/>
@@ -218,25 +218,25 @@
     </ROWLogic>
 
     <tlLogic id="0" type="static" programID="0" offset="0.00">
-        <phase duration="3.00" state="rryrrrrryrrr"/>
-        <phase duration="3.00" state="rrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="rrrGGrrrrGGr"/>
+      <phase duration="3.00" state="rryrrrrryrrr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="10000.00" state="rrrGGrrrrGGr"/>
     </tlLogic>
     <tlLogic id="0" type="static" programID="1" offset="0.00">
-        <phase duration="3.00" state="rrryyrrrryyr"/>
-        <phase duration="3.00" state="rrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="rrrrrGrrrrrG"/>
+      <phase duration="3.00" state="rrryyrrrryyr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="10000.00" state="rrrrrGrrrrrG"/>
     </tlLogic>
     <tlLogic id="0" type="static" programID="2" offset="0.00">
-        <phase duration="3.00" state="rrrrryrrrrry"/>
-        <phase duration="3.00" state="rrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="GGrrrrGGrrrr"/>
+      <phase duration="3.00" state="rrrrryrrrrry"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="10000.00" state="GGrrrrGGrrrr"/>
     </tlLogic>
     <tlLogic id="0" type="static" programID="3" offset="0.00">
-        <phase duration="3.00" state="yyrrrryyrrrr"/>
-        <phase duration="3.00" state="rrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="rrGrrrrrGrrr"/>
-    </tlLogic>
+      <phase duration="3.00" state="yyrrrryyrrrr"/>
+      <phase duration="3.00" state="rrrrrrrrrrrr"/>
+      <phase duration="10000.00" state="rrGrrrrrGrrr"/>
+   </tlLogic>
 
     <junction id="0" type="traffic_light" x="200.00" y="200.00" incLanes="2si_0 2si_1 2si_2 3si_0 3si_1 1si_0 1si_1 1si_2 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_4_0 :0_13_0 :0_6_0 :0_7_0 :0_14_0 :0_9_0 :0_10_0 :0_15_0" shape="207.33,210.40 208.26,197.33 207.34,189.14 197.56,188.45 192.67,189.60 191.74,202.67 192.66,210.86 202.44,211.55"/>
     <junction id="1" type="priority" x="0.00" y="185.80" incLanes="1fo_0" intLanes="" shape="0.00,185.75 0.23,182.56 -0.23,189.04 -0.00,185.85"/>
