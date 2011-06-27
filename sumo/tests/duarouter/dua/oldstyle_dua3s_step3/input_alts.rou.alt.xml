@@ -1,5 +1,5 @@
 <route-alternatives>
-   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxspeed="70" color="1,1,0"/>
+   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0" color="0,0,0">
       <routeDistribution last="1">
          <route cost="96.1555" probability="0.331175">beg middle end</route>

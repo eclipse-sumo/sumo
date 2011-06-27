@@ -18,7 +18,7 @@
 -->
 
 <routes>
-   <vType id="0" vclass="unknown"/>
+   <vType id="0" vClass="unknown"/>
     <vehicle id="0" type="0" depart="0.00">
         <route edges="absBeg middle end absEnd"/>
     </vehicle>

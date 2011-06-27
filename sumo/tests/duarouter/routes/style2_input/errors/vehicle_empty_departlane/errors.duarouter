@@ -1,3 +1,3 @@
-Error: Attribute 'departlane' in definition of a vehicle is empty.
-Error: Invalid departlane definition for vehicle '0'
+Error: Attribute 'departLane' in definition of a vehicle is empty.
+Error: Invalid departLane definition for vehicle '0'
 Quitting (on error).

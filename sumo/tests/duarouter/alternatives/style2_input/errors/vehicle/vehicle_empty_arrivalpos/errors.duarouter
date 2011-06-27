@@ -1,3 +1,3 @@
-Error: Attribute 'arrivalpos' in definition of a vehicle is empty.
-Error: Invalid arrivalpos definition for vehicle '1'
+Error: Attribute 'arrivalPos' in definition of a vehicle is empty.
+Error: Invalid arrivalPos definition for vehicle '1'
 Quitting (on error).

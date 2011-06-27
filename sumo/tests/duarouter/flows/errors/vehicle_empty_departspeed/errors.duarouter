@@ -1,4 +1,4 @@
-Error: Attribute 'departspeed' in definition of a flow is empty.
+Error: Attribute 'departSpeed' in definition of a flow is empty.
 Error: The loader for flow-files from file 'input_flows.flows.xml' could not be initialised;
- Reason: Invalid departspeed definition for vehicle 0.
+ Reason: Invalid departSpeed definition for vehicle 0.
 Quitting (on error).

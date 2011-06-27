@@ -1,4 +1,4 @@
-Error: Attribute 'arrivallane' in definition of a flow is empty.
+Error: Attribute 'arrivalLane' in definition of a flow is empty.
 Error: The loader for flow-files from file 'input_flows.flows.xml' could not be initialised;
- Reason: Invalid arrivallane definition for vehicle 0.
+ Reason: Invalid arrivalLane definition for vehicle 0.
 Quitting (on error).

@@ -4,30 +4,30 @@
 	<trip depart="10" from="beg" to="rend" color="0,0,0"/>
 	<trip depart="11" from="beg" to="rend" color="1,0,1"/>
 
-	<trip depart="20" from="beg" to="rend" departpos="0"/>
-	<trip depart="21" from="beg" to="rend" departpos="10"/>
-	<trip depart="22" from="beg" to="rend" departpos="free"/>
-	<trip depart="23" from="beg" to="rend" departpos="random"/>
+	<trip depart="20" from="beg" to="rend" departPos="0"/>
+	<trip depart="21" from="beg" to="rend" departPos="10"/>
+	<trip depart="22" from="beg" to="rend" departPos="free"/>
+	<trip depart="23" from="beg" to="rend" departPos="random"/>
 
-	<trip depart="30" from="beg" to="rend" departlane="0"/>
-	<trip depart="31" from="beg" to="rend" departlane="1"/>
-	<trip depart="32" from="beg" to="rend" departlane="random"/>
-	<trip depart="33" from="beg" to="rend" departlane="free"/>
-	<trip depart="34" from="beg" to="rend" departlane="departlane"/>
+	<trip depart="30" from="beg" to="rend" departLane="0"/>
+	<trip depart="31" from="beg" to="rend" departLane="1"/>
+	<trip depart="32" from="beg" to="rend" departLane="random"/>
+	<trip depart="33" from="beg" to="rend" departLane="free"/>
+	<trip depart="34" from="beg" to="rend" departLane="departlane"/>
 
-	<trip depart="40" from="beg" to="rend" departspeed="0"/>
-	<trip depart="41" from="beg" to="rend" departspeed="1"/>
-	<trip depart="42" from="beg" to="rend" departspeed="max"/>
-	<trip depart="43" from="beg" to="rend" departspeed="random"/>
+	<trip depart="40" from="beg" to="rend" departSpeed="0"/>
+	<trip depart="41" from="beg" to="rend" departSpeed="1"/>
+	<trip depart="42" from="beg" to="rend" departSpeed="max"/>
+	<trip depart="43" from="beg" to="rend" departSpeed="random"/>
 
-	<trip depart="50" from="beg" to="rend" arrivallane="42"/>
-	<trip depart="51" from="beg" to="rend" arrivallane="current"/>
+	<trip depart="50" from="beg" to="rend" arrivalLane="42"/>
+	<trip depart="51" from="beg" to="rend" arrivalLane="current"/>
 
-	<trip depart="60" from="beg" to="rend" arrivalpos="42"/>
-	<trip depart="61" from="beg" to="rend" arrivalpos="max"/>
-	<trip depart="62" from="beg" to="rend" arrivalpos="random"/>
+	<trip depart="60" from="beg" to="rend" arrivalPos="42"/>
+	<trip depart="61" from="beg" to="rend" arrivalPos="max"/>
+	<trip depart="62" from="beg" to="rend" arrivalPos="random"/>
 
-	<trip depart="70" from="beg" to="rend" arrivalspeed="42"/>
-	<trip depart="71" from="beg" to="rend" arrivalspeed="current"/>
+	<trip depart="70" from="beg" to="rend" arrivalSpeed="42"/>
+	<trip depart="71" from="beg" to="rend" arrivalSpeed="current"/>
 
 </trips>

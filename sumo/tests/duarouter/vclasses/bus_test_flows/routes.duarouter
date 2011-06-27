@@ -16,7 +16,7 @@
 -->
 
 <routes>
-   <vType id="0" vclass="bus"/>
+   <vType id="0" vClass="bus"/>
     <vehicle id="0_0" type="0" depart="0.00">
         <route edges="absBeg beg2left left left2end end absEnd"/>
     </vehicle>

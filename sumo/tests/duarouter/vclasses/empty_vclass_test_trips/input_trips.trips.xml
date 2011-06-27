@@ -1,4 +1,4 @@
 <trips>
-	<vType id="0" vclass=""/>
+	<vType id="0" vClass=""/>
 	<trip depart="0" from="absBeg" to="absEnd" type="0"/>
 </trips>
