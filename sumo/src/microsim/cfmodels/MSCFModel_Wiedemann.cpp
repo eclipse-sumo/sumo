@@ -112,7 +112,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) 
     const SUMOReal v = veh->getSpeed();
     const SUMOReal vpref = veh->getMaxSpeed();
     const SUMOReal dv = v - predSpeed;
-    const SUMOReal bx = myAX + (1 + 7 * mySecurity) * sqrt(v) *.8; // the 0.8 factor is a commonly used modification by Harding
+    const SUMOReal bx = myAX + (1 + 7 * mySecurity) * sqrt(v); // Harding propose a factor of  *.8 here
     const SUMOReal ex = 2 - myEstimation; // + RandHelper::randNorm(0.5, 0.15)
     const SUMOReal sdx = myAX + ex * (bx - myAX); /// the distance at which we drift out of following
     const SUMOReal sdv_root = (dx - myAX) / myCX;
