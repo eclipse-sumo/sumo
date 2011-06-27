@@ -146,37 +146,28 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
         NBNode *currentNode) {
     // try to get the tl-id
     // if a tl-id is given, we will look whether this tl already exists
-    //  if so, we will add the node to it, otherwise allocate a new one with this id
+    //  if so, we will add the node to it (and to all programs with this id), otherwise allocate a new one with this id
     // if no tl-id exists, we will build a tl with the node's id
-    NBTrafficLightDefinition *tlDef = 0;
+    std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
     std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    if (tlID!="") {
-        // ok, the traffic light has a name
+    if (tlID!="" && myTLLogicCont.getPrograms(tlID).size() > 0) {
+        // we already have definitions for this tlID
         const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLogicCont.getPrograms(tlID);
-        if (programs.size() == 0) {
-            // this traffic light is visited the first time
-            tlDef = new NBOwnTLDef(tlID, currentNode);
-            if (!myTLLogicCont.insert(tlDef)) {
-                // actually, nothing should fail here
-                delete tlDef;
-                throw ProcessError("Could not allocate tls '" + tlID + "'.");
-            }
-        } else {
-            std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-            for (it = programs.begin(); it!= programs.end(); it++) {
-                it->second->addNode(currentNode);
-            }
+        std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
+        for (it = programs.begin(); it!= programs.end(); it++) {
+            tlDefs.insert(it->second);
+            it->second->addNode(currentNode);
         }
-    } else {
-        // ok, this node is a traffic light node where no other nodes
-        //  participate
-        tlDef = new NBOwnTLDef(myID, currentNode);
+    } else { 
+        // we need to add a new defition
+        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, currentNode);
         if (!myTLLogicCont.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError("Could not allocate tls '" + myID + "'.");
         }
+        tlDefs.insert(tlDef);
     }
     // process inner edges which shall be controlled
     std::vector<std::string> controlledInner;
@@ -186,7 +177,9 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
 	    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_CONTROLLED_INNER, 0, ok, ""), controlledInner);
 	}
     if (controlledInner.size()!=0) {
-        tlDef->addControlledInnerEdges(controlledInner);
+        for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it!= tlDefs.end(); it++) {
+            (*it)->addControlledInnerEdges(controlledInner);
+        }
     }
 }
 
