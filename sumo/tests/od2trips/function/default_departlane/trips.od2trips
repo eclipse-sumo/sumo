@@ -15,12 +15,12 @@
     </output>
 
     <defaults>
-        <departlane value="0"/>
+        <departLane value="0"/>
     </defaults>
 
 </configuration>
 -->
 
 <trips>
-    <trip id="0" depart="35347.00" from="a1" to="b2" fromtaz="1" totaz="2" departlane="0" departspeed="max"/>
+    <trip id="0" depart="35347.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="0" departSpeed="max"/>
 </trips>

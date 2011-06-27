@@ -18,5 +18,5 @@
 -->
 
 <trips>
-    <trip id="0" depart="1809.00" from="131" to="204[1][1]" fromtaz="131" totaz="204[1][1]" departlane="free" departspeed="max"/>
+    <trip id="0" depart="1809.00" from="131" to="204[1][1]" fromTaz="131" toTaz="204[1][1]" departLane="free" departSpeed="max"/>
 </trips>
