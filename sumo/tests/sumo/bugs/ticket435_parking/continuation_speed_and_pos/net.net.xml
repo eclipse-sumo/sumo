@@ -23,11 +23,11 @@
     </node_count>
 
     <edge id="1to2" from="1" to="2" priority="-1">
-        <lane id="1to2_0" depart="1" maxspeed="27.78" length="100.00" shape="0.00,0 100.00,0"/>
+        <lane id="1to2_0" depart="1" maxSpeed="27.78" length="100.00" shape="0.00,0 100.00,0"/>
     </edge>
 
     <edge id="out" from="2" to="3" priority="-1">
-        <lane id="out_0" depart="1" maxspeed="13.90" length="10.00" shape="100.00,0 110.00,0"/>
+        <lane id="out_0" depart="1" maxSpeed="13.90" length="10.00" shape="100.00,0 110.00,0"/>
     </edge>
 
     <ROWLogic id="2" requestSize="1">

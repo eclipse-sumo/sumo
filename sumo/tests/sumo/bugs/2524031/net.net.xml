@@ -19,43 +19,43 @@
     <location netOffset="210.00,0.00" convBoundary="0.00,0.00,420.00,1.00" origBoundary="-210.00,0.00,210.00,1.00" projParameter="!"/>
 
     <edge id=":SUMOGenerated1_0" function="internal">
-        <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,-1.65 10.00,-1.65"/>
+        <lane id=":SUMOGenerated1_0_0" depart="0" maxSpeed="13.90" length="0.10" shape="10.00,-1.65 10.00,-1.65"/>
     </edge>
 
     <edge id=":SUMOGenerated3_0" function="internal">
-        <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,2.65 410.00,2.65"/>
+        <lane id=":SUMOGenerated3_0_0" depart="0" maxSpeed="13.90" length="0.10" shape="410.00,2.65 410.00,2.65"/>
     </edge>
 
     <edge id=":SUMOGenerated4_0" function="internal">
-        <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10" shape="410.00,-1.65 410.00,-1.65"/>
+        <lane id=":SUMOGenerated4_0_0" depart="0" maxSpeed="13.90" length="0.10" shape="410.00,-1.65 410.00,-1.65"/>
     </edge>
 
     <edge id=":SUMOGenerated5_0" function="internal">
-        <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10" shape="10.00,2.65 10.00,2.65"/>
+        <lane id=":SUMOGenerated5_0_0" depart="0" maxSpeed="13.90" length="0.10" shape="10.00,2.65 10.00,2.65"/>
     </edge>
 
     <edge id="1to2" from="SUMOGenerated1" to="SUMOGenerated4" priority="-1">
-        <lane id="1to2_0" depart="1" maxspeed="13.90" length="400.00" shape="10.00,-1.65 410.00,-1.65"/>
+        <lane id="1to2_0" depart="1" maxSpeed="13.90" length="400.00" shape="10.00,-1.65 410.00,-1.65"/>
     </edge>
 
     <edge id="2to1" from="SUMOGenerated3" to="SUMOGenerated5" priority="-1">
-        <lane id="2to1_0" depart="1" maxspeed="13.90" length="400.00" shape="410.00,2.65 10.00,2.65"/>
+        <lane id="2to1_0" depart="1" maxSpeed="13.90" length="400.00" shape="410.00,2.65 10.00,2.65"/>
     </edge>
 
     <edge id="in1" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1">
-        <lane id="in1_0" depart="1" maxspeed="13.90" length="10.00" shape="0.00,-1.65 10.00,-1.65"/>
+        <lane id="in1_0" depart="1" maxSpeed="13.90" length="10.00" shape="0.00,-1.65 10.00,-1.65"/>
     </edge>
 
     <edge id="in2" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1">
-        <lane id="in2_0" depart="1" maxspeed="13.90" length="10.00" shape="420.00,2.65 410.00,2.65"/>
+        <lane id="in2_0" depart="1" maxSpeed="13.90" length="10.00" shape="420.00,2.65 410.00,2.65"/>
     </edge>
 
     <edge id="out1" from="SUMOGenerated5" to="SUMOGenerated7" priority="-1">
-        <lane id="out1_0" depart="1" maxspeed="13.90" length="10.00" shape="10.00,2.65 0.00,2.65"/>
+        <lane id="out1_0" depart="1" maxSpeed="13.90" length="10.00" shape="10.00,2.65 0.00,2.65"/>
     </edge>
 
     <edge id="out2" from="SUMOGenerated4" to="SUMOGenerated6" priority="-1">
-        <lane id="out2_0" depart="1" maxspeed="13.90" length="10.00" shape="410.00,-1.65 420.00,-1.65"/>
+        <lane id="out2_0" depart="1" maxSpeed="13.90" length="10.00" shape="410.00,-1.65 420.00,-1.65"/>
     </edge>
 
     <ROWLogic id="SUMOGenerated1" requestSize="1">
@@ -115,16 +115,16 @@
     </succ>
 
     <succ edge=":SUMOGenerated1_0" lane=":SUMOGenerated1_0_0" junction="SUMOGenerated1">
-        <succlane lane="1to2_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="1to2_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated3_0" lane=":SUMOGenerated3_0_0" junction="SUMOGenerated3">
-        <succlane lane="2to1_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="2to1_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated4_0" lane=":SUMOGenerated4_0_0" junction="SUMOGenerated4">
-        <succlane lane="out2_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="out2_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated5_0" lane=":SUMOGenerated5_0_0" junction="SUMOGenerated5">
-        <succlane lane="out1_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="out1_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
 
 </net>

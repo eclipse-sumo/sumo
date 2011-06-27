@@ -1,12 +1,12 @@
 <trips>
-	<trip id="0" depart="0" fromtaz="1" totaz="2"/>
-	<trip id="1" depart="20" fromtaz="1" totaz="2"/>
-	<trip id="2" depart="40" fromtaz="1" totaz="2"/>
-	<trip id="3" depart="60" fromtaz="1" totaz="2"/>
-	<trip id="4" depart="80" fromtaz="1" totaz="2"/>
-	<trip id="5" depart="100" fromtaz="1" totaz="2"/>
-	<trip id="6" depart="120" fromtaz="1" totaz="2"/>
-	<trip id="7" depart="140" fromtaz="1" totaz="2"/>
-	<trip id="8" depart="160" fromtaz="1" totaz="2"/>
-	<trip id="9" depart="180" fromtaz="1" totaz="2"/>
+	<trip id="0" depart="0" fromTaz="1" toTaz="2"/>
+	<trip id="1" depart="20" fromTaz="1" toTaz="2"/>
+	<trip id="2" depart="40" fromTaz="1" toTaz="2"/>
+	<trip id="3" depart="60" fromTaz="1" toTaz="2"/>
+	<trip id="4" depart="80" fromTaz="1" toTaz="2"/>
+	<trip id="5" depart="100" fromTaz="1" toTaz="2"/>
+	<trip id="6" depart="120" fromTaz="1" toTaz="2"/>
+	<trip id="7" depart="140" fromTaz="1" toTaz="2"/>
+	<trip id="8" depart="160" fromTaz="1" toTaz="2"/>
+	<trip id="9" depart="180" fromTaz="1" toTaz="2"/>
 </trips>
