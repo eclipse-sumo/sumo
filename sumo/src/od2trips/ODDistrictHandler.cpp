@@ -32,6 +32,7 @@
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ODDistrict.h"
@@ -48,7 +49,8 @@
 // ===========================================================================
 ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont,
                                      const std::string &file) throw()
-        : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0) {}
+        : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0),
+        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)  {}
 
 
 ODDistrictHandler::~ODDistrictHandler() throw() {}
@@ -59,14 +61,26 @@ ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_DISTRICT__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDistrict) {
+            myHaveWarnedAboutDeprecatedDistrict = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+        }
     case SUMO_TAG_TAZ:
         openDistrict(attrs);
         break;
     case SUMO_TAG_DSOURCE__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSource) {
+            myHaveWarnedAboutDeprecatedDSource = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+        }
     case SUMO_TAG_TAZSOURCE:
         addSource(attrs);
         break;
     case SUMO_TAG_DSINK__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSink) {
+            myHaveWarnedAboutDeprecatedDSink = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+        }
     case SUMO_TAG_TAZSINK:
         addSink(attrs);
         break;
