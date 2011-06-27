@@ -22,10 +22,10 @@
 -->
 
 <edges>
-   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" nolanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
+   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" numLanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
       <lane id="0" allow="bus"/>
       <lane id="1" disallow="bicycle"/>
       <lane id="2"/>
    </edge>
-   <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" nolanes="3" speed="13.90"/>
+   <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90"/>
 </edges>

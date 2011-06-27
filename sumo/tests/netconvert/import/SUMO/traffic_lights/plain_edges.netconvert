@@ -22,10 +22,10 @@
 -->
 
 <edges>
-   <edge id="-edge_left" from="node_centertl" to="node_left" priority="2" nolanes="1" speed="10.00"/>
-   <edge id="-edge_right" from="node_centertl" to="node_right" priority="2" nolanes="1" speed="10.00"/>
-   <edge id="-edge_up" from="node_centertl" to="node_up" priority="2" nolanes="1" speed="10.00"/>
-   <edge id="edge_left" from="node_left" to="node_centertl" priority="2" nolanes="1" speed="10.00"/>
-   <edge id="edge_right" from="node_right" to="node_centertl" priority="2" nolanes="1" speed="10.00"/>
-   <edge id="edge_up" from="node_up" to="node_centertl" priority="2" nolanes="1" speed="10.00"/>
+   <edge id="-edge_left" from="node_centertl" to="node_left" priority="2" numLanes="1" speed="10.00"/>
+   <edge id="-edge_right" from="node_centertl" to="node_right" priority="2" numLanes="1" speed="10.00"/>
+   <edge id="-edge_up" from="node_centertl" to="node_up" priority="2" numLanes="1" speed="10.00"/>
+   <edge id="edge_left" from="node_left" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
+   <edge id="edge_right" from="node_right" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
+   <edge id="edge_up" from="node_up" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
 </edges>

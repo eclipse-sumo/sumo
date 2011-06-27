@@ -30,20 +30,20 @@
     <location netOffset="-19859.00,-25421.00" convBoundary="0.00,0.00,257.00,608.00" origBoundary="19859.00,25421.00,20116.00,26029.00" projParameter="!"/>
 
     <edge id=":15030043_0" function="internal">
-        <lane id=":15030043_0_0" depart="0" maxspeed="13.20" length="5.01" shape="125.28,68.70 123.91,68.58 122.84,68.93 122.05,69.75 121.57,71.03"/>
+        <lane id=":15030043_0_0" depart="0" maxSpeed="13.20" length="5.01" shape="125.28,68.70 123.91,68.58 122.84,68.93 122.05,69.75 121.57,71.03"/>
     </edge>
     <edge id=":15030043_1" function="internal">
-        <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.30" shape="122.93,64.88 121.57,71.03"/>
+        <lane id=":15030043_1_0" depart="0" maxSpeed="13.89" length="6.30" shape="122.93,64.88 121.57,71.03"/>
     </edge>
 
     <edge id="15030608" from="15030238" to="15030043" priority="-1">
-        <lane id="15030608_0" depart="1" maxspeed="12.50" length="134.93" shape="256.62,99.61 125.28,68.70"/>
+        <lane id="15030608_0" depart="1" maxSpeed="12.50" length="134.93" shape="256.62,99.61 125.28,68.70"/>
     </edge>
     <edge id="15030858" from="15030435" to="15030043" priority="-1">
-        <lane id="15030858_0" depart="1" maxspeed="13.89" length="65.97" shape="136.61,0.34 122.93,64.88"/>
+        <lane id="15030858_0" depart="1" maxSpeed="13.89" length="65.97" shape="136.61,0.34 122.93,64.88"/>
     </edge>
     <edge id="153122148" from="15030043" to="15031475" priority="-1">
-        <lane id="153122148_0" depart="1" maxspeed="13.89" length="550.55" shape="121.57,71.03 1.61,608.36"/>
+        <lane id="153122148_0" depart="1" maxSpeed="13.89" length="550.55" shape="121.57,71.03 1.61,608.36"/>
     </edge>
 
     <ROWLogic id="15030043" requestSize="2">
@@ -64,19 +64,19 @@
     <junction id="15031475" type="DEAD_END" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01"/>
 
     <succ edge="15030608" lane="15030608_0" junction="15030043">
-        <succlane lane="153122148_0" via=":15030043_0_0" tl="15030043" linkno="0" dir="r" state="o"/>
+        <succlane lane="153122148_0" via=":15030043_0_0" tl="15030043" linkIdx="0" dir="r" state="o"/>
     </succ>
     <succ edge="15030858" lane="15030858_0" junction="15030043">
-        <succlane lane="153122148_0" via=":15030043_1_0" tl="15030043" linkno="1" dir="s" state="o"/>
+        <succlane lane="153122148_0" via=":15030043_1_0" tl="15030043" linkIdx="1" dir="s" state="o"/>
     </succ>
     <succ edge="153122148" lane="153122148_0" junction="15031475">
     </succ>
 
     <succ edge=":15030043_0" lane=":15030043_0_0" junction="15030043">
-        <succlane lane="153122148_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="153122148_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":15030043_1" lane=":15030043_1_0" junction="15030043">
-        <succlane lane="153122148_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="153122148_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
 
 </net>

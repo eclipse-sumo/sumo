@@ -1,2 +1,2 @@
-Error: Attribute 'nolanes' in definition of edge '1' is not an int.
+Error: Attribute 'numLanes' in definition of edge '1' is not an int.
 Quitting (on error).

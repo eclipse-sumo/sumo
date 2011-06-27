@@ -1,3 +1,3 @@
 <edges>
-   <edge id="e0" from="0" to="1" nolanes="3" speed="16" spreadType="center"/>
+   <edge id="e0" from="0" to="1" numLanes="3" speed="16" spreadType="center"/>
 </edges>
