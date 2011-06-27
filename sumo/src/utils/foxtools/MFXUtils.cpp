@@ -63,8 +63,7 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
 
 FXString
 MFXUtils::getDocumentName(const FXString &filename) throw() {
-    FXString file = FXPath::name(filename);
-    return file.before('.');
+    return FXPath::name(filename);
 }
 
 
