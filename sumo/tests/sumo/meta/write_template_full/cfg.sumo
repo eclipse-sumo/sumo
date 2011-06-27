@@ -3,86 +3,86 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="" synonymes="n net"/>
-        <route-files value="" synonymes="r routes"/>
-        <additional-files value="" synonymes="a additional"/>
-        <weight-files value="" synonymes="w weights"/>
-        <weight-attribute value="traveltime" synonymes="measure x"/>
+        <net-file value="" synonymes="n net" type="FILE" help="Load road network description from FILE"/>
+        <route-files value="" synonymes="r routes" type="FILE" help="Load routes descriptions from FILE(s)"/>
+        <additional-files value="" synonymes="a additional" type="FILE" help="Load further descriptions from FILE(s)"/>
+        <weight-files value="" synonymes="w weights" type="FILE" help="Load edge/lane weights for online rerouting from FILE"/>
+        <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
     </input>
 
     <output>
-        <netstate-dump value="" synonymes="ndump netstate"/>
-        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges"/>
-        <summary-output value="" synonymes="emissions emissions-output summary"/>
-        <tripinfo-output value="" synonymes="tripinfo"/>
-        <vehroute-output value="" synonymes="vehroutes"/>
-        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times"/>
-        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route"/>
-        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted"/>
+        <netstate-dump value="" synonymes="ndump netstate" type="FILE" help="Save complete network states into FILE"/>
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL" help="Write also empty edges completely when dumping"/>
+        <summary-output value="" synonymes="emissions emissions-output summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
+        <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
+        <vehroute-output value="" synonymes="vehroutes" type="FILE" help="Save single vehicle route info into FILE"/>
+        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times" type="BOOL" help="Write the exit times for all edges"/>
+        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route" type="BOOL" help="Write the last route only"/>
+        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL" help="Sorts the output by departure time"/>
     </output>
 
     <time>
-        <begin value="0" synonymes="b"/>
-        <end value="-1" synonymes="e"/>
-        <step-length value="1"/>
+        <begin value="0" synonymes="b" type="TIME" help="Defines the begin time; The simulation starts at this time"/>
+        <end value="-1" synonymes="e" type="TIME" help="Defines the end time; The simulation ends at this time"/>
+        <step-length value="1" type="TIME" help="Defines the step duration"/>
     </time>
 
     <processing>
-        <route-steps value="200" synonymes="s"/>
-        <no-internal-links value="false"/>
-        <ignore-accidents value="false"/>
-        <ignore-route-errors value="false"/>
-        <max-num-vehicles value="-1" synonymes="too-many-vehicles"/>
-        <incremental-dua-step value=""/>
-        <incremental-dua-base value="10"/>
-        <scale value=""/>
-        <time-to-teleport value="300"/>
-        <max-depart-delay value="-1"/>
-        <sloppy-insert value="false"/>
-        <lanechange.allow-swap value="false"/>
+        <route-steps value="200" synonymes="s" type="INT" help="Load routes for the next INT steps ahead"/>
+        <no-internal-links value="false" type="BOOL" help="Disable (junction) internal links"/>
+        <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occure more deeply"/>
+        <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>
+        <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT" help="Quit simulation if this number of vehicles is exceeded"/>
+        <incremental-dua-step value="" type="INT" help="Perform the simulation as a step in incremental DUA"/>
+        <incremental-dua-base value="10" type="INT" help="Base value for incremental DUA"/>
+        <scale value="" type="FLOAT" help="Scale demand by the given factor (0..1)"/>
+        <time-to-teleport value="300" type="TIME" help="Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting"/>
+        <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
+        <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed."/>
+        <lanechange.allow-swap value="false" type="BOOL" help="Whether blocking vehicles trying to change lanes may be swapped."/>
     </processing>
 
     <report>
-        <verbose value="false" synonymes="v"/>
-        <print-options value="false" synonymes="p"/>
-        <help value="false" synonymes="?"/>
-        <version value="false" synonymes="V"/>
-        <no-warnings value="false" synonymes="W suppress-warnings"/>
-        <log value="" synonymes="l log-file"/>
-        <message-log value=""/>
-        <error-log value=""/>
-        <no-duration-log value="false"/>
-        <no-step-log value="false"/>
+        <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
+        <print-options value="false" synonymes="p" type="BOOL" help="Prints option values before processing"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE"/>
+        <message-log value="" type="FILE" help="Writes all non-error messages to FILE"/>
+        <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <no-duration-log value="false" type="BOOL" help="Disable performance reports for individual simulation steps"/>
+        <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
     </report>
 
     <routing>
-        <device.rerouting.probability value="0" synonymes="device.routing.probability"/>
-        <device.rerouting.explicit value="" synonymes="device.routing.knownveh"/>
-        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic"/>
-        <device.rerouting.period value="0" synonymes="device.routing.period"/>
-        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period"/>
-        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight"/>
-        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval"/>
-        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz"/>
+        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT" help="The probability for a vehicle to have a routing device"/>
+        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR" help="Assign a device to named vehicles"/>
+        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
+        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
+        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights."/>
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights."/>
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL" help="Use zones (districts) as routing end points"/>
     </routing>
 
     <emissions>
-        <device.hbefa.probability value="0"/>
-        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh"/>
-        <device.hbefa.deterministic value="false"/>
+        <device.hbefa.probability value="0" type="FLOAT" help="The probability for a vehicle to have an emission logging device"/>
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR" help="Assign a device to named vehicles"/>
+        <device.hbefa.deterministic value="false" type="BOOL" help="The devices are set deterministic using a fraction of 1000"/>
     </emissions>
 
     <traci_server>
-        <remote-port value="0"/>
+        <remote-port value="0" type="INT" help="Enables TraCI Server if set"/>
     </traci_server>
 
     <random_number>
-        <random value="false" synonymes="abs-rand"/>
-        <seed value="23423" synonymes="srand"/>
+        <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
+        <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
     <gui_only>
-        <gui-settings-file value=""/>
+        <gui-settings-file value="" type="FILE" help="Load visualisation settings from FILE"/>
     </gui_only>
 
 </configuration>
