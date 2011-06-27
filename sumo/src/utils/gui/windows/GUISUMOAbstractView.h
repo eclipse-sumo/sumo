@@ -46,7 +46,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIGLObjectToolTip;
 class GUIGlChildWindow;
 class GUIVehicle;
 class GUIPerspectiveChanger;
@@ -340,9 +339,6 @@ protected:
 
     /// @brief Information whether too-tip informations shall be generated
     bool myInEditMode;
-
-    /// @brief The used tooltip-class
-    GUIGLObjectToolTip *myToolTip;
 
     /// @brief Position of the cursor relative to the window
     FXint myWindowCursorPositionX, myWindowCursorPositionY;

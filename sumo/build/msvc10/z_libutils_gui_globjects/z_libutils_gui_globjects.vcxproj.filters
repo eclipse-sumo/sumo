@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIGlObjectStorage.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIGLObjectToolTip.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -44,9 +41,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGlObjectStorage.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGLObjectToolTip.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGlObjectTypes.h">

@@ -37,7 +37,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/gui/globjects/GUIGLObjectToolTip.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUISUMOAbstractView.h"
@@ -131,7 +130,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myInEditMode=false;
     // show the middle at the beginning
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
-    myToolTip = new GUIGLObjectToolTip(myApp);
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
     gSchemeStorage.setViewport(this);
@@ -143,7 +141,6 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
     delete myPopup;
     delete myChanger;
-    delete myToolTip;
     delete myViewportChooser;
     delete myVisualizationChanger;
 }
@@ -641,10 +638,6 @@ GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data) {
 
 long
 GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void* /*data*/) {
-    if (myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
-//        myChanger->onMouseLeft();
-        myToolTip->setObjectTip(0, -1, -1);
-    }
     return 1;
 }
 

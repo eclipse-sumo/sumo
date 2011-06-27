@@ -354,10 +354,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\globjects\GUIGLObjectToolTip.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp"
 				>
 			</File>
@@ -385,10 +381,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\globjects\GUIGlObjectStorage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\globjects\GUIGLObjectToolTip.h"
 				>
 			</File>
 			<File
