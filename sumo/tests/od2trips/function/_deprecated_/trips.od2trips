@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Oct 11 17:31:13 2010 by SUMO od2trips Version dev-SVN-r9246
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <od-files value="input_od_o.fma"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml"/>
+    </output>
+
+    <defaults>
+        <arrivalLane value="0"/>
+    </defaults>
+
+</configuration>
+-->
+
+<trips>
+    <trip id="0" depart="35347.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max" arrivalLane="0"/>
+</trips>
