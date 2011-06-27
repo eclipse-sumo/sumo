@@ -90,9 +90,15 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the traffic light
      * @param[in] subid The id of the program
-     * @param[in] noLinks Number of links that are controlled by this tls
+     * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
      */
     NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
+
+
+    /** @brief Copy Constructor
+     * @param[in] logic The logic to copy
+     */
+    NBTrafficLightLogic(const NBTrafficLightLogic* logic);
 
 
     /// @brief Destructor

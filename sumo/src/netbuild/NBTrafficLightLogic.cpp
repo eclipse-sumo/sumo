@@ -38,6 +38,7 @@
 #include "NBTrafficLightLogic.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -50,9 +51,18 @@
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
-        const std::string &subid, unsigned int noLinks) throw()
-        : Named(id), myNoLinks(noLinks), mySubID(subid),
-        myOffset(0) {}
+        const std::string &subid, unsigned int noLinks) throw() : 
+    Named(id), myNoLinks(noLinks), mySubID(subid),
+    myOffset(0) 
+{}
+
+NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
+    Named(logic->getID()),
+    myNoLinks(logic->myNoLinks),
+    mySubID(logic->getProgramID()),
+    myOffset(logic->getOffset()),
+    myPhases(logic->myPhases.begin(), logic->myPhases.end())
+{}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
@@ -60,6 +70,13 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 void
 NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) throw() {
+    if (myNoLinks == 0) {
+        // initialize
+        myNoLinks = state.size(); 
+    } else if (state.size() != myNoLinks) {
+        throw ProcessError("When adding phase: state length of " + toString(state.size()) + 
+                " does not match declared number of links " + toString(myNoLinks)); 
+    }
     myPhases.push_back(PhaseDefinition(duration, state));
 }
 

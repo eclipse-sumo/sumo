@@ -130,8 +130,8 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
             const std::string& programID = it_prog->first; 
             // check for previous computation
             if (myComputed.count(id) && myComputed[id].count(programID)) {
-                WRITE_WARNING("Program '" + programID + "' for Traffic light '" + id + "' was already built.");
-                continue;
+                delete myComputed[id][programID];
+                myComputed[id].erase(programID);
             }
             // build program
             NBTrafficLightDefinition *def = it_prog->second;
