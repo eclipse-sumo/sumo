@@ -24,8 +24,8 @@
 
 <additional>
     <routeDistribution id="MQ_beg">
-        <route refid="beg_to_end" probability="1"/>
-        <route refid="beg_to_end_1" probability="1"/>
-        <route refid="beg_to_end_2" probability="1"/>
+        <route refId="beg_to_end" probability="1"/>
+        <route refId="beg_to_end_1" probability="1"/>
+        <route refId="beg_to_end_2" probability="1"/>
     </routeDistribution>
 </additional>

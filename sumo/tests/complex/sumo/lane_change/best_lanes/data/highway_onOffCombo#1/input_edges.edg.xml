@@ -1,15 +1,15 @@
 <edges>
-   <edge id="1" from="1" to="2" nolanes="3" speed="30" />
-   <edge id="2" from="2" to="3" nolanes="2" speed="30" />
-   <edge id="3" from="3" to="4" nolanes="3" speed="30" />
+   <edge id="1" from="1" to="2" numLanes="3" speed="30" />
+   <edge id="2" from="2" to="3" numLanes="2" speed="30" />
+   <edge id="3" from="3" to="4" numLanes="3" speed="30" />
 
-   <edge id="4" from="4" to="5" nolanes="2" speed="30" />
-   <edge id="4o" from="4" to="5o" nolanes="1" speed="30" />
+   <edge id="4" from="4" to="5" numLanes="2" speed="30" />
+   <edge id="4o" from="4" to="5o" numLanes="1" speed="30" />
 
-   <edge id="5" from="5" to="6" nolanes="3" speed="30" />
-   <edge id="6" from="6" to="7" nolanes="3" speed="30" />
+   <edge id="5" from="5" to="6" numLanes="3" speed="30" />
+   <edge id="6" from="6" to="7" numLanes="3" speed="30" />
 
-   <edge id="7" from="7" to="8" nolanes="2" speed="30" />
-   <edge id="7o" from="7" to="8o" nolanes="1" speed="30" />
+   <edge id="7" from="7" to="8" numLanes="2" speed="30" />
+   <edge id="7o" from="7" to="8o" numLanes="1" speed="30" />
 
 </edges>

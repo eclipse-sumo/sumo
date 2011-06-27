@@ -103,24 +103,24 @@
 	<busLines>
 		<busLine id="101" maxTripDuration="10">
 			<stations>
-				<station refid="1" />
-				<station refid="3" />
-				<station refid="4" />
-				<station refid="5" />
-				<station refid="6" />
-				<station refid="7" />
-				<station refid="8" />
-				<station refid="9" />
+				<station refId="1" />
+				<station refId="3" />
+				<station refId="4" />
+				<station refId="5" />
+				<station refId="6" />
+				<station refId="7" />
+				<station refId="8" />
+				<station refId="9" />
 			</stations>
 			<revStations>
-				<station refid="109" />
-				<station refid="108" />
-				<station refid="107" />
-				<station refid="106" />
-				<station refid="105" />
-				<station refid="104" />
-				<station refid="103" />
-				<station refid="102" />
+				<station refId="109" />
+				<station refId="108" />
+				<station refId="107" />
+				<station refId="106" />
+				<station refId="105" />
+				<station refId="104" />
+				<station refId="103" />
+				<station refId="102" />
 			</revStations>
 			<frequencies>
 				<frequency begin="21600" end="36000" rate="300" />
@@ -132,24 +132,24 @@
 		
 		<busLine id="102" maxTripDuration="7">
 			<stations>
-				<station refid="15" />
-				<station refid="9" />
-				<station refid="10" />
-				<station refid="1" />
-				<station refid="11" />
-				<station refid="12" />
-				<station refid="13" />
-				<station refid="14" />
+				<station refId="15" />
+				<station refId="9" />
+				<station refId="10" />
+				<station refId="1" />
+				<station refId="11" />
+				<station refId="12" />
+				<station refId="13" />
+				<station refId="14" />
 			</stations>
 			<revStations>
-				<station refid="114" />
-				<station refid="113" />
-				<station refid="112" />
-				<station refid="111" />
-				<station refid="101" />
-				<station refid="110" />
-				<station refid="109" />
-				<station refid="115" />
+				<station refId="114" />
+				<station refId="113" />
+				<station refId="112" />
+				<station refId="111" />
+				<station refId="101" />
+				<station refId="110" />
+				<station refId="109" />
+				<station refId="115" />
 			</revStations>
 			<frequencies>
 				<frequency begin="28800" end="32400" rate="600" />

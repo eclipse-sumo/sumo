@@ -36,8 +36,8 @@ while density<=1.:
     length = VEHICLENUMBER * VEHICLELENGTH / density
     fd = open("input_edges.edg.xml", "w")
     print >> fd, '<edges>'
-    print >> fd, '    <edge id="a" from="a" to="b" nolanes="1" speed="36." length="%s" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>' % (length-.1)
-    print >> fd, '    <edge id="b" from="b" to="a" nolanes="1" speed="36." length=".1"/>'
+    print >> fd, '    <edge id="a" from="a" to="b" numLanes="1" speed="36." length="%s" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>' % (length-.1)
+    print >> fd, '    <edge id="b" from="b" to="a" numLanes="1" speed="36." length=".1"/>'
     print >> fd, '</edges>'
     fd.close()
     call([netconvertBinary, "-c", "netconvert.netc.cfg"], log)
@@ -46,11 +46,11 @@ while density<=1.:
     vehicleOffset = (length - .1) / float(VEHICLENUMBER)
     fd = open("input_routes.rou.xml", "w")
     print >> fd, '<routes>'
-    print >> fd, '    <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="%s" maxspeed="36"/>' % (VEHICLELENGTH)
+    print >> fd, '    <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="%s" maxSpeed="36"/>' % (VEHICLELENGTH)
     print >> fd, '    <route id="r1" multi_ref="x" edges="a b a b a b a"/>'
     pos = 0
     for i in range(0, VEHICLENUMBER):
-        print >> fd, '    <vehicle id="v.%s" depart="0" departspeed="0" departpos="%s" route="r1" type="t1"/>' % (i, pos)
+        print >> fd, '    <vehicle id="v.%s" depart="0" departSpeed="0" departPos="%s" route="r1" type="t1"/>' % (i, pos)
         if USE_ZERO_OFFSET:
             pos = pos + VEHICLELENGTH
         else:
