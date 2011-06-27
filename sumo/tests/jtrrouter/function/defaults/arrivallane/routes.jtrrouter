@@ -18,14 +18,14 @@
     </processing>
 
     <defaults>
-        <arrivallane value="0"/>
+        <arrivalLane value="0"/>
     </defaults>
 
 </configuration>
 -->
 
 <routes>
-    <vehicle id="0_0" depart="0.00" arrivallane="0">
+    <vehicle id="0_0" depart="0.00" arrivalLane="0">
         <route edges="beg beg2right right right2end -middle middle end"/>
     </vehicle>
 </routes>
