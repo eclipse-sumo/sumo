@@ -372,7 +372,7 @@ class NetReader(handler.ContentHandler):
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
-            self._currentLane = self._net.addLane(self._currentEdge, float(attrs['maxspeed']), float(attrs['length']))
+            self._currentLane = self._net.addLane(self._currentEdge, float(attrs['maxSpeed']), float(attrs['length']))
             if attrs.has_key('shape'):
                 self._currentShape = attrs['shape'] # deprecated: at some time, this is mandatory
             else:
@@ -394,7 +394,7 @@ class NetReader(handler.ContentHandler):
                 tolane = int(lid[lid.rfind('_')+1:])
                 if attrs.has_key('tl') and attrs['tl']!="":
                     tl = attrs['tl']
-                    tllink = int(attrs['linkno'])
+                    tllink = int(attrs['linkIdx'])
                     tlid = attrs['tl']
                     toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                     tolane2 = toEdge._lanes[tolane]
