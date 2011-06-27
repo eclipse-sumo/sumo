@@ -179,6 +179,7 @@ protected:
 
 	bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
     bool myHaveWarnedAboutDeprecatedVType, myHaveWarnedAboutDeprecatedVTypeDistribution;
+    bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedRefID;
 
 private:
     /// Checks whether the route file is sorted by departure time if needed

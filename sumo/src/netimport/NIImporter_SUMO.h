@@ -262,7 +262,7 @@ private:
     /// @brief whether we suspect a net that was built with xml.keep-shape
     bool mySuspectKeepShape;
 
-    bool myHaveWarnedAboutDeprecatedSpreadType;
+    bool myHaveWarnedAboutDeprecatedSpreadType, myHaveWarnedAboutDeprecatedMaxSpeed;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
      * @param[in] edge The EdgeAttrs* which should contain the lane

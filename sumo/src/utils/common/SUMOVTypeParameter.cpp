@@ -70,7 +70,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
         dev << " minGap=\"" << minGap << '"';
     }
     if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
-        dev << " maxspeed=\"" << maxSpeed << '"';
+        dev << " maxSpeed=\"" << maxSpeed << '"';
     }
     if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
         dev << " probability=\"" << defaultProbability << '"';
@@ -82,7 +82,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
         dev << " speedDev=\"" << speedDev << '"';
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        dev << " vclass=\"" << toString(vehicleClass) << '"';
+        dev << " vClass=\"" << toString(vehicleClass) << '"';
     }
     if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
         dev << " emissionClass=\"" << getVehicleEmissionTypeName(emissionClass) << '"';

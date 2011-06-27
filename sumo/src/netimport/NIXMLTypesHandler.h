@@ -86,6 +86,8 @@ private:
     NBTypeCont &myTypeCont;
 
 
+    bool myHaveWarnedAboutDeprecatedNoLanes;
+
 private:
     /** @brief invalid copy constructor */
     NIXMLTypesHandler(const NIXMLTypesHandler &s);

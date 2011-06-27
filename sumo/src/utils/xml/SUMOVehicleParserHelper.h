@@ -185,6 +185,12 @@ private:
 
     // brief allowed attrs for each known CF-model
     static CFAttrMap allowedCFModelAttrs;
+
+
+    static bool gHaveWarnedAboutDeprecatedNumber, gHaveWarnedAboutDeprecatedTazs,
+        gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
+        gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
+        gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
 };
 
 

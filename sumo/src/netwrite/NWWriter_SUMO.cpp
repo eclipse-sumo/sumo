@@ -237,7 +237,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMO
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
 	into.openTag(SUMO_TAG_EDGE) << " id=\"" << id << "\" function=\"internal\">\n";
     into.openTag(SUMO_TAG_LANE) << " id=\"" << id << "_0\" depart=\"0\" "
-        << "maxspeed=\"" << vmax << "\" "
+        << "maxSpeed=\"" << vmax << "\" "
         << "length=\"" << toString(length) << "\" "
         << "shape=\"" << shape << "\"";
 	into.closeTag(true);
@@ -312,7 +312,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if(lane.offset>0) {
         length = length - lane.offset;
     }
-    into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\"";
+    into << " maxSpeed=\"" << lane.speed << "\" length=\"" << length << "\"";
     if (lane.offset > 0) {
         into << " endOffset=\"" << lane.offset << '\"';
     }
@@ -458,7 +458,7 @@ NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int
         // set information about the controlling tl if any
         if (c.tlID!="") {
             into << " tl=\"" << c.tlID << "\"";
-            into << " linkno=\"" << c.tlLinkNo << "\"";
+            into << " linkIdx=\"" << c.tlLinkNo << "\"";
         }
         // write the direction information
         LinkDirection dir = e.getToNode()->getDirection(&e, c.toEdge);
@@ -510,11 +510,11 @@ NWWriter_SUMO::writeInternalSucceeding(OutputDevice &into, const NBNode &n) {
                     //<< sid << "_" << 0 ()
                     << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
                     << " via=\"" << sid << "_0\""
-                    << " tl=\"\" linkno=\"\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
+                    << " tl=\"\" linkIdx=\"\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
                 } else {
                     into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"\" linkno=\"\" dir=\"s\" state=\"M\"";
+                    << "\" tl=\"\" linkIdx=\"\" dir=\"s\" state=\"M\"";
                 }
 				into.closeTag(true);
 				into.closeTag();
@@ -525,7 +525,7 @@ NWWriter_SUMO::writeInternalSucceeding(OutputDevice &into, const NBNode &n) {
                     << "\" junction=\"" << sid << "\">\n";
                     into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"\" linkno=\"0\" dir=\"s\" state=\"M\"";
+                    << "\" tl=\"\" linkIdx=\"0\" dir=\"s\" state=\"M\"";
 					into.closeTag(true);
 					into.closeTag();
                     splitNo++;

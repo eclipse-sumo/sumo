@@ -198,7 +198,7 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     << time2string(myHolder.getDeparture())
     << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
     if (myWithTaz) {
-        od << "\" fromtaz=\"" << myHolder.getParameter().fromTaz << "\" totaz=\"" << myHolder.getParameter().toTaz;
+        od << "\" fromTaz=\"" << myHolder.getParameter().fromTaz << "\" toTaz=\"" << myHolder.getParameter().toTaz;
     }
     od << "\">\n";
     if (myReplacedRoutes.size() > 0) {

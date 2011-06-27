@@ -417,7 +417,9 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool laneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
-    SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok);
+    SUMOReal maxSpeed = attrs.hasAttribute(SUMO_ATTR_MAXSPEED)
+        ? attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok)
+        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
@@ -1124,7 +1126,9 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
             return;
         }
         if (tlID!="") {
-            int linkNumber = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
+            int linkNumber = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
+                ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+                : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             if (!ok) {
                 return;
             }

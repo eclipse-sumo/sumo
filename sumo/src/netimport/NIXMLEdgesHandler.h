@@ -271,9 +271,7 @@ private:
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;
 
-    bool myHaveWarnedAboutDeprecatedSpreadType;
-
-	bool myHaveWarnedAboutDeprecatedFromTo;
+    bool myHaveWarnedAboutDeprecatedSpreadType, myHaveWarnedAboutDeprecatedFromTo, myHaveWarnedAboutDeprecatedNoLanes;
 
 
 private:

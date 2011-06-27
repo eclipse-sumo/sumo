@@ -265,11 +265,11 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         }
         for (std::vector<RODFRouteDesc>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
             if ((*i).overallProb>0||includeUnusedRoutes) {
-                out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
+                out.openTag("route") << " refId=\"" << (*i).routename << "\" probability=\"" << (*i).overallProb << "\"";
                 out.closeTag(true);
             }
             if (isEmptyDist) {
-                out.openTag("route") << " refid=\"" << (*i).routename << "\" probability=\"1\"";
+                out.openTag("route") << " refId=\"" << (*i).routename << "\" probability=\"1\"";
                 out.closeTag(true);
             }
         }
@@ -324,14 +324,14 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 }
                 out << "_" << ctime  << "\"" // !!! running
                 << " depart=\"" << time2string(ctime) << "\""
-                << " departspeed=\"";
+                << " departSpeed=\"";
                 if (v>defaultSpeed) {
                     out << "max";
                 } else {
                     out << v;
                 }
-                out << "\" departpos=\"" << myPosition << "\""
-                << " departlane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\" route=\"";
+                out << "\" departPos=\"" << myPosition << "\""
+                << " departLane=\"" << myLaneID.substr(myLaneID.rfind("_")+1) << "\" route=\"";
                 if (destIndex>=0) {
                     out << myRoutes->get()[destIndex].routename << "\"";
                 } else {

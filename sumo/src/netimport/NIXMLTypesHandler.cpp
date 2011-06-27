@@ -39,6 +39,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/common/SUMOVehicleClass.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -51,7 +52,7 @@
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
         : SUMOSAXHandler("xml-types - file"),
-        myTypeCont(tc) {}
+        myTypeCont(tc), myHaveWarnedAboutDeprecatedNoLanes(false) {}
 
 
 NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
@@ -67,7 +68,15 @@ NIXMLTypesHandler::myStartElement(int element,
     // get the id, report a warning if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, myTypeCont.getPriority(""));
-    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, id.c_str(), ok, myTypeCont.getNoLanes(""));
+    int noLanes = myTypeCont.getNoLanes("");
+    if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
+        noLanes = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, id.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedNoLanes) {
+            myHaveWarnedAboutDeprecatedNoLanes = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
+        }
+    }
+    noLanes = attrs.getOptIntReporting(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, (SUMOReal) myTypeCont.getSpeed(""));
     std::string allowS = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");

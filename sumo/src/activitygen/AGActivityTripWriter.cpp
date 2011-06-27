@@ -45,9 +45,9 @@ AGActivityTripWriter::initialize() {
 
 void
 AGActivityTripWriter::vtypes() {
-    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxspeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxspeed=\"70\"/>" << std::endl << std::endl;
+    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxSpeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxSpeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxSpeed=\"70\"/>" << std::endl << std::endl;
 
     colors["default"] = "1,0,0";
     colors["bus"] = "0,1,0";
@@ -64,10 +64,10 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
         << " id=\"" << trip.getVehicleName()
         << "\" type=\"" << trip.getType()
         << "\" depart=\"" << time
-        << "\" departpos=\"" << trip.getDep().getPosition()
-        << "\" arrivalpos=\"" << trip.getArr().getPosition()
-        << "\" departspeed=\"" << 0
-        << "\" arrivalspeed=\"" << 0
+        << "\" departPos=\"" << trip.getDep().getPosition()
+        << "\" arrivalPos=\"" << trip.getArr().getPosition()
+        << "\" departSpeed=\"" << 0
+        << "\" arrivalSpeed=\"" << 0
         << "\" color=\"" << colors[trip.getType()]
         << "\">" << std::endl;
 

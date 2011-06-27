@@ -70,7 +70,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
         myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false),
-		myHaveWarnedAboutDeprecatedFromTo(false) {}
+		myHaveWarnedAboutDeprecatedFromTo(false),
+        myHaveWarnedAboutDeprecatedNoLanes(false){}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -145,8 +146,15 @@ NIXMLEdgesHandler::myStartElement(int element,
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
         // try to get the number of lanes
-        if (attrs.hasAttribute(SUMO_ATTR_NOLANES)) {
-            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES, myCurrentID.c_str(), ok);
+        if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
+            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
+            if(!myHaveWarnedAboutDeprecatedNoLanes) {
+                myHaveWarnedAboutDeprecatedNoLanes = true;
+                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
+            }
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
+            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
         }
         // try to get the priority
         if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {

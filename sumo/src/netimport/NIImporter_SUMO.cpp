@@ -74,7 +74,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
         myCurrentEdge(0),
         myCurrentLane(0),
         myCurrentTL(0),
-        mySuspectKeepShape(false), myHaveWarnedAboutDeprecatedSpreadType(false)
+        mySuspectKeepShape(false), 
+        myHaveWarnedAboutDeprecatedSpreadType(false), myHaveWarnedAboutDeprecatedMaxSpeed(false)
 {}
 
 
@@ -353,6 +354,13 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     myCurrentLane = new LaneAttrs;
     myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok, -1);
+    if(attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
+        myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedMaxSpeed) {
+            myHaveWarnedAboutDeprecatedMaxSpeed = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_MAXSPEED) + "' instead.");
+        }
+    }
     myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok, false);
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
@@ -437,7 +445,9 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
-        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKNO, 0, ok);
+        conn.tlLinkNo = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
+            ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+            : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
     }
     myCurrentLane->connections.push_back(conn);
 }

@@ -184,25 +184,25 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (!noVtype&&(*i).cell->vehicleType.length()!=0) {
                 dev << " type=\"" << (*i).cell->vehicleType << "\"";
             }
-            dev << " fromtaz=\"" << (*i).cell->origin << "\"";
-            dev << " totaz=\"" << (*i).cell->destination << "\"";
+            dev << " fromTaz=\"" << (*i).cell->origin << "\"";
+            dev << " toTaz=\"" << (*i).cell->destination << "\"";
             if (oc.isSet("departlane") && oc.getString("departlane")!="default") {
-                dev << " departlane=\"" << oc.getString("departlane") << "\"";
+                dev << " departLane=\"" << oc.getString("departlane") << "\"";
             }
             if (oc.isSet("departpos")) {
-                dev << " departpos=\"" << oc.getString("departpos") << "\"";
+                dev << " departPos=\"" << oc.getString("departpos") << "\"";
             }
             if (oc.isSet("departspeed") && oc.getString("departspeed")!="default") {
-                dev << " departspeed=\"" << oc.getString("departspeed") << "\"";
+                dev << " departSpeed=\"" << oc.getString("departspeed") << "\"";
             }
             if (oc.isSet("arrivallane")) {
-                dev << " arrivallane=\"" << oc.getString("arrivallane") << "\"";
+                dev << " arrivalLane=\"" << oc.getString("arrivallane") << "\"";
             }
             if (oc.isSet("arrivalpos")) {
-                dev << " arrivalpos=\"" << oc.getString("arrivalpos") << "\"";
+                dev << " arrivalPos=\"" << oc.getString("arrivalpos") << "\"";
             }
             if (oc.isSet("arrivalspeed")) {
-                dev << " arrivalspeed=\"" << oc.getString("arrivalspeed") << "\"";
+                dev << " arrivalSpeed=\"" << oc.getString("arrivalspeed") << "\"";
             }
             dev.closeTag(true);
         }

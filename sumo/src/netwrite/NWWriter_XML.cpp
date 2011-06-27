@@ -106,7 +106,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->getTypeID() != "") {
             edevice << "\" type=\"" << e->getTypeID();
         }
-        edevice << "\" nolanes=\"" << e->getNoLanes()
+        edevice << "\" numLanes=\"" << e->getNoLanes()
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write inner geometry (if any)
         if (!e->hasDefaultGeometry()) {

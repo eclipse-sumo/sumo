@@ -169,7 +169,9 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     // get the speed
-    SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok);
+    SUMOReal maxSpeed = attrs.hasAttribute(SUMO_ATTR_MAXSPEED)
+        ? attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok)
+        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");

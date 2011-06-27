@@ -264,10 +264,14 @@ void
 AGActivityGenHandler::parseStation(const SUMOSAXAttributes &attrs) {
     if (myCurrentObject != "busLine")
         return;
+    bool ok = true;
+    int refID = attrs.hasAttribute(SUMO_ATTR_REFID)
+        ? attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok)
+        : attrs.getIntReporting(SUMO_ATTR_REFID__DEPRECATED, myCurrentObject.c_str(), ok);
     if (!isRevStation)
-        currentBusLine->locateStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
+        currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);
     else
-        currentBusLine->locateRevStation(myCity.statData.busStations.find(attrs.getInt(SUMO_ATTR_REFID))->second);
+        currentBusLine->locateRevStation(myCity.statData.busStations.find(refID)->second);
 }
 
 void

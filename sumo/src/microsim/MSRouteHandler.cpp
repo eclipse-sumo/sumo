@@ -74,7 +74,9 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 	myHaveWarnedAboutDeprecatedFriendlyPos(false),
 	myHaveWarnedAboutDeprecatedBusStop(false),
     myHaveWarnedAboutDeprecatedVType(false), 
-    myHaveWarnedAboutDeprecatedVTypeDistribution(false)
+    myHaveWarnedAboutDeprecatedVTypeDistribution(false),
+    myHaveWarnedAboutDeprecatedVTypes(false),
+    myHaveWarnedAboutDeprecatedRefID(false)
 {
     OptionsCont &oc = OptionsCont::getOptions();
 	if (oc.isSet("incremental-dua-step")) {
@@ -249,8 +251,16 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
     myCurrentVTypeDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (ok) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
-        if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok));
+        if (attrs.hasAttribute(SUMO_ATTR_VTYPES)||attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
+            std::string vTypes;
+            if(!myHaveWarnedAboutDeprecatedVTypes&&attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
+                myHaveWarnedAboutDeprecatedVTypes = true;
+                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_VTYPES) + "' instead.");
+                vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, myCurrentVTypeDistributionID.c_str(), ok);
+            } else {
+                vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
+            }
+            StringTokenizer st(vTypes);
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
                 MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
@@ -306,6 +316,13 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
     myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
+    if(attrs.hasAttribute(SUMO_ATTR_REFID__DEPRECATED)) {
+        myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID__DEPRECATED, myActiveRouteID.c_str(), ok, "");
+        if(!myHaveWarnedAboutDeprecatedRefID) {
+            myHaveWarnedAboutDeprecatedRefID = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_REFID__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_REFID) + "' instead.");
+        }
+    }
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID) == 0) {
         MsgHandler::getErrorInstance()->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
