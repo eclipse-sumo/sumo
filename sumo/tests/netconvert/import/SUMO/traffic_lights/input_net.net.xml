@@ -219,7 +219,7 @@
         <succlane lane="edge_up_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
 
-    <tlLogic id="node_centertl" type="static" programID="expect_a_warning" offset="0">
+    <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
         <phase duration="31" state="rrrGGgGgg"/>
         <phase duration="3" state="rrryygygg"/>
         <phase duration="6" state="rrrrrGrGG"/>

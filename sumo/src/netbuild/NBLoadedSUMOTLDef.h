@@ -98,11 +98,6 @@ public:
     void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno);
 
 
-    /** @brief Returns the ProgramID */
-    const std::string & getProgramID() const {
-        return myTLLogic->getProgramID();
-    };
-
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container

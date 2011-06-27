@@ -45,13 +45,18 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        const std::vector<NBNode*> &junctions) throw()
-        : Named(id), myControlledNodes(junctions) {
+        const std::vector<NBNode*> &junctions,
+        const std::string &programID) throw()
+        : Named(id), myControlledNodes(junctions), mySubID(programID) {
     std::vector<NBNode*>::iterator i=myControlledNodes.begin();
     while (i!=myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j=i+1; j!=myControlledNodes.end();) {
@@ -71,15 +76,16 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        NBNode *junction) throw()
-        : Named(id) {
+        NBNode *junction,
+        const std::string &programID) throw()
+        : Named(id), mySubID(programID) {
     addNode(junction);
     junction->addTrafficLight(this);
 }
 
 
-NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id) throw()
-        : Named(id) {}
+NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id, const std::string &programID) throw()
+        : Named(id), mySubID(programID) {}
 
 
 NBTrafficLightDefinition::~NBTrafficLightDefinition() throw() {}

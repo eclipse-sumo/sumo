@@ -263,15 +263,15 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
                              const std::vector<NBNode*> &junctions) throw()
-        : NBTrafficLightDefinition(id, junctions) {}
+        : NBTrafficLightDefinition(id, junctions, DefaultProgramID) {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id, NBNode *junction) throw()
-        : NBTrafficLightDefinition(id, junction) {}
+        : NBTrafficLightDefinition(id, junction, DefaultProgramID) {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id) throw()
-        : NBTrafficLightDefinition(id) {}
+        : NBTrafficLightDefinition(id, DefaultProgramID) {}
 
 
 NBLoadedTLDef::~NBLoadedTLDef() throw() {
@@ -313,7 +313,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw()
         noSignals += (*i).second->getLinkNo();
     }
     // build the phases
-    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", noSignals);
+    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), getProgramID(), noSignals);
     for (std::vector<SUMOReal>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         // compute the duration of the current phase
         unsigned int duration;

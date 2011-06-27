@@ -67,7 +67,6 @@ public:
     /// @brief Destructor
     ~NBTrafficLightLogicCont() throw();
 
-
     /** @brief Initialises the storage by applying given options
      *
      * Options, mainly setting offsets, are parsed
@@ -82,48 +81,39 @@ public:
     /** @brief Adds a logic definition to the dictionary
      *
      * "true" is returned if the logic is accepted - no logic with the same
-     *  name exists within this container. If another logic with the same name
-     *  exists, false is returned.
+     *  name and programID exists within this container. 
      *
      * @param[in] logic The logic to add
-     * @return Whether the logic was valid (no logic with the same id is already known)
+     * @return Whether the logic was valid (no logic with the same id and programID is already known)
      */
     bool insert(NBTrafficLightDefinition *logic) throw();
 
 
-    /** @brief Removes a logic definition from the dictionary
+    /** @brief Removes a logic definition (and all programs) from the dictionary
      *
-     * "true" is returned if the logic if the logic existed in the dictionary,
+     * "true" is returned if the logic existed in the dictionary,
      *  otherwise "false".
      *
      * @param[in] id The id of the logic to remove
      * @return Whether the named logic was within the dictionary
      */
-    bool remove(const std::string &id) throw();
+    bool removeFully(const std::string &id);
 
 
-    /** @brief Returns the pointer to the begin of the stored logics
-     * @return The iterator to the beginning of stored logics
+    /** @brief Removes a program of a logic definition from the dictionary
+     *
+     * "true" is returned if the program existed in the dictionary,
+     *  otherwise "false".
+     *
+     * @param[in] id The id of the logic 
+     * @param[in] id The id of the program to remove
+     * @return Whether the program was within the dictionary
      */
-    std::map<std::string, NBTrafficLightLogic*>::const_iterator begin() const {
-        return myComputed.begin();
-    }
+    bool remove(const std::string &id, const std::string &programID);
 
 
-    /** @brief Returns the pointer to the end of the stored logics
-     * @return The iterator to the end of stored logics
-     */
-    std::map<std::string, NBTrafficLightLogic*>::const_iterator end() const {
-        return myComputed.end();
-    }
-
-
-    /** @brief Returns the number of stored logics
-     * @return The number of stored logics
-     */
-    size_t size() const {
-        return myComputed.size();
-    }
+    /// @brief Returns a list of all computed logics 
+    std::vector<NBTrafficLightLogic*> getComputed() const;
 
 
     /** @brief Computes the traffic light logics using the stored definitions and stores the results
@@ -169,17 +159,27 @@ public:
     /** @brief Returns the named definition
      *
      * @param[in] id The id of the definition to return
+     * @param[in] programID The id of the program to return
      * @return The named definition, 0 if it is not known
      */
-    NBTrafficLightDefinition *getDefinition(const std::string &id) const throw();
+    NBTrafficLightDefinition* getDefinition(const std::string &id, const std::string &programID) const;
+
+
+    /** @brief Returns all programs for the given tl-id 
+     *
+     * @param[in] id The tl-id for which to return all programs
+     * @return The map of programIDs to definitions
+     */
+    const std::map<std::string, NBTrafficLightDefinition*>& getPrograms(const std::string &id) const;
 
 
     /** @brief Returns the computed logic for the given name
      *
      * @param[in] id The id of the logic to return
+     * @param[in] programID The id of the program to return
      * @return The named definition, 0 if it is not known
      */
-    NBTrafficLightLogic * getLogic(const std::string &id) const;
+    NBTrafficLightLogic* getLogic(const std::string &id, const std::string &programID) const;
 
 
     /** @brief Informs the edges about being controlled by a tls
@@ -195,24 +195,31 @@ public:
 
 
 private:
-    /// @brief Definition of the container type for tl-ids to previously computed logics
-    typedef std::map<std::string, NBTrafficLightLogic*> ComputedContType;
+    /// @brief Definition of internal the container types
+    typedef std::map<std::string, NBTrafficLightLogic*> Program2Logic;
+    typedef std::map<std::string, Program2Logic> Id2Logics;
+    typedef std::map<std::string, NBTrafficLightDefinition*> Program2Def;
+    typedef std::map<std::string, Program2Def> Id2Defs;
+    typedef std::vector<NBTrafficLightLogic*> Logics;
+    typedef std::vector<NBTrafficLightDefinition*> Definitions;
 
     /// @brief The container for previously computed tl-logics
-    ComputedContType myComputed;
-
-    /// @brief Definition of the container type for tl-ids to their definitions
-    typedef std::map<std::string, NBTrafficLightDefinition*> DefinitionContType;
+    Id2Logics myComputed;
 
     /// @brief The container for tl-ids to their definitions
-    DefinitionContType myDefinitions;
+    Id2Defs myDefinitions;
 
     /// @brief List of tls which shall have an offset of T/2
-    std::vector<std::string> myHalfOffsetTLS;
+    std::set<std::string> myHalfOffsetTLS;
 
     /// @brief List of tls which shall have an offset of T/2
-    std::vector<std::string> myQuarterOffsetTLS;
+    std::set<std::string> myQuarterOffsetTLS;
 
+    static const Program2Def EmptyDefinitions;
+
+private:
+    /// @brief Returns a list of all definitions (convenience for easier iteration)
+    Definitions getDefinitions() const;
 
 };
 

@@ -235,19 +235,19 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
 Warning: The traffic light '451' does not control any links; it will not be build.
-Warning: Could not build traffic lights '451'
+Warning: Could not build program '0' for traffic light '451'
 Warning: The traffic light '452' does not control any links; it will not be build.
-Warning: Could not build traffic lights '452'
+Warning: Could not build program '0' for traffic light '452'
 Warning: The traffic light '453' does not control any links; it will not be build.
-Warning: Could not build traffic lights '453'
+Warning: Could not build program '0' for traffic light '453'
 Warning: The traffic light '455' does not control any links; it will not be build.
-Warning: Could not build traffic lights '455'
+Warning: Could not build program '0' for traffic light '455'
 Warning: The traffic light '502' does not control any links; it will not be build.
-Warning: Could not build traffic lights '502'
+Warning: Could not build program '0' for traffic light '502'
 Warning: The traffic light '503' does not control any links; it will not be build.
-Warning: Could not build traffic lights '503'
+Warning: Could not build program '0' for traffic light '503'
 Warning: The traffic light '531' does not control any links; it will not be build.
-Warning: Could not build traffic lights '531'
-Leaked object at 0x4ccd540 (size 16, 0x339dea4bb9)
+Warning: Could not build program '0' for traffic light '531'
+Leaked object at 0x733e6d0 (size 16, 0x330a2a4bb9)
 *** 1 leaks found
-delete: freed 0x4ccd540 (size 16, 0 bytes still allocated)
+delete: freed 0x733e6d0 (size 16, 0 bytes still allocated)

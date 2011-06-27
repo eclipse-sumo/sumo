@@ -1,5 +1,5 @@
 Warning: The traffic light '0' does not control any links; it will not be build.
-Warning: Could not build traffic lights '0'
-Leaked object at 0x17244540 (size 16, 0x339dea4bb9)
+Warning: Could not build program '0' for traffic light '0'
+Leaked object at 0xf26b6d0 (size 16, 0x330a2a4bb9)
 *** 1 leaks found
-delete: freed 0x17244540 (size 16, 0 bytes still allocated)
+delete: freed 0xf26b6d0 (size 16, 0 bytes still allocated)

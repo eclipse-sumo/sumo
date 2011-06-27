@@ -180,9 +180,18 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
 
                     // maybe we have a tls-controlled connection
                     if (conn->tlID != "") {
-                        NBLoadedSUMOTLDef *tl = (NBLoadedSUMOTLDef*)myTLLCont.getDefinition(conn->tlID);
-                        if (tl) {
-                            tl->addConnection(nbe, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
+                        const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(conn->tlID);
+                        if (programs.size() > 0) {
+                            std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
+                            for (it = programs.begin(); it!= programs.end(); it++) {
+                                NBLoadedSUMOTLDef *tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
+                                if (tlDef) {
+                                    tlDef->addConnection(nbe, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
+                                } else {
+                                    throw ProcessError("Corrupt traffic light definition '" 
+                                            + conn->tlID + "' (program '" + it->first + "')");
+                                }
+                            }
                         } else {
                             WRITE_ERROR("The traffic light '" + conn->tlID + "' is not known.");
                         }
@@ -285,8 +294,7 @@ NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
         } else {
             if (!myTLLCont.insert(myCurrentTL)) {
                 WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + 
-                        "' for traffic light '" + myCurrentTL->getID() + 
-                        "'. Multiple programs for the same traffic light are not supported");
+                        "' for traffic light '" + myCurrentTL->getID() + "'");
                 delete myCurrentTL;
             }
             myCurrentTL = 0;

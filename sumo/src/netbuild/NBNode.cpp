@@ -66,7 +66,7 @@
 
 
 // ===========================================================================
-// some constant defnitions
+// some constant definitions
 // ===========================================================================
 /** Definition how many points an internal lane-geometry should be made of */
 #define NO_INTERNAL_POINTS 5

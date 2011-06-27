@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jun  6 14:55:08 2011 by SUMO netconvert Version dev-SVN-r10510
+<!-- generated on Mon Jun 27 14:24:59 2011 by SUMO netconvert Version dev-SVN-r10740
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
 
@@ -118,6 +118,14 @@
     </ROWLogic>
 
     <tlLogic id="node_centertl" type="static" programID="0" offset="0">
+        <phase duration="31" state="rrrGGgGgg"/>
+        <phase duration="3" state="rrryygygg"/>
+        <phase duration="6" state="rrrrrGrGG"/>
+        <phase duration="3" state="rrrrryryy"/>
+        <phase duration="31" state="GGgGrrrrr"/>
+        <phase duration="3" state="yyyyrrrrr"/>
+    </tlLogic>
+    <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
         <phase duration="31" state="rrrGGgGgg"/>
         <phase duration="3" state="rrryygygg"/>
         <phase duration="6" state="rrrrrGrGG"/>

@@ -49,15 +49,15 @@
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
                        const std::vector<NBNode*> &junctions) throw()
-        : NBTrafficLightDefinition(id, junctions) {}
+        : NBTrafficLightDefinition(id, junctions, DefaultProgramID) {}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction) throw()
-        : NBTrafficLightDefinition(id, junction) {}
+        : NBTrafficLightDefinition(id, junction, DefaultProgramID) {}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id) throw()
-        : NBTrafficLightDefinition(id) {}
+        : NBTrafficLightDefinition(id, DefaultProgramID) {}
 
 
 NBOwnTLDef::~NBOwnTLDef() throw() {}
@@ -208,7 +208,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
     }
 
-    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", noLinksAll);
+    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll);
     EdgeVector toProc = incoming;
     // build all phases
     while (toProc.size()>0) {

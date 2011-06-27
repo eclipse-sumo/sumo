@@ -128,7 +128,7 @@ NIXMLNodesHandler::myStartElement(int element,
         node->removeTrafficLights();
         for (std::set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
             if ((*i)->getNodes().size()==0) {
-                myTLLogicCont.remove((*i)->getID());
+                myTLLogicCont.removeFully((*i)->getID());
             }
         }
         // patch information
@@ -153,8 +153,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     if (tlID!="") {
         // ok, the traffic light has a name
-        tlDef = myTLLogicCont.getDefinition(tlID);
-        if (tlDef==0) {
+        const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLogicCont.getPrograms(tlID);
+        if (programs.size() == 0) {
             // this traffic light is visited the first time
             tlDef = new NBOwnTLDef(tlID, currentNode);
             if (!myTLLogicCont.insert(tlDef)) {
@@ -163,7 +163,10 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
                 throw ProcessError("Could not allocate tls '" + tlID + "'.");
             }
         } else {
-            tlDef->addNode(currentNode);
+            std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
+            for (it = programs.begin(); it!= programs.end(); it++) {
+                it->second->addNode(currentNode);
+            }
         }
     } else {
         // ok, this node is a traffic light node where no other nodes

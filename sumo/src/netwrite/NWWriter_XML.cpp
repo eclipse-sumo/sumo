@@ -26,7 +26,7 @@
 #else
 #include <config.h>
 #endif
-#include "NWWriter_XML.h"
+#include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NWWriter_XML.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -74,11 +75,19 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (n->isTLControlled()) {
             device << " tl=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
-            for (std::set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
-                if (t!=tlss.begin()) {
+            // set may contain multiple programs for the same id. 
+            // make sure ids are unique and sorted
+            std::set<std::string> tlsIDs;
+            for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl =tlss.begin(); it_tl!=tlss.end(); it_tl++) {
+                tlsIDs.insert((*it_tl)->getID());
+            }
+            std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
+            sort(sortedIDs.begin(), sortedIDs.end());
+            for (std::vector<std::string>::iterator it_tlid=sortedIDs.begin(); it_tlid!=sortedIDs.end(); it_tlid++) {
+                if (it_tlid!=sortedIDs.begin()) {
                     device << ",";
                 }
-                device << (*t)->getID();
+                device << (*it_tlid);
             }
             device << "\"";
         }

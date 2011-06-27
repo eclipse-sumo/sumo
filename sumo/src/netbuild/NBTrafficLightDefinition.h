@@ -69,6 +69,9 @@ class NBTrafficLightLogic;
  */
 class NBTrafficLightDefinition : public Named {
 public:
+
+    static const std::string DefaultProgramID;
+
     /**
      * @enum TLColor
      * @brief An enumeration of possible tl-signal states
@@ -92,7 +95,8 @@ public:
      * @param[in] junctions List of junctions controlled by this tls
      */
     NBTrafficLightDefinition(const std::string &id,
-                             const std::vector<NBNode*> &junctions) throw();
+                             const std::vector<NBNode*> &junctions,
+                             const std::string& programID) throw();
 
 
     /** @brief Constructor
@@ -100,13 +104,14 @@ public:
      * @param[in] junction The (single) junction controlled by this tls
      */
     NBTrafficLightDefinition(const std::string &id,
-                             NBNode *junction) throw();
+                             NBNode *junction,
+                             const std::string& programID) throw();
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      */
-    NBTrafficLightDefinition(const std::string &id) throw();
+    NBTrafficLightDefinition(const std::string &id, const std::string& programID) throw();
 
 
     /// @brief Destructor
@@ -268,6 +273,16 @@ public:
         return myControlledLinks;
     }
 
+
+    /** @brief Returns the ProgramID 
+     * @return The ID of the program (subID)
+     */
+    const std::string & getProgramID() const {
+        return mySubID;
+    };
+
+
+
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
@@ -313,6 +328,8 @@ protected:
     /// @brief List of inner edges that shall be controlled, though
     std::vector<std::string> myControlledInnerEdges;
 
+    /// @brief The tls program's subid
+    const std::string mySubID;
 
 };
 

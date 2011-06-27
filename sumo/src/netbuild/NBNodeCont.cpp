@@ -457,7 +457,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
             std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
             (*j)->removeTrafficLights();
             for (std::set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
-                tlc.remove((*j)->getID());
+                tlc.removeFully((*j)->getID());
             }
         }
         std::string id = "joinedS_" + toString(index++);
