@@ -1,5 +1,5 @@
 <routes>
-   <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="3" minGap="2" maxspeed="70"/>
+   <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70"/>
    <route id="always_right" multi_ref="x" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
    <vehicle id="always_right" type="SUMO_DEFAULT_TYPE" route="always_right" depart="0" period="30" repno="100"/>
    <route id="always_left" multi_ref="x" edges="3i 2o 2i 4o 4i 1o 1i 3o 3i"/>

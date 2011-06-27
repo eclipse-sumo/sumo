@@ -1,6 +1,6 @@
 <edges>
 
-   <edge id="beg" from="absBeg" to="beg" speed="27.8" nolanes="2"/>
+   <edge id="beg" from="absBeg" to="beg" speed="27.8" numLanes="2"/>
 
    <edge id="beg2left" from="beg" to="begleft" speed="27.8"/>
 
@@ -11,8 +11,8 @@
 
    <edge id="left2end" from="endleft" to="end" speed="27.8"/>
 
-   <edge id="end" from="end" to="absEnd" speed="27.8" nolanes="2"/>
-   <edge id="rend" from="absEnd" to="rabsEnd" speed="27.8" nolanes="2"/>
+   <edge id="end" from="end" to="absEnd" speed="27.8" numLanes="2"/>
+   <edge id="rend" from="absEnd" to="rabsEnd" speed="27.8" numLanes="2"/>
 
    <!-- edge id="fmin" from="midmin" to="mid" speed="13.9"/ -->
    <!-- edge id="tmin" from="mid" to="midmin" speed="13.9"/ -->
