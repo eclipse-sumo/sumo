@@ -22,26 +22,26 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.30_0" function="internal">
-        <lane id=":1.30_0_0" depart="0" maxspeed="28.00" length="3.00" shape="28.50,-8.25 31.50,-8.25"/>
+        <lane id=":1.30_0_0" depart="0" maxSpeed="28.00" length="3.00" shape="28.50,-8.25 31.50,-8.25"/>
     </edge>
     <edge id=":1.30_1" function="internal">
-        <lane id=":1.30_1_0" depart="0" maxspeed="28.00" length="3.00" shape="28.50,-4.95 31.50,-4.95"/>
+        <lane id=":1.30_1_0" depart="0" maxSpeed="28.00" length="3.00" shape="28.50,-4.95 31.50,-4.95"/>
     </edge>
     <edge id=":1.70_0" function="internal">
-        <lane id=":1.70_0_0" depart="0" maxspeed="28.00" length="3.00" shape="68.50,-4.95 71.50,-4.95"/>
+        <lane id=":1.70_0_0" depart="0" maxSpeed="28.00" length="3.00" shape="68.50,-4.95 71.50,-4.95"/>
     </edge>
 
     <edge id="1" from="0" to="1.30" priority="-1">
-        <lane id="1_0" depart="1" maxspeed="28.00" length="28.50" shape="0.00,-8.25 28.50,-8.25"/>
-        <lane id="1_1" depart="0" maxspeed="28.00" length="28.50" shape="0.00,-4.95 28.50,-4.95"/>
-        <lane id="1_2" depart="0" maxspeed="28.00" length="28.50" shape="0.00,-1.65 28.50,-1.65"/>
+        <lane id="1_0" depart="1" maxSpeed="28.00" length="28.50" shape="0.00,-8.25 28.50,-8.25"/>
+        <lane id="1_1" depart="0" maxSpeed="28.00" length="28.50" shape="0.00,-4.95 28.50,-4.95"/>
+        <lane id="1_2" depart="0" maxSpeed="28.00" length="28.50" shape="0.00,-1.65 28.50,-1.65"/>
     </edge>
     <edge id="1.30" from="1.30" to="1.70" priority="-1" shape="30.00,-3.30 70.00,-3.30">
-        <lane id="1.30_0" depart="1" maxspeed="28.00" length="37.00" shape="31.50,-8.25 68.50,-8.25"/>
-        <lane id="1.30_1" depart="0" maxspeed="28.00" length="37.00" shape="31.50,-4.95 68.50,-4.95"/>
+        <lane id="1.30_0" depart="1" maxSpeed="28.00" length="37.00" shape="31.50,-8.25 68.50,-8.25"/>
+        <lane id="1.30_1" depart="0" maxSpeed="28.00" length="37.00" shape="31.50,-4.95 68.50,-4.95"/>
     </edge>
     <edge id="1.70" from="1.70" to="1" priority="-1" shape="70.00,-3.30 100.00,-3.30">
-        <lane id="1.70_0" depart="1" maxspeed="28.00" length="28.50" shape="71.50,-4.95 100.00,-4.95"/>
+        <lane id="1.70_0" depart="1" maxSpeed="28.00" length="28.50" shape="71.50,-4.95 100.00,-4.95"/>
     </edge>
 
     <ROWLogic id="1.30" requestSize="2">
@@ -74,13 +74,13 @@
     </succ>
 
     <succ edge=":1.30_0" lane=":1.30_0_0" junction="1.30">
-        <succlane lane="1.30_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="1.30_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":1.30_1" lane=":1.30_1_0" junction="1.30">
-        <succlane lane="1.30_1" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="1.30_1" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
     <succ edge=":1.70_0" lane=":1.70_0_0" junction="1.70">
-        <succlane lane="1.70_0" tl="" linkno="" dir="s" state="M"/>
+        <succlane lane="1.70_0" tl="" linkIdx="" dir="s" state="M"/>
     </succ>
 
 </net>

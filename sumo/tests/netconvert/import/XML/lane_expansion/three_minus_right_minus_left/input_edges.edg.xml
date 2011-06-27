@@ -1,6 +1,6 @@
 <edges>
 
-	<edge id="1" from="0" to="1" nolanes="3" speed="28.">
+	<edge id="1" from="0" to="1" numLanes="3" speed="28.">
 		<split pos="30" lanes="1 2"/>
 		<split pos="70" lanes="1"/>
 	</edge>
