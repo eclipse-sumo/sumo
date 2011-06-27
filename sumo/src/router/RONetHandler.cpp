@@ -32,6 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROEdge.h"
@@ -53,7 +54,9 @@ RONetHandler::RONetHandler(RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
         myNet(net), myCurrentName(),
-        myCurrentEdge(0), myEdgeBuilder(eb) {}
+        myCurrentEdge(0), myEdgeBuilder(eb),
+        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)
+{}
 
 
 RONetHandler::~RONetHandler() throw() {}
@@ -84,14 +87,26 @@ RONetHandler::myStartElement(int element,
         parseConnectedEdge(attrs);
         break;
     case SUMO_TAG_DISTRICT__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDistrict) {
+            myHaveWarnedAboutDeprecatedDistrict = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+        }
     case SUMO_TAG_TAZ:
         parseDistrict(attrs);
         break;
     case SUMO_TAG_DSOURCE__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSource) {
+            myHaveWarnedAboutDeprecatedDSource = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+        }
     case SUMO_TAG_TAZSOURCE:
         parseDistrictEdge(attrs, true);
         break;
     case SUMO_TAG_DSINK__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSink) {
+            myHaveWarnedAboutDeprecatedDSink = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+        }
     case SUMO_TAG_TAZSINK:
         parseDistrictEdge(attrs, false);
         break;

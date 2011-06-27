@@ -193,6 +193,8 @@ protected:
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder &myEdgeBuilder;
 
+    bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
+
 
 private:
     /// @brief Invalidated copy constructor

@@ -90,7 +90,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedRouteProbe(false),
         myHaveWarnedAboutDeprecatedEdgeMean(false), 
         myHaveWarnedAboutDeprecatedLaneMean(false),
-        myHaveWarnedAboutDeprecatedVTypes(false)
+        myHaveWarnedAboutDeprecatedVTypes(false),
+        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)
 {}
 
 
@@ -266,14 +267,26 @@ NLHandler::myStartElement(int element,
             setLocation(attrs);
             break;
         case SUMO_TAG_DISTRICT__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDistrict) {
+            myHaveWarnedAboutDeprecatedDistrict = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+        }
         case SUMO_TAG_TAZ:
             addDistrict(attrs);
             break;
         case SUMO_TAG_DSOURCE__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSource) {
+            myHaveWarnedAboutDeprecatedDSource = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+        }
         case SUMO_TAG_TAZSOURCE:
             addDistrictEdge(attrs, true);
             break;
         case SUMO_TAG_DSINK__DEPRECATED:
+        if(!myHaveWarnedAboutDeprecatedDSink) {
+            myHaveWarnedAboutDeprecatedDSink = true;
+            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+        }
         case SUMO_TAG_TAZSINK:
             addDistrictEdge(attrs, false);
             break;
