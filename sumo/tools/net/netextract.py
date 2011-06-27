@@ -43,7 +43,7 @@ def writeEdges(net):
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
         fd.write("\" spreadType=\"center")
-        fd.write("\" nolanes=\"" + str(len(edge._lanes)) + "\"")
+        fd.write("\" numLanes=\"" + str(len(edge._lanes)) + "\"")
         shape = edge.getShape()
         fd.write(" shape=\"")
         for i,c in enumerate(shape):

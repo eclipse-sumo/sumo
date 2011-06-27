@@ -29,6 +29,9 @@ a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur', 'min_dur', 'max_dur' )
 a['district'] = ( 'id', 'shape', 'edges' )
 a['dsink'] = ( 'id', 'weight' )
 a['dsource'] = ( 'id', 'weight' )
+a['taz'] = ( 'id', 'shape', 'edges' )
+a['tazSink'] = ( 'id', 'weight' )
+a['tazSource'] = ( 'id', 'weight' )
 a['roundabout'] = ( 'nodes', 'dummy' )
 
 # attributes which are optional
@@ -44,9 +47,9 @@ c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junct
 removed = ( 'lanes', 'logic' )
 
 # renamed elements
-renamed = {'tl-logic': 'tlLogic', 'row-logic': 'ROWLogic'}
+renamed = {'tl-logic': 'tlLogic', 'row-logic': 'ROWLogic', 'district':'taz', 'dsource':'tazSource', 'dsink':'tazSink'}
 
-renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType'}
+renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType', 'maxspeed':'maxSpeed', 'linkno':'linkIdx'}
 
 renamedValues = {'state': {'t': 'o'} }
 
@@ -142,9 +145,9 @@ def walkDir(srcRoot):
             if name.endswith(".net.xml") or name in ["net.netconvert", "net.netgen",
                                                      "tls.scenario", "net.scenario"]:
                 changeFile(os.path.join(root, name))
-            for ignoreDir in ['.svn', 'foreign']:
-                if ignoreDir in dirs:
-                    dirs.remove(ignoreDir)
+        for ignoreDir in ['.svn', 'foreign']:
+            if ignoreDir in dirs:
+                dirs.remove(ignoreDir)
 
 
 optParser = OptionParser()
