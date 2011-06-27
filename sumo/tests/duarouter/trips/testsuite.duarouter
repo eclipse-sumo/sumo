@@ -51,3 +51,7 @@ same_edge
 
 # Tests false input
 errors
+
+# Test for deprecated element names
+_deprecated_
+
