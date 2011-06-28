@@ -226,6 +226,15 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
                                   get(from.cfParameter, SUMO_ATTR_CF_IDM_DELTA, 4.),
                                   get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
         break;
+    case SUMO_TAG_CF_IDMM:
+        model = new MSCFModel_IDM(vtype,
+                                  get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                  get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                  get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                  get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8),
+                                  get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.),
+                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
+        break;
     case SUMO_TAG_CF_BKERNER:
         model = new MSCFModel_Kerner(vtype,
                                      get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),

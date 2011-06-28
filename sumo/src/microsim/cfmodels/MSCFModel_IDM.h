@@ -59,7 +59,8 @@ public:
      * @param[in] accel The maximum acceleration
      * @param[in] decel The maximum deceleration
      * @param[in] headwayTime the headway gap
-     * @param[in] delta a model constant
+     * @param[in] adaptationFactor a model constant
+     * @param[in] adaptationTime a model constant
      * @param[in] internalStepping internal time step size
      */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
@@ -120,7 +121,7 @@ public:
      * @see MSCFModel::getModelName
      */
     int getModelID() const {
-        return SUMO_TAG_CF_IDM;
+        return myExpFactor > 0. ? SUMO_TAG_CF_IDMM : SUMO_TAG_CF_IDM;
     }
     /// @}
 

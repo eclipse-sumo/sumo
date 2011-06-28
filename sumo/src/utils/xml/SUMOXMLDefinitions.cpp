@@ -161,6 +161,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "entry",            SUMO_TAG_ENTRY },
 
     { "carFollowing-IDM",         SUMO_TAG_CF_IDM },
+    { "carFollowing-IDMM",        SUMO_TAG_CF_IDMM },
     { "carFollowing-Krauss",      SUMO_TAG_CF_KRAUSS },
     { "carFollowing-KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "carFollowing-PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
@@ -396,6 +397,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "apProb",         SUMO_ATTR_CF_PWAGNER2009_APPROB },
     { "delta",          SUMO_ATTR_CF_IDM_DELTA },
     { "stepping",       SUMO_ATTR_CF_IDM_STEPPING },
+    { "adaptFactor",    SUMO_ATTR_CF_IDMM_ADAPT_FACTOR },
+    { "adaptTime",      SUMO_ATTR_CF_IDMM_ADAPT_TIME },
     { "phi",            SUMO_ATTR_CF_KERNER_PHI },
 
     { "security",       SUMO_ATTR_CF_WIEDEMANN_SECURITY },

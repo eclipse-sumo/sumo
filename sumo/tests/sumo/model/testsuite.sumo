@@ -4,6 +4,9 @@ circle
 # idm model test
 idm
 
+# idm model with memory test
+idmm
+
 # kerner model test
 kerner
 
