@@ -329,9 +329,6 @@ protected:
 
 
 protected:
-    /// @brief The vehicle that is currently on the detector
-    SUMOVehicle *myCurrentVehicle;
-
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;
 

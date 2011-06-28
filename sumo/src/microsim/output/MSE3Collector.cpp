@@ -58,7 +58,9 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     if (newPos > myPosition && oldPos <= myPosition && static_cast<MSVehicle&>(veh).getLane() == myLane) {
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
-            entryTime += (myPosition - oldPos) / newSpeed;
+            if(myPosition>oldPos) {
+                entryTime += (myPosition - oldPos) / newSpeed;
+            }
         }
         myCollector.enter(veh, entryTime);
     }
@@ -98,7 +100,9 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     }
     // crossSection left
     SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-    leaveTime += (myPosition - oldPos) / newSpeed;
+    if(myPosition>oldPos) {
+        leaveTime += (myPosition - oldPos) / newSpeed;
+    }
     myCollector.leave(veh, leaveTime);
     return false;
 }

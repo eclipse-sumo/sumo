@@ -53,7 +53,6 @@ MSInductLoop::MSInductLoop(const std::string& id,
                            SUMOReal positionInMeters) throw() : 
     MSMoveReminder(lane), 
     Named(id), 
-    myCurrentVehicle(0),
     myPosition(positionInMeters), 
     myLastLeaveTime(0),
     myVehicleDataCont(),
@@ -88,7 +87,9 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // entered the detector by move
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {
-            entryTime += (myPosition - oldPos) / newSpeed;
+            if(myPosition>oldPos) {
+                entryTime += (myPosition - oldPos) / newSpeed;
+            }
         }
         enterDetectorByMove(veh, entryTime);
     }
@@ -232,16 +233,6 @@ void
 MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal entryTimestep) throw() {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
-    if (myCurrentVehicle!=0&&myCurrentVehicle!=&veh) {
-        // in fact, this is an error - a second vehicle is on the detector
-        //  before the first one leaves... (collision)
-        // Still, this seems to happen, but should not be handled herein.
-        //  we will inform the user, etc., but continue as nothing had happened
-        MsgHandler::getWarningInstance()->inform("Collision on e1 detector '" + getID() + "'.\n Vehicle '" + myCurrentVehicle->getID() +
-                "' was already at detector as '" + veh.getID() + "' entered at '" + toString(entryTimestep) + "'.");
-        leaveDetectorByMove(*myCurrentVehicle, entryTimestep);
-    }
-    myCurrentVehicle = &veh;
 }
 
 
@@ -256,7 +247,6 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
 	myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLengthWithGap(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTime = leaveTimestep;
-    myCurrentVehicle = 0;
 }
 
 
@@ -265,7 +255,6 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
-    myCurrentVehicle = 0;
 }
 
 
