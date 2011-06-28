@@ -352,10 +352,14 @@ enum {
     /// tls mode messages
     /** toggle signaled status */
     MID_GNE_TLS_TOGGLE,
-    /** rename traffic light */
-    MID_GNE_RENAME_TLS,
     /** replace program with a newly guessed program */
     MID_GNE_GUESS_PROGRAM,
+    /** definition related controls */
+    MID_GNE_DEF_SWITCH,
+    MID_GNE_DEF_CREATE,
+    MID_GNE_DEF_DELETE,
+    MID_GNE_DEF_RENAME,
+    MID_GNE_DEF_SUBRENAME,
     /** phase related controls */
     MID_GNE_PHASE_SWITCH,
     MID_GNE_PHASE_CREATE,
