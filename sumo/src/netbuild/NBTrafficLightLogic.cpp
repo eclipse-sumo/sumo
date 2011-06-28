@@ -69,7 +69,7 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) throw() {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) {
     if (myNoLinks == 0) {
         // initialize
         myNoLinks = state.size(); 

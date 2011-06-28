@@ -111,8 +111,10 @@ public:
      *  the list of already added phases
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
+     * @note: the length of the state has to match the number of links 
+     *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string &state) throw();
+    void addStep(SUMOTime duration, const std::string &state);
 
 
     /** @brief closes the building process
