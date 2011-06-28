@@ -95,9 +95,9 @@ public:
      *  otherwise "false".
      *
      * @param[in] id The id of the logic to remove
-     * @return Whether the named logic was within the dictionary
+     * @return Whether the named logic was within the dictionary	 
      */
-    bool removeFully(const std::string &id);
+    bool removeFully(const std::string id);
 
 
     /** @brief Removes a program of a logic definition from the dictionary
@@ -109,7 +109,7 @@ public:
      * @param[in] id The id of the program to remove
      * @return Whether the program was within the dictionary
      */
-    bool remove(const std::string &id, const std::string &programID);
+    bool remove(const std::string id, const std::string programID);
 
 
     /// @brief Returns a list of all computed logics 

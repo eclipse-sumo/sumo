@@ -76,18 +76,20 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
 
 bool
 NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
-    if (myDefinitions.count(logic->getID()) && 
-            myDefinitions[logic->getID()].count(logic->getProgramID())) {
-        return false;
+    if (myDefinitions.count(logic->getID())) {
+		if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
+            return false;
+		}
     } else {
-        myDefinitions[logic->getID()][logic->getProgramID()] = logic;
-        return true;
+        myDefinitions[logic->getID()] = Program2Def();
     }
+	myDefinitions[logic->getID()][logic->getProgramID()] = logic;
+    return true;
 }
 
 
 bool
-NBTrafficLightLogicCont::removeFully(const std::string &id) {
+NBTrafficLightLogicCont::removeFully(const std::string id) {
     if (myDefinitions.count(id)) {
         // delete all programs 
         for (Program2Def::iterator i = myDefinitions[id].begin(); i != myDefinitions[id].end(); i++) {
@@ -109,7 +111,7 @@ NBTrafficLightLogicCont::removeFully(const std::string &id) {
 
 
 bool
-NBTrafficLightLogicCont::remove(const std::string &id, const std::string &programID) {
+NBTrafficLightLogicCont::remove(const std::string id, const std::string programID) {
     if (myDefinitions.count(id) && myDefinitions[id].count(programID)) {
         delete myDefinitions[id][programID];
         myDefinitions[id].erase(programID);
