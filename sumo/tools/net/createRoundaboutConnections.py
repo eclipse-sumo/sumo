@@ -13,7 +13,7 @@ All rights reserved
 """
 
 
-import os, string, sys, StringIO
+import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 

@@ -273,7 +273,10 @@ class Net:
         roundabout = NetRoundabout(nodes)
         self._roundabouts.append(roundabout)
         return roundabout
-    
+
+    def getEdges(self):
+        return self._edges
+
     def getRoundabouts(self):
         return self._roundabouts
         
@@ -450,5 +453,9 @@ class NetReader(handler.ContentHandler):
 
 def readNet(filename, **others):
     netreader = NetReader(**others)
-    parse(filename, netreader)
+    try:
+        parse(filename, netreader)
+    except KeyError:
+        print >> sys.stderr, "Please mind that the network format has changed in 0.13.0, you may need to update your network!"
+        raise
     return netreader.getNet()
