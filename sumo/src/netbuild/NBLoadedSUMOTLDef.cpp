@@ -75,10 +75,11 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 
 void 
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno) {
-    // maybe there is more to it but we have to start somewhere
     from->setControllingTLInformation(fromLane, to, toLane, getID(), linkno);
     addNode(from->getToNode());
     addNode(to->getFromNode());
+    // added connections are definitely controlled. make sure none are removed because they lie within the tl
+    myControlledInnerEdges.insert(from->getID());
 }
 
 

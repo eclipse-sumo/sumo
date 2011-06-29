@@ -325,8 +325,8 @@ protected:
     /// @brief The list of controlled links
     NBConnectionVector myControlledLinks;
 
-    /// @brief List of inner edges that shall be controlled, though
-    std::vector<std::string> myControlledInnerEdges;
+    /// @brief Set of inner edges that shall be controlled, though
+    std::set<std::string> myControlledInnerEdges;
 
     /// @brief The tls program's subid
     const std::string mySubID;

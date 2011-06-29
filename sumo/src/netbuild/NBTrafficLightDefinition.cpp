@@ -143,7 +143,7 @@ NBTrafficLightDefinition::collectEdges() throw() {
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k!=myOutgoing.end()) {
-            if (find(myControlledInnerEdges.begin(), myControlledInnerEdges.end(), edge->getID())==myControlledInnerEdges.end()) {
+            if (myControlledInnerEdges.count(edge->getID()) == 0) {
                 myEdgesWithin.push_back(edge);
                 (*j)->setIsInnerEdge();
                 j = myIncomingEdges.erase(j);
@@ -359,7 +359,7 @@ NBTrafficLightDefinition::removeNode(NBNode *node) throw() {
 
 void
 NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges) throw() {
-    copy(edges.begin(), edges.end(), back_inserter(myControlledInnerEdges));
+    myControlledInnerEdges.insert(edges.begin(), edges.end());
 }
 
 
