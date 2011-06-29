@@ -322,12 +322,20 @@ public:
     }
 
 
-    /** @brief Returns the length as set explicitly or the computed length if it wasn't set
+    /** @brief Returns the length was set explicitly or the computed length if it wasn't set
      * @todo consolidate use of myLength and myLoaded length
      * @return The edge's specified length
      */
     SUMOReal getLoadedLength() const throw() {
         return myLoadedLength>0 ? myLoadedLength : myLength;
+    }
+
+
+    /** @brief Returns whether a length was set explicitly 
+     * @return Wether the edge's length was specified 
+     */
+    bool hasLoadedLength() const throw() {
+        return myLoadedLength>0;
     }
 
 

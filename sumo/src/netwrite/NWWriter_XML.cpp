@@ -125,6 +125,10 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
             edevice << " spreadType=\"" << toString(e->getLaneSpreadFunction()) << "\"";
         }
+        // write the length if it was specified
+        if (e->hasLoadedLength()) {
+            edevice << " " << toString(SUMO_ATTR_LENGTH) << "=\"" << e->getLoadedLength() << "\"";
+        }
         // write the vehicles class if restrictions exist
         if (!e->hasRestrictions()) {
             edevice << "/>\n";
