@@ -263,6 +263,3 @@ Warning: During computation of traffic light '532'.
 Warning: TYellow of signal group '4' was less than the computed one; patched (was:3, is:4)
 Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
 Warning: During computation of traffic light '534'.
-Leaked object at 0x177236d0 (size 16, 0x330a2a4bb9)
-*** 1 leaks found
-delete: freed 0x177236d0 (size 16, 0 bytes still allocated)

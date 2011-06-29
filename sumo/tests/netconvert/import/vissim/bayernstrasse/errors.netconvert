@@ -248,6 +248,3 @@ Warning: The traffic light '503' does not control any links; it will not be buil
 Warning: Could not build program '0' for traffic light '503'
 Warning: The traffic light '531' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '531'
-Leaked object at 0x733e6d0 (size 16, 0x330a2a4bb9)
-*** 1 leaks found
-delete: freed 0x733e6d0 (size 16, 0 bytes still allocated)

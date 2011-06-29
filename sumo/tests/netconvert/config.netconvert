@@ -29,6 +29,9 @@ plain_nodes:version{->}-->
 plain_edges:version{->}-->
 plain_connections:version{->}-->
 net:version{->}-->
+errors:Leaked object at 
+errors:*** 9 leaks found
+errors:delete: freed
 
 [floating_point_tolerance]
 net:0.0101

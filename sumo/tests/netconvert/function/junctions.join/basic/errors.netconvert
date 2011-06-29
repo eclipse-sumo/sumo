@@ -2,6 +2,3 @@ Warning: The traffic light '56231397' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '56231397'
 Warning: The traffic light 'joinedS_0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'joinedS_0'
-Leaked object at 0x8cff6d0 (size 16, 0x330a2a4bb9)
-*** 1 leaks found
-delete: freed 0x8cff6d0 (size 16, 0 bytes still allocated)

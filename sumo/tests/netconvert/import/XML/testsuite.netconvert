@@ -34,3 +34,5 @@ offset
 # testing error input and handling
 errors
 
+# declared edge length should be writen back into the plain-output
+loaded_length
