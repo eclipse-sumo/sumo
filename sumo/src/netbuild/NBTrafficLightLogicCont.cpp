@@ -257,7 +257,6 @@ NBTrafficLightLogicCont::Logics
 NBTrafficLightLogicCont::getComputed() const {
     Logics result;
     for (Id2Logics::const_iterator it_id = myComputed.begin(); it_id != myComputed.end(); it_id++) {
-        const std::string& id = it_id->first;
         const Program2Logic& programs = it_id->second;
         for (Program2Logic::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
             result.push_back(it_prog->second);
@@ -271,7 +270,6 @@ NBTrafficLightLogicCont::Definitions
 NBTrafficLightLogicCont::getDefinitions() const {
     Definitions result;
     for (Id2Defs::const_iterator it_id = myDefinitions.begin(); it_id != myDefinitions.end(); it_id++) {
-        const std::string& id = it_id->first;
         const Program2Def& programs = it_id->second;
         for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
             result.push_back(it_prog->second);
