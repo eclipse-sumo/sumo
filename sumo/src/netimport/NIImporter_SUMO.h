@@ -146,17 +146,24 @@ private:
     void addJunction(const SUMOSAXAttributes &attrs);
 
 
-    /** @brief Parses a succedge-definition and saves it by assigning "myCurrentEdge" and "myCurrentLane" to the read values
+    /** @brief (deprecated) Parses a succedge-definition and saves it 
+     *    by assigning "myCurrentEdge" and "myCurrentLane" to the read values
      * @param[in] attrs The attributes to get the succedge-definition from
-     * @todo Recheck: should the junction be read? What is this attribute for?
      */
     void addSuccEdge(const SUMOSAXAttributes &attrs);
 
 
-    /** @brief Parses a succlane-definition and saves it into the lane's definition stored in "myCurrentLane"
+    /** @brief (deprecated) Parses a succlane-definition and saves it 
+     *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the succlane-definition from
      */
     void addSuccLane(const SUMOSAXAttributes &attrs);
+
+    /** @brief Parses a connection and saves it 
+     *    into the lane's definition stored in "myCurrentLane"
+     * @param[in] attrs The attributes to get the connection from
+     */
+    void addConnection(const SUMOSAXAttributes &attrs);
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
@@ -172,8 +179,10 @@ private:
      * @brief A connection description. 
      */
     struct Connection {
-        /// @brief The connected lane
-        std::string lane;
+        /// @brief The id of the target edge
+        std::string toEdgeID;
+        /// @brief The index of the target lane
+        unsigned int toLaneIdx;
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
@@ -275,7 +284,7 @@ private:
      * @param[out] edge_id ID of this lane's edge
      * @param[out] index Index of this lane
      */
-    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index); 
+    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index); 
 
     /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an
@@ -283,6 +292,9 @@ private:
      * @param[in] lanes The list of lane attributes
      */
     static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to); 
+
+    /// @brief parse lane indices in the form "x:y"
+    static bool parseLaneIndices(const std::string &laneIndices, unsigned int& fromIdx, unsigned int &toIdx); 
 };
 
 

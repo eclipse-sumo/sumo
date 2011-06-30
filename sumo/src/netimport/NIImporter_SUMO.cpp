@@ -27,17 +27,19 @@
 #include <config.h>
 #endif
 #include <string>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/ToString.h>
+#include <utils/common/TplConvertSec.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/ToString.h>
-#include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -100,7 +102,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open sumo-net-file '" + *file + "'.");
+            WRITE_ERROR("Could not open sumo-net-file '" + *file + "'.");
             return;
         }
         setFileName(*file);
@@ -119,11 +121,11 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         NBNode *from = myNodeCont.retrieve(ed->fromNode);
         NBNode *to = myNodeCont.retrieve(ed->toNode);
         if (from==0) {
-            MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
+            WRITE_ERROR("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
             continue;
         }
         if (to==0) {
-            MsgHandler::getErrorInstance()->inform("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
+            WRITE_ERROR("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
             continue;
         }
         // edge shape
@@ -142,7 +144,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                 (unsigned int) ed->lanes.size(), 
                 ed->priority, -1, -1, geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         if (!myNetBuilder.getEdgeCont().insert(e)) {
-            MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
+            WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
             continue;
         }
@@ -159,42 +161,37 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             LaneAttrs *lane = ed->lanes[fromLaneIndex];
             // connections
             const std::vector<Connection> &connections = lane->connections;
-            for (std::vector<Connection>::const_iterator conn=connections.begin(); conn!=connections.end(); ++conn) {
-                if (conn->lane!="SUMO_NO_DESTINATION") {
-                    std::string toEdgeID;
-                    size_t toLaneIndex;
-                    interpretLaneID(conn->lane, toEdgeID, toLaneIndex);
-                    if (myEdges.find(toEdgeID)==myEdges.end()) {
-                        MsgHandler::getErrorInstance()->inform(
-                                "Unknown edge '" + toEdgeID + "' given in succlane (for lane '" + conn->lane + "').");
-                        continue;
-                    }
-                    NBEdge *toEdge = myEdges.find(toEdgeID)->second->builtEdge;
-                    if (toEdge==0) {
-                        WRITE_WARNING("target edge '" + toEdgeID + "' not built");
-                        continue;
-                    }
-                    nbe->addLane2LaneConnection(
-                            fromLaneIndex, toEdge, (unsigned int)toLaneIndex, NBEdge::L2L_VALIDATED, 
-                            false, conn->mayDefinitelyPass);
+            for (std::vector<Connection>::const_iterator c_it=connections.begin(); c_it!=connections.end(); c_it++) {
+                const Connection& c = *c_it;
+                if (myEdges.count(c.toEdgeID) == 0) {
+                    WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
+                    continue;
+                }
+                NBEdge *toEdge = myEdges[c.toEdgeID]->builtEdge;
+                if (toEdge==0) {
+                    WRITE_ERROR("Target edge '" + c.toEdgeID + "' not built");
+                    continue;
+                }
+                nbe->addLane2LaneConnection(
+                        fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED, 
+                        false, c.mayDefinitelyPass);
 
-                    // maybe we have a tls-controlled connection
-                    if (conn->tlID != "") {
-                        const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(conn->tlID);
-                        if (programs.size() > 0) {
-                            std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-                            for (it = programs.begin(); it!= programs.end(); it++) {
-                                NBLoadedSUMOTLDef *tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
-                                if (tlDef) {
-                                    tlDef->addConnection(nbe, toEdge, fromLaneIndex, (unsigned int)toLaneIndex, conn->tlLinkNo);
-                                } else {
-                                    throw ProcessError("Corrupt traffic light definition '" 
-                                            + conn->tlID + "' (program '" + it->first + "')");
-                                }
+                // maybe we have a tls-controlled connection
+                if (c.tlID != "") {
+                    const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
+                    if (programs.size() > 0) {
+                        std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
+                        for (it = programs.begin(); it!= programs.end(); it++) {
+                            NBLoadedSUMOTLDef *tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
+                            if (tlDef) {
+                                tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkNo);
+                            } else {
+                                throw ProcessError("Corrupt traffic light definition '" 
+                                        + c.tlID + "' (program '" + it->first + "')");
                             }
-                        } else {
-                            WRITE_ERROR("The traffic light '" + conn->tlID + "' is not known.");
                         }
+                    } else {
+                        WRITE_ERROR("The traffic light '" + c.tlID + "' is not known.");
                     }
                 }
             }
@@ -248,6 +245,9 @@ NIImporter_SUMO::myStartElement(int element,
     case SUMO_TAG_SUCCLANE:
         addSuccLane(attrs);
         break;
+    case SUMO_TAG_CONNECTION:
+        addConnection(attrs);
+        break;
     case SUMO_TAG_TLLOGIC__DEPRECATED:
     case SUMO_TAG_TLLOGIC:
         initTrafficLightLogic(attrs);
@@ -274,7 +274,7 @@ NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         if (myEdges.find(myCurrentEdge->id)!=myEdges.end()) {
-            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentEdge->id + "' occured at least twice in the input.");
+            WRITE_ERROR("Edge '" + myCurrentEdge->id + "' occured at least twice in the input.");
         } else {
             myEdges[myCurrentEdge->id] = myCurrentEdge;
         }
@@ -366,7 +366,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
         myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
         if(!myHaveWarnedAboutDeprecatedMaxSpeed) {
             myHaveWarnedAboutDeprecatedMaxSpeed = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_MAXSPEED) + "' instead.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_MAXSPEED) + "' instead.");
         }
     }
     myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok, false);
@@ -429,14 +429,14 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok); // 
+    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok); 
     myCurrentEdge = 0;
-    if (myEdges.find(edge_id)==myEdges.end()) {
-        MsgHandler::getErrorInstance()->inform("Unknown edge '" + edge_id + "' given in succedge.");
+    if (myEdges.count(edge_id) == 0) {
+        WRITE_ERROR("Unknown edge '" + edge_id + "' given in succedge.");
         return;
     }
-    myCurrentEdge = myEdges.find(edge_id)->second;
-    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok); // 
+    myCurrentEdge = myEdges[edge_id];
+    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok); 
     myCurrentLane = getLaneAttrsFromID(myCurrentEdge, lane_id);
 }
 
@@ -449,7 +449,11 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     Connection conn;
-    conn.lane = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+    std::string laneID = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+    if (laneID == "SUMO_NO_DESTINATION") { // legacy check
+        return;
+    }
+    interpretLaneID(laneID, conn.toEdgeID, conn.toLaneIdx);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
@@ -461,34 +465,63 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
 }
 
 
+void
+NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok); 
+    if (myEdges.count(fromID) == 0) {
+        WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
+        return;
+    }
+    EdgeAttrs *from = myEdges[fromID];
+    Connection conn;
+    conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok); 
+    unsigned int fromLaneIdx;
+    if (!parseLaneIndices(attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok), fromLaneIdx, conn.toLaneIdx)) {
+        return;
+    }
+    conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
+    conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
+    if (conn.tlID != "") {
+        conn.tlLinkNo = attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok);
+    }
+
+    if (from->lanes.size()<=(size_t) fromLaneIdx) {
+        WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");
+        return;
+    }
+    from->lanes[fromLaneIdx]->connections.push_back(conn);
+}
+
+
 NIImporter_SUMO::LaneAttrs* 
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     std::string edge_id;
-    size_t index;
+    unsigned int index;
     interpretLaneID(lane_id, edge_id, index);
     assert(edge->id == edge_id);
-    if (edge->lanes.size()<(size_t) index) {
-        MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane_id + "' given in succedge.");
+    if (edge->lanes.size()<=(size_t) index) {
+        WRITE_ERROR("Unknown lane '" + lane_id + "' given in succedge.");
         return 0;
     } else {
-        return edge->lanes[(size_t) index];
+        return edge->lanes[index];
     }
 }
 
 
 void
-NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_id, size_t &index) {
+NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index) {
     // assume lane_id = edge_id + '_' + index
     size_t sep_index = lane_id.rfind('_');
     if (sep_index == std::string::npos) {
-        MsgHandler::getErrorInstance()->inform("Invalid lane id '" + lane_id + "' (missing '_').");
+        WRITE_ERROR("Invalid lane id '" + lane_id + "' (missing '_').");
     }
     edge_id = lane_id.substr(0, sep_index);
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
-        index = TplConvert<char>::_2int(index_string.c_str());
+        index = (unsigned int)TplConvert<char>::_2int(index_string.c_str());
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
+        WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }
 
@@ -564,11 +597,37 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
         if (l1.intersects(l2)) {
             result.push_back(l1.intersectsAt(l2));
         } else {
-            MsgHandler::getWarningInstance()->inform("Could not reconstruct shape for edge '" + edge->id + "'.");
+            WRITE_WARNING("Could not reconstruct shape for edge '" + edge->id + "'.");
         }
     }
 
     result.push_back(to);
     return result;
+}
+
+
+bool
+NIImporter_SUMO::parseLaneIndices(const std::string &laneIndices, unsigned int& fromIdx, unsigned int &toIdx) {
+    StringTokenizer st(laneIndices, ':');
+    if (st.size()==2) {
+        int fromLaneIdx;
+        int toLaneIdx;
+        try {
+            fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            if (fromLaneIdx>=0 && toLaneIdx>=0) {
+                fromIdx = (unsigned int)fromLaneIdx;
+                toIdx = (unsigned int)toLaneIdx;
+                return true;
+            } else {
+                WRITE_ERROR("Negative lane index in connection");
+            }
+        } catch (NumberFormatException &) {
+            WRITE_ERROR("Invalid lane index in connection (number format)");
+        }
+    } else {
+        WRITE_ERROR("Invalid lane index in connection (malformed)");
+    }
+    return false;
 }
 /****************************************************************************/
