@@ -86,6 +86,9 @@ RONetHandler::myStartElement(int element,
     case SUMO_TAG_SUCCLANE:
         parseConnectedEdge(attrs);
         break;
+    case SUMO_TAG_CONNECTION:
+        parseConnection(attrs);
+        break;
     case SUMO_TAG_DISTRICT__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
@@ -263,6 +266,26 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
     } else {
         MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
+}
+
+
+void
+RONetHandler::parseConnection(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
+    std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+    if (fromID[0]==':') { // skip inner lane connections
+        return;
+    }
+    ROEdge* from = myNet.getEdge(fromID);
+    ROEdge* to = myNet.getEdge(toID);
+    if (from == 0) {
+        throw ProcessError("unknown edge '" + fromID + "' in connection");
+    }
+    if (to == 0) {
+        throw ProcessError("unknown edge '" + toID + "' in connection");
+    }
+    from->addFollower(to);
 }
 
 

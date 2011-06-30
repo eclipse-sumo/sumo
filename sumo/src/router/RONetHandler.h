@@ -123,7 +123,7 @@ protected:
     void parseJunction(const SUMOSAXAttributes &attrs);
 
 
-    /** @begin Begins parsing edges that are approached by an edge
+    /** @begin (deprecated) Begins parsing edges that are approached by an edge
      *
      * Called on the occurence of a "succ" element, this method
      *  retrieves the id of the edge described herein and - using it - the
@@ -136,7 +136,7 @@ protected:
     void parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
-    /** @begin Parses an approached edge and lets the approaching know about the connection
+    /** @begin (deprecated) Parses an approached edge and lets the approaching know about the connection
      *
      * Called on the occurence of a "succlane" element, this method
      *  retrieves the id of the approachable edge. If this edge is known
@@ -147,6 +147,13 @@ protected:
      * @todo No exception?
      */
     void parseConnectedEdge(const SUMOSAXAttributes &attrs);
+
+
+    /** @begin Parses a connection
+     * Called on the occurence of a "connection" element
+     * @param[in] attrs The attributes (of the "connection"-element) to parse
+     */
+    void parseConnection(const SUMOSAXAttributes &attrs);
 
 
     /** @begin Parses a district and creates a pseudo edge for it
