@@ -164,6 +164,9 @@ class NetConverter(handler.ContentHandler):
 def changeFile(fname):
     if options.verbose:
         print "Patching " + fname + " ..."
+    if "_deprecated_" in fname:
+        print "Skipping file: " + fname
+        return
     net = NetConverter(fname+".chg", getBegin(fname))
     parse(fname, net)
     if options.inplace:
