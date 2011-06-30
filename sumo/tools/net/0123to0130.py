@@ -16,12 +16,11 @@ from optparse import OptionParser
 
 # attributes sorting lists
 a = {}
-a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'spreadType', 'shape' )
+a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
 a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
-a['succ'] = ( 'edge', 'lane', 'junction' )
-a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'dir', 'state' )
+a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
 a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
@@ -39,15 +38,24 @@ b = {}
 b['edge'] = {}
 b['edge']['type'] = ''
 b['edge']['function'] = 'normal'
+b['succlane'] = {}
+b['succlane']['tl'] = ''
+b['succlane']['linkno'] = ''
+b['succlane']['linkIdx'] = ''
 
 # elements which are single (not using opening/closing tag)
 c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event' )
 
 # remove these
-removed = ( 'lanes', 'logic' )
+removed = ( 'lanes', 'logic', 'succ')
 
 # renamed elements
-renamed = {'tl-logic': 'tlLogic', 'row-logic': 'ROWLogic', 'district':'taz', 'dsource':'tazSource', 'dsink':'tazSink'}
+renamed = {'tl-logic': 'tlLogic', 
+        'row-logic': 'ROWLogic', 
+        'district':'taz', 
+        'dsource':'tazSource', 
+        'dsink':'tazSink', 
+        'succlane':'connection'}
 
 renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType', 'maxspeed':'maxSpeed', 'linkno':'linkIdx'}
 
@@ -87,6 +95,10 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite("\n")
         self._content = ""
 
+        if name == "succ":
+            self._succ_from = attrs["edge"]
+            self._succ_fromIdx = attrs["lane"].split('_')[-1]
+
         if name in removed:
             return
         self.indent()
@@ -94,15 +106,26 @@ class NetConverter(handler.ContentHandler):
             self.checkWrite("<" + renamed[name])
         else:
             self.checkWrite("<" + name)
+        if name == "succlane":
+            self.checkWrite(' from="%s"' % self._succ_from)
+            sepIndex = attrs['lane'].rindex('_')
+            toEdge = attrs['lane'][:sepIndex]
+            toIdx = attrs['lane'][sepIndex+1:]
+            self.checkWrite(' to="%s"' % toEdge)
+            self.checkWrite(' lane="%s:%s"' % (self._succ_fromIdx, toIdx))
         if name in a:
             for key in a[name]:
+                val = None
+                if key in renamedAttrs and attrs.has_key(renamedAttrs[key]):
+                    key = renamedAttrs[key]
                 if attrs.has_key(key):
                     val = attrs[key]
                     if key in renamedValues:
                         val = renamedValues[key].get(val, val)
-                    if name not in b or key not in b[name] or attrs[key]!=b[name][key]:
+                    if name == "succlane" and (key == "linkno" or key == "linkIdx") and attrs["tl"] == '':
+                        val = ''
+                    if name not in b or key not in b[name] or val!=b[name][key]:
                         self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
-                    
         if name not in c:
             self.checkWrite(">\n")
         else:
