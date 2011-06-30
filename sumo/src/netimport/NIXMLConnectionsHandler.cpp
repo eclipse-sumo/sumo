@@ -179,7 +179,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         return;
     }
     bool ok = true;
-    std::string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
+    std::string laneConn = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     // split the information
     StringTokenizer st(laneConn, ':');
     if (st.size()!=2) {
