@@ -141,81 +141,35 @@
     <junction id=":n6_12_0" type="internal" x="127.53" y="193.82" incLanes=":n6_5_0 e15_0" intLanes=":n6_6_0" shape=""/>
     <junction id=":n6_13_0" type="internal" x="126.30" y="198.21" incLanes=":n6_8_0 e18_0" intLanes=":n6_0_0" shape=""/>
 
-    <succ edge="e14" lane="e14_0" junction="n1">
-        <succlane lane="e15_0" via=":n1_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="e15" lane="e15_0" junction="n6">
-        <succlane lane="e19_0" via=":n6_6_0" tl="n6" linkIdx="6" dir="r" state="o"/>
-        <succlane lane="e20_0" via=":n6_7_0" tl="n6" linkIdx="7" dir="s" state="o"/>
-        <succlane lane="e14_0" via=":n6_8_0" tl="n6" linkIdx="8" dir="t" state="o"/>
-    </succ>
-    <succ edge="e17" lane="e17_0" junction="n6">
-        <succlane lane="e20_0" via=":n6_3_0" tl="n6" linkIdx="3" dir="r" state="o"/>
-        <succlane lane="e14_0" via=":n6_4_0" tl="n6" linkIdx="4" dir="l" state="o"/>
-        <succlane lane="e19_0" via=":n6_5_0" tl="n6" linkIdx="5" dir="t" state="o"/>
-    </succ>
-    <succ edge="e18" lane="e18_0" junction="n6">
-        <succlane lane="e14_0" via=":n6_0_0" tl="n6" linkIdx="0" dir="s" state="o"/>
-        <succlane lane="e19_0" via=":n6_1_0" tl="n6" linkIdx="1" dir="l" state="o"/>
-        <succlane lane="e20_0" via=":n6_2_0" tl="n6" linkIdx="2" dir="t" state="o"/>
-    </succ>
-    <succ edge="e19" lane="e19_0" junction="n11">
-        <succlane lane="e17_0" via=":n11_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="e20" lane="e20_0" junction="n12">
-        <succlane lane="e18_0" via=":n12_0_0" dir="t" state="M"/>
-    </succ>
+    <connection from="e14" to="e15" lane="0:0" via=":n1_0_0" dir="t" state="M"/>
+    <connection from="e15" to="e19" lane="0:0" via=":n6_6_0" tl="n6" linkIdx="6" dir="r" state="o"/>
+    <connection from="e15" to="e20" lane="0:0" via=":n6_7_0" tl="n6" linkIdx="7" dir="s" state="o"/>
+    <connection from="e15" to="e14" lane="0:0" via=":n6_8_0" tl="n6" linkIdx="8" dir="t" state="o"/>
+    <connection from="e17" to="e20" lane="0:0" via=":n6_3_0" tl="n6" linkIdx="3" dir="r" state="o"/>
+    <connection from="e17" to="e14" lane="0:0" via=":n6_4_0" tl="n6" linkIdx="4" dir="l" state="o"/>
+    <connection from="e17" to="e19" lane="0:0" via=":n6_5_0" tl="n6" linkIdx="5" dir="t" state="o"/>
+    <connection from="e18" to="e14" lane="0:0" via=":n6_0_0" tl="n6" linkIdx="0" dir="s" state="o"/>
+    <connection from="e18" to="e19" lane="0:0" via=":n6_1_0" tl="n6" linkIdx="1" dir="l" state="o"/>
+    <connection from="e18" to="e20" lane="0:0" via=":n6_2_0" tl="n6" linkIdx="2" dir="t" state="o"/>
+    <connection from="e19" to="e17" lane="0:0" via=":n11_0_0" dir="t" state="M"/>
+    <connection from="e20" to="e18" lane="0:0" via=":n12_0_0" dir="t" state="M"/>
 
-    <succ edge=":n1_0" lane=":n1_0_0" junction="n1">
-        <succlane lane="e15_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n11_0" lane=":n11_0_0" junction="n11">
-        <succlane lane="e17_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n12_0" lane=":n12_0_0" junction="n12">
-        <succlane lane="e18_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_0" lane=":n6_0_0" junction="n6">
-        <succlane lane="e14_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_1" lane=":n6_1_0" junction="n6">
-        <succlane lane="e19_0" via=":n6_9_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_9" lane=":n6_9_0" junction=":n6_9">
-        <succlane lane="e19_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_2" lane=":n6_2_0" junction="n6">
-        <succlane lane="e20_0" via=":n6_10_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_10" lane=":n6_10_0" junction=":n6_10">
-        <succlane lane="e20_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_3" lane=":n6_3_0" junction="n6">
-        <succlane lane="e20_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_4" lane=":n6_4_0" junction="n6">
-        <succlane lane="e14_0" via=":n6_11_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_11" lane=":n6_11_0" junction=":n6_11">
-        <succlane lane="e14_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_5" lane=":n6_5_0" junction="n6">
-        <succlane lane="e19_0" via=":n6_12_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_12" lane=":n6_12_0" junction=":n6_12">
-        <succlane lane="e19_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_6" lane=":n6_6_0" junction="n6">
-        <succlane lane="e19_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_7" lane=":n6_7_0" junction="n6">
-        <succlane lane="e20_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_8" lane=":n6_8_0" junction="n6">
-        <succlane lane="e14_0" via=":n6_13_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":n6_13" lane=":n6_13_0" junction=":n6_13">
-        <succlane lane="e14_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
+    <connection from=":n1_0" to="e15" lane="0:0" dir="s" state="M"/>
+    <connection from=":n11_0" to="e17" lane="0:0" dir="s" state="M"/>
+    <connection from=":n12_0" to="e18" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_0" to="e14" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_1" to="e19" lane="0:0" via=":n6_9_0" dir="s" state="M"/>
+    <connection from=":n6_9" to="e19" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_2" to="e20" lane="0:0" via=":n6_10_0" dir="s" state="M"/>
+    <connection from=":n6_10" to="e20" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_3" to="e20" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_4" to="e14" lane="0:0" via=":n6_11_0" dir="s" state="M"/>
+    <connection from=":n6_11" to="e14" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_5" to="e19" lane="0:0" via=":n6_12_0" dir="s" state="M"/>
+    <connection from=":n6_12" to="e19" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_6" to="e19" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_7" to="e20" lane="0:0" dir="s" state="M"/>
+    <connection from=":n6_8" to="e14" lane="0:0" via=":n6_13_0" dir="s" state="M"/>
+    <connection from=":n6_13" to="e14" lane="0:0" dir="s" state="M"/>
 
 </net>

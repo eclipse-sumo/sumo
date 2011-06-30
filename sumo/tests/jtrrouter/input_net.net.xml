@@ -171,91 +171,55 @@
     <junction id="endleft" type="priority" x="0.00" y="600.00" incLanes="-left2end_0 left_0" intLanes="" shape="3.25,603.25 3.25,596.75 -3.25,596.75"/>
     <junction id="endright" type="priority" x="100.00" y="600.00" incLanes="right_0 -right2end_0" intLanes="" shape="103.25,596.75 96.75,596.75 96.75,603.25"/>
 
-    <succ edge="-beg" lane="-beg_0" junction="absBeg">
-        <succlane lane="beg_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="-beg2left" lane="-beg2left_0" junction="beg">
-        <succlane lane="-beg_0" dir="r" state="m"/>
-        <succlane lane="beg2right_0" dir="s" state="m"/>
-        <succlane lane="middle_0" dir="l" state="m"/>
-        <succlane lane="beg2left_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-beg2right" lane="-beg2right_0" junction="beg">
-        <succlane lane="middle_0" dir="r" state="m"/>
-        <succlane lane="beg2left_0" dir="s" state="m"/>
-        <succlane lane="-beg_0" dir="l" state="m"/>
-        <succlane lane="beg2right_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-end" lane="-end_0" junction="end">
-        <succlane lane="-left2end_0" tl="end" linkIdx="0" dir="r" state="o"/>
-        <succlane lane="-middle_0" tl="end" linkIdx="1" dir="s" state="o"/>
-        <succlane lane="-right2end_0" tl="end" linkIdx="2" dir="l" state="o"/>
-        <succlane lane="end_0" tl="end" linkIdx="3" dir="t" state="o"/>
-    </succ>
-    <succ edge="-left" lane="-left_0" junction="begleft">
-        <succlane lane="-beg2left_0" dir="l" state="M"/>
-        <succlane lane="left_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-left2end" lane="-left2end_0" junction="endleft">
-        <succlane lane="-left_0" dir="l" state="M"/>
-        <succlane lane="left2end_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-middle" lane="-middle_0" junction="beg">
-        <succlane lane="beg2left_0" dir="r" state="M"/>
-        <succlane lane="-beg_0" dir="s" state="M"/>
-        <succlane lane="beg2right_0" dir="l" state="m"/>
-        <succlane lane="middle_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-right" lane="-right_0" junction="begright">
-        <succlane lane="-beg2right_0" dir="r" state="M"/>
-        <succlane lane="right_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-right2end" lane="-right2end_0" junction="endright">
-        <succlane lane="-right_0" dir="r" state="M"/>
-        <succlane lane="right2end_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="beg" lane="beg_0" junction="beg">
-        <succlane lane="beg2right_0" dir="r" state="M"/>
-        <succlane lane="middle_0" dir="s" state="M"/>
-        <succlane lane="beg2left_0" dir="l" state="m"/>
-        <succlane lane="-beg_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="beg2left" lane="beg2left_0" junction="begleft">
-        <succlane lane="left_0" dir="r" state="M"/>
-        <succlane lane="-beg2left_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="beg2right" lane="beg2right_0" junction="begright">
-        <succlane lane="right_0" dir="l" state="M"/>
-        <succlane lane="-beg2right_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="absEnd">
-        <succlane lane="-end_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="left" lane="left_0" junction="endleft">
-        <succlane lane="left2end_0" dir="r" state="M"/>
-        <succlane lane="-left_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="left2end" lane="left2end_0" junction="end">
-        <succlane lane="-middle_0" tl="end" linkIdx="12" dir="r" state="o"/>
-        <succlane lane="-right2end_0" tl="end" linkIdx="13" dir="s" state="o"/>
-        <succlane lane="end_0" tl="end" linkIdx="14" dir="l" state="o"/>
-        <succlane lane="-left2end_0" tl="end" linkIdx="15" dir="t" state="o"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="end">
-        <succlane lane="-right2end_0" tl="end" linkIdx="8" dir="r" state="o"/>
-        <succlane lane="end_0" tl="end" linkIdx="9" dir="s" state="o"/>
-        <succlane lane="-left2end_0" tl="end" linkIdx="10" dir="l" state="o"/>
-        <succlane lane="-middle_0" tl="end" linkIdx="11" dir="t" state="o"/>
-    </succ>
-    <succ edge="right" lane="right_0" junction="endright">
-        <succlane lane="right2end_0" dir="l" state="M"/>
-        <succlane lane="-right_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="right2end" lane="right2end_0" junction="end">
-        <succlane lane="end_0" tl="end" linkIdx="4" dir="r" state="o"/>
-        <succlane lane="-left2end_0" tl="end" linkIdx="5" dir="s" state="o"/>
-        <succlane lane="-middle_0" tl="end" linkIdx="6" dir="l" state="o"/>
-        <succlane lane="-right2end_0" tl="end" linkIdx="7" dir="t" state="o"/>
-    </succ>
+    <connection from="-beg" to="beg" lane="0:0" dir="t" state="M"/>
+    <connection from="-beg2left" to="-beg" lane="0:0" dir="r" state="m"/>
+    <connection from="-beg2left" to="beg2right" lane="0:0" dir="s" state="m"/>
+    <connection from="-beg2left" to="middle" lane="0:0" dir="l" state="m"/>
+    <connection from="-beg2left" to="beg2left" lane="0:0" dir="t" state="m"/>
+    <connection from="-beg2right" to="middle" lane="0:0" dir="r" state="m"/>
+    <connection from="-beg2right" to="beg2left" lane="0:0" dir="s" state="m"/>
+    <connection from="-beg2right" to="-beg" lane="0:0" dir="l" state="m"/>
+    <connection from="-beg2right" to="beg2right" lane="0:0" dir="t" state="m"/>
+    <connection from="-end" to="-left2end" lane="0:0" tl="end" linkIdx="0" dir="r" state="o"/>
+    <connection from="-end" to="-middle" lane="0:0" tl="end" linkIdx="1" dir="s" state="o"/>
+    <connection from="-end" to="-right2end" lane="0:0" tl="end" linkIdx="2" dir="l" state="o"/>
+    <connection from="-end" to="end" lane="0:0" tl="end" linkIdx="3" dir="t" state="o"/>
+    <connection from="-left" to="-beg2left" lane="0:0" dir="l" state="M"/>
+    <connection from="-left" to="left" lane="0:0" dir="t" state="m"/>
+    <connection from="-left2end" to="-left" lane="0:0" dir="l" state="M"/>
+    <connection from="-left2end" to="left2end" lane="0:0" dir="t" state="m"/>
+    <connection from="-middle" to="beg2left" lane="0:0" dir="r" state="M"/>
+    <connection from="-middle" to="-beg" lane="0:0" dir="s" state="M"/>
+    <connection from="-middle" to="beg2right" lane="0:0" dir="l" state="m"/>
+    <connection from="-middle" to="middle" lane="0:0" dir="t" state="m"/>
+    <connection from="-right" to="-beg2right" lane="0:0" dir="r" state="M"/>
+    <connection from="-right" to="right" lane="0:0" dir="t" state="m"/>
+    <connection from="-right2end" to="-right" lane="0:0" dir="r" state="M"/>
+    <connection from="-right2end" to="right2end" lane="0:0" dir="t" state="m"/>
+    <connection from="beg" to="beg2right" lane="0:0" dir="r" state="M"/>
+    <connection from="beg" to="middle" lane="0:0" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" lane="0:0" dir="l" state="m"/>
+    <connection from="beg" to="-beg" lane="0:0" dir="t" state="m"/>
+    <connection from="beg2left" to="left" lane="0:0" dir="r" state="M"/>
+    <connection from="beg2left" to="-beg2left" lane="0:0" dir="t" state="m"/>
+    <connection from="beg2right" to="right" lane="0:0" dir="l" state="M"/>
+    <connection from="beg2right" to="-beg2right" lane="0:0" dir="t" state="m"/>
+    <connection from="end" to="-end" lane="0:0" dir="t" state="M"/>
+    <connection from="left" to="left2end" lane="0:0" dir="r" state="M"/>
+    <connection from="left" to="-left" lane="0:0" dir="t" state="m"/>
+    <connection from="left2end" to="-middle" lane="0:0" tl="end" linkIdx="12" dir="r" state="o"/>
+    <connection from="left2end" to="-right2end" lane="0:0" tl="end" linkIdx="13" dir="s" state="o"/>
+    <connection from="left2end" to="end" lane="0:0" tl="end" linkIdx="14" dir="l" state="o"/>
+    <connection from="left2end" to="-left2end" lane="0:0" tl="end" linkIdx="15" dir="t" state="o"/>
+    <connection from="middle" to="-right2end" lane="0:0" tl="end" linkIdx="8" dir="r" state="o"/>
+    <connection from="middle" to="end" lane="0:0" tl="end" linkIdx="9" dir="s" state="o"/>
+    <connection from="middle" to="-left2end" lane="0:0" tl="end" linkIdx="10" dir="l" state="o"/>
+    <connection from="middle" to="-middle" lane="0:0" tl="end" linkIdx="11" dir="t" state="o"/>
+    <connection from="right" to="right2end" lane="0:0" dir="l" state="M"/>
+    <connection from="right" to="-right" lane="0:0" dir="t" state="m"/>
+    <connection from="right2end" to="end" lane="0:0" tl="end" linkIdx="4" dir="r" state="o"/>
+    <connection from="right2end" to="-left2end" lane="0:0" tl="end" linkIdx="5" dir="s" state="o"/>
+    <connection from="right2end" to="-middle" lane="0:0" tl="end" linkIdx="6" dir="l" state="o"/>
+    <connection from="right2end" to="-right2end" lane="0:0" tl="end" linkIdx="7" dir="t" state="o"/>
 
 </net>

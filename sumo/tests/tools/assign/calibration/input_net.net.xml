@@ -73,31 +73,15 @@
     <junction id="3" type="DEAD_END" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
     <junction id="91" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
-    <succ edge="1to21" lane="1to21_0" junction="2">
-        <succlane lane="out_0" via=":2_0_0" tl="2" linkIdx="0" dir="s" state="o"/>
-    </succ>
-    <succ edge="1to22" lane="1to22_0" junction="2">
-        <succlane lane="out_0" via=":2_1_0" tl="2" linkIdx="1" dir="s" state="o"/>
-    </succ>
-    <succ edge="91to1" lane="91to1_0" junction="1">
-        <succlane lane="1to21_0" via=":1_0_0" dir="s" state="M"/>
-        <succlane lane="1to22_0" via=":1_1_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="out" lane="out_0" junction="3">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="1to21" to="out" lane="0:0" via=":2_0_0" tl="2" linkIdx="0" dir="s" state="o"/>
+    <connection from="1to22" to="out" lane="0:0" via=":2_1_0" tl="2" linkIdx="1" dir="s" state="o"/>
+    <connection from="91to1" to="1to21" lane="0:0" via=":1_0_0" dir="s" state="M"/>
+    <connection from="91to1" to="1to22" lane="0:0" via=":1_1_0" dir="s" state="M"/>
+    <connection from="out" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <succ edge=":1_0" lane=":1_0_0" junction="1">
-        <succlane lane="1to21_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1_1" lane=":1_1_0" junction="1">
-        <succlane lane="1to22_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_0" lane=":2_0_0" junction="2">
-        <succlane lane="out_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_1" lane=":2_1_0" junction="2">
-        <succlane lane="out_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":1_0" to="1to21" lane="0:0" dir="s" state="M"/>
+    <connection from=":1_1" to="1to22" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_0" to="out" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_1" to="out" lane="0:0" dir="s" state="M"/>
 
 </net>

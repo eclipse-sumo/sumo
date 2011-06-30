@@ -479,325 +479,147 @@
     <junction id="8" type="traffic_light" x="1683.00" y="469.00" incLanes="-35_0 -35_1 -35_2 -20_0 7_0 7_1" intLanes="" shape="1681.81,479.55 1689.62,465.13 1688.95,462.75 1682.91,460.37 1680.95,461.24 1676.35,473.50"/>
     <junction id="9" type="traffic_light" x="1768.00" y="537.00" incLanes="-9_0 -9_1 -30_0 -30_1 -30_2 -29_0 -29_1" intLanes="" shape="1767.20,545.27 1776.22,535.77 1769.28,524.58 1757.93,536.42 1757.67,539.03 1765.14,545.38"/>
 
-    <succ edge="-13" lane="-13_0" junction="4">
-        <succlane lane="23_0" dir="r" state="m"/>
-        <succlane lane="33_1" dir="l" state="m"/>
-        <succlane lane="13_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-14" lane="-14_0" junction="15">
-        <succlane lane="17_0" dir="r" state="M"/>
-        <succlane lane="16_0" dir="l" state="m"/>
-        <succlane lane="14_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-15" lane="-15_0" junction="16">
-        <succlane lane="-16_0" dir="r" state="m"/>
-        <succlane lane="15_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-16" lane="-16_0" junction="15">
-        <succlane lane="14_0" dir="r" state="M"/>
-        <succlane lane="17_1" dir="s" state="m"/>
-        <succlane lane="16_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-19" lane="-19_0" junction="7">
-        <succlane lane="-6_0" dir="r" state="m"/>
-        <succlane lane="7_1" dir="l" state="m"/>
-        <succlane lane="19_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="-20" lane="-20_0" junction="8">
-        <succlane lane="35_0" tl="8" linkIdx="6" dir="r" state="o"/>
-        <succlane lane="-7_1" tl="8" linkIdx="7" dir="l" state="o"/>
-    </succ>
-    <succ edge="-21" lane="-21_0" junction="3">
-        <succlane lane="27_0" tl="3" linkIdx="3" dir="r" state="o"/>
-        <succlane lane="24_0" tl="3" linkIdx="0" dir="s" state="o"/>
-    </succ>
-    <succ edge="-21" lane="-21_1" junction="3">
-        <succlane lane="24_1" tl="3" linkIdx="0" dir="s" state="o"/>
-    </succ>
-    <succ edge="-21" lane="-21_2" junction="3">
-        <succlane lane="26_0" tl="3" linkIdx="2" dir="l" state="o"/>
-    </succ>
-    <succ edge="-22" lane="-22_0" junction="2">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="-22" lane="-22_1" junction="2">
-        <succlane lane="22_1" dir="t" state="M"/>
-    </succ>
-    <succ edge="-23" lane="-23_0" junction="4">
-        <succlane lane="33_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-23" lane="-23_1" junction="4">
-        <succlane lane="33_1" dir="s" state="M"/>
-        <succlane lane="13_0" dir="l" state="m"/>
-        <succlane lane="23_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="-24" lane="-24_0" junction="3">
-        <succlane lane="26_0" tl="3" linkIdx="9" dir="r" state="o"/>
-        <succlane lane="21_0" tl="3" linkIdx="7" dir="s" state="o"/>
-    </succ>
-    <succ edge="-24" lane="-24_1" junction="3">
-        <succlane lane="21_1" tl="3" linkIdx="7" dir="s" state="o"/>
-    </succ>
-    <succ edge="-24" lane="-24_2" junction="3">
-        <succlane lane="27_0" tl="3" linkIdx="10" dir="l" state="o"/>
-    </succ>
-    <succ edge="-25" lane="-25_0" junction="12">
-        <succlane lane="25_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="-26" lane="-26_0" junction="3">
-        <succlane lane="21_0" tl="3" linkIdx="4" dir="r" state="o"/>
-    </succ>
-    <succ edge="-26" lane="-26_1" junction="3">
-        <succlane lane="27_0" tl="3" linkIdx="6" dir="s" state="o"/>
-    </succ>
-    <succ edge="-26" lane="-26_2" junction="3">
-        <succlane lane="24_1" tl="3" linkIdx="5" dir="l" state="o"/>
-    </succ>
-    <succ edge="-27" lane="-27_0" junction="3">
-        <succlane lane="24_0" tl="3" linkIdx="12" dir="r" state="o"/>
-        <succlane lane="26_0" tl="3" linkIdx="13" dir="s" state="o"/>
-        <succlane lane="21_1" tl="3" linkIdx="11" dir="l" state="o"/>
-    </succ>
-    <succ edge="-28" lane="-28_0" junction="13">
-        <succlane lane="28_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="-29" lane="-29_0" junction="9">
-        <succlane lane="30_0" tl="9" linkIdx="3" dir="r" state="o"/>
-    </succ>
-    <succ edge="-29" lane="-29_1" junction="9">
-        <succlane lane="9_1" tl="9" linkIdx="4" dir="l" state="o"/>
-    </succ>
-    <succ edge="-30" lane="-30_0" junction="9">
-        <succlane lane="9_0" tl="9" linkIdx="0" dir="s" state="o"/>
-    </succ>
-    <succ edge="-30" lane="-30_1" junction="9">
-        <succlane lane="9_1" tl="9" linkIdx="0" dir="s" state="o"/>
-    </succ>
-    <succ edge="-30" lane="-30_2" junction="9">
-        <succlane lane="29_0" tl="9" linkIdx="2" dir="l" state="o"/>
-    </succ>
-    <succ edge="-32" lane="-32_0" junction="5">
-        <succlane lane="5_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-32" lane="-32_1" junction="5">
-        <succlane lane="5_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="-32" lane="-32_2" junction="5">
-        <succlane lane="5_2" dir="s" state="M"/>
-        <succlane lane="32_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="-33" lane="-33_0" junction="4">
-        <succlane lane="13_0" dir="r" state="M"/>
-        <succlane lane="23_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-33" lane="-33_1" junction="4">
-        <succlane lane="23_1" dir="s" state="M"/>
-        <succlane lane="33_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="-34" lane="-34_0" junction="26">
-        <succlane lane="-30_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-34" lane="-34_1" junction="26">
-        <succlane lane="-30_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="-34" lane="-34_2" junction="26">
-        <succlane lane="-30_2" dir="s" state="M"/>
-        <succlane lane="34_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="-35" lane="-35_0" junction="8">
-        <succlane lane="-7_0" tl="8" linkIdx="3" dir="s" state="o"/>
-    </succ>
-    <succ edge="-35" lane="-35_1" junction="8">
-        <succlane lane="-7_1" tl="8" linkIdx="3" dir="s" state="o"/>
-    </succ>
-    <succ edge="-35" lane="-35_2" junction="8">
-        <succlane lane="20_0" tl="8" linkIdx="5" dir="l" state="o"/>
-    </succ>
-    <succ edge="-5" lane="-5_0" junction="5">
-        <succlane lane="32_0" dir="s" state="m"/>
-    </succ>
-    <succ edge="-5" lane="-5_1" junction="5">
-        <succlane lane="32_1" dir="s" state="m"/>
-        <succlane lane="5_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="-6" lane="-6_0" junction="6">
-        <succlane lane="18_0" dir="r" state="M"/>
-        <succlane lane="-5_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-6" lane="-6_1" junction="6">
-        <succlane lane="-5_1" dir="s" state="m"/>
-        <succlane lane="6_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="-7" lane="-7_0" junction="7">
-        <succlane lane="19_0" dir="r" state="M"/>
-        <succlane lane="-6_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-7" lane="-7_1" junction="7">
-        <succlane lane="-6_1" dir="s" state="M"/>
-        <succlane lane="7_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="-9" lane="-9_0" junction="9">
-        <succlane lane="29_0" tl="9" linkIdx="6" dir="r" state="o"/>
-        <succlane lane="30_0" tl="9" linkIdx="7" dir="s" state="o"/>
-    </succ>
-    <succ edge="-9" lane="-9_1" junction="9">
-        <succlane lane="30_1" tl="9" linkIdx="7" dir="s" state="o"/>
-    </succ>
-    <succ edge="13" lane="13_0" junction="14">
-        <succlane lane="-13_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="14" lane="14_0" junction="18">
-        <succlane lane="-14_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="15" lane="15_0" junction="17">
-        <succlane lane="-15_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="16" lane="16_0" junction="16">
-        <succlane lane="15_0" dir="l" state="m"/>
-        <succlane lane="-16_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="17" lane="17_0" junction="5">
-        <succlane lane="32_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="17" lane="17_1" junction="5">
-        <succlane lane="5_1" dir="l" state="m"/>
-        <succlane lane="5_2" dir="l" state="m"/>
-    </succ>
-    <succ edge="18" lane="18_0" junction="16">
-        <succlane lane="15_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="18" lane="18_1" junction="16">
-        <succlane lane="-16_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="19" lane="19_0" junction="19">
-        <succlane lane="-19_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="20" lane="20_0" junction="20">
-        <succlane lane="-20_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="21" lane="21_0" junction="22">
-        <succlane lane="-22_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="21" lane="21_1" junction="22">
-        <succlane lane="-22_1" dir="s" state="M"/>
-        <succlane lane="-21_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="22" lane="22_0" junction="22">
-        <succlane lane="-21_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="22" lane="22_1" junction="22">
-        <succlane lane="-21_1" dir="s" state="M"/>
-        <succlane lane="-21_2" dir="s" state="M"/>
-        <succlane lane="-22_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="23" lane="23_0" junction="23">
-        <succlane lane="-24_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="23" lane="23_1" junction="23">
-        <succlane lane="-24_1" dir="s" state="M"/>
-        <succlane lane="-24_2" dir="s" state="M"/>
-        <succlane lane="-23_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="24" lane="24_0" junction="23">
-        <succlane lane="-23_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="24" lane="24_1" junction="23">
-        <succlane lane="-23_1" dir="s" state="M"/>
-        <succlane lane="-24_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="25" lane="25_0" junction="24">
-        <succlane lane="-26_0" dir="s" state="M"/>
-        <succlane lane="-26_1" dir="s" state="M"/>
-        <succlane lane="-26_2" dir="s" state="M"/>
-        <succlane lane="-25_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="26" lane="26_0" junction="24">
-        <succlane lane="-25_0" dir="s" state="M"/>
-        <succlane lane="-26_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="27" lane="27_0" junction="25">
-        <succlane lane="-28_0" dir="s" state="M"/>
-        <succlane lane="-27_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="28" lane="28_0" junction="25">
-        <succlane lane="-27_0" dir="s" state="M"/>
-        <succlane lane="-28_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="29" lane="29_0" junction="21">
-        <succlane lane="-29_1" dir="t" state="M"/>
-    </succ>
-    <succ edge="30" lane="30_0" junction="26">
-        <succlane lane="34_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="30" lane="30_1" junction="26">
-        <succlane lane="34_1" dir="s" state="M"/>
-        <succlane lane="34_2" dir="s" state="M"/>
-        <succlane lane="-30_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="32" lane="32_0" junction="27">
-        <succlane lane="-33_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="32" lane="32_1" junction="27">
-        <succlane lane="-33_1" dir="s" state="M"/>
-        <succlane lane="-32_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="33" lane="33_0" junction="27">
-        <succlane lane="-32_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="33" lane="33_1" junction="27">
-        <succlane lane="-32_1" dir="s" state="M"/>
-        <succlane lane="-32_2" dir="s" state="M"/>
-        <succlane lane="-33_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="34" lane="34_0" junction="28">
-        <succlane lane="-35_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="34" lane="34_1" junction="28">
-        <succlane lane="-35_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="34" lane="34_2" junction="28">
-        <succlane lane="-35_2" dir="s" state="M"/>
-        <succlane lane="-34_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="35" lane="35_0" junction="28">
-        <succlane lane="-34_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="35" lane="35_1" junction="28">
-        <succlane lane="-34_1" dir="s" state="M"/>
-        <succlane lane="-34_2" dir="s" state="M"/>
-        <succlane lane="-35_2" dir="t" state="m"/>
-    </succ>
-    <succ edge="5" lane="5_0" junction="6">
-        <succlane lane="6_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="5" lane="5_1" junction="6">
-        <succlane lane="6_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="5" lane="5_2" junction="6">
-        <succlane lane="18_1" dir="l" state="M"/>
-        <succlane lane="-5_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="6" lane="6_0" junction="7">
-        <succlane lane="7_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="6" lane="6_1" junction="7">
-        <succlane lane="7_1" dir="s" state="M"/>
-        <succlane lane="19_0" dir="l" state="m"/>
-        <succlane lane="-6_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="7" lane="7_0" junction="8">
-        <succlane lane="20_0" tl="8" linkIdx="0" dir="r" state="o"/>
-        <succlane lane="35_0" tl="8" linkIdx="1" dir="s" state="o"/>
-    </succ>
-    <succ edge="7" lane="7_1" junction="8">
-        <succlane lane="35_1" tl="8" linkIdx="1" dir="s" state="o"/>
-        <succlane lane="-7_1" dir="t" state="m"/>
-    </succ>
-    <succ edge="9" lane="9_0" junction="10">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="9" lane="9_1" junction="10">
-        <succlane lane="-9_1" dir="t" state="M"/>
-    </succ>
+    <connection from="-13" to="23" lane="0:0" dir="r" state="m"/>
+    <connection from="-13" to="33" lane="0:1" dir="l" state="m"/>
+    <connection from="-13" to="13" lane="0:0" dir="t" state="m"/>
+    <connection from="-14" to="17" lane="0:0" dir="r" state="M"/>
+    <connection from="-14" to="16" lane="0:0" dir="l" state="m"/>
+    <connection from="-14" to="14" lane="0:0" dir="t" state="m"/>
+    <connection from="-15" to="-16" lane="0:0" dir="r" state="m"/>
+    <connection from="-15" to="15" lane="0:0" dir="t" state="m"/>
+    <connection from="-16" to="14" lane="0:0" dir="r" state="M"/>
+    <connection from="-16" to="17" lane="0:1" dir="s" state="m"/>
+    <connection from="-16" to="16" lane="0:0" dir="t" state="m"/>
+    <connection from="-19" to="-6" lane="0:0" dir="r" state="m"/>
+    <connection from="-19" to="7" lane="0:1" dir="l" state="m"/>
+    <connection from="-19" to="19" lane="0:0" dir="t" state="m"/>
+    <connection from="-20" to="35" lane="0:0" tl="8" linkIdx="6" dir="r" state="o"/>
+    <connection from="-20" to="-7" lane="0:1" tl="8" linkIdx="7" dir="l" state="o"/>
+    <connection from="-21" to="27" lane="0:0" tl="3" linkIdx="3" dir="r" state="o"/>
+    <connection from="-21" to="24" lane="0:0" tl="3" linkIdx="0" dir="s" state="o"/>
+    <connection from="-21" to="24" lane="1:1" tl="3" linkIdx="0" dir="s" state="o"/>
+    <connection from="-21" to="26" lane="2:0" tl="3" linkIdx="2" dir="l" state="o"/>
+    <connection from="-22" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="-22" to="22" lane="1:1" dir="t" state="M"/>
+    <connection from="-23" to="33" lane="0:0" dir="s" state="M"/>
+    <connection from="-23" to="33" lane="1:1" dir="s" state="M"/>
+    <connection from="-23" to="13" lane="1:0" dir="l" state="m"/>
+    <connection from="-23" to="23" lane="1:1" dir="t" state="m"/>
+    <connection from="-24" to="26" lane="0:0" tl="3" linkIdx="9" dir="r" state="o"/>
+    <connection from="-24" to="21" lane="0:0" tl="3" linkIdx="7" dir="s" state="o"/>
+    <connection from="-24" to="21" lane="1:1" tl="3" linkIdx="7" dir="s" state="o"/>
+    <connection from="-24" to="27" lane="2:0" tl="3" linkIdx="10" dir="l" state="o"/>
+    <connection from="-25" to="25" lane="0:0" dir="t" state="M"/>
+    <connection from="-26" to="21" lane="0:0" tl="3" linkIdx="4" dir="r" state="o"/>
+    <connection from="-26" to="27" lane="1:0" tl="3" linkIdx="6" dir="s" state="o"/>
+    <connection from="-26" to="24" lane="2:1" tl="3" linkIdx="5" dir="l" state="o"/>
+    <connection from="-27" to="24" lane="0:0" tl="3" linkIdx="12" dir="r" state="o"/>
+    <connection from="-27" to="26" lane="0:0" tl="3" linkIdx="13" dir="s" state="o"/>
+    <connection from="-27" to="21" lane="0:1" tl="3" linkIdx="11" dir="l" state="o"/>
+    <connection from="-28" to="28" lane="0:0" dir="t" state="M"/>
+    <connection from="-29" to="30" lane="0:0" tl="9" linkIdx="3" dir="r" state="o"/>
+    <connection from="-29" to="9" lane="1:1" tl="9" linkIdx="4" dir="l" state="o"/>
+    <connection from="-30" to="9" lane="0:0" tl="9" linkIdx="0" dir="s" state="o"/>
+    <connection from="-30" to="9" lane="1:1" tl="9" linkIdx="0" dir="s" state="o"/>
+    <connection from="-30" to="29" lane="2:0" tl="9" linkIdx="2" dir="l" state="o"/>
+    <connection from="-32" to="5" lane="0:0" dir="s" state="M"/>
+    <connection from="-32" to="5" lane="1:1" dir="s" state="M"/>
+    <connection from="-32" to="5" lane="2:2" dir="s" state="M"/>
+    <connection from="-32" to="32" lane="2:1" dir="t" state="m"/>
+    <connection from="-33" to="13" lane="0:0" dir="r" state="M"/>
+    <connection from="-33" to="23" lane="0:0" dir="s" state="M"/>
+    <connection from="-33" to="23" lane="1:1" dir="s" state="M"/>
+    <connection from="-33" to="33" lane="1:1" dir="t" state="m"/>
+    <connection from="-34" to="-30" lane="0:0" dir="s" state="M"/>
+    <connection from="-34" to="-30" lane="1:1" dir="s" state="M"/>
+    <connection from="-34" to="-30" lane="2:2" dir="s" state="M"/>
+    <connection from="-34" to="34" lane="2:2" dir="t" state="m"/>
+    <connection from="-35" to="-7" lane="0:0" tl="8" linkIdx="3" dir="s" state="o"/>
+    <connection from="-35" to="-7" lane="1:1" tl="8" linkIdx="3" dir="s" state="o"/>
+    <connection from="-35" to="20" lane="2:0" tl="8" linkIdx="5" dir="l" state="o"/>
+    <connection from="-5" to="32" lane="0:0" dir="s" state="m"/>
+    <connection from="-5" to="32" lane="1:1" dir="s" state="m"/>
+    <connection from="-5" to="5" lane="1:2" dir="t" state="m"/>
+    <connection from="-6" to="18" lane="0:0" dir="r" state="M"/>
+    <connection from="-6" to="-5" lane="0:0" dir="s" state="M"/>
+    <connection from="-6" to="-5" lane="1:1" dir="s" state="m"/>
+    <connection from="-6" to="6" lane="1:1" dir="t" state="m"/>
+    <connection from="-7" to="19" lane="0:0" dir="r" state="M"/>
+    <connection from="-7" to="-6" lane="0:0" dir="s" state="M"/>
+    <connection from="-7" to="-6" lane="1:1" dir="s" state="M"/>
+    <connection from="-7" to="7" lane="1:1" dir="t" state="m"/>
+    <connection from="-9" to="29" lane="0:0" tl="9" linkIdx="6" dir="r" state="o"/>
+    <connection from="-9" to="30" lane="0:0" tl="9" linkIdx="7" dir="s" state="o"/>
+    <connection from="-9" to="30" lane="1:1" tl="9" linkIdx="7" dir="s" state="o"/>
+    <connection from="13" to="-13" lane="0:0" dir="t" state="M"/>
+    <connection from="14" to="-14" lane="0:0" dir="t" state="M"/>
+    <connection from="15" to="-15" lane="0:0" dir="t" state="M"/>
+    <connection from="16" to="15" lane="0:0" dir="l" state="m"/>
+    <connection from="16" to="-16" lane="0:0" dir="t" state="m"/>
+    <connection from="17" to="32" lane="0:0" dir="r" state="M"/>
+    <connection from="17" to="5" lane="1:1" dir="l" state="m"/>
+    <connection from="17" to="5" lane="1:2" dir="l" state="m"/>
+    <connection from="18" to="15" lane="0:0" dir="r" state="M"/>
+    <connection from="18" to="-16" lane="1:0" dir="s" state="M"/>
+    <connection from="19" to="-19" lane="0:0" dir="t" state="M"/>
+    <connection from="20" to="-20" lane="0:0" dir="t" state="M"/>
+    <connection from="21" to="-22" lane="0:0" dir="s" state="M"/>
+    <connection from="21" to="-22" lane="1:1" dir="s" state="M"/>
+    <connection from="21" to="-21" lane="1:2" dir="t" state="m"/>
+    <connection from="22" to="-21" lane="0:0" dir="s" state="M"/>
+    <connection from="22" to="-21" lane="1:1" dir="s" state="M"/>
+    <connection from="22" to="-21" lane="1:2" dir="s" state="M"/>
+    <connection from="22" to="-22" lane="1:1" dir="t" state="m"/>
+    <connection from="23" to="-24" lane="0:0" dir="s" state="M"/>
+    <connection from="23" to="-24" lane="1:1" dir="s" state="M"/>
+    <connection from="23" to="-24" lane="1:2" dir="s" state="M"/>
+    <connection from="23" to="-23" lane="1:1" dir="t" state="m"/>
+    <connection from="24" to="-23" lane="0:0" dir="s" state="M"/>
+    <connection from="24" to="-23" lane="1:1" dir="s" state="M"/>
+    <connection from="24" to="-24" lane="1:2" dir="t" state="m"/>
+    <connection from="25" to="-26" lane="0:0" dir="s" state="M"/>
+    <connection from="25" to="-26" lane="0:1" dir="s" state="M"/>
+    <connection from="25" to="-26" lane="0:2" dir="s" state="M"/>
+    <connection from="25" to="-25" lane="0:0" dir="t" state="m"/>
+    <connection from="26" to="-25" lane="0:0" dir="s" state="M"/>
+    <connection from="26" to="-26" lane="0:2" dir="t" state="m"/>
+    <connection from="27" to="-28" lane="0:0" dir="s" state="M"/>
+    <connection from="27" to="-27" lane="0:0" dir="t" state="m"/>
+    <connection from="28" to="-27" lane="0:0" dir="s" state="M"/>
+    <connection from="28" to="-28" lane="0:0" dir="t" state="m"/>
+    <connection from="29" to="-29" lane="0:1" dir="t" state="M"/>
+    <connection from="30" to="34" lane="0:0" dir="s" state="M"/>
+    <connection from="30" to="34" lane="1:1" dir="s" state="M"/>
+    <connection from="30" to="34" lane="1:2" dir="s" state="M"/>
+    <connection from="30" to="-30" lane="1:2" dir="t" state="m"/>
+    <connection from="32" to="-33" lane="0:0" dir="s" state="M"/>
+    <connection from="32" to="-33" lane="1:1" dir="s" state="M"/>
+    <connection from="32" to="-32" lane="1:2" dir="t" state="m"/>
+    <connection from="33" to="-32" lane="0:0" dir="s" state="M"/>
+    <connection from="33" to="-32" lane="1:1" dir="s" state="M"/>
+    <connection from="33" to="-32" lane="1:2" dir="s" state="M"/>
+    <connection from="33" to="-33" lane="1:1" dir="t" state="m"/>
+    <connection from="34" to="-35" lane="0:0" dir="s" state="M"/>
+    <connection from="34" to="-35" lane="1:1" dir="s" state="M"/>
+    <connection from="34" to="-35" lane="2:2" dir="s" state="M"/>
+    <connection from="34" to="-34" lane="2:2" dir="t" state="m"/>
+    <connection from="35" to="-34" lane="0:0" dir="s" state="M"/>
+    <connection from="35" to="-34" lane="1:1" dir="s" state="M"/>
+    <connection from="35" to="-34" lane="1:2" dir="s" state="M"/>
+    <connection from="35" to="-35" lane="1:2" dir="t" state="m"/>
+    <connection from="5" to="6" lane="0:0" dir="s" state="M"/>
+    <connection from="5" to="6" lane="1:1" dir="s" state="M"/>
+    <connection from="5" to="18" lane="2:1" dir="l" state="M"/>
+    <connection from="5" to="-5" lane="2:1" dir="t" state="m"/>
+    <connection from="6" to="7" lane="0:0" dir="s" state="M"/>
+    <connection from="6" to="7" lane="1:1" dir="s" state="M"/>
+    <connection from="6" to="19" lane="1:0" dir="l" state="m"/>
+    <connection from="6" to="-6" lane="1:1" dir="t" state="m"/>
+    <connection from="7" to="20" lane="0:0" tl="8" linkIdx="0" dir="r" state="o"/>
+    <connection from="7" to="35" lane="0:0" tl="8" linkIdx="1" dir="s" state="o"/>
+    <connection from="7" to="35" lane="1:1" tl="8" linkIdx="1" dir="s" state="o"/>
+    <connection from="7" to="-7" lane="1:1" dir="t" state="m"/>
+    <connection from="9" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="9" to="-9" lane="1:1" dir="t" state="M"/>
 
 </net>

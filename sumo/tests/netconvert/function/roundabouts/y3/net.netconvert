@@ -86,36 +86,18 @@
     <junction id="17393" type="traffic_light" x="74.64" y="50.20" incLanes="-10403_0 10402_0" intLanes="" shape="74.65,54.59 77.66,53.37 80.38,51.94 80.58,48.56 80.55,48.45 78.59,45.69 76.25,45.56 73.02,45.55"/>
     <junction id="17446" type="priority" x="96.14" y="291.06" incLanes="10575_0" intLanes="" shape="97.57,290.34 94.71,291.78 97.69,291.44 94.59,290.68"/>
 
-    <succ edge="-10397" lane="-10397_0" junction="17391">
-        <succlane lane="10402_0" dir="r" state="m"/>
-    </succ>
-    <succ edge="-10400" lane="-10400_0" junction="10724">
-        <succlane lane="10575_0" dir="r" state="M"/>
-        <succlane lane="10396_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="-10403" lane="-10403_0" junction="17393">
-        <succlane lane="-10400_0" dir="r" state="m"/>
-    </succ>
-    <succ edge="-10575" lane="-10575_0" junction="10724">
-        <succlane lane="10396_0" dir="r" state="m"/>
-    </succ>
-    <succ edge="10396" lane="10396_0" junction="17391">
-        <succlane lane="10397_0" dir="r" state="M"/>
-        <succlane lane="10402_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="10397" lane="10397_0" junction="16910">
-        <succlane lane="-10397_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="10402" lane="10402_0" junction="17393">
-        <succlane lane="10403_0" dir="r" state="M"/>
-        <succlane lane="-10400_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="10403" lane="10403_0" junction="13442">
-        <succlane lane="-10403_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="10575" lane="10575_0" junction="17446">
-        <succlane lane="-10575_0" dir="t" state="M"/>
-    </succ>
+    <connection from="-10397" to="10402" lane="0:0" dir="r" state="m"/>
+    <connection from="-10400" to="10575" lane="0:0" dir="r" state="M"/>
+    <connection from="-10400" to="10396" lane="0:0" dir="s" state="M"/>
+    <connection from="-10403" to="-10400" lane="0:0" dir="r" state="m"/>
+    <connection from="-10575" to="10396" lane="0:0" dir="r" state="m"/>
+    <connection from="10396" to="10397" lane="0:0" dir="r" state="M"/>
+    <connection from="10396" to="10402" lane="0:0" dir="s" state="M"/>
+    <connection from="10397" to="-10397" lane="0:0" dir="t" state="M"/>
+    <connection from="10402" to="10403" lane="0:0" dir="r" state="M"/>
+    <connection from="10402" to="-10400" lane="0:0" dir="s" state="M"/>
+    <connection from="10403" to="-10403" lane="0:0" dir="t" state="M"/>
+    <connection from="10575" to="-10575" lane="0:0" dir="t" state="M"/>
 
     <roundabout nodes="10724 17391 17393"/>
 

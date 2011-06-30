@@ -114,62 +114,26 @@
     <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes="" shape="751.50,506.55 751.50,500.05 748.50,500.05 748.50,509.85"/>
     <junction id="m3" type="priority" x="500.00" y="250.00" incLanes="3fi_0 3fi_1" intLanes="" shape="500.05,251.50 509.85,251.50 506.55,248.50 500.05,248.50"/>
 
-    <succ edge="1fi" lane="1fi_0" junction="m1">
-        <succlane lane="1si_0" dir="s" state="M"/>
-        <succlane lane="1si_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="1fi" lane="1fi_1" junction="m1">
-        <succlane lane="1si_2" dir="s" state="M"/>
-    </succ>
-    <succ edge="1o" lane="1o_0" junction="1">
-        <succlane lane="1fi_1" dir="t" state="M"/>
-    </succ>
-    <succ edge="1si" lane="1si_0" junction="0">
-        <succlane lane="3o_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="1si" lane="1si_1" junction="0">
-        <succlane lane="2o_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1si" lane="1si_2" junction="0">
-        <succlane lane="1o_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="2fi" lane="2fi_0" junction="m2">
-        <succlane lane="2si_0" dir="s" state="M"/>
-        <succlane lane="2si_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="2fi" lane="2fi_1" junction="m2">
-        <succlane lane="2si_2" dir="s" state="M"/>
-    </succ>
-    <succ edge="2o" lane="2o_0" junction="2">
-        <succlane lane="2fi_1" dir="t" state="M"/>
-    </succ>
-    <succ edge="2si" lane="2si_0" junction="0">
-        <succlane lane="1o_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="2si" lane="2si_1" junction="0">
-        <succlane lane="3o_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="2si" lane="2si_2" junction="0">
-        <succlane lane="2o_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="3fi" lane="3fi_0" junction="m3">
-        <succlane lane="3si_0" dir="s" state="M"/>
-        <succlane lane="3si_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="3fi" lane="3fi_1" junction="m3">
-        <succlane lane="3si_2" dir="s" state="M"/>
-    </succ>
-    <succ edge="3o" lane="3o_0" junction="3">
-        <succlane lane="3fi_1" dir="t" state="M"/>
-    </succ>
-    <succ edge="3si" lane="3si_0" junction="0">
-        <succlane lane="2o_0" dir="r" state="m"/>
-    </succ>
-    <succ edge="3si" lane="3si_1" junction="0">
-        <succlane lane="1o_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="3si" lane="3si_2" junction="0">
-        <succlane lane="3o_0" dir="t" state="m"/>
-    </succ>
+    <connection from="1fi" to="1si" lane="0:0" dir="s" state="M"/>
+    <connection from="1fi" to="1si" lane="0:1" dir="s" state="M"/>
+    <connection from="1fi" to="1si" lane="1:2" dir="s" state="M"/>
+    <connection from="1o" to="1fi" lane="0:1" dir="t" state="M"/>
+    <connection from="1si" to="3o" lane="0:0" dir="r" state="M"/>
+    <connection from="1si" to="2o" lane="1:0" dir="s" state="M"/>
+    <connection from="1si" to="1o" lane="2:0" dir="t" state="m"/>
+    <connection from="2fi" to="2si" lane="0:0" dir="s" state="M"/>
+    <connection from="2fi" to="2si" lane="0:1" dir="s" state="M"/>
+    <connection from="2fi" to="2si" lane="1:2" dir="s" state="M"/>
+    <connection from="2o" to="2fi" lane="0:1" dir="t" state="M"/>
+    <connection from="2si" to="1o" lane="0:0" dir="s" state="M"/>
+    <connection from="2si" to="3o" lane="1:0" dir="l" state="m"/>
+    <connection from="2si" to="2o" lane="2:0" dir="t" state="m"/>
+    <connection from="3fi" to="3si" lane="0:0" dir="s" state="M"/>
+    <connection from="3fi" to="3si" lane="0:1" dir="s" state="M"/>
+    <connection from="3fi" to="3si" lane="1:2" dir="s" state="M"/>
+    <connection from="3o" to="3fi" lane="0:1" dir="t" state="M"/>
+    <connection from="3si" to="2o" lane="0:0" dir="r" state="m"/>
+    <connection from="3si" to="1o" lane="1:0" dir="l" state="m"/>
+    <connection from="3si" to="3o" lane="2:0" dir="t" state="m"/>
 
 </net>

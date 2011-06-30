@@ -55,21 +55,9 @@
     <junction id="node123" type="priority" x="0.00" y="77.96" incLanes="1_0 1_1 2_0 2_1" intLanes="" shape="-6.55,86.01 -0.05,86.01 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51"/>
     <junction id="node125" type="DEAD_END" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes="" shape="-6.55,-0.00 -0.05,-0.00"/>
 
-    <succ edge="1" lane="1_0" junction="node123">
-        <succlane lane="3_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1" lane="1_1" junction="node123">
-        <succlane lane="3_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="2" lane="2_0" junction="node123">
-        <succlane lane="3_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="2" lane="2_1" junction="node123">
-        <succlane lane="3_1" dir="l" state="m"/>
-    </succ>
-    <succ edge="3" lane="3_0" junction="node125">
-    </succ>
-    <succ edge="3" lane="3_1" junction="node125">
-    </succ>
+    <connection from="1" to="3" lane="0:0" dir="s" state="M"/>
+    <connection from="1" to="3" lane="1:1" dir="s" state="M"/>
+    <connection from="2" to="3" lane="0:0" dir="l" state="m"/>
+    <connection from="2" to="3" lane="1:1" dir="l" state="m"/>
 
 </net>

@@ -66,30 +66,14 @@
     <junction id="tl" type="priority" x="95.49" y="190.99" incLanes="3_0" intLanes=":tl_0_0" shape="95.56,192.59 95.56,189.39 95.28,192.58"/>
     <junction id="tr" type="priority" x="1295.49" y="190.99" incLanes="2_0" intLanes=":tr_0_0" shape="1295.70,192.58 1295.42,189.39 1295.42,192.59"/>
 
-    <succ edge="1" lane="1_0" junction="dr">
-        <succlane lane="2_0" via=":dr_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="2" lane="2_0" junction="tr">
-        <succlane lane="3_0" via=":tr_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="3" lane="3_0" junction="tl">
-        <succlane lane="4_0" via=":tl_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="4" lane="4_0" junction="dl">
-        <succlane lane="1_0" via=":dl_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="1" to="2" lane="0:0" via=":dr_0_0" dir="s" state="M"/>
+    <connection from="2" to="3" lane="0:0" via=":tr_0_0" dir="s" state="M"/>
+    <connection from="3" to="4" lane="0:0" via=":tl_0_0" dir="s" state="M"/>
+    <connection from="4" to="1" lane="0:0" via=":dl_0_0" dir="s" state="M"/>
 
-    <succ edge=":dl_0" lane=":dl_0_0" junction="dl">
-        <succlane lane="1_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":dr_0" lane=":dr_0_0" junction="dr">
-        <succlane lane="2_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":tl_0" lane=":tl_0_0" junction="tl">
-        <succlane lane="4_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":tr_0" lane=":tr_0_0" junction="tr">
-        <succlane lane="3_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":dl_0" to="1" lane="0:0" dir="s" state="M"/>
+    <connection from=":dr_0" to="2" lane="0:0" dir="s" state="M"/>
+    <connection from=":tl_0" to="4" lane="0:0" dir="s" state="M"/>
+    <connection from=":tr_0" to="3" lane="0:0" dir="s" state="M"/>
 
 </net>

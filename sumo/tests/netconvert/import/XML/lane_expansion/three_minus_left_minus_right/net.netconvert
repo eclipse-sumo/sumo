@@ -57,30 +57,12 @@
     <junction id="1.30" type="priority" x="30.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes=":1.30_0_0 :1.30_1_0" shape="31.50,-3.35 31.50,-9.85 28.50,-9.85 28.50,-0.05"/>
     <junction id="1.70" type="priority" x="70.00" y="0.00" incLanes="1.30_0 1.30_1" intLanes=":1.70_0_0" shape="71.50,-3.35 71.50,-6.55 68.50,-9.85 68.50,-3.35"/>
 
-    <succ edge="1" lane="1_0" junction="1.30">
-        <succlane lane="1.30_0" via=":1.30_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1" lane="1_1" junction="1.30">
-        <succlane lane="1.30_1" via=":1.30_1_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1" lane="1_2" junction="1.30">
-    </succ>
-    <succ edge="1.30" lane="1.30_0" junction="1.70">
-    </succ>
-    <succ edge="1.30" lane="1.30_1" junction="1.70">
-        <succlane lane="1.70_0" via=":1.70_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1.70" lane="1.70_0" junction="1">
-    </succ>
+    <connection from="1" to="1.30" lane="0:0" via=":1.30_0_0" dir="s" state="M"/>
+    <connection from="1" to="1.30" lane="1:1" via=":1.30_1_0" dir="s" state="M"/>
+    <connection from="1.30" to="1.70" lane="1:0" via=":1.70_0_0" dir="s" state="M"/>
 
-    <succ edge=":1.30_0" lane=":1.30_0_0" junction="1.30">
-        <succlane lane="1.30_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1.30_1" lane=":1.30_1_0" junction="1.30">
-        <succlane lane="1.30_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1.70_0" lane=":1.70_0_0" junction="1.70">
-        <succlane lane="1.70_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":1.30_0" to="1.30" lane="0:0" dir="s" state="M"/>
+    <connection from=":1.30_1" to="1.30" lane="0:1" dir="s" state="M"/>
+    <connection from=":1.70_0" to="1.70" lane="0:0" dir="s" state="M"/>
 
 </net>

@@ -39,12 +39,8 @@
 
     <junction id="SUMOGenerated2" type="DEAD_END" x="1.00" y="0.00" incLanes="out_0" intLanes="" shape="1.00,-3.25 1.00,-0.05"/>
 
-    <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated1">
-        <succlane lane="out_0" dir="t" state="M"/>
-    </succ>
+    <connection from="1to2" to="out" lane="0:0" dir="t" state="M"/>
 
-    <succ edge="out" lane="out_0" junction="SUMOGenerated2">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="out" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

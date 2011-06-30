@@ -96,37 +96,17 @@
     <junction id="end" type="priority" x="1200.00" y="200.00" incLanes="end_0" intLanes="" shape="1200.00,199.95 1200.00,196.75 1200.00,199.95"/>
     <junction id="rend" type="DEAD_END" x="1300.00" y="200.00" incLanes="rend_0" intLanes="" shape="1300.00,196.75 1300.00,199.95"/>
 
-    <succ edge="1toL" lane="1toL_0" junction="L1">
-        <succlane lane="L_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="1toR" lane="1toR_0" junction="R1">
-        <succlane lane="R_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="L" lane="L_0" junction="L2">
-        <succlane lane="Lto2_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="Lto2" lane="Lto2_0" junction="2">
-        <succlane lane="end_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="R" lane="R_0" junction="R2">
-        <succlane lane="Rto2_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="Rto2" lane="Rto2_0" junction="2">
-        <succlane lane="end_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="beg" lane="beg_0" junction="1">
-        <succlane lane="1toR_0" dir="r" state="M"/>
-        <succlane lane="middle_0" dir="s" state="M"/>
-        <succlane lane="1toL_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="end">
-        <succlane lane="rend_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="2">
-        <succlane lane="end_0" dir="s" state="m"/>
-    </succ>
-    <succ edge="rend" lane="rend_0" junction="rend">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="1toL" to="L" lane="0:0" dir="r" state="M"/>
+    <connection from="1toR" to="R" lane="0:0" dir="l" state="M"/>
+    <connection from="L" to="Lto2" lane="0:0" dir="r" state="M"/>
+    <connection from="Lto2" to="end" lane="0:0" dir="l" state="m"/>
+    <connection from="R" to="Rto2" lane="0:0" dir="l" state="M"/>
+    <connection from="Rto2" to="end" lane="0:0" dir="r" state="M"/>
+    <connection from="beg" to="1toR" lane="0:0" dir="r" state="M"/>
+    <connection from="beg" to="middle" lane="0:0" dir="s" state="M"/>
+    <connection from="beg" to="1toL" lane="0:0" dir="l" state="M"/>
+    <connection from="end" to="rend" lane="0:0" dir="s" state="M"/>
+    <connection from="middle" to="end" lane="0:0" dir="s" state="m"/>
+    <connection from="rend" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

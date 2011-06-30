@@ -413,325 +413,143 @@
 
     <junction id="z7" type="priority" x="600.00" y="600.00" incLanes="e7_0 e7_1 e7_2" intLanes=":z7_0_0 :z7_1_0 :z7_2_0" shape="602.92,602.85 609.85,595.92 600.05,595.92"/>
 
-    <succ edge="e1" lane="e1_0" junction="z1">
-        <succlane lane="e2_0" via=":z1_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e1" to="e2" lane="0:0" via=":z1_0_0" dir="r" state="M"/>
 
-    <succ edge="e1" lane="e1_1" junction="z1">
-        <succlane lane="e2_1" via=":z1_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e1" to="e2" lane="1:1" via=":z1_1_0" dir="r" state="M"/>
 
-    <succ edge="e1" lane="e1_2" junction="z1">
-        <succlane lane="e2_2" via=":z1_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e1" to="e2" lane="2:2" via=":z1_2_0" dir="r" state="M"/>
 
-    <succ edge="e2" lane="e2_0" junction="z2">
-        <succlane lane="e3_0" via=":z2_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e2" to="e3" lane="0:0" via=":z2_0_0" dir="r" state="M"/>
 
-    <succ edge="e2" lane="e2_1" junction="z2">
-        <succlane lane="e3_1" via=":z2_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e2" to="e3" lane="1:1" via=":z2_1_0" dir="r" state="M"/>
 
-    <succ edge="e2" lane="e2_2" junction="z2">
-        <succlane lane="e3_2" via=":z2_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e2" to="e3" lane="2:2" via=":z2_2_0" dir="r" state="M"/>
 
-    <succ edge="e3" lane="e3_0" junction="z3">
-        <succlane lane="e4_0" via=":z3_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e3" to="e4" lane="0:0" via=":z3_0_0" dir="r" state="M"/>
 
-    <succ edge="e3" lane="e3_1" junction="z3">
-        <succlane lane="e4_1" via=":z3_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e3" to="e4" lane="1:1" via=":z3_1_0" dir="r" state="M"/>
 
-    <succ edge="e3" lane="e3_2" junction="z3">
-        <succlane lane="e4_2" via=":z3_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e3" to="e4" lane="2:2" via=":z3_2_0" dir="r" state="M"/>
 
-    <succ edge="e4" lane="e4_0" junction="z4">
-        <succlane lane="e5_0" via=":z4_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e4" to="e5" lane="0:0" via=":z4_0_0" dir="r" state="M"/>
 
-    <succ edge="e4" lane="e4_1" junction="z4">
-        <succlane lane="e5_1" via=":z4_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e4" to="e5" lane="1:1" via=":z4_1_0" dir="r" state="M"/>
 
-    <succ edge="e4" lane="e4_2" junction="z4">
-        <succlane lane="e5_2" via=":z4_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e4" to="e5" lane="2:2" via=":z4_2_0" dir="r" state="M"/>
 
-    <succ edge="e5" lane="e5_0" junction="z5">
-        <succlane lane="e6_0" via=":z5_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e5" to="e6" lane="0:0" via=":z5_0_0" dir="r" state="M"/>
 
-    <succ edge="e5" lane="e5_1" junction="z5">
-        <succlane lane="e6_1" via=":z5_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e5" to="e6" lane="1:1" via=":z5_1_0" dir="r" state="M"/>
 
-    <succ edge="e5" lane="e5_2" junction="z5">
-        <succlane lane="e6_2" via=":z5_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e5" to="e6" lane="2:2" via=":z5_2_0" dir="r" state="M"/>
 
-    <succ edge="e6" lane="e6_0" junction="z6">
-        <succlane lane="e7_0" via=":z6_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e6" to="e7" lane="0:0" via=":z6_0_0" dir="r" state="M"/>
 
-    <succ edge="e6" lane="e6_1" junction="z6">
-        <succlane lane="e7_1" via=":z6_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e6" to="e7" lane="1:1" via=":z6_1_0" dir="r" state="M"/>
 
-    <succ edge="e6" lane="e6_2" junction="z6">
-        <succlane lane="e7_2" via=":z6_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e6" to="e7" lane="2:2" via=":z6_2_0" dir="r" state="M"/>
 
-    <succ edge="e7" lane="e7_0" junction="z7">
-        <succlane lane="e8_0" via=":z7_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e7" to="e8" lane="0:0" via=":z7_0_0" dir="r" state="M"/>
 
-    <succ edge="e7" lane="e7_1" junction="z7">
-        <succlane lane="e8_1" via=":z7_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e7" to="e8" lane="1:1" via=":z7_1_0" dir="r" state="M"/>
 
-    <succ edge="e7" lane="e7_2" junction="z7">
-        <succlane lane="e8_2" via=":z7_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e7" to="e8" lane="2:2" via=":z7_2_0" dir="r" state="M"/>
 
-    <succ edge="e8" lane="e8_0" junction="z0">
-        <succlane lane="e1_0" via=":z0_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e8" to="e1" lane="0:0" via=":z0_0_0" dir="r" state="M"/>
 
-    <succ edge="e8" lane="e8_1" junction="z0">
-        <succlane lane="e1_1" via=":z0_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e8" to="e1" lane="1:1" via=":z0_1_0" dir="r" state="M"/>
 
-    <succ edge="e8" lane="e8_2" junction="z0">
-        <succlane lane="e1_2" via=":z0_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="e8" to="e1" lane="2:2" via=":z0_2_0" dir="r" state="M"/>
 
-    <succ edge="i1" lane="i1_0" junction="f1">
-        <succlane lane="i2_0" via=":f1_0_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i1" to="i2" lane="0:0" via=":f1_0_0" dir="l" state="M"/>
 
-    <succ edge="i1" lane="i1_1" junction="f1">
-        <succlane lane="i2_1" via=":f1_1_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i1" to="i2" lane="1:1" via=":f1_1_0" dir="l" state="M"/>
 
-    <succ edge="i1" lane="i1_2" junction="f1">
-        <succlane lane="i2_2" via=":f1_2_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i1" to="i2" lane="2:2" via=":f1_2_0" dir="l" state="M"/>
 
-    <succ edge="i2" lane="i2_0" junction="f2">
-        <succlane lane="i3_0" via=":f2_0_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i2" to="i3" lane="0:0" via=":f2_0_0" dir="l" state="M"/>
 
-    <succ edge="i2" lane="i2_1" junction="f2">
-        <succlane lane="i3_1" via=":f2_1_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i2" to="i3" lane="1:1" via=":f2_1_0" dir="l" state="M"/>
 
-    <succ edge="i2" lane="i2_2" junction="f2">
-        <succlane lane="i3_2" via=":f2_2_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i2" to="i3" lane="2:2" via=":f2_2_0" dir="l" state="M"/>
 
-    <succ edge="i3" lane="i3_0" junction="f3">
-        <succlane lane="i4_0" via=":f3_0_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i3" to="i4" lane="0:0" via=":f3_0_0" dir="l" state="M"/>
 
-    <succ edge="i3" lane="i3_1" junction="f3">
-        <succlane lane="i4_1" via=":f3_1_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i3" to="i4" lane="1:1" via=":f3_1_0" dir="l" state="M"/>
 
-    <succ edge="i3" lane="i3_2" junction="f3">
-        <succlane lane="i4_2" via=":f3_2_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i3" to="i4" lane="2:2" via=":f3_2_0" dir="l" state="M"/>
 
-    <succ edge="i4" lane="i4_0" junction="f4">
-        <succlane lane="i5_0" via=":f4_0_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i4" to="i5" lane="0:0" via=":f4_0_0" dir="l" state="M"/>
 
-    <succ edge="i4" lane="i4_1" junction="f4">
-        <succlane lane="i5_1" via=":f4_1_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i4" to="i5" lane="1:1" via=":f4_1_0" dir="l" state="M"/>
 
-    <succ edge="i4" lane="i4_2" junction="f4">
-        <succlane lane="i5_2" via=":f4_2_0" dir="l" state="M"/>
-    </succ>
+    <connection from="i4" to="i5" lane="2:2" via=":f4_2_0" dir="l" state="M"/>
 
-    <succ edge="i5" lane="i5_0" junction="f5">
-        <succlane lane="i6_0" via=":f5_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i5" to="i6" lane="0:0" via=":f5_0_0" dir="r" state="M"/>
 
-    <succ edge="i5" lane="i5_1" junction="f5">
-        <succlane lane="i6_1" via=":f5_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i5" to="i6" lane="1:1" via=":f5_1_0" dir="r" state="M"/>
 
-    <succ edge="i5" lane="i5_2" junction="f5">
-        <succlane lane="i6_2" via=":f5_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i5" to="i6" lane="2:2" via=":f5_2_0" dir="r" state="M"/>
 
-    <succ edge="i6" lane="i6_0" junction="f6">
-        <succlane lane="i7_0" via=":f6_0_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i6" to="i7" lane="0:0" via=":f6_0_0" dir="r" state="M"/>
 
-    <succ edge="i6" lane="i6_1" junction="f6">
-        <succlane lane="i7_1" via=":f6_1_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i6" to="i7" lane="1:1" via=":f6_1_0" dir="r" state="M"/>
 
-    <succ edge="i6" lane="i6_2" junction="f6">
-        <succlane lane="i7_2" via=":f6_2_0" dir="r" state="M"/>
-    </succ>
+    <connection from="i6" to="i7" lane="2:2" via=":f6_2_0" dir="r" state="M"/>
 
-    <succ edge="i7" lane="i7_0" junction="f7">
-        <succlane lane="o_0" via=":f7_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="i7" to="o" lane="0:0" via=":f7_0_0" dir="s" state="M"/>
 
-    <succ edge="i7" lane="i7_1" junction="f7">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="i7" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
-    <succ edge="i7" lane="i7_2" junction="f7">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="i7" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
-    <succ edge="o" lane="o_0" junction="z0">
-        <succlane lane="e1_1" via=":z0_3_0" dir="s" state="m"/>
-        <succlane lane="e1_2" via=":z0_4_0" dir="s" state="m"/>
-    </succ>
+    <connection from="o" to="e1" lane="0:1" via=":z0_3_0" dir="s" state="m"/>
+    <connection from="o" to="e1" lane="0:2" via=":z0_4_0" dir="s" state="m"/>
 
-    <succ edge=":f1_0" lane=":f1_0_0" junction="f1">
-        <succlane lane="i2_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f1_1" lane=":f1_1_0" junction="f1">
-        <succlane lane="i2_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f1_2" lane=":f1_2_0" junction="f1">
-        <succlane lane="i2_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f2_0" lane=":f2_0_0" junction="f2">
-        <succlane lane="i3_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f2_1" lane=":f2_1_0" junction="f2">
-        <succlane lane="i3_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f2_2" lane=":f2_2_0" junction="f2">
-        <succlane lane="i3_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f3_0" lane=":f3_0_0" junction="f3">
-        <succlane lane="i4_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f3_1" lane=":f3_1_0" junction="f3">
-        <succlane lane="i4_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f3_2" lane=":f3_2_0" junction="f3">
-        <succlane lane="i4_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f4_0" lane=":f4_0_0" junction="f4">
-        <succlane lane="i5_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f4_1" lane=":f4_1_0" junction="f4">
-        <succlane lane="i5_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f4_2" lane=":f4_2_0" junction="f4">
-        <succlane lane="i5_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f5_0" lane=":f5_0_0" junction="f5">
-        <succlane lane="i6_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f5_1" lane=":f5_1_0" junction="f5">
-        <succlane lane="i6_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f5_2" lane=":f5_2_0" junction="f5">
-        <succlane lane="i6_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f6_0" lane=":f6_0_0" junction="f6">
-        <succlane lane="i7_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f6_1" lane=":f6_1_0" junction="f6">
-        <succlane lane="i7_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f6_2" lane=":f6_2_0" junction="f6">
-        <succlane lane="i7_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":f7_0" lane=":f7_0_0" junction="f7">
-        <succlane lane="o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z0_0" lane=":z0_0_0" junction="z0">
-        <succlane lane="e1_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z0_1" lane=":z0_1_0" junction="z0">
-        <succlane lane="e1_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z0_2" lane=":z0_2_0" junction="z0">
-        <succlane lane="e1_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z0_3" lane=":z0_3_0" junction="z0">
-        <succlane lane="e1_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z0_4" lane=":z0_4_0" junction="z0">
-        <succlane lane="e1_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z1_0" lane=":z1_0_0" junction="z1">
-        <succlane lane="e2_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z1_1" lane=":z1_1_0" junction="z1">
-        <succlane lane="e2_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z1_2" lane=":z1_2_0" junction="z1">
-        <succlane lane="e2_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z2_0" lane=":z2_0_0" junction="z2">
-        <succlane lane="e3_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z2_1" lane=":z2_1_0" junction="z2">
-        <succlane lane="e3_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z2_2" lane=":z2_2_0" junction="z2">
-        <succlane lane="e3_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z3_0" lane=":z3_0_0" junction="z3">
-        <succlane lane="e4_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z3_1" lane=":z3_1_0" junction="z3">
-        <succlane lane="e4_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z3_2" lane=":z3_2_0" junction="z3">
-        <succlane lane="e4_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z4_0" lane=":z4_0_0" junction="z4">
-        <succlane lane="e5_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z4_1" lane=":z4_1_0" junction="z4">
-        <succlane lane="e5_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z4_2" lane=":z4_2_0" junction="z4">
-        <succlane lane="e5_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z5_0" lane=":z5_0_0" junction="z5">
-        <succlane lane="e6_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z5_1" lane=":z5_1_0" junction="z5">
-        <succlane lane="e6_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z5_2" lane=":z5_2_0" junction="z5">
-        <succlane lane="e6_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z6_0" lane=":z6_0_0" junction="z6">
-        <succlane lane="e7_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z6_1" lane=":z6_1_0" junction="z6">
-        <succlane lane="e7_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z6_2" lane=":z6_2_0" junction="z6">
-        <succlane lane="e7_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z7_0" lane=":z7_0_0" junction="z7">
-        <succlane lane="e8_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z7_1" lane=":z7_1_0" junction="z7">
-        <succlane lane="e8_1" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":z7_2" lane=":z7_2_0" junction="z7">
-        <succlane lane="e8_2" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":f1_0" to="i2" lane="0:0" dir="s" state="M"/>
+    <connection from=":f1_1" to="i2" lane="0:1" dir="s" state="M"/>
+    <connection from=":f1_2" to="i2" lane="0:2" dir="s" state="M"/>
+    <connection from=":f2_0" to="i3" lane="0:0" dir="s" state="M"/>
+    <connection from=":f2_1" to="i3" lane="0:1" dir="s" state="M"/>
+    <connection from=":f2_2" to="i3" lane="0:2" dir="s" state="M"/>
+    <connection from=":f3_0" to="i4" lane="0:0" dir="s" state="M"/>
+    <connection from=":f3_1" to="i4" lane="0:1" dir="s" state="M"/>
+    <connection from=":f3_2" to="i4" lane="0:2" dir="s" state="M"/>
+    <connection from=":f4_0" to="i5" lane="0:0" dir="s" state="M"/>
+    <connection from=":f4_1" to="i5" lane="0:1" dir="s" state="M"/>
+    <connection from=":f4_2" to="i5" lane="0:2" dir="s" state="M"/>
+    <connection from=":f5_0" to="i6" lane="0:0" dir="s" state="M"/>
+    <connection from=":f5_1" to="i6" lane="0:1" dir="s" state="M"/>
+    <connection from=":f5_2" to="i6" lane="0:2" dir="s" state="M"/>
+    <connection from=":f6_0" to="i7" lane="0:0" dir="s" state="M"/>
+    <connection from=":f6_1" to="i7" lane="0:1" dir="s" state="M"/>
+    <connection from=":f6_2" to="i7" lane="0:2" dir="s" state="M"/>
+    <connection from=":f7_0" to="o" lane="0:0" dir="s" state="M"/>
+    <connection from=":z0_0" to="e1" lane="0:0" dir="s" state="M"/>
+    <connection from=":z0_1" to="e1" lane="0:1" dir="s" state="M"/>
+    <connection from=":z0_2" to="e1" lane="0:2" dir="s" state="M"/>
+    <connection from=":z0_3" to="e1" lane="0:1" dir="s" state="M"/>
+    <connection from=":z0_4" to="e1" lane="0:2" dir="s" state="M"/>
+    <connection from=":z1_0" to="e2" lane="0:0" dir="s" state="M"/>
+    <connection from=":z1_1" to="e2" lane="0:1" dir="s" state="M"/>
+    <connection from=":z1_2" to="e2" lane="0:2" dir="s" state="M"/>
+    <connection from=":z2_0" to="e3" lane="0:0" dir="s" state="M"/>
+    <connection from=":z2_1" to="e3" lane="0:1" dir="s" state="M"/>
+    <connection from=":z2_2" to="e3" lane="0:2" dir="s" state="M"/>
+    <connection from=":z3_0" to="e4" lane="0:0" dir="s" state="M"/>
+    <connection from=":z3_1" to="e4" lane="0:1" dir="s" state="M"/>
+    <connection from=":z3_2" to="e4" lane="0:2" dir="s" state="M"/>
+    <connection from=":z4_0" to="e5" lane="0:0" dir="s" state="M"/>
+    <connection from=":z4_1" to="e5" lane="0:1" dir="s" state="M"/>
+    <connection from=":z4_2" to="e5" lane="0:2" dir="s" state="M"/>
+    <connection from=":z5_0" to="e6" lane="0:0" dir="s" state="M"/>
+    <connection from=":z5_1" to="e6" lane="0:1" dir="s" state="M"/>
+    <connection from=":z5_2" to="e6" lane="0:2" dir="s" state="M"/>
+    <connection from=":z6_0" to="e7" lane="0:0" dir="s" state="M"/>
+    <connection from=":z6_1" to="e7" lane="0:1" dir="s" state="M"/>
+    <connection from=":z6_2" to="e7" lane="0:2" dir="s" state="M"/>
+    <connection from=":z7_0" to="e8" lane="0:0" dir="s" state="M"/>
+    <connection from=":z7_1" to="e8" lane="0:1" dir="s" state="M"/>
+    <connection from=":z7_2" to="e8" lane="0:2" dir="s" state="M"/>
 
 </net>

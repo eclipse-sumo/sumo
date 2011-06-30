@@ -63,20 +63,10 @@
     <junction id="15030435" type="DEAD_END" x="135.00" y="0.00" incLanes="" intLanes="" shape="135.05,0.01 138.18,0.67"/>
     <junction id="15031475" type="DEAD_END" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01"/>
 
-    <succ edge="15030608" lane="15030608_0" junction="15030043">
-        <succlane lane="153122148_0" via=":15030043_0_0" tl="15030043" linkIdx="0" dir="r" state="o"/>
-    </succ>
-    <succ edge="15030858" lane="15030858_0" junction="15030043">
-        <succlane lane="153122148_0" via=":15030043_1_0" tl="15030043" linkIdx="1" dir="s" state="o"/>
-    </succ>
-    <succ edge="153122148" lane="153122148_0" junction="15031475">
-    </succ>
+    <connection from="15030608" to="153122148" lane="0:0" via=":15030043_0_0" tl="15030043" linkIdx="0" dir="r" state="o"/>
+    <connection from="15030858" to="153122148" lane="0:0" via=":15030043_1_0" tl="15030043" linkIdx="1" dir="s" state="o"/>
 
-    <succ edge=":15030043_0" lane=":15030043_0_0" junction="15030043">
-        <succlane lane="153122148_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15030043_1" lane=":15030043_1_0" junction="15030043">
-        <succlane lane="153122148_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":15030043_0" to="153122148" lane="0:0" dir="s" state="M"/>
+    <connection from=":15030043_1" to="153122148" lane="0:0" dir="s" state="M"/>
 
 </net>

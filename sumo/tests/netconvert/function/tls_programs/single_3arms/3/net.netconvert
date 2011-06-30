@@ -141,81 +141,35 @@
     <junction id=":15031750_12_0" type="internal" x="210.46" y="62.30" incLanes=":15031750_7_0 -15033109_0" intLanes=":15031750_1_0" shape=""/>
     <junction id=":15031750_13_0" type="internal" x="211.05" y="64.03" incLanes=":15031750_8_0 -15033109_0" intLanes=":15031750_0_0" shape=""/>
 
-    <succ edge="-15033077" lane="-15033077_0" junction="15031750">
-        <succlane lane="15033109_0" via=":15031750_3_0" tl="15031750" linkIdx="3" dir="s" state="o"/>
-        <succlane lane="15033110_0" via=":15031750_4_0" tl="15031750" linkIdx="4" dir="l" state="o"/>
-        <succlane lane="15033077_0" via=":15031750_5_0" tl="15031750" linkIdx="5" dir="t" state="o"/>
-    </succ>
-    <succ edge="-15033109" lane="-15033109_0" junction="15031750">
-        <succlane lane="15033110_0" via=":15031750_0_0" tl="15031750" linkIdx="0" dir="r" state="o"/>
-        <succlane lane="15033077_0" via=":15031750_1_0" tl="15031750" linkIdx="1" dir="s" state="o"/>
-        <succlane lane="15033109_0" via=":15031750_2_0" tl="15031750" linkIdx="2" dir="t" state="o"/>
-    </succ>
-    <succ edge="-15033110" lane="-15033110_0" junction="15031750">
-        <succlane lane="15033077_0" via=":15031750_6_0" tl="15031750" linkIdx="6" dir="r" state="o"/>
-        <succlane lane="15033109_0" via=":15031750_7_0" tl="15031750" linkIdx="7" dir="l" state="o"/>
-        <succlane lane="15033110_0" via=":15031750_8_0" tl="15031750" linkIdx="8" dir="t" state="o"/>
-    </succ>
-    <succ edge="15033077" lane="15033077_0" junction="15031754">
-        <succlane lane="-15033077_0" via=":15031754_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="15033109" lane="15033109_0" junction="15031788">
-        <succlane lane="-15033109_0" via=":15031788_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="15033110" lane="15033110_0" junction="15031789">
-        <succlane lane="-15033110_0" via=":15031789_0_0" dir="t" state="M"/>
-    </succ>
+    <connection from="-15033077" to="15033109" lane="0:0" via=":15031750_3_0" tl="15031750" linkIdx="3" dir="s" state="o"/>
+    <connection from="-15033077" to="15033110" lane="0:0" via=":15031750_4_0" tl="15031750" linkIdx="4" dir="l" state="o"/>
+    <connection from="-15033077" to="15033077" lane="0:0" via=":15031750_5_0" tl="15031750" linkIdx="5" dir="t" state="o"/>
+    <connection from="-15033109" to="15033110" lane="0:0" via=":15031750_0_0" tl="15031750" linkIdx="0" dir="r" state="o"/>
+    <connection from="-15033109" to="15033077" lane="0:0" via=":15031750_1_0" tl="15031750" linkIdx="1" dir="s" state="o"/>
+    <connection from="-15033109" to="15033109" lane="0:0" via=":15031750_2_0" tl="15031750" linkIdx="2" dir="t" state="o"/>
+    <connection from="-15033110" to="15033077" lane="0:0" via=":15031750_6_0" tl="15031750" linkIdx="6" dir="r" state="o"/>
+    <connection from="-15033110" to="15033109" lane="0:0" via=":15031750_7_0" tl="15031750" linkIdx="7" dir="l" state="o"/>
+    <connection from="-15033110" to="15033110" lane="0:0" via=":15031750_8_0" tl="15031750" linkIdx="8" dir="t" state="o"/>
+    <connection from="15033077" to="-15033077" lane="0:0" via=":15031754_0_0" dir="t" state="M"/>
+    <connection from="15033109" to="-15033109" lane="0:0" via=":15031788_0_0" dir="t" state="M"/>
+    <connection from="15033110" to="-15033110" lane="0:0" via=":15031789_0_0" dir="t" state="M"/>
 
-    <succ edge=":15031750_0" lane=":15031750_0_0" junction="15031750">
-        <succlane lane="15033110_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_1" lane=":15031750_1_0" junction="15031750">
-        <succlane lane="15033077_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_2" lane=":15031750_2_0" junction="15031750">
-        <succlane lane="15033109_0" via=":15031750_9_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_9" lane=":15031750_9_0" junction=":15031750_9">
-        <succlane lane="15033109_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_3" lane=":15031750_3_0" junction="15031750">
-        <succlane lane="15033109_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_4" lane=":15031750_4_0" junction="15031750">
-        <succlane lane="15033110_0" via=":15031750_10_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_10" lane=":15031750_10_0" junction=":15031750_10">
-        <succlane lane="15033110_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_5" lane=":15031750_5_0" junction="15031750">
-        <succlane lane="15033077_0" via=":15031750_11_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_11" lane=":15031750_11_0" junction=":15031750_11">
-        <succlane lane="15033077_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_6" lane=":15031750_6_0" junction="15031750">
-        <succlane lane="15033077_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_7" lane=":15031750_7_0" junction="15031750">
-        <succlane lane="15033109_0" via=":15031750_12_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_12" lane=":15031750_12_0" junction=":15031750_12">
-        <succlane lane="15033109_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_8" lane=":15031750_8_0" junction="15031750">
-        <succlane lane="15033110_0" via=":15031750_13_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031750_13" lane=":15031750_13_0" junction=":15031750_13">
-        <succlane lane="15033110_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031754_0" lane=":15031754_0_0" junction="15031754">
-        <succlane lane="-15033077_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031788_0" lane=":15031788_0_0" junction="15031788">
-        <succlane lane="-15033109_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":15031789_0" lane=":15031789_0_0" junction="15031789">
-        <succlane lane="-15033110_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":15031750_0" to="15033110" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_1" to="15033077" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_2" to="15033109" lane="0:0" via=":15031750_9_0" dir="s" state="M"/>
+    <connection from=":15031750_9" to="15033109" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_3" to="15033109" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_4" to="15033110" lane="0:0" via=":15031750_10_0" dir="s" state="M"/>
+    <connection from=":15031750_10" to="15033110" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_5" to="15033077" lane="0:0" via=":15031750_11_0" dir="s" state="M"/>
+    <connection from=":15031750_11" to="15033077" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_6" to="15033077" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_7" to="15033109" lane="0:0" via=":15031750_12_0" dir="s" state="M"/>
+    <connection from=":15031750_12" to="15033109" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_8" to="15033110" lane="0:0" via=":15031750_13_0" dir="s" state="M"/>
+    <connection from=":15031750_13" to="15033110" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031754_0" to="-15033077" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031788_0" to="-15033109" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031789_0" to="-15033110" lane="0:0" dir="s" state="M"/>
 
 </net>

@@ -142,87 +142,37 @@
     <junction id="beg" type="DEAD_END" x="0.00" y="250.00" incLanes="" intLanes="" shape="0.00,249.95 0.00,246.75"/>
     <junction id="end" type="DEAD_END" x="1200.00" y="250.00" incLanes="end_0" intLanes="" shape="1200.00,246.75 1200.00,249.95"/>
 
-    <succ edge="1toL" lane="1toL_0" junction="L1">
-        <succlane lane="L_0" via=":L1_0_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="1toR" lane="1toR_0" junction="R1">
-        <succlane lane="R_0" via=":R1_0_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="L" lane="L_0" junction="L2">
-        <succlane lane="LtoL2c_0" via=":L2_0_0" dir="s" state="M"/>
-        <succlane lane="LtoL2b_0" via=":L2_1_0" dir="s" state="M"/>
-        <succlane lane="LtoL2a_0" via=":L2_2_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="LtoL2a" lane="LtoL2a_0" junction="L2a">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="LtoL2b" lane="LtoL2b_0" junction="L2b">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="LtoL2c" lane="LtoL2c_0" junction="L2c">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="R" lane="R_0" junction="R2">
-        <succlane lane="RtoR2a_0" via=":R2_0_0" dir="s" state="M"/>
-        <succlane lane="RtoR2b_0" via=":R2_1_0" dir="s" state="M"/>
-        <succlane lane="RtoR2c_0" via=":R2_2_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="RtoR2a" lane="RtoR2a_0" junction="R2a">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="RtoR2b" lane="RtoR2b_0" junction="R2b">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="RtoR2c" lane="RtoR2c_0" junction="R2c">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="beg" lane="beg_0" junction="1">
-        <succlane lane="1toR_0" via=":1_0_0" dir="r" state="M"/>
-        <succlane lane="middle_0" via=":1_1_0" dir="s" state="M"/>
-        <succlane lane="1toL_0" via=":1_2_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="end">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="2">
-        <succlane lane="end_0" via=":2_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="1toL" to="L" lane="0:0" via=":L1_0_0" dir="r" state="M"/>
+    <connection from="1toR" to="R" lane="0:0" via=":R1_0_0" dir="l" state="M"/>
+    <connection from="L" to="LtoL2c" lane="0:0" via=":L2_0_0" dir="s" state="M"/>
+    <connection from="L" to="LtoL2b" lane="0:0" via=":L2_1_0" dir="s" state="M"/>
+    <connection from="L" to="LtoL2a" lane="0:0" via=":L2_2_0" dir="s" state="M"/>
+    <connection from="LtoL2a" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="LtoL2b" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="LtoL2c" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="R" to="RtoR2a" lane="0:0" via=":R2_0_0" dir="s" state="M"/>
+    <connection from="R" to="RtoR2b" lane="0:0" via=":R2_1_0" dir="s" state="M"/>
+    <connection from="R" to="RtoR2c" lane="0:0" via=":R2_2_0" dir="s" state="M"/>
+    <connection from="RtoR2a" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="RtoR2b" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="RtoR2c" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="beg" to="1toR" lane="0:0" via=":1_0_0" dir="r" state="M"/>
+    <connection from="beg" to="middle" lane="0:0" via=":1_1_0" dir="s" state="M"/>
+    <connection from="beg" to="1toL" lane="0:0" via=":1_2_0" dir="l" state="M"/>
+    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="middle" to="end" lane="0:0" via=":2_0_0" dir="s" state="M"/>
 
-    <succ edge=":1_0" lane=":1_0_0" junction="1">
-        <succlane lane="1toR_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1_1" lane=":1_1_0" junction="1">
-        <succlane lane="middle_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1_2" lane=":1_2_0" junction="1">
-        <succlane lane="1toL_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_0" lane=":2_0_0" junction="2">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":L1_0" lane=":L1_0_0" junction="L1">
-        <succlane lane="L_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":L2_0" lane=":L2_0_0" junction="L2">
-        <succlane lane="LtoL2c_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":L2_1" lane=":L2_1_0" junction="L2">
-        <succlane lane="LtoL2b_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":L2_2" lane=":L2_2_0" junction="L2">
-        <succlane lane="LtoL2a_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":R1_0" lane=":R1_0_0" junction="R1">
-        <succlane lane="R_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":R2_0" lane=":R2_0_0" junction="R2">
-        <succlane lane="RtoR2a_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":R2_1" lane=":R2_1_0" junction="R2">
-        <succlane lane="RtoR2b_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":R2_2" lane=":R2_2_0" junction="R2">
-        <succlane lane="RtoR2c_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":1_0" to="1toR" lane="0:0" dir="s" state="M"/>
+    <connection from=":1_1" to="middle" lane="0:0" dir="s" state="M"/>
+    <connection from=":1_2" to="1toL" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_0" to="end" lane="0:0" dir="s" state="M"/>
+    <connection from=":L1_0" to="L" lane="0:0" dir="s" state="M"/>
+    <connection from=":L2_0" to="LtoL2c" lane="0:0" dir="s" state="M"/>
+    <connection from=":L2_1" to="LtoL2b" lane="0:0" dir="s" state="M"/>
+    <connection from=":L2_2" to="LtoL2a" lane="0:0" dir="s" state="M"/>
+    <connection from=":R1_0" to="R" lane="0:0" dir="s" state="M"/>
+    <connection from=":R2_0" to="RtoR2a" lane="0:0" dir="s" state="M"/>
+    <connection from=":R2_1" to="RtoR2b" lane="0:0" dir="s" state="M"/>
+    <connection from=":R2_2" to="RtoR2c" lane="0:0" dir="s" state="M"/>
 
 </net>

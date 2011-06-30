@@ -78,31 +78,15 @@
     <junction id="x" type="priority" x="6000.00" y="1000.00" incLanes="ax_0 ox_0" intLanes="" shape="6002.85,999.95 6002.85,996.75 5997.33,992.74 5995.07,995.00 5994.65,995.81 5994.13,998.97"/>
     <junction id="y" type="priority" x="8000.00" y="1000.00" incLanes="by_0 xy_0" intLanes="" shape="8006.02,996.93 8004.59,994.07 8003.25,993.24 8000.05,993.24 7998.55,996.75 7998.55,999.95"/>
 
-    <succ edge="ab" lane="ab_0" junction="b">
-        <succlane lane="bd_0" dir="s" state="M"/>
-        <succlane lane="by_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="ax" lane="ax_0" junction="x">
-        <succlane lane="xy_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="bd" lane="bd_0" junction="d">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="by" lane="by_0" junction="y">
-        <succlane lane="yd_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="oa" lane="oa_0" junction="a">
-        <succlane lane="ab_0" dir="s" state="M"/>
-        <succlane lane="ax_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="ox" lane="ox_0" junction="x">
-        <succlane lane="xy_0" dir="s" state="m"/>
-    </succ>
-    <succ edge="xy" lane="xy_0" junction="y">
-        <succlane lane="yd_0" dir="s" state="m"/>
-    </succ>
-    <succ edge="yd" lane="yd_0" junction="d">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="ab" to="bd" lane="0:0" dir="s" state="M"/>
+    <connection from="ab" to="by" lane="0:0" dir="l" state="M"/>
+    <connection from="ax" to="xy" lane="0:0" dir="r" state="M"/>
+    <connection from="bd" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="by" to="yd" lane="0:0" dir="r" state="M"/>
+    <connection from="oa" to="ab" lane="0:0" dir="s" state="M"/>
+    <connection from="oa" to="ax" lane="0:0" dir="l" state="M"/>
+    <connection from="ox" to="xy" lane="0:0" dir="s" state="m"/>
+    <connection from="xy" to="yd" lane="0:0" dir="s" state="m"/>
+    <connection from="yd" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

@@ -1,12 +1,13 @@
-<?xml version="1.0"?>
-
 <tazs>
     <taz id="1">
-        <tazSource id="a1" weight="1"/>
-        <tazSink id="a2" weight="1"/>
+        <tazSource id="a1" weight="1">
+        </tazSource>
+        <tazSink id="a2" weight="1">
+        </tazSink>
     </taz>
     <taz id="2">
-        <tazSink id="b2" weight="1"/>
+        <tazSink id="b2" weight="1">
+        </tazSink>
     </taz>
 </tazs>
 

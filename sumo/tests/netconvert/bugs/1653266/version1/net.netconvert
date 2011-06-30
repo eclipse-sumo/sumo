@@ -37,9 +37,5 @@
     <junction id="o" type="DEAD_END" x="1000.09" y="0.00" incLanes="" intLanes="" shape="1000.09,-0.05 1000.09,-3.25"/>
     <junction id="t" type="DEAD_END" x="1011.00" y="0.00" incLanes="out_0" intLanes="" shape="1011.00,-3.25 1011.00,-0.05"/>
 
-    <succ edge="1to2" lane="1to2_0" junction="2">
-    </succ>
-    <succ edge="out" lane="out_0" junction="t">
-    </succ>
 
 </net>

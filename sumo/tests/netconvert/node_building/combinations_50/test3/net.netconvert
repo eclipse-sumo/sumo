@@ -125,78 +125,34 @@
     <junction id=":0_11_0" type="internal" x="49.92" y="50.00" incLanes=":0_4_0 4i_0" intLanes=":0_0_0 :0_1_0" shape=""/>
     <junction id=":0_12_0" type="internal" x="53.10" y="50.00" incLanes=":0_5_0 4i_0" intLanes=":0_1_0" shape=""/>
 
-    <succ edge="2i" lane="2i_0" junction="0">
-        <succlane lane="4o_0" via=":0_3_0" dir="r" state="M"/>
-        <succlane lane="3o_0" via=":0_4_0" dir="l" state="m"/>
-        <succlane lane="2o_0" via=":0_5_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="2o" lane="2o_0" junction="2">
-        <succlane lane="2i_0" via=":2_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="3i" lane="3i_0" junction="0">
-        <succlane lane="2o_0" via=":0_6_0" dir="r" state="m"/>
-        <succlane lane="4o_0" via=":0_7_0" dir="s" state="m"/>
-        <succlane lane="3o_0" via=":0_8_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="3o" lane="3o_0" junction="3">
-        <succlane lane="3i_0" via=":3_0_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="4i" lane="4i_0" junction="0">
-        <succlane lane="3o_0" via=":0_0_0" dir="s" state="M"/>
-        <succlane lane="2o_0" via=":0_1_0" dir="l" state="M"/>
-        <succlane lane="4o_0" via=":0_2_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="4o" lane="4o_0" junction="4">
-        <succlane lane="4i_0" via=":4_0_0" dir="t" state="M"/>
-    </succ>
+    <connection from="2i" to="4o" lane="0:0" via=":0_3_0" dir="r" state="M"/>
+    <connection from="2i" to="3o" lane="0:0" via=":0_4_0" dir="l" state="m"/>
+    <connection from="2i" to="2o" lane="0:0" via=":0_5_0" dir="t" state="m"/>
+    <connection from="2o" to="2i" lane="0:0" via=":2_0_0" dir="t" state="M"/>
+    <connection from="3i" to="2o" lane="0:0" via=":0_6_0" dir="r" state="m"/>
+    <connection from="3i" to="4o" lane="0:0" via=":0_7_0" dir="s" state="m"/>
+    <connection from="3i" to="3o" lane="0:0" via=":0_8_0" dir="t" state="m"/>
+    <connection from="3o" to="3i" lane="0:0" via=":3_0_0" dir="t" state="M"/>
+    <connection from="4i" to="3o" lane="0:0" via=":0_0_0" dir="s" state="M"/>
+    <connection from="4i" to="2o" lane="0:0" via=":0_1_0" dir="l" state="M"/>
+    <connection from="4i" to="4o" lane="0:0" via=":0_2_0" dir="t" state="m"/>
+    <connection from="4o" to="4i" lane="0:0" via=":4_0_0" dir="t" state="M"/>
 
-    <succ edge=":0_0" lane=":0_0_0" junction="0">
-        <succlane lane="3o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_1" lane=":0_1_0" junction="0">
-        <succlane lane="2o_0" via=":0_9_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_9" lane=":0_9_0" junction=":0_9">
-        <succlane lane="2o_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_2" lane=":0_2_0" junction="0">
-        <succlane lane="4o_0" via=":0_10_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_10" lane=":0_10_0" junction=":0_10">
-        <succlane lane="4o_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_3" lane=":0_3_0" junction="0">
-        <succlane lane="4o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_4" lane=":0_4_0" junction="0">
-        <succlane lane="3o_0" via=":0_11_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_11" lane=":0_11_0" junction=":0_11">
-        <succlane lane="3o_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_5" lane=":0_5_0" junction="0">
-        <succlane lane="2o_0" via=":0_12_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_12" lane=":0_12_0" junction=":0_12">
-        <succlane lane="2o_0" tl="" linkIdx="0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_6" lane=":0_6_0" junction="0">
-        <succlane lane="2o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_7" lane=":0_7_0" junction="0">
-        <succlane lane="4o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":0_8" lane=":0_8_0" junction="0">
-        <succlane lane="3o_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_0" lane=":2_0_0" junction="2">
-        <succlane lane="2i_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":3_0" lane=":3_0_0" junction="3">
-        <succlane lane="3i_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":4_0" lane=":4_0_0" junction="4">
-        <succlane lane="4i_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":0_0" to="3o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_1" to="2o" lane="0:0" via=":0_9_0" dir="s" state="M"/>
+    <connection from=":0_9" to="2o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_2" to="4o" lane="0:0" via=":0_10_0" dir="s" state="M"/>
+    <connection from=":0_10" to="4o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_3" to="4o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_4" to="3o" lane="0:0" via=":0_11_0" dir="s" state="M"/>
+    <connection from=":0_11" to="3o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_5" to="2o" lane="0:0" via=":0_12_0" dir="s" state="M"/>
+    <connection from=":0_12" to="2o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_6" to="2o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_7" to="4o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_8" to="3o" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_0" to="2i" lane="0:0" dir="s" state="M"/>
+    <connection from=":3_0" to="3i" lane="0:0" dir="s" state="M"/>
+    <connection from=":4_0" to="4i" lane="0:0" dir="s" state="M"/>
 
 </net>

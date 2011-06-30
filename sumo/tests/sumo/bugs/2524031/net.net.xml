@@ -90,41 +90,21 @@
 
     <junction id="SUMOGenerated7" type="DEAD_END" x="0.00" y="1.00" incLanes="out1_0" intLanes="" shape="0.00,4.25 0.00,1.05"/>
 
-    <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated4">
-        <succlane lane="out2_0" via=":SUMOGenerated4_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="1to2" to="out2" lane="0:0" via=":SUMOGenerated4_0_0" dir="s" state="M"/>
 
-    <succ edge="2to1" lane="2to1_0" junction="SUMOGenerated5">
-        <succlane lane="out1_0" via=":SUMOGenerated5_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="2to1" to="out1" lane="0:0" via=":SUMOGenerated5_0_0" dir="s" state="M"/>
 
-    <succ edge="in1" lane="in1_0" junction="SUMOGenerated1">
-        <succlane lane="1to2_0" via=":SUMOGenerated1_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="in1" to="1to2" lane="0:0" via=":SUMOGenerated1_0_0" dir="s" state="M"/>
 
-    <succ edge="in2" lane="in2_0" junction="SUMOGenerated3">
-        <succlane lane="2to1_0" via=":SUMOGenerated3_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="in2" to="2to1" lane="0:0" via=":SUMOGenerated3_0_0" dir="s" state="M"/>
 
-    <succ edge="out1" lane="out1_0" junction="SUMOGenerated7">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="out1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <succ edge="out2" lane="out2_0" junction="SUMOGenerated6">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="out2" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <succ edge=":SUMOGenerated1_0" lane=":SUMOGenerated1_0_0" junction="SUMOGenerated1">
-        <succlane lane="1to2_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":SUMOGenerated3_0" lane=":SUMOGenerated3_0_0" junction="SUMOGenerated3">
-        <succlane lane="2to1_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":SUMOGenerated4_0" lane=":SUMOGenerated4_0_0" junction="SUMOGenerated4">
-        <succlane lane="out2_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":SUMOGenerated5_0" lane=":SUMOGenerated5_0_0" junction="SUMOGenerated5">
-        <succlane lane="out1_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":SUMOGenerated1_0" to="1to2" lane="0:0" dir="s" state="M"/>
+    <connection from=":SUMOGenerated3_0" to="2to1" lane="0:0" dir="s" state="M"/>
+    <connection from=":SUMOGenerated4_0" to="out2" lane="0:0" dir="s" state="M"/>
+    <connection from=":SUMOGenerated5_0" to="out1" lane="0:0" dir="s" state="M"/>
 
 </net>

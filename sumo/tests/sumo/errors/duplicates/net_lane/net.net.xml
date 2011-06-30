@@ -15,12 +15,8 @@
 
     <junction id="2" type="DEAD_END" x="1000.00" y="0.00" incLanes="1to2_0 1to2_1" intLanes="" shape="993.45,-6.55 993.45,-0.05"/>
 
-    <succ edge="1to2" lane="1to2_0" junction="2">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="1to2" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <succ edge="1to2" lane="1to2_1" junction="2">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="1to2" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
 </net>

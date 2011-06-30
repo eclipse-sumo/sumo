@@ -54,21 +54,11 @@
     <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0" intLanes=":center_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05"/>
     <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
 
-    <succ edge="beg" lane="beg_0" junction="center">
-        <succlane lane="middle_0" via=":center_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="end">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="c2">
-        <succlane lane="end_0" via=":c2_0_0" dir="s" state="M"/>
-    </succ>
+    <connection from="beg" to="middle" lane="0:0" via=":center_0_0" dir="s" state="M"/>
+    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
+    <connection from="middle" to="end" lane="0:0" via=":c2_0_0" dir="s" state="M"/>
 
-    <succ edge=":c2_0" lane=":c2_0_0" junction="c2">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
-    <succ edge=":center_0" lane=":center_0_0" junction="center">
-        <succlane lane="middle_0" tl="" linkIdx="" dir="s" state="M"/>
-    </succ>
+    <connection from=":c2_0" to="end" lane="0:0" dir="s" state="M"/>
+    <connection from=":center_0" to="middle" lane="0:0" dir="s" state="M"/>
 
 </net>

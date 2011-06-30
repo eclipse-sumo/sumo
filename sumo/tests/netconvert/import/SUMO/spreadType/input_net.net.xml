@@ -30,11 +30,5 @@
     <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,4.90 0.00,-4.90"/>
     <junction id="1" type="DEAD_END" x="100.00" y="0.00" incLanes="e0_0 e0_1 e0_2" intLanes="" shape="100.00,-4.90 100.00,4.90"/>
 
-    <succ edge="e0" lane="e0_0" junction="1">
-    </succ>
-    <succ edge="e0" lane="e0_1" junction="1">
-    </succ>
-    <succ edge="e0" lane="e0_2" junction="1">
-    </succ>
 
 </net>
