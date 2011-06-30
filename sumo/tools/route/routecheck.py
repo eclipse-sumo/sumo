@@ -9,7 +9,7 @@ This script does simple checks for the routes on a given network.
 It needs at least two parameters, the SUMO net (.net.xml) and a file
 specifying routes.
 Warnings will be issued if there is an unknown edge in the route,
-if the route is too short (only one edge), if the route is disconnected
+if the route is disconnected
 or if the route definition does not use the edges attribute.
 If one specifies -f or --fix all subsequent route files will be fixed
 (if possible). At the moment this means adding an intermediate edge
@@ -17,12 +17,31 @@ if just one link is missing in a disconnected route, or adding an edges
 attribute if it is missing.
 All changes are documented within the output file which has the same name
 as the input file with an additional .fixed suffix.
+If the route file uses the old format (<route>edge1 edge2</route>)
+this is changed without adding comments. The same is true for camelCase
+changes of attributes.
 
 Copyright (C) 2007-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
+from optparse import OptionParser
+
+camelCase = {"departlane": "departLane",
+             "departpos": "departPos",
+             "departspeed": "departSpeed",
+             "arrivallane": "arrivalLane",
+             "arrivalpos": "arrivalPos",
+             "arrivalspeed": "arrivalSpeed",
+             "maxspeed": "maxSpeed",
+             "vclass": "vClass",
+             "fromtaz": "fromTaz",
+             "totaz": "toTaz",
+             "no": "number",
+             "vtype": "vType",
+             "vtypeDistribution": "vTypeDistribution",
+             "tripdef": "trip"}
 
 class NetReader(handler.ContentHandler):
 
@@ -123,14 +142,33 @@ class RouteReader(handler.ContentHandler):
         elif self._routeID:
             print "Warning: This script does not handle nested '%s' elements properly." % name
         if self._out:
+            if name in camelCase:
+                name = camelCase[name]
+                self._changed = True
             self._out.write('<' + name)
+            if options.fix_length and "length" in attrs and not "minGap" in attrs:
+                length = float(attrs["length"])
+                minGap = 2.5
+                if "guiOffset" in attrs:
+                    minGap = float(attrs["guiOffset"])
+                attrs = dict(attrs)
+                attrs["length"] = str(length - minGap)
+                attrs["minGap"] = str(minGap)
+                self._changed = True
             for (key, value) in attrs.items():
+                if key in camelCase:
+                    key = camelCase[key]
+                    self._changed = True
                 if name != 'route' or key != "edges":
                     self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
             if name != 'route':
+                if name in ["ride", "stop", "walk"]:
+                    self._out.write('/')
                 self._out.write('>')
 
     def endElement(self, name):
+        if name in ["ride", "stop", "walk"]:
+            return
         if name == 'route':
             self._isRouteValid = self.testRoute()
             if self._out:
@@ -145,7 +183,7 @@ class RouteReader(handler.ContentHandler):
                 self._out.write('</vehicle>')
             self.endOutputRedirect()
         elif self._out:
-            self._out.write('</%s>' % name)
+            self._out.write('</%s>' % camelCase.get(name, name))
 
     def characters(self, content):
         if self._routeID != '':
@@ -157,9 +195,11 @@ class RouteReader(handler.ContentHandler):
         if self._routeID != '':
             returnValue = True
             rdata = self._routeString.split()
-            if len(rdata) < 2:
-                print "Warning: Route " + self._routeID + " too short"
-                print "This is no problem if your sumo version is at least 0.10.0"
+            if len(rdata) == 0:
+                print "Warning: Route %s is empty" % self._routeID
+                return False
+            if net == None:
+                return True
             doConnectivityTest = True
             for v in rdata:
                 if not self._net.hasEdge(v):
@@ -192,23 +232,35 @@ class RouteReader(handler.ContentHandler):
             self._out.write('<?%s %s?>' % (target, data))
 
 
-            
-if len(sys.argv) < 3:
-    print "Usage: " + sys.argv[0] + " <net> <routes>* [-f|--fix] <routes>*"
+optParser = OptionParser(usage=os.path.basename(__file__) + " [options] <routes>*")            
+optParser.add_option("-v", "--verbose", action="store_true",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-f", "--fix", action="store_true",
+                     default=False, help="fix errors into '.fixed' file")
+optParser.add_option("-l", "--fix-length", action="store_true",
+                     default=False, help="fix vehicle type's length and guiOffset attributes")
+optParser.add_option("-i", "--inplace", action="store_true",
+                     default=False, help="replace original files")
+optParser.add_option("-n", "--net", help="network to check connectivity")
+(options, args) = optParser.parse_args()
+if len(args) == 0:
+    optParser.print_help()
     sys.exit()
 parser = make_parser()
-net = NetReader()
-parser.setContentHandler(net)
-parser.parse(sys.argv[1])
-fixMode = False
+net = None
+if options.net:
+    net = NetReader()
+    parser.setContentHandler(net)
+    parser.parse(options.net)
 parser.setContentHandler(RouteReader(net, ''))
-for f in sys.argv[2:]:
-    if f == "-f" or f == "--fix":
-        fixMode = True;
-        continue
-    if fixMode:
+for f in args:
+    if options.fix:
+        if options.verbose:
+            print "fixing " + f
         parser.setContentHandler(RouteReader(net, f + '.fixed'))
-        print "fixing " + f
+        if options.inplace:
+            os.rename(f + '.fixed', f)
     else:
-        print "checking " + f
+        if options.verbose:
+            print "checking " + f
     parser.parse(f)
