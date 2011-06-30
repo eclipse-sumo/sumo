@@ -1092,8 +1092,14 @@ NBEdge::appendTurnaround(bool noTLSControlled) throw() {
 
 
 void
-NBEdge::sortOutgoingLanesConnections() {
+NBEdge::sortOutgoingConnectionsByAngle() {
     sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this, myTo));
+}
+
+
+void
+NBEdge::sortOutgoingConnectionsByIndex() {
+    sort(myConnections.begin(), myConnections.end(), connections_sorter());
 }
 
 

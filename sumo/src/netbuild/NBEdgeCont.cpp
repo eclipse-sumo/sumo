@@ -479,7 +479,7 @@ NBEdgeCont::computeTurningDirections() throw() {
 void
 NBEdgeCont::sortOutgoingLanesConnections() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->sortOutgoingLanesConnections();
+        (*i).second->sortOutgoingConnectionsByAngle();
     }
 }
 

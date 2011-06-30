@@ -670,8 +670,11 @@ public:
     /// computes the edge, step2: computation of which lanes approach the edges)
     bool computeLanes2Edges();
 
-    /// sorts the connections of outgoing lanes (!!! Kaskade beschreiben)
-    void sortOutgoingLanesConnections();
+    /// sorts the outgoing connections by their angle relative to their junction
+    void sortOutgoingConnectionsByAngle();
+
+    /// sorts the outgoing connections by their from-lane-index and their to-lane-index
+    void sortOutgoingConnectionsByIndex();
 
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
