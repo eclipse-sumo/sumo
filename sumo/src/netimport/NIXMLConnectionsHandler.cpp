@@ -197,12 +197,14 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     try {
         fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNoLanes() || toLane<0 || static_cast<unsigned int>(toLane)>=to->getNoLanes()) {
-            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
+        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNoLanes() || 
+                toLane<0 || static_cast<unsigned int>(toLane)>=to->getNoLanes()) {
+            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" + 
+                    from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
-            WRITE_WARNING("Target lane '" + to->getID() + "_" + toString(toLane) + "' is already connected from '" + from->getID() + "'.");
+            WRITE_WARNING("Target lane '" + to->getLaneID(toLane) + "' is already connected from '" + from->getID() + "'.");
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
             NBEdge *nFrom = from;
@@ -222,7 +224,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                 }
             } while (toNext);
             if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
-                WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
+                WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) + 
+                        "' to '" + to->getLaneID(toLane) + "'.");
             } else {
                 from = nFrom;
             }
