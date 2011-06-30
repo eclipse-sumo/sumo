@@ -1203,7 +1203,7 @@ public:
             if (c1.fromLane!=c2.fromLane) {
                 return c1.fromLane<c2.fromLane;
             }
-            return c1.toLane<c2.toLane;
+            return 0; // maintain previous order
         }
 
     };
