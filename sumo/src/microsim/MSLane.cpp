@@ -94,6 +94,12 @@ MSLane::initialize(MSLinkCont* links) {
 }
 
 
+void
+MSLane::addLink(MSLink* link) {
+    myLinks.push_back(link);
+}
+
+
 // ------ interaction with MSMoveReminder ------
 void
 MSLane::addMoveReminder(MSMoveReminder* rem) throw() {

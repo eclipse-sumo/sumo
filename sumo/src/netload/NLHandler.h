@@ -215,12 +215,14 @@ private:
     void addMsgEmitter(const SUMOSAXAttributes &attrs);
 #endif
 
-    /// opens the container of succeeding lanes for processing
+    /// opens the container of succeeding lanes for processing (deprecated, see addConnection))
     void openSucc(const SUMOSAXAttributes &attrs);
 
-    /// adds a succeeding lane
+    /// adds a succeeding lane (deprecated, see addConnection)
     void addSuccLane(const SUMOSAXAttributes &attrs);
 
+    /// adds a connection 
+    void addConnection(const SUMOSAXAttributes &attrs);
 
     virtual void openWAUT(const SUMOSAXAttributes &attrs);
     void addWAUTSwitch(const SUMOSAXAttributes &attrs);
@@ -268,11 +270,14 @@ private:
     /// closes the processing of a lane
     void closeSuccLane();
 
-    /// Parses the given character into an enumeration typed link direction
+    /// @brief Parses the given character into an enumeration typed link direction
     LinkDirection parseLinkDir(const std::string& dir);
 
-    /// Parses the given character into an enumeration typed link state
+    /// @brief Parses the given character into an enumeration typed link state
     LinkState parseLinkState(const std::string& state);
+
+    /// @brief retrieves <fromLane, toLane> based on the edges and an index specifier (i.e. '0:1')
+    std::pair<MSLane*, MSLane*> getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &laneIndices, bool &ok);
 
 
 protected:

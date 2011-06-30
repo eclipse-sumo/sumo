@@ -42,6 +42,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSInternalLane.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -126,6 +127,9 @@ NLHandler::myStartElement(int element,
             break;
         case SUMO_TAG_SUCCLANE:
             addSuccLane(attrs);
+            break;
+        case SUMO_TAG_CONNECTION:
+            addConnection(attrs);
             break;
         case SUMO_TAG_ROWLOGIC__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedRowLogic) {
@@ -1164,6 +1168,99 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 
 
 
+void
+NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
+    if (!MSGlobals::gUsingInternalLanes&& fromID[0]==':') {
+        return;
+    }
+
+    try {
+        bool ok = true;
+        std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
+        std::string laneIndices = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+        LinkDirection dir = parseLinkDir(attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok));
+        LinkState state = parseLinkState(attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok));
+        std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
+#ifdef HAVE_INTERNAL_LANES
+        std::string viaID = attrs.getOptStringReporting(SUMO_ATTR_VIA, 0, ok, "");
+        SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
+#endif
+
+        MSEdge *from = MSEdge::dictionary(fromID);
+        if (from == 0) {
+            MsgHandler::getErrorInstance()->inform("Unknown from-edge '" + fromID + "' in connection");
+            return;
+        }
+        MSEdge *to = MSEdge::dictionary(toID);
+        if (to == 0) {
+            MsgHandler::getErrorInstance()->inform("Unknown to-edge '" + toID + "' in connection");
+            return;
+        }
+        std::pair<MSLane*, MSLane*> lanes = getLanesFromIndices(from, to, laneIndices, ok);
+        if (!ok) {
+            return;
+        }
+        MSLane *fromLane = lanes.first;
+        MSLane *toLane = lanes.second;
+        assert(fromLane);
+        assert(toLane);
+
+        int tlLinkIdx;
+        if (tlID!="") {
+            tlLinkIdx = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
+                ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+                : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+            if (!ok) {
+                return;
+            }
+        }
+        SUMOReal length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
+        MSLink *link = 0;
+
+        // build the link
+#ifdef HAVE_INTERNAL_LANES
+        MSLane *via = 0;
+        if (viaID!="" && MSGlobals::gUsingInternalLanes) {
+            via = MSLane::dictionary(viaID);
+            if (via==0) {
+                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + viaID + 
+                        "') should be set as a via-lane for lane '" + toLane->getID() + "'.");
+                return;
+            }
+            length = via->getLength();
+        }
+        if (pass>=0) {
+            static_cast<MSInternalLane*>(toLane)->setPassPosition(pass);
+        }
+        link = new MSLink(toLane, via, dir, state, length);
+        if (via!=0) {
+            via->addIncomingLane(fromLane, link);
+        } else {
+            toLane->addIncomingLane(fromLane, link);
+        }
+#else
+        link = new MSLink(toLane, dir, state, length);
+        toLane->addIncomingLane(fromLane, link);
+#endif
+        toLane->addApproachingLane(fromLane);
+
+        // if a traffic light is responsible for it, inform the traffic light
+        // check whether this link is controlled by a traffic light
+        if (tlID!="") {
+            MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlID);
+            logics.addLink(link, fromLane, tlLinkIdx);
+        }
+        // add the link 
+        fromLane->addLink(link);
+
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
+
 LinkDirection
 NLHandler::parseLinkDir(const std::string &dir) {
     if (SUMOXMLDefinitions::LinkDirections.hasString(dir)) {
@@ -1188,6 +1285,33 @@ NLHandler::parseLinkState(const std::string &state) {
     }
 }
 
+
+std::pair<MSLane*, MSLane*> 
+NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &laneIndices, bool &ok) {
+    std::string error = "Invalid attribute in connection from '" + from->getID() + "' to '" + to->getID() + "' ";
+    StringTokenizer st(laneIndices, ':');
+    if (st.size()==2) {
+        int fromLaneIdx;
+        int toLaneIdx;
+        try {
+            fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            if (fromLaneIdx>=0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() && 
+                    toLaneIdx>=0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
+                return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx],to->getLanes()[toLaneIdx]);
+            } else {
+                error += "(invalid index)";
+            }
+        } catch (NumberFormatException &) {
+            error += "(number format)";
+        }
+    } else {
+        error += "(malformed)";
+    }
+    MsgHandler::getErrorInstance()->inform(error);
+    ok = false;
+    return std::pair<MSLane*, MSLane*>(0, 0);
+}
 
 
 // ----------------------------------
@@ -1289,11 +1413,6 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
 
 
 // ----------------------------------
-
-
-
-
-
 
 
 void

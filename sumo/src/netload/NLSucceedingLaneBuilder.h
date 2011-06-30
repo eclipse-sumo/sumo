@@ -5,6 +5,7 @@
 /// @version $Id$
 ///
 // Temporary storage for a lanes succeeding lanes while parsing them
+// This class is only used when parsing legacy networks using tags succ/succlane
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
