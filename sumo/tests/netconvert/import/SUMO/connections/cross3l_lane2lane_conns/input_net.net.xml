@@ -140,14 +140,12 @@
     <connection from="1fi" to="1si" lane="1:2" dir="s" state="M"/>
     <connection from="1o" to="1fi" lane="0:1" dir="t" state="M"/>
     <connection from="1si" to="3o" lane="0:0" dir="r" state="m"/>
-    <connection from="1si" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="1si" to="2o" lane="2:0" dir="s" state="m"/>
     <connection from="2fi" to="2si" lane="0:0" dir="s" state="M"/>
     <connection from="2fi" to="2si" lane="0:1" dir="s" state="M"/>
     <connection from="2fi" to="2si" lane="1:2" dir="s" state="M"/>
     <connection from="2o" to="2fi" lane="0:1" dir="t" state="M"/>
     <connection from="2si" to="4o" lane="0:0" dir="r" state="m"/>
-    <connection from="2si" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="2si" to="1o" lane="2:0" dir="s" state="m"/>
     <connection from="3fi" to="3si" lane="0:0" dir="s" state="M"/>
     <connection from="3fi" to="3si" lane="0:1" dir="s" state="M"/>

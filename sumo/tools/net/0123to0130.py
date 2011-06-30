@@ -79,6 +79,7 @@ class NetConverter(handler.ContentHandler):
         self._out.write(begin)
         self._tree = []
         self._content = ""
+        self._special_removal = False
 
     def checkWrite(self, what):
         self._out.write(what.encode('iso-8859-1'))
@@ -101,6 +102,10 @@ class NetConverter(handler.ContentHandler):
 
         if name in removed:
             return
+        if name == "succlane" and attrs["lane"] == "SUMO_NO_DESTINATION":
+            self._special_removal = True
+            return
+
         self.indent()
         if name in renamed:
             self.checkWrite("<" + renamed[name])
@@ -134,6 +139,9 @@ class NetConverter(handler.ContentHandler):
 
     def endElement(self, name):
         if name in removed:
+            return
+        if self._special_removal:
+            self._special_removal = False
             return
         self._tree.pop()
         if name=="net":
