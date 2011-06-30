@@ -291,7 +291,6 @@
     <connection from="1fi" to="1si" lane="0:0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" lane="0:1" via=":m1_1_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" lane="1:2" via=":m1_2_0" dir="s" state="M"/>
-    <connection from="1o" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="1o" to="1fi" lane="1:1" via=":1_0_0" dir="t" state="M"/>
     <connection from="1si" to="3o" lane="0:0" via=":0_13_0" tl="0" linkIdx="13" dir="r" state="o"/>
     <connection from="1si" to="2o" lane="0:0" via=":0_14_0" tl="0" linkIdx="14" dir="s" state="o"/>
@@ -301,7 +300,6 @@
     <connection from="2fi" to="2si" lane="0:0" via=":m2_0_0" dir="s" state="M"/>
     <connection from="2fi" to="2si" lane="0:1" via=":m2_1_0" dir="s" state="M"/>
     <connection from="2fi" to="2si" lane="1:2" via=":m2_2_0" dir="s" state="M"/>
-    <connection from="2o" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="2o" to="2fi" lane="1:1" via=":2_0_0" dir="t" state="M"/>
     <connection from="2si" to="4o" lane="0:0" via=":0_4_0" tl="0" linkIdx="4" dir="r" state="o"/>
     <connection from="2si" to="1o" lane="0:0" via=":0_5_0" tl="0" linkIdx="5" dir="s" state="o"/>
@@ -311,7 +309,6 @@
     <connection from="3fi" to="3si" lane="0:0" via=":m3_0_0" dir="s" state="M"/>
     <connection from="3fi" to="3si" lane="0:1" via=":m3_1_0" dir="s" state="M"/>
     <connection from="3fi" to="3si" lane="1:2" via=":m3_2_0" dir="s" state="M"/>
-    <connection from="3o" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="3o" to="3fi" lane="1:1" via=":3_0_0" dir="t" state="M"/>
     <connection from="3si" to="2o" lane="0:0" via=":0_9_0" tl="0" linkIdx="9" dir="r" state="o"/>
     <connection from="3si" to="4o" lane="1:1" via=":0_10_0" tl="0" linkIdx="10" dir="s" state="o"/>
@@ -320,7 +317,6 @@
     <connection from="4fi" to="4si" lane="0:0" via=":m4_0_0" dir="s" state="M"/>
     <connection from="4fi" to="4si" lane="0:1" via=":m4_1_0" dir="s" state="M"/>
     <connection from="4fi" to="4si" lane="1:2" via=":m4_2_0" dir="s" state="M"/>
-    <connection from="4o" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="4o" to="4fi" lane="1:1" via=":4_0_0" dir="t" state="M"/>
     <connection from="4si" to="1o" lane="0:0" via=":0_0_0" tl="0" linkIdx="0" dir="r" state="o"/>
     <connection from="4si" to="3o" lane="1:1" via=":0_1_0" tl="0" linkIdx="1" dir="s" state="o"/>

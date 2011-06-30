@@ -130,14 +130,12 @@
     <junction id="8" type="priority" x="200.00" y="100.00" incLanes="7to8_0" intLanes=":8_0_0" shape="200.00,99.95 200.00,96.75 200.00,99.95"/>
     <junction id="9" type="priority" x="300.00" y="100.00" incLanes="2to9split_0 8to9_0" intLanes=":9_0_0 :9_1_0" shape="302.85,99.95 302.85,96.75 298.02,93.43 295.76,95.69 295.32,96.75 295.32,99.95"/>
 
-    <connection from="10out" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="1to2" to="2to3" lane="0:0" via=":2_0_0" dir="s" state="M"/>
     <connection from="1to2" to="2to9split" lane="0:0" via=":2_1_0" dir="l" state="M"/>
     <connection from="2to3" to="3to4" lane="0:0" via=":3_0_0" dir="s" state="M"/>
     <connection from="2to9split" to="9to10" lane="0:0" via=":9_0_0" dir="r" state="M"/>
     <connection from="3to4" to="4to5" lane="0:0" via=":4_0_0" dir="s" state="M"/>
     <connection from="4to5" to="5out" lane="0:0" via=":5_0_0" dir="s" state="M"/>
-    <connection from="5out" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="6to7" to="7to8" lane="0:0" via=":7_0_0" dir="s" state="M"/>
     <connection from="7to8" to="8to9" lane="0:0" via=":8_0_0" dir="s" state="M"/>
     <connection from="8to9" to="9to10" lane="0:0" via=":9_1_0" dir="s" state="m"/>

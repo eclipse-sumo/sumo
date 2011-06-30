@@ -2180,7 +2180,6 @@
     <connection from="-6137239#4" to="-6137239#3" lane="0:0" dir="s" state="M"/>
     <connection from="-6137239#4" to="6137239#4" lane="0:0" dir="t" state="m"/>
 
-    <connection from="-7216737#0" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="-7216737#0" to="7216737#0" lane="1:1" tl="94487954" linkIdx="0" dir="t" state="o"/>
 
@@ -2231,7 +2230,6 @@
     <connection from="24152812#1" to="7216737#2" lane="0:0" dir="r" state="m"/>
     <connection from="24152812#1" to="-7216737#1" lane="0:1" dir="l" state="m"/>
 
-    <connection from="24214693" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="24214693" to="-24214693" lane="1:1" dir="t" state="M"/>
 
@@ -2412,7 +2410,6 @@
     <connection from="27445015#3" to="27445015#4" lane="0:0" dir="s" state="M"/>
     <connection from="27445015#3" to="5784968#4" lane="0:0" dir="l" state="M"/>
 
-    <connection from="27445015#4" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="5198584" to="-5198584" lane="0:0" dir="t" state="M"/>
 
@@ -2519,7 +2516,6 @@
     <connection from="5784947#0" to="5784947#1" lane="0:0" dir="s" state="m"/>
     <connection from="5784947#0" to="-6137239#3" lane="0:0" dir="l" state="m"/>
 
-    <connection from="5784947#1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="5784950#0" to="-6137239#2" lane="0:0" dir="r" state="m"/>
     <connection from="5784950#0" to="5784950#1" lane="0:0" dir="s" state="m"/>

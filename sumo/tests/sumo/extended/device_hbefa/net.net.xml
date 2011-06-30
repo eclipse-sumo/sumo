@@ -100,7 +100,6 @@
 
     <connection from="beg2right" to="right" lane="0:0" via=":begright_0_0" dir="l" state="M"/>
 
-    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="left" to="left2end" lane="0:0" via=":endleft_0_0" dir="r" state="M"/>
 

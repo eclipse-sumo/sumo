@@ -329,7 +329,6 @@
 
     <connection from="e_o0" to="e_vo0" lane="1:1" dir="l" state="M"/>
 
-    <connection from="e_o0" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
     <connection from="e_o1" to="e_o0" lane="0:0" dir="s" state="M"/>
 
@@ -359,7 +358,6 @@
 
     <connection from="e_u0" to="e_vu0" lane="1:1" dir="r" state="M"/>
 
-    <connection from="e_u0" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
     <connection from="e_u1" to="e_vu1" lane="0:0" dir="r" state="M"/>
     <connection from="e_u1" to="e_vu1" lane="0:1" dir="r" state="M"/>
@@ -397,8 +395,6 @@
 
     <connection from="e_x0" to="e_x1" lane="1:1" dir="s" state="M"/>
 
-    <connection from="e_x1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="e_x1" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
 </net>

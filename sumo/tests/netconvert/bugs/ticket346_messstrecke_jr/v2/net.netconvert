@@ -500,7 +500,6 @@
     <connection from="-21" to="24" lane="0:0" tl="3" linkIdx="0" dir="s" state="o"/>
     <connection from="-21" to="24" lane="1:1" tl="3" linkIdx="0" dir="s" state="o"/>
     <connection from="-21" to="26" lane="2:0" tl="3" linkIdx="2" dir="l" state="o"/>
-    <connection from="-22" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-22" to="22" lane="1:1" dir="t" state="M"/>
     <connection from="-23" to="33" lane="0:0" dir="s" state="M"/>
     <connection from="-23" to="33" lane="1:1" dir="s" state="M"/>
@@ -620,7 +619,6 @@
     <connection from="7" to="35" lane="0:0" tl="8" linkIdx="1" dir="s" state="o"/>
     <connection from="7" to="35" lane="1:1" tl="8" linkIdx="1" dir="s" state="o"/>
     <connection from="7" to="-7" lane="1:1" dir="t" state="m"/>
-    <connection from="9" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="9" to="-9" lane="1:1" dir="t" state="M"/>
 
 </net>

@@ -81,12 +81,10 @@
     <connection from="ab" to="bd" lane="0:0" dir="s" state="M"/>
     <connection from="ab" to="by" lane="0:0" dir="l" state="M"/>
     <connection from="ax" to="xy" lane="0:0" dir="r" state="M"/>
-    <connection from="bd" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="by" to="yd" lane="0:0" dir="r" state="M"/>
     <connection from="oa" to="ab" lane="0:0" dir="s" state="M"/>
     <connection from="oa" to="ax" lane="0:0" dir="l" state="M"/>
     <connection from="ox" to="xy" lane="0:0" dir="s" state="m"/>
     <connection from="xy" to="yd" lane="0:0" dir="s" state="m"/>
-    <connection from="yd" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

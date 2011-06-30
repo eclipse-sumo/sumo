@@ -77,7 +77,6 @@
     <connection from="1to22" to="out" lane="0:0" via=":2_1_0" tl="2" linkIdx="1" dir="s" state="o"/>
     <connection from="91to1" to="1to21" lane="0:0" via=":1_0_0" dir="s" state="M"/>
     <connection from="91to1" to="1to22" lane="0:0" via=":1_1_0" dir="s" state="M"/>
-    <connection from="out" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from=":1_0" to="1to21" lane="0:0" dir="s" state="M"/>
     <connection from=":1_1" to="1to22" lane="0:0" dir="s" state="M"/>

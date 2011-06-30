@@ -286,17 +286,13 @@
     <connection from="-4312" to="9910" lane="1:1" via=":6691_5_0" dir="s" state="M"/>
     <connection from="-4312" to="-7783" lane="1:0" via=":6691_6_0" dir="l" state="m"/>
     <connection from="-4312" to="4312" lane="1:1" via=":6691_7_0" dir="t" state="m"/>
-    <connection from="-7783" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-9458" to="-9916" lane="0:0" via=":6728_0_0" dir="r" state="m"/>
     <connection from="-9458" to="-9916" lane="1:1" via=":6728_1_0" dir="r" state="m"/>
-    <connection from="-9458" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
-    <connection from="-9908" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-9908" to="9908" lane="1:1" via=":15891_0_0" dir="t" state="M"/>
     <connection from="-9910" to="-7783" lane="0:0" via=":6691_0_0" dir="r" state="M"/>
     <connection from="-9910" to="4312" lane="0:0" via=":6691_1_0" dir="s" state="M"/>
     <connection from="-9910" to="4312" lane="1:1" via=":6691_2_0" dir="s" state="M"/>
     <connection from="-9910" to="9910" lane="1:1" via=":6691_3_0" dir="t" state="m"/>
-    <connection from="-9912" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-9912" to="9912" lane="1:2" via=":5887_0_0" dir="t" state="M"/>
     <connection from="-9914" to="-9910" lane="0:0" via=":17209_2_0" dir="r" state="M"/>
     <connection from="-9914" to="-9917" lane="0:0" via=":17209_3_0" dir="s" state="M"/>
@@ -314,9 +310,7 @@
     <connection from="-9917" to="-9916" lane="0:0" via=":6728_3_0" dir="s" state="M"/>
     <connection from="-9917" to="9458" lane="1:1" via=":6728_4_0" dir="r" state="M"/>
     <connection from="-9917" to="-9916" lane="1:1" via=":6728_5_0" dir="s" state="M"/>
-    <connection from="4312" to="SUMO_NO" lane="0:DESTINATION" tl="427" linkIdx="0" dir="s" state="O"/>
     <connection from="4312" to="-4312" lane="1:1" via=":5838_0_0" tl="427" linkIdx="1" dir="t" state="o"/>
-    <connection from="9458" to="SUMO_NO" lane="0:DESTINATION" tl="437" linkIdx="0" dir="s" state="O"/>
     <connection from="9458" to="-9458" lane="1:2" via=":6699_0_0" tl="437" linkIdx="1" dir="t" state="o"/>
     <connection from="9908" to="-9915" lane="0:0" via=":17208_0_0" dir="r" state="m"/>
     <connection from="9908" to="-9915" lane="1:1" via=":17208_1_0" dir="r" state="m"/>
@@ -324,7 +318,6 @@
     <connection from="9910" to="-9917" lane="1:1" via=":17209_1_0" dir="r" state="m"/>
     <connection from="9912" to="-9914" lane="0:0" via=":17210_4_0" dir="r" state="m"/>
     <connection from="9912" to="-9914" lane="1:1" via=":17210_5_0" dir="r" state="m"/>
-    <connection from="9912" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
     <connection from=":15891_0" to="9908" lane="0:1" dir="s" state="M"/>
     <connection from=":17208_0" to="-9915" lane="0:0" dir="s" state="M"/>

@@ -133,7 +133,6 @@
 
     <connection from="middle" to="end" lane="0:0" dir="s" state="M"/>
 
-    <connection from="rend" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="right" to="right2end" lane="0:0" dir="l" state="M"/>
 

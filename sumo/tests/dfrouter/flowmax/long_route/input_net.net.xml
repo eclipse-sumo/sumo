@@ -118,8 +118,6 @@
     <connection from="in2" to="2to3" lane="0:0" via=":r2_0_0" dir="r" state="M"/>
     <connection from="out3" to="post3" lane="0:0" via=":o3_0_0" dir="s" state="M"/>
     <connection from="out4" to="post4" lane="0:0" via=":o4_0_0" dir="s" state="M"/>
-    <connection from="post3" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="post4" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from=":o3_0" to="post3" lane="0:0" dir="s" state="M"/>
     <connection from=":o4_0" to="post4" lane="0:0" dir="s" state="M"/>

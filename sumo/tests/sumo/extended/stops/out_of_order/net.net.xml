@@ -52,10 +52,7 @@
 
     <connection from="beg" to="end" lane="2:2" dir="s" state="M"/>
 
-    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="end" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
-    <connection from="end" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
 </net>

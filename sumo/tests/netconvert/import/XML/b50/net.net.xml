@@ -499,9 +499,7 @@
 
     <connection from="i7" to="o" lane="0:0" via=":f7_0_0" dir="s" state="M"/>
 
-    <connection from="i7" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
-    <connection from="i7" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
     <connection from="o" to="e1" lane="0:1" via=":z0_3_0" dir="s" state="m"/>
     <connection from="o" to="e1" lane="0:2" via=":z0_4_0" dir="s" state="m"/>

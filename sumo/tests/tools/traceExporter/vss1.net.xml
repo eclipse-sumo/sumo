@@ -152,9 +152,7 @@
 
     <connection from="middle" to="end" lane="0:0" via=":end_1_0" dir="s" state="m"/>
 
-    <connection from="rend" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="rend" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from=":absEnd_0" to="rend" lane="0:0" dir="s" state="M"/>
     <connection from=":absEnd_1" to="rend" lane="0:1" dir="s" state="M"/>

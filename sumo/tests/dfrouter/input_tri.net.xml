@@ -107,6 +107,5 @@
     <connection from="beg" to="1toL" lane="0:0" dir="l" state="M"/>
     <connection from="end" to="rend" lane="0:0" dir="s" state="M"/>
     <connection from="middle" to="end" lane="0:0" dir="s" state="m"/>
-    <connection from="rend" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

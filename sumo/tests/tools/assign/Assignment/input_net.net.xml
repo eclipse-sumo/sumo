@@ -215,7 +215,6 @@
 
     <connection from="D1" to="L2" lane="0:0" via=":1_0_0" dir="s" state="M"/>
     <connection from="D2" to="L3" lane="0:0" via=":2_0_0" dir="s" state="M"/>
-    <connection from="D3" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="L10" to="L13" lane="0:0" via=":10_0_0" dir="r" state="M"/>
     <connection from="L11" to="L15" lane="0:0" via=":11_2_0" dir="l" state="M"/>
     <connection from="L12" to="L16" lane="0:0" via=":13_1_0" tl="13" linkIdx="1" dir="l" state="o"/>

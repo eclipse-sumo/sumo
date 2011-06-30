@@ -403,7 +403,6 @@
     <junction id="8" type="traffic_light" x="2148.00" y="469.00" incLanes="-8_0 -8_1 -8_2 -20_0 7_0 7_1" intLanes="" shape="2144.87,478.93 2156.55,463.06 2156.05,460.85 2150.31,457.78 2137.49,458.59 2133.34,471.02"/>
     <junction id="9" type="traffic_light" x="2235.00" y="533.00" incLanes="-9_0 -9_1 8_0 8_1 8_2" intLanes="" shape="2246.29,553.83 2255.63,544.65 2255.70,536.00 2244.03,551.87"/>
 
-    <connection from="-1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-1" to="1" lane="1:1" dir="t" state="M"/>
     <connection from="-10" to="-1" lane="0:0" dir="r" state="m"/>
     <connection from="-10" to="22" lane="0:1" dir="l" state="m"/>
@@ -533,7 +532,6 @@
     <connection from="8" to="9" lane="0:0" dir="s" state="M"/>
     <connection from="8" to="9" lane="1:1" dir="s" state="M"/>
     <connection from="8" to="-8" lane="2:2" dir="t" state="m"/>
-    <connection from="9" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="9" to="-9" lane="1:1" dir="t" state="M"/>
 
 </net>

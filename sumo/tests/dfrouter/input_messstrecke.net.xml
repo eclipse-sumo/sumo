@@ -315,11 +315,9 @@
     <connection from="AltglienickerN" to="AltglienickerBreitN" lane="0:1" dir="s" state="M"/>
     <connection from="AltglienickerS" to="AltglienickerSinkS" lane="0:0" dir="s" state="M"/>
     <connection from="AltglienickerSinkN" to="AltglienickerN" lane="0:0" dir="s" state="M"/>
-    <connection from="AltglienickerSinkS" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="EinsteinN" to="EinsteinSinkN" lane="0:0" dir="s" state="M"/>
     <connection from="EinsteinS" to="ErnstRuska1W" lane="0:0" dir="r" state="m"/>
     <connection from="EinsteinS" to="ErnstRuska2O" lane="0:1" dir="l" state="m"/>
-    <connection from="EinsteinSinkN" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="EinsteinSinkS" to="EinsteinS" lane="0:0" dir="s" state="M"/>
     <connection from="ErnstRuska1O" to="ErnstRuska2O" lane="0:0" dir="s" state="M"/>
     <connection from="ErnstRuska1O" to="ErnstRuska2O" lane="1:1" dir="s" state="M"/>
@@ -333,7 +331,6 @@
     <connection from="ErnstRuska231W" to="ErnstRuska2W" lane="1:1" dir="s" state="M"/>
     <connection from="ErnstRuska232O" to="ErnstRuska3O" lane="0:0" dir="s" state="M"/>
     <connection from="ErnstRuska232O" to="ErnstRuska3O" lane="1:1" dir="s" state="M"/>
-    <connection from="ErnstRuska232O" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
     <connection from="ErnstRuska232W" to="HavestadtN" lane="0:0" dir="r" state="m"/>
     <connection from="ErnstRuska232W" to="ErnstRuska231W" lane="0:0" dir="s" state="m"/>
     <connection from="ErnstRuska232W" to="ErnstRuska231W" lane="1:1" dir="s" state="m"/>
@@ -361,10 +358,6 @@
     <connection from="ErnstRuska5W" to="AltglienickerBreitS" lane="2:0" tl="ErnstRuskaAltglienicker" linkIdx="2" dir="l" state="o"/>
     <connection from="ErnstRuskaSink1O" to="ErnstRuska1O" lane="0:0" dir="s" state="M"/>
     <connection from="ErnstRuskaSink1O" to="ErnstRuska1O" lane="1:1" dir="s" state="M"/>
-    <connection from="ErnstRuskaSink1W" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="ErnstRuskaSink1W" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
-    <connection from="ErnstRuskaSink5O" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="ErnstRuskaSink5O" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="ErnstRuskaSink5W" to="ErnstRuska5W" lane="0:0" dir="s" state="M"/>
     <connection from="ErnstRuskaSink5W" to="ErnstRuska5W" lane="1:1" dir="s" state="M"/>
     <connection from="ErnstRuskaSink5W" to="ErnstRuska5W" lane="1:2" dir="s" state="M"/>
@@ -373,14 +366,11 @@
     <connection from="HavestadtS" to="ErnstRuska231W" lane="0:0" dir="r" state="M"/>
     <connection from="HavestadtS" to="ErnstRuska232O" lane="1:1" dir="l" state="m"/>
     <connection from="HavestadtS" to="ErnstRuska232O" lane="1:2" dir="l" state="m"/>
-    <connection from="HavestadtSinkN" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="HavestadtSinkN" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="HavestadtSinkS" to="HavestadtS" lane="0:0" dir="s" state="M"/>
     <connection from="HavestadtSinkS" to="HavestadtS" lane="1:1" dir="s" state="M"/>
     <connection from="VolmerN" to="VolmerSinkN" lane="0:0" dir="s" state="M"/>
     <connection from="VolmerS" to="ErnstRuska3W" lane="0:0" dir="r" state="m"/>
     <connection from="VolmerS" to="ErnstRuska4O" lane="0:1" dir="l" state="m"/>
-    <connection from="VolmerSinkN" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="VolmerSinkS" to="VolmerS" lane="0:0" dir="s" state="M"/>
 
 </net>

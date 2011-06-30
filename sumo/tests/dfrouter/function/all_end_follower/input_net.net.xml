@@ -147,19 +147,12 @@
     <connection from="L" to="LtoL2c" lane="0:0" via=":L2_0_0" dir="s" state="M"/>
     <connection from="L" to="LtoL2b" lane="0:0" via=":L2_1_0" dir="s" state="M"/>
     <connection from="L" to="LtoL2a" lane="0:0" via=":L2_2_0" dir="s" state="M"/>
-    <connection from="LtoL2a" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="LtoL2b" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="LtoL2c" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="R" to="RtoR2a" lane="0:0" via=":R2_0_0" dir="s" state="M"/>
     <connection from="R" to="RtoR2b" lane="0:0" via=":R2_1_0" dir="s" state="M"/>
     <connection from="R" to="RtoR2c" lane="0:0" via=":R2_2_0" dir="s" state="M"/>
-    <connection from="RtoR2a" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="RtoR2b" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="RtoR2c" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="beg" to="1toR" lane="0:0" via=":1_0_0" dir="r" state="M"/>
     <connection from="beg" to="middle" lane="0:0" via=":1_1_0" dir="s" state="M"/>
     <connection from="beg" to="1toL" lane="0:0" via=":1_2_0" dir="l" state="M"/>
-    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="middle" to="end" lane="0:0" via=":2_0_0" dir="s" state="M"/>
 
     <connection from=":1_0" to="1toR" lane="0:0" dir="s" state="M"/>

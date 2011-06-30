@@ -166,7 +166,6 @@
     <connection from="9" to="a" lane="0:0" via=":b3_0_0" dir="s" state="M"/>
     <connection from="a" to="b" lane="0:0" via=":b2_0_0" dir="s" state="M"/>
     <connection from="b" to="c" lane="0:0" via=":b1_0_0" dir="s" state="M"/>
-    <connection from="c" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from=":a1_0" to="1" lane="0:0" dir="s" state="M"/>
     <connection from=":a2_0" to="2" lane="0:0" dir="s" state="M"/>

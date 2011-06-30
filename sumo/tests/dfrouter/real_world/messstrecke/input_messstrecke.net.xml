@@ -799,8 +799,6 @@
     <connection from="-21" to="24" lane="0:0" via=":3_11_0" tl="3" linkIdx="0" dir="s" state="o"/>
     <connection from="-21" to="24" lane="1:1" via=":3_12_0" tl="3" linkIdx="0" dir="s" state="o"/>
     <connection from="-21" to="26" lane="2:0" via=":3_13_0" tl="3" linkIdx="2" dir="l" state="o"/>
-    <connection from="-22" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="-22" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="-23" to="33" lane="0:0" via=":4_5_0" dir="s" state="M"/>
     <connection from="-23" to="33" lane="1:1" via=":4_6_0" dir="s" state="M"/>
     <connection from="-23" to="13" lane="1:0" via=":4_7_0" dir="l" state="m"/>
@@ -808,14 +806,12 @@
     <connection from="-24" to="21" lane="0:0" via=":3_4_0" tl="3" linkIdx="7" dir="s" state="o"/>
     <connection from="-24" to="21" lane="1:1" via=":3_5_0" tl="3" linkIdx="7" dir="s" state="o"/>
     <connection from="-24" to="27" lane="2:0" via=":3_6_0" tl="3" linkIdx="10" dir="l" state="o"/>
-    <connection from="-25" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-26" to="21" lane="0:0" via=":3_0_0" tl="3" linkIdx="4" dir="r" state="o"/>
     <connection from="-26" to="27" lane="1:0" via=":3_1_0" tl="3" linkIdx="6" dir="s" state="o"/>
     <connection from="-26" to="24" lane="2:1" via=":3_2_0" tl="3" linkIdx="5" dir="l" state="o"/>
     <connection from="-27" to="24" lane="0:0" via=":3_7_0" tl="3" linkIdx="12" dir="r" state="o"/>
     <connection from="-27" to="26" lane="0:0" via=":3_8_0" tl="3" linkIdx="13" dir="s" state="o"/>
     <connection from="-27" to="21" lane="0:1" via=":3_9_0" tl="3" linkIdx="11" dir="l" state="o"/>
-    <connection from="-28" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="-29" to="30" lane="0:0" via=":9_6_0" tl="9" linkIdx="3" dir="r" state="o"/>
     <connection from="-29" to="9" lane="1:1" via=":9_7_0" tl="9" linkIdx="4" dir="l" state="o"/>
     <connection from="-30" to="9" lane="0:0" via=":9_3_0" tl="9" linkIdx="0" dir="s" state="o"/>
@@ -844,17 +840,12 @@
     <connection from="-9" to="29" lane="0:0" via=":9_0_0" tl="9" linkIdx="6" dir="r" state="o"/>
     <connection from="-9" to="30" lane="0:0" via=":9_1_0" tl="9" linkIdx="7" dir="s" state="o"/>
     <connection from="-9" to="30" lane="1:1" via=":9_2_0" tl="9" linkIdx="7" dir="s" state="o"/>
-    <connection from="13" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="14" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="15" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="16" to="15" lane="0:0" via=":16_3_0" dir="l" state="m"/>
     <connection from="17" to="32" lane="0:0" via=":5_0_0" dir="r" state="m"/>
     <connection from="17" to="5" lane="1:1" via=":5_1_0" dir="l" state="m"/>
     <connection from="17" to="5" lane="1:2" via=":5_2_0" dir="l" state="m"/>
     <connection from="18" to="15" lane="0:0" via=":16_1_0" dir="r" state="M"/>
     <connection from="18" to="-16" lane="1:0" via=":16_2_0" dir="s" state="m"/>
-    <connection from="19" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="20" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="21" to="-22" lane="0:0" via=":22_0_0" dir="s" state="M"/>
     <connection from="21" to="-22" lane="1:1" via=":22_1_0" dir="s" state="M"/>
     <connection from="22" to="-21" lane="0:0" via=":22_2_0" dir="s" state="M"/>
@@ -871,7 +862,6 @@
     <connection from="26" to="-25" lane="0:0" via=":24_0_0" dir="s" state="M"/>
     <connection from="27" to="-28" lane="0:0" via=":25_0_0" dir="s" state="M"/>
     <connection from="28" to="-27" lane="0:0" via=":25_1_0" dir="s" state="M"/>
-    <connection from="29" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="30" to="34" lane="0:0" via=":26_0_0" dir="s" state="M"/>
     <connection from="30" to="34" lane="1:1" via=":26_1_0" dir="s" state="M"/>
     <connection from="30" to="34" lane="1:2" via=":26_2_0" dir="s" state="M"/>
@@ -895,8 +885,6 @@
     <connection from="7" to="20" lane="0:0" via=":8_5_0" tl="8" linkIdx="0" dir="r" state="o"/>
     <connection from="7" to="35" lane="0:0" via=":8_6_0" tl="8" linkIdx="1" dir="s" state="o"/>
     <connection from="7" to="35" lane="1:1" via=":8_7_0" tl="8" linkIdx="1" dir="s" state="o"/>
-    <connection from="9" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="9" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from=":15_0" to="14" lane="0:0" dir="s" state="M"/>
     <connection from=":15_1" to="17" lane="0:1" dir="s" state="M"/>

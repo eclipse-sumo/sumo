@@ -55,7 +55,6 @@
     <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-3.25 1000.00,-0.05"/>
 
     <connection from="beg" to="middle" lane="0:0" via=":center_0_0" dir="s" state="M"/>
-    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="middle" to="end" lane="0:0" via=":c2_0_0" dir="s" state="M"/>
 
     <connection from=":c2_0" to="end" lane="0:0" dir="s" state="M"/>

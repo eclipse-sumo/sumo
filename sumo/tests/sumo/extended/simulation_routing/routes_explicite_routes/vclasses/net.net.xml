@@ -83,8 +83,6 @@
 
     <connection from="absBeg" to="middle" lane="0:0" dir="s" state="M"/>
     <connection from="absBeg" to="beg2left" lane="1:0" dir="l" state="M"/>
-    <connection from="absEnd" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="absEnd" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
     <connection from="beg2left" to="left" lane="0:0" dir="r" state="M"/>
     <connection from="end" to="absEnd" lane="0:0" dir="s" state="M"/>
     <connection from="end" to="absEnd" lane="1:1" dir="s" state="M"/>

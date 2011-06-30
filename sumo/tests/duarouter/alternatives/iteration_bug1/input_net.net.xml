@@ -565,33 +565,23 @@
     <connection from="L24" to="L31" lane="2:2" dir="l" state="m"/>
     <connection from="L24" to="L23" lane="2:2" dir="t" state="m"/>
 
-    <connection from="L25" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L25" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L25" to="L1" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L26" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L26" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L26" to="L2" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L27" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L27" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L27" to="L3" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L28" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L28" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L28" to="L4" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L29" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L29" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L29" to="L5" lane="2:2" dir="t" state="M"/>
 
@@ -601,21 +591,15 @@
 
     <connection from="L3" to="L11" lane="2:2" dir="s" state="M"/>
 
-    <connection from="L30" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L30" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L30" to="L6" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L31" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L31" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L31" to="L7" lane="2:2" dir="t" state="M"/>
 
-    <connection from="L32" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="L32" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="L32" to="L8" lane="2:2" dir="t" state="M"/>
 

@@ -1,7 +1,7 @@
 <tazs>
-    <taz id="1" edges="beg beg2left">
-    </taz>
-    <taz id="2" edges="end rend">
-    </taz>
+    <district id="1" edges="beg beg2left">
+    </district>
+    <district id="2" edges="end rend">
+    </district>
 </tazs>
 

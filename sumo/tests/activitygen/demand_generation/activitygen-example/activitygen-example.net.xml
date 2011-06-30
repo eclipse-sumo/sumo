@@ -1035,7 +1035,6 @@
     <connection from="e01t11" to="e11t21" lane="0:0" via=":11_7_0" dir="r" state="M"/>
     <connection from="e01t11" to="e11t12" lane="1:1" via=":11_8_0" dir="l" state="m"/>
     <connection from="e01t11" to="e11t01" lane="1:1" via=":11_9_0" dir="t" state="m"/>
-    <connection from="e11t01" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="e11t01" to="e01t11" lane="1:1" via=":01_0_0" dir="t" state="M"/>
     <connection from="e11t12" to="e12t22" lane="0:0" via=":12_6_0" dir="r" state="M"/>
     <connection from="e11t12" to="e12t13" lane="0:0" via=":12_7_0" dir="s" state="M"/>
@@ -1214,7 +1213,6 @@
     <connection from="e44t43" to="e43t42" lane="0:0" via=":43_1_0" dir="s" state="M"/>
     <connection from="e44t43" to="e43t42" lane="1:1" via=":43_2_0" dir="s" state="M"/>
     <connection from="e44t43" to="e43t44" lane="1:1" via=":43_3_0" dir="t" state="m"/>
-    <connection from="e44t51" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="e44t51" to="e51t44" lane="1:1" via=":51_0_0" dir="t" state="M"/>
     <connection from="e51t44" to="e44t34" lane="0:0" via=":44_0_0" dir="r" state="M"/>
     <connection from="e51t44" to="e44t43" lane="1:1" via=":44_1_0" dir="l" state="M"/>

@@ -98,9 +98,7 @@
 
     <connection from="in2" to="2to1" lane="0:0" via=":SUMOGenerated3_0_0" dir="s" state="M"/>
 
-    <connection from="out1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="out2" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from=":SUMOGenerated1_0" to="1to2" lane="0:0" dir="s" state="M"/>
     <connection from=":SUMOGenerated3_0" to="2to1" lane="0:0" dir="s" state="M"/>

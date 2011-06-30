@@ -134,27 +134,19 @@
 
     <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.21,0.00"/>
 
-    <connection from="-1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="-1" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="-1" to="1" lane="2:2" dir="t" state="M"/>
 
-    <connection from="-2" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="-2" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="-2" to="2" lane="2:2" dir="t" state="M"/>
 
-    <connection from="-3" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="-3" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="-3" to="3" lane="2:1" dir="t" state="M"/>
 
-    <connection from="-4" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
-    <connection from="-4" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
 
     <connection from="-4" to="4" lane="2:1" dir="t" state="M"/>
 

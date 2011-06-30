@@ -59,9 +59,6 @@
     <connection from="beg" to="end" lane="0:0" via=":center_0_0" dir="s" state="M"/>
     <connection from="beg" to="end" lane="1:1" via=":center_1_0" dir="s" state="M"/>
     <connection from="beg" to="end" lane="2:2" via=":center_2_0" dir="s" state="M"/>
-    <connection from="end" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="end" to="SUMO_NO" lane="1:DESTINATION" dir="s" state="O"/>
-    <connection from="end" to="SUMO_NO" lane="2:DESTINATION" dir="s" state="O"/>
 
     <connection from=":center_0" to="end" lane="0:0" dir="s" state="M"/>
     <connection from=":center_1" to="end" lane="0:1" dir="s" state="M"/>

@@ -36,7 +36,5 @@
     <junction id="SUMOGenerated2" type="DEAD_END" x="2.00" y="0.00" incLanes="" intLanes="" shape="2.00,-0.05 2.00,-3.25"/>
     <junction id="SUMOGenerated3" type="DEAD_END" x="11.00" y="0.00" incLanes="1_0" intLanes="" shape="11.00,-3.25 11.00,-0.05"/>
 
-    <connection from="0" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
-    <connection from="1" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
 </net>

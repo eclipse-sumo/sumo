@@ -242,7 +242,6 @@
 
     <connection from="D2" to="L3" lane="0:0" dir="s" state="M"/>
 
-    <connection from="D3" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
 
     <connection from="L10" to="L13" lane="0:0" dir="r" state="M"/>
 

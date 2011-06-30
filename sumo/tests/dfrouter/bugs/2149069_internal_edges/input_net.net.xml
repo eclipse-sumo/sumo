@@ -391,7 +391,6 @@
     <junction id="b1" type="priority" x="200.00" y="300.00" incLanes="a3_b1_0" intLanes=":b1_0_0" shape="199.98,299.95 199.00,296.91 201.00,303.09 200.02,300.05"/>
 
     <connection from="01_11" to="11_21" lane="0:0" via=":11_0_0" dir="s" state="M"/>
-    <connection from="10_00" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="11_21" to="21_31" lane="0:0" via=":21_2_0" dir="s" state="M"/>
     <connection from="11_21" to="21_20" lane="0:0" via=":21_3_0" dir="l" state="M"/>
     <connection from="20_10" to="10_00" lane="0:0" via=":10_0_0" dir="s" state="M"/>
@@ -420,7 +419,6 @@
     <connection from="51_61" to="61_71" lane="0:0" via=":61_0_0" dir="s" state="M"/>
     <connection from="60_50" to="50_40" lane="0:0" via=":50_0_0" dir="s" state="M"/>
     <connection from="60_50" to="50_51" lane="0:0" via=":50_1_0" dir="l" state="M"/>
-    <connection from="61_71" to="SUMO_NO" lane="0:DESTINATION" dir="s" state="O"/>
     <connection from="70_60" to="60_50" lane="0:0" via=":60_0_0" dir="s" state="M"/>
     <connection from="a0_a2" to="a2_a3" lane="0:0" via=":a2_2_0" dir="s" state="M"/>
     <connection from="a0_a2" to="a2_a1" lane="0:0" via=":a2_3_0" dir="t" state="m"/>
