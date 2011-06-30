@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NWWriter_SUMO.h"
 #include "NWWriter_XML.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -153,20 +154,12 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         // write this edge's connections to the connections-files
         unsigned int noLanes = e->getNoLanes();
-        unsigned int noWritten = 0;
-        for (unsigned int lane=0; lane<noLanes; ++lane) {
-            std::vector<NBEdge::Connection> connections = e->getConnectionsFromLane(lane);
-            for (std::vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
-                if ((*c).toEdge!=0) {
-                    cdevice << "	<connection from=\"" << e->getID()
-                    << "\" to=\"" << (*c).toEdge->getID()
-                    << "\" lane=\"" << (*c).fromLane << ":" << (*c).toLane;
-                    cdevice << "\"/>\n";
-                    ++noWritten;
-                }
-            }
+        e->sortOutgoingConnectionsByIndex();
+        const std::vector<NBEdge::Connection> connections = e->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {
+            NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, true);
         }
-        if (noWritten>0) {
+        if (connections.size() > 0) {
             cdevice << "\n";
         }
     }

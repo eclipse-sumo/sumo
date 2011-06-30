@@ -64,6 +64,16 @@ public:
     static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
 
+    /** @brief Writes connections outgoing from the given edge (also used in NWWriter_XML)
+     * @param[in] into The device to write the edge into
+     * @param[in] from The edge to write connections for
+     * @param[in] c The connection to write
+     * @param[in] includeInternal Whether information about inner-lanes used to cross the intersection shall be written
+     * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
+     */
+    static void writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c, 
+            bool includeInternal, bool plain=false);
+
 protected:
     /// @name Methods for writing network parts
     /// @{
@@ -112,20 +122,11 @@ protected:
     static bool writeInternalNodes(OutputDevice &into, const NBNode &n);
 
 
-    /** @brief Writes connections outgoing from the given lane
-     * @param[in] into The device to write the edge into
-     * @param[in] e The edge to write links for
-     * @param[in] lane The edge's lane to write links for
-     * @param[in] includeInternal Whether information about inner-lanes used to cross the intersection shall be written
-     */
-    static void writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int lane, bool includeInternal);
-
-
     /** @brief Writes inner connections within the node
      * @param[in] into The device to write the edge into
      * @param[in] n The node to write inner links for
      */
-    static bool writeInternalSucceeding(OutputDevice &into, const NBNode &n);
+    static bool writeInternalConnections(OutputDevice &into, const NBNode &n);
 
 
     /** @brief Writes a roundabout
@@ -150,6 +151,15 @@ private:
      * @param[in] shape The shape of the edge
      */
     static void writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape);
+
+    /** @brief Writes a single internal connection 
+     * @param[in] from The id of the from-edge
+     * @param[in] to The id of the to-edge
+     * @param[in] toLane The indexd of the to-lane
+     * @param[in] via The (optional) via edge
+     */
+    static void writeInternalConnection(OutputDevice &into, 
+            const std::string &from, const std::string &to, int toLane, const std::string &via);
 
 };
 

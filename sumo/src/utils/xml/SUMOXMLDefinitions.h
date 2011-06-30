@@ -106,9 +106,9 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPE,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
-    /** begin/end of the description of succeeding lanes */
+    /** begin/end of the description of succeeding lanes (deprecated) */
     SUMO_TAG_SUCC,
-    /** description of a single succeeding lane */
+    /** description of a single succeeding lane (deprecated) */
     SUMO_TAG_SUCCLANE,
     /** begin of a right-of-way logic */
     SUMO_TAG_ROWLOGIC__DEPRECATED,

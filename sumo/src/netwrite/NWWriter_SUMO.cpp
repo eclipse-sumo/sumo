@@ -144,17 +144,20 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // write the successors of lanes
     bool includeInternal = !oc.getBool("no-internal-links");
-    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
-        for (unsigned int j=0; j<(*i).second->getLanes().size(); ++j) {
-            writeSucceeding(device, *(*i).second, j, includeInternal);
+    for (std::map<std::string, NBEdge*>::const_iterator it_edge=ec.begin(); it_edge!=ec.end(); it_edge++) {
+        NBEdge *from = it_edge->second;
+        from->sortOutgoingConnectionsByIndex();
+        const std::vector<NBEdge::Connection> connections = from->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator it_c=connections.begin(); it_c!=connections.end(); it_c++) {
+            writeConnection(device, *from, *it_c, includeInternal);
         }
     }
     device << "\n";
-    if (!oc.getBool("no-internal-links")) {
+    if (includeInternal) {
         // ... internal successors if not unwanted
         bool hadAny = false;
         for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-            hadAny |= writeInternalSucceeding(device, *(*i).second);
+            hadAny |= writeInternalConnections(device, *(*i).second);
         }
         if (hadAny) {
             device << "\n";
@@ -442,45 +445,43 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
 
 
 void
-NWWriter_SUMO::writeSucceeding(OutputDevice &into, const NBEdge &e, unsigned int lane, bool includeInternal) {
-	into.openTag(SUMO_TAG_SUCC) << " edge=\"" << e.getID() << "\" lane=\"" << e.getLaneID(lane) << "\" junction=\"" << e.getToNode()->getID() << "\">\n";
-    // output list of connected lanes
-    const std::vector<NBEdge::Connection> &connections = e.getConnections();
-    for (std::vector<NBEdge::Connection>::const_iterator i=connections.begin(); i!=connections.end(); ++i) {
-        const NBEdge::Connection &c = *i;
-        if (c.fromLane!=static_cast<int>(lane)) {
-            continue;
-        }
-        assert(c.toEdge != 0);
-		into.openTag(SUMO_TAG_SUCCLANE) << " lane=\"" << c.toEdge->getLaneID(c.toLane) << '\"'; // !!! classe LaneEdge mit getLaneID
+NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c, 
+            bool includeInternal, bool plain) {
+    assert(c.toEdge != 0);
+    into.openTag(SUMO_TAG_CONNECTION);
+    into << " " << toString(SUMO_ATTR_FROM) << "=\"" << from.getID() << "\"";
+    into << " " << toString(SUMO_ATTR_TO) << "=\"" << c.toEdge->getID() << "\"";
+    into << " " << toString(SUMO_ATTR_LANE) << "=\"" << c.fromLane << ":" << c.toLane << "\"";
+
+    if (!plain) {
         if (includeInternal) {
-            into << " via=\"" << e.getToNode()->getInternalLaneID(&e, c.fromLane, c.toEdge, c.toLane) << "_0\"";
+            into << " " << toString(SUMO_ATTR_VIA) << "=\"" 
+                << from.getToNode()->getInternalLaneID(&from, c.fromLane, c.toEdge, c.toLane) << "_0\"";
         }
         // set information about the controlling tl if any
         if (c.tlID!="") {
-            into << " tl=\"" << c.tlID << "\"";
-            into << " linkIdx=\"" << c.tlLinkNo << "\"";
+            into << " " << toString(SUMO_ATTR_TLID) << "=\"" << c.tlID << "\"";
+            into << " " << toString(SUMO_ATTR_TLLINKINDEX) << "=\"" << c.tlLinkNo << "\"";
         }
         // write the direction information
-        LinkDirection dir = e.getToNode()->getDirection(&e, c.toEdge);
+        LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge);
         assert(dir != LINKDIR_NODIR);
-        into << " dir=\"" << toString(dir) << "\" ";
+        into << " " << toString(SUMO_ATTR_DIR) << "=\"" << toString(dir) << "\"";
         // write the state information
+        std::string stateCode;
         if (c.tlID!="") {
-            into << "state=\"" << toString(LINKSTATE_TL_OFF_BLINKING);
+            stateCode = toString(LINKSTATE_TL_OFF_BLINKING);
         } else {
-            into << "state=\"" << e.getToNode()->stateCode(&e, c.toEdge, c.toLane, c.mayDefinitelyPass);
+            stateCode = from.getToNode()->stateCode(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
         }
-        // close
-        into << "\"";
-		into.closeTag(true);
+        into << " " << toString(SUMO_ATTR_STATE) << "=\"" << stateCode << "\"";
     }
-	into.closeTag();
+    into.closeTag(true);
 }
 
 
 bool
-NWWriter_SUMO::writeInternalSucceeding(OutputDevice &into, const NBNode &n) {
+NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
     unsigned int noInternalNoSplits = n.countInternalLanes(false);
     if (noInternalNoSplits==0) {
         return false;
@@ -490,53 +491,47 @@ NWWriter_SUMO::writeInternalSucceeding(OutputDevice &into, const NBNode &n) {
     unsigned int splitNo = 0;
     std::string innerID = ":" + n.getID();
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
-    for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                std::string id = innerID + "_" + toString(lno);
-                std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits);
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
+    for (std::vector<NBEdge*>::const_iterator it_edge=incoming.begin(); it_edge!=incoming.end(); it_edge++) {
+        NBEdge *from = *it_edge;
+        from->sortOutgoingConnectionsByIndex();
+        const std::vector<NBEdge::Connection> connections = from->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator it_c=connections.begin(); it_c!=connections.end(); it_c++) {
+            const NBEdge::Connection &c = *it_c;
+            assert(c.toEdge != 0);
 
-                // get internal splits if any
-                into.openTag(SUMO_TAG_SUCC) << " edge=\"" << id << "\" "
-                << "lane=\"" << id << "_"
-                << 0 << "\" junction=\"" << n.getID() << "\">\n";
-                if (cross.first>=0) {
-					into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
-                    //<< sid << "_" << 0 ()
-                    << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
-                    << " via=\"" << sid << "_0\""
-                    << " tl=\"\" linkIdx=\"\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
-                } else {
-                    into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
-                    << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"\" linkIdx=\"\" dir=\"s\" state=\"M\"";
-                }
-				into.closeTag(true);
-				into.closeTag();
-
-                if (cross.first>=0) {
-                    into.openTag(SUMO_TAG_SUCC) << " edge=\"" << sid << "\" "
-                    << "lane=\"" << sid << "_" << 0
-                    << "\" junction=\"" << sid << "\">\n";
-                    into.openTag(SUMO_TAG_SUCCLANE) << " lane=\""
-                    << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"\" linkIdx=\"0\" dir=\"s\" state=\"M\"";
-					into.closeTag(true);
-					into.closeTag();
-                    splitNo++;
-                }
-                lno++;
-                ret = true;
+            std::string id = innerID + "_" + toString(lno);
+            std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits);
+            std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(from, c.fromLane, c.toEdge, c.toLane);
+            if (cross.first>=0) {
+                // internal split
+                writeInternalConnection(into, id, c.toEdge->getID(), c.toLane, sid + "_0");
+                writeInternalConnection(into, sid, c.toEdge->getID(), c.toLane, "");
+                splitNo++;
+            } else {
+                // no internal split
+                writeInternalConnection(into, id, c.toEdge->getID(), c.toLane, "");
             }
+            lno++;
+            ret = true;
         }
     }
     return ret;
+}
+
+
+void 
+NWWriter_SUMO::writeInternalConnection(OutputDevice &into, 
+        const std::string &from, const std::string &to, int toLane, const std::string &via) {
+    into.openTag(SUMO_TAG_CONNECTION);
+    into << " " << toString(SUMO_ATTR_FROM) << "=\"" << from << "\"";
+    into << " " << toString(SUMO_ATTR_TO) << "=\"" << to << "\"";
+    into << " " << toString(SUMO_ATTR_LANE) << "=\"0:" << toLane << "\"";
+    if (via != "") {
+        into << " " << toString(SUMO_ATTR_VIA) << "=\"" << via << "\"";
+    }
+    into << " " << toString(SUMO_ATTR_DIR) << "=\"s\"";
+    into << " " << toString(SUMO_ATTR_STATE) << "=\"M\"";
+    into.closeTag(true);
 }
 
 
