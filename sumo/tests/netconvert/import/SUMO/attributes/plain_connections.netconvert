@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:37 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Thu Jun 30 14:23:40 2011 by SUMO netconvert Version dev-SVN-r10770
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
 
@@ -22,12 +22,12 @@
 -->
 
 <connections>
-	<connection from="edge_with_shape" to="reverse_edge" lane="0:0"/>
-	<connection from="edge_with_shape" to="reverse_edge" lane="1:1"/>
-	<connection from="edge_with_shape" to="reverse_edge" lane="2:2"/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="0:0"/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="1:1"/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="2:2"/>
 
-	<connection from="reverse_edge" to="edge_with_shape" lane="0:0"/>
-	<connection from="reverse_edge" to="edge_with_shape" lane="1:1"/>
-	<connection from="reverse_edge" to="edge_with_shape" lane="2:2"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="0:0"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="1:1"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="2:2"/>
 
 </connections>

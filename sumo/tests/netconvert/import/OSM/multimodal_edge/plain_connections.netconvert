@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:44 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Thu Jun 30 14:23:44 2011 by SUMO netconvert Version dev-SVN-r10770
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output value="ignore.net.xml"/>
+        <output-file value="ignore.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
 
@@ -22,8 +22,8 @@
 -->
 
 <connections>
-	<connection from="-10860201" to="10860201" lane="1:1"/>
+    <connection from="-10860201" to="10860201" lane="1:1"/>
 
-	<connection from="10860201" to="-10860201" lane="1:1"/>
+    <connection from="10860201" to="-10860201" lane="1:1"/>
 
 </connections>
