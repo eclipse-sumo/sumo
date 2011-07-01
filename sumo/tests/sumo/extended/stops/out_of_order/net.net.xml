@@ -46,13 +46,28 @@
 
     <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05"/>
 
-    <connection from="beg" to="end" lane="0:0" dir="s" state="M"/>
+    <succ edge="beg" lane="beg_0" junction="center">
+        <succlane lane="end_0" dir="s" state="M"/>
+    </succ>
 
-    <connection from="beg" to="end" lane="1:1" dir="s" state="M"/>
+    <succ edge="beg" lane="beg_1" junction="center">
+        <succlane lane="end_1" dir="s" state="M"/>
+    </succ>
 
-    <connection from="beg" to="end" lane="2:2" dir="s" state="M"/>
+    <succ edge="beg" lane="beg_2" junction="center">
+        <succlane lane="end_2" dir="s" state="M"/>
+    </succ>
 
+    <succ edge="end" lane="end_0" junction="end">
+        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
+    </succ>
 
+    <succ edge="end" lane="end_1" junction="end">
+        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
+    </succ>
 
+    <succ edge="end" lane="end_2" junction="end">
+        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
+    </succ>
 
 </net>

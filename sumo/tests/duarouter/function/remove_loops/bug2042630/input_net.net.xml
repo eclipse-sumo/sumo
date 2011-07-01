@@ -238,43 +238,80 @@
 
     <junction id="930" type="DEAD_END" x="3500.00" y="800.00" incLanes="D3_0" intLanes="" shape="3500.00,796.75 3500.00,799.95"/>
 
-    <connection from="D1" to="L2" lane="0:0" dir="s" state="M"/>
+    <succ edge="D1" lane="D1_0" junction="1">
+        <succlane lane="L2_0" dir="s" state="M"/>
+    </succ>
 
-    <connection from="D2" to="L3" lane="0:0" dir="s" state="M"/>
+    <succ edge="D2" lane="D2_0" junction="2">
+        <succlane lane="L3_0" dir="s" state="M"/>
+    </succ>
 
+    <succ edge="D3" lane="D3_0" junction="930">
+        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
+    </succ>
 
-    <connection from="L10" to="L13" lane="0:0" dir="r" state="M"/>
+    <succ edge="L10" lane="L10_0" junction="10">
+        <succlane lane="L13_0" dir="r" state="M"/>
+    </succ>
 
-    <connection from="L11" to="L15" lane="0:0" dir="l" state="M"/>
+    <succ edge="L11" lane="L11_0" junction="11">
+        <succlane lane="L15_0" dir="l" state="M"/>
+    </succ>
 
-    <connection from="L12" to="L16" lane="0:0" tl="13" linkIdx="1" dir="l" state="o"/>
+    <succ edge="L12" lane="L12_0" junction="13">
+        <succlane lane="L16_0" tl="13" linkIdx="1" dir="l" state="o"/>
+    </succ>
 
-    <connection from="L13" to="L15" lane="0:0" dir="l" state="m"/>
+    <succ edge="L13" lane="L13_0" junction="11">
+        <succlane lane="L15_0" dir="l" state="m"/>
+    </succ>
 
-    <connection from="L14" to="L15" lane="0:0" dir="r" state="m"/>
+    <succ edge="L14" lane="L14_0" junction="11">
+        <succlane lane="L15_0" dir="r" state="m"/>
+    </succ>
 
-    <connection from="L15" to="L16" lane="0:0" tl="13" linkIdx="0" dir="s" state="o"/>
+    <succ edge="L15" lane="L15_0" junction="13">
+        <succlane lane="L16_0" tl="13" linkIdx="0" dir="s" state="o"/>
+    </succ>
 
-    <connection from="L16" to="D3" lane="0:0" dir="s" state="M"/>
+    <succ edge="L16" lane="L16_0" junction="3">
+        <succlane lane="D3_0" dir="s" state="M"/>
+    </succ>
 
-    <connection from="L2" to="L5" lane="0:0" dir="s" state="m"/>
-    <connection from="L2" to="L4" lane="0:0" dir="l" state="m"/>
+    <succ edge="L2" lane="L2_0" junction="4">
+        <succlane lane="L5_0" dir="s" state="m"/>
+        <succlane lane="L4_0" dir="l" state="m"/>
+    </succ>
 
-    <connection from="L3" to="L5" lane="0:0" dir="r" state="M"/>
-    <connection from="L3" to="L4" lane="0:0" dir="s" state="M"/>
+    <succ edge="L3" lane="L3_0" junction="4">
+        <succlane lane="L5_0" dir="r" state="M"/>
+        <succlane lane="L4_0" dir="s" state="M"/>
+    </succ>
 
-    <connection from="L4" to="L12" lane="0:0" dir="r" state="M"/>
+    <succ edge="L4" lane="L4_0" junction="8">
+        <succlane lane="L12_0" dir="r" state="M"/>
+    </succ>
 
-    <connection from="L5" to="L8" lane="0:0" dir="r" state="M"/>
-    <connection from="L5" to="L7" lane="0:0" dir="l" state="M"/>
+    <succ edge="L5" lane="L5_0" junction="6">
+        <succlane lane="L8_0" dir="r" state="M"/>
+        <succlane lane="L7_0" dir="l" state="M"/>
+    </succ>
 
-    <connection from="L6" to="L11" lane="0:0" dir="r" state="M"/>
-    <connection from="L6" to="L10" lane="0:0" dir="s" state="M"/>
+    <succ edge="L6" lane="L6_0" junction="9">
+        <succlane lane="L11_0" dir="r" state="M"/>
+        <succlane lane="L10_0" dir="s" state="M"/>
+    </succ>
 
-    <connection from="L7" to="L6" lane="0:0" dir="r" state="M"/>
+    <succ edge="L7" lane="L7_0" junction="5">
+        <succlane lane="L6_0" dir="r" state="M"/>
+    </succ>
 
-    <connection from="L8" to="L9" lane="0:0" dir="l" state="M"/>
+    <succ edge="L8" lane="L8_0" junction="7">
+        <succlane lane="L9_0" dir="l" state="M"/>
+    </succ>
 
-    <connection from="L9" to="L14" lane="0:0" dir="l" state="M"/>
+    <succ edge="L9" lane="L9_0" junction="12">
+        <succlane lane="L14_0" dir="l" state="M"/>
+    </succ>
 
 </net>

@@ -40,7 +40,12 @@
 
     <junction id="3" type="DEAD_END" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05"/>
 
-    <connection from="1to2" to="out" lane="0:0" dir="s" state="M"/>
+    <succ edge="1to2" lane="1to2_0" junction="2">
+        <succlane lane="out_0" dir="s" state="M"/>
+    </succ>
 
+    <succ edge="out" lane="out_0" junction="3">
+        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
+    </succ>
 
 </net>
