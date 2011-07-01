@@ -1,12 +1,10 @@
 ------------------ net/edge[0]@from:
 Error: Attribute 'from' in definition of edge '1' is empty.
-Error: An unknown edge occured (id='1').
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@from:
 Error: Attribute 'from' in definition of edge '2' is empty.
-Error: At edge '2': succeeding edge '2_0' does not exist.
-Error: At edge '2': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@from:a
  Wrong error code returned (0)!
@@ -14,13 +12,11 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/edge[0]@from:<remove>
 Error: Attribute 'from' is missing in definition of edge '1'.
-Error: An unknown edge occured (id='1').
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@from:<remove>
 Error: Attribute 'from' is missing in definition of edge '2'.
-Error: At edge '2': succeeding edge '2_0' does not exist.
-Error: At edge '2': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@function:a
 Error: Edge '1' has an unknown type.
@@ -35,12 +31,10 @@ Quitting (on error).
 Error: Attribute 'id' in definition of a edge is empty.
 Quitting (on error).
 ------------------ net/edge[0]@id:a
-Error: An unknown edge occured (id='1').
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@id:a
-Error: At edge 'a': succeeding edge '2_0' does not exist.
-Error: At edge 'a': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@id:<remove>
 Error: Attribute 'id' is missing in definition of a edge.
@@ -50,13 +44,11 @@ Error: Attribute 'id' is missing in definition of a edge.
 Quitting (on error).
 ------------------ net/edge[0]@to:
 Error: Attribute 'to' in definition of edge '1' is empty.
-Error: An unknown edge occured (id='1').
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@to:
 Error: Attribute 'to' in definition of edge '2' is empty.
-Error: At edge '2': succeeding edge '2_0' does not exist.
-Error: At edge '2': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]@to:a
  Wrong error code returned (0)!
@@ -64,13 +56,11 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/edge[0]@to:<remove>
 Error: Attribute 'to' is missing in definition of edge '1'.
-Error: An unknown edge occured (id='1').
+Error: unknown from-edge '1' in connection
 Quitting (on error).
 ------------------ net/edge[1]@to:<remove>
 Error: Attribute 'to' is missing in definition of edge '2'.
-Error: At edge '2': succeeding edge '2_0' does not exist.
-Error: At edge '2': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
+Error: unknown to-edge '2' in connection
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@depart:
  Wrong error code returned (0)!
