@@ -1310,7 +1310,7 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
     }
     MsgHandler::getErrorInstance()->inform(error);
     ok = false;
-    return std::pair<MSLane*, MSLane*>(0, 0);
+    return std::pair<MSLane*, MSLane*>(static_cast<MSLane*>(0), static_cast<MSLane*>(0));
 }
 
 
