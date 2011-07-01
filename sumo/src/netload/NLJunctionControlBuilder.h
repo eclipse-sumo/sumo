@@ -134,9 +134,8 @@ public:
 
     /** @brief Initialises a junction logic
      * @param[in] id The id of the row-logic
-     * @param[in] requestSize The number of links participating in this row-logic
      */
-    void initJunctionLogic(const std::string &id, int requestSize) throw();
+    void initJunctionLogic(const std::string &id) throw();
 
 
     /** @brief Adds a logic item
@@ -178,14 +177,6 @@ public:
      */
     void addPhase(SUMOTime duration, const std::string &state,
                   int min, int max) throw();
-
-
-    /** @brief Sets the size of the request
-     *
-     * @param[in] size The size of the request
-     * @todo Where does this information come from?
-     */
-    void setRequestSize(int size) throw();
 
 
     /** @brief Returns a previously build tls logic
@@ -412,6 +403,8 @@ private:
 
     /** @brief invalidated assignment operator */
     NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
+
+    static const int NO_REQUEST_SIZE;
 
 };
 

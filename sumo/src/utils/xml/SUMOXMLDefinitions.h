@@ -110,11 +110,12 @@ enum SumoXMLTag {
     SUMO_TAG_SUCC,
     /** description of a single succeeding lane (deprecated) */
     SUMO_TAG_SUCCLANE,
-    /** begin of a right-of-way logic */
+    /** begin of a right-of-way logic (deprecated) */
     SUMO_TAG_ROWLOGIC__DEPRECATED,
-    SUMO_TAG_ROWLOGIC,
-    /** description of a single junction logic part */
+    /** description of a single junction logic part (deprecated) */
     SUMO_TAG_LOGICITEM,
+    /** description of a logic request within the junction */
+    SUMO_TAG_REQUEST, 
     /** a source */
     SUMO_TAG_SOURCE,
     /** a traffic assignment zone */

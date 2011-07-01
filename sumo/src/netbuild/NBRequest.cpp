@@ -321,16 +321,7 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
 
 void
 NBRequest::writeLogic(std::string key, OutputDevice &into) const {
-    // init
-    std::pair<size_t, size_t> sizes = getSizes();
-    size_t absNoLinks = sizes.second;
-    size_t absNoLanes = sizes.first;
-    assert(absNoLinks>=absNoLanes);
-    into.openTag(SUMO_TAG_ROWLOGIC) << " " 
-        << toString(SUMO_ATTR_ID) << "=\"" << key << "\" "
-        << toString(SUMO_ATTR_REQUESTSIZE) << "=\"" << absNoLinks << "\">\n";
     int pos = 0;
-    // save the logic
     EdgeVector::const_iterator i;
     for (i=myIncoming.begin(); i!=myIncoming.end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
@@ -338,7 +329,6 @@ NBRequest::writeLogic(std::string key, OutputDevice &into) const {
             pos = writeLaneResponse(into, *i, k, pos);
         }
     }
-	into.closeTag();
 }
 
 
@@ -477,9 +467,11 @@ NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                              int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-		od.openTag(SUMO_TAG_LOGICITEM) << " request=\"" << pos++ << "\" response=\"";
+		od.openTag(SUMO_TAG_REQUEST);
+        od << " " << toString(SUMO_ATTR_INDEX) << "=\"" << pos++ << "\""; 
+        od << " " << toString(SUMO_ATTR_RESPONSE) << "=\"";
         writeResponse(od, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
-        od << "\" foes=\"";
+        od << "\" " << toString(SUMO_ATTR_FOES) << "=\"";
         writeAreFoes(od, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
         od << "\"";
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {

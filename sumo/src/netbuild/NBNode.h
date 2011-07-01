@@ -247,7 +247,7 @@ public:
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
-    bool writeLogic(OutputDevice &into);
+    bool writeLogic(OutputDevice &into) const;
 
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges(bool leftHand, const NBTypeCont &tc);

@@ -57,6 +57,11 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const int NLJunctionControlBuilder::NO_REQUEST_SIZE = -1;
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db) throw()
@@ -261,19 +266,15 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
 
 
 void
-NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSize) throw() {
+NLJunctionControlBuilder::initJunctionLogic(const std::string &id) throw() {
     myActiveKey = id;
     myActiveProgram = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
     myActiveConts.reset();
-    myRequestSize = requestSize;
+    myRequestSize = NO_REQUEST_SIZE; // seems not to be used
     myRequestItemNumber = 0;
     myCurrentHasError = false;
-    if (myRequestSize>0) {
-        myActiveLogic->resize(myRequestSize);
-        myActiveFoes->resize(myRequestSize);
-    }
 }
 
 
@@ -291,17 +292,27 @@ NLJunctionControlBuilder::addLogicItem(int request,
         myCurrentHasError = true;
         throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
     }
-    if (myRequestSize<=0) {
-        throw InvalidArgument("The request size, the response size or the number of lanes is not given! Contact your net supplier");
+    if (myRequestSize == NO_REQUEST_SIZE) {
+        // initialize
+        myRequestSize = response.size();
     }
+    if (response.size() != myRequestSize) {
+        myCurrentHasError = true;
+        throw InvalidArgument("Invalid response size " + toString(response.size()) + 
+                " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
+    }
+    if (foes.size() != myRequestSize) {
+        myCurrentHasError = true;
+        throw InvalidArgument("Invalid foes size " + toString(foes.size()) + 
+                " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
+    }
+    // assert that the logicitems come ordered by their request index
+    assert(myActiveLogic->size() == (size_t) request);
+    assert(myActiveFoes->size() == (size_t) request);
     // add the read response for the given request index
-    std::bitset<64> use(response);
-    assert(myActiveLogic->size()>(size_t) request);
-    (*myActiveLogic)[request] = use;
+    myActiveLogic->push_back(std::bitset<64>(response));
     // add the read junction-internal foes for the given request index
-    std::bitset<64> use2(foes);
-    assert(myActiveFoes->size()>(size_t) request);
-    (*myActiveFoes)[request] = use2;
+    myActiveFoes->push_back(std::bitset<64>(foes));
     // add whether the vehicle may drive a little bit further
     myActiveConts.set(request, cont);
     // increse number of set information
@@ -316,7 +327,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std
     myActiveProgram = programID;
     myActivePhases.clear();
     myAbsDuration = 0;
-    myRequestSize = -1;
+    myRequestSize = NO_REQUEST_SIZE;
     myLogicType = type;
     myOffset = offset;
     myAdditionalParameter.clear();
@@ -334,17 +345,11 @@ NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string &state,
 
 
 void
-NLJunctionControlBuilder::setRequestSize(int size) throw() {
-    // @deprecated: assuming a net could still use characters for the request size
-    myRequestSize = size;
-    myActiveLogic->resize(myRequestSize);
-    myActiveFoes->resize(myRequestSize);
-}
-
-
-
-void
 NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
+    if (myRequestSize == NO_REQUEST_SIZE) {
+        // We have a legacy network. junction element did not contain logicitems; read the logic later
+        return;
+    }
     if (myCurrentHasError) {
         // had an error before...
         return;

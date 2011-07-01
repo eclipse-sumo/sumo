@@ -118,6 +118,7 @@ NLHandler::myStartElement(int element,
             break;
         case SUMO_TAG_JUNCTION:
             openJunction(attrs);
+            initJunctionLogic(attrs);
             break;
         case SUMO_TAG_PHASE:
             addPhase(attrs);
@@ -136,7 +137,6 @@ NLHandler::myStartElement(int element,
 				myHaveWarnedAboutDeprecatedRowLogic = true;
 				MsgHandler::getWarningInstance()->inform("Your network uses deprecated tags; please rebuild.");
 			}
-        case SUMO_TAG_ROWLOGIC:
             initJunctionLogic(attrs);
             break;
         case SUMO_TAG_TLLOGIC__DEPRECATED:
@@ -147,8 +147,11 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
             break;
-        case SUMO_TAG_LOGICITEM:
+        case SUMO_TAG_LOGICITEM: // deprecated
             addLogicItem(attrs);
+            break;
+        case SUMO_TAG_REQUEST:
+            addRequest(attrs);
             break;
         case SUMO_TAG_WAUT:
             openWAUT(attrs);
@@ -314,17 +317,21 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
         closeEdge();
         break;
     case SUMO_TAG_JUNCTION:
+        try {
+            myJunctionControlBuilder.closeJunctionLogic();
+        } catch (InvalidArgument &e) {
+            WRITE_ERROR(e.what());
+        }
         closeJunction();
         break;
     case SUMO_TAG_SUCC:
         closeSuccLane();
         break;
     case SUMO_TAG_ROWLOGIC__DEPRECATED:
-    case SUMO_TAG_ROWLOGIC:
         try {
             myJunctionControlBuilder.closeJunctionLogic();
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         break;
     case SUMO_TAG_TLLOGIC__DEPRECATED:
@@ -708,12 +715,36 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
 
 
 void
+NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    int request = attrs.getIntReporting(SUMO_ATTR_INDEX, 0, ok);
+    bool cont = false;
+#ifdef HAVE_INTERNAL_LANES
+    cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, 0, ok, false);
+#endif
+    std::string response = attrs.getStringReporting(SUMO_ATTR_RESPONSE, 0, ok);
+    std::string foes = attrs.getStringReporting(SUMO_ATTR_FOES, 0, ok);
+    if (!ok) {
+        return;
+    }
+    // store received information
+    if (request>=0 && response.length()>0) {
+        try {
+            myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
+    }
+}
+
+
+void
 NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
     bool ok = true;
+    // we either a have a junction or a legacy network with ROWLogic
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int requestSize = attrs.getIntReporting(SUMO_ATTR_REQUESTSIZE, id.c_str(), ok);
     if (ok) {
-        myJunctionControlBuilder.initJunctionLogic(id, requestSize);
+        myJunctionControlBuilder.initJunctionLogic(id);
     }
 }
 
@@ -1315,19 +1346,6 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
 
 
 // ----------------------------------
-void
-NLHandler::setRequestSize(const std::string &chars) {
-    // @deprecated: assuming a net could still use characters for the request size
-    try {
-        myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing request size.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("One of an edge's SUMOSAXAttributes must be numeric but is not.");
-    }
-}
-
-
 void
 NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     bool ok = true;

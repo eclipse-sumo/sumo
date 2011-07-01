@@ -99,15 +99,6 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     device << "\n";
 
-    // write right-of-way logics
-    bool hadLogic = false;
-    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-		hadLogic |= (*i).second->writeLogic(device);
-    }
-	if (hadLogic) {
-		device << "\n";
-	}
-
     // write tls logics
     std::vector<NBTrafficLightLogic*> logics = tc.getComputed();
     for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it!= logics.end(); it++) {
@@ -144,15 +135,19 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // write the successors of lanes
     bool includeInternal = !oc.getBool("no-internal-links");
+    unsigned int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge=ec.begin(); it_edge!=ec.end(); it_edge++) {
         NBEdge *from = it_edge->second;
         from->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = from->getConnections();
+        numConnections += connections.size();
         for (std::vector<NBEdge::Connection>::const_iterator it_c=connections.begin(); it_c!=connections.end(); it_c++) {
             writeConnection(device, *from, *it_c, includeInternal);
         }
     }
-    device << "\n";
+    if (numConnections > 0) {
+        device << "\n";
+    }
     if (includeInternal) {
         // ... internal successors if not unwanted
         bool hadAny = false;
@@ -382,8 +377,11 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     }
     into << "\"";
     // close writing
-    into << " shape=\"" << n.getShape() << "\"";
-	into.closeTag(true);
+    into << " shape=\"" << n.getShape() << "\">\n";
+
+    // write right-of-way logics
+    n.writeLogic(into);
+	into.closeTag();
 }
 
 

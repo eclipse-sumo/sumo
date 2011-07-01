@@ -192,8 +192,11 @@ private:
     /// adds a polygon
     void addPoly(const SUMOSAXAttributes &attrs);
 
-    /// adds a logic item to the current logic
+    /// (deprecated) adds a logic item to the current logic
     void addLogicItem(const SUMOSAXAttributes &attrs);
+
+    ///  adds a request item to the current junction logic
+    void addRequest(const SUMOSAXAttributes &attrs);
 
     /// begins the reading of a junction row logic
     void initJunctionLogic(const SUMOSAXAttributes &attrs);
@@ -254,12 +257,6 @@ private:
      * @todo No exception?
      */
     void addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
-
-
-    /// sets the request size of the current junction logic
-    void setRequestSize(const std::string &chars);
-
-
 
 
     /// ends the processing of a junction

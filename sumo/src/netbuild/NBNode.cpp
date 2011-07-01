@@ -877,7 +877,7 @@ NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
 
 
 bool
-NBNode::writeLogic(OutputDevice &into) {
+NBNode::writeLogic(OutputDevice &into) const {
 	if (myRequest) {
 		myRequest->writeLogic(myID, into);
 		return true;

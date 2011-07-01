@@ -82,9 +82,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "route",            SUMO_TAG_ROUTE },
     { "succ",             SUMO_TAG_SUCC },
     { "succlane",         SUMO_TAG_SUCCLANE },
-    { "logicitem",        SUMO_TAG_LOGICITEM },
-    { "row-logic",        SUMO_TAG_ROWLOGIC__DEPRECATED },
-    { "ROWLogic",         SUMO_TAG_ROWLOGIC },
+    { "logicitem",        SUMO_TAG_LOGICITEM }, // deprecated
+    { "row-logic",        SUMO_TAG_ROWLOGIC__DEPRECATED }, // deprecated
+    { "request",          SUMO_TAG_REQUEST },
     { "source",           SUMO_TAG_SOURCE },
     { "district",         SUMO_TAG_DISTRICT__DEPRECATED },
     { "taz",              SUMO_TAG_TAZ },
