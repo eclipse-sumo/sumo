@@ -421,7 +421,7 @@ class NetReader(handler.ContentHandler):
             toLane = toEdge.getLane(int(laneConn[1]))
             if attrs.has_key('tl') and attrs['tl']!="":
                 tl = attrs['tl']
-                tllink = int(attrs['linkIdx'])
+                tllink = int(attrs['linkIndex'])
                 tls = self._net.addTLS(tl, fromLane, toLane, tllink)
                 fromEdge.setTLS(tls)
             else:
@@ -431,8 +431,10 @@ class NetReader(handler.ContentHandler):
             toEdge.addIncoming(fromEdge)
         if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
-        if name == 'logicitem' and self._withFoes:
+        if name == 'logicitem' and self._withFoes: # deprecated
             self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
+        if name == 'request' and self._withFoes:
+            self._currentNode.setFoes(int(attrs['index']), attrs["foes"], attrs["response"])
         if self._withPhases and (name=='tlLogic' or name=='tl-logic'): # tl-logic is deprecated!!!
             self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
         if self._withPhases and name=='phase':
