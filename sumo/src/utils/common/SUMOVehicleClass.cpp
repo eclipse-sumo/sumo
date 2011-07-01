@@ -85,7 +85,7 @@ std::map<std::string, SUMOVehicleShape> gVehicleShapeName2ID;
 // ------------ Conversion of SUMOVehicleClass
 
 std::string
-getVehicleClassCompoundName(int id) throw() {
+getVehicleClassCompoundName(int id) {
     std::string ret;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
     for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
@@ -102,7 +102,7 @@ getVehicleClassCompoundName(int id) throw() {
 
 
 std::string 
-getVehicleClassNames(const SUMOVehicleClasses &ids) throw() {
+getVehicleClassNames(const SUMOVehicleClasses &ids) {
     std::ostringstream oss;
     bool hadOne = false;
     for (SUMOVehicleClasses::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
@@ -117,17 +117,16 @@ getVehicleClassNames(const SUMOVehicleClasses &ids) throw() {
 
 
 SUMOVehicleClass
-getVehicleClassID(const std::string &name) throw() {
+getVehicleClassID(const std::string &name) {
     if (SumoVehicleClassStrings.hasString(name)) {
         return SumoVehicleClassStrings.get(name);
-    } else {
-        return SVC_UNKNOWN;
     }
+    throw ProcessError("Unknown vehicle class '" + name + "'.");
 }
 
 
 int
-getVehicleClassCompoundID(const std::string &name) throw() {
+getVehicleClassCompoundID(const std::string &name) {
     int ret = SVC_UNKNOWN;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
     for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
@@ -142,7 +141,7 @@ getVehicleClassCompoundID(const std::string &name) throw() {
 void 
 parseVehicleClasses(
         const std::string &classNames,
-        SUMOVehicleClasses &container) throw() {
+        SUMOVehicleClasses &container) {
     StringTokenizer sta(classNames, " ");
     while (sta.hasNext()) {
         container.insert(getVehicleClassID(sta.next()));
@@ -154,7 +153,7 @@ void
 parseVehicleClasses(const std::string &allowedS,
                     const std::string &disallowedS,
                     SUMOVehicleClasses &allowed,
-                    SUMOVehicleClasses &disallowed) throw() {
+                    SUMOVehicleClasses &disallowed) {
     parseVehicleClasses(allowedS, allowed);
     parseVehicleClasses(disallowedS, disallowed);
 }
@@ -162,7 +161,7 @@ parseVehicleClasses(const std::string &allowedS,
 
 void
 parseVehicleClasses(const std::vector<std::string> &classesS,
-                    SUMOVehicleClasses &classes) throw() {
+                    SUMOVehicleClasses &classes) {
     for (std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
         classes.insert(getVehicleClassID(*i));
     }
@@ -174,14 +173,14 @@ parseVehicleClasses(const std::vector<std::string> &classesS,
 
 // ------------ Conversion of SUMOVehicleShape
 void
-addToShapeNames(SUMOVehicleShape id, const std::string &name) throw() {
+addToShapeNames(SUMOVehicleShape id, const std::string &name) {
     gVehicleShapeID2Name[id] = name;
     gVehicleShapeName2ID[name] = id;
 }
 
 
 void
-initGuiShapeNames() throw() {
+initGuiShapeNames() {
     addToShapeNames(SVS_PEDESTRIAN, "pedestrian");
     addToShapeNames(SVS_BICYCLE, "bicycle");
     addToShapeNames(SVS_MOTORCYCLE, "motorcycle");
@@ -211,7 +210,7 @@ initGuiShapeNames() throw() {
 
 
 std::string
-getVehicleShapeName(SUMOVehicleShape id) throw() {
+getVehicleShapeName(SUMOVehicleShape id) {
     if (id==SVS_UNKNOWN) {
         return "";
     }
@@ -220,15 +219,14 @@ getVehicleShapeName(SUMOVehicleShape id) throw() {
 
 
 SUMOVehicleShape
-getVehicleShapeID(const std::string &name) throw() {
+getVehicleShapeID(const std::string &name) {
     if (name=="") {
         return SVS_UNKNOWN;
     }
     if (gVehicleShapeName2ID.find(name)!=gVehicleShapeName2ID.end()) {
         return gVehicleShapeName2ID[name];
     }
-    return SVS_UNKNOWN;
-    //!!!throw InvalidArgument("Unknown vehicle shape '" + name + "' occured.");
+    throw ProcessError("Unknown vehicle shape '" + name + "'.");
 }
 
 
@@ -253,14 +251,13 @@ getVehicleEmissionTypeID(const std::string &name) throw(ProcessError) {
             return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         }
     } catch (NumberFormatException &) {
-        throw ProcessError("Unknown emission type '" + name + "'.");
     }
-    return SVE_UNKNOWN;
+    throw ProcessError("Unknown emission type '" + name + "'.");
 }
 
 
 std::string
-getVehicleEmissionTypeName(SUMOEmissionClass id) throw() {
+getVehicleEmissionTypeName(SUMOEmissionClass id) {
     if (id==SVE_ZERO_EMISSIONS) {
         return "zero";
     }

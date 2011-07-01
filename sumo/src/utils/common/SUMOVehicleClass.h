@@ -245,7 +245,7 @@ typedef std::set<SUMOVehicleClass> SUMOVehicleClasses;
 // ===========================================================================
 // method declarations
 // ===========================================================================
-extern void initGuiShapeNames() throw();
+extern void initGuiShapeNames();
 
 
 // ---------------------------------------------------------------------------
@@ -256,14 +256,14 @@ extern void initGuiShapeNames() throw();
  * These OR'ed values cannot be translated directly into strings with toString().
  * The names of all base values are concatenated with '|' as a separator.
  */
-extern std::string getVehicleClassCompoundName(int id) throw();
+extern std::string getVehicleClassCompoundName(int id);
 
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] ids The ids to encode
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids) throw();
+extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids);
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -271,13 +271,13 @@ extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids) throw();
  * @return The internal representation of this class. Name must not be a
  * compound name 
  */
-extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
+extern SUMOVehicleClass getVehicleClassID(const std::string &name);
 
 /** @brief Returns the OR'ed id of the compound class given by its name
  * @param[in] name The name of the abstract vehicle class
  * @return The OR'ed combination of base enum values
  */
-extern int getVehicleClassCompoundID(const std::string &name) throw();
+extern int getVehicleClassCompoundID(const std::string &name);
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
@@ -285,7 +285,7 @@ extern int getVehicleClassCompoundID(const std::string &name) throw();
  * @param[out] container The set of vehicle classes to fill
  */
 extern void parseVehicleClasses(const std::string &classNames,
-                                SUMOVehicleClasses &container) throw();
+                                SUMOVehicleClasses &container);
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
@@ -297,7 +297,7 @@ extern void parseVehicleClasses(const std::string &classNames,
 extern void parseVehicleClasses(const std::string &allowedS,
                                 const std::string &disallowedS,
                                 SUMOVehicleClasses &allowed,
-                                SUMOVehicleClasses &disallowed) throw();
+                                SUMOVehicleClasses &disallowed);
 
 
 /** @brief Parses the given vector of class names into their enum-representation
@@ -305,7 +305,7 @@ extern void parseVehicleClasses(const std::string &allowedS,
  * @param[out] classes The parsed classes
  */
 extern void parseVehicleClasses(const std::vector<std::string> &classesS,
-                                SUMOVehicleClasses &classes) throw();
+                                SUMOVehicleClasses &classes);
 
 
 // ---------------------------------------------------------------------------
@@ -315,14 +315,14 @@ extern void parseVehicleClasses(const std::vector<std::string> &classesS,
  * @param[in] id The id of the shape class
  * @return The string representation of this class
  */
-extern std::string getVehicleShapeName(SUMOVehicleShape id) throw();
+extern std::string getVehicleShapeName(SUMOVehicleShape id);
 
 
 /** @brief Returns the class id of the shape class given by its name
  * @param[in] name The name of the shape class
  * @return The internal representation of this class
  */
-extern SUMOVehicleShape getVehicleShapeID(const std::string &name) throw();
+extern SUMOVehicleShape getVehicleShapeID(const std::string &name);
 
 
 // ---------------------------------------------------------------------------
@@ -332,7 +332,7 @@ extern SUMOVehicleShape getVehicleShapeID(const std::string &name) throw();
  * @param[in] id The id of the emission class
  * @return The string representation of this class
  */
-extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
+extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
 
 
 /** @brief Returns the class id of the emission class given by its name

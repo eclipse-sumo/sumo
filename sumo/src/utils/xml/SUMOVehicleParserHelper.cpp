@@ -624,7 +624,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 SUMOVehicleClass
 SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
-        const std::string &id) throw() {
+        const std::string &id) {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
         bool ok = true;
@@ -643,7 +643,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
 
 
 SUMOEmissionClass
-SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id) throw() {
+SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id) {
     SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
         bool ok = true;
@@ -660,7 +660,7 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, cons
 
 
 SUMOVehicleShape
-SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id) throw() {
+SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id) {
     SUMOVehicleShape vclass = SVS_UNKNOWN;
     try {
         bool ok = true;

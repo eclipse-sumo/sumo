@@ -891,8 +891,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     break;
     default:
-        if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
-                                                     getSingularType(v), server, inputStorage, outputStorage)) {
+        try {
+            if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
+                                                         getSingularType(v), server, inputStorage, outputStorage)) {
+                return false;
+            }
+        } catch (ProcessError &e) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
             return false;
         }
         break;

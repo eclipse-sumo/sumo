@@ -107,7 +107,7 @@ public:
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
      */
-    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() {
+    static void closeVTypeParsing(SUMOVTypeParameter &vtype) {
         UNUSED_PARAMETER(vtype);
     }
 
@@ -126,7 +126,7 @@ public:
      * @see SUMOVehicleClass
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes &attrs, const std::string &id) throw();
+    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes &attrs, const std::string &id);
 
 
     /** @brief Parses the vehicle emission class
@@ -143,7 +143,7 @@ public:
      * @see SUMOEmissionClass
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOEmissionClass parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id) throw();
+    static SUMOEmissionClass parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id);
 
 
     /** @brief Parses the vehicle class
@@ -160,7 +160,7 @@ public:
      * @see SUMOVehicleShape
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id) throw();
+    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id);
 
 
 private:

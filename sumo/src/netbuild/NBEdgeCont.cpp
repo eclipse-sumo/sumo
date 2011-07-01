@@ -88,22 +88,14 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
         const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
             SUMOVehicleClass svc = getVehicleClassID(*i);
-            if (svc == SVC_UNKNOWN) {
-                WRITE_ERROR("Unkown vehicle class '" + *i + "' in option 'keep-edges.by-vclass'.");
-            } else {
-                myVehicleClasses2Keep.insert(svc);
-            }
+            myVehicleClasses2Keep.insert(svc);
         }
     }
     if (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i=classes.begin(); i!=classes.end(); ++i) {
             SUMOVehicleClass svc = getVehicleClassID(*i);
-            if (svc == SVC_UNKNOWN) {
-                WRITE_ERROR("Unkown vehicle class '" + *i + "' in option 'remove-edges.by-vclass'.");
-            } else {
-                myVehicleClasses2Remove.insert(svc);
-            }
+            myVehicleClasses2Remove.insert(svc);
         }
     }
     if (oc.isSet("keep-edges.in-boundary")) {

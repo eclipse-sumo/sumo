@@ -181,10 +181,14 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
         return false;
     }
     // process
-    if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, inputStorage.readUnsignedByte(),
-                    *v, server, inputStorage, outputStorage)) {
-        server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
-        return true;
+    try {
+        if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, inputStorage.readUnsignedByte(),
+                        *v, server, inputStorage, outputStorage)) {
+            server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
+            return true;
+        }
+    } catch (ProcessError &e) {
+        server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
     }
     return false;
 }
