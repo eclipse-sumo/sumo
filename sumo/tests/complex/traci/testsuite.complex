@@ -6,3 +6,6 @@ clientCloses
 
 # Tests the new python API
 pythonApi
+
+# Tests whether outputs are closed
+closingOutput

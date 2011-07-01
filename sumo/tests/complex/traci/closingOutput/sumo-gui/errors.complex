@@ -1,0 +1,3 @@
+traciconstants.py and traciControl.py are deprecated.
+Please use the new Python API for TraCI.
+Error: tcpip::Socket::accept() Unable to create listening socket: Address already in use
