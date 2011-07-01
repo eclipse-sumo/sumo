@@ -75,7 +75,7 @@ NLEdgeControlBuilder::beginEdgeParsing(
         const std::string& streetName) 
 {
     myActiveEdge = buildEdge(id, streetName);
-    if (!MSEdge::dictionary(id, myActiveEdge)) {
+    if (MSEdge::dictionary(id) != 0) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     myEdges.push_back(myActiveEdge);

@@ -412,7 +412,8 @@ NLHandler::closeEdge() {
         return;
     }
     try {
-        myEdgeControlBuilder.closeEdge();
+        MSEdge* e = myEdgeControlBuilder.closeEdge();
+        MSEdge::dictionary(e->getID(), e);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
