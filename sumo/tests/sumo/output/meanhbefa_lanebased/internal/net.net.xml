@@ -119,25 +119,25 @@
     </succ>
 
     <succ edge=":absEnd_0" lane=":absEnd_0_0" junction="absEnd">
-        <succlane lane="rend_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="rend_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":beg_0" lane=":beg_0_0" junction="beg">
-        <succlane lane="middle_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="middle_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":beg_1" lane=":beg_1_0" junction="beg">
-        <succlane lane="beg2left_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="beg2left_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":begleft_0" lane=":begleft_0_0" junction="begleft">
-        <succlane lane="left_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="left_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":end_0" lane=":end_0_0" junction="end">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":end_1" lane=":end_1_0" junction="end">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":endleft_0" lane=":endleft_0_0" junction="endleft">
-        <succlane lane="left2end_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="left2end_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
 
 </net>

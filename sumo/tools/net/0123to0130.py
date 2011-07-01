@@ -5,7 +5,7 @@
 @date    2007
 @version $Id$
 
-Changes xml network files from version 0.10.3 to version 0.11.0.
+Changes xml network files from version 0.12.3 to version 0.13.0.
 
 Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
@@ -17,10 +17,11 @@ from optparse import OptionParser
 # attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
+a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
+a['connection'] = ('from', 'to', 'lane', 'via', 'tl', 'linkIndex', 'dir', 'state' )
 a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
@@ -41,10 +42,10 @@ b['edge']['function'] = 'normal'
 b['succlane'] = {}
 b['succlane']['tl'] = ''
 b['succlane']['linkno'] = ''
-b['succlane']['linkIdx'] = ''
+b['succlane']['linkIndex'] = ''
 
 # elements which are single (not using opening/closing tag)
-c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event' )
+c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event', 'connection' )
 
 # remove these
 removed = ( 'lanes', 'logic', 'succ')
@@ -57,7 +58,7 @@ renamed = {'tl-logic': 'tlLogic',
         'dsink':'tazSink', 
         'succlane':'connection'}
 
-renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType', 'maxspeed':'maxSpeed', 'linkno':'linkIdx'}
+renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType', 'maxspeed':'maxSpeed', 'linkno':'linkIndex'}
 
 renamedValues = {'state': {'t': 'o'} }
 
@@ -79,6 +80,7 @@ class NetConverter(handler.ContentHandler):
         self._out.write(begin)
         self._tree = []
         self._content = ""
+        self._laneCount = 0
 
     def checkWrite(self, what):
         self._out.write(what.encode('iso-8859-1'))
@@ -123,10 +125,16 @@ class NetConverter(handler.ContentHandler):
                     val = attrs[key]
                     if key in renamedValues:
                         val = renamedValues[key].get(val, val)
-                    if name == "succlane" and (key == "linkno" or key == "linkIdx") and attrs["tl"] == '':
+                    if name == "succlane" and (key == "linkno" or key == "linkIndex") and attrs["tl"] == '':
                         val = ''
                     if name not in b or key not in b[name] or val!=b[name][key]:
                         self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
+                elif name == "lane" and key == "index":
+                    self.checkWrite(' index="%s"' % self._laneCount)
+        if name == "edge":
+            self._laneCount = 0
+        if name == "lane":
+            self._laneCount += 1
         if name not in c:
             self.checkWrite(">\n")
         else:
@@ -160,9 +168,9 @@ def changeFile(fname):
     if "_deprecated_" in fname:
         print "Skipping file (path contains _deprecated_): " + fname
         return
-    if "SUMO_NO_DESTINATION" in open(fname).read:
+    if "SUMO_NO_DESTINATION" in open(fname).read():
         print "Skipping file (cannot convert SUMO_NO_DESTINATION): " + fname
-        return:
+        return
     net = NetConverter(fname+".chg", getBegin(fname))
     parse(fname, net)
     if options.inplace:

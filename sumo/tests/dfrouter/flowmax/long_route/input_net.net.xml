@@ -140,28 +140,28 @@
     </succ>
 
     <succ edge=":o3_0" lane=":o3_0_0" junction="o3">
-        <succlane lane="post3_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="post3_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":o4_0" lane=":o4_0_0" junction="o4">
-        <succlane lane="post4_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="post4_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r1_0" lane=":r1_0_0" junction="r1">
-        <succlane lane="1to2_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="1to2_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r2_0" lane=":r2_0_0" junction="r2">
-        <succlane lane="2to3_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="2to3_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r2_1" lane=":r2_1_0" junction="r2">
-        <succlane lane="2to3_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="2to3_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r3_0" lane=":r3_0_0" junction="r3">
-        <succlane lane="3to4_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="3to4_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r3_1" lane=":r3_1_0" junction="r3">
-        <succlane lane="out3_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="out3_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":r4_0" lane=":r4_0_0" junction="r4">
-        <succlane lane="out4_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="out4_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
 
 </net>

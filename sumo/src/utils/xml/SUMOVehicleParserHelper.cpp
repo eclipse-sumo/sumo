@@ -276,9 +276,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             gHaveWarnedAboutDeprecatedDepartLane = true;
             MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_DEPARTLANE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTLANE) + "' instead.");
         }
-        if (helper=="departlane") {
-            ret->departLaneProcedure = DEPART_LANE_DEPARTLANE;
-        } else if (helper=="random") {
+        if (helper=="random") {
             ret->departLaneProcedure = DEPART_LANE_RANDOM;
         } else if (helper=="free") {
             ret->departLaneProcedure = DEPART_LANE_FREE;

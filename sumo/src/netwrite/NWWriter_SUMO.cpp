@@ -240,7 +240,7 @@ void
 NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape) {
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
 	into.openTag(SUMO_TAG_EDGE) << " id=\"" << id << "\" function=\"internal\">\n";
-    into.openTag(SUMO_TAG_LANE) << " id=\"" << id << "_0\" depart=\"0\" "
+    into.openTag(SUMO_TAG_LANE) << " id=\"" << id << "_0\" index=\"0\" "
         << "maxSpeed=\"" << vmax << "\" "
         << "length=\"" << toString(length) << "\" "
         << "shape=\"" << shape << "\"";
@@ -292,11 +292,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE) << " id=\"" << lID << "\"";
     // the first lane of an edge will be the depart lane
-    if (index==0) {
-        into << " depart=\"1\"";
-    } else {
-        into << " depart=\"0\"";
-    }
+    into << " index=\"" << index << "\"";
     // write the list of allowed/disallowed vehicle classes
     if (lane.allowed.size() > 0) {
         into << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
@@ -449,9 +445,9 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
             bool includeInternal, bool plain) {
     assert(c.toEdge != 0);
     into.openTag(SUMO_TAG_CONNECTION);
-    into << " " << toString(SUMO_ATTR_FROM) << "=\"" << from.getID() << "\"";
-    into << " " << toString(SUMO_ATTR_TO) << "=\"" << c.toEdge->getID() << "\"";
-    into << " " << toString(SUMO_ATTR_LANE) << "=\"" << c.fromLane << ":" << c.toLane << "\"";
+    into << " " << SUMO_ATTR_FROM << "=\"" << from.getID() << "\"";
+    into << " " << SUMO_ATTR_TO << "=\"" << c.toEdge->getID() << "\"";
+    into << " " << SUMO_ATTR_LANE << "=\"" << c.fromLane << ":" << c.toLane << "\"";
 
     if (!plain) {
         if (includeInternal) {
@@ -460,13 +456,13 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
         }
         // set information about the controlling tl if any
         if (c.tlID!="") {
-            into << " " << toString(SUMO_ATTR_TLID) << "=\"" << c.tlID << "\"";
-            into << " " << toString(SUMO_ATTR_TLLINKINDEX) << "=\"" << c.tlLinkNo << "\"";
+            into << " " << SUMO_ATTR_TLID << "=\"" << c.tlID << "\"";
+            into << " " << SUMO_ATTR_TLLINKINDEX << "=\"" << c.tlLinkNo << "\"";
         }
         // write the direction information
         LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge);
         assert(dir != LINKDIR_NODIR);
-        into << " " << toString(SUMO_ATTR_DIR) << "=\"" << toString(dir) << "\"";
+        into << " " << SUMO_ATTR_DIR << "=\"" << toString(dir) << "\"";
         // write the state information
         std::string stateCode;
         if (c.tlID!="") {
@@ -523,14 +519,14 @@ void
 NWWriter_SUMO::writeInternalConnection(OutputDevice &into, 
         const std::string &from, const std::string &to, int toLane, const std::string &via) {
     into.openTag(SUMO_TAG_CONNECTION);
-    into << " " << toString(SUMO_ATTR_FROM) << "=\"" << from << "\"";
-    into << " " << toString(SUMO_ATTR_TO) << "=\"" << to << "\"";
-    into << " " << toString(SUMO_ATTR_LANE) << "=\"0:" << toLane << "\"";
+    into << " " << SUMO_ATTR_FROM << "=\"" << from << "\"";
+    into << " " << SUMO_ATTR_TO << "=\"" << to << "\"";
+    into << " " << SUMO_ATTR_LANE << "=\"0:" << toLane << "\"";
     if (via != "") {
-        into << " " << toString(SUMO_ATTR_VIA) << "=\"" << via << "\"";
+        into << " " << SUMO_ATTR_VIA << "=\"" << via << "\"";
     }
-    into << " " << toString(SUMO_ATTR_DIR) << "=\"s\"";
-    into << " " << toString(SUMO_ATTR_STATE) << "=\"M\"";
+    into << " " << SUMO_ATTR_DIR << "=\"s\"";
+    into << " " << SUMO_ATTR_STATE << "=\"M\"";
     into.closeTag(true);
 }
 

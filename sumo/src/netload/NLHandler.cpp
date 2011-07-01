@@ -434,7 +434,6 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    bool laneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
     SUMOReal maxSpeed = attrs.hasAttribute(SUMO_ATTR_MAXSPEED)
         ? attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok)
         : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
@@ -454,7 +453,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken |= !ok;
     if(!myCurrentIsBroken) {
         try {
-            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, laneIsDepart, shape, width, allowedClasses, disallowedClasses);
+            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, allowedClasses, disallowedClasses);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
@@ -1365,13 +1364,13 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
-        sink->initialize(0, 0, MSEdge::EDGEFUNCTION_DISTRICT);
+        sink->initialize(0, MSEdge::EDGEFUNCTION_DISTRICT);
         MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source");
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
         }
-        source->initialize(0, 0, MSEdge::EDGEFUNCTION_DISTRICT);
+        source->initialize(0, MSEdge::EDGEFUNCTION_DISTRICT);
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
             for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {

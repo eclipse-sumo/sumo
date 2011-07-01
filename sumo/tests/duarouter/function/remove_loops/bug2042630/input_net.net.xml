@@ -259,7 +259,7 @@
     </succ>
 
     <succ edge="L12" lane="L12_0" junction="13">
-        <succlane lane="L16_0" tl="13" linkIdx="1" dir="l" state="o"/>
+        <succlane lane="L16_0" tl="13" linkIndex="1" dir="l" state="o"/>
     </succ>
 
     <succ edge="L13" lane="L13_0" junction="11">
@@ -271,7 +271,7 @@
     </succ>
 
     <succ edge="L15" lane="L15_0" junction="13">
-        <succlane lane="L16_0" tl="13" linkIdx="0" dir="s" state="o"/>
+        <succlane lane="L16_0" tl="13" linkIndex="0" dir="s" state="o"/>
     </succ>
 
     <succ edge="L16" lane="L16_0" junction="3">

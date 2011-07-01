@@ -30,16 +30,16 @@
     <location netOffset="500.00,50.00" convBoundary="0.00,0.00,1800.00,100.00" origBoundary="-500.00,-50.00,1300.00,50.00" projParameter="!"/>
 
     <edge id="1to21" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,100.00 1500.00,50.00">
-        <lane id="1to21_0" depart="1" maxSpeed="13.90" length="1001.80" shape="501.65,48.51 1000.00,98.34 1498.48,48.49"/>
+        <lane id="1to21_0" index="0" maxSpeed="13.90" length="1001.80" shape="501.65,48.51 1000.00,98.34 1498.48,48.49"/>
     </edge>
     <edge id="1to22" from="1" to="2" priority="-1" shape="500.00,50.00 1000.00,0.00 1500.00,50.00">
-        <lane id="1to22_0" depart="1" maxSpeed="13.90" length="1001.79" shape="501.69,48.17 1000.00,-1.66 1498.51,48.19"/>
+        <lane id="1to22_0" index="0" maxSpeed="13.90" length="1001.79" shape="501.69,48.17 1000.00,-1.66 1498.51,48.19"/>
     </edge>
     <edge id="91to1" from="91" to="1" priority="-1">
-        <lane id="91to1_0" depart="1" maxSpeed="13.90" length="498.50" shape="0.00,48.35 498.50,48.35"/>
+        <lane id="91to1_0" index="0" maxSpeed="13.90" length="498.50" shape="0.00,48.35 498.50,48.35"/>
     </edge>
     <edge id="out" from="2" to="3" priority="-1">
-        <lane id="out_0" depart="1" maxSpeed="13.90" length="298.34" shape="1501.66,48.35 1800.00,48.35"/>
+        <lane id="out_0" index="0" maxSpeed="13.90" length="298.34" shape="1501.66,48.35 1800.00,48.35"/>
     </edge>
 
     <ROWLogic id="1" requestSize="2">
@@ -63,8 +63,8 @@
     <junction id="3" type="DEAD_END" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
     <junction id="91" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
-    <connection from="1to21" to="out" lane="0:0" tl="2" linkIdx="1" dir="s" state="o"/>
-    <connection from="1to22" to="out" lane="0:0" tl="2" linkIdx="0" dir="s" state="o"/>
+    <connection from="1to21" to="out" lane="0:0" tl="2" linkIndex="1" dir="s" state="o"/>
+    <connection from="1to22" to="out" lane="0:0" tl="2" linkIndex="0" dir="s" state="o"/>
     <connection from="91to1" to="1to22" lane="0:0" dir="s" state="M"/>
     <connection from="91to1" to="1to21" lane="0:0" dir="s" state="M"/>
 

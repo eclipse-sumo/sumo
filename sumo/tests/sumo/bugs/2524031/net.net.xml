@@ -115,16 +115,16 @@
     </succ>
 
     <succ edge=":SUMOGenerated1_0" lane=":SUMOGenerated1_0_0" junction="SUMOGenerated1">
-        <succlane lane="1to2_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="1to2_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated3_0" lane=":SUMOGenerated3_0_0" junction="SUMOGenerated3">
-        <succlane lane="2to1_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="2to1_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated4_0" lane=":SUMOGenerated4_0_0" junction="SUMOGenerated4">
-        <succlane lane="out2_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="out2_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":SUMOGenerated5_0" lane=":SUMOGenerated5_0_0" junction="SUMOGenerated5">
-        <succlane lane="out1_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="out1_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
 
 </net>

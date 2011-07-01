@@ -21,13 +21,12 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id="e0" from="0" to="1" priority="-1" spreadType="center">
-        <lane id="e0_0" depart="1" maxSpeed="16.00" length="100.00" shape="0.00,-3.30 100.00,-3.30"/>
-        <lane id="e0_1" depart="0" maxSpeed="16.00" length="100.00" shape="0.00,-0.00 100.00,-0.00"/>
-        <lane id="e0_2" depart="0" maxSpeed="16.00" length="100.00" shape="0.00,3.30 100.00,3.30"/>
+        <lane id="e0_0" index="0" maxSpeed="16.00" length="100.00" shape="0.00,-3.30 100.00,-3.30"/>
+        <lane id="e0_1" index="1" maxSpeed="16.00" length="100.00" shape="0.00,-0.00 100.00,-0.00"/>
+        <lane id="e0_2" index="2" maxSpeed="16.00" length="100.00" shape="0.00,3.30 100.00,3.30"/>
     </edge>
 
     <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,4.90 0.00,-4.90"/>
     <junction id="1" type="DEAD_END" x="100.00" y="0.00" incLanes="e0_0 e0_1 e0_2" intLanes="" shape="100.00,-4.90 100.00,4.90"/>
-
 
 </net>

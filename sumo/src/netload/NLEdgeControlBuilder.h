@@ -96,8 +96,6 @@ public:
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allowed on this lane
      * @param[in] length The lane's length
-     * @param[in] edge The edge this lane belongs to
-     * @param[in] numericalID The numerical id of the lane
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
      * @param[in] allowed Vehicle classes that explicitly may drive on this lane
@@ -108,8 +106,9 @@ public:
      * @todo Definitely not a good way
      */
     virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
-                            SUMOReal length, bool isDepart, const PositionVector &shape,
-                            SUMOReal width, const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed);
+                            SUMOReal length, const PositionVector &shape,
+                            SUMOReal width, const SUMOVehicleClasses &allowed,
+                            const SUMOVehicleClasses &disallowed);
 
 
     /** @brief Closes the building of an edge;
@@ -146,19 +145,10 @@ protected:
     MSEdge *myActiveEdge;
 
     /// @brief pointer to a temporary lane storage
-    std::vector<MSLane*> *m_pLaneStorage;
-
-    /// pointer to the depart lane
-    MSLane                    *m_pDepartLane;
-
-    /// number of single-lane-edges
-    unsigned int              m_iNoSingle;
-
-    /// number of multi-lane-edges
-    unsigned int              m_iNoMulti;
+    std::vector<MSLane*> *myLaneStorage;
 
     /// the function of the current edge
-    MSEdge::EdgeBasicFunction m_Function;
+    MSEdge::EdgeBasicFunction myFunction;
 
 private:
     /// @brief invalidated copy constructor

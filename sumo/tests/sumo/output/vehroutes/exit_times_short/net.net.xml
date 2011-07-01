@@ -65,10 +65,10 @@
     </succ>
 
     <succ edge=":c2_0" lane=":c2_0_0" junction="c2">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":center_0" lane=":center_0_0" junction="center">
-        <succlane lane="middle_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="middle_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
 
 </net>

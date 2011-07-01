@@ -83,10 +83,8 @@ MSEdge::~MSEdge() throw() {
 
 
 void
-MSEdge::initialize(MSLane* departLane,
-                   std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw() {
+MSEdge::initialize(std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw() {
     assert(function == EDGEFUNCTION_DISTRICT || lanes!=0);
-    myDepartLane = departLane;
     myLanes = lanes;
     myFunction = function;
     if (myLanes && myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
@@ -294,15 +292,14 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
         delete bestLanes;
         return ret;
     }
-    case DEPART_LANE_DEPARTLANE:
     case DEPART_LANE_DEFAULT:
     default:
         break;
     }
-    if (!myDepartLane->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+    if (!(*myLanes)[0]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
         return 0;
     }
-    return myDepartLane;
+    return (*myLanes)[0];
 }
 
 

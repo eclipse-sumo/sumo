@@ -196,8 +196,6 @@ private:
      * @brief Describes the values found in a lane's definition
      */
     struct LaneAttrs {
-        /// @brief Whether this is the edge's depart lane
-        bool depart;
         /// @brief The maximum velocity allowed on this lane
         SUMOReal maxSpeed;
         /// @brief This lane's shape (needed to reconstruct edge shape for legacy networks)

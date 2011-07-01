@@ -33,6 +33,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -231,6 +232,18 @@ public:
      */
     void inform(const std::string &msg);
 
+
+    OutputDevice &operator<<(const SumoXMLTag &xmlElement) {
+        getOStream() << toString(xmlElement);
+        postWriteHook();
+        return *this;
+    }
+
+    OutputDevice &operator<<(const SumoXMLAttr &xmlElement) {
+        getOStream() << toString(xmlElement);
+        postWriteHook();
+        return *this;
+    }
 
     /** @brief Abstract output operator
      * @return The OutputDevice for further processing

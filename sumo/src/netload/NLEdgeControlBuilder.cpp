@@ -58,14 +58,12 @@
 NLEdgeControlBuilder::NLEdgeControlBuilder()
         : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
     myActiveEdge = (MSEdge*) 0;
-    m_pLaneStorage = new std::vector<MSLane*>();
-    m_pDepartLane = (MSLane*) 0;
-    m_iNoSingle = m_iNoMulti = 0;
+    myLaneStorage = new std::vector<MSLane*>();
 }
 
 
 NLEdgeControlBuilder::~NLEdgeControlBuilder() {
-    delete m_pLaneStorage;
+    delete myLaneStorage;
 }
 
 
@@ -79,23 +77,18 @@ NLEdgeControlBuilder::beginEdgeParsing(
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     myEdges.push_back(myActiveEdge);
-    m_pDepartLane = (MSLane*) 0;
-    m_Function = function;
+    myFunction = function;
 }
 
 
 MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
-                              SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+                              SUMOReal maxSpeed, SUMOReal length,
                               const PositionVector &shape, SUMOReal width, 
                               const SUMOVehicleClasses &allowed,
                               const SUMOVehicleClasses &disallowed) {
-    // checks if the depart lane was set before
-    if (isDepart&&m_pDepartLane!=0) {
-        throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
-    }
     MSLane *lane = 0;
-    switch (m_Function) {
+    switch (myFunction) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(id, maxSpeed, length, myActiveEdge,
                                   myCurrentNumericalLaneID++, shape, width, allowed, disallowed);
@@ -108,10 +101,7 @@ NLEdgeControlBuilder::addLane(const std::string &id,
     default:
         throw InvalidArgument("Unrecognised edge type.");
     }
-    m_pLaneStorage->push_back(lane);
-    if (isDepart) {
-        m_pDepartLane = lane;
-    }
+    myLaneStorage->push_back(lane);
     return lane;
 }
 
@@ -119,15 +109,10 @@ NLEdgeControlBuilder::addLane(const std::string &id,
 MSEdge *
 NLEdgeControlBuilder::closeEdge() {
     std::vector<MSLane*> *lanes = new std::vector<MSLane*>();
-    lanes->reserve(m_pLaneStorage->size());
-    copy(m_pLaneStorage->begin(), m_pLaneStorage->end(), back_inserter(*lanes));
-    if (m_pLaneStorage->size()==1) {
-        m_iNoSingle++;
-    } else {
-        m_iNoMulti++;
-    }
-    m_pLaneStorage->clear();
-    myActiveEdge->initialize(m_pDepartLane, lanes, m_Function);
+    lanes->reserve(myLaneStorage->size());
+    copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
+    myLaneStorage->clear();
+    myActiveEdge->initialize(lanes, myFunction);
     return myActiveEdge;
 }
 

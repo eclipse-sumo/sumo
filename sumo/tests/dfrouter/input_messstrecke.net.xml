@@ -309,10 +309,10 @@
     <junction id="VolmerSinkEnd" type="priority" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00"/>
 
     <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_0" junction="ErnstRuskaAltglienicker">
-        <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkIdx="3" dir="r" state="o"/>
+        <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkIndex="3" dir="r" state="o"/>
     </succ>
     <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_1" junction="ErnstRuskaAltglienicker">
-        <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkIdx="4" dir="l" state="o"/>
+        <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkIndex="4" dir="l" state="o"/>
     </succ>
     <succ edge="AltglienickerBreitS" lane="AltglienickerBreitS_0" junction="AltglienickerBreit">
         <succlane lane="AltglienickerS_0" dir="s" state="M"/>
@@ -415,11 +415,11 @@
         <succlane lane="ErnstRuska232W_1" dir="s" state="M"/>
     </succ>
     <succ edge="ErnstRuska4O" lane="ErnstRuska4O_0" junction="ErnstRuskaAltglienicker">
-        <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkIdx="5" dir="r" state="o"/>
-        <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkIdx="6" dir="s" state="o"/>
+        <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkIndex="5" dir="r" state="o"/>
+        <succlane lane="ErnstRuska5O_0" tl="ErnstRuskaAltglienicker" linkIndex="6" dir="s" state="o"/>
     </succ>
     <succ edge="ErnstRuska4O" lane="ErnstRuska4O_1" junction="ErnstRuskaAltglienicker">
-        <succlane lane="ErnstRuska5O_1" tl="ErnstRuskaAltglienicker" linkIdx="7" dir="s" state="o"/>
+        <succlane lane="ErnstRuska5O_1" tl="ErnstRuskaAltglienicker" linkIndex="7" dir="s" state="o"/>
     </succ>
     <succ edge="ErnstRuska4W" lane="ErnstRuska4W_0" junction="ErnstRuskaVolmer">
         <succlane lane="VolmerN_0" dir="r" state="M"/>
@@ -435,13 +435,13 @@
         <succlane lane="ErnstRuskaSink5O_1" dir="s" state="M"/>
     </succ>
     <succ edge="ErnstRuska5W" lane="ErnstRuska5W_0" junction="ErnstRuskaAltglienicker">
-        <succlane lane="ErnstRuska4W_0" tl="ErnstRuskaAltglienicker" linkIdx="0" dir="s" state="o"/>
+        <succlane lane="ErnstRuska4W_0" tl="ErnstRuskaAltglienicker" linkIndex="0" dir="s" state="o"/>
     </succ>
     <succ edge="ErnstRuska5W" lane="ErnstRuska5W_1" junction="ErnstRuskaAltglienicker">
-        <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkIdx="1" dir="s" state="o"/>
+        <succlane lane="ErnstRuska4W_1" tl="ErnstRuskaAltglienicker" linkIndex="1" dir="s" state="o"/>
     </succ>
     <succ edge="ErnstRuska5W" lane="ErnstRuska5W_2" junction="ErnstRuskaAltglienicker">
-        <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkIdx="2" dir="l" state="o"/>
+        <succlane lane="AltglienickerBreitS_0" tl="ErnstRuskaAltglienicker" linkIndex="2" dir="l" state="o"/>
     </succ>
     <succ edge="ErnstRuskaSink1O" lane="ErnstRuskaSink1O_0" junction="ErnstRuskaEnd1">
         <succlane lane="ErnstRuska1O_0" dir="s" state="M"/>

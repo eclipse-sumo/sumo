@@ -111,11 +111,10 @@ public:
     /** @brief Initialize the edge.
      *
      * @param[in] allowed Information which edges may be reached from which lanes
-     * @param[in] departLane The default departure lane (may be 0)
      * @param[in] lanes List of this edge's lanes
      * @param[in] function A basic type of the edge
      */
-    void initialize(MSLane* departLane, std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw();
+    void initialize(std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw();
 
 
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
@@ -465,9 +464,6 @@ protected:
 
     /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
     std::vector<MSLane*>* myLanes;
-
-    /// @brief Lane from which vehicles will depart, usually the rightmost
-    MSLane* myDepartLane;
 
     /// @brief This member will do the lane-change
     MSLaneChanger* myLaneChanger;

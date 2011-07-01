@@ -76,13 +76,13 @@
     </succ>
 
     <succ edge=":center_0" lane=":center_0_0" junction="center">
-        <succlane lane="end_0" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_0" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":center_1" lane=":center_1_0" junction="center">
-        <succlane lane="end_1" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_1" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
     <succ edge=":center_2" lane=":center_2_0" junction="center">
-        <succlane lane="end_2" tl="" linkIdx="" dir="s" state="M"/>
+        <succlane lane="end_2" tl="" linkIndex="" dir="s" state="M"/>
     </succ>
 
 </net>

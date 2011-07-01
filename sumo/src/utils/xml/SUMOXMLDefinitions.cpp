@@ -297,7 +297,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "end",            SUMO_ATTR_END },
     { "tl",             SUMO_ATTR_TLID },
     { "linkno",         SUMO_ATTR_TLLINKNO__DEPRECATED },
-    { "linkIdx",        SUMO_ATTR_TLLINKINDEX },
+    { "linkIndex",      SUMO_ATTR_TLLINKINDEX },
     { "shape",          SUMO_ATTR_SHAPE },
     { "spread_type",    SUMO_ATTR_SPREADFUNC__DEPRECATED },
     { "spreadType",     SUMO_ATTR_SPREADFUNC },

@@ -115,11 +115,11 @@
     </succ>
 
     <succ edge="left2end" lane="left2end_0" junction="end">
-        <succlane lane="end_0" via=":end_2_0" tl="end" linkIdx="2" dir="l" state="o"/>
+        <succlane lane="end_0" via=":end_2_0" tl="end" linkIndex="2" dir="l" state="o"/>
     </succ>
 
     <succ edge="middle" lane="middle_0" junction="end">
-        <succlane lane="end_0" via=":end_1_0" tl="end" linkIdx="1" dir="s" state="o"/>
+        <succlane lane="end_0" via=":end_1_0" tl="end" linkIndex="1" dir="s" state="o"/>
     </succ>
 
     <succ edge="right" lane="right_0" junction="endright">
@@ -127,7 +127,7 @@
     </succ>
 
     <succ edge="right2end" lane="right2end_0" junction="end">
-        <succlane lane="end_0" via=":end_0_0" tl="end" linkIdx="0" dir="r" state="o"/>
+        <succlane lane="end_0" via=":end_0_0" tl="end" linkIndex="0" dir="r" state="o"/>
     </succ>
 
     <edgepos>
