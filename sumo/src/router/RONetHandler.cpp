@@ -280,10 +280,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes &attrs) {
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == 0) {
-        throw ProcessError("unknown edge '" + fromID + "' in connection");
+        throw ProcessError("unknown from-edge '" + fromID + "' in connection");
     }
     if (to == 0) {
-        throw ProcessError("unknown edge '" + toID + "' in connection");
+        throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
     from->addFollower(to);
 }
