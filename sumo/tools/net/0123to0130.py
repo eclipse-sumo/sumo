@@ -26,7 +26,7 @@ a['connection'] = ('from', 'to', 'lane', 'via', 'tl', 'linkIdx', 'dir', 'state' 
 a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
-a['phase'] = ( 'duration', 'state', 'minDur', 'maxDur', 'min_dur', 'max_dur' )
+a['phase'] = ( 'duration', 'state', 'min_dur', 'max_dur' )
 a['district'] = ( 'id', 'shape', 'edges' )
 a['dsink'] = ( 'id', 'weight' )
 a['dsource'] = ( 'id', 'weight' )
