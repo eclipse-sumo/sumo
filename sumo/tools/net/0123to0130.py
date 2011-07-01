@@ -49,7 +49,7 @@ b['succlane']['linkIndex'] = ''
 
 # elements which are single (not using opening/closing tag)
 SINGLE = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'location', 
-        'lane', 'timed_event', 'connection', 'request' )
+           'lane', 'timed_event', 'connection', 'request' )
 
 # remove these
 REMOVED = ( 'lanes', 'logic', 'succ', 'row-logic', 'ROWLogic', 'logicitem')
@@ -64,8 +64,7 @@ RENAMED_TAGS = {'tl-logic': 'tlLogic',
 
 renamedAttrs = {'min_dur': 'minDur', 
         'max_dur': 'maxDur', 
-        'spread_type': 
-        'spreadType', 
+        'spread_type': 'spreadType', 
         'maxspeed':'maxSpeed', 
         'linkIdx':'linkIndex', 
         'linkno':'linkIndex'}
@@ -243,12 +242,31 @@ def changeFile(fname):
         os.remove(fname)
         os.rename(fname+".chg", fname)
 
+def changeEdgeFile(fname):
+    if options.verbose:
+        print "Patching " + fname + " ..."
+    out = open(fname+".chg", 'w')
+    for line in open(fname):
+        if "<lane" in line:
+            line = line.replace(" id", " index")
+        if "<edge" in line:
+            line = line.replace(" fromnode", " from").replace(" tonode", " to")
+            line = line.replace(" spread_type", " spreadType").replace(" maxspeed", " maxSpeed")
+            line = line.replace(" nolanes", " numLanes")
+        out.write(line)
+    out.close()
+    if options.inplace:
+        os.remove(fname)
+        os.rename(fname+".chg", fname)
+
 def walkDir(srcRoot):
     for root, dirs, files in os.walk(srcRoot):
         for name in files:
             if name.endswith(".net.xml") or name in ["net.netconvert", "net.netgen",
-                                                     "tls.scenario", "net.scenario"]:
+                                                       "tls.scenario", "net.scenario"]:
                 changeFile(os.path.join(root, name))
+            if options.edges and name.endswith(".edg.xml"):
+                changeEdgeFile(os.path.join(root, name))
         for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)
@@ -259,6 +277,8 @@ optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-i", "--inplace", action="store_true",
                      default=False, help="replace original files")
+optParser.add_option("-e", "--edges", action="store_true",
+                     default=False, help="include edge XML files")
 (options, args) = optParser.parse_args()
 
 if len(args) == 0:
@@ -269,4 +289,7 @@ for arg in args:
         if os.path.isdir(fname):
             walkDir(fname)
         else:
-            changeFile(fname)
+            if options.edges and fname.endswith(".edg.xml"):
+                changeEdgeFile(fname)
+            else:
+                changeFile(fname)
