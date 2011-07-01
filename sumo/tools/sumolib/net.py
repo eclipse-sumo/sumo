@@ -109,6 +109,9 @@ class NetEdge:
     def getLaneNumber(self):
         return len(self._lanes)
 
+    def getLane(self, idx):
+        return self._lanes[idx]
+
     def rebuildShape(self):
         noShapes = len(self._lanes)
         if noShapes%2 == 1:
@@ -383,14 +386,14 @@ class NetReader(handler.ContentHandler):
         if name == 'junction':
             if attrs['id'][0]!=':':
                 self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
-        if name == 'succ' and self._withConnections:
+        if name == 'succ' and self._withConnections: # deprecated
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
                 self._currentLane = attrs['lane']
                 self._currentLane = int(self._currentLane[self._currentLane.rfind('_')+1:])
             else:
                 self._currentEdge = None
-        if name == 'succlane' and self._withConnections:
+        if name == 'succlane' and self._withConnections: # deprecated
             lid = attrs['lane']
             if lid[0]!=':' and lid!="SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
@@ -410,6 +413,22 @@ class NetReader(handler.ContentHandler):
                 tolane = toEdge._lanes[tolane]
                 self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
+        if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
+            fromEdge = self._net.getEdge(attrs['from'])
+            toEdge = self._net.getEdge(attrs['to'])
+            laneConn = attrs['lane'].split(":")
+            fromLane = fromEdge.getLane(int(laneConn[0]))
+            toLane = toEdge.getLane(int(laneConn[1]))
+            if attrs.has_key('tl') and attrs['tl']!="":
+                tl = attrs['tl']
+                tllink = int(attrs['linkIdx'])
+                tls = self._net.addTLS(tl, fromLane, toLane, tllink)
+                fromEdge.setTLS(tls)
+            else:
+                tl = ""
+                tllink = -1
+            fromEdge.addOutgoing(toEdge, fromLane, toLane, tl, tllink)
+            toEdge.addIncoming(fromEdge)
         if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes:
