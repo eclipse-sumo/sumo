@@ -324,7 +324,7 @@ NBRequest::writeLogic(std::string key, OutputDevice &into) const {
     int pos = 0;
     EdgeVector::const_iterator i;
     for (i=myIncoming.begin(); i!=myIncoming.end(); i++) {
-        unsigned int noLanes = (*i)->getNoLanes();
+        unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int k=0; k<noLanes; k++) {
             pos = writeLaneResponse(into, *i, k, pos);
         }
@@ -336,7 +336,7 @@ void
 NBRequest::resetSignalised() {
     // go through possible prohibitions
     for (EdgeVector::const_iterator i11=myIncoming.begin(); i11!=myIncoming.end(); i11++) {
-        unsigned int noLanesEdge1 = (*i11)->getNoLanes();
+        unsigned int noLanesEdge1 = (*i11)->getNumLanes();
         for (unsigned int j1=0; j1<noLanesEdge1; j1++) {
             std::vector<NBEdge::Connection> el1 = (*i11)->getConnectionsFromLane(j1);
             for (std::vector<NBEdge::Connection>::iterator i12=el1.begin(); i12!=el1.end(); ++i12) {
@@ -346,7 +346,7 @@ NBRequest::resetSignalised() {
                 }
                 // go through possibly prohibited
                 for (EdgeVector::const_iterator i21=myIncoming.begin(); i21!=myIncoming.end(); i21++) {
-                    unsigned int noLanesEdge2 = (*i21)->getNoLanes();
+                    unsigned int noLanesEdge2 = (*i21)->getNumLanes();
                     for (unsigned int j2=0; j2<noLanesEdge2; j2++) {
                         std::vector<NBEdge::Connection> el2 = (*i21)->getConnectionsFromLane(j2);
                         for (std::vector<NBEdge::Connection>::iterator i22=el2.begin(); i22!=el2.end(); i22++) {
@@ -398,7 +398,7 @@ NBRequest::getSizes() const {
     unsigned int noLinks = 0;
     for (EdgeVector::const_iterator i=myIncoming.begin();
             i!=myIncoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
+        unsigned int noLanesEdge = (*i)->getNumLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
             unsigned int numConnections = (unsigned int)(*i)->getConnectionsFromLane(j).size();
             noLinks += numConnections;
@@ -497,7 +497,7 @@ NBRequest::writeResponse(OutputDevice &od, const NBEdge * const from, const NBEd
     }
     for (EdgeVector::const_reverse_iterator i=myIncoming.rbegin(); i!=myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
-        unsigned int noLanes = (*i)->getNoLanes();
+        unsigned int noLanes = (*i)->getNumLanes();
         for (int j=noLanes; j-->0;) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
@@ -541,7 +541,7 @@ NBRequest::writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to, bool isInner
     for (EdgeVector::const_reverse_iterator i=myIncoming.rbegin();
             i!=myIncoming.rend(); i++) {
 
-        unsigned int noLanes = (*i)->getNoLanes();
+        unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int j=noLanes; j-->0;) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();

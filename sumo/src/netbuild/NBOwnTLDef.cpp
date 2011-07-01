@@ -89,9 +89,9 @@ NBOwnTLDef::getDirectionalWeight(LinkDirection dir) throw() {
 SUMOReal
 NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const NBEdge * const e2) throw() {
     SUMOReal val = 0;
-    for (unsigned int e1l=0; e1l<e1->getNoLanes(); e1l++) {
+    for (unsigned int e1l=0; e1l<e1->getNumLanes(); e1l++) {
         std::vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
-        for (unsigned int e2l=0; e2l<e2->getNoLanes(); e2l++) {
+        for (unsigned int e2l=0; e2l<e2->getNumLanes(); e2l++) {
             std::vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
             for (std::vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
                 if (e1->getTurnDestination()==(*e1c).toEdge) {
@@ -175,7 +175,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     unsigned int noLanesAll = 0;
     unsigned int noLinksAll = 0;
     for (unsigned int i1=0; i1<incoming.size(); i1++) {
-        unsigned int noLanes = incoming[i1]->getNoLanes();
+        unsigned int noLanes = incoming[i1]->getNumLanes();
         noLanesAll += noLanes;
         for (unsigned int i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
@@ -226,7 +226,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         for (unsigned int i1=0; i1<(unsigned int) incoming.size(); ++i1) {
             NBEdge *fromEdge = incoming[i1];
             bool inChosen = fromEdge==chosen.first||fromEdge==chosen.second;//chosen.find(fromEdge)!=chosen.end();
-            unsigned int noLanes = fromEdge->getNoLanes();
+            unsigned int noLanes = fromEdge->getNumLanes();
             for (unsigned int i2=0; i2<noLanes; i2++) {
                 std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
                 for (unsigned int i3=0; i3<approached.size(); ++i3) {
@@ -341,13 +341,13 @@ NBOwnTLDef::collectLinks() throw(ProcessError) {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
-        unsigned int noLanes = incoming->getNoLanes();
+        unsigned int noLanes = incoming->getNumLanes();
         for (unsigned int j=0; j<noLanes; j++) {
             std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
                 if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
-                    if (el.toEdge!=0&&el.toLane>=(int) el.toEdge->getNoLanes()) {
+                    if (el.toEdge!=0&&el.toLane>=(int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));

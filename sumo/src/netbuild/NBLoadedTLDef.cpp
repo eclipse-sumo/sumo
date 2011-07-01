@@ -56,7 +56,7 @@ NBLoadedTLDef::SignalGroup::~SignalGroup() throw() {}
 
 void
 NBLoadedTLDef::SignalGroup::addConnection(const NBConnection &c) throw() {
-    assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>(unsigned int)c.getFromLane());
+    assert(c.getFromLane()<0||c.getFrom()->getNumLanes()>(unsigned int)c.getFromLane());
     myConnections.push_back(c);
 }
 
@@ -346,7 +346,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
         unsigned int linkNo = group->getLinkNo();
         for (unsigned int j=0; j<linkNo; j++) {
             const NBConnection &conn = group->getConnection(j);
-            assert(conn.getFromLane()<0||(int) conn.getFrom()->getNoLanes()>conn.getFromLane());
+            assert(conn.getFromLane()<0||(int) conn.getFrom()->getNumLanes()>conn.getFromLane());
             NBConnection tst(conn);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
@@ -478,7 +478,7 @@ NBLoadedTLDef::collectLinks() throw(ProcessError) {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
-        unsigned int noLanes = incoming->getNoLanes();
+        unsigned int noLanes = incoming->getNumLanes();
         for (unsigned int j=0; j<noLanes; j++) {
             std::vector<NBEdge::Connection> elv = incoming->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); k++) {

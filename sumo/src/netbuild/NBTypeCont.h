@@ -134,7 +134,7 @@ public:
      * @param[in] type The name of the type to return the lane number for
      * @return The number of lanes an edge of this type has
      */
-    int getNoLanes(const std::string &type) const throw();
+    int getNumLanes(const std::string &type) const throw();
 
 
     /** @brief Returns the maximal velocity for the given type [m/s]

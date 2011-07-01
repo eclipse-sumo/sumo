@@ -106,7 +106,7 @@ NBTypeCont::markAsToDiscard(const std::string &id) throw() {
 
 // ------------ Type-dependant Retrieval methods
 int
-NBTypeCont::getNoLanes(const std::string &type) const throw() {
+NBTypeCont::getNumLanes(const std::string &type) const throw() {
     return getType(type).noLanes;
 }
 

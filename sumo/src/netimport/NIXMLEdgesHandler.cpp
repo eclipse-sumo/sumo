@@ -71,7 +71,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
         myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false),
 		myHaveWarnedAboutDeprecatedFromTo(false),
-        myHaveWarnedAboutDeprecatedNoLanes(false){}
+		myHaveWarnedAboutDeprecatedNoLanes(false),
+        myHaveWarnedAboutDeprecatedLaneId(false){}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -96,7 +97,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         // use default values, first
         myCurrentSpeed = myTypeCont.getSpeed("");
         myCurrentPriority = myTypeCont.getPriority("");
-        myCurrentLaneNo = myTypeCont.getNoLanes("");
+        myCurrentLaneNo = myTypeCont.getNumLanes("");
         myAllowed = myTypeCont.getAllowedClasses("");
         myNotAllowed = myTypeCont.getDisallowedClasses("");
         myCurrentWidth = myTypeCont.getWidth("");
@@ -115,7 +116,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             }
             myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
             myCurrentPriority = myTypeCont.getPriority(myCurrentType);
-            myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
+            myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
             myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
             myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
             myCurrentWidth = myTypeCont.getWidth(myCurrentType);
@@ -129,7 +130,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             }
             myCurrentSpeed = myCurrentEdge->getSpeed();
             myCurrentPriority = myCurrentEdge->getPriority();
-            myCurrentLaneNo = myCurrentEdge->getNoLanes();
+            myCurrentLaneNo = myCurrentEdge->getNumLanes();
             myCurrentType = myCurrentEdge->getTypeID();
             myAllowed = myCurrentEdge->getAllowedVehicleClasses();
             myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
@@ -242,7 +243,16 @@ NIXMLEdgesHandler::myStartElement(int element,
             return;
         }
         bool ok = true;
-        int lane = attrs.getIntReporting(SUMO_ATTR_ID, 0, ok);
+        int lane;
+        if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+            lane = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
+            if(!myHaveWarnedAboutDeprecatedLaneId) {
+                myHaveWarnedAboutDeprecatedLaneId = true;
+                WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
+            }
+        } else {
+            lane = attrs.getIntReporting(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
+        }
         std::vector<std::string> disallowed, allowed, preferred;
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, ""), disallowed);
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, ""), allowed);
@@ -250,13 +260,9 @@ NIXMLEdgesHandler::myStartElement(int element,
         if (!ok) {
             return;
         }
-        if (lane<0) {
-            MsgHandler::getErrorInstance()->inform("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
-            return;
-        }
         // check whether this lane exists
-        if (lane>=(int) myCurrentEdge->getNoLanes()) {
-            MsgHandler::getErrorInstance()->inform("Lane-id is larger than number of lanes (edge '" + myCurrentID + "').");
+        if (lane>=(int) myCurrentEdge->getNumLanes()) {
+            MsgHandler::getErrorInstance()->inform("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
             return;
         }
         // set information about allowed / disallowed vehicle classes
@@ -290,7 +296,7 @@ NIXMLEdgesHandler::myStartElement(int element,
                     Split e;
                     e.pos = (SUMOReal) forcedLength;
                     e.nameid = nameid;
-                    for (unsigned int j=0; j<myCurrentEdge->getNoLanes(); j++) {
+                    for (unsigned int j=0; j<myCurrentEdge->getNumLanes(); j++) {
                         e.lanes.push_back(j);
                     }
                     mySplits.push_back(e);
@@ -340,7 +346,7 @@ NIXMLEdgesHandler::myStartElement(int element,
                 }
             }
             if (e.lanes.empty()) {
-                for (size_t l = 0; l < myCurrentEdge->getNoLanes(); ++l) {
+                for (size_t l = 0; l < myCurrentEdge->getNumLanes(); ++l) {
                     e.lanes.push_back((int) l);
                 }
             }
@@ -504,7 +510,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             std::vector<Split>::iterator i;
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             NBEdge *e = myCurrentEdge;
-            unsigned int noLanesMax = e->getNoLanes();
+            unsigned int noLanesMax = e->getNumLanes();
             // compute the node positions and sort the lanes
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
@@ -513,7 +519,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             }
             // split the edge
             std::vector<int> currLanes;
-            for (unsigned int l=0; l<e->getNoLanes(); ++l) {
+            for (unsigned int l=0; l<e->getNumLanes(); ++l) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();
@@ -529,7 +535,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                         std::string nid = myCurrentID + "." +  toString(exp.nameid);
                         std::string pid = e->getID();
                         myEdgeCont.splitAt(myDistrictCont, e, exp.pos-seen, rn,
-                                           pid, nid, e->getNoLanes(), (unsigned int) exp.lanes.size());
+                                           pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size());
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
                         NBEdge *pe = myEdgeCont.retrieve(pid);
@@ -546,7 +552,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                         unsigned int leftMostP = currLanes.back();
                         unsigned int leftMostN = newLanes.back();
                         for (int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
-                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
+                            pe->addLane2LaneConnection(pe->getNumLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  all other connected
                         for (unsigned int l=0; l<noLanesMax; ++l) {
@@ -565,10 +571,10 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                         WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
                 }  else if (exp.pos==0) {
-                    if (e->getNoLanes() < exp.lanes.size()) {
-                        e->incLaneNo((int) exp.lanes.size() - e->getNoLanes());
+                    if (e->getNumLanes() < exp.lanes.size()) {
+                        e->incLaneNo((int) exp.lanes.size() - e->getNumLanes());
                     } else {
-                        e->decLaneNo(e->getNoLanes() - (int) exp.lanes.size());
+                        e->decLaneNo(e->getNumLanes() - (int) exp.lanes.size());
                     }
                     currLanes = exp.lanes;
                 } else {

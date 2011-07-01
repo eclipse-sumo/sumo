@@ -437,15 +437,15 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
             cad -= twoPI;
         }
         SUMOReal offset = 0;
-        int laneDiff = (*i)->getNoLanes() - (*ccwi)->getNoLanes();
+        int laneDiff = (*i)->getNumLanes() - (*ccwi)->getNumLanes();
         if (*ccwi!=*cwi) {
-            laneDiff -= (*cwi)->getNoLanes();
+            laneDiff -= (*cwi)->getNumLanes();
         }
         laneDiff = 0;
-        if (myNode.hasIncoming(*i)&&(*ccwi)->getNoLanes()%2==1) {
+        if (myNode.hasIncoming(*i)&&(*ccwi)->getNumLanes()%2==1) {
             laneDiff = 1;
         }
-        if (myNode.hasOutgoing(*i)&&(*cwi)->getNoLanes()%2==1) {
+        if (myNode.hasOutgoing(*i)&&(*cwi)->getNumLanes()%2==1) {
             laneDiff = 1;
         }
 
@@ -457,7 +457,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     return PositionVector();
                 }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                    (*cwi)->getGeometry(), (*cwi)->getNoLanes(), distances[*cwi],
+                                    (*cwi)->getGeometry(), (*cwi)->getNumLanes(), distances[*cwi],
                                     laneDiff);
             } else {
                 if (distances.find(*ccwi)==distances.end()) {
@@ -468,7 +468,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     counter = counter.reverse();
                 }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                    counter, (*ccwi)->getNoLanes(), distances[*ccwi],
+                                    counter, (*ccwi)->getNumLanes(), distances[*ccwi],
                                     laneDiff);
             }
         } else {
@@ -477,7 +477,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     return PositionVector();
                 }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                     (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi],
+                                     (*ccwi)->getGeometry().reverse(), (*ccwi)->getNumLanes(), distances[*ccwi],
                                      laneDiff);
             } else {
                 if (distances.find(*cwi)==distances.end()) {
@@ -488,7 +488,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     counter = counter.reverse();
                 }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                     counter, (*cwi)->getNoLanes(), distances[*cwi],
+                                     counter, (*cwi)->getNumLanes(), distances[*cwi],
                                      laneDiff);
             }
         }
@@ -505,14 +505,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     return PositionVector();
                 }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                    counter, (*cwi)->getNoLanes(), distances[*cwi],
+                                    counter, (*cwi)->getNumLanes(), distances[*cwi],
                                     laneDiff);
             } else {
                 if (distances.find(*cwi)==distances.end()) {
                     return PositionVector();
                 }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                     counter, (*cwi)->getNoLanes(), distances[*cwi],
+                                     counter, (*cwi)->getNumLanes(), distances[*cwi],
                                      laneDiff);
             }
             cwBoundary[*i]->setGeometry(g);
@@ -536,14 +536,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                     return PositionVector();
                 }
                 replaceLastChecking(g, (*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                    counter, (*ccwi)->getNoLanes(), distances[*ccwi],
+                                    counter, (*ccwi)->getNumLanes(), distances[*ccwi],
                                     laneDiff);
             } else {
                 if (distances.find(*cwi)==distances.end()) {
                     return PositionVector();
                 }
                 replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==LANESPREAD_CENTER,
-                                     counter, (*cwi)->getNoLanes(), distances[*cwi],
+                                     counter, (*cwi)->getNumLanes(), distances[*cwi],
                                      laneDiff);
             }
             ccwBoundary[*i]->setGeometry(g);
@@ -558,7 +558,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         computeSameEnd(geomsCW[*i], geomsCCW[*i]);
 
         // and rebuild previous information
-        if (((*cwi)->getNoLanes()+(*ccwi)->getNoLanes())>(*i)->getNoLanes()) {
+        if (((*cwi)->getNumLanes()+(*ccwi)->getNumLanes())>(*i)->getNumLanes()) {
             offset = 5;
         }
         if (ccwBoundary[*i]!=cwBoundary[*i]) {

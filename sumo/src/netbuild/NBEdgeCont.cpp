@@ -392,14 +392,14 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
                              edge->getPriority(), edge->myWidth, -1, geoms.first, 
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
-    for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
+    for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNumLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge *two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
                              edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second, 
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
-    for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
+    for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNumLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     two->copyConnectionsFrom(edge);
@@ -414,14 +414,14 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // check special case:
     //  one in, one out, the outgoing has one lane more
     if (noLanesFirstEdge==noLanesSecondEdge-1) {
-        for (unsigned int i=0; i<one->getNoLanes(); i++) {
+        for (unsigned int i=0; i<one->getNumLanes(); i++) {
             if (!one->addLane2LaneConnection(i, two, i+1, NBEdge::L2L_COMPUTED)) {// !!! Bresenham, here!!!
                 throw ProcessError("Could not set connection!");
             }
         }
         one->addLane2LaneConnection(0, two, 0, NBEdge::L2L_COMPUTED);
     } else {
-        for (unsigned int i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
+        for (unsigned int i=0; i<one->getNumLanes()&&i<two->getNumLanes(); i++) {
             if (!one->addLane2LaneConnection(i, two, i, NBEdge::L2L_COMPUTED)) {// !!! Bresenham, here!!!
                 throw ProcessError("Could not set connection!");
             }
@@ -557,7 +557,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
         assert((*i)->getFromNode()==from);
         assert((*i)->getToNode()==to);
         // ad the number of lanes the current edge has
-        nolanes += (*i)->getNoLanes();
+        nolanes += (*i)->getNumLanes();
         // build the id
         if (i!=edges.begin()) {
             id += "+";
@@ -591,12 +591,12 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     unsigned int currLane = 0;
     for (i=edges.begin(); i!=edges.end(); i++) {
         newEdge->moveOutgoingConnectionsFrom(*i, currLane);
-        currLane += (*i)->getNoLanes();
+        currLane += (*i)->getNumLanes();
     }
     // patch tl-information
     currLane = 0;
     for (i=edges.begin(); i!=edges.end(); i++) {
-        unsigned int noLanes = (*i)->getNoLanes();
+        unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int j=0; j<noLanes; j++, currLane++) {
             // replace in traffic lights
             tlc.replaceRemoved(*i, j, newEdge, currLane);

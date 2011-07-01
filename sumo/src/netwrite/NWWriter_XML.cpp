@@ -116,7 +116,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->getTypeID() != "") {
             edevice << "\" type=\"" << e->getTypeID();
         }
-        edevice << "\" numLanes=\"" << e->getNoLanes()
+        edevice << "\" numLanes=\"" << e->getNumLanes()
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write inner geometry (if any)
         if (!e->hasDefaultGeometry()) {
@@ -153,7 +153,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             edevice << "   </edge>\n";
         }
         // write this edge's connections to the connections-files
-        unsigned int noLanes = e->getNoLanes();
+        unsigned int noLanes = e->getNumLanes();
         e->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = e->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {

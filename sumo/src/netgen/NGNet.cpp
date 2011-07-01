@@ -220,7 +220,7 @@ NGNet::toNB() const throw(ProcessError) {
         for (EdgeVector::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
             if (node->getConnectionTo((*j)->getFromNode())==0 && RandHelper::rand()<=bidiProb) {
                 NBEdge *back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNoLanes(""),
+                                          "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNumLanes(""),
                                           myNetBuilder.getTypeCont().getPriority(""), myNetBuilder.getTypeCont().getWidth(""), -1);
                 myNetBuilder.getEdgeCont().insert(back);
             }

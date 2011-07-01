@@ -338,7 +338,7 @@ NIImporter_VISUM::parse_Edges() {
                   ? TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str())
                   : true;
     // get the number of lanes
-    int nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
+    int nolanes = myNetBuilder.getTypeCont().getNumLanes(type);
     if (!OptionsCont::getOptions().getBool("visum.recompute-lane-number")) {
         try {
             if (!OptionsCont::getOptions().getBool("visum.use-type-laneno")) {
@@ -666,7 +666,7 @@ NIImporter_VISUM::parse_Lanes() {
     }
     // get the direction
     std::string dirS = NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
-    int prevLaneNo = baseEdge->getNoLanes();
+    int prevLaneNo = baseEdge->getNumLanes();
     if ((dirS=="1"&&!(node->hasIncoming(edge))) || (dirS=="0"&&!(node->hasOutgoing(edge)))) {
         // get the last part of the turnaround direction
         edge = getReversedContinuating(edge, node);
@@ -690,7 +690,7 @@ NIImporter_VISUM::parse_Lanes() {
     }
     //
     if (length==0) {
-        if ((int) edge->getNoLanes()>lane) {
+        if ((int) edge->getNumLanes()>lane) {
             // ok, we know this already...
             return;
         }
@@ -700,7 +700,7 @@ NIImporter_VISUM::parse_Lanes() {
         // check whether this edge already has been created
         if (edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
             if (edge->getID().substr(edge->getID().find('_'))=="_" + toString(length) + "_" + node->getID()) {
-                if ((int) edge->getNoLanes()>lane) {
+                if ((int) edge->getNumLanes()>lane) {
                     // ok, we know this already...
                     return;
                 }
@@ -757,7 +757,7 @@ NIImporter_VISUM::parse_Lanes() {
         }
         std::string nid = edgeID + "_" +  toString((size_t) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,
-                                           edge->getID(), nid, edge->getNoLanes()+0, edge->getNoLanes()+1);
+                                           edge->getID(), nid, edge->getNumLanes()+0, edge->getNumLanes()+1);
         NBEdge *nedge = myNetBuilder.getEdgeCont().retrieve(nid);
         nedge = nedge->getToNode()->getOutgoingEdges()[0];
         while (nedge->getID().substr(nedge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
@@ -960,21 +960,21 @@ void NIImporter_VISUM::parse_LanesConnections() {
 
     int fromLaneOffset = 0;
     if (!node->hasIncoming(fromEdge)) {
-        fromLaneOffset = fromEdge->getNoLanes();
+        fromLaneOffset = fromEdge->getNumLanes();
         fromEdge = getReversedContinuating(fromEdge, node);
     } else {
         fromEdge = getReversedContinuating(fromEdge, node);
         NBEdge *tmp = myNetBuilder.getEdgeCont().retrieve(fromEdge->getID().substr(0, fromEdge->getID().find('_')));
-        fromLaneOffset = tmp->getNoLanes();
+        fromLaneOffset = tmp->getNumLanes();
     }
 
     int toLaneOffset = 0;
     if (!node->hasOutgoing(toEdge)) {
-        toLaneOffset = toEdge->getNoLanes();
+        toLaneOffset = toEdge->getNumLanes();
         toEdge = getReversedContinuating(toEdge, node);
     } else {
         NBEdge *tmp = myNetBuilder.getEdgeCont().retrieve(toEdge->getID().substr(0, toEdge->getID().find('_')));
-        toLaneOffset = tmp->getNoLanes();
+        toLaneOffset = tmp->getNumLanes();
     }
     // get the from-lane
     std::string fromLaneS = NBHelpers::normalIDRepresentation(myLineParser.get("VONFSNR"));
@@ -1008,19 +1008,19 @@ void NIImporter_VISUM::parse_LanesConnections() {
     if (fromLane-fromLaneOffset<0) {
         fromLaneOffset = 0;
     } else {
-        fromLane = fromEdge->getNoLanes() - (fromLane-fromLaneOffset) - 1;
+        fromLane = fromEdge->getNumLanes() - (fromLane-fromLaneOffset) - 1;
     }
     if (toLane-toLaneOffset<0) {
         toLaneOffset = 0;
     } else {
-        toLane = toEdge->getNoLanes() - (toLane-toLaneOffset) - 1;
+        toLane = toEdge->getNumLanes() - (toLane-toLaneOffset) - 1;
     }
     //
-    if ((int) fromEdge->getNoLanes()<=fromLane) {
+    if ((int) fromEdge->getNumLanes()<=fromLane) {
         MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
         return;
     }
-    if ((int) toEdge->getNoLanes()<=toLane) {
+    if ((int) toEdge->getNumLanes()<=toLane) {
         MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
         return;
     }

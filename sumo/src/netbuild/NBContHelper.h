@@ -142,7 +142,7 @@ public:
             if (e1->getSpeed()!=e2->getSpeed()) {
                 return e1->getSpeed() > e2->getSpeed();
             }
-            return e1->getNoLanes() > e2->getNoLanes();
+            return e1->getNumLanes() > e2->getNumLanes();
         }
     };
 

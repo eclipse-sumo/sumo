@@ -224,7 +224,7 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw() {
             }
             if ((*j)->hasIncoming(*k)) {
                 ++noIncoming;
-                f += (SUMOReal)(*k)->getNoLanes() * (*k)->getLaneSpeed(0);
+                f += (SUMOReal)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
             } else {
                 ++noOutgoing;
             }
@@ -786,7 +786,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
         }
 
         // check whether a lane is missing
-        if (pot_highway->getNoLanes()+pot_ramp->getNoLanes()<=cont->getNoLanes()) {
+        if (pot_highway->getNumLanes()+pot_ramp->getNumLanes()<=cont->getNumLanes()) {
             return false;
         }
 
@@ -795,7 +795,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
             std::swap(pot_highway, pot_ramp);
         } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                    &&
-                   pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+                   pot_highway->getNumLanes()<pot_ramp->getNumLanes()) {
 
             std::swap(pot_highway, pot_ramp);
         }
@@ -833,13 +833,13 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
-               pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+               pot_highway->getNumLanes()<pot_ramp->getNumLanes()) {
 
         std::swap(pot_highway, pot_ramp);
     }
 
     // compute the number of lanes to append
-    int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - cont->getNoLanes();
+    int toAdd = (pot_ramp->getNumLanes() + pot_highway->getNumLanes()) - cont->getNumLanes();
     if (toAdd<=0) {
         return false;
     }
@@ -851,19 +851,19 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         if (find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
             cont->incLaneNo(toAdd);
             incremented.push_back(cont);
-            if (!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
-                    MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNumLanes(),
+                    MIN2(cont->getNumLanes()-pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
             //
             cont->invalidateConnections(true);
             const EdgeVector &o1 = cont->getToNode()->getOutgoingEdges();
-            if (o1.size()==1&&o1[0]->getNoLanes()<cont->getNoLanes()) {
-                cont->addLane2LaneConnections(cont->getNoLanes()-o1[0]->getNoLanes(),
-                                              o1[0], 0, o1[0]->getNoLanes(), NBEdge::L2L_VALIDATED);
+            if (o1.size()==1&&o1[0]->getNumLanes()<cont->getNumLanes()) {
+                cont->addLane2LaneConnections(cont->getNumLanes()-o1[0]->getNumLanes(),
+                                              o1[0], 0, o1[0]->getNumLanes(), NBEdge::L2L_VALIDATED);
             }
             //
             if (cont->getLaneSpreadFunction()==LANESPREAD_CENTER) {
@@ -893,7 +893,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         std::string name = cont->getID();
         bool ok = ec.splitAt(dc, cont, rn,
                              cont->getID()+"-AddedOnRampEdge", cont->getID(),
-                             cont->getNoLanes()+toAdd, cont->getNoLanes());
+                             cont->getNumLanes()+toAdd, cont->getNumLanes());
         if (!ok) {
             MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return true;
@@ -901,9 +901,9 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
             NBEdge *added = ec.retrieve(name);
             incremented.push_back(added_ramp);
-            if (added_ramp->getNoLanes()!=added->getNoLanes()) {
-                int off = added_ramp->getNoLanes()-added->getNoLanes();
-                if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
+            if (added_ramp->getNumLanes()!=added->getNumLanes()) {
+                int off = added_ramp->getNumLanes()-added->getNumLanes();
+                if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
                 if (added_ramp->getLaneSpreadFunction()==LANESPREAD_CENTER) {
@@ -917,16 +917,16 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     }
                 }
             } else {
-                if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
+                if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
             }
-            if (!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNoLanes(),
-                    MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, false, true)) {
+            if (!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNumLanes(),
+                    MIN2(added_ramp->getNumLanes()-pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, false, true)) {
                 throw ProcessError("Could not set connection!");
 
             }
-            if (!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
             PositionVector p = pot_ramp->getGeometry();
@@ -951,12 +951,12 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
-               pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+               pot_highway->getNumLanes()<pot_ramp->getNumLanes()) {
 
         std::swap(pot_highway, pot_ramp);
     }
     // compute the number of lanes to append
-    int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - prev->getNoLanes();
+    int toAdd = (pot_ramp->getNumLanes() + pot_highway->getNumLanes()) - prev->getNumLanes();
     if (toAdd<=0) {
         return;
     }
@@ -968,13 +968,13 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             incremented.push_back(prev);
             prev->incLaneNo(toAdd);
             prev->invalidateConnections(true);
-            if (!prev->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
-                                               MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, true)) {
+            if (!prev->addLane2LaneConnections(pot_ramp->getNumLanes(), pot_highway, 0,
+                                               MIN2(prev->getNumLanes()-1, pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
 
                 throw ProcessError("Could not set connection!");
 
             }
-            if (!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, false)) {
+            if (!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
 
             }
@@ -1004,17 +1004,17 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         std::string name = prev->getID();
         bool ok = ec.splitAt(dc, prev, rn,
                              prev->getID(), prev->getID()+"-AddedOffRampEdge",
-                             prev->getNoLanes(), prev->getNoLanes()+toAdd);
+                             prev->getNumLanes(), prev->getNumLanes()+toAdd);
         if (!ok) {
             MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return;
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
             NBEdge *added = ec.retrieve(name);
-            if (added_ramp->getNoLanes()!=added->getNoLanes()) {
+            if (added_ramp->getNumLanes()!=added->getNumLanes()) {
                 incremented.push_back(added_ramp);
-                int off = added_ramp->getNoLanes()-added->getNoLanes();
-                if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
+                int off = added_ramp->getNumLanes()-added->getNumLanes();
+                if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
 
                 }
@@ -1029,15 +1029,15 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     }
                 }
             } else {
-                if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
+                if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
             }
-            if (!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
-                    MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, true)) {
+            if (!added_ramp->addLane2LaneConnections(pot_ramp->getNumLanes(), pot_highway, 0,
+                    MIN2(added_ramp->getNumLanes()-pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, false)) {
+            if (!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
 
             }
@@ -1064,7 +1064,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
         }
 
         // check whether a lane is missing
-        if (pot_highway->getNoLanes()+pot_ramp->getNoLanes()<=prev->getNoLanes()) {
+        if (pot_highway->getNumLanes()+pot_ramp->getNumLanes()<=prev->getNumLanes()) {
             return false;
         }
 
@@ -1073,7 +1073,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
             std::swap(pot_highway, pot_ramp);
         } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                    &&
-                   pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+                   pot_highway->getNumLanes()<pot_ramp->getNumLanes()) {
 
             std::swap(pot_highway, pot_ramp);
         }
@@ -1102,7 +1102,7 @@ NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
         std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
-               pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+               pot_highway->getNumLanes()<pot_ramp->getNumLanes()) {
 
         std::swap(pot_highway, pot_ramp);
     }

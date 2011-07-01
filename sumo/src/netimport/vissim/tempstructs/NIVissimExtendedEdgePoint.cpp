@@ -90,7 +90,7 @@ NIVissimExtendedEdgePoint::recheckLanes(const NBEdge * const edge) throw() {
     }
     // patch lane indices
     myLanes.clear();
-    for (int i=0; i<(int) edge->getNoLanes(); ++i) {
+    for (int i=0; i<(int) edge->getNumLanes(); ++i) {
         myLanes.push_back(i);
     }
 }

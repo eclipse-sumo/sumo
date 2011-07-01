@@ -161,7 +161,7 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
-        unsigned int noLanes = incoming->getNoLanes();
+        unsigned int noLanes = incoming->getNumLanes();
         for (unsigned int j=0; j<noLanes; j++) {
             std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {

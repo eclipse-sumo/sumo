@@ -76,9 +76,9 @@ NWWriter_MATSim::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 			<< "\" from=\"" << (*i).second->getFromNode()->getID()
 			<< "\" to=\"" << (*i).second->getToNode()->getID()
 			<< "\" length=\"" << (*i).second->getLoadedLength()
-			<< "\" capacity=\"" << (oc.getFloat("lanes-from-capacity.norm")*(*i).second->getNoLanes())
+			<< "\" capacity=\"" << (oc.getFloat("lanes-from-capacity.norm")*(*i).second->getNumLanes())
 			<< "\" freespeed=\"" << (*i).second->getSpeed()
-			<< "\" permlanes=\"" << (*i).second->getNoLanes()
+			<< "\" permlanes=\"" << (*i).second->getNumLanes()
 			<< "\"/>\n";
 	}
 	device << "   </links>\n";

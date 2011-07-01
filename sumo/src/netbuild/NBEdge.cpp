@@ -112,7 +112,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector &outgoing,
         if (outgoing.back()->getPriority()>tmp[0]->getPriority()) {
             myDirs.push_back(MainDirections::DIR_LEFTMOST);
         } else {
-            if (outgoing.back()->getNoLanes()>tmp[0]->getNoLanes()) {
+            if (outgoing.back()->getNumLanes()>tmp[0]->getNumLanes()) {
                 myDirs.push_back(MainDirections::DIR_LEFTMOST);
             }
         }
@@ -206,8 +206,8 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName())
 {
-    init(tpl->getNoLanes(), false);
-    for (unsigned int i = 0; i < getNoLanes(); i++) {
+    init(tpl->getNumLanes(), false);
+    for (unsigned int i = 0; i < getNumLanes(); i++) {
         setLaneSpeed(i, tpl->getLaneSpeed(i));
         setVehicleClasses( tpl->getAllowedVehicleClasses(i), tpl->getDisallowedVehicleClasses(i), i);
     }
@@ -1087,7 +1087,7 @@ NBEdge::appendTurnaround(bool noTLSControlled) throw() {
     if (noTLSControlled&&myTo->isTLControlled()) {
         return;
     }
-    setConnection((unsigned int)(myLanes.size()-1), myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED);
+    setConnection((unsigned int)(myLanes.size()-1), myTurnDestination, myTurnDestination->getNumLanes()-1, L2L_VALIDATED);
 }
 
 
@@ -1163,7 +1163,7 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, unsigned int laneOff) {
 
 void
 NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, unsigned int laneOff) {
-    unsigned int lanes = e->getNoLanes();
+    unsigned int lanes = e->getNumLanes();
     for (unsigned int i=0; i<lanes; i++) {
         std::vector<NBEdge::Connection> elv = e->getConnectionsFromLane(i);
         for (std::vector<NBEdge::Connection>::iterator j=elv.begin(); j!=elv.end(); j++) {

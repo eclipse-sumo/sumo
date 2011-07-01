@@ -191,7 +191,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
     bool ret = false;
     const EdgeVector &incoming = n.getIncomingEdges();
     for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
+        unsigned int noLanesEdge = (*i)->getNumLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
             std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
@@ -251,7 +251,7 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
     "\" from=\"" << e.getFromNode()->getID() <<
     "\" to=\"" << e.getToNode()->getID();
     if (!noNames && e.getStreetName() != "") {
-        into << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e.getStreetName();
+        into << "\" " << SUMO_ATTR_NAME << "=\"" << e.getStreetName();
     }
     into << "\" priority=\"" << e.getPriority() << "\"";
     if(e.getTypeName()!="") {
@@ -265,7 +265,7 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
         into << " spreadType=\"" << toString(e.getLaneSpreadFunction()) << "\"";
     }
     if (!e.hasDefaultGeometry()) {
-        into << " " << toString(SUMO_ATTR_SHAPE) <<  "=\"" << toString(e.getGeometry()) << "\"";
+        into << " " << SUMO_ATTR_SHAPE <<  "=\"" << toString(e.getGeometry()) << "\"";
     }
     into << ">\n";
     // write the lanes
@@ -337,7 +337,7 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     // write the incoming lanes
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
-        unsigned int noLanes = (*i)->getNoLanes();
+        unsigned int noLanes = (*i)->getNumLanes();
         std::string id = (*i)->getID();
         for (unsigned int j=0; j<noLanes; j++) {
             into << id << '_' << j;
@@ -353,7 +353,7 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
         unsigned int l = 0;
         unsigned int o = n.countInternalLanes(false);
         for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-            unsigned int noLanesEdge = (*i)->getNoLanes();
+            unsigned int noLanesEdge = (*i)->getNumLanes();
             for (unsigned int j=0; j<noLanesEdge; j++) {
                 std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
                 for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
@@ -397,7 +397,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
     std::string innerID = ":" + n.getID();
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNoLanes();
+        unsigned int noLanesEdge = (*i)->getNumLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
             std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
             for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
@@ -449,7 +449,7 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
 
     if (!plain) {
         if (includeInternal) {
-            into << " " << toString(SUMO_ATTR_VIA) << "=\"" 
+            into << " " << SUMO_ATTR_VIA << "=\"" 
                 << from.getToNode()->getInternalLaneID(&from, c.fromLane, c.toEdge, c.toLane) << "_0\"";
         }
         // set information about the controlling tl if any
@@ -468,7 +468,7 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
         } else {
             stateCode = from.getToNode()->stateCode(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
         }
-        into << " " << toString(SUMO_ATTR_STATE) << "=\"" << stateCode << "\"";
+        into << " " << SUMO_ATTR_STATE << "=\"" << stateCode << "\"";
     }
     into.closeTag(true);
 }

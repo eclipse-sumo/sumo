@@ -449,7 +449,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 
 
     // otherwise it is not an edge and will be ignored
-    int noLanes = tc.getNoLanes(type);
+    int noLanes = tc.getNumLanes(type);
     SUMOReal speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
     SUMOVehicleClasses allowedClasses = tc.getAllowedClasses(type);

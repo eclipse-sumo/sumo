@@ -59,8 +59,8 @@ NBConnection::NBConnection(NBEdge *from, int fromLane,
                            NBEdge *to, int toLane)
         : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane) {
     /* @todo what should we assert here?
-    assert(myFromLane<0||from->getNoLanes()>(size_t) myFromLane);
-    assert(myToLane<0||to->getNoLanes()>(size_t) myToLane);
+    assert(myFromLane<0||from->getNumLanes()>(size_t) myFromLane);
+    assert(myToLane<0||to->getNumLanes()>(size_t) myToLane);
     */
     myFromID = from->getID();
     myToID = to!=0 ? to->getID() : "";

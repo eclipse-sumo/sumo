@@ -187,7 +187,7 @@ NIImporter_ArcView::load() {
         int priority = getPriority(*poFeature, id);
         if (nolanes==0||speed==0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
-                nolanes = myTypeCont.getNoLanes("");
+                nolanes = myTypeCont.getNumLanes("");
                 speed = myTypeCont.getSpeed("");
             } else {
                 OGRFeature::DestroyFeature(poFeature);
@@ -317,7 +317,7 @@ unsigned int
 NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
                               SUMOReal speed) {
     if (myOptions.isSet("shapefile.type-id")) {
-        return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return (unsigned int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
