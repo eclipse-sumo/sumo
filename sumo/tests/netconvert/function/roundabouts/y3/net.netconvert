@@ -54,37 +54,30 @@
         <lane id="10575_0" index="0" maxSpeed="13.90" length="212.33" shape="50.34,86.16 50.60,89.07 49.22,103.66 49.59,114.58 50.63,124.99 63.28,167.92 85.09,223.34 96.56,279.98 97.28,286.42 96.14,291.06"/>
     </edge>
 
-    <ROWLogic id="10724" requestSize="3">
-        <logicitem request="0" response="000" foes="000"/>
-        <logicitem request="1" response="000" foes="100"/>
-        <logicitem request="2" response="010" foes="010"/>
-    </ROWLogic>
-    <ROWLogic id="13442" requestSize="1">
-        <logicitem request="0" response="0" foes="0"/>
-    </ROWLogic>
-    <ROWLogic id="16910" requestSize="1">
-        <logicitem request="0" response="0" foes="0"/>
-    </ROWLogic>
-    <ROWLogic id="17391" requestSize="3">
-        <logicitem request="0" response="100" foes="100"/>
-        <logicitem request="1" response="000" foes="000"/>
-        <logicitem request="2" response="000" foes="001"/>
-    </ROWLogic>
-    <ROWLogic id="17393" requestSize="3">
-        <logicitem request="0" response="100" foes="100"/>
-        <logicitem request="1" response="000" foes="000"/>
-        <logicitem request="2" response="000" foes="001"/>
-    </ROWLogic>
-    <ROWLogic id="17446" requestSize="1">
-        <logicitem request="0" response="0" foes="0"/>
-    </ROWLogic>
-
-    <junction id="10724" type="traffic_light" x="48.19" y="80.63" incLanes="-10400_0 -10575_0" intLanes="" shape="48.80,86.85 51.89,85.46 52.46,83.20 53.14,80.05 43.83,79.92 44.52,83.09 45.41,86.05 48.69,86.86"/>
-    <junction id="13442" type="priority" x="160.57" y="43.31" incLanes="10403_0" intLanes="" shape="160.51,41.71 160.63,44.91 161.74,42.22 159.40,44.40"/>
-    <junction id="16910" type="priority" x="0.00" y="0.00" incLanes="10397_0" intLanes="" shape="-1.03,1.22 1.03,-1.22 -1.59,0.15 1.59,-0.15"/>
-    <junction id="17391" type="traffic_light" x="31.64" y="34.25" incLanes="-10397_0 10396_0" intLanes="" shape="35.32,32.13 32.72,30.16 29.85,28.52 26.93,30.25 25.69,33.50 26.91,35.53 28.73,38.20"/>
-    <junction id="17393" type="traffic_light" x="74.64" y="50.20" incLanes="-10403_0 10402_0" intLanes="" shape="74.65,54.59 77.66,53.37 80.38,51.94 80.58,48.56 80.55,48.45 78.59,45.69 76.25,45.56 73.02,45.55"/>
-    <junction id="17446" type="priority" x="96.14" y="291.06" incLanes="10575_0" intLanes="" shape="97.57,290.34 94.71,291.78 97.69,291.44 94.59,290.68"/>
+    <junction id="10724" type="traffic_light" x="48.19" y="80.63" incLanes="-10400_0 -10575_0" intLanes="" shape="48.80,86.85 51.89,85.46 52.46,83.20 53.14,80.05 43.83,79.92 44.52,83.09 45.41,86.05 48.69,86.86">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
+    </junction>
+    <junction id="13442" type="priority" x="160.57" y="43.31" incLanes="10403_0" intLanes="" shape="160.51,41.71 160.63,44.91 161.74,42.22 159.40,44.40">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="16910" type="priority" x="0.00" y="0.00" incLanes="10397_0" intLanes="" shape="-1.03,1.22 1.03,-1.22 -1.59,0.15 1.59,-0.15">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="17391" type="traffic_light" x="31.64" y="34.25" incLanes="-10397_0 10396_0" intLanes="" shape="35.32,32.13 32.72,30.16 29.85,28.52 26.93,30.25 25.69,33.50 26.91,35.53 28.73,38.20">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
+    </junction>
+    <junction id="17393" type="traffic_light" x="74.64" y="50.20" incLanes="-10403_0 10402_0" intLanes="" shape="74.65,54.59 77.66,53.37 80.38,51.94 80.58,48.56 80.55,48.45 78.59,45.69 76.25,45.56 73.02,45.55">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
+    </junction>
+    <junction id="17446" type="priority" x="96.14" y="291.06" incLanes="10575_0" intLanes="" shape="97.57,290.34 94.71,291.78 97.69,291.44 94.59,290.68">
+        <request index="0" response="0" foes="0"/>
+    </junction>
 
     <connection from="-10397" to="10402" lane="0:0" dir="r" state="m"/>
     <connection from="-10400" to="10575" lane="0:0" dir="r" state="M"/>

@@ -100,27 +100,6 @@
         <lane id="15033110_0" index="0" maxSpeed="13.89" length="31.86" shape="212.13,66.10 202.57,96.49"/>
     </edge>
 
-    <ROWLogic id="15031750" requestSize="9">
-        <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
-        <logicitem request="1" response="000000000" foes="011110000" cont="0"/>
-        <logicitem request="2" response="010001000" foes="010001000" cont="1"/>
-        <logicitem request="3" response="000000000" foes="010000100" cont="0"/>
-        <logicitem request="4" response="000000011" foes="110000011" cont="1"/>
-        <logicitem request="5" response="001000010" foes="001000010" cont="1"/>
-        <logicitem request="6" response="000000010" foes="000100010" cont="0"/>
-        <logicitem request="7" response="000011010" foes="000011110" cont="1"/>
-        <logicitem request="8" response="000010001" foes="000010001" cont="1"/>
-    </ROWLogic>
-    <ROWLogic id="15031754" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="15031788" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="15031789" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-
     <tlLogic id="15031750" type="static" programID="0" offset="0">
         <phase duration="31" state="GGgGggrrr"/>
         <phase duration="4" state="yygyggrrr"/>
@@ -130,10 +109,26 @@
         <phase duration="4" state="yrrrrryyy"/>
     </tlLogic>
 
-    <junction id="15031750" type="traffic_light" x="212.00" y="61.00" incLanes="-15033109_0 -15033077_0 -15033110_0" intLanes=":15031750_0_0 :15031750_1_0 :15031750_9_0 :15031750_3_0 :15031750_10_0 :15031750_11_0 :15031750_6_0 :15031750_12_0 :15031750_13_0" shape="215.57,65.48 217.45,59.25 208.26,56.54 206.46,62.79 207.45,64.63 213.65,66.58"/>
-    <junction id="15031754" type="priority" x="0.00" y="0.00" incLanes="15033077_0" intLanes=":15031754_0_0" shape="0.01,-0.05 0.90,-3.12 -0.90,3.12 -0.01,0.05"/>
-    <junction id="15031788" type="priority" x="255.00" y="74.00" incLanes="15033109_0" intLanes=":15031788_0_0" shape="254.99,74.05 254.06,77.11 255.94,70.89 255.01,73.95"/>
-    <junction id="15031789" type="priority" x="201.00" y="96.00" incLanes="15033110_0" intLanes=":15031789_0_0" shape="200.95,95.99 197.90,95.03 204.10,96.97 201.05,96.01"/>
+    <junction id="15031750" type="traffic_light" x="212.00" y="61.00" incLanes="-15033109_0 -15033077_0 -15033110_0" intLanes=":15031750_0_0 :15031750_1_0 :15031750_9_0 :15031750_3_0 :15031750_10_0 :15031750_11_0 :15031750_6_0 :15031750_12_0 :15031750_13_0" shape="215.57,65.48 217.45,59.25 208.26,56.54 206.46,62.79 207.45,64.63 213.65,66.58">
+        <request index="0" response="000000000" foes="100010000" cont="0"/>
+        <request index="1" response="000000000" foes="011110000" cont="0"/>
+        <request index="2" response="010001000" foes="010001000" cont="1"/>
+        <request index="3" response="000000000" foes="010000100" cont="0"/>
+        <request index="4" response="000000011" foes="110000011" cont="1"/>
+        <request index="5" response="001000010" foes="001000010" cont="1"/>
+        <request index="6" response="000000010" foes="000100010" cont="0"/>
+        <request index="7" response="000011010" foes="000011110" cont="1"/>
+        <request index="8" response="000010001" foes="000010001" cont="1"/>
+    </junction>
+    <junction id="15031754" type="priority" x="0.00" y="0.00" incLanes="15033077_0" intLanes=":15031754_0_0" shape="0.01,-0.05 0.90,-3.12 -0.90,3.12 -0.01,0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="15031788" type="priority" x="255.00" y="74.00" incLanes="15033109_0" intLanes=":15031788_0_0" shape="254.99,74.05 254.06,77.11 255.94,70.89 255.01,73.95">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="15031789" type="priority" x="201.00" y="96.00" incLanes="15033110_0" intLanes=":15031789_0_0" shape="200.95,95.99 197.90,95.03 204.10,96.97 201.05,96.01">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
 
     <junction id=":15031750_9_0" type="internal" x="214.93" y="61.89" incLanes=":15031750_2_0 -15033077_0" intLanes=":15031750_3_0" shape=""/>
     <junction id=":15031750_10_0" type="internal" x="212.50" y="62.90" incLanes=":15031750_4_0 -15033109_0" intLanes=":15031750_0_0 :15031750_1_0" shape=""/>

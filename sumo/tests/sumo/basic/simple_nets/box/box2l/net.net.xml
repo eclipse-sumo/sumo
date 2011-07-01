@@ -67,27 +67,22 @@
         <lane id="3_1" index="1" maxSpeed="36.00" length="486.90" shape="493.45,1.65 6.55,1.65"/>
     </edge>
 
-    <ROWLogic id="0" requestSize="2">
-        <logicitem request="0" response="00" foes="00" cont="0"/>
-        <logicitem request="1" response="00" foes="00" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="1" requestSize="2">
-        <logicitem request="0" response="00" foes="00" cont="0"/>
-        <logicitem request="1" response="00" foes="00" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="2" requestSize="2">
-        <logicitem request="0" response="00" foes="00" cont="0"/>
-        <logicitem request="1" response="00" foes="00" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="3" requestSize="2">
-        <logicitem request="0" response="00" foes="00" cont="0"/>
-        <logicitem request="1" response="00" foes="00" cont="0"/>
-    </ROWLogic>
-
-    <junction id="0" type="priority" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes=":0_0_0 :0_1_0" shape="0.05,6.55 6.55,6.55 6.55,0.05"/>
-    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="0_0 0_1" intLanes=":1_0_0 :1_1_0" shape="6.55,499.95 6.55,493.45 0.05,493.45"/>
-    <junction id="2" type="priority" x="500.00" y="500.00" incLanes="1_0 1_1" intLanes=":2_0_0 :2_1_0" shape="499.95,493.45 493.45,493.45 493.45,499.95"/>
-    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="2_0 2_1" intLanes=":3_0_0 :3_1_0" shape="493.45,6.55 499.95,6.55 493.45,0.05 493.45,6.55"/>
+    <junction id="0" type="priority" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes=":0_0_0 :0_1_0" shape="0.05,6.55 6.55,6.55 6.55,0.05">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="0_0 0_1" intLanes=":1_0_0 :1_1_0" shape="6.55,499.95 6.55,493.45 0.05,493.45">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="2" type="priority" x="500.00" y="500.00" incLanes="1_0 1_1" intLanes=":2_0_0 :2_1_0" shape="499.95,493.45 493.45,493.45 493.45,499.95">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="3" type="priority" x="500.00" y="0.00" incLanes="2_0 2_1" intLanes=":3_0_0 :3_1_0" shape="493.45,6.55 499.95,6.55 493.45,0.05 493.45,6.55">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
 
     <connection from="0" to="1" lane="0:0" via=":1_0_0" dir="r" state="M"/>
     <connection from="0" to="1" lane="1:1" via=":1_1_0" dir="r" state="M"/>

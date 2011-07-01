@@ -94,19 +94,6 @@
         <lane id="46039050_0" index="0" maxSpeed="22.22" length="27.42" shape="1.87,40.76 29.13,43.70"/>
     </edge>
 
-    <ROWLogic id="cluster_301292612_38919945_56231397_59993001" requestSize="10">
-        <logicitem request="0" response="0000000000" foes="1000100000" cont="0"/>
-        <logicitem request="1" response="0000000000" foes="0111100000" cont="1"/>
-        <logicitem request="2" response="0100011000" foes="0100011000" cont="1"/>
-        <logicitem request="3" response="0000000000" foes="0100000100" cont="0"/>
-        <logicitem request="4" response="0000000000" foes="0100000100" cont="0"/>
-        <logicitem request="5" response="0000000011" foes="1100000011" cont="1"/>
-        <logicitem request="6" response="0010000010" foes="0010000010" cont="1"/>
-        <logicitem request="7" response="0000000010" foes="0001000010" cont="0"/>
-        <logicitem request="8" response="0000111010" foes="0000111110" cont="0"/>
-        <logicitem request="9" response="0000100001" foes="0000100001" cont="1"/>
-    </ROWLogic>
-
     <tlLogic id="cluster_301292612_38919945_56231397_59993001" type="static" programID="0" offset="0">
         <phase duration="31" state="GGgGGggrrr"/>
         <phase duration="7" state="yygyyggrrr"/>
@@ -116,13 +103,30 @@
         <phase duration="7" state="yrrrrrryyy"/>
     </tlLogic>
 
-    <junction id="38918157" type="DEAD_END" x="88.72" y="78.21" incLanes="" intLanes="" shape="90.10,75.27 87.34,81.15"/>
-    <junction id="492462300" type="DEAD_END" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>
-    <junction id="567607201" type="DEAD_END" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.82,65.31 91.10,71.21"/>
-    <junction id="945141569" type="DEAD_END" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>
-    <junction id="cluster_301292612_38919945_56231397_59993001" type="traffic_light" x="40.27" y="50.75" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_0_0 :cluster_301292612_38919945_56231397_59993001_10_0 :cluster_301292612_38919945_56231397_59993001_11_0 :cluster_301292612_38919945_56231397_59993001_3_0 :cluster_301292612_38919945_56231397_59993001_4_0 :cluster_301292612_38919945_56231397_59993001_12_0 :cluster_301292612_38919945_56231397_59993001_13_0 :cluster_301292612_38919945_56231397_59993001_7_0 :cluster_301292612_38919945_56231397_59993001_8_0 :cluster_301292612_38919945_56231397_59993001_14_0" shape="47.17,62.29 54.14,47.09 53.23,45.04 31.50,39.48 29.30,42.11 27.85,55.65"/>
-    <junction id="gneJ0" type="DEAD_END" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.00,-1.62 48.30,-0.01"/>
-    <junction id="gneJ1" type="DEAD_END" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.80,2.20 66.00,4.14"/>
+    <junction id="38918157" type="DEAD_END" x="88.72" y="78.21" incLanes="" intLanes="" shape="90.10,75.27 87.34,81.15">
+    </junction>
+    <junction id="492462300" type="DEAD_END" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17">
+    </junction>
+    <junction id="567607201" type="DEAD_END" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.82,65.31 91.10,71.21">
+    </junction>
+    <junction id="945141569" type="DEAD_END" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46">
+    </junction>
+    <junction id="cluster_301292612_38919945_56231397_59993001" type="traffic_light" x="40.27" y="50.75" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_0_0 :cluster_301292612_38919945_56231397_59993001_10_0 :cluster_301292612_38919945_56231397_59993001_11_0 :cluster_301292612_38919945_56231397_59993001_3_0 :cluster_301292612_38919945_56231397_59993001_4_0 :cluster_301292612_38919945_56231397_59993001_12_0 :cluster_301292612_38919945_56231397_59993001_13_0 :cluster_301292612_38919945_56231397_59993001_7_0 :cluster_301292612_38919945_56231397_59993001_8_0 :cluster_301292612_38919945_56231397_59993001_14_0" shape="47.17,62.29 54.14,47.09 53.23,45.04 31.50,39.48 29.30,42.11 27.85,55.65">
+        <request index="0" response="0000000000" foes="1000100000" cont="0"/>
+        <request index="1" response="0000000000" foes="0111100000" cont="1"/>
+        <request index="2" response="0100011000" foes="0100011000" cont="1"/>
+        <request index="3" response="0000000000" foes="0100000100" cont="0"/>
+        <request index="4" response="0000000000" foes="0100000100" cont="0"/>
+        <request index="5" response="0000000011" foes="1100000011" cont="1"/>
+        <request index="6" response="0010000010" foes="0010000010" cont="1"/>
+        <request index="7" response="0000000010" foes="0001000010" cont="0"/>
+        <request index="8" response="0000111010" foes="0000111110" cont="0"/>
+        <request index="9" response="0000100001" foes="0000100001" cont="1"/>
+    </junction>
+    <junction id="gneJ0" type="DEAD_END" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.00,-1.62 48.30,-0.01">
+    </junction>
+    <junction id="gneJ1" type="DEAD_END" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.80,2.20 66.00,4.14">
+    </junction>
 
     <junction id=":cluster_301292612_38919945_56231397_59993001_10_0" type="internal" x="41.00" y="52.53" incLanes=":cluster_301292612_38919945_56231397_59993001_1_0 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_7_0 :cluster_301292612_38919945_56231397_59993001_8_0" shape=""/>
     <junction id=":cluster_301292612_38919945_56231397_59993001_11_0" type="internal" x="47.51" y="53.25" incLanes=":cluster_301292612_38919945_56231397_59993001_2_0 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_8_0" shape=""/>

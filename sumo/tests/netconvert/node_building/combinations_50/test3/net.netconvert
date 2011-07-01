@@ -93,32 +93,28 @@
         <lane id="4o_0" index="0" maxSpeed="9.73" length="45.25" shape="51.65,54.75 51.65,100.00"/>
     </edge>
 
-    <ROWLogic id="0" requestSize="9">
-        <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
-        <logicitem request="1" response="000000000" foes="011110000" cont="1"/>
-        <logicitem request="2" response="010001000" foes="010001000" cont="1"/>
-        <logicitem request="3" response="000000000" foes="010000100" cont="0"/>
-        <logicitem request="4" response="000000011" foes="110000011" cont="1"/>
-        <logicitem request="5" response="001000010" foes="001000010" cont="1"/>
-        <logicitem request="6" response="000000010" foes="000100010" cont="0"/>
-        <logicitem request="7" response="000011010" foes="000011110" cont="0"/>
-        <logicitem request="8" response="000010001" foes="000010001" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="2" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="3" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-    <ROWLogic id="4" requestSize="1">
-        <logicitem request="0" response="0" foes="0" cont="0"/>
-    </ROWLogic>
-
-    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0" intLanes=":0_0_0 :0_9_0 :0_10_0 :0_3_0 :0_11_0 :0_12_0 :0_6_0 :0_7_0 :0_8_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25"/>
-    <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape=""/>
-    <junction id="2" type="priority" x="100.00" y="50.00" incLanes="2o_0" intLanes=":2_0_0" shape="100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95"/>
-    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
-    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00"/>
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0" intLanes=":0_0_0 :0_9_0 :0_10_0 :0_3_0 :0_11_0 :0_12_0 :0_6_0 :0_7_0 :0_8_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25">
+        <request index="0" response="000000000" foes="100010000" cont="0"/>
+        <request index="1" response="000000000" foes="011110000" cont="1"/>
+        <request index="2" response="010001000" foes="010001000" cont="1"/>
+        <request index="3" response="000000000" foes="010000100" cont="0"/>
+        <request index="4" response="000000011" foes="110000011" cont="1"/>
+        <request index="5" response="001000010" foes="001000010" cont="1"/>
+        <request index="6" response="000000010" foes="000100010" cont="0"/>
+        <request index="7" response="000011010" foes="000011110" cont="0"/>
+        <request index="8" response="000010001" foes="000010001" cont="0"/>
+    </junction>
+    <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="">
+    </junction>
+    <junction id="2" type="priority" x="100.00" y="50.00" incLanes="2o_0" intLanes=":2_0_0" shape="100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="3" type="priority" x="50.00" y="0.00" incLanes="3o_0" intLanes=":3_0_0" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="4" type="priority" x="50.00" y="100.00" incLanes="4o_0" intLanes=":4_0_0" shape="49.95,100.00 46.75,100.00 53.25,100.00 50.05,100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
 
     <junction id=":0_9_0" type="internal" x="49.92" y="50.00" incLanes=":0_1_0" intLanes="" shape=""/>
     <junction id=":0_10_0" type="internal" x="50.00" y="53.10" incLanes=":0_2_0" intLanes="" shape=""/>

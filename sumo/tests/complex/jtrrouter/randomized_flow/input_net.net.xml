@@ -84,73 +84,6 @@
         <lane id="right2end_0" index="0" maxSpeed="36.00" length="42.00" shape="96.75,601.65 54.75,601.65"/>
     </edge>
 
-    <ROWLogic id="absBeg" requestSize="1">
-        <logicitem request="0" response="0" foes="0"/>
-    </ROWLogic>
-    <ROWLogic id="absEnd" requestSize="1">
-        <logicitem request="0" response="0" foes="0"/>
-    </ROWLogic>
-    <ROWLogic id="beg" requestSize="16">
-        <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-        <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
-        <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
-        <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-        <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
-        <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
-        <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
-        <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-        <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-        <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
-        <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
-        <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-        <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
-        <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
-        <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
-        <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-    </ROWLogic>
-    <ROWLogic id="begleft" requestSize="4">
-        <logicitem request="0" response="0000" foes="1000"/>
-        <logicitem request="1" response="0100" foes="0100"/>
-        <logicitem request="2" response="0000" foes="0010"/>
-        <logicitem request="3" response="0001" foes="0001"/>
-    </ROWLogic>
-    <ROWLogic id="begright" requestSize="4">
-        <logicitem request="0" response="0000" foes="1000"/>
-        <logicitem request="1" response="0100" foes="0100"/>
-        <logicitem request="2" response="0000" foes="0010"/>
-        <logicitem request="3" response="0001" foes="0001"/>
-    </ROWLogic>
-    <ROWLogic id="end" requestSize="16">
-        <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
-        <logicitem request="1" response="0000000000000000" foes="0111110001100000"/>
-        <logicitem request="2" response="0000001100000000" foes="0110001111100000"/>
-        <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
-        <logicitem request="4" response="0000001000000000" foes="0100001000001000"/>
-        <logicitem request="5" response="0000011000000111" foes="1100011000000111"/>
-        <logicitem request="6" response="0011011000000110" foes="0011111000000110"/>
-        <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
-        <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
-        <logicitem request="9" response="0000000000000000" foes="0110000001111100"/>
-        <logicitem request="10" response="0000000000000011" foes="1110000001100011"/>
-        <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
-        <logicitem request="12" response="0000000000000010" foes="0000100001000010"/>
-        <logicitem request="13" response="0000011100000110" foes="0000011111000110"/>
-        <logicitem request="14" response="0000011000110110" foes="0000011000111110"/>
-        <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
-    </ROWLogic>
-    <ROWLogic id="endleft" requestSize="4">
-        <logicitem request="0" response="0000" foes="1000"/>
-        <logicitem request="1" response="0100" foes="0100"/>
-        <logicitem request="2" response="0000" foes="0010"/>
-        <logicitem request="3" response="0001" foes="0001"/>
-    </ROWLogic>
-    <ROWLogic id="endright" requestSize="4">
-        <logicitem request="0" response="0000" foes="1000"/>
-        <logicitem request="1" response="0100" foes="0100"/>
-        <logicitem request="2" response="0000" foes="0010"/>
-        <logicitem request="3" response="0001" foes="0001"/>
-    </ROWLogic>
-
     <tlLogic id="end" type="static" programID="0" offset="0">
         <phase duration="31" state="GGggrrrrGGggrrrr"/>
         <phase duration="12" state="yyggrrrryyggrrrr"/>
@@ -162,14 +95,72 @@
         <phase duration="12" state="rrrrrryyrrrrrryy"/>
     </tlLogic>
 
-    <junction id="absBeg" type="priority" x="50.00" y="0.00" incLanes="-beg_0" intLanes="" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00"/>
-    <junction id="absEnd" type="priority" x="50.00" y="800.00" incLanes="end_0" intLanes="" shape="49.95,800.00 46.75,800.00 53.25,800.00 50.05,800.00"/>
-    <junction id="beg" type="priority" x="50.00" y="200.00" incLanes="-middle_0 -beg2right_0 beg_0 -beg2left_0" intLanes="" shape="46.75,204.75 53.25,204.75 54.75,203.25 54.75,196.75 53.25,195.25 46.75,195.25 45.25,196.75 45.25,203.25"/>
-    <junction id="begleft" type="priority" x="0.00" y="200.00" incLanes="-left_0 beg2left_0" intLanes="" shape="-3.25,203.25 3.25,203.25 3.25,196.75"/>
-    <junction id="begright" type="priority" x="100.00" y="200.00" incLanes="-right_0 beg2right_0" intLanes="" shape="96.75,203.25 103.25,203.25 96.75,196.75 96.75,203.25"/>
-    <junction id="end" type="priority" x="50.00" y="600.00" incLanes="-end_0 right2end_0 middle_0 left2end_0" intLanes="" shape="46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25"/>
-    <junction id="endleft" type="priority" x="0.00" y="600.00" incLanes="-left2end_0 left_0" intLanes="" shape="3.25,603.25 3.25,596.75 -3.25,596.75"/>
-    <junction id="endright" type="priority" x="100.00" y="600.00" incLanes="right_0 -right2end_0" intLanes="" shape="103.25,596.75 96.75,596.75 96.75,603.25"/>
+    <junction id="absBeg" type="priority" x="50.00" y="0.00" incLanes="-beg_0" intLanes="" shape="50.05,0.00 53.25,0.00 46.75,-0.00 49.95,-0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="absEnd" type="priority" x="50.00" y="800.00" incLanes="end_0" intLanes="" shape="49.95,800.00 46.75,800.00 53.25,800.00 50.05,800.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="beg" type="priority" x="50.00" y="200.00" incLanes="-middle_0 -beg2right_0 beg_0 -beg2left_0" intLanes="" shape="46.75,204.75 53.25,204.75 54.75,203.25 54.75,196.75 53.25,195.25 46.75,195.25 45.25,196.75 45.25,203.25">
+        <request index="0" response="0000000000000000" foes="1000010000100000"/>
+        <request index="1" response="0000000000000000" foes="0111110001100000"/>
+        <request index="2" response="0000001100000000" foes="0110001111100000"/>
+        <request index="3" response="0100001000010000" foes="0100001000010000"/>
+        <request index="4" response="0000001000000000" foes="0100001000001000"/>
+        <request index="5" response="0000011000000111" foes="1100011000000111"/>
+        <request index="6" response="0011011000000110" foes="0011111000000110"/>
+        <request index="7" response="0010000100000100" foes="0010000100000100"/>
+        <request index="8" response="0000000000000000" foes="0010000010000100"/>
+        <request index="9" response="0000000000000000" foes="0110000001111100"/>
+        <request index="10" response="0000000000000011" foes="1110000001100011"/>
+        <request index="11" response="0001000001000010" foes="0001000001000010"/>
+        <request index="12" response="0000000000000010" foes="0000100001000010"/>
+        <request index="13" response="0000011100000110" foes="0000011111000110"/>
+        <request index="14" response="0000011000110110" foes="0000011000111110"/>
+        <request index="15" response="0000010000100001" foes="0000010000100001"/>
+    </junction>
+    <junction id="begleft" type="priority" x="0.00" y="200.00" incLanes="-left_0 beg2left_0" intLanes="" shape="-3.25,203.25 3.25,203.25 3.25,196.75">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
+    </junction>
+    <junction id="begright" type="priority" x="100.00" y="200.00" incLanes="-right_0 beg2right_0" intLanes="" shape="96.75,203.25 103.25,203.25 96.75,196.75 96.75,203.25">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
+    </junction>
+    <junction id="end" type="priority" x="50.00" y="600.00" incLanes="-end_0 right2end_0 middle_0 left2end_0" intLanes="" shape="46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25">
+        <request index="0" response="0000000000000000" foes="1000010000100000"/>
+        <request index="1" response="0000000000000000" foes="0111110001100000"/>
+        <request index="2" response="0000001100000000" foes="0110001111100000"/>
+        <request index="3" response="0100001000010000" foes="0100001000010000"/>
+        <request index="4" response="0000001000000000" foes="0100001000001000"/>
+        <request index="5" response="0000011000000111" foes="1100011000000111"/>
+        <request index="6" response="0011011000000110" foes="0011111000000110"/>
+        <request index="7" response="0010000100000100" foes="0010000100000100"/>
+        <request index="8" response="0000000000000000" foes="0010000010000100"/>
+        <request index="9" response="0000000000000000" foes="0110000001111100"/>
+        <request index="10" response="0000000000000011" foes="1110000001100011"/>
+        <request index="11" response="0001000001000010" foes="0001000001000010"/>
+        <request index="12" response="0000000000000010" foes="0000100001000010"/>
+        <request index="13" response="0000011100000110" foes="0000011111000110"/>
+        <request index="14" response="0000011000110110" foes="0000011000111110"/>
+        <request index="15" response="0000010000100001" foes="0000010000100001"/>
+    </junction>
+    <junction id="endleft" type="priority" x="0.00" y="600.00" incLanes="-left2end_0 left_0" intLanes="" shape="3.25,603.25 3.25,596.75 -3.25,596.75">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
+    </junction>
+    <junction id="endright" type="priority" x="100.00" y="600.00" incLanes="right_0 -right2end_0" intLanes="" shape="103.25,596.75 96.75,596.75 96.75,603.25">
+        <request index="0" response="0000" foes="1000"/>
+        <request index="1" response="0100" foes="0100"/>
+        <request index="2" response="0000" foes="0010"/>
+        <request index="3" response="0001" foes="0001"/>
+    </junction>
 
     <connection from="-beg" to="beg" lane="0:0" dir="t" state="M"/>
     <connection from="-beg2left" to="-beg" lane="0:0" dir="r" state="m"/>
