@@ -79,7 +79,6 @@ class NetConverter(handler.ContentHandler):
         self._out.write(begin)
         self._tree = []
         self._content = ""
-        self._special_removal = False
 
     def checkWrite(self, what):
         self._out.write(what.encode('iso-8859-1'))
@@ -101,9 +100,6 @@ class NetConverter(handler.ContentHandler):
             self._succ_fromIdx = attrs["lane"].split('_')[-1]
 
         if name in removed:
-            return
-        if name == "succlane" and attrs["lane"] == "SUMO_NO_DESTINATION":
-            self._special_removal = True
             return
 
         self.indent()
@@ -140,9 +136,6 @@ class NetConverter(handler.ContentHandler):
     def endElement(self, name):
         if name in removed:
             return
-        if self._special_removal:
-            self._special_removal = False
-            return
         self._tree.pop()
         if name=="net":
             self.checkWrite("\n")
@@ -165,8 +158,11 @@ def changeFile(fname):
     if options.verbose:
         print "Patching " + fname + " ..."
     if "_deprecated_" in fname:
-        print "Skipping file: " + fname
+        print "Skipping file (path contains _deprecated_): " + fname
         return
+    if "SUMO_NO_DESTINATION" in open(fname).read:
+        print "Skipping file (cannot convert SUMO_NO_DESTINATION): " + fname
+        return:
     net = NetConverter(fname+".chg", getBegin(fname))
     parse(fname, net)
     if options.inplace:
