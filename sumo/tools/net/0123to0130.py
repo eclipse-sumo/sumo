@@ -13,13 +13,14 @@ All rights reserved
 import os, string, sys, glob
 from xml.sax import parse, handler
 from optparse import OptionParser
+from collections import defaultdict
 
 # attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
 a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
-a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
+a['logicitem'] = ('response', 'foes', 'cont' )
 a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
 a['connection'] = ('from', 'to', 'lane', 'via', 'tl', 'linkIndex', 'dir', 'state' )
 a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
@@ -33,6 +34,8 @@ a['taz'] = ( 'id', 'shape', 'edges' )
 a['tazSink'] = ( 'id', 'weight' )
 a['tazSource'] = ( 'id', 'weight' )
 a['roundabout'] = ( 'nodes', 'dummy' )
+a['connection'] = ( 'from', 'to', 'lane', 'via', 'tl', 'linkIdx', 'dir', 'state' )
+a['request'] = ( 'index', 'response', 'foes', 'cont' )
 
 # attributes which are optional
 b = {}
@@ -45,10 +48,11 @@ b['succlane']['linkno'] = ''
 b['succlane']['linkIndex'] = ''
 
 # elements which are single (not using opening/closing tag)
-c = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'location', 'lane', 'timed_event', 'connection' )
+SINGLE = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'location', 
+        'lane', 'timed_event', 'connection', 'request' )
 
 # remove these
-removed = ( 'lanes', 'logic', 'succ')
+removed = ( 'lanes', 'logic', 'succ', 'row-logic', 'ROWLogic', 'logicitem')
 
 # renamed elements
 renamed = {'tl-logic': 'tlLogic', 
@@ -58,10 +62,15 @@ renamed = {'tl-logic': 'tlLogic',
         'dsink':'tazSink', 
         'succlane':'connection'}
 
-renamedAttrs = {'min_dur': 'minDur', 'max_dur': 'maxDur', 'spread_type': 'spreadType', 'maxspeed':'maxSpeed', 'linkno':'linkIndex'}
+renamedAttrs = {'min_dur': 'minDur', 
+        'max_dur': 'maxDur', 
+        'spread_type': 
+        'spreadType', 
+        'maxspeed':'maxSpeed', 
+        'linkIdx':'linkIndex', 
+        'linkno':'linkIndex'}
 
 renamedValues = {'state': {'t': 'o'} }
-
 
 def getBegin(file):
     fd = open(file)
@@ -80,7 +89,16 @@ class NetConverter(handler.ContentHandler):
         self._out.write(begin)
         self._tree = []
         self._content = ""
+        self._am_parsing_rowlogic = None # parsing old element
+        self._logicitems = defaultdict(list) # maps junction ids to items
         self._laneCount = 0
+
+    def isSingle(self, name):
+        if name in SINGLE:
+            return True
+        if name == "junction" and self._inner_junction:
+            return True
+        return False
 
     def checkWrite(self, what):
         self._out.write(what.encode('iso-8859-1'))
@@ -93,22 +111,32 @@ class NetConverter(handler.ContentHandler):
         self._out.close()
 
     def startElement(self, name, attrs):
-        if self._content.find("\n\n")>=0:
-            self.checkWrite("\n")
-        self._content = ""
-
+        # special preparations
         if name == "succ":
             self._succ_from = attrs["edge"]
             self._succ_fromIdx = attrs["lane"].split('_')[-1]
-
+        if name == "row-logic" or name == "ROWLogic":
+            self._am_parsing_rowlogic = attrs["id"]
+        if name == "logicitem": 
+            self._logicitems[self._am_parsing_rowlogic].append(attrs)
+        if name == "junction":
+            self._inner_junction = attrs["id"][0] == ":"
+        if name == "edge":
+            self._laneCount = 0
+        # skip removed
         if name in removed:
             return
-
+        # compress empty lines
+        if self._content.find("\n\n")>=0:
+            self.checkWrite("\n")
+        self._content = ""
+        # open tag
         self.indent()
         if name in renamed:
             self.checkWrite("<" + renamed[name])
         else:
             self.checkWrite("<" + name)
+        # special attribute handling
         if name == "succlane":
             self.checkWrite(' from="%s"' % self._succ_from)
             sepIndex = attrs['lane'].rindex('_')
@@ -116,6 +144,7 @@ class NetConverter(handler.ContentHandler):
             toIdx = attrs['lane'][sepIndex+1:]
             self.checkWrite(' to="%s"' % toEdge)
             self.checkWrite(' lane="%s:%s"' % (self._succ_fromIdx, toIdx))
+        # write attributes
         if name in a:
             for key in a[name]:
                 val = None
@@ -130,24 +159,37 @@ class NetConverter(handler.ContentHandler):
                     if name not in b or key not in b[name] or val!=b[name][key]:
                         self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
                 elif name == "lane" and key == "index":
-                    self.checkWrite(' index="%s"' % self._laneCount)
-        if name == "edge":
-            self._laneCount = 0
-        if name == "lane":
-            self._laneCount += 1
-        if name not in c:
-            self.checkWrite(">\n")
-        else:
+                    self.checkWrite(' %s="%s"' % (key,self._laneCount))
+                    self._laneCount += 1
+        # close tag
+        if self.isSingle(name):
             self.checkWrite("/>\n")
+        else:
+            self.checkWrite(">\n")
         self._tree.append(name)
+        # transfer items from removed element ROWLogic
+        if name == "junction":
+            for logicitem_attrs in self._logicitems[attrs["id"]]:
+                self.indent()
+                self.checkWrite("<request")
+                self.checkWrite(' index="%s"' % logicitem_attrs["request"])
+                for key in a["logicitem"]:
+                    if logicitem_attrs.has_key(key): # cont is optional
+                        self.checkWrite(' ' + key + '="%s"' % logicitem_attrs[key])
+                self.checkWrite("/>\n")
 
     def endElement(self, name):
+        # special preparations
+        if name == "row-logic" or name == "ROWLogic":
+            self._am_parsing_rowlogic = None
+        # skip removed
         if name in removed:
             return
+        # optionaly write closing tag
         self._tree.pop()
         if name=="net":
             self.checkWrite("\n")
-        if name not in c:
+        if not self.isSingle(name):
             self.indent()
             if name in renamed:
                 self.checkWrite("</" + renamed[name] + ">")
@@ -165,8 +207,9 @@ class NetConverter(handler.ContentHandler):
 def changeFile(fname):
     if options.verbose:
         print "Patching " + fname + " ..."
-    if "_deprecated_" in fname:
-        print "Skipping file (path contains _deprecated_): " + fname
+    if (("_deprecated_" in fname and not "net.netconvert" in fname) or 
+            (os.path.join('tools','net','0') in fname)):
+        print "Skipping file (looks like intentionally deprecated input): " + fname
         return
     if "SUMO_NO_DESTINATION" in open(fname).read():
         print "Skipping file (cannot convert SUMO_NO_DESTINATION): " + fname
