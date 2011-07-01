@@ -67,18 +67,18 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="0:0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="1:1" via=":node_left_1_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" lane="2:2" via=":node_left_2_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="0:0" via=":node_right_0_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="1:1" via=":node_right_1_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" lane="2:2" via=":node_right_2_0" dir="t" state="M"/>
 
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
+    <connection from=":node_left_0" to="reverse_edge" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_left_1" to="reverse_edge" lane="0:1" dir="s" state="M"/>
+    <connection from=":node_left_2" to="reverse_edge" lane="0:2" dir="s" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_right_1" to="edge_with_shape" lane="0:1" dir="s" state="M"/>
+    <connection from=":node_right_2" to="edge_with_shape" lane="0:2" dir="s" state="M"/>
 
 </net>

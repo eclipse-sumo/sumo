@@ -32,35 +32,35 @@
     </orig-proj>
 
     <edge id=":dl_0" function="internal">
-        <lane id=":dl_0_0" index="0" maxSpeed="13.90" length="0.14"/>
+        <lane id=":dl_0_0" depart="0" maxSpeed="13.90" length="0.14"/>
     </edge>
 
     <edge id=":dr_0" function="internal">
-        <lane id=":dr_0_0" index="0" maxSpeed="13.90" length="0.14"/>
+        <lane id=":dr_0_0" depart="0" maxSpeed="13.90" length="0.14"/>
     </edge>
 
     <edge id=":tl_0" function="internal">
-        <lane id=":tl_0_0" index="0" maxSpeed="13.90" length="0.14"/>
+        <lane id=":tl_0_0" depart="0" maxSpeed="13.90" length="0.14"/>
     </edge>
 
     <edge id=":tr_0" function="internal">
-        <lane id=":tr_0_0" index="0" maxSpeed="13.90" length="0.14"/>
+        <lane id=":tr_0_0" depart="0" maxSpeed="13.90" length="0.14"/>
     </edge>
 
     <edge id="1" from="dl" to="dr" priority="-1">
-        <lane id="1_0" index="0" maxSpeed="13.90" length="1199.86"/>
+        <lane id="1_0" depart="1" maxSpeed="13.90" length="1199.86"/>
     </edge>
 
     <edge id="2" from="dr" to="tr" priority="-1">
-        <lane id="2_0" index="0" maxSpeed="13.90" length="299.48"/>
+        <lane id="2_0" depart="1" maxSpeed="13.90" length="299.48"/>
     </edge>
 
     <edge id="3" from="tr" to="tl" priority="-1">
-        <lane id="3_0" index="0" maxSpeed="13.90" length="1199.86"/>
+        <lane id="3_0" depart="1" maxSpeed="13.90" length="1199.86"/>
     </edge>
 
     <edge id="4" from="tl" to="dl" priority="-1">
-        <lane id="4_0" index="0" maxSpeed="13.90" length="299.48"/>
+        <lane id="4_0" depart="1" maxSpeed="13.90" length="299.48"/>
     </edge>
 
     <ROWLogic>
@@ -104,36 +104,36 @@
     </ROWLogic>
 
     <junction id="dl" type="priority" x="95.49" y="0.00"/>
-    <inclanes>
-    </inclanes>
-    <intlanes>
-    </intlanes>
-    <shape>
-    </shape>
+        <inclanes>
+        </inclanes>
+        <intlanes>
+        </intlanes>
+        <shape>
+        </shape>
 
     <junction id="dr" type="priority" x="1295.49" y="0.00"/>
-    <inclanes>
-    </inclanes>
-    <intlanes>
-    </intlanes>
-    <shape>
-    </shape>
+        <inclanes>
+        </inclanes>
+        <intlanes>
+        </intlanes>
+        <shape>
+        </shape>
 
     <junction id="tl" type="priority" x="95.49" y="190.99"/>
-    <inclanes>
-    </inclanes>
-    <intlanes>
-    </intlanes>
-    <shape>
-    </shape>
+        <inclanes>
+        </inclanes>
+        <intlanes>
+        </intlanes>
+        <shape>
+        </shape>
 
     <junction id="tr" type="priority" x="1295.49" y="190.99"/>
-    <inclanes>
-    </inclanes>
-    <intlanes>
-    </intlanes>
-    <shape>
-    </shape>
+        <inclanes>
+        </inclanes>
+        <intlanes>
+        </intlanes>
+        <shape>
+        </shape>
 
     <connection from="1" to="2" lane="0:0" via=":dr_0_0" dir="s" state="M"/>
 

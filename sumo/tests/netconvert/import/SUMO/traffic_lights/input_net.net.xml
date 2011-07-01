@@ -137,36 +137,36 @@
     <junction id=":node_centertl_12_0" type="internal" x="1.07" y="1.65" incLanes=":node_centertl_7_0 edge_right_0" intLanes=":node_centertl_3_0 :node_centertl_4_0" shape=""/>
     <junction id=":node_centertl_13_0" type="internal" x="-4.67" y="-1.59" incLanes=":node_centertl_8_0 edge_right_0" intLanes=":node_centertl_4_0" shape=""/>
 
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
+    <connection from="-edge_left" to="edge_left" lane="0:0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="-edge_right" to="edge_right" lane="0:0" via=":node_right_0_0" dir="t" state="M"/>
+    <connection from="-edge_up" to="edge_up" lane="0:0" via=":node_up_0_0" dir="t" state="M"/>
+    <connection from="edge_left" to="-edge_right" lane="0:0" via=":node_centertl_6_0" tl="node_centertl" linkIndex="6" dir="s" state="o"/>
+    <connection from="edge_left" to="-edge_up" lane="0:0" via=":node_centertl_7_0" tl="node_centertl" linkIndex="7" dir="l" state="o"/>
+    <connection from="edge_left" to="-edge_left" lane="0:0" via=":node_centertl_8_0" tl="node_centertl" linkIndex="8" dir="t" state="o"/>
+    <connection from="edge_right" to="-edge_up" lane="0:0" via=":node_centertl_3_0" tl="node_centertl" linkIndex="3" dir="r" state="o"/>
+    <connection from="edge_right" to="-edge_left" lane="0:0" via=":node_centertl_4_0" tl="node_centertl" linkIndex="4" dir="s" state="o"/>
+    <connection from="edge_right" to="-edge_right" lane="0:0" via=":node_centertl_5_0" tl="node_centertl" linkIndex="5" dir="t" state="o"/>
+    <connection from="edge_up" to="-edge_left" lane="0:0" via=":node_centertl_0_0" tl="node_centertl" linkIndex="0" dir="r" state="o"/>
+    <connection from="edge_up" to="-edge_right" lane="0:0" via=":node_centertl_1_0" tl="node_centertl" linkIndex="1" dir="l" state="o"/>
+    <connection from="edge_up" to="-edge_up" lane="0:0" via=":node_centertl_2_0" tl="node_centertl" linkIndex="2" dir="t" state="o"/>
 
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
-    <connection/>
+    <connection from=":node_centertl_0" to="-edge_left" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_1" to="-edge_right" lane="0:0" via=":node_centertl_9_0" dir="s" state="M"/>
+    <connection from=":node_centertl_9" to="-edge_right" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_2" to="-edge_up" lane="0:0" via=":node_centertl_10_0" dir="s" state="M"/>
+    <connection from=":node_centertl_10" to="-edge_up" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_3" to="-edge_up" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_4" to="-edge_left" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_5" to="-edge_right" lane="0:0" via=":node_centertl_11_0" dir="s" state="M"/>
+    <connection from=":node_centertl_11" to="-edge_right" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_6" to="-edge_right" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_7" to="-edge_up" lane="0:0" via=":node_centertl_12_0" dir="s" state="M"/>
+    <connection from=":node_centertl_12" to="-edge_up" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_centertl_8" to="-edge_left" lane="0:0" via=":node_centertl_13_0" dir="s" state="M"/>
+    <connection from=":node_centertl_13" to="-edge_left" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_left_0" to="edge_left" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_right_0" to="edge_right" lane="0:0" dir="s" state="M"/>
+    <connection from=":node_up_0" to="edge_up" lane="0:0" dir="s" state="M"/>
 
     <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
         <phase duration="31" state="rrrGGgGgg"/>
