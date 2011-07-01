@@ -684,8 +684,10 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
-    if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
-        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' already exists.");
+    if(shape.size()!=0) {
+        if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
+            MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' already exists.");
+        }
     }
 }
 
