@@ -26,9 +26,3 @@ net_junction
 
 # net: lane
 net_lane
-
-# net: depart_lane
-net_depart_lane
-
-
-

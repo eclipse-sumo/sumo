@@ -1,8 +1,5 @@
-# checks using the default lane (depart)
+# checks using the default lane (0)
 lane_default
-
-# checks using the depart lane (depart)
-lane_depart
 
 # checks using a free lane (1 vehicle)
 lane_free
