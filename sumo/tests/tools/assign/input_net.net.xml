@@ -1,26 +1,22 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:12:27 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on 07/02/11 23:17:10 by SUMO netconvert Version dev-SVN-r10807
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./tools/assign/input_dua2s.nod.xml"/>
-        <xml-edge-files value="./tools/assign/input_dua2s.edg.xml"/>
+        <node-files value="tools/assign/input_dua2s.nod.xml"/>
+        <edge-files value="tools/assign/input_dua2s.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tools/assign/input_net.net.xml"/>
+        <output-file value="tools/assign/input_net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
     </processing>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
@@ -77,35 +73,13 @@
     <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="0.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05">
     </junction>
 
-    <succ edge="beg" lane="beg_0" junction="beg">
-        <succlane lane="middle_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="beg" lane="beg_1" junction="beg">
-        <succlane lane="beg2left_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="beg2left" lane="beg2left_0" junction="begleft">
-        <succlane lane="left_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="absEnd">
-        <succlane lane="rend_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_1" junction="absEnd">
-        <succlane lane="rend_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="left" lane="left_0" junction="endleft">
-        <succlane lane="left2end_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="left2end" lane="left2end_0" junction="end">
-        <succlane lane="end_1" dir="l" state="M"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="end">
-        <succlane lane="end_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="rend" lane="rend_0" junction="rabsEnd">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="rend" lane="rend_1" junction="rabsEnd">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="beg" to="middle" lane="0:0" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" lane="1:0" dir="l" state="M"/>
+    <connection from="beg2left" to="left" lane="0:0" dir="r" state="M"/>
+    <connection from="end" to="rend" lane="0:0" dir="s" state="M"/>
+    <connection from="end" to="rend" lane="1:1" dir="s" state="M"/>
+    <connection from="left" to="left2end" lane="0:0" dir="r" state="M"/>
+    <connection from="left2end" to="end" lane="0:1" dir="l" state="M"/>
+    <connection from="middle" to="end" lane="0:0" dir="s" state="M"/>
 
 </net>

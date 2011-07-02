@@ -1,23 +1,19 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/28/11 14:03:30 by SUMO netconvert Version dev-SVN-r9633
+<!-- generated on 07/02/11 23:22:23 by SUMO netconvert Version dev-SVN-r10807
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="test.nod.xml"/>
-        <xml-edge-files value="test.edg.xml"/>
-        <xml-type-files value="test.typ.xml"/>
+        <node-files value="tools/assign/calibration/test.nod.xml"/>
+        <edge-files value="tools/assign/calibration/test.edg.xml"/>
+        <type-files value="tools/assign/calibration/test.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="tools/assign/calibration/input_net.net.xml"/>
     </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
@@ -39,10 +35,10 @@
         <lane id=":2_1_0" index="0" maxSpeed="15.99" length="3.34" shape="1498.44,48.59 1501.77,48.35"/>
     </edge>
 
-    <edge id="1to21" from="1" to="2" priority="-1" type="a">
+    <edge id="1to21" from="1" to="2" priority="-1" type="a" shape="500.00,50.00 800.00,0.00 1200.00,0.00 1500.00,50.00">
         <lane id="1to21_0" index="0" maxSpeed="15.99" length="1004.90" shape="501.85,48.02 799.73,-1.63 1200.00,-1.65 1498.53,48.08"/>
     </edge>
-    <edge id="1to22" from="1" to="2" priority="-1" type="b">
+    <edge id="1to22" from="1" to="2" priority="-1" type="b" shape="500.00,50.00 800.00,100.00 1200.00,100.00 1500.00,50.00">
         <lane id="1to22_0" index="0" maxSpeed="15.99" length="1004.93" shape="501.75,48.62 800.27,98.37 1200.00,98.35 1498.44,48.59"/>
     </edge>
     <edge id="91to1" from="91" to="1" priority="-1" type="c">
@@ -63,7 +59,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="1500.00" y="50.00" incLanes="1to21_0 1to22_0" intLanes=":2_0_0 :2_1_0" shape="1501.77,49.95 1501.77,46.75 1498.79,46.50 1498.26,49.66">
+    <junction id="2" type="traffic_light" x="1500.00" y="50.00" incLanes="1to21_0 1to22_0" intLanes=":2_0_0 :2_1_0" shape="1501.77,49.95 1501.77,46.75 1498.79,46.50 1498.26,49.66">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
@@ -72,31 +68,14 @@
     <junction id="91" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75">
     </junction>
 
-    <succ edge="1to21" lane="1to21_0" junction="2">
-        <succlane lane="out_0" via=":2_0_0" tl="2" dir="s" state="o"/>
-    </succ>
-    <succ edge="1to22" lane="1to22_0" junction="2">
-        <succlane lane="out_0" via=":2_1_0" tl="2" dir="s" state="o"/>
-    </succ>
-    <succ edge="91to1" lane="91to1_0" junction="1">
-        <succlane lane="1to21_0" via=":1_0_0" dir="s" state="M"/>
-        <succlane lane="1to22_0" via=":1_1_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="out" lane="out_0" junction="3">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="1to21" to="out" lane="0:0" via=":2_0_0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="1to22" to="out" lane="0:0" via=":2_1_0" tl="2" linkIndex="1" dir="s" state="o"/>
+    <connection from="91to1" to="1to21" lane="0:0" via=":1_0_0" dir="s" state="M"/>
+    <connection from="91to1" to="1to22" lane="0:0" via=":1_1_0" dir="s" state="M"/>
 
-    <succ edge=":1_0" lane=":1_0_0" junction="1">
-        <succlane lane="1to21_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":1_1" lane=":1_1_0" junction="1">
-        <succlane lane="1to22_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_0" lane=":2_0_0" junction="2">
-        <succlane lane="out_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":2_1" lane=":2_1_0" junction="2">
-        <succlane lane="out_0" dir="s" state="M"/>
-    </succ>
+    <connection from=":1_0" to="1to21" lane="0:0" dir="s" state="M"/>
+    <connection from=":1_1" to="1to22" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_0" to="out" lane="0:0" dir="s" state="M"/>
+    <connection from=":2_1" to="out" lane="0:0" dir="s" state="M"/>
 
 </net>
