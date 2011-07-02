@@ -17,7 +17,7 @@ public class SUMOPipedLocationListener implements SUMOLocationListener {
 	public void LocationUpdated(String vehicleId, int timestep, double lon,
 			double lat, double speed) {
 		
-		System.out.println(timestep+separator+vehicleId+separator+lon+separator+lat+separator+(speed/3.6));
+		System.out.println(timestep+(separator+vehicleId)+separator+lon+separator+lat+separator+(speed/3.6));
 		
 	}
 
