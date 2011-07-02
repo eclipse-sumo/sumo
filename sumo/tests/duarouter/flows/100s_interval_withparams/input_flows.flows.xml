@@ -14,7 +14,7 @@
 	<flow id="31" from="beg" to="rend" begin="31" end="32" number="1" departLane="1"/>
 	<flow id="32" from="beg" to="rend" begin="32" end="33" number="1" departLane="random"/>
 	<flow id="33" from="beg" to="rend" begin="33" end="34" number="1" departLane="free"/>
-	<flow id="34" from="beg" to="rend" begin="34" end="35" number="1" departLane="departlane"/>
+	<flow id="34" from="beg" to="rend" begin="34" end="35" number="1" departLane="0"/>
 
 	<flow id="40" from="beg" to="rend" begin="40" end="41" number="1" departSpeed="0"/>
 	<flow id="41" from="beg" to="rend" begin="41" end="42" number="1" departSpeed="1"/>

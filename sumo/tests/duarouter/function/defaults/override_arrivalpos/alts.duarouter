@@ -78,7 +78,7 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="11" depart="34.00" departLane="departlane" arrivalPos="0">
+    <vehicle id="11" depart="34.00" departLane="0" arrivalPos="0">
         <routeDistribution last="0">
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>

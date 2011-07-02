@@ -49,7 +49,7 @@
     <vehicle id="33_0" depart="33.00" departLane="free">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="34_0" depart="34.00" departLane="departlane">
+    <vehicle id="34_0" depart="34.00" departLane="0">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="40_0" depart="40.00" departSpeed="0.00">

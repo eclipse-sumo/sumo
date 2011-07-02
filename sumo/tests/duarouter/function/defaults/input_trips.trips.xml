@@ -13,7 +13,7 @@
 	<trip depart="31" from="beg" to="rend" departLane="1"/>
 	<trip depart="32" from="beg" to="rend" departLane="random"/>
 	<trip depart="33" from="beg" to="rend" departLane="free"/>
-	<trip depart="34" from="beg" to="rend" departLane="departlane"/>
+	<trip depart="34" from="beg" to="rend" departLane="0"/>
 
 	<trip depart="40" from="beg" to="rend" departSpeed="0"/>
 	<trip depart="41" from="beg" to="rend" departSpeed="1"/>

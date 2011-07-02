@@ -55,7 +55,7 @@
     <vehicle id="10" depart="33.00" departLane="free" arrivalSpeed="0">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="11" depart="34.00" departLane="departlane" arrivalSpeed="0">
+    <vehicle id="11" depart="34.00" departLane="0" arrivalSpeed="0">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="12" depart="40.00" departSpeed="0.00" arrivalSpeed="0">

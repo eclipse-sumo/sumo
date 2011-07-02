@@ -47,7 +47,7 @@
    </vehicle>
 
       <route id="34">beg middle end rend</route>
-   <vehicle id="34" type="0" depart="34" route="34" departLane="departlane">
+   <vehicle id="34" type="0" depart="34" route="34" departLane="0">
    </vehicle>
 
 
