@@ -7,15 +7,9 @@
 			<xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-		<xsd:attribute name="refid" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="refId" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="from" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="to" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="fromnode" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="tonode" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="xfrom" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="yfrom" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="xto" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="yto" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
 		<xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
 		<xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
@@ -26,7 +20,7 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="nolanes" use="optional">
+		<xsd:attribute name="numLanes" use="optional">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:int">
 					<xsd:minExclusive value="0"></xsd:minExclusive>
@@ -40,13 +34,6 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="departlane">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:int">
-					<xsd:minInclusive value="0"></xsd:minInclusive>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
 		<xsd:attribute name="priority" type="xsd:int" use="optional"></xsd:attribute>
 		<xsd:attribute name="shape" use="optional">
 			<xsd:simpleType>
@@ -57,7 +44,7 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="spread_type" use="optional">
+		<xsd:attribute name="spreadType" use="optional">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:enumeration value="center"></xsd:enumeration>
@@ -77,14 +64,14 @@
 	</xsd:complexType>
 
 	<xsd:complexType name="laneType">
-		<xsd:attribute name="id" use="required">
+		<xsd:attribute name="index" use="required">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:int">
 					<xsd:minInclusive value="0"></xsd:minInclusive>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="maxspeed">
+		<xsd:attribute name="maxSpeed">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:float">
 					<xsd:minInclusive value="0"></xsd:minInclusive>
