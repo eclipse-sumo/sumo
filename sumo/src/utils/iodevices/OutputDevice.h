@@ -223,6 +223,16 @@ public:
      */
     bool closeTag(bool abbreviated=false) throw();
 
+    /** @brief writes an named attribute 
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    template <class T>
+    void writeAttr(const SumoXMLAttr attr, const T &val) {
+        getOStream() << " " << toString(attr) << "=\"" << val << "\"";
+    }
+
 
     /** @brief Retrieves a message to this device.
      *

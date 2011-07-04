@@ -64,17 +64,17 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 	NBNodeCont &nc = nb.getNodeCont();
 	for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
-        device << "   <node id=\"" << n->getID() << "\" ";
+        device.openTag(SUMO_TAG_NODE);
+        device.writeAttr(SUMO_ATTR_ID, n->getID());
         if (GeoConvHelper::usingInverseGeoProjection()) {
             device.setPrecision(GEO_OUTPUT_ACCURACY);
-            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
-            device.setPrecision();
-        } else {
-            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
         }
-        device << " type=\"" << toString(n->getType())<< "\"";
+        device.writeAttr(SUMO_ATTR_X, n->getPosition().x());
+        device.writeAttr(SUMO_ATTR_Y, n->getPosition().y());
+        device.setPrecision();
+        device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
-            device << " tl=\"";
+            device << " " << SUMO_ATTR_TLID << "=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
             // set may contain multiple programs for the same id. 
             // make sure ids are unique and sorted
@@ -84,15 +84,9 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
             sort(sortedIDs.begin(), sortedIDs.end());
-            for (std::vector<std::string>::iterator it_tlid=sortedIDs.begin(); it_tlid!=sortedIDs.end(); it_tlid++) {
-                if (it_tlid!=sortedIDs.begin()) {
-                    device << ",";
-                }
-                device << (*it_tlid);
-            }
-            device << "\"";
+            device << sortedIDs << "\"";
         }
-        device << "/>\n";
+        device.closeTag(true);
     }
     device.close();
     // write edges / connections
@@ -105,69 +99,71 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 	for(std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge *e = (*i).second;
-        edevice << "   <edge id=\"" << e->getID()
-        << "\" from=\"" << e->getFromNode()->getID()
-        << "\" to=\"" << e->getToNode()->getID();
+        edevice.openTag(SUMO_TAG_EDGE);
+        edevice.writeAttr(SUMO_ATTR_ID, e->getID());
+        edevice.writeAttr(SUMO_ATTR_FROM, e->getFromNode()->getID());
+        edevice.writeAttr(SUMO_ATTR_TO, e->getToNode()->getID());
         if (!noNames && e->getStreetName() != "") {
-            edevice << "\" " << toString(SUMO_ATTR_NAME) << "=\"" << e->getStreetName();
+            edevice.writeAttr(SUMO_ATTR_NAME, e->getStreetName());
         }
-        edevice << "\" priority=\"" << e->getPriority();
+        edevice.writeAttr(SUMO_ATTR_PRIORITY, e->getPriority());
         // write the type if given
         if (e->getTypeID() != "") {
-            edevice << "\" type=\"" << e->getTypeID();
+            edevice.writeAttr(SUMO_ATTR_TYPE, e->getTypeID());
         }
-        edevice << "\" numLanes=\"" << e->getNumLanes() << "\"";
+        edevice.writeAttr(SUMO_ATTR_NUMLANES, e->getNumLanes());
         if (!e->hasLaneSpecificSpeed()) {
-            edevice << " " << SUMO_ATTR_SPEED << "=\"" << toString(e->getSpeed()) << "\"";
+            edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
         }
         // write inner geometry (if any)
         if (!e->hasDefaultGeometry()) {
-            edevice << " shape=\"" << e->getGeometry() << "\"";
+            edevice.writeAttr(SUMO_ATTR_SHAPE, e->getGeometry());
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-            edevice << " spreadType=\"" << toString(e->getLaneSpreadFunction()) << "\"";
+            edevice.writeAttr(SUMO_ATTR_SPREADFUNC, toString(e->getLaneSpreadFunction()));
         }
         // write the length if it was specified
         if (e->hasLoadedLength()) {
-            edevice << " " << toString(SUMO_ATTR_LENGTH) << "=\"" << e->getLoadedLength() << "\"";
+            edevice.writeAttr(SUMO_ATTR_LENGTH, e->getLoadedLength());
         }
         // some attributes can be set by edge default or per lane. Write as default if possible (efficiency) 
         if (e->getWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
-            edevice << " " << SUMO_ATTR_WIDTH << "=\"" << toString(e->getWidth()) << "\"";
+            edevice.writeAttr(SUMO_ATTR_WIDTH, e->getWidth());
         }
         if (e->getOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificOffset()) {
-            edevice << " " << SUMO_ATTR_OFFSET << "=\"" << toString(e->getOffset()) << "\"";
+            edevice.writeAttr(SUMO_ATTR_OFFSET, e->getOffset());
         }
         if (!e->needsLaneSpecificOutput()) {
-            edevice << "/>\n";
+            edevice.closeTag(true);
         } else {
             edevice << ">\n";
             for (unsigned int i=0; i<e->getLanes().size(); ++i) {
-                edevice << "      <lane " << SUMO_ATTR_INDEX << "=\"" << i << "\"";
                 const NBEdge::Lane &lane = e->getLanes()[i];
+                edevice.openTag(SUMO_TAG_LANE);
+                edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
                 if (lane.allowed.size()!=0) {
-                    edevice << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(lane.allowed));
                 }
                 if (lane.notAllowed.size()!=0) {
-                    edevice << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(lane.notAllowed));
                 }
                 if (lane.preferred.size()!=0) {
-                    edevice << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(lane.preferred));
                 }
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
-                    edevice << " " << SUMO_ATTR_WIDTH << "=\"" << toString(lane.width) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }
                 if (lane.offset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificOffset()) {
-                    edevice << " " << SUMO_ATTR_OFFSET << "=\"" << toString(lane.offset) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_OFFSET, lane.offset);
                 }
                 if (e->hasLaneSpecificSpeed()) {
-                    edevice << " " << SUMO_ATTR_SPEED << "=\"" << toString(lane.speed) << '\"';
+                    edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
                 }
-                edevice << "/>\n";
+                edevice.closeTag(true);
             }
-            edevice << "   </edge>\n";
+            edevice.closeTag();
         }
         // write this edge's connections to the connections-files
         unsigned int noLanes = e->getNumLanes();

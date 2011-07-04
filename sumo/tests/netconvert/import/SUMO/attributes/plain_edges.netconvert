@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jul  4 13:25:28 2011 by SUMO netconvert Version dev-SVN-r10818
+<!-- generated on Mon Jul  4 14:21:03 2011 by SUMO netconvert Version dev-SVN-r10818
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,14 +22,14 @@
 -->
 
 <edges>
-   <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" numLanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
-      <lane index="0" allow="bus"/>
-      <lane index="1" disallow="bicycle"/>
-      <lane index="2"/>
-   </edge>
-   <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90">
-      <lane index="0"/>
-      <lane index="1" offset="3.00"/>
-      <lane index="2"/>
-   </edge>
+    <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" numLanes="3" speed="13.90" shape="40.00,0.00 20.00,20.00 0.00,0.00">
+        <lane index="0" allow="bus"/>
+        <lane index="1" disallow="bicycle"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90">
+        <lane index="0"/>
+        <lane index="1" offset="3.00"/>
+        <lane index="2"/>
+    </edge>
 </edges>
