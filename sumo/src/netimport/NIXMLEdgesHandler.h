@@ -276,6 +276,11 @@ private:
 
 
 private:
+    void addEdge(const SUMOSAXAttributes &attrs);
+    void addLane(const SUMOSAXAttributes &attrs);
+    void addSplit(const SUMOSAXAttributes &attrs);
+
+private:
     /** @brief invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);
 

@@ -81,277 +81,302 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
 void
 NIXMLEdgesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    if (element==SUMO_TAG_EDGE) {
-        myIsUpdate = false;
-        bool ok = true;
-        // initialise the edge
-        myCurrentEdge = 0;
-        mySplits.clear();
-        // get the id, report an error if not given or empty...
-        myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-        if (!ok) {
-            return;
-        }
-        myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
-        // check deprecated (unused) attributes
-        // use default values, first
-        myCurrentSpeed = myTypeCont.getSpeed("");
-        myCurrentPriority = myTypeCont.getPriority("");
-        myCurrentLaneNo = myTypeCont.getNumLanes("");
-        myAllowed = myTypeCont.getAllowedClasses("");
-        myNotAllowed = myTypeCont.getDisallowedClasses("");
-        myCurrentWidth = myTypeCont.getWidth("");
-        myCurrentOffset = 0;
-        // check whether a type's values shall be used
-        myCurrentType = "";
-        myShape = PositionVector();
-        if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-            myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
-            if (!ok) {
-                return;
-            }
-            if (!myTypeCont.knows(myCurrentType)) {
-                WRITE_ERROR("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
-                return;
-            }
-            myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
-            myCurrentPriority = myTypeCont.getPriority(myCurrentType);
-            myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
-            myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
-            myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
-            myCurrentWidth = myTypeCont.getWidth(myCurrentType);
-        }
-        // use values from the edge to overwrite if existing, then
-        if (myCurrentEdge!=0) {
-            myIsUpdate = true;
-            if (!myHaveReportedAboutOverwriting) {
-                WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
-                myHaveReportedAboutOverwriting = true;
-            }
-            myCurrentSpeed = myCurrentEdge->getSpeed();
-            myCurrentPriority = myCurrentEdge->getPriority();
-            myCurrentLaneNo = myCurrentEdge->getNumLanes();
-            myCurrentType = myCurrentEdge->getTypeID();
-            myAllowed = myCurrentEdge->getAllowedVehicleClasses();
-            myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
-            myShape = myCurrentEdge->getGeometry();
-            myCurrentWidth = myCurrentEdge->getWidth();
-            myCurrentOffset = myCurrentEdge->getOffset();
-        }
-        // speed, priority and the number of lanes have now default values;
-        // try to read the real values from the file
-        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-            myCurrentSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
-        }
-        if (myOptions.getBool("speed-in-kmh")) {
-            myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
-        }
-        // try to get the number of lanes
-        if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
-            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
-            if(!myHaveWarnedAboutDeprecatedNoLanes) {
-                myHaveWarnedAboutDeprecatedNoLanes = true;
-                WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
-            }
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
-            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
-        }
-        // try to get the priority
-        if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
-            myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, myCurrentID.c_str(), ok);
-        }
-        // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-            myCurrentWidth = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
-        }
-        // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-            myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
-        }
-        // try to get the street name
-        myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, "");
-
-        // try to get the allowed/disallowed classes
-        if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
-            std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : getVehicleClassNames(myAllowed);
-            std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : getVehicleClassNames(myNotAllowed);
-            myAllowed.clear();
-            myNotAllowed.clear();
-            parseVehicleClasses(allowS, disallowS, myAllowed, myNotAllowed);
-        }
-        // try to set the nodes
-        if (!setNodes(attrs)) {
-            // return if this failed
-            return;
-        }
-        // try to get the shape
-        myShape = tryGetShape(attrs);
-        // and how to spread the lanes
-        std::string lsfS = toString(LANESPREAD_RIGHT);
-        if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
-	        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
-            if(!myHaveWarnedAboutDeprecatedSpreadType) {
-                WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
-                myHaveWarnedAboutDeprecatedSpreadType = true;
-            }   
-	    } else {
-	        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, lsfS);
-	    }
-        if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
-            myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
-        } else {
-            myLanesSpread = LANESPREAD_RIGHT;
-            WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
-        }
-        // get the length or compute it
-        if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-            myLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok);
-        } else {
-            myLength = 0;
-        }
-        /// insert the parsed edge into the edges map
-        if (!ok) {
-            return;
-        }
-        // check whether a previously defined edge shall be overwritten
-        if (myCurrentEdge!=0) {
-            myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                  myCurrentLaneNo, myCurrentPriority, myShape,
-                                  myCurrentWidth, myCurrentOffset, myLanesSpread);
-        } else {
-            // the edge must be allocated in dependence to whether a shape is given
-            if (myShape.size()==0) {
-                myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                           myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                                           myCurrentStreetName, myLanesSpread);
-            } else {
-                myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                           myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                                           myShape, myCurrentStreetName, myLanesSpread, 
-                                           OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
-            }
-            myCurrentEdge->setLoadedLength(myLength);
-        }
-        myCurrentEdge->setVehicleClasses(myAllowed, myNotAllowed);
+    switch (element) {
+    case SUMO_TAG_EDGE:
+        addEdge(attrs);
+        break;
+    case SUMO_TAG_LANE:
+        addLane(attrs);
+        break;
+    case SUMO_TAG_SPLIT:
+        addSplit(attrs);
+        break;
+    default:
+        break;
     }
-    if (element==SUMO_TAG_LANE) {
+}
+
+
+void 
+NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
+    myIsUpdate = false;
+    bool ok = true;
+    // initialise the edge
+    myCurrentEdge = 0;
+    mySplits.clear();
+    // get the id, report an error if not given or empty...
+    myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        return;
+    }
+    myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
+    // check deprecated (unused) attributes
+    // use default values, first
+    myCurrentSpeed = myTypeCont.getSpeed("");
+    myCurrentPriority = myTypeCont.getPriority("");
+    myCurrentLaneNo = myTypeCont.getNumLanes("");
+    myAllowed = myTypeCont.getAllowedClasses("");
+    myNotAllowed = myTypeCont.getDisallowedClasses("");
+    myCurrentWidth = myTypeCont.getWidth("");
+    myCurrentOffset = 0;
+    // check whether a type's values shall be used
+    myCurrentType = "";
+    myShape = PositionVector();
+    if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+        myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
+        if (!ok) {
+            return;
+        }
+        if (!myTypeCont.knows(myCurrentType)) {
+            WRITE_ERROR("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
+            return;
+        }
+        myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
+        myCurrentPriority = myTypeCont.getPriority(myCurrentType);
+        myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
+        myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
+        myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
+        myCurrentWidth = myTypeCont.getWidth(myCurrentType);
+    }
+    // use values from the edge to overwrite if existing, then
+    if (myCurrentEdge!=0) {
+        myIsUpdate = true;
+        if (!myHaveReportedAboutOverwriting) {
+            WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
+            myHaveReportedAboutOverwriting = true;
+        }
+        myCurrentSpeed = myCurrentEdge->getSpeed();
+        myCurrentPriority = myCurrentEdge->getPriority();
+        myCurrentLaneNo = myCurrentEdge->getNumLanes();
+        myCurrentType = myCurrentEdge->getTypeID();
+        myAllowed = myCurrentEdge->getAllowedVehicleClasses();
+        myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
+        myShape = myCurrentEdge->getGeometry();
+        myCurrentWidth = myCurrentEdge->getWidth();
+        myCurrentOffset = myCurrentEdge->getOffset();
+    }
+    // speed, priority and the number of lanes have now default values;
+    // try to read the real values from the file
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        myCurrentSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok);
+    }
+    if (myOptions.getBool("speed-in-kmh")) {
+        myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
+    }
+    // try to get the number of lanes
+    if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
+        myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedNoLanes) {
+            myHaveWarnedAboutDeprecatedNoLanes = true;
+            WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
+        }
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
+        myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
+    }
+    // try to get the priority
+    if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
+        myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, myCurrentID.c_str(), ok);
+    }
+    // try to get the width
+    if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+        myCurrentWidth = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok);
+    }
+    // try to get the width
+    if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
+        myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
+    }
+    // try to get the street name
+    myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, "");
+
+    // try to get the allowed/disallowed classes
+    if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+        std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : getVehicleClassNames(myAllowed);
+        std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : getVehicleClassNames(myNotAllowed);
+        myAllowed.clear();
+        myNotAllowed.clear();
+        parseVehicleClasses(allowS, disallowS, myAllowed, myNotAllowed);
+    }
+    // try to set the nodes
+    if (!setNodes(attrs)) {
+        // return if this failed
+        return;
+    }
+    // try to get the shape
+    myShape = tryGetShape(attrs);
+    // and how to spread the lanes
+    std::string lsfS = toString(LANESPREAD_RIGHT);
+    if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedSpreadType) {
+            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+            myHaveWarnedAboutDeprecatedSpreadType = true;
+        }   
+    } else {
+        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, myCurrentID.c_str(), ok, lsfS);
+    }
+    if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
+        myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
+    } else {
+        myLanesSpread = LANESPREAD_RIGHT;
+        WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
+    }
+    // get the length or compute it
+    if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
+        myLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok);
+    } else {
+        myLength = 0;
+    }
+    /// insert the parsed edge into the edges map
+    if (!ok) {
+        return;
+    }
+    // check whether a previously defined edge shall be overwritten
+    if (myCurrentEdge!=0) {
+        myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                myCurrentLaneNo, myCurrentPriority, myShape,
+                myCurrentWidth, myCurrentOffset, myLanesSpread);
+    } else {
+        // the edge must be allocated in dependence to whether a shape is given
+        if (myShape.size()==0) {
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
+                    myCurrentStreetName, myLanesSpread);
+        } else {
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
+                    myShape, myCurrentStreetName, myLanesSpread, 
+                    OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
+        }
+        myCurrentEdge->setLoadedLength(myLength);
+    }
+    myCurrentEdge->setVehicleClasses(myAllowed, myNotAllowed);
+}
+
+
+void 
+NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
+    if (myCurrentEdge==0) {
+        if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
+            WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+        }
+        return;
+    }
+    bool ok = true;
+    int lane;
+    if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+        lane = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
+        if(!myHaveWarnedAboutDeprecatedLaneId) {
+            myHaveWarnedAboutDeprecatedLaneId = true;
+            WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
+        }
+    } else {
+        lane = attrs.getIntReporting(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
+    }
+    std::vector<std::string> disallowed, allowed, preferred;
+    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, ""), disallowed);
+    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, ""), allowed);
+    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_PREFER, 0, ok, ""), preferred);
+    if (!ok) {
+        return;
+    }
+    // check whether this lane exists
+    if (lane>=(int) myCurrentEdge->getNumLanes()) {
+        WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
+        return;
+    }
+    // set information about allowed / disallowed vehicle classes
+    for (std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+        myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
+    }
+    for (std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+        myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
+    }
+    for (std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
+        myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
+    }
+    // try to get the width
+    if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+        myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
+    }
+    // try to get the width
+    if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
+        myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
+    }
+
+    // set information about later beginning lanes
+    if (attrs.hasAttribute(SUMO_ATTR_FORCE_LENGTH)) {
+        bool ok = true;
+        int forcedLength = attrs.getIntReporting(SUMO_ATTR_FORCE_LENGTH, myCurrentID.c_str(), ok); // !!! edge id
+        if (ok) {
+            int nameid = forcedLength;
+            forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
+            std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
+            if (i==mySplits.end()) {
+                Split e;
+                e.pos = (SUMOReal) forcedLength;
+                e.nameid = nameid;
+                for (unsigned int j=0; j<myCurrentEdge->getNumLanes(); j++) {
+                    e.lanes.push_back(j);
+                }
+                mySplits.push_back(e);
+            }
+            i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
+            std::vector<int>::iterator k = find((*i).lanes.begin(), (*i).lanes.end(), lane);
+            if (k!=(*i).lanes.end()) {
+                (*i).lanes.erase(k);
+            }
+        }
+    }
+}
+
+
+void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
+    if (myCurrentEdge == 0) {
+        WRITE_WARNING("Ignoring 'split' because it cannot be assigned to an edge");
+        return;
+    }
+    bool ok = true;
+    Split e;
+    e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
+    if (ok) {
+        if (fabs(e.pos)>myCurrentEdge->getGeometry().length()) {
+            WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
+            return;
+        }
+        if (e.pos<0) {
+            e.pos += myCurrentEdge->getGeometry().length();
+        }
+        std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
+        if (i!=mySplits.end()) {
+            WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
+            return;
+        }
+        e.nameid = (int)e.pos;
         if (myCurrentEdge==0) {
             if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
                 WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
         }
-        bool ok = true;
-        int lane;
-        if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-            lane = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
-            if(!myHaveWarnedAboutDeprecatedLaneId) {
-                myHaveWarnedAboutDeprecatedLaneId = true;
-                WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
-            }
-        } else {
-            lane = attrs.getIntReporting(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
-        }
-        std::vector<std::string> disallowed, allowed, preferred;
-        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, ""), disallowed);
-        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, ""), allowed);
-        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_PREFER, 0, ok, ""), preferred);
-        if (!ok) {
-            return;
-        }
-        // check whether this lane exists
-        if (lane>=(int) myCurrentEdge->getNumLanes()) {
-            WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
-            return;
-        }
-        // set information about allowed / disallowed vehicle classes
-        for (std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
-            myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
-        }
-        for (std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
-            myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
-        }
-        for (std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
-            myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
-        }
-        // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
-            myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
-        }
-        // try to get the width
-        if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
-            myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
-        }
-
-        // set information about later beginning lanes
-        if (attrs.hasAttribute(SUMO_ATTR_FORCE_LENGTH)) {
-            bool ok = true;
-            int forcedLength = attrs.getIntReporting(SUMO_ATTR_FORCE_LENGTH, myCurrentID.c_str(), ok); // !!! edge id
-            if (ok) {
-                int nameid = forcedLength;
-                forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
-                std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
-                if (i==mySplits.end()) {
-                    Split e;
-                    e.pos = (SUMOReal) forcedLength;
-                    e.nameid = nameid;
-                    for (unsigned int j=0; j<myCurrentEdge->getNumLanes(); j++) {
-                        e.lanes.push_back(j);
-                    }
-                    mySplits.push_back(e);
-                }
-                i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
-                std::vector<int>::iterator k = find((*i).lanes.begin(), (*i).lanes.end(), lane);
-                if (k!=(*i).lanes.end()) {
-                    (*i).lanes.erase(k);
-                }
+        std::vector<std::string> lanes;
+        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
+        for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+            try {
+                int lane = TplConvert<char>::_2int((*i).c_str());
+                e.lanes.push_back(lane);
+            } catch (NumberFormatException &) {
+                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
+            } catch (EmptyData &) {
+                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
             }
         }
-    }
-    if (element==SUMO_TAG_SPLIT&&myCurrentEdge!=0) {
-        bool ok = true;
-        Split e;
-        e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
-        if (ok) {
-            if (fabs(e.pos)>myCurrentEdge->getGeometry().length()) {
-                WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
-                return;
+        if (e.lanes.empty()) {
+            for (size_t l = 0; l < myCurrentEdge->getNumLanes(); ++l) {
+                e.lanes.push_back((int) l);
             }
-            if (e.pos<0) {
-                e.pos += myCurrentEdge->getGeometry().length();
-            }
-            std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
-            if (i!=mySplits.end()) {
-                WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
-                return;
-            }
-            e.nameid = (int)e.pos;
-            if (myCurrentEdge==0) {
-                if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-                    WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
-                }
-                return;
-            }
-            std::vector<std::string> lanes;
-            SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
-            for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-                try {
-                    int lane = TplConvert<char>::_2int((*i).c_str());
-                    e.lanes.push_back(lane);
-                } catch (NumberFormatException &) {
-                    WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
-                } catch (EmptyData &) {
-                    WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
-                }
-            }
-            if (e.lanes.empty()) {
-                for (size_t l = 0; l < myCurrentEdge->getNumLanes(); ++l) {
-                    e.lanes.push_back((int) l);
-                }
-            }
-            mySplits.push_back(e);
         }
+        mySplits.push_back(e);
     }
 }
 
@@ -601,8 +626,6 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
         }
     }
 }
-
-
 
 /****************************************************************************/
 
