@@ -94,8 +94,6 @@ Warning: In lane '15422051#9_0': Could not build shape.
 Warning: In lane '15422051#9_1': Could not build shape.
 Warning: In lane '-15422051#9_0': Could not build shape.
 Warning: In lane '-15422051#9_1': Could not build shape.
-Warning: In edge '15444691#20': lane shape could not been determined (same points at 1758.38,-1521.50)
-Warning: In edge '-15444691#20': lane shape could not been determined (same points at 1758.38,-1521.50)
 Warning: New value for oneway found: reversible
 Warning: New value for oneway found: reversible
 Warning: New value for oneway found: reversible
@@ -104,8 +102,6 @@ Warning: New value for oneway found: reversible
 Warning: New value for oneway found: reversible
 Warning: New value for oneway found: reversible
 Warning: New value for oneway found: reversible
-Warning: In edge '44526660#19': lane shape could not been determined (same points at 1758.38,-1521.50)
-Warning: In edge '-44526660#19': lane shape could not been determined (same points at 1758.38,-1521.50)
 Warning: In lane '54179780#33_0': Could not build shape.
 Warning: In lane '54179780#33_1': Could not build shape.
 Warning: In lane '-54179780#33_0': Could not build shape.
@@ -153,79 +149,39 @@ Warning:  Removing dummy edge '-56065323'
 Warning:  Removing dummy edge '60965240'
 Warning:  Removing dummy edge '-60965240'
 Warning: 18 dummy edge(s) removed.
-Warning: In edge '-15444691#20': lane shape could not been determined (same points at 39988.49,5994.69)
-Warning: In edge '-44526660#19': lane shape could not been determined (same points at 39988.49,5994.69)
 Warning: In lane '-54179780#33_0': Could not build shape.
 Warning: In lane '-54179780#33_1': Could not build shape.
 Warning: In lane '-86251620#3_0': Could not build shape.
-Warning: In edge '15444691#20': lane shape could not been determined (same points at 39988.49,5994.69)
-Warning: In edge '44526660#19': lane shape could not been determined (same points at 39988.49,5994.69)
 Warning: In lane '54179780#33_0': Could not build shape.
 Warning: In lane '54179780#33_1': Could not build shape.
 Warning: In lane '86251620#3_0': Could not build shape.
-Warning: For node '153232838': could not compute shape.
-Warning: For node '729939033': could not compute shape.
+Warning: Splitting vector close to end (pos: 0.02, length: 0.05)
+Warning: Splitting vector close to end (pos: 0.02, length: 0.05)
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
 Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
-Warning: Could not use edge geometry for internal lane, node '153232838'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
+Warning: Could not use edge geometry for internal lane, node '729939033'.
