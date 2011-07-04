@@ -259,18 +259,18 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
     // build the edge
     NBEdge *e = 0;
     if (interID=="-1") {
-        e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, -1, -1);
+        e = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1);
     } else {
         PositionVector geoms = myGeoms[interID];
         if (connection) {
             geoms = geoms.reverse();
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, -1, -1, geoms, "", LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1, geoms, "", LANESPREAD_CENTER);
         } else {
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, -1, -1, geoms, "", LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1, geoms, "", LANESPREAD_CENTER);
         }
     }
     // add vehicle type information to the edge
