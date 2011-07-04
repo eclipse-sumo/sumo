@@ -279,10 +279,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         }
     }
     server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
-    // send response
-    outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
-    outputStorage.writeStorage(tempMsg);
+    server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
 

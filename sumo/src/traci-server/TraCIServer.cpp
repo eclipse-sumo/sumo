@@ -657,6 +657,19 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
     return ok;
 }
 
+void 
+TraCIServer::writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg) {
+    /*
+    if(tempMsg.size()<254) {
+        outputStorage.writeUnsignedByte(1 + tempMsg.size()); // command length -> short
+    } else {
+    */
+        outputStorage.writeUnsignedByte(0); // command length -> extended
+        outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
+    //}
+    outputStorage.writeStorage(tempMsg);
+}
+
 }
 
 #endif

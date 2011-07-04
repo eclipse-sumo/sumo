@@ -108,10 +108,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
         }
     }
     server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning, outputStorage);
-    // send response
-    outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(static_cast<int>(1 + 4 + tempMsg.size()));
-    outputStorage.writeStorage(tempMsg);
+    server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
 

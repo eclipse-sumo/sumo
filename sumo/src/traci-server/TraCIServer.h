@@ -107,7 +107,7 @@ public:
         return myExecutors;
     }
 
-
+    void writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg);
 
 
 private:

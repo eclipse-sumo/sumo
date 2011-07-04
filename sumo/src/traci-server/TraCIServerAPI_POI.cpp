@@ -111,10 +111,7 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         }
     }
     server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
-    // send response
-    outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
-    outputStorage.writeStorage(tempMsg);
+    server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
 

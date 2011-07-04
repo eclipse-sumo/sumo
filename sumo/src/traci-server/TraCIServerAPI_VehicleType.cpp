@@ -88,10 +88,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
         getVariable(variable, *v, tempMsg);
     }
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
-    // send response
-    outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
-    outputStorage.writeStorage(tempMsg);
+    server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
 
