@@ -36,3 +36,9 @@ errors
 
 # declared edge length should be writen back into the plain-output
 loaded_length
+
+# declared lane specific width should appear in net and plain output
+lane_based_width
+
+# declared lane specific speed should appear in net and plain output
+lane_based_speed
