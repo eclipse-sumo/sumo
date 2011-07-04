@@ -789,6 +789,34 @@ NBEdge::hasRestrictions() const {
 
 
 bool
+NBEdge::hasLaneSpecificAllow() const {
+    std::vector<Lane>::const_iterator i=myLanes.begin();
+    const SUMOVehicleClasses &allowed = i->allowed;
+    i++;
+    for (; i!=myLanes.end(); ++i) {
+        if (i->allowed != allowed) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+NBEdge::hasLaneSpecificDisallow() const {
+    std::vector<Lane>::const_iterator i=myLanes.begin();
+    const SUMOVehicleClasses &notAllowed = i->notAllowed;
+    i++;
+    for (; i!=myLanes.end(); ++i) {
+        if (i->notAllowed != notAllowed) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 NBEdge::hasLaneSpecificWidth() const {
     for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         if (i->width != getWidth()) {
@@ -1752,8 +1780,9 @@ NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
 
 void
 NBEdge::setWidth(int lane, SUMOReal width) {
-    if (lane<0) {
-        // if all lanes are meant...
+    if (lane<0) { 
+        // all lanes are meant...
+        myWidth = width;
         for (unsigned int i=0; i<myLanes.size(); i++) {
             // ... do it for each lane
             setWidth((int) i, width);
@@ -1768,7 +1797,8 @@ NBEdge::setWidth(int lane, SUMOReal width) {
 void
 NBEdge::setOffset(int lane, SUMOReal offset) {
     if (lane<0) {
-        // if all lanes are meant...
+        // all lanes are meant...
+        myOffset = offset;
         for (unsigned int i=0; i<myLanes.size(); i++) {
             // ... do it for each lane
             setOffset((int) i, offset);
@@ -1783,7 +1813,8 @@ NBEdge::setOffset(int lane, SUMOReal offset) {
 void
 NBEdge::setSpeed(int lane, SUMOReal speed) {
     if (lane<0) {
-        // if all lanes are meant...
+        // all lanes are meant...
+        mySpeed = speed;
         for (unsigned int i=0; i<myLanes.size(); i++) {
             // ... do it for each lane
             setOffset((int) i, speed);

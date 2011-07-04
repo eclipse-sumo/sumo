@@ -680,6 +680,12 @@ public:
     /// @brief whether at least one lane has restrictions
     bool hasRestrictions() const;
 
+    /// @brief whether lanes differ in allowed vehicle classes
+    bool hasLaneSpecificAllow() const;
+
+    /// @brief whether lanes differ in disallowed vehicle classes
+    bool hasLaneSpecificDisallow() const;
+
     /// @brief whether lanes differ in speed
     bool hasLaneSpecificSpeed() const;
 
