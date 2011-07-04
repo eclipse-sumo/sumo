@@ -53,6 +53,12 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+const SUMOReal NBEdge::UNSPECIFIED_WIDTH = -1;
+const SUMOReal NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
+const SUMOReal NBEdge::UNSPECIFIED_OFFSET = 0;
 
 // ===========================================================================
 // method definitions
@@ -161,7 +167,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
-    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName)
 {
@@ -183,7 +189,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to,
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
-    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName)
 {
@@ -202,7 +208,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()), 
     myOffset(tpl->getOffset()), 
     myWidth(tpl->getWidth()),
-    myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName())
 {
@@ -234,7 +240,7 @@ NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
     myLaneSpreadFunction = spread;
     myOffset = offset;
     myWidth = width;
-    myLoadedLength = -1;
+    myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
     init(nolanes, false);
@@ -780,6 +786,46 @@ NBEdge::hasRestrictions() const {
     }
     return false;
 }
+
+
+bool
+NBEdge::hasLaneSpecificWidth() const {
+    for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+        if (i->width != getWidth()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+NBEdge::hasLaneSpecificSpeed() const {
+    for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+        if (i->speed != getSpeed()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+NBEdge::hasLaneSpecificOffset() const {
+    for (std::vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+        if (i->offset != getOffset()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool 
+NBEdge::needsLaneSpecificOutput() const {
+    return hasRestrictions() || hasLaneSpecificSpeed() || hasLaneSpecificWidth() || hasLaneSpecificOffset();
+}
+
 
 
 bool
@@ -1731,6 +1777,21 @@ NBEdge::setOffset(int lane, SUMOReal offset) {
     }
     assert(lane<(int) myLanes.size());
     myLanes[lane].offset = offset;
+}
+
+
+void
+NBEdge::setSpeed(int lane, SUMOReal speed) {
+    if (lane<0) {
+        // if all lanes are meant...
+        for (unsigned int i=0; i<myLanes.size(); i++) {
+            // ... do it for each lane
+            setOffset((int) i, speed);
+        }
+        return;
+    }
+    assert(lane<(int) myLanes.size());
+    myLanes[lane].speed = speed;
 }
 
 

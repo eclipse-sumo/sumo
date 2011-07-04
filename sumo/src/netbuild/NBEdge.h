@@ -166,6 +166,14 @@ public:
             const Position &to, SUMOReal lanewidth, unsigned int lane,
             size_t noLanes, LaneSpreadFunction lsf, bool leftHand);
 
+    /// @brief unspecified lane width
+    static const SUMOReal UNSPECIFIED_WIDTH;
+    /// @brief unspecified lane offset
+    static const SUMOReal UNSPECIFIED_OFFSET;
+    /// @brief no length override given
+    static const SUMOReal UNSPECIFIED_LOADED_LENGTH;
+
+
 public:
     /** @brief Constructor
      *
@@ -653,8 +661,6 @@ public:
      */
     int getJunctionPriority(const NBNode * const node) const;
 
-
-    bool hasRestrictions() const;
     void setLoadedLength(SUMOReal val);
     void dismissVehicleClassInformation();
 
@@ -663,6 +669,20 @@ public:
         return myType;
     }
 
+    /// @brief whether at least one lane has values differing from the edges values
+    bool needsLaneSpecificOutput() const;
+
+    /// @brief whether at least one lane has restrictions
+    bool hasRestrictions() const;
+
+    /// @brief whether lanes differ in speed
+    bool hasLaneSpecificSpeed() const;
+
+    /// @brief whether lanes differ in offset
+    bool hasLaneSpecificOffset() const;
+
+    /// @brief whether lanes differ in width
+    bool hasLaneSpecificWidth() const;
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -804,8 +824,14 @@ public:
 
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
 
+    /// @brief set lane specific width (negative lane implies set for all lanes)
     void setWidth(int lane, SUMOReal width);
+
+    /// @brief set lane specific end-offset (negative lane implies set for all lanes)
     void setOffset(int lane, SUMOReal offset);
+
+    /// @brief set lane specific speed (negative lane implies set for all lanes)
+    void setSpeed(int lane, SUMOReal offset);
 
     /// @brief get the union of allowed classes over all lanes
     SUMOVehicleClasses getAllowedVehicleClasses() const;
@@ -1069,6 +1095,7 @@ private:
 
     /// @brief The street name (or whatever arbitrary string you wish to attach)
     std::string myStreetName;
+
 
 public:
     /**

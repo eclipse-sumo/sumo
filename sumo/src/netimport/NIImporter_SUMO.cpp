@@ -142,7 +142,8 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         NBEdge *e = new NBEdge(ed->id, from, to, 
                 ed->type, ed->maxSpeed, 
                 (unsigned int) ed->lanes.size(), 
-                ed->priority, -1, -1, geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
+                geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -371,8 +372,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     myCurrentLane->disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
-    myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) -1);
-    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) -1);
+    myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
+    myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
             attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
             attrs.getObjectType(), id.c_str(), ok, false);

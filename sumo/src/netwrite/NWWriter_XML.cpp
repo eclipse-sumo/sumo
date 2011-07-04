@@ -116,8 +116,10 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->getTypeID() != "") {
             edevice << "\" type=\"" << e->getTypeID();
         }
-        edevice << "\" numLanes=\"" << e->getNumLanes()
-        << "\" speed=\"" << e->getSpeed() << "\"";
+        edevice << "\" numLanes=\"" << e->getNumLanes() << "\"";
+        if (!e->hasLaneSpecificSpeed()) {
+            edevice << " " << SUMO_ATTR_SPEED << "=\"" << toString(e->getSpeed()) << "\"";
+        }
         // write inner geometry (if any)
         if (!e->hasDefaultGeometry()) {
             edevice << " shape=\"" << e->getGeometry() << "\"";
@@ -130,8 +132,14 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->hasLoadedLength()) {
             edevice << " " << toString(SUMO_ATTR_LENGTH) << "=\"" << e->getLoadedLength() << "\"";
         }
-        // write the vehicles class if restrictions exist
-        if (!e->hasRestrictions()) {
+        // some attributes can be set by edge default or per lane. Write as default if possible (efficiency) 
+        if (e->getWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
+            edevice << " " << SUMO_ATTR_WIDTH << "=\"" << toString(e->getWidth()) << "\"";
+        }
+        if (e->getOffset() != NBEdge::UNSPECIFIED_OFFSET && !e->hasLaneSpecificOffset()) {
+            edevice << " " << SUMO_ATTR_OFFSET << "=\"" << toString(e->getOffset()) << "\"";
+        }
+        if (!e->needsLaneSpecificOutput()) {
             edevice << "/>\n";
         } else {
             edevice << ">\n";
@@ -147,6 +155,15 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 }
                 if (lane.preferred.size()!=0) {
                     edevice << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
+                }
+                if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
+                    edevice << " " << SUMO_ATTR_WIDTH << "=\"" << toString(lane.width) << '\"';
+                }
+                if (lane.offset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificOffset()) {
+                    edevice << " " << SUMO_ATTR_OFFSET << "=\"" << toString(lane.offset) << '\"';
+                }
+                if (e->hasLaneSpecificSpeed()) {
+                    edevice << " " << SUMO_ATTR_SPEED << "=\"" << toString(lane.speed) << '\"';
                 }
                 edevice << "/>\n";
             }

@@ -206,9 +206,9 @@ private:
         /// @brief Constructor
         TypeDefinition()
                 : noLanes(1), speed((SUMOReal) 13.9), priority(-1), 
-                oneWay(true), discard(false), width(-1) { }
+                oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
-        /// @brief Destructor
+        /// @brief Constructor
         TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, SUMOReal _width)
                 : noLanes(_noLanes), speed(_speed), priority(_priority), 
                 oneWay(true), discard(false), width(_width) { }

@@ -118,7 +118,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     myAllowed = myTypeCont.getAllowedClasses("");
     myNotAllowed = myTypeCont.getDisallowedClasses("");
     myCurrentWidth = myTypeCont.getWidth("");
-    myCurrentOffset = 0;
+    myCurrentOffset = NBEdge::UNSPECIFIED_OFFSET;
     // check whether a type's values shall be used
     myCurrentType = "";
     myShape = PositionVector();
@@ -299,9 +299,13 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));
     }
-    // try to get the width
+    // try to get the end-offset (lane shortened due to pedestrian crossing etc..)
     if (attrs.hasAttribute(SUMO_ATTR_ENDOFFSET)) {
         myCurrentEdge->setOffset(lane, attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok));
+    }
+    // try to get lane specific speed (should not occur for german networks)
+    if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+        myCurrentEdge->setSpeed(lane, attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
 
     // set information about later beginning lanes
