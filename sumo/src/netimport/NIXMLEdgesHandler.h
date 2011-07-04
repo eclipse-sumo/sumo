@@ -276,8 +276,22 @@ private:
 
 
 private:
+
+    /** @brief Parses an edge and stores the values in "myCurrentEdge"
+     * @param[in] attrs The attributes to get the edge's values from
+     */
     void addEdge(const SUMOSAXAttributes &attrs);
+
+    /** @brief Parses a lane and modifies myCurrentEdge according to the given
+     * attribures
+     * @param[in] attrs The attributes to get the lanes's values from
+     */
     void addLane(const SUMOSAXAttributes &attrs);
+
+    /** @brief Parses a split and stores it in mySplits. Splits are executed Upon reading the end
+     * tag of an edge 
+     * @param[in] attrs The attributes to get the splits's values from
+     */
     void addSplit(const SUMOSAXAttributes &attrs);
 
 private:
