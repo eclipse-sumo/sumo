@@ -1,3 +1,6 @@
+# Tests retrieval of traffic light number in scenario (ID_COUNT)
+ID_COUNT
+
 # Tests retrieval of traffic lights in scenario (ID_LIST)
 ID_LIST
 

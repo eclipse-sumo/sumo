@@ -1,3 +1,6 @@
+# Tests retrieval of route number in scenario (ID_COUNT)
+ID_COUNT
+
 # Tests retrieval of routes in scenario (ID_LIST)
 ID_LIST
 

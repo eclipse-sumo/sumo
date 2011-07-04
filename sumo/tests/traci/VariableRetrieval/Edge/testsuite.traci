@@ -1,3 +1,6 @@
+# Tests retrieval of vehicle number in scenario (ID_COUNT)
+ID_COUNT
+
 # Tests retrieval of vehicles in scenario (ID_LIST)
 ID_LIST
 

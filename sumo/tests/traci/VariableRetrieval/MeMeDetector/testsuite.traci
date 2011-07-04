@@ -1,3 +1,6 @@
+# Tests retrieval of meme-detector number in scenario (ID_COUNT)
+ID_COUNT
+
 # Tests retrieval of meme-detectors in scenario (ID_LIST)
 ID_LIST
 

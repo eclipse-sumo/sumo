@@ -1,0 +1,13 @@
+# based on sumo/basic/dynamics/one_vehicle_10m_per_s_high_prio
+# No detector is given
+no_detectors
+
+# One detector is given
+one_detector
+
+# Two detectors are given
+two_detectors
+
+
+
+
