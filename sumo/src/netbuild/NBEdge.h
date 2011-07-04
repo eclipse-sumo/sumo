@@ -373,12 +373,17 @@ public:
     }
 
 
-    /** @brief Returns the street name this edge
+    /** @brief Returns the street name of this edge
      */
     const std::string& getStreetName() const throw() {
         return myStreetName;
     }
 
+    /** @brief sets the street name of this edge
+     */
+    void setStreetName(const std::string& name) {
+        myStreetName = name;
+    }
 
     /** @brief Returns the offset to the destination node
      * @return The offset to the destination node
