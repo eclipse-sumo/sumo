@@ -269,8 +269,8 @@ void
 NLJunctionControlBuilder::initJunctionLogic(const std::string &id) throw() {
     myActiveKey = id;
     myActiveProgram = "";
-    myActiveLogic = new MSBitsetLogic::Logic();
-    myActiveFoes = new MSBitsetLogic::Foes();
+    myActiveLogic.clear();
+    myActiveFoes.clear();
     myActiveConts.reset();
     myRequestSize = NO_REQUEST_SIZE; // seems not to be used
     myRequestItemNumber = 0;
@@ -307,12 +307,12 @@ NLJunctionControlBuilder::addLogicItem(int request,
                 " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
     // assert that the logicitems come ordered by their request index
-    assert(myActiveLogic->size() == (size_t) request);
-    assert(myActiveFoes->size() == (size_t) request);
+    assert(myActiveLogic.size() == (size_t) request);
+    assert(myActiveFoes.size() == (size_t) request);
     // add the read response for the given request index
-    myActiveLogic->push_back(std::bitset<64>(response));
+    myActiveLogic.push_back(std::bitset<64>(response));
     // add the read junction-internal foes for the given request index
-    myActiveFoes->push_back(std::bitset<64>(foes));
+    myActiveFoes.push_back(std::bitset<64>(foes));
     // add whether the vehicle may drive a little bit further
     myActiveConts.set(request, cont);
     // increse number of set information
@@ -357,10 +357,13 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
     if (myRequestItemNumber!=myRequestSize) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
-    MSJunctionLogic *logic = new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts);
-    if (myLogics.find(myActiveKey)!=myLogics.end()) {
+    if (myLogics.count(myActiveKey) > 0) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
+    MSJunctionLogic *logic = new MSBitsetLogic(myRequestSize, 
+            new MSBitsetLogic::Logic(myActiveLogic), 
+            new MSBitsetLogic::Foes(myActiveFoes), 
+            myActiveConts);
     myLogics[myActiveKey] = logic;
 }
 

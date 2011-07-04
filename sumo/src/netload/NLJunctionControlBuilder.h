@@ -320,10 +320,10 @@ protected:
     std::string myLogicType;
 
     /// @brief The right-of-way-logic of the currently chosen bitset-logic
-    MSBitsetLogic::Logic *myActiveLogic;
+    MSBitsetLogic::Logic myActiveLogic;
 
     /// @brief The description about which lanes disallow other passing the junction simultaneously
-    MSBitsetLogic::Foes *myActiveFoes;
+    MSBitsetLogic::Foes myActiveFoes;
 
     /// @brief The description about which lanes have an internal follower
     std::bitset<64> myActiveConts;
