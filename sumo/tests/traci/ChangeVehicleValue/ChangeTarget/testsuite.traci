@@ -6,3 +6,6 @@ UnreachableTarget
 
 # Test error on specifying an invalid node id
 InvalidNodeId
+
+# Test error on specifying an unknown edge id
+InvalidEdgeId
