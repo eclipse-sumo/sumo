@@ -73,13 +73,13 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
     // check whether the files do exist
     if (!FileHelpers::exists(dbf_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
+        WRITE_ERROR("File not found: " + dbf_file);
     }
     if (!FileHelpers::exists(shp_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + shp_file);
+        WRITE_ERROR("File not found: " + shp_file);
     }
     if (!FileHelpers::exists(shx_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + shx_file);
+        WRITE_ERROR("File not found: " + shx_file);
     }
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;
@@ -122,7 +122,7 @@ NIImporter_ArcView::load() {
     OGRRegisterAll();
     OGRDataSource *poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
     if (poDS == NULL) {
-        MsgHandler::getErrorInstance()->inform("Could not open shape description '" + mySHPName + "'.");
+        WRITE_ERROR("Could not open shape description '" + mySHPName + "'.");
         return;
     }
 
@@ -157,7 +157,7 @@ NIImporter_ArcView::load() {
             : poFeature->GetFieldAsString("LINK_ID");
         id = StringUtils::prune(id);
         if (id=="") {
-            MsgHandler::getErrorInstance()->inform("Could not obtain edge id.");
+            WRITE_ERROR("Could not obtain edge id.");
             return;
         }
         std::string name =
@@ -191,7 +191,7 @@ NIImporter_ArcView::load() {
                 speed = myTypeCont.getSpeed("");
             } else {
                 OGRFeature::DestroyFeature(poFeature);
-                MsgHandler::getErrorInstance()->inform("The description seems to be invalid. Please recheck usage of types.");
+                WRITE_ERROR("The description seems to be invalid. Please recheck usage of types.");
                 return;
             }
         }
@@ -227,7 +227,7 @@ NIImporter_ArcView::load() {
             if (from==0) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
-                    MsgHandler::getErrorInstance()->inform("Node '" + from_node + "' could not be added");
+                    WRITE_ERROR("Node '" + from_node + "' could not be added");
                     delete from;
                     continue;
                 }
@@ -241,7 +241,7 @@ NIImporter_ArcView::load() {
             if (to==0) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
-                    MsgHandler::getErrorInstance()->inform("Node '" + to_node + "' could not be added");
+                    WRITE_ERROR("Node '" + to_node + "' could not be added");
                     delete to;
                     continue;
                 }
@@ -283,7 +283,7 @@ NIImporter_ArcView::load() {
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 #else
-    MsgHandler::getErrorInstance()->inform("SUMO was compiled without GDAL support.");
+    WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif
 }
 

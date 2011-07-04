@@ -251,7 +251,7 @@ SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", \"allowed\", \"best\", or an int>0)");
+    WRITE_ERROR("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", \"allowed\", \"best\", or an int>0)");
     return false;
 }
 
@@ -267,7 +267,7 @@ SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", or a float)");
+    WRITE_ERROR("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", or a float)");
     return false;
 }
 
@@ -283,7 +283,7 @@ SUMOVehicleParameter::departspeedValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
+    WRITE_ERROR("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
     return false;
 }
 
@@ -299,7 +299,7 @@ SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
+    WRITE_ERROR("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
     return false;
 }
 
@@ -315,7 +315,7 @@ SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
+    WRITE_ERROR("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
     return false;
 }
 
@@ -331,7 +331,7 @@ SUMOVehicleParameter::arrivalspeedValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    MsgHandler::getErrorInstance()->inform("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
+    WRITE_ERROR("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
     return false;
 }
 

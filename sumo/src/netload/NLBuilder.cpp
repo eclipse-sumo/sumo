@@ -78,7 +78,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
     if (edge!=0) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
-        MsgHandler::getErrorInstance()->inform("Trying to set the effort for the unknown edge '" + id + "'.");
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
     }
 }
 
@@ -93,7 +93,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
     if (edge!=0) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
-        MsgHandler::getErrorInstance()->inform("Trying to set the travel time for the unknown edge '" + id + "'.");
+        WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
     }
 }
 
@@ -128,7 +128,7 @@ NLBuilder::build() throw(ProcessError) {
         long before = SysUtils::getCurrentMillis();
         BinaryInputDevice strm(myOptions.getString("load-state"));
         if (!strm.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not read state from '" + myOptions.getString("load-state") + "'!");
+            WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + myOptions.getString("load-state") + "'...");
             unsigned int step = myNet.loadState(strm);

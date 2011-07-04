@@ -109,11 +109,11 @@ XMLSubSys::runParser(GenericSAXHandler &handler,
         myNextFreeReader--;
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         return false;
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("An error occured.");
+        WRITE_ERROR("An error occured.");
         return false;
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
@@ -124,7 +124,7 @@ SAX2XMLReader *
 XMLSubSys::getSAXReader() throw() {
     SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
     if (reader==0) {
-        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
+        WRITE_ERROR("The XML-parser could not be build");
         return 0;
     }
     if (!myEnableValidation) {

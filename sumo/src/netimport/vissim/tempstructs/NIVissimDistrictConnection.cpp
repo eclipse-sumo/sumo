@@ -214,7 +214,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
                 e = ec.retrievePossiblySplitted(toString<int>(c->myEdgeID), c->myPosition);
             }
             if (e==0) {
-                MsgHandler::getWarningInstance()->inform("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
+                WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }
             std::string id = "ParkingPlace" + toString<int>(*l);
@@ -367,7 +367,7 @@ SUMOReal
 NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
     //assert(myAssignedVehicles.size()!=0);
     if (myAssignedVehicles.size()==0) {
-        MsgHandler::getWarningInstance()->inform("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
+        WRITE_WARNING("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
         return (SUMOReal) 200/(SUMOReal) 3.6;
     }
     SUMOReal speed = 0;

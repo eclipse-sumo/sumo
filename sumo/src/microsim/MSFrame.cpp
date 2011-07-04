@@ -265,24 +265,24 @@ MSFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file")) {
-        MsgHandler::getErrorInstance()->inform("No network file (-n) specified.");
+        WRITE_ERROR("No network file (-n) specified.");
         ok = false;
     }
     if (oc.isSet("incremental-dua-step") && oc.isSet("incremental-dua-base")) {
-        MsgHandler::getWarningInstance()->inform("The options 'incremental-dua-step' and 'incremental-dua-base' are deprecated, use 'scale' instead.");
+        WRITE_WARNING("The options 'incremental-dua-step' and 'incremental-dua-base' are deprecated, use 'scale' instead.");
         if (oc.getInt("incremental-dua-step") > oc.getInt("incremental-dua-base")) {
-            MsgHandler::getErrorInstance()->inform("Invalid dua step.");
+            WRITE_ERROR("Invalid dua step.");
             ok = false;
         }
     }
     if (!oc.isDefault("scale")) {
 		if (oc.getFloat("scale") < 0. || oc.getFloat("scale") > 1.) {
-			MsgHandler::getErrorInstance()->inform("Invalid scaling factor.");
+			WRITE_ERROR("Invalid scaling factor.");
 			ok = false;
 		}
 	}
     if (oc.getBool("vehroute-output.exit-times") && !oc.isSet("vehroute-output")) {
-        MsgHandler::getErrorInstance()->inform("A vehroute-output file is needed for exit times.");
+        WRITE_ERROR("A vehroute-output file is needed for exit times.");
         ok = false;
     }
     return ok;

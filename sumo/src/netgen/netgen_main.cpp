@@ -112,15 +112,15 @@ buildNetwork(NBNetBuilder &nb) {
         // check values
         bool hadError = false;
         if (oc.getInt("spider.arm-number") < 3) {
-            MsgHandler::getErrorInstance()->inform("Spider networks need at least 3 arms.");
+            WRITE_ERROR("Spider networks need at least 3 arms.");
             hadError = true;
         }
         if (oc.getInt("spider.circle-number") < 1) {
-            MsgHandler::getErrorInstance()->inform("Spider networks need at least one circle.");
+            WRITE_ERROR("Spider networks need at least one circle.");
             hadError = true;
         }
         if (oc.getFloat("spider.space-radius") < 10) {
-            MsgHandler::getErrorInstance()->inform("The radius of spider networks must be at least 10m.");
+            WRITE_ERROR("The radius of spider networks must be at least 10m.");
             hadError = true;
         }
         if (hadError) {
@@ -155,15 +155,15 @@ buildNetwork(NBNetBuilder &nb) {
         // check values
         bool hadError = false;
         if (xNo<2 || yNo<2) {
-            MsgHandler::getErrorInstance()->inform("The number of nodes must be at least 2 in both directions.");
+            WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
             hadError = true;
         }
         if (xLength<10. || yLength<10.) {
-            MsgHandler::getErrorInstance()->inform("The distance between nodes must be at least 10m in both directions.");
+            WRITE_ERROR("The distance between nodes must be at least 10m in both directions.");
             hadError = true;
         }
         if (attachLength != 0.0 && attachLength<10.) {
-            MsgHandler::getErrorInstance()->inform("The length of attached streets must be at least 10m.");
+            WRITE_ERROR("The length of attached streets must be at least 10m.");
             hadError = true;
         }
         if (hadError) {
@@ -232,7 +232,7 @@ main(int argc, char **argv) {
 		NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;

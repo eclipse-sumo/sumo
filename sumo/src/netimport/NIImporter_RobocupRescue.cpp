@@ -71,7 +71,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         // nodes
         std::string nodesName = (*file) + "/node.bin";
         if (!FileHelpers::exists(nodesName)) {
-            MsgHandler::getErrorInstance()->inform("Could not open robocup-node-file '" + nodesName + "'.");
+            WRITE_ERROR("Could not open robocup-node-file '" + nodesName + "'.");
             return;
         }
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing robocup-nodes from '" + nodesName + "'...");
@@ -80,7 +80,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         // edges
         std::string edgesName = (*file) + "/road.bin";
         if (!FileHelpers::exists(edgesName)) {
-            MsgHandler::getErrorInstance()->inform("Could not open robocup-road-file '" + edgesName + "'.");
+            WRITE_ERROR("Could not open robocup-road-file '" + edgesName + "'.");
             return;
         }
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing robocup-roads from '" + edgesName + "'...");
@@ -113,7 +113,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
     //
     unsigned int noNodes;
     dev >> noNodes;
-    MsgHandler::getMessageInstance()->inform("Expected node number: " + toString(noNodes));
+    WRITE_MESSAGE("Expected node number: " + toString(noNodes));
     do {
         //cout << "  left " << (noNodes) << endl;
         unsigned int entrySize, id, posX, posY, numEdges;
@@ -199,14 +199,14 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
             NBEdge *edge = new NBEdge(toString(id), fromNode, toNode, "",
                                       speed, linesToHead, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
-                MsgHandler::getErrorInstance()->inform("Could not insert edge '" + toString(id) + "'");
+                WRITE_ERROR("Could not insert edge '" + toString(id) + "'");
             }
         }
         if (linesToTail>0) {
             NBEdge *edge = new NBEdge("-" + toString(id), toNode, fromNode, "",
                                       speed, linesToTail, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
-                MsgHandler::getErrorInstance()->inform("Could not insert edge '-" + toString(id) + "'");
+                WRITE_ERROR("Could not insert edge '-" + toString(id) + "'");
             }
         }
         --noEdges;

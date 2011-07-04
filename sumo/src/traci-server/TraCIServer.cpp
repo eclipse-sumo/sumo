@@ -149,7 +149,7 @@ TraCIServer::TraCIServer() {
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes) {
-        MsgHandler::getWarningInstance()->inform("Starting TraCI without using internal lanes!");
+        WRITE_WARNING("Starting TraCI without using internal lanes!");
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
@@ -157,7 +157,7 @@ TraCIServer::TraCIServer() {
     try {
         int port = oc.getInt("remote-port");
         // Opens listening socket
-        MsgHandler::getMessageInstance()->inform("***Starting server on port " + toString(port) + " ***");
+        WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
         mySocket = new tcpip::Socket(port);
         mySocket->accept();
         // When got here, a client has connected
@@ -303,7 +303,7 @@ TraCIServer::dispatchCommand() {
             break;
         case CMD_POSITIONCONVERSION: {
             if (!myHaveWarnedDeprecation) {
-                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                WRITE_WARNING("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
             tcpip::Storage tempMsg;
@@ -316,14 +316,14 @@ TraCIServer::dispatchCommand() {
             break;
         case CMD_ADDVEHICLE:
             if (!myHaveWarnedDeprecation) {
-                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                WRITE_WARNING("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
             success = commandAddVehicle();
             break;
         case CMD_DISTANCEREQUEST: {
             if (!myHaveWarnedDeprecation) {
-                MsgHandler::getWarningInstance()->inform("Using old TraCI API, please update your client!");
+                WRITE_WARNING("Using old TraCI API, please update your client!");
                 myHaveWarnedDeprecation = true;
             }
             tcpip::Storage tempMsg;
@@ -538,9 +538,9 @@ TraCIServer::writeStatusCmd(int commandId, int status, const std::string &descri
 void
 TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage) {
     if (status == RTYPE_ERR) {
-        MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) + ": " + description);
+        WRITE_ERROR("Answered with error to command " + toString(commandId) + ": " + description);
     } else if (status == RTYPE_NOTIMPLEMENTED) {
-        MsgHandler::getErrorInstance()->inform("Requested command not implemented (" + toString(commandId) + "): " + description);
+        WRITE_ERROR("Requested command not implemented (" + toString(commandId) + "): " + description);
     }
     outputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length())); // command length
     outputStorage.writeUnsignedByte(commandId); // command type

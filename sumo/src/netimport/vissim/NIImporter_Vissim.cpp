@@ -360,7 +360,7 @@ NIImporter_Vissim::load(const OptionsCont &options) {
     // try to open the file
     std::ifstream strm(options.getString("vissim-file").c_str());
     if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim-file") + "' was not found.");
+        WRITE_ERROR("The vissim-file '" + options.getString("vissim-file") + "' was not found.");
         return;
     }
     if (!readContents(strm)) {

@@ -74,7 +74,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
     case SUMO_TAG_FROMEDGE__DEPRECATED:
 	    if(!myHaveWarnedAboutDeprecatedFromEdge) {
 		    myHaveWarnedAboutDeprecatedFromEdge = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
+			WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
         }
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);
@@ -82,7 +82,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
     case SUMO_TAG_TOEDGE__DEPRECATED:
 	    if(!myHaveWarnedAboutDeprecatedToEdge) {
 		    myHaveWarnedAboutDeprecatedToEdge = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
+			WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
         }
     case SUMO_TAG_TOEDGE:
         addToEdge(attrs);
@@ -132,7 +132,7 @@ ROJTRTurnDefLoader::myCharacters(int element,
         }
         if (!myHaveWarnedAboutDeprecatedSinks) {
             myHaveWarnedAboutDeprecatedSinks = true;
-            MsgHandler::getWarningInstance()->inform("Using characters for sinks is deprecated; use attribute 'edges' instead.");
+            WRITE_WARNING("Using characters for sinks is deprecated; use attribute 'edges' instead.");
         }
         edge->setType(ROEdge::ET_SINK);
     }
@@ -144,7 +144,7 @@ ROJTRTurnDefLoader::myCharacters(int element,
         }
         if (!myHaveWarnedAboutDeprecatedSources) {
             myHaveWarnedAboutDeprecatedSources = true;
-            MsgHandler::getWarningInstance()->inform("Using characters for sources is deprecated; use attribute 'edges' instead.");
+            WRITE_WARNING("Using characters for sources is deprecated; use attribute 'edges' instead.");
         }
         edge->setType(ROEdge::ET_SOURCE);
     }
@@ -167,7 +167,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
     //
     myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if (myEdge==0) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
+        WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
         return;
     }
 }
@@ -187,13 +187,13 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
     //
     ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if (edge==0) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
+        WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
     SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
     if (ok) {
         if (probability<0) {
-            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of to-edge '" + id + "').");
+            WRITE_ERROR("'probability' must be positive (in definition of to-edge '" + id + "').");
         } else {
             myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
         }

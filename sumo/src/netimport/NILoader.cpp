@@ -152,7 +152,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
     try {
         for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
             if (!FileHelpers::exists(*file)) {
-                MsgHandler::getErrorInstance()->inform("Could not open " + type + "-file '" + *file + "'.");
+                WRITE_ERROR("Could not open " + type + "-file '" + *file + "'.");
                 exceptMsg = "Process Error";
                 continue;
             }

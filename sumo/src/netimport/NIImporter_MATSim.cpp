@@ -102,7 +102,7 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open matsim-file '" + *file + "'.");
+            WRITE_ERROR("Could not open matsim-file '" + *file + "'.");
             return;
         }
         nodesHandler.setFileName(*file);
@@ -153,12 +153,12 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     }
     Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + id + "'.");
+        WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
     }
     NBNode *node = new NBNode(id, pos);
     if (!myNodeCont.insert(node)) {
         delete node;
-        MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'. Probably declared twice.");
+        WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
     }
 }
 
@@ -199,7 +199,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         std::string capperiod = attrs.getStringReporting(MATSIM_ATTR_CAPPERIOD, "links", ok);
         StringTokenizer st(capperiod, ":");
         if(st.size()!=3) {
-            MsgHandler::getErrorInstance()->inform("Bogus capacity period format; requires 'hh:mm:ss'.");
+            WRITE_ERROR("Bogus capacity period format; requires 'hh:mm:ss'.");
             return;
         }
         try {
@@ -230,10 +230,10 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     NBNode *fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode *toNode = myNodeCont.retrieve(toNodeID);
     if(fromNode==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find from-node for edge '" + id + "'.");
+        WRITE_ERROR("Could not find from-node for edge '" + id + "'.");
     }
     if(toNode==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find to-node for edge '" + id + "'.");
+        WRITE_ERROR("Could not find to-node for edge '" + id + "'.");
     }
     if(fromNode==0||toNode==0) {
         return;
@@ -247,7 +247,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     }
     if(!myEdgeCont.insert(edge)) {
         delete edge;
-        MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'. Probably declared twice.");
+        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
     }
 }
 

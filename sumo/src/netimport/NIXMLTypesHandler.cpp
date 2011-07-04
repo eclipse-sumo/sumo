@@ -73,7 +73,7 @@ NIXMLTypesHandler::myStartElement(int element,
         noLanes = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, id.c_str(), ok);
         if(!myHaveWarnedAboutDeprecatedNoLanes) {
             myHaveWarnedAboutDeprecatedNoLanes = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
         }
     }
     noLanes = attrs.getOptIntReporting(SUMO_ATTR_NUMLANES, id.c_str(), ok, noLanes);
@@ -91,7 +91,7 @@ NIXMLTypesHandler::myStartElement(int element,
     SUMOVehicleClasses disallow;
     parseVehicleClasses(allowS, disallowS, allow, disallow);
     if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, width, oneway)) {
-        MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
+        WRITE_ERROR("Duplicate type occured. ID='" + id + "'");
     } else {
         if (discard) {
             myTypeCont.markAsToDiscard(id);

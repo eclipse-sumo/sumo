@@ -61,7 +61,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
     } else if (tag=="nummer") {
         return parseNumbered(from);
     }
-    MsgHandler::getErrorInstance()->inform(
+    WRITE_ERROR(
         "NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition: format problem");
     throw 1;
 }

@@ -79,7 +79,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const {
             }
         }
         if (hadProgramErrors) {
-            MsgHandler::getErrorInstance()->inform("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
+            WRITE_ERROR("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
             hadErrors = true;
         }
     }

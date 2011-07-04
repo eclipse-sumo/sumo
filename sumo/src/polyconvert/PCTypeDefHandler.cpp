@@ -72,7 +72,7 @@ PCTypeDefHandler::myStartElement(int element,
         std::string color = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
         // !!! what about error handling?
         if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
-            MsgHandler::getErrorInstance()->inform("Could not add polygon type '" + id + "' (probably the id is already used).");
+            WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
         }
     }
 }

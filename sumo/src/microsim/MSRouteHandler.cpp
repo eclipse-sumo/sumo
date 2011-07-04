@@ -187,7 +187,7 @@ MSRouteHandler::myStartElement(int element,
     case SUMO_TAG_VTYPE__DEPRECATED:
 	    if(!myHaveWarnedAboutDeprecatedVType) {
 		    myHaveWarnedAboutDeprecatedVType = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+			WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
         }
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
@@ -195,7 +195,7 @@ MSRouteHandler::myStartElement(int element,
     case SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED:
 	    if(!myHaveWarnedAboutDeprecatedVTypeDistribution) {
 		    myHaveWarnedAboutDeprecatedVTypeDistribution = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "'.");
+			WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "'.");
         }
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         openVehicleTypeDistribution(attrs);
@@ -255,7 +255,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
             std::string vTypes;
             if(!myHaveWarnedAboutDeprecatedVTypes&&attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
                 myHaveWarnedAboutDeprecatedVTypes = true;
-                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_VTYPES) + "' instead.");
+                WRITE_WARNING("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_VTYPES) + "' instead.");
                 vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, myCurrentVTypeDistributionID.c_str(), ok);
             } else {
                 vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
@@ -279,10 +279,10 @@ MSRouteHandler::closeVehicleTypeDistribution() {
     if (myCurrentVTypeDistribution != 0) {
         if (myCurrentVTypeDistribution->getOverallProb() == 0) {
             delete myCurrentVTypeDistribution;
-            MsgHandler::getErrorInstance()->inform("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
+            WRITE_ERROR("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
         } else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
             delete myCurrentVTypeDistribution;
-            MsgHandler::getErrorInstance()->inform("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
+            WRITE_ERROR("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
         }
         myCurrentVTypeDistribution = 0;
     }
@@ -320,11 +320,11 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID__DEPRECATED, myActiveRouteID.c_str(), ok, "");
         if(!myHaveWarnedAboutDeprecatedRefID) {
             myHaveWarnedAboutDeprecatedRefID = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_REFID__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_REFID) + "' instead.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_REFID__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_REFID) + "' instead.");
         }
     }
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID) == 0) {
-        MsgHandler::getErrorInstance()->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
+        WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
@@ -472,10 +472,10 @@ MSRouteHandler::closeRouteDistribution() {
     if (myCurrentRouteDistribution != 0) {
         if (myCurrentRouteDistribution->getOverallProb() == 0) {
             delete myCurrentRouteDistribution;
-            MsgHandler::getErrorInstance()->inform("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
+            WRITE_ERROR("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
         } else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
             delete myCurrentRouteDistribution;
-            MsgHandler::getErrorInstance()->inform("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
+            WRITE_ERROR("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
         }
         myCurrentRouteDistribution = 0;
     }
@@ -672,7 +672,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
 		stop.busstop = attrs.getStringReporting(SUMO_ATTR_BUS_STOP__DEPRECATED, 0, ok);
 		if(!myHaveWarnedAboutDeprecatedBusStop) {
 			myHaveWarnedAboutDeprecatedBusStop = true;
-			MsgHandler::getWarningInstance()->inform("'bus_stop' is deprecated, please use 'busStop' instead.");
+			WRITE_WARNING("'bus_stop' is deprecated, please use 'busStop' instead.");
 		}
 	} else {
 	    stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, 0, ok, "");
@@ -686,7 +686,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
             stop.endPos = bs->getEndLanePosition();
             stop.startPos = bs->getBeginLanePosition();
         } else {
-            MsgHandler::getErrorInstance()->inform("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
+            WRITE_ERROR("The bus stop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
         }
     } else {
@@ -695,11 +695,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
         if (ok && stop.lane!="") {
             if (MSLane::dictionary(stop.lane)==0) {
-                MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
         } else {
-            MsgHandler::getErrorInstance()->inform("A stop must be placed on a bus stop or a lane" + errorSuffix);
+            WRITE_ERROR("A stop must be placed on a bus stop or a lane" + errorSuffix);
             return;
         }
         if (myActivePlan &&
@@ -715,13 +715,13 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
 		bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) 
 			? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, 0, ok, false)
 			: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
-            MsgHandler::getErrorInstance()->inform("Invalid start or end position for stop" + errorSuffix);
+            WRITE_ERROR("Invalid start or end position for stop" + errorSuffix);
             return;
         }
     }
@@ -735,14 +735,14 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
         stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, 0, ok, -1);
         if (!ok || (stop.duration<0&&stop.until<0)) {
-            MsgHandler::getErrorInstance()->inform("Invalid duration or end time is given for a stop" + errorSuffix);
+            WRITE_ERROR("Invalid duration or end time is given for a stop" + errorSuffix);
             return;
         }
         stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, 0, ok, false);
     }
     stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, 0, ok, stop.triggered);
     if (!ok) {
-        MsgHandler::getErrorInstance()->inform("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
+        WRITE_ERROR("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
         return;
     }
     const std::string idx = attrs.getOptStringReporting(SUMO_ATTR_INDEX, 0, ok, "end");
@@ -753,7 +753,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     } else {
         stop.index = attrs.getIntReporting(SUMO_ATTR_INDEX, 0, ok);
         if (!ok || stop.index < 0) {
-            MsgHandler::getErrorInstance()->inform("Invalid 'index' for stop" + errorSuffix);
+            WRITE_ERROR("Invalid 'index' for stop" + errorSuffix);
             return;
         }
     }

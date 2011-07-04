@@ -128,11 +128,11 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             OGRPoint *cgeom = (OGRPoint*) poGeometry;
             Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
+                WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
             if (!toFill.insert(id, poi, layer)) {
-                MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
+                WRITE_ERROR("POI '" + id + "' could not been added.");
                 delete poi;
             }
         }
@@ -143,13 +143,13 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 if (!GeoConvHelper::x2cartesian(pos)) {
-                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                    WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
             }
             Polygon *poly = new Polygon(id, type, color, shape, false);
             if (!toFill.insert(id, poly, layer)) {
-                MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                WRITE_ERROR("Polygon '" + id + "' could not been added.");
                 delete poly;
             }
         }
@@ -160,13 +160,13 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 if (!GeoConvHelper::x2cartesian(pos)) {
-                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                    WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
             }
             Polygon *poly = new Polygon(id, type, color, shape, true);
             if (!toFill.insert(id, poly, layer)) {
-                MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                WRITE_ERROR("Polygon '" + id + "' could not been added.");
                 delete poly;
             }
         }
@@ -178,11 +178,11 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
                 std::string tid = id + "#" + toString(i);
                 if (!GeoConvHelper::x2cartesian(pos)) {
-                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + tid + "'.");
+                    WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
                 }
                 PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
                 if (!toFill.insert(tid, poi, layer)) {
-                    MsgHandler::getErrorInstance()->inform("POI '" + tid + "' could not been added.");
+                    WRITE_ERROR("POI '" + tid + "' could not been added.");
                     delete poi;
                 }
             }
@@ -197,13 +197,13 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {
-                        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
+                        WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
                 }
                 Polygon *poly = new Polygon(tid, type, color, shape, false);
                 if (!toFill.insert(tid, poly, layer)) {
-                    MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
+                    WRITE_ERROR("Polygon '" + tid + "' could not been added.");
                     delete poly;
                 }
             }
@@ -218,27 +218,27 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     if (!GeoConvHelper::x2cartesian(pos)) {
-                        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
+                        WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
                 }
                 Polygon *poly = new Polygon(tid, type, color, shape, true);
                 if (!toFill.insert(tid, poly, layer)) {
-                    MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
+                    WRITE_ERROR("Polygon '" + tid + "' could not been added.");
                     delete poly;
                 }
             }
         }
         break;
         default:
-            MsgHandler::getWarningInstance()->inform("Unsupported shape type occured (id='" + id + "').");
+            WRITE_WARNING("Unsupported shape type occured (id='" + id + "').");
             break;
         }
         OGRFeature::DestroyFeature(poFeature);
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 #else
-    MsgHandler::getErrorInstance()->inform("SUMO was compiled without GDAL support.");
+    WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif
 }
 

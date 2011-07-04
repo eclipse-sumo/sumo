@@ -128,7 +128,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open opendrive file '" + *file + "'.");
+            WRITE_ERROR("Could not open opendrive file '" + *file + "'.");
             return;
         }
         handler.setFileName(*file);
@@ -679,7 +679,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
         }
         for (unsigned int j=0; j<e.geom.size(); ++j) {
             if (!GeoConvHelper::x2cartesian(e.geom[j])) {
-                MsgHandler::getErrorInstance()->inform("Unable to project coordinates for.");
+                WRITE_ERROR("Unable to project coordinates for.");
             }
         }
     }
@@ -857,7 +857,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         int majorVersion = attrs.getIntReporting(OPENDRIVE_ATTR_REVMAJOR, 0, ok);
         int minorVersion = attrs.getIntReporting(OPENDRIVE_ATTR_REVMINOR, 0, ok);
         if (majorVersion!=1||minorVersion!=2) {
-            MsgHandler::getWarningInstance()->inform("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
+            WRITE_WARNING("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
         }
     }
     break;

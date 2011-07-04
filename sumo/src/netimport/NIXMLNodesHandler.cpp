@@ -97,10 +97,10 @@ NIXMLNodesHandler::myStartElement(int element,
     }
     if (xOk&&yOk) {
         if (needConversion&&!GeoConvHelper::x2cartesian(myPosition)) {
-            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + myID + "'.");
+            WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {
-        MsgHandler::getErrorInstance()->inform("Missing position (at node ID='" + myID + "').");
+        WRITE_ERROR("Missing position (at node ID='" + myID + "').");
     }
     // check whether the y-axis shall be flipped
     if (myOptions.getBool("flip-y-axis")) {

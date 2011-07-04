@@ -107,9 +107,9 @@ int main(int argc, char *argv[]) {
         net = new RONet();
         RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
         loadNet(*net, builder);
-        MsgHandler::getMessageInstance()->inform("Loaded " + toString(net->getEdgeNo()) + " edges.");
+        WRITE_MESSAGE("Loaded " + toString(net->getEdgeNo()) + " edges.");
         if (oc.getBool("debug")) {
-            MsgHandler::getMessageInstance()->inform("\n\t ---- begin AcitivtyGen ----\n");
+            WRITE_MESSAGE("\n\t ---- begin AcitivtyGen ----\n");
         }
 
         std::string statFile = oc.getString("stat-file");
@@ -131,12 +131,12 @@ int main(int argc, char *argv[]) {
         actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
 
         if (oc.getBool("debug")) {
-            MsgHandler::getMessageInstance()->inform("\n\t ---- end of ActivityGen ----\n");
+            WRITE_MESSAGE("\n\t ---- end of ActivityGen ----\n");
         }
         ret = 0;
     } catch (ProcessError &pe) {
         if (std::string(pe.what())!=std::string("Process Error") && std::string(pe.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(pe.what());
+            WRITE_ERROR(pe.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;

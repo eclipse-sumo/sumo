@@ -136,9 +136,9 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge) {
                     ++((*i)->myNoLanes);
                     (*i)->myHadAttribute = true;
                 } catch (EmptyData &) {
-                    MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    WRITE_ERROR("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                 } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
+                    WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
                 }
             }
         }

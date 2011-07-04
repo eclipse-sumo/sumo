@@ -145,7 +145,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const {
         // What to do if on an edge? -> close all outgoing connections
         NBEdge *edge = ec.retrievePossiblySplitted(toString<int>(myEdgeID), myPosition);
         if (edge==0) {
-            MsgHandler::getWarningInstance()->inform("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
+            WRITE_WARNING("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
             return false;
         }
         // Check whether it is already known, which edges are approached
@@ -392,7 +392,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         std::string id = toString<int>(tl->myID);
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
         if (!tlc.insert(def)) {
-            MsgHandler::getErrorInstance()->inform("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
+            WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
         def->setCycleDuration((unsigned int) tl->myAbsDuration);

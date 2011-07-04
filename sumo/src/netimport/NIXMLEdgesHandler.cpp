@@ -111,7 +111,7 @@ NIXMLEdgesHandler::myStartElement(int element,
                 return;
             }
             if (!myTypeCont.knows(myCurrentType)) {
-                MsgHandler::getErrorInstance()->inform("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
+                WRITE_ERROR("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
                 return;
             }
             myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
@@ -125,7 +125,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         if (myCurrentEdge!=0) {
             myIsUpdate = true;
             if (!myHaveReportedAboutOverwriting) {
-                MsgHandler::getMessageInstance()->inform("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
+                WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
                 myHaveReportedAboutOverwriting = true;
             }
             myCurrentSpeed = myCurrentEdge->getSpeed();
@@ -151,7 +151,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
             if(!myHaveWarnedAboutDeprecatedNoLanes) {
                 myHaveWarnedAboutDeprecatedNoLanes = true;
-                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
+                WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
             }
         }
         if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
@@ -192,7 +192,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
 	        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
             if(!myHaveWarnedAboutDeprecatedSpreadType) {
-                MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+                WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
                 myHaveWarnedAboutDeprecatedSpreadType = true;
             }   
 	    } else {
@@ -238,7 +238,7 @@ NIXMLEdgesHandler::myStartElement(int element,
     if (element==SUMO_TAG_LANE) {
         if (myCurrentEdge==0) {
             if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-                MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
         }
@@ -262,7 +262,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         }
         // check whether this lane exists
         if (lane>=(int) myCurrentEdge->getNumLanes()) {
-            MsgHandler::getErrorInstance()->inform("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
+            WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
             return;
         }
         // set information about allowed / disallowed vehicle classes
@@ -315,7 +315,7 @@ NIXMLEdgesHandler::myStartElement(int element,
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
         if (ok) {
             if (fabs(e.pos)>myCurrentEdge->getGeometry().length()) {
-                MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
+                WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
                 return;
             }
             if (e.pos<0) {
@@ -323,13 +323,13 @@ NIXMLEdgesHandler::myStartElement(int element,
             }
             std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
             if (i!=mySplits.end()) {
-                MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
+                WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
                 return;
             }
             e.nameid = (int)e.pos;
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-                    MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
+                    WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;
             }
@@ -340,9 +340,9 @@ NIXMLEdgesHandler::myStartElement(int element,
                     int lane = TplConvert<char>::_2int((*i).c_str());
                     e.lanes.push_back(lane);
                 } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
+                    WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
                 } catch (EmptyData &) {
-                    MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
+                    WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
                 }
             }
             if (e.lanes.empty()) {
@@ -435,28 +435,28 @@ NIXMLEdgesHandler::insertNodeChecking(const Position &pos,
                                       const std::string &name, const std::string &dir) {
     NBNode *ret = 0;
     if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
-        MsgHandler::getErrorInstance()->inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
+        WRITE_ERROR("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
         return ret;
     }
     if (name!="") {
         if (pos.x()!=SUMOXML_INVALID_POSITION && pos.y()!=SUMOXML_INVALID_POSITION) {
             // the node is named and it has a position given
             if (!myNodeCont.insert(name, pos)) {
-                MsgHandler::getErrorInstance()->inform("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
+                WRITE_ERROR("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
                 return 0;
             }
         }
         // the node is given by its name
         ret = myNodeCont.retrieve(name);
         if (ret==0) {
-            MsgHandler::getErrorInstance()->inform("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
+            WRITE_ERROR("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
         }
     } else {
         ret = myNodeCont.retrieve(pos);
         if (ret==0) {
             ret = new NBNode(myNodeCont.getFreeID(), pos);
             if (!myNodeCont.insert(ret)) {
-                MsgHandler::getErrorInstance()->inform("Could not insert " + dir + "-node at position " + toString(pos) + ".");
+                WRITE_ERROR("Could not insert " + dir + "-node at position " + toString(pos) + ".");
                 delete ret;
                 return 0;
             }
@@ -482,7 +482,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     for (int i=0; i<(int) shape1.size(); ++i) {
         Position pos(shape1[i]);
         if (!GeoConvHelper::x2cartesian(pos)) {
-            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for edge '" + myCurrentID + "'.");
+            WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
         }
         shape.push_back(pos);
     }
@@ -496,14 +496,14 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
-                    MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
+                    WRITE_ERROR("Duplicate edge occured. ID='" + myCurrentID + "'");
                     delete myCurrentEdge;
                 }
             } catch (InvalidArgument &e) {
-                MsgHandler::getErrorInstance()->inform(e.what());
+                WRITE_ERROR(e.what());
                 throw;
             } catch (...) {
-                MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
+                WRITE_ERROR("An important information is missing in edge '" + myCurrentID + "'.");
             }
         }
         if (mySplits.size()!=0) {

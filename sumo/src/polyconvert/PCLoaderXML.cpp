@@ -109,7 +109,7 @@ PCLoaderXML::myStartElement(int element,
         }
         Position pos(x, y);
         if (!GeoConvHelper::x2cartesian(pos)) {
-            MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
+            WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
         }
         // patch the values
         bool discard = myOptions.getBool("discard");
@@ -134,7 +134,7 @@ PCLoaderXML::myStartElement(int element,
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
             if (!myCont.insert(id, poi, layer, ignorePrunning)) {
-                MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
+                WRITE_ERROR("POI '" + id + "' could not been added.");
                 delete poi;
             }
         }
@@ -194,13 +194,13 @@ PCLoaderXML::myCharacters(int element,
         for (PositionVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position pos((*i));
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + myCurrentID + "'.");
+                WRITE_WARNING("Unable to project coordinates for polygon '" + myCurrentID + "'.");
             }
             shape.push_back(pos);
         }
         Polygon *poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, false);
         if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
-            MsgHandler::getErrorInstance()->inform("Polygon '" + myCurrentID + "' could not been added.");
+            WRITE_ERROR("Polygon '" + myCurrentID + "' could not been added.");
             delete poly;
         }
     }

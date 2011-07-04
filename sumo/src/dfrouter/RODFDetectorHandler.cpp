@@ -63,7 +63,7 @@ RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED&&!myHaveWarnedAboutDeprecatedDetectorDefinition) {
 		myHaveWarnedAboutDeprecatedDetectorDefinition = true;
-        MsgHandler::getWarningInstance()->inform("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
+        WRITE_WARNING("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
 	}
     if (element==SUMO_TAG_DETECTOR_DEFINITION||element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) {
         try {
@@ -102,7 +102,7 @@ RODFDetectorHandler::myStartElement(int element,
             }
         } catch (ProcessError &e) {
             if (myIgnoreErrors) {
-                MsgHandler::getWarningInstance()->inform(e.what());
+                WRITE_WARNING(e.what());
             } else {
                 throw e;
             }

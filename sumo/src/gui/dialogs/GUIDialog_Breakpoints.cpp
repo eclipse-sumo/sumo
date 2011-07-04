@@ -171,7 +171,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*) {
                 SUMOTime value = string2time(val);
                 gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform(" A breakpoint-value must be an int, is:" + val);
+                WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
             } catch (EmptyData&) {}
         }
         rebuildList();

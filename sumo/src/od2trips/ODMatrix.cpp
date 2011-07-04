@@ -65,19 +65,19 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
               const std::string &vehicleType) throw() {
     myNoLoaded += vehicleNumber;
     if (myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
-        MsgHandler::getWarningInstance()->inform("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
     } else if (myDistricts.get(origin)==0&&vehicleNumber>0) {
-        MsgHandler::getErrorInstance()->inform("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
     } else if (myDistricts.get(destination)==0&&vehicleNumber>0) {
-        MsgHandler::getErrorInstance()->inform("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
     } else {
         if (myDistricts.get(origin)->sourceNumber()==0) {
-            MsgHandler::getErrorInstance()->inform("District '" + origin + "' has no source.");
+            WRITE_ERROR("District '" + origin + "' has no source.");
             myNoDiscarded += vehicleNumber;
         } else if (myDistricts.get(destination)->sinkNumber()==0) {
-            MsgHandler::getErrorInstance()->inform("District '" + destination + "' has no sink.");
+            WRITE_ERROR("District '" + destination + "' has no sink.");
             myNoDiscarded += vehicleNumber;
         } else {
             ODCell *cell = new ODCell();

@@ -70,7 +70,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
         e->addTravelTime(val, beg, end);
     } else {
         if (id[0]!=':') {
-            MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+            WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
         }
     }
 }
@@ -87,7 +87,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
         e->addEffort(val, beg, end);
     } else {
         if (id[0]!=':') {
-            MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+            WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
         }
     }
 }
@@ -157,11 +157,11 @@ ROLoader::openRoutes(RONet &net) {
     }
     // skip routes prior to the begin time
     if (ok&&!myOptions.getBool("unsorted-input")) {
-        MsgHandler::getMessageInstance()->inform("Skipping...");
+        WRITE_MESSAGE("Skipping...");
         for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
             ok &= (*i)->readRoutesAtLeastUntil(string2time(myOptions.getString("begin")), true);
         }
-        MsgHandler::getMessageInstance()->inform("Skipped until: " + time2string(getMinTimeStep()));
+        WRITE_MESSAGE("Skipped until: " + time2string(getMinTimeStep()));
     }
     // check whether everything's ok
     if (!ok) {
@@ -196,7 +196,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
         }
         errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("ignore-errors");
     }
-    MsgHandler::getMessageInstance()->inform("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
+    WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
 }
 
 
@@ -284,7 +284,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
             } else {
                 msg = msg + "\n (unknown reason).";
             }
-            MsgHandler::getErrorInstance()->inform(msg);
+            WRITE_ERROR(msg);
             ok = false;
         }
     }

@@ -63,7 +63,7 @@ ODDistrictHandler::myStartElement(int element,
     case SUMO_TAG_DISTRICT__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
         }
     case SUMO_TAG_TAZ:
         openDistrict(attrs);
@@ -71,7 +71,7 @@ ODDistrictHandler::myStartElement(int element,
     case SUMO_TAG_DSOURCE__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSource) {
             myHaveWarnedAboutDeprecatedDSource = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
         }
     case SUMO_TAG_TAZSOURCE:
         addSource(attrs);
@@ -79,7 +79,7 @@ ODDistrictHandler::myStartElement(int element,
     case SUMO_TAG_DSINK__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSink) {
             myHaveWarnedAboutDeprecatedDSink = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
         }
     case SUMO_TAG_TAZSINK:
         addSink(attrs);
@@ -146,7 +146,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs) throw() {
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight<0) {
-            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of " + 
+            WRITE_ERROR("'probability' must be positive (in definition of " + 
                     attrs.getObjectType() + " '" + id + "').");
         } else {
             return std::pair<std::string, SUMOReal>(id, weight);

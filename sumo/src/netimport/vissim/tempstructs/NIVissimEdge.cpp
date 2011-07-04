@@ -444,7 +444,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         toInf = getToNode(nc, tmpClusters);
         toNode = toInf.second;
         if (fromInf.first!=0&&toNode!=0&&fromInf.first->around(toNode->getPosition())) {
-            MsgHandler::getWarningInstance()->inform("Will not build edge '" + toString(myID) + "'.");
+            WRITE_WARNING("Will not build edge '" + toString(myID) + "'.");
             myAmWithinJunction = true;
             return;
         }
@@ -496,7 +496,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     if (fromNode==toNode) {
-        MsgHandler::getWarningInstance()->inform("Could not build edge '" + toString(myID) + "'; would connect same node.");
+        WRITE_WARNING("Could not build edge '" + toString(myID) + "'; would connect same node.");
         return;
     }
 
@@ -989,7 +989,7 @@ NIVissimEdge::reportUnsetSpeeds() throw() {
         }
         str << *i;
     }
-    MsgHandler::getWarningInstance()->inform(str.str());
+    WRITE_WARNING(str.str());
 }
 
 

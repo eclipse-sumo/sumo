@@ -80,7 +80,7 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
             if (time<myStartTime||time>myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
-                    MsgHandler::getWarningInstance()->inform("At least one value lies beyond given time boundaries.");
+                    WRITE_WARNING("At least one value lies beyond given time boundaries.");
                 }
                 continue;
             }
@@ -105,7 +105,7 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
             myStorage.addFlow(detName, time, fd);
             if (!myHaveWarnedAboutPartialDefs && !myLineHandler.hasFullDefinition()) {
                 myHaveWarnedAboutPartialDefs = true;
-                MsgHandler::getWarningInstance()->inform("At least one line does not contain the correct number of columns.");
+                WRITE_WARNING("At least one line does not contain the correct number of columns.");
             }
             continue;
         } catch (UnknownElement &) {} catch (OutOfBoundsException &) {} catch (NumberFormatException &) {}

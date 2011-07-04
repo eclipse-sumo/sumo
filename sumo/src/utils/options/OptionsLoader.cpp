@@ -74,11 +74,11 @@ void OptionsLoader::setValue(const std::string &key,
     if (value.length()>0) {
         try {
             if (!setSecure(key, value)) {
-                MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");
+                WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
         } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
             myError = true;
         }
     }
@@ -128,9 +128,9 @@ OptionsLoader::warning(const SAXParseException& exception) {
 
 void
 OptionsLoader::error(const SAXParseException& exception) {
-    MsgHandler::getErrorInstance()->inform(
+    WRITE_ERROR(
         TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(
+    WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber()+1) + '/'
         + toString(exception.getColumnNumber()) + ").");
@@ -140,9 +140,9 @@ OptionsLoader::error(const SAXParseException& exception) {
 
 void
 OptionsLoader::fatalError(const SAXParseException& exception) {
-    MsgHandler::getErrorInstance()->inform(
+    WRITE_ERROR(
         TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(
+    WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber()+1) + '/'
         + toString(exception.getColumnNumber()) + ").");

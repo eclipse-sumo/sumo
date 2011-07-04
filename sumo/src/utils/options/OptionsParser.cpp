@@ -57,7 +57,7 @@ OptionsParser::parse(int argc, char **argv) {
             }
             i += add;
         } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform("On processing option '" + std::string(argv[i]) + "':\n " + e.what());
+            WRITE_ERROR("On processing option '" + std::string(argv[i]) + "':\n " + e.what());
             i++;
             ok = false;
         }
@@ -122,14 +122,14 @@ bool
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
-            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
+            WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
             return false;
         } else {
             return oc.set(convert(arg[0]), std::string(arg+2));
         }
     } else {
         if (strlen(arg)<2) {
-            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + std::string(arg) + "'.");
+            WRITE_ERROR("Missing value for parameter '" + std::string(arg) + "'.");
             return false;
         } else {
             return oc.set(convert(arg[0]), std::string(arg+1));
@@ -141,7 +141,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) {
 bool
 OptionsParser::checkParameter(char *arg1) {
     if (arg1[0]!='-') {
-        MsgHandler::getErrorInstance()->inform("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
+        WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
     return true;

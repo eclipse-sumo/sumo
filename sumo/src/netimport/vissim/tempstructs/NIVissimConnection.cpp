@@ -284,14 +284,14 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
     const IntVector &fromLanes = getFromLanes();
     const IntVector &toLanes = getToLanes();
     if (fromLanes.size()!=toLanes.size()) {
-        MsgHandler::getWarningInstance()->inform("Lane sizes differ for connection '" + toString(getID()) + "'.");
+        WRITE_WARNING("Lane sizes differ for connection '" + toString(getID()) + "'.");
     } else {
         for (unsigned int index=0; index<fromLanes.size(); ++index) {
             if (fromEdge->getNumLanes()<=static_cast<unsigned int>(fromLanes[index])) {
-                MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
+                WRITE_WARNING("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
                 ++unsetConnections;
             } else if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
-                MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
+                WRITE_WARNING("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
                 ++unsetConnections;
             }
         }

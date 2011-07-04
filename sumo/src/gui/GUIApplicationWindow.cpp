@@ -840,7 +840,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
             traci::TraCIServer::openSocket(execs);
         } catch (ProcessError &e) {
             myMessageWindow->appendText(EVENT_ERROR_OCCURED, e.what());
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
             delete ec->myNet;
             ec->myNet = 0;
         }

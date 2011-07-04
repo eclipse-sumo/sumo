@@ -97,12 +97,12 @@ bool
 GeoConvHelper::init(OptionsCont &oc) {
 #ifdef HAVE_PROJ
     if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
-        MsgHandler::getErrorInstance()->inform("Inverse projection works only with explicit proj parameters.");
+        WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
         return false;
     }
     unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if (numProjections > 1) {
-        MsgHandler::getErrorInstance()->inform("The projection method needs to be uniquely defined.");
+        WRITE_ERROR("The projection method needs to be uniquely defined.");
         return false;
     }
 #endif

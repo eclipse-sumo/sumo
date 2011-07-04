@@ -155,12 +155,12 @@ bool
 ROFrame::checkOptions(OptionsCont &oc) {
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
+        WRITE_ERROR("No output specified.");
         return false;
     }
     //
     if (oc.getInt("max-alternatives")<2) {
-        MsgHandler::getErrorInstance()->inform("At least two alternatives should be enabled");
+        WRITE_ERROR("At least two alternatives should be enabled");
         return false;
     }
     // check departure/arrival options

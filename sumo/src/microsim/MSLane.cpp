@@ -497,7 +497,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 dist = cfModel.brakeGap(speed);
             } else {
                 // we may not drive with the given velocity - we crash into the leader
-                MsgHandler::getErrorInstance()->inform("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
+                WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using given velocity!");
                 // !!! we probably should do something else...
                 return false;
             }
@@ -635,7 +635,7 @@ MSLane::moveCritical(SUMOTime t) {
     assert((*veh)->getLane()==this);
     // deal with collisions
     for (std::vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
-        MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        WRITE_WARNING("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         myVehicleLengthSum -= (*i)->getVehicleType().getLengthWithGap();
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
         MSVehicleTransfer::getInstance()->addVeh(t, *i);
@@ -656,7 +656,7 @@ MSLane::detectCollisions(SUMOTime timestep) {
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLengthWithGap() - (*veh)->getPositionOnLane();
         if (gap < 0) {
             MSVehicle *vehV = *veh;
-            MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             myVehicleLengthSum -= vehV->getVehicleType().getLengthWithGap();
             MSVehicleTransfer::getInstance()->addVeh(timestep, vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
@@ -721,7 +721,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else if (veh->getPositionOnLane()>getLength()) {
             // for any reasons the vehicle is beyond its lane... error
-            MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         } else {
             ++i;
@@ -737,7 +737,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             MSVehicle *veh = *(myVehicles.end()-1);
             myVehicleLengthSum -= veh->getVehicleType().getLengthWithGap();
             myVehicles.erase(myVehicles.end()-1);
-            MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSVehicleTransfer::getInstance()->addVeh(t, veh);
         }
     }

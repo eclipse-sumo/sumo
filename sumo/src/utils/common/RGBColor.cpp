@@ -142,7 +142,7 @@ RGBColor::parseColorReporting(
         oss << " '" << objectid << "'";
     }
     oss << " is not a valid color.";
-    MsgHandler::getErrorInstance()->inform(oss.str());
+    WRITE_ERROR(oss.str());
     return RGBColor();
 }
 

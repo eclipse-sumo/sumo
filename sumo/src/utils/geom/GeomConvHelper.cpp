@@ -126,7 +126,7 @@ GeomConvHelper::emitError(bool report, const std::string &what, const std::strin
         oss << " '" << objectid << "'";
     }
     oss << " is broken: " << desc << ".";
-    MsgHandler::getErrorInstance()->inform(oss.str());
+    WRITE_ERROR(oss.str());
 }
 
 

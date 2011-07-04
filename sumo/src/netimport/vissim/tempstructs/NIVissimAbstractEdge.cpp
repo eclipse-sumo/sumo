@@ -53,7 +53,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     for (i=geomC.begin(); i!=geomC.end(); ++i) {
         Position p = *i;
         if (!GeoConvHelper::x2cartesian(p)) {
-            MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
+            WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
         }
         myGeom.push_back_noDoublePos(p);
     }

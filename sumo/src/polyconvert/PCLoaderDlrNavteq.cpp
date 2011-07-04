@@ -172,7 +172,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
             }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
-                MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                WRITE_ERROR("POI '" + name + "' could not been added.");
                 delete poi;
             }
         }
@@ -221,7 +221,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
             }
             vec.push_back(pos);
         }
@@ -233,11 +233,11 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
 
         // check the polygon
         if (vec.size()==0) {
-            MsgHandler::getWarningInstance()->inform("The polygon '" + id + "' is empty.");
+            WRITE_WARNING("The polygon '" + id + "' is empty.");
             continue;
         }
         if (id=="") {
-            MsgHandler::getWarningInstance()->inform("The name of a polygon is missing; it will be discarded.");
+            WRITE_WARNING("The name of a polygon is missing; it will be discarded.");
             continue;
         }
 
@@ -262,7 +262,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
         if (!discard) {
             Polygon *poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
-                MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                WRITE_ERROR("Polygon '" + name + "' could not been added.");
                 delete poly;
             }
         }

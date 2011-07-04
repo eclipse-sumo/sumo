@@ -148,7 +148,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
     UNUSED_PARAMETER(maxFollower);
     if (myRoutes==0) {
         if (myType!=DISCARDED_DETECTOR&&myType!=BETWEEN_DETECTOR) {
-            MsgHandler::getErrorInstance()->inform("Missing routes for detector '" + myID + "'.");
+            WRITE_ERROR("Missing routes for detector '" + myID + "'.");
         }
         return;
     }
@@ -275,7 +275,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         }
         out.closeTag();
     } else {
-        MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
+        WRITE_ERROR("Detector '" + getID() + "' has no routes!?");
         return false;
     }
     // emissions

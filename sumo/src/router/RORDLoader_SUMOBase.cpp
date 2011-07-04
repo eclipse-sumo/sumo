@@ -94,7 +94,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
     case SUMO_TAG_VTYPE__DEPRECATED:
 	    if(!myHaveWarnedAboutDeprecatedVType) {
 		    myHaveWarnedAboutDeprecatedVType = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+			WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
         }
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
@@ -139,12 +139,12 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
         myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
         myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
         if (myCurrentIsOk&&myCost<0) {
-            MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
+            WRITE_ERROR("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
             myCurrentIsOk = false;
             return;
         }
         if (myCurrentIsOk&&myProbability<0) {
-            MsgHandler::getErrorInstance()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
+            WRITE_ERROR("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
             myCurrentIsOk = false;
             return;
         }
@@ -168,7 +168,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
     if (myVehicleParameter!=0) {
         id = myVehicleParameter->id;
         if (id=="") {
-            MsgHandler::getErrorInstance()->inform("Missing 'id' of a routeDistribution.");
+            WRITE_ERROR("Missing 'id' of a routeDistribution.");
             myCurrentIsOk = false;
             return;
         }
@@ -182,7 +182,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
     // try to get the index of the last element
     int index = attrs.getIntReporting(SUMO_ATTR_LAST, id.c_str(), myCurrentIsOk);
     if (myCurrentIsOk&&index<0) {
-        MsgHandler::getErrorInstance()->inform("Negative index of a route alternative (id='" + id + "').");
+        WRITE_ERROR("Negative index of a route alternative (id='" + id + "').");
         myCurrentIsOk = false;
         return;
     }
@@ -218,7 +218,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
         if (edge!=0) {
             list->push_back(edge);
         } else {
-            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
+            WRITE_ERROR("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
             myCurrentIsOk = false;
         }
     }
@@ -231,7 +231,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
         } else {
             if (!myTryRepair) {
                 std::string rid = myCurrentAlternatives!=0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
-                MsgHandler::getErrorInstance()->inform("The route '" + rid + "' contains the unknown edge '" + id + "'.");
+                WRITE_ERROR("The route '" + rid + "' contains the unknown edge '" + id + "'.");
                 myCurrentIsOk = false;
             }
         }
@@ -241,7 +241,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
         if (edge!=0) {
             list->push_back(edge);
         } else {
-            MsgHandler::getErrorInstance()->inform("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->toTaz + "'.");
+            WRITE_ERROR("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->toTaz + "'.");
             myCurrentIsOk = false;
         }
     }
@@ -323,7 +323,7 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
         route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
     if (route==0) {
-        MsgHandler::getErrorInstance()->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
+        WRITE_ERROR("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
         myCurrentIsOk = false;
         return false;
     }

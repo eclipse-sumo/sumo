@@ -92,7 +92,7 @@ RONetHandler::myStartElement(int element,
     case SUMO_TAG_DISTRICT__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
         }
     case SUMO_TAG_TAZ:
         parseDistrict(attrs);
@@ -100,7 +100,7 @@ RONetHandler::myStartElement(int element,
     case SUMO_TAG_DSOURCE__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSource) {
             myHaveWarnedAboutDeprecatedDSource = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
         }
     case SUMO_TAG_TAZSOURCE:
         parseDistrictEdge(attrs, true);
@@ -108,7 +108,7 @@ RONetHandler::myStartElement(int element,
     case SUMO_TAG_DSINK__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSink) {
             myHaveWarnedAboutDeprecatedDSink = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
         }
     case SUMO_TAG_TAZSINK:
         parseDistrictEdge(attrs, false);
@@ -164,7 +164,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
         } else if (type=="internal") {
             myProcess = false;
         } else {
-            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
+            WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
             return;
         }
     } else {
@@ -264,7 +264,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
         // connect edge
         myCurrentEdge->addFollower(succ);
     } else {
-        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
+        WRITE_ERROR("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 
@@ -331,7 +331,7 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
             succ->addFollower(myNet.getEdge(myCurrentName+"-sink"));
         }
     } else {
-        MsgHandler::getErrorInstance()->inform("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
+        WRITE_ERROR("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 

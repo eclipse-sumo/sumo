@@ -77,7 +77,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
     }
     MSEdge *e = MSEdge::dictionary(id);
     if (e==0) {
-        MsgHandler::getErrorInstance()->inform("Unknown edge ('" + id + "') referenced in a vaporizer.");
+        WRITE_ERROR("Unknown edge ('" + id + "') referenced in a vaporizer.");
         return;
     }
     SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
@@ -86,11 +86,11 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     if (begin<0) {
-        MsgHandler::getErrorInstance()->inform("A vaporization begin time is negative (edge id='" + id + "').");
+        WRITE_ERROR("A vaporization begin time is negative (edge id='" + id + "').");
         return;
     }
     if (begin>=end) {
-        MsgHandler::getErrorInstance()->inform("A vaporization ends before it starts (edge id='" + id + "').");
+        WRITE_ERROR("A vaporization ends before it starts (edge id='" + id + "').");
         return;
     }
     if (end>=string2time(OptionsCont::getOptions().getString("begin"))) {
@@ -163,7 +163,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
     }
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
 	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
 		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
@@ -325,7 +325,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs,
                               const std::string &tt, const std::string &tid) throw(InvalidArgument) {
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
     bool ok = true;
     SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);

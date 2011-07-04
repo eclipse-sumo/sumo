@@ -874,7 +874,7 @@ GUISUMOAbstractView::checkSnapshots() {
     if (snapIt != mySnapshots.end()) {
         std::string error = makeSnapshot(snapIt->second);
         if (error!="") {
-            MsgHandler::getWarningInstance()->inform(error);
+            WRITE_WARNING(error);
         }
     }
 }
@@ -937,12 +937,12 @@ GUISUMOAbstractView::drawDecals() {
             try {
                 FXImage *i = MFXImageHelper::loadImage(getApp(), d.filename);
                 if (MFXImageHelper::scalePower2(i)) {
-                    MsgHandler::getWarningInstance()->inform("Scaling '" + d.filename + "'.");
+                    WRITE_WARNING("Scaling '" + d.filename + "'.");
                 }
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
             } catch (InvalidArgument &e) {
-                MsgHandler::getErrorInstance()->inform("Could not load '" + d.filename + "'.\n" + e.what());
+                WRITE_ERROR("Could not load '" + d.filename + "'.\n" + e.what());
                 l = myDecals.erase(l);
                 continue;
             }

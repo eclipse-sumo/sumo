@@ -872,7 +872,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     cont->setGeometry(g);
                 } catch (InvalidArgument &) {
-                    MsgHandler::getWarningInstance()->inform("For edge '" + cont->getID() + "': could not compute shape.");
+                    WRITE_WARNING("For edge '" + cont->getID() + "': could not compute shape.");
                 }
             }
         }
@@ -895,7 +895,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                              cont->getID()+"-AddedOnRampEdge", cont->getID(),
                              cont->getNumLanes()+toAdd, cont->getNumLanes());
         if (!ok) {
-            MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
+            WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return true;
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
@@ -913,7 +913,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
                     } catch (InvalidArgument &) {
-                        MsgHandler::getWarningInstance()->inform("For edge '" + added_ramp->getID() + "': could not compute shape.");
+                        WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
                     }
                 }
             } else {
@@ -984,7 +984,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     prev->setGeometry(g);
                 } catch (InvalidArgument &) {
-                    MsgHandler::getWarningInstance()->inform("For edge '" + prev->getID() + "': could not compute shape.");
+                    WRITE_WARNING("For edge '" + prev->getID() + "': could not compute shape.");
                 }
             }
         }
@@ -1006,7 +1006,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                              prev->getID(), prev->getID()+"-AddedOffRampEdge",
                              prev->getNumLanes(), prev->getNumLanes()+toAdd);
         if (!ok) {
-            MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
+            WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return;
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
@@ -1025,7 +1025,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
                     } catch (InvalidArgument &) {
-                        MsgHandler::getWarningInstance()->inform("For edge '" + added_ramp->getID() + "': could not compute shape.");
+                        WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
                     }
                 }
             } else {
@@ -1132,7 +1132,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
         for (std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
             NBEdge *e = ec.retrieve(*i);
             if (e==0) {
-                MsgHandler::getWarningInstance()->inform("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
             NBNode *from = e->getFromNode();
@@ -1142,7 +1142,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             // load edge again to check offramps
             e = ec.retrieve(*i);
             if (e==0) {
-                MsgHandler::getWarningInstance()->inform("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNING("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
             NBNode *to = e->getToNode();

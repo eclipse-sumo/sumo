@@ -74,11 +74,11 @@ NIXMLConnectionsHandler::myStartElement(int element,
         NBEdge *fromEdge = myEdgeCont.retrieve(from);
         NBEdge *toEdge = myEdgeCont.retrieve(to);
         if (fromEdge==0) {
-            MsgHandler::getErrorInstance()->inform("The connection-source edge '" + from + "' to reset is not known.");
+            WRITE_ERROR("The connection-source edge '" + from + "' to reset is not known.");
             return;
         }
         if (toEdge==0) {
-            MsgHandler::getErrorInstance()->inform("The connection-destination edge '" + to + "' to reset is not known.");
+            WRITE_ERROR("The connection-destination edge '" + to + "' to reset is not known.");
             return;
         }
         fromEdge->removeFromConnections(toEdge);
@@ -93,7 +93,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             return;
         }
         if (from.length()==0) {
-            MsgHandler::getErrorInstance()->inform("A from-edge is not specified within one of the connections");
+            WRITE_ERROR("A from-edge is not specified within one of the connections");
             return;
         }
         // extract edges
@@ -101,11 +101,11 @@ NIXMLConnectionsHandler::myStartElement(int element,
         NBEdge *toEdge = to.length()!=0 ? myEdgeCont.retrieve(to) : 0;
         // check whether they are valid
         if (fromEdge==0) {
-            MsgHandler::getErrorInstance()->inform("The connection-source edge '" + from + "' is not known.");
+            WRITE_ERROR("The connection-source edge '" + from + "' is not known.");
             return;
         }
         if (toEdge==0 && to.length()!=0) {
-            MsgHandler::getErrorInstance()->inform("The connection-destination edge '" + to + "' is not known.");
+            WRITE_ERROR("The connection-destination edge '" + to + "' is not known.");
             return;
         }
         // parse optional lane information
@@ -140,7 +140,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
     // split from/to
     size_t div = def.find("->");
     if (div==std::string::npos) {
-        MsgHandler::getErrorInstance()->inform("Missing connection divider in " + defRole + " '" + def + "'");
+        WRITE_ERROR("Missing connection divider in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
     std::string fromDef = def.substr(0, div);
@@ -159,11 +159,11 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
     NBEdge *toE = myEdgeCont.retrieve(toDef);
     // check
     if (fromE==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
+        WRITE_ERROR("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
     if (toE==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
+        WRITE_ERROR("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
     return NBConnection(fromE, toE);
@@ -183,7 +183,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     // split the information
     StringTokenizer st(laneConn, ':');
     if (st.size()!=2) {
-        MsgHandler::getErrorInstance()->inform("Invalid lane to lane connection from '" +
+        WRITE_ERROR("Invalid lane to lane connection from '" +
                                                from->getID() + "' to '" + to->getID() + "'.");
         return;
     }
@@ -199,7 +199,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNumLanes() || 
                 toLane<0 || static_cast<unsigned int>(toLane)>=to->getNumLanes()) {
-            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" + 
+            WRITE_ERROR("False lane index in connection from '" + 
                     from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
@@ -231,7 +231,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
             }
         }
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("At least one of the defined lanes was not numeric");
+        WRITE_ERROR("At least one of the defined lanes was not numeric");
     }
     //
     bool keepUncontrolled = attrs.getOptBoolReporting(SUMO_ATTR_UNCONTROLLED, 0, ok, false);

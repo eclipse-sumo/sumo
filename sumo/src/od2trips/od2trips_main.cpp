@@ -195,15 +195,15 @@ checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file")) {
-        MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
+        WRITE_ERROR("No net input file (-n) specified.");
         ok = false;
     }
     if (!oc.isSet("od-matrix-files")) {
-        MsgHandler::getErrorInstance()->inform("No input specified.");
+        WRITE_ERROR("No input specified.");
         ok = false;
     }
     if (!oc.isSet("output-file")) {
-        MsgHandler::getErrorInstance()->inform("No trip table output file (-o) specified.");
+        WRITE_ERROR("No trip table output file (-o) specified.");
         ok = false;
     }
     //
@@ -221,7 +221,7 @@ void
 loadDistricts(ODDistrictCont &districts, OptionsCont &oc) {
     // check whether the user gave a net filename
     if (!oc.isSet("net-file")) {
-        MsgHandler::getErrorInstance()->inform("You must supply a network ('-n').");
+        WRITE_ERROR("You must supply a network ('-n').");
         return;
     }
     // get the file name and set it
@@ -489,7 +489,7 @@ main(int argc, char **argv) {
         if (MsgHandler::getErrorInstance()->wasInformed()&&!oc.getBool("dismiss-loading-errors")) {
             throw ProcessError("Loading failed...");
         }
-        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
+        WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
         if (oc.isSet("timeline")) {
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
@@ -501,11 +501,11 @@ main(int argc, char **argv) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");
         matrix.write(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.),
                      dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
-        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
-        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
+        WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
+        WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;

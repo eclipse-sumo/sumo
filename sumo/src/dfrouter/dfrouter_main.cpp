@@ -282,7 +282,7 @@ main(int argc, char **argv) {
         startComputation(net, *flows, *detectors, oc);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;

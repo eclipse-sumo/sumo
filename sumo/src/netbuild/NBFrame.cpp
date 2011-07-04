@@ -265,7 +265,7 @@ NBFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     //
     if(!oc.isDefault("tls-guess.joining")) {
-        MsgHandler::getWarningInstance()->inform("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");
+        WRITE_WARNING("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");
         if(!oc.isSet("tls.join")) {
             oc.set("tls.join", "true");
         }

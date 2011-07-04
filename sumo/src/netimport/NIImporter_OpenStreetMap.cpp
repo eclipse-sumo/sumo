@@ -234,7 +234,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open osm-file '" + *file + "'.");
+            WRITE_ERROR("Could not open osm-file '" + *file + "'.");
             return;
         }
         nodesHandler.setFileName(*file);
@@ -266,7 +266,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
             for (std::map<int, NIOSMNode*>::iterator it = myOSMNodes.begin(); it != myOSMNodes.end(); ++it) {
                 const std::set<const NIOSMNode*, CompareNodes>::iterator origNode = dupsFinder.find(it->second);
                 if (origNode != dupsFinder.end()) {
-                    MsgHandler::getMessageInstance()->inform("Found duplicate nodes. Substituting " + toString(it->second->id) + " with " + toString((*origNode)->id));
+                    WRITE_MESSAGE("Found duplicate nodes. Substituting " + toString(it->second->id) + " with " + toString((*origNode)->id));
                     for_each(myEdges.begin(), myEdges.end(), SubstituteNode(it->second, *origNode));
                 } else {
                     dupsFinder.insert(it->second);
@@ -284,7 +284,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
             for (std::map<std::string, Edge*>::iterator it = myEdges.begin(), itnext =++myEdges.begin(); itnext != myEdges.end(); ++it, ++itnext) {
                 std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, myEdges.end(), SimilarEdge(*it));
                 while (dupEdge != myEdges.end()) {
-                    MsgHandler::getMessageInstance()->inform("Found duplicate edges. Removing " + dupEdge->first);
+                    WRITE_MESSAGE("Found duplicate edges. Removing " + dupEdge->first);
                     toRemove.insert(dupEdge->first);
                     dupEdge = find_if(++dupEdge, myEdges.end(), SimilarEdge(*it));
                 }
@@ -366,13 +366,13 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLi
         NIOSMNode *n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat);
         if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
-            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + toString(id) + ".");
+            WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
             delete from;
             return 0;
         }
         from = new NBNode(toString(id), pos);
         if (!nc.insert(from)) {
-            MsgHandler::getErrorInstance()->inform("Could not insert node '" + toString(id) + "').");
+            WRITE_ERROR("Could not insert node '" + toString(id) + "').");
             delete from;
             return 0;
         }
@@ -519,7 +519,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
         if (myHierarchyLevel != 2) {
-            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level (id='" + toString(attrs.getIntReporting(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
+            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(attrs.getIntReporting(SUMO_ATTR_ID, 0, ok)) + "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
         int id = attrs.getIntReporting(SUMO_ATTR_ID, 0, ok);
@@ -543,7 +543,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             }
             lon >> tlon;
             if (lon.fail()) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
+                WRITE_ERROR("Node's '" + toString(id) + "' lon information is not numeric.");
                 return;
             }
             std::istringstream lat(attrs.getStringReporting(SUMO_ATTR_LAT, toString(id).c_str(), ok));
@@ -552,7 +552,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             }
             lat >> tlat;
             if (lat.fail()) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
+                WRITE_ERROR("Node's '" + toString(id) + "' lat information is not numeric.");
                 return;
             }
             NIOSMNode *toAdd = new NIOSMNode();
@@ -566,7 +566,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
     }
     if (element == SUMO_TAG_TAG && myIsInValidNodeTag) {
         if (myHierarchyLevel != 3) {
-            MsgHandler::getErrorInstance()->inform("Tag element on wrong XML hierarchy level.");
+            WRITE_ERROR("Tag element on wrong XML hierarchy level.");
             return;
         }
         bool ok = true;

@@ -200,7 +200,7 @@ GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
 
 void
 GenericSAXHandler::warning(const SAXParseException& exception) throw() {
-    MsgHandler::getWarningInstance()->inform(buildErrorMessage(exception));
+    WRITE_WARNING(buildErrorMessage(exception));
 }
 
 

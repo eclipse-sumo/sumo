@@ -90,7 +90,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
         ret = false;
     }
     if (timeOnLane<0) {
-        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
+        WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
         return false;
     }
     if (timeOnLane==0) {

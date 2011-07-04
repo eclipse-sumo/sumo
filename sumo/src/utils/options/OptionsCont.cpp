@@ -227,7 +227,7 @@ OptionsCont::set(const std::string &name, const std::string &value) {
             return false;
         }
     } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform("While processing option '" + name + "':\n " + e.what());
+        WRITE_ERROR("While processing option '" + name + "':\n " + e.what());
         return false;
     }
     return true;
@@ -315,16 +315,16 @@ OptionsCont::isUsableFileList(const std::string &name) const {
     bool ok = true;
     std::vector<std::string> files = getStringVector(name);
     if (files.size()==0) {
-        MsgHandler::getErrorInstance()->inform("The file list for '" + name + "' is empty.");
+        WRITE_ERROR("The file list for '" + name + "' is empty.");
         ok = false;
     }
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             if (*fileIt!="") {
-                MsgHandler::getErrorInstance()->inform("File '" + *fileIt + "' does not exist.");
+                WRITE_ERROR("File '" + *fileIt + "' does not exist.");
                 ok = false;
             } else {
-                MsgHandler::getWarningInstance()->inform("Empty file name given; ignoring.");
+                WRITE_WARNING("Empty file name given; ignoring.");
             }
         }
     }
@@ -345,7 +345,7 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
             continue;
         }
         if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
-            MsgHandler::getErrorInstance()->inform("Option '" + (*i).first + "' needs option '" + name + "'.");
+            WRITE_ERROR("Option '" + (*i).first + "' needs option '" + name + "'.");
             std::vector<std::string> synonymes = getSynonymes((*i).first);
             std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;
@@ -367,7 +367,7 @@ OptionsCont::reportDoubleSetting(const std::string &arg) const {
             s << ", ";
         }
     }
-    MsgHandler::getErrorInstance()->inform(s.str());
+    WRITE_ERROR(s.str());
 }
 
 
@@ -564,7 +564,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         } else {
             writeConfiguration(out, true, false, getBool("save-commented"));
             if (getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written configuration to '" + getString("save-configuration") + "'");
+                WRITE_MESSAGE("Written configuration to '" + getString("save-configuration") + "'");
             }
             return true;
         }
@@ -581,7 +581,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         } else {
             writeConfiguration(out, false, true, getBool("save-commented"));
             if (getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written template to '" + getString("save-template") + "'");
+                WRITE_MESSAGE("Written template to '" + getString("save-template") + "'");
             }
             return true;
         }
@@ -597,7 +597,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
         } else {
             writeSchema(out, getBool("save-commented"));
             if (getBool("verbose")) {
-                MsgHandler::getMessageInstance()->inform("Written schema to '" + getString("save-schema") + "'");
+                WRITE_MESSAGE("Written schema to '" + getString("save-schema") + "'");
             }
             return true;
         }
@@ -840,7 +840,7 @@ OptionsCont::getStringVector(const std::string &name) const {
     Option *o = getSecure(name);
     std::string def = o->getString();
     if (def.find(';')!=std::string::npos&&!myHaveInformedAboutDeprecatedDivider) {
-        MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
+        WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         myHaveInformedAboutDeprecatedDivider = true;
     }
     StringTokenizer st(def, ";,", true);

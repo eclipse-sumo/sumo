@@ -189,10 +189,10 @@ main(int argc, char **argv) {
         try {
             computeRoutes(*net, loader, oc);
         } catch (SAXParseException &e) {
-            MsgHandler::getErrorInstance()->inform(toString(e.getLineNumber()));
+            WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (SAXException &e) {
-            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+            WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
@@ -200,7 +200,7 @@ main(int argc, char **argv) {
         }
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;

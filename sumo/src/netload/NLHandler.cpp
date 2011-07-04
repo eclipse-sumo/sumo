@@ -135,14 +135,14 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_ROWLOGIC__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedRowLogic) {
 				myHaveWarnedAboutDeprecatedRowLogic = true;
-				MsgHandler::getWarningInstance()->inform("Your network uses deprecated tags; please rebuild.");
+				WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
 			}
             initJunctionLogic(attrs);
             break;
         case SUMO_TAG_TLLOGIC__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedTLLogic) {
 				myHaveWarnedAboutDeprecatedTLLogic = true;
-				MsgHandler::getWarningInstance()->inform("Deprecated tl-logic name; please rebuild.");
+				WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
 			}
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
@@ -173,7 +173,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E1DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE1) {
 				myHaveWarnedAboutDeprecatedE1 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
 			}
         case SUMO_TAG_E1DETECTOR:
 		case SUMO_TAG_INDUCTION_LOOP:
@@ -182,7 +182,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E2DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE2) {
 				myHaveWarnedAboutDeprecatedE2 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
 			}
         case SUMO_TAG_E2DETECTOR:
 		case SUMO_TAG_LANE_AREA_DETECTOR:
@@ -191,7 +191,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_E3DETECTOR__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedE3) {
 				myHaveWarnedAboutDeprecatedE3 = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
 			}
         case SUMO_TAG_E3DETECTOR:
 		case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -200,7 +200,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DET_ENTRY__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedDetEntry) {
 				myHaveWarnedAboutDeprecatedDetEntry = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
 			}
         case SUMO_TAG_DET_ENTRY:
             addE3Entry(attrs);
@@ -208,7 +208,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DET_EXIT__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedDetExit) {
 				myHaveWarnedAboutDeprecatedDetExit = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
 			}
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
@@ -230,7 +230,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_VTYPEPROBE__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedVTypeProbe) {
 				myHaveWarnedAboutDeprecatedVTypeProbe = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
 			}
         case SUMO_TAG_VTYPEPROBE:
             addVTypeProbeDetector(attrs);
@@ -238,7 +238,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_ROUTEPROBE__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedRouteProbe) {
 				myHaveWarnedAboutDeprecatedRouteProbe = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
 			}
         case SUMO_TAG_ROUTEPROBE:
             addRouteProbeDetector(attrs);
@@ -246,7 +246,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedEdgeMean) {
 				myHaveWarnedAboutDeprecatedEdgeMean = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
 			}
         case SUMO_TAG_MEANDATA_EDGE:
             addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
@@ -254,7 +254,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedLaneMean) {
 				myHaveWarnedAboutDeprecatedLaneMean = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
 			}
         case SUMO_TAG_MEANDATA_LANE:
             addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
@@ -262,7 +262,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_TIMEDEVENT__DEPRECATED:
 			if(!myHaveWarnedAboutDeprecatedTimedEvent) {
 				myHaveWarnedAboutDeprecatedTimedEvent = true;
-				MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
+				WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
 			}
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(attrs, getFileName());
@@ -276,7 +276,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DISTRICT__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
         }
         case SUMO_TAG_TAZ:
             addDistrict(attrs);
@@ -284,7 +284,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DSOURCE__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSource) {
             myHaveWarnedAboutDeprecatedDSource = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
         }
         case SUMO_TAG_TAZSOURCE:
             addDistrictEdge(attrs, true);
@@ -292,7 +292,7 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_DSINK__DEPRECATED:
         if(!myHaveWarnedAboutDeprecatedDSink) {
             myHaveWarnedAboutDeprecatedDSink = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
         }
         case SUMO_TAG_TAZSINK:
             addDistrictEdge(attrs, false);
@@ -301,7 +301,7 @@ NLHandler::myStartElement(int element,
             break;
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
     MSRouteHandler::myStartElement(element, attrs);
     if (element==SUMO_TAG_PARAM) {
@@ -339,7 +339,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
         try {
             myJunctionControlBuilder.closeTrafficLightLogic();
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
         myAmInTLLogicMode = false;
         break;
@@ -392,7 +392,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
         funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
     }
     if (funcEnum<0) {
-        MsgHandler::getErrorInstance()->inform("Edge '" + id + "' has an invalid type ('" + func + "').");
+        WRITE_ERROR("Edge '" + id + "' has an invalid type ('" + func + "').");
         myCurrentIsBroken = true;
         return;
     }
@@ -406,7 +406,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     try {
         myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName);
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
 }
@@ -422,7 +422,7 @@ NLHandler::closeEdge() {
         MSEdge* e = myEdgeControlBuilder.closeEdge();
         MSEdge::dictionary(e->getID(), e);
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -450,7 +450,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
     if (shape.size()<2) {
-        MsgHandler::getErrorInstance()->inform("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
+        WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
         return;
     }
@@ -464,11 +464,11 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
-                MsgHandler::getErrorInstance()->inform("Another lane with the id '" + id + "' exists.");
+                WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
             }
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
     }
 }
@@ -510,7 +510,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         try {
             myJunctionControlBuilder.openJunction(id, key, type, x, y, shape, incomingLanes, internalLanes);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what() + std::string("\n Can not build according junction."));
+            WRITE_ERROR(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
         }
     }
@@ -528,7 +528,7 @@ NLHandler::parseLanes(const std::string &junctionID,
             continue;
         }
         if (lane==0) {
-            MsgHandler::getErrorInstance()->inform("An unknown lane ('" + laneID + "') was tried to be set as incoming to junction '" + junctionID + "'.");
+            WRITE_ERROR("An unknown lane ('" + laneID + "') was tried to be set as incoming to junction '" + junctionID + "'.");
             ok = false;
             continue;
         }
@@ -545,7 +545,7 @@ NLHandler::closeJunction() {
     try {
         myJunctionControlBuilder.closeJunction();
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 // ----
@@ -584,7 +584,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }
     }
@@ -603,7 +603,7 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUTSwitch(myCurrentWAUTID, t, to);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }
     }
@@ -625,7 +625,7 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUTJunction(wautID, junctionID, procedure, synchron);
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
 }
@@ -656,7 +656,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     if (x==INVALID_POSITION||y==INVALID_POSITION) {
         MSLane *lane = MSLane::dictionary(laneID);
         if (lane==0) {
-            MsgHandler::getErrorInstance()->inform("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
+            WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
             return;
         }
         if (lanePos<0) {
@@ -665,7 +665,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
         pos = lane->getShape().positionAtLengthPosition(lanePos);
     }
     if(!myNet.getShapeContainer().addPoI(id, layer, type, color, pos)) {
-        MsgHandler::getErrorInstance()->inform("PoI '" + id + "' already exists.");
+        WRITE_ERROR("PoI '" + id + "' already exists.");
     }
 }
 
@@ -686,7 +686,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
     if(shape.size()!=0) {
         if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
-            MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' already exists.");
+            WRITE_ERROR("Polygon '" + id + "' already exists.");
         }
     }
 }
@@ -710,7 +710,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
     }
 }
@@ -734,7 +734,7 @@ NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
         }
     }
 }
@@ -783,7 +783,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase duration
     SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration==0) {
-        MsgHandler::getErrorInstance()->inform("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
+        WRITE_ERROR("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
@@ -793,7 +793,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
 		minDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MINDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
 		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
 			myHaveWarnedAboutDeprecatedTLSTiming = true;
-			MsgHandler::getWarningInstance()->inform("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+			WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
 		}
 	} else {
 		minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
@@ -803,7 +803,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
 		maxDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MAXDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
 		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
 			myHaveWarnedAboutDeprecatedTLSTiming = true;
-			MsgHandler::getWarningInstance()->inform("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+			WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
 		}
 	} else {
 		maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
@@ -847,7 +847,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
 		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
@@ -862,9 +862,9 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
         myDetectorBuilder.buildMsgDetector(id, lane, position, 1, msg,
                                            OutputDevice::getDevice(file, getFileName()), friendlyPos);
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 #endif
@@ -883,7 +883,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
 		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
@@ -898,9 +898,9 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
                                           OutputDevice::getDevice(file, getFileName()),
                                           friendlyPos);
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -918,9 +918,9 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
     try {
         myDetectorBuilder.buildVTypeProbe(id, type, frequency, OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -940,9 +940,9 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
         myDetectorBuilder.buildRouteProbe(id, edge, frequency, begin,
                                           OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -959,19 +959,19 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     try {
 		if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedTimeThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
 			myHaveWarnedAboutDeprecatedJamDistThreshold = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
 		}
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
 		}
 
 
@@ -1021,9 +1021,9 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
                                               friendlyPos);
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1035,11 +1035,11 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
 	if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
 		myHaveWarnedAboutDeprecatedTimeThreshold = true;
-        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
 	}
 	if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
 		myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-        MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
 	}
 
 	const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -1058,9 +1058,9 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
                                           OutputDevice::getDevice(file, getFileName()),
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold);
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1070,7 +1070,7 @@ NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     bool ok = true;
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
 	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
@@ -1090,7 +1090,7 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
 		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
 			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
 		}
 	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
 		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
@@ -1119,7 +1119,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
     if (attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
         vtypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, id.c_str(), ok);
         if(!myHaveWarnedAboutDeprecatedVTypes) {
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_VTYPES) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_VTYPES) + "'.");
             myHaveWarnedAboutDeprecatedVTypes = true;
         }   
     }
@@ -1135,9 +1135,9 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1195,7 +1195,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
                                                 parseLinkDir(dir), parseLinkState(state));
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1223,12 +1223,12 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
 
         MSEdge *from = MSEdge::dictionary(fromID);
         if (from == 0) {
-            MsgHandler::getErrorInstance()->inform("Unknown from-edge '" + fromID + "' in connection");
+            WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection");
             return;
         }
         MSEdge *to = MSEdge::dictionary(toID);
         if (to == 0) {
-            MsgHandler::getErrorInstance()->inform("Unknown to-edge '" + toID + "' in connection");
+            WRITE_ERROR("Unknown to-edge '" + toID + "' in connection");
             return;
         }
         std::pair<MSLane*, MSLane*> lanes = getLanesFromIndices(from, to, laneIndices, ok);
@@ -1258,7 +1258,7 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         if (viaID!="" && MSGlobals::gUsingInternalLanes) {
             via = MSLane::dictionary(viaID);
             if (via==0) {
-                MsgHandler::getErrorInstance()->inform("An unknown lane ('" + viaID + 
+                WRITE_ERROR("An unknown lane ('" + viaID + 
                         "') should be set as a via-lane for lane '" + toLane->getID() + "'.");
                 return;
             }
@@ -1289,7 +1289,7 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         fromLane->addLink(link);
 
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1341,7 +1341,7 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
     } else {
         error += "(malformed)";
     }
-    MsgHandler::getErrorInstance()->inform(error);
+    WRITE_ERROR(error);
     ok = false;
     return std::pair<MSLane*, MSLane*>(static_cast<MSLane*>(0), static_cast<MSLane*>(0));
 }
@@ -1404,7 +1404,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
             }
         }
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
 }
@@ -1427,7 +1427,7 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
             succ->addFollower(MSEdge::dictionary(myCurrentDistrictID + "-sink"));
         }
     } else {
-        MsgHandler::getErrorInstance()->inform("At district '" + myCurrentDistrictID + "': succeeding edge '" + id + "' does not exist.");
+        WRITE_ERROR("At district '" + myCurrentDistrictID + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 
@@ -1444,7 +1444,7 @@ NLHandler::closeSuccLane() {
     try {
         mySucceedingLaneBuilder.closeSuccLane();
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1454,7 +1454,7 @@ NLHandler::endE3Detector() {
     try {
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        WRITE_ERROR(e.what());
     }
 }
 
@@ -1465,7 +1465,7 @@ NLHandler::closeWAUT() {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().closeWAUT(myCurrentWAUTID);
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+            WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }
     }

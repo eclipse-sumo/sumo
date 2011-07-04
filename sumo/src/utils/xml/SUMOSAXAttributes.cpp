@@ -312,7 +312,7 @@ SUMOSAXAttributes::emitUngivenError(const std::string &attrname, const char *obj
         oss << " '" << objectid << "'";
     }
     oss << ".";
-    MsgHandler::getErrorInstance()->inform(oss.str());
+    WRITE_ERROR(oss.str());
 }
 
 
@@ -328,7 +328,7 @@ SUMOSAXAttributes::emitEmptyError(const std::string &attrname, const char *objec
         oss << " '" << objectid << "'";
     }
     oss << " is empty.";
-    MsgHandler::getErrorInstance()->inform(oss.str());
+    WRITE_ERROR(oss.str());
 }
 
 
@@ -344,7 +344,7 @@ SUMOSAXAttributes::emitFormatError(const std::string &attrname, const std::strin
         oss << " '" << objectid << "'";
     }
     oss << " is not " << type << ".";
-    MsgHandler::getErrorInstance()->inform(oss.str());
+    WRITE_ERROR(oss.str());
 }
 
 
@@ -352,7 +352,7 @@ void
 SUMOSAXAttributes::parseStringVector(const std::string &def, std::vector<std::string> &into) throw() {
     if (def.find(';')!=std::string::npos||def.find(',')!=std::string::npos) {
         if (!myHaveInformedAboutDeprecatedDivider) {
-            MsgHandler::getWarningInstance()->inform("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
+            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
             myHaveInformedAboutDeprecatedDivider = true;
         }
     }

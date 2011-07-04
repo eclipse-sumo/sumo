@@ -68,7 +68,7 @@ RORDLoader_TripDefs::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if(element==SUMO_TAG_TRIP__DEPRECATED&&!myHaveWarnedAboutDeprecatedTripDef) {
 	    myHaveWarnedAboutDeprecatedTripDef = true;
-		MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
+		WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
     }
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIP||element==SUMO_TAG_TRIP__DEPRECATED) {
@@ -91,7 +91,7 @@ RORDLoader_TripDefs::myStartElement(int element,
             return;
         }
         if (myDepartureTime<0) {
-            MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
+            WRITE_ERROR("The departure time must be positive.");
             return;
         }
     }
@@ -134,7 +134,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
     }
     ROEdge *e = myNet.getEdge(id);
     if (e==0 && !emptyAllowed) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
+        WRITE_ERROR("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
     }
     return e;
 }
@@ -193,7 +193,7 @@ RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
             ROVehicle *veh = new ROVehicle(*myParameter, route, type);
             myNet.addVehicle(myParameter->id, veh);
         } else {
-            MsgHandler::getErrorInstance()->inform("The vehicle '" + myParameter->id + "' occurs at least twice.");
+            WRITE_ERROR("The vehicle '" + myParameter->id + "' occurs at least twice.");
             delete route;
         }
         delete myParameter;

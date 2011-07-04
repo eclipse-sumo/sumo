@@ -148,11 +148,11 @@ RODFNet::computeTypes(RODFDetectorCon &detcont,
     }
     // print results
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    MsgHandler::getMessageInstance()->inform("Computed detector types:");
-    MsgHandler::getMessageInstance()->inform(" " + toString(mySourceNumber) + " source detectors");
-    MsgHandler::getMessageInstance()->inform(" " + toString(mySinkNumber) + " sink detectors");
-    MsgHandler::getMessageInstance()->inform(" " + toString(myInBetweenNumber) + " in-between detectors");
-    MsgHandler::getMessageInstance()->inform(" " + toString(myInvalidNumber) + " invalid detectors");
+    WRITE_MESSAGE("Computed detector types:");
+    WRITE_MESSAGE(" " + toString(mySourceNumber) + " source detectors");
+    WRITE_MESSAGE(" " + toString(mySinkNumber) + " sink detectors");
+    WRITE_MESSAGE(" " + toString(myInBetweenNumber) + " in-between detectors");
+    WRITE_MESSAGE(" " + toString(myInvalidNumber) + " invalid detectors");
 }
 
 
@@ -610,7 +610,7 @@ RODFNet::removeEmptyDetectors(RODFDetectorCon &detectors,
             remove = false;
         }
         if (remove) {
-            MsgHandler::getMessageInstance()->inform("Removed detector '" + (*i)->getID() + "' because no flows for him exist.");
+            WRITE_MESSAGE("Removed detector '" + (*i)->getID() + "' because no flows for him exist.");
             flows.removeFlow((*i)->getID());
             detectors.removeDetector((*i)->getID());
             i = dets.begin();
@@ -633,7 +633,7 @@ RODFNet::reportEmptyDetectors(RODFDetectorCon &detectors,
             remove = false;
         }
         if (remove) {
-            MsgHandler::getMessageInstance()->inform("Detector '" + (*i)->getID() + "' has no flow.");
+            WRITE_MESSAGE("Detector '" + (*i)->getID() + "' has no flow.");
         }
     }
 }

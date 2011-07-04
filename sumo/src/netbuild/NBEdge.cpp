@@ -268,7 +268,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
         myGeom.push_front(myFrom->getPosition());
     }
     if(myGeom.size()==2&&myGeom[0]==myGeom[1]) {
-        MsgHandler::getErrorInstance()->inform("Edge's '" + myID + "' from- and to-node are at the same position.");
+        WRITE_ERROR("Edge's '" + myID + "' from- and to-node are at the same position.");
         myGeom[1].add(Position(POSITION_EPS, POSITION_EPS));
     }
     //
@@ -518,7 +518,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge *destEdge,
         return;
     }
     if (myLanes.size()<=lane) {
-        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + getLaneID(lane) + "' to '" + destEdge->getLaneID(destLane) + "'.");
+        WRITE_ERROR("Could not set connection from '" + getLaneID(lane) + "' to '" + destEdge->getLaneID(destLane) + "'.");
         return;
     }
     for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
@@ -679,7 +679,7 @@ NBEdge::computeLaneShapes() throw() {
         try {
             myLanes[i].shape = computeLaneShape(i);
         } catch (InvalidArgument &e) {
-            MsgHandler::getWarningInstance()->inform("In edge '" + getID() + "': lane shape could not been determined (" + e.what() + ")");
+            WRITE_WARNING("In edge '" + getID() + "': lane shape could not been determined (" + e.what() + ")");
             myLanes[i].shape = myGeom;
         }
     }
@@ -730,7 +730,7 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
                 shape.push_back(l1.intersectsAt(l2));
             } else {
                 if (!haveWarned) {
-                    MsgHandler::getWarningInstance()->inform("In lane '" + getLaneID(lane) + "': Could not build shape.");
+                    WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
                     haveWarned = true;
                 }
             }

@@ -71,7 +71,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
-            MsgHandler::getErrorInstance()->inform("Could not open osm-file '" + *file + "'.");
+            WRITE_ERROR("Could not open osm-file '" + *file + "'.");
             return;
         }
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from osm-file '" + *file + "'...");
@@ -103,7 +103,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             PCOSMNode *n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + e->id + "'.");
+                WRITE_WARNING("Unable to project coordinates for polygon '" + e->id + "'.");
             }
             vec.push_back_noDoublePos(pos);
         }
@@ -141,7 +141,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             }
             Polygon *poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
-                MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                WRITE_ERROR("Polygon '" + name + "' could not been added.");
                 delete poly;
             }
         }
@@ -188,11 +188,11 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             }
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
+                WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
             }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
-                MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                WRITE_ERROR("POI '" + name + "' could not been added.");
                 delete poi;
             }
         }

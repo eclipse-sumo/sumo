@@ -199,11 +199,11 @@ NGFrame::checkOptions() {
     }
     if (oc.getBool("rand")) no++;
     if (no==0) {
-        MsgHandler::getErrorInstance()->inform("You have to specify the type of network to generate.");
+        WRITE_ERROR("You have to specify the type of network to generate.");
         ok = false;
     }
     if (no>1) {
-        MsgHandler::getErrorInstance()->inform("You may specify only one type of network to generate at once.");
+        WRITE_ERROR("You may specify only one type of network to generate at once.");
         ok = false;
     }
     // check whether the junction type to use is properly set
@@ -212,7 +212,7 @@ NGFrame::checkOptions() {
         if (type != toString(NODETYPE_TRAFFIC_LIGHT) &&
                 type != toString(NODETYPE_PRIORITY_JUNCTION) &&
                 type != toString(NODETYPE_RIGHT_BEFORE_LEFT)) {
-            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: " +
+            WRITE_ERROR("Only the following junction types are known: " +
                     toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
                     toString(NODETYPE_PRIORITY_JUNCTION) + ", " +
                     toString(NODETYPE_RIGHT_BEFORE_LEFT));

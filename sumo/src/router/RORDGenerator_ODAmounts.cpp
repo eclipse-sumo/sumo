@@ -240,7 +240,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
     } else if(attrs.hasAttribute(SUMO_ATTR_NO__DEPRECATED)) {
         if(!myHaveWarnedAboutDeprecatedNumber) {
             myHaveWarnedAboutDeprecatedNumber = true;
-            MsgHandler::getWarningInstance()->inform("'" + toString(SUMO_ATTR_NO__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMBER) + "' instead.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_NO__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMBER) + "' instead.");
         }
         myVehicle2InsertNumber = attrs.getIntReporting(SUMO_ATTR_NO__DEPRECATED, id.c_str(), ok);
     } else {
@@ -304,7 +304,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
             FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2InsertNumber, myRandom);
             myFlows.push_back(fd);
         } else {
-            MsgHandler::getErrorInstance()->inform("The vehicle '" + myParameter->id + "' occurs at least twice.");
+            WRITE_ERROR("The vehicle '" + myParameter->id + "' occurs at least twice.");
             delete route;
         }
         delete myParameter;

@@ -621,7 +621,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                     begL.extrapolateSecondBy(100);
                     endL.extrapolateFirstBy(100);
                 } else {
-                    MsgHandler::getWarningInstance()->inform("Could not use edge geometry for internal lane, node '" + getID() + "'.");
+                    WRITE_WARNING("Could not use edge geometry for internal lane, node '" + getID() + "'.");
                 }
                 if (!check||!begL.intersects(endL)) {
                     noSpline = true;
@@ -865,7 +865,7 @@ NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
         // check whether it is not too large
         if (myRequest->getSizes().second>=64) {
             // yep -> make it untcontrolled, warn
-            MsgHandler::getWarningInstance()->inform("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
+            WRITE_WARNING("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
             delete myRequest;
             myRequest = 0;
             myType = NODETYPE_NOJUNCTION;
@@ -918,7 +918,7 @@ NBNode::computeNodeShape(bool leftHand) {
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute(leftHand);
     } catch (InvalidArgument &) {
-        MsgHandler::getWarningInstance()->inform("For node '" + getID() + "': could not compute shape.");
+        WRITE_WARNING("For node '" + getID() + "': could not compute shape.");
     }
 }
 

@@ -191,11 +191,11 @@ NIImporter_VISUM::load() throw(ProcessError) {
                     myCurrentID = "<unknown>";
                     (this->*(*i).function)();
                 } catch (OutOfBoundsException &) {
-                    MsgHandler::getErrorInstance()->inform("Too short value line in " + (*i).name + " occured.");
+                    WRITE_ERROR("Too short value line in " + (*i).name + " occured.");
                 } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
+                    WRITE_ERROR("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement &e) {
-                    MsgHandler::getErrorInstance()->inform("One of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
+                    WRITE_ERROR("One of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
                 }
             }
         }
@@ -249,12 +249,12 @@ NIImporter_VISUM::parse_Nodes() {
     SUMOReal y = getNamedFloat("YKoord");
     Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + myCurrentID + ".");
+        WRITE_ERROR("Unable to project coordinates for node " + myCurrentID + ".");
         return;
     }
     // add to the list
     if (!myNetBuilder.getNodeCont().insert(myCurrentID, pos)) {
-        MsgHandler::getErrorInstance()->inform("Duplicate node occured ('" + myCurrentID + "').");
+        WRITE_ERROR("Duplicate node occured ('" + myCurrentID + "').");
     }
 }
 
@@ -272,13 +272,13 @@ NIImporter_VISUM::parse_Districts() {
     SUMOReal y = getNamedFloat("YKoord");
     Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos, false)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for district " + myCurrentID + ".");
+        WRITE_ERROR("Unable to project coordinates for district " + myCurrentID + ".");
         return;
     }
     // build the district
     NBDistrict *district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
-        MsgHandler::getErrorInstance()->inform("Duplicate district occured ('" + myCurrentID + "').");
+        WRITE_ERROR("Duplicate district occured ('" + myCurrentID + "').");
         delete district;
         return;
     }
@@ -296,7 +296,7 @@ NIImporter_VISUM::parse_Point() {
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
     Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos, false)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for point " + toString(id) + ".");
+        WRITE_ERROR("Unable to project coordinates for point " + toString(id) + ".");
         return;
     }
     myPoints[id] = pos;
@@ -382,7 +382,7 @@ NIImporter_VISUM::parse_Edges() {
         NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, -1, -1, "", lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
+            WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -398,7 +398,7 @@ NIImporter_VISUM::parse_Edges() {
         NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, -1, -1, "", lsf); 
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
+            WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -473,11 +473,11 @@ NIImporter_VISUM::parse_Connectors() {
         }
         if (!hasContinuation) {
             // obviously, there is no continuation on the net
-            MsgHandler::getWarningInstance()->inform("Incoming connector '" + id + "' will not be build - would be not connected to network.");
+            WRITE_WARNING("Incoming connector '" + id + "' will not be build - would be not connected to network.");
         } else {
             NBNode *src = buildDistrictNode(bez, dest, true);
             if (src==0) {
-                MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
+                WRITE_ERROR("The district '" + bez + "' could not be built.");
                 return;
             }
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
@@ -486,7 +486,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       -1, -1, -1, "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+                WRITE_ERROR("A duplicate edge id occured (ID='" + id + "').");
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
@@ -506,11 +506,11 @@ NIImporter_VISUM::parse_Connectors() {
         }
         if (!hasPredeccessor) {
             // obviously, the network is not connected to this node
-            MsgHandler::getWarningInstance()->inform("Outgoing connector '" + id + "' will not be build - would be not connected to network.");
+            WRITE_WARNING("Outgoing connector '" + id + "' will not be build - would be not connected to network.");
         } else {
             NBNode *src = buildDistrictNode(bez, dest, false);
             if (src==0) {
-                MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
+                WRITE_ERROR("The district '" + bez + "' could not be built.");
                 return;
             }
             id = "-" + id;
@@ -520,7 +520,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       -1, -1, -1, "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+                WRITE_ERROR("A duplicate edge id occured (ID='" + id + "').");
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
@@ -602,12 +602,12 @@ NIImporter_VISUM::parse_EdgePolys() {
         x = getNamedFloat("XKoord");
         y = getNamedFloat("YKoord");
     } catch (NumberFormatException&) {
-        MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
+        WRITE_ERROR("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
         return;
     }
     Position pos(x, y);
     if (!GeoConvHelper::x2cartesian(pos)) {
-        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + from->getID() + "'.");
+        WRITE_ERROR("Unable to project coordinates for node '" + from->getID() + "'.");
         return;
     }
     NBEdge *e = from->getConnectionTo(to);
@@ -656,12 +656,12 @@ NIImporter_VISUM::parse_Lanes() {
     try {
         lane = TplConvert<char>::_2int(laneS.c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
+        WRITE_ERROR("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
         return;
     }
     lane -= 1;
     if (lane<0) {
-        MsgHandler::getErrorInstance()->inform("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
+        WRITE_ERROR("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
         return;
     }
     // get the direction
@@ -677,11 +677,11 @@ NIImporter_VISUM::parse_Lanes() {
     try {
         length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
+        WRITE_ERROR("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
         return;
     }
     if (length<0) {
-        MsgHandler::getErrorInstance()->inform("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
+        WRITE_ERROR("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
         return;
     }
     //
@@ -806,7 +806,7 @@ NIImporter_VISUM::parse_SignalGroups() {
     SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
     // add to the list
     if (myNIVisumTLs.find(LSAid)==myNIVisumTLs.end()) {
-        MsgHandler::getErrorInstance()->inform("Could not find TLS '" + LSAid + "' for setting the signal group.");
+        WRITE_ERROR("Could not find TLS '" + LSAid + "' for setting the signal group.");
         return;
     }
     (*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(myCurrentID, (SUMOTime) StartTime, (SUMOTime) EndTime);
@@ -872,7 +872,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
     long id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     long edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
     if (myEdges.find(edgeid)==myEdges.end()) {
-        MsgHandler::getErrorInstance()->inform("Unknown edge in TEILFLAECHENELEMENT");
+        WRITE_ERROR("Unknown edge in TEILFLAECHENELEMENT");
         return;
     }
     std::string dir = myLineParser.get("RICHTUNG");
@@ -881,7 +881,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
     try {
         index = TplConvert<char>::_2int(indexS.c_str()) - 1;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
+        WRITE_ERROR("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
         return;
     }
     PositionVector shape;
@@ -891,7 +891,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         shape = shape.reverse();
     }
     if (mySubPartsAreas.find(id)==mySubPartsAreas.end()) {
-        MsgHandler::getErrorInstance()->inform("Unkown are for area part '" + myCurrentID + "'.");
+        WRITE_ERROR("Unkown are for area part '" + myCurrentID + "'.");
         return;
     }
 
@@ -982,12 +982,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     try {
         fromLane = TplConvert<char>::_2int(fromLaneS.c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
+        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
         return;
     }
     fromLane -= 1;
     if (fromLane<0) {
-        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is not positive (" + fromLaneS + ").");
+        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is not positive (" + fromLaneS + ").");
         return;
     }
     // get the from-lane
@@ -996,12 +996,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     try {
         toLane = TplConvert<char>::_2int(toLaneS.c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
+        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
         return;
     }
     toLane -= 1;
     if (toLane<0) {
-        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is not positive (" + toLaneS + ").");
+        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is not positive (" + toLaneS + ").");
         return;
     }
     // !!! the next is probably a hack
@@ -1017,11 +1017,11 @@ void NIImporter_VISUM::parse_LanesConnections() {
     }
     //
     if ((int) fromEdge->getNumLanes()<=fromLane) {
-        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
+        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
         return;
     }
     if ((int) toEdge->getNumLanes()<=toLane) {
-        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
+        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
         return;
     }
     //
@@ -1069,7 +1069,7 @@ NIImporter_VISUM::getNamedNode(const std::string &fieldName) throw(OutOfBoundsEx
     std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode *node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node==0) {
-        MsgHandler::getErrorInstance()->inform("The node '" + nodeS + "' is not known.");
+        WRITE_ERROR("The node '" + nodeS + "' is not known.");
     }
     return node;
 }
@@ -1090,7 +1090,7 @@ NIImporter_VISUM::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsEx
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
+        WRITE_ERROR("The edge '" + edgeS + "' is not known.");
     }
     return edge;
 }
@@ -1188,7 +1188,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName, NBNode 
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
+        WRITE_ERROR("The edge '" + edgeS + "' is not known.");
     }
     return getNamedEdgeContinuating(edge, node);
 }
@@ -1294,7 +1294,7 @@ NIImporter_VISUM::buildDistrictNode(const std::string &id, NBNode *dest,
     }
     // insert the node
     if (!myNetBuilder.getNodeCont().insert(nid, dist->getPosition())) {
-        MsgHandler::getErrorInstance()->inform("Could not build connector node '" + nid + "'.");
+        WRITE_ERROR("Could not build connector node '" + nid + "'.");
     }
     // return the node
     return myNetBuilder.getNodeCont().retrieve(nid);
@@ -1304,13 +1304,13 @@ NIImporter_VISUM::buildDistrictNode(const std::string &id, NBNode *dest,
 bool
 NIImporter_VISUM::checkNodes(NBNode *from, NBNode *to)  throw() {
     if (from==0) {
-        MsgHandler::getErrorInstance()->inform(" The from-node was not found within the net");
+        WRITE_ERROR(" The from-node was not found within the net");
     }
     if (to==0) {
-        MsgHandler::getErrorInstance()->inform(" The to-node was not found within the net");
+        WRITE_ERROR(" The to-node was not found within the net");
     }
     if (from==to) {
-        MsgHandler::getErrorInstance()->inform(" Both nodes are the same");
+        WRITE_ERROR(" Both nodes are the same");
     }
     return from!=0&&to!=0&&from!=to;
 }

@@ -85,7 +85,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
             }
         }
         if (myEdges!=newEdges) {
-            MsgHandler::getWarningInstance()->inform("Repaired route of vehicle '" + veh.getID() + "'.");
+            WRITE_WARNING("Repaired route of vehicle '" + veh.getID() + "'.");
         }
         myEdges = newEdges;
     }

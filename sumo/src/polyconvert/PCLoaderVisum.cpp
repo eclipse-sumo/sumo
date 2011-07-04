@@ -102,7 +102,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for point '" + toString(id) + "'.");
+                WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
             }
             punkte[id] = pos;
             continue;
@@ -124,7 +124,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
+                WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
             }
             kanten[id].insertAt(index, pos);
             continue;
@@ -230,7 +230,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + num + "'.");
+                WRITE_WARNING("Unable to project coordinates for POI '" + num + "'.");
             }
             std::string type = typemap[catid];
             // check the poi
@@ -254,7 +254,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             if (!discard) {
                 PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
                 if (!toFill.insert(name, poi, layer)) {
-                    MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                    WRITE_ERROR("POI '" + name + "' could not been added.");
                     delete poi;
                 }
             }
@@ -285,7 +285,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 if (!discard) {
                     Polygon *poly = new Polygon(id, type, color, vec, false);
                     if (!toFill.insert(id, poly, 1)) {
-                        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                        WRITE_ERROR("Polygon '" + id + "' could not been added.");
                         delete poly;
                     }
                 }
@@ -299,7 +299,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             std::string ypos = st.next();
             Position pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
             if (!GeoConvHelper::x2cartesian(pos2D)) {
-                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
             }
             vec.push_back(pos2D);
         }
@@ -337,7 +337,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 if (teilflaechen[flaechenelemente[id]].size()>0) {
                     Polygon *poly = new Polygon(name, type, color, teilflaechen[flaechenelemente[id]], false);
                     if (!toFill.insert(name, poly, layer)) {
-                        MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                        WRITE_ERROR("Polygon '" + name + "' could not been added.");
                         delete poly;
                     }
                 } else {
@@ -345,11 +345,11 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
                     Position pos(x, y);
                     if (!GeoConvHelper::x2cartesian(pos)) {
-                        MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
+                        WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
                     }
                     PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
                     if (!toFill.insert(name, poi, layer)) {
-                        MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                        WRITE_ERROR("POI '" + name + "' could not been added.");
                         delete poi;
                     }
                 }
