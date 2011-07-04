@@ -57,7 +57,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION
-			&&variable!=LAST_STEP_VEHICLE_DATA) {
+			&&variable!=LAST_STEP_VEHICLE_DATA&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -73,6 +73,11 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
         MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
         if (il==0) {

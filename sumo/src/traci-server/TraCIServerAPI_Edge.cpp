@@ -64,7 +64,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
             &&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER&&variable!=LAST_STEP_LENGTH
-            &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+            &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Get Edge Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -80,6 +80,11 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         MSEdge::insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids;
+        MSEdge::insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         MSEdge *e = MSEdge::dictionary(id);
         if (e==0) {

@@ -80,6 +80,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_WIDTH&&variable!=VAR_MINGAP&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU&&variable!=VAR_BEST_LANES&&variable!=DISTANCE_REQUEST
+            &&variable!=ID_COUNT
        ) {
         server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Get Vehicle Variable: unsupported variable specified", outputStorage);
         return false;
@@ -91,7 +92,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable==ID_LIST) {
+    if (variable==ID_LIST||variable==ID_COUNT) {
         std::vector<std::string> ids;
         MSVehicleControl &c = MSNet::getInstance()->getVehicleControl();
         for (MSVehicleControl::constVehIt i=c.loadedVehBegin(); i!=c.loadedVehEnd(); ++i) {
@@ -99,8 +100,13 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 ids.push_back((*i).first);
             }
         }
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        if (variable==ID_LIST) {
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        } else {
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
     } else {
         MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
         if (v==0) {

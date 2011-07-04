@@ -55,7 +55,7 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION) {
+    if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_ERR, "Get PoI Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -66,14 +66,19 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable==ID_LIST) {
+    if (variable==ID_LIST||variable==ID_COUNT) {
         std::vector<std::string> ids;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
             shapeCont.getPOICont(i).insertIDs(ids);
         }
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        if (variable==ID_LIST) {
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        } else {
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
     } else {
         PointOfInterest *p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();

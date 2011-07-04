@@ -58,7 +58,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
     if (variable!=ID_LIST&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_ACCEL&&variable!=VAR_DECEL
             &&variable!=VAR_TAU&&variable!=VAR_VEHICLECLASS&&variable!=VAR_EMISSIONCLASS&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_SPEED_FACTOR&&variable!=VAR_SPEED_DEVIATION&&variable!=VAR_IMPERFECTION
-            &&variable!=VAR_MINGAP&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
+            &&variable!=VAR_MINGAP&&variable!=VAR_WIDTH&&variable!=VAR_COLOR&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Get Vehicle Type Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -74,6 +74,11 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
         MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getVehicleControl().insertVTypeIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         MSVehicleType *v = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (v==0) {

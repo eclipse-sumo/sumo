@@ -57,7 +57,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_DEFINITION_RYG
             &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
             &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM
-            &&variable!=TL_NEXT_SWITCH&&variable!=TL_PHASE_DURATION) {
+            &&variable!=TL_NEXT_SWITCH&&variable!=TL_PHASE_DURATION&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Get TLS Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -71,6 +71,10 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         if (!MSNet::getInstance()->getTLSControl().knows(id)) {
             server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known", outputStorage);

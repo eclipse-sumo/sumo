@@ -55,7 +55,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=VAR_EDGES) {
+    if (variable!=ID_LIST&&variable!=VAR_EDGES&&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Get Route Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -71,6 +71,11 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
         MSRoute::insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids;
+        MSRoute::insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         const MSRoute *r = MSRoute::dictionary(id);
         if (r==0) {

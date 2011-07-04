@@ -295,8 +295,11 @@
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
-// list of instances' ids (get: induction loops, areal detector, traffic lights)
+// list of instances' ids (get: all)
 #define ID_LIST 0x00
+
+// count of instances (get: all)
+#define ID_COUNT 0x01
 
 // last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_NUMBER 0x10

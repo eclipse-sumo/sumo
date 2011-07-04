@@ -55,7 +55,8 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
-            &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER) {
+            &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
+            &&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Get MeMeDetector Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -70,6 +71,11 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
         MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
+    } else if (variable==ID_COUNT) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt((int) ids.size());
     } else {
         MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
         if (e3==0) {

@@ -56,7 +56,8 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL) {
+    if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
+        &&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Get Polygon Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -67,14 +68,19 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable==ID_LIST) {
+    if (variable==ID_LIST||variable==ID_COUNT) {
         std::vector<std::string> ids;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
             shapeCont.getPolygonCont(i).insertIDs(ids);
         }
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
+        if (variable==ID_LIST) {
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        } else {
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
     } else {
         Polygon *p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
