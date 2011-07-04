@@ -144,7 +144,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         } else {
             edevice << ">\n";
             for (unsigned int i=0; i<e->getLanes().size(); ++i) {
-                edevice << "      <lane id=\"" << i << "\"";
+                edevice << "      <lane " << SUMO_ATTR_INDEX << "=\"" << i << "\"";
                 const NBEdge::Lane &lane = e->getLanes()[i];
                 // write allowed lanes
                 if (lane.allowed.size()!=0) {
