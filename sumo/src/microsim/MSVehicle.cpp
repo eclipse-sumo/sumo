@@ -615,7 +615,11 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         vBeg = MIN2(vBeg, vsafeStop);
     }
     vBeg = MAX2((SUMOReal) 0, vBeg);
-    assert(vBeg >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+#ifdef _DEBUG
+    if(vBeg < cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) {
+        WRITE_WARNING("Vehicle '" + getID() + "' is decelerating too much (#1; is: " + toString(myState.mySpeed-vBeg) + ", may: " + toString(cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) + ")");
+    }
+#endif
     if (!onAppropriateLane) {
         myLFLinkLanes.push_back(DriveProcessItem(0, vBeg, vBeg, false, 0, 0, myLane->getLength()-myState.myPos));
     } else {
@@ -1090,7 +1094,11 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
         vLinkWait = MIN3(vLinkPass, vLinkWait, cfModel.ffeS(this, seen));
-        assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+#ifdef _DEBUG
+        if(vLinkWait < cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) {
+            WRITE_WARNING("Vehicle '" + getID() + "' is decelerating too much (#2; is: " + toString(myState.mySpeed-vLinkWait) + ", may: " + toString(cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) + ")");
+        }
+#endif
 
         // behaviour in front of not priorised intersections (waiting for priorised foe vehicles)
         bool setRequest = false;
@@ -1125,7 +1133,11 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         //  between critical/non-critical vehicles. Though, one should assume that a vehicle
         //  should want to move over an intersection even though it could brake before it!?
         setRequest &= dist-seen>0;
-        assert(MIN2(vLinkPass, vLinkWait) >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
+#ifdef _DEBUG
+        if(MIN2(vLinkPass, vLinkWait) < cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) {
+            WRITE_WARNING("Vehicle '" + getID() + "' is decelerating too much (#3; is: " + toString(myState.mySpeed-MIN2(vLinkPass, vLinkWait)) + ", may: " + toString(cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) + ")");
+        }
+#endif
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest, t + TIME2STEPS(seen / vLinkPass), vLinkPass, seen));
         seen += nextLane->getLength();
         seenNonInternal += nextLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL ? 0 : nextLane->getLength();

@@ -57,7 +57,11 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
     const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
     const SUMOReal vMax = MIN3(veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
-    assert(vMin<=vMax);
+#ifdef _DEBUG
+    if(vMin > vMax) {
+        WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
+    }
+#endif
     return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
 }
 
