@@ -327,18 +327,11 @@ void
 NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << n.getID() << '\"';
-    SumoXMLNodeType type = NODETYPE_DEAD_END;
-    const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
-    for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
-        if ((*i)->getConnections().size()>0) {
-            type = n.getType();
-            break;
-        }
-    }
-    into << " type=\"" << toString(type) << "\"";
+    into << " type=\"" << toString(n.getType()) << "\"";
     into << " x=\"" << n.getPosition().x() << "\" y=\"" << n.getPosition().y() << "\"";
     into << " incLanes=\"";
     // write the incoming lanes
+    const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
         unsigned int noLanes = (*i)->getNumLanes();
         std::string id = (*i)->getID();

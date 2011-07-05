@@ -863,12 +863,17 @@ NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
         myRequest = new NBRequest(ec, this, 
                 myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
-        if (myRequest->getSizes().second>=64) {
+        unsigned int numConnections = myRequest->getSizes().second;
+        if (numConnections >= 64) {
             // yep -> make it untcontrolled, warn
             WRITE_WARNING("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
             delete myRequest;
             myRequest = 0;
             myType = NODETYPE_NOJUNCTION;
+        } else if (numConnections == 0) {
+            delete myRequest;
+            myRequest = 0;
+            myType = NODETYPE_DEAD_END;
         } else {
             myRequest->buildBitfieldLogic(ec.isLeftHanded());
         }
