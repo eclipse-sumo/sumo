@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:28:49 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Tue Jul  5 11:09:59 2011 by SUMO netconvert Version dev-SVN-r10842
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -11,7 +11,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <edge_removal>
@@ -104,7 +104,7 @@
     <junction id="1" type="priority" x="500.00" y="1000.00" incLanes="1o_0" intLanes="" shape="500.00,999.95 500.00,993.45 500.00,1003.25 500.00,1000.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1f" type="DEAD_END" x="0.00" y="1000.00" incLanes="" intLanes="" shape="">
+    <junction id="1f" type="unregulated" x="0.00" y="1000.00" incLanes="" intLanes="" shape="">
     </junction>
     <junction id="2" type="priority" x="1500.00" y="1000.00" incLanes="2fi_0 2fi_1 2o_0" intLanes="" shape="1500.00,1006.55 1500.00,996.75 1500.00,1006.55">
         <request index="0" response="00000" foes="10000"/>

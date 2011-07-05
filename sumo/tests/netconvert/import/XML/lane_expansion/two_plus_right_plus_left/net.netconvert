@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/10/11 11:05:53 by SUMO netconvert Version dev-SVN-r10587
+<!-- generated on Tue Jul  5 11:07:40 2011 by SUMO netconvert Version dev-SVN-r10842
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -59,9 +59,9 @@
         <lane id="1.70_3" index="3" maxSpeed="28.00" length="28.50" shape="71.50,-1.65 100.00,-1.65"/>
     </edge>
 
-    <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-3.35 0.00,-9.85">
+    <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-3.35 0.00,-9.85">
     </junction>
-    <junction id="1" type="DEAD_END" x="100.00" y="0.00" incLanes="1.70_0 1.70_1 1.70_2 1.70_3" intLanes="" shape="100.00,-13.15 100.00,-0.05">
+    <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1.70_0 1.70_1 1.70_2 1.70_3" intLanes="" shape="100.00,-13.15 100.00,-0.05">
     </junction>
     <junction id="1.30" type="priority" x="30.00" y="0.00" incLanes="1_0 1_1" intLanes=":1.30_0_0 :1.30_1_0 :1.30_2_0" shape="31.50,-3.35 31.50,-13.15 28.50,-9.85 28.50,-3.35">
         <request index="0" response="000" foes="000" cont="0"/>
