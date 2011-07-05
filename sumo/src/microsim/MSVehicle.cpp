@@ -131,7 +131,8 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
 MSVehicle::Influencer::Influencer() 
-            : mySpeedAdaptationStarted(true)
+            : mySpeedAdaptationStarted(true), myConsiderSafeVelocity(true),
+            myConsiderMaxAcceleration(true), myConsiderMaxDeceleration(true)
 {}
 
 
@@ -152,8 +153,8 @@ MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int
 }
 
 
-void 
-MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
+SUMOReal
+MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax) {
     // keep original speed
     myOriginalSpeed = speed;
     // remove leading commands which are no longer valid
@@ -162,7 +163,7 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
     }
     // do nothing if the time line does not apply for the current time
     if(mySpeedTimeLine.size()<2||currentTime<mySpeedTimeLine[0].first) {
-        return;
+        return speed;
     }
     // compute and set new speed
     if(!mySpeedAdaptationStarted) {
@@ -171,7 +172,17 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal &speed) {
     } else {
         const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
         speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
+        if(myConsiderSafeVelocity) {
+            speed = MIN2(speed, vSafe);
+        }
+        if(myConsiderMaxAcceleration) {
+            speed = MIN2(speed, vMax);
+        }
+        if(myConsiderMaxDeceleration) {
+            speed = MAX2(speed, vMin);
+        }
     }
+    return speed;
 }
 
 
@@ -179,6 +190,24 @@ void
 MSVehicle::Influencer::influenceLane(SUMOTime currentTime, int &lane) {
     UNUSED_PARAMETER(currentTime);
     UNUSED_PARAMETER(lane);
+}
+
+
+void 
+MSVehicle::Influencer::setConsiderSafeVelocity(bool value) {
+	myConsiderSafeVelocity = value;
+}
+
+
+void 
+MSVehicle::Influencer::setConsiderMaxAcceleration(bool value) {
+    myConsiderMaxAcceleration = value;
+}
+
+
+void 
+MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
+    myConsiderMaxDeceleration = value;
 }
 
 
@@ -700,7 +729,9 @@ MSVehicle::moveChecked() {
     vNext = MAX2(vNext, (SUMOReal) 0.);
 #ifndef NO_TRACI
     if(myInfluencer!=0) {
-        myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext);
+        SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
+        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed);
+        vNext = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), vNext, vSafe, vMin, vMax);
     }
 #endif
     // visit waiting time
@@ -989,7 +1020,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
 void
 MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     if(myInfluencer!=0) {
-        myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), boundVSafe);
+        SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
+        SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed);
+        boundVSafe = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), boundVSafe, boundVSafe, vMin, vMax);
     }
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {

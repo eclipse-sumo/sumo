@@ -482,6 +482,9 @@
 // best lanes (get: vehicle)
 #define VAR_BEST_LANES 0xb2
 
+// how speed is set (set: vehicle)
+#define VAR_SPEEDSETMODE 0xb3
+
 
 
 

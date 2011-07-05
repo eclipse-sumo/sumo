@@ -359,7 +359,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_WIDTH&&variable!=VAR_MINGAP&&variable!=VAR_SHAPECLASS
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU
-            &&variable!=VAR_SPEED&&variable!=VAR_COLOR
+            &&variable!=VAR_SPEED&&variable!=VAR_SPEEDSETMODE&&variable!=VAR_COLOR
             &&variable!=ADD
        ) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
@@ -813,6 +813,17 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
                     }
+        break;
+    case VAR_SPEEDSETMODE: {
+        if (valueDataType!=TYPE_INTEGER) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a double.", outputStorage);
+            return false;
+        }
+        int speedMode = inputStorage.readInt();
+        static_cast<MSVehicle*>(v)->getInfluencer().setConsiderSafeVelocity((speedMode&1)!=0);
+        static_cast<MSVehicle*>(v)->getInfluencer().setConsiderMaxAcceleration((speedMode&2)!=0);
+        static_cast<MSVehicle*>(v)->getInfluencer().setConsiderMaxDeceleration((speedMode&4)!=0);
+                           }
         break;
     case VAR_COLOR: {
         if (valueDataType!=TYPE_COLOR) {

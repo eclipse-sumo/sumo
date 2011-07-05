@@ -787,6 +787,13 @@ public:
 
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
+     *
+     * The class is used for passing velocities or velocity profiles obtained via TraCI to the vehicle.
+     *
+     * The adaptation is controlled by the stored time line of speeds/lanes.
+     * Additionally, the variables myConsiderSafeVelocity, myConsiderMaxAcceleration, and myConsiderMaxDeceleration
+     *  control whether the safe velocity, the maximum acceleration, and the maximum deceleration
+     *  have to be regarded.
      */
     class Influencer {
     public:
@@ -796,7 +803,6 @@ public:
 
         /// @brief Destructor
         ~Influencer();
-
 
 
         /** @brief Sets a new velocity timeline
@@ -815,12 +821,35 @@ public:
          *
          * The given speed is assumed to be the non-influenced speed from longitudinal control.
          *  It is stored for further usage in "myOriginalSpeed".
-         *
          * @param[in] currentTime The current simulation time
-         * @param[in, out] currentTime The vehicle's velocity
+         * @param[in] speed The undisturbed speed
+         * @param[in] vSafe The safe velocity
+         * @param[in] vMin The minimum velocity
+         * @param[in] vMax The maximum simulation time
+         * @return The speed to use
          */
-        void influenceSpeed(SUMOTime currentTime, SUMOReal &speed);
+        SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
+
+
         void influenceLane(SUMOTime currentTime, int &lane);
+
+
+        /** @brief Sets whether the safe velocity shall be regarded
+         * @param[in] value Whether the safe velocity shall be regarded
+         */
+        void setConsiderSafeVelocity(bool value);
+
+
+        /** @brief Sets whether the maximum acceleration shall be regarded
+         * @param[in] value Whether the maximum acceleration shall be regarded
+         */
+        void setConsiderMaxAcceleration(bool value);
+
+
+        /** @brief Sets whether the maximum deceleration shall be regarded
+         * @param[in] value Whether the maximum deceleration shall be regarded
+         */
+        void setConsiderMaxDeceleration(bool value);
 
 
         /** @brief Returns the originally longitudianl speed to use
@@ -844,6 +873,14 @@ public:
         /// @brief Whether influencing the speed has already started
         bool mySpeedAdaptationStarted;
 
+        /// @brief Whether the safe velocity shall be regarded
+        bool myConsiderSafeVelocity;
+
+        /// @brief Whether the maximum acceleration shall be regarded
+        bool myConsiderMaxAcceleration;
+
+        /// @brief Whether the maximum deceleration shall be regarded
+        bool myConsiderMaxDeceleration;
     };
 
 
