@@ -1,7 +1,0 @@
-repeat 25 simstep2 0
-setvalue 0xc4 0x40 veh0 <double> 7.5
-repeat 25 simstep2 0
-setvalue 0xc4 0x40 veh0 <double> 5
-repeat 25 simstep2 0
-setvalue 0xc4 0x40 veh0 <double> -1
-repeat 25 simstep2 0
