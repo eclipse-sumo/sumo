@@ -123,6 +123,19 @@ public:
     };
 
 
+/** @enum ChangeRequest
+ * @brief Requests set via TraCI
+ */
+enum ChangeRequest {
+    /// @brief vehicle doesn't want to change
+    REQUEST_NONE,
+    /// @brief vehicle want's to change to left lane
+    REQUEST_LEFT,
+    /// @brief vehicle want's to change to right lane
+    REQUEST_RIGHT,
+    /// @brief vehicle want's to keep the current lane
+    REQUEST_HOLD
+};
 
     /// Use this constructor only.
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
@@ -589,6 +602,7 @@ public:
     /// @}
 
     bool knowsEdgeTest(MSEdge &edge) const;
+    unsigned int getLaneIndex() const;
 
     /**
      * Compute distance that will be covered, if the vehicle moves to a given position on its route,
@@ -814,7 +828,7 @@ public:
         /** @brief Sets a new lane timeline
          * @param[in] laneTimeLine The time line of lanes to use
          */
-        void setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> > &laneTimeLine);
+        void setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> > &laneTimeLine);
 
 
         /** @brief Applies stored velocity information on the speed to use
@@ -831,7 +845,7 @@ public:
         SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
 
 
-        void influenceLane(SUMOTime currentTime, int &lane);
+        ChangeRequest checkForLaneChanges(SUMOTime currentTime, const MSEdge &currentEdge, unsigned int currentLaneIndex);
 
 
         /** @brief Sets whether the safe velocity shall be regarded
@@ -865,7 +879,7 @@ public:
         std::vector<std::pair<SUMOTime, SUMOReal> > mySpeedTimeLine;
 
         /// @brief The lane usage time line to apply
-        std::vector<std::pair<SUMOTime, int> > myLaneTimeLine;
+        std::vector<std::pair<SUMOTime, unsigned int> > myLaneTimeLine;
 
         /// @brief The velocity before influence
         SUMOReal myOriginalSpeed;

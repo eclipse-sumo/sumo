@@ -86,19 +86,6 @@ enum LaneChangeAction {
 };
 
 
-/** @enum ChangeRequest
- * @brief Requests set via TraCI
- */
-enum ChangeRequest {
-    /// @brief vehicle doesn't want to change
-    REQUEST_NONE,
-    /// @brief vehicle want's to change to left lane
-    REQUEST_LEFT,
-    /// @brief vehicle want's to change to right lane
-    REQUEST_RIGHT,
-    /// @brief vehicle want's to keep the current lane
-    REQUEST_HOLD
-};
 
 
 
@@ -181,7 +168,7 @@ public:
     MSAbstractLaneChangeModel(MSVehicle &v) throw()
             : myVehicle(v), myOwnState(0),
 #ifndef NO_TRACI
-            myChangeRequest(REQUEST_NONE),
+            myChangeRequest(MSVehicle::REQUEST_NONE),
 #endif
             myCarFollowModel(v.getCarFollowModel()) {
     }
@@ -251,7 +238,7 @@ public:
      *
      * @param request	indicates the requested change
      */
-    virtual void requestLaneChange(ChangeRequest request) {
+    virtual void requestLaneChange(MSVehicle::ChangeRequest request) {
         myChangeRequest = request;
     };
 
@@ -261,9 +248,9 @@ public:
      *
      * @param request	indicates the request that was fulfilled
      */
-    virtual void fulfillChangeRequest(ChangeRequest request) {
+    virtual void fulfillChangeRequest(MSVehicle::ChangeRequest request) {
         if (request == myChangeRequest) {
-            myChangeRequest = REQUEST_NONE;
+            myChangeRequest = MSVehicle::REQUEST_NONE;
         }
     }
 #endif
@@ -309,7 +296,7 @@ protected:
 
 
 #ifndef NO_TRACI
-    ChangeRequest myChangeRequest;
+    MSVehicle::ChangeRequest myChangeRequest;
 #endif
 
     /// @brief The vehicle's car following model

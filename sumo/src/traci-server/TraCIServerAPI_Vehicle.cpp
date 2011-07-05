@@ -33,6 +33,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
@@ -461,7 +462,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         // Forward command to vehicle
-        static_cast<MSVehicle*>(v)->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
+        std::vector<std::pair<SUMOTime, unsigned int> > laneTimeLine;
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+stickyTime, laneIndex));
+        static_cast<MSVehicle*>(v)->getInfluencer().setLaneTimeLine(laneTimeLine);
+        MSVehicle::ChangeRequest req = static_cast<MSVehicle*>(v)->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), 
+            *static_cast<MSVehicle*>(v)->getEdge(), static_cast<MSVehicle*>(v)->getLaneIndex());
+        static_cast<MSVehicle*>(v)->getLaneChangeModel().requestLaneChange(req);
     }
     break;
     case CMD_SLOWDOWN: {

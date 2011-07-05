@@ -265,7 +265,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 #ifndef NO_TRACI
         /* if there was a request by TraCI for changing to this lane
         and holding it, this rule is ignored */
-        if (myChangeRequest != REQUEST_HOLD) {
+        if (myChangeRequest != MSVehicle::REQUEST_HOLD) {
 #endif
             myChangeProbability -= (SUMOReal)((neighLaneVSafe-vmax) / (vmax));
 #ifndef NO_TRACI
@@ -280,7 +280,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
 #ifndef NO_TRACI
     // If there is a request by TraCI, try to change the lane
-    if (myChangeRequest == REQUEST_RIGHT) {
+    if (myChangeRequest == MSVehicle::REQUEST_RIGHT) {
         return ret | LCA_RIGHT;
     }
 #endif
@@ -489,7 +489,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 #ifndef NO_TRACI
     // If there is a request by TraCI, try to change the lane
-    if (myChangeRequest == REQUEST_LEFT) {
+    if (myChangeRequest == MSVehicle::REQUEST_LEFT) {
         return ret | LCA_LEFT;
     }
 #endif

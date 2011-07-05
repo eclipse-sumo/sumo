@@ -154,7 +154,7 @@ MSLaneChanger::change() {
         if ((state1&LCA_RIGHT)!=0&&changingAllowed1) {
 #ifndef NO_TRACI
             // inform lane change model about this change
-            vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
+            vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_RIGHT);
 #endif
             (myCandi - 1)->hoppedVeh = vehicle;
             (myCandi - 1)->lane->myTmpVehicles.push_front(vehicle);
@@ -189,7 +189,7 @@ MSLaneChanger::change() {
         if ((state2&LCA_LEFT)!=0&&changingAllowed2) {
 #ifndef NO_TRACI
             // inform lane change model about this change
-            vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_LEFT);
+            vehicle->getLaneChangeModel().fulfillChangeRequest(MSVehicle::REQUEST_LEFT);
 #endif
             (myCandi + 1)->hoppedVeh = veh(myCandi);
             (myCandi + 1)->lane->myTmpVehicles.push_front(veh(myCandi));

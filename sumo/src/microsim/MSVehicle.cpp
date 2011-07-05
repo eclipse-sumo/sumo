@@ -148,7 +148,7 @@ MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, SU
 
 
 void 
-MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> > &laneTimeLine) {
+MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, unsigned int> > &laneTimeLine) {
     myLaneTimeLine = laneTimeLine;
 }
 
@@ -186,10 +186,27 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMO
 }
 
 
-void 
-MSVehicle::Influencer::influenceLane(SUMOTime currentTime, int &lane) {
-    UNUSED_PARAMETER(currentTime);
-    UNUSED_PARAMETER(lane);
+MSVehicle::ChangeRequest 
+MSVehicle::Influencer::checkForLaneChanges(SUMOTime currentTime, const MSEdge &currentEdge, unsigned int currentLaneIndex) {
+    // remove leading commands which are no longer valid
+    while(myLaneTimeLine.size()==1 || (myLaneTimeLine.size()>1&&currentTime>myLaneTimeLine[1].first)) {
+        myLaneTimeLine.erase(myLaneTimeLine.begin());
+    }
+    // do nothing if the time line does not apply for the current time
+    if(myLaneTimeLine.size()<2||currentTime<myLaneTimeLine[0].first) {
+        return REQUEST_NONE;
+    }
+    unsigned int destinationLaneIndex = myLaneTimeLine[1].second;
+    if ((unsigned int)currentEdge.getLanes().size() <= destinationLaneIndex) {
+        return REQUEST_NONE;
+    }
+    if (currentLaneIndex > destinationLaneIndex) {
+        return REQUEST_RIGHT;
+    } else if (currentLaneIndex < destinationLaneIndex) {
+        return REQUEST_LEFT;
+    } else {
+        return REQUEST_HOLD;
+    }
 }
 
 
@@ -1225,7 +1242,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         getBestLanes(true);
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
 #ifndef NO_TRACI
-        checkForLaneChanges();
+        if(myInfluencer!=0) {
+            myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
+        }
 #endif
     }
     return ends();
@@ -1273,7 +1292,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     }
 #ifndef NO_TRACI
     // check if further changes are necessary
-    checkForLaneChanges();
+    if(myInfluencer!=0) {
+        myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
+    }
 #endif
 }
 
@@ -1698,6 +1719,12 @@ MSVehicle::replaceVehicleType(MSVehicleType *type) throw() {
     myType = type;
 }
 
+unsigned int 
+MSVehicle::getLaneIndex() const {
+    std::vector<MSLane*>::const_iterator laneP = std::find((*myCurrEdge)->getLanes().begin(), (*myCurrEdge)->getLanes().end(), myLane);
+    return (unsigned int) std::distance((*myCurrEdge)->getLanes().begin(), laneP);
+}
+
 
 #ifndef NO_TRACI
 
@@ -1718,7 +1745,10 @@ MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime) {
     laneChangeStickyTime = stickyTime;
     myDestinationLane = lane;
     laneChangeConstraintActive = true;
-    checkForLaneChanges();
+    if(myInfluencer!=0) {
+        myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
+    }
+//    checkForLaneChanges();
 }
 
 
