@@ -69,7 +69,7 @@ renamedAttrs = {'min_dur': 'minDur',
         'linkIdx':'linkIndex', 
         'linkno':'linkIndex'}
 
-renamedValues = {'state': {'t': 'o'} }
+renamedValues = {'state': {'t': 'o'}, 'type':{'DEAD_END': 'dead_end'} }
 
 def getBegin(file):
     fd = open(file)
