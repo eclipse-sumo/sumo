@@ -772,33 +772,6 @@ enum ChangeRequest {
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
 
-    /**
-     * Checks if the sticky time for a "changelane" command has passed already
-     * @param time current simulation time
-     */
-    void checkLaneChangeConstraint(SUMOTime time);
-
-    /**
-     * After each changed lane, check if the lane requested by TraCI command "changeLane"
-     * is reached and request for more changes if necessary.
-     */
-    void checkForLaneChanges();
-
-    /**
-     * Initiate a lane change requested by TraCI command "changeLane".
-     * @param lane	the lane index within the current edge, that is the destination of the change
-     * @param stickyTime	duration for wich the constraint takes effect
-     */
-    void startLaneChange(unsigned lane, SUMOTime stickyTime);
-
-    /**
-     * takes all action necessary during a simulation step to process any active command sent by TraCI
-     * @param time the current simulation time
-     */
-    void processTraCICommands(SUMOTime time);
-
-
-
     /** @class Influencer
      * @brief Changes the wished vehicle speed / lanes
      *
@@ -1017,20 +990,6 @@ private:
 #ifndef NO_TRACI
     /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
     Influencer *myInfluencer;
-
-    /* simulation time when the last lane change was forced */
-    SUMOTime timeBeforeLaneChange;
-
-    /* duration for which the last lane change will be in effect */
-    SUMOTime laneChangeStickyTime;
-
-    /* lane index of the destination road map position for an active lane change*/
-    unsigned myDestinationLane;
-
-    /* true if any forced lane change is in effect*/
-    bool laneChangeConstraintActive;
-
-
 #endif
 
 private:

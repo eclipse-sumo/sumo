@@ -270,11 +270,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myEdgeWeights(0),
         myHaveToWaitOnNextLink(false)
 #ifndef NO_TRACI
-        ,myInfluencer(0),
-        timeBeforeLaneChange(0),
-        laneChangeStickyTime(0),
-        laneChangeConstraintActive(false),
-        myDestinationLane(0)
+        ,myInfluencer(0)
 #endif
 {
     for (std::vector<SUMOVehicleParameter::Stop>::iterator i=pars->stops.begin(); i!=pars->stops.end(); ++i) {
@@ -1727,64 +1723,6 @@ MSVehicle::getLaneIndex() const {
 
 
 #ifndef NO_TRACI
-
-void
-MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
-    if (!laneChangeConstraintActive) {
-        return;
-    }
-    if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
-        laneChangeConstraintActive = false;
-    }
-}
-
-
-void
-MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime) {
-    timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
-    laneChangeStickyTime = stickyTime;
-    myDestinationLane = lane;
-    laneChangeConstraintActive = true;
-    if(myInfluencer!=0) {
-        myLaneChangeModel->requestLaneChange(myInfluencer->checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), **myCurrEdge, getLaneIndex()));
-    }
-//    checkForLaneChanges();
-}
-
-
-void
-MSVehicle::checkForLaneChanges() {
-    MSLane* tmpLane;
-    unsigned currentLaneIndex = 0;
-    if (!laneChangeConstraintActive) {
-        myLaneChangeModel->requestLaneChange(REQUEST_NONE);
-        return;
-    }
-    if ((unsigned int)(*myCurrEdge)->getLanes().size() <= myDestinationLane) {
-        laneChangeConstraintActive = false;
-        return;
-    }
-    tmpLane = myLane;
-    while ((tmpLane =tmpLane->getRightLane()) != NULL) {
-        currentLaneIndex++;
-    }
-    if (currentLaneIndex > myDestinationLane) {
-        myLaneChangeModel->requestLaneChange(REQUEST_RIGHT);
-    } else if (currentLaneIndex < myDestinationLane) {
-        myLaneChangeModel->requestLaneChange(REQUEST_LEFT);
-    } else {
-        myLaneChangeModel->requestLaneChange(REQUEST_HOLD);
-    }
-}
-
-
-void
-MSVehicle::processTraCICommands(SUMOTime time) {
-    // check for applied lane changing constraints
-    checkLaneChangeConstraint(time);
-}
-
-
 bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal /*radius*/, SUMOTime duration) {
     //if the stop exists update the duration
