@@ -305,8 +305,9 @@ PositionVector::area() const {
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
     }
+    const int endIndex = tmp.size() - 1;
     // http://en.wikipedia.org/wiki/Polygon
-    for (int i = 0; i < (int)size(); i++) {
+    for (int i = 0; i < endIndex; i++) {
         area += tmp[i].x() * tmp[i+1].y() - tmp[i+1].x() * tmp[i].y();
     }
     return area / -2;
