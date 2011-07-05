@@ -210,7 +210,7 @@
         <phase duration="4" state="yy"/>
     </tlLogic>
 
-    <junction id="15750" type="DEAD_END" x="0.00" y="572.11" incLanes="-7783_0" intLanes="" shape="-0.13,575.36 -0.00,572.16">
+    <junction id="15750" type="dead_end" x="0.00" y="572.11" incLanes="-7783_0" intLanes="" shape="-0.13,575.36 -0.00,572.16">
     </junction>
     <junction id="15891" type="priority" x="240.55" y="729.08" incLanes="-9908_0 -9908_1" intLanes=":15891_0_0" shape="240.51,729.10 234.68,731.99 246.42,726.17 240.59,729.06">
         <request index="0" response="11" foes="00" cont="0"/>

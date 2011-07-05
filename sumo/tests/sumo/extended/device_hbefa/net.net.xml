@@ -48,10 +48,10 @@
         <phase duration="12" state="rry"/>
     </tlLogic>
 
-    <junction id="absBeg" type="DEAD_END" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.25,4.00 53.25,4.00 50.25,4.00">
+    <junction id="absBeg" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.25,4.00 53.25,4.00 50.25,4.00">
     </junction>
 
-    <junction id="absEnd" type="DEAD_END" x="50.00" y="800.00" incLanes="end_0" intLanes="" shape="50.25,796.00 53.25,796.00 50.25,796.00">
+    <junction id="absEnd" type="dead_end" x="50.00" y="800.00" incLanes="end_0" intLanes="" shape="50.25,796.00 53.25,796.00 50.25,796.00">
     </junction>
 
     <junction id="beg" type="priority" x="50.00" y="200.00" incLanes="beg_0" intLanes="" shape="49.25,200.25 50.25,195.75 53.25,195.75 54.25,196.75 54.25,199.75 53.25,204.25 50.25,204.25 49.25,203.25 49.25,200.25">

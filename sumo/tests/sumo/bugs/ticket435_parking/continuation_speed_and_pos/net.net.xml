@@ -30,14 +30,14 @@
         <lane id="out_0" index="0" maxSpeed="13.90" length="10.00" shape="100.00,0 110.00,0"/>
     </edge>
 
-    <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25">
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25">
     </junction>
 
     <junction id="2" type="priority" x="5.00" y="0.00" incLanes="1to2_0" intLanes="" shape="5.00,-0.05 5.00,-3.25 5.00,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <junction id="3" type="DEAD_END" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05">
+    <junction id="3" type="dead_end" x="6.00" y="0.00" incLanes="out_0" intLanes="" shape="6.00,-3.25 6.00,-0.05">
     </junction>
 
     <succ edge="1to2" lane="1to2_0" junction="2">

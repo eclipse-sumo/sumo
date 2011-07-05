@@ -195,11 +195,11 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="910" type="DEAD_END" x="0.00" y="800.00" incLanes="" intLanes="" shape="0.00,799.95 0.00,796.75">
+    <junction id="910" type="dead_end" x="0.00" y="800.00" incLanes="" intLanes="" shape="0.00,799.95 0.00,796.75">
     </junction>
-    <junction id="920" type="DEAD_END" x="800.00" y="0.00" incLanes="" intLanes="" shape="800.05,0.00 803.25,0.00">
+    <junction id="920" type="dead_end" x="800.00" y="0.00" incLanes="" intLanes="" shape="800.05,0.00 803.25,0.00">
     </junction>
-    <junction id="930" type="DEAD_END" x="3500.00" y="800.00" incLanes="D3_0" intLanes="" shape="3500.00,796.75 3500.00,799.95">
+    <junction id="930" type="dead_end" x="3500.00" y="800.00" incLanes="D3_0" intLanes="" shape="3500.00,796.75 3500.00,799.95">
     </junction>
 
     <succ edge="D1" lane="D1_0" junction="1">

@@ -54,7 +54,7 @@
         <lane id="middle_0" index="0" allow="passenger" maxSpeed="13.90" length="990.50" shape="504.75,-1.65 1495.25,-1.65"/>
     </edge>
 
-    <junction id="absBeg" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55">
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55">
     </junction>
     <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0 end_1" intLanes="" shape="2000.00,-0.05 2000.00,-6.55 2000.00,-0.05">
         <request index="0" response="00" foes="00"/>
@@ -74,7 +74,7 @@
     <junction id="endleft" type="priority" x="1500.00" y="500.00" incLanes="left_0" intLanes="" shape="1499.95,496.75 1496.75,496.75 1496.75,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="0.00" incLanes="absEnd_0 absEnd_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05">
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="absEnd_0 absEnd_1" intLanes="" shape="2500.00,-6.55 2500.00,-0.05">
     </junction>
 
     <succ edge="absBeg" lane="absBeg_0" junction="beg">

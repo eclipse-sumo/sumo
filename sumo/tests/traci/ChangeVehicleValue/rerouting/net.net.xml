@@ -61,7 +61,7 @@
         <lane id="right2end_0" index="0" maxSpeed="27.80" length="491.95" shape="1501.65,0.00 1501.65,491.95"/>
     </edge>
 
-    <junction id="absBeg" type="DEAD_END" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45">
+    <junction id="absBeg" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45">
     </junction>
     <junction id="absEnd" type="priority" x="2000.00" y="500.00" incLanes="end_0 end_1" intLanes="" shape="2000.00,499.95 2000.00,493.45 2000.00,499.95">
         <request index="0" response="00" foes="00"/>
@@ -76,7 +76,7 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="begright" type="DEAD_END" x="500.00" y="0.00" incLanes="beg2right_0" intLanes="" shape="496.75,-0.00 499.95,-0.00">
+    <junction id="begright" type="dead_end" x="500.00" y="0.00" incLanes="beg2right_0" intLanes="" shape="496.75,-0.00 499.95,-0.00">
     </junction>
     <junction id="end" type="priority" x="1500.00" y="500.00" incLanes="left2end_0 right2end_0 middle_0" intLanes="" shape="1496.75,501.45 1499.95,501.45 1504.75,499.95 1504.75,493.45 1503.25,491.95 1500.05,491.95 1495.25,496.75 1495.25,499.95">
         <request index="0" response="010" foes="110"/>
@@ -87,9 +87,9 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="11" foes="00"/>
     </junction>
-    <junction id="endright" type="DEAD_END" x="1500.00" y="0.00" incLanes="" intLanes="" shape="1500.05,0.00 1503.25,0.00">
+    <junction id="endright" type="dead_end" x="1500.00" y="0.00" incLanes="" intLanes="" shape="1500.05,0.00 1503.25,0.00">
     </junction>
-    <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="500.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,493.45 2500.00,499.95">
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="500.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,493.45 2500.00,499.95">
     </junction>
 
     <succ edge="beg" lane="beg_0" junction="beg">

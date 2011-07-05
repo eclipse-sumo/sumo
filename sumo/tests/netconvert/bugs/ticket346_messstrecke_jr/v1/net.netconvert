@@ -257,7 +257,7 @@
     <junction id="20" type="priority" x="1751.00" y="0.00" incLanes="20_0" intLanes="" shape="1751.05,-0.02 1754.06,-1.10 1747.94,1.10 1750.95,0.02">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="21" type="DEAD_END" x="1970.00" y="849.00" incLanes="" intLanes="" shape="">
+    <junction id="21" type="dead_end" x="1970.00" y="849.00" incLanes="" intLanes="" shape="">
     </junction>
     <junction id="22" type="priority" x="625.00" y="561.00" incLanes="21_0 21_1 22_0 22_1" intLanes="" shape="625.39,567.54 624.57,554.46 624.42,554.48 625.62,567.52">
         <request index="0" response="000000" foes="100000"/>

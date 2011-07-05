@@ -127,9 +127,9 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="end" type="DEAD_END" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 c1e_0 a2e_0 b1e_0 a1e_0" intLanes="" shape="6.33,254.35 6.85,251.19 8.58,249.35 7.14,246.48 6.64,245.91 3.97,244.13">
+    <junction id="end" type="dead_end" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 c1e_0 a2e_0 b1e_0 a1e_0" intLanes="" shape="6.33,254.35 6.85,251.19 8.58,249.35 7.14,246.48 6.64,245.91 3.97,244.13">
     </junction>
-    <junction id="start" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.04,-0.04 2.30,-2.30">
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.04,-0.04 2.30,-2.30">
     </junction>
 
     <succ edge="a1e" lane="a1e_0" junction="end">

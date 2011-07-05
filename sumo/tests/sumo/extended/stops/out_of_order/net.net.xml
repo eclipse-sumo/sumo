@@ -34,7 +34,7 @@
         <lane id="end_2" index="2" maxSpeed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
     </edge>
 
-    <junction id="beg" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85">
+    <junction id="beg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85">
     </junction>
 
     <junction id="center" type="priority" x="500.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="500.00,-0.05 500.00,-9.85 500.00,-0.05">
@@ -43,7 +43,7 @@
         <request index="2" response="000" foes="000"/>
     </junction>
 
-    <junction id="end" type="DEAD_END" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05">
+    <junction id="end" type="dead_end" x="1000.00" y="0.00" incLanes="end_0 end_1 end_2" intLanes="" shape="1000.00,-9.85 1000.00,-0.05">
     </junction>
 
     <succ edge="beg" lane="beg_0" junction="center">

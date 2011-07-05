@@ -126,9 +126,9 @@
         <lane id="b1_a3_0" index="0" maxSpeed="13.90" length="319.77" shape="199.49,298.43 503.82,200.26"/>
     </edge>
 
-    <junction id="00" type="DEAD_END" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="-0.00,513.25 -0.00,510.05">
+    <junction id="00" type="dead_end" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="-0.00,513.25 -0.00,510.05">
     </junction>
-    <junction id="01" type="DEAD_END" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
+    <junction id="01" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
     </junction>
     <junction id="10" type="priority" x="100.00" y="510.00" incLanes="20_10_0" intLanes="" shape="100.00,513.25 100.00,510.05 100.00,513.25">
         <request index="0" response="0" foes="0"/>
@@ -184,9 +184,9 @@
     <junction id="61" type="priority" x="910.00" y="500.00" incLanes="51_61_0" intLanes="" shape="910.00,499.95 910.00,496.75 910.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="70" type="DEAD_END" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25">
+    <junction id="70" type="dead_end" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25">
     </junction>
-    <junction id="71" type="DEAD_END" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95">
+    <junction id="71" type="dead_end" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95">
     </junction>
     <junction id="a0" type="priority" x="500.00" y="400.00" incLanes="30_a0_0" intLanes="" shape="496.75,400.00 499.95,400.00 496.77,399.68">
         <request index="0" response="0" foes="0"/>

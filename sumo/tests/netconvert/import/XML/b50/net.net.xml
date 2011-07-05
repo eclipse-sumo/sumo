@@ -289,7 +289,7 @@
         <lane id="o_0" index="0" maxSpeed="13.90" length="293.82" shape="401.50,698.35 695.32,698.35"/>
     </edge>
 
-    <junction id="f0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85">
+    <junction id="f0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-9.85">
     </junction>
 
     <junction id="f1" type="priority" x="300.00" y="0.00" incLanes="i1_0 i1_1 i1_2" intLanes=":f1_0_0 :f1_1_0 :f1_2_0" shape="300.02,-0.05 306.95,-6.98 300.02,-9.85 300.02,-0.05">

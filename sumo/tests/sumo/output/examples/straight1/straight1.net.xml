@@ -102,7 +102,7 @@
         <lane id="c_0" index="0" maxSpeed="36.00" length="500.00" shape="3500.00,-1.65 4000.00,-1.65"/>
     </edge>
 
-    <junction id="a0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
+    <junction id="a0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
     </junction>
     <junction id="a1" type="priority" x="500.00" y="0.00" incLanes="0_0" intLanes=":a1_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -122,7 +122,7 @@
     <junction id="a6" type="priority" x="1000.00" y="0.00" incLanes="5_0" intLanes=":a6_0_0" shape="1000.00,-0.05 1000.00,-3.25 1000.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="b0" type="DEAD_END" x="4000.00" y="0.00" incLanes="c_0" intLanes="" shape="4000.00,-3.25 4000.00,-0.05">
+    <junction id="b0" type="dead_end" x="4000.00" y="0.00" incLanes="c_0" intLanes="" shape="4000.00,-3.25 4000.00,-0.05">
     </junction>
     <junction id="b1" type="priority" x="3500.00" y="0.00" incLanes="b_0" intLanes=":b1_0_0" shape="3500.00,-0.05 3500.00,-3.25 3500.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
