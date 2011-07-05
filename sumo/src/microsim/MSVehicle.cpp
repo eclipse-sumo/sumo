@@ -169,18 +169,18 @@ MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMO
     if(!mySpeedAdaptationStarted) {
         mySpeedTimeLine[0].second = speed;
         mySpeedAdaptationStarted = true;
-    } else {
-        const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first - mySpeedTimeLine[0].first);
-        speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
-        if(myConsiderSafeVelocity) {
-            speed = MIN2(speed, vSafe);
-        }
-        if(myConsiderMaxAcceleration) {
-            speed = MIN2(speed, vMax);
-        }
-        if(myConsiderMaxDeceleration) {
-            speed = MAX2(speed, vMin);
-        }
+    }
+    currentTime += DELTA_T;
+    const SUMOReal td = STEPS2TIME(currentTime - mySpeedTimeLine[0].first) / STEPS2TIME(mySpeedTimeLine[1].first + DELTA_T - mySpeedTimeLine[0].first);
+    speed = mySpeedTimeLine[0].second - (mySpeedTimeLine[0].second-mySpeedTimeLine[1].second) * td;
+    if(myConsiderSafeVelocity) {
+        speed = MIN2(speed, vSafe);
+    }
+    if(myConsiderMaxAcceleration) {
+        speed = MIN2(speed, vMax);
+    }
+    if(myConsiderMaxDeceleration) {
+        speed = MAX2(speed, vMin);
     }
     return speed;
 }

@@ -487,7 +487,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         SUMOTime duration = inputStorage.readInt();
-        if (duration <= 0) {
+        if (duration < 0) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
             return false;
         }
