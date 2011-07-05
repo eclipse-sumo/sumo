@@ -1635,8 +1635,8 @@ NBEdge::incLaneNo(unsigned int by) {
     while (myLanes.size()<newLaneNo) {
         Lane l;
         l.speed = mySpeed;
-        l.offset = 0;
-        l.width = 0;
+        l.offset = myOffset;
+        l.width = myWidth;
         myLanes.push_back(l);
     }
     computeLaneShapes();
@@ -1716,9 +1716,10 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
             newTo->addIncomingEdge(currentEdge);
         } else {
             std::string edgename = myID + "[" + toString(i-1) + "]";
-            // @bug both width and offset are ignored
+            // @bug lane-specific width, speed, overall offset and restrictions are ignored
             currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, (unsigned int) myLanes.size(),
-                                     myPriority, -1, -1, myStreetName, myLaneSpreadFunction);
+                                     myPriority, myWidth, UNSPECIFIED_OFFSET, 
+                                     myStreetName, myLaneSpreadFunction);
             if (!ec.insert(currentEdge, true)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
             }

@@ -311,7 +311,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if (lane.offset > 0) {
         into << " endOffset=\"" << lane.offset << '\"';
     }
-    if (lane.width > 0) {
+    if (lane.width != NBEdge::UNSPECIFIED_WIDTH) {
         into << " width=\"" << lane.width << '\"';
     }
     PositionVector shape = lane.shape;
