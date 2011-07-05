@@ -14,5 +14,3 @@ false_edge_join
 # OSM allows edges which are used by multiple modes at the same time (i.e. tram/cars). The imported edge should still be allowed for all listed modes
 multimodal_edge
 
-# yielded segmentation fault in 0.12.3, seems to be solved by 13.4.2011
-houston
