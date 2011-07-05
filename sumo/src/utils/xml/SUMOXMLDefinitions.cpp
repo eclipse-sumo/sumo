@@ -447,7 +447,8 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
     {"district",            NODETYPE_DISTRICT},
     {"unregulated",         NODETYPE_NOJUNCTION},
     {"internal",            NODETYPE_INTERNAL},
-    {"DEAD_END",            NODETYPE_DEAD_END},
+    {"dead_end",            NODETYPE_DEAD_END},
+    {"DEAD_END",            NODETYPE_DEAD_END_DEPRECATED},
 
     {"unknown",             NODETYPE_UNKNOWN}
 };

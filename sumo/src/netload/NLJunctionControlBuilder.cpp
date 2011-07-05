@@ -110,6 +110,7 @@ NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError) {
     switch (myType) {
         case NODETYPE_NOJUNCTION:
         case NODETYPE_DEAD_END:
+        case NODETYPE_DEAD_END_DEPRECATED:
         case NODETYPE_DISTRICT:
             junction = buildNoLogicJunction();
             break;

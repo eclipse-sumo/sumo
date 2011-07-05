@@ -397,6 +397,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
+        if (type == NODETYPE_DEAD_END_DEPRECATED) { // patch legacy type
+            type = NODETYPE_DEAD_END;
+        }
     } else {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
