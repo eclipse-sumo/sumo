@@ -1156,23 +1156,27 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
 
 void
 NBNodeCont::printBuiltNodesStatistics() const throw() {
-    int noUnregulatedJunctions = 0;
-    int noPriorityJunctions = 0;
-    int noRightBeforeLeftJunctions = 0;
+    int numUnregulatedJunctions = 0;
+    int numDeadEndJunctions = 0;
+    int numPriorityJunctions = 0;
+    int numRightBeforeLeftJunctions = 0;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         switch ((*i).second->getType()) {
         case NODETYPE_NOJUNCTION:
-            ++noUnregulatedJunctions;
+            ++numUnregulatedJunctions;
+            break;
+        case NODETYPE_DEAD_END:
+            ++numDeadEndJunctions;
             break;
         case NODETYPE_PRIORITY_JUNCTION:
         case NODETYPE_TRAFFIC_LIGHT:
-            ++noPriorityJunctions;
+            ++numPriorityJunctions;
             break;
         case NODETYPE_RIGHT_BEFORE_LEFT:
-            ++noRightBeforeLeftJunctions;
+            ++numRightBeforeLeftJunctions;
             break;
         case NODETYPE_DISTRICT:
-            ++noRightBeforeLeftJunctions;
+            ++numRightBeforeLeftJunctions;
             break;
         case NODETYPE_UNKNOWN:
             break;
@@ -1181,9 +1185,12 @@ NBNodeCont::printBuiltNodesStatistics() const throw() {
         }
     }
     WRITE_MESSAGE(" Node type statistics:");
-    WRITE_MESSAGE("  Unregulated junctions       : " + toString(noUnregulatedJunctions));
-    WRITE_MESSAGE("  Priority junctions          : " + toString(noPriorityJunctions));
-    WRITE_MESSAGE("  Right-before-left junctions : " + toString(noRightBeforeLeftJunctions));
+    WRITE_MESSAGE("  Unregulated junctions       : " + toString(numUnregulatedJunctions));
+    if (numDeadEndJunctions > 0) {
+        WRITE_MESSAGE("  Dead-end junctions          : " + toString(numDeadEndJunctions));
+    }
+    WRITE_MESSAGE("  Priority junctions          : " + toString(numPriorityJunctions));
+    WRITE_MESSAGE("  Right-before-left junctions : " + toString(numRightBeforeLeftJunctions));
 }
 
 
