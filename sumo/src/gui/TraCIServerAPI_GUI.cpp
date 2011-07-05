@@ -61,9 +61,8 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST
-            &&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET&&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY
-       ) {
+    if (variable!=ID_LIST&&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET
+        &&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY) {
         server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -114,10 +113,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         }
     }
     server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_OK, warning, outputStorage);
-    // send response
-    outputStorage.writeUnsignedByte(0); // command length -> extended
-    outputStorage.writeInt(static_cast<int>(1 + 4 + tempMsg.size()));
-    outputStorage.writeStorage(tempMsg);
+    server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
 
