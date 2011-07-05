@@ -43,3 +43,8 @@ zSimpleSetGet
 # further tests for changing vehicle type values
 VehicleTypeRelated
 
+
+# checking SlowDown and SetSpeed
+SlowDownAndSetSpeed
+
+

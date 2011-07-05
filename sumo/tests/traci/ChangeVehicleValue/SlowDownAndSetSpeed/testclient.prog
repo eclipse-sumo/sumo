@@ -1,0 +1,6 @@
+repeat 5 simstep2 0
+setvalue 0xc4 0xb3 veh0 <int> 4
+setvalue 0xc4 0x40 veh0 <double> 10
+repeat 10 simstep2 0
+setvalue 0xc4 0x14 veh0 <compound> 2 <double> 5 <int> 1000
+repeat 10 simstep2 0
