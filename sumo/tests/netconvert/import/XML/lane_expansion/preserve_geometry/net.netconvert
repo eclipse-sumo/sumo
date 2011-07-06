@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed Jul  6 10:34:14 2011 by SUMO netconvert Version dev-SVN-r10863
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net>
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-10.00,100.00,10.00" origBoundary="0.00,-10.00,100.00,10.00" projParameter="!"/>
+
+    <edge id=":1.50_0" function="internal">
+        <lane id=":1.50_0_0" index="0" maxSpeed="28.00" length="3.42" shape="45.32,3.30 47.64,0.79"/>
+    </edge>
+
+    <edge id="1" from="0" to="1.50" priority="-1" spreadType="center" shape="0.00,0.00 20.00,10.00 46.22,1.26">
+        <lane id="1_0" index="0" maxSpeed="28.00" length="48.50" shape="0.74,-1.48 20.13,8.22 44.28,0.17"/>
+        <lane id="1_1" index="1" maxSpeed="28.00" length="48.50" shape="-0.74,1.48 19.87,11.78 45.32,3.30"/>
+    </edge>
+    <edge id="1.50" from="1.50" to="1" priority="-1" spreadType="center" shape="46.22,1.26 80.00,-10.00 100.00,0.00">
+        <lane id="1.50_0" index="0" maxSpeed="28.00" length="56.47" shape="47.64,0.79 80.00,-10.00 100.00,0.00"/>
+    </edge>
+
+    <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-1.45,2.91 1.45,-2.91">
+    </junction>
+    <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1.50_0" intLanes="" shape="100.72,-1.43 99.28,1.43">
+    </junction>
+    <junction id="1.50" type="priority" x="46.22" y="1.26" incLanes="1_0 1_1" intLanes=":1.50_0_0" shape="48.15,2.30 47.14,-0.73 43.77,-1.35 45.83,4.82">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="1" to="1.50" lane="1:0" via=":1.50_0_0" dir="s" state="M"/>
+
+    <connection from=":1.50_0" to="1.50" lane="0:0" dir="s" state="M"/>
+
+</net>
