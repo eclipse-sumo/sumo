@@ -129,11 +129,9 @@ def _sendExact():
     return result
 
 def readHead(result):
-    result.read("!B")
-    result.read("!B")
-    result.read("!B")
-    result.read("!B")
-    result.read("!B")     # Length
+    length = result.read("!B")[0]     # Length
+    if length==0:
+        length = result.read("!i")[0]
     result.read("!B")     # Identifier
     result.read("!B")     # Variable
     result.readString()   # Induction Loop ID // Multi-Entry/Multi-Exit Detector ID // Traffic Light ID

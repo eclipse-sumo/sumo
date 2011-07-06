@@ -693,8 +693,10 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
     // validate result state
     try {
         int respStart = inMsg.position();
-        int extLength = inMsg.readUnsignedByte();
-        int respLength = inMsg.readInt();
+        int length = inMsg.readUnsignedByte();
+        if(length==0) {
+            length = inMsg.readInt();
+        }
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId != (domID+0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
@@ -765,8 +767,10 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
     // validate result state
     try {
         int respStart = inMsg.position();
-        int extLength = inMsg.readUnsignedByte();
-        int respLength = inMsg.readInt();
+        int length = inMsg.readUnsignedByte();
+        if(length==0) {
+            length = inMsg.readInt();
+        }
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId != (domID+0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
@@ -1081,8 +1085,10 @@ bool
 TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
     try {
         int respStart = inMsg.position();
-        int extLength = inMsg.readUnsignedByte();
-        int respLength = inMsg.readInt();
+        int length = inMsg.readUnsignedByte();
+        if(length==0) {
+            length = inMsg.readInt();
+        }
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId<0xe0||cmdId>0xef) {
             answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << std::endl;

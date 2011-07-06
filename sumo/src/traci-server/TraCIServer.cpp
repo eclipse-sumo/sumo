@@ -621,15 +621,19 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         if (ok) {
             int length = tmpOutput.readUnsignedByte();
             while (--length>0) tmpOutput.readUnsignedByte();
+            int lengthLength = 1;
             length = tmpOutput.readUnsignedByte();
-            length = tmpOutput.readInt();
+            if(length==0) {
+                lengthLength = 5;
+                length = tmpOutput.readInt();
+            }
             //read responseType 
 			tmpOutput.readUnsignedByte();
             int variable = tmpOutput.readUnsignedByte();
             std::string id = tmpOutput.readString();
             outputStorage.writeUnsignedByte(variable);
             outputStorage.writeUnsignedByte(RTYPE_OK);
-            length -= (1+4+1+4+(int)id.length());
+            length -= (lengthLength+1+4+(int)id.length());
             while (--length>0) {
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }
@@ -659,14 +663,12 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
 
 void 
 TraCIServer::writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg) {
-    /*
     if(tempMsg.size()<254) {
         outputStorage.writeUnsignedByte(1 + tempMsg.size()); // command length -> short
     } else {
-    */
         outputStorage.writeUnsignedByte(0); // command length -> extended
         outputStorage.writeInt(1 + 4 + (int)tempMsg.size());
-    //}
+    }
     outputStorage.writeStorage(tempMsg);
 }
 
