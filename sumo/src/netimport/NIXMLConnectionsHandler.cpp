@@ -110,9 +110,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE)||attrs.hasAttribute(SUMO_ATTR_FROM_LANE)||attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
-            fromEdge->addEdge2EdgeConnection(toEdge);
-        } else {
             parseLaneBound(attrs, fromEdge, toEdge);
+        } else {
+            fromEdge->addEdge2EdgeConnection(toEdge);
         }
     }
     if (element==SUMO_TAG_PROHIBITION) {
