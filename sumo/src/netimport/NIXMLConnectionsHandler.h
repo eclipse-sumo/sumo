@@ -38,6 +38,7 @@
 // ===========================================================================
 class NBEdge;
 class NBEdgeCont;
+class MsgHandler;
 
 
 // ===========================================================================
@@ -104,6 +105,9 @@ private:
 
     /// @brief Information whether we have a deprecated attribute
     bool myHaveWarnedAboutDeprecatedLanes;
+
+    /// @brief the handler for loading errors 
+    MsgHandler * const myErrorMsgHandler;
 
 
 private:
