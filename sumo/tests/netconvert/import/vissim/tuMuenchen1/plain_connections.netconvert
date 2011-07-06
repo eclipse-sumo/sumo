@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on 07/06/11 16:21:55 by SUMO netconvert Version dev-SVN-r10870
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <vissim-file value="vissim.inp"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<connections>
+    <connection from="1" to="2" fromLane="0" toLane="0"/>
+    <connection from="1" to="2" fromLane="1" toLane="1"/>
+    <connection from="1" to="4" fromLane="2" toLane="0"/>
+
+    <connection from="10" to="7" fromLane="0" toLane="0"/>
+
+    <connection from="2" to="8" fromLane="0" toLane="0"/>
+    <connection from="2" to="8" fromLane="0" toLane="1"/>
+    <connection from="2" to="8" fromLane="1" toLane="2"/>
+
+    <connection from="3" to="6" fromLane="0" toLane="1"/>
+    <connection from="3" to="6" fromLane="1" toLane="2"/>
+    <connection from="3" to="6" fromLane="2" toLane="3"/>
+
+    <connection from="4" to="6" fromLane="0" toLane="0"/>
+
+    <connection from="6" to="5" fromLane="1" toLane="0"/>
+    <connection from="6" to="5" fromLane="2" toLane="1"/>
+    <connection from="6" to="5" fromLane="3" toLane="2"/>
+
+    <connection from="7" to="3" fromLane="0" toLane="0"/>
+    <connection from="7" to="3" fromLane="1" toLane="1"/>
+    <connection from="7" to="3" fromLane="2" toLane="2"/>
+
+    <connection from="9" to="1" fromLane="0" toLane="2"/>
+
+</connections>
