@@ -22,7 +22,7 @@ copy_test_path:osm.xml
 vehroutes:vehroutes.xml
 
 [run_dependent_text]
-vehroutes:xml version{->}-->
+vehroutes:<!--{[->]}-->
 output:visible boundary
 
 [floating_point_tolerance]

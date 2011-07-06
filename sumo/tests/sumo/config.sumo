@@ -51,28 +51,28 @@ log:log.txt
 output:\r{REPLACE \n}
 output:\([0-9]*ms\){REPLACE (TIME)}
 log:\([0-9]*ms\){REPLACE (TIME)}
-detector:xml version{->}-->
-summary:xml version{->}-->
-aggregated1:xml version{->}-->
-aggregated15:xml version{->}-->
-aggregated25:xml version{->}-->
-aggregated60:xml version{->}-->
-aggregated300:xml version{->}-->
-aggregated900:xml version{->}-->
-rawdump:xml version{->}-->
-tripinfos:xml version{->}-->
-vtypeprobe:xml version{->}-->
-vehroutes:xml version{->}-->
-tls_state:xml version{->}-->
-tls_switch:xml version{->}-->
-tls_state_switch:xml version{->}-->
-physstates:xml version{->}-->
-c2x_cluster_info:xml version{->}-->
-c2x_saved_info:xml version{->}-->
-c2x_transmitted_info:xml version{->}-->
-c2x_vehicle_in_range:xml version{->}-->
-c2x_saved_info_freq:xml version{->}-->
-c2x_edge_near_info:xml version{->}-->
+detector:<!--{[->]}-->
+summary:<!--{[->]}-->
+aggregated1:<!--{[->]}-->
+aggregated15:<!--{[->]}-->
+aggregated25:<!--{[->]}-->
+aggregated60:<!--{[->]}-->
+aggregated300:<!--{[->]}-->
+aggregated900:<!--{[->]}-->
+rawdump:<!--{[->]}-->
+tripinfos:<!--{[->]}-->
+vtypeprobe:<!--{[->]}-->
+vehroutes:<!--{[->]}-->
+tls_state:<!--{[->]}-->
+tls_switch:<!--{[->]}-->
+tls_state_switch:<!--{[->]}-->
+physstates:<!--{[->]}-->
+c2x_cluster_info:<!--{[->]}-->
+c2x_saved_info:<!--{[->]}-->
+c2x_transmitted_info:<!--{[->]}-->
+c2x_vehicle_in_range:<!--{[->]}-->
+c2x_saved_info_freq:<!--{[->]}-->
+c2x_edge_near_info:<!--{[->]}-->
 
 [floating_point_tolerance]
 detector:0.0101

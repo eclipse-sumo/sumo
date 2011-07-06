@@ -19,10 +19,10 @@ cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]
-detector_defs:version{->}-->
-routes:version{->}-->
-pois:version{->}-->
-emitters:version{->}-->
+detector_defs:<!--{[->]}-->
+routes:<!--{[->]}-->
+pois:<!--{[->]}-->
+emitters:<!--{[->]}-->
 
 [floating_point_tolerance]
 emitters:0.0101

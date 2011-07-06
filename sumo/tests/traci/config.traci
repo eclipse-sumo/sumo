@@ -22,11 +22,11 @@ tripinfos:tripinfos.xml
 [run_dependent_text]
 testclient_out:Date
 testclient_out:Socket
-tls_state:xml version{->}-->
-detector:xml version{->}-->
-vehroutes:xml version{->}-->
-tripinfos:xml version{->}-->
-net_state:xml version{->}-->
+tls_state:<!--{[->]}-->
+detector:<!--{[->]}-->
+vehroutes:<!--{[->]}-->
+tripinfos:<!--{[->]}-->
+net_state:<!--{[->]}-->
 output:port
 errors:Socket
 

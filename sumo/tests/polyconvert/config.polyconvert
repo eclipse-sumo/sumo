@@ -13,7 +13,7 @@ pois:pois.poi.xml
 log:log.txt
 
 [run_dependent_text]
-pois:version{->}-->
+pois:<!--{[->]}-->
 
 [floating_point_tolerance]
 pois:0.0101

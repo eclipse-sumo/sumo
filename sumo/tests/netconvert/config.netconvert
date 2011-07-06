@@ -25,9 +25,9 @@ cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]
-plain_nodes:version{->}-->
-plain_edges:version{->}-->
-plain_connections:version{->}-->
+plain_nodes:<!--{[->]}-->
+plain_edges:<!--{[->]}-->
+plain_connections:<!--{[->]}-->
 net:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found

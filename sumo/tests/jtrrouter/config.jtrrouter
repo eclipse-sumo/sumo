@@ -11,4 +11,4 @@ cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]
-routes:version{->}-->
+routes:<!--{[->]}-->
