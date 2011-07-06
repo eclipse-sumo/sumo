@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Thu Jun 30 16:27:08 2011 by SUMO netconvert Version dev-SVN-r10782
+<!-- generated on Wed Jul  6 12:57:49 2011 by SUMO netconvert Version dev-SVN-r10868
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,22 +22,22 @@
 -->
 
 <connections>
-    <connection from="-edge_left" to="edge_left" lane="0:0"/>
+    <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0"/>
 
-    <connection from="-edge_right" to="edge_right" lane="0:0"/>
+    <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0"/>
 
-    <connection from="-edge_up" to="edge_up" lane="0:0"/>
+    <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0"/>
 
-    <connection from="edge_left" to="-edge_right" lane="0:0"/>
-    <connection from="edge_left" to="-edge_up" lane="0:0"/>
-    <connection from="edge_left" to="-edge_left" lane="0:0"/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0"/>
+    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0"/>
+    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0"/>
 
-    <connection from="edge_right" to="-edge_up" lane="0:0"/>
-    <connection from="edge_right" to="-edge_left" lane="0:0"/>
-    <connection from="edge_right" to="-edge_right" lane="0:0"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0"/>
+    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0"/>
 
-    <connection from="edge_up" to="-edge_left" lane="0:0"/>
-    <connection from="edge_up" to="-edge_right" lane="0:0"/>
-    <connection from="edge_up" to="-edge_up" lane="0:0"/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0"/>
+    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0"/>
+    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0"/>
 
 </connections>

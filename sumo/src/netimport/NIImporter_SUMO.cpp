@@ -479,10 +479,8 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
     EdgeAttrs *from = myEdges[fromID];
     Connection conn;
     conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok); 
-    unsigned int fromLaneIdx;
-    if (!parseLaneIndices(attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok), fromLaneIdx, conn.toLaneIdx)) {
-        return;
-    }
+    unsigned int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
+    conn.toLaneIdx = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
@@ -606,31 +604,5 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
 
     result.push_back(to);
     return result;
-}
-
-
-bool
-NIImporter_SUMO::parseLaneIndices(const std::string &laneIndices, unsigned int& fromIdx, unsigned int &toIdx) {
-    StringTokenizer st(laneIndices, ':');
-    if (st.size()==2) {
-        int fromLaneIdx;
-        int toLaneIdx;
-        try {
-            fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (fromLaneIdx>=0 && toLaneIdx>=0) {
-                fromIdx = (unsigned int)fromLaneIdx;
-                toIdx = (unsigned int)toLaneIdx;
-                return true;
-            } else {
-                WRITE_ERROR("Negative lane index in connection");
-            }
-        } catch (NumberFormatException &) {
-            WRITE_ERROR("Invalid lane index in connection (number format)");
-        }
-    } else {
-        WRITE_ERROR("Invalid lane index in connection (malformed)");
-    }
-    return false;
 }
 /****************************************************************************/

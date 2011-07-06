@@ -269,7 +269,8 @@ private:
     /// @brief whether we suspect a net that was built with xml.keep-shape
     bool mySuspectKeepShape;
 
-    bool myHaveWarnedAboutDeprecatedSpreadType, myHaveWarnedAboutDeprecatedMaxSpeed;
+    bool myHaveWarnedAboutDeprecatedSpreadType;
+    bool myHaveWarnedAboutDeprecatedMaxSpeed;
 
     /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
      * @param[in] edge The EdgeAttrs* which should contain the lane
@@ -290,9 +291,6 @@ private:
      * @param[in] lanes The list of lane attributes
      */
     static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to); 
-
-    /// @brief parse lane indices in the form "x:y"
-    static bool parseLaneIndices(const std::string &laneIndices, unsigned int& fromIdx, unsigned int &toIdx); 
 };
 
 
