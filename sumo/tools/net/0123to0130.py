@@ -17,12 +17,13 @@ from collections import defaultdict
 
 # attributes sorting lists
 a = {}
+a['net'] = ('version', )
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
 a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ('response', 'foes', 'cont' )
 a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
-a['connection'] = ('from', 'to', 'lane', 'via', 'tl', 'linkIdx', 'dir', 'state' )
+a['connection'] = ('from', 'to', 'fromLane', 'toLane', 'via', 'tl', 'linkIdx', 'dir', 'state' )
 a['row-logic'] = a['ROWLogic'] = ( 'id', 'requestSize' )
 a['tl-logic'] = a['tlLogic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
@@ -135,10 +136,10 @@ class NetConverter(handler.ContentHandler):
             self._am_parsing_rowlogic = attrs["id"]
         if name == "logicitem": 
             self._logicitems[self._am_parsing_rowlogic].append(attrs)
-        if name == "junction":
-            self._inner_junction = attrs["id"][0] == ":"
         if name == "edge":
             self._laneCount = 0
+        if name == "junction":
+            self._inner_junction = (len(self._logicitems[attrs["id"]]) > 0)
         # skip removed
         if self.remove(name):
             return
@@ -164,7 +165,8 @@ class NetConverter(handler.ContentHandler):
                 toEdge = attrs['lane'][:sepIndex]
                 toIdx = attrs['lane'][sepIndex+1:]
                 self.checkWrite(' to="%s"' % toEdge)
-                self.checkWrite(' lane="%s:%s"' % (self._succ_fromIdx, toIdx))
+                self.checkWrite(' fromLane="%s"' % self._succ_fromIdx)
+                self.checkWrite(' toLane="%s"' % toIdx)
         # write attributes
         if name in a:
             for key in a[name]:
@@ -182,6 +184,10 @@ class NetConverter(handler.ContentHandler):
                 elif name == "lane" and key == "index":
                     self.checkWrite(' %s="%s"' % (key,self._laneCount))
                     self._laneCount += 1
+                elif name == "net" and key == "version":
+                    self.checkWrite(' %s="%s"' % (key,"0.13"))
+                elif name == "connection" and key == "fromLane":
+                    self.checkWrite(' fromLane="%s" toLane="%s"' % tuple(attrs["lane"].split(":")))
         # close tag
         if self.isSingle(name):
             self.checkWrite("/>\n")
@@ -259,6 +265,21 @@ def changeEdgeFile(fname):
         os.remove(fname)
         os.rename(fname+".chg", fname)
 
+def changeConnectionFile(fname):
+    if options.verbose:
+        print "Patching " + fname + " ..."
+    out = open(fname+".chg", 'w')
+    for line in open(fname):
+        if "<connection" in line and "lane" in line:
+            line = line.replace(" lane", " fromLane")
+        for i in range(10):
+            line = line.replace(':%s"' % i, '" toLane="%s"' % i)
+        out.write(line)
+    out.close()
+    if options.inplace:
+        os.remove(fname)
+        os.rename(fname+".chg", fname)
+
 def walkDir(srcRoot):
     for root, dirs, files in os.walk(srcRoot):
         for name in files:
@@ -267,6 +288,8 @@ def walkDir(srcRoot):
                 changeFile(os.path.join(root, name))
             if options.edges and name.endswith(".edg.xml"):
                 changeEdgeFile(os.path.join(root, name))
+            elif options.connections and name.endswith(".con.xml"):
+                changeConnectionFile(os.path.join(root, name))
         for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)
@@ -279,6 +302,8 @@ optParser.add_option("-i", "--inplace", action="store_true",
                      default=False, help="replace original files")
 optParser.add_option("-e", "--edges", action="store_true",
                      default=False, help="include edge XML files")
+optParser.add_option("-c", "--connections", action="store_true",
+                     default=False, help="include connection XML files")
 (options, args) = optParser.parse_args()
 
 if len(args) == 0:
@@ -291,5 +316,7 @@ for arg in args:
         else:
             if options.edges and fname.endswith(".edg.xml"):
                 changeEdgeFile(fname)
+            elif options.connections and fname.endswith(".con.xml"):
+                changeConnectionFile(fname)
             else:
                 changeFile(fname)

@@ -229,8 +229,9 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    void writeAttr(const SumoXMLAttr attr, const T &val) {
-        getOStream() << " " << toString(attr) << "=\"" << val << "\"";
+    OutputDevice &writeAttr(const SumoXMLAttr attr, const T &val) {
+        getOStream() << " " << toString(attr) << "=\"" << toString(val) << "\"";
+        return *this;
     }
 
 
@@ -242,18 +243,6 @@ public:
      */
     void inform(const std::string &msg);
 
-
-    OutputDevice &operator<<(const SumoXMLTag &xmlElement) {
-        getOStream() << toString(xmlElement);
-        postWriteHook();
-        return *this;
-    }
-
-    OutputDevice &operator<<(const SumoXMLAttr &xmlElement) {
-        getOStream() << toString(xmlElement);
-        postWriteHook();
-        return *this;
-    }
 
     /** @brief Abstract output operator
      * @return The OutputDevice for further processing

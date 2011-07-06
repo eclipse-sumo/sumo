@@ -55,7 +55,8 @@
 // method definitions
 // ===========================================================================
 NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw()
-        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec) {}
+        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec),
+        myHaveWarnedAboutDeprecatedLanes(false) {}
 
 
 NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
@@ -88,7 +89,6 @@ NIXMLConnectionsHandler::myStartElement(int element,
         bool ok = true;
         std::string from = attrs.getOptStringReporting(SUMO_ATTR_FROM, 0, ok, "");
         std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, 0, ok, "");
-        std::string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
         if (!ok) {
             return;
         }
@@ -109,7 +109,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             return;
         }
         // parse optional lane information
-        if (laneConn=="") {
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)||attrs.hasAttribute(SUMO_ATTR_FROM_LANE)||attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             fromEdge->addEdge2EdgeConnection(toEdge);
         } else {
             parseLaneBound(attrs, fromEdge, toEdge);
@@ -179,15 +179,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         return;
     }
     bool ok = true;
-    std::string laneConn = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-    // split the information
-    StringTokenizer st(laneConn, ':');
-    if (st.size()!=2) {
-        WRITE_ERROR("Invalid lane to lane connection from '" +
-                                               from->getID() + "' to '" + to->getID() + "'.");
-        return;
-    }
-    bool mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, 0, ok, false);
+    const bool mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, 0, ok, false);
     if (!ok) {
         return;
     }
@@ -195,8 +187,26 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     int fromLane;
     int toLane;
     try {
-        fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-        toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            if (!myHaveWarnedAboutDeprecatedLanes) {
+                myHaveWarnedAboutDeprecatedLanes = true;
+                WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_LANE) +
+                            "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
+            }
+            std::string laneConn = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+            // split the information
+            StringTokenizer st(laneConn, ':');
+            if (!ok || st.size()!=2) {
+                WRITE_ERROR("Invalid lane to lane connection from '" +
+                                                    from->getID() + "' to '" + to->getID() + "'.");
+                return;
+            }
+            fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+        } else {
+            fromLane = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
+            toLane = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
+        }
         if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNumLanes() || 
                 toLane<0 || static_cast<unsigned int>(toLane)>=to->getNumLanes()) {
             WRITE_ERROR("False lane index in connection from '" + 

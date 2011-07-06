@@ -102,6 +102,9 @@ private:
     /// @brief The edge container to fill
     NBEdgeCont &myEdgeCont;
 
+    /// @brief Information whether we have a deprecated attribute
+    bool myHaveWarnedAboutDeprecatedLanes;
+
 
 private:
     /// @brief invalidated copy constructor

@@ -337,11 +337,11 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 	if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
 	    lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedSpreadType) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_SPREADFUNC) + "'.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
             myHaveWarnedAboutDeprecatedSpreadType = true;
         }
 	} else {
-	    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, id.c_str(), ok, lsfS);
+	    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
 	}
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);

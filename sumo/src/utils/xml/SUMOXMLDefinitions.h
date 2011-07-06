@@ -375,7 +375,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADFUNC__DEPRECATED,
-    SUMO_ATTR_SPREADFUNC,
+    SUMO_ATTR_SPREADTYPE,
     /// A color information
     SUMO_ATTR_COLOR,
     /// The abstract direction of a link
@@ -389,6 +389,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_PREFIX,
     SUMO_ATTR_DISCARD,
 
+    SUMO_ATTR_FROM_LANE,
+    SUMO_ATTR_TO_LANE,
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,

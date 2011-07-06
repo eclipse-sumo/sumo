@@ -300,7 +300,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "linkIndex",      SUMO_ATTR_TLLINKINDEX },
     { "shape",          SUMO_ATTR_SHAPE },
     { "spread_type",    SUMO_ATTR_SPREADFUNC__DEPRECATED },
-    { "spreadType",     SUMO_ATTR_SPREADFUNC },
+    { "spreadType",     SUMO_ATTR_SPREADTYPE },
     { "color",          SUMO_ATTR_COLOR },
     { "dir",            SUMO_ATTR_DIR },
     { "state",          SUMO_ATTR_STATE },
@@ -309,6 +309,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "prefix",         SUMO_ATTR_PREFIX },
     { "discard",        SUMO_ATTR_DISCARD },
 
+    { "fromLane",       SUMO_ATTR_FROM_LANE },
+    { "toLane",         SUMO_ATTR_TO_LANE },
     { "dest",           SUMO_ATTR_DEST },
     { "source",         SUMO_ATTR_SOURCE },
     { "via",            SUMO_ATTR_VIA },

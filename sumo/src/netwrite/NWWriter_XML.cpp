@@ -74,7 +74,6 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         device.setPrecision();
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
-            device << " " << SUMO_ATTR_TLID << "=\"";
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
             // set may contain multiple programs for the same id. 
             // make sure ids are unique and sorted
@@ -84,7 +83,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
             sort(sortedIDs.begin(), sortedIDs.end());
-            device << sortedIDs << "\"";
+            device.writeAttr(SUMO_ATTR_TLID, sortedIDs);
         }
         device.closeTag(true);
     }
@@ -121,7 +120,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-            edevice.writeAttr(SUMO_ATTR_SPREADFUNC, toString(e->getLaneSpreadFunction()));
+            edevice.writeAttr(SUMO_ATTR_SPREADTYPE, toString(e->getLaneSpreadFunction()));
         }
         // write the length if it was specified
         if (e->hasLoadedLength()) {

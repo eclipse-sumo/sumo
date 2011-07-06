@@ -92,6 +92,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedEdgeMean(false), 
         myHaveWarnedAboutDeprecatedLaneMean(false),
         myHaveWarnedAboutDeprecatedVTypes(false),
+        myHaveWarnedAboutDeprecatedLanes(false),
         myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)
 {}
 
@@ -1212,7 +1213,17 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
     try {
         bool ok = true;
         std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
-        std::string laneIndices = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+        std::string laneIndices;
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
+            if (!myHaveWarnedAboutDeprecatedLanes) {
+                myHaveWarnedAboutDeprecatedLanes = true;
+                WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_LANE) +
+                            "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
+            }
+            laneIndices = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+        } else {
+            laneIndices = attrs.getStringReporting(SUMO_ATTR_FROM_LANE, 0, ok) + ":" + attrs.getStringReporting(SUMO_ATTR_TO_LANE, 0, ok);
+        }
         LinkDirection dir = parseLinkDir(attrs.getStringReporting(SUMO_ATTR_DIR, 0, ok));
         LinkState state = parseLinkState(attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok));
         std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");

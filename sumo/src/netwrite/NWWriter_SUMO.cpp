@@ -59,7 +59,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
 	OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
-    device.writeXMLHeader("net", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
+    device.writeXMLHeader("net", " encoding=\"iso-8859-1\"", " version=\"0.13\""); // street names may contain non-ascii chars
     device << "\n";
     // write network offsets
 	device.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""
@@ -247,25 +247,25 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMO
 void
 NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
     // write the edge's begin
-    into.openTag(SUMO_TAG_EDGE) << " id=\"" << e.getID() <<
-    "\" from=\"" << e.getFromNode()->getID() <<
-    "\" to=\"" << e.getToNode()->getID();
+    into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
+    into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
+    into.writeAttr(SUMO_ATTR_TO, e.getToNode()->getID());
     if (!noNames && e.getStreetName() != "") {
-        into << "\" " << SUMO_ATTR_NAME << "=\"" << e.getStreetName();
+        into.writeAttr(SUMO_ATTR_NAME, e.getStreetName());
     }
-    into << "\" priority=\"" << e.getPriority() << "\"";
-    if(e.getTypeName()!="") {
-        into << " type=\"" << e.getTypeName() << "\"";
+    into.writeAttr(SUMO_ATTR_PRIORITY, e.getPriority());
+    if (e.getTypeName()!="") {
+        into.writeAttr(SUMO_ATTR_TYPE, e.getTypeName());
     }
     if (e.isMacroscopicConnector()) {
-        into << " function=\"connector\"";
+        into.writeAttr(SUMO_ATTR_FUNCTION, "connector");
     }
     // write the spread type if not default ("right")
     if (e.getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
-        into << " spreadType=\"" << toString(e.getLaneSpreadFunction()) << "\"";
+        into.writeAttr(SUMO_ATTR_SPREADTYPE, e.getLaneSpreadFunction());
     }
     if (!e.hasDefaultGeometry()) {
-        into << " " << SUMO_ATTR_SHAPE <<  "=\"" << toString(e.getGeometry()) << "\"";
+        into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }
     into << ">\n";
     // write the lanes
@@ -373,11 +373,15 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     }
     into << "\"";
     // close writing
-    into << " shape=\"" << n.getShape() << "\">\n";
-
-    // write right-of-way logics
-    n.writeLogic(into);
-	into.closeTag();
+    into << " shape=\"" << n.getShape() << "\"";
+    if (n.getType() == NODETYPE_DEAD_END) {
+        into.closeTag(true);
+    } else {
+        into <<  ">\n";
+        // write right-of-way logics
+        n.writeLogic(into);
+        into.closeTag();
+    }
 }
 
 
@@ -441,7 +445,8 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
     into.writeAttr(SUMO_ATTR_TO, c.toEdge->getID());
-    into << " " << SUMO_ATTR_LANE << "=\"" << c.fromLane << ":" << c.toLane << "\"";
+    into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
+    into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
 
     if (!plain) {
         if (includeInternal) {
@@ -515,7 +520,8 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice &into,
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
     into.writeAttr(SUMO_ATTR_TO, to);
-    into << " " << SUMO_ATTR_LANE << "=\"0:" << toLane << "\"";
+    into.writeAttr(SUMO_ATTR_FROM_LANE, 0);
+    into.writeAttr(SUMO_ATTR_TO_LANE, toLane);
     if (via != "") {
         into.writeAttr(SUMO_ATTR_VIA, via);
     }
