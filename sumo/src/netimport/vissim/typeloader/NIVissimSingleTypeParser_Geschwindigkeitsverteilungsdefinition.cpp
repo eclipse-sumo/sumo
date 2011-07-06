@@ -62,6 +62,10 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
     std::string tag;
     do {
         tag = readEndSecure(from);
+        if(tag=="name") {
+            readName(from);
+            tag = readEndSecure(from);
+        }
         if (tag!="DATAEND") {
             SUMOReal p1 = TplConvert<char>::_2SUMOReal(tag.c_str());
             from >> tag;

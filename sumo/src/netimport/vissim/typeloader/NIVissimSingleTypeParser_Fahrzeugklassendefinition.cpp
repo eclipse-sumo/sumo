@@ -80,6 +80,10 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from) {
     }
     // types
     from >> tag;
+    if(tag=="ANM_ID") {
+        readName(from);
+        from >> tag;
+    }
     IntVector types;
     from >> tag;
     do {

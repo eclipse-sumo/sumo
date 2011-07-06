@@ -107,7 +107,11 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
     // check whether a next close lane definition can be found
     tag = readEndSecure(from);
     while (tag!="DATAEND") {
-        if (tag=="spur") {
+        if(tag=="keinspurwechsel") {
+            while(tag!="DATAEND") {
+                tag = readEndSecure(from);
+            }
+        } else if (tag=="spur") {
             // get the lane number
             int laneNo;
             from >> laneNo; // type-checking is missing!
@@ -115,7 +119,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
             IntVector assignedVehicles;
             tag = myRead(from);
             tag = myRead(from);
-            while (tag!="DATAEND"&&tag!="spur") {
+            while (tag!="DATAEND"&&tag!="spur"&&tag!="keinspurwechsel") {
                 int classes = TplConvert<char>::_2int(tag.c_str());
                 assignedVehicles.push_back(classes);
                 tag = readEndSecure(from);

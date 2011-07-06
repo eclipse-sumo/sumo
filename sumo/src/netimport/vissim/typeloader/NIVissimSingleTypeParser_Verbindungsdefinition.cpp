@@ -135,7 +135,11 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
         do {
             // check whether a next close lane definition can be found
             tag = readEndSecure(from);
-            if (tag=="spur") {
+            if(tag=="keinspurwechsel") {
+                while(tag!="DATAEND") {
+                    tag = readEndSecure(from);
+                }
+            } else if (tag=="spur") {
                 // get the lane number
 //                from >> tag;
                 int laneNo;
@@ -146,7 +150,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
                 if (tag=="fahrzeugklassen") {
                     tag = myRead(from);
                 }
-                while (tag!="DATAEND"&&tag!="spur") {
+                while (tag!="DATAEND"&&tag!="spur"&&tag!="keinspurwechsel") {
                     int classes = TplConvert<char>::_2int(tag.c_str());
                     assignedVehicles.push_back(classes);
                     tag = readEndSecure(from);
