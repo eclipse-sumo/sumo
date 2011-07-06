@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 01/04/11 09:09:06 by SUMO netconvert Version dev-SVN-r9443
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <visum-file value="messstrecke_20101201.net"/>
+    </input>
+
+    <output>
+        <output-file value="messstrecke_20110104.net.xml"/>
+    </output>
+
+    <processing>
+        <visum.use-type-priority value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

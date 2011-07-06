@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 01/12/11 13:07:02 by SUMO netconvert Version dev-SVN-r9534
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <xml-node-files value="./dfrouter/messstrecke.nod.xml"/>
+        <xml-edge-files value="./dfrouter/messstrecke.edg.xml"/>
+        <xml-connection-files value="./dfrouter/messstrecke.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="./dfrouter/input_messstrecke.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

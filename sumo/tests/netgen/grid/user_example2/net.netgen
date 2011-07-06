@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Wed Jun  1 14:49:44 2011 by SUMO netgen Version dev-SVN-r10493
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.x-number value="20"/>
+        <grid.y-number value="5"/>
+        <grid.x-length value="200"/>
+        <grid.y-length value="40"/>
+    </grid_network>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
+
+    <building_defaults>
+        <default.lanenumber value="3"/>
+    </building_defaults>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

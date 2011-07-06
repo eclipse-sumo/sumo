@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Mon Jun  6 14:55:05 2011 by SUMO netconvert Version dev-SVN-r10510
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <vissim-file value="vissim.inp"/>
+    </input>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <vissim.report-unset-speeds value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

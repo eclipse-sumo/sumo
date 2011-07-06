@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Fri Feb  8 01:00:41 2008 by SUMO netconvert Version dev-SVN-r5051
+<configuration>
+
+   <input>
+      <xml-edge-files>../data/tutorial/hello_stop/hello_redux.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/tutorial/hello_stop/hello.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

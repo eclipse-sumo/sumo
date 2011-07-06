@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Sun Jul 26 12:00:49 2009 by SUMO netconvert Version dev-SVN-r7516
+<configuration>
+
+    <input
+        xml-node-files="./sumo/basic/simple_nets/cross/cross1ltl/cross1ltl.nod.xml"
+        xml-edge-files="./sumo/basic/simple_nets/cross/cross1ltl/cross1ltl.edg.xml"
+    />
+
+    <output
+        output-file="./sumo/basic/simple_nets/cross/cross1ltl/net.net.xml"
+    />
+
+    <report
+        verbose="true"
+    />
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

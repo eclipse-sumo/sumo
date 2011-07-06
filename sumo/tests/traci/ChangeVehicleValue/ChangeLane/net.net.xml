@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 07/02/11 22:51:45 by SUMO netconvert Version dev-SVN-r10807
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="traci/ChangeVehicleValue/ChangeLane/net.nod.xml"/>
+        <edge-files value="traci/ChangeVehicleValue/ChangeLane/net.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="traci/ChangeVehicleValue/ChangeLane/net.net.xml"/>
+    </output>
+
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

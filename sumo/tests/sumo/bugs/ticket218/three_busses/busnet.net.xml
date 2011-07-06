@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Sun Jul 26 13:44:00 2009 by SUMO netgen Version dev-SVN-r7516
+<configuration>
+
+    <grid_network
+        grid-net="true"
+        grid-x-number="3"
+        grid-y-number="3"
+        grid-x-length="200"
+        grid-y-length="200"
+    />
+
+    <output
+        output-file="sumo/extended/busses/net.net.xml"
+    />
+
+    <building_defaults
+        default-junction-type="traffic_light"
+    />
+
+    <report
+        verbose="true"
+    />
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

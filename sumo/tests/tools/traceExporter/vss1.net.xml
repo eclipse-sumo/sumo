@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 08/11/08 13:14:51 by SUMO netconvert Version dev-SVN-r5964
+<configuration>
 
+   <input>
+      <xml-node-files>vss1.nod.xml</xml-node-files>
+      <xml-edge-files>vss1.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>vss1.net.xml</output-file>
+   </output>
+
+   <processing>
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="500.00,20.00" convBoundary="0.00,0.00,2500.00,520.00" origBoundary="-500.00,-20.00,2000.00,500.00" projParameter="!"/>

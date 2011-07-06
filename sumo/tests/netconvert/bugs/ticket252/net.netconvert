@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Tue Jul  5 12:40:38 2011 by SUMO netconvert Version dev-SVN-r10852
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <remove-edges.by-vclass value="rail_slow,rail_fast,bicycle,pedestrian"/>
+    </edge_removal>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <offset.x value="-280900"/>
+        <offset.y value="-4.1536e+06"/>
+    </processing>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

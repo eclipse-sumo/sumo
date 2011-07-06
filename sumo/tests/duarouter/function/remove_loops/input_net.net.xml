@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 06/13/08 13:00:43 by SUMO netgen Version dev-SVN-r5584
+<configuration>
+
+   <grid_network>
+      <grid-net>true</grid-net>
+      <grid-y-number>2</grid-y-number>
+   </grid_network>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Tue Mar 29 15:59:05 2011 by SUMO netconvert Version dev-SVN-r10012
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <xml-node-files value="shape.nod.xml"/>
+        <xml-edge-files value="shape.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="shape.net.xml"/>
+        <plain-output value="shape_direct"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

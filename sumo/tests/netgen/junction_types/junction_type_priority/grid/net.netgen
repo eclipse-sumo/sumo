@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 06/01/11 09:29:46 by SUMO netgen Version dev-SVN-r10489
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.number value="3"/>
+        <grid.length value="40"/>
+    </grid_network>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
+
+    <building_defaults>
+        <default-junction-type value="priority"/>
+    </building_defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

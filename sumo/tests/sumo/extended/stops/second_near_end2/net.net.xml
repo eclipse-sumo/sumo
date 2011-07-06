@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 04/09/08 15:29:15 by SUMO netconvert Version 0.9.7
+<configuration>
+
+   <input>
+      <xml-node-files>two_straight_3lanes.nod.xml</xml-node-files>
+      <xml-edge-files>two_straight_3lanes.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

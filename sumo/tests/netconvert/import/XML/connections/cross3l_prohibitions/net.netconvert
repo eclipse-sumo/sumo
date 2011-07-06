@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 06/01/11 09:27:48 by SUMO netconvert Version dev-SVN-r10489
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
+    </input>
+
+    <output>
+        <output value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <speed-in-kmh value="true"/>
+    </processing>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

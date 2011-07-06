@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Tue Jul  5 12:37:45 2011 by SUMO netgen Version dev-SVN-r10852
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+
+    <random_network>
+        <rand value="true"/>
+        <rand.iterations value="200"/>
+        <rand.bidi-probability value="0"/>
+    </random_network>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 06/14/11 12:40:22 by SUMO netgen Version dev-SVN-r10609
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+
+    <spider_network>
+        <spider value="true"/>
+        <spider.arm-number value="4"/>
+        <spider.circle-number value="3"/>
+        <spider.space-radius value="100"/>
+    </spider_network>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

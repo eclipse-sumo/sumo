@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 01/12/11 13:14:32 by SUMO netgen Version dev-SVN-r9534
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
+
+    <grid_network>
+        <grid-net value="true"/>
+        <grid-length value="400"/>
+        <grid-x-number value="5"/>
+        <grid-y-number value="3"/>
+    </grid_network>
+
+    <output>
+        <output-file value="./traci/VariableSubscription/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <building_defaults>
+        <lanenumber value="1"/>
+        <speed value="10"/>
+        <default-junction-type value="traffic_light"/>
+    </building_defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

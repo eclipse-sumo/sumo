@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 03/20/08 15:29:27 by SUMO netconvert Version 0.9.7
+<configuration>
+
+   <input>
+      <xml-node-files>testnetz1.nod.xml</xml-node-files>
+      <xml-edge-files>testnetz1.edg.xml</xml-edge-files>
+      <xml-type-files>testnetz1.typ.xml</xml-type-files>
+   </input>
+
+   <output>
+      <output-file>input/net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

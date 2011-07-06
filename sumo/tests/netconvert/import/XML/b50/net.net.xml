@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on Sun Jan 24 15:52:22 2010 by SUMO netconvert Version dev-SVN-r8105
+<configuration>
+
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

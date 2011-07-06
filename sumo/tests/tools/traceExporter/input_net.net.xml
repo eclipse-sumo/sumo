@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 01/12/11 13:12:59 by SUMO netconvert Version dev-SVN-r9534
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <xml-node-files value="./tools/traceExporter/vss1.nod.xml"/>
+        <xml-edge-files value="./tools/traceExporter/vss1.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="./tools/traceExporter/input_net.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

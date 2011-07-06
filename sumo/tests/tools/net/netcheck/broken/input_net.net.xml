@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<!-- generated on 10/06/10 17:06:58 by SUMO netconvert Version dev-SVN-r9191
+
+<configuration>
+
+    <input>
+        <xml-node-files value=".\tools\net\netcheck\broken\cross1l.nod.xml"/>
+        <xml-edge-files value=".\tools\net\netcheck\broken\cross1l.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value=".\tools\net\netcheck\broken\input_net.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
