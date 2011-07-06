@@ -77,9 +77,11 @@ def getBegin(file):
     fd = open(file)
     content = "";
     for line in fd:
-        if line.find("<net>")>=0 or line.find("<districts>")>=0 or line.find("<add>")>=0:
+        if '<net' in line or '<districts' in line or '<add' in line:
             fd.close()
             return content
+        if '<?xml version' in line:
+            continue
         content = content + line
     fd.close()
     return ""
@@ -87,7 +89,7 @@ def getBegin(file):
 class NetConverter(handler.ContentHandler):
     def __init__(self, outFileName, begin, has_no_destination):
         self._out = open(outFileName, "w")
-        self._out.write('<?xml version="1.0" encoding="iso-8859-1"?>\n\n\n')
+        self._out.write('<?xml version="1.0" encoding="iso-8859-1"?>\n')
         self._out.write(begin)
         self._tree = []
         self._content = ""
