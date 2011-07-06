@@ -28,7 +28,7 @@ log:log.txt
 plain_nodes:version{->}-->
 plain_edges:version{->}-->
 plain_connections:version{->}-->
-net:version{->}-->
+net:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
