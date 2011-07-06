@@ -1,25 +1,5 @@
-<?xml version="1.0"?>
-
-<!-- generated on 01/12/11 13:07:14 by SUMO netconvert Version dev-SVN-r9534
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <xml-node-files value="./dfrouter/flowmax/long_route/long.nod.xml"/>
-        <xml-edge-files value="./dfrouter/flowmax/long_route/long.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="./dfrouter/flowmax/long_route/input_net.net.xml"/>
-    </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -78,20 +58,16 @@
         <lane id="post4_0" index="0" maxSpeed="13.90" length="5.00" shape="301.65,200.00 301.65,205.00"/>
     </edge>
 
-    <junction id="i1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.05,0.00 3.25,0.00">
-    </junction>
-    <junction id="i2" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,0.00 103.25,0.00">
-    </junction>
+    <junction id="i1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.05,0.00 3.25,0.00"/>
+    <junction id="i2" type="dead_end" x="100.00" y="0.00" incLanes="" intLanes="" shape="100.05,0.00 103.25,0.00"/>
     <junction id="o3" type="priority" x="200.00" y="200.00" incLanes="out3_0" intLanes=":o3_0_0" shape="200.05,200.00 203.25,200.00 200.05,200.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="o4" type="priority" x="300.00" y="200.00" incLanes="out4_0" intLanes=":o4_0_0" shape="300.05,200.00 303.25,200.00 300.05,200.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="p3" type="dead_end" x="200.00" y="205.00" incLanes="post3_0" intLanes="" shape="203.25,205.00 200.05,205.00">
-    </junction>
-    <junction id="p4" type="dead_end" x="300.00" y="205.00" incLanes="post4_0" intLanes="" shape="303.25,205.00 300.05,205.00">
-    </junction>
+    <junction id="p3" type="dead_end" x="200.00" y="205.00" incLanes="post3_0" intLanes="" shape="203.25,205.00 200.05,205.00"/>
+    <junction id="p4" type="dead_end" x="300.00" y="205.00" incLanes="post4_0" intLanes="" shape="303.25,205.00 300.05,205.00"/>
     <junction id="r1" type="priority" x="0.00" y="100.00" incLanes="in1_0" intLanes=":r1_0_0" shape="3.25,99.95 3.25,96.75 0.05,96.75">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

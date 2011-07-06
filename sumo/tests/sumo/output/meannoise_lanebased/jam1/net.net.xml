@@ -1,27 +1,5 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 10/09/07 15:26:48 by SUMO netgen Version 0.9.6
-<configuration>
-
-   <grid_network>
-      <grid-net>true</grid-net>
-      <grid-length>400</grid-length>
-      <grid-x-number>5</grid-x-number>
-      <grid-y-number>3</grid-y-number>
-   </grid_network>
-
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
-
-   <building_defaults>
-      <lanenumber>1</lanenumber>
-      <speed>10</speed>
-      <default-junction-type>traffic_light</default-junction-type>
-   </building_defaults>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

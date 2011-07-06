@@ -1,25 +1,5 @@
-<?xml version="1.0"?>
-
-<!-- generated on 01/12/11 13:10:55 by SUMO netconvert Version dev-SVN-r9534
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <xml-node-files value="./sumo/output/meandata_edgebased/internal/bi.nod.xml"/>
-        <xml-edge-files value="./sumo/output/meandata_edgebased/internal/bi.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="./sumo/output/meandata_edgebased/internal/net.net.xml"/>
-    </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -69,8 +49,7 @@
         <lane id="rend_0" index="0" maxSpeed="27.80" length="500.00" shape="2000.00,-1.65 2500.00,-1.65"/>
     </edge>
 
-    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
+    <junction id="absBeg" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
     <junction id="absEnd" type="priority" x="2000.00" y="0.00" incLanes="end_0" intLanes=":absEnd_0_0" shape="2000.00,-0.05 2000.00,-3.25 2000.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -88,8 +67,7 @@
     <junction id="endleft" type="priority" x="1500.00" y="500.00" incLanes="left_0" intLanes=":endleft_0_0" shape="1499.95,496.75 1496.75,496.75 1496.75,499.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="rend_0" intLanes="" shape="2500.00,-3.25 2500.00,-0.05">
-    </junction>
+    <junction id="rabsEnd" type="dead_end" x="2500.00" y="0.00" incLanes="rend_0" intLanes="" shape="2500.00,-3.25 2500.00,-0.05"/>
 
     <succ edge="beg" lane="beg_0" junction="beg">
         <succlane lane="middle_0" via=":beg_0_0" dir="s" state="M"/>

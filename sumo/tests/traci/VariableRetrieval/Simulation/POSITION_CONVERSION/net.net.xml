@@ -1,19 +1,5 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 04/19/08 15:39:30 by SUMO netconvert Version dev-SVN-r5461
-<configuration>
-
-   <input>
-      <xml-node-files>nodes.xml</xml-node-files>
-      <xml-edge-files>edges.xml</xml-edge-files>
-   </input>
-
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -140,8 +126,7 @@
         <lane id="e_x1_1" index="1" maxSpeed="60.00" length="500.00" shape="3698.35,500.00 3698.35,0.00"/>
     </edge>
 
-    <junction id="n_m0" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,490.15">
-    </junction>
+    <junction id="n_m0" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,490.15"/>
 
     <junction id="n_m1" type="priority" x="500.00" y="500.00" incLanes="e_m0_0 e_m0_1 e_m0_2" intLanes="" shape="500.00,499.95 500.00,490.15 500.00,499.95">
         <request index="0" response="000" foes="000"/>
@@ -244,16 +229,14 @@
         <request index="4" response="00000" foes="00000"/>
     </junction>
 
-    <junction id="n_x0" type="dead_end" x="3700.00" y="1000.00" incLanes="" intLanes="" shape="3699.95,1000.00 3693.45,1000.00">
-    </junction>
+    <junction id="n_x0" type="dead_end" x="3700.00" y="1000.00" incLanes="" intLanes="" shape="3699.95,1000.00 3693.45,1000.00"/>
 
     <junction id="n_x1" type="priority" x="3700.00" y="500.00" incLanes="e_x0_0 e_x0_1" intLanes="" shape="3693.45,500.00 3699.95,500.00 3693.45,500.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
 
-    <junction id="n_x2" type="dead_end" x="3700.00" y="0.00" incLanes="e_x1_0 e_x1_1" intLanes="" shape="3693.45,0.00 3699.95,0.00">
-    </junction>
+    <junction id="n_x2" type="dead_end" x="3700.00" y="0.00" incLanes="e_x1_0 e_x1_1" intLanes="" shape="3693.45,0.00 3699.95,0.00"/>
 
     <succ edge="e_m0" lane="e_m0_0" junction="n_m1">
         <succlane lane="e_m1_0" dir="s" state="M"/>

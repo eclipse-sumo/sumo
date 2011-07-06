@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 11:10:05 2011 by SUMO netconvert Version dev-SVN-r10842
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -113,14 +97,10 @@
     <junction id="6564" type="unregulated" x="224.35" y="221.05" incLanes="" intLanes="" shape="223.26,219.88 225.44,222.22">
     </junction>
 
-    <junction id=":6365_8_0" type="internal" x="148.57" y="250.58" incLanes=":6365_1_0 -1570_0" intLanes=":6365_4_0" shape="">
-    </junction>
-    <junction id=":6365_9_0" type="internal" x="147.16" y="247.44" incLanes=":6365_3_0 1841_0" intLanes=":6365_6_0" shape="">
-    </junction>
-    <junction id=":6365_10_0" type="internal" x="145.37" y="249.24" incLanes=":6365_5_0 1816_0" intLanes=":6365_0_0" shape="">
-    </junction>
-    <junction id=":6365_11_0" type="internal" x="146.76" y="252.41" incLanes=":6365_7_0 -1839_0" intLanes=":6365_2_0" shape="">
-    </junction>
+    <junction id=":6365_8_0" type="internal" x="148.57" y="250.58" incLanes=":6365_1_0 -1570_0" intLanes=":6365_4_0" shape=""/>
+    <junction id=":6365_9_0" type="internal" x="147.16" y="247.44" incLanes=":6365_3_0 1841_0" intLanes=":6365_6_0" shape=""/>
+    <junction id=":6365_10_0" type="internal" x="145.37" y="249.24" incLanes=":6365_5_0 1816_0" intLanes=":6365_0_0" shape=""/>
+    <junction id=":6365_11_0" type="internal" x="146.76" y="252.41" incLanes=":6365_7_0 -1839_0" intLanes=":6365_2_0" shape=""/>
 
     <connection from="-1570" to="1839" fromLane="0" toLane="0" via=":6365_4_0" tl="6365" linkIndex="4" dir="r" state="o"/>
     <connection from="-1570" to="-1841" fromLane="0" toLane="0" via=":6365_5_0" tl="6365" linkIndex="5" dir="l" state="o"/>

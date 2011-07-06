@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 11:10:00 2011 by SUMO netconvert Version dev-SVN-r10842
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
-
-    <tls_building>
-        <tls.set value="15031669"/>
-    </tls_building>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -133,14 +109,10 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":15031669_10_0" type="internal" x="137.63" y="60.23" incLanes=":15031669_3_0 -15035564_0" intLanes=":15031669_4_0" shape="">
-    </junction>
-    <junction id=":15031669_11_0" type="internal" x="129.56" y="57.56" incLanes=":15031669_5_0 -900000001_0" intLanes=":15031669_7_0 :15031669_8_0" shape="">
-    </junction>
-    <junction id=":15031669_12_0" type="internal" x="134.22" y="56.43" incLanes=":15031669_6_0 -900000001_0" intLanes=":15031669_8_0" shape="">
-    </junction>
-    <junction id=":15031669_13_0" type="internal" x="133.22" y="64.75" incLanes=":15031669_9_0 -15035564_0" intLanes=":15031669_4_0" shape="">
-    </junction>
+    <junction id=":15031669_10_0" type="internal" x="137.63" y="60.23" incLanes=":15031669_3_0 -15035564_0" intLanes=":15031669_4_0" shape=""/>
+    <junction id=":15031669_11_0" type="internal" x="129.56" y="57.56" incLanes=":15031669_5_0 -900000001_0" intLanes=":15031669_7_0 :15031669_8_0" shape=""/>
+    <junction id=":15031669_12_0" type="internal" x="134.22" y="56.43" incLanes=":15031669_6_0 -900000001_0" intLanes=":15031669_8_0" shape=""/>
+    <junction id=":15031669_13_0" type="internal" x="133.22" y="64.75" incLanes=":15031669_9_0 -15035564_0" intLanes=":15031669_4_0" shape=""/>
 
     <connection from="-15035564" to="900000001" fromLane="0" toLane="0" via=":15031669_4_0" tl="15031669" linkIndex="4" dir="s" state="o"/>
     <connection from="-15035564" to="15032917" fromLane="1" toLane="1" via=":15031669_5_0" tl="15031669" linkIndex="5" dir="l" state="o"/>

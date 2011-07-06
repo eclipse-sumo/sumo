@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jun  6 14:55:10 2011 by SUMO netconvert Version dev-SVN-r10510
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <osm-files value="osm.xml"/>
-    </input>
-
-    <output>
-        <output value="net.net.xml"/>
-    </output>
-
-    <projection>
-        <proj.utm value="true"/>
-    </projection>
-
-    <tls_building>
-        <tls.join value="true"/>
-    </tls_building>
-
-    <ramp_guessing>
-        <ramps.guess value="true"/>
-    </ramp_guessing>
-
-    <edge_removal>
-        <remove-edges.by-vclass value="hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian"/>
-        <remove-edges.isolated value="true"/>
-    </edge_removal>
-
-    <processing>
-        <geometry.remove value="true"/>
-    </processing>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -386,32 +346,19 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":-15_11_0" type="internal" x="311.38" y="696.36" incLanes=":-15_6_0 -33#0_0 -33#0_1" intLanes=":-15_7_0 :-15_8_0" shape="">
-    </junction>
-    <junction id=":-15_12_0" type="internal" x="306.97" y="700.83" incLanes=":-15_9_0 --33#1_0 --33#1_1" intLanes=":-15_3_0 :-15_4_0 :-15_5_0" shape="">
-    </junction>
-    <junction id=":-15_13_0" type="internal" x="303.57" y="700.78" incLanes=":-15_10_0 --33#1_0 --33#1_1" intLanes=":-15_4_0 :-15_5_0" shape="">
-    </junction>
-    <junction id=":-26_6_0" type="internal" x="493.55" y="408.94" incLanes=":-26_2_0 -33#1_0 -33#1_1" intLanes=":-26_3_0 :-26_4_0" shape="">
-    </junction>
-    <junction id=":-26_7_0" type="internal" x="493.66" y="407.34" incLanes=":-26_5_0 --33#2_0 --33#2_1" intLanes=":-26_0_0 :-26_1_0" shape="">
-    </junction>
-    <junction id=":-7_16_0" type="internal" x="342.89" y="741.63" incLanes=":-7_2_0 -32_0" intLanes=":-7_8_0 :-7_9_0" shape="">
-    </junction>
-    <junction id=":-7_17_0" type="internal" x="344.28" y="742.89" incLanes=":-7_3_0 -32_0" intLanes=":-7_9_0" shape="">
-    </junction>
-    <junction id=":-7_18_0" type="internal" x="345.28" y="740.06" incLanes=":-7_6_0 -35#0_0" intLanes=":-7_12_0 :-7_13_0" shape="">
-    </junction>
-    <junction id=":-7_19_0" type="internal" x="347.19" y="738.76" incLanes=":-7_7_0 -35#0_0" intLanes=":-7_13_0" shape="">
-    </junction>
-    <junction id=":-7_20_0" type="internal" x="344.33" y="737.78" incLanes=":-7_10_0 --37#1_0" intLanes=":-7_0_0 :-7_1_0" shape="">
-    </junction>
-    <junction id=":-7_21_0" type="internal" x="343.33" y="735.66" incLanes=":-7_11_0 --37#1_0" intLanes=":-7_1_0" shape="">
-    </junction>
-    <junction id=":-7_22_0" type="internal" x="341.85" y="739.39" incLanes=":-7_14_0 -37#0_0" intLanes=":-7_4_0 :-7_5_0" shape="">
-    </junction>
-    <junction id=":-7_23_0" type="internal" x="340.25" y="740.76" incLanes=":-7_15_0 -37#0_0" intLanes=":-7_5_0" shape="">
-    </junction>
+    <junction id=":-15_11_0" type="internal" x="311.38" y="696.36" incLanes=":-15_6_0 -33#0_0 -33#0_1" intLanes=":-15_7_0 :-15_8_0" shape=""/>
+    <junction id=":-15_12_0" type="internal" x="306.97" y="700.83" incLanes=":-15_9_0 --33#1_0 --33#1_1" intLanes=":-15_3_0 :-15_4_0 :-15_5_0" shape=""/>
+    <junction id=":-15_13_0" type="internal" x="303.57" y="700.78" incLanes=":-15_10_0 --33#1_0 --33#1_1" intLanes=":-15_4_0 :-15_5_0" shape=""/>
+    <junction id=":-26_6_0" type="internal" x="493.55" y="408.94" incLanes=":-26_2_0 -33#1_0 -33#1_1" intLanes=":-26_3_0 :-26_4_0" shape=""/>
+    <junction id=":-26_7_0" type="internal" x="493.66" y="407.34" incLanes=":-26_5_0 --33#2_0 --33#2_1" intLanes=":-26_0_0 :-26_1_0" shape=""/>
+    <junction id=":-7_16_0" type="internal" x="342.89" y="741.63" incLanes=":-7_2_0 -32_0" intLanes=":-7_8_0 :-7_9_0" shape=""/>
+    <junction id=":-7_17_0" type="internal" x="344.28" y="742.89" incLanes=":-7_3_0 -32_0" intLanes=":-7_9_0" shape=""/>
+    <junction id=":-7_18_0" type="internal" x="345.28" y="740.06" incLanes=":-7_6_0 -35#0_0" intLanes=":-7_12_0 :-7_13_0" shape=""/>
+    <junction id=":-7_19_0" type="internal" x="347.19" y="738.76" incLanes=":-7_7_0 -35#0_0" intLanes=":-7_13_0" shape=""/>
+    <junction id=":-7_20_0" type="internal" x="344.33" y="737.78" incLanes=":-7_10_0 --37#1_0" intLanes=":-7_0_0 :-7_1_0" shape=""/>
+    <junction id=":-7_21_0" type="internal" x="343.33" y="735.66" incLanes=":-7_11_0 --37#1_0" intLanes=":-7_1_0" shape=""/>
+    <junction id=":-7_22_0" type="internal" x="341.85" y="739.39" incLanes=":-7_14_0 -37#0_0" intLanes=":-7_4_0 :-7_5_0" shape=""/>
+    <junction id=":-7_23_0" type="internal" x="340.25" y="740.76" incLanes=":-7_15_0 -37#0_0" intLanes=":-7_5_0" shape=""/>
 
     <connection from="--32" to="-38#1" fromLane="0" toLane="0" via=":-14_6_0" dir="r" state="="/>
     <connection from="--32" to="--38#0" fromLane="0" toLane="0" via=":-14_7_0" dir="l" state="="/>

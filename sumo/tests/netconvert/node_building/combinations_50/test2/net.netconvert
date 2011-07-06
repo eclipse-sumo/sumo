@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:27:27 by SUMO netconvert Version dev-SVN-r10489
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
-    </input>
-
-    <output>
-        <output value="net.net.xml"/>
-    </output>
-
-    <processing>
-        <speed-in-kmh value="true"/>
-    </processing>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -154,14 +134,10 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_16_0" type="internal" x="48.93" y="48.35" incLanes=":0_6_0 1i_0" intLanes=":0_12_0 :0_13_0" shape="">
-    </junction>
-    <junction id=":0_17_0" type="internal" x="53.10" y="50.00" incLanes=":0_7_0 1i_0" intLanes=":0_13_0" shape="">
-    </junction>
-    <junction id=":0_18_0" type="internal" x="51.07" y="51.65" incLanes=":0_14_0 2i_0" intLanes=":0_4_0 :0_5_0" shape="">
-    </junction>
-    <junction id=":0_19_0" type="internal" x="46.90" y="50.00" incLanes=":0_15_0 2i_0" intLanes=":0_5_0" shape="">
-    </junction>
+    <junction id=":0_16_0" type="internal" x="48.93" y="48.35" incLanes=":0_6_0 1i_0" intLanes=":0_12_0 :0_13_0" shape=""/>
+    <junction id=":0_17_0" type="internal" x="53.10" y="50.00" incLanes=":0_7_0 1i_0" intLanes=":0_13_0" shape=""/>
+    <junction id=":0_18_0" type="internal" x="51.07" y="51.65" incLanes=":0_14_0 2i_0" intLanes=":0_4_0 :0_5_0" shape=""/>
+    <junction id=":0_19_0" type="internal" x="46.90" y="50.00" incLanes=":0_15_0 2i_0" intLanes=":0_5_0" shape=""/>
 
     <connection from="1i" to="3o" fromLane="0" toLane="0" via=":0_12_0" dir="r" state="M"/>
     <connection from="1i" to="2o" fromLane="0" toLane="0" via=":0_13_0" dir="s" state="M"/>

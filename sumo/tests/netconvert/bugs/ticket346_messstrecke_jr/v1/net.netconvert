@@ -1,28 +1,5 @@
-<?xml version="1.0"?>
-
-<!-- generated on 04/13/11 09:42:21 by SUMO netconvert Version dev-SVN-r10079
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <visum-file value="visum.net"/>
-    </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
-
-    <processing>
-        <no-internal-links value="true"/>
-    </processing>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -257,8 +234,7 @@
     <junction id="20" type="priority" x="1751.00" y="0.00" incLanes="20_0" intLanes="" shape="1751.05,-0.02 1754.06,-1.10 1747.94,1.10 1750.95,0.02">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="21" type="dead_end" x="1970.00" y="849.00" incLanes="" intLanes="" shape="">
-    </junction>
+    <junction id="21" type="dead_end" x="1970.00" y="849.00" incLanes="" intLanes="" shape=""/>
     <junction id="22" type="priority" x="625.00" y="561.00" incLanes="21_0 21_1 22_0 22_1" intLanes="" shape="625.39,567.54 624.57,554.46 624.42,554.48 625.62,567.52">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>

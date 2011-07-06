@@ -1,24 +1,5 @@
-<?xml version="1.0"?>
-
-<!-- generated on 01/12/11 13:09:36 by SUMO netconvert Version dev-SVN-r9534
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <xml-edge-files value="./sumo/bugs/ticket331/input_edges.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="./sumo/bugs/ticket331/net.net.xml"/>
-    </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -31,14 +12,10 @@
         <lane id="1_0" index="0" maxSpeed="13.89" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
     </edge>
 
-    <junction id="SUMOGenerated0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
-    <junction id="SUMOGenerated1" type="dead_end" x="2.00" y="0.00" incLanes="0_0" intLanes="" shape="2.00,-3.25 2.00,-0.05">
-    </junction>
-    <junction id="SUMOGenerated2" type="dead_end" x="2.00" y="0.00" incLanes="" intLanes="" shape="2.00,-0.05 2.00,-3.25">
-    </junction>
-    <junction id="SUMOGenerated3" type="dead_end" x="11.00" y="0.00" incLanes="1_0" intLanes="" shape="11.00,-3.25 11.00,-0.05">
-    </junction>
+    <junction id="SUMOGenerated0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="SUMOGenerated1" type="dead_end" x="2.00" y="0.00" incLanes="0_0" intLanes="" shape="2.00,-3.25 2.00,-0.05"/>
+    <junction id="SUMOGenerated2" type="dead_end" x="2.00" y="0.00" incLanes="" intLanes="" shape="2.00,-0.05 2.00,-3.25"/>
+    <junction id="SUMOGenerated3" type="dead_end" x="11.00" y="0.00" incLanes="1_0" intLanes="" shape="11.00,-3.25 11.00,-0.05"/>
 
     <succ edge="0" lane="0_0" junction="SUMOGenerated1">
         <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>

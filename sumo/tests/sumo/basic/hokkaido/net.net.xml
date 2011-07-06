@@ -1,25 +1,5 @@
-<?xml version="1.0"?>
-
-<!-- generated on 01/12/11 13:09:16 by SUMO netconvert Version dev-SVN-r9534
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <xml-node-files value="./sumo/basic/hokkaido/hokkaido_ext.nod.xml"/>
-        <xml-edge-files value="./sumo/basic/hokkaido/hokkaido_ext.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="./sumo/basic/hokkaido/net.net.xml"/>
-    </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -64,8 +44,7 @@
     <junction id="dr" type="priority" x="1700.00" y="0.00" incLanes="1_0" intLanes=":dr_0_0" shape="1699.93,1.60 1700.21,-1.59 1699.93,-1.60 1699.93,1.60">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="source" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
-    </junction>
+    <junction id="source" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
     <junction id="tl" type="priority" x="500.00" y="190.99" incLanes="3_0" intLanes=":tl_0_0" shape="500.07,192.59 500.07,189.39 499.79,192.58">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>

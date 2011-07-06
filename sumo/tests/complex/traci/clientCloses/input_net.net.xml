@@ -1,28 +1,5 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Sun Jul 26 12:00:47 2009 by SUMO netconvert Version dev-SVN-r7516
-<configuration>
-
-    <input
-        xml-node-files="./sumo/net.nod.xml"
-        xml-edge-files="./sumo/net.edg.xml"
-    />
-
-    <output
-        output-file="./sumo/net.net.xml"
-    />
-
-    <processing
-        speed-in-kmh="true"
-        no-internal-links="true"
-    />
-
-    <report
-        verbose="true"
-    />
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 

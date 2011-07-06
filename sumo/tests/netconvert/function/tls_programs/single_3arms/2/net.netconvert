@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jun  6 14:55:31 2011 by SUMO netconvert Version dev-SVN-r10510
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
-    </input>
-
-    <output>
-        <output value="net.net.xml"/>
-    </output>
-
-    <tls_building>
-        <tls.guess value="true"/>
-    </tls_building>
-
-    <report>
-        <verbose value="true"/>
-    </report>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -130,16 +106,11 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_6_0 :n5_7_0" shape="">
-    </junction>
-    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape="">
-    </junction>
-    <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0" shape="">
-    </junction>
-    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes="" shape="">
-    </junction>
-    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape="">
-    </junction>
+    <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_6_0 :n5_7_0" shape=""/>
+    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape=""/>
+    <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0" shape=""/>
+    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes="" shape=""/>
+    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape=""/>
 
     <connection from="e10" to="e11" fromLane="0" toLane="0" via=":n3_0_0" dir="t" state="M"/>
     <connection from="e11" to="e13" fromLane="0" toLane="0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="o"/>

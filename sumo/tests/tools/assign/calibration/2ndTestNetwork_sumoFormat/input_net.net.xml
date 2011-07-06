@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/02/11 23:29:03 by SUMO netconvert Version dev-SVN-r10807
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.nod.xml"/>
-        <edge-files value="tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml"/>
-        <type-files value="tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.typ.xml"/>
-    </input>
-
-    <output>
-        <output-file value="tools/assign/calibration/2ndTestNetwork_sumoFormat/input_net.net.xml"/>
-    </output>
-
-</configuration>
--->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
@@ -195,12 +178,9 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="910" type="dead_end" x="0.00" y="800.00" incLanes="" intLanes="" shape="0.00,799.95 0.00,796.75">
-    </junction>
-    <junction id="920" type="dead_end" x="800.00" y="0.00" incLanes="" intLanes="" shape="800.05,0.00 803.25,0.00">
-    </junction>
-    <junction id="930" type="dead_end" x="3500.00" y="800.00" incLanes="D3_0" intLanes="" shape="3500.00,796.75 3500.00,799.95">
-    </junction>
+    <junction id="910" type="dead_end" x="0.00" y="800.00" incLanes="" intLanes="" shape="0.00,799.95 0.00,796.75"/>
+    <junction id="920" type="dead_end" x="800.00" y="0.00" incLanes="" intLanes="" shape="800.05,0.00 803.25,0.00"/>
+    <junction id="930" type="dead_end" x="3500.00" y="800.00" incLanes="D3_0" intLanes="" shape="3500.00,796.75 3500.00,799.95"/>
 
     <connection from="D1" to="L2" fromLane="0" toLane="0" via=":1_0_0" dir="s" state="M"/>
     <connection from="D2" to="L3" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
