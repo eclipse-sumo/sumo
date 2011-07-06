@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="500.00,50.00" convBoundary="0.00,0.00,1800.00,100.00" origBoundary="-500.00,-50.00,1300.00,50.00" projParameter="!"/>
 
@@ -62,9 +62,9 @@
     <junction id="91" type="unregulated" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75">
     </junction>
 
-    <connection from="1to21" to="out" lane="0:0" tl="2" linkIndex="1" dir="s" state="o"/>
-    <connection from="1to22" to="out" lane="0:0" tl="2" linkIndex="0" dir="s" state="o"/>
-    <connection from="91to1" to="1to22" lane="0:0" dir="s" state="M"/>
-    <connection from="91to1" to="1to21" lane="0:0" dir="s" state="M"/>
+    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
+    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

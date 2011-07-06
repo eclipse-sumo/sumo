@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -63,12 +63,12 @@
     <junction id="4" type="unregulated" x="50.00" y="100.00" incLanes="4o_0" intLanes="" shape="53.25,100.00 50.05,100.00">
     </junction>
 
-    <connection from="2i" to="4o" lane="0:0" via=":0_0_0" dir="r" state="m"/>
-    <connection from="3i" to="2o" lane="0:0" via=":0_1_0" dir="r" state="M"/>
-    <connection from="3i" to="4o" lane="0:0" via=":0_2_0" dir="s" state="M"/>
+    <connection from="2i" to="4o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="m"/>
+    <connection from="3i" to="2o" fromLane="0" toLane="0" via=":0_1_0" dir="r" state="M"/>
+    <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_2_0" dir="s" state="M"/>
 
-    <connection from=":0_0" to="4o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_1" to="2o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_2" to="4o" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_0" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_1" to="2o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

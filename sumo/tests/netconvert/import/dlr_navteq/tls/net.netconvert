@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -118,29 +118,29 @@
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="-1" to="1" lane="2:2" dir="t" state="M"/>
-    <connection from="-2" to="2" lane="2:2" dir="t" state="M"/>
-    <connection from="-3" to="3" lane="2:1" dir="t" state="M"/>
-    <connection from="-4" to="4" lane="2:1" dir="t" state="M"/>
-    <connection from="1" to="-3" lane="0:0" tl="0" linkIndex="4" dir="r" state="o"/>
-    <connection from="1" to="-2" lane="0:0" tl="0" linkIndex="5" dir="s" state="o"/>
-    <connection from="1" to="-2" lane="1:1" tl="0" linkIndex="6" dir="s" state="o"/>
-    <connection from="1" to="-2" lane="2:2" tl="0" linkIndex="7" dir="s" state="o"/>
-    <connection from="1" to="-4" lane="2:2" tl="0" linkIndex="8" dir="l" state="o"/>
-    <connection from="1" to="-1" lane="2:2" tl="0" linkIndex="9" dir="t" state="o"/>
-    <connection from="2" to="-4" lane="0:0" tl="0" linkIndex="14" dir="r" state="o"/>
-    <connection from="2" to="-1" lane="0:0" tl="0" linkIndex="15" dir="s" state="o"/>
-    <connection from="2" to="-1" lane="1:1" tl="0" linkIndex="16" dir="s" state="o"/>
-    <connection from="2" to="-1" lane="2:2" tl="0" linkIndex="17" dir="s" state="o"/>
-    <connection from="2" to="-3" lane="2:2" tl="0" linkIndex="18" dir="l" state="o"/>
-    <connection from="2" to="-2" lane="2:2" tl="0" linkIndex="19" dir="t" state="o"/>
-    <connection from="3" to="-2" lane="0:0" tl="0" linkIndex="0" dir="r" state="o"/>
-    <connection from="3" to="-4" lane="1:1" tl="0" linkIndex="1" dir="s" state="o"/>
-    <connection from="3" to="-1" lane="1:2" tl="0" linkIndex="2" dir="l" state="o"/>
-    <connection from="3" to="-3" lane="1:2" tl="0" linkIndex="3" dir="t" state="o"/>
-    <connection from="4" to="-1" lane="0:0" tl="0" linkIndex="10" dir="r" state="o"/>
-    <connection from="4" to="-3" lane="1:1" tl="0" linkIndex="11" dir="s" state="o"/>
-    <connection from="4" to="-2" lane="1:2" tl="0" linkIndex="12" dir="l" state="o"/>
-    <connection from="4" to="-4" lane="1:2" tl="0" linkIndex="13" dir="t" state="o"/>
+    <connection from="-1" to="1" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-2" to="2" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-3" to="3" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="-4" to="4" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="1" to="-3" fromLane="0" toLane="0" tl="0" linkIndex="4" dir="r" state="o"/>
+    <connection from="1" to="-2" fromLane="0" toLane="0" tl="0" linkIndex="5" dir="s" state="o"/>
+    <connection from="1" to="-2" fromLane="1" toLane="1" tl="0" linkIndex="6" dir="s" state="o"/>
+    <connection from="1" to="-2" fromLane="2" toLane="2" tl="0" linkIndex="7" dir="s" state="o"/>
+    <connection from="1" to="-4" fromLane="2" toLane="2" tl="0" linkIndex="8" dir="l" state="o"/>
+    <connection from="1" to="-1" fromLane="2" toLane="2" tl="0" linkIndex="9" dir="t" state="o"/>
+    <connection from="2" to="-4" fromLane="0" toLane="0" tl="0" linkIndex="14" dir="r" state="o"/>
+    <connection from="2" to="-1" fromLane="0" toLane="0" tl="0" linkIndex="15" dir="s" state="o"/>
+    <connection from="2" to="-1" fromLane="1" toLane="1" tl="0" linkIndex="16" dir="s" state="o"/>
+    <connection from="2" to="-1" fromLane="2" toLane="2" tl="0" linkIndex="17" dir="s" state="o"/>
+    <connection from="2" to="-3" fromLane="2" toLane="2" tl="0" linkIndex="18" dir="l" state="o"/>
+    <connection from="2" to="-2" fromLane="2" toLane="2" tl="0" linkIndex="19" dir="t" state="o"/>
+    <connection from="3" to="-2" fromLane="0" toLane="0" tl="0" linkIndex="0" dir="r" state="o"/>
+    <connection from="3" to="-4" fromLane="1" toLane="1" tl="0" linkIndex="1" dir="s" state="o"/>
+    <connection from="3" to="-1" fromLane="1" toLane="2" tl="0" linkIndex="2" dir="l" state="o"/>
+    <connection from="3" to="-3" fromLane="1" toLane="2" tl="0" linkIndex="3" dir="t" state="o"/>
+    <connection from="4" to="-1" fromLane="0" toLane="0" tl="0" linkIndex="10" dir="r" state="o"/>
+    <connection from="4" to="-3" fromLane="1" toLane="1" tl="0" linkIndex="11" dir="s" state="o"/>
+    <connection from="4" to="-2" fromLane="1" toLane="2" tl="0" linkIndex="12" dir="l" state="o"/>
+    <connection from="4" to="-4" fromLane="1" toLane="2" tl="0" linkIndex="13" dir="t" state="o"/>
 
 </net>

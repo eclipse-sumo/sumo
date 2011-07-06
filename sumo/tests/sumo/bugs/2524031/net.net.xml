@@ -14,7 +14,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="210.00,0.00" convBoundary="0.00,0.00,420.00,1.00" origBoundary="-210.00,0.00,210.00,1.00" projParameter="!"/>
 

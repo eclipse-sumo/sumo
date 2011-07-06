@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -112,32 +112,32 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="2i" to="4o" lane="0:0" via=":0_3_0" dir="r" state="M"/>
-    <connection from="2i" to="1o" lane="0:0" via=":0_4_0" dir="s" state="M"/>
-    <connection from="2i" to="1o" lane="1:1" via=":0_5_0" dir="s" state="M"/>
-    <connection from="2i" to="1o" lane="2:2" via=":0_6_0" dir="s" state="M"/>
-    <connection from="2i" to="3o" lane="2:0" via=":0_7_0" dir="l" state="M"/>
-    <connection from="3i" to="4o" lane="0:0" via=":0_8_0" dir="s" state="m"/>
-    <connection from="3i" to="1o" lane="0:2" via=":0_9_0" dir="l" state="m"/>
-    <connection from="3i" to="3o" lane="0:0" via=":0_10_0" dir="t" state="m"/>
-    <connection from="3o" to="3i" lane="0:0" via=":3_0_0" dir="t" state="M"/>
-    <connection from="4i" to="1o" lane="0:0" via=":0_0_0" dir="r" state="m"/>
-    <connection from="4i" to="3o" lane="0:0" via=":0_1_0" dir="s" state="m"/>
-    <connection from="4i" to="4o" lane="0:0" via=":0_2_0" dir="t" state="m"/>
-    <connection from="4o" to="4i" lane="0:0" via=":4_0_0" dir="t" state="M"/>
+    <connection from="2i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="r" state="M"/>
+    <connection from="2i" to="1o" fromLane="0" toLane="0" via=":0_4_0" dir="s" state="M"/>
+    <connection from="2i" to="1o" fromLane="1" toLane="1" via=":0_5_0" dir="s" state="M"/>
+    <connection from="2i" to="1o" fromLane="2" toLane="2" via=":0_6_0" dir="s" state="M"/>
+    <connection from="2i" to="3o" fromLane="2" toLane="0" via=":0_7_0" dir="l" state="M"/>
+    <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_8_0" dir="s" state="m"/>
+    <connection from="3i" to="1o" fromLane="0" toLane="2" via=":0_9_0" dir="l" state="m"/>
+    <connection from="3i" to="3o" fromLane="0" toLane="0" via=":0_10_0" dir="t" state="m"/>
+    <connection from="3o" to="3i" fromLane="0" toLane="0" via=":3_0_0" dir="t" state="M"/>
+    <connection from="4i" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="m"/>
+    <connection from="4i" to="3o" fromLane="0" toLane="0" via=":0_1_0" dir="s" state="m"/>
+    <connection from="4i" to="4o" fromLane="0" toLane="0" via=":0_2_0" dir="t" state="m"/>
+    <connection from="4o" to="4i" fromLane="0" toLane="0" via=":4_0_0" dir="t" state="M"/>
 
-    <connection from=":0_0" to="1o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_1" to="3o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_2" to="4o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_3" to="4o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_4" to="1o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_5" to="1o" lane="0:1" dir="s" state="M"/>
-    <connection from=":0_6" to="1o" lane="0:2" dir="s" state="M"/>
-    <connection from=":0_7" to="3o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_8" to="4o" lane="0:0" dir="s" state="M"/>
-    <connection from=":0_9" to="1o" lane="0:2" dir="s" state="M"/>
-    <connection from=":0_10" to="3o" lane="0:0" dir="s" state="M"/>
-    <connection from=":3_0" to="3i" lane="0:0" dir="s" state="M"/>
-    <connection from=":4_0" to="4i" lane="0:0" dir="s" state="M"/>
+    <connection from=":0_0" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_1" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_2" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_3" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_4" to="1o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_5" to="1o" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":0_6" to="1o" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":0_7" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_8" to="4o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":0_9" to="1o" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":0_10" to="3o" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3_0" to="3i" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4_0" to="4i" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

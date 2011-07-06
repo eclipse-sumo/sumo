@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-14465.13,-28133.00" convBoundary="0.00,0.00,255.81,227.00" origBoundary="14465.13,28133.00,14720.94,28360.00" projParameter="!"/>
 
@@ -130,41 +130,46 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_6_0 :n5_7_0" shape=""/>
-    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape=""/>
-    <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0" shape=""/>
-    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes="" shape=""/>
-    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape=""/>
+    <junction id=":n5_9_0" type="internal" x="129.18" y="201.49" incLanes=":n5_1_0 e11_0" intLanes=":n5_6_0 :n5_7_0" shape="">
+    </junction>
+    <junction id=":n5_10_0" type="internal" x="133.70" y="202.26" incLanes=":n5_2_0 e11_0" intLanes=":n5_7_0" shape="">
+    </junction>
+    <junction id=":n5_11_0" type="internal" x="131.27" y="201.04" incLanes=":n5_4_0 e21_0" intLanes=":n5_0_0" shape="">
+    </junction>
+    <junction id=":n5_12_0" type="internal" x="129.86" y="199.73" incLanes=":n5_5_0" intLanes="" shape="">
+    </junction>
+    <junction id=":n5_13_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e21_0" intLanes=":n5_0_0" shape="">
+    </junction>
 
-    <connection from="e10" to="e11" lane="0:0" via=":n3_0_0" dir="t" state="M"/>
-    <connection from="e11" to="e13" lane="0:0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="o"/>
-    <connection from="e11" to="e22" lane="0:0" via=":n5_7_0" tl="n5" linkIndex="7" dir="s" state="o"/>
-    <connection from="e11" to="e10" lane="0:0" via=":n5_8_0" tl="n5" linkIndex="8" dir="t" state="o"/>
-    <connection from="e13" to="e16" lane="0:0" via=":n1_0_0" dir="t" state="M"/>
-    <connection from="e16" to="e22" lane="0:0" via=":n5_3_0" tl="n5" linkIndex="3" dir="r" state="o"/>
-    <connection from="e16" to="e10" lane="0:0" via=":n5_4_0" tl="n5" linkIndex="4" dir="l" state="o"/>
-    <connection from="e16" to="e13" lane="0:0" via=":n5_5_0" tl="n5" linkIndex="5" dir="t" state="o"/>
-    <connection from="e21" to="e10" lane="0:0" via=":n5_0_0" tl="n5" linkIndex="0" dir="s" state="o"/>
-    <connection from="e21" to="e13" lane="0:0" via=":n5_1_0" tl="n5" linkIndex="1" dir="l" state="o"/>
-    <connection from="e21" to="e22" lane="0:0" via=":n5_2_0" tl="n5" linkIndex="2" dir="t" state="o"/>
-    <connection from="e22" to="e21" lane="0:0" via=":n13_0_0" dir="t" state="M"/>
+    <connection from="e10" to="e11" fromLane="0" toLane="0" via=":n3_0_0" dir="t" state="M"/>
+    <connection from="e11" to="e13" fromLane="0" toLane="0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="o"/>
+    <connection from="e11" to="e22" fromLane="0" toLane="0" via=":n5_7_0" tl="n5" linkIndex="7" dir="s" state="o"/>
+    <connection from="e11" to="e10" fromLane="0" toLane="0" via=":n5_8_0" tl="n5" linkIndex="8" dir="t" state="o"/>
+    <connection from="e13" to="e16" fromLane="0" toLane="0" via=":n1_0_0" dir="t" state="M"/>
+    <connection from="e16" to="e22" fromLane="0" toLane="0" via=":n5_3_0" tl="n5" linkIndex="3" dir="r" state="o"/>
+    <connection from="e16" to="e10" fromLane="0" toLane="0" via=":n5_4_0" tl="n5" linkIndex="4" dir="l" state="o"/>
+    <connection from="e16" to="e13" fromLane="0" toLane="0" via=":n5_5_0" tl="n5" linkIndex="5" dir="t" state="o"/>
+    <connection from="e21" to="e10" fromLane="0" toLane="0" via=":n5_0_0" tl="n5" linkIndex="0" dir="s" state="o"/>
+    <connection from="e21" to="e13" fromLane="0" toLane="0" via=":n5_1_0" tl="n5" linkIndex="1" dir="l" state="o"/>
+    <connection from="e21" to="e22" fromLane="0" toLane="0" via=":n5_2_0" tl="n5" linkIndex="2" dir="t" state="o"/>
+    <connection from="e22" to="e21" fromLane="0" toLane="0" via=":n13_0_0" dir="t" state="M"/>
 
-    <connection from=":n1_0" to="e16" lane="0:0" dir="s" state="M"/>
-    <connection from=":n13_0" to="e21" lane="0:0" dir="s" state="M"/>
-    <connection from=":n3_0" to="e11" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_0" to="e10" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_1" to="e13" lane="0:0" via=":n5_9_0" dir="s" state="M"/>
-    <connection from=":n5_9" to="e13" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_2" to="e22" lane="0:0" via=":n5_10_0" dir="s" state="M"/>
-    <connection from=":n5_10" to="e22" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_3" to="e22" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_4" to="e10" lane="0:0" via=":n5_11_0" dir="s" state="M"/>
-    <connection from=":n5_11" to="e10" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_5" to="e13" lane="0:0" via=":n5_12_0" dir="s" state="M"/>
-    <connection from=":n5_12" to="e13" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_6" to="e13" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_7" to="e22" lane="0:0" dir="s" state="M"/>
-    <connection from=":n5_8" to="e10" lane="0:0" via=":n5_13_0" dir="s" state="M"/>
-    <connection from=":n5_13" to="e10" lane="0:0" dir="s" state="M"/>
+    <connection from=":n1_0" to="e16" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n13_0" to="e21" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n3_0" to="e11" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_0" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_1" to="e13" fromLane="0" toLane="0" via=":n5_9_0" dir="s" state="M"/>
+    <connection from=":n5_9" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_2" to="e22" fromLane="0" toLane="0" via=":n5_10_0" dir="s" state="M"/>
+    <connection from=":n5_10" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_3" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_4" to="e10" fromLane="0" toLane="0" via=":n5_11_0" dir="s" state="M"/>
+    <connection from=":n5_11" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_5" to="e13" fromLane="0" toLane="0" via=":n5_12_0" dir="s" state="M"/>
+    <connection from=":n5_12" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_6" to="e13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_7" to="e22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":n5_8" to="e10" fromLane="0" toLane="0" via=":n5_13_0" dir="s" state="M"/>
+    <connection from=":n5_13" to="e10" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

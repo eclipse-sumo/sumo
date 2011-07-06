@@ -34,7 +34,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -112,29 +112,29 @@
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="-1" to="1" lane="2:2" dir="t" state="M"/>
-    <connection from="-2" to="2" lane="2:2" dir="t" state="M"/>
-    <connection from="-3" to="3" lane="2:1" dir="t" state="M"/>
-    <connection from="-4" to="4" lane="2:1" dir="t" state="M"/>
-    <connection from="1" to="-3" lane="0:0" dir="r" state="M"/>
-    <connection from="1" to="-2" lane="0:0" dir="s" state="M"/>
-    <connection from="1" to="-2" lane="1:1" dir="s" state="M"/>
-    <connection from="1" to="-2" lane="2:2" dir="s" state="M"/>
-    <connection from="1" to="-4" lane="2:2" dir="l" state="m"/>
-    <connection from="1" to="-1" lane="2:2" dir="t" state="m"/>
-    <connection from="2" to="-4" lane="0:0" dir="r" state="M"/>
-    <connection from="2" to="-1" lane="0:0" dir="s" state="M"/>
-    <connection from="2" to="-1" lane="1:1" dir="s" state="M"/>
-    <connection from="2" to="-1" lane="2:2" dir="s" state="M"/>
-    <connection from="2" to="-3" lane="2:2" dir="l" state="m"/>
-    <connection from="2" to="-2" lane="2:2" dir="t" state="m"/>
-    <connection from="3" to="-2" lane="0:0" dir="r" state="m"/>
-    <connection from="3" to="-4" lane="1:1" dir="s" state="M"/>
-    <connection from="3" to="-1" lane="1:2" dir="l" state="m"/>
-    <connection from="3" to="-3" lane="1:2" dir="t" state="m"/>
-    <connection from="4" to="-1" lane="0:0" dir="r" state="m"/>
-    <connection from="4" to="-3" lane="1:1" dir="s" state="M"/>
-    <connection from="4" to="-2" lane="1:2" dir="l" state="m"/>
-    <connection from="4" to="-4" lane="1:2" dir="t" state="m"/>
+    <connection from="-1" to="1" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-2" to="2" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-3" to="3" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="-4" to="4" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="1" to="-3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1" to="-2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="-2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="-2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="1" to="-4" fromLane="2" toLane="2" dir="l" state="m"/>
+    <connection from="1" to="-1" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="2" to="-4" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2" to="-1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to="-1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2" to="-1" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="2" to="-3" fromLane="2" toLane="2" dir="l" state="m"/>
+    <connection from="2" to="-2" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="3" to="-2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3" to="-4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3" to="-1" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="3" to="-3" fromLane="1" toLane="2" dir="t" state="m"/>
+    <connection from="4" to="-1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="4" to="-3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="4" to="-2" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="4" to="-4" fromLane="1" toLane="2" dir="t" state="m"/>
 
 </net>

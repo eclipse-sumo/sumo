@@ -36,54 +36,54 @@
 -->
 
 <connections>
-	<connection from="-4312" to="9910" lane="0:0"/>
-	<connection from="-4312" to="9910" lane="1:1"/>
-	<connection from="-4312" to="-7783" lane="1:0"/>
-	<connection from="-4312" to="4312" lane="1:1"/>
+	<connection from="-4312" to="9910" fromLane="0" toLane="0"/>
+	<connection from="-4312" to="9910" fromLane="1" toLane="1"/>
+	<connection from="-4312" to="-7783" fromLane="1" toLane="0"/>
+	<connection from="-4312" to="4312" fromLane="1" toLane="1"/>
 
-	<connection from="-9458" to="-9916" lane="0:0"/>
-	<connection from="-9458" to="-9916" lane="1:1"/>
+	<connection from="-9458" to="-9916" fromLane="0" toLane="0"/>
+	<connection from="-9458" to="-9916" fromLane="1" toLane="1"/>
 
-	<connection from="-9908" to="9908" lane="1:1"/>
+	<connection from="-9908" to="9908" fromLane="1" toLane="1"/>
 
-	<connection from="-9910" to="-7783" lane="0:0"/>
-	<connection from="-9910" to="4312" lane="0:0"/>
-	<connection from="-9910" to="4312" lane="1:1"/>
-	<connection from="-9910" to="9910" lane="1:1"/>
+	<connection from="-9910" to="-7783" fromLane="0" toLane="0"/>
+	<connection from="-9910" to="4312" fromLane="0" toLane="0"/>
+	<connection from="-9910" to="4312" fromLane="1" toLane="1"/>
+	<connection from="-9910" to="9910" fromLane="1" toLane="1"/>
 
-	<connection from="-9912" to="9912" lane="1:2"/>
+	<connection from="-9912" to="9912" fromLane="1" toLane="2"/>
 
-	<connection from="-9914" to="-9910" lane="0:0"/>
-	<connection from="-9914" to="-9917" lane="0:0"/>
-	<connection from="-9914" to="-9910" lane="1:1"/>
-	<connection from="-9914" to="-9917" lane="1:1"/>
+	<connection from="-9914" to="-9910" fromLane="0" toLane="0"/>
+	<connection from="-9914" to="-9917" fromLane="0" toLane="0"/>
+	<connection from="-9914" to="-9910" fromLane="1" toLane="1"/>
+	<connection from="-9914" to="-9917" fromLane="1" toLane="1"/>
 
-	<connection from="-9915" to="-9912" lane="0:0"/>
-	<connection from="-9915" to="-9914" lane="0:0"/>
-	<connection from="-9915" to="-9912" lane="1:1"/>
-	<connection from="-9915" to="-9914" lane="1:1"/>
+	<connection from="-9915" to="-9912" fromLane="0" toLane="0"/>
+	<connection from="-9915" to="-9914" fromLane="0" toLane="0"/>
+	<connection from="-9915" to="-9912" fromLane="1" toLane="1"/>
+	<connection from="-9915" to="-9914" fromLane="1" toLane="1"/>
 
-	<connection from="-9916" to="-9908" lane="0:0"/>
-	<connection from="-9916" to="-9915" lane="0:0"/>
-	<connection from="-9916" to="-9908" lane="1:1"/>
-	<connection from="-9916" to="-9915" lane="1:1"/>
+	<connection from="-9916" to="-9908" fromLane="0" toLane="0"/>
+	<connection from="-9916" to="-9915" fromLane="0" toLane="0"/>
+	<connection from="-9916" to="-9908" fromLane="1" toLane="1"/>
+	<connection from="-9916" to="-9915" fromLane="1" toLane="1"/>
 
-	<connection from="-9917" to="9458" lane="0:0"/>
-	<connection from="-9917" to="-9916" lane="0:0"/>
-	<connection from="-9917" to="9458" lane="1:1"/>
-	<connection from="-9917" to="-9916" lane="1:1"/>
+	<connection from="-9917" to="9458" fromLane="0" toLane="0"/>
+	<connection from="-9917" to="-9916" fromLane="0" toLane="0"/>
+	<connection from="-9917" to="9458" fromLane="1" toLane="1"/>
+	<connection from="-9917" to="-9916" fromLane="1" toLane="1"/>
 
-	<connection from="4312" to="-4312" lane="1:1"/>
+	<connection from="4312" to="-4312" fromLane="1" toLane="1"/>
 
-	<connection from="9458" to="-9458" lane="1:2"/>
+	<connection from="9458" to="-9458" fromLane="1" toLane="2"/>
 
-	<connection from="9908" to="-9915" lane="0:0"/>
-	<connection from="9908" to="-9915" lane="1:1"/>
+	<connection from="9908" to="-9915" fromLane="0" toLane="0"/>
+	<connection from="9908" to="-9915" fromLane="1" toLane="1"/>
 
-	<connection from="9910" to="-9917" lane="0:0"/>
-	<connection from="9910" to="-9917" lane="1:1"/>
+	<connection from="9910" to="-9917" fromLane="0" toLane="0"/>
+	<connection from="9910" to="-9917" fromLane="1" toLane="1"/>
 
-	<connection from="9912" to="-9914" lane="0:0"/>
-	<connection from="9912" to="-9914" lane="1:1"/>
+	<connection from="9912" to="-9914" fromLane="0" toLane="0"/>
+	<connection from="9912" to="-9914" fromLane="1" toLane="1"/>
 
 </connections>

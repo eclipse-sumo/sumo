@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1795.49,190.99" origBoundary="-500.00,0.00,1295.49,190.99" projParameter="!"/>
 
@@ -73,16 +73,16 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="1" to="2" lane="0:0" via=":dr_0_0" dir="s" state="M"/>
-    <connection from="2" to="3" lane="0:0" via=":tr_0_0" dir="s" state="M"/>
-    <connection from="3" to="4" lane="0:0" via=":tl_0_0" dir="s" state="M"/>
-    <connection from="4" to="1" lane="0:0" via=":dl_1_0" dir="s" state="M"/>
-    <connection from="source" to="1" lane="0:0" via=":dl_0_0" dir="s" state="m"/>
+    <connection from="1" to="2" fromLane="0" toLane="0" via=":dr_0_0" dir="s" state="M"/>
+    <connection from="2" to="3" fromLane="0" toLane="0" via=":tr_0_0" dir="s" state="M"/>
+    <connection from="3" to="4" fromLane="0" toLane="0" via=":tl_0_0" dir="s" state="M"/>
+    <connection from="4" to="1" fromLane="0" toLane="0" via=":dl_1_0" dir="s" state="M"/>
+    <connection from="source" to="1" fromLane="0" toLane="0" via=":dl_0_0" dir="s" state="m"/>
 
-    <connection from=":dl_0" to="1" lane="0:0" dir="s" state="M"/>
-    <connection from=":dl_1" to="1" lane="0:0" dir="s" state="M"/>
-    <connection from=":dr_0" to="2" lane="0:0" dir="s" state="M"/>
-    <connection from=":tl_0" to="4" lane="0:0" dir="s" state="M"/>
-    <connection from=":tr_0" to="3" lane="0:0" dir="s" state="M"/>
+    <connection from=":dl_0" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":dl_1" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":dr_0" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":tl_0" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":tr_0" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

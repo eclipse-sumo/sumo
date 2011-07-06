@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="1589.00,1511.23" convBoundary="0.00,0.00,3178.00,3022.46" origBoundary="-1589.00,-1511.23,1589.00,1511.23" projParameter="!"/>
 
@@ -199,46 +199,46 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <connection from="1/1to10/1" to="10/1to9/1" lane="0:0" via=":10/1_0_0" dir="s" state="M"/>
-    <connection from="1/1to2/1" to="2/1to3/1" lane="0:0" via=":2/1_0_0" dir="s" state="M"/>
-    <connection from="10/1to1/1" to="1/1to2/1" lane="0:0" via=":1/1_0_0" dir="s" state="M"/>
-    <connection from="10/1to9/1" to="9/1to8/1" lane="0:0" via=":9/1_0_0" dir="s" state="M"/>
-    <connection from="2/1to1/1" to="1/1to10/1" lane="0:0" via=":1/1_1_0" dir="s" state="M"/>
-    <connection from="2/1to3/1" to="3/1to4/1" lane="0:0" via=":3/1_0_0" dir="s" state="M"/>
-    <connection from="3/1to2/1" to="2/1to1/1" lane="0:0" via=":2/1_1_0" dir="s" state="M"/>
-    <connection from="3/1to4/1" to="4/1to5/1" lane="0:0" via=":4/1_0_0" dir="s" state="M"/>
-    <connection from="4/1to3/1" to="3/1to2/1" lane="0:0" via=":3/1_1_0" dir="s" state="M"/>
-    <connection from="4/1to5/1" to="5/1to6/1" lane="0:0" via=":5/1_0_0" dir="s" state="M"/>
-    <connection from="5/1to4/1" to="4/1to3/1" lane="0:0" via=":4/1_1_0" dir="s" state="M"/>
-    <connection from="5/1to6/1" to="6/1to7/1" lane="0:0" via=":6/1_0_0" dir="s" state="M"/>
-    <connection from="6/1to5/1" to="5/1to4/1" lane="0:0" via=":5/1_1_0" dir="s" state="M"/>
-    <connection from="6/1to7/1" to="7/1to8/1" lane="0:0" via=":7/1_1_0" dir="s" state="M"/>
-    <connection from="7/1to6/1" to="6/1to5/1" lane="0:0" via=":6/1_1_0" dir="s" state="M"/>
-    <connection from="7/1to8/1" to="8/1to9/1" lane="0:0" via=":8/1_1_0" dir="s" state="M"/>
-    <connection from="8/1to7/1" to="7/1to6/1" lane="0:0" via=":7/1_0_0" dir="s" state="M"/>
-    <connection from="8/1to9/1" to="9/1to10/1" lane="0:0" via=":9/1_1_0" dir="s" state="M"/>
-    <connection from="9/1to10/1" to="10/1to1/1" lane="0:0" via=":10/1_1_0" dir="s" state="M"/>
-    <connection from="9/1to8/1" to="8/1to7/1" lane="0:0" via=":8/1_0_0" dir="s" state="M"/>
+    <connection from="1/1to10/1" to="10/1to9/1" fromLane="0" toLane="0" via=":10/1_0_0" dir="s" state="M"/>
+    <connection from="1/1to2/1" to="2/1to3/1" fromLane="0" toLane="0" via=":2/1_0_0" dir="s" state="M"/>
+    <connection from="10/1to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_0_0" dir="s" state="M"/>
+    <connection from="10/1to9/1" to="9/1to8/1" fromLane="0" toLane="0" via=":9/1_0_0" dir="s" state="M"/>
+    <connection from="2/1to1/1" to="1/1to10/1" fromLane="0" toLane="0" via=":1/1_1_0" dir="s" state="M"/>
+    <connection from="2/1to3/1" to="3/1to4/1" fromLane="0" toLane="0" via=":3/1_0_0" dir="s" state="M"/>
+    <connection from="3/1to2/1" to="2/1to1/1" fromLane="0" toLane="0" via=":2/1_1_0" dir="s" state="M"/>
+    <connection from="3/1to4/1" to="4/1to5/1" fromLane="0" toLane="0" via=":4/1_0_0" dir="s" state="M"/>
+    <connection from="4/1to3/1" to="3/1to2/1" fromLane="0" toLane="0" via=":3/1_1_0" dir="s" state="M"/>
+    <connection from="4/1to5/1" to="5/1to6/1" fromLane="0" toLane="0" via=":5/1_0_0" dir="s" state="M"/>
+    <connection from="5/1to4/1" to="4/1to3/1" fromLane="0" toLane="0" via=":4/1_1_0" dir="s" state="M"/>
+    <connection from="5/1to6/1" to="6/1to7/1" fromLane="0" toLane="0" via=":6/1_0_0" dir="s" state="M"/>
+    <connection from="6/1to5/1" to="5/1to4/1" fromLane="0" toLane="0" via=":5/1_1_0" dir="s" state="M"/>
+    <connection from="6/1to7/1" to="7/1to8/1" fromLane="0" toLane="0" via=":7/1_1_0" dir="s" state="M"/>
+    <connection from="7/1to6/1" to="6/1to5/1" fromLane="0" toLane="0" via=":6/1_1_0" dir="s" state="M"/>
+    <connection from="7/1to8/1" to="8/1to9/1" fromLane="0" toLane="0" via=":8/1_1_0" dir="s" state="M"/>
+    <connection from="8/1to7/1" to="7/1to6/1" fromLane="0" toLane="0" via=":7/1_0_0" dir="s" state="M"/>
+    <connection from="8/1to9/1" to="9/1to10/1" fromLane="0" toLane="0" via=":9/1_1_0" dir="s" state="M"/>
+    <connection from="9/1to10/1" to="10/1to1/1" fromLane="0" toLane="0" via=":10/1_1_0" dir="s" state="M"/>
+    <connection from="9/1to8/1" to="8/1to7/1" fromLane="0" toLane="0" via=":8/1_0_0" dir="s" state="M"/>
 
-    <connection from=":1/1_0" to="1/1to2/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":1/1_1" to="1/1to10/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":10/1_0" to="10/1to9/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":10/1_1" to="10/1to1/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":2/1_0" to="2/1to3/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":2/1_1" to="2/1to1/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":3/1_0" to="3/1to4/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":3/1_1" to="3/1to2/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":4/1_0" to="4/1to5/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":4/1_1" to="4/1to3/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":5/1_0" to="5/1to6/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":5/1_1" to="5/1to4/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":6/1_0" to="6/1to7/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":6/1_1" to="6/1to5/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":7/1_0" to="7/1to6/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":7/1_1" to="7/1to8/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":8/1_0" to="8/1to7/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":8/1_1" to="8/1to9/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":9/1_0" to="9/1to8/1" lane="0:0" dir="s" state="M"/>
-    <connection from=":9/1_1" to="9/1to10/1" lane="0:0" dir="s" state="M"/>
+    <connection from=":1/1_0" to="1/1to2/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1/1_1" to="1/1to10/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":10/1_0" to="10/1to9/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":10/1_1" to="10/1to1/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2/1_0" to="2/1to3/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2/1_1" to="2/1to1/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3/1_0" to="3/1to4/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3/1_1" to="3/1to2/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4/1_0" to="4/1to5/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4/1_1" to="4/1to3/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":5/1_0" to="5/1to6/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":5/1_1" to="5/1to4/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":6/1_0" to="6/1to7/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":6/1_1" to="6/1to5/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7/1_0" to="7/1to6/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":7/1_1" to="7/1to8/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":8/1_0" to="8/1to7/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":8/1_1" to="8/1to9/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9/1_0" to="9/1to8/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":9/1_1" to="9/1to10/1" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

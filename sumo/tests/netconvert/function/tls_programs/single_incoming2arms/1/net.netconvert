@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-16903.00,-20963.00" convBoundary="0.00,0.00,405.00,265.00" origBoundary="16903.00,20963.00,17308.00,21228.00" projParameter="!"/>
 
@@ -85,18 +85,18 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="-152850000" to="153120299" lane="0:1" via=":15030102_3_0" tl="15030102" linkIndex="3" dir="l" state="o"/>
-    <connection from="-152850000" to="152850000" lane="0:0" via=":15030102_4_0" tl="15030102" linkIndex="4" dir="t" state="o"/>
-    <connection from="152850000" to="-152850000" lane="0:0" via=":15034045_0_0" dir="t" state="M"/>
-    <connection from="153120297" to="153120299" lane="0:0" via=":15030102_0_0" tl="15030102" linkIndex="0" dir="s" state="o"/>
-    <connection from="153120297" to="153120299" lane="1:1" via=":15030102_1_0" tl="15030102" linkIndex="1" dir="s" state="o"/>
-    <connection from="153120297" to="152850000" lane="1:0" via=":15030102_2_0" tl="15030102" linkIndex="2" dir="l" state="o"/>
+    <connection from="-152850000" to="153120299" fromLane="0" toLane="1" via=":15030102_3_0" tl="15030102" linkIndex="3" dir="l" state="o"/>
+    <connection from="-152850000" to="152850000" fromLane="0" toLane="0" via=":15030102_4_0" tl="15030102" linkIndex="4" dir="t" state="o"/>
+    <connection from="152850000" to="-152850000" fromLane="0" toLane="0" via=":15034045_0_0" dir="t" state="M"/>
+    <connection from="153120297" to="153120299" fromLane="0" toLane="0" via=":15030102_0_0" tl="15030102" linkIndex="0" dir="s" state="o"/>
+    <connection from="153120297" to="153120299" fromLane="1" toLane="1" via=":15030102_1_0" tl="15030102" linkIndex="1" dir="s" state="o"/>
+    <connection from="153120297" to="152850000" fromLane="1" toLane="0" via=":15030102_2_0" tl="15030102" linkIndex="2" dir="l" state="o"/>
 
-    <connection from=":15030102_0" to="153120299" lane="0:0" dir="s" state="M"/>
-    <connection from=":15030102_1" to="153120299" lane="0:1" dir="s" state="M"/>
-    <connection from=":15030102_2" to="152850000" lane="0:0" dir="s" state="M"/>
-    <connection from=":15030102_3" to="153120299" lane="0:1" dir="s" state="M"/>
-    <connection from=":15030102_4" to="152850000" lane="0:0" dir="s" state="M"/>
-    <connection from=":15034045_0" to="-152850000" lane="0:0" dir="s" state="M"/>
+    <connection from=":15030102_0" to="153120299" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15030102_1" to="153120299" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":15030102_2" to="152850000" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15030102_3" to="153120299" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":15030102_4" to="152850000" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15034045_0" to="-152850000" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

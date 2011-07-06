@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,0.00" origBoundary="0.00,0.00,40.00,0.00" projParameter="!"/>
 
@@ -66,18 +66,18 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="edge_with_shape" to="reverse_edge" lane="0:0" via=":node_left_0_0" dir="t" state="M"/>
-    <connection from="edge_with_shape" to="reverse_edge" lane="1:1" via=":node_left_1_0" dir="t" state="M"/>
-    <connection from="edge_with_shape" to="reverse_edge" lane="2:2" via=":node_left_2_0" dir="t" state="M"/>
-    <connection from="reverse_edge" to="edge_with_shape" lane="0:0" via=":node_right_0_0" dir="t" state="M"/>
-    <connection from="reverse_edge" to="edge_with_shape" lane="1:1" via=":node_right_1_0" dir="t" state="M"/>
-    <connection from="reverse_edge" to="edge_with_shape" lane="2:2" via=":node_right_2_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="1" toLane="1" via=":node_left_1_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="2" toLane="2" via=":node_left_2_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" fromLane="1" toLane="1" via=":node_right_1_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" fromLane="2" toLane="2" via=":node_right_2_0" dir="t" state="M"/>
 
-    <connection from=":node_left_0" to="reverse_edge" lane="0:0" dir="s" state="M"/>
-    <connection from=":node_left_1" to="reverse_edge" lane="0:1" dir="s" state="M"/>
-    <connection from=":node_left_2" to="reverse_edge" lane="0:2" dir="s" state="M"/>
-    <connection from=":node_right_0" to="edge_with_shape" lane="0:0" dir="s" state="M"/>
-    <connection from=":node_right_1" to="edge_with_shape" lane="0:1" dir="s" state="M"/>
-    <connection from=":node_right_2" to="edge_with_shape" lane="0:2" dir="s" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_left_1" to="reverse_edge" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":node_left_2" to="reverse_edge" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_right_1" to="edge_with_shape" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":node_right_2" to="edge_with_shape" fromLane="0" toLane="2" dir="s" state="M"/>
 
 </net>

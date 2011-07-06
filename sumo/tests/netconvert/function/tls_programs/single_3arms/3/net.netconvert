@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-13039.00,-18241.00" convBoundary="0.00,0.00,255.00,96.00" origBoundary="13039.00,18241.00,13294.00,18337.00" projParameter="!"/>
 
@@ -130,41 +130,46 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":15031750_9_0" type="internal" x="214.93" y="61.89" incLanes=":15031750_2_0 -15033077_0" intLanes=":15031750_3_0" shape=""/>
-    <junction id=":15031750_10_0" type="internal" x="212.50" y="62.90" incLanes=":15031750_4_0 -15033109_0" intLanes=":15031750_0_0 :15031750_1_0" shape=""/>
-    <junction id=":15031750_11_0" type="internal" x="208.94" y="60.12" incLanes=":15031750_5_0 -15033109_0" intLanes=":15031750_1_0" shape=""/>
-    <junction id=":15031750_12_0" type="internal" x="210.46" y="62.30" incLanes=":15031750_7_0 -15033109_0" intLanes=":15031750_1_0" shape=""/>
-    <junction id=":15031750_13_0" type="internal" x="211.05" y="64.03" incLanes=":15031750_8_0 -15033109_0" intLanes=":15031750_0_0" shape=""/>
+    <junction id=":15031750_9_0" type="internal" x="214.93" y="61.89" incLanes=":15031750_2_0 -15033077_0" intLanes=":15031750_3_0" shape="">
+    </junction>
+    <junction id=":15031750_10_0" type="internal" x="212.50" y="62.90" incLanes=":15031750_4_0 -15033109_0" intLanes=":15031750_0_0 :15031750_1_0" shape="">
+    </junction>
+    <junction id=":15031750_11_0" type="internal" x="208.94" y="60.12" incLanes=":15031750_5_0 -15033109_0" intLanes=":15031750_1_0" shape="">
+    </junction>
+    <junction id=":15031750_12_0" type="internal" x="210.46" y="62.30" incLanes=":15031750_7_0 -15033109_0" intLanes=":15031750_1_0" shape="">
+    </junction>
+    <junction id=":15031750_13_0" type="internal" x="211.05" y="64.03" incLanes=":15031750_8_0 -15033109_0" intLanes=":15031750_0_0" shape="">
+    </junction>
 
-    <connection from="-15033077" to="15033109" lane="0:0" via=":15031750_3_0" tl="15031750" linkIndex="3" dir="s" state="o"/>
-    <connection from="-15033077" to="15033110" lane="0:0" via=":15031750_4_0" tl="15031750" linkIndex="4" dir="l" state="o"/>
-    <connection from="-15033077" to="15033077" lane="0:0" via=":15031750_5_0" tl="15031750" linkIndex="5" dir="t" state="o"/>
-    <connection from="-15033109" to="15033110" lane="0:0" via=":15031750_0_0" tl="15031750" linkIndex="0" dir="r" state="o"/>
-    <connection from="-15033109" to="15033077" lane="0:0" via=":15031750_1_0" tl="15031750" linkIndex="1" dir="s" state="o"/>
-    <connection from="-15033109" to="15033109" lane="0:0" via=":15031750_2_0" tl="15031750" linkIndex="2" dir="t" state="o"/>
-    <connection from="-15033110" to="15033077" lane="0:0" via=":15031750_6_0" tl="15031750" linkIndex="6" dir="r" state="o"/>
-    <connection from="-15033110" to="15033109" lane="0:0" via=":15031750_7_0" tl="15031750" linkIndex="7" dir="l" state="o"/>
-    <connection from="-15033110" to="15033110" lane="0:0" via=":15031750_8_0" tl="15031750" linkIndex="8" dir="t" state="o"/>
-    <connection from="15033077" to="-15033077" lane="0:0" via=":15031754_0_0" dir="t" state="M"/>
-    <connection from="15033109" to="-15033109" lane="0:0" via=":15031788_0_0" dir="t" state="M"/>
-    <connection from="15033110" to="-15033110" lane="0:0" via=":15031789_0_0" dir="t" state="M"/>
+    <connection from="-15033077" to="15033109" fromLane="0" toLane="0" via=":15031750_3_0" tl="15031750" linkIndex="3" dir="s" state="o"/>
+    <connection from="-15033077" to="15033110" fromLane="0" toLane="0" via=":15031750_4_0" tl="15031750" linkIndex="4" dir="l" state="o"/>
+    <connection from="-15033077" to="15033077" fromLane="0" toLane="0" via=":15031750_5_0" tl="15031750" linkIndex="5" dir="t" state="o"/>
+    <connection from="-15033109" to="15033110" fromLane="0" toLane="0" via=":15031750_0_0" tl="15031750" linkIndex="0" dir="r" state="o"/>
+    <connection from="-15033109" to="15033077" fromLane="0" toLane="0" via=":15031750_1_0" tl="15031750" linkIndex="1" dir="s" state="o"/>
+    <connection from="-15033109" to="15033109" fromLane="0" toLane="0" via=":15031750_2_0" tl="15031750" linkIndex="2" dir="t" state="o"/>
+    <connection from="-15033110" to="15033077" fromLane="0" toLane="0" via=":15031750_6_0" tl="15031750" linkIndex="6" dir="r" state="o"/>
+    <connection from="-15033110" to="15033109" fromLane="0" toLane="0" via=":15031750_7_0" tl="15031750" linkIndex="7" dir="l" state="o"/>
+    <connection from="-15033110" to="15033110" fromLane="0" toLane="0" via=":15031750_8_0" tl="15031750" linkIndex="8" dir="t" state="o"/>
+    <connection from="15033077" to="-15033077" fromLane="0" toLane="0" via=":15031754_0_0" dir="t" state="M"/>
+    <connection from="15033109" to="-15033109" fromLane="0" toLane="0" via=":15031788_0_0" dir="t" state="M"/>
+    <connection from="15033110" to="-15033110" fromLane="0" toLane="0" via=":15031789_0_0" dir="t" state="M"/>
 
-    <connection from=":15031750_0" to="15033110" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_1" to="15033077" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_2" to="15033109" lane="0:0" via=":15031750_9_0" dir="s" state="M"/>
-    <connection from=":15031750_9" to="15033109" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_3" to="15033109" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_4" to="15033110" lane="0:0" via=":15031750_10_0" dir="s" state="M"/>
-    <connection from=":15031750_10" to="15033110" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_5" to="15033077" lane="0:0" via=":15031750_11_0" dir="s" state="M"/>
-    <connection from=":15031750_11" to="15033077" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_6" to="15033077" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_7" to="15033109" lane="0:0" via=":15031750_12_0" dir="s" state="M"/>
-    <connection from=":15031750_12" to="15033109" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031750_8" to="15033110" lane="0:0" via=":15031750_13_0" dir="s" state="M"/>
-    <connection from=":15031750_13" to="15033110" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031754_0" to="-15033077" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031788_0" to="-15033109" lane="0:0" dir="s" state="M"/>
-    <connection from=":15031789_0" to="-15033110" lane="0:0" dir="s" state="M"/>
+    <connection from=":15031750_0" to="15033110" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_1" to="15033077" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_2" to="15033109" fromLane="0" toLane="0" via=":15031750_9_0" dir="s" state="M"/>
+    <connection from=":15031750_9" to="15033109" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_3" to="15033109" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_4" to="15033110" fromLane="0" toLane="0" via=":15031750_10_0" dir="s" state="M"/>
+    <connection from=":15031750_10" to="15033110" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_5" to="15033077" fromLane="0" toLane="0" via=":15031750_11_0" dir="s" state="M"/>
+    <connection from=":15031750_11" to="15033077" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_6" to="15033077" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_7" to="15033109" fromLane="0" toLane="0" via=":15031750_12_0" dir="s" state="M"/>
+    <connection from=":15031750_12" to="15033109" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031750_8" to="15033110" fromLane="0" toLane="0" via=":15031750_13_0" dir="s" state="M"/>
+    <connection from=":15031750_13" to="15033110" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031754_0" to="-15033077" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031788_0" to="-15033109" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15031789_0" to="-15033110" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

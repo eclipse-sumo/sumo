@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="20000.00,10000.00" convBoundary="0.00,0.00,25000.00,15925.00" origBoundary="-20000.00,-10000.00,5000.00,5925.00" projParameter="!"/>
 
@@ -363,134 +363,134 @@
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="1" to="10" lane="0:0" dir="s" state="M"/>
-    <connection from="1" to="10" lane="0:1" dir="s" state="M"/>
-    <connection from="1" to="9" lane="1:0" dir="s" state="M"/>
-    <connection from="1" to="9" lane="2:1" dir="s" state="M"/>
-    <connection from="1" to="8" lane="3:0" dir="s" state="M"/>
-    <connection from="1" to="8" lane="3:1" dir="s" state="M"/>
-    <connection from="1" to="7" lane="4:0" dir="s" state="M"/>
-    <connection from="1" to="7" lane="5:1" dir="s" state="M"/>
-    <connection from="1" to="6" lane="6:0" dir="s" state="M"/>
-    <connection from="1" to="6" lane="7:1" dir="s" state="M"/>
-    <connection from="1" to="5" lane="13:0" dir="s" state="M"/>
-    <connection from="1" to="5" lane="14:1" dir="s" state="M"/>
-    <connection from="1" to="4" lane="15:0" dir="s" state="M"/>
-    <connection from="1" to="4" lane="16:1" dir="s" state="M"/>
-    <connection from="1" to="3" lane="16:0" dir="s" state="M"/>
-    <connection from="1" to="3" lane="17:1" dir="s" state="M"/>
-    <connection from="1" to="2" lane="18:0" dir="s" state="M"/>
-    <connection from="1" to="2" lane="19:1" dir="s" state="M"/>
-    <connection from="10" to="19" lane="0:0" dir="l" state="M"/>
-    <connection from="11" to="20" lane="0:18" dir="l" state="M"/>
-    <connection from="11" to="20" lane="0:19" dir="l" state="M"/>
-    <connection from="12" to="20" lane="0:16" dir="l" state="m"/>
-    <connection from="12" to="20" lane="0:17" dir="l" state="M"/>
-    <connection from="13" to="20" lane="0:13" dir="s" state="M"/>
-    <connection from="13" to="20" lane="0:14" dir="s" state="M"/>
-    <connection from="13" to="20" lane="0:15" dir="s" state="M"/>
-    <connection from="13" to="20" lane="0:16" dir="s" state="m"/>
-    <connection from="14" to="20" lane="0:11" dir="s" state="M"/>
-    <connection from="14" to="20" lane="0:12" dir="s" state="M"/>
-    <connection from="15" to="20" lane="0:9" dir="s" state="M"/>
-    <connection from="15" to="20" lane="0:10" dir="s" state="M"/>
-    <connection from="16" to="20" lane="0:7" dir="s" state="m"/>
-    <connection from="16" to="20" lane="0:8" dir="s" state="M"/>
-    <connection from="17" to="20" lane="0:4" dir="s" state="M"/>
-    <connection from="17" to="20" lane="0:5" dir="s" state="M"/>
-    <connection from="17" to="20" lane="0:6" dir="s" state="M"/>
-    <connection from="17" to="20" lane="0:7" dir="s" state="m"/>
-    <connection from="18" to="20" lane="0:2" dir="r" state="M"/>
-    <connection from="18" to="20" lane="0:3" dir="r" state="M"/>
-    <connection from="19" to="20" lane="0:0" dir="r" state="M"/>
-    <connection from="19" to="20" lane="0:1" dir="r" state="M"/>
-    <connection from="2" to="11" lane="0:0" dir="r" state="M"/>
-    <connection from="20" to="21" lane="0:0" dir="r" state="M"/>
-    <connection from="20" to="21" lane="1:1" dir="r" state="M"/>
-    <connection from="20" to="21" lane="2:2" dir="r" state="M"/>
-    <connection from="20" to="21" lane="3:3" dir="r" state="M"/>
-    <connection from="20" to="21" lane="4:4" dir="r" state="M"/>
-    <connection from="20" to="21" lane="5:5" dir="r" state="M"/>
-    <connection from="20" to="21" lane="6:6" dir="r" state="M"/>
-    <connection from="20" to="21" lane="7:7" dir="r" state="M"/>
-    <connection from="20" to="21" lane="8:8" dir="r" state="M"/>
-    <connection from="20" to="21" lane="9:9" dir="r" state="M"/>
-    <connection from="20" to="21" lane="10:10" dir="r" state="M"/>
-    <connection from="20" to="21" lane="11:11" dir="r" state="M"/>
-    <connection from="20" to="21" lane="12:12" dir="r" state="M"/>
-    <connection from="20" to="21" lane="13:13" dir="r" state="M"/>
-    <connection from="20" to="21" lane="14:14" dir="r" state="M"/>
-    <connection from="20" to="21" lane="15:15" dir="r" state="M"/>
-    <connection from="20" to="21" lane="16:16" dir="r" state="M"/>
-    <connection from="20" to="21" lane="17:17" dir="r" state="M"/>
-    <connection from="20" to="21" lane="18:18" dir="r" state="M"/>
-    <connection from="20" to="21" lane="19:19" dir="r" state="M"/>
-    <connection from="21" to="22" lane="0:0" dir="r" state="M"/>
-    <connection from="21" to="22" lane="1:1" dir="r" state="M"/>
-    <connection from="21" to="22" lane="2:2" dir="r" state="M"/>
-    <connection from="21" to="22" lane="3:3" dir="r" state="M"/>
-    <connection from="21" to="22" lane="4:4" dir="r" state="M"/>
-    <connection from="21" to="22" lane="5:5" dir="r" state="M"/>
-    <connection from="21" to="22" lane="6:6" dir="r" state="M"/>
-    <connection from="21" to="22" lane="7:7" dir="r" state="M"/>
-    <connection from="21" to="22" lane="8:8" dir="r" state="M"/>
-    <connection from="21" to="22" lane="9:9" dir="r" state="M"/>
-    <connection from="21" to="22" lane="10:10" dir="r" state="M"/>
-    <connection from="21" to="22" lane="11:11" dir="r" state="M"/>
-    <connection from="21" to="22" lane="12:12" dir="r" state="M"/>
-    <connection from="21" to="22" lane="13:13" dir="r" state="M"/>
-    <connection from="21" to="22" lane="14:14" dir="r" state="M"/>
-    <connection from="21" to="22" lane="15:15" dir="r" state="M"/>
-    <connection from="21" to="22" lane="16:16" dir="r" state="M"/>
-    <connection from="21" to="22" lane="17:17" dir="r" state="M"/>
-    <connection from="21" to="22" lane="18:18" dir="r" state="M"/>
-    <connection from="21" to="22" lane="19:19" dir="r" state="M"/>
-    <connection from="22" to="23" lane="0:0" dir="r" state="M"/>
-    <connection from="22" to="23" lane="1:1" dir="r" state="M"/>
-    <connection from="22" to="23" lane="2:2" dir="r" state="M"/>
-    <connection from="22" to="23" lane="3:3" dir="r" state="M"/>
-    <connection from="22" to="23" lane="4:4" dir="r" state="M"/>
-    <connection from="22" to="23" lane="5:5" dir="r" state="M"/>
-    <connection from="22" to="23" lane="6:6" dir="r" state="M"/>
-    <connection from="22" to="23" lane="7:7" dir="r" state="M"/>
-    <connection from="22" to="23" lane="8:8" dir="r" state="M"/>
-    <connection from="22" to="23" lane="9:9" dir="r" state="M"/>
-    <connection from="22" to="23" lane="10:10" dir="r" state="M"/>
-    <connection from="22" to="23" lane="11:11" dir="r" state="M"/>
-    <connection from="22" to="23" lane="12:12" dir="r" state="M"/>
-    <connection from="22" to="23" lane="13:13" dir="r" state="M"/>
-    <connection from="22" to="23" lane="14:14" dir="r" state="M"/>
-    <connection from="22" to="23" lane="15:15" dir="r" state="M"/>
-    <connection from="22" to="23" lane="16:16" dir="r" state="M"/>
-    <connection from="22" to="23" lane="17:17" dir="r" state="M"/>
-    <connection from="22" to="23" lane="18:18" dir="r" state="M"/>
-    <connection from="22" to="23" lane="19:19" dir="r" state="M"/>
-    <connection from="23" to="1" lane="0:0" dir="r" state="M"/>
-    <connection from="23" to="1" lane="1:1" dir="r" state="M"/>
-    <connection from="23" to="1" lane="2:2" dir="r" state="M"/>
-    <connection from="23" to="1" lane="3:3" dir="r" state="M"/>
-    <connection from="23" to="1" lane="4:4" dir="r" state="M"/>
-    <connection from="23" to="1" lane="5:5" dir="r" state="M"/>
-    <connection from="23" to="1" lane="6:6" dir="r" state="M"/>
-    <connection from="23" to="1" lane="7:7" dir="r" state="M"/>
-    <connection from="23" to="1" lane="8:8" dir="r" state="M"/>
-    <connection from="23" to="1" lane="9:9" dir="r" state="M"/>
-    <connection from="23" to="1" lane="10:10" dir="r" state="M"/>
-    <connection from="23" to="1" lane="11:11" dir="r" state="M"/>
-    <connection from="23" to="1" lane="12:12" dir="r" state="M"/>
-    <connection from="23" to="1" lane="13:13" dir="r" state="M"/>
-    <connection from="23" to="1" lane="14:14" dir="r" state="M"/>
-    <connection from="23" to="1" lane="15:15" dir="r" state="M"/>
-    <connection from="23" to="1" lane="16:16" dir="r" state="M"/>
-    <connection from="23" to="1" lane="17:17" dir="r" state="M"/>
-    <connection from="23" to="1" lane="18:18" dir="r" state="M"/>
-    <connection from="23" to="1" lane="19:19" dir="r" state="M"/>
-    <connection from="3" to="12" lane="0:0" dir="r" state="M"/>
-    <connection from="4" to="13" lane="0:0" dir="r" state="M"/>
-    <connection from="5" to="14" lane="0:0" dir="s" state="M"/>
-    <connection from="6" to="15" lane="0:0" dir="s" state="M"/>
-    <connection from="7" to="16" lane="0:0" dir="s" state="M"/>
-    <connection from="8" to="17" lane="0:0" dir="l" state="M"/>
-    <connection from="9" to="18" lane="0:0" dir="l" state="M"/>
+    <connection from="1" to="10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="10" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="9" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="9" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="8" fromLane="3" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="8" fromLane="3" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="7" fromLane="4" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="7" fromLane="5" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="6" fromLane="6" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="6" fromLane="7" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="5" fromLane="13" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="5" fromLane="14" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="4" fromLane="15" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="4" fromLane="16" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="3" fromLane="16" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="3" fromLane="17" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="2" fromLane="18" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="2" fromLane="19" toLane="1" dir="s" state="M"/>
+    <connection from="10" to="19" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="11" to="20" fromLane="0" toLane="18" dir="l" state="M"/>
+    <connection from="11" to="20" fromLane="0" toLane="19" dir="l" state="M"/>
+    <connection from="12" to="20" fromLane="0" toLane="16" dir="l" state="m"/>
+    <connection from="12" to="20" fromLane="0" toLane="17" dir="l" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="13" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="14" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="15" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="16" dir="s" state="m"/>
+    <connection from="14" to="20" fromLane="0" toLane="11" dir="s" state="M"/>
+    <connection from="14" to="20" fromLane="0" toLane="12" dir="s" state="M"/>
+    <connection from="15" to="20" fromLane="0" toLane="9" dir="s" state="M"/>
+    <connection from="15" to="20" fromLane="0" toLane="10" dir="s" state="M"/>
+    <connection from="16" to="20" fromLane="0" toLane="7" dir="s" state="m"/>
+    <connection from="16" to="20" fromLane="0" toLane="8" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="4" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="5" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="6" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="7" dir="s" state="m"/>
+    <connection from="18" to="20" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from="18" to="20" fromLane="0" toLane="3" dir="r" state="M"/>
+    <connection from="19" to="20" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="19" to="20" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="2" to="11" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="3" toLane="3" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="4" toLane="4" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="5" toLane="5" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="6" toLane="6" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="7" toLane="7" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="8" toLane="8" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="9" toLane="9" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="10" toLane="10" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="11" toLane="11" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="12" toLane="12" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="13" toLane="13" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="14" toLane="14" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="15" toLane="15" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="16" toLane="16" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="17" toLane="17" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="18" toLane="18" dir="r" state="M"/>
+    <connection from="20" to="21" fromLane="19" toLane="19" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="3" toLane="3" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="4" toLane="4" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="5" toLane="5" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="6" toLane="6" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="7" toLane="7" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="8" toLane="8" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="9" toLane="9" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="10" toLane="10" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="11" toLane="11" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="12" toLane="12" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="13" toLane="13" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="14" toLane="14" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="15" toLane="15" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="16" toLane="16" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="17" toLane="17" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="18" toLane="18" dir="r" state="M"/>
+    <connection from="21" to="22" fromLane="19" toLane="19" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="3" toLane="3" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="4" toLane="4" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="5" toLane="5" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="6" toLane="6" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="7" toLane="7" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="8" toLane="8" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="9" toLane="9" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="10" toLane="10" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="11" toLane="11" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="12" toLane="12" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="13" toLane="13" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="14" toLane="14" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="15" toLane="15" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="16" toLane="16" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="17" toLane="17" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="18" toLane="18" dir="r" state="M"/>
+    <connection from="22" to="23" fromLane="19" toLane="19" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="3" toLane="3" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="4" toLane="4" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="5" toLane="5" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="6" toLane="6" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="7" toLane="7" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="8" toLane="8" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="9" toLane="9" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="10" toLane="10" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="11" toLane="11" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="12" toLane="12" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="13" toLane="13" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="14" toLane="14" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="15" toLane="15" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="16" toLane="16" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="17" toLane="17" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="18" toLane="18" dir="r" state="M"/>
+    <connection from="23" to="1" fromLane="19" toLane="19" dir="r" state="M"/>
+    <connection from="3" to="12" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="4" to="13" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="5" to="14" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6" to="15" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="7" to="16" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="8" to="17" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="9" to="18" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

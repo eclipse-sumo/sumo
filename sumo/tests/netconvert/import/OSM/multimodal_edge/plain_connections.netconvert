@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Thu Jun 30 16:27:12 2011 by SUMO netconvert Version dev-SVN-r10782
+<!-- generated on 07/06/11 09:58:52 by SUMO netconvert Version dev-SVN-r10864
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,8 +22,8 @@
 -->
 
 <connections>
-    <connection from="-10860201" to="10860201" lane="1:1"/>
+    <connection from="-10860201" to="10860201" fromLane="1" toLane="1"/>
 
-    <connection from="10860201" to="-10860201" lane="1:1"/>
+    <connection from="10860201" to="-10860201" fromLane="1" toLane="1"/>
 
 </connections>

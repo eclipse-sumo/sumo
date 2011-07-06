@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
@@ -78,16 +78,16 @@
     <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85">
     </junction>
 
-    <connection from="on" to="s2" lane="0:0" dir="s" state="m"/>
-    <connection from="s1" to="s2" lane="0:0" dir="s" state="M"/>
-    <connection from="s1" to="s2" lane="1:1" dir="s" state="M"/>
-    <connection from="s1" to="s2" lane="2:2" dir="s" state="M"/>
-    <connection from="s2" to="s3" lane="0:0" dir="s" state="M"/>
-    <connection from="s2" to="s3" lane="1:1" dir="s" state="M"/>
-    <connection from="s2" to="s3" lane="2:2" dir="s" state="M"/>
-    <connection from="s3" to="off" lane="0:0" dir="s" state="M"/>
-    <connection from="s3" to="s4" lane="0:0" dir="s" state="M"/>
-    <connection from="s3" to="s4" lane="1:1" dir="s" state="M"/>
-    <connection from="s3" to="s4" lane="2:2" dir="s" state="M"/>
+    <connection from="on" to="s2" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="s1" to="s2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s1" to="s2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="s1" to="s2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="s2" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s2" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="s2" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="s3" to="off" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="2" toLane="2" dir="s" state="M"/>
 
 </net>

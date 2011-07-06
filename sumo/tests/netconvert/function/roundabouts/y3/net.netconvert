@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-49263.27,-59334.75" convBoundary="0.00,0.00,160.57,291.06" origBoundary="49263.27,59334.75,49423.84,59625.81" projParameter="!"/>
 
@@ -79,18 +79,18 @@
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="-10397" to="10402" lane="0:0" dir="r" state="m"/>
-    <connection from="-10400" to="10575" lane="0:0" dir="r" state="M"/>
-    <connection from="-10400" to="10396" lane="0:0" dir="s" state="M"/>
-    <connection from="-10403" to="-10400" lane="0:0" dir="r" state="m"/>
-    <connection from="-10575" to="10396" lane="0:0" dir="r" state="m"/>
-    <connection from="10396" to="10397" lane="0:0" dir="r" state="M"/>
-    <connection from="10396" to="10402" lane="0:0" dir="s" state="M"/>
-    <connection from="10397" to="-10397" lane="0:0" dir="t" state="M"/>
-    <connection from="10402" to="10403" lane="0:0" dir="r" state="M"/>
-    <connection from="10402" to="-10400" lane="0:0" dir="s" state="M"/>
-    <connection from="10403" to="-10403" lane="0:0" dir="t" state="M"/>
-    <connection from="10575" to="-10575" lane="0:0" dir="t" state="M"/>
+    <connection from="-10397" to="10402" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-10400" to="10575" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-10400" to="10396" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-10403" to="-10400" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-10575" to="10396" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="10396" to="10397" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="10396" to="10402" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="10397" to="-10397" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="10402" to="10403" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="10402" to="-10400" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="10403" to="-10403" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="10575" to="-10575" fromLane="0" toLane="0" dir="t" state="M"/>
 
     <roundabout nodes="10724 17391 17393"/>
 

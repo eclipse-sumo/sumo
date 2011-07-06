@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
@@ -47,10 +47,10 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <connection from="1" to="1.50" lane="1:0" via=":1.50_0_0" dir="s" state="M"/>
-    <connection from="1" to="1.50" lane="2:1" via=":1.50_1_0" dir="s" state="M"/>
+    <connection from="1" to="1.50" fromLane="1" toLane="0" via=":1.50_0_0" dir="s" state="M"/>
+    <connection from="1" to="1.50" fromLane="2" toLane="1" via=":1.50_1_0" dir="s" state="M"/>
 
-    <connection from=":1.50_0" to="1.50" lane="0:0" dir="s" state="M"/>
-    <connection from=":1.50_1" to="1.50" lane="0:1" dir="s" state="M"/>
+    <connection from=":1.50_0" to="1.50" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.50_1" to="1.50" fromLane="0" toLane="1" dir="s" state="M"/>
 
 </net>

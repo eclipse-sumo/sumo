@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="-19859.00,-25421.00" convBoundary="0.00,0.00,257.00,608.00" origBoundary="19859.00,25421.00,20116.00,26029.00" projParameter="!"/>
 
@@ -64,10 +64,10 @@
     <junction id="15031475" type="unregulated" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01">
     </junction>
 
-    <connection from="15030608" to="153122148" lane="0:0" via=":15030043_0_0" tl="15030043" linkIndex="0" dir="r" state="o"/>
-    <connection from="15030858" to="153122148" lane="0:0" via=":15030043_1_0" tl="15030043" linkIndex="1" dir="s" state="o"/>
+    <connection from="15030608" to="153122148" fromLane="0" toLane="0" via=":15030043_0_0" tl="15030043" linkIndex="0" dir="r" state="o"/>
+    <connection from="15030858" to="153122148" fromLane="0" toLane="0" via=":15030043_1_0" tl="15030043" linkIndex="1" dir="s" state="o"/>
 
-    <connection from=":15030043_0" to="153122148" lane="0:0" dir="s" state="M"/>
-    <connection from=":15030043_1" to="153122148" lane="0:0" dir="s" state="M"/>
+    <connection from=":15030043_0" to="153122148" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15030043_1" to="153122148" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

@@ -185,7 +185,7 @@ class NetConverter(handler.ContentHandler):
                     self.checkWrite(' %s="%s"' % (key,self._laneCount))
                     self._laneCount += 1
                 elif name == "net" and key == "version":
-                    self.checkWrite(' %s="%s"' % (key,"0.13"))
+                    self.checkWrite(' %s="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd"' % key)
                 elif name == "connection" and key == "fromLane":
                     self.checkWrite(' fromLane="%s" toLane="%s"' % tuple(attrs["lane"].split(":")))
         # close tag

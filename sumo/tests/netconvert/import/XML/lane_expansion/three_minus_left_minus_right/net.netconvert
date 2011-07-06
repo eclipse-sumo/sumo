@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<net>
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
@@ -56,12 +56,12 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="1" to="1.30" lane="0:0" via=":1.30_0_0" dir="s" state="M"/>
-    <connection from="1" to="1.30" lane="1:1" via=":1.30_1_0" dir="s" state="M"/>
-    <connection from="1.30" to="1.70" lane="1:0" via=":1.70_0_0" dir="s" state="M"/>
+    <connection from="1" to="1.30" fromLane="0" toLane="0" via=":1.30_0_0" dir="s" state="M"/>
+    <connection from="1" to="1.30" fromLane="1" toLane="1" via=":1.30_1_0" dir="s" state="M"/>
+    <connection from="1.30" to="1.70" fromLane="1" toLane="0" via=":1.70_0_0" dir="s" state="M"/>
 
-    <connection from=":1.30_0" to="1.30" lane="0:0" dir="s" state="M"/>
-    <connection from=":1.30_1" to="1.30" lane="0:1" dir="s" state="M"/>
-    <connection from=":1.70_0" to="1.70" lane="0:0" dir="s" state="M"/>
+    <connection from=":1.30_0" to="1.30" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1.30_1" to="1.30" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":1.70_0" to="1.70" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

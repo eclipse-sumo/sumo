@@ -1,25 +1,25 @@
 <connections>
 
-   <connection from="1" to="2" lane="1:0"/>
-   <connection from="1" to="2" lane="2:1"/>
+   <connection from="1" to="2" fromLane="1" toLane="0"/>
+   <connection from="1" to="2" fromLane="2" toLane="1"/>
 
-   <connection from="2" to="3" lane="0:0"/>
-   <connection from="2" to="3" lane="0:1"/>
-   <connection from="2" to="3" lane="1:2"/>
+   <connection from="2" to="3" fromLane="0" toLane="0"/>
+   <connection from="2" to="3" fromLane="0" toLane="1"/>
+   <connection from="2" to="3" fromLane="1" toLane="2"/>
 
-   <connection from="3" to="4o" lane="0:0"/>
-   <connection from="3" to="4" lane="1:0"/>
-   <connection from="3" to="4" lane="2:1"/>
+   <connection from="3" to="4o" fromLane="0" toLane="0"/>
+   <connection from="3" to="4" fromLane="1" toLane="0"/>
+   <connection from="3" to="4" fromLane="2" toLane="1"/>
 
-   <connection from="4" to="5" lane="0:1"/>
-   <connection from="4" to="5" lane="1:2"/>
+   <connection from="4" to="5" fromLane="0" toLane="1"/>
+   <connection from="4" to="5" fromLane="1" toLane="2"/>
 
-   <connection from="5" to="6" lane="0:0"/>
-   <connection from="5" to="6" lane="1:1"/>
-   <connection from="5" to="6" lane="2:2"/>
+   <connection from="5" to="6" fromLane="0" toLane="0"/>
+   <connection from="5" to="6" fromLane="1" toLane="1"/>
+   <connection from="5" to="6" fromLane="2" toLane="2"/>
 
-   <connection from="6" to="7o" lane="0:0"/>
-   <connection from="6" to="7" lane="1:0"/>
-   <connection from="6" to="7" lane="2:1"/>
+   <connection from="6" to="7o" fromLane="0" toLane="0"/>
+   <connection from="6" to="7" fromLane="1" toLane="0"/>
+   <connection from="6" to="7" fromLane="2" toLane="1"/>
 
 </connections>

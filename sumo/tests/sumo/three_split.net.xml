@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<!-- generated on Wed Jul  6 00:34:20 2011 by SUMO netconvert Version dev-SVN-r10863
-<?xml version="1.0" encoding="iso-8859-1"?>
-
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <node-files value="three_split.nod.xml"/>
-        <edge-files value="three_split.edg.xml"/>
-    </input>
-
-    <output>
-        <output-file value="three_split.net.xml"/>
-    </output>
-
-    <processing>
-        <no-internal-links value="true"/>
-    </processing>
-
-</configuration>
--->
-
-<net  version="0.13">
+<net version="0.13">
 
     <location netOffset="0.00,500.00" convBoundary="0.00,0.00,2500.00,1000.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
 
