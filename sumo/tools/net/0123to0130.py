@@ -11,6 +11,7 @@ Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, glob
+import xml
 from xml.sax import parse, handler
 from optparse import OptionParser
 from collections import defaultdict
@@ -86,6 +87,7 @@ def getBegin(file):
 class NetConverter(handler.ContentHandler):
     def __init__(self, outFileName, begin, has_no_destination):
         self._out = open(outFileName, "w")
+        self._out.write('<?xml version="1.0" encoding="iso-8859-1"?>\n\n\n')
         self._out.write(begin)
         self._tree = []
         self._content = ""
@@ -97,7 +99,7 @@ class NetConverter(handler.ContentHandler):
     def isSingle(self, name):
         if name in SINGLE:
             return True
-        if name == "junction" and self._inner_junction:
+        if name == "junction" and self._single_junction:
             return True
         return False
 
@@ -139,7 +141,9 @@ class NetConverter(handler.ContentHandler):
         if name == "edge":
             self._laneCount = 0
         if name == "junction":
-            self._inner_junction = (len(self._logicitems[attrs["id"]]) > 0)
+            self._single_junction = (attrs["id"][0] == ":" 
+                    or attrs["type"] == 'DEAD_END'
+                    or attrs["type"] == 'dead_end')
         # skip removed
         if self.remove(name):
             return
@@ -168,26 +172,27 @@ class NetConverter(handler.ContentHandler):
                 self.checkWrite(' fromLane="%s"' % self._succ_fromIdx)
                 self.checkWrite(' toLane="%s"' % toIdx)
         # write attributes
-        if name in a:
-            for key in a[name]:
-                val = None
-                if key in renamedAttrs and attrs.has_key(renamedAttrs[key]):
-                    key = renamedAttrs[key]
-                if attrs.has_key(key):
-                    val = attrs[key]
-                    if key in renamedValues:
-                        val = renamedValues[key].get(val, val)
-                    if name == "succlane" and (key == "linkno" or key == "linkIndex") and attrs["tl"] == '':
-                        val = ''
-                    if name not in b or key not in b[name] or val!=b[name][key]:
-                        self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
-                elif name == "lane" and key == "index":
-                    self.checkWrite(' %s="%s"' % (key,self._laneCount))
-                    self._laneCount += 1
-                elif name == "net" and key == "version":
-                    self.checkWrite(' %s="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd"' % key)
-                elif name == "connection" and key == "fromLane":
-                    self.checkWrite(' fromLane="%s" toLane="%s"' % tuple(attrs["lane"].split(":")))
+        if name == "net":
+            self.checkWrite(' version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd"')
+        else:
+            if name in a:
+                for key in a[name]:
+                    val = None
+                    if key in renamedAttrs and attrs.has_key(renamedAttrs[key]):
+                        key = renamedAttrs[key]
+                    if attrs.has_key(key):
+                        val = attrs[key]
+                        if key in renamedValues:
+                            val = renamedValues[key].get(val, val)
+                        if name == "succlane" and (key == "linkno" or key == "linkIndex") and attrs["tl"] == '':
+                            val = ''
+                        if name not in b or key not in b[name] or val!=b[name][key]:
+                            self.checkWrite(' ' + renamedAttrs.get(key, key) + '="%s"' % val)
+                    elif name == "lane" and key == "index":
+                        self.checkWrite(' %s="%s"' % (key,self._laneCount))
+                        self._laneCount += 1
+                    elif name == "connection" and key == "fromLane":
+                        self.checkWrite(' fromLane="%s" toLane="%s"' % tuple(attrs["lane"].split(":")))
         # close tag
         if self.isSingle(name):
             self.checkWrite("/>\n")
@@ -243,7 +248,10 @@ def changeFile(fname):
         print "Partial conversion (cannot convert SUMO_NO_DESTINATION): " + fname
         has_no_destination = True
     net = NetConverter(fname+".chg", getBegin(fname), has_no_destination)
-    parse(fname, net)
+    try:
+        parse(fname, net)
+    except xml.sax._exceptions.SAXParseException:
+        print "Could not parse '%s' maybe it contains non-ascii chars?" % fname
     if options.inplace:
         os.remove(fname)
         os.rename(fname+".chg", fname)
