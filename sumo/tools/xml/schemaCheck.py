@@ -12,7 +12,7 @@ Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, sys, subprocess
+import os, sys, subprocess, glob, traceback
 try:
     from lxml import etree
     haveLxml = True
@@ -21,15 +21,21 @@ except ImportError:
     haveLxml = False
 
 def validate(f):
-    doc = etree.parse(f)
-    schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
-    if schemaLoc:
-        if schemaLoc not in schemes:
-            schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
-        schemes[schemaLoc].validate(doc)
+    try:
+        doc = etree.parse(f)
+        schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
+        if "net." in f:
+            schemaLoc = '../docs/xsd/net_file.xsd'
+        if schemaLoc:
+            if schemaLoc not in schemes:
+                schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+            schemes[schemaLoc].validate(doc)
+    except:
+        print >> sys.stderr, "Error on parsing '%s'!" %f
+        traceback.print_exc()
 
 def main(srcRoot, err):
-    toCheck = [ "input_edges.edg.xml", "input_nodes.nod.xml", "input_connections.con.xml", "input_types.typ.xml" ]
+    toCheck = [ "*.edg.xml", "*.nod.xml", "*.con.xml", "*.typ.xml", "*.net.xml", "*.cfg", "net.netgen", "net.netconvert" ]
     sax2count = "SAX2Count.exe"
     if 'XERCES_64' in os.environ:
         sax2count = os.path.join(os.environ['XERCES_64'], "bin", sax2count)
@@ -41,12 +47,12 @@ def main(srcRoot, err):
     if os.path.exists(srcRoot):
         if os.path.isdir(srcRoot):
             for root, dirs, files in os.walk(srcRoot):
-                for name in files:
-                    if name in toCheck:
+                for pattern in toCheck:
+                    for name in glob.glob(os.path.join(root, pattern)):
                         if haveLxml:
-                            validate(os.path.join(root, name))
+                            validate(name)
                         elif os.name != "posix":
-                            subprocess.call(sax2count + " -v=always -f " + os.path.join(root, name), stdout=open(os.devnull), stderr=err)
+                            subprocess.call(sax2count + " -v=always -f " + name, stdout=open(os.devnull), stderr=err)
                     if '.svn' in dirs:
                         dirs.remove('.svn')
         else:

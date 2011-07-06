@@ -11,6 +11,15 @@
 			<xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
 			<xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
 		</xsd:sequence>
+		<xsd:attribute name="version">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="\d+.\d+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
 	</xsd:complexType>
 
 	<xsd:complexType name="locationType">
@@ -41,7 +50,7 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name=projParameter" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="projParameter" type="xsd:string" use="required"></xsd:attribute>
 	</xsd:complexType>
 
 	<xsd:complexType name="edgeType">
@@ -49,6 +58,13 @@
 			<xsd:element name="lane" type="laneType" minOccurs="1" maxOccurs="63"></xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="function" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="internal"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
 		<xsd:attribute name="from" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="to" type="xsd:string"></xsd:attribute>
 		<xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
@@ -81,17 +97,17 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="maxSpeed">
+		<xsd:attribute name="maxSpeed" use="required">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:float">
 					<xsd:minInclusive value="0"></xsd:minInclusive>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="allow" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="disallow" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="prefer" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="length" use="optional">
+		<xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
+		<xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="prefer" type="xsd:string" use="optional"></xsd:attribute>
+		<xsd:attribute name="length" use="required">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:float">
 					<xsd:minInclusive value="0"></xsd:minInclusive>
@@ -108,5 +124,164 @@
 			</xsd:simpleType>
 		</xsd:attribute>
     </xsd:complexType>
+
+    <xsd:complexType name="tlLogicType">
+		<xsd:sequence>
+			<xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="type" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="actuated"></xsd:enumeration>
+					<xsd:enumeration value="agentbased"></xsd:enumeration>
+					<xsd:enumeration value="static"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="programID" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="offset" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+    <xsd:complexType name="phaseType">
+		<xsd:attribute name="duration" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="state" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="[ryYgGoO]+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="junctionType">
+		<xsd:sequence>
+			<xsd:element name="request" type="requestType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="x" type="xsd:float" use="required"></xsd:attribute>
+		<xsd:attribute name="y" type="xsd:float" use="required"></xsd:attribute>
+		<xsd:attribute name="type" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="traffic_light"></xsd:enumeration>
+					<xsd:enumeration value="right_before_left"></xsd:enumeration>
+					<xsd:enumeration value="priority"></xsd:enumeration>
+					<xsd:enumeration value="dead_end"></xsd:enumeration>
+					<xsd:enumeration value="internal"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="incLanes" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="intLanes" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="shape" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+    <xsd:complexType name="requestType">
+		<xsd:attribute name="index" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="response" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="[01]+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="foes" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="[01]+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="cont" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="0"></xsd:enumeration>
+					<xsd:enumeration value="1"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+    <xsd:complexType name="connectionType">
+		<xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="fromLane" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="toLane" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="via" type="xsd:string" use="optional"></xsd:attribute>
+		<xsd:attribute name="tl" type="xsd:string" use="optional"></xsd:attribute>
+		<xsd:attribute name="linkIndex" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="dir" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="s"></xsd:enumeration>
+					<xsd:enumeration value="r"></xsd:enumeration>
+					<xsd:enumeration value="l"></xsd:enumeration>
+					<xsd:enumeration value="t"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="state" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="M"></xsd:enumeration>
+					<xsd:enumeration value="m"></xsd:enumeration>
+					<xsd:enumeration value="o"></xsd:enumeration>
+					<xsd:enumeration value="="></xsd:enumeration>
+					<xsd:enumeration value="-"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
 
 </xsd:schema>
