@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/07/11 15:48:00 by SUMO netconvert Version dev-SVN-r10887
+<!-- generated on 07/07/11 15:57:17 by SUMO netconvert Version dev-SVN-r10887
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -63,11 +63,10 @@
     </junction>
     <junction id="1" type="unregulated" x="100.00" y="0.00" incLanes="1.70_0 1.70_1 1.70_2 1.70_3" intLanes="" shape="100.00,-13.15 100.00,-0.05">
     </junction>
-    <junction id="1.30" type="priority" x="30.00" y="0.00" incLanes="1_0 1_1" intLanes=":1.30_0_0 :1.30_1_0 :1.30_2_0 :1.30_3_0" shape="31.50,-0.05 31.50,-9.85 28.50,-9.85 28.50,-3.35">
-        <request index="0" response="0000" foes="0000" cont="0"/>
-        <request index="1" response="0000" foes="0000" cont="0"/>
-        <request index="2" response="0000" foes="0000" cont="0"/>
-        <request index="3" response="0000" foes="0000" cont="0"/>
+    <junction id="1.30" type="priority" x="30.00" y="0.00" incLanes="1_0 1_1" intLanes=":1.30_0_0 :1.30_1_0 :1.30_2_0" shape="31.50,-0.05 31.50,-9.85 28.50,-9.85 28.50,-3.35">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="1.70" type="priority" x="70.00" y="0.00" incLanes="1.30_0 1.30_1 1.30_2" intLanes=":1.70_0_0 :1.70_1_0 :1.70_2_0 :1.70_3_0" shape="71.50,-0.05 71.50,-13.15 68.50,-9.85 68.50,-0.05">
         <request index="0" response="0000" foes="0000" cont="0"/>
@@ -79,7 +78,6 @@
     <connection from="1" to="1.30" fromLane="0" toLane="0" via=":1.30_0_0" dir="s" state="M"/>
     <connection from="1" to="1.30" fromLane="1" toLane="1" via=":1.30_1_0" dir="s" state="M"/>
     <connection from="1" to="1.30" fromLane="1" toLane="2" via=":1.30_2_0" dir="s" state="M"/>
-    <connection from="1" to="1.30" fromLane="1" toLane="3" via=":1.30_3_0" dir="s" state="M"/>
     <connection from="1.30" to="1.70" fromLane="0" toLane="0" via=":1.70_0_0" dir="s" state="M"/>
     <connection from="1.30" to="1.70" fromLane="0" toLane="1" via=":1.70_1_0" dir="s" state="M"/>
     <connection from="1.30" to="1.70" fromLane="1" toLane="2" via=":1.70_2_0" dir="s" state="M"/>
