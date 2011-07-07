@@ -537,9 +537,21 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
         }
         if (mySplits.size()!=0) {
             std::vector<Split>::iterator i;
-            sort(mySplits.begin(), mySplits.end(), split_sorter());
             NBEdge *e = myCurrentEdge;
+            SUMOReal length = e->getLength();
+            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
+                if((*i).pos<0) {
+                    (*i).pos = length + (*i).pos;
+                }
+            }
+            sort(mySplits.begin(), mySplits.end(), split_sorter());
             unsigned int noLanesMax = e->getNumLanes();
+            // compute the node positions and sort the lanes
+            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
+                (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
+                sort((*i).lanes.begin(), (*i).lanes.end());
+                noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
+            }
             // compute the node positions and sort the lanes
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
@@ -556,7 +568,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
                 const Split &exp = *i;
                 assert(exp.lanes.size()!=0);
-                if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos) {
+                if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos && exp.pos>seen) {
                     std::string nid = edgeid + "." +  toString(exp.nameid);
                     NBNode *rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
@@ -581,7 +593,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                         unsigned int leftMostP = currLanes.back();
                         unsigned int leftMostN = newLanes.back();
                         for (int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
-                            pe->addLane2LaneConnection(pe->getNumLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
+                            pe->addLane2LaneConnection(pe->getNumLanes()-1, ne, leftMostN-l-rightMostN, NBEdge::L2L_VALIDATED, true);
                         }
                         //  all other connected
                         for (unsigned int l=0; l<noLanesMax; ++l) {
