@@ -60,7 +60,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // write nodes
 	OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
-    device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
+    device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
 	NBNodeCont &nc = nb.getNodeCont();
 	for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
@@ -90,9 +90,9 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device.close();
     // write edges / connections
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
-    edevice.writeXMLHeader("edges", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
+    edevice.writeXMLHeader("edges", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
-    cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\""); // street names may contain non-ascii chars
+    cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/connections_file.xsd\"");
 	NBEdgeCont &ec = nb.getEdgeCont();
     bool noNames = oc.getBool("output.no-names");
 	for(std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
