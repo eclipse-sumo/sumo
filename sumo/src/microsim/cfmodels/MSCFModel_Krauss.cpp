@@ -47,14 +47,14 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
-    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed)));
+MSCFModel_Krauss::followSpeed(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed)));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
+MSCFModel_Krauss::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0, 0), maxNextSpeed(veh->getSpeed())));
 }
 
 
@@ -69,7 +69,7 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
         // (but what about slow-to-start?)!!!
         speed -= ACCEL2SPEED(myDawdle * speed * random);
     } else {
-        speed -= ACCEL2SPEED(myDawdle * getMaxAccel(speed) * random);
+        speed -= ACCEL2SPEED(myDawdle * myAccel * random);
     }
     return MAX2(SUMOReal(0), speed);
 }
@@ -77,11 +77,17 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
 
 /** Returns the SK-vsafe. */
 SUMOReal
-MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
-    if (predSpeed==0&&gap<0.01) {
-        return 0;
+MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+    if (predSpeed==0) {
+        if (gap < 0.01) {
+            return 0;
+        }
+        return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + 2. * myDecel * gap));
     }
-    const SUMOReal speedReduction = ACCEL2SPEED(myDecel); // !!! TODO use the deceleration of the leader
+    if (predMaxDecel == 0) {
+        return predSpeed;
+    }
+    const SUMOReal speedReduction = ACCEL2SPEED(predMaxDecel);
     const int predSteps = int(predSpeed / speedReduction);
     const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
     return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + leaderContrib));

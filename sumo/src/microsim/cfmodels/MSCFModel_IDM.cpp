@@ -73,13 +73,13 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
+MSCFModel_IDM::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
 
 SUMOReal
-MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const {
+MSCFModel_IDM::stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const {
     if (gap2pred<0.01) {
         return 0;
     }

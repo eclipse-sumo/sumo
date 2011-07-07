@@ -81,7 +81,7 @@ void
 MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const {
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLengthWithGap()-ego->getPositionOnLane());
-        SUMOReal nVSafe = ffeV(ego, ego->getSpeed(), mgap, neigh->getSpeed());
+        SUMOReal nVSafe = followSpeed(ego, ego->getSpeed(), mgap, neigh->getSpeed(), neigh->getCarFollowModel().getMaxDecel());
         if (mgap-neigh->getSpeed()>=0) {
             vSafe = MIN2(vSafe, nVSafe);
         }
@@ -91,7 +91,7 @@ MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const
 
 SUMOReal
 MSCFModel::maxNextSpeed(SUMOReal speed) const {
-    return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel(speed)), myType->getMaxSpeed());
+    return MIN2(speed + (SUMOReal) ACCEL2SPEED(getMaxAccel()), myType->getMaxSpeed());
 }
 
 

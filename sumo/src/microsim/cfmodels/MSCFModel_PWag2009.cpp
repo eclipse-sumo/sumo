@@ -71,13 +71,13 @@ MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
+MSCFModel_PWag2009::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, speed, gap, predSpeed);
 }
 
 
 SUMOReal
-MSCFModel_PWag2009::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
     return _v(veh, veh->getSpeed(), gap, 0);
 }
 

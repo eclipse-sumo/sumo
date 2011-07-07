@@ -84,12 +84,25 @@ public:
      * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
+     * @param[in] seen The look ahead distance
+     * @param[in] maxSpeed The maximum allowed speed
+     * @return EGO's safe speed
+     */
+    virtual SUMOReal freeSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
+        return followSpeed(veh, speed, seen, maxSpeed, 0);
+    }
+
+
+    /** @brief Computes the vehicle's safe speed (no dawdling)
+     *
+     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
-     * @todo used by MSLane, can hopefully be removed eventually
      */
-    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const = 0;
+    virtual SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -100,7 +113,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const = 0;
+    virtual SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const = 0;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -113,19 +126,6 @@ public:
      */
     virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const;
 
-
-    /** @brief Get the vehicle's maximum acceleration [m/s^2]
-     *
-     * As some models describe that a vehicle is accelerating slower the higher its
-     *  speed is, the velocity is given.
-     *
-     * @param[in] v The vehicle's velocity
-     * @return The maximum acceleration
-     */
-    virtual SUMOReal getMaxAccel(SUMOReal v) const {
-        UNUSED_PARAMETER(v);
-        return myAccel;
-    }
 
     /** @brief Saves the model's definition into the state
      * @param[in] os The output to write the definition into

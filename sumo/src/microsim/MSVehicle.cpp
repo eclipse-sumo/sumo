@@ -577,7 +577,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             // decelerate
             // !!! should not v be 0 when we have reached the stop?
-            return getCarFollowModel().ffeS(this, endPos-myState.pos());
+            return getCarFollowModel().stopSpeed(this, endPos-myState.pos());
         }
     }
     return currentVelocity;
@@ -616,11 +616,11 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     bool onAppropriateLane = myLane->appropriate(this);
     if (!onAppropriateLane) {
         // decelerate to lane end when yes
-        vBeg = MIN2(cfModel.ffeS(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
+        vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
     }
     if (myCurrEdge == myRoute->end() - 1) {
         if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-            vBeg = MIN2(cfModel.ffeV(this, getSpeed(), myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
+            vBeg = MIN2(cfModel.freeSpeed(this, getSpeed(), myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
         } else {
             vBeg = myLane->getMaxSpeed();
         }
@@ -633,7 +633,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             // collision occured!
             return true;
         }
-        vBeg = MIN2(vBeg, cfModel.ffeV(this, getSpeed(), gap2pred(*pred), pred->getSpeed()));
+        vBeg = MIN2(vBeg, cfModel.followSpeed(this, getSpeed(), gap2pred(*pred), pred->getSpeed(), pred->getCarFollowModel().getMaxDecel()));
     } else {
         // (potential) interaction with a vehicle extending partially into this lane
         MSVehicle *predP = myLane->getPartialOccupator();
@@ -643,7 +643,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
                 // collision occured!
                 return true;
             }
-            vBeg = MIN2(vBeg, cfModel.ffeV(this, getSpeed(), gap, predP->getSpeed()));
+            vBeg = MIN2(vBeg, cfModel.followSpeed(this, getSpeed(), gap, predP->getSpeed(), predP->getCarFollowModel().getMaxDecel()));
         }
     }
     // interaction with left-lane leader (do not overtake right)
@@ -653,7 +653,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         const Stop &stop = *myStops.begin();
         SUMOReal stopPos = stop.busstop==0 ? stop.endPos : stop.busstop->getLastFreePos()-POSITION_EPS;
         SUMOReal seen = lane->getLength() - myState.pos();
-        SUMOReal vsafeStop = cfModel.ffeS(this, seen-(lane->getLength()-stopPos));
+        SUMOReal vsafeStop = cfModel.stopSpeed(this, seen-(lane->getLength()-stopPos));
         vBeg = MIN2(vBeg, vsafeStop);
     }
     vBeg = MAX2((SUMOReal) 0, vBeg);
@@ -1073,7 +1073,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     while (true) {
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
-            SUMOReal vsafeStop = cfModel.ffeS(this, seen-(nextLane->getLength()-myStops.begin()->endPos));
+            SUMOReal vsafeStop = cfModel.stopSpeed(this, seen-(nextLane->getLength()-myStops.begin()->endPos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1084,10 +1084,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if (nextLane->isLinkEnd(link)) {
-            SUMOReal laneEndVSafe = cfModel.ffeS(this, seen);
+            SUMOReal laneEndVSafe = cfModel.stopSpeed(this, seen);
             if (myCurrEdge + view == myRoute->end()) {
                 if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                    laneEndVSafe = cfModel.ffeV(this, getSpeed(), seen, myParameter->arrivalSpeed);
+                    laneEndVSafe = cfModel.freeSpeed(this, getSpeed(), seen, myParameter->arrivalSpeed);
                 } else {
                     laneEndVSafe = vLinkPass;
                 }
@@ -1116,7 +1116,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
-        SUMOReal vmaxNextLane = MAX2(cfModel.ffeV(this, getSpeed(), seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
+        SUMOReal vmaxNextLane = MAX2(cfModel.freeSpeed(this, getSpeed(), seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -1124,9 +1124,9 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         std::pair<MSVehicle*, SUMOReal> lastOnNext = nextLane->getLastVehicleInformation();
         if (lastOnNext.first!=0) {
             if (seen+lastOnNext.second>=0) {
-                vsafePredNextLane = cfModel.ffeV(this, getSpeed(), seen+lastOnNext.second, lastOnNext.first->getSpeed());
+                vsafePredNextLane = cfModel.followSpeed(this, getSpeed(), seen+lastOnNext.second, lastOnNext.first->getSpeed(), lastOnNext.first->getCarFollowModel().getMaxDecel());
             } else {
-                vsafePredNextLane = cfModel.ffeS(this, seen);
+                vsafePredNextLane = cfModel.stopSpeed(this, seen);
             }
         }
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
@@ -1139,7 +1139,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
-        vLinkWait = MIN3(vLinkPass, vLinkWait, cfModel.ffeS(this, seen));
+        vLinkWait = MIN3(vLinkPass, vLinkWait, cfModel.stopSpeed(this, seen));
 #ifdef _DEBUG
         if(vLinkWait < cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) {
             WRITE_WARNING("Vehicle '" + getID() + "' is decelerating too much (#2; is: " + toString(myState.mySpeed-vLinkWait) + ", may: " + toString(cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) + ")");
@@ -1152,15 +1152,15 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             const Stop &stop = *myStops.begin();
             const SUMOReal vsafeStop = stop.busstop==0
-                                       ? cfModel.ffeS(this, seen+stop.endPos)
-                                       : cfModel.ffeS(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
+                                       ? cfModel.stopSpeed(this, seen+stop.endPos)
+                                       : cfModel.stopSpeed(this, seen+stop.busstop->getLastFreePos()-POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
         // check whether we approach the final edge
         if (myCurrEdge + view == myRoute->end()) {
             if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-                const SUMOReal vsafe = cfModel.ffeV(this, getSpeed(), seen + myArrivalPos, myParameter->arrivalSpeed);
+                const SUMOReal vsafe = cfModel.freeSpeed(this, getSpeed(), seen + myArrivalPos, myParameter->arrivalSpeed);
                 vLinkPass = MIN2(vLinkPass, vsafe);
                 vLinkWait = MIN2(vLinkWait, vsafe);
             }

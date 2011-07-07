@@ -73,7 +73,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
+    virtual SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -83,7 +83,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
+    virtual SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name

@@ -133,10 +133,12 @@ bool
 MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SUMOReal minPos) throw() {
     SUMOReal xIn = maxPos;
     SUMOReal vIn = mspeed;
+    SUMOReal leaderDecel;
     if (myVehicles.size()!=0) {
         MSVehicle *leader = myVehicles.front();
         xIn = leader->getPositionOnLane() - leader->getVehicleType().getLengthWithGap();
         vIn = leader->getSpeed();
+        leaderDecel = leader->getCarFollowModel().getMaxDecel();
     } else {
         veh.getBestLanes(true, this);
         SUMOReal brakeGap = veh.getCarFollowModel().brakeGap(mspeed);
@@ -144,6 +146,7 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
         if (leader.first!=0) {
             xIn = getLength() + leader.second;
             vIn = leader.first->getSpeed();
+            leaderDecel = leader.first->getCarFollowModel().getMaxDecel();
         } else {
             incorporateVehicle(&veh, maxPos, mspeed, myVehicles.end());
             return true;
@@ -157,7 +160,7 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
     SUMOReal x = 0;
     for (int i=0; i<=nIter; i++) {
         x = 0.5*(x1 + x2);
-        SUMOReal vSafe = veh.getCarFollowModel().ffeV(&veh, v, xIn - x, vIn);
+        SUMOReal vSafe = veh.getCarFollowModel().followSpeed(&veh, v, xIn - x, vIn, leaderDecel);
         if (vSafe<vHlp) {
             x2 = x;
         } else {
@@ -259,7 +262,7 @@ MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
         }
         SUMOReal frontGapNeeded = veh.getCarFollowModel().getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         if (leaderPos-frontGapNeeded>=0) {
-            SUMOReal tspeed = MIN2(veh.getCarFollowModel().ffeV(&veh, mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
+            SUMOReal tspeed = MIN2(veh.getCarFollowModel().followSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
             if (isInsertionSuccess(&veh, tspeed, 0, adaptableSpeed, notification)) {
                 return true;
@@ -429,7 +432,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             if (leader!=0) {
-                SUMOReal nspeed = gap>=0 ? cfModel.ffeV(aVehicle, speed, gap, leader->getSpeed()) : 0;
+                SUMOReal nspeed = gap>=0 ? cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) : 0;
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -445,7 +448,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (nspeed<speed) {
                 // patch speed if needed
                 if (patchSpeed) {
-                    speed = MIN2(cfModel.ffeV(aVehicle, speed, seen, nspeed), speed);
+                    speed = MIN2(cfModel.freeSpeed(aVehicle, speed, seen, nspeed), speed);
                     dist = cfModel.brakeGap(speed);
                 } else {
                     // we may not drive with the given velocity - we would be too fast on the next lane
@@ -460,7 +463,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             const SUMOTime leaveTime = arrivalTime + TIME2STEPS((*link)->getLength() * speed);
 #endif
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime)) {
-                SUMOReal nspeed = cfModel.ffeV(aVehicle, speed, seen, 0);
+                SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -472,7 +475,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             } else {
                 // we can only drive to the end of the current lane...
-                SUMOReal nspeed = cfModel.ffeV(aVehicle, speed, seen, 0);
+                SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -490,7 +493,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
     }
     if (seen<dist) {
-        SUMOReal nspeed = cfModel.ffeV(aVehicle, speed, seen, 0);
+        SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, seen, 0, 0);
         if (nspeed<speed) {
             if (patchSpeed) {
                 speed = MIN2(nspeed, speed);
@@ -682,7 +685,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
     while (seen<dist&&next!=veh.getRoute().end()-1) {
         ++next;
         MSLane *nextLane = (*next)->getLanes()[0];
-        tspeed = MIN2(cfModel.ffeV(&veh, tspeed, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
+        tspeed = MIN2(cfModel.freeSpeed(&veh, tspeed, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
         dist = SPEED2DIST(tspeed) + cfModel.brakeGap(tspeed);
         seen += nextLane->getMaxSpeed();
     }

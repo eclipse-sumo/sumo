@@ -65,7 +65,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
+    SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -75,20 +75,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const;
-
-
-    /** @brief Get the vehicle's maximum acceleration [m/s^2]
-     *
-     * As some models describe that a vehicle is accelerating slower the higher its
-     *  speed is, the velocity is given.
-     *
-     * @param[in] v The vehicle's velocity
-     * @return The maximum acceleration
-     */
-    SUMOReal getMaxAccel(SUMOReal v) const {
-        return (SUMOReal)(myAccel *(1.0 - (v/myType->getMaxSpeed())));
-    }
+    SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name
@@ -114,7 +101,7 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)

@@ -75,13 +75,13 @@ MSCFModel_Wiedemann::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
+MSCFModel_Wiedemann::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, predSpeed, gap2pred);
 }
 
 
 SUMOReal
-MSCFModel_Wiedemann::ffeS(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
