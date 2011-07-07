@@ -92,6 +92,7 @@ for platform in ["Win32", "x64"]:
                 glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
                 glob.glob(os.path.join(env["FOX16"+envSuffix], "lib", "FOXDLL-?.?.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
+                glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
         zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
         for f in files_to_zip:
