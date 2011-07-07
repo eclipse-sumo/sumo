@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jul  4 14:21:06 2011 by SUMO netconvert Version dev-SVN-r10818
+<!-- generated on 07/07/11 10:22:41 by SUMO netconvert Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<edges>
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
     <edge id="10860201" from="1" to="2" name="Sterndamm" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
 </edges>

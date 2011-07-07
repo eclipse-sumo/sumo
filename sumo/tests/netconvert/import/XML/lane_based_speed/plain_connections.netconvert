@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Wed Jun 29 16:07:35 2011 by SUMO netconvert Version dev-SVN-r10764
+<!-- generated on 07/07/11 10:22:23 by SUMO netconvert Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -11,11 +11,12 @@
     </input>
 
     <output>
+        <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
 
 </configuration>
 -->
 
-<connections>
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
 </connections>

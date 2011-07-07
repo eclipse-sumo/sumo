@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jul  4 14:17:07 2011 by SUMO netconvert Version dev-SVN-r10818
+<!-- generated on 07/07/11 10:22:15 by SUMO netconvert Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<nodes>
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
     <node id="0" x="500.00" y="500.00" type="priority"/>
     <node id="1" x="0.00" y="500.00" type="priority"/>
     <node id="2" x="1000.00" y="500.00" type="priority"/>
