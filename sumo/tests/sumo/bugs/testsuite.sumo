@@ -13,8 +13,8 @@ lanechange
 # Tests for ticket#73 (false end step information in detectors output)
 ticket73
 
-# Tests for ticket#138 (crash when overwriting default type with a distribution)
-ticket138
+# Tests for ticket#139 (crash when overwriting default type with a distribution)
+ticket139
 
 # Tests for ticket#235 (simulation breaks on routes with one edge)
 ticket235
