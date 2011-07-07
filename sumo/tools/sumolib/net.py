@@ -416,9 +416,8 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
             fromEdge = self._net.getEdge(attrs['from'])
             toEdge = self._net.getEdge(attrs['to'])
-            laneConn = attrs['lane'].split(":")
-            fromLane = fromEdge.getLane(int(laneConn[0]))
-            toLane = toEdge.getLane(int(laneConn[1]))
+            fromLane = fromEdge.getLane(int(attrs['fromLane']))
+            toLane = toEdge.getLane(int(attrs['toLane']))
             if attrs.has_key('tl') and attrs['tl']!="":
                 tl = attrs['tl']
                 tllink = int(attrs['linkIndex'])
