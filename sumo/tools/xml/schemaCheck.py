@@ -24,8 +24,6 @@ def validate(f):
     try:
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
-        if "net." in f:
-            schemaLoc = '../docs/xsd/net_file.xsd'
         if schemaLoc:
             if schemaLoc not in schemes:
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
