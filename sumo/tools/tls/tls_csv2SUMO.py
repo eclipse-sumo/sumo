@@ -99,7 +99,7 @@ for tlsFile in allTLS:
 
 net1 = sumolib.net.readNet(sys.argv[2])
 
-print "<add>"
+print '<?xml version="1.0" encoding="iso-8859-1"?>\n<add>'
 for keyIndex, key in enumerate(allKeys):
     minTimes = allMinTimes[keyIndex]
     maxTimes = allMaxTimes[keyIndex]
