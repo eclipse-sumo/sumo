@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/19/10 14:31:04 by SUMO sumo Version dev-SVN-r9385
+<!-- generated on 07/07/11 07:10:35 by SUMO sumo Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,29 +24,29 @@
     </report>
 
     <routing>
-        <device.routing.probability value="1"/>
-        <device.routing.with-taz value="true"/>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.with-taz value="true"/>
     </routing>
 
 </configuration>
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="80.00" fromTaz="1" toTaz="2">
+    <vehicle id="0" depart="0.00" arrival="79.00" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg rend"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="100.00" fromTaz="1" toTaz="2">
+    <vehicle id="1" depart="20.00" arrival="99.00" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg rend"/>
             <route edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="120.00" fromTaz="1" toTaz="2">
+    <vehicle id="2" depart="40.00" arrival="119.00" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg rend"/>
             <route edges="beg2left left left2end end"/>
@@ -67,7 +67,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="181.00" fromTaz="1" toTaz="2">
+    <vehicle id="5" depart="100.00" arrival="180.00" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg rend"/>
             <route edges="beg2left left left2end end"/>

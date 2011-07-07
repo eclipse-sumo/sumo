@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/11 12:29:18 by SUMO sumo Version dev-SVN-r9525
+<!-- generated on 07/07/11 07:07:56 by SUMO sumo Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -58,17 +58,17 @@
                 <vehicle id="f1.6" pos="45.66" speed="0.06"/>
                 <vehicle id="f1.7" pos="53.29" speed="0.09"/>
                 <vehicle id="f1.8" pos="60.87" speed="0.07"/>
-                <vehicle id="f1.9" pos="70.07" speed="1.67"/>
-                <vehicle id="f1.10" pos="79.33" speed="0.00"/>
-                <vehicle id="f1.11" pos="86.93" speed="0.00"/>
-                <vehicle id="f1.12" pos="94.53" speed="0.00"/>
-                <vehicle id="f1.13" pos="102.13" speed="0.00"/>
-                <vehicle id="f1.14" pos="109.73" speed="0.00"/>
-                <vehicle id="f1.15" pos="117.33" speed="0.00"/>
-                <vehicle id="f1.16" pos="124.93" speed="0.00"/>
-                <vehicle id="f1.17" pos="132.53" speed="0.00"/>
-                <vehicle id="f1.18" pos="140.13" speed="0.00"/>
-                <vehicle id="f1.19" pos="147.73" speed="0.00"/>
+                <vehicle id="f1.9" pos="70.03" speed="1.63"/>
+                <vehicle id="f1.10" pos="79.26" speed="0.00"/>
+                <vehicle id="f1.11" pos="86.86" speed="0.00"/>
+                <vehicle id="f1.12" pos="94.46" speed="0.00"/>
+                <vehicle id="f1.13" pos="102.06" speed="0.00"/>
+                <vehicle id="f1.14" pos="109.66" speed="0.00"/>
+                <vehicle id="f1.15" pos="117.26" speed="0.00"/>
+                <vehicle id="f1.16" pos="124.86" speed="0.00"/>
+                <vehicle id="f1.17" pos="132.46" speed="0.00"/>
+                <vehicle id="f1.18" pos="140.06" speed="0.00"/>
+                <vehicle id="f1.19" pos="147.66" speed="0.00"/>
             </lane>
             <lane id="beg_1"/>
             <lane id="beg_2"/>

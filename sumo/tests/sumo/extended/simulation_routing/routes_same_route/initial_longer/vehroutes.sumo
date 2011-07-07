@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jan 30 00:57:35 2011 by SUMO sumo Version dev-SVN-r9638
+<!-- generated on 07/07/11 07:10:33 by SUMO sumo Version dev-SVN-r10879
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -24,14 +24,14 @@
     </report>
 
     <routing>
-        <device.routing.probability value="1"/>
+        <device.rerouting.probability value="1"/>
     </routing>
 
 </configuration>
 -->
 
 <routes>
-    <vehicle id="0.0" depart="0.00" arrival="80.00">
+    <vehicle id="0.0" depart="0.00" arrival="79.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
@@ -66,14 +66,14 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.5" depart="100.00" arrival="181.00">
+    <vehicle id="0.5" depart="100.00" arrival="180.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.6" depart="120.00" arrival="200.00">
+    <vehicle id="0.6" depart="120.00" arrival="199.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="120.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
@@ -94,7 +94,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.9" depart="180.00" arrival="261.00">
+    <vehicle id="0.9" depart="180.00" arrival="260.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
