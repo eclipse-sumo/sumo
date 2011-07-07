@@ -58,7 +58,12 @@ two_plus_left_right
 # beginning with two lanes, adding one to the right, later one to the left
 two_plus_right_plus_left
 
+# bug#beginning with two lanes, adding one to the left, later one to the right
+two_plus_left_plus_right
+
 # splitting should preserve edge geometry
 preserve_geometry
 deprecated
 errors
+
+
