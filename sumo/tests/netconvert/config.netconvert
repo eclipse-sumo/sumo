@@ -25,6 +25,7 @@ cfg:config.cfg
 log:log.txt
 
 [run_dependent_text]
+output:\r{REPLACE \n}
 plain_nodes:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
