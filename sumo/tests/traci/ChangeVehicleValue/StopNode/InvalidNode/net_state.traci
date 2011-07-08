@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/19/10 11:15:46 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 07/08/11 12:33:56 by SUMO sumo Version dev-SVN-r10899
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -18,7 +20,6 @@
 
     <traci_server>
         <remote-port value="8824"/>
-        <penetration value="1"/>
     </traci_server>
 
 </configuration>
@@ -44,7 +45,7 @@
     <timestep time="2.00">
         <edge id="1fi">
             <lane id="1fi_0">
-                <vehicle id="veh0" pos="2.34" speed="1.54"/>
+                <vehicle id="veh0" pos="2.40" speed="1.60"/>
             </lane>
             <lane id="1fi_1"/>
         </edge>
