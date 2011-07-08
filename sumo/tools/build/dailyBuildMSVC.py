@@ -143,7 +143,7 @@ for platform in ["Win32", "x64"]:
     schemaCheck.main(env["TEXTTEST_HOME"], log)
     log.close()
     log = open(statusLog, 'w')
-    status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
+    status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log, xmlLog)
     log.close()
     if not options.remoteDir:
         toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, xmlLog, statusLog, binaryZip])
