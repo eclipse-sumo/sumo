@@ -109,24 +109,19 @@ NBNetBuilder::compute(OptionsCont &oc) {
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }
     //
-    if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
-        inform(step, "Removing empty nodes and geometry nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.exists("geometry.remove")&&oc.getBool("geometry.remove"));
-    }
-    //
     if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit")) {
             inform(step, "Removing unwished edges.");
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
         }
     }
-    if (oc.isSet("keep-edges.explicit") || oc.isSet("remove-edges.explicit") 
-        || (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload") )
-        || (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass") )
-        || (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass") )
-        || oc.isSet("keep-edges.input-file")) {
-        inform(step, "Rechecking nodes after edge removal.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, oc.exists("geometry.remove")&&oc.getBool("geometry.remove"));
+    //
+    if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
+        inform(step, "Removing empty nodes and geometry nodes.");
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
+    } else {
+        inform(step, "Removing empty nodes.");
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
     }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
@@ -151,7 +146,7 @@ NBNetBuilder::compute(OptionsCont &oc) {
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
     }
     //
-    inform(step, "Guessing and setting TLs.");
+    inform(step, "Guessing and setting traffic lights.");
     if (oc.isSet("tls.set")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
         for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
@@ -204,7 +199,7 @@ NBNetBuilder::compute(OptionsCont &oc) {
     inform(step, "Computing edge shapes.");
     myEdgeCont.computeEdgeShapes();
     //
-    inform(step, "Computing tls logics.");
+    inform(step, "Computing traffic light control information.");
     myTLLCont.setTLControllingInformation(myEdgeCont);
     //
     inform(step, "Computing node logics.");

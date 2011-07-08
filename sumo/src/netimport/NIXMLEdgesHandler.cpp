@@ -69,7 +69,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), myHaveWarnedAboutDeprecatedSpreadType(false),
+        myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
+        myHaveWarnedAboutDeprecatedSpreadType(false),
 		myHaveWarnedAboutDeprecatedFromTo(false),
 		myHaveWarnedAboutDeprecatedNoLanes(false),
         myHaveWarnedAboutDeprecatedLaneId(false){}
@@ -144,6 +145,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
         if (!myHaveReportedAboutOverwriting) {
             WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
             myHaveReportedAboutOverwriting = true;
+        }
+        if (attrs.getOptBoolReporting(SUMO_ATTR_REMOVE, myCurrentID.c_str(), ok, false)) {
+            myEdgeCont.erase(myDistrictCont, myCurrentEdge);
+            myCurrentEdge = 0;
+            return;
         }
         myCurrentSpeed = myCurrentEdge->getSpeed();
         myCurrentPriority = myCurrentEdge->getPriority();

@@ -111,7 +111,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "WAUT",	          SUMO_TAG_WAUT },
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
     { "wautJunction",     SUMO_TAG_WAUT_JUNCTION },
-    { "emit",        	  SUMO_TAG_EMIT },
     { "reset",        	  SUMO_TAG_RESET },
     { "stop",        	  SUMO_TAG_STOP },
     { "dest_prob_reroute", SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED },
@@ -208,6 +207,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speed",          SUMO_ATTR_SPEED },
     { "oneway",         SUMO_ATTR_ONEWAY },
     { "width",          SUMO_ATTR_WIDTH },
+    { "remove",         SUMO_ATTR_REMOVE },
 
     { "length",         SUMO_ATTR_LENGTH },
     { "fromnode",       SUMO_ATTR_FROMNODE },
