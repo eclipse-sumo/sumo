@@ -19,7 +19,7 @@ echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
 make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
-echo `basename $MAKELOG`.gz >> $STATUSLOG
+basename $MAKELOG >> $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if test `wc -l < $MAKELOG` -le 5; then
 #  echo "no changes since last run, skipping build and test"
@@ -41,8 +41,7 @@ else
   echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
 fi
 echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
-gzip -f $MAKELOG
-scp -q $MAKELOG.gz $REMOTEDIR
+scp -q $MAKELOG $REMOTEDIR
 
 echo "--" >> $STATUSLOG
 if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; then
@@ -61,7 +60,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
 fi
 
 echo "--" >> $STATUSLOG
-echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
+basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="-Wall -W -pedantic -Wno-long-long"
 ./configure --program-suffix=D --prefix=$PREFIX/sumo \
   --disable-double-precision --disable-subsecond --disable-internal-lanes \
@@ -72,8 +71,14 @@ else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
 echo `grep -c '[Ww]arn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
-gzip -f $MAKEALLLOG
-scp -q $MAKEALLLOG.gz $REMOTEDIR
+scp -q $MAKEALLLOG $REMOTEDIR
 echo "--" >> $STATUSLOG
-tools/xml/schemaCheck.py tests &> $XMLLOG || echo "schema check failed"
+basename $XMLLOG >> $STATUSLOG
+if tools/xml/schemaCheck.py tests &> $XMLLOG; then
+  echo "schema check was successful (or did not run)" >> $STATUSLOG
+else
+  echo "schema check failed" | tee -a $STATUSLOG; tail -20 $XMLLOG
+fi
+scp -q $XMLLOG $REMOTEDIR
+echo "--" >> $STATUSLOG
 scp -q $STATUSLOG $REMOTEDIR
