@@ -33,3 +33,6 @@ shape_empty
 
 # splitting an edge
 split
+
+# The top (4*) edges are removed
+remove

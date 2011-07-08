@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 11:07:51 2011 by SUMO netconvert Version dev-SVN-r10842
+<!-- generated on 07/08/11 13:17:15 by SUMO netconvert Version dev-SVN-r10899
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -674,8 +675,6 @@
         <phase duration="9" state="y"/>
     </tlLogic>
 
-    <junction id="102632814" type="unregulated" x="1327.34" y="1000.80" incLanes="" intLanes="" shape="">
-    </junction>
     <junction id="175648134" type="priority" x="15.68" y="168.06" incLanes="-25951490_0" intLanes="" shape="15.67,168.02 15.25,164.84 16.10,171.29 15.68,168.11">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -709,15 +708,11 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="261647693" type="unregulated" x="196.87" y="240.75" incLanes="" intLanes="" shape="">
-    </junction>
     <junction id="261647702" type="priority" x="482.98" y="167.40" incLanes="7727483#2_0 -7727483#3_0" intLanes="" shape="479.75,167.68 486.22,167.12 479.75,167.68">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
-    </junction>
-    <junction id="261647703" type="unregulated" x="199.94" y="191.20" incLanes="" intLanes="" shape="">
     </junction>
     <junction id="283018817" type="priority" x="613.50" y="547.70" incLanes="-25944590#0_0 5784950#1_0" intLanes="" shape="617.09,544.77 614.34,543.14 609.30,543.89 608.48,550.34 609.21,551.82 611.96,553.45">
         <request index="0" response="1000" foes="1000"/>
@@ -1043,8 +1038,6 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="294830184" type="unregulated" x="921.09" y="477.93" incLanes="" intLanes="" shape="">
-    </junction>
     <junction id="294831560" type="priority" x="543.50" y="292.50" incLanes="26843133#0_0" intLanes="" shape="543.55,292.49 546.74,292.24 540.26,292.75 543.45,292.50">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -1057,8 +1050,6 @@
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
-    </junction>
-    <junction id="306982591" type="unregulated" x="697.32" y="465.67" incLanes="" intLanes="" shape="">
     </junction>
     <junction id="32266935" type="traffic_light" x="478.98" y="121.02" incLanes="7727483#3_0 7216737#3_0 7216737#3_1 -24214694_0 -24214693#0_0 -24214693#0_1" intLanes="" shape="476.45,129.44 482.92,128.89 484.35,127.11 483.15,114.06 481.53,112.71 475.05,113.26 473.23,115.13 474.83,128.13">
         <request index="0" response="000000000001100000" foes="100000100001100000"/>

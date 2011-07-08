@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 11:10:01 2011 by SUMO netconvert Version dev-SVN-r10842
+<!-- generated on 07/08/11 13:17:27 by SUMO netconvert Version dev-SVN-r10899
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -67,8 +68,6 @@
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
-    </junction>
-    <junction id="4a" type="unregulated" x="1800.00" y="200.00" incLanes="" intLanes="" shape="">
     </junction>
     <junction id="5" type="unregulated" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85">
     </junction>

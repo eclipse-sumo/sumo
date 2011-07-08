@@ -1,43 +1,24 @@
-Checked(1): 0/15         
-Checked(1): 1/13         
-Checked(1): 2/12         
-Checked(1): 3/11         
-Checked(1): 4/9         
-Checked(1): 5/8         
-Checked(1): 6/7         
-Checked(2): 1/7         
-Checked(2): 2/7         
-Checked(2): 3/7         
-Checked(2): 4/7         
-Checked(2): 5/7         
-Checked(2): 6/7         
-Checked(2): 7/7         
-Checked(3): 1/7         
-Checked(3): 2/7         
-Checked(3): 3/7         
-Checked(3): 4/7         
-Checked(3): 5/7         
-Checked(3): 6/7         
-Checked(3): 7/7         
- Import done:
+Checked(1): 0/15         Checked(1): 1/13         Checked(1): 2/12         Checked(1): 3/11         Checked(1): 4/9         Checked(1): 5/8         Checked(1): 6/7         Checked(2): 1/7         Checked(2): 2/7         Checked(2): 3/7         Checked(2): 4/7         Checked(2): 5/7         Checked(2): 6/7         Checked(2): 7/7         Checked(3): 1/7         Checked(3): 2/7         Checked(3): 3/7         Checked(3): 4/7         Checked(3): 5/7         Checked(3): 6/7         Checked(3): 7/7          Import done:
    11 nodes loaded.
    10 edges loaded.
 Computing step 1: Removing dummy edges.
 Computing step 2: Joining double connections.
-Computing step 3: Normalising node positions.
-Computing step 4: Guessing and setting TLs.
-Computing step 5: Computing turning directions.
-Computing step 6: Sorting nodes' edges.
-Computing step 7: Computing approached edges.
-Computing step 8: Computing approaching lanes.
-Computing step 9: Dividing of lanes on approached lanes.
-Computing step 10: Appending turnarounds.
-Computing step 11: Rechecking of lane endings.
-Computing step 12: Computing node shapes.
-Computing step 13: Computing edge shapes.
-Computing step 14: Computing tls logics.
-Computing step 15: Computing node logics.
-Computing step 16: Computing traffic light logics.
+Computing step 3: Removing empty nodes.
+   0 nodes removed.
+Computing step 4: Normalising node positions.
+Computing step 5: Guessing and setting traffic lights.
+Computing step 6: Computing turning directions.
+Computing step 7: Sorting nodes' edges.
+Computing step 8: Computing approached edges.
+Computing step 9: Computing approaching lanes.
+Computing step 10: Dividing of lanes on approached lanes.
+Computing step 11: Appending turnarounds.
+Computing step 12: Rechecking of lane endings.
+Computing step 13: Computing node shapes.
+Computing step 14: Computing edge shapes.
+Computing step 15: Computing traffic light control information.
+Computing step 16: Computing node logics.
+Computing step 17: Computing traffic light logics.
 0 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
