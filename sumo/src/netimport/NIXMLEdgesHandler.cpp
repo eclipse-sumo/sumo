@@ -348,9 +348,6 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
             return;
         }
-        if (e.pos<0) {
-            e.pos += myCurrentEdge->getGeometry().length();
-        }
         std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
         if (i!=mySplits.end()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
@@ -362,6 +359,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
                 WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
+        }
+        if (e.pos<0) {
+            e.pos += myCurrentEdge->getGeometry().length();
         }
         std::vector<std::string> lanes;
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
@@ -539,19 +539,8 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             std::vector<Split>::iterator i;
             NBEdge *e = myCurrentEdge;
             SUMOReal length = e->getLength();
-            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
-                if((*i).pos<0) {
-                    (*i).pos = length + (*i).pos;
-                }
-            }
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             unsigned int noLanesMax = e->getNumLanes();
-            // compute the node positions and sort the lanes
-            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
-                (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
-                sort((*i).lanes.begin(), (*i).lanes.end());
-                noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
-            }
             // compute the node positions and sort the lanes
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
