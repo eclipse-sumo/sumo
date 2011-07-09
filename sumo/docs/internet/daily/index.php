@@ -14,6 +14,7 @@ $cells[$column][0] = "";
 $cells[$column][1] = "Standard build";
 $cells[$column][2] = "Texttest tests";
 $cells[$column][3] = "Debug build";
+$cells[$column][4] = "XML schema check";
 $column++;
 
 foreach (glob("*status.log") as $filename) {
