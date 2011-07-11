@@ -35,6 +35,9 @@
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIAppEnum.h">
@@ -62,6 +65,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

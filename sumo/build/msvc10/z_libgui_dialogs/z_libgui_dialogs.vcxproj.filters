@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.h">
@@ -32,9 +29,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

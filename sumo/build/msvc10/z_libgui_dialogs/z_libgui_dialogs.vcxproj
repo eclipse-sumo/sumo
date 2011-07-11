@@ -314,13 +314,11 @@
     <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.cpp" />
     <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.cpp" />
     <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.cpp" />
-    <ClCompile Include="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_AboutSUMO.h" />
     <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.h" />
     <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.h" />
-    <ClInclude Include="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
