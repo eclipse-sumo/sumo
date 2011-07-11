@@ -28,6 +28,7 @@ def validate(f):
             if schemaLoc not in schemes:
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
+            print >> sys.stderr, schemes[schemaLoc].error_log
     except:
         print >> sys.stderr, "Error on parsing '%s'!" %f
         traceback.print_exc()
@@ -39,8 +40,6 @@ def main(srcRoot, err):
         sax2count = os.path.join(os.environ['XERCES_64'], "bin", sax2count)
     elif 'XERCES' in os.environ:
         sax2count = os.path.join(os.environ['XERCES'], "bin", sax2count)
-    #os.environ['XML_CATALOG_FILES']=os.path.join(os.path.join(os.path.dirname(sys.argv[0]), "./catalog.xml"))
-    #print os.environ['XML_CATALOG_FILES']
 
     if os.path.exists(srcRoot):
         if os.path.isdir(srcRoot):
@@ -67,6 +66,9 @@ def main(srcRoot, err):
     return fail
 
 if __name__ == "__main__":
+    if os.name == "posix" and not haveLxml:
+        print >> sys.stderr, "neither SAX2Count nor lxml available, exiting"
+        sys.exit(1)
     srcRoot = "."
     if len(sys.argv) > 1:
         srcRoot = sys.argv[1]

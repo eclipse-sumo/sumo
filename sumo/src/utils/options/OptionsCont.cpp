@@ -814,6 +814,9 @@ OptionsCont::writeSchema(std::ostream &os, bool addComments) {
                 os << "        <!-- " << o->getDescription() << " -->\n";
             }
             os << "        <xsd:attribute name=\"value\" type=\"xsd:" << type << "\" use=\"required\"/>\n";
+            os << "        <xsd:attribute name=\"synonymes\" type=\"xsd:string\" use=\"optional\"/>\n";
+            os << "        <xsd:attribute name=\"type\" type=\"xsd:string\" use=\"optional\"/>\n";
+            os << "        <xsd:attribute name=\"help\" type=\"xsd:string\" use=\"optional\"/>\n";
             os << "    </xsd:complexType>\n\n";
         }
     }

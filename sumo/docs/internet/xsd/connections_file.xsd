@@ -31,6 +31,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="uncontrolled" type="xsd:boolean" use="optional"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">
