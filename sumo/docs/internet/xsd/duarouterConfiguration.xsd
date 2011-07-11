@@ -19,51 +19,78 @@
     <xsd:complexType name="inputType">
         <xsd:sequence>
             <xsd:element name="net-file" type="net-fileType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="districts" type="districtsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="alternatives" type="alternativesType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="weights" type="weightsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="lane-weights" type="lane-weightsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="measure" type="measureType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="trip-defs" type="trip-defsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="flow-definition" type="flow-definitionType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="sumo-input" type="sumo-inputType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="taz-files" type="taz-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="alternative-files" type="alternative-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="flow-files" type="flow-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="weight-files" type="weight-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="lane-weight-files" type="lane-weight-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="weight-attribute" type="weight-attributeType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="trip-files" type="trip-filesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="route-files" type="route-filesType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="net-fileType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="districtsType">
+    <xsd:complexType name="taz-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="alternativesType">
+    <xsd:complexType name="alternative-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="weightsType">
+    <xsd:complexType name="flow-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="lane-weightsType">
+    <xsd:complexType name="weight-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="measureType">
+    <xsd:complexType name="lane-weight-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="trip-defsType">
+    <xsd:complexType name="weight-attributeType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="flow-definitionType">
+    <xsd:complexType name="trip-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="sumo-inputType">
+    <xsd:complexType name="route-filesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="outputType">
@@ -75,70 +102,149 @@
 
     <xsd:complexType name="output-fileType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="exit-timesType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="processingType">
         <xsd:sequence>
-            <xsd:element name="continue-on-unbuild" type="continue-on-unbuildType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="unsorted" type="unsortedType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ignore-errors" type="ignore-errorsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="unsorted-input" type="unsorted-inputType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="randomize-flows" type="randomize-flowsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="max-alternatives" type="max-alternativesType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="remove-loops" type="remove-loopsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="repair" type="repairType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="interpolate" type="interpolateType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="weights.interpolate" type="weights.interpolateType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="with-taz" type="with-tazType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="expand-weights" type="expand-weightsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="gBeta" type="gBetaType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="gA" type="gAType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="weights.expand" type="weights.expandType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="gawron.beta" type="gawron.betaType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="gawron.a" type="gawron.aType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="keep-all-routes" type="keep-all-routesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="skip-new-routes" type="skip-new-routesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="logit" type="logitType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="logit.beta" type="logit.betaType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="logit.gamma" type="logit.gammaType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="continue-on-unbuildType">
+    <xsd:complexType name="ignore-errorsType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="unsortedType">
+    <xsd:complexType name="unsorted-inputType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="randomize-flowsType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="max-alternativesType">
         <xsd:attribute name="value" type="xsd:int" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="remove-loopsType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="repairType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="interpolateType">
+    <xsd:complexType name="weights.interpolateType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="with-tazType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="expand-weightsType">
+    <xsd:complexType name="weights.expandType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="gBetaType">
+    <xsd:complexType name="gawron.betaType">
         <xsd:attribute name="value" type="xsd:float" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="gAType">
+    <xsd:complexType name="gawron.aType">
         <xsd:attribute name="value" type="xsd:float" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="keep-all-routesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="skip-new-routesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="logitType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="logit.betaType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="logit.gammaType">
+        <xsd:attribute name="value" type="xsd:float" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="defaultsType">
@@ -155,30 +261,51 @@
 
     <xsd:complexType name="departlaneType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="departposType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="departspeedType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="arrivallaneType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="arrivalposType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="arrivalspeedType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="defaults-overrideType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timeType">
@@ -190,10 +317,16 @@
 
     <xsd:complexType name="beginType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="endType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="reportType">
@@ -202,53 +335,96 @@
             <xsd:element name="print-options" type="print-optionsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="help" type="helpType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="version" type="versionType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="suppress-warnings" type="suppress-warningsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="log-file" type="log-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="no-warnings" type="no-warningsType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="log" type="logType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="message-log" type="message-logType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="error-log" type="error-logType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="stats-period" type="stats-periodType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="verboseType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="print-optionsType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="helpType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="versionType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="suppress-warningsType">
+    <xsd:complexType name="no-warningsType">
         <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="log-fileType">
+    <xsd:complexType name="logType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="message-logType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="error-logType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="stats-periodType">
         <xsd:attribute name="value" type="xsd:int" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="random_numberType">
         <xsd:sequence>
-            <xsd:element name="srand" type="srandType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="abs-rand" type="abs-randType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="random" type="randomType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="seed" type="seedType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="srandType">
-        <xsd:attribute name="value" type="xsd:int" use="required"/>
+    <xsd:complexType name="randomType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="abs-randType">
-        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+    <xsd:complexType name="seedType">
+        <xsd:attribute name="value" type="xsd:int" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
