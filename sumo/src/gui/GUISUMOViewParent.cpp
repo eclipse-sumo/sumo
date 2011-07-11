@@ -29,6 +29,7 @@
 
 #include <string>
 #include <vector>
+#include <guisim/GUIShapeContainer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
@@ -48,7 +49,6 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUINet.h>
-#include <guisim/GUIShapeContainer.h>
 #include <microsim/MSJunction.h>
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
