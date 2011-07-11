@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:11:10 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Mon Jul 11 12:53:58 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./sumo/output/meandata_lanebased/lane_change_single/net.nod.xml"/>
-        <xml-edge-files value="./sumo/output/meandata_lanebased/lane_change_single/net.edg.xml"/>
+        <node-files value="./sumo/output/meandata_lanebased/lane_change_single/net.nod.xml"/>
+        <edge-files value="./sumo/output/meandata_lanebased/lane_change_single/net.edg.xml"/>
     </input>
 
     <output>
@@ -85,7 +86,7 @@
         <phase duration="4" state="rrrrrryyrrrrrryy"/>
     </tlLogic>
 
-    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25">
+    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
         <request index="1" response="0000000000000000" foes="0111110001100000"/>
         <request index="2" response="0000001100000000" foes="0110001111100000"/>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:13:49 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Mon Jul 11 12:54:00 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./traci/ChangeVehicleValue/rerouting/input_net.nod.xml"/>
-        <xml-edge-files value="./traci/ChangeVehicleValue/rerouting/input_net.edg.xml"/>
+        <node-files value="./traci/ChangeVehicleValue/rerouting/input_net.nod.xml"/>
+        <edge-files value="./traci/ChangeVehicleValue/rerouting/input_net.edg.xml"/>
     </input>
 
     <output>
@@ -60,7 +61,8 @@
         <lane id="right2end_0" index="0" maxSpeed="27.80" length="491.95" shape="1501.65,0.00 1501.65,491.95"/>
     </edge>
 
-    <junction id="absBeg" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45"/>
+    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45">
+    </junction>
     <junction id="absEnd" type="priority" x="2000.00" y="500.00" incLanes="end_0 end_1" intLanes="" shape="2000.00,499.95 2000.00,493.45 2000.00,499.95">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
@@ -74,59 +76,31 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="begright" type="dead_end" x="500.00" y="0.00" incLanes="beg2right_0" intLanes="" shape="496.75,-0.00 499.95,-0.00"/>
+    <junction id="begright" type="unregulated" x="500.00" y="0.00" incLanes="beg2right_0" intLanes="" shape="496.75,-0.00 499.95,-0.00">
+    </junction>
     <junction id="end" type="priority" x="1500.00" y="500.00" incLanes="left2end_0 right2end_0 middle_0" intLanes="" shape="1496.75,501.45 1499.95,501.45 1504.75,499.95 1504.75,493.45 1503.25,491.95 1500.05,491.95 1495.25,496.75 1495.25,499.95">
         <request index="0" response="010" foes="110"/>
         <request index="1" response="000" foes="101"/>
         <request index="2" response="011" foes="011"/>
     </junction>
     <junction id="endleft" type="priority" x="1500.00" y="1000.00" incLanes="left+right_0 left+right_1" intLanes="" shape="1499.95,991.95 1496.75,991.95 1495.25,993.45 1495.25,999.95">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="11" foes="00"/>
+        <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="endright" type="dead_end" x="1500.00" y="0.00" incLanes="" intLanes="" shape="1500.05,0.00 1503.25,0.00"/>
-    <junction id="rabsEnd" type="dead_end" x="2500.00" y="500.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,493.45 2500.00,499.95"/>
+    <junction id="endright" type="unregulated" x="1500.00" y="0.00" incLanes="" intLanes="" shape="1500.05,0.00 1503.25,0.00">
+    </junction>
+    <junction id="rabsEnd" type="unregulated" x="2500.00" y="500.00" incLanes="rend_0 rend_1" intLanes="" shape="2500.00,493.45 2500.00,499.95">
+    </junction>
 
-    <succ edge="beg" lane="beg_0" junction="beg">
-        <succlane lane="beg2right_0" dir="r" state="M"/>
-        <succlane lane="middle_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="beg" lane="beg_1" junction="beg">
-        <succlane lane="beg2left_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="beg2left" lane="beg2left_0" junction="begleft">
-        <succlane lane="left+right_0" dir="r" state="M"/>
-        <succlane lane="left+right_1" dir="r" state="M"/>
-    </succ>
-    <succ edge="beg2right" lane="beg2right_0" junction="begright">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="absEnd">
-        <succlane lane="rend_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_1" junction="absEnd">
-        <succlane lane="rend_1" dir="s" state="M"/>
-    </succ>
-    <succ edge="left+right" lane="left+right_0" junction="endleft">
-        <succlane lane="left2end_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="left+right" lane="left+right_1" junction="endleft">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="left2end" lane="left2end_0" junction="end">
-        <succlane lane="end_1" dir="l" state="m"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="end">
-        <succlane lane="end_1" dir="s" state="m"/>
-    </succ>
-    <succ edge="rend" lane="rend_0" junction="rabsEnd">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="rend" lane="rend_1" junction="rabsEnd">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="right2end" lane="right2end_0" junction="end">
-        <succlane lane="end_0" dir="r" state="M"/>
-    </succ>
+    <connection from="beg" to="beg2right" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" fromLane="1" toLane="0" dir="l" state="M"/>
+    <connection from="beg2left" to="left+right" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg2left" to="left+right" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="end" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="end" to="rend" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="left+right" to="left2end" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="1" dir="l" state="m"/>
+    <connection from="middle" to="end" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="right2end" to="end" fromLane="0" toLane="0" dir="r" state="M"/>
 
 </net>

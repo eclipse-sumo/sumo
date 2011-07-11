@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/02/11 22:50:20 by SUMO netconvert Version dev-SVN-r10807
+<!-- generated on Mon Jul 11 12:53:59 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="traci/ChangeVehicleValue/StopNode/net.nod.xml"/>
-        <edge-files value="traci/ChangeVehicleValue/StopNode/net.edg.xml"/>
+        <node-files value="./traci/ChangeVehicleValue/StopNode/net.nod.xml"/>
+        <edge-files value="./traci/ChangeVehicleValue/StopNode/net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="traci/ChangeVehicleValue/StopNode/net.net.xml"/>
+        <output-file value="./traci/ChangeVehicleValue/StopNode/net.net.xml"/>
     </output>
 
     <processing>
         <speed-in-kmh value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

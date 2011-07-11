@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:10:52 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Mon Jul 11 12:53:57 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./sumo/output/examples/straight1/straight1.nod.xml"/>
-        <xml-edge-files value="./sumo/output/examples/straight1/straight1.edg.xml"/>
+        <node-files value="./sumo/output/examples/straight1/straight1.nod.xml"/>
+        <edge-files value="./sumo/output/examples/straight1/straight1.edg.xml"/>
     </input>
 
     <output>
@@ -101,7 +102,8 @@
         <lane id="c_0" index="0" maxSpeed="36.00" length="500.00" shape="3500.00,-1.65 4000.00,-1.65"/>
     </edge>
 
-    <junction id="a0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
+    <junction id="a0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
+    </junction>
     <junction id="a1" type="priority" x="500.00" y="0.00" incLanes="0_0" intLanes=":a1_0_0" shape="500.00,-0.05 500.00,-3.25 500.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -120,7 +122,8 @@
     <junction id="a6" type="priority" x="1000.00" y="0.00" incLanes="5_0" intLanes=":a6_0_0" shape="1000.00,-0.05 1000.00,-3.25 1000.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="b0" type="dead_end" x="4000.00" y="0.00" incLanes="c_0" intLanes="" shape="4000.00,-3.25 4000.00,-0.05"/>
+    <junction id="b0" type="unregulated" x="4000.00" y="0.00" incLanes="c_0" intLanes="" shape="4000.00,-3.25 4000.00,-0.05">
+    </junction>
     <junction id="b1" type="priority" x="3500.00" y="0.00" incLanes="b_0" intLanes=":b1_0_0" shape="3500.00,-0.05 3500.00,-3.25 3500.00,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -140,81 +143,30 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <succ edge="0" lane="0_0" junction="a1">
-        <succlane lane="1_0" via=":a1_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="1" lane="1_0" junction="a2">
-        <succlane lane="2_0" via=":a2_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="2" lane="2_0" junction="a3">
-        <succlane lane="3_0" via=":a3_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="3" lane="3_0" junction="a4">
-        <succlane lane="4_0" via=":a4_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="4" lane="4_0" junction="a5">
-        <succlane lane="5_0" via=":a5_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="5" lane="5_0" junction="a6">
-        <succlane lane="6_0" via=":a6_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="6" lane="6_0" junction="b6">
-        <succlane lane="7_0" via=":b6_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="7" lane="7_0" junction="b5">
-        <succlane lane="8_0" via=":b5_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="8" lane="8_0" junction="b4">
-        <succlane lane="9_0" via=":b4_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="9" lane="9_0" junction="b3">
-        <succlane lane="a_0" via=":b3_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="a" lane="a_0" junction="b2">
-        <succlane lane="b_0" via=":b2_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="b" lane="b_0" junction="b1">
-        <succlane lane="c_0" via=":b1_0_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="c" lane="c_0" junction="b0">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
+    <connection from="0" to="1" fromLane="0" toLane="0" via=":a1_0_0" dir="s" state="M"/>
+    <connection from="1" to="2" fromLane="0" toLane="0" via=":a2_0_0" dir="s" state="M"/>
+    <connection from="2" to="3" fromLane="0" toLane="0" via=":a3_0_0" dir="s" state="M"/>
+    <connection from="3" to="4" fromLane="0" toLane="0" via=":a4_0_0" dir="s" state="M"/>
+    <connection from="4" to="5" fromLane="0" toLane="0" via=":a5_0_0" dir="s" state="M"/>
+    <connection from="5" to="6" fromLane="0" toLane="0" via=":a6_0_0" dir="s" state="M"/>
+    <connection from="6" to="7" fromLane="0" toLane="0" via=":b6_0_0" dir="s" state="M"/>
+    <connection from="7" to="8" fromLane="0" toLane="0" via=":b5_0_0" dir="s" state="M"/>
+    <connection from="8" to="9" fromLane="0" toLane="0" via=":b4_0_0" dir="s" state="M"/>
+    <connection from="9" to="a" fromLane="0" toLane="0" via=":b3_0_0" dir="s" state="M"/>
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":b2_0_0" dir="s" state="M"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" via=":b1_0_0" dir="s" state="M"/>
 
-    <succ edge=":a1_0" lane=":a1_0_0" junction="a1">
-        <succlane lane="1_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":a2_0" lane=":a2_0_0" junction="a2">
-        <succlane lane="2_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":a3_0" lane=":a3_0_0" junction="a3">
-        <succlane lane="3_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":a4_0" lane=":a4_0_0" junction="a4">
-        <succlane lane="4_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":a5_0" lane=":a5_0_0" junction="a5">
-        <succlane lane="5_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":a6_0" lane=":a6_0_0" junction="a6">
-        <succlane lane="6_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b1_0" lane=":b1_0_0" junction="b1">
-        <succlane lane="c_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b2_0" lane=":b2_0_0" junction="b2">
-        <succlane lane="b_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b3_0" lane=":b3_0_0" junction="b3">
-        <succlane lane="a_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b4_0" lane=":b4_0_0" junction="b4">
-        <succlane lane="9_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b5_0" lane=":b5_0_0" junction="b5">
-        <succlane lane="8_0" dir="s" state="M"/>
-    </succ>
-    <succ edge=":b6_0" lane=":b6_0_0" junction="b6">
-        <succlane lane="7_0" dir="s" state="M"/>
-    </succ>
+    <connection from=":a1_0" to="1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":a2_0" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":a3_0" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":a4_0" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":a5_0" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":a6_0" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b1_0" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b2_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b3_0" to="a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b4_0" to="9" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b5_0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b6_0" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

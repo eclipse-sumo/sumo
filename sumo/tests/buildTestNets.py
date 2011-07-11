@@ -2,25 +2,27 @@
 # Builds all example networks
 # $Id$
 
-import os, sys
+import os, sys, subprocess
 
 mRoot = "."
 if len(sys.argv)>1:
     mRoot = sys.argv[1]
-binPrefix = os.path.join(os.path.dirname(sys.argv[0]), '..', 'bin', 'net')
+binPrefix = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bin', 'net')
 for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:
         dirs.remove(".svn")
     for file in files:
         if file.endswith(".netc.cfg") or file.endswith(".netg.cfg"):
-            print "----------------------------------"
-            print "Running: " + file
+            exe = binPrefix + "gen"
             if file.endswith(".netc.cfg"):
-                (cin, cout) = os.popen4(binPrefix+"convert -v -c " + os.path.join(root, file))
-            else:
-                (cin, cout) = os.popen4(binPrefix+"gen -v -c " + os.path.join(root, file))
-            line = cout.readline()
-            while line:
-                print line[:-1]
-                line = cout.readline()
+                exe = binPrefix + "convert"
+            print "----------------------------------"
+            print "Rebuilding config: " + file
+            curDir = os.getcwd()
+            os.chdir(root)
+            subprocess.call([exe, "--save-configuration", file+".tmp", "-c", file], stdout=sys.stdout, stderr=sys.stderr)
+            os.rename(file+".tmp", file)
+            os.chdir(curDir)
+            print "Running: " + file
+            subprocess.call([exe, "-v", "-c", os.path.join(root, file)], stdout=sys.stdout, stderr=sys.stderr)
             print "----------------------------------\n"

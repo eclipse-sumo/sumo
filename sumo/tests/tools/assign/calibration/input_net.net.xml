@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/02/11 23:22:23 by SUMO netconvert Version dev-SVN-r10807
+<!-- generated on Mon Jul 11 12:54:04 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="tools/assign/calibration/test.nod.xml"/>
-        <edge-files value="tools/assign/calibration/test.edg.xml"/>
-        <type-files value="tools/assign/calibration/test.typ.xml"/>
+        <node-files value="./tools/assign/calibration/test.nod.xml"/>
+        <edge-files value="./tools/assign/calibration/test.edg.xml"/>
+        <type-files value="./tools/assign/calibration/test.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="tools/assign/calibration/input_net.net.xml"/>
+        <output-file value="./tools/assign/calibration/input_net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -62,8 +67,10 @@
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="3" type="dead_end" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95"/>
-    <junction id="91" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
+    <junction id="3" type="unregulated" x="1800.00" y="50.00" incLanes="out_0" intLanes="" shape="1800.00,46.75 1800.00,49.95">
+    </junction>
+    <junction id="91" type="unregulated" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75">
+    </junction>
 
     <connection from="1to21" to="out" fromLane="0" toLane="0" via=":2_0_0" tl="2" linkIndex="0" dir="s" state="o"/>
     <connection from="1to22" to="out" fromLane="0" toLane="0" via=":2_1_0" tl="2" linkIndex="1" dir="s" state="o"/>

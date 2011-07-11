@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:07:15 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./dfrouter/real_world/oko_570/nodes.nod.xml"/>
-        <xml-edge-files value="./dfrouter/real_world/oko_570/edges.edg.xml"/>
+        <node-files value="./dfrouter/real_world/oko_570/nodes.nod.xml"/>
+        <edge-files value="./dfrouter/real_world/oko_570/edges.edg.xml"/>
     </input>
 
     <output>
@@ -125,21 +126,23 @@
         <lane id="b1_a3_0" index="0" maxSpeed="13.90" length="319.77" shape="199.49,298.43 503.82,200.26"/>
     </edge>
 
-    <junction id="00" type="dead_end" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="-0.00,513.25 -0.00,510.05"/>
-    <junction id="01" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75"/>
+    <junction id="00" type="unregulated" x="0.00" y="510.00" incLanes="10_00_0" intLanes="" shape="-0.00,513.25 -0.00,510.05">
+    </junction>
+    <junction id="01" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
+    </junction>
     <junction id="10" type="priority" x="100.00" y="510.00" incLanes="20_10_0" intLanes="" shape="100.00,513.25 100.00,510.05 100.00,513.25">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="11" type="priority" x="100.00" y="500.00" incLanes="01_11_0" intLanes="" shape="100.00,499.95 100.00,496.75 100.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="20" type="priority" x="300.00" y="510.00" incLanes="30_20_0 21_20_0" intLanes="" shape="304.75,513.25 304.75,510.05 303.25,508.55 296.75,508.55 295.25,510.05 295.25,513.25">
+    <junction id="20" type="traffic_light" x="300.00" y="510.00" incLanes="30_20_0 21_20_0" intLanes="" shape="304.75,513.25 304.75,510.05 303.25,508.55 296.75,508.55 295.25,510.05 295.25,513.25">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="21" type="priority" x="300.00" y="500.00" incLanes="20_21_0 11_21_0" intLanes="" shape="296.75,501.45 303.25,501.45 304.75,499.95 304.75,496.75 295.25,496.75 295.25,499.95">
+    <junction id="21" type="traffic_light" x="300.00" y="500.00" incLanes="20_21_0 11_21_0" intLanes="" shape="296.75,501.45 303.25,501.45 304.75,499.95 304.75,496.75 295.25,496.75 295.25,499.95">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="0000" foes="0001"/>
@@ -150,11 +153,11 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="31" type="priority" x="500.00" y="500.00" incLanes="30_31_0 21_31_0" intLanes="" shape="496.75,501.45 499.95,501.45 501.45,499.95 501.45,496.75 495.25,496.75 495.25,499.95">
+    <junction id="31" type="traffic_light" x="500.00" y="500.00" incLanes="30_31_0 21_31_0" intLanes="" shape="496.75,501.45 499.95,501.45 501.45,499.95 501.45,496.75 495.25,496.75 495.25,499.95">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="40" type="priority" x="510.00" y="510.00" incLanes="50_40_0 41_40_0 a1_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
+    <junction id="40" type="traffic_light" x="510.00" y="510.00" incLanes="50_40_0 41_40_0 a1_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
         <request index="0" response="000" foes="110"/>
         <request index="1" response="001" foes="101"/>
         <request index="2" response="011" foes="011"/>
@@ -163,13 +166,13 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="50" type="priority" x="710.00" y="510.00" incLanes="60_50_0 51_50_0" intLanes="" shape="714.75,513.25 714.75,510.05 713.25,508.55 706.75,508.55 705.25,510.05 705.25,513.25">
+    <junction id="50" type="traffic_light" x="710.00" y="510.00" incLanes="60_50_0 51_50_0" intLanes="" shape="714.75,513.25 714.75,510.05 713.25,508.55 706.75,508.55 705.25,510.05 705.25,513.25">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="51" type="priority" x="710.00" y="500.00" incLanes="50_51_0 41_51_0" intLanes="" shape="706.75,501.45 713.25,501.45 714.75,499.95 714.75,496.75 705.25,496.75 705.25,499.95">
+    <junction id="51" type="traffic_light" x="710.00" y="500.00" incLanes="50_51_0 41_51_0" intLanes="" shape="706.75,501.45 713.25,501.45 714.75,499.95 714.75,496.75 705.25,496.75 705.25,499.95">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="0000" foes="0001"/>
@@ -181,8 +184,10 @@
     <junction id="61" type="priority" x="910.00" y="500.00" incLanes="51_61_0" intLanes="" shape="910.00,499.95 910.00,496.75 910.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="70" type="dead_end" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25"/>
-    <junction id="71" type="dead_end" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95"/>
+    <junction id="70" type="unregulated" x="1010.00" y="510.00" incLanes="" intLanes="" shape="1010.00,510.05 1010.00,513.25">
+    </junction>
+    <junction id="71" type="unregulated" x="1010.00" y="500.00" incLanes="61_71_0" intLanes="" shape="1010.00,496.75 1010.00,499.95">
+    </junction>
     <junction id="a0" type="priority" x="500.00" y="400.00" incLanes="30_a0_0" intLanes="" shape="496.75,400.00 499.95,400.00 496.77,399.68">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -195,7 +200,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="a3" type="priority" x="510.00" y="200.00" incLanes="a2_a3_0 a4_a3_0 b1_a3_0" intLanes="" shape="506.75,205.96 513.25,205.96 513.25,196.13 506.75,196.13 503.33,198.74 505.32,204.92">
+    <junction id="a3" type="traffic_light" x="510.00" y="200.00" incLanes="a2_a3_0 a4_a3_0 b1_a3_0" intLanes="" shape="506.75,205.96 513.25,205.96 513.25,196.13 506.75,196.13 503.33,198.74 505.32,204.92">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -219,122 +224,56 @@
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <succ edge="01_11" lane="01_11_0" junction="11">
-        <succlane lane="11_21_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="10_00" lane="10_00_0" junction="00">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="11_21" lane="11_21_0" junction="21">
-        <succlane lane="21_31_0" dir="s" state="M"/>
-        <succlane lane="21_20_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="20_10" lane="20_10_0" junction="10">
-        <succlane lane="10_00_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="20_21" lane="20_21_0" junction="21">
-        <succlane lane="21_31_0" dir="l" state="m"/>
-        <succlane lane="21_20_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="21_20" lane="21_20_0" junction="20">
-        <succlane lane="20_10_0" dir="l" state="m"/>
-        <succlane lane="20_21_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="21_31" lane="21_31_0" junction="31">
-        <succlane lane="31_41_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="30_20" lane="30_20_0" junction="20">
-        <succlane lane="20_10_0" dir="s" state="M"/>
-        <succlane lane="20_21_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="30_31" lane="30_31_0" junction="31">
-        <succlane lane="31_41_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="30_a0" lane="30_a0_0" junction="a0">
-        <succlane lane="a0_a2_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="31_41" lane="31_41_0" junction="41">
-        <succlane lane="41_51_0" dir="s" state="M"/>
-        <succlane lane="41_40_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="40_30" lane="40_30_0" junction="30">
-        <succlane lane="30_20_0" dir="s" state="M"/>
-        <succlane lane="30_a0_0" dir="L" state="M"/>
-        <succlane lane="30_31_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="41_40" lane="41_40_0" junction="40">
-        <succlane lane="40_30_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="41_51" lane="41_51_0" junction="51">
-        <succlane lane="51_61_0" dir="s" state="M"/>
-        <succlane lane="51_50_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="50_40" lane="50_40_0" junction="40">
-        <succlane lane="40_30_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="50_51" lane="50_51_0" junction="51">
-        <succlane lane="51_61_0" dir="l" state="m"/>
-        <succlane lane="51_50_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="51_50" lane="51_50_0" junction="50">
-        <succlane lane="50_40_0" dir="l" state="m"/>
-        <succlane lane="50_51_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="51_61" lane="51_61_0" junction="61">
-        <succlane lane="61_71_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="60_50" lane="60_50_0" junction="50">
-        <succlane lane="50_40_0" dir="s" state="M"/>
-        <succlane lane="50_51_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="61_71" lane="61_71_0" junction="71">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="70_60" lane="70_60_0" junction="60">
-        <succlane lane="60_50_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="a0_a2" lane="a0_a2_0" junction="a2">
-        <succlane lane="a2_a3_0" dir="s" state="M"/>
-        <succlane lane="a2_a1_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="a1_40" lane="a1_40_0" junction="40">
-        <succlane lane="40_30_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="a2_a1" lane="a2_a1_0" junction="a1">
-        <succlane lane="a1_40_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="a2_a3" lane="a2_a3_0" junction="a3">
-        <succlane lane="a3_b1_0" dir="r" state="M"/>
-        <succlane lane="a3_a4_0" dir="s" state="M"/>
-        <succlane lane="a3_a2_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="a3_a2" lane="a3_a2_0" junction="a2">
-        <succlane lane="a2_a1_0" dir="s" state="M"/>
-        <succlane lane="a2_a3_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="a3_a4" lane="a3_a4_0" junction="a4">
-        <succlane lane="a4_a5_0" dir="s" state="M"/>
-        <succlane lane="a4_a3_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="a3_b1" lane="a3_b1_0" junction="b1">
-        <succlane lane="b1_a3_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="a4_a3" lane="a4_a3_0" junction="a3">
-        <succlane lane="a3_a2_0" dir="s" state="M"/>
-        <succlane lane="a3_b1_0" dir="l" state="m"/>
-        <succlane lane="a3_a4_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="a4_a5" lane="a4_a5_0" junction="a5">
-        <succlane lane="a5_a4_0" dir="t" state="M"/>
-    </succ>
-    <succ edge="a5_a4" lane="a5_a4_0" junction="a4">
-        <succlane lane="a4_a3_0" dir="s" state="M"/>
-        <succlane lane="a4_a5_0" dir="t" state="m"/>
-    </succ>
-    <succ edge="b1_a3" lane="b1_a3_0" junction="a3">
-        <succlane lane="a3_a4_0" dir="r" state="m"/>
-        <succlane lane="a3_a2_0" dir="l" state="m"/>
-        <succlane lane="a3_b1_0" dir="t" state="m"/>
-    </succ>
+    <connection from="01_11" to="11_21" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="11_21" to="21_31" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="11_21" to="21_20" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="20_10" to="10_00" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="20_21" to="21_31" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="20_21" to="21_20" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="21_20" to="20_10" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="21_20" to="20_21" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="21_31" to="31_41" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30_20" to="20_10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30_20" to="20_21" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="30_31" to="31_41" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="30_a0" to="a0_a2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="31_41" to="41_51" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="31_41" to="41_40" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="40_30" to="30_20" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="40_30" to="30_a0" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="40_30" to="30_31" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="41_40" to="40_30" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="41_51" to="51_61" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="41_51" to="51_50" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="50_40" to="40_30" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="50_51" to="51_61" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="50_51" to="51_50" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="51_50" to="50_40" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="51_50" to="50_51" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="51_61" to="61_71" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60_50" to="50_40" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="60_50" to="50_51" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="70_60" to="60_50" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a0_a2" to="a2_a3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a0_a2" to="a2_a1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="a1_40" to="40_30" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="a2_a1" to="a1_40" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a2_a3" to="a3_b1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="a2_a3" to="a3_a4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a2_a3" to="a3_a2" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="a3_a2" to="a2_a1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a3_a2" to="a2_a3" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="a3_a4" to="a4_a5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a3_a4" to="a4_a3" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="a3_b1" to="b1_a3" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="a4_a3" to="a3_a2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a4_a3" to="a3_b1" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="a4_a3" to="a3_a4" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="a4_a5" to="a5_a4" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="a5_a4" to="a4_a3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a5_a4" to="a4_a5" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="b1_a3" to="a3_a4" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="b1_a3" to="a3_a2" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="b1_a3" to="a3_b1" fromLane="0" toLane="0" dir="t" state="m"/>
 
 </net>

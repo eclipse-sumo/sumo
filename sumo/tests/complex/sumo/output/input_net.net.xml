@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jun 14 17:45:28 2011 by SUMO netgen Version dev-SVN-r10606
+<!-- generated on Mon Jul 11 12:54:01 2011 by SUMO netgen Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -12,7 +13,7 @@
     </grid_network>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="./complex/sumo/output/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -24,6 +25,10 @@
         <default.speed value="10"/>
         <default-junction-type value="traffic_light"/>
     </building_defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

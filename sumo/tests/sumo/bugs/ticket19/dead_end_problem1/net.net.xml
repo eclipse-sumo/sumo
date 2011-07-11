@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/07/11 10:25:25 by SUMO netconvert Version dev-SVN-r10888
+<!-- generated on Mon Jul 11 12:53:55 2011 by SUMO netconvert Version dev-SVN-r10919
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="prunned.nod.xml"/>
-        <edge-files value="prunned.edg.xml"/>
-        <connection-files value="prunned.con.xml"/>
+        <node-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.nod.xml"/>
+        <edge-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.edg.xml"/>
+        <connection-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.con.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/bugs/ticket19/dead_end_problem1/net.net.xml"/>
     </output>
 
     <processing>
         <roundabouts.guess value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 01/12/11 13:07:52 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Mon Jul 11 12:54:06 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./jtrrouter/tri.nod.xml"/>
-        <xml-edge-files value="./jtrrouter/tri.edg.xml"/>
+        <node-files value="./jtrrouter/tri.nod.xml"/>
+        <edge-files value="./jtrrouter/tri.edg.xml"/>
     </input>
 
     <output>
@@ -130,7 +131,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="end" type="priority" x="50.00" y="600.00" incLanes="-end_0 right2end_0 middle_0 left2end_0" intLanes="" shape="46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25">
+    <junction id="end" type="traffic_light" x="50.00" y="600.00" incLanes="-end_0 right2end_0 middle_0 left2end_0" intLanes="" shape="46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
         <request index="1" response="0000000000000000" foes="0111110001100000"/>
         <request index="2" response="0000001100000000" foes="0110001111100000"/>
