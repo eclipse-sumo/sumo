@@ -1,19 +1,21 @@
+#!/usr/bin/env python
 import struct, random, optparse, sys
 
 def genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU):
     
     routes = open("cross.rou.xml", "w")
-    print >> routes, '<routes>'
-    print >> routes, '  <vtype id="carRight" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>'
-    print >> routes, '  <vtype id="carLeft" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>'
-    print >> routes, '  <vtype id="carDown" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>'
-    print >> routes, '  <vtype id="carUp" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>'
-    print >> routes, ""
-    print >> routes, '  <route id="right" edges="51o 1i 2o 52i" />'
-    print >> routes, '  <route id="left" edges="52o 2i 1o 51i" />'
-    print >> routes, '  <route id="down" edges="54o 4i 3o 53i" />'
-    print >> routes, '  <route id="up" edges="53o 3i 4o 54i" />'
-    print >> routes, ""
+    print >> routes, '''\
+<routes>
+    <vType id="carRight" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carLeft" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carDown" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carUp" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+
+    <route id="right" edges="51o 1i 2o 52i" />'
+    <route id="left" edges="52o 2i 1o 51i" />'
+    <route id="down" edges="54o 4i 3o 53i" />'
+    <route id="up" edges="53o 3i 4o 54i" />
+'''
     lastVeh = 0
     vehNr = 0
     
@@ -60,25 +62,25 @@ def genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU):
     vehNr = 0
     for T in range(N):
         if (dR == 'u' and nextTR <= T) or (dR == 'p' and random.uniform(0,1) < pR):
-            print >> routes, '  <vehicle id="%i" type="carRight" route="right" depart="%i" />' % (vehNr, T)
+            print >> routes, '    <vehicle id="%i" type="carRight" route="right" depart="%i" />' % (vehNr, T)
             vehNr += 1
             nbVehR += 1
             nextTR = nextTR + tR
     
         if (dL == 'u' and nextTL <= T) or (dL == 'p' and random.uniform(0,1) < pL):
-            print >> routes, '  <vehicle id="%i" type="carLeft" route="left" depart="%i" />' % (vehNr, T)
+            print >> routes, '    <vehicle id="%i" type="carLeft" route="left" depart="%i" />' % (vehNr, T)
             vehNr += 1
             nbVehL += 1
             nextTL = nextTL + tL
             
         if (dD == 'u' and nextTD <= T) or (dD == 'p' and random.uniform(0,1) < pD):
-            print >> routes, '  <vehicle id="%i" type="carDown" route="down" depart="%i" />' % (vehNr, T)
+            print >> routes, '    <vehicle id="%i" type="carDown" route="down" depart="%i" />' % (vehNr, T)
             vehNr += 1
             nbVehD += 1
             nextTD = nextTD + tD
     
         if (dU == 'u' and nextTU <= T) or (dU == 'p' and random.uniform(0,1) < pU):
-            print >> routes, '  <vehicle id="%i" type="carUp" route="up" depart="%i" />' % (vehNr, T)
+            print >> routes, '    <vehicle id="%i" type="carUp" route="up" depart="%i" />' % (vehNr, T)
             vehNr += 1
             nbVehU += 1
             nextTU = nextTU + tU

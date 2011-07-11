@@ -1,13 +1,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-  <vtype id="carRight" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
-  <vtype id="carLeft" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
-  <vtype id="carDown" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
-  <vtype id="carUp" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
+    <vType id="carRight" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carLeft" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carDown" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
+    <vType id="carUp" accel="2.6" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67"/>'
 
-  <route id="right" edges="51o 1i 2o 52i" />
-  <route id="left" edges="52o 2i 1o 51i" />
-  <route id="down" edges="54o 4i 3o 53i" />
-  <route id="up" edges="53o 3i 4o 54i" />
+    <route id="right" edges="51o 1i 2o 52i" />'
+    <route id="left" edges="52o 2i 1o 51i" />'
+    <route id="down" edges="54o 4i 3o 53i" />'
+    <route id="up" edges="53o 3i 4o 54i" />
 
   <vehicle id="0" type="carDown" route="down" depart="10" />
   <vehicle id="1" type="carRight" route="right" depart="11" />
