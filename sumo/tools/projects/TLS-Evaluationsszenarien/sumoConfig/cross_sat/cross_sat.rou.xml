@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
   <vtype id="carRight" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
   <vtype id="carLeft" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
   <vtype id="carDown" accel="2.6" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>

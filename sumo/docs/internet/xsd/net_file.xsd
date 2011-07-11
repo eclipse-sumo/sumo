@@ -83,7 +83,7 @@
         <xsd:attribute name="from" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="to" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="name" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="priority" type="xsd:int" use="optional"></xsd:attribute>
+        <xsd:attribute name="priority" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
         <xsd:attribute name="spreadType" use="optional">
@@ -98,13 +98,7 @@
 
     <xsd:complexType name="laneType">
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="index" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"></xsd:attribute>
         <xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="prefer" type="xsd:string" use="optional"></xsd:attribute>
@@ -130,7 +124,7 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="programID" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="offset" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="offset" type="xsd:float" use="required"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="phaseType">
@@ -179,13 +173,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="requestType">
-        <xsd:attribute name="index" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"></xsd:attribute>
         <xsd:attribute name="response" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -210,29 +198,11 @@
     <xsd:complexType name="connectionType">
         <xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="fromLane" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="toLane" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"></xsd:attribute>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"></xsd:attribute>
         <xsd:attribute name="via" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="tl" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="linkIndex" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="linkIndex" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
         <xsd:attribute name="dir" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
