@@ -7,5 +7,8 @@ clientCloses
 # Tests the new python API
 pythonApi
 
+# Tests whether busy sockets are reported
+busySocket
+
 # Tests whether outputs are closed
 closingOutput

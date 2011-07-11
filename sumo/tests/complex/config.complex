@@ -20,10 +20,13 @@ copy_test_path:osm.xml
 
 [collate_file]
 vehroutes:vehroutes.xml
+state:state.xml
+tripinfo:tripinfo.xml
 
 [run_dependent_text]
 vehroutes:<!--{[->]}-->
 output:visible boundary
+errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 
 [floating_point_tolerance]
 output:0.0001
