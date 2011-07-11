@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vtypeDistribution id="DEFAULT_VEHTYPE">
         <vtype id="passenger" length="7.5" guiShape="passenger" probability="20" /> 
         <vtype id="bus" length="15" guiShape="bus" guiWidth="2.4" probability="2"/> 

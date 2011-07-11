@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <routeDistribution id="horizontal">
         <route id="left0" edges="left0to0/0 0/0to1/0 1/0toright0"/>
         <route id="left1" edges="left1to0/1 0/1to1/1 1/1toright1"/>

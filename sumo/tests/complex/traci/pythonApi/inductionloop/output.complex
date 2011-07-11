@@ -5,12 +5,12 @@ step 2
 inductionloops ['0']
 examining 0
 vehNum 1
-meanSpeed 3.15664315224
+meanSpeed 3.1154472965
 vehIDs ['horiz']
-occupancy 71.0043792725
+occupancy 69.2400082849
 meanLength 7.5
 timeSinceDet 0.0
-vehData [['horiz', 7.5, 2.289956227840467, 3.0, 'DEFAULT_VEHTYPE']]
+vehData [['horiz', 7.5, 2.307599917151332, 3.0, 'DEFAULT_VEHTYPE']]
 {16: 1}
 step 3
 {16: 1}
