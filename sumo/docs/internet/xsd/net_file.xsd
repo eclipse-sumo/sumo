@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:element name="net" type="netType"></xsd:element>
+    <xsd:element name="net" type="netType">
+        <xsd:key name="edgeKey">
+            <xsd:selector xpath="edge"></xsd:selector>
+            <xsd:field xpath="@id"></xsd:field>
+        </xsd:key>
+        <xsd:keyref name="edgeKeyRefFrom" refer="edgeKey">
+            <xsd:selector xpath="connection"></xsd:selector>
+            <xsd:field xpath="@from"></xsd:field>
+        </xsd:keyref>
+        <xsd:keyref name="edgeKeyRefTo" refer="edgeKey">
+            <xsd:selector xpath="connection"></xsd:selector>
+            <xsd:field xpath="@to"></xsd:field>
+        </xsd:keyref>
+    </xsd:element>
 
     <xsd:complexType name="netType">
         <xsd:sequence>
@@ -72,15 +85,7 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="priority" type="xsd:int" use="optional"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="shape" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
-                    </xsd:pattern>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -100,32 +105,14 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="maxSpeed" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="prefer" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="length" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="shape" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
-                    </xsd:pattern>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="maxSpeed" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="length" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"></xsd:attribute>
+        <xsd:attribute name="width" type="positiveFloatType" use="optional"></xsd:attribute>
+        <xsd:attribute name="shape" type="shapeType" use="required"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="tlLogicType">
@@ -143,23 +130,11 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="programID" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="offset" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="offset" type="positiveFloatType" use="required"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="phaseType">
-        <xsd:attribute name="duration" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="duration" type="positiveFloatType" use="required"></xsd:attribute>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -229,14 +204,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="cont" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="0"></xsd:enumeration>
-                    <xsd:enumeration value="1"></xsd:enumeration>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="cont" type="xsd:boolean" use="optional"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="connectionType">
@@ -295,16 +263,36 @@
     </xsd:complexType>
 
     <xsd:complexType name="tazType">
+        <xsd:sequence>
+            <xsd:element name="tazSource" type="tazSourceType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="tazSink" type="tazSinkType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="shape" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
-                    </xsd:pattern>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
     </xsd:complexType>
+
+    <xsd:complexType name="tazSourceType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="tazSinkType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:simpleType name="shapeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern
+                value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
+            </xsd:pattern>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="positiveFloatType">
+        <xsd:restriction base="xsd:float">
+            <xsd:minExclusive value="0"></xsd:minExclusive>
+        </xsd:restriction>
+    </xsd:simpleType>
 
 </xsd:schema>
