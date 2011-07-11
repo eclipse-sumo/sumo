@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:element name="edges" type="edgesType"></xsd:element>
+
+    <xsd:complexType name="edgesType">
+        <xsd:sequence>
+            <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
     <xsd:complexType name="edgeType">
         <xsd:sequence>
             <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
@@ -52,15 +60,6 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-    </xsd:complexType>
-
-    <xsd:element name="edges" type="edgesType"></xsd:element>
-
-    <xsd:complexType name="edgesType">
-        <xsd:sequence>
-            <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-        </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="laneType">

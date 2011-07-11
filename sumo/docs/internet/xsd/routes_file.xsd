@@ -11,7 +11,7 @@
             <xsd:field xpath="@type"></xsd:field>
         </xsd:keyref>
     </xsd:element>
-    
+
     <xsd:complexType name="routesType">
         <xsd:sequence>
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
@@ -24,7 +24,17 @@
 
     <xsd:complexType name="vTypeType">
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="class" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="length" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="minGap" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="maxSpeed" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="speedFactor" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="speedDev" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="vClass" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="emissionClass" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="guiShape" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="guiWidth" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="accel" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="decel" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="sigma">
@@ -35,15 +45,9 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="length" type="positiveFloatType"></xsd:attribute>
-        <xsd:attribute name="maxSpeed" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="tau" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="carFollowModel" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="laneChangeModel" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="speedFactor" type="positiveFloatType"></xsd:attribute>
-        <xsd:attribute name="speedDev" type="positiveFloatType"></xsd:attribute>
-        <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
-        <xsd:attribute name="color" type="colorType"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleType">
@@ -52,9 +56,9 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="type" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="depart" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="color" type="colorType" use="optional"></xsd:attribute>
+        <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="departSpeed" type="xsd:string"></xsd:attribute>
@@ -88,6 +92,7 @@
 
     <xsd:complexType name="vehicleRouteType">
         <xsd:attribute name="edges" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="exitTimes" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
 
