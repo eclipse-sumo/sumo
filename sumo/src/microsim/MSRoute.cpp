@@ -214,10 +214,57 @@ MSRoute::dict_saveState(std::ostream &os) throw() {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
-        FileHelpers::writeUInt(os, (unsigned int)(*it).second->myEdges.size());
+        const MSEdgeVector& edges = (*it).second->myEdges;
+        FileHelpers::writeUInt(os, (unsigned int)edges.size());
         FileHelpers::writeUInt(os, (*it).second->myReferenceCounter);
-        for (MSEdgeVector::const_iterator i = (*it).second->myEdges.begin(); i!=(*it).second->myEdges.end(); ++i) {
-            FileHelpers::writeUInt(os, (*i)->getNumericalID());
+        std::vector<unsigned int> follow;
+        unsigned int maxFollow = 0;
+        const MSEdge* prev = edges.front();
+        for (MSEdgeVector::const_iterator i = edges.begin()+1; i != edges.end(); ++i) {
+            unsigned int idx = 0;
+            for (; idx < prev->getNoFollowing(); ++idx) {
+                if (idx > 15) {
+                    break;
+                }
+                if (prev->getFollower(idx) == (*i)) {
+                    follow.push_back(idx);
+                    if (idx > maxFollow) {
+                        maxFollow = idx;
+                    }
+                    break;
+                }
+            }
+            if (idx > 15 || idx == prev->getNoFollowing()) {
+                follow.clear();
+                break;
+            }
+            prev = *i;
+        }
+        if (follow.empty()) {
+            for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+                FileHelpers::writeInt(os, (*i)->getNumericalID());
+            }
+        } else {
+            const unsigned int bits = maxFollow > 3 ? 4 : 2;
+            const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
+            FileHelpers::writeInt(os, -bits);
+            FileHelpers::writeUInt(os, edges.front()->getNumericalID());
+            unsigned int data = 0;
+            unsigned int field = 0;
+            for (std::vector<unsigned int>::const_iterator i = follow.begin(); i != follow.end(); ++i) {
+                data |= *i;
+                field++;
+                if (field == numFields) {
+                    FileHelpers::writeUInt(os, data);
+                    data = 0;
+                    field = 0;
+                } else {
+                    data <<= bits;
+                }
+            }
+            if (field > 0) {
+                FileHelpers::writeUInt(os, data << ((numFields-field-1) * bits));
+            }
         }
     }
     FileHelpers::writeUInt(os, (unsigned int) myDistDict.size());
@@ -240,27 +287,68 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
     for (; numRoutes>0; numRoutes--) {
         std::string id;
         bis >> id;
-        unsigned int no;
-        bis >> no;
+        unsigned int numEdges;
+        bis >> numEdges;
         unsigned int references;
         bis >> references;
-        if (dictionary(id)==0) {
-            MSEdgeVector edges;
-            edges.reserve(no);
-            for (; no>0; no--) {
+        int first;
+        bis >> first;
+        if (first < 0) {
+            const unsigned int bits = -first;
+            const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
+            if (dictionary(id)==0) {
+                const unsigned int mask = (1 << bits) - 1;
+                MSEdgeVector edges;
+                edges.reserve(numEdges);
                 unsigned int edgeID;
                 bis >> edgeID;
-                MSEdge *e = MSEdge::dictionary(edgeID);
-                assert(e!=0);
-                edges.push_back(e);
+                const MSEdge* prev = MSEdge::dictionary(edgeID);
+                assert(prev!=0);
+                edges.push_back(prev);
+                numEdges--;
+                unsigned int data;
+                unsigned int field = numFields;
+                for (; numEdges > 0; numEdges--) {
+                    if (field == numFields) {
+                        bis >> data;
+                        field = 0;
+                    }
+                    unsigned int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
+                    prev = prev->getFollower(followIndex);
+                    edges.push_back(prev);
+                    field++;
+                }
+                MSRoute *r = new MSRoute(id, edges, references,
+                                         RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+                dictionary(id, r);
+            } else {
+                unsigned int data;
+                bis >> data; // first edge id
+                for (int numFollows = numEdges - 1; numFollows > 0; numFollows -= numFields) {
+                    bis >> data;
+                }
             }
-            MSRoute *r = new MSRoute(id, edges, references,
-                                     RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
-            dictionary(id, r);
         } else {
-            for (; no>0; no--) {
-                unsigned int edgeID;
-                bis >> edgeID;
+            if (dictionary(id)==0) {
+                MSEdgeVector edges;
+                edges.reserve(numEdges);
+                edges.push_back(MSEdge::dictionary(first));
+                numEdges--;
+                for (; numEdges>0; numEdges--) {
+                    unsigned int edgeID;
+                    bis >> edgeID;
+                    assert(MSEdge::dictionary(edgeID)!=0);
+                    edges.push_back(MSEdge::dictionary(edgeID));
+                }
+                MSRoute *r = new MSRoute(id, edges, references,
+                                         RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+                dictionary(id, r);
+            } else {
+                numEdges--;
+                for (; numEdges>0; numEdges--) {
+                    unsigned int edgeID;
+                    bis >> edgeID;
+                }
             }
         }
     }

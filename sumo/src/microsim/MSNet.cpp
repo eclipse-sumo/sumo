@@ -496,6 +496,7 @@ MSNet::saveState(std::ostream &os) throw() {
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
     FileHelpers::writeUInt(os, MSEdge::dictSize());
     FileHelpers::writeUInt(os, myStep);
+    MSRoute::dict_saveState(os);
     myVehicleControl->saveState(os);
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->saveState(os);
@@ -525,6 +526,7 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
         WRITE_WARNING("State was written for a different net!");
     }
     const SUMOTime offset = string2time(OptionsCont::getOptions().getString("load-state.offset"));
+    MSRoute::dict_loadState(bis);
     myVehicleControl->loadState(bis, offset);
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->loadState(bis, *myVehicleControl, offset);
