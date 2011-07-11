@@ -35,8 +35,8 @@ pNS = 1./30
 
 routes = open("cross.rou.xml", "w")
 print >> routes, """<routes>
-    <vtype id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67" guiShape="passenger"/>
-    <vtype id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="20" maxspeed="25" guiShape="bus"/>
+    <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+    <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="17" minGap="3" maxSpeed="25" guiShape="bus"/>
 
     <route id="right" edges="51o 1i 2o 52i" />
     <route id="left" edges="52o 2i 1o 51i" />
