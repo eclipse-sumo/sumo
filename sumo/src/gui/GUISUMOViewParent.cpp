@@ -36,11 +36,6 @@
 
 #include <string>
 #include <vector>
-#include "GUIGlobals.h"
-#include "dialogs/GUIDialog_GLObjChooser.h"
-#include "GUIViewTraffic.h"
-#include "GUIApplicationWindow.h"
-#include "GUISUMOViewParent.h"
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -51,8 +46,18 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/common/UtilExceptions.h>
+#include <guisim/GUIVehicleControl.h>
+#include <guisim/GUIVehicle.h>
+#include <guisim/GUIEdge.h>
+#include <guisim/GUINet.h>
+#include <guisim/GUIShapeContainer.h>
+#include "GUIGlobals.h"
+#include "GUIViewTraffic.h"
+#include "GUIApplicationWindow.h"
+#include "GUISUMOViewParent.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,12 +70,12 @@
 FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
     //        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocateJunction),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocateEdge),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocateVehicle),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocateTLS),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocateAdd),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESHAPE,    GUISUMOViewParent::onCmdLocateShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESHAPE,    GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
 
 };
@@ -87,9 +92,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
                                      GUIMainWindow *parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
-        : GUIGlChildWindow(p, mdimenu, name, ic, opts, x, y, w, h),
-        myParent(parentWindow)
-
+        : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h)
 {
     myParent->addChild(this, false);
 }
@@ -141,55 +144,59 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
 }
 
 
-void
-GUISUMOViewParent::showLocator(GUIGlObjectType type, FXIcon *icon, FXString title) {
+long
+GUISUMOViewParent::onCmdLocate(FXObject *,FXSelector sel,void*) {
+    GUIGlObjectType type;
+    std::vector<GUIGlID> ids;
+    GUIIcon icon;
+    std::string title;
+    switch (FXSELID(sel)) {
+        case MID_LOCATEJUNCTION: 
+            type = GLO_JUNCTION;
+            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
+            icon = ICON_LOCATEJUNCTION;
+            title = "Junction Chooser";
+            break;
+        case MID_LOCATEEDGE:
+            type = GLO_EDGE;
+            ids = GUIEdge::getIDs();
+            icon = ICON_LOCATEEDGE;
+            title = "Edge Chooser";
+            break;
+        case MID_LOCATEVEHICLE:
+            type = GLO_VEHICLE;
+            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
+            icon = ICON_LOCATEVEHICLE;
+            title = "Vehicle Chooser";
+            break;
+        case MID_LOCATETLS:
+            type = GLO_TLLOGIC;
+            ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
+            icon = ICON_LOCATETLS;
+            title = "Traffic Lights Chooser";
+            break;
+        case MID_LOCATEADD:
+            type = GLO_ADDITIONAL;
+            ids = GUIGlObject_AbstractAdd::getIDList();
+            icon = ICON_LOCATEADD;
+            title = "Additional Objects Chooser";
+            break;
+        case MID_LOCATESHAPE:
+            type = GLO_SHAPE;
+            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
+            icon = ICON_LOCATESHAPE;
+            title = "Shape Chooser";
+            break;
+        default:
+            throw ProcessError("Unknown Message ID in onCmdLocate");
+    }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser *chooser = new GUIDialog_GLObjChooser(this, icon, title, type, GUIGlObjectStorage::gIDStorage);
+    GUIDialog_GLObjChooser *chooser = new GUIDialog_GLObjChooser(
+            this, GUIIconSubSys::getIcon(icon), title.c_str(), type, ids, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*) {
-    showLocator(GLO_JUNCTION, GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), "Junction Chooser");
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateEdge(FXObject *,FXSelector,void*) {
-    showLocator(GLO_EDGE, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Edge Chooser");
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateVehicle(FXObject *,FXSelector,void*) {
-    showLocator(GLO_VEHICLE, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser");
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateTLS(FXObject *,FXSelector,void*) {
-    showLocator(GLO_TLLOGIC, GUIIconSubSys::getIcon(ICON_LOCATETLS), "Traffic Lights Chooser");
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*) {
-    showLocator(GLO_ADDITIONAL, GUIIconSubSys::getIcon(ICON_LOCATEADD), "Additional Objects Chooser");
-    return 1;
-}
-
-
-long
-GUISUMOViewParent::onCmdLocateShape(FXObject * /*sender*/,FXSelector,void*) {
-    showLocator(GLO_SHAPE, GUIIconSubSys::getIcon(ICON_LOCATESHAPE), "Shape Chooser");
     return 1;
 }
 

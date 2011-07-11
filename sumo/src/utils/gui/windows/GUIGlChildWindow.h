@@ -46,9 +46,9 @@
 class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
 public:
-    GUIGlChildWindow(FXMDIClient* p, FXMDIMenu *mdimenu, const FXString& name,
-                     FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
-                    );
+    GUIGlChildWindow(FXMDIClient* p, GUIMainWindow *parentWindow,
+            FXMDIMenu *mdimenu, const FXString& name,
+                     FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0);
 
     virtual ~GUIGlChildWindow();
 
@@ -80,6 +80,15 @@ public:
      */
     void setView(GUIGlID id);
 
+
+    /** @brief Returns the main window
+     * @return This view's parent
+     */
+    GUIMainWindow *getParent() throw() {
+        return myParent;
+    }
+
+
 protected:
     /// the view
     GUISUMOAbstractView *myView;
@@ -94,6 +103,9 @@ protected:
     FXVerticalFrame *myContentFrame;
 
     FXComboBox *myColoringSchemes;
+
+    /// @brief The parent window
+    GUIMainWindow *myParent;
 
 
 protected:

@@ -39,7 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUISUMOViewParent;
+class GUIGlChildWindow;
 class GUIGlObjectStorage;
 class GUIGlObject;
 
@@ -65,8 +65,10 @@ public:
      * @param[in] type The type of gl-objects to show instances of
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, FXIcon *icon, const FXString &title,
-                           GUIGlObjectType type, GUIGlObjectStorage &glStorage) throw();
+    GUIDialog_GLObjChooser(GUIGlChildWindow *parent, FXIcon *icon, const FXString &title,
+                           GUIGlObjectType type, 
+                           const std::vector<GUIGlID> &ids,
+                           GUIGlObjectStorage &glStorage);
 
 
     /// @brief Destructor
@@ -110,7 +112,7 @@ private:
     GUIGlObjectType myObjectType;
 
     /// @brief The parent window
-    GUISUMOViewParent *myParent;
+    GUIGlChildWindow *myParent;
 
     /// @brief The chosen id
     GUIGlObject *mySelected;

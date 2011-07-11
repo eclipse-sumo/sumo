@@ -8,5 +8,6 @@ GUIDialog_ViewSettings.cpp GUIDialog_ViewSettings.h \
 GUIGlChildWindow.cpp GUIGlChildWindow.h \
 GUIMainWindow.cpp GUIMainWindow.h \
 GUIPerspectiveChanger.cpp GUIPerspectiveChanger.h \
-GUISUMOAbstractView.cpp GUISUMOAbstractView.h
+GUISUMOAbstractView.cpp GUISUMOAbstractView.h \
+GUIDialog_GLObjChooser.cpp GUIDialog_GLObjChooser.h
 

@@ -34,7 +34,6 @@
 #include <fx.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
-#include "dialogs/GUIDialog_GLObjChooser.h"
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 
@@ -44,6 +43,7 @@
 // ===========================================================================
 class GUINet;
 class GUISUMOAbstractView;
+class GUIDialog_GLObjChooser;
 
 
 // ===========================================================================
@@ -99,45 +99,8 @@ public:
     /// @brief Called on a simulation step
     long onSimStep(FXObject*sender,FXSelector,void*);
 
-
-    /// @name locator-callbacks
-    //@{
-
-    /// @brief opens a locator for junctions
-    long onCmdLocateJunction(FXObject*,FXSelector,void*);
-    /// @brief opens a locator for edges
-    long onCmdLocateEdge(FXObject*,FXSelector,void*);
-    /// @brief opens a locator for vehicles
-    long onCmdLocateVehicle(FXObject*,FXSelector,void*);
-    /// @brief opens a locator for traffic lights logics
-    long onCmdLocateTLS(FXObject*,FXSelector,void*);
-    /// @brief opens a locator for additional structures
-    long onCmdLocateAdd(FXObject *sender,FXSelector,void*);
-    /// @brief opens a locator for shapes
-    long onCmdLocateShape(FXObject*,FXSelector,void*);
-    //@}
-
-
-    /** @brief Returns the main window
-     * @return This view's parent
-     */
-    GUIMainWindow *getParent() throw() {
-        return myParent;
-    }
-
-
-protected:
-    /** @brief Builds a locator for the given type
-     * @param[in] type gl-object type of objects to build the locator for
-     * @param[in] icon The icon to use
-     * @param[in] title The title to use
-     */
-    void showLocator(GUIGlObjectType type, FXIcon *icon, FXString title);
-
-
-protected:
-    /// @brief The parent window
-    GUIMainWindow *myParent;
+    /// @brief  locator-callback
+    long onCmdLocate(FXObject*,FXSelector,void*);
 
 
 protected:

@@ -29,24 +29,17 @@
 
 #include <string>
 #include <vector>
-#include <guisim/GUIShapeContainer.h>
 #include <fxkeys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
-#include <gui/GUISUMOViewParent.h>
+#include <utils/gui/windows/GUIGlChildWindow.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <microsim/MSJunction.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUINet.h>
-#include <guisim/GUIVehicleControl.h>
-#include "GUIDialog_GLObjChooser.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
+#include "GUIDialog_GLObjChooser.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -77,11 +70,12 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-        GUISUMOViewParent *parent,
+        GUIGlChildWindow *parent,
         FXIcon *icon, 
         const FXString &title, 
         GUIGlObjectType type, 
-        GUIGlObjectStorage &glStorage) throw() : 
+        const std::vector<GUIGlID> &ids,
+        GUIGlObjectStorage &glStorage): 
     FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
     myObjectType(type), 
     myParent(parent)
@@ -92,31 +86,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
     FXVerticalFrame *style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
     myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
-    // get the ids
-    std::vector<GUIGlID> ids;
-    switch (type) {
-    case GLO_JUNCTION:
-        ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
-        break;
-    case GLO_EDGE:
-        ids = GUIEdge::getIDs();
-        break;
-    case GLO_VEHICLE:
-        static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
-        break;
-    case GLO_TLLOGIC:
-        ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-        break;
-    case GLO_ADDITIONAL:
-        ids = GUIGlObject_AbstractAdd::getIDList();
-        break;
-    case GLO_SHAPE:
-		ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
-        break;
-    default:
-        break;
-    }
-    for (std::vector<GUIGlID>::iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::vector<GUIGlID>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;
