@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:element name="routes" type="routesType">
-        <xsd:key name="TypeKey">
-            <xsd:selector xpath="vType"></xsd:selector>
-            <xsd:field xpath="@id"></xsd:field>
-        </xsd:key>
-        <xsd:keyref name="TypeKeyRef" refer="TypeKey">
-            <xsd:selector xpath="vehicle"></xsd:selector>
-            <xsd:field xpath="@type"></xsd:field>
-        </xsd:keyref>
-    </xsd:element>
+    <xsd:element name="routes" type="routesType"></xsd:element>
+    <xsd:element name="route-alternatives" type="routesType"></xsd:element>
 
     <xsd:complexType name="routesType">
-        <xsd:sequence>
+        <xsd:all>
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="vType" type="vTypeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="route" type="routeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:sequence>
+            <xsd:element name="flow" type="flowType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeType">
@@ -59,6 +52,28 @@
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="depart" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="color" type="colorType"></xsd:attribute>
+        <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="departSpeed" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="arrivalLane" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="arrivalPos" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="arrivalSpeed" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="flowType">
+        <xsd:sequence>
+            <xsd:element name="route" type="vehicleRouteType" minOccurs="0" maxOccurs="1"></xsd:element>
+            <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="begin" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="end" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="period" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="vehsPerHour" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="number" type="xsd:int"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
