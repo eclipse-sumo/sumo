@@ -15,7 +15,7 @@
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0_0" depart="0.00">
         <route edges="beg -beg beg beg2right right -right -beg2right -beg beg middle -left2end -left left left2end -right2end right2end -left2end -left left left2end end -end -middle -beg beg -beg beg -beg beg middle end -end -middle beg2right right -right -beg2right"/>
     </vehicle>

@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0_0" depart="0.00" arrivalLane="0">
         <route edges="beg beg2right right right2end -middle middle end"/>
     </vehicle>

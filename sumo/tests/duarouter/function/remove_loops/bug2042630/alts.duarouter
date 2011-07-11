@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<route-alternatives>
+<route-alternatives xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="862" depart="7.00">
         <routeDistribution last="0">
             <route cost="269.79" probability="1.00000000" edges="D2 L3 L5 L7 L6 L10 L13 L15 L16 D3"/>

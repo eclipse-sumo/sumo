@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="1" depart="0">
         <routeDistribution>
             <route edges="beg end" probability="0.5"/>

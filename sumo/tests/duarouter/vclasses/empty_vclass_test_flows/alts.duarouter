@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<route-alternatives>
+<route-alternatives xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
    <vType id="0" vClass="unknown"/>
     <vehicle id="0_0" type="0" depart="0.00">
         <routeDistribution last="0">

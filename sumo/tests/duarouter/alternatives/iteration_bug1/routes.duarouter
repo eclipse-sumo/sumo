@@ -31,7 +31,7 @@
 </configuration>
 -->
 
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
    <vType id="CarA" length="2.00" minGap="0.00" maxSpeed="180.00">
       <carFollowing-Krauss accel="2.00" decel="6.00" sigma="0.00" tau="1.00"/>
    </vType>

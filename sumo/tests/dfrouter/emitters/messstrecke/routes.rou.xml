@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
 
    <route id="ErnstRuska2O_to_HavestadtN" multi_ref="x">ErnstRuska2O ErnstRuska231O HavestadtN</route>
    <route id="ErnstRuska2O_to_VolmerN" multi_ref="x">ErnstRuska2O ErnstRuska231O ErnstRuska232O ErnstRuska3O VolmerN</route>

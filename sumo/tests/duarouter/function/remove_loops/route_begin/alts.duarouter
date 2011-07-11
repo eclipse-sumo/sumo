@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 14:23:33 by SUMO duarouter Version dev-SVN-r8460
-<configuration>
+<!-- generated on Mon Jul 11 19:05:16 2011 by SUMO duarouter Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <trip-defs value="input_trips.trips.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
@@ -19,10 +21,10 @@
 </configuration>
 -->
 
-<route-alternatives>
+<route-alternatives xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="0" type="0" depart="0.00">
         <routeDistribution last="0">
-            <route cost="19.64" probability="1.00000000" edges="0/0to1/0 1/0to2/0 2/0to3/0"/>
+            <route cost="19.64" probability="1.00" edges="0/0to1/0 1/0to2/0 2/0to3/0"/>
         </routeDistribution>
     </vehicle>
 </route-alternatives>

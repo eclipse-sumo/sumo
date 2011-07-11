@@ -1,4 +1,4 @@
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
    <route id="always_right" multi_ref="x" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
 
    <vType id="pedestrian" length=".25" minGap="0" guiShape="pedestrian" guiWidth=".25"/>
