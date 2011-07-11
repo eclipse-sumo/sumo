@@ -584,6 +584,10 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -626,6 +630,9 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.h"
+				>
 		</Filter>
 	</Files>
 	<Globals>
