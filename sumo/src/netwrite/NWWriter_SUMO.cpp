@@ -93,7 +93,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
 
     // write edges with lanes and connected edges
-    bool noNames = oc.getBool("output.no-names");
+    bool noNames = !oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         writeEdge(device, *(*i).second, noNames);
     }

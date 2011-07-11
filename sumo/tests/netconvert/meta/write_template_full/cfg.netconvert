@@ -23,7 +23,7 @@
         <plain-output-prefix value="" synonymes="plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <map-output value="" synonymes="M" type="FILE" help="Writes joined edges information to FILE"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSIM format."/>
-        <output.no-names value="false" type="BOOL" help="Edge names will not be included in the output."/>
+        <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)."/>
     </output>
 
     <projection>

@@ -105,8 +105,8 @@
         <!-- The generated net will be written to FILE using MATSIM format. -->
         <matsim-output value="" type="FILE"/>
 
-        <!-- Edge names will not be included in the output. -->
-        <output.no-names value="false" type="BOOL"/>
+        <!-- Street names will be included in the output (if available). -->
+        <output.street-names value="false" type="BOOL"/>
 
     </output>
 
