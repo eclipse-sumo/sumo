@@ -313,31 +313,6 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         myCurrentEdge->setSpeed(lane, attrs.getSUMORealReporting(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
-
-    // set information about later beginning lanes
-    if (attrs.hasAttribute(SUMO_ATTR_FORCE_LENGTH)) {
-        bool ok = true;
-        int forcedLength = attrs.getIntReporting(SUMO_ATTR_FORCE_LENGTH, myCurrentID.c_str(), ok); // !!! edge id
-        if (ok) {
-            int nameid = forcedLength;
-            forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
-            std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
-            if (i==mySplits.end()) {
-                Split e;
-                e.pos = (SUMOReal) forcedLength;
-                e.nameid = nameid;
-                for (unsigned int j=0; j<myCurrentEdge->getNumLanes(); j++) {
-                    e.lanes.push_back(j);
-                }
-                mySplits.push_back(e);
-            }
-            i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder((SUMOReal) forcedLength));
-            std::vector<int>::iterator k = find((*i).lanes.begin(), (*i).lanes.end(), lane);
-            if (k!=(*i).lanes.end()) {
-                (*i).lanes.erase(k);
-            }
-        }
-    }
 }
 
 

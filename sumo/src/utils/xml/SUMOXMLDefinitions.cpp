@@ -348,7 +348,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "friendlyPos",   SUMO_ATTR_FRIENDLY_POS },
     { "uncontrolled",   SUMO_ATTR_UNCONTROLLED },
     { "pass",           SUMO_ATTR_PASS },
-    { "forceLength",    SUMO_ATTR_FORCE_LENGTH },
     { "bus_stop",       SUMO_ATTR_BUS_STOP__DEPRECATED },
     { "busStop",        SUMO_ATTR_BUS_STOP },
     { "line",           SUMO_ATTR_LINE },
