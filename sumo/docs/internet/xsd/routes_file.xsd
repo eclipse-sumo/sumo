@@ -53,6 +53,7 @@
     <xsd:complexType name="vehicleType">
         <xsd:sequence>
             <xsd:element name="route" type="vehicleRouteType" minOccurs="0" maxOccurs="1"></xsd:element>
+            <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
@@ -88,14 +89,20 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-
-
     <xsd:complexType name="vehicleRouteType">
+        <xsd:sequence>
+            <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
         <xsd:attribute name="edges" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="exitTimes" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
-
+    <xsd:complexType name="stopType">
+        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="atartPos" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="endPos" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="duration" type="positiveFloatType"></xsd:attribute>
+    </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">
         <xsd:sequence>
