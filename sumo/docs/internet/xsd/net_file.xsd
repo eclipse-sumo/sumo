@@ -10,6 +10,7 @@
             <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="version">
             <xsd:simpleType>
@@ -267,9 +268,11 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="s"></xsd:enumeration>
-                    <xsd:enumeration value="r"></xsd:enumeration>
-                    <xsd:enumeration value="l"></xsd:enumeration>
                     <xsd:enumeration value="t"></xsd:enumeration>
+                    <xsd:enumeration value="l"></xsd:enumeration>
+                    <xsd:enumeration value="r"></xsd:enumeration>
+                    <xsd:enumeration value="L"></xsd:enumeration>
+                    <xsd:enumeration value="R"></xsd:enumeration>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
@@ -281,6 +284,19 @@
                     <xsd:enumeration value="o"></xsd:enumeration>
                     <xsd:enumeration value="="></xsd:enumeration>
                     <xsd:enumeration value="-"></xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="tazType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="shape" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern
+                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
+                    </xsd:pattern>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
