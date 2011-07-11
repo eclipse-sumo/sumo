@@ -101,7 +101,7 @@ RONet::addRouteDef(RORouteDef *def) throw() {
 void
 RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOError) {
     myRoutesOutput = &OutputDevice::getDevice(filename);
-    myRoutesOutput->writeXMLHeader("routes");
+    myRoutesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     if (useAlternatives) {
         size_t len = filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
@@ -109,7 +109,7 @@ RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOErr
         } else {
             myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
         }
-        myRouteAlternativesOutput->writeXMLHeader("route-alternatives");
+        myRouteAlternativesOutput->writeXMLHeader("route-alternatives", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     }
 }
 
