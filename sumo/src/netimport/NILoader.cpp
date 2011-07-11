@@ -141,7 +141,6 @@ NILoader::loadXML(OptionsCont &oc) {
 }
 
 
-/** loads a single user-specified file */
 void
 NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &files,
                       const std::string &type) {
