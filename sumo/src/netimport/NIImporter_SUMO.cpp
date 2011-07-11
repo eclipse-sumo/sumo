@@ -454,6 +454,7 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     Connection conn;
     std::string laneID = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     if (laneID == "SUMO_NO_DESTINATION") { // legacy check
+        // deprecated
         return;
     }
     interpretLaneID(laneID, conn.toEdgeID, conn.toLaneIdx);
