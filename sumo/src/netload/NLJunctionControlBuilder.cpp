@@ -323,7 +323,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
 
 void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std::string &programID,
-        const std::string &type, int offset) throw() {
+        const std::string &type, SUMOTime offset) throw() {
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();

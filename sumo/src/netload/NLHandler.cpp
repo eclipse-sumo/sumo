@@ -764,7 +764,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
         return;
     }
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+    SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
         return;
     }

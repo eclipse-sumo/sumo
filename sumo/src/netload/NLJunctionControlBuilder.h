@@ -163,7 +163,7 @@ public:
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
      */
     void initTrafficLightLogic(const std::string &id, const std::string &programID,
-                               const std::string &type, int offset) throw();
+                               const std::string &type, SUMOTime offset) throw();
 
 
     /** @brief Adds a phase to the currently built traffic lights logic
