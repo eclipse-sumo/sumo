@@ -28,7 +28,7 @@ def validate(f):
             if schemaLoc not in schemes:
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
-            print >> sys.stderr, schemes[schemaLoc].error_log
+            sys.stderr.write(str(schemes[schemaLoc].error_log))
     except:
         print >> sys.stderr, "Error on parsing '%s'!" %f
         traceback.print_exc()

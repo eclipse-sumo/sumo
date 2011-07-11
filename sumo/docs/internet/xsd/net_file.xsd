@@ -10,6 +10,7 @@
             <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="roundabout" type="roundaboutType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="version">
@@ -287,6 +288,10 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="roundaboutType">
+        <xsd:attribute name="nodes" type="xsd:string" use="required"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="tazType">
