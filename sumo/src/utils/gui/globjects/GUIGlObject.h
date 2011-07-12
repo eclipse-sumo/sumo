@@ -243,17 +243,11 @@ protected:
 
 
     /** @brief Builds an entry which allows to copy the cursor position
+     *   if geo projection is used, also builds an entry for copying the geo-position
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
     void buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
-
-
-    /** @brief Builds an entry which allows to copy the cursor geo-position
-     * @param[in, filled] ret The popup menu to add the entry to
-     * @param[in] addSeparator Whether a separator shall be added, too
-     */
-    void buildGeoPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to open the manipulator window

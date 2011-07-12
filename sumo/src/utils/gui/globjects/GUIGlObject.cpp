@@ -36,6 +36,7 @@
 #include <string>
 #include <stack>
 #include <utils/common/ToString.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -173,15 +174,9 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret, bool addSepara
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
-    if (addSeparator) {
-        new FXMenuSeparator(ret);
+    if (GeoConvHelper::usingGeoProjection()) {
+        new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
     }
-}
-
-
-void
-GUIGlObject::buildGeoPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
-    new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
