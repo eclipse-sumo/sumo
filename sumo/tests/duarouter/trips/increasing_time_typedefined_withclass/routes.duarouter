@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jun 19 00:06:58 2011 by SUMO duarouter Version dev-SVN-r10652
+<!-- generated on Tue Jul 12 17:11:31 2011 by SUMO duarouter Version dev-SVN-r10960
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
@@ -18,9 +18,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
-   <vType id="0" length="5.00" minGap="2.00" maxSpeed="30.00" vClass="pedestrian" color="1.00,0.00,0.00">
-      <carFollowing-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
-   </vType>
+    <vType id="0" length="5.00" minGap="2.00" maxSpeed="30.00" vClass="pedestrian" color="1.00,0.00,0.00">
+        <carFollowing-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
+    </vType>
     <vehicle id="0" type="0" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
