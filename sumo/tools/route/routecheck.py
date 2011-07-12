@@ -6,12 +6,10 @@
 @version $Id$
 
 This script does simple checks for the routes on a given network.
-It needs at least two parameters, the SUMO net (.net.xml) and a file
-specifying routes.
 Warnings will be issued if there is an unknown edge in the route,
-if the route is disconnected
+if the route is disconnected,
 or if the route definition does not use the edges attribute.
-If one specifies -f or --fix all subsequent route files will be fixed
+If one specifies -f or --fix all route files will be fixed
 (if possible). At the moment this means adding an intermediate edge
 if just one link is missing in a disconnected route, or adding an edges
 attribute if it is missing.
@@ -46,29 +44,20 @@ camelCase = {"departlane": "departLane",
 class NetReader(handler.ContentHandler):
 
     def __init__(self):
-        self._edge = ''
         self._nb = {}
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
-            self._edge = attrs['id']
-            self._nb[self._edge] = set()
-        elif name == 'succ':
-            self._edge = attrs['edge']
-        elif name == 'succlane':
-            if self._edge in self._nb:
-                l = attrs['lane']
-                if l != "SUMO_NO_DESTINATION":
-                    self._nb[self._edge].add(l[:l.rfind('_')])
+            self._nb[attrs['id']] = set()
+        elif name == 'connection':
+            if attrs['from'] in self._nb and attrs['to'] in self._nb:
+                self._nb[attrs['from']].add(attrs['to'])
 
     def hasEdge(self, edge):
         return edge in self._nb
 
     def isNeighbor(self, orig, dest):
         return dest in self._nb[orig]
-
-    def getLength(self, edge):
-        return self._edgeLength[edge]
 
     def getIntermediateEdge(self, orig, dest):
         for inter in self._nb[orig]:
@@ -159,7 +148,7 @@ class RouteReader(handler.ContentHandler):
                 if key in camelCase:
                     key = camelCase[key]
                     self._changed = True
-                if name != 'route' or key != "edges":
+                if name != 'route' or key not in ["edges", "multi_ref"]:
                     self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
             if name != 'route':
                 if name in ["ride", "stop", "walk"]:
@@ -194,29 +183,31 @@ class RouteReader(handler.ContentHandler):
     def testRoute(self):
         if self._routeID != '':
             returnValue = True
-            rdata = self._routeString.split()
-            if len(rdata) == 0:
+            edgeList = self._routeString.split()
+            if len(edgeList) == 0:
                 print "Warning: Route %s is empty" % self._routeID
                 return False
             if net == None:
                 return True
             doConnectivityTest = True
-            for v in rdata:
-                if not self._net.hasEdge(v):
+            cleanedEdgeList = []
+            for v in edgeList:
+                if self._net.hasEdge(v):
+                    cleanedEdgeList.append(v)
+                else:
                     print "Warning: Unknown edge " + v + " in route " + self._routeID
                     returnValue = False
-                    doConnectivityTest = False
             while doConnectivityTest:
                 doConnectivityTest = False
-                for i, v in enumerate(rdata):
-                    if i < len(rdata) - 1 and not self._net.isNeighbor(v, rdata[i+1]):
-                        print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + rdata[i+1]
-                        interEdge = self._net.getIntermediateEdge(v, rdata[i+1])
+                for i, v in enumerate(cleanedEdgeList):
+                    if i < len(cleanedEdgeList) - 1 and not self._net.isNeighbor(v, cleanedEdgeList[i+1]):
+                        print "Warning: Route " + self._routeID + " disconnected between " + v + " and " + cleanedEdgeList[i+1]
+                        interEdge = self._net.getIntermediateEdge(v, cleanedEdgeList[i+1])
                         if interEdge != '':
-                            rdata.insert(i+1, interEdge)
+                            cleanedEdgeList.insert(i+1, interEdge)
                             self._changed = True
                             self._addedString += interEdge + " "
-                            self._routeString = string.join(rdata)
+                            self._routeString = string.join(cleanedEdgeList)
                             doConnectivityTest = True
                             break
                         returnValue = False
