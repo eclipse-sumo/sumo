@@ -365,12 +365,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
     }
     myCurrentLane = new LaneAttrs;
-    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, id.c_str(), ok, -1);
+    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, -1);
     if(attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
         myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
         if(!myHaveWarnedAboutDeprecatedMaxSpeed) {
             myHaveWarnedAboutDeprecatedMaxSpeed = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_MAXSPEED) + "' instead.");
+            WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_SPEED) + "' instead.");
         }
     }
     myCurrentLane->allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");

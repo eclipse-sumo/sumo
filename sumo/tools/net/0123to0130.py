@@ -20,7 +20,7 @@ from collections import defaultdict
 a = {}
 a['net'] = ('version', )
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
-a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed' 'maxSpeed', 'length', 'endOffset', 'width', 'shape' )
+a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed', 'maxSpeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ('response', 'foes', 'cont' )
 a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
@@ -40,14 +40,13 @@ a['request'] = ( 'index', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction')
 
 # attributes which are optional
-b = {}
-b['edge'] = {}
+b = defaultdict(dict)
 b['edge']['type'] = ''
 b['edge']['function'] = 'normal'
-b['succlane'] = {}
 b['succlane']['tl'] = ''
 b['succlane']['linkno'] = ''
 b['succlane']['linkIndex'] = ''
+b['junction']['shape'] = ''
 
 # elements which are single (not using opening/closing tag)
 SINGLE = ( 'roundabout', 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'location', 

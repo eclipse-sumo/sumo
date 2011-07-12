@@ -234,11 +234,16 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 void 
 NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape) {
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
-	into.openTag(SUMO_TAG_EDGE) << " id=\"" << id << "\" function=\"internal\">\n";
-    into.openTag(SUMO_TAG_LANE) << " id=\"" << id << "_0\" index=\"0\" "
-        << "maxSpeed=\"" << vmax << "\" "
-        << "length=\"" << toString(length) << "\" "
-        << "shape=\"" << shape << "\"";
+	into.openTag(SUMO_TAG_EDGE);
+    into.writeAttr(SUMO_ATTR_ID, id);
+    into.writeAttr(SUMO_ATTR_FUNCTION, toString(NODETYPE_INTERNAL));
+    into <<">\n";
+    into.openTag(SUMO_TAG_LANE);
+    into.writeAttr(SUMO_ATTR_ID, id + "_0");
+    into.writeAttr(SUMO_ATTR_INDEX, 0);
+    into.writeAttr(SUMO_ATTR_SPEED, vmax);
+    into.writeAttr(SUMO_ATTR_LENGTH, length);
+    into.writeAttr(SUMO_ATTR_SHAPE, shape);
 	into.closeTag(true);
 	into.closeTag();
 }
@@ -307,7 +312,8 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
     if(lane.offset>0) {
         length = length - lane.offset;
     }
-    into << " maxSpeed=\"" << lane.speed << "\" length=\"" << length << "\"";
+    into.writeAttr(SUMO_ATTR_SPEED, lane.speed);
+    into.writeAttr(SUMO_ATTR_LENGTH, length);
     if (lane.offset > 0) {
         into << " endOffset=\"" << lane.offset << '\"';
     }
