@@ -29,9 +29,6 @@
 
 #include <map>
 #include <vector>
-#include <guisim/GUILaneWrapper.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUIVehicle.h>
 #include "GUIVisualizationSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS

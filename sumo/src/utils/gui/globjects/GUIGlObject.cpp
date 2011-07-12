@@ -39,14 +39,14 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include "GUIGlObject.h"
-#include "GUIGlObjectStorage.h"
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIApplicationWindow.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
+#include "GUIGlObject.h"
+#include "GUIGlObjectStorage.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

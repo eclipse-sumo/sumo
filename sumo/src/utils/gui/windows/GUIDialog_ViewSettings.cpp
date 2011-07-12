@@ -28,9 +28,7 @@
 #endif
 
 #include <fstream>
-#include "GUIDialog_ViewSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/RGBColor.h>
@@ -44,6 +42,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include "GUIDialog_ViewSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
