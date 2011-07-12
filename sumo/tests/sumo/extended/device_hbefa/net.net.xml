@@ -5,39 +5,39 @@
     </node_count>
 
     <edge id="beg" from="absBeg" to="beg">
-        <lane id="beg_0" index="0" maxSpeed="36.00" length="191.75" shape="51.75,4.00 51.75,195.75"/>
+        <lane id="beg_0" index="0" speed="36.00" length="191.75" shape="51.75,4.00 51.75,195.75"/>
     </edge>
 
     <edge id="beg2left" from="beg" to="begleft">
-        <lane id="beg2left_0" index="0" maxSpeed="36.00" length="46.00" shape="49.25,201.75 3.25,201.75"/>
+        <lane id="beg2left_0" index="0" speed="36.00" length="46.00" shape="49.25,201.75 3.25,201.75"/>
     </edge>
 
     <edge id="beg2right" from="beg" to="begright">
-        <lane id="beg2right_0" index="0" maxSpeed="36.00" length="45.75" shape="54.25,198.25 100.00,198.25"/>
+        <lane id="beg2right_0" index="0" speed="36.00" length="45.75" shape="54.25,198.25 100.00,198.25"/>
     </edge>
 
     <edge id="end" from="end" to="absEnd">
-        <lane id="end_0" index="0" maxSpeed="36.00" length="191.75" shape="51.75,604.25 51.75,796.00"/>
+        <lane id="end_0" index="0" speed="36.00" length="191.75" shape="51.75,604.25 51.75,796.00"/>
     </edge>
 
     <edge id="left" from="begleft" to="endleft">
-        <lane id="left_0" index="0" maxSpeed="36.00" length="393.50" shape="1.75,203.25 1.75,596.75"/>
+        <lane id="left_0" index="0" speed="36.00" length="393.50" shape="1.75,203.25 1.75,596.75"/>
     </edge>
 
     <edge id="left2end" from="endleft" to="end">
-        <lane id="left2end_0" index="0" maxSpeed="36.00" length="46.00" shape="3.25,598.25 49.25,598.25"/>
+        <lane id="left2end_0" index="0" speed="36.00" length="46.00" shape="3.25,598.25 49.25,598.25"/>
     </edge>
 
     <edge id="middle" from="beg" to="end">
-        <lane id="middle_0" index="0" maxSpeed="36.00" length="391.50" shape="51.75,204.25 51.75,595.75"/>
+        <lane id="middle_0" index="0" speed="36.00" length="391.50" shape="51.75,204.25 51.75,595.75"/>
     </edge>
 
     <edge id="right" from="begright" to="endright">
-        <lane id="right_0" index="0" maxSpeed="36.00" length="400.00" shape="101.75,200.00 101.75,600.00"/>
+        <lane id="right_0" index="0" speed="36.00" length="400.00" shape="101.75,200.00 101.75,600.00"/>
     </edge>
 
     <edge id="right2end" from="endright" to="end">
-        <lane id="right2end_0" index="0" maxSpeed="36.00" length="45.75" shape="100.00,601.75 54.25,601.75"/>
+        <lane id="right2end_0" index="0" speed="36.00" length="45.75" shape="100.00,601.75 54.25,601.75"/>
     </edge>
 
     <tlLogic id="end" type="static" programID="0" offset="0">

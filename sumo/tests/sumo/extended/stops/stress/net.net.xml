@@ -22,11 +22,11 @@
     </node_count>
 
     <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1">
-        <lane id="1to2_0" index="0" maxSpeed="13.90" length="1000000.00" shape="1000000.00,1.65 0.00,1.65"/>
+        <lane id="1to2_0" index="0" speed="13.90" length="1000000.00" shape="1000000.00,1.65 0.00,1.65"/>
     </edge>
 
     <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1">
-        <lane id="out_0" index="0" maxSpeed="13.90" length="1.00" shape="0.00,-1.65 1.00,-1.65"/>
+        <lane id="out_0" index="0" speed="13.90" length="1.00" shape="0.00,-1.65 1.00,-1.65"/>
     </edge>
 
     <junction id="SUMOGenerated0" type="dead_end" x="1000000.00" y="0.00" incLanes="" intLanes="" shape="1000000.00,0.05 1000000.00,3.25"/>

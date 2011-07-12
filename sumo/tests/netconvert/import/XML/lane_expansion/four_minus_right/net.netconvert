@@ -21,25 +21,25 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.50_0" function="internal">
-        <lane id=":1.50_0_0" index="0" maxSpeed="28.00" length="3.00" shape="48.50,-8.25 51.50,-8.25"/>
+        <lane id=":1.50_0_0" index="0" speed="28.00" length="3.00" shape="48.50,-8.25 51.50,-8.25"/>
     </edge>
     <edge id=":1.50_1" function="internal">
-        <lane id=":1.50_1_0" index="0" maxSpeed="28.00" length="3.00" shape="48.50,-4.95 51.50,-4.95"/>
+        <lane id=":1.50_1_0" index="0" speed="28.00" length="3.00" shape="48.50,-4.95 51.50,-4.95"/>
     </edge>
     <edge id=":1.50_2" function="internal">
-        <lane id=":1.50_2_0" index="0" maxSpeed="28.00" length="3.00" shape="48.50,-1.65 51.50,-1.65"/>
+        <lane id=":1.50_2_0" index="0" speed="28.00" length="3.00" shape="48.50,-1.65 51.50,-1.65"/>
     </edge>
 
     <edge id="1" from="0" to="1.50" priority="-1">
-        <lane id="1_0" index="0" maxSpeed="28.00" length="48.50" shape="0.00,-11.55 48.50,-11.55"/>
-        <lane id="1_1" index="1" maxSpeed="28.00" length="48.50" shape="0.00,-8.25 48.50,-8.25"/>
-        <lane id="1_2" index="2" maxSpeed="28.00" length="48.50" shape="0.00,-4.95 48.50,-4.95"/>
-        <lane id="1_3" index="3" maxSpeed="28.00" length="48.50" shape="0.00,-1.65 48.50,-1.65"/>
+        <lane id="1_0" index="0" speed="28.00" length="48.50" shape="0.00,-11.55 48.50,-11.55"/>
+        <lane id="1_1" index="1" speed="28.00" length="48.50" shape="0.00,-8.25 48.50,-8.25"/>
+        <lane id="1_2" index="2" speed="28.00" length="48.50" shape="0.00,-4.95 48.50,-4.95"/>
+        <lane id="1_3" index="3" speed="28.00" length="48.50" shape="0.00,-1.65 48.50,-1.65"/>
     </edge>
     <edge id="1.50" from="1.50" to="1" priority="-1">
-        <lane id="1.50_0" index="0" maxSpeed="28.00" length="48.50" shape="51.50,-8.25 100.00,-8.25"/>
-        <lane id="1.50_1" index="1" maxSpeed="28.00" length="48.50" shape="51.50,-4.95 100.00,-4.95"/>
-        <lane id="1.50_2" index="2" maxSpeed="28.00" length="48.50" shape="51.50,-1.65 100.00,-1.65"/>
+        <lane id="1.50_0" index="0" speed="28.00" length="48.50" shape="51.50,-8.25 100.00,-8.25"/>
+        <lane id="1.50_1" index="1" speed="28.00" length="48.50" shape="51.50,-4.95 100.00,-4.95"/>
+        <lane id="1.50_2" index="2" speed="28.00" length="48.50" shape="51.50,-1.65 100.00,-1.65"/>
     </edge>
 
     <junction id="0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-13.15">

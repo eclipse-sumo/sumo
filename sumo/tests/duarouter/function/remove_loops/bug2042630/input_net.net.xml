@@ -26,65 +26,65 @@
     </node_count>
 
     <edge id="D1" from="910" to="1" priority="1" type="a" function="source">
-        <lane id="D1_0" index="0" maxSpeed="15.00" length="200.00" shape="0.00,798.35 200.00,798.35"/>
+        <lane id="D1_0" index="0" speed="15.00" length="200.00" shape="0.00,798.35 200.00,798.35"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="D2" from="920" to="2" priority="1" type="a" function="source">
-        <lane id="D2_0" index="0" maxSpeed="15.00" length="200.00" shape="801.65,0.00 801.65,200.00"/>
+        <lane id="D2_0" index="0" speed="15.00" length="200.00" shape="801.65,0.00 801.65,200.00"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="D3" from="3" to="930" priority="1" type="a">
-        <lane id="D3_0" index="0" maxSpeed="15.00" length="200.00" shape="3300.00,798.35 3500.00,798.35"/>
+        <lane id="D3_0" index="0" speed="15.00" length="200.00" shape="3300.00,798.35 3500.00,798.35"/>
     </edge>
 
     <edge id="L10" from="9" to="10" priority="1" type="a">
-        <lane id="L10_0" index="0" maxSpeed="15.00" length="292.07" shape="2004.68,1098.35 2296.75,1098.35"/>
+        <lane id="L10_0" index="0" speed="15.00" length="292.07" shape="2004.68,1098.35 2296.75,1098.35"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L11" from="9" to="11" priority="2" type="c">
-        <lane id="L11_0" index="0" maxSpeed="10.00" length="412.17" shape="2003.11,1094.56 2294.56,803.11"/>
+        <lane id="L11_0" index="0" speed="10.00" length="412.17" shape="2003.11,1094.56 2294.56,803.11"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L12" from="8" to="13" priority="2" type="b">
-        <lane id="L12_0" index="0" maxSpeed="18.00" length="1794.29" shape="1801.33,2295.03 2796.63,802.09"/>
+        <lane id="L12_0" index="0" speed="18.00" length="1794.29" shape="1801.33,2295.03 2796.63,802.09"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L13" from="10" to="11" priority="1" type="a">
-        <lane id="L13_0" index="0" maxSpeed="15.00" length="292.07" shape="2298.35,1096.75 2298.35,804.68"/>
+        <lane id="L13_0" index="0" speed="15.00" length="292.07" shape="2298.35,1096.75 2298.35,804.68"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L14" from="12" to="11" priority="1" type="a">
-        <lane id="L14_0" index="0" maxSpeed="15.00" length="293.90" shape="2301.65,499.95 2301.65,793.85"/>
+        <lane id="L14_0" index="0" speed="15.00" length="293.90" shape="2301.65,499.95 2301.65,793.85"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L15" from="11" to="13" priority="1" type="a">
-        <lane id="L15_0" index="0" maxSpeed="15.00" length="489.88" shape="2304.75,798.35 2794.63,798.35"/>
+        <lane id="L15_0" index="0" speed="15.00" length="489.88" shape="2304.75,798.35 2794.63,798.35"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L16" from="13" to="3" priority="1" type="a">
-        <lane id="L16_0" index="0" maxSpeed="15.00" length="498.53" shape="2801.47,798.35 3300.00,798.35"/>
+        <lane id="L16_0" index="0" speed="15.00" length="498.53" shape="2801.47,798.35 3300.00,798.35"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L2" from="1" to="4" priority="1" type="a">
-        <lane id="L2_0" index="0" maxSpeed="15.00" length="598.55" shape="200.00,798.35 798.55,798.35"/>
+        <lane id="L2_0" index="0" speed="15.00" length="598.55" shape="200.00,798.35 798.55,798.35"/>
         <cedge>
         </cedge>
         <cedge>
@@ -92,7 +92,7 @@
     </edge>
 
     <edge id="L3" from="2" to="4" priority="1" type="a">
-        <lane id="L3_0" index="0" maxSpeed="15.00" length="595.25" shape="801.65,200.00 801.65,795.25"/>
+        <lane id="L3_0" index="0" speed="15.00" length="595.25" shape="801.65,200.00 801.65,795.25"/>
         <cedge>
         </cedge>
         <cedge>
@@ -100,13 +100,13 @@
     </edge>
 
     <edge id="L4" from="4" to="8" priority="2" type="b">
-        <lane id="L4_0" index="0" maxSpeed="18.00" length="1794.29" shape="803.37,802.09 1798.67,2295.03"/>
+        <lane id="L4_0" index="0" speed="18.00" length="1794.29" shape="803.37,802.09 1798.67,2295.03"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L5" from="4" to="6" priority="1" type="a">
-        <lane id="L5_0" index="0" maxSpeed="15.00" length="489.88" shape="805.37,798.35 1295.25,798.35"/>
+        <lane id="L5_0" index="0" speed="15.00" length="489.88" shape="805.37,798.35 1295.25,798.35"/>
         <cedge>
         </cedge>
         <cedge>
@@ -114,7 +114,7 @@
     </edge>
 
     <edge id="L6" from="5" to="9" priority="1" type="a">
-        <lane id="L6_0" index="0" maxSpeed="15.00" length="693.90" shape="1303.25,1098.35 1997.15,1098.35"/>
+        <lane id="L6_0" index="0" speed="15.00" length="693.90" shape="1303.25,1098.35 1997.15,1098.35"/>
         <cedge>
         </cedge>
         <cedge>
@@ -122,19 +122,19 @@
     </edge>
 
     <edge id="L7" from="6" to="5" priority="1" type="a">
-        <lane id="L7_0" index="0" maxSpeed="15.00" length="295.30" shape="1301.65,801.45 1301.65,1096.75"/>
+        <lane id="L7_0" index="0" speed="15.00" length="295.30" shape="1301.65,801.45 1301.65,1096.75"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L8" from="6" to="7" priority="1" type="a">
-        <lane id="L8_0" index="0" maxSpeed="15.00" length="295.30" shape="1298.35,795.25 1298.35,499.95"/>
+        <lane id="L8_0" index="0" speed="15.00" length="295.30" shape="1298.35,795.25 1298.35,499.95"/>
         <cedge>
         </cedge>
     </edge>
 
     <edge id="L9" from="7" to="12" priority="1" type="a">
-        <lane id="L9_0" index="0" maxSpeed="15.00" length="1000.10" shape="1299.95,498.35 2300.05,498.35"/>
+        <lane id="L9_0" index="0" speed="15.00" length="1000.10" shape="1299.95,498.35 2300.05,498.35"/>
         <cedge>
         </cedge>
     </edge>

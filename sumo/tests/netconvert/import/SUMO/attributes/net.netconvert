@@ -25,33 +25,33 @@
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,20.00" origBoundary="0.00,0.00,40.00,20.00" projParameter="!"/>
 
     <edge id=":node_left_0" function="internal">
-        <lane id=":node_left_0_0" index="0" maxSpeed="13.90" length="24.67" shape="-5.83,5.83 -10.75,-0.33 -11.42,-4.73 -7.83,-7.37 0.00,-8.25"/>
+        <lane id=":node_left_0_0" index="0" speed="13.90" length="24.67" shape="-5.83,5.83 -10.75,-0.33 -11.42,-4.73 -7.83,-7.37 0.00,-8.25"/>
     </edge>
     <edge id=":node_left_1" function="internal">
-        <lane id=":node_left_1_0" index="0" maxSpeed="13.90" length="14.80" shape="-3.50,3.50 -6.45,-0.20 -6.85,-2.84 -4.70,-4.42 0.00,-4.95"/>
+        <lane id=":node_left_1_0" index="0" speed="13.90" length="14.80" shape="-3.50,3.50 -6.45,-0.20 -6.85,-2.84 -4.70,-4.42 0.00,-4.95"/>
     </edge>
     <edge id=":node_left_2" function="internal">
-        <lane id=":node_left_2_0" index="0" maxSpeed="13.90" length="4.93" shape="-1.17,1.17 -2.15,-0.07 -2.28,-0.95 -1.57,-1.47 0.00,-1.65"/>
+        <lane id=":node_left_2_0" index="0" speed="13.90" length="4.93" shape="-1.17,1.17 -2.15,-0.07 -2.28,-0.95 -1.57,-1.47 0.00,-1.65"/>
     </edge>
     <edge id=":node_right_0" function="internal">
-        <lane id=":node_right_0_0" index="0" maxSpeed="13.90" length="24.67" shape="40.00,-8.25 47.83,-7.37 51.42,-4.73 50.75,-0.33 45.83,5.83"/>
+        <lane id=":node_right_0_0" index="0" speed="13.90" length="24.67" shape="40.00,-8.25 47.83,-7.37 51.42,-4.73 50.75,-0.33 45.83,5.83"/>
     </edge>
     <edge id=":node_right_1" function="internal">
-        <lane id=":node_right_1_0" index="0" maxSpeed="13.90" length="17.80" shape="37.00,-4.95 40.00,-4.95 44.70,-4.42 46.85,-2.84 46.45,-0.20 43.50,3.50"/>
+        <lane id=":node_right_1_0" index="0" speed="13.90" length="17.80" shape="37.00,-4.95 40.00,-4.95 44.70,-4.42 46.85,-2.84 46.45,-0.20 43.50,3.50"/>
     </edge>
     <edge id=":node_right_2" function="internal">
-        <lane id=":node_right_2_0" index="0" maxSpeed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
+        <lane id=":node_right_2_0" index="0" speed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="40.00,0.00 20.00,20.00 0.00,0.00">
-        <lane id="edge_with_shape_0" index="0" allow="bus" maxSpeed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle" maxSpeed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
-        <lane id="edge_with_shape_2" index="2" maxSpeed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
+        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
+        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
-        <lane id="reverse_edge_0" index="0" maxSpeed="13.90" length="40.00" shape="0.00,-8.25 40.00,-8.25"/>
-        <lane id="reverse_edge_1" index="1" maxSpeed="13.90" length="37.00" endOffset="3.00" shape="0.00,-4.95 37.00,-4.95"/>
-        <lane id="reverse_edge_2" index="2" maxSpeed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
+        <lane id="reverse_edge_0" index="0" speed="13.90" length="40.00" shape="0.00,-8.25 40.00,-8.25"/>
+        <lane id="reverse_edge_1" index="1" speed="13.90" length="37.00" endOffset="3.00" shape="0.00,-4.95 37.00,-4.95"/>
+        <lane id="reverse_edge_2" index="2" speed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
     </edge>
 
     <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_1_0 :node_left_2_0" shape="0.00,-0.05 0.00,-9.85 -6.97,6.96 -0.04,0.04">
