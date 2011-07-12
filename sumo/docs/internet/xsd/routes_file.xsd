@@ -5,17 +5,20 @@
     <xsd:element name="route-alternatives" type="routesType"></xsd:element>
 
     <xsd:complexType name="routesType">
-        <xsd:all>
-            <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="vType" type="vTypeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="route" type="routeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="vehicle" type="vehicleType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="flow" type="flowType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:all>
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"></xsd:element>
+            <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"></xsd:element>
+            <xsd:element name="vType" type="vTypeType" minOccurs="0"></xsd:element>
+            <xsd:element name="route" type="routeType" minOccurs="0"></xsd:element>
+            <xsd:element name="vehicle" type="vehicleType" minOccurs="0"></xsd:element>
+            <xsd:element name="flow" type="flowType" minOccurs="0"></xsd:element>
+        </xsd:choice>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeType">
+        <xsd:choice>
+            <xsd:element name="carFollowing-Krauss" type="cfKraussType" minOccurs="0"></xsd:element>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="length" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="minGap" type="positiveFloatType"></xsd:attribute>
@@ -43,9 +46,24 @@
         <xsd:attribute name="laneChangeModel" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
+    <xsd:complexType name="cfKraussType">
+        <xsd:attribute name="accel" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="decel" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="sigma">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:float">
+                    <xsd:maxInclusive value="1"></xsd:maxInclusive>
+                    <xsd:minInclusive value="0"></xsd:minInclusive>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="tau" type="positiveFloatType"></xsd:attribute>
+    </xsd:complexType>
+
     <xsd:complexType name="vehicleType">
         <xsd:sequence>
-            <xsd:element name="route" type="vehicleRouteType" minOccurs="0" maxOccurs="1"></xsd:element>
+            <xsd:element name="route" type="vehicleRouteType" minOccurs="0"></xsd:element>
+            <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"></xsd:element>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
@@ -87,14 +105,13 @@
         <xsd:complexContent>
             <xsd:extension base="vehicleRouteType">
                 <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-                <xsd:attribute name="color" type="colorType"></xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:simpleType name="colorType">
         <xsd:restriction base="xsd:string">
-            <xsd:pattern value="(0|(0?.(\d+))|1),(0|(0?.(\d+))|1),(0|(0?.(\d+))|1)"></xsd:pattern>
+            <xsd:pattern value="(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*))"></xsd:pattern>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -109,6 +126,7 @@
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="edges" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="exitTimes" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
