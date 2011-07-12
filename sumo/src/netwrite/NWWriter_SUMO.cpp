@@ -426,7 +426,6 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
                 }
                 into << "\"";
                 into << " intLanes=\"" << n.getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
-                into << " shape=\"\"";
 				into.closeTag(true);
                 splitNo++;
                 lno++;
