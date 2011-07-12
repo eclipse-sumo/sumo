@@ -99,6 +99,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_GAMING,             GUIApplicationWindow::onCmdGaming),
+    FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,       GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
@@ -363,6 +364,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCheck(mySettingsMenu,
                     "Gaming Mode\t\tToggle gaming mode on/off.",
                     this,MID_GAMING);
+    new FXMenuCheck(mySettingsMenu,
+                    "Locate Internal Structures\t\tList internal junctions and streets in the object locator.",
+                    this,MID_LISTINTERNAL);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -752,6 +756,13 @@ GUIApplicationWindow::onCmdGaming(FXObject*,FXSelector,void*) {
     if (myAmGaming) {
         mySimDelayTarget->setValue(1000);
     }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdListInternal(FXObject*,FXSelector,void*) {
+    myListInternal = !myListInternal;
     return 1;
 }
 

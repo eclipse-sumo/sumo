@@ -111,11 +111,15 @@ GUIEdge::getLaneGeometry(const MSLane *lane) const {
 
 
 std::vector<GUIGlID>
-GUIEdge::getIDs() {
+GUIEdge::getIDs(bool includeInternal) {
     std::vector<GUIGlID> ret;
     ret.reserve(MSEdge::myDict.size());
     for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
-        ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());
+        GUIEdge* edge = dynamic_cast<GUIEdge*>(i->second);
+        assert(edge);
+        if (edge->getPurpose() != EDGEFUNCTION_INTERNAL || includeInternal) {
+            ret.push_back(edge->getGlID());
+        }
     }
     return ret;
 }

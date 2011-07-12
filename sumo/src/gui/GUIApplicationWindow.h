@@ -134,6 +134,8 @@ public:
     long onCmdAppSettings(FXObject*,FXSelector,void*);
     /// Toggle gaming mode
     long onCmdGaming(FXObject*,FXSelector,void*);
+    /// Toggle listing of internal structures
+    long onCmdListInternal(FXObject*,FXSelector,void*);
 
     /// Shows the about dialog
     long onCmdAbout(FXObject*,FXSelector,void*);

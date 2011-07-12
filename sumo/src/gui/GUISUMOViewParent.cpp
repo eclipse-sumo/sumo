@@ -149,13 +149,13 @@ GUISUMOViewParent::onCmdLocate(FXObject *,FXSelector sel,void*) {
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION: 
             type = GLO_JUNCTION;
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
+            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
             icon = ICON_LOCATEJUNCTION;
             title = "Junction Chooser";
             break;
         case MID_LOCATEEDGE:
             type = GLO_EDGE;
-            ids = GUIEdge::getIDs();
+            ids = GUIEdge::getIDs(myParent->listInternal());
             icon = ICON_LOCATEEDGE;
             title = "Edge Chooser";
             break;

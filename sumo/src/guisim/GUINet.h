@@ -210,8 +210,10 @@ public:
     /// @name locator-methods
     //@{
 
-    /// Returns the gl-ids of all junctions within the net
-    std::vector<GUIGlID> getJunctionIDs() const;
+    /* @brief Returns the gl-ids of all junctions within the net
+     * @param[in] includeInternal Whether to include ids of internal junctions
+     */
+    std::vector<GUIGlID> getJunctionIDs(bool includeInternal) const;
 
     /// Returns the gl-ids of all traffic light logics within the net
     std::vector<GUIGlID> getTLSIDs() const;

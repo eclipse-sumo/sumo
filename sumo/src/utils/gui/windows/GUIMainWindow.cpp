@@ -45,7 +45,7 @@
 GUIMainWindow::GUIMainWindow(FXApp* a)
         : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
         myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
-        myRunAtBegin(false), myAmGaming(false) {
+        myRunAtBegin(false), myAmGaming(false), myListInternal(false) {
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
@@ -157,13 +157,6 @@ FXLabel &
 GUIMainWindow::getGeoLabel() {
     return *myGeoCoordinate;
 }
-
-
-bool
-GUIMainWindow::isGaming() const throw() {
-    return myAmGaming;
-}
-
 
 /****************************************************************************/
 

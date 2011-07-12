@@ -111,13 +111,16 @@ public:
     void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
-
-
     /** @brief Returns the boundary of the junction
      * @return This junction's boundary
      */
     Boundary getBoundary() const throw() {
         return myBoundary;
+    }
+
+    /// @brief whether this is an inner junction (a waiting spot for crossing a "real" junction)
+    bool isInner() const {
+        return myIsInner;
     }
 
 

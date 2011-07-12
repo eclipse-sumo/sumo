@@ -255,10 +255,12 @@ GUINet::guiSimulationStep() {
 
 
 std::vector<GUIGlID>
-GUINet::getJunctionIDs() const {
+GUINet::getJunctionIDs(bool includeInternal) const {
     std::vector<GUIGlID> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
-        ret.push_back((*i)->getGlID());
+        if (!(*i)->isInner() || includeInternal) { 
+            ret.push_back((*i)->getGlID());
+        }
     }
     return ret;
 }

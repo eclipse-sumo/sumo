@@ -69,7 +69,15 @@ public:
     FXLabel &getCartesianLabel();
     FXLabel &getGeoLabel();
 
-    bool isGaming() const throw();
+    /// @brief return whether the gui is in gaming mode
+    bool isGaming() const {
+        return myAmGaming;
+    }
+
+    /// @brief return whether to list internal structures
+    bool listInternal() const {
+        return myListInternal;
+    }
 
 protected:
     std::vector<FXMDIChild*> mySubWindows;
@@ -100,6 +108,9 @@ protected:
 
     /// information whether the gui is currently in gaming mode
     bool myAmGaming;
+
+    /// information whether the locator should list internal structures
+    bool myListInternal;
 
 protected:
     GUIMainWindow() { }

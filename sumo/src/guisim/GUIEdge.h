@@ -64,8 +64,10 @@ public:
     void initGeometry() throw();
 
 
-    /** Returns the list of all known edge ids */
-    static std::vector<GUIGlID> getIDs();
+    /* @brief Returns the gl-ids of all known edges 
+     * @param[in] includeInternal Whether to include ids of internal edges
+     */
+    static std::vector<GUIGlID> getIDs(bool includeInternal);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
