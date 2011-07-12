@@ -488,7 +488,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     }
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-        // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
+        // inner junctions have no shape
         shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), attrs.getObjectType(), id.c_str(), ok, true);
     }
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
