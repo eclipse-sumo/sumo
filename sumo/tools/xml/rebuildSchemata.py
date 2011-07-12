@@ -3,7 +3,7 @@
 @file    rebuildSchemata.py
 @author  Michael.Behrisch@dlr.de
 @date    2011-07-11
-@version $Id: makeDoc.py 9525 2011-01-04 21:22:52Z behrisch $
+@version $Id$
 
 Let all SUMO binarie write the schema for their config
 
