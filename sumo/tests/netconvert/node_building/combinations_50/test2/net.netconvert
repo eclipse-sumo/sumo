@@ -153,10 +153,10 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_16_0" type="internal" x="48.93" y="48.35" incLanes=":0_6_0 1i_0" intLanes=":0_12_0 :0_13_0" shape=""/>
-    <junction id=":0_17_0" type="internal" x="53.10" y="50.00" incLanes=":0_7_0 1i_0" intLanes=":0_13_0" shape=""/>
-    <junction id=":0_18_0" type="internal" x="51.07" y="51.65" incLanes=":0_14_0 2i_0" intLanes=":0_4_0 :0_5_0" shape=""/>
-    <junction id=":0_19_0" type="internal" x="46.90" y="50.00" incLanes=":0_15_0 2i_0" intLanes=":0_5_0" shape=""/>
+    <junction id=":0_16_0" type="internal" x="48.93" y="48.35" incLanes=":0_6_0 1i_0" intLanes=":0_12_0 :0_13_0"/>
+    <junction id=":0_17_0" type="internal" x="53.10" y="50.00" incLanes=":0_7_0 1i_0" intLanes=":0_13_0"/>
+    <junction id=":0_18_0" type="internal" x="51.07" y="51.65" incLanes=":0_14_0 2i_0" intLanes=":0_4_0 :0_5_0"/>
+    <junction id=":0_19_0" type="internal" x="46.90" y="50.00" incLanes=":0_15_0 2i_0" intLanes=":0_5_0"/>
 
     <connection from="1i" to="3o" fromLane="0" toLane="0" via=":0_12_0" dir="r" state="M"/>
     <connection from="1i" to="2o" fromLane="0" toLane="0" via=":0_13_0" dir="s" state="M"/>

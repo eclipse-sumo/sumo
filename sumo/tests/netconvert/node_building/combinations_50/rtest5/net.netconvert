@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!-- generated on 07/08/11 13:09:28 by SUMO netconvert Version dev-SVN-r10899
-<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -93,9 +92,9 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_6_0" type="internal" x="50.00" y="56.40" incLanes=":0_2_0 3i_0" intLanes=":0_3_0" shape=""/>
-    <junction id=":0_7_0" type="internal" x="48.35" y="51.37" incLanes=":0_4_0 4i_0" intLanes=":0_0_0 :0_1_0" shape=""/>
-    <junction id=":0_8_0" type="internal" x="50.00" y="50.20" incLanes=":0_5_0 4i_0" intLanes=":0_1_0" shape=""/>
+    <junction id=":0_6_0" type="internal" x="50.00" y="56.40" incLanes=":0_2_0 3i_0" intLanes=":0_3_0"/>
+    <junction id=":0_7_0" type="internal" x="48.35" y="51.37" incLanes=":0_4_0 4i_0" intLanes=":0_0_0 :0_1_0"/>
+    <junction id=":0_8_0" type="internal" x="50.00" y="50.20" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
 
     <connection from="3i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="s" state="M"/>
     <connection from="3i" to="1o" fromLane="0" toLane="1" via=":0_4_0" dir="l" state="m"/>

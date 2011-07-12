@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!-- generated on Tue Jul 12 15:30:55 2011 by SUMO netconvert Version dev-SVN-r10960
-<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 

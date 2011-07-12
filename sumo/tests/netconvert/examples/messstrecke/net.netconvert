@@ -471,10 +471,10 @@
     </junction>
     <junction id="VolmerSinkEnd" type="dead_end" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00"/>
 
-    <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1908.72" y="198.35" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_7_0" shape=""/>
-    <junction id=":ErnstRuskaAltglienicker_9_0" type="internal" x="1909.83" y="195.05" incLanes=":ErnstRuskaAltglienicker_4_0 ErnstRuska5W_0 ErnstRuska5W_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_1_0" shape=""/>
-    <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="295.31" y="201.65" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_4_0" shape=""/>
-    <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1585.15" y="201.65" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_4_0" shape=""/>
+    <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1908.72" y="198.35" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_7_0"/>
+    <junction id=":ErnstRuskaAltglienicker_9_0" type="internal" x="1909.83" y="195.05" incLanes=":ErnstRuskaAltglienicker_4_0 ErnstRuska5W_0 ErnstRuska5W_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_1_0"/>
+    <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="295.31" y="201.65" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_4_0"/>
+    <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1585.15" y="201.65" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_4_0"/>
 
     <connection from="AltglienickerBreitN" to="ErnstRuska5O" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkIndex="3" dir="r" state="o"/>
     <connection from="AltglienickerBreitN" to="ErnstRuska4W" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkIndex="4" dir="l" state="o"/>

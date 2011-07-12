@@ -124,8 +124,8 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="51.07" y="51.65" incLanes=":0_10_0 2i_0" intLanes=":0_3_0 :0_4_0" shape=""/>
-    <junction id=":0_13_0" type="internal" x="46.90" y="50.00" incLanes=":0_11_0 2i_0" intLanes=":0_4_0" shape=""/>
+    <junction id=":0_12_0" type="internal" x="51.07" y="51.65" incLanes=":0_10_0 2i_0" intLanes=":0_3_0 :0_4_0"/>
+    <junction id=":0_13_0" type="internal" x="46.90" y="50.00" incLanes=":0_11_0 2i_0" intLanes=":0_4_0"/>
 
     <connection from="1i" to="3o" fromLane="0" toLane="0" via=":0_9_0" dir="r" state="M"/>
     <connection from="1i" to="4o" fromLane="0" toLane="0" via=":0_10_0" dir="l" state="m"/>

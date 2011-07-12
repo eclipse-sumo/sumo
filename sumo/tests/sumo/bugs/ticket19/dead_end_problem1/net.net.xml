@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!-- generated on Mon Jul 11 12:53:55 2011 by SUMO netconvert Version dev-SVN-r10919
-<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -276,9 +275,9 @@
         <request index="5" response="000000" foes="000011" cont="0"/>
     </junction>
 
-    <junction id=":6691_8_0" type="internal" x="134.45" y="508.35" incLanes=":6691_3_0 -4312_0 -4312_1" intLanes=":6691_4_0 :6691_5_0" shape=""/>
-    <junction id=":6691_9_0" type="internal" x="132.08" y="506.50" incLanes=":6691_6_0 -9910_0 -9910_1" intLanes=":6691_0_0 :6691_1_0 :6691_2_0" shape=""/>
-    <junction id=":6691_10_0" type="internal" x="133.30" y="504.97" incLanes=":6691_7_0 -9910_0 -9910_1" intLanes=":6691_1_0 :6691_2_0" shape=""/>
+    <junction id=":6691_8_0" type="internal" x="134.45" y="508.35" incLanes=":6691_3_0 -4312_0 -4312_1" intLanes=":6691_4_0 :6691_5_0"/>
+    <junction id=":6691_9_0" type="internal" x="132.08" y="506.50" incLanes=":6691_6_0 -9910_0 -9910_1" intLanes=":6691_0_0 :6691_1_0 :6691_2_0"/>
+    <junction id=":6691_10_0" type="internal" x="133.30" y="504.97" incLanes=":6691_7_0 -9910_0 -9910_1" intLanes=":6691_1_0 :6691_2_0"/>
 
     <connection from="-4312" to="9910" fromLane="0" toLane="0" via=":6691_4_0" dir="s" state="M"/>
     <connection from="-4312" to="9910" fromLane="1" toLane="1" via=":6691_5_0" dir="s" state="M"/>

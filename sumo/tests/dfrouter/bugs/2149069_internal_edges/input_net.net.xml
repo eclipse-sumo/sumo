@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
-<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -431,25 +430,25 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":20_4_0" type="internal" x="300.00" y="510.89" incLanes=":20_1_0 21_20_0" intLanes=":20_2_0 :20_3_0" shape=""/>
-    <junction id=":20_5_0" type="internal" x="300.00" y="510.89" incLanes=":20_2_0 30_20_0" intLanes=":20_0_0 :20_1_0" shape=""/>
-    <junction id=":20_6_0" type="internal" x="300.00" y="510.20" incLanes=":20_3_0 30_20_0" intLanes=":20_1_0" shape=""/>
-    <junction id=":21_4_0" type="internal" x="300.00" y="499.11" incLanes=":21_0_0 11_21_0" intLanes=":21_2_0 :21_3_0" shape=""/>
-    <junction id=":21_5_0" type="internal" x="300.00" y="499.80" incLanes=":21_1_0 11_21_0" intLanes=":21_3_0" shape=""/>
-    <junction id=":21_6_0" type="internal" x="300.00" y="499.11" incLanes=":21_3_0 20_21_0" intLanes=":21_0_0 :21_1_0" shape=""/>
-    <junction id=":50_4_0" type="internal" x="710.00" y="510.89" incLanes=":50_1_0 51_50_0" intLanes=":50_2_0 :50_3_0" shape=""/>
-    <junction id=":50_5_0" type="internal" x="710.00" y="510.89" incLanes=":50_2_0 60_50_0" intLanes=":50_0_0 :50_1_0" shape=""/>
-    <junction id=":50_6_0" type="internal" x="710.00" y="510.20" incLanes=":50_3_0 60_50_0" intLanes=":50_1_0" shape=""/>
-    <junction id=":51_4_0" type="internal" x="710.00" y="499.11" incLanes=":51_0_0 41_51_0" intLanes=":51_2_0 :51_3_0" shape=""/>
-    <junction id=":51_5_0" type="internal" x="710.00" y="499.80" incLanes=":51_1_0 41_51_0" intLanes=":51_3_0" shape=""/>
-    <junction id=":51_6_0" type="internal" x="710.00" y="499.11" incLanes=":51_3_0 50_51_0" intLanes=":51_0_0 :51_1_0" shape=""/>
-    <junction id=":a2_4_0" type="internal" x="510.00" y="301.49" incLanes=":a2_1_0 a0_a2_0" intLanes=":a2_2_0" shape=""/>
-    <junction id=":a2_5_0" type="internal" x="509.99" y="298.46" incLanes=":a2_3_0 a3_a2_0" intLanes=":a2_0_0" shape=""/>
-    <junction id=":a3_9_0" type="internal" x="510.00" y="204.31" incLanes=":a3_2_0 a4_a3_0" intLanes=":a3_3_0" shape=""/>
-    <junction id=":a3_10_0" type="internal" x="508.35" y="201.71" incLanes=":a3_4_0 a2_a3_0" intLanes=":a3_0_0 :a3_1_0" shape=""/>
-    <junction id=":a3_11_0" type="internal" x="510.00" y="197.78" incLanes=":a3_5_0 a2_a3_0" intLanes=":a3_1_0" shape=""/>
-    <junction id=":a4_4_0" type="internal" x="510.00" y="98.35" incLanes=":a4_1_0 a5_a4_0" intLanes=":a4_2_0" shape=""/>
-    <junction id=":a4_5_0" type="internal" x="510.00" y="101.65" incLanes=":a4_3_0 a3_a4_0" intLanes=":a4_0_0" shape=""/>
+    <junction id=":20_4_0" type="internal" x="300.00" y="510.89" incLanes=":20_1_0 21_20_0" intLanes=":20_2_0 :20_3_0"/>
+    <junction id=":20_5_0" type="internal" x="300.00" y="510.89" incLanes=":20_2_0 30_20_0" intLanes=":20_0_0 :20_1_0"/>
+    <junction id=":20_6_0" type="internal" x="300.00" y="510.20" incLanes=":20_3_0 30_20_0" intLanes=":20_1_0"/>
+    <junction id=":21_4_0" type="internal" x="300.00" y="499.11" incLanes=":21_0_0 11_21_0" intLanes=":21_2_0 :21_3_0"/>
+    <junction id=":21_5_0" type="internal" x="300.00" y="499.80" incLanes=":21_1_0 11_21_0" intLanes=":21_3_0"/>
+    <junction id=":21_6_0" type="internal" x="300.00" y="499.11" incLanes=":21_3_0 20_21_0" intLanes=":21_0_0 :21_1_0"/>
+    <junction id=":50_4_0" type="internal" x="710.00" y="510.89" incLanes=":50_1_0 51_50_0" intLanes=":50_2_0 :50_3_0"/>
+    <junction id=":50_5_0" type="internal" x="710.00" y="510.89" incLanes=":50_2_0 60_50_0" intLanes=":50_0_0 :50_1_0"/>
+    <junction id=":50_6_0" type="internal" x="710.00" y="510.20" incLanes=":50_3_0 60_50_0" intLanes=":50_1_0"/>
+    <junction id=":51_4_0" type="internal" x="710.00" y="499.11" incLanes=":51_0_0 41_51_0" intLanes=":51_2_0 :51_3_0"/>
+    <junction id=":51_5_0" type="internal" x="710.00" y="499.80" incLanes=":51_1_0 41_51_0" intLanes=":51_3_0"/>
+    <junction id=":51_6_0" type="internal" x="710.00" y="499.11" incLanes=":51_3_0 50_51_0" intLanes=":51_0_0 :51_1_0"/>
+    <junction id=":a2_4_0" type="internal" x="510.00" y="301.49" incLanes=":a2_1_0 a0_a2_0" intLanes=":a2_2_0"/>
+    <junction id=":a2_5_0" type="internal" x="509.99" y="298.46" incLanes=":a2_3_0 a3_a2_0" intLanes=":a2_0_0"/>
+    <junction id=":a3_9_0" type="internal" x="510.00" y="204.31" incLanes=":a3_2_0 a4_a3_0" intLanes=":a3_3_0"/>
+    <junction id=":a3_10_0" type="internal" x="508.35" y="201.71" incLanes=":a3_4_0 a2_a3_0" intLanes=":a3_0_0 :a3_1_0"/>
+    <junction id=":a3_11_0" type="internal" x="510.00" y="197.78" incLanes=":a3_5_0 a2_a3_0" intLanes=":a3_1_0"/>
+    <junction id=":a4_4_0" type="internal" x="510.00" y="98.35" incLanes=":a4_1_0 a5_a4_0" intLanes=":a4_2_0"/>
+    <junction id=":a4_5_0" type="internal" x="510.00" y="101.65" incLanes=":a4_3_0 a3_a4_0" intLanes=":a4_0_0"/>
 
     <connection from="01_11" to="11_21" fromLane="0" toLane="0" via=":11_0_0" dir="s" state="M"/>
     <connection from="11_21" to="21_31" fromLane="0" toLane="0" via=":21_2_0" dir="s" state="M"/>

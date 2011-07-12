@@ -98,11 +98,11 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id="mid" type="dead_end" x="1000.00" y="20.00" incLanes="" intLanes="" shape=""/>
+    <junction id="mid" type="dead_end" x="1000.00" y="20.00" incLanes="" intLanes=""/>
 
-    <junction id="midmax" type="dead_end" x="1000.00" y="40.00" incLanes="" intLanes="" shape=""/>
+    <junction id="midmax" type="dead_end" x="1000.00" y="40.00" incLanes="" intLanes=""/>
 
-    <junction id="midmin" type="dead_end" x="1000.00" y="0.00" incLanes="" intLanes="" shape=""/>
+    <junction id="midmin" type="dead_end" x="1000.00" y="0.00" incLanes="" intLanes=""/>
 
     <junction id="rabsEnd" type="dead_end" x="2500.00" y="20.00" incLanes="rend_0" intLanes="" shape="2500.00,16.75 2500.00,19.95"/>
 
