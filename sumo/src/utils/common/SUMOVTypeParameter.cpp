@@ -62,57 +62,57 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     if (onlyReferenced) {
         return;
     }
-    dev << "   <vType id=\"" << id << '"';
+    dev.openTag(SUMO_TAG_VTYPE);
+    dev.writeAttr(SUMO_ATTR_ID, id);
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
-        dev << " length=\"" << length << '"';
+        dev.writeAttr(SUMO_ATTR_LENGTH, length);
     }
     if (wasSet(VTYPEPARS_MINGAP_SET)) {
-        dev << " minGap=\"" << minGap << '"';
+        dev.writeAttr(SUMO_ATTR_MINGAP, minGap);
     }
     if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
-        dev << " maxSpeed=\"" << maxSpeed << '"';
+        dev.writeAttr(SUMO_ATTR_MAXSPEED, maxSpeed);
     }
     if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
-        dev << " probability=\"" << defaultProbability << '"';
+        dev.writeAttr(SUMO_ATTR_PROB, defaultProbability);
     }
     if (wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
-        dev << " speedFactor=\"" << speedFactor << '"';
+        dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
     }
     if (wasSet(VTYPEPARS_SPEEDDEVIATION_SET)) {
-        dev << " speedDev=\"" << speedDev << '"';
+        dev.writeAttr(SUMO_ATTR_SPEEDDEV, speedDev);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        dev << " vClass=\"" << toString(vehicleClass) << '"';
+        dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));
     }
     if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
-        dev << " emissionClass=\"" << getVehicleEmissionTypeName(emissionClass) << '"';
+        dev.writeAttr(SUMO_ATTR_EMISSIONCLASS, getVehicleEmissionTypeName(emissionClass));
     }
     if (wasSet(VTYPEPARS_SHAPE_SET)) {
-        dev << " guiShape=\"" << getVehicleShapeName(shape) << '"';
+        dev.writeAttr(SUMO_ATTR_GUISHAPE, getVehicleShapeName(shape));
     }
     if (wasSet(VTYPEPARS_WIDTH_SET)) {
-        dev << " guiWidth=\"" << width << '"';
+        dev.writeAttr(SUMO_ATTR_GUIWIDTH, width);
     }
     if (wasSet(VTYPEPARS_COLOR_SET)) {
-        dev << " color=\"" << color << '"';
+        dev.writeAttr(SUMO_ATTR_COLOR, color);
     }
 
     if (cfParameter.size()!=0) {
         dev << ">\n";
-        dev << "      <";
-        dev << toString(cfModel);
+        dev.openTag(cfModel);
         std::vector<SumoXMLAttr> attrs;
         for (CFParams::const_iterator i=cfParameter.begin(); i!=cfParameter.end(); ++i) {
             attrs.push_back(i->first);
         }
         std::sort(attrs.begin(), attrs.end());
         for (std::vector<SumoXMLAttr>::const_iterator i=attrs.begin(); i!=attrs.end(); ++i) {
-            dev << ' ' << toString(*i) << "=\"" << cfParameter.find(*i)->second << '"';
+            dev.writeAttr(*i, cfParameter.find(*i)->second);
         }
-        dev << "/>\n";
-        dev << "   </vType>\n";
+        dev.closeTag(true);
+        dev.closeTag();
     } else {
-        dev << "/>\n";
+        dev.closeTag(true);
     }
 }
 
