@@ -27,10 +27,11 @@
 #include <config.h>
 #endif
 
-#include "GUIGlChildWindow.h"
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include "GUIGlChildWindow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -247,5 +248,10 @@ GUIGlChildWindow::setView(GUIGlID id) {
     myView->centerTo(id, true);
 }
 
+
+bool 
+GUIGlChildWindow::isSelected(GUIGlObject *o) const {
+    return gSelected.isSelected(o->getType(), o->getGlID());
+}
 /****************************************************************************/
 

@@ -89,6 +89,10 @@ public:
     }
 
 
+    /// @brief true if the object is selected (may include extra logic besides calling gSelected)
+    virtual bool isSelected(GUIGlObject *o) const;
+
+
 protected:
     /// the view
     GUISUMOAbstractView *myView;

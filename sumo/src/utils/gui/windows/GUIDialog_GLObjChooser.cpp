@@ -92,18 +92,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
             continue;
         }
         const std::string &name = o->getMicrosimID();
-        bool selected = false;
-        if (type==GLO_EDGE) {
-            size_t noLanes = static_cast<GUIEdge*>(o)->getLanes().size();
-            for (size_t j=0; j<noLanes; ++j) {
-                const GUILaneWrapper &l = static_cast<GUIEdge*>(o)->getLaneGeometry(j);
-                if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
-                    selected = true;
-                }
-            }
-        } else {
-            selected = gSelected.isSelected(type, *i);
-        }
+        bool selected = myParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myIDs.insert(o->getGlID());
         myList->appendItem(name.c_str(), icon, (void*) &(*myIDs.find(o->getGlID())));

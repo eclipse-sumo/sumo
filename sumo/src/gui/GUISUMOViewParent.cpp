@@ -205,6 +205,27 @@ GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
 }
 
 
+bool 
+GUISUMOViewParent::isSelected(GUIGlObject *o) const {
+    GUIGlObjectType type = o->getType();
+    if (gSelected.isSelected(type, o->getGlID())) {
+        return true;
+    } else if (type == GLO_EDGE) {
+        GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
+        assert(edge);
+        size_t noLanes = edge->getLanes().size();
+        for (size_t j=0; j<noLanes; ++j) {
+            const GUILaneWrapper &l = edge->getLaneGeometry(j);
+            if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        return false;
+    }
+}
+
 
 /****************************************************************************/
 
