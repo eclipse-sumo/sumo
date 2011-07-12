@@ -20,7 +20,7 @@ from collections import defaultdict
 a = {}
 a['net'] = ('version', )
 a['edge'] = ( 'id', 'from', 'to', 'name', 'priority', 'type', 'function', 'spread_type', 'shape' )
-a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'endOffset', 'width', 'shape' )
+a['lane'] = ( 'id', 'index', 'vclasses', 'allow', 'disallow', 'maxspeed' 'maxSpeed', 'length', 'endOffset', 'width', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ('response', 'foes', 'cont' )
 a['succlane'] = ('via', 'tl', 'linkno', 'dir', 'state' )
@@ -67,7 +67,8 @@ RENAMED_TAGS = {'tl-logic': 'tlLogic',
 renamedAttrs = {'min_dur': 'minDur', 
         'max_dur': 'maxDur', 
         'spread_type': 'spreadType', 
-        'maxspeed':'maxSpeed', 
+        'maxspeed':'speed', 
+        'maxSpeed':'speed', 
         'linkIdx':'linkIndex', 
         'linkno':'linkIndex'}
 

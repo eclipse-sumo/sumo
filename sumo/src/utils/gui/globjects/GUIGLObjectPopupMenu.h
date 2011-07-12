@@ -80,6 +80,9 @@ public:
     /// Called if the cursor position shall be copied to clipboard
     long onCmdCopyCursorPosition(FXObject*,FXSelector,void*);
 
+    /// Called if the cursor geo-position shall be copied to clipboard
+    long onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*);
+
     /// Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*,FXSelector,void*);
 

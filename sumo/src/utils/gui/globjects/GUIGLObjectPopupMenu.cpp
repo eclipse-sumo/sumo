@@ -29,14 +29,15 @@
 
 #include <iostream>
 #include <cassert>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include "GUIGLObjectPopupMenu.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/common/ToString.h>
+#include "GUIGLObjectPopupMenu.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -47,13 +48,14 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
-    FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
-    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,      GUIGLObjectPopupMenu::onCmdCopyName),
-    FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
-    FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION, GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
-    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected)
+    FXMAPFUNC(SEL_COMMAND,  MID_CENTER,                  GUIGLObjectPopupMenu::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,               GUIGLObjectPopupMenu::onCmdCopyName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME,         GUIGLObjectPopupMenu::onCmdCopyTypedName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
+    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,               GUIGLObjectPopupMenu::onCmdAddSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,            GUIGLObjectPopupMenu::onCmdRemoveSelected)
 };
 
 // Object implementation
@@ -99,6 +101,17 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*) {
 long
 GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), toString(myNetworkPosition));
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*) {
+    Position pos = myNetworkPosition;
+    GeoConvHelper::cartesian2geo(pos);
+    // formated for pasting into google maps
+    const std::string posString = toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", " + toString(pos.x(), GEO_OUTPUT_ACCURACY);
+    GUIUserIO::copyToClipboard(*myParent->getApp(), posString);
     return 1;
 }
 

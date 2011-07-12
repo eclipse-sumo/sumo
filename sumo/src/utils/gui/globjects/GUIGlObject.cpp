@@ -180,6 +180,15 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator
 
 
 void
+GUIGlObject::buildGeoPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+    new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
+    if (addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
 GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
     if (addSeparator) {

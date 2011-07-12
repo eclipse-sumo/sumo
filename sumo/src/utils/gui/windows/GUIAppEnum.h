@@ -200,6 +200,8 @@ enum {
     MID_COPY_TYPED_NAME,
     /// Copy cursor position - popup entry
     MID_COPY_CURSOR_POSITION,
+    /// Copy cursor geo-coordinate position - popup entry
+    MID_COPY_CURSOR_GEOPOSITION,
     /// Show object parameter - popup entry
     MID_SHOWPARS,
     /// Show TLS phases - popup entry
