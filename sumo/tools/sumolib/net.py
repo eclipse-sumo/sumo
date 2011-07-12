@@ -378,7 +378,7 @@ class NetReader(handler.ContentHandler):
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
-            self._currentLane = self._net.addLane(self._currentEdge, float(attrs['maxSpeed']), float(attrs['length']))
+            self._currentLane = self._net.addLane(self._currentEdge, float(attrs['speed']), float(attrs['length']))
             if attrs.has_key('shape'):
                 self._currentShape = attrs['shape'] # deprecated: at some time, this is mandatory
             else:

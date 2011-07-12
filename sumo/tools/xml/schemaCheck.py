@@ -25,6 +25,9 @@ def validate(f):
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get('{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
         if schemaLoc:
+            localSchema = os.path.join(os.path.dirname(__file__), '..', '..', 'docs', 'internet', 'xsd', os.path.basename(schemaLoc))
+            if os.path.exists(localSchema):
+                schemaLoc = localSchema
             if schemaLoc not in schemes:
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)

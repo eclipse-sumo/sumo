@@ -24,24 +24,24 @@ connections = open("%s.con.xml" % PREFIX, "w")
 print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vtype id="car" length="3.5" guiShape="passenger" maxspeed="50" color="0.7,0.7,0.7"/>
-    <vtype id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxspeed="5" color="1,0.2,0.2"/>
-    <vtype id="cybercar" length="%s" guiShape="evehicle" maxspeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
+    <vType id="car" length="3.5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
+    <vType id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxSpeed="5" color="1,0.2,0.2"/>
+    <vType id="cybercar" length="%s" guiShape="evehicle" maxSpeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
 print >> nodes, '<node id="%s" x="0" y="0"/>' % nodeID 
-print >> edges, '<edge id="mainin" fromnode="in" tonode="%s" nolanes="2" spread_type="center"/>' % nodeID
+print >> edges, '<edge id="mainin" from="in" to="%s" numLanes="2" spreadType="center"/>' % nodeID
 for row in range(DOUBLE_ROWS):
     nextNodeID = "main%s-%s" % (row, row+1)
     if row + 1 == DOUBLE_ROWS:
         nextNodeID = "main%s-" % row 
     x = (row+1) * ROW_DIST
     print >> nodes, '<node id="%s" x="%s" y="0"/>' % (nextNodeID, x) 
-    print >> edges, '<edge id="main%s" fromnode="%s" tonode="%s" nolanes="2" spread_type="center"/>' % (row, nodeID, nextNodeID)
+    print >> edges, '<edge id="main%s" from="%s" to="%s" numLanes="2" spreadType="center"/>' % (row, nodeID, nextNodeID)
     nodeID = nextNodeID 
 print >> nodes, '<node id="out" x="%s" y="0"/>' % (x+100) 
-print >> edges, '<edge id="mainout" fromnode="%s" tonode="out" nolanes="2" spread_type="center"/>' % nodeID
+print >> edges, '<edge id="mainout" from="%s" to="out" numLanes="2" spreadType="center"/>' % nodeID
 roads = ["road-0"] 
 for row in range(DOUBLE_ROWS-1):
     roads.append("road%s-%s" % (row, row+1))
@@ -51,89 +51,89 @@ for idx, road in enumerate(roads):
     for slot in range(SLOTS_PER_ROW):
         partID = "%s-%s" % (road, slot)
         print >> nodes, '<node id="%st" x="%s" y="%s"/>' % (partID, idx*ROW_DIST, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%s" fromnode="%s" tonode="%st" nolanes="2" spread_type="center"/>' % (partID, nodeID, partID)
-        print >> edges, '<edge id="-%s" fromnode="%st" tonode="%s" nolanes="2" spread_type="center"/>' % (partID, partID, nodeID)
+        print >> edges, '<edge id="%s" from="%s" to="%st" numLanes="2" spreadType="center"/>' % (partID, nodeID, partID)
+        print >> edges, '<edge id="-%s" from="%st" to="%s" numLanes="2" spreadType="center"/>' % (partID, partID, nodeID)
         nodeID = "%st" % partID
 for row in range(DOUBLE_ROWS):
     for slot in range(SLOTS_PER_ROW):
         slotID = "slot%s-%sl" % (row, slot)
         source = "%s-%st" % (roads[row], slot)
         print >> nodes, '<node id="%st" x="%s" y="%s"/>' % (slotID, row*ROW_DIST+SLOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%s" fromnode="%s" tonode="%st" spread_type="center"/>' % (slotID, source, slotID)
-        print >> edges, '<edge id="-%s" fromnode="%st" tonode="%s" spread_type="center"/>' % (slotID, slotID, source)
+        print >> edges, '<edge id="%s" from="%s" to="%st" spreadType="center"/>' % (slotID, source, slotID)
+        print >> edges, '<edge id="-%s" from="%st" to="%s" spreadType="center"/>' % (slotID, slotID, source)
         slotID = "slot%s-%sr" % (row, slot)
         source = "%s-%st" % (roads[row+1], slot)
         print >> nodes, '<node id="%st" x="%s" y="%s"/>' % (slotID, (row+1)*ROW_DIST-SLOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%s" fromnode="%s" tonode="%st" spread_type="center"/>' % (slotID, source, slotID)
-        print >> edges, '<edge id="-%s" fromnode="%st" tonode="%s" spread_type="center"/>' % (slotID, slotID, source)
+        print >> edges, '<edge id="%s" from="%s" to="%st" spreadType="center"/>' % (slotID, source, slotID)
+        print >> edges, '<edge id="-%s" from="%st" to="%s" spreadType="center"/>' % (slotID, slotID, source)
 #footpaths
 y = (SLOTS_PER_ROW+1) * SLOT_WIDTH
 print >> nodes, '<node id="foot" x="-100" y="%s"/>' % y
-print >> edges, '<edge id="footmainin" fromnode="foot" tonode="foot0" speed="5" spread_type="center"/>'
+print >> edges, '<edge id="footmainin" from="foot" to="foot0" speed="5" spreadType="center"/>'
 for row in range(DOUBLE_ROWS):
     nodeID = "foot%s" % row
     x = row * ROW_DIST + ROW_DIST/2
     print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (nodeID, x, y) 
     if row > 0:
         edgeID = "footmain%sto%s" % (row-1, row)
-        print >> edges, '<edge id="%s" fromnode="foot%s" tonode="foot%s" speed="5" spread_type="center"/>' % (edgeID, row-1, row)
+        print >> edges, '<edge id="%s" from="foot%s" to="foot%s" speed="5" spreadType="center"/>' % (edgeID, row-1, row)
     for slot in reversed(range(SLOTS_PER_ROW)):
         slotID = "foot%s-%s" % (row, slot)
         print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (slotID, x, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%sto%s" fromnode="%s" tonode="%s" speed="5" spread_type="center"/>' % (nodeID, slot, nodeID, slotID)
-        print >> edges, '<edge id="-%sto%s" fromnode="%s" tonode="%s" speed="5" spread_type="center"/>' % (nodeID, slot, slotID, nodeID)
+        print >> edges, '<edge id="%sto%s" from="%s" to="%s" speed="5" spreadType="center"/>' % (nodeID, slot, nodeID, slotID)
+        print >> edges, '<edge id="-%sto%s" from="%s" to="%s" speed="5" spreadType="center"/>' % (nodeID, slot, slotID, nodeID)
         print >> nodes, '<node id="%srt" x="%s" y="%s"/>' % (slotID, x+SLOT_FOOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%sr" fromnode="%s" tonode="%srt" spread_type="center"/>' % (slotID, slotID, slotID)
-        print >> edges, '<edge id="-%sr" fromnode="%srt" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
+        print >> edges, '<edge id="%sr" from="%s" to="%srt" spreadType="center"/>' % (slotID, slotID, slotID)
+        print >> edges, '<edge id="-%sr" from="%srt" to="%s" spreadType="center"/>' % (slotID, slotID, slotID)
         print >> nodes, '<node id="%slt" x="%s" y="%s"/>' % (slotID, x-SLOT_FOOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-        print >> edges, '<edge id="%sl" fromnode="%s" tonode="%slt" spread_type="center"/>' % (slotID, slotID, slotID)
-        print >> edges, '<edge id="-%sl" fromnode="%slt" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
+        print >> edges, '<edge id="%sl" from="%s" to="%slt" spreadType="center"/>' % (slotID, slotID, slotID)
+        print >> edges, '<edge id="-%sl" from="%slt" to="%s" spreadType="center"/>' % (slotID, slotID, slotID)
         nodeID = slotID
         vSlot = slotID.replace("foot", "slot") 
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sr" type="car" depart="0" departpos="0" arrivalpos="10000">
+    <vehicle id="v%sr" type="car" depart="0" departPos="0" arrivalPos="10000">
         <route edges="%sr -%sr"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <flow id="p%sr" type="person" begin="0" period="1" repno="%s" arrivalpos="10000">
+    <flow id="p%sr" type="person" begin="0" period="1" number="%s" arrivalPos="10000">
         <route edges="%sr -%sr"/>
     </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sl" type="car" depart="0" departpos="0" arrivalpos="10000">
+    <vehicle id="v%sl" type="car" depart="0" departPos="0" arrivalPos="10000">
         <route edges="%sl -%sl"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <flow id="p%sl" type="person" begin="0" period="1" repno="%s" arrivalpos="10000">
+    <flow id="p%sl" type="person" begin="0" period="1" number="%s" arrivalPos="10000">
         <route edges="%sl -%sl"/>
     </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
 x = DOUBLE_ROWS * ROW_DIST + ROW_DIST/2
 print >> nodes, '<node id="foot%s" x="%s" y="%s"/>' % (DOUBLE_ROWS, x, y) 
 edgeID = "footmain%sto%s" % (DOUBLE_ROWS-1, DOUBLE_ROWS)
-print >> edges, '<edge id="%s" fromnode="foot%s" tonode="foot%s" speed="5" spread_type="center"/>' % (edgeID, DOUBLE_ROWS-1, DOUBLE_ROWS)
+print >> edges, '<edge id="%s" from="foot%s" to="foot%s" speed="5" spreadType="center"/>' % (edgeID, DOUBLE_ROWS-1, DOUBLE_ROWS)
 print >> nodes, '<node id="footend" x="%s" y="%s"/>' % (x+100, y) 
-print >> edges, '<edge id="footmainout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % DOUBLE_ROWS 
+print >> edges, '<edge id="footmainout" from="foot%s" to="footend" speed="5" spreadType="center"/>' % DOUBLE_ROWS 
 print >> nodes, '<node id="fair" x="%s" y="%s"/>' % (x+100, y-10)
-print >> edges, '<edge id="footfairin" fromnode="fair" tonode="foot%s" speed="5" spread_type="center"/>' % DOUBLE_ROWS
+print >> edges, '<edge id="footfairin" from="fair" to="foot%s" speed="5" spreadType="center"/>' % DOUBLE_ROWS
 
 #cybercar (automated bus)
 y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
 print >> nodes, '<node id="cyber" x="-100" y="%s"/>' % y
-print >> edges, '<edge id="cyberin" fromnode="cyber" tonode="cyber0" nolanes="2" spread_type="center"/>' 
-print >> edges, '<edge id="-cyberin" fromnode="cyber0" tonode="cyber" nolanes="2" spread_type="center"/>' 
+print >> edges, '<edge id="cyberin" from="cyber" to="cyber0" numLanes="2" spreadType="center"/>' 
+print >> edges, '<edge id="-cyberin" from="cyber0" to="cyber" numLanes="2" spreadType="center"/>' 
 for row in range(DOUBLE_ROWS+1):
     nodeID = "cyber%s" % row
     x = row * ROW_DIST + ROW_DIST/2
     print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (nodeID, x, y) 
     if row > 0:
         edgeID = "cyber%sto%s" % (row-1, row)
-        print >> edges, '<edge id="%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row-1, row)
-        print >> edges, '<edge id="-%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row, row-1)
+        print >> edges, '<edge id="%s" from="cyber%s" to="cyber%s" numLanes="2" spreadType="center"/>' % (edgeID, row-1, row)
+        print >> edges, '<edge id="-%s" from="cyber%s" to="cyber%s" numLanes="2" spreadType="center"/>' % (edgeID, row, row-1)
         if row < DOUBLE_ROWS:
             print >> connections, '<connection from="%s" to="cyber%sto%s"/>' % (edgeID, row, row+1)
             print >> connections, '<connection from="-cyber%sto%s" to="-%s"/>' % (row, row+1, edgeID)
@@ -141,8 +141,8 @@ for row in range(DOUBLE_ROWS+1):
             print >> connections, '<connection from="%s" to="cyberout"/>' % edgeID
             print >> connections, '<connection from="-cyberout" to="-%s"/>' % edgeID
 print >> nodes, '<node id="cyberend" x="%s" y="%s"/>' % (x+100, y) 
-print >> edges, '<edge id="cyberout" fromnode="cyber%s" tonode="cyberend" nolanes="2" spread_type="center"/>' % row 
-print >> edges, '<edge id="-cyberout" fromnode="cyberend" tonode="cyber%s" nolanes="2" spread_type="center"/>' % row 
+print >> edges, '<edge id="cyberout" from="cyber%s" to="cyberend" numLanes="2" spreadType="center"/>' % row 
+print >> edges, '<edge id="-cyberout" from="cyberend" to="cyber%s" numLanes="2" spreadType="center"/>' % row 
 
 
 print >> nodes, "</nodes>"
@@ -155,7 +155,7 @@ connections.close()
 os.system("%s --no-internal-links -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
-print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" repno="%s" arrivalpos="10000">
+print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" number="%s" arrivalPos="10000">
         <route edges="cyberin"/>
     </flow>
 </routes>""" % numBusses
@@ -163,7 +163,7 @@ routes.close()
 
 routes = open("%s_cyber.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <flow id="c" type="cybercar" begin="50" period="100" repno="%s" arrivalpos="10000">
+    <flow id="c" type="cybercar" begin="50" period="100" number="%s" arrivalPos="10000">
         <route edges="cyberin"/>
     </flow>
 </routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses)
@@ -189,11 +189,11 @@ for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print >> routes, "<routes>"
     if occupied < totalSlots:
-        print >> routes, """    <flow id="v" type="car" begin="10" period="%s" repno="%s" arrivalpos="10000">
+        print >> routes, """    <flow id="v" type="car" begin="10" period="%s" number="%s" arrivalPos="10000">
             <route edges="mainin"/>
         </flow>""" % (period, totalSlots-occupied)
     if occupied > 0:
-        print >> routes, """    <flow id="p" type="person" begin="10" period="%s" repno="%s" arrivalpos="10000">
+        print >> routes, """    <flow id="p" type="person" begin="10" period="%s" number="%s" arrivalPos="10000">
             <route edges="footfairin"/>
         </flow>""" % (period, occupied*CAR_CAPACITY)
     print >> routes, "</routes>"

@@ -27,8 +27,8 @@
    <vType id="evehicle" length="5" minGap="2.5" guiShape="evehicle"/>
    </vTypeDistribution>
 
-   <flow id="vehicle" route="a" depart="0" no="10000" period="2" type="v"/>
-   <flow id="vle" route="a" depart="1" no="10000" period="2" type="v"/>
+   <flow id="vehicle" route="a" depart="0" number="10000" period="2" type="v"/>
+   <flow id="vle" route="a" depart="1" number="10000" period="2" type="v"/>
 
 
 </routes>

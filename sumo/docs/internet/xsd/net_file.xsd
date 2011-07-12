@@ -102,7 +102,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="prefer" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="maxSpeed" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="speed" type="positiveFloatType" use="required"></xsd:attribute>
         <xsd:attribute name="length" type="positiveFloatType" use="required"></xsd:attribute>
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"></xsd:attribute>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"></xsd:attribute>
