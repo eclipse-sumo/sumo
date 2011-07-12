@@ -177,7 +177,7 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter *myCurrentVType;
 
-	bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
+    bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
     bool myHaveWarnedAboutDeprecatedVType, myHaveWarnedAboutDeprecatedVTypeDistribution;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedRefID;
 

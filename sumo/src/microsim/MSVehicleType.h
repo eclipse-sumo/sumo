@@ -88,7 +88,7 @@ public:
                   SUMOReal minGap, SUMOReal maxSpeed,
                   SUMOReal prob, SUMOReal speedFactor,
                   SUMOReal speedDev, SUMOVehicleClass vclass,
-                  SUMOEmissionClass emissionClass, 
+                  SUMOEmissionClass emissionClass,
                   SUMOReal guiWidth, SUMOVehicleShape shape,
                   const std::string &lcModel,
                   const RGBColor &c) throw();

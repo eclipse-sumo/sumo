@@ -114,7 +114,7 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // load edges, then
     EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
-        oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")));
+                              oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")));
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
@@ -130,8 +130,8 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont &toFill) throw()
         : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
-                matsimAttrs, MATSIM_ATTR_NOTHING,
-                "matsim - file"), myNodeCont(toFill) {
+                            matsimAttrs, MATSIM_ATTR_NOTHING,
+                            "matsim - file"), myNodeCont(toFill) {
 }
 
 
@@ -168,11 +168,11 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // definitions of NIImporter_MATSim::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
-                                              bool keepEdgeLengths, bool lanesFromCapacity,
-                                              NBCapacity2Lanes capacity2Lanes) throw()
-        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING, 
-                matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"), 
-		myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
+        bool keepEdgeLengths, bool lanesFromCapacity,
+        NBCapacity2Lanes capacity2Lanes) throw()
+        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
+                            matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"),
+        myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
         myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
         myCapacity2Lanes(capacity2Lanes) {
 }
@@ -187,10 +187,10 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     if (element==MATSIM_TAG_NETWORK) {
-        if(attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
+        if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
             int capDivider = attrs.getIntReporting(MATSIM_ATTR_CAPDIVIDER, "network", ok);
-            if(ok) {
-                myCapacityNorm = (SUMOReal) (capDivider*3600);
+            if (ok) {
+                myCapacityNorm = (SUMOReal)(capDivider*3600);
             }
         }
     }
@@ -198,7 +198,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         bool ok = true;
         std::string capperiod = attrs.getStringReporting(MATSIM_ATTR_CAPPERIOD, "links", ok);
         StringTokenizer st(capperiod, ":");
-        if(st.size()!=3) {
+        if (st.size()!=3) {
             WRITE_ERROR("Bogus capacity period format; requires 'hh:mm:ss'.");
             return;
         }
@@ -206,9 +206,9 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             int hours = TplConvert<char>::_2int(st.next().c_str());
             int minutes = TplConvert<char>::_2int(st.next().c_str());
             int seconds = TplConvert<char>::_2int(st.next().c_str());
-            myCapacityNorm = (SUMOReal) (hours*3600+minutes*60+seconds);
-        } catch(NumberFormatException &) {
-        } catch(EmptyData &) {
+            myCapacityNorm = (SUMOReal)(hours*3600+minutes*60+seconds);
+        } catch (NumberFormatException &) {
+        } catch (EmptyData &) {
         }
         return;
     }
@@ -221,7 +221,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     std::string fromNodeID = attrs.getStringReporting(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.getStringReporting(MATSIM_ATTR_TO, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
-    SUMOReal freeSpeed = attrs.getSUMORealReporting(MATSIM_ATTR_FREESPEED, id.c_str(), ok); // 
+    SUMOReal freeSpeed = attrs.getSUMORealReporting(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
     SUMOReal capacity = attrs.getSUMORealReporting(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
     SUMOReal permLanes = attrs.getSUMORealReporting(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
     //bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
@@ -229,23 +229,23 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode *fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode *toNode = myNodeCont.retrieve(toNodeID);
-    if(fromNode==0) {
+    if (fromNode==0) {
         WRITE_ERROR("Could not find from-node for edge '" + id + "'.");
     }
-    if(toNode==0) {
+    if (toNode==0) {
         WRITE_ERROR("Could not find to-node for edge '" + id + "'.");
     }
-    if(fromNode==0||toNode==0) {
+    if (fromNode==0||toNode==0) {
         return;
     }
-    if(myLanesFromCapacity) {
+    if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
     NBEdge *edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, -1, -1);
-    if(myKeepEdgeLengths) {
+    if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }
-    if(!myEdgeCont.insert(edge)) {
+    if (!myEdgeCont.insert(edge)) {
         delete edge;
         WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
     }

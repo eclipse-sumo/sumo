@@ -62,15 +62,15 @@ enum SumoXMLTag {
     /** an e1 detector */
     SUMO_TAG_E1DETECTOR__DEPRECATED,
     SUMO_TAG_E1DETECTOR,
-	SUMO_TAG_INDUCTION_LOOP,
+    SUMO_TAG_INDUCTION_LOOP,
     /** an e2 detector */
     SUMO_TAG_E2DETECTOR__DEPRECATED,
     SUMO_TAG_E2DETECTOR,
-	SUMO_TAG_LANE_AREA_DETECTOR,
+    SUMO_TAG_LANE_AREA_DETECTOR,
     /** an e3 detector */
     SUMO_TAG_E3DETECTOR__DEPRECATED,
     SUMO_TAG_E3DETECTOR,
-	SUMO_TAG_ENTRY_EXIT_DETECTOR,
+    SUMO_TAG_ENTRY_EXIT_DETECTOR,
     /** an edge based mean data detector */
     SUMO_TAG_MEANDATA_EDGE__DEPRECATED,
     SUMO_TAG_MEANDATA_EDGE,
@@ -115,7 +115,7 @@ enum SumoXMLTag {
     /** description of a single junction logic part (deprecated) */
     SUMO_TAG_LOGICITEM,
     /** description of a logic request within the junction */
-    SUMO_TAG_REQUEST, 
+    SUMO_TAG_REQUEST,
     /** a source */
     SUMO_TAG_SOURCE,
     /** a traffic assignment zone */
@@ -599,9 +599,9 @@ enum LaneSpreadFunction {
  * This enumerations holds the possible right-of-way rules a link
  *  may have. Beyond the righ-of-way rules, this enumeration also
  *  holds the possible traffic light states.
- *  
+ *
  *  enum values are assigned so that chars can be cast back to linkstates
- *  @todo fix redundancy 
+ *  @todo fix redundancy
  */
 enum LinkState {
     /// @brief The link has green light, may pass

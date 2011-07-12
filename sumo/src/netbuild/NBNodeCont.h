@@ -158,7 +158,7 @@ public:
     void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
 
-    /** @brief Joins junctions that are very close together 
+    /** @brief Joins junctions that are very close together
      */
     void joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
 
@@ -259,7 +259,7 @@ public:
 
 
     /// @brief get all node names
-    std::vector<std::string> getAllNames() const throw(); 
+    std::vector<std::string> getAllNames() const throw();
 
 
 private:

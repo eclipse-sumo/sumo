@@ -109,9 +109,9 @@ MSTriggeredRerouter::myStartElement(int element,
     }
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED&&!myHaveWarnedAboutDeprecatedDestProbReroute) {
-		myHaveWarnedAboutDeprecatedDestProbReroute = true;
+        myHaveWarnedAboutDeprecatedDestProbReroute = true;
         WRITE_WARNING("'" + toString(SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DEST_PROB_REROUTE) + "'.");
-	}
+    }
     if (element==SUMO_TAG_DEST_PROB_REROUTE||element==SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED) {
         // by giving probabilities of new destinations
         // get the destination edge
@@ -137,9 +137,9 @@ MSTriggeredRerouter::myStartElement(int element,
     }
 
     if (element==SUMO_TAG_CLOSING_REROUTE__DEPRECATED&&!myHaveWarnedAboutDeprecatedClosingReroute) {
-		myHaveWarnedAboutDeprecatedClosingReroute = true;
+        myHaveWarnedAboutDeprecatedClosingReroute = true;
         WRITE_WARNING("'" + toString(SUMO_TAG_CLOSING_REROUTE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_CLOSING_REROUTE) + "'.");
-	}
+    }
     if (element==SUMO_TAG_CLOSING_REROUTE||element==SUMO_TAG_CLOSING_REROUTE) {
         // by closing
         std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
@@ -154,9 +154,9 @@ MSTriggeredRerouter::myStartElement(int element,
     }
 
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE__DEPRECATED&&!myHaveWarnedAboutDeprecatedRouteReroute) {
-		myHaveWarnedAboutDeprecatedRouteReroute = true;
+        myHaveWarnedAboutDeprecatedRouteReroute = true;
         WRITE_WARNING("'" + toString(SUMO_TAG_ROUTE_PROB_REROUTE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "'.");
-	}
+    }
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE||element==SUMO_TAG_ROUTE_PROB_REROUTE__DEPRECATED) {
         // by explicit rerouting using routes
         // check if route exists

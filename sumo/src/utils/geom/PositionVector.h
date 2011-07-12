@@ -106,10 +106,10 @@ public:
 
     /** Returns the position of the intersection */
     Position intersectsAtPoint(const Position &p1,
-                                 const Position &p2) const; // !!!
+                               const Position &p2) const; // !!!
 
     PositionVector intersectsAtPoints(const Position &p1,
-                                        const Position &p2) const; // !!!
+                                      const Position &p2) const; // !!!
 
     DoubleVector intersectsAtLengths(const PositionVector &s) const; // !!!
 

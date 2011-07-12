@@ -173,7 +173,7 @@ protected:
 
 
 protected:
-	typedef std::map<std::string, Polygon*> PolyMap;
+    typedef std::map<std::string, Polygon*> PolyMap;
     /// @brief Polygon layers
     mutable std::map<int, NamedObjectCont<Polygon*> > myPolygonLayers;
 

@@ -54,15 +54,15 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcon
         : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
         myContinue(false) {
     myMaxGap = SUMOReal(3.1);
-    if(parameter.find("max-gap")!=parameter.end()) {
+    if (parameter.find("max-gap")!=parameter.end()) {
         myMaxGap = TplConvert<char>::_2SUMOReal(parameter.find("max-gap")->second.c_str());
     }
     myPassingTime = SUMOReal(1.9);
-    if(parameter.find("passing-time")!=parameter.end()) {
+    if (parameter.find("passing-time")!=parameter.end()) {
         myPassingTime = TplConvert<char>::_2SUMOReal(parameter.find("passing-time")->second.c_str());
     }
     myDetectorGap = SUMOReal(3.0);
-    if(parameter.find("detector-gap")!=parameter.end()) {
+    if (parameter.find("detector-gap")!=parameter.end()) {
         myDetectorGap = TplConvert<char>::_2SUMOReal(parameter.find("detector-gap")->second.c_str());
     }
 }

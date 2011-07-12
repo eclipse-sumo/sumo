@@ -202,14 +202,14 @@ Boundary::grow(SUMOReal by) {
     return *this;
 }
 
-void 
+void
 Boundary::growWidth(SUMOReal by) {
     myXmin -= by;
     myXmax += by;
 }
 
 
-void 
+void
 Boundary::growHeight(SUMOReal by) {
     myYmin -= by;
     myYmax += by;

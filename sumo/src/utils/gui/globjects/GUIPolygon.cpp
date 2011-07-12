@@ -51,10 +51,10 @@
 // method definitions
 // ===========================================================================
 GUIPolygon::GUIPolygon(int layer,
-                           const std::string name, const std::string type,
-                           const RGBColor &color,
-                           const PositionVector &Pos,
-                           bool fill) throw()
+                       const std::string name, const std::string type,
+                       const RGBColor &color,
+                       const PositionVector &Pos,
+                       bool fill) throw()
         : Polygon(name, type, color, Pos, fill),
         GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
 
@@ -65,7 +65,7 @@ GUIPolygon::~GUIPolygon() throw() {}
 
 GUIGLObjectPopupMenu *
 GUIPolygon::getPopUpMenu(GUIMainWindow &app,
-                           GUISUMOAbstractView &parent) throw() {
+                         GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
@@ -81,7 +81,7 @@ GUIPolygon::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPolygon::getParameterWindow(GUIMainWindow &,
-                                 GUISUMOAbstractView &) throw() {
+                               GUISUMOAbstractView &) throw() {
     return 0;
 }
 

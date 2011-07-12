@@ -78,7 +78,7 @@ fillOptions() {
 
     NIFrame::fillOptions();
     NBFrame::fillOptions(false);
-	NWFrame::fillOptions();
+    NWFrame::fillOptions();
     RandHelper::insertRandOptions();
 }
 
@@ -86,8 +86,8 @@ fillOptions() {
 bool
 checkOptions() {
     bool ok = NIFrame::checkOptions();
-	ok &= NBFrame::checkOptions();
-	ok &= NWFrame::checkOptions();
+    ok &= NBFrame::checkOptions();
+    ok &= NWFrame::checkOptions();
     return ok;
 }
 
@@ -126,7 +126,7 @@ main(int argc, char **argv) {
             throw ProcessError();
         }
         nb.compute(oc);
-		NWFrame::writeNetwork(oc, nb);
+        NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());

@@ -294,7 +294,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
         if (drawStreetName) {
             GLHelper::drawText(getStreetName(), p, GLO_MAX,
-                    s.streetName.size / s.scale, s.streetName.color, angle);
+                               s.streetName.size / s.scale, s.streetName.color, angle);
         }
     }
 }

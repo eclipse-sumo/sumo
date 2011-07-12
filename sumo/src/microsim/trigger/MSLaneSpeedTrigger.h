@@ -73,7 +73,7 @@ public:
 
 
     /** @brief Executes a switch command
-     * 
+     *
      * Calls processCommand()
      * @param[in] currentTime The current simulation time
      * @see Command

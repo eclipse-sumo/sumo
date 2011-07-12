@@ -47,7 +47,7 @@ class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
 public:
     GUIGlChildWindow(FXMDIClient* p, GUIMainWindow *parentWindow,
-            FXMDIMenu *mdimenu, const FXString& name,
+                     FXMDIMenu *mdimenu, const FXString& name,
                      FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0);
 
     virtual ~GUIGlChildWindow();

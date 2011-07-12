@@ -65,7 +65,7 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-            if(pos.size()==2) {
+            if (pos.size()==2) {
                 shape.push_back(Position(x, y));
             } else {
                 SUMOReal z = TplConvert<char>::_2SUMOReal(pos.next().c_str());

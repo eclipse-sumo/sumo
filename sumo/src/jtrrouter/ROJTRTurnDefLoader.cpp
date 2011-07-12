@@ -54,9 +54,8 @@ ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
         myHaveWarnedAboutDeprecatedSources(false),
         myHaveWarnedAboutDeprecatedSinks(false),
-        myHaveWarnedAboutDeprecatedFromEdge(false), 
-        myHaveWarnedAboutDeprecatedToEdge(false)
-{}
+        myHaveWarnedAboutDeprecatedFromEdge(false),
+        myHaveWarnedAboutDeprecatedToEdge(false) {}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
@@ -72,17 +71,17 @@ ROJTRTurnDefLoader::myStartElement(int element,
         myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
         break;
     case SUMO_TAG_FROMEDGE__DEPRECATED:
-	    if(!myHaveWarnedAboutDeprecatedFromEdge) {
-		    myHaveWarnedAboutDeprecatedFromEdge = true;
-			WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
+        if (!myHaveWarnedAboutDeprecatedFromEdge) {
+            myHaveWarnedAboutDeprecatedFromEdge = true;
+            WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
         }
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);
         break;
     case SUMO_TAG_TOEDGE__DEPRECATED:
-	    if(!myHaveWarnedAboutDeprecatedToEdge) {
-		    myHaveWarnedAboutDeprecatedToEdge = true;
-			WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
+        if (!myHaveWarnedAboutDeprecatedToEdge) {
+            myHaveWarnedAboutDeprecatedToEdge = true;
+            WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
         }
     case SUMO_TAG_TOEDGE:
         addToEdge(attrs);

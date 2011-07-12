@@ -49,16 +49,15 @@ const SUMOReal MSCFModel_Wiedemann::D_MAX = 150;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype, 
-            SUMOReal accel, SUMOReal decel,
-            SUMOReal security, SUMOReal estimation) : 
-    MSCFModel(vtype, accel, decel, 1.0),
-    mySecurity(security),
-    myEstimation(estimation),
-    myAX(vtype->getLength() + 1. + 2. * security),
-    myCX(25. * (1. + security + estimation)),
-    myMinAccel(0.2 * myAccel) // +noise?
-{
+MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
+        SUMOReal accel, SUMOReal decel,
+        SUMOReal security, SUMOReal estimation) :
+        MSCFModel(vtype, accel, decel, 1.0),
+        mySecurity(security),
+        myEstimation(estimation),
+        myAX(vtype->getLength() + 1. + 2. * security),
+        myCX(25. *(1. + security + estimation)),
+        myMinAccel(0.2 * myAccel) { // +noise?
 }
 
 
@@ -92,7 +91,7 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const 
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::interactionGap(const MSVehicle * const , SUMOReal vL) const {
     UNUSED_PARAMETER(vL);
     return D_MAX;
@@ -105,7 +104,7 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const {
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const SUMOReal dx = gap + myType->getLength(); // wiedemann uses brutto gap
@@ -141,11 +140,11 @@ MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) 
     // since we have hard constrainst on accel we may as well use them here
     accel = MAX2(MIN2(accel, myAccel), -myDecel);
     const SUMOReal vNew = MAX2(SUMOReal(0), v + ACCEL2SPEED(accel)); // don't allow negative speeds
-    return vNew; 
+    return vNew;
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal bx) const {
     SUMOReal bmax = 0.2 + 0.8 * myAccel * (7 - sqrt(v));
     // if veh just drifted out of a 'following' process the acceleration is reduced
@@ -157,20 +156,20 @@ MSCFModel_Wiedemann::fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::following(SUMOReal sign) const {
     return myMinAccel * sign;
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::approaching(SUMOReal dv, SUMOReal dx, SUMOReal bx) const {
     // there is singularity in the formula. we do the sanity check outside
     return 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
     /* emergency according to A.Stebens
     // wiedemann assumes that dx will always be larger than myAX (sumo may
@@ -197,7 +196,7 @@ MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
         return 0;
     }
     const SUMOReal tauDecel = myDecel * myHeadwayTime;
-    const SUMOReal speedReduction = ACCEL2SPEED(myDecel); 
+    const SUMOReal speedReduction = ACCEL2SPEED(myDecel);
     const int predSteps = int(predSpeed / speedReduction);
     const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
     return (SUMOReal)(-tauDecel + sqrt(tauDecel*tauDecel + leaderContrib));

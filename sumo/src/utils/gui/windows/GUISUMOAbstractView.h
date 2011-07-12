@@ -267,8 +267,8 @@ public:
     FXComboBox &getColoringSchemesCombo();
 
 
-    /** @brief Returns the cursor's x/y position within the network 
-     * @return The cursor's x/y position within the network 
+    /** @brief Returns the cursor's x/y position within the network
+     * @return The cursor's x/y position within the network
      */
     Position getPositionInformation() const;
 
@@ -310,9 +310,9 @@ protected:
 
     /// returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);
-    
+
     /// returns the ids of all objects in the given boundary
-    std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound); 
+    std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
 
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);

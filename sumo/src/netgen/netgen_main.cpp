@@ -87,7 +87,7 @@ fillOptions() {
 
     NGFrame::fillOptions();
     NBFrame::fillOptions(true);
-	NWFrame::fillOptions();
+    NWFrame::fillOptions();
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
     oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left] Determines the type of the build junctions");
@@ -129,7 +129,7 @@ buildNetwork(NBNetBuilder &nb) {
         // build if everything's ok
         NGNet *net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
-            oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
+                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
         return net;
     }
     // grid-net
@@ -229,7 +229,7 @@ main(int argc, char **argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.compute(oc);
-		NWFrame::writeNetwork(oc, nb);
+        NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());

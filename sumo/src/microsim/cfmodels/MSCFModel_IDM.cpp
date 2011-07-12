@@ -101,7 +101,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
     return MAX2(gap, SPEED2DIST(vNext));
 }
 
- 
+
 SUMOReal
 MSCFModel_IDM::_v(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
     gap2pred += myType->getMinGap();

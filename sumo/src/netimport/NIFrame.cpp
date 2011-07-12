@@ -121,11 +121,11 @@ NIFrame::fillOptions() {
 
 
     // register basic processing options
-    oc.doRegister("ignore-errors", new Option_Bool(false)); 
+    oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
     oc.addDescription("ignore-errors", "Processing", "Continue on broken input");
 
-    oc.doRegister("ignore-errors.connections", new Option_Bool(false)); 
+    oc.doRegister("ignore-errors.connections", new Option_Bool(false));
     oc.addDescription("ignore-errors.connections", "Processing", "Continue on invalid connections");
 
     oc.doRegister("lanes-from-capacity.norm", new Option_Float((SUMOReal) 1800));

@@ -67,7 +67,7 @@ public:
         describe the junctions. These parameter must not be changed during the
         logic's building */
     NBRequest(const NBEdgeCont &ec,
-              NBNode *junction, 
+              NBNode *junction,
               const EdgeVector &all,
               const EdgeVector &incoming,
               const EdgeVector &outgoing,

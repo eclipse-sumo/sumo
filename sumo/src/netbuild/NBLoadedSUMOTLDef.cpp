@@ -48,17 +48,15 @@
 // method definitions
 // ===========================================================================
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw() : 
-    NBTrafficLightDefinition(id, programID),
-    myTLLogic(0)
-{
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw() :
+        NBTrafficLightDefinition(id, programID),
+        myTLLogic(0) {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0);
     myTLLogic->setOffset(offset);
 }
 
 
-NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() 
-{
+NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() {
     delete myTLLogic;
 }
 
@@ -73,7 +71,7 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 }
 
 
-void 
+void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno) {
     from->setControllingTLInformation(fromLane, to, toLane, getID(), linkno);
     addNode(from->getToNode());
@@ -97,7 +95,7 @@ void
 NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) throw() {}
 
 
-void 
+void
 NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
     myTLLogic->addStep(duration, state);
 }

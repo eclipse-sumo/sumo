@@ -59,8 +59,8 @@ class NBDistrictCont;
  * @todo revalidate node retrieval
  * @todo One day, one should rethink the order of parsing. Now, the handler
  *  is able to load edges, using information from the types, first, and extending
- *  them by given information. In addition, if the read edge is already known, 
- *  it's values are also used. Then, defining vehicles allowed per lane, and 
+ *  them by given information. In addition, if the read edge is already known,
+ *  it's values are also used. Then, defining vehicles allowed per lane, and
  *  additional edge split definitions add some further complexity. This all
  *  works somehow for most of our use cases, but it's definitely not as consistent
  *  that everything what seems to be possible would also work appropriately.
@@ -272,7 +272,7 @@ private:
     bool myHaveReportedAboutOverwriting;
 
     bool myHaveWarnedAboutDeprecatedSpreadType, myHaveWarnedAboutDeprecatedFromTo,
-         myHaveWarnedAboutDeprecatedNoLanes, myHaveWarnedAboutDeprecatedLaneId;
+    myHaveWarnedAboutDeprecatedNoLanes, myHaveWarnedAboutDeprecatedLaneId;
 
 
 private:
@@ -289,7 +289,7 @@ private:
     void addLane(const SUMOSAXAttributes &attrs);
 
     /** @brief Parses a split and stores it in mySplits. Splits are executed Upon reading the end
-     * tag of an edge 
+     * tag of an edge
      * @param[in] attrs The attributes to get the splits's values from
      */
     void addSplit(const SUMOSAXAttributes &attrs);

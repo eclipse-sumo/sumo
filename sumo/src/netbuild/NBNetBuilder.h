@@ -66,20 +66,20 @@ class OutputDevice;
  * -# Removing dummy edges
  *  \n Removes edges which end at the node they start at using NBNodeCont::removeDummyEdges().
  * -# Joining double connections
- *  \n Joins edges between same nodes using NBNodeCont::recheckEdges(). 
+ *  \n Joins edges between same nodes using NBNodeCont::recheckEdges().
  * -# Finding isolated roads (optional)
  * -# Removing empty nodes and geometry nodes (optional)
- *  \n Removed nodes with no incoming/outgoing edges and nodes which can be transformed into 
+ *  \n Removed nodes with no incoming/outgoing edges and nodes which can be transformed into
  *   geometry point using NBNodeCont::removeUnwishedNodes().
  * -# Removing unwished edges (optional)
  *  \n If "keep-edges.postload" and "keep-edges.explicit" are set, the edges not within "keep-edges.explicit" are
  *   removed from the network using NBEdgeCont::removeUnwishedEdges().
  * -# Rechecking nodes after edge removal (optional)
  *  \n If any of the edge removing options was set ("keep-edges.explicit", "remove-edges.explicit", "keep-edges.postload",
- *   "keep-edges.by-vclass", "keep-edges.input-file"), the now orphaned nodes are removed using 
+ *   "keep-edges.by-vclass", "keep-edges.input-file"), the now orphaned nodes are removed using
  *   NBNodeCont::removeUnwishedNodes().
  * -# Splitting geometry edges (optional)
- *  \n If "geometry.split" is set, edge geometries are converted to nodes using 
+ *  \n If "geometry.split" is set, edge geometries are converted to nodes using
  *   NBEdgeCont::splitGeometry().
  * -# Normalising/transposing node positions
  *  \n If "offset.disable-normalization", "offset.x", and "offset.y" are not
@@ -101,8 +101,8 @@ class OutputDevice;
  * -# Computing traffic light logics
  *
  *  @todo Removing unwished edges: Recheck whether this can be done during loading - whether this option/step is really needed.
- *  @todo Finding isolated roads: Describe 
- *  @bug Removing empty nodes and geometry nodes: Ok, empty nodes should be removed, uh? But this is only done if "geometry.remove" is set. 
+ *  @todo Finding isolated roads: Describe
+ *  @bug Removing empty nodes and geometry nodes: Ok, empty nodes should be removed, uh? But this is only done if "geometry.remove" is set.
  * @}
  */
 class NBNetBuilder {

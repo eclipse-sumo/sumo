@@ -107,8 +107,8 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
     // check whether a next close lane definition can be found
     tag = readEndSecure(from);
     while (tag!="DATAEND") {
-        if(tag=="keinspurwechsel") {
-            while(tag!="DATAEND") {
+        if (tag=="keinspurwechsel") {
+            while (tag!="DATAEND") {
                 tag = readEndSecure(from);
             }
         } else if (tag=="spur") {

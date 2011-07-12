@@ -51,18 +51,16 @@
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
-        const std::string &subid, unsigned int noLinks) throw() : 
-    Named(id), myNoLinks(noLinks), mySubID(subid),
-    myOffset(0) 
-{}
+        const std::string &subid, unsigned int noLinks) throw() :
+        Named(id), myNumLinks(noLinks), mySubID(subid),
+        myOffset(0) {}
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
-    Named(logic->getID()),
-    myNoLinks(logic->myNoLinks),
-    mySubID(logic->getProgramID()),
-    myOffset(logic->getOffset()),
-    myPhases(logic->myPhases.begin(), logic->myPhases.end())
-{}
+        Named(logic->getID()),
+        myNumLinks(logic->myNumLinks),
+        mySubID(logic->getProgramID()),
+        myOffset(logic->getOffset()),
+        myPhases(logic->myPhases.begin(), logic->myPhases.end()) {}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
@@ -70,12 +68,12 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 void
 NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) {
-    if (myNoLinks == 0) {
+    if (myNumLinks == 0) {
         // initialize
-        myNoLinks = state.size(); 
-    } else if (state.size() != myNoLinks) {
-        throw ProcessError("When adding phase: state length of " + toString(state.size()) + 
-                " does not match declared number of links " + toString(myNoLinks)); 
+        myNumLinks = (unsigned int)state.size();
+    } else if (state.size() != myNumLinks) {
+        throw ProcessError("When adding phase: state length of " + toString(state.size()) +
+                           " does not match declared number of links " + toString(myNumLinks));
     }
     myPhases.push_back(PhaseDefinition(duration, state));
 }

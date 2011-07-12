@@ -74,19 +74,19 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");
 
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("dismiss-vclasses", new Option_Bool(false));
         oc.addDescription("dismiss-vclasses", "Processing", "Removes vehicle class restrictions from imported edges.");
     }
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
-    
+
     oc.doRegister("no-turnarounds.tls", new Option_Bool(false));
     oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
     oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
         oc.addSynonyme("geometry.split", "split-geometry", true);
         oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
@@ -119,13 +119,13 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
-    oc.doRegister("junctions.join", new Option_Bool(false)); 
-    oc.addDescription("junctions.join", "Processing", 
-            "Joins junctions that are close to each other (recommended for OSM import)");
+    oc.doRegister("junctions.join", new Option_Bool(false));
+    oc.addDescription("junctions.join", "Processing",
+                      "Joins junctions that are close to each other (recommended for OSM import)");
 
     oc.doRegister("junctions.join-dist", new Option_Float(15));
-    oc.addDescription("junctions.join-dist", "Processing", 
-            "Determines the maximal distance for joining junctions (defaults to 15)");
+    oc.addDescription("junctions.join-dist", "Processing",
+                      "Determines the maximal distance for joining junctions (defaults to 15)");
 
     // tls setting options
     // explicit tls
@@ -142,7 +142,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("tls.guess", "guess-tls", true);
     oc.addDescription("tls.guess", "TLS Building", "Turns on TLS guessing");
 
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("tls.taz-nodes", new Option_Bool(false));
         oc.addSynonyme("tls.taz-nodes", "tls-guess.district-nodes", true);
         oc.addDescription("tls.taz-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
@@ -199,7 +199,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.addDescription("keep-edges.input-file", "Edge Removal", "Removed edges not in FILE");
 
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("keep-edges.postload", new Option_Bool(false));
         oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
     }
@@ -207,7 +207,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("keep-edges.in-boundary", new Option_String());
     oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Keeps edges which are located within the given boundary");
 
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("keep-edges.by-vclass", new Option_String());
         oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Keep edges that allow any of the vclasss in STR");
 
@@ -236,7 +236,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 
     // ramp guessing options
-    if(!forNetgen) {
+    if (!forNetgen) {
         oc.doRegister("ramps.guess", new Option_Bool(false));
         oc.addSynonyme("ramps.guess", "guess-ramps", true);
         oc.addDescription("ramps.guess", "Ramp Guessing", "Enable ramp-guessing");
@@ -264,9 +264,9 @@ bool
 NBFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     //
-    if(!oc.isDefault("tls-guess.joining")) {
+    if (!oc.isDefault("tls-guess.joining")) {
         WRITE_WARNING("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");
-        if(!oc.isSet("tls.join")) {
+        if (!oc.isSet("tls.join")) {
             oc.set("tls.join", "true");
         }
     }

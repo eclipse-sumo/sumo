@@ -59,10 +59,10 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
     // write nodes
-	OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
-	NBNodeCont &nc = nb.getNodeCont();
-	for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+    NBNodeCont &nc = nb.getNodeCont();
+    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
@@ -75,7 +75,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
-            // set may contain multiple programs for the same id. 
+            // set may contain multiple programs for the same id.
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
             for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl =tlss.begin(); it_tl!=tlss.end(); it_tl++) {
@@ -93,9 +93,9 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     edevice.writeXMLHeader("edges", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/connections_file.xsd\"");
-	NBEdgeCont &ec = nb.getEdgeCont();
+    NBEdgeCont &ec = nb.getEdgeCont();
     bool noNames = !oc.getBool("output.street-names");
-	for(std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
+    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge *e = (*i).second;
         edevice.openTag(SUMO_TAG_EDGE);
@@ -126,7 +126,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (e->hasLoadedLength()) {
             edevice.writeAttr(SUMO_ATTR_LENGTH, e->getLoadedLength());
         }
-        // some attributes can be set by edge default or per lane. Write as default if possible (efficiency) 
+        // some attributes can be set by edge default or per lane. Write as default if possible (efficiency)
         if (e->getWidth() != NBEdge::UNSPECIFIED_WIDTH && !e->hasLaneSpecificWidth()) {
             edevice.writeAttr(SUMO_ATTR_WIDTH, e->getWidth());
         }

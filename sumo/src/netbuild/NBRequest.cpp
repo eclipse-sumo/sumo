@@ -62,7 +62,7 @@ size_t NBRequest::myNotBuild = 0;
 // method definitions
 // ===========================================================================
 NBRequest::NBRequest(const NBEdgeCont &ec,
-                     NBNode *junction, 
+                     NBNode *junction,
                      const EdgeVector &all,
                      const EdgeVector &incoming,
                      const EdgeVector &outgoing,
@@ -467,8 +467,8 @@ NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                              int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-		od.openTag(SUMO_TAG_REQUEST);
-        od << " " << toString(SUMO_ATTR_INDEX) << "=\"" << pos++ << "\""; 
+        od.openTag(SUMO_TAG_REQUEST);
+        od << " " << toString(SUMO_ATTR_INDEX) << "=\"" << pos++ << "\"";
         od << " " << toString(SUMO_ATTR_RESPONSE) << "=\"";
         writeResponse(od, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
         od << "\" " << toString(SUMO_ATTR_FOES) << "=\"";
@@ -481,7 +481,7 @@ NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                 od << " cont=\"0\"";
             }
         }
-		od.closeTag(true);
+        od.closeTag(true);
     }
     return pos;
 }

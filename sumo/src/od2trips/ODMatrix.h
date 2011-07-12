@@ -216,8 +216,8 @@ protected:
      * @return The number of left vehicles to insert
      */
     SUMOReal computeDeparts(ODCell *cell,
-                              size_t &vehName, std::vector<ODVehicle> &into, bool uniform,
-                              const std::string &prefix) throw();
+                            size_t &vehName, std::vector<ODVehicle> &into, bool uniform,
+                            const std::string &prefix) throw();
 
 
     /** @brief Splits the given cell dividing it on the given time line and

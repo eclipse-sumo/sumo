@@ -101,7 +101,7 @@ MSDevice_Routing::insertOptions() throw() {
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
-	bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
+    bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     if (!needRerouting && oc.getFloat("device.rerouting.probability")==0 && !oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
         return;
@@ -109,7 +109,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
     // route computation is enabled
     bool haveByNumber = false;
     if (oc.getBool("device.rerouting.deterministic")) {
-		haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.rerouting.probability"));
+        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.rerouting.probability"));
     } else {
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.rerouting.probability");
     }

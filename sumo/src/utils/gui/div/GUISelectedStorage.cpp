@@ -101,12 +101,12 @@ GUISelectedStorage::~GUISelectedStorage() {}
 bool
 GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
     switch (type) {
-        case GLO_NETWORK:
-            return false;
-        case GLO_ADDITIONAL:
-            return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
-        default:
-            return mySelections[type].isSelected(id);
+    case GLO_NETWORK:
+        return false;
+    case GLO_ADDITIONAL:
+        return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
+    default:
+        return mySelections[type].isSelected(id);
     }
 }
 

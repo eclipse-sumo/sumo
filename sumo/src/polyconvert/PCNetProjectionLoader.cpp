@@ -115,17 +115,17 @@ PCNetProjectionLoader::myStartElement(int element,
     }
     bool ok = true;
     PositionVector tmp = GeomConvHelper::parseShapeReporting(
-            attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok, ""), 
-            attrs.getObjectType(), 0, ok, false);
+                             attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok, ""),
+                             attrs.getObjectType(), 0, ok, false);
     if (ok) {
         myNetOffset = tmp[0];
     }
     myOrigNetBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok, ""),
-            attrs.getObjectType(), 0, ok);
+                            attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok, ""),
+                            attrs.getObjectType(), 0, ok);
     myConvNetBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getOptStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok, ""),
-            attrs.getObjectType(), 0, ok);
+                            attrs.getOptStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok, ""),
+                            attrs.getObjectType(), 0, ok);
     myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok, "");
     myFoundOffset = myFoundOrigNetBoundary = myFoundConvNetBoundary = myFoundProj = ok;
 }

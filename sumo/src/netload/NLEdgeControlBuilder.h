@@ -85,12 +85,12 @@ public:
      * @exception InvalidArgument If an edge with the same name was already built
      */
     void beginEdgeParsing(const std::string &id, MSEdge::EdgeBasicFunction function,
-            const std::string &streetName);
+                          const std::string &streetName);
 
 
     /** @brief Adds a lane to the current edge;
      *
-     * This method throws an ProcessError when the lane is marked to be the depart lane 
+     * This method throws an ProcessError when the lane is marked to be the depart lane
      *  and another so marked lane was added before
      *
      * @param[in] id The lane's id

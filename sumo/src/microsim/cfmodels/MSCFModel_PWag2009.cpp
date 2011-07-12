@@ -39,8 +39,8 @@
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
                                        SUMOReal dawdle, SUMOReal headwayTime, SUMOReal tauLast, SUMOReal apProb)
         : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle),
-          myTauDecel(decel * headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel * tauLast),
-          myActionPointProbability(apProb) {
+        myTauDecel(decel * headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel * tauLast),
+        myActionPointProbability(apProb) {
 }
 
 
@@ -90,7 +90,7 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
 // in addition, the parameters myTauLast, probAP, and sigmaAcc are needed; sigmaAcc can use myDawdle
 // myTauLast might use the current time-step size, but this yields eventually an extreme model, I would be
 // more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
-// seen so far in data ... 
+// seen so far in data ...
 SUMOReal
 MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {

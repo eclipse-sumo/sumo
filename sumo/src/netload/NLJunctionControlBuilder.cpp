@@ -108,26 +108,26 @@ NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError) {
     }
     MSJunction *junction = 0;
     switch (myType) {
-        case NODETYPE_NOJUNCTION:
-        case NODETYPE_DEAD_END:
-        case NODETYPE_DEAD_END_DEPRECATED:
-        case NODETYPE_DISTRICT:
-            junction = buildNoLogicJunction();
-            break;
-        case NODETYPE_TRAFFIC_LIGHT:
-        case NODETYPE_RIGHT_BEFORE_LEFT:
-        case NODETYPE_PRIORITY_JUNCTION:
-            junction = buildLogicJunction();
-            break;
-        case NODETYPE_INTERNAL:
+    case NODETYPE_NOJUNCTION:
+    case NODETYPE_DEAD_END:
+    case NODETYPE_DEAD_END_DEPRECATED:
+    case NODETYPE_DISTRICT:
+        junction = buildNoLogicJunction();
+        break;
+    case NODETYPE_TRAFFIC_LIGHT:
+    case NODETYPE_RIGHT_BEFORE_LEFT:
+    case NODETYPE_PRIORITY_JUNCTION:
+        junction = buildLogicJunction();
+        break;
+    case NODETYPE_INTERNAL:
 #ifdef HAVE_INTERNAL_LANES
-            if (MSGlobals::gUsingInternalLanes) {
-                junction = buildInternalJunction();
-            }
+        if (MSGlobals::gUsingInternalLanes) {
+            junction = buildInternalJunction();
+        }
 #endif
-            break;
-        default:
-            throw InvalidArgument("False junction logic type.");
+        break;
+    default:
+        throw InvalidArgument("False junction logic type.");
     }
     if (junction!=0) {
         if (!myJunctions->add(myActiveID, junction)) {
@@ -295,17 +295,17 @@ NLJunctionControlBuilder::addLogicItem(int request,
     }
     if (myRequestSize == NO_REQUEST_SIZE) {
         // initialize
-        myRequestSize = response.size();
+        myRequestSize = (int)response.size();
     }
     if (response.size() != myRequestSize) {
         myCurrentHasError = true;
-        throw InvalidArgument("Invalid response size " + toString(response.size()) + 
-                " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
+        throw InvalidArgument("Invalid response size " + toString(response.size()) +
+                              " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
     if (foes.size() != myRequestSize) {
         myCurrentHasError = true;
-        throw InvalidArgument("Invalid foes size " + toString(foes.size()) + 
-                " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
+        throw InvalidArgument("Invalid foes size " + toString(foes.size()) +
+                              " in Junction logic '" + myActiveKey + "' (expected  " + toString(myRequestSize) + ")");
     }
     // assert that the logicitems come ordered by their request index
     assert(myActiveLogic.size() == (size_t) request);
@@ -361,9 +361,9 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
     if (myLogics.count(myActiveKey) > 0) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
-    MSJunctionLogic *logic = new MSBitsetLogic(myRequestSize, 
-            new MSBitsetLogic::Logic(myActiveLogic), 
-            new MSBitsetLogic::Foes(myActiveFoes), 
+    MSJunctionLogic *logic = new MSBitsetLogic(myRequestSize,
+            new MSBitsetLogic::Logic(myActiveLogic),
+            new MSBitsetLogic::Foes(myActiveFoes),
             myActiveConts);
     myLogics[myActiveKey] = logic;
 }

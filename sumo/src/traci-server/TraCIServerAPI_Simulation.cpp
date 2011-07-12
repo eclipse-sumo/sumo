@@ -233,7 +233,7 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                                     tcpip::Storage &outputStorage, int commandId) {
+        tcpip::Storage &outputStorage, int commandId) {
     tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
     Position cartesianPos;
@@ -278,7 +278,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
     break;
     default:
         server.writeStatusCmd(commandId, RTYPE_ERR,
-                       "Source position type not supported");
+                              "Source position type not supported");
         return false;
     }
 
@@ -301,8 +301,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
         tmpResult.writeDouble(roadPos.second);
         const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
         tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
-                            }
-        break;
+    }
+    break;
     case POSITION_2D:
     case POSITION_2_5D:
     case POSITION_3D:
@@ -330,7 +330,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
         break;
     default:
         server.writeStatusCmd(commandId, RTYPE_ERR,
-                        "Destination position type not supported");
+                              "Destination position type not supported");
         return false;
     }
     if (commandId == CMD_POSITIONCONVERSION) {
@@ -349,7 +349,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
 
 bool
 TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                                  tcpip::Storage &outputStorage, int commandId) {
+        tcpip::Storage &outputStorage, int commandId) {
     Position pos1;
     Position pos2;
     std::pair<const MSLane*, SUMOReal> roadPos1;

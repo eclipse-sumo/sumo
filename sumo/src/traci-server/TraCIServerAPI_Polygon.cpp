@@ -57,7 +57,7 @@ TraCIServerAPI_Polygon::processGet(TraCIServer &server, tcpip::Storage &inputSto
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
-        &&variable!=ID_COUNT) {
+            &&variable!=ID_COUNT) {
         server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Get Polygon Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -171,8 +171,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        //read SUMOReal a 
-		inputStorage.readUnsignedByte();
+        //read SUMOReal a
+        inputStorage.readUnsignedByte();
         p->setColor(RGBColor(r,g,b));
     }
     break;
@@ -205,8 +205,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
             return false;
         }
-        //readt itemNo 
-		inputStorage.readInt();
+        //readt itemNo
+        inputStorage.readInt();
         // type
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
@@ -221,8 +221,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer &server, tcpip::Storage &inputSto
         SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
         SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
-        //read SUMOReal a 
-		inputStorage.readUnsignedByte();
+        //read SUMOReal a
+        inputStorage.readUnsignedByte();
         // fill
         if (inputStorage.readUnsignedByte()!=TYPE_UBYTE) {
             server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);

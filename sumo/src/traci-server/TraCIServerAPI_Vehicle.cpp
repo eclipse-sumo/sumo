@@ -466,8 +466,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep()+stickyTime, laneIndex));
         static_cast<MSVehicle*>(v)->getInfluencer().setLaneTimeLine(laneTimeLine);
-        MSVehicle::ChangeRequest req = static_cast<MSVehicle*>(v)->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(), 
-            *static_cast<MSVehicle*>(v)->getEdge(), static_cast<MSVehicle*>(v)->getLaneIndex());
+        MSVehicle::ChangeRequest req = static_cast<MSVehicle*>(v)->getInfluencer().checkForLaneChanges(MSNet::getInstance()->getCurrentTimeStep(),
+                                       *static_cast<MSVehicle*>(v)->getEdge(), static_cast<MSVehicle*>(v)->getLaneIndex());
         static_cast<MSVehicle*>(v)->getLaneChangeModel().requestLaneChange(req);
     }
     break;
@@ -814,13 +814,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         SUMOReal speed = inputStorage.readDouble();
         std::vector<std::pair<SUMOTime, SUMOReal> > speedTimeLine;
-        if(speed>=0) {
+        if (speed>=0) {
             speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), speed));
             speedTimeLine.push_back(std::make_pair(SUMOTime_MAX, speed));
         }
         static_cast<MSVehicle*>(v)->getInfluencer().setSpeedTimeLine(speedTimeLine);
-                    }
-        break;
+    }
+    break;
     case VAR_SPEEDSETMODE: {
         if (valueDataType!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting speed requires a double.", outputStorage);
@@ -830,8 +830,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         static_cast<MSVehicle*>(v)->getInfluencer().setConsiderSafeVelocity((speedMode&1)!=0);
         static_cast<MSVehicle*>(v)->getInfluencer().setConsiderMaxAcceleration((speedMode&2)!=0);
         static_cast<MSVehicle*>(v)->getInfluencer().setConsiderMaxDeceleration((speedMode&4)!=0);
-                           }
-        break;
+    }
+    break;
     case VAR_COLOR: {
         if (valueDataType!=TYPE_COLOR) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The color must be given using the according type.", outputStorage);
@@ -914,7 +914,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     default:
         try {
             if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
-                                                         getSingularType(v), server, inputStorage, outputStorage)) {
+                    getSingularType(v), server, inputStorage, outputStorage)) {
                 return false;
             }
         } catch (ProcessError &e) {
@@ -930,7 +930,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
 
 bool
 TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                               tcpip::Storage &outputStorage, const MSVehicle* v) {
+        tcpip::Storage &outputStorage, const MSVehicle* v) {
     if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
         server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
         return false;
@@ -981,7 +981,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
     if (v->isOnRoad()) {
         if (distType == REQUEST_DRIVINGDIST) {
             distance = v->getRoute().getDistanceBetween(v->getPositionOnLane(), roadPos.second,
-                                                        v->getEdge(), &roadPos.first->getEdge());
+                       v->getEdge(), &roadPos.first->getEdge());
             if (distance == std::numeric_limits<SUMOReal>::max()) {
                 distance = INVALID_DOUBLE_VALUE;
             }

@@ -63,7 +63,7 @@ class OutputDevice;
  *  parameter, but an integer. This is done to perform the action on objects with
  *  a yet unknown type - in this case, the type is obtained internally.
  *
- * Besides this, the class forces an active view of selected items 
+ * Besides this, the class forces an active view of selected items
  *  to refresh its contents if an item is added/removed. For this, an
  *  FXWindow has to make itself visible to GUISelectedStorage.
  *
@@ -166,7 +166,7 @@ public:
      *
      * @return The set of all selected objects (ids)
      */
-    const std::set<GUIGlID> &getSelected() const; 
+    const std::set<GUIGlID> &getSelected() const;
 
 
     /**  @brief Returns the set of ids of all selected objects' of a certain type
@@ -285,7 +285,7 @@ private:
     /// @brief The dialog to be updated
     UpdateTarget *myUpdateTarget;
 
-    /* @brief load items into the given set, optionally restricting to type 
+    /* @brief load items into the given set, optionally restricting to type
      */
     std::string load(GUIGlObjectType type, const std::string &filename, bool restrictType, std::set<GUIGlID>& into);
 

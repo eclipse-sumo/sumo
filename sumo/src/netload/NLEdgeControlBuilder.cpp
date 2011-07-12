@@ -69,9 +69,8 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder() {
 
 void
 NLEdgeControlBuilder::beginEdgeParsing(
-        const std::string &id, MSEdge::EdgeBasicFunction function, 
-        const std::string& streetName) 
-{
+    const std::string &id, MSEdge::EdgeBasicFunction function,
+    const std::string& streetName) {
     myActiveEdge = buildEdge(id, streetName);
     if (MSEdge::dictionary(id) != 0) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
@@ -84,7 +83,7 @@ NLEdgeControlBuilder::beginEdgeParsing(
 MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
                               SUMOReal maxSpeed, SUMOReal length,
-                              const PositionVector &shape, SUMOReal width, 
+                              const PositionVector &shape, SUMOReal width,
                               const SUMOVehicleClasses &allowed,
                               const SUMOVehicleClasses &disallowed) {
     MSLane *lane = 0;

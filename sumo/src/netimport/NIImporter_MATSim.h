@@ -136,8 +136,8 @@ private:
          * @param[in] capacity2Lanes The converter from flow to lanes
          */
         EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
-            bool keepEdgeLengths, bool lanesFromCapacity,
-            NBCapacity2Lanes capacity2Lanes) throw();
+                     bool keepEdgeLengths, bool lanesFromCapacity,
+                     NBCapacity2Lanes capacity2Lanes) throw();
 
 
         /// @brief Destructor
@@ -189,42 +189,42 @@ private:
     };
 
 
-/**
- * @enum MatsimXMLTag
- * @brief Numbers representing MATSIM-XML - element names
- * @see GenericSAXHandler
- */
-enum MatsimXMLTag {
-    MATSIM_TAG_NOTHING = 0,
-    MATSIM_TAG_NETWORK,
-    MATSIM_TAG_NODE,
-    MATSIM_TAG_LINK,
-    MATSIM_TAG_LINKS
-};
+    /**
+     * @enum MatsimXMLTag
+     * @brief Numbers representing MATSIM-XML - element names
+     * @see GenericSAXHandler
+     */
+    enum MatsimXMLTag {
+        MATSIM_TAG_NOTHING = 0,
+        MATSIM_TAG_NETWORK,
+        MATSIM_TAG_NODE,
+        MATSIM_TAG_LINK,
+        MATSIM_TAG_LINKS
+    };
 
 
-/**
- * @enum MatsimXMLAttr
- * @brief Numbers representing MATSIM-XML - attributes
- * @see GenericSAXHandler
- */
-enum MatsimXMLAttr {
-    MATSIM_ATTR_NOTHING = 0,
-    MATSIM_ATTR_ID,
-    MATSIM_ATTR_X,
-    MATSIM_ATTR_Y,
-    MATSIM_ATTR_FROM,
-    MATSIM_ATTR_TO,
-    MATSIM_ATTR_LENGTH,
-    MATSIM_ATTR_FREESPEED,
-    MATSIM_ATTR_CAPACITY,
-    MATSIM_ATTR_PERMLANES,
-    MATSIM_ATTR_ONEWAY,
-    MATSIM_ATTR_MODES,
-    MATSIM_ATTR_ORIGID,
-    MATSIM_ATTR_CAPPERIOD,
-    MATSIM_ATTR_CAPDIVIDER
-};
+    /**
+     * @enum MatsimXMLAttr
+     * @brief Numbers representing MATSIM-XML - attributes
+     * @see GenericSAXHandler
+     */
+    enum MatsimXMLAttr {
+        MATSIM_ATTR_NOTHING = 0,
+        MATSIM_ATTR_ID,
+        MATSIM_ATTR_X,
+        MATSIM_ATTR_Y,
+        MATSIM_ATTR_FROM,
+        MATSIM_ATTR_TO,
+        MATSIM_ATTR_LENGTH,
+        MATSIM_ATTR_FREESPEED,
+        MATSIM_ATTR_CAPACITY,
+        MATSIM_ATTR_PERMLANES,
+        MATSIM_ATTR_ONEWAY,
+        MATSIM_ATTR_MODES,
+        MATSIM_ATTR_ORIGID,
+        MATSIM_ATTR_CAPPERIOD,
+        MATSIM_ATTR_CAPDIVIDER
+    };
 
     /// The names of MATSIM-XML elements (for passing to GenericSAXHandler)
     static StringBijection<int>::Entry matsimTags[];

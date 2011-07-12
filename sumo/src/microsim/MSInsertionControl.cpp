@@ -44,8 +44,8 @@
 // member method definitions
 // ===========================================================================
 MSInsertionControl::MSInsertionControl(MSVehicleControl &vc,
-                             SUMOTime maxDepartDelay,
-                             bool checkEdgesOnce) throw()
+                                       SUMOTime maxDepartDelay,
+                                       bool checkEdgesOnce) throw()
         : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay),
         myCheckEdgesOnce(checkEdgesOnce) {}
 
@@ -139,7 +139,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
 
 unsigned int
 MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle *veh,
-                       MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
+                              MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge &edge = *veh->getEdge();
     if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime()!=time) && edge.insertVehicle(*veh, time)) {
@@ -191,7 +191,7 @@ MSInsertionControl::checkPrevious(SUMOTime time) throw() {
 
 unsigned int
 MSInsertionControl::checkFlows(SUMOTime time,
-                          MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
+                               MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
     unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;

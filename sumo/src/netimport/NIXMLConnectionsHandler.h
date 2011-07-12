@@ -106,7 +106,7 @@ private:
     /// @brief Information whether we have a deprecated attribute
     bool myHaveWarnedAboutDeprecatedLanes;
 
-    /// @brief the handler for loading errors 
+    /// @brief the handler for loading errors
     MsgHandler * const myErrorMsgHandler;
 
 

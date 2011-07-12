@@ -188,9 +188,9 @@ private:
 
 
     static bool gHaveWarnedAboutDeprecatedNumber, gHaveWarnedAboutDeprecatedTazs,
-        gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
-        gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
-        gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
+    gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
+    gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
+    gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
 };
 
 

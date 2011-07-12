@@ -53,18 +53,18 @@ public:
                            const Position &p21, const Position &p22);
 
     static Position intersection_position(const Position &p11,
-                                            const Position &p12, const Position &p21, const Position &p22);
+                                          const Position &p12, const Position &p21, const Position &p22);
 
     static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
     static Position interpolate(const Position &p1,
-                                  const Position &p2, SUMOReal length);
+                                const Position &p2, SUMOReal length);
 
     static Position extrapolate_first(const Position &p1,
-                                        const Position &p2, SUMOReal length);
+                                      const Position &p2, SUMOReal length);
 
     static Position extrapolate_second(const Position &p1,
-                                         const Position &p2, SUMOReal length);
+                                       const Position &p2, SUMOReal length);
 
     static SUMOReal nearest_position_on_line_to_point(
         const Position &l1, const Position &l2,
@@ -83,12 +83,12 @@ public:
             Position& outIntersection);
 
     static Position transfer_to_side(Position &p,
-                                       const Position &lineBeg, const Position &lineEnd,
-                                       SUMOReal amount);
+                                     const Position &lineBeg, const Position &lineEnd,
+                                     SUMOReal amount);
 
 
     static Position crossPoint(const Boundary &b,
-                                 const PositionVector &v);
+                               const PositionVector &v);
 
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position &beg,
             const Position &end, SUMOReal length, SUMOReal wanted_offset);

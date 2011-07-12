@@ -169,10 +169,10 @@ GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     SUMOReal dtheta = atan2(y2,x2) - atan2(y1,x1);
     while (dtheta > (SUMOReal) PI) {
         dtheta -= (SUMOReal)(2.0*PI);
-	}
+    }
     while (dtheta < (SUMOReal) -PI) {
         dtheta += (SUMOReal)(2.0*PI);
-	}
+    }
     return dtheta;
 }
 
@@ -216,7 +216,7 @@ GeomHelper::nearest_position_on_line_to_point(const Position &LineStart,
                  ) / LineStart.distanceSquaredTo(LineEnd);
     if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
         if (perpendicular) {
-            return -1; 
+            return -1;
         }
         if (u < 0.0f) {
             return 0.0f;
@@ -283,9 +283,9 @@ GeomHelper::transfer_to_side(Position &p,
     const SUMOReal dx = lineBeg.x() - lineEnd.x();
     const SUMOReal dy = lineBeg.y() - lineEnd.y();
     const SUMOReal length = sqrt(dx*dx + dy*dy);
-	if (length > 0) {
-		p.add(dy*amount/length, -dx*amount/length);
-	}
+    if (length > 0) {
+        p.add(dy*amount/length, -dx*amount/length);
+    }
     return p;
 }
 

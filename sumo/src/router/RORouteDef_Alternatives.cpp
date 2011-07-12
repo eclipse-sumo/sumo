@@ -300,7 +300,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x) {
 RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-        myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
+            myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }

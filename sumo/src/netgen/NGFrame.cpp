@@ -188,7 +188,7 @@ NGFrame::fillOptions() {
 bool
 NGFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-	bool ok = true;
+    bool ok = true;
     // check whether exactly one type of a network to build was wished
     int no = 0;
     if (oc.getBool("spider")) {
@@ -213,9 +213,9 @@ NGFrame::checkOptions() {
                 type != toString(NODETYPE_PRIORITY_JUNCTION) &&
                 type != toString(NODETYPE_RIGHT_BEFORE_LEFT)) {
             WRITE_ERROR("Only the following junction types are known: " +
-                    toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
-                    toString(NODETYPE_PRIORITY_JUNCTION) + ", " +
-                    toString(NODETYPE_RIGHT_BEFORE_LEFT));
+                        toString(NODETYPE_TRAFFIC_LIGHT) + ", " +
+                        toString(NODETYPE_PRIORITY_JUNCTION) + ", " +
+                        toString(NODETYPE_RIGHT_BEFORE_LEFT));
             ok = false;
         }
     }

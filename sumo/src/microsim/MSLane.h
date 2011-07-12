@@ -104,7 +104,7 @@ public:
      * @see SUMOVehicleClass
      */
     MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-           unsigned int numericalID, const PositionVector &shape, SUMOReal width, 
+           unsigned int numericalID, const PositionVector &shape, SUMOReal width,
            const SUMOVehicleClasses &allowed,
            const SUMOVehicleClasses &disallowed) throw();
 
@@ -200,8 +200,8 @@ public:
      * @see MSVehicle::enterLaneAtInsertion
      */
     virtual bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes,
-                                   MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
+                                    bool recheckNextLanes,
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
     bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
     bool pWagSimpleInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) throw();
@@ -215,7 +215,7 @@ public:
      * @return Whether the vehicle could be inserted
      */
     bool freeInsertion(MSVehicle& veh, SUMOReal speed,
-                  MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
+                       MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw();
 
 
     /** @brief Inserts the given vehicle at the given position
@@ -627,7 +627,7 @@ protected:
     virtual void swapAfterLaneChange(SUMOTime t);
 
     /** @brief Inserts the vehicle into this lane, and informs it about entering the network
-     * 
+     *
      * Calls the vehicles enterLaneAtInsertion function,
      *  updates statistics and modifies the active state as needed
      * @param[in] veh The vehicle to be incorporated

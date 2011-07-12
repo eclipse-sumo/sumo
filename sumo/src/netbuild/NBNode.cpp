@@ -191,26 +191,23 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const std::string &id, const Position &position) throw() : 
-    Named(StringUtils::convertUmlaute(id)), 
-    myPosition(position),
-    myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) 
-{ }
+NBNode::NBNode(const std::string &id, const Position &position) throw() :
+        Named(StringUtils::convertUmlaute(id)),
+        myPosition(position),
+        myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) { }
 
 
 NBNode::NBNode(const std::string &id, const Position &position,
-               SumoXMLNodeType type) throw() : 
-    Named(StringUtils::convertUmlaute(id)), 
-    myPosition(position),
-    myType(type), myDistrict(0), myRequest(0) 
-{ }
+               SumoXMLNodeType type) throw() :
+        Named(StringUtils::convertUmlaute(id)),
+        myPosition(position),
+        myType(type), myDistrict(0), myRequest(0) { }
 
 
-NBNode::NBNode(const std::string &id, const Position &position, NBDistrict *district) throw() : 
-    Named(StringUtils::convertUmlaute(id)), 
-    myPosition(position),
-    myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) 
-{ }
+NBNode::NBNode(const std::string &id, const Position &position, NBDistrict *district) throw() :
+        Named(StringUtils::convertUmlaute(id)),
+        myPosition(position),
+        myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) { }
 
 
 NBNode::~NBNode() throw() {
@@ -657,7 +654,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
         }
     }
     const NBEdge::Lane &lane = fromE->getLaneStruct(fromL);
-    if(lane.offset>0) {
+    if (lane.offset>0) {
         PositionVector beg = lane.shape.getSubpart(lane.shape.length()-lane.offset, lane.shape.length());;
         beg.appendWithCrossingPoint(ret);
         ret = beg;
@@ -668,7 +665,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 bool
 NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const {
-    if(myType==NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return false;
     }
     if (fromE==otherFromE) {
@@ -809,7 +806,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
                     if ((*k2).toEdge==0) {
                         continue;
                     }
-                    if((*k2).mayDefinitelyPass) {
+                    if ((*k2).mayDefinitelyPass) {
                         index++;
                         continue;
                     }
@@ -860,8 +857,8 @@ NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
     // compute the logic if necessary or split the junction
     if (myType!=NODETYPE_NOJUNCTION&&myType!=NODETYPE_DISTRICT) {
         // build the request
-        myRequest = new NBRequest(ec, this, 
-                myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
+        myRequest = new NBRequest(ec, this,
+                                  myAllEdges, myIncomingEdges, myOutgoingEdges, myBlockedConnections);
         // check whether it is not too large
         unsigned int numConnections = myRequest->getSizes().second;
         if (numConnections >= 64) {
@@ -883,11 +880,11 @@ NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
 
 bool
 NBNode::writeLogic(OutputDevice &into) const {
-	if (myRequest) {
-		myRequest->writeLogic(myID, into);
-		return true;
-	}
-	return false;
+    if (myRequest) {
+        myRequest->writeLogic(myID, into);
+        return true;
+    }
+    return false;
 }
 
 
@@ -1010,7 +1007,7 @@ EdgeVector *
 NBNode::getEdgesThatApproach(NBEdge *currentOutgoing) {
     // get the position of the node to get the approaching nodes of
     EdgeVector::const_iterator i = find(myAllEdges.begin(),
-            myAllEdges.end(), currentOutgoing);
+                                        myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(myAllEdges, i);
     // go through the list of edges clockwise and add the edges

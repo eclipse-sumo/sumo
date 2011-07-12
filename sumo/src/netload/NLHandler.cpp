@@ -75,26 +75,25 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         mySucceedingLaneBuilder(junctionBuilder),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
-		myHaveWarnedAboutDeprecatedE1(false),
-		myHaveWarnedAboutDeprecatedE2(false),
-		myHaveWarnedAboutDeprecatedE3(false),
-		myHaveWarnedAboutDeprecatedDetEntry(false),
-		myHaveWarnedAboutDeprecatedDetExit(false),
-		myHaveWarnedAboutDeprecatedRowLogic(false),
-		myHaveWarnedAboutDeprecatedTLLogic(false),
-		myHaveWarnedAboutDeprecatedTimedEvent(false),
-		myHaveWarnedAboutDeprecatedTLSTiming(false),
-        myHaveWarnedAboutDeprecatedTimeThreshold(false), 
-		myHaveWarnedAboutDeprecatedSpeedThreshold(false),
-		myHaveWarnedAboutDeprecatedJamDistThreshold(false),
-        myHaveWarnedAboutDeprecatedVTypeProbe(false), 
+        myHaveWarnedAboutDeprecatedE1(false),
+        myHaveWarnedAboutDeprecatedE2(false),
+        myHaveWarnedAboutDeprecatedE3(false),
+        myHaveWarnedAboutDeprecatedDetEntry(false),
+        myHaveWarnedAboutDeprecatedDetExit(false),
+        myHaveWarnedAboutDeprecatedRowLogic(false),
+        myHaveWarnedAboutDeprecatedTLLogic(false),
+        myHaveWarnedAboutDeprecatedTimedEvent(false),
+        myHaveWarnedAboutDeprecatedTLSTiming(false),
+        myHaveWarnedAboutDeprecatedTimeThreshold(false),
+        myHaveWarnedAboutDeprecatedSpeedThreshold(false),
+        myHaveWarnedAboutDeprecatedJamDistThreshold(false),
+        myHaveWarnedAboutDeprecatedVTypeProbe(false),
         myHaveWarnedAboutDeprecatedRouteProbe(false),
-        myHaveWarnedAboutDeprecatedEdgeMean(false), 
+        myHaveWarnedAboutDeprecatedEdgeMean(false),
         myHaveWarnedAboutDeprecatedLaneMean(false),
         myHaveWarnedAboutDeprecatedVTypes(false),
         myHaveWarnedAboutDeprecatedLanes(false),
-        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)
-{}
+        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -134,17 +133,17 @@ NLHandler::myStartElement(int element,
             addConnection(attrs);
             break;
         case SUMO_TAG_ROWLOGIC__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedRowLogic) {
-				myHaveWarnedAboutDeprecatedRowLogic = true;
-				WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
-			}
+            if (!myHaveWarnedAboutDeprecatedRowLogic) {
+                myHaveWarnedAboutDeprecatedRowLogic = true;
+                WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
+            }
             initJunctionLogic(attrs);
             break;
         case SUMO_TAG_TLLOGIC__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedTLLogic) {
-				myHaveWarnedAboutDeprecatedTLLogic = true;
-				WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
-			}
+            if (!myHaveWarnedAboutDeprecatedTLLogic) {
+                myHaveWarnedAboutDeprecatedTLLogic = true;
+                WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
+            }
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
             break;
@@ -172,45 +171,45 @@ NLHandler::myStartElement(int element,
             break;
 #endif
         case SUMO_TAG_E1DETECTOR__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedE1) {
-				myHaveWarnedAboutDeprecatedE1 = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedE1) {
+                myHaveWarnedAboutDeprecatedE1 = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
+            }
         case SUMO_TAG_E1DETECTOR:
-		case SUMO_TAG_INDUCTION_LOOP:
+        case SUMO_TAG_INDUCTION_LOOP:
             addE1Detector(attrs);
             break;
         case SUMO_TAG_E2DETECTOR__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedE2) {
-				myHaveWarnedAboutDeprecatedE2 = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedE2) {
+                myHaveWarnedAboutDeprecatedE2 = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
+            }
         case SUMO_TAG_E2DETECTOR:
-		case SUMO_TAG_LANE_AREA_DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
             addE2Detector(attrs);
             break;
         case SUMO_TAG_E3DETECTOR__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedE3) {
-				myHaveWarnedAboutDeprecatedE3 = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedE3) {
+                myHaveWarnedAboutDeprecatedE3 = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+            }
         case SUMO_TAG_E3DETECTOR:
-		case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             beginE3Detector(attrs);
             break;
         case SUMO_TAG_DET_ENTRY__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedDetEntry) {
-				myHaveWarnedAboutDeprecatedDetEntry = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedDetEntry) {
+                myHaveWarnedAboutDeprecatedDetEntry = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
+            }
         case SUMO_TAG_DET_ENTRY:
             addE3Entry(attrs);
             break;
         case SUMO_TAG_DET_EXIT__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedDetExit) {
-				myHaveWarnedAboutDeprecatedDetExit = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedDetExit) {
+                myHaveWarnedAboutDeprecatedDetExit = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
+            }
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
             break;
@@ -229,42 +228,42 @@ NLHandler::myStartElement(int element,
             myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
             break;
         case SUMO_TAG_VTYPEPROBE__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedVTypeProbe) {
-				myHaveWarnedAboutDeprecatedVTypeProbe = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedVTypeProbe) {
+                myHaveWarnedAboutDeprecatedVTypeProbe = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
+            }
         case SUMO_TAG_VTYPEPROBE:
             addVTypeProbeDetector(attrs);
             break;
         case SUMO_TAG_ROUTEPROBE__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedRouteProbe) {
-				myHaveWarnedAboutDeprecatedRouteProbe = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedRouteProbe) {
+                myHaveWarnedAboutDeprecatedRouteProbe = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
+            }
         case SUMO_TAG_ROUTEPROBE:
             addRouteProbeDetector(attrs);
             break;
         case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedEdgeMean) {
-				myHaveWarnedAboutDeprecatedEdgeMean = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedEdgeMean) {
+                myHaveWarnedAboutDeprecatedEdgeMean = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
+            }
         case SUMO_TAG_MEANDATA_EDGE:
             addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
             break;
         case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedLaneMean) {
-				myHaveWarnedAboutDeprecatedLaneMean = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedLaneMean) {
+                myHaveWarnedAboutDeprecatedLaneMean = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
+            }
         case SUMO_TAG_MEANDATA_LANE:
             addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
             break;
         case SUMO_TAG_TIMEDEVENT__DEPRECATED:
-			if(!myHaveWarnedAboutDeprecatedTimedEvent) {
-				myHaveWarnedAboutDeprecatedTimedEvent = true;
-				WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
-			}
+            if (!myHaveWarnedAboutDeprecatedTimedEvent) {
+                myHaveWarnedAboutDeprecatedTimedEvent = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
+            }
         case SUMO_TAG_TIMEDEVENT:
             myActionBuilder.addAction(attrs, getFileName());
             break;
@@ -275,26 +274,26 @@ NLHandler::myStartElement(int element,
             setLocation(attrs);
             break;
         case SUMO_TAG_DISTRICT__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDistrict) {
-            myHaveWarnedAboutDeprecatedDistrict = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-        }
+            if (!myHaveWarnedAboutDeprecatedDistrict) {
+                myHaveWarnedAboutDeprecatedDistrict = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            }
         case SUMO_TAG_TAZ:
             addDistrict(attrs);
             break;
         case SUMO_TAG_DSOURCE__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSource) {
-            myHaveWarnedAboutDeprecatedDSource = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-        }
+            if (!myHaveWarnedAboutDeprecatedDSource) {
+                myHaveWarnedAboutDeprecatedDSource = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            }
         case SUMO_TAG_TAZSOURCE:
             addDistrictEdge(attrs, true);
             break;
         case SUMO_TAG_DSINK__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSink) {
-            myHaveWarnedAboutDeprecatedDSink = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-        }
+            if (!myHaveWarnedAboutDeprecatedDSink) {
+                myHaveWarnedAboutDeprecatedDSink = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            }
         case SUMO_TAG_TAZSINK:
             addDistrictEdge(attrs, false);
             break;
@@ -443,8 +442,8 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     SUMOReal maxSpeed = attrs.hasAttribute(SUMO_ATTR_SPEED)
-        ? attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok)
-        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
+                        ? attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok)
+                        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
@@ -459,7 +458,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     SUMOVehicleClasses disallowedClasses;
     parseVehicleClasses(allow, disallow, allowedClasses, disallowedClasses);
     myCurrentIsBroken |= !ok;
-    if(!myCurrentIsBroken) {
+    if (!myCurrentIsBroken) {
         try {
             MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, allowedClasses, disallowedClasses);
             // insert the lane into the lane-dictionary, checking
@@ -519,7 +518,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::parseLanes(const std::string &junctionID, 
+NLHandler::parseLanes(const std::string &junctionID,
                       const std::string &def, std::vector<MSLane*> &into, bool &ok) {
     StringTokenizer st(def);
     while (ok&&st.hasNext()) {
@@ -665,7 +664,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
         }
         pos = lane->getShape().positionAtLengthPosition(lanePos);
     }
-    if(!myNet.getShapeContainer().addPoI(id, layer, type, color, pos)) {
+    if (!myNet.getShapeContainer().addPoI(id, layer, type, color, pos)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
 }
@@ -685,8 +684,8 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
-    if(shape.size()!=0) {
-        if(!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
+    if (shape.size()!=0) {
+        if (!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
             WRITE_ERROR("Polygon '" + id + "' already exists.");
         }
     }
@@ -789,26 +788,26 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-	SUMOTime minDuration = -1;
-	if(attrs.hasAttribute(SUMO_ATTR_MINDURATION__DEPRECATED)) {
-		minDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MINDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
-		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
-			myHaveWarnedAboutDeprecatedTLSTiming = true;
-			WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
-		}
-	} else {
-		minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-	}
-	SUMOTime maxDuration = -1;
-	if(attrs.hasAttribute(SUMO_ATTR_MAXDURATION__DEPRECATED)) {
-		maxDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MAXDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
-		if(!myHaveWarnedAboutDeprecatedTLSTiming) {
-			myHaveWarnedAboutDeprecatedTLSTiming = true;
-			WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
-		}
-	} else {
-		maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-	}
+    SUMOTime minDuration = -1;
+    if (attrs.hasAttribute(SUMO_ATTR_MINDURATION__DEPRECATED)) {
+        minDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MINDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+        if (!myHaveWarnedAboutDeprecatedTLSTiming) {
+            myHaveWarnedAboutDeprecatedTLSTiming = true;
+            WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+        }
+    } else {
+        minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    }
+    SUMOTime maxDuration = -1;
+    if (attrs.hasAttribute(SUMO_ATTR_MAXDURATION__DEPRECATED)) {
+        maxDuration = attrs.getSUMOTimeReporting(SUMO_ATTR_MAXDURATION__DEPRECATED, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+        if (!myHaveWarnedAboutDeprecatedTLSTiming) {
+            myHaveWarnedAboutDeprecatedTLSTiming = true;
+            WRITE_WARNING("Your tls definition contains deprecated minimum/maximum duration attribute; use minDur and maxDur instead.");
+        }
+    } else {
+        maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    }
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
@@ -846,13 +845,13 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
         return;
     }
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+                       ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                       : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -882,13 +881,13 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     // inform the user about deprecated values
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+                       ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                       : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
@@ -958,38 +957,38 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     std::string toLane = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "<invalid>");
     //
     try {
-		if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
-			myHaveWarnedAboutDeprecatedTimeThreshold = true;
+        if (attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
+            myHaveWarnedAboutDeprecatedTimeThreshold = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
-		}
-		if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
-			myHaveWarnedAboutDeprecatedSpeedThreshold = true;
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
+            myHaveWarnedAboutDeprecatedSpeedThreshold = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
-		}
-		if(attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
-			myHaveWarnedAboutDeprecatedJamDistThreshold = true;
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
+            myHaveWarnedAboutDeprecatedJamDistThreshold = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
-		}
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+            myHaveWarnedAboutDeprecatedFriendlyPos = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
-		}
+        }
 
 
-		const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
-			? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
-			: attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+        const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
+                                              ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+                                              : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
         const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-			? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-			: attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+                                               ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+                                               : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
         const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
-			? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
-			: attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+                                          ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
+                                          : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
         const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
         const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
-		const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-			? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-			: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+        const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                                 ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                                 : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
         const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
         const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
         const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1034,22 +1033,22 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     // inform the user about deprecated values
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-	if(attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
-		myHaveWarnedAboutDeprecatedTimeThreshold = true;
+    if (attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
+        myHaveWarnedAboutDeprecatedTimeThreshold = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
-	}
-	if(attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
-		myHaveWarnedAboutDeprecatedSpeedThreshold = true;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
+        myHaveWarnedAboutDeprecatedSpeedThreshold = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
-	}
+    }
 
-	const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
-	const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
-		? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
-		: attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-	const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-		? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-		: attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+    const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
+    const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
+                                          ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+                                          : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+    const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
+                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
@@ -1069,14 +1068,14 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                             ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
+                             : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
@@ -1089,13 +1088,13 @@ void
 NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
-	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
+    const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                             ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false)
+                             : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, myDetectorBuilder.getCurrentE3ID().c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (!ok) {
         return;
@@ -1119,10 +1118,10 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
     std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (attrs.hasAttribute(SUMO_ATTR_VTYPES__DEPRECATED)) {
         vtypes = attrs.getStringReporting(SUMO_ATTR_VTYPES__DEPRECATED, id.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedVTypes) {
+        if (!myHaveWarnedAboutDeprecatedVTypes) {
             WRITE_WARNING("'" + toString(SUMO_ATTR_VTYPES__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_VTYPES) + "'.");
             myHaveWarnedAboutDeprecatedVTypes = true;
-        }   
+        }
     }
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
@@ -1178,8 +1177,8 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
         }
         if (tlID!="") {
             int linkNumber = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-                ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-                : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+                             ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+                             : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             if (!ok) {
                 return;
             }
@@ -1218,7 +1217,7 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
             if (!myHaveWarnedAboutDeprecatedLanes) {
                 myHaveWarnedAboutDeprecatedLanes = true;
                 WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_LANE) +
-                            "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
+                              "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
             }
             laneIndices = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
         } else {
@@ -1254,8 +1253,8 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         int tlLinkIdx;
         if (tlID!="") {
             tlLinkIdx = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-                ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-                : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+                        ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+                        : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             if (!ok) {
                 return;
             }
@@ -1269,8 +1268,8 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         if (viaID!="" && MSGlobals::gUsingInternalLanes) {
             via = MSLane::dictionary(viaID);
             if (via==0) {
-                WRITE_ERROR("An unknown lane ('" + viaID + 
-                        "') should be set as a via-lane for lane '" + toLane->getID() + "'.");
+                WRITE_ERROR("An unknown lane ('" + viaID +
+                            "') should be set as a via-lane for lane '" + toLane->getID() + "'.");
                 return;
             }
             length = via->getLength();
@@ -1296,7 +1295,7 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
             MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlID);
             logics.addLink(link, fromLane, tlLinkIdx);
         }
-        // add the link 
+        // add the link
         fromLane->addLink(link);
 
     } catch (InvalidArgument &e) {
@@ -1330,7 +1329,7 @@ NLHandler::parseLinkState(const std::string &state) {
 }
 
 
-std::pair<MSLane*, MSLane*> 
+std::pair<MSLane*, MSLane*>
 NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &laneIndices, bool &ok) {
     std::string error = "Invalid attribute in connection from '" + from->getID() + "' to '" + to->getID() + "' ";
     StringTokenizer st(laneIndices, ':');
@@ -1340,7 +1339,7 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
         try {
             fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (fromLaneIdx>=0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() && 
+            if (fromLaneIdx>=0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
                     toLaneIdx>=0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
                 return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx],to->getLanes()[toLaneIdx]);
             } else {
@@ -1363,14 +1362,14 @@ void
 NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     PositionVector s = GeomConvHelper::parseShapeReporting(
-            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-            attrs.getObjectType(), 0, ok, false);
+                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+                           attrs.getObjectType(), 0, ok, false);
     Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];

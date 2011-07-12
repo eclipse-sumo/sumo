@@ -76,11 +76,11 @@ public:
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 
-	/** Information whether mesosim shall be used */
+    /** Information whether mesosim shall be used */
     static bool gUseMesoSim;
 
-	/// mesoscopic simulation infrastructure
-	static MELoop *gMesoNet;
+    /// mesoscopic simulation infrastructure
+    static MELoop *gMesoNet;
 #endif
 
 };

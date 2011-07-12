@@ -133,7 +133,7 @@ GUIRunThread::run() {
                 end = SysUtils::getCurrentMillis();
                 getNet().setSimDuration((int)(end-beg));
                 end2 = SysUtils::getCurrentMillis();
-				val -= end2 - beg;
+                val -= end2 - beg;
             }
             if (val>0) {
                 sleep(val);

@@ -101,7 +101,7 @@ public:
         MyWrapper(GUI_E2_ZS_Collector &detector, GUILaneWrapper &wrapper) throw();
 
         /// Constructor for collectors joined over lanes
-        MyWrapper(GUI_E2_ZS_Collector &detector, 
+        MyWrapper(GUI_E2_ZS_Collector &detector,
                   GUIGlID glID,
                   GUI_E2_ZS_CollectorOverLanes &mustBe,
                   GUILaneWrapper &wrapper) throw();

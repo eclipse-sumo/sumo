@@ -72,27 +72,25 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
 
 
 StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
-        GUIGlObjectTypeNamesInitializer, GLO_MAX);
+    GUIGlObjectTypeNamesInitializer, GLO_MAX);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) : 
-    myGLObjectType(type),
-    myMicrosimID(microsimID),
-    myPrefix(TypeNames.getString(type)),
-    myFullName("<not yet defined>")
-{
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
+        myGLObjectType(type),
+        myMicrosimID(microsimID),
+        myPrefix(TypeNames.getString(type)),
+        myFullName("<not yet defined>") {
     GUIGlObjectStorage::gIDStorage.registerObject(this);
 }
 
 
 GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID) :
-    myGLObjectType(type),
-    myMicrosimID(microsimID),
-    myPrefix(prefix),
-    myFullName("<not yet defined>")
-{
+        myGLObjectType(type),
+        myMicrosimID(microsimID),
+        myPrefix(prefix),
+        myFullName("<not yet defined>") {
     GUIGlObjectStorage::gIDStorage.registerObject(this);
 }
 
@@ -113,7 +111,7 @@ GUIGlObject::setGlID(GUIGlID id) throw() {
 }
 
 
-void 
+void
 GUIGlObject::setMicrosimID(const std::string &newID) {
     myMicrosimID = newID;
     myFullName = createFullName();
@@ -207,21 +205,21 @@ GUIGlObject::removeParameterTable(GUIParameterTableWindow *t) throw() {
 }
 
 
-void 
+void
 GUIGlObject::setPrefix(const std::string& prefix) {
     myPrefix = prefix;
     myFullName = createFullName();
 }
 
-std::string 
+std::string
 GUIGlObject::createFullName() const {
     return myPrefix + ":" + getMicrosimID();
 }
 
 
 void
-GUIGlObject::drawName(const Position& pos, const SUMOReal scale, 
-            const GUIVisualizationTextSettings &settings, const SUMOReal angle) const {
+GUIGlObject::drawName(const Position& pos, const SUMOReal scale,
+                      const GUIVisualizationTextSettings &settings, const SUMOReal angle) const {
     if (settings.show) {
         GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, settings.size / scale, settings.color, angle);
     }

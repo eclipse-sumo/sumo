@@ -42,7 +42,7 @@
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl()
-    : currentTimeStep(-1), myEvents() {}
+        : currentTimeStep(-1), myEvents() {}
 
 
 MSEventControl::~MSEventControl() {

@@ -134,7 +134,7 @@ protected:
     void swapAfterLaneChange(SUMOTime t);
 
     /** @brief Inserts the vehicle into this lane, and informs it about entering the network
-     * 
+     *
      * Calls the vehicles enterLaneAtInsertion function,
      *  updates statistics and modifies the active state as needed
      * @param[in] veh The vehicle to be incorporated

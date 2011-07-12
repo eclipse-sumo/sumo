@@ -42,7 +42,7 @@
  * Template container for maintaining a bijection between strings and something else
  */
 
-template< class T  > 
+template< class T  >
 class StringBijection {
 
 public:
@@ -58,7 +58,7 @@ public:
 
     StringBijection(Entry entries[], T terminatorKey) {
         int i = 0;
-        do{
+        do {
             insert(entries[i].str, entries[i].key);
         } while (entries[i++].key != terminatorKey);
     }
@@ -84,7 +84,7 @@ public:
             return myT2String[key];
         } else {
             // cannot use toString(key) because that might create an infinite loop
-            throw InvalidArgument("Key not found."); 
+            throw InvalidArgument("Key not found.");
         }
     }
 

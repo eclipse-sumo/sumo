@@ -45,9 +45,9 @@
 // member method definitions
 // ===========================================================================
 GUIDetectorWrapper::GUIDetectorWrapper(
-        const std::string& prefix,
-        const std::string& id) : 
-    GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
+    const std::string& prefix,
+    const std::string& id) :
+        GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
 
 
 GUIDetectorWrapper::~GUIDetectorWrapper() throw() {}

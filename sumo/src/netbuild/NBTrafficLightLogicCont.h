@@ -81,7 +81,7 @@ public:
     /** @brief Adds a logic definition to the dictionary
      *
      * "true" is returned if the logic is accepted - no logic with the same
-     *  name and programID exists within this container. 
+     *  name and programID exists within this container.
      *
      * @param[in] logic The logic to add
      * @return Whether the logic was valid (no logic with the same id and programID is already known)
@@ -95,7 +95,7 @@ public:
      *  otherwise "false".
      *
      * @param[in] id The id of the logic to remove
-     * @return Whether the named logic was within the dictionary	 
+     * @return Whether the named logic was within the dictionary
      */
     bool removeFully(const std::string id);
 
@@ -105,14 +105,14 @@ public:
      * "true" is returned if the program existed in the dictionary,
      *  otherwise "false".
      *
-     * @param[in] id The id of the logic 
+     * @param[in] id The id of the logic
      * @param[in] id The id of the program to remove
      * @return Whether the program was within the dictionary
      */
     bool remove(const std::string id, const std::string programID);
 
 
-    /// @brief Returns a list of all computed logics 
+    /// @brief Returns a list of all computed logics
     std::vector<NBTrafficLightLogic*> getComputed() const;
 
 
@@ -165,7 +165,7 @@ public:
     NBTrafficLightDefinition* getDefinition(const std::string &id, const std::string &programID) const;
 
 
-    /** @brief Returns all programs for the given tl-id 
+    /** @brief Returns all programs for the given tl-id
      *
      * @param[in] id The tl-id for which to return all programs
      * @return The map of programIDs to definitions

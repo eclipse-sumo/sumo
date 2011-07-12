@@ -479,8 +479,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         }
         LaneSpreadFunction lsf = addSecond ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (e->myIsOneWay!="-1") {
-            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type), 
-                    tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, e->streetName, lsf);
+            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type),
+                                     tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, e->streetName, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -491,8 +491,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             if (e->myIsOneWay!="-1") {
                 id = "-" + id;
             }
-            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type), 
-                    tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), e->streetName, lsf);
+            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type),
+                                     tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), e->streetName, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;

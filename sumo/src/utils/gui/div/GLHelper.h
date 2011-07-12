@@ -235,17 +235,17 @@ public:
     static RGBColor getColor();
 
     /// @brief draw Text with given parameters
-    static void drawText(const std::string &text, const Position& pos, 
-            const SUMOReal layer, const SUMOReal size, 
-            const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0);
+    static void drawText(const std::string &text, const Position& pos,
+                         const SUMOReal layer, const SUMOReal size,
+                         const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0);
 
     /// @brief draw Text box with given parameters
-    static void drawTextBox(const std::string &text, const Position& pos, 
-            const SUMOReal layer, const SUMOReal size, 
-            const RGBColor& txtColor=RGBColor(0,0,0), 
-            const RGBColor& bgColor=RGBColor(1,1,1), 
-            const RGBColor& borderColor=RGBColor(0,0,0), 
-            const SUMOReal angle=0);
+    static void drawTextBox(const std::string &text, const Position& pos,
+                            const SUMOReal layer, const SUMOReal size,
+                            const RGBColor& txtColor=RGBColor(0,0,0),
+                            const RGBColor& bgColor=RGBColor(1,1,1),
+                            const RGBColor& borderColor=RGBColor(0,0,0),
+                            const SUMOReal angle=0);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle

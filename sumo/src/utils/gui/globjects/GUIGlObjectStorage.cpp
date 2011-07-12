@@ -156,7 +156,7 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) throw() {
 }
 
 
-std::set<GUIGlID> 
+std::set<GUIGlID>
 GUIGlObjectStorage::getAllIDs() const {
     std::set<GUIGlID> result;
     for (ObjectMap::const_iterator it=myMap.begin(); it!=myMap.end(); it++) {

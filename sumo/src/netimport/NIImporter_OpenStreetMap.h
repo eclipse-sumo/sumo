@@ -158,7 +158,7 @@ private:
      * @exception ProcessError If the edge could not be added to the container
      */
     void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-            const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc);
+                    const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc);
 
 
 

@@ -582,26 +582,26 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_ANT:
         glPushMatrix();
-        // ant is stretched via vehicle length 
+        // ant is stretched via vehicle length
         GLHelper::setColor(darker);
         // draw left side
         GLHelper::drawBoxLine(Position(-0.2, -.10), 350, 0.5, .02);
         GLHelper::drawBoxLine(Position(-0.3, -.50), 240, 0.4, .03);
-        GLHelper::drawBoxLine(Position( 0.3, -.10), 340, 0.8, .03);
-        GLHelper::drawBoxLine(Position( 0.05,-.80), 290, 0.6, .04);
-        GLHelper::drawBoxLine(Position( 0.4, -.10),  20, 0.8, .03);
-        GLHelper::drawBoxLine(Position( 0.65,-.80),  75, 0.6, .04);
-        GLHelper::drawBoxLine(Position( 0.5, -.10),  55, 0.8, .04);
-        GLHelper::drawBoxLine(Position( 1.1, -.55),  90, 0.6, .04);
-        // draw right side 
+        GLHelper::drawBoxLine(Position(0.3, -.10), 340, 0.8, .03);
+        GLHelper::drawBoxLine(Position(0.05,-.80), 290, 0.6, .04);
+        GLHelper::drawBoxLine(Position(0.4, -.10),  20, 0.8, .03);
+        GLHelper::drawBoxLine(Position(0.65,-.80),  75, 0.6, .04);
+        GLHelper::drawBoxLine(Position(0.5, -.10),  55, 0.8, .04);
+        GLHelper::drawBoxLine(Position(1.1, -.55),  90, 0.6, .04);
+        // draw right side
         GLHelper::drawBoxLine(Position(-0.2,  .10), 190, 0.5, .02);
         GLHelper::drawBoxLine(Position(-0.3,  .50), 300, 0.4, .03);
-        GLHelper::drawBoxLine(Position( 0.3,  .10), 200, 0.8, .03);
-        GLHelper::drawBoxLine(Position( 0.05, .80), 250, 0.6, .04);
-        GLHelper::drawBoxLine(Position( 0.4,  .10), 160, 0.8, .03);
-        GLHelper::drawBoxLine(Position( 0.65, .80), 105, 0.6, .04);
-        GLHelper::drawBoxLine(Position( 0.5,  .10), 125, 0.8, .04);
-        GLHelper::drawBoxLine(Position( 1.1,  .55),  90, 0.6, .04);
+        GLHelper::drawBoxLine(Position(0.3,  .10), 200, 0.8, .03);
+        GLHelper::drawBoxLine(Position(0.05, .80), 250, 0.6, .04);
+        GLHelper::drawBoxLine(Position(0.4,  .10), 160, 0.8, .03);
+        GLHelper::drawBoxLine(Position(0.65, .80), 105, 0.6, .04);
+        GLHelper::drawBoxLine(Position(0.5,  .10), 125, 0.8, .04);
+        GLHelper::drawBoxLine(Position(1.1,  .55),  90, 0.6, .04);
         // draw body
         GLHelper::setColor(current);
         glTranslated(0,0,0.1);
@@ -890,14 +890,14 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.showBlinker) {
         glTranslated(0, 0, .1);
         switch (getVehicleType().getGuiShape()) {
-            case SVS_PEDESTRIAN:
-            case SVS_BICYCLE:
-            case SVS_ANT:
-                break;
-            default:
-                drawAction_drawVehicleBlinker(*this);
-                drawAction_drawVehicleBrakeLight(*this);
-                break;
+        case SVS_PEDESTRIAN:
+        case SVS_BICYCLE:
+        case SVS_ANT:
+            break;
+        default:
+            drawAction_drawVehicleBlinker(*this);
+            drawAction_drawVehicleBrakeLight(*this);
+            break;
         }
     }
     // draw the wish to change the lane
@@ -949,7 +949,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     glPopMatrix();
     drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLengthWithGap() / 2),
-            s.scale, s.vehicleName);
+             s.scale, s.vehicleName);
     glPopName();
 }
 
@@ -1031,20 +1031,20 @@ bool
 GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
     switch (myActiveScheme) {
     case 1: {
-		const RGBColor &col = vehicle.getParameter().color;
+        const RGBColor &col = vehicle.getParameter().color;
         glColor3d(col.red(), col.green(), col.blue());
         return true;
-			}
+    }
     case 2: {
-		const RGBColor &col = vehicle.getVehicleType().getColor();
+        const RGBColor &col = vehicle.getVehicleType().getColor();
         glColor3d(col.red(), col.green(), col.blue());
         return true;
-			}
+    }
     case 3: {
-		const RGBColor &col = vehicle.getRoute().getColor();
+        const RGBColor &col = vehicle.getRoute().getColor();
         glColor3d(col.red(), col.green(), col.blue());
         return true;
-			}
+    }
     case 4: {
         Position p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();

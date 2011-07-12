@@ -71,9 +71,9 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
         myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
         myHaveWarnedAboutDeprecatedSpreadType(false),
-		myHaveWarnedAboutDeprecatedFromTo(false),
-		myHaveWarnedAboutDeprecatedNoLanes(false),
-        myHaveWarnedAboutDeprecatedLaneId(false){}
+        myHaveWarnedAboutDeprecatedFromTo(false),
+        myHaveWarnedAboutDeprecatedNoLanes(false),
+        myHaveWarnedAboutDeprecatedLaneId(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -98,7 +98,7 @@ NIXMLEdgesHandler::myStartElement(int element,
 }
 
 
-void 
+void
 NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     myIsUpdate = false;
     bool ok = true;
@@ -172,7 +172,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     // try to get the number of lanes
     if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
         myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, myCurrentID.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedNoLanes) {
+        if (!myHaveWarnedAboutDeprecatedNoLanes) {
             myHaveWarnedAboutDeprecatedNoLanes = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
         }
@@ -212,12 +212,12 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     myShape = tryGetShape(attrs);
     // and how to spread the lanes
     std::string lsfS = toString(LANESPREAD_RIGHT);
-    if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
         lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedSpreadType) {
+        if (!myHaveWarnedAboutDeprecatedSpreadType) {
             WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
             myHaveWarnedAboutDeprecatedSpreadType = true;
-        }   
+        }
     } else {
         lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
     }
@@ -240,19 +240,19 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     // check whether a previously defined edge shall be overwritten
     if (myCurrentEdge!=0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                myCurrentLaneNo, myCurrentPriority, myShape,
-                myCurrentWidth, myCurrentOffset, myLanesSpread);
+                              myCurrentLaneNo, myCurrentPriority, myShape,
+                              myCurrentWidth, myCurrentOffset, myLanesSpread);
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size()==0) {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                    myCurrentStreetName, myLanesSpread);
+                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
+                                       myCurrentStreetName, myLanesSpread);
         } else {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset, 
-                    myShape, myCurrentStreetName, myLanesSpread, 
-                    OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
+                                       myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
+                                       myShape, myCurrentStreetName, myLanesSpread,
+                                       OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
         }
         myCurrentEdge->setLoadedLength(myLength);
     }
@@ -260,7 +260,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
 }
 
 
-void 
+void
 NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
     if (myCurrentEdge==0) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
@@ -272,7 +272,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
     int lane;
     if (attrs.hasAttribute(SUMO_ATTR_ID)) {
         lane = attrs.getIntReporting(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedLaneId) {
+        if (!myHaveWarnedAboutDeprecatedLaneId) {
             myHaveWarnedAboutDeprecatedLaneId = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
         }
@@ -375,20 +375,20 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     std::string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     std::string oldBegID = begNodeID;
     std::string oldEndID = endNodeID;
-	if (attrs.hasAttribute(SUMO_ATTR_FROMNODE)) {
-		begNodeID = attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok);
+    if (attrs.hasAttribute(SUMO_ATTR_FROMNODE)) {
+        begNodeID = attrs.getStringReporting(SUMO_ATTR_FROMNODE, 0, ok);
         if (!myHaveWarnedAboutDeprecatedFromTo) {
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FROMNODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_FROM) + "'.");
-			myHaveWarnedAboutDeprecatedFromTo = true;
-		}
-	}
-	if (attrs.hasAttribute(SUMO_ATTR_TONODE)) {
-		endNodeID = attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok);
+            WRITE_WARNING("'" + toString(SUMO_ATTR_FROMNODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_FROM) + "'.");
+            myHaveWarnedAboutDeprecatedFromTo = true;
+        }
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TONODE)) {
+        endNodeID = attrs.getStringReporting(SUMO_ATTR_TONODE, 0, ok);
         if (!myHaveWarnedAboutDeprecatedFromTo) {
-			WRITE_WARNING("'" + toString(SUMO_ATTR_TONODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_TO) + "'.");
-			myHaveWarnedAboutDeprecatedFromTo = true;
-		}
-	}
+            WRITE_WARNING("'" + toString(SUMO_ATTR_TONODE) + "' is deprecated; please use '" + toString(SUMO_ATTR_TO) + "'.");
+            myHaveWarnedAboutDeprecatedFromTo = true;
+        }
+    }
     begNodeID = attrs.hasAttribute(SUMO_ATTR_FROM) ? attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok) : begNodeID;
     endNodeID = attrs.hasAttribute(SUMO_ATTR_TO) ? attrs.getStringReporting(SUMO_ATTR_TO, 0, ok) : endNodeID;
     if (!ok) {
@@ -405,9 +405,9 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
         begNodeXPos = pos.x();
         begNodeYPos = pos.y();
         if (!myHaveWarnedAboutDeprecatedFromTo) {
-			WRITE_WARNING("'" + toString(SUMO_ATTR_XFROM) + "' and '" + toString(SUMO_ATTR_YFROM) + "' are deprecated; please define nodes separately.");
-			myHaveWarnedAboutDeprecatedFromTo = true;
-		}
+            WRITE_WARNING("'" + toString(SUMO_ATTR_XFROM) + "' and '" + toString(SUMO_ATTR_YFROM) + "' are deprecated; please define nodes separately.");
+            myHaveWarnedAboutDeprecatedFromTo = true;
+        }
     }
     if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
         Position pos(endNodeXPos, endNodeYPos);
@@ -415,15 +415,15 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
         endNodeXPos = pos.x();
         endNodeYPos = pos.y();
         if (!myHaveWarnedAboutDeprecatedFromTo) {
-			WRITE_WARNING("'" + toString(SUMO_ATTR_XTO) + "' and '" + toString(SUMO_ATTR_YTO) + "' are deprecated; please define nodes separately.");
-			myHaveWarnedAboutDeprecatedFromTo = true;
-		}
+            WRITE_WARNING("'" + toString(SUMO_ATTR_XTO) + "' and '" + toString(SUMO_ATTR_YTO) + "' are deprecated; please define nodes separately.");
+            myHaveWarnedAboutDeprecatedFromTo = true;
+        }
     }
     // check the obtained values for nodes
     myFromNode = insertNodeChecking(Position(begNodeXPos, begNodeYPos), begNodeID, "from");
     myToNode = insertNodeChecking(Position(endNodeXPos, endNodeYPos), endNodeID, "to");
-    if(myFromNode!=0&&myToNode!=0) {
-        if(myIsUpdate&&(myFromNode->getID()!=oldBegID||myToNode->getID()!=oldEndID)) {
+    if (myFromNode!=0&&myToNode!=0) {
+        if (myIsUpdate&&(myFromNode->getID()!=oldBegID||myToNode->getID()!=oldEndID)) {
             myShape = PositionVector();
         }
     }

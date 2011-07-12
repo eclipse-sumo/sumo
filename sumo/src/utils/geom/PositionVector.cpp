@@ -151,7 +151,7 @@ PositionVector::intersects(const PositionVector &v1) const {
 
 Position
 PositionVector::intersectsAtPoint(const Position &p1,
-                                    const Position &p2) const {
+                                  const Position &p2) const {
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         if (GeomHelper::intersects(*i, *(i+1), p1, p2)) {
             return GeomHelper::intersection_position(*i, *(i+1), p1, p2);
@@ -305,7 +305,7 @@ PositionVector::area() const {
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
     }
-    const int endIndex = tmp.size() - 1;
+    const int endIndex = (int)tmp.size() - 1;
     // http://en.wikipedia.org/wiki/Polygon
     for (int i = 0; i < endIndex; i++) {
         area += tmp[i].x() * tmp[i+1].y() - tmp[i+1].x() * tmp[i].y();
@@ -347,7 +347,7 @@ PositionVector::getEnd() const {
 
 std::pair<PositionVector, PositionVector>
 PositionVector::splitAt(SUMOReal where) const {
-    if (size() < 2 ) {
+    if (size() < 2) {
         throw InvalidArgument("Vector to short for splitting");
     }
     if (where <= POSITION_EPS || where >= length() - POSITION_EPS) {
@@ -359,15 +359,15 @@ PositionVector::splitAt(SUMOReal where) const {
     ContType::const_iterator it = myCont.begin()+1;
     SUMOReal next = first.getEnd().distanceTo(*it);
     // see how many points we can add to first
-    while (where >= seen + next + POSITION_EPS) { 
+    while (where >= seen + next + POSITION_EPS) {
         seen += next;
         first.push_back(*it);
         it++;
         next = first.getEnd().distanceTo(*it);
     }
-    if (fabs(where - (seen + next))>POSITION_EPS || it == myCont.end()-1) { 
+    if (fabs(where - (seen + next))>POSITION_EPS || it == myCont.end()-1) {
         // we need to insert a new point because 'where' is not close to an
-        // existing point or it is to close to the endpoint 
+        // existing point or it is to close to the endpoint
         Line tmpL(first.getEnd(), *it);
         Position p = tmpL.getPositionAtDistance(where - seen);
         first.push_back(p);
@@ -445,7 +445,7 @@ PositionVector::increasing_x_y_sorter::operator()(const Position &p1,
 
 SUMOReal
 PositionVector::isLeft(const Position &P0, const Position &P1,
-                         const Position &P2) const {
+                       const Position &P2) const {
     return (P1.x() - P0.x())*(P2.y() - P0.y()) - (P2.x() - P0.x())*(P1.y() - P0.y());
 }
 
@@ -467,7 +467,7 @@ PositionVector::set(size_t pos, const Position &p) {
 
 PositionVector
 PositionVector::intersectsAtPoints(const Position &p1,
-                                     const Position &p2) const {
+                                   const Position &p2) const {
     PositionVector ret;
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         if (GeomHelper::intersects(*i, *(i+1), p1, p2)) {
@@ -618,7 +618,7 @@ PositionVector::pruneFromEndAt(const Position &p) {
         return;
     }
     Position np = positionAtLengthPosition(
-                        length() - lpos);
+                      length() - lpos);
     if (np!=*(myCont.end()-1)) {
         myCont.erase(myCont.end()-1);
         if (np!=*(myCont.end()-1)) {
@@ -685,7 +685,7 @@ PositionVector::indexOfClosest(const Position &p) const {
 }
 
 
-void 
+void
 PositionVector::insertAtClosest(const Position &p) {
     Position outIntersection = Position();
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
@@ -1028,7 +1028,7 @@ PositionVector::removeColinearPoints() {
 }
 
 
-bool 
+bool
 PositionVector::operator==(const PositionVector &v2) const {
     if (size() == v2.size()) {
         for (int i = 0; i < (int)size(); i++) {

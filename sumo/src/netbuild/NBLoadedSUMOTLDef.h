@@ -72,7 +72,7 @@ public:
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      */
     void remapRemoved(NBEdge *removed,
-                              const EdgeVector &incoming, const EdgeVector &outgoing) throw();
+                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
 
 
     /** @brief Replaces a removed edge/lane
@@ -82,7 +82,7 @@ public:
      * @param[in] byLane This edge's lane to insert instead
      */
     void replaceRemoved(NBEdge *removed, int removedLane,
-                                NBEdge *by, int byLane) throw();
+                        NBEdge *by, int byLane) throw();
 
 
     /** @brief Adds a phase to the logic
@@ -105,7 +105,7 @@ protected:
      * @return The computed logic
      */
     NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
-                                           unsigned int brakingTime) throw();
+                                   unsigned int brakingTime) throw();
 
 private:
 

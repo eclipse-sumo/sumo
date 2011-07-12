@@ -69,7 +69,7 @@ class OutputDevice;
  */
 class NBNode : public Named {
     friend class NBNodeCont;
-    friend class GNEJunction; // used for visualization (NETEDIT) 
+    friend class GNEJunction; // used for visualization (NETEDIT)
 
 public:
     /**
@@ -378,7 +378,7 @@ public:
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
             NBEdge *toE, unsigned int toL) const;
     PositionVector computeInternalLaneShape(NBEdge *fromE,
-            int fromL, NBEdge *toE, int toL) const;
+                                            int fromL, NBEdge *toE, int toL) const;
 
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second

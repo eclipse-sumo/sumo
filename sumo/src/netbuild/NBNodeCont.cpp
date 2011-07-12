@@ -348,7 +348,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
         // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
         for (std::set<NBNode*>::const_iterator j=candCluster.begin(); j!=candCluster.end(); j++) {
             NBNode *n = *j;
-            if (n->getIncomingEdges().size() == 1 && 
+            if (n->getIncomingEdges().size() == 1 &&
                     n->getOutgoingEdges().size() == 1 &&
                     (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
                      !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
@@ -405,7 +405,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
 }
 
 
-void 
+void
 NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec) {
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     EdgeVector incoming = moved->getIncomingEdges();
@@ -421,11 +421,11 @@ NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont 
 }
 
 
-void 
+void
 NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec) {
     if (to == from) {
         // @todo remap connections
-        ec.erase(dc, oldEdge); 
+        ec.erase(dc, oldEdge);
     } else {
         NBEdge* remapped = new NBEdge(oldEdge->getID(), from, to, oldEdge);
         remapped->setGeometry(oldEdge->getGeometry());

@@ -144,7 +144,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
         }
-        // draw the sign 
+        // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
         if (s.scale*s.addExaggeration>25) {

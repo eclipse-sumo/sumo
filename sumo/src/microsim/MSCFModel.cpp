@@ -69,8 +69,8 @@ MSCFModel::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
     // i.e that with this gap there will be no interaction.
     const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
     const SUMOReal gap = (vNext - vL) *
-                   ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
-                   vL * myHeadwayTime;
+                         ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
+                         vL * myHeadwayTime;
 
     // Don't allow timeHeadWay < deltaT situations.
     return MAX2(gap, SPEED2DIST(vNext));

@@ -65,7 +65,7 @@ public:
     RORDLoader_SUMOBase(RONet &net,
                         SUMOTime begin, SUMOTime end,
                         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
-                        const int maxRouteNumber, const bool tryRepair, const bool withTaz, 
+                        const int maxRouteNumber, const bool tryRepair, const bool withTaz,
                         const bool keepRoutes, const bool skipRouteCalculation,
                         const std::string &file="") throw(ProcessError);
 

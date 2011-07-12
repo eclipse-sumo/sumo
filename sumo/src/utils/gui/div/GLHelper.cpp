@@ -300,13 +300,13 @@ GLHelper::drawTriangleAtEnd(const Line &l, SUMOReal tLength,
 }
 
 
-void 
+void
 GLHelper::setColor(const RGBColor& c) {
     glColor3d(c.red(), c.green(), c.blue());
 }
 
 
-RGBColor 
+RGBColor
 GLHelper::getColor() {
     GLdouble current[4];
     glGetDoublev(GL_CURRENT_COLOR, current);
@@ -314,10 +314,10 @@ GLHelper::getColor() {
 }
 
 
-void 
-GLHelper::drawText(const std::string &text, const Position& pos, 
-        const SUMOReal layer, const SUMOReal size, 
-        const RGBColor& col, const SUMOReal angle) {
+void
+GLHelper::drawText(const std::string &text, const Position& pos,
+                   const SUMOReal layer, const SUMOReal size,
+                   const RGBColor& col, const SUMOReal angle) {
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     setColor(col);
@@ -332,12 +332,11 @@ GLHelper::drawText(const std::string &text, const Position& pos,
     glPopMatrix();
 }
 
-void 
-GLHelper::drawTextBox(const std::string &text, const Position& pos, 
-        const SUMOReal layer, const SUMOReal size, 
-        const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor, 
-        const SUMOReal angle) 
-{
+void
+GLHelper::drawTextBox(const std::string &text, const Position& pos,
+                      const SUMOReal layer, const SUMOReal size,
+                      const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
+                      const SUMOReal angle) {
     SUMOReal boxAngle = angle + 90;
     if (boxAngle > 360) {
         boxAngle -= 360;

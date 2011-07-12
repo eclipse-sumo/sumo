@@ -58,8 +58,8 @@ public:
     class NamePanel {
     public:
         NamePanel(FXMatrix *parent, GUIDialog_ViewSettings *target,
-                const std::string &title, 
-                const GUIVisualizationTextSettings &settings); 
+                  const std::string &title,
+                  const GUIVisualizationTextSettings &settings);
 
         GUIVisualizationTextSettings getSettings();
         void update(const GUIVisualizationTextSettings &settings);
@@ -231,7 +231,7 @@ private:
     FXCheckButton *myLaneColorInterpolation;
 
     FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails,
-                  *myHideMacroConnectors;
+    *myHideMacroConnectors;
 
     FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;
@@ -240,7 +240,7 @@ private:
     std::vector<FXButton *> myVehicleButtons;
     FXCheckButton *myVehicleColorInterpolation;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker; /* *myShowLaneChangePreference,*/ 
+    FXCheckButton *myShowBlinker; /* *myShowLaneChangePreference,*/
 
     FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
 
@@ -252,9 +252,9 @@ private:
     FXCheckButton *myDither;
     FXCheckButton *myShowSizeLegend;
 
-    NamePanel *myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel, 
-              *myJunctionNamePanel, *myInternalJunctionNamePanel,
-              *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
+    NamePanel *myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
+    *myJunctionNamePanel, *myInternalJunctionNamePanel,
+    *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
     /// @}
 
 

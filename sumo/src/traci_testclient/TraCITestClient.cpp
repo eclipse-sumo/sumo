@@ -694,7 +694,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if(length==0) {
+        if (length==0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
@@ -768,7 +768,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if(length==0) {
+        if (length==0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
@@ -1086,7 +1086,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if(length==0) {
+        if (length==0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();

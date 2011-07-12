@@ -837,10 +837,10 @@ NIImporter_OpenDrive::calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal 
 // loader methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(
-        std::vector<OpenDriveEdge> &innerEdges,
-        std::vector<OpenDriveEdge> &outerEdges)
-        : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"), 
-		myCurrentEdge("", "", -1), myInnerEdges(innerEdges), myOuterEdges(outerEdges) {
+    std::vector<OpenDriveEdge> &innerEdges,
+    std::vector<OpenDriveEdge> &outerEdges)
+        : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"),
+        myCurrentEdge("", "", -1), myInnerEdges(innerEdges), myOuterEdges(outerEdges) {
 }
 
 

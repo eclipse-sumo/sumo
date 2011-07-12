@@ -70,16 +70,15 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-        GUIGlChildWindow *parent,
-        FXIcon *icon, 
-        const FXString &title, 
-        GUIGlObjectType type, 
-        const std::vector<GUIGlID> &ids,
-        GUIGlObjectStorage &glStorage): 
-    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
-    myObjectType(type), 
-    myParent(parent)
-{
+    GUIGlChildWindow *parent,
+    FXIcon *icon,
+    const FXString &title,
+    GUIGlObjectType type,
+    const std::vector<GUIGlID> &ids,
+    GUIGlObjectStorage &glStorage):
+        FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
+        myObjectType(type),
+        myParent(parent) {
     FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
     // build the list
     FXVerticalFrame *layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
@@ -164,11 +163,11 @@ long
 GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr) {
     FXEvent* event=(FXEvent*)ptr;
     switch (event->code) {
-        case KEY_Return: 
-            onCmdText(0,0,0);
-            break;
-        default:
-            break;
+    case KEY_Return:
+        onCmdText(0,0,0);
+        break;
+    default:
+        break;
     }
     return 1;
 }

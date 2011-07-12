@@ -136,7 +136,7 @@ NIVissimAbstractEdge::crossesAtPoint(const Position &p1,
                                      const Position &p2) const {
     // !!! not needed
     Position p = GeomHelper::intersection_position(
-                       myGeom.getBegin(), myGeom.getEnd(), p1, p2);
+                     myGeom.getBegin(), myGeom.getEnd(), p1, p2);
     return GeomHelper::nearest_position_on_line_to_point(
                myGeom.getBegin(), myGeom.getEnd(), p);
 }

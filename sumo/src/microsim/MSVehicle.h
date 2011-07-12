@@ -123,19 +123,19 @@ public:
     };
 
 
-/** @enum ChangeRequest
- * @brief Requests set via TraCI
- */
-enum ChangeRequest {
-    /// @brief vehicle doesn't want to change
-    REQUEST_NONE,
-    /// @brief vehicle want's to change to left lane
-    REQUEST_LEFT,
-    /// @brief vehicle want's to change to right lane
-    REQUEST_RIGHT,
-    /// @brief vehicle want's to keep the current lane
-    REQUEST_HOLD
-};
+    /** @enum ChangeRequest
+     * @brief Requests set via TraCI
+     */
+    enum ChangeRequest {
+        /// @brief vehicle doesn't want to change
+        REQUEST_NONE,
+        /// @brief vehicle want's to change to left lane
+        REQUEST_LEFT,
+        /// @brief vehicle want's to change to right lane
+        REQUEST_RIGHT,
+        /// @brief vehicle want's to keep the current lane
+        REQUEST_HOLD
+    };
 
     /// Use this constructor only.
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
@@ -210,7 +210,7 @@ enum ChangeRequest {
      * The vehicle computes the allowed velocity, first. Then, it is moved along the
      *  previously computed links. If the vehicle enters a new lane, it is set in
      *  myLane.
-     * 
+     *
      * The vehicle also sets the lanes it is in-lapping into and informs them about it.
      * @return Whether the vehicle has moved to the next edge
      */
@@ -433,7 +433,7 @@ enum ChangeRequest {
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking)
      */
     void enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
-                         MSMoveReminder::Notification notification) throw(ProcessError);
+                              MSMoveReminder::Notification notification) throw(ProcessError);
 
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.
@@ -872,7 +872,7 @@ enum ChangeRequest {
 
 
     /** @brief Returns the velocity/lane influencer
-     * 
+     *
      * If no influencer was existing before, one is built, first
      * @return Reference to this vehicle's speed influencer
      */

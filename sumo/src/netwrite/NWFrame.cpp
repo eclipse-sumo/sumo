@@ -83,11 +83,11 @@ NWFrame::checkOptions() {
 }
 
 
-void 
+void
 NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
-	NWWriter_SUMO::writeNetwork(oc, nb);
-	NWWriter_MATSim::writeNetwork(oc, nb);
-	NWWriter_XML::writeNetwork(oc, nb);
+    NWWriter_SUMO::writeNetwork(oc, nb);
+    NWWriter_MATSim::writeNetwork(oc, nb);
+    NWWriter_XML::writeNetwork(oc, nb);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
         OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));

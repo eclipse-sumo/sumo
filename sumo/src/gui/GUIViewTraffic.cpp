@@ -75,14 +75,13 @@
 // member method definitions
 // ===========================================================================
 GUIViewTraffic::GUIViewTraffic(
-        FXComposite *p,
-        GUIMainWindow &app,
-        GUISUMOViewParent *parent,
-        GUINet &net, FXGLVisual *glVis,
-        FXGLCanvas *share) : 
-    GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTrackedID(-1) 
-{}
+    FXComposite *p,
+    GUIMainWindow &app,
+    GUISUMOViewParent *parent,
+    GUINet &net, FXGLVisual *glVis,
+    FXGLCanvas *share) :
+        GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
+        myTrackedID(-1) {}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
@@ -278,7 +277,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
 }
 
 
-SUMOTime 
+SUMOTime
 GUIViewTraffic::getCurrentTimeStep() const {
     return MSNet::getInstance()->getCurrentTimeStep();
 }

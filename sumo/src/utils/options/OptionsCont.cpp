@@ -252,7 +252,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;
     os << "Options set:" << std::endl;
     for (OptionsCont::KnownContType::const_iterator i=oc.myValues.begin();
-         i!=oc.myValues.end(); i++) {
+            i!=oc.myValues.end(); i++) {
         std::vector<std::string>::iterator j = find(done.begin(), done.end(), (*i).first);
         if (j==done.end()) {
             std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
@@ -341,7 +341,7 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
     bool ok = true;
     std::vector<std::string> seenSynonymes;
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
-        if(std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first)!=seenSynonymes.end()) {
+        if (std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first)!=seenSynonymes.end()) {
             continue;
         }
         if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {

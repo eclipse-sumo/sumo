@@ -187,9 +187,9 @@ protected:
     RandomDistributor<const MSRoute*> myCurrentRouteProb;
     //@}
 
-	static bool myHaveWarnedAboutDeprecatedDestProbReroute, 
-		myHaveWarnedAboutDeprecatedClosingReroute,
-		myHaveWarnedAboutDeprecatedRouteReroute;
+    static bool myHaveWarnedAboutDeprecatedDestProbReroute,
+    myHaveWarnedAboutDeprecatedClosingReroute,
+    myHaveWarnedAboutDeprecatedRouteReroute;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -71,14 +71,13 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
         : SUMOSAXHandler("sumo-network"),
         myNetBuilder(nb),
-        myNodeCont(nb.getNodeCont()), 
+        myNodeCont(nb.getNodeCont()),
         myTLLCont(nb.getTLLogicCont()),
         myCurrentEdge(0),
         myCurrentLane(0),
         myCurrentTL(0),
-        mySuspectKeepShape(false), 
-        myHaveWarnedAboutDeprecatedSpreadType(false), myHaveWarnedAboutDeprecatedMaxSpeed(false)
-{}
+        mySuspectKeepShape(false),
+        myHaveWarnedAboutDeprecatedSpreadType(false), myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() throw() {
@@ -139,11 +138,11 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             geom = reconstructEdgeShape(ed, from->getPosition(), to->getPosition());
         }
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, 
-                ed->type, ed->maxSpeed, 
-                (unsigned int) ed->lanes.size(), 
-                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
-                geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+        NBEdge *e = new NBEdge(ed->id, from, to,
+                               ed->type, ed->maxSpeed,
+                               (unsigned int) ed->lanes.size(),
+                               ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
+                               geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -174,8 +173,8 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                     continue;
                 }
                 nbe->addLane2LaneConnection(
-                        fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED, 
-                        false, c.mayDefinitelyPass);
+                    fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
+                    false, c.mayDefinitelyPass);
 
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "") {
@@ -187,8 +186,8 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                             if (tlDef) {
                                 tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkNo);
                             } else {
-                                throw ProcessError("Corrupt traffic light definition '" 
-                                        + c.tlID + "' (program '" + it->first + "')");
+                                throw ProcessError("Corrupt traffic light definition '"
+                                                   + c.tlID + "' (program '" + it->first + "')");
                             }
                         }
                     } else {
@@ -222,7 +221,7 @@ NIImporter_SUMO::myStartElement(int element,
      * 2) those which can be ignored because they are recomputed based on group 1
      * 3) those which are of no concern to NBNetBuilder but should be exposed to
      *      NETEDIT. We will probably have to patch NBNetBuilder to contain them
-     *      and hand them over to NETEDIT 
+     *      and hand them over to NETEDIT
      *    alternative idea: those shouldn't really be contained within the
      *    network but rather in separate files. teach NETEDIT how to open those
      *    (POI?)
@@ -297,8 +296,8 @@ NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
             WRITE_ERROR("Unmatched closing tag for tl-logic.");
         } else {
             if (!myTLLCont.insert(myCurrentTL)) {
-                WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + 
-                        "' for traffic light '" + myCurrentTL->getID() + "'");
+                WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() +
+                              "' for traffic light '" + myCurrentTL->getID() + "'");
                 delete myCurrentTL;
             }
             myCurrentTL = 0;
@@ -330,22 +329,22 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1);
     myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     myCurrentEdge->shape = GeomConvHelper::parseShapeReporting(
-            attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
-            attrs.getObjectType(), id.c_str(), ok, true);
+                               attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
+                               attrs.getObjectType(), id.c_str(), ok, true);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
-	std::string lsfS = toString(LANESPREAD_RIGHT);
-	if(attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
-	    lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
+    std::string lsfS = toString(LANESPREAD_RIGHT);
+    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, id.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedSpreadType) {
             WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
             myHaveWarnedAboutDeprecatedSpreadType = true;
         }
-	} else {
-	    lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
-	}
+    } else {
+        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, id.c_str(), ok, lsfS);
+    }
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
@@ -366,9 +365,9 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     myCurrentLane = new LaneAttrs;
     myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok, -1);
-    if(attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
+    if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
         myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedMaxSpeed) {
+        if (!myHaveWarnedAboutDeprecatedMaxSpeed) {
             myHaveWarnedAboutDeprecatedMaxSpeed = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_MAXSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_SPEED) + "' instead.");
         }
@@ -378,8 +377,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_WIDTH);
     myCurrentLane->offset = attrs.getOptSUMORealReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, (SUMOReal) NBEdge::UNSPECIFIED_OFFSET);
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
-            attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
-            attrs.getObjectType(), id.c_str(), ok, false);
+                               attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
+                               attrs.getObjectType(), id.c_str(), ok, false);
 }
 
 
@@ -412,11 +411,11 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
     if (shapeS != "") {
         PositionVector shape = GeomConvHelper::parseShapeReporting(
-                shapeS, attrs.getObjectType(), id.c_str(), ok, false);
+                                   shapeS, attrs.getObjectType(), id.c_str(), ok, false);
         shape.push_back(shape[0]); // need closed shape
         if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
             // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
-            mySuspectKeepShape = true; 
+            mySuspectKeepShape = true;
         }
     }
     NBNode *node = new NBNode(id, pos, type);
@@ -431,14 +430,14 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok); 
+    std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
     myCurrentEdge = 0;
     if (myEdges.count(edge_id) == 0) {
         WRITE_ERROR("Unknown edge '" + edge_id + "' given in succedge.");
         return;
     }
     myCurrentEdge = myEdges[edge_id];
-    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok); 
+    std::string lane_id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     myCurrentLane = getLaneAttrsFromID(myCurrentEdge, lane_id);
 }
 
@@ -461,8 +460,8 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     conn.mayDefinitelyPass = false; // (attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok, "") == "M");
     if (conn.tlID != "") {
         conn.tlLinkNo = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
-            ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
-            : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
+                        ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
+                        : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
     }
     myCurrentLane->connections.push_back(conn);
 }
@@ -471,14 +470,14 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok); 
+    std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
     if (myEdges.count(fromID) == 0) {
         WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
         return;
     }
     EdgeAttrs *from = myEdges[fromID];
     Connection conn;
-    conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok); 
+    conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
     unsigned int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
     conn.toLaneIdx = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
     conn.tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
@@ -495,7 +494,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
 }
 
 
-NIImporter_SUMO::LaneAttrs* 
+NIImporter_SUMO::LaneAttrs*
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     std::string edge_id;
     unsigned int index;
@@ -567,7 +566,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
 }
 
 
-PositionVector 
+PositionVector
 NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to) {
     const PositionVector &firstLane = edge->lanes[0]->shape;
     PositionVector result;
@@ -581,19 +580,19 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
         Position me = firstLane[i];
         Position to = firstLane[i+1];
         std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
-                from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
-                noLanes, edge->lsf, false);
+                                                    from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1,
+                                                    noLanes, edge->lsf, false);
         std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
-                me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1, 
-                noLanes, edge->lsf, false);
+                    me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1,
+                    noLanes, edge->lsf, false);
 
         Line l1(
-                Position(from.x()+offsets.first, from.y()+offsets.second),
-                Position(me.x()+offsets.first, me.y()+offsets.second));
+            Position(from.x()+offsets.first, from.y()+offsets.second),
+            Position(me.x()+offsets.first, me.y()+offsets.second));
         l1.extrapolateBy(100);
         Line l2(
-                Position(me.x()+offsets2.first, me.y()+offsets2.second),
-                Position(to.x()+offsets2.first, to.y()+offsets2.second));
+            Position(me.x()+offsets2.first, me.y()+offsets2.second),
+            Position(to.x()+offsets2.first, to.y()+offsets2.second));
         l2.extrapolateBy(100);
         if (l1.intersects(l2)) {
             result.push_back(l1.intersectsAt(l2));
@@ -612,14 +611,14 @@ NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
     // see NLHandler::setLocation
     bool ok = true;
     PositionVector s = GeomConvHelper::parseShapeReporting(
-            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-            attrs.getObjectType(), 0, ok, false);
+                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+                           attrs.getObjectType(), 0, ok, false);
     Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];

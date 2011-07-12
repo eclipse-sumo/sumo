@@ -431,10 +431,10 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw() {
     myParent->remove(this);
     delete myEdgeNamePanel;
     delete myInternalEdgeNamePanel;
-    delete myStreetNamePanel; 
+    delete myStreetNamePanel;
     delete myJunctionNamePanel;
     delete myInternalJunctionNamePanel;
-    delete myVehicleNamePanel; 
+    delete myVehicleNamePanel;
     delete myAddNamePanel;
     delete myPoiNamePanel;
 }
@@ -1259,38 +1259,37 @@ GUIDialog_ViewSettings::setCurrentScheme(const std::string &name) throw() {
 }
 
 GUIDialog_ViewSettings::NamePanel::NamePanel(
-        FXMatrix *parent, 
-        GUIDialog_ViewSettings *target,
-        const std::string &title, 
-        const GUIVisualizationTextSettings &settings) 
-{
+    FXMatrix *parent,
+    GUIDialog_ViewSettings *target,
+    const std::string &title,
+    const GUIVisualizationTextSettings &settings) {
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
     myCheck->setCheck(settings.show);
     new FXLabel(parent, "");
     FXMatrix *m1 = new FXMatrix(parent,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                         0,0,0,0, 10,10,0,0, 5,5);
+                                0,0,0,0, 10,10,0,0, 5,5);
     new FXLabel(m1, "Size", 0, LAYOUT_CENTER_Y);
     mySizeDial = new FXRealSpinDial(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                                    LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
     mySizeDial->setRange(10, 1000);
     mySizeDial->setValue(settings.size);
     FXMatrix *m2 = new FXMatrix(parent,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                         0,0,0,0, 10,10,0,0, 5,5);
+                                0,0,0,0, 10,10,0,0, 5,5);
     FXLabel(m2, "Color", 0, LAYOUT_CENTER_Y);
     myColorWell = new FXColorWell(m2, convert(settings.color),
-            target, MID_SIMPLE_VIEW_COLORCHANGE,
-            LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-            0, 0, 100, 0,   0, 0, 0, 0);
+                                  target, MID_SIMPLE_VIEW_COLORCHANGE,
+                                  LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                  0, 0, 100, 0,   0, 0, 0, 0);
 }
 
-GUIVisualizationTextSettings 
+GUIVisualizationTextSettings
 GUIDialog_ViewSettings::NamePanel::getSettings() {
     return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE,
-            mySizeDial->getValue(), convert(myColorWell->getRGBA()));
+                                        mySizeDial->getValue(), convert(myColorWell->getRGBA()));
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings &settings) {
     myCheck->setCheck(settings.show);
     mySizeDial->setValue(settings.size);

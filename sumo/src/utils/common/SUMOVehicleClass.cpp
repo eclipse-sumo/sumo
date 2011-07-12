@@ -69,7 +69,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
 };
 
 StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
-        sumoVehicleClassStringInitializer, SVC_PEDESTRIAN);
+    sumoVehicleClassStringInitializer, SVC_PEDESTRIAN);
 
 
 // ===========================================================================
@@ -101,7 +101,7 @@ getVehicleClassCompoundName(int id) {
 }
 
 
-std::string 
+std::string
 getVehicleClassNames(const SUMOVehicleClasses &ids) {
     std::ostringstream oss;
     bool hadOne = false;
@@ -138,10 +138,10 @@ getVehicleClassCompoundID(const std::string &name) {
 }
 
 
-void 
+void
 parseVehicleClasses(
-        const std::string &classNames,
-        SUMOVehicleClasses &container) {
+    const std::string &classNames,
+    SUMOVehicleClasses &container) {
     StringTokenizer sta(classNames, " ");
     while (sta.hasNext()) {
         container.insert(getVehicleClassID(sta.next()));

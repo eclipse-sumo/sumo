@@ -62,7 +62,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
     std::string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_VIEW_ZOOM&&variable!=VAR_VIEW_OFFSET
-        &&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY) {
+            &&variable!=VAR_VIEW_SCHEMA&&variable!=VAR_VIEW_BOUNDARY) {
         server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "Get GUI Variable: unsupported variable specified", outputStorage);
         return false;
     }

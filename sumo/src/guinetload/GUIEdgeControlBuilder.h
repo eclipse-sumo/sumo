@@ -80,7 +80,7 @@ public:
      */
     virtual MSLane *addLane(const std::string &id,
                             SUMOReal maxSpeed, SUMOReal length,
-                            const PositionVector &shape, SUMOReal width, 
+                            const PositionVector &shape, SUMOReal width,
                             const SUMOVehicleClasses &allowed,
                             const SUMOVehicleClasses &disallowed);
 
@@ -91,7 +91,7 @@ public:
     /** @brief Builds an edge instance (GUIEdge in this case)
      *
      * Builds an GUIEdge-instance using the given name and the current index
-     *  "myCurrentNumericalEdgeID" 
+     *  "myCurrentNumericalEdgeID"
      *  Post-increments the index, returns the built edge.
      *
      * @param[in] id The id of the edge to build

@@ -111,7 +111,7 @@ public:
      *  the list of already added phases
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
-     * @note: the length of the state has to match the number of links 
+     * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
     void addStep(SUMOTime duration, const std::string &state);
@@ -138,7 +138,7 @@ public:
     }
 
 
-    /** @brief Returns the ProgramID 
+    /** @brief Returns the ProgramID
      * @return The ID of the program (subID)
      */
     const std::string & getProgramID() const {
@@ -164,7 +164,7 @@ public:
 
 private:
     /// @brief The number of participating links
-    unsigned int myNoLinks;
+    unsigned int myNumLinks;
 
     /// @brief The tls program's subid
     const std::string mySubID;

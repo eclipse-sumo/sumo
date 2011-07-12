@@ -226,7 +226,7 @@ protected:
     /// The maximum velocity over all lanes
     static SUMOReal myAllMaxSpeed;
 
-    /// The lane index 
+    /// The lane index
     unsigned int myIndex;
 
 private:

@@ -55,50 +55,50 @@ inline std::string toString(const T& t, std::streamsize accuracy=OUTPUT_ACCURACY
 
 template <>
 inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::Tags.getString(tag);
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::Tags.getString(tag);
 }
 
 
 template <>
 inline std::string toString<SumoXMLAttr>(const SumoXMLAttr& attr, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::Attrs.getString(attr);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::Attrs.getString(attr);
+}
 
 
 template <>
 inline std::string toString<SumoXMLNodeType>(const SumoXMLNodeType& nodeType, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::NodeTypes.getString(nodeType);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::NodeTypes.getString(nodeType);
+}
 
 
 template <>
 inline std::string toString<SUMOVehicleClass>(const SUMOVehicleClass& vClass, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SumoVehicleClassStrings.getString(vClass);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SumoVehicleClassStrings.getString(vClass);
+}
 
 
 template <>
 inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
+}
 
 
 template <>
 inline std::string toString<LinkState>(const LinkState& linkState, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::LinkStates.getString(linkState);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::LinkStates.getString(linkState);
+}
 
 template <>
 inline std::string toString<LinkDirection>(const LinkDirection& linkDir, std::streamsize accuracy) {
-     UNUSED_PARAMETER(accuracy);
-     return SUMOXMLDefinitions::LinkDirections.getString(linkDir);
-} 
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::LinkDirections.getString(linkDir);
+}
 
 #endif
 

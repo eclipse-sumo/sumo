@@ -72,7 +72,7 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
     // route computation is enabled
     bool haveByNumber = false;
     if (oc.getBool("device.hbefa.deterministic")) {
-		haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.hbefa.probability"));
+        haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.hbefa.probability"));
     } else {
         haveByNumber = RandHelper::rand()<=oc.getFloat("device.hbefa.probability");
     }

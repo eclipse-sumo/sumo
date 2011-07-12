@@ -208,16 +208,15 @@ GUISettingsHandler::myStartElement(int element,
 }
 
 
-GUIVisualizationTextSettings 
+GUIVisualizationTextSettings
 GUISettingsHandler::parseTextSettings(
-        const std::string &prefix, const SUMOSAXAttributes &attrs,
-        GUIVisualizationTextSettings defaults) 
-{
+    const std::string &prefix, const SUMOSAXAttributes &attrs,
+    GUIVisualizationTextSettings defaults) {
     bool ok;
     return GUIVisualizationTextSettings(
-            TplConvert<char>::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
-            TplConvert<char>::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
-            RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
+               TplConvert<char>::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
+               TplConvert<char>::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
+               RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
 }
 
 

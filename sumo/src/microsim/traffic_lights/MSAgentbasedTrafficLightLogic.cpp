@@ -53,19 +53,19 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
         tSinceLastDecision(0), stepOfLastDecision(0) {
 
     tDecide = 1;
-    if(parameter.find("decision-horizon")!=parameter.end()) {
+    if (parameter.find("decision-horizon")!=parameter.end()) {
         tDecide = (unsigned int) TplConvert<char>::_2int(parameter.find("decision-horizon")->second.c_str());
     }
     numberOfValues = 3;
-    if(parameter.find("learn-horizon")!=parameter.end()) {
+    if (parameter.find("learn-horizon")!=parameter.end()) {
         numberOfValues = (unsigned int) TplConvert<char>::_2int(parameter.find("learn-horizon")->second.c_str());
     }
     tCycle = 90;
-    if(parameter.find("tcycle")!=parameter.end()) {
+    if (parameter.find("tcycle")!=parameter.end()) {
         tCycle = (unsigned int) TplConvert<char>::_2SUMOReal(parameter.find("tcycle")->second.c_str());
     }
     deltaLimit = 1;
-    if(parameter.find("min-diff")!=parameter.end()) {
+    if (parameter.find("min-diff")!=parameter.end()) {
         deltaLimit = TplConvert<char>::_2int(parameter.find("min-diff")->second.c_str());
     }
 }

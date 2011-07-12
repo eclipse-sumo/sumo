@@ -257,7 +257,7 @@ public:
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
         VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep,
-			const std::string &typeID) throw()
+                    const std::string &typeID) throw()
                 : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
                 speedM(lengthM / ((leaveTimeM - entryTimeM))), typeIDM(typeID) {}
 
@@ -271,7 +271,7 @@ public:
         SUMOReal leaveTimeM;
         /** @brief Speed of the vehicle in [m/s]. */
         SUMOReal speedM;
-		std::string typeIDM;
+        std::string typeIDM;
     };
 
 

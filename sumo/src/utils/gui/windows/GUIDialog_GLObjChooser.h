@@ -66,7 +66,7 @@ public:
      * @param[in] glStorage The storage to retrieve ids from
      */
     GUIDialog_GLObjChooser(GUIGlChildWindow *parent, FXIcon *icon, const FXString &title,
-                           GUIGlObjectType type, 
+                           GUIGlObjectType type,
                            const std::vector<GUIGlID> &ids,
                            GUIGlObjectStorage &glStorage);
 

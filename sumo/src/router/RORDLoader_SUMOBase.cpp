@@ -60,8 +60,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
         myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
         mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
-        myHaveWarnedAboutDeprecatedVType(false) 
-{
+        myHaveWarnedAboutDeprecatedVType(false) {
 }
 
 
@@ -92,9 +91,9 @@ RORDLoader_SUMOBase::myStartElement(int element,
         myCurrentIsOk = myVehicleParameter!=0;
         break;
     case SUMO_TAG_VTYPE__DEPRECATED:
-	    if(!myHaveWarnedAboutDeprecatedVType) {
-		    myHaveWarnedAboutDeprecatedVType = true;
-			WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+        if (!myHaveWarnedAboutDeprecatedVType) {
+            myHaveWarnedAboutDeprecatedVType = true;
+            WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
         }
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
@@ -151,8 +150,8 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         myColor = new RGBColor(RGBColor::parseColorReporting(
-                    attrs.getString(SUMO_ATTR_COLOR), 
-                    attrs.getObjectType(), myCurrentRouteName.c_str(), true, myCurrentIsOk));
+                                   attrs.getString(SUMO_ATTR_COLOR),
+                                   attrs.getObjectType(), myCurrentRouteName.c_str(), true, myCurrentIsOk));
     }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk));
@@ -188,7 +187,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
     }
     // build the alternative cont
     myCurrentAlternatives = new RORouteDef_Alternatives(id, index, myBeta, myGawronA, myLogitGamma,
-                                                        myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
+            myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
 }
 
 void

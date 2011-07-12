@@ -49,8 +49,7 @@ bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
 // method definitions
 // ===========================================================================
 SUMOSAXAttributes::SUMOSAXAttributes(const std::string &objectType) throw():
-    myObjectType(objectType)
-{}
+        myObjectType(objectType) {}
 
 
 int

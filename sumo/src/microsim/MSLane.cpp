@@ -69,7 +69,7 @@ MSLane::DictType MSLane::myDict;
 // member method definitions
 // ===========================================================================
 MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-               unsigned int numericalID, const PositionVector &shape, SUMOReal width, 
+               unsigned int numericalID, const PositionVector &shape, SUMOReal width,
                const SUMOVehicleClasses &allowed,
                const SUMOVehicleClasses &disallowed) throw()
         : myShape(shape), myID(id), myNumericalID(numericalID),
@@ -246,7 +246,7 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) throw() {
 
 bool
 MSLane::freeInsertion(MSVehicle& veh, SUMOReal mspeed,
-                 MSMoveReminder::Notification notification) throw() {
+                      MSMoveReminder::Notification notification) throw() {
     bool adaptableSpeed = true;
     if (myVehicles.size()==0) {
         if (isInsertionSuccess(&veh, mspeed, 0, adaptableSpeed, notification)) {
@@ -385,8 +385,8 @@ MSLane::insertVehicle(MSVehicle& veh) throw(ProcessError) {
 
 bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
-                          SUMOReal speed, SUMOReal pos, bool patchSpeed,
-                          MSMoveReminder::Notification notification) throw(ProcessError) {
+                           SUMOReal speed, SUMOReal pos, bool patchSpeed,
+                           MSMoveReminder::Notification notification) throw(ProcessError) {
     aVehicle->getBestLanes(true, this);
     const MSCFModel &cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
@@ -696,7 +696,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
 bool
 MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     // move critical vehicles
-    for (VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); ) {
+    for (VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         MSVehicle *veh = *i;
         bool moved = veh->moveChecked();
         MSLane *target = veh->getLane();
@@ -706,7 +706,7 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (target!=0&&moved) {
-            if(target->getEdge().isVaporizing()) {
+            if (target->getEdge().isVaporizing()) {
                 // vehicle has reached a vaporizing edge
                 veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);

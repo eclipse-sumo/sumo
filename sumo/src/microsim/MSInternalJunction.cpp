@@ -66,7 +66,7 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
         const MSLinkCont &lc = l->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             MSLane *via = (*j)->getViaLane();
-            if(std::find(myInternalLanes.begin(), myInternalLanes.end(), via)==myInternalLanes.end()) {
+            if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via)==myInternalLanes.end()) {
                 continue;
             }
             myInternalLinkFoes.push_back(*j);

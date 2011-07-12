@@ -66,9 +66,9 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
 void
 RORDLoader_TripDefs::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    if(element==SUMO_TAG_TRIP__DEPRECATED&&!myHaveWarnedAboutDeprecatedTripDef) {
-	    myHaveWarnedAboutDeprecatedTripDef = true;
-		WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
+    if (element==SUMO_TAG_TRIP__DEPRECATED&&!myHaveWarnedAboutDeprecatedTripDef) {
+        myHaveWarnedAboutDeprecatedTripDef = true;
+        WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
     }
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIP||element==SUMO_TAG_TRIP__DEPRECATED) {

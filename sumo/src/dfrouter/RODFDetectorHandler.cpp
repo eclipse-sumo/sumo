@@ -51,8 +51,7 @@ RODFDetectorHandler::RODFDetectorHandler(RODFNet *optNet, bool ignoreErrors, ROD
         const std::string &file)
         : SUMOSAXHandler(file),
         myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con),
-		myHaveWarnedAboutDeprecatedDetectorDefinition(false)
-{}
+        myHaveWarnedAboutDeprecatedDetectorDefinition(false) {}
 
 
 RODFDetectorHandler::~RODFDetectorHandler() throw() {}
@@ -62,9 +61,9 @@ void
 RODFDetectorHandler::myStartElement(int element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED&&!myHaveWarnedAboutDeprecatedDetectorDefinition) {
-		myHaveWarnedAboutDeprecatedDetectorDefinition = true;
+        myHaveWarnedAboutDeprecatedDetectorDefinition = true;
         WRITE_WARNING("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
-	}
+    }
     if (element==SUMO_TAG_DETECTOR_DEFINITION||element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) {
         try {
             bool ok = true;

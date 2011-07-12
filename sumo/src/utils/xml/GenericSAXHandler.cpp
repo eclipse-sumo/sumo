@@ -46,9 +46,9 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-        StringBijection<int>::Entry *tags, int terminatorTag,
-        StringBijection<int>::Entry *attrs, int terminatorAttr,
-        const std::string &file)
+    StringBijection<int>::Entry *tags, int terminatorTag,
+    StringBijection<int>::Entry *attrs, int terminatorAttr,
+    const std::string &file)
         : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
     while (tags[i].key != terminatorTag) {

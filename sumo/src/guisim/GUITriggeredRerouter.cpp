@@ -230,9 +230,9 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(
-        const std::string &id,
-        const std::vector<MSEdge*> &edges,
-        SUMOReal prob, const std::string &aXMLFilename, bool off)
+    const std::string &id,
+    const std::vector<MSEdge*> &edges,
+    SUMOReal prob, const std::string &aXMLFilename, bool off)
         : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
         GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     size_t k;

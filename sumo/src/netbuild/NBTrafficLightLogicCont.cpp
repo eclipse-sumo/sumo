@@ -77,13 +77,13 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
 bool
 NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
     if (myDefinitions.count(logic->getID())) {
-		if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
+        if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
             return false;
-		}
+        }
     } else {
         myDefinitions[logic->getID()] = Program2Def();
     }
-	myDefinitions[logic->getID()][logic->getProgramID()] = logic;
+    myDefinitions[logic->getID()][logic->getProgramID()] = logic;
     return true;
 }
 
@@ -91,7 +91,7 @@ NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
 bool
 NBTrafficLightLogicCont::removeFully(const std::string id) {
     if (myDefinitions.count(id)) {
-        // delete all programs 
+        // delete all programs
         for (Program2Def::iterator i = myDefinitions[id].begin(); i != myDefinitions[id].end(); i++) {
             delete i->second;
         }
@@ -129,7 +129,7 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
         const std::string& id = it_id->first;
         const Program2Def& programs = it_id->second;
         for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-            const std::string& programID = it_prog->first; 
+            const std::string& programID = it_prog->first;
             // check for previous computation
             if (myComputed.count(id) && myComputed[id].count(programID)) {
                 delete myComputed[id][programID];
@@ -156,8 +156,8 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
         }
 
     }
-    unsigned int numIDs = myComputed.size();
-    std::string progCount = ""; 
+    unsigned int numIDs = (unsigned int)myComputed.size();
+    std::string progCount = "";
     if (numPrograms != numIDs) {
         progCount = "(" + toString(numPrograms) + " programs) ";
     }
@@ -253,7 +253,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw
 }
 
 
-NBTrafficLightLogicCont::Logics 
+NBTrafficLightLogicCont::Logics
 NBTrafficLightLogicCont::getComputed() const {
     Logics result;
     for (Id2Logics::const_iterator it_id = myComputed.begin(); it_id != myComputed.end(); it_id++) {
@@ -266,7 +266,7 @@ NBTrafficLightLogicCont::getComputed() const {
 }
 
 
-NBTrafficLightLogicCont::Definitions 
+NBTrafficLightLogicCont::Definitions
 NBTrafficLightLogicCont::getDefinitions() const {
     Definitions result;
     for (Id2Defs::const_iterator it_id = myDefinitions.begin(); it_id != myDefinitions.end(); it_id++) {

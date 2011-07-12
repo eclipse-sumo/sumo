@@ -42,15 +42,14 @@
 // method definitions
 // ===========================================================================
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
-        GUISUMOAbstractView &callBack, const Boundary& viewPort) : 
-    GUIPerspectiveChanger(callBack, viewPort),
-    myOrigWidth(viewPort.getWidth()),
-    myOrigHeight(viewPort.getHeight()),
-    myRotation(0),
-    myMouseButtonState(MOUSEBTN_NONE), 
-    myMoveOnClick(false),
-    myDragDelay(0)
-{}
+    GUISUMOAbstractView &callBack, const Boundary& viewPort) :
+        GUIPerspectiveChanger(callBack, viewPort),
+        myOrigWidth(viewPort.getWidth()),
+        myOrigHeight(viewPort.getHeight()),
+        myRotation(0),
+        myMouseButtonState(MOUSEBTN_NONE),
+        myMoveOnClick(false),
+        myDragDelay(0) {}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -70,10 +69,10 @@ GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
     }
     if (factor > 0) {
         myViewPort = Boundary(
-                myZoomBase.x() - (myZoomBase.x() - myViewPort.xmin()) / factor,
-                myZoomBase.y() - (myZoomBase.y() - myViewPort.ymin()) / factor,
-                myZoomBase.x() - (myZoomBase.x() - myViewPort.xmax()) / factor,
-                myZoomBase.y() - (myZoomBase.y() - myViewPort.ymax()) / factor);
+                         myZoomBase.x() - (myZoomBase.x() - myViewPort.xmin()) / factor,
+                         myZoomBase.y() - (myZoomBase.y() - myViewPort.ymin()) / factor,
+                         myZoomBase.x() - (myZoomBase.x() - myViewPort.xmax()) / factor,
+                         myZoomBase.y() - (myZoomBase.y() - myViewPort.ymax()) / factor);
         myCallback.update();
     }
 }
@@ -118,7 +117,7 @@ GUIDanielPerspectiveChanger::centerTo(const Position &pos, SUMOReal radius,
     if (applyZoom) {
         myViewPort = Boundary();
         myViewPort.add(pos);
-        myViewPort.grow(radius); 
+        myViewPort.grow(radius);
     } else {
         myViewPort.moveby(pos.x() - getXPos(), pos.y() - getYPos());
     }
@@ -231,19 +230,19 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
     const SUMOReal zoomFactor = zoom / 50; // /100 to normalize, *2 because growth is added on both sides
     myViewPort = Boundary();
     myViewPort.add(Position(xPos, yPos));
-    myViewPort.growHeight(myOrigHeight / zoomFactor); 
+    myViewPort.growHeight(myOrigHeight / zoomFactor);
     myViewPort.growWidth(myOrigWidth / zoomFactor);
     myCallback.update();
 }
 
 
-void 
+void
 GUIDanielPerspectiveChanger::changeCanvassLeft(int change) {
     myViewPort = Boundary(
-            myViewPort.xmin() - myCallback.p2m(change), 
-            myViewPort.ymin(),
-            myViewPort.xmax(),
-            myViewPort.ymax());
+                     myViewPort.xmin() - myCallback.p2m(change),
+                     myViewPort.ymin(),
+                     myViewPort.xmax(),
+                     myViewPort.ymax());
 }
 
 /****************************************************************************/

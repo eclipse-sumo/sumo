@@ -76,11 +76,11 @@ private:
     /// the container to put the detectors into
     RODFDetectorCon &myContainer;
 
-	bool myHaveWarnedAboutDeprecatedDetectorDefinition;
+    bool myHaveWarnedAboutDeprecatedDetectorDefinition;
 
 
 private:
-	/// invalidated copy constructor
+    /// invalidated copy constructor
     RODFDetectorHandler(const RODFDetectorHandler &src);
 
     /// invalidated assignment operator

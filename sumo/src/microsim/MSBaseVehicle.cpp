@@ -260,7 +260,7 @@ MSBaseVehicle::removeReminder(MSMoveReminder* rem) throw() {
     for (MoveReminderCont::iterator r=myMoveReminders.begin(); r!=myMoveReminders.end(); ++r) {
         if (r->first == rem) {
             myMoveReminders.erase(r);
-			return;
+            return;
         }
     }
 }

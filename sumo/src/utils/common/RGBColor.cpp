@@ -99,7 +99,7 @@ RGBColor::operator!=(const RGBColor &c) const {
 }
 
 
-RGBColor 
+RGBColor
 RGBColor::changedBrightness(SUMOReal change) {
     SUMOReal red = MIN2(MAX2(myRed + change, (SUMOReal)0), (SUMOReal)1);
     SUMOReal blue = MIN2(MAX2(myBlue + change, (SUMOReal)0), (SUMOReal)1);
@@ -123,8 +123,8 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
 
 RGBColor
 RGBColor::parseColorReporting(
-        const std::string &coldef, const std::string &objecttype, 
-        const char *objectid, bool report, bool &ok) throw() {
+    const std::string &coldef, const std::string &objecttype,
+    const char *objectid, bool report, bool &ok) throw() {
     UNUSED_PARAMETER(report);
     try {
         return parseColor(coldef);

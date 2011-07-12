@@ -61,7 +61,7 @@ ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_DISTRICT__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDistrict) {
+        if (!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
         }
@@ -69,7 +69,7 @@ ODDistrictHandler::myStartElement(int element,
         openDistrict(attrs);
         break;
     case SUMO_TAG_DSOURCE__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSource) {
+        if (!myHaveWarnedAboutDeprecatedDSource) {
             myHaveWarnedAboutDeprecatedDSource = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
         }
@@ -77,7 +77,7 @@ ODDistrictHandler::myStartElement(int element,
         addSource(attrs);
         break;
     case SUMO_TAG_DSINK__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSink) {
+        if (!myHaveWarnedAboutDeprecatedDSink) {
             myHaveWarnedAboutDeprecatedDSink = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
         }
@@ -146,8 +146,8 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs) throw() {
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight<0) {
-            WRITE_ERROR("'probability' must be positive (in definition of " + 
-                    attrs.getObjectType() + " '" + id + "').");
+            WRITE_ERROR("'probability' must be positive (in definition of " +
+                        attrs.getObjectType() + " '" + id + "').");
         } else {
             return std::pair<std::string, SUMOReal>(id, weight);
         }

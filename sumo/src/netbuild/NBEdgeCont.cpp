@@ -78,11 +78,11 @@ NBEdgeCont::applyOptions(OptionsCont &oc) {
     myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     if (oc.isSet("keep-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("keep-edges.explicit");
-		myEdges2Keep.insert(edges.begin(), edges.end());
+        myEdges2Keep.insert(edges.begin(), edges.end());
     }
     if (oc.isSet("remove-edges.explicit")) {
         const std::vector<std::string> edges = oc.getStringVector("remove-edges.explicit");
-		myEdges2Remove.insert(edges.begin(), edges.end());
+        myEdges2Remove.insert(edges.begin(), edges.end());
     }
     if (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
@@ -173,7 +173,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     }
     // check whether the edge shall be removed because it does not allow any of the wished classes
     if (myVehicleClasses2Keep.size()!=0) {
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses(); 
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
         // @todo also check disallowed
         if (allowed.size() > 0) {
             int matching = 0;
@@ -390,14 +390,14 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName,
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), edge->myWidth, 0, geoms.first, 
+                             edge->getPriority(), edge->myWidth, 0, geoms.first,
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNumLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge *two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second, 
+                             edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second,
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNumLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
@@ -427,16 +427,16 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
             }
         }
     }
-	if (myRemoveEdgesAfterJoining) {
-		if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID())!=myEdges2Keep.end()) {
-			myEdges2Keep.insert(one->getID());
-			myEdges2Keep.insert(two->getID());
-		}
-		if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID())!=myEdges2Remove.end()) {
-			myEdges2Remove.insert(one->getID());
-			myEdges2Remove.insert(two->getID());
-		}
-	}
+    if (myRemoveEdgesAfterJoining) {
+        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID())!=myEdges2Keep.end()) {
+            myEdges2Keep.insert(one->getID());
+            myEdges2Keep.insert(two->getID());
+        }
+        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID())!=myEdges2Remove.end()) {
+            myEdges2Remove.insert(one->getID());
+            myEdges2Remove.insert(two->getID());
+        }
+    }
     // erase the splitted edge
     erase(dc, edge);
     insert(one, true);
@@ -572,9 +572,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // build the new edge
     // @bug new edge does not know about allowed vclass of old edges
     // @bug both the width and the offset are not regarded
-    NBEdge *newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority, 
-            NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
-            tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
+    NBEdge *newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
+                                 NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
+                                 tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
     insert(newEdge, true);
     // replace old edge by current within the nodes
     //  and delete the old
@@ -615,7 +615,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
     EdgeVector toRemove;
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
-		if (!myEdges2Keep.count(edge->getID())) {
+        if (!myEdges2Keep.count(edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             toRemove.push_back(edge);

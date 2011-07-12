@@ -57,15 +57,14 @@ FXIMPLEMENT(GUIGlChildWindow,FXMDIChild,GUIGlChildWindowMap,ARRAYNUMBER(GUIGlChi
 // member method definitions
 // ===========================================================================
 GUIGlChildWindow::GUIGlChildWindow(
-        FXMDIClient* p,
-        GUIMainWindow *parentWindow,
-        FXMDIMenu *mdimenu, const FXString& name,
-        FXIcon* ic,
-        FXuint opts,FXint x, FXint y, FXint w, FXint h) : 
-    FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
-    myView(0),
-    myParent(parentWindow)
-{
+    FXMDIClient* p,
+    GUIMainWindow *parentWindow,
+    FXMDIMenu *mdimenu, const FXString& name,
+    FXIcon* ic,
+    FXuint opts,FXint x, FXint y, FXint w, FXint h) :
+        FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
+        myView(0),
+        myParent(parentWindow) {
     // Make MDI Window Menu
     setTracking();
     myContentFrame =
@@ -110,7 +109,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
                  ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // toggle button for zooming style
     MFXCheckableButton *zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
-            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.", 
+            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
             GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE,
             BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
             0,0, 23,23);
@@ -226,8 +225,8 @@ long
 GUIGlChildWindow::onCmdZoomStyle(FXObject*sender,FXSelector,void*) {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
-    getApp()->reg().writeIntEntry("gui","zoomAtCenter", 
-            button->amChecked() ? 0 : 1); 
+    getApp()->reg().writeIntEntry("gui","zoomAtCenter",
+                                  button->amChecked() ? 0 : 1);
     update();
     myView->update();
     return 1;
@@ -243,13 +242,13 @@ GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data) {
 
 void
 GUIGlChildWindow::setView(GUIGlID id) {
-    // this is used by the locator widget. zoom using fixed distance makes it easier to identify objects 
+    // this is used by the locator widget. zoom using fixed distance makes it easier to identify objects
     // (long streets in particular)
     myView->centerTo(id, true);
 }
 
 
-bool 
+bool
 GUIGlChildWindow::isSelected(GUIGlObject *o) const {
     return gSelected.isSelected(o->getType(), o->getGlID());
 }

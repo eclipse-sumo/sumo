@@ -169,7 +169,7 @@ public:
     /// Prints to the output
     friend std::ostream &operator<<(std::ostream &os, const Position &p) {
         os << p.x() << "," << p.y();
-        if(p.z()!=SUMOReal(0.0)) {
+        if (p.z()!=SUMOReal(0.0)) {
             os << "," << p.z();
         }
         return os;

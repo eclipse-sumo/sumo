@@ -161,13 +161,13 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
         frompos = attrs.getOptSUMORealReporting(SUMO_ATTR_FROM, id.c_str(), ok, 0);
         topos = attrs.getOptSUMORealReporting(SUMO_ATTR_TO, id.c_str(), ok, lane->getLength());
     }
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
-	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
+    const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                             ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                             : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), 10., friendlyPos)) {
         throw InvalidArgument("Invalid position for bus stop '" + id + "'.");
     }
@@ -193,7 +193,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     MSLane *lane = getLane(attrs, "calibrator", id);
     const SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     if (MSGlobals::gUseMesoSim) {
-	    const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
+        const SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, DELTA_T); // !!! no error handling
         std::string file = getFileName(attrs, base, true);
         bool ok = true;
         std::string outfile = attrs.getOptStringReporting(SUMO_ATTR_OUTPUT, 0, ok, "");
@@ -323,15 +323,15 @@ SUMOReal
 NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs,
                               MSLane *lane,
                               const std::string &tt, const std::string &tid) throw(InvalidArgument) {
-		if(attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-			myHaveWarnedAboutDeprecatedFriendlyPos = true;
-			WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-		}
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
     bool ok = true;
     SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
-	const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-		? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, 0, ok, false)
-		: attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
+    const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                             ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, 0, ok, false)
+                             : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
     if (!ok) {
         throw InvalidArgument("Error on parsing a position information.");
     }

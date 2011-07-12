@@ -252,7 +252,7 @@ extern void initGuiShapeNames();
 // abstract vehicle class / purpose
 // ---------------------------------------------------------------------------
 /* @brief SUMOVehicleClass is meant to be OR'ed to combine information about vehicle
- * ownership and vehicle "size" into one int. 
+ * ownership and vehicle "size" into one int.
  * These OR'ed values cannot be translated directly into strings with toString().
  * The names of all base values are concatenated with '|' as a separator.
  */
@@ -269,7 +269,7 @@ extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids);
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class
  * @return The internal representation of this class. Name must not be a
- * compound name 
+ * compound name
  */
 extern SUMOVehicleClass getVehicleClassID(const std::string &name);
 

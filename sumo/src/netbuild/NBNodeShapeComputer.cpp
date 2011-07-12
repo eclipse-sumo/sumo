@@ -115,16 +115,16 @@ computeSameEnd(PositionVector& l1, PositionVector &l2) {
     if (l1.intersects(tmp.p1(), tmp.p2())) {
         SUMOReal offset1 = l1.intersectsAtLengths(tmp)[0];
         Line tl1 = Line(
-                         l1.lineAt(0).getPositionAtDistance(offset1),
-                         l1[1]);
+                       l1.lineAt(0).getPositionAtDistance(offset1),
+                       l1[1]);
         tl1.extrapolateBy(100);
         l1.replaceAt(0, tl1.p1());
     }
     if (l2.intersects(tmp.p1(), tmp.p2())) {
         SUMOReal offset2 = l2.intersectsAtLengths(tmp)[0];
         Line tl2 = Line(
-                         l2.lineAt(0).getPositionAtDistance(offset2),
-                         l2[1]);
+                       l2.lineAt(0).getPositionAtDistance(offset2),
+                       l2[1]);
         tl2.extrapolateBy(100);
         l2.replaceAt(0, tl2.p1());
     }
@@ -399,11 +399,11 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         assert(geomsCW.find(*ccwi)!=geomsCW.end());
         assert(geomsCW.find(*cwi)!=geomsCW.end());
         Position p1 = distances.find(*cwi)!=distances.end()&&distances[*cwi]!=-1
-                        ? geomsCCW[*cwi].positionAtLengthPosition(distances[*cwi])
-                        : geomsCCW[*cwi].positionAtLengthPosition((SUMOReal) -.1);
+                      ? geomsCCW[*cwi].positionAtLengthPosition(distances[*cwi])
+                      : geomsCCW[*cwi].positionAtLengthPosition((SUMOReal) -.1);
         Position p2 = distances.find(*ccwi)!=distances.end()&&distances[*ccwi]!=-1
-                        ? geomsCW[*ccwi].positionAtLengthPosition(distances[*ccwi])
-                        : geomsCW[*ccwi].positionAtLengthPosition((SUMOReal) -.1);
+                      ? geomsCW[*ccwi].positionAtLengthPosition(distances[*ccwi])
+                      : geomsCW[*ccwi].positionAtLengthPosition((SUMOReal) -.1);
         Line l(p1, p2);
         l.extrapolateBy(1000);
         SUMOReal angleI = geomsCCW[*i].lineAt(0).atan2PositiveAngle();

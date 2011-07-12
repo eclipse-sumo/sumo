@@ -88,8 +88,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
                                      GUIMainWindow *parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
-        : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h)
-{
+        : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
     myParent->addChild(this, false);
 }
 
@@ -147,50 +146,50 @@ GUISUMOViewParent::onCmdLocate(FXObject *,FXSelector sel,void*) {
     GUIIcon icon;
     std::string title;
     switch (FXSELID(sel)) {
-        case MID_LOCATEJUNCTION: 
-            type = GLO_JUNCTION;
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-            icon = ICON_LOCATEJUNCTION;
-            title = "Junction Chooser";
-            break;
-        case MID_LOCATEEDGE:
-            type = GLO_EDGE;
-            ids = GUIEdge::getIDs(myParent->listInternal());
-            icon = ICON_LOCATEEDGE;
-            title = "Edge Chooser";
-            break;
-        case MID_LOCATEVEHICLE:
-            type = GLO_VEHICLE;
-            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
-            icon = ICON_LOCATEVEHICLE;
-            title = "Vehicle Chooser";
-            break;
-        case MID_LOCATETLS:
-            type = GLO_TLLOGIC;
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-            icon = ICON_LOCATETLS;
-            title = "Traffic Lights Chooser";
-            break;
-        case MID_LOCATEADD:
-            type = GLO_ADDITIONAL;
-            ids = GUIGlObject_AbstractAdd::getIDList();
-            icon = ICON_LOCATEADD;
-            title = "Additional Objects Chooser";
-            break;
-        case MID_LOCATESHAPE:
-            type = GLO_SHAPE;
-            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
-            icon = ICON_LOCATESHAPE;
-            title = "Shape Chooser";
-            break;
-        default:
-            throw ProcessError("Unknown Message ID in onCmdLocate");
+    case MID_LOCATEJUNCTION:
+        type = GLO_JUNCTION;
+        ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
+        icon = ICON_LOCATEJUNCTION;
+        title = "Junction Chooser";
+        break;
+    case MID_LOCATEEDGE:
+        type = GLO_EDGE;
+        ids = GUIEdge::getIDs(myParent->listInternal());
+        icon = ICON_LOCATEEDGE;
+        title = "Edge Chooser";
+        break;
+    case MID_LOCATEVEHICLE:
+        type = GLO_VEHICLE;
+        static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
+        icon = ICON_LOCATEVEHICLE;
+        title = "Vehicle Chooser";
+        break;
+    case MID_LOCATETLS:
+        type = GLO_TLLOGIC;
+        ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
+        icon = ICON_LOCATETLS;
+        title = "Traffic Lights Chooser";
+        break;
+    case MID_LOCATEADD:
+        type = GLO_ADDITIONAL;
+        ids = GUIGlObject_AbstractAdd::getIDList();
+        icon = ICON_LOCATEADD;
+        title = "Additional Objects Chooser";
+        break;
+    case MID_LOCATESHAPE:
+        type = GLO_SHAPE;
+        ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
+        icon = ICON_LOCATESHAPE;
+        title = "Shape Chooser";
+        break;
+    default:
+        throw ProcessError("Unknown Message ID in onCmdLocate");
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     GUIDialog_GLObjChooser *chooser = new GUIDialog_GLObjChooser(
-            this, GUIIconSubSys::getIcon(icon), title.c_str(), type, ids, GUIGlObjectStorage::gIDStorage);
+        this, GUIIconSubSys::getIcon(icon), title.c_str(), type, ids, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
@@ -205,7 +204,7 @@ GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
 }
 
 
-bool 
+bool
 GUISUMOViewParent::isSelected(GUIGlObject *o) const {
     GUIGlObjectType type = o->getType();
     if (gSelected.isSelected(type, o->getGlID())) {

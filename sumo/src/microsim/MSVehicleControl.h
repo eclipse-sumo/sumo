@@ -224,10 +224,10 @@ public:
      * @return True iff the vehicle number is acceptable
      */
     bool isInQuota(const SUMOReal frac) const throw() {
-		if (MSGlobals::gFractions.find(frac) == MSGlobals::gFractions.end()) {
-			return (myLoadedVehNo-1) % 1000 < (unsigned int)(frac*1000.);
-		}
-		return (myLoadedVehNo-1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
+        if (MSGlobals::gFractions.find(frac) == MSGlobals::gFractions.end()) {
+            return (myLoadedVehNo-1) % 1000 < (unsigned int)(frac*1000.);
+        }
+        return (myLoadedVehNo-1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
     }
 
 

@@ -153,7 +153,7 @@ MSLaneSpeedTrigger::myStartElement(int element,
         return;
     }
     // set the values for the next step if they are valid
-    if(myLoadedSpeeds.size()!=0&&myLoadedSpeeds.back().first==next) {
+    if (myLoadedSpeeds.size()!=0&&myLoadedSpeeds.back().first==next) {
         WRITE_WARNING("Time " + time2string(next) + " was set twice for vss '" + getID() + "'; replacing first entry.");
         myLoadedSpeeds.back().second = speed;
     } else {

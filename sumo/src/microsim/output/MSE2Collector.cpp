@@ -194,7 +194,7 @@ MSE2Collector::update(SUMOTime) throw() {
             //  so let's look up whether it was halting before and compute the overall halting time
             bool wasHalting = myHaltingVehicleDurations.find(veh)!=myHaltingVehicleDurations.end();
             if (wasHalting) {
-				haltingVehicles[veh] = myHaltingVehicleDurations[veh] + DELTA_T;
+                haltingVehicles[veh] = myHaltingVehicleDurations[veh] + DELTA_T;
                 intervalHaltingVehicles[veh] = myIntervalHaltingVehicleDurations[veh] + DELTA_T;
             } else {
                 haltingVehicles[veh] = DELTA_T;

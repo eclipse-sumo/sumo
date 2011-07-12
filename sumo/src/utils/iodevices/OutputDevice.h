@@ -223,7 +223,7 @@ public:
      */
     bool closeTag(bool abbreviated=false) throw();
 
-    /** @brief writes an named attribute 
+    /** @brief writes an named attribute
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value

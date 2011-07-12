@@ -64,7 +64,7 @@ public:
     void initGeometry() throw();
 
 
-    /* @brief Returns the gl-ids of all known edges 
+    /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
      */
     static std::vector<GUIGlID> getIDs(bool includeInternal);

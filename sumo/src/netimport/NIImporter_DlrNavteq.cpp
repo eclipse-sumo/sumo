@@ -133,9 +133,9 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
     // intermediate?
     stream >> intermediate;
     if (stream.fail()) {
-		if (myNodeCont.size() == 0) { // be generous with extra data at beginning of file
-			return true;
-		}
+        if (myNodeCont.size() == 0) { // be generous with extra data at beginning of file
+            return true;
+        }
         throw ProcessError("Non-numerical value for intermediate status in node " + id + ".");
     }
     // number of geometrical information

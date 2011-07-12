@@ -62,7 +62,7 @@ MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myLaneChangeModel(lcModel),
         myEmissionClass(emissionClass), myColor(c),
-         myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
+        myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
         myOriginalType(0) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
@@ -261,10 +261,10 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         break;
     case SUMO_TAG_CF_WIEDEMANN:
         model = new MSCFModel_Wiedemann(vtype,
-                                       get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                       get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                       get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
-                                       get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
+                                        get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                        get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                        get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
+                                        get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
         break;
     case SUMO_TAG_CF_KRAUSS:
     default:

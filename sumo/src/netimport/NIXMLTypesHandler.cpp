@@ -71,7 +71,7 @@ NIXMLTypesHandler::myStartElement(int element,
     int noLanes = myTypeCont.getNumLanes("");
     if (attrs.hasAttribute(SUMO_ATTR_NOLANES__DEPRECATED)) {
         noLanes = attrs.getIntReporting(SUMO_ATTR_NOLANES__DEPRECATED, id.c_str(), ok);
-        if(!myHaveWarnedAboutDeprecatedNoLanes) {
+        if (!myHaveWarnedAboutDeprecatedNoLanes) {
             myHaveWarnedAboutDeprecatedNoLanes = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_NOLANES__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_NUMLANES) + "' instead.");
         }

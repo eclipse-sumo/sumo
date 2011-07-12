@@ -57,10 +57,9 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
         addName(false, 50, RGBColor(1., 0, .5)),
         poiName(false, 50, RGBColor(1., 0, .5)),
-        minPOISize(0), poiExaggeration(1), 
+        minPOISize(0), poiExaggeration(1),
         showSizeLegend(true),
-        gaming(false)
-{
+        gaming(false) {
 }
 
 
@@ -97,7 +96,7 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     dev << "        <edges laneEdgeMode=\"" << getLaneEdgeMode()
     << "\" laneShowBorders=\"" << laneShowBorders
     << "\" showLinkDecals=\"" << showLinkDecals
-    << "\" showRails=\"" << showRails 
+    << "\" showRails=\"" << showRails
     << "\" hideConnectors=\"" << hideConnectors << "\"\n"
     << "               " << edgeName.print("edgeName") << "\n"
     << "               " << internalEdgeName.print("internalEdgeName") << "\n"

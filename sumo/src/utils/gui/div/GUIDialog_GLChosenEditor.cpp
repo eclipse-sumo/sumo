@@ -138,7 +138,7 @@ GUIDialog_GLChosenEditor::rebuildList() throw() {
 }
 
 
-void 
+void
 GUIDialog_GLChosenEditor::selectionUpdated() {
     rebuildList();
     FXMainWindow::update();

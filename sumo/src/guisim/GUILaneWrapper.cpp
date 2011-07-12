@@ -76,12 +76,11 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw() : 
-    GUIGlObject(GLO_LANE, lane.getID()),
-    myLane(lane), 
-    myShape(shape),
-    myIndex(index)
-{
+GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw() :
+        GUIGlObject(GLO_LANE, lane.getID()),
+        myLane(lane),
+        myShape(shape),
+        myIndex(index) {
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
@@ -103,8 +102,8 @@ GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsign
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
     //
-    myHalfLaneWidth = (SUMOReal) (myLane.getWidth() / 2.);
-    myQuarterLaneWidth = (SUMOReal) (myLane.getWidth() / 4.);
+    myHalfLaneWidth = (SUMOReal)(myLane.getWidth() / 2.);
+    myQuarterLaneWidth = (SUMOReal)(myLane.getWidth() / 4.);
 }
 
 
@@ -144,7 +143,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
-                Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
+                           Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -175,7 +174,7 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
             continue;
         }
         GLHelper::drawText(toString(linkNo),
-                Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
+                           Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -217,21 +216,21 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
         SUMOReal x2 = x1 + w;
         LinkState state = getLane().getLinkCont()[i]->getState();
         switch (state) {
-            case LINKSTATE_TL_GREEN_MAJOR:
-            case LINKSTATE_TL_GREEN_MINOR:
-            case LINKSTATE_TL_RED:
-            case LINKSTATE_TL_YELLOW_MAJOR:
-            case LINKSTATE_TL_YELLOW_MINOR:
-            case LINKSTATE_TL_OFF_BLINKING:
-                glPushName(net.getLinkTLID(getLane().getLinkCont()[i]));
-                break;
-            case LINKSTATE_MAJOR:
-            case LINKSTATE_MINOR:
-            case LINKSTATE_EQUAL:
-            case LINKSTATE_TL_OFF_NOSIGNAL:
-            default:
-                glPushName(getGlID());
-                break;
+        case LINKSTATE_TL_GREEN_MAJOR:
+        case LINKSTATE_TL_GREEN_MINOR:
+        case LINKSTATE_TL_RED:
+        case LINKSTATE_TL_YELLOW_MAJOR:
+        case LINKSTATE_TL_YELLOW_MINOR:
+        case LINKSTATE_TL_OFF_BLINKING:
+            glPushName(net.getLinkTLID(getLane().getLinkCont()[i]));
+            break;
+        case LINKSTATE_MAJOR:
+        case LINKSTATE_MINOR:
+        case LINKSTATE_EQUAL:
+        case LINKSTATE_TL_OFF_NOSIGNAL:
+        default:
+            glPushName(getGlID());
+            break;
         }
         switch (state) {
         case LINKSTATE_TL_GREEN_MAJOR:
@@ -471,7 +470,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
     if (!MSGlobals::gUseMesoSim)
 #endif
         s.laneColorer.setGlColor(*this);
-    // optionally draw inverse markings 
+    // optionally draw inverse markings
     if (myIndex > 0) {
         int e = (int) getShape().size() - 1;
         for (int i=0; i<e; i++) {
@@ -492,10 +491,10 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
     // draw white boundings and white markings
     glColor3d(1,1,1);
     GLHelper::drawBoxLines(
-            getShape(), 
-            getShapeRotations(), 
-            getShapeLengths(), 
-            getHalfWidth() + SUMO_const_laneOffset);
+        getShape(),
+        getShapeRotations(),
+        getShapeLengths(),
+        getHalfWidth() + SUMO_const_laneOffset);
     glPopMatrix();
     glPopName();
 }
@@ -703,25 +702,25 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     case 14: {
         MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
         MSEdge &e = lane.getLane().getEdge();
-        if(!ews.knowsTravelTime(&e)) {
+        if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {
             SUMOReal value(0);
             ews.retrieveExistingTravelTime(&e, 0, 0, value);
             return value;
         }
-             }
+    }
     case 15: {
         MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
         MSEdge &e = lane.getLane().getEdge();
-        if(!ews.knowsTravelTime(&e)) {
+        if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {
             SUMOReal value(0);
             ews.retrieveExistingTravelTime(&e, 0, 0, value);
             return (lane.getLane().getLength() / lane.getLane().getMaxSpeed()) / (lane.getLane().getMaxSpeed() / value);
         }
-             }
+    }
     }
     return 0;
 }

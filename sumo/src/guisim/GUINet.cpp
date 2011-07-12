@@ -83,13 +83,12 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefiniti
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-               MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError) : 
-    MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
-    GUIGlObject(GLO_NETWORK, ""),
-    myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
-    myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) 
-{
-        GUIGlObjectStorage::gIDStorage.setNetObject(this);
+               MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError) :
+        MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
+        GUIGlObject(GLO_NETWORK, ""),
+        myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
+        myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
+    GUIGlObjectStorage::gIDStorage.setNetObject(this);
 }
 
 
@@ -258,7 +257,7 @@ std::vector<GUIGlID>
 GUINet::getJunctionIDs(bool includeInternal) const {
     std::vector<GUIGlID> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
-        if (!(*i)->isInner() || includeInternal) { 
+        if (!(*i)->isInner() || includeInternal) {
             ret.push_back((*i)->getGlID());
         }
     }

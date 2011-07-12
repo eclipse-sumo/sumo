@@ -78,21 +78,21 @@ GUIInductLoop::reset() throw() {
 }
 
 
-void 
+void
 GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
     myLock.lock();
     MSInductLoop::enterDetectorByMove(veh, entryTimestep);
     myLock.unlock();
 }
 
-void 
+void
 GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
     myLock.lock();
     MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
     myLock.unlock();
 }
 
-void 
+void
 GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
     myLock.lock();
     MSInductLoop::leaveDetectorByLaneChange(veh);
@@ -100,7 +100,7 @@ GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
 }
 
 
-std::vector<MSInductLoop::VehicleData> 
+std::vector<MSInductLoop::VehicleData>
 GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
     myLock.lock();
     std::vector<VehicleData> ret = MSInductLoop::collectVehiclesOnDet(t);

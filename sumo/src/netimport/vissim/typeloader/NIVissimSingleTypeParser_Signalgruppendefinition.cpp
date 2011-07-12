@@ -71,7 +71,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from) {
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     if (tl==0) {
         WRITE_ERROR("A traffic light group with an unknown traffic light occured.\n  Group-ID: " + toString<int>(id)
-                                               + "\n  TrafficLight-ID: " + toString<int>(lsaid));
+                    + "\n  TrafficLight-ID: " + toString<int>(lsaid));
         return false;
     }
     std::string type = tl->getType();

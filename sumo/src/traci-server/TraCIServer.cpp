@@ -312,8 +312,8 @@ TraCIServer::dispatchCommand() {
                 writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");
                 myOutputStorage.writeStorage(tempMsg);
             }
-                                     }
-            break;
+        }
+        break;
         case CMD_ADDVEHICLE:
             if (!myHaveWarnedDeprecation) {
                 WRITE_WARNING("Using old TraCI API, please update your client!");
@@ -332,8 +332,8 @@ TraCIServer::dispatchCommand() {
                 writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_OK, "");
                 myOutputStorage.writeStorage(tempMsg);
             }
-                                  }
-            break;
+        }
+        break;
         case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
         case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
         case CMD_SUBSCRIBE_TL_VARIABLE:
@@ -623,12 +623,12 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
             while (--length>0) tmpOutput.readUnsignedByte();
             int lengthLength = 1;
             length = tmpOutput.readUnsignedByte();
-            if(length==0) {
+            if (length==0) {
                 lengthLength = 5;
                 length = tmpOutput.readInt();
             }
-            //read responseType 
-			tmpOutput.readUnsignedByte();
+            //read responseType
+            tmpOutput.readUnsignedByte();
             int variable = tmpOutput.readUnsignedByte();
             std::string id = tmpOutput.readString();
             outputStorage.writeUnsignedByte(variable);
@@ -638,12 +638,12 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
                 outputStorage.writeUnsignedByte(tmpOutput.readUnsignedByte());
             }
         } else {
-            //read length 
-			tmpOutput.readUnsignedByte();
+            //read length
+            tmpOutput.readUnsignedByte();
             //read cmd
-			tmpOutput.readUnsignedByte();
+            tmpOutput.readUnsignedByte();
             //read status
-			tmpOutput.readUnsignedByte();
+            tmpOutput.readUnsignedByte();
             std::string msg = tmpOutput.readString();
             outputStorage.writeUnsignedByte(*i);
             outputStorage.writeUnsignedByte(RTYPE_ERR);
@@ -661,10 +661,10 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
     return ok;
 }
 
-void 
+void
 TraCIServer::writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg) {
-    if(tempMsg.size()<254) {
-        outputStorage.writeUnsignedByte(1 + tempMsg.size()); // command length -> short
+    if (tempMsg.size()<254) {
+        outputStorage.writeUnsignedByte(1 + (int)tempMsg.size()); // command length -> short
     } else {
         outputStorage.writeUnsignedByte(0); // command length -> extended
         outputStorage.writeInt(1 + 4 + (int)tempMsg.size());

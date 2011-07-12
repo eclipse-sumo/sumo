@@ -68,15 +68,15 @@ GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw() {}
 
 GUIDetectorWrapper *
 GUI_E2_ZS_Collector::buildDetectorWrapper(
-        GUILaneWrapper &wrapper) {
+    GUILaneWrapper &wrapper) {
     return new MyWrapper(*this, wrapper);
 }
 
 GUIDetectorWrapper *
 GUI_E2_ZS_Collector::buildDetectorWrapper(
-        GUILaneWrapper &wrapper,
-        GUI_E2_ZS_CollectorOverLanes& p,
-        GUIGlID glID) {
+    GUILaneWrapper &wrapper,
+    GUI_E2_ZS_CollectorOverLanes& p,
+    GUIGlID glID) {
     return new MyWrapper(*this, glID, p, wrapper);
 }
 
@@ -94,7 +94,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
-    GUI_E2_ZS_Collector &detector, 
+    GUI_E2_ZS_Collector &detector,
     GUIGlID /*glID*/, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper("ES detector", detector.getID()),

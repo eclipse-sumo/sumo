@@ -61,15 +61,15 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
 
     //the vehicle:
     routes << "    <vehicle"
-        << " id=\"" << trip.getVehicleName()
-        << "\" type=\"" << trip.getType()
-        << "\" depart=\"" << time
-        << "\" departPos=\"" << trip.getDep().getPosition()
-        << "\" arrivalPos=\"" << trip.getArr().getPosition()
-        << "\" departSpeed=\"" << 0
-        << "\" arrivalSpeed=\"" << 0
-        << "\" color=\"" << colors[trip.getType()]
-        << "\">" << std::endl;
+    << " id=\"" << trip.getVehicleName()
+    << "\" type=\"" << trip.getType()
+    << "\" depart=\"" << time
+    << "\" departPos=\"" << trip.getDep().getPosition()
+    << "\" arrivalPos=\"" << trip.getArr().getPosition()
+    << "\" departSpeed=\"" << 0
+    << "\" arrivalSpeed=\"" << 0
+    << "\" color=\"" << colors[trip.getType()]
+    << "\">" << std::endl;
 
     //the route
     routes << "        <route edges=\"" << trip.getDep().getStreet().getName();

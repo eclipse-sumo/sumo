@@ -79,7 +79,7 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw() {}
 long
 GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*) {
     // we already know where the object is since we clicked on it -> zoom on Boundary
-    myParent->centerTo(myObject->getGlID(), true, -1); 
+    myParent->centerTo(myObject->getGlID(), true, -1);
     return 1;
 }
 

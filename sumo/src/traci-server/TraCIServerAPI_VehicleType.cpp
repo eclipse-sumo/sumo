@@ -206,8 +206,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             server.writeStatusCmd(cmd, RTYPE_ERR, "Setting length requires a double.", outputStorage);
             return false;
         }
-		double val = inputStorage.readDouble();
-		if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
+        double val = inputStorage.readDouble();
+        if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
             server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid length.", outputStorage);
             return false;
         }
@@ -219,8 +219,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
             server.writeStatusCmd(cmd, RTYPE_ERR, "Setting maximum speed requires a double.", outputStorage);
             return false;
         }
-		double val = inputStorage.readDouble();
-		if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
+        double val = inputStorage.readDouble();
+        if (val == 0.0 || fabs(val) == std::numeric_limits<double>::infinity()) {
             server.writeStatusCmd(cmd, RTYPE_ERR, "Invalid maximum speed.", outputStorage);
             return false;
         }
@@ -327,7 +327,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
         RGBColor col(r, g, b);
         v.setColor(col);
     }
-    break;    default:
+    break;
+    default:
         break;
     }
     return true;

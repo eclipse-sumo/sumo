@@ -55,8 +55,7 @@ RONetHandler::RONetHandler(RONet &net,
         : SUMOSAXHandler("sumo-network"),
         myNet(net), myCurrentName(),
         myCurrentEdge(0), myEdgeBuilder(eb),
-        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)
-{}
+        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
 RONetHandler::~RONetHandler() throw() {}
@@ -90,7 +89,7 @@ RONetHandler::myStartElement(int element,
         parseConnection(attrs);
         break;
     case SUMO_TAG_DISTRICT__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDistrict) {
+        if (!myHaveWarnedAboutDeprecatedDistrict) {
             myHaveWarnedAboutDeprecatedDistrict = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
         }
@@ -98,7 +97,7 @@ RONetHandler::myStartElement(int element,
         parseDistrict(attrs);
         break;
     case SUMO_TAG_DSOURCE__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSource) {
+        if (!myHaveWarnedAboutDeprecatedDSource) {
             myHaveWarnedAboutDeprecatedDSource = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
         }
@@ -106,7 +105,7 @@ RONetHandler::myStartElement(int element,
         parseDistrictEdge(attrs, true);
         break;
     case SUMO_TAG_DSINK__DEPRECATED:
-        if(!myHaveWarnedAboutDeprecatedDSink) {
+        if (!myHaveWarnedAboutDeprecatedDSink) {
             myHaveWarnedAboutDeprecatedDSink = true;
             WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
         }
@@ -188,8 +187,8 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     }
     // get the speed
     SUMOReal maxSpeed = attrs.hasAttribute(SUMO_ATTR_SPEED)
-        ? attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok)
-        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
+                        ? attrs.getSUMORealReporting(SUMO_ATTR_SPEED, id.c_str(), ok)
+                        : attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
     SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");

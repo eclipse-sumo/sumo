@@ -224,7 +224,7 @@ private:
     /// adds a succeeding lane (deprecated, see addConnection)
     void addSuccLane(const SUMOSAXAttributes &attrs);
 
-    /// adds a connection 
+    /// adds a connection
     void addConnection(const SUMOSAXAttributes &attrs);
 
     virtual void openWAUT(const SUMOSAXAttributes &attrs);
@@ -319,16 +319,16 @@ protected:
 
     bool myCurrentIsBroken;
 
-	bool myHaveWarnedAboutDeprecatedE1, myHaveWarnedAboutDeprecatedE2, 
-		myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
-		myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
-	bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
-	bool myHaveWarnedAboutDeprecatedTLSTiming;
-	bool myHaveWarnedAboutDeprecatedTimeThreshold, 
-		myHaveWarnedAboutDeprecatedSpeedThreshold,
-		myHaveWarnedAboutDeprecatedJamDistThreshold;
+    bool myHaveWarnedAboutDeprecatedE1, myHaveWarnedAboutDeprecatedE2,
+    myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
+    myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
+    bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
+    bool myHaveWarnedAboutDeprecatedTLSTiming;
+    bool myHaveWarnedAboutDeprecatedTimeThreshold,
+    myHaveWarnedAboutDeprecatedSpeedThreshold,
+    myHaveWarnedAboutDeprecatedJamDistThreshold;
     bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
-        myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
+    myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
     bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
 

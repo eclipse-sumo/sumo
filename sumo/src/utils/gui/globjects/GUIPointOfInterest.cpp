@@ -56,10 +56,10 @@ GUIPointOfInterest::GUIPointOfInterest(int layer,
                                        const std::string &id,
                                        const std::string &type,
                                        const Position &p,
-                                       const RGBColor &c) throw() : 
-    PointOfInterest(id, type, p, c),
-    GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
-    myLayer(layer) {}
+                                       const RGBColor &c) throw() :
+        PointOfInterest(id, type, p, c),
+        GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
+        myLayer(layer) {}
 
 
 GUIPointOfInterest::~GUIPointOfInterest() throw() {}
@@ -110,7 +110,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
     glPopMatrix();
     drawName(Position(x() + 1.32*s.poiExaggeration, y() + 1.32*s.poiExaggeration),
-            s.scale, s.poiName);
+             s.scale, s.poiName);
     glPopName();
 }
 

@@ -274,7 +274,7 @@ public:
     }
 
 
-    /** @brief Returns the ProgramID 
+    /** @brief Returns the ProgramID
      * @return The ID of the program (subID)
      */
     const std::string & getProgramID() const {

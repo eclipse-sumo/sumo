@@ -146,20 +146,20 @@ private:
     void addJunction(const SUMOSAXAttributes &attrs);
 
 
-    /** @brief (deprecated) Parses a succedge-definition and saves it 
+    /** @brief (deprecated) Parses a succedge-definition and saves it
      *    by assigning "myCurrentEdge" and "myCurrentLane" to the read values
      * @param[in] attrs The attributes to get the succedge-definition from
      */
     void addSuccEdge(const SUMOSAXAttributes &attrs);
 
 
-    /** @brief (deprecated) Parses a succlane-definition and saves it 
+    /** @brief (deprecated) Parses a succlane-definition and saves it
      *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the succlane-definition from
      */
     void addSuccLane(const SUMOSAXAttributes &attrs);
 
-    /** @brief Parses a connection and saves it 
+    /** @brief Parses a connection and saves it
      *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the connection from
      */
@@ -180,7 +180,7 @@ private:
 private:
     /**
      * @struct Connection
-     * @brief A connection description. 
+     * @brief A connection description.
      */
     struct Connection {
         /// @brief The id of the target edge
@@ -276,7 +276,7 @@ private:
     bool myHaveWarnedAboutDeprecatedSpreadType;
     bool myHaveWarnedAboutDeprecatedMaxSpeed;
 
-    /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs 
+    /** @brief Parses lane index from lane ID an retrieve lane from EdgeAttrs
      * @param[in] edge The EdgeAttrs* which should contain the lane
      * @param[in] lane_id The ID of the lane
      */
@@ -287,14 +287,14 @@ private:
      * @param[out] edge_id ID of this lane's edge
      * @param[out] index Index of this lane
      */
-    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index); 
+    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index);
 
     /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an
      * approximation
      * @param[in] lanes The list of lane attributes
      */
-    static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to); 
+    static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to);
 };
 
 

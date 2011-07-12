@@ -71,8 +71,8 @@ public:
      * @param[in] includeInternal Whether information about inner-lanes used to cross the intersection shall be written
      * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
      */
-    static void writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c, 
-            bool includeInternal, bool plain=false);
+    static void writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c,
+                                bool includeInternal, bool plain=false);
 
 protected:
     /// @name Methods for writing network parts
@@ -104,8 +104,8 @@ protected:
      * @param[in] length Lane's length
      * @param[in] index The index of the lane within the edge
      */
-    static void writeLane(OutputDevice &into, const std::string &lID, const std::string &eID, 
-        const NBEdge::Lane &lane, SUMOReal length, unsigned int index);
+    static void writeLane(OutputDevice &into, const std::string &lID, const std::string &eID,
+                          const NBEdge::Lane &lane, SUMOReal length, unsigned int index);
 
 
     /** @brief Writes a junction (<junction ...)
@@ -144,7 +144,7 @@ protected:
 
 
 private:
-    /** @brief Writes a single internal edge 
+    /** @brief Writes a single internal edge
      * @param[in] into The device to write the edges into
      * @param[in] id The id of the edge
      * @param[in] vmax The maximum speed of the edge
@@ -152,14 +152,14 @@ private:
      */
     static void writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape);
 
-    /** @brief Writes a single internal connection 
+    /** @brief Writes a single internal connection
      * @param[in] from The id of the from-edge
      * @param[in] to The id of the to-edge
      * @param[in] toLane The indexd of the to-lane
      * @param[in] via The (optional) via edge
      */
-    static void writeInternalConnection(OutputDevice &into, 
-            const std::string &from, const std::string &to, int toLane, const std::string &via);
+    static void writeInternalConnection(OutputDevice &into,
+                                        const std::string &from, const std::string &to, int toLane, const std::string &via);
 
 };
 

@@ -84,8 +84,8 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
         return new NBNode(myID, pos, NODETYPE_NOJUNCTION);
     }
     NBNode *node = 0;
-    std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ? 
-        OptionsCont::getOptions().getString("default-junction-type") : "";
+    std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ?
+                        OptionsCont::getOptions().getString("default-junction-type") : "";
 
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(typeS);

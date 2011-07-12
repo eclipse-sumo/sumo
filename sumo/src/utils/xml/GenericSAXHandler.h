@@ -99,9 +99,9 @@ public:
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
-            StringBijection<int>::Entry *tags, int terminatorTag,
-            StringBijection<int>::Entry *attrs, int terminatorAttr,
-            const std::string &file);
+        StringBijection<int>::Entry *tags, int terminatorTag,
+        StringBijection<int>::Entry *attrs, int terminatorAttr,
+        const std::string &file);
 
 
     /** @brief Destructor */

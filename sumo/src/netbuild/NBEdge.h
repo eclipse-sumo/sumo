@@ -196,7 +196,7 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           SUMOReal width, SUMOReal offset, 
+           SUMOReal width, SUMOReal offset,
            const std::string &streetName="",
            LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
@@ -224,8 +224,8 @@ public:
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           SUMOReal width, SUMOReal offset, 
-           PositionVector geom, 
+           SUMOReal width, SUMOReal offset,
+           PositionVector geom,
            const std::string &streetName="",
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            bool tryIgnoreNodePositions=false) throw(ProcessError);
@@ -240,7 +240,7 @@ public:
      * @param[in] tpl The template edge to copy attributes from
      */
     NBEdge(const std::string &id,
-           NBNode *from, NBNode *to, 
+           NBNode *from, NBNode *to,
            NBEdge *tpl);
 
 
@@ -339,8 +339,8 @@ public:
     }
 
 
-    /** @brief Returns whether a length was set explicitly 
-     * @return Wether the edge's length was specified 
+    /** @brief Returns whether a length was set explicitly
+     * @return Wether the edge's length was specified
      */
     bool hasLoadedLength() const throw() {
         return myLoadedLength>0;
@@ -766,11 +766,11 @@ public:
         This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
     void remapConnections(const EdgeVector &incoming);
 
-    /** @brief Removes the specified connection(s) 
+    /** @brief Removes the specified connection(s)
      * @param[in] toEdge The destination edge
-     * @param[in] fromLane The lane from which connections shall be removed 
+     * @param[in] fromLane The lane from which connections shall be removed
      *                     (-1) means remove all
-     * @param[in] toLane   The lane to which connections shall be removed 
+     * @param[in] toLane   The lane to which connections shall be removed
      *                     (-1) means remove all
      */
     void removeFromConnections(NBEdge *toEdge, int fromLane=-1, int toLane=-1);
@@ -824,13 +824,13 @@ public:
 
     void markAsInLane2LaneState();
 
-    /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given 
+    /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setVehicleClasses(const SUMOVehicleClasses &allowed, const SUMOVehicleClasses &disallowed, int lane=-1);
 
-    /// @brief set allowed class for the given lane or for all lanes if -1 is given 
+    /// @brief set allowed class for the given lane or for all lanes if -1 is given
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
 
-    /// @brief set disallowed class for the given lane or for all lanes if -1 is given 
+    /// @brief set disallowed class for the given lane or for all lanes if -1 is given
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);

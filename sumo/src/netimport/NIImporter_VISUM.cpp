@@ -379,8 +379,8 @@ NIImporter_VISUM::parse_Edges() {
     if (nolanes!=0&&speed!=0) {
         LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
         // @todo parse name from visum files
-        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, 
-                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
@@ -396,8 +396,8 @@ NIImporter_VISUM::parse_Edges() {
     if (nolanes!=0&&speed!=0) {
         LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
         // @todo parse name from visum files
-        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, 
-                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
@@ -485,7 +485,7 @@ NIImporter_VISUM::parse_Connectors() {
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("connectors-lane-number"),
-                                      -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
+                                      -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
@@ -520,7 +520,7 @@ NIImporter_VISUM::parse_Connectors() {
             NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("connectors-lane-number"),
-                                      -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, 
+                                      -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {

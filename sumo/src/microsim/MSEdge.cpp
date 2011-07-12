@@ -59,12 +59,11 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdge::MSEdge(const std::string &id, unsigned int numericalID, 
-        const std::string &streetName) throw() : 
-    myID(id), myNumericalID(numericalID), myLanes(0),
-    myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
-    myStreetName(streetName)
-{}
+MSEdge::MSEdge(const std::string &id, unsigned int numericalID,
+               const std::string &streetName) throw() :
+        myID(id), myNumericalID(numericalID), myLanes(0),
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
+        myStreetName(streetName) {}
 
 
 MSEdge::~MSEdge() throw() {
@@ -311,7 +310,7 @@ MSEdge::insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-	    const SUMOVehicleParameter &pars = v.getParameter();
+        const SUMOVehicleParameter &pars = v.getParameter();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
         case DEPART_POS_GIVEN:

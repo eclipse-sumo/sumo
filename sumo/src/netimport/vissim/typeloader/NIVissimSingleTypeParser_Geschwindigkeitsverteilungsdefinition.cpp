@@ -62,7 +62,7 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
     std::string tag;
     do {
         tag = readEndSecure(from);
-        if(tag=="name") {
+        if (tag=="name") {
             readName(from);
             tag = readEndSecure(from);
         }

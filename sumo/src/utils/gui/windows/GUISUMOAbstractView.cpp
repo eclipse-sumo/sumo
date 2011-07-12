@@ -120,7 +120,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myPopup(0),
         myUseToolTips(false),
         myAmInitialised(false),
-        myViewportChooser(0), 
+        myViewportChooser(0),
         myVisualizationChanger(0) {
     setTarget(this);
     enable();
@@ -304,7 +304,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 }
 
 
-std::vector<GUIGlID> 
+std::vector<GUIGlID>
 GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
@@ -345,7 +345,7 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id) {
             GLHelper::drawTextBox(object->getFullName(), pos, GLO_MAX-1, p2m(20), RGBColor(0,0,0), RGBColor(1, 0.7, 0));
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
-    } 
+    }
 }
 
 
@@ -988,7 +988,7 @@ GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) 
 }
 
 
-void 
+void
 GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     Boundary bound = myChanger->getViewport(fixRatio);
     glMatrixMode(GL_PROJECTION);
@@ -996,7 +996,7 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     // as a rough rule, each GLObject is drawn at z = -GUIGlObjectType
     // thus, objects with a higher value will be closer (drawn on top)
     // // @todo last param should be 0 after modifying all glDraw methods
-    glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX-1, GLO_MAX+1); 
+    glOrtho(0, getWidth(), 0, getHeight(), -GLO_MAX-1, GLO_MAX+1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     SUMOReal scaleX = (SUMOReal)getWidth() / bound.getWidth();

@@ -168,7 +168,7 @@ enum {
     MID_SHOWTOOLTIPS,
     /// Make snapshot - button
     MID_MAKESNAPSHOT,
-    /// toogle zooming style 
+    /// toogle zooming style
     MID_ZOOM_STYLE,
     //@}
 
@@ -345,7 +345,7 @@ enum {
     MID_GNE_MODE_CONNECT,
     /** mode for editing tls */
     MID_GNE_MODE_TLS,
-    
+
     /// selector match box messages
     MID_GNE_SELMB_TAG,
     MID_GNE_SELMB_STRING,

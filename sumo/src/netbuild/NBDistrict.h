@@ -188,7 +188,7 @@ public:
 
     /** @brief Returns the weights of the sources
      * @return The source weights
-     */ 
+     */
     const std::vector<SUMOReal> &getSourceWeights() const {
         return mySourceWeights;
     }
@@ -196,7 +196,7 @@ public:
 
     /** @brief Returns the sources
      * @return The source edges
-     */ 
+     */
     const std::vector<NBEdge*> &getSourceEdges() const {
         return mySources;
     }
@@ -204,7 +204,7 @@ public:
 
     /** @brief Returns the weights of the sinks
      * @return The sink weights
-     */ 
+     */
     const std::vector<SUMOReal> &getSinkWeights() const {
         return mySinkWeights;
     }
@@ -212,7 +212,7 @@ public:
 
     /** @brief Returns the sinks
      * @return The sink edges
-     */ 
+     */
     const std::vector<NBEdge*> &getSinkEdges() const {
         return mySinks;
     }

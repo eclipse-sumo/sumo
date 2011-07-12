@@ -55,9 +55,9 @@ public:
      * @note other parameters of the wiedemann model:
      * - speed: included in MSVehicleType
      */
-    MSCFModel_Wiedemann(const MSVehicleType* vtype, 
-            SUMOReal accel, SUMOReal decel,
-            SUMOReal security, SUMOReal estimation);
+    MSCFModel_Wiedemann(const MSVehicleType* vtype,
+                        SUMOReal accel, SUMOReal decel,
+                        SUMOReal security, SUMOReal estimation);
 
 
     /// @brief Destructor
@@ -175,10 +175,10 @@ private:
     /// @brief free-flow distance in m
     static const SUMOReal D_MAX;
     /// @}
-    
+
     /// @brief vsafe from krauss since Wiedemann is deficient at approaching
-    // standing obstacles (see MSCFModel_Krauss::_vsafe) 
-    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const; 
+    // standing obstacles (see MSCFModel_Krauss::_vsafe)
+    SUMOReal krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const;
 };
 
 #endif	/* MSCFModel_Wiedemann_H */

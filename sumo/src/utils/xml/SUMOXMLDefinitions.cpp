@@ -488,22 +488,22 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
 
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
-        SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
+    SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
 StringBijection<int> SUMOXMLDefinitions::Attrs(
-        SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
+    SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
-        SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
+    SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
-        SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
-    
+    SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
+
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
-        SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
+    SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
 
 StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
-        SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
+    SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
 
 /****************************************************************************/
 

@@ -180,7 +180,7 @@ MSFrame::fillOptions() {
     oc.addDescription("incremental-dua-step", "Processing", "Perform the simulation as a step in incremental DUA");
     oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! deprecated
     oc.addDescription("incremental-dua-base", "Processing", "Base value for incremental DUA");
-	oc.doRegister("scale", new Option_Float());
+    oc.doRegister("scale", new Option_Float());
     oc.addDescription("scale", "Processing", "Scale demand by the given factor (0..1)");
 
     oc.doRegister("time-to-teleport", new Option_String("300", "TIME"));
@@ -276,11 +276,11 @@ MSFrame::checkOptions() {
         }
     }
     if (!oc.isDefault("scale")) {
-		if (oc.getFloat("scale") < 0. || oc.getFloat("scale") > 1.) {
-			WRITE_ERROR("Invalid scaling factor.");
-			ok = false;
-		}
-	}
+        if (oc.getFloat("scale") < 0. || oc.getFloat("scale") > 1.) {
+            WRITE_ERROR("Invalid scaling factor.");
+            ok = false;
+        }
+    }
     if (oc.getBool("vehroute-output.exit-times") && !oc.isSet("vehroute-output")) {
         WRITE_ERROR("A vehroute-output file is needed for exit times.");
         ok = false;
@@ -308,19 +308,19 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
 #endif
-	for (unsigned int i = 0; i < 1000; i++) {
-		unsigned int num = i;
-		unsigned int den = 1000;
-		while (num % 2 == 0 && den % 2 == 0) {
-			num /= 2;
-			den /= 2;
-		}
-		while (num % 5 == 0 && den % 5 == 0) {
-			num /= 5;
-			den /= 5;
-		}
-		MSGlobals::gFractions[SUMOReal(i)/1000.] = std::make_pair(num, den);
-	}
+    for (unsigned int i = 0; i < 1000; i++) {
+        unsigned int num = i;
+        unsigned int den = 1000;
+        while (num % 2 == 0 && den % 2 == 0) {
+            num /= 2;
+            den /= 2;
+        }
+        while (num % 5 == 0 && den % 5 == 0) {
+            num /= 5;
+            den /= 5;
+        }
+        MSGlobals::gFractions[SUMOReal(i)/1000.] = std::make_pair(num, den);
+    }
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     DELTA_T = string2time(oc.getString("step-length"));

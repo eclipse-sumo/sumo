@@ -53,7 +53,7 @@ class OutputDevice;
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
     GUIVisualizationTextSettings(bool _show, float _size, RGBColor _color) :
-        show(_show), size(_size), color(_color) {}
+            show(_show), size(_size), color(_color) {}
 
     bool show;
     float size;
@@ -61,8 +61,8 @@ struct GUIVisualizationTextSettings {
 
     bool operator==(const GUIVisualizationTextSettings &other) {
         return show == other.show &&
-            size == other.size &&
-            color == other.color;
+               size == other.size &&
+               color == other.color;
     }
     bool operator!=(const GUIVisualizationTextSettings &other) {
         return !((*this) == other);
@@ -70,8 +70,8 @@ struct GUIVisualizationTextSettings {
 
     std::string print(const std::string& name) const {
         return name + "_show=\"" + toString(show) + "\" " +
-            name + "_size=\"" + toString(size) + "\" " +
-            name + "_color=\"" + toString(color) + "\" "; 
+               name + "_size=\"" + toString(size) + "\" " +
+               name + "_color=\"" + toString(color) + "\" ";
     }
 };
 

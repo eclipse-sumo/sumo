@@ -94,7 +94,7 @@ public:
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string &id, int noLanes,
-				SUMOReal maxSpeed, int prio,
+                SUMOReal maxSpeed, int prio,
                 const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
                 SUMOReal width, bool oneWayIsDefault) throw();
 
@@ -205,12 +205,12 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition()
-                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), 
+                : noLanes(1), speed((SUMOReal) 13.9), priority(-1),
                 oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         /// @brief Constructor
         TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, SUMOReal _width)
-                : noLanes(_noLanes), speed(_speed), priority(_priority), 
+                : noLanes(_noLanes), speed(_speed), priority(_priority),
                 oneWay(true), discard(false), width(_width) { }
 
         /// @brief The number of lanes of an edge

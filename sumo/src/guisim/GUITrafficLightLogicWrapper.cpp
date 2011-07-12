@@ -128,9 +128,9 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-        MSTLLogicControl &control, MSTrafficLightLogic &tll) throw() : 
-    GUIGlObject(GLO_TLLOGIC, tll.getID()),
-    myTLLogicControl(control), myTLLogic(tll) {}
+    MSTLLogicControl &control, MSTrafficLightLogic &tll) throw() :
+        GUIGlObject(GLO_TLLOGIC, tll.getID()),
+        myTLLogicControl(control), myTLLogic(tll) {}
 
 
 GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw() {}
