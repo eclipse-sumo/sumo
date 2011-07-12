@@ -256,6 +256,9 @@ NIImporter_SUMO::myStartElement(int element,
     case SUMO_TAG_PHASE:
         addPhase(attrs);
         break;
+    case SUMO_TAG_LOCATION:
+        setLocation(attrs);
+        break;
     default:
         break;
     }
@@ -415,10 +418,6 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
             // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
             mySuspectKeepShape = true; 
         }
-    }
-    if (!GeoConvHelper::x2cartesian(pos)) {
-        WRITE_ERROR("Unable to project coordinates for junction '" + id + "'.");
-        return;
     }
     NBNode *node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
@@ -606,4 +605,27 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
     result.push_back(to);
     return result;
 }
+
+
+void
+NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
+    // see NLHandler::setLocation
+    bool ok = true;
+    PositionVector s = GeomConvHelper::parseShapeReporting(
+            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+            attrs.getObjectType(), 0, ok, false);
+    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
+            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
+    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
+            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
+    std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
+    if (ok) {
+        Position networkOffset = s[0];
+        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+    }
+}
+
+
 /****************************************************************************/

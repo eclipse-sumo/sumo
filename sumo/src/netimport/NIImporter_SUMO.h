@@ -170,7 +170,11 @@ private:
 
     /// adds a phase to the traffic lights logic currently build
     void addPhase(const SUMOSAXAttributes &attrs);
+
+    /// Parses network location description
+    void setLocation(const SUMOSAXAttributes &attrs);
     //@}
+
 
 
 private:
