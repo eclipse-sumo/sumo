@@ -62,8 +62,6 @@
 #include <fxkeys.h>
 #include <utils/foxtools/MFXImageHelper.h>
 
-#include <microsim/MSNet.h>
-
 
 #ifdef WIN32
 #include <windows.h>
@@ -866,11 +864,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
 
 void
 GUISUMOAbstractView::checkSnapshots() {
-    SUMOTime current = 0;
-    try {
-        current = MSNet::getInstance()->getCurrentTimeStep();
-    } catch (ProcessError) {}
-    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(current);
+    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(getCurrentTimeStep());
     if (snapIt != mySnapshots.end()) {
         std::string error = makeSnapshot(snapIt->second);
         if (error!="") {

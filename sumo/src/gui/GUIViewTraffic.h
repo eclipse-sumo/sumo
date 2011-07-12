@@ -87,12 +87,13 @@ public:
 
     bool setColorScheme(const std::string &name);
 
-
     void showViewschemeEditor();
 
-
-
+    /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
+
+    /// @brief get the current simulation time
+    SUMOTime getCurrentTimeStep() const;
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);

@@ -162,6 +162,11 @@ public:
     /** @brief Checks whether it is time for a snapshot
      */
     void checkSnapshots();
+
+    /// @brief get the current simulation time
+    virtual SUMOTime getCurrentTimeStep() const {
+        return 0;
+    }
     /// @}
 
 
