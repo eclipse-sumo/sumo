@@ -1,0 +1,670 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/13/11 11:06:03 by SUMO sumo Version 0.13.0
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="8815"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<sumo-netstate>
+    <timestep time="0.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="0.00" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="1.44" speed="1.44"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="4.56" speed="3.12"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="10.21" speed="5.66"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="15.44" speed="5.23"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="17.94" speed="2.50"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.56" speed="1.62"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.21"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="18.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="20.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="21.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="22.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="23.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="24.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="25.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="26.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="27.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="28.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="19.77" speed="0.00"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="29.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="21.66" speed="1.89"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="30.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="25.84" speed="4.18"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="31.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="32.59" speed="6.74"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="32.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="41.54" speed="8.95"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="33.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="52.09" speed="10.56"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="34.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="65.04" speed="12.95"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="35.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="79.35" speed="14.31"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="36.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="96.22" speed="16.87"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="37.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="114.79" speed="18.58"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="38.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="135.54" speed="20.75"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="39.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="158.72" speed="23.18"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="40.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="184.33" speed="25.61"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="41.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="212.01" speed="27.68"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="42.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="241.04" speed="29.03"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="43.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="272.32" speed="31.28"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="44.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="305.91" speed="33.59"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="45.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0">
+                <vehicle id="bus_1" pos="341.89" speed="35.97"/>
+            </lane>
+            <lane id="e_m5_1"/>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="46.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
+                <vehicle id="bus_1" pos="379.72" speed="37.83"/>
+            </lane>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="47.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
+                <vehicle id="bus_1" pos="419.83" speed="40.12"/>
+            </lane>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="48.00">
+        <edge id="e_m5">
+            <lane id="e_m5_0"/>
+            <lane id="e_m5_1">
+                <vehicle id="bus_1" pos="461.50" speed="41.66"/>
+            </lane>
+            <lane id="e_m5_2"/>
+        </edge>
+    </timestep>
+    <timestep time="49.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="21.74" speed="44.15"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="50.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="67.62" speed="45.88"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="51.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="115.17" speed="47.55"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="52.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="164.54" speed="49.37"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="53.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="215.62" speed="51.07"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="54.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="268.07" speed="52.46"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="55.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="321.88" speed="53.81"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="56.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="377.89" speed="56.01"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="57.00">
+        <edge id="e_m6">
+            <lane id="e_m6_0"/>
+            <lane id="e_m6_1">
+                <vehicle id="bus_1" pos="435.86" speed="57.97"/>
+            </lane>
+            <lane id="e_m6_2"/>
+        </edge>
+    </timestep>
+    <timestep time="58.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="14.51" speed="59.25"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="59.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="74.29" speed="59.78"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="60.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="133.05" speed="58.76"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="61.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="192.81" speed="59.76"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="62.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="251.98" speed="59.17"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="63.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="311.78" speed="59.80"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="64.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="371.74" speed="59.96"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="65.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="431.38" speed="59.64"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="66.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="490.67" speed="59.29"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="67.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="549.46" speed="58.79"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="68.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="609.38" speed="59.91"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="69.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="669.14" speed="59.77"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="70.00">
+        <edge id="e_shape0">
+            <lane id="e_shape0_0">
+                <vehicle id="bus_1" pos="727.85" speed="58.71"/>
+            </lane>
+            <lane id="e_shape0_1"/>
+            <lane id="e_shape0_2"/>
+        </edge>
+    </timestep>
+</sumo-netstate>

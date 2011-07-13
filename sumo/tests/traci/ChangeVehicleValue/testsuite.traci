@@ -13,6 +13,9 @@ ChangeTarget
 # VAR_ROUTE
 ChangeRoute
 
+# VAR_ROUTE for a Bus
+ChangeRouteBus
+
 # VAR_ROUTE_ID
 ChangeRouteByID
 
