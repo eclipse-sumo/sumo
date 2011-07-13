@@ -25,6 +25,7 @@ All rights reserved
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
+from collections import defaultdict
 
 camelCase = {"departlane": "departLane",
              "departpos": "departPos",
@@ -33,6 +34,7 @@ camelCase = {"departlane": "departLane",
              "arrivalpos": "arrivalPos",
              "arrivalspeed": "arrivalSpeed",
              "maxspeed": "maxSpeed",
+             "bus_stop": "busStop",
              "vclass": "vClass",
              "fromtaz": "fromTaz",
              "totaz": "toTaz",
@@ -40,6 +42,9 @@ camelCase = {"departlane": "departLane",
              "vtype": "vType",
              "vtypeDistribution": "vTypeDistribution",
              "tripdef": "trip"}
+
+deletedKeys = defaultdict(list)
+deletedKeys["route"] = ["edges", "multi_ref"]
 
 class NetReader(handler.ContentHandler):
 
@@ -135,10 +140,10 @@ class RouteReader(handler.ContentHandler):
                 name = camelCase[name]
                 self._changed = True
             self._out.write('<' + name)
-            if options.fix_length and "length" in attrs and not "minGap" in attrs:
+            if options.fix_length and attrs.has_key('length') and not attrs.has_key('minGap'):
                 length = float(attrs["length"])
                 minGap = 2.5
-                if "guiOffset" in attrs:
+                if attrs.has_key('guiOffset'):
                     minGap = float(attrs["guiOffset"])
                 attrs = dict(attrs)
                 attrs["length"] = str(length - minGap)
@@ -148,7 +153,7 @@ class RouteReader(handler.ContentHandler):
                 if key in camelCase:
                     key = camelCase[key]
                     self._changed = True
-                if name != 'route' or key not in ["edges", "multi_ref"]:
+                if not key in deletedKeys[name]:
                     self._out.write(' %s="%s"' % (key, saxutils.escape(value)))
             if name != 'route':
                 if name in ["ride", "stop", "walk"]:
@@ -244,14 +249,19 @@ if options.net:
     parser.setContentHandler(net)
     parser.parse(options.net)
 parser.setContentHandler(RouteReader(net, ''))
+
+if options.fix_length:
+    deletedKeys["vType"] += ['guiOffset']
+
 for f in args:
+    ffix = f + '.fixed'
     if options.fix:
         if options.verbose:
             print "fixing " + f
-        parser.setContentHandler(RouteReader(net, f + '.fixed'))
-        if options.inplace:
-            os.rename(f + '.fixed', f)
+        parser.setContentHandler(RouteReader(net, ffix))
     else:
         if options.verbose:
             print "checking " + f
     parser.parse(f)
+    if options.fix and os.path.exists(ffix) and options.inplace:
+        os.rename(ffix, f)
