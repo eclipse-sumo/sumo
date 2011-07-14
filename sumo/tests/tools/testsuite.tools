@@ -21,3 +21,6 @@ tls
 
 # Trip tests
 trip
+
+# For importing tools
+import

@@ -25,6 +25,7 @@ copy_test_path:routesx.rou.alt.xml
 copy_test_path:routesy.rou.alt.xml
 copy_test_path:input_districts.xml
 copy_test_path:input_mtx0708.fma
+copy_test_path:vissim.inp
 
 [collate_file]
 detectors:e2.add.xml
@@ -39,6 +40,8 @@ cfg:config.tcl
 summary:intersection_metrics_summary.txt
 pois:pois.add.xml
 trips:trips.trips.xml
+flows:out.flows.xml
+routes:out.rou.xml
 
 [run_dependent_text]
 output:Begin time
