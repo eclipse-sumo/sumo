@@ -197,14 +197,17 @@ public:
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 
-    /// @brief A temporary (used for a single view) information about a lane's width
+    /// @brief information about a lane's width (temporary, used for a single view)
     SUMOReal scale;
 
     /// @brief whether the application is in gaming mode or not
     bool gaming;
 
-    /// @brief the current NETEDIT mode
+    /// @brief the current NETEDIT mode (temporary)
     int editMode;
+
+    /// @brief the current selection scaling in NETEDIT (temporary)
+    SUMOReal selectionScale;
 
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into

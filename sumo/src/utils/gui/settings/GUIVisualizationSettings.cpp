@@ -66,7 +66,8 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         poiName(false, 50, RGBColor(1., 0, .5)),
         minPOISize(0), poiExaggeration(1),
         showSizeLegend(true),
-        gaming(false) 
+        gaming(false),
+        selectionScale(1)
 {
     /// add lane coloring schemes
     GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor(0,0,0), "", true);

@@ -395,6 +395,8 @@ enum {
     MID_GNE_SELECT_DEAD_STARTS,
     /** select lanes that are connected from concurrent lanes */
     MID_GNE_SELECT_CONFLICTS,
+    /** changes the visual scaling of selected items */
+    MID_GNE_SELECT_SCALE,
 
     /** help button */
     MID_GNE_HELP,
