@@ -27,6 +27,10 @@
 #include <config.h>
 #endif
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <iostream>
 #include <utility>
 #include <cmath>
@@ -39,7 +43,6 @@
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
