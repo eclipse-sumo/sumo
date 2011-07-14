@@ -31,45 +31,43 @@
 #include <utility>
 #include <cmath>
 #include <cassert>
-#include <utils/shapes/ShapeContainer.h>
+#include <fxkeys.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <foreign/gl2ps/gl2ps.h>
+#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXImageHelper.h>
+#include <utils/shapes/ShapeContainer.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include "GUIDanielPerspectiveChanger.h"
-#include "GUISUMOAbstractView.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
-#include "GUIMainWindow.h"
-#include "GUIGlChildWindow.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include "GUIDialog_EditViewport.h"
-#include <foreign/polyfonts/polyfonts.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <fxkeys.h>
-#include <utils/foxtools/MFXImageHelper.h>
 
+#include "GUISUMOAbstractView.h"
+#include "GUIMainWindow.h"
+#include "GUIGlChildWindow.h"
+#include "GUIDanielPerspectiveChanger.h"
+#include "GUIDialog_EditViewport.h"
 
 #ifdef WIN32
 #include <windows.h>
 #endif
-
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <utils/foxtools/FXSingleEventThread.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
