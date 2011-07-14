@@ -641,10 +641,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\guisim\GLObjectValuePassConnector.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUI_E2_ZS_Collector.h"
 				>
 			</File>

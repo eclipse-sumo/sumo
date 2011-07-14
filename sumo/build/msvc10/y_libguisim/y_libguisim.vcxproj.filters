@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIEdge.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\guisim\GUIEmitter.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\guisim\GUIEventControl.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -73,9 +70,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\guisim\GLObjectValuePassConnector.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -92,9 +86,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUIEdge.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\guisim\GUIEmitter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guisim\GUIEventControl.h">

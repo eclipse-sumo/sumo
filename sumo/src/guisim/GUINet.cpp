@@ -29,12 +29,12 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/common/StringUtils.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/common/RGBColor.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>

@@ -280,7 +280,6 @@
     <ClCompile Include="..\..\..\src\guisim\GUIVehicleControl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\guisim\GLObjectValuePassConnector.h" />
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h" />
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIBusStop.h" />

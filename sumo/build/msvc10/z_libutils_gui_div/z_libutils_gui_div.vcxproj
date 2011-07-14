@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\div\GLHelper.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\div\GLObjectValuePassConnector.h" />
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h" />
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIGlobalSelection.h" />
     <ClInclude Include="..\..\..\src\utils\gui\div\GUIIOGlobals.h" />
