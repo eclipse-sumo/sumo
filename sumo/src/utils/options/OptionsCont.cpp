@@ -608,6 +608,40 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
 void
 OptionsCont::printHelp(std::ostream &os) {
     std::vector<std::string>::const_iterator i, j;
+//#define WIKI_OUTPUT 1
+#ifdef WIKI_OUTPUT
+    for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
+        os << "===" << (*i) << "===\n";
+		os << "{| cellspacing=\"0\" border=\"1\" width=\"90%\" align=\"center\"\n";
+		os << "|-\n";
+		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Option\n";
+		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Default Value\n";
+		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Description\n";
+        const std::vector<std::string> &entries = mySubTopicEntries[*i];
+        for (j=entries.begin(); j!=entries.end(); ++j) {
+            // start length computation
+            size_t csize = (*j).length() + 2;
+            Option *o = getSecure(*j);
+            os << "|-\n";
+            os << "| valign=\"top\" | ";
+            // write abbreviation if given
+            std::vector<std::string> synonymes = getSynonymes(*j);
+            std::vector<std::string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
+            std::string outputType = o->getTypeName();
+            if (a!=synonymes.end()) {
+                os << "{{Option|-" << (*a) << " {{DT_" << outputType << "}}}}<br/>";
+            }
+            // write the name
+            os << "{{Option|--" << *j << " {{DT_" << outputType << "}}}}\n";
+            std::string defaultValue = o->isSet() ? o->getValueString() : "";
+            os << "| valign=\"top\" | " << defaultValue << "\n";
+            os << "| valign=\"top\" | " << o->getDescription() << "\n";
+        }
+		os << "|-\n";
+		os << "|}\n\n";
+	}
+	return;
+#endif
     // print application description
     os << ' ' << std::endl;
     splitLines(os, myAppDescription, 0, 0);
