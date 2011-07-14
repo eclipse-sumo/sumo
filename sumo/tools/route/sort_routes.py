@@ -36,11 +36,12 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 routefilename = sys.argv[1]
-with open(routefilename + ".sorted", 'w') as outfile:
-    for line in open(routefilename):
-        outfile.write(line)
-        if '<routes>' in line:
-            break
-    sort_departs(routefilename, outfile)
-    outfile.write('</routes>')
+outfile = open(routefilename + ".sorted", 'w')
+for line in open(routefilename):
+    outfile.write(line)
+    if '<routes>' in line:
+        break
+sort_departs(routefilename, outfile)
+outfile.write('</routes>')
+outfile.close()
 
