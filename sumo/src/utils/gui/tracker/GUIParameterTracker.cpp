@@ -29,19 +29,18 @@
 
 #include <string>
 #include <fstream>
-
+#include <foreign/polyfonts/polyfonts.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include "GUIParameterTracker.h"
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/common/SUMOTime.h>
-#include <foreign/polyfonts/polyfonts.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include "GUIParameterTracker.h"
 
 #ifdef _WIN32
 #include <windows.h>

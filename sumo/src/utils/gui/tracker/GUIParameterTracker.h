@@ -33,8 +33,8 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include "TrackerValueDesc.h"
-#include <guisim/GLObjectValuePassConnector.h>
 
 
 // ===========================================================================

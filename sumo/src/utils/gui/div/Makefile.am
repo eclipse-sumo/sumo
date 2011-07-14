@@ -10,3 +10,5 @@ GUIParameterTableWindow.cpp GUIParameterTableWindow.h \
 GUISelectedStorage.cpp GUISelectedStorage.h \
 GUIUserIO.cpp GUIUserIO.h \
 GLHelper.cpp GLHelper.h
+
+EXTRA_DIST = GLObjectValuePassConnector.h

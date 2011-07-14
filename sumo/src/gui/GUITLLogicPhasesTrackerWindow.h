@@ -38,7 +38,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/common/ValueRetriever.h>
-#include <guisim/GLObjectValuePassConnector.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXRealSpinDial.h>

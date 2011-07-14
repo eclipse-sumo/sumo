@@ -29,6 +29,14 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/common/StringUtils.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/common/RGBColor.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -39,9 +47,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSJunctionControl.h>
-#include <utils/shapes/ShapeContainer.h>
-#include <utils/common/RGBColor.h>
-#include <guisim/GLObjectValuePassConnector.h>
+#include <microsim/MSRouteLoader.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
@@ -53,16 +59,9 @@
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
 #include <gui/GUIGlobals.h>
-#include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIShapeContainer.h"
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/common/StringUtils.h>
-#include "GLObjectValuePassConnector.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

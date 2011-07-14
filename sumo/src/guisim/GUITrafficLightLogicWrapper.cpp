@@ -35,6 +35,7 @@
 
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUITLLogicPhasesTrackerWindow.h>
 #include <microsim/MSLane.h>
@@ -45,7 +46,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GLHelper.h>
-#include <guisim/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
 #include "GUITrafficLightLogicWrapper.h"
