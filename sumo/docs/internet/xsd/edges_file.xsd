@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:element name="edges" type="edgesType"></xsd:element>
+    <xsd:element name="edges" type="edgesType">
+        <xsd:key name="edgeKey">
+            <xsd:selector xpath="edge"></xsd:selector>
+            <xsd:field xpath="@id"></xsd:field>
+        </xsd:key>
+    </xsd:element>
 
     <xsd:complexType name="edgesType">
         <xsd:sequence>
             <xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
+        <xsd:attribute name="version" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="\d+.\d+"></xsd:pattern>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">

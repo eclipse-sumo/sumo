@@ -1,10 +1,10 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
    <vehicle id="0" depart="10">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="1" depart="20">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
 </routes>

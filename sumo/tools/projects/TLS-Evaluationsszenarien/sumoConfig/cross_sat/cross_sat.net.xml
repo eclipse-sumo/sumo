@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Sat Jul  9 19:37:39 2011 by SUMO netconvert Version dev-SVN-r10912
+<!-- generated on 07/14/11 17:30:17 by SUMO netconvert Version dev-SVN-r10986
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -78,7 +78,7 @@
         <lane id=":3_0_0" index="0" speed="16.67" length="0.10" shape="2008.35,10.00 2008.35,10.00"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="16.67" length="2.41" shape="2008.35,10.00 2009.17,8.76 2010.00,8.35"/>
+        <lane id=":3_1_0" index="0" speed="16.67" length="2.41" shape="2008.35,10.00 2009.18,8.76 2010.00,8.35"/>
     </edge>
     <edge id=":3_4" function="internal">
         <lane id=":3_4_0" index="0" speed="16.67" length="2.41" shape="2010.00,8.35 2010.83,8.76 2011.65,10.00"/>
@@ -87,7 +87,7 @@
         <lane id=":3_2_0" index="0" speed="16.67" length="0.10" shape="2011.65,10.00 2011.65,10.00"/>
     </edge>
     <edge id=":3_3" function="internal">
-        <lane id=":3_3_0" index="0" speed="16.67" length="2.41" shape="2011.65,10.00 2010.83,11.24 2010.00,11.65"/>
+        <lane id=":3_3_0" index="0" speed="16.67" length="2.41" shape="2011.65,10.00 2010.82,11.24 2010.00,11.65"/>
     </edge>
     <edge id=":3_5" function="internal">
         <lane id=":3_5_0" index="0" speed="16.67" length="2.41" shape="2010.00,11.65 2009.17,11.24 2008.35,10.00"/>
@@ -96,7 +96,7 @@
         <lane id=":4_0_0" index="0" speed="16.67" length="0.10" shape="2008.35,4010.00 2008.35,4010.00"/>
     </edge>
     <edge id=":4_1" function="internal">
-        <lane id=":4_1_0" index="0" speed="16.67" length="2.41" shape="2008.35,4010.00 2009.17,4008.76 2010.00,4008.35"/>
+        <lane id=":4_1_0" index="0" speed="16.67" length="2.41" shape="2008.35,4010.00 2009.18,4008.76 2010.00,4008.35"/>
     </edge>
     <edge id=":4_4" function="internal">
         <lane id=":4_4_0" index="0" speed="16.67" length="2.41" shape="2010.00,4008.35 2010.83,4008.76 2011.65,4010.00"/>
@@ -117,7 +117,7 @@
         <lane id=":52_0_0" index="0" speed="16.67" length="4.82" shape="4020.00,2008.35 4021.24,2009.17 4021.65,2010.00 4021.24,2010.82 4020.00,2011.65"/>
     </edge>
     <edge id=":53_0" function="internal">
-        <lane id=":53_0_0" index="0" speed="16.67" length="4.82" shape="2008.35,0.00 2009.17,-1.24 2010.00,-1.65 2010.83,-1.24 2011.65,0.00"/>
+        <lane id=":53_0_0" index="0" speed="16.67" length="4.82" shape="2008.35,0.00 2009.18,-1.24 2010.00,-1.65 2010.83,-1.24 2011.65,0.00"/>
     </edge>
     <edge id=":54_0" function="internal">
         <lane id=":54_0_0" index="0" speed="16.67" length="4.82" shape="2011.65,4020.00 2010.83,4021.24 2010.00,4021.65 2009.17,4021.24 2008.35,4020.00"/>
@@ -222,14 +222,14 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":1_4_0" type="internal" x="8.35" y="2010.00" incLanes=":1_1_0 51o_0" intLanes=":1_2_0" shape=""/>
-    <junction id=":1_5_0" type="internal" x="11.65" y="2010.00" incLanes=":1_3_0 1o_0" intLanes=":1_0_0" shape=""/>
-    <junction id=":2_4_0" type="internal" x="4008.35" y="2010.00" incLanes=":2_1_0 2o_0" intLanes=":2_2_0" shape=""/>
-    <junction id=":2_5_0" type="internal" x="4011.65" y="2010.00" incLanes=":2_3_0 52o_0" intLanes=":2_0_0" shape=""/>
-    <junction id=":3_4_0" type="internal" x="-1.00" y="-1.00" incLanes=":3_1_0 53o_0" intLanes=":3_2_0" shape=""/>
-    <junction id=":3_5_0" type="internal" x="-1.00" y="-1.00" incLanes=":3_3_0 3o_0" intLanes=":3_0_0" shape=""/>
-    <junction id=":4_4_0" type="internal" x="2010.00" y="4008.35" incLanes=":4_1_0 4o_0" intLanes=":4_2_0" shape=""/>
-    <junction id=":4_5_0" type="internal" x="2010.00" y="4011.65" incLanes=":4_3_0 54o_0" intLanes=":4_0_0" shape=""/>
+    <junction id=":1_4_0" type="internal" x="8.35" y="2010.00" incLanes=":1_1_0 51o_0" intLanes=":1_2_0"/>
+    <junction id=":1_5_0" type="internal" x="11.65" y="2010.00" incLanes=":1_3_0 1o_0" intLanes=":1_0_0"/>
+    <junction id=":2_4_0" type="internal" x="4008.35" y="2010.00" incLanes=":2_1_0 2o_0" intLanes=":2_2_0"/>
+    <junction id=":2_5_0" type="internal" x="4011.65" y="2010.00" incLanes=":2_3_0 52o_0" intLanes=":2_0_0"/>
+    <junction id=":3_4_0" type="internal" x="2010.00" y="8.35" incLanes=":3_1_0 53o_0" intLanes=":3_2_0"/>
+    <junction id=":3_5_0" type="internal" x="2010.00" y="11.65" incLanes=":3_3_0 3o_0" intLanes=":3_0_0"/>
+    <junction id=":4_4_0" type="internal" x="2010.00" y="4008.35" incLanes=":4_1_0 4o_0" intLanes=":4_2_0"/>
+    <junction id=":4_5_0" type="internal" x="2010.00" y="4011.65" incLanes=":4_3_0 54o_0" intLanes=":4_0_0"/>
 
     <connection from="1i" to="2o" fromLane="0" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="s" state="o"/>
     <connection from="1o" to="51i" fromLane="0" toLane="0" via=":1_0_0" dir="s" state="M"/>
