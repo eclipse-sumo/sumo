@@ -11,6 +11,10 @@ Parses routes given in the Vissim file (first parameter) as (in-)flows and
 The read flows are saved as <OUTPUT_PREFIX>.flows.xml
 The read routes are saved as <OUTPUT_PREFIX>.rou.xml
 
+Where <OUTPUT_PREFIX> is the second parameter.
+
+A third parameter may be given to change the random number seed (default=42)
+
 (Starting?) edges of the route may be renamed by setting them within "edgemap"
  variable (see below).
 
@@ -20,6 +24,9 @@ All rights reserved
 
 edgemap = {}
 edgemap["203"] = "203[0]"
+
+
+SEED = 42
 
 
 import sys
@@ -33,10 +40,11 @@ def getName(vals, beg):
     return name.replace('"', '')
         
 
-def parseInFlow(inflow):
+def parseInFlow(inflow, suggested_name):
     vals = inflow.split()
     i = vals.index("NAME")
     name = getName(vals, i+1)
+    if (name==""): name=suggested_name #SUMO can't cope with empty IDs, unlike VISSIM
     i = vals.index("STRECKE", i)
     strecke = vals[i+1]
     i = vals.index("Q", i+1)
@@ -71,7 +79,7 @@ def parseRouteDecision(rd):
     while i>0:
         r_id = vals[i+1]
         i = vals.index("STRECKE", i+1)
-         r_ziel = vals[i+1]
+        r_ziel = vals[i+1]
         i = vals.index("ANTEIL", i+1)
         r_anteil = float(vals[i+1])
         r_edges = []
@@ -96,7 +104,6 @@ def parseRouteDecision(rd):
         sumAnteil = sumAnteil + r_anteil
         if i>=len(vals):
             i = -1
-    print len(routes)
     return ( strecke, sumAnteil, von, bis, routes )
 
         
@@ -114,8 +121,10 @@ def sorter(idx):
 if len(sys.argv) < 3:
     print "Usage: " + sys.argv[0] + " <VISSIM_NETWORK> <OUTPUT_PREFIX>"
     sys.exit()
+if len(sys.argv) > 3:
+    SEED = int(sys.argv[3])
 
-
+seed(SEED)
 print "Parsing Vissim input..."
 fd = open(sys.argv[1])
 routeDecisions = []
@@ -154,9 +163,11 @@ for line in fd:
 print "Writing flows..."
 fdo = open(sys.argv[2] + ".flows.xml", "w")
 fdo.write("<flowdefs>\n")
+flow_sn = 0
 for inflow in inflows:
-    (name, strecke, q, von, bis) = parseInFlow(inflow)
+    (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
     fdo.write('    <flow id="' + name + '" from="' + strecke + '" begin="' + str(von) + '" end="' + str(bis) + '" no="' + str(int(q)) + '"/>\n')
+    flow_sn = flow_sn + 1
 fdo.write("</flowdefs>\n")    
 fdo.close()
 
@@ -172,8 +183,10 @@ for rd in routeDecisions:
         edges2check[strecke] = ( von, bis, routes )
 # compute emissions with routes
 emissions = []
+flow_sn = 0
 for inflow in inflows:
-    (name, strecke, q, von, bis) = parseInFlow(inflow)
+    (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
+    flow_sn = flow_sn + 1
     if strecke in edges2check:
         routes = edges2check[strecke]
         for vi in range(0, int(q)):
@@ -202,12 +215,12 @@ emissions.sort(sorter(0))
 
 # save emissions
 print "Writing routes..."
-fdo = open(sys.argv[0] + ".rou.xml", "w")
+fdo = open(sys.argv[2] + ".rou.xml", "w")
 fdo.write("<routes>\n")
 for emission in emissions:
     if len(emission[2])<2:
         continue;
-	fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[0]) + '"><route edges="' + " ".join(emission[2]) + '"/></vehicle>\n');
+    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(emission[0]) + '"><route edges="' + " ".join(emission[2]) + '"/></vehicle>\n');
 fdo.write("</routes>\n")
 fdo.close()
 
