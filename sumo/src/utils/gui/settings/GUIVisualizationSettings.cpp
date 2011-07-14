@@ -30,11 +30,18 @@
 #include <map>
 #include <vector>
 #include "GUIVisualizationSettings.h"
+#include "GUIColorScheme.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+#ifdef HAVE_MESOSIM
+bool GUIVisualizationSettings::UseMesoSim = false;
+#endif
 
 // ===========================================================================
 // member method definitions
@@ -59,14 +66,142 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         poiName(false, 50, RGBColor(1., 0, .5)),
         minPOISize(0), poiExaggeration(1),
         showSizeLegend(true),
-        gaming(false) {
+        gaming(false) 
+{
+    /// add lane coloring schemes
+    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor(0,0,0), "", true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true);
+    scheme.addColor(RGBColor(0, .4f, .8f), 1, "selected");
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by vclass", RGBColor(0,0,0), "all", true);
+    scheme.addColor(RGBColor(0, .1f, .5f), 1, "public");
+    laneColorer.addScheme(scheme);
+    // ... traffic states ...
+    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by current occupancy (lanewise)", RGBColor(0,0,1));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)200);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0,0,1), (SUMOReal)5);
+    laneColorer.addScheme(scheme);
+    // ... emissions ...
+    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(10./7.5/5.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(0.05/7.5/2.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5/5.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.125/7.5/5.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.02/7.5/4.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5*100.));
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100);
+    laneColorer.addScheme(scheme);
+    // ... weights (experimental) ...
+    scheme = GUIColorScheme("by global travel time", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by global speed percentage", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(1,1,0), (SUMOReal)50);
+    scheme.addColor(RGBColor(0,1,0), (SUMOReal)100);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+
+
+    /// add vehicle coloring schemes
+    vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned vehicle color", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned route color", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("depart position as HSV", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("arrival position as HSV", RGBColor(1,1,0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("direction/distance as HSV", RGBColor(1,1,0), "", true));
+    scheme = GUIColorScheme("by speed", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by waiting time", RGBColor(0,0,1));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(5*60));
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by time since last lanechange", RGBColor(1,1,1));
+    scheme.addColor(RGBColor(.5,.5,.5), (SUMOReal)(5*60));
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by max speed", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    vehicleColorer.addScheme(scheme);
+    // ... emissions ...
+    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)5.);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)0.05);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal).005);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal).125);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal).02);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal).005);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0));
+    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100.);
+    vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by reroute number", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(1,1,0), (SUMOReal)1.);
+    scheme.addColor(RGBColor(1,1,1), (SUMOReal)10.);
+    vehicleColorer.addScheme(scheme);
+
+
+#ifdef HAVE_MESOSIM
+    /// add edge coloring schemes
+    edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor(0,0,0), "", true));
+    scheme = GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true);
+    scheme.addColor(RGBColor(0, .4f, .8f), 1, "selected");
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0), "normal", true);
+    scheme.addColor(RGBColor(.5, 0, .5), 1, "connector"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_CONNECTOR
+    scheme.addColor(RGBColor(0, 0, 1), 2, "internal"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_INTERNAL
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by current occupancy (streetwise)", RGBColor(0,0,1));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by current speed (streetwise)", RGBColor(1,0,0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by current flow (streetwise)", RGBColor(0,0,1));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)5000);
+    edgeColorer.addScheme(scheme);
+#endif
 }
 
 
 size_t
 GUIVisualizationSettings::getLaneEdgeMode() const {
 #ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
+    if (UseMesoSim) {
         return edgeColorer.getActive();
     }
 #endif
@@ -77,7 +212,7 @@ GUIVisualizationSettings::getLaneEdgeMode() const {
 GUIColorScheme&
 GUIVisualizationSettings::getLaneEdgeScheme() {
 #ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
+    if (UseMesoSim) {
         return edgeColorer.getScheme();
     }
 #endif

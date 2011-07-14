@@ -33,9 +33,8 @@
 #include <vector>
 #include <map>
 #include <utils/common/RGBColor.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUILaneWrapper.h>
-#include <guisim/GUIVehicle.h>
+#include <utils/common/ToString.h>
+#include "GUIColorer.h"
 
 
 // ===========================================================================
@@ -112,10 +111,13 @@ public:
 
 #ifdef HAVE_MESOSIM
     /// @brief The mesoscopic edge colorer
-    GUIEdge::Colorer edgeColorer;
+    GUIColorer edgeColorer;
+
+    /// @brief this should be set at the same time as MSGlobals::gUseMesoSim
+    static bool UseMesoSim;
 #endif
     /// @brief The lane colorer
-    GUILaneWrapper::Colorer laneColorer;
+    GUIColorer laneColorer;
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn
@@ -133,7 +135,7 @@ public:
     //@{
 
     /// @brief The vehicle colorer
-    GUIVehicle::Colorer vehicleColorer;
+    GUIColorer vehicleColorer;
     /// @brief The quality of vehicle drawing
     int vehicleQuality;
     /// @brief The minimum size of vehicles to let them be drawn

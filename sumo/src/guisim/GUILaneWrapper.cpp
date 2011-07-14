@@ -403,7 +403,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim)
 #endif
-        s.laneColorer.setGlColor(*this);
+        setColor(s);
     glPushName(getGlID());
     // draw lane
     // check whether it is not too small
@@ -469,7 +469,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim)
 #endif
-        s.laneColorer.setGlColor(*this);
+        setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0) {
         int e = (int) getShape().size() - 1;
@@ -620,57 +620,20 @@ GUILaneWrapper::getNormedHBEFA_FuelConsumption() const throw() {
 }
 
 
-
-// ------------
-GUILaneWrapper::Colorer::Colorer() {
-    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
-    mySchemes.push_back(GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
-    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
-    mySchemes.push_back(GUIColorScheme("by vclass", RGBColor(0,0,0), "all", true));
-    mySchemes.back().addColor(RGBColor(0, .1f, .5f), 1, "public");
-    // ... traffic states ...
-    mySchemes.push_back(GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by current occupancy (lanewise)", RGBColor(0,0,1)));
-    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
-    mySchemes.push_back(GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)200);
-    mySchemes.push_back(GUIColorScheme("by lane number (streetwise)", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)5);
-    // ... emissions ...
-    mySchemes.push_back(GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(10./7.5/5.));
-    mySchemes.push_back(GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(0.05/7.5/2.));
-    mySchemes.push_back(GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5/5.));
-    mySchemes.push_back(GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.125/7.5/5.));
-    mySchemes.push_back(GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.02/7.5/4.));
-    mySchemes.push_back(GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5*100.));
-    mySchemes.push_back(GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100);
-    // ... weights (experimental) ...
-    mySchemes.push_back(GUIColorScheme("by global travel time", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100);
-    mySchemes.back().setAllowsNegativeValues(true);
-    mySchemes.push_back(GUIColorScheme("by global speed percentage", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(1,1,0), (SUMOReal)50);
-    mySchemes.back().addColor(RGBColor(0,1,0), (SUMOReal)100);
-    mySchemes.back().setAllowsNegativeValues(true);
+void 
+GUILaneWrapper::setColor(const GUIVisualizationSettings &s) const {
+    GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));
 }
 
 
 SUMOReal
-GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
-    switch (myActiveScheme) {
+GUILaneWrapper::getColorValue(size_t activeScheme) const {
+    switch (activeScheme) {
     case 1:
-        return gSelected.isSelected(lane.getType(), lane.getGlID());
+        return gSelected.isSelected(getType(), getGlID());
     case 2: {
-        const SUMOVehicleClasses &allowed = lane.myLane.getAllowedClasses();
-        const SUMOVehicleClasses &disallowed = lane.myLane.getNotAllowedClasses();
+        const SUMOVehicleClasses &allowed = getLane().getAllowedClasses();
+        const SUMOVehicleClasses &disallowed = getLane().getNotAllowedClasses();
         if ((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
             return 0;
         } else {
@@ -678,30 +641,30 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
         }
     }
     case 3:
-        return lane.getLane().getMaxSpeed();
+        return getLane().getMaxSpeed();
     case 4:
-        return lane.getLane().getOccupancy();
+        return getLane().getOccupancy();
     case 5:
-        return lane.firstWaitingTime();
+        return firstWaitingTime();
     case 6:
-        return lane.getEdgeLaneNumber();
+        return getEdgeLaneNumber();
     case 7:
-        return lane.getNormedHBEFA_CO2Emissions();
+        return getNormedHBEFA_CO2Emissions();
     case 8:
-        return lane.getNormedHBEFA_COEmissions();
+        return getNormedHBEFA_COEmissions();
     case 9:
-        return lane.getNormedHBEFA_PMxEmissions();
+        return getNormedHBEFA_PMxEmissions();
     case 10:
-        return lane.getNormedHBEFA_NOxEmissions();
+        return getNormedHBEFA_NOxEmissions();
     case 11:
-        return lane.getNormedHBEFA_HCEmissions();
+        return getNormedHBEFA_HCEmissions();
     case 12:
-        return lane.getNormedHBEFA_FuelConsumption();
+        return getNormedHBEFA_FuelConsumption();
     case 13:
-        return lane.getLane().getHarmonoise_NoiseEmissions();
+        return getLane().getHarmonoise_NoiseEmissions();
     case 14: {
         MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge &e = lane.getLane().getEdge();
+        MSEdge &e = getLane().getEdge();
         if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {
@@ -712,13 +675,13 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     }
     case 15: {
         MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge &e = lane.getLane().getEdge();
+        MSEdge &e = getLane().getEdge();
         if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {
             SUMOReal value(0);
             ews.retrieveExistingTravelTime(&e, 0, 0, value);
-            return (lane.getLane().getLength() / lane.getLane().getMaxSpeed()) / (lane.getLane().getMaxSpeed() / value);
+            return (getLane().getLength() / getLane().getMaxSpeed()) / (getLane().getMaxSpeed() / value);
         }
     }
     }

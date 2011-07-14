@@ -140,11 +140,11 @@ public:
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;
 
-    class Colorer : public GUIColorer<GUIEdge> {
-    public:
-        Colorer();
-        SUMOReal getColorValue(const GUIEdge& edge) const;
-    };
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings &s) const;
+
+    /// @brief gets the color value according to the current scheme index
+    SUMOReal getColorValue(size_t activeScheme) const;
 
 #endif
 

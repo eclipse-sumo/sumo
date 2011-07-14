@@ -188,16 +188,7 @@ public:
     /// @}
 
 
-
     SUMOReal getEdgeLaneNumber() const;
-
-    class Colorer : public GUIColorer<GUILaneWrapper> {
-    public:
-        Colorer();
-        SUMOReal getColorValue(const GUILaneWrapper& lane) const;
-    };
-
-
 
 
 protected:
@@ -242,6 +233,13 @@ private:
     void ROWdrawAction_drawLinkRules(const GUINet &net) const;
     void ROWdrawAction_drawArrows() const;
     void ROWdrawAction_drawLane2LaneConnections() const;
+
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings &s) const;
+
+    /// @brief gets the color value according to the current scheme index
+    SUMOReal getColorValue(size_t activeScheme) const;
+
 };
 
 

@@ -126,6 +126,7 @@ GUILoadThread::run() {
     // try to load
     MSFrame::setMSGlobals(oc);
 #ifdef HAVE_MESOSIM
+    GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
         net = new GUINet(new MEVehicleControl(), new GUIEventControl(),
                          new GUIEventControl(), new GUIEventControl());

@@ -47,9 +47,8 @@
 /**
  * @class GUIColorer
  * @brief Base class for coloring. Allows changing the used colors and sets
- *  the used color in dependence to a value or a given structure.
+ *  the used color in dependence to a value 
  */
-template<class T>
 class GUIColorer {
 public:
     /// @brief Constructor
@@ -58,27 +57,9 @@ public:
     /// @brief Destructor
     virtual ~GUIColorer() { }
 
-    /// @brief Sets the color using a value from the given instance of T
-    virtual SUMOReal getColorValue(const T& i) const = 0;
-
-    /// @brief Sets the color using a function call for the given instance of T
-    virtual bool setFunctionalColor(const T& i) const {
-        UNUSED_PARAMETER(i);
-        return false;
-    }
-
-    /// @brief Sets the color using a value from the given instance of T
-    void setGlColor(const T& i) const {
-        if (!setFunctionalColor(i)) {
-            const RGBColor& c = mySchemes[myActiveScheme].getColor(getColorValue(i));
-            glColor3d(c.red(), c.green(), c.blue());
-        }
-    }
-
     /// @brief Fills the given combobox with the names of available colorings
     void fill(FXComboBox &cb) {
-        typename std::vector<GUIColorScheme>::iterator i;
-        for (i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::iterator i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
             cb.appendItem((*i).getName().c_str());
         }
         cb.setCurrentItem((FXint)myActiveScheme);
@@ -98,9 +79,12 @@ public:
         return mySchemes[myActiveScheme];
     }
 
+    const GUIColorScheme& getScheme() const {
+        return mySchemes[myActiveScheme];
+    }
+
     GUIColorScheme* getSchemeByName(std::string name) {
-        typename std::vector<GUIColorScheme>::iterator i;
-        for (i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::iterator i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
             if ((*i).getName() == name) {
                 return &(*i);
             }
@@ -109,8 +93,7 @@ public:
     }
 
     void save(OutputDevice &dev) const {
-        typename std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin();
-        for (; i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin(); i!=mySchemes.end(); ++i) {
             i->save(dev);
         }
     }
@@ -118,6 +101,12 @@ public:
     bool operator==(const GUIColorer &c) const {
         return myActiveScheme == c.myActiveScheme && mySchemes == c.mySchemes;
     }
+
+
+    void addScheme(GUIColorScheme scheme) {
+        mySchemes.push_back(scheme);
+    }
+
 
 protected:
     size_t myActiveScheme;

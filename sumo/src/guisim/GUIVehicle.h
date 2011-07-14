@@ -174,13 +174,6 @@ public:
      */
     const std::vector<LaneQ> &getBestLanes() const throw();
 
-    class Colorer : public GUIColorer<GUIVehicle> {
-    public:
-        Colorer();
-        SUMOReal getColorValue(const GUIVehicle& vehicle) const;
-        bool setFunctionalColor(const GUIVehicle& vehicle) const;
-    };
-
     /**
      * @class GUIVehiclePopupMenu
      *
@@ -277,6 +270,15 @@ private:
     mutable MFXMutex myLock;
 
     MSDevice_Vehroutes *myRoutes;
+
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings &s) const;
+
+    /// @brief gets the color value according to the current scheme index
+    SUMOReal getColorValue(size_t activeScheme) const;
+
+    /// @brief sets the color according to the current scheme index and some vehicle function
+    bool setFunctionalColor(size_t activeScheme) const;
 };
 
 

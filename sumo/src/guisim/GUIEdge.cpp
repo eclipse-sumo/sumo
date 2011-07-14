@@ -211,7 +211,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            s.edgeColorer.setGlColor(*this);
+            setColor(s);
         }
 #endif
         (*i)->drawGL(s);
@@ -349,39 +349,27 @@ GUIEdge::getAllowedSpeed() const {
 }
 
 
-GUIEdge::Colorer::Colorer() {
-    mySchemes.push_back(GUIColorScheme("uniform (streetwise)", RGBColor(0,0,0), "", true));
-    mySchemes.push_back(GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
-    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
-    mySchemes.push_back(GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0), "normal", true));
-    mySchemes.back().addColor(RGBColor(.5, 0, .5), MSEdge::EDGEFUNCTION_CONNECTOR, "connector");
-    mySchemes.back().addColor(RGBColor(0, 0, 1), MSEdge::EDGEFUNCTION_INTERNAL, "internal");
-    mySchemes.push_back(GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by current occupancy (streetwise)", RGBColor(0,0,1)));
-    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
-    mySchemes.push_back(GUIColorScheme("by current speed (streetwise)", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by current flow (streetwise)", RGBColor(0,0,1)));
-    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)5000);
+void 
+GUIEdge::setColor(const GUIVisualizationSettings &s) const {
+    GLHelper::setColor(s.edgeColorer.getScheme().getColor(getColorValue(s.edgeColorer.getActive())));
 }
 
 
 SUMOReal
-GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {
-    switch (myActiveScheme) {
+GUIEdge::getColorValue(size_t activeScheme) const {
+    switch (activeScheme) {
     case 1:
-        return gSelected.isSelected(edge.getType(), edge.getGlID());
+        return gSelected.isSelected(getType(), getGlID());
     case 2:
-        return edge.getPurpose();
+        return getPurpose();
     case 3:
-        return edge.getAllowedSpeed();
+        return getAllowedSpeed();
     case 4:
-        return edge.getOccupancy();
+        return getOccupancy();
     case 5:
-        return edge.getMeanSpeed();
+        return getMeanSpeed();
     case 6:
-        return edge.getFlow();
+        return getFlow();
     }
     return 0;
 }

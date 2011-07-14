@@ -36,25 +36,26 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
-#include <microsim/MSVehicle.h>
-#include "GUINet.h"
-#include "GUIVehicle.h"
-#include "GLObjectValuePassConnector.h"
-#include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <gui/GUIGlobals.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GLHelper.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
-#include <utils/gui/div/GLHelper.h>
-#include <foreign/polyfonts/polyfonts.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <gui/GUIApplicationWindow.h>
+#include <gui/GUIGlobals.h>
+#include "GUIVehicle.h"
+#include "GLObjectValuePassConnector.h"
+#include "GUINet.h"
+#include "GUIEdge.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -861,7 +862,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
-    s.vehicleColorer.setGlColor(*this);
+    setColor(s);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
@@ -990,91 +991,57 @@ GUIVehicle::getBestLanes() const throw() {
 }
 
 
-GUIVehicle::Colorer::Colorer() {
-    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("given/assigned vehicle color", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("given/assigned type color", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("given/assigned route color", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("depart position as HSV", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("arrival position as HSV", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("direction/distance as HSV", RGBColor(1,1,0), "", true));
-    mySchemes.push_back(GUIColorScheme("by speed", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by waiting time", RGBColor(0,0,1)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(5*60));
-    mySchemes.push_back(GUIColorScheme("by time since last lanechange", RGBColor(1,1,1)));
-    mySchemes.back().addColor(RGBColor(.5,.5,.5), (SUMOReal)(5*60));
-    mySchemes.push_back(GUIColorScheme("by max speed", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
-    // ... emissions ...
-    mySchemes.push_back(GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)5.);
-    mySchemes.push_back(GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)0.05);
-    mySchemes.push_back(GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).005);
-    mySchemes.push_back(GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).125);
-    mySchemes.push_back(GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).02);
-    mySchemes.push_back(GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).005);
-    mySchemes.push_back(GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0)));
-    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100.);
-    mySchemes.push_back(GUIColorScheme("by reroute number", RGBColor(1,0,0)));
-    mySchemes.back().addColor(RGBColor(1,1,0), (SUMOReal)1.);
-    mySchemes.back().addColor(RGBColor(1,1,1), (SUMOReal)10.);
+void 
+GUIVehicle::setColor(const GUIVisualizationSettings &s) const {
+    const GUIColorer &c = s.vehicleColorer;
+    if (!setFunctionalColor(c.getActive())) {
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+    }
 }
 
 
 bool
-GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
-    switch (myActiveScheme) {
+GUIVehicle::setFunctionalColor(size_t activeScheme) const {
+    switch (activeScheme) {
     case 1: {
-        const RGBColor &col = vehicle.getParameter().color;
-        glColor3d(col.red(), col.green(), col.blue());
+        GLHelper::setColor(getParameter().color);
         return true;
     }
     case 2: {
-        const RGBColor &col = vehicle.getVehicleType().getColor();
-        glColor3d(col.red(), col.green(), col.blue());
+        GLHelper::setColor(getVehicleType().getColor());
         return true;
     }
     case 3: {
-        const RGBColor &col = vehicle.getRoute().getColor();
-        glColor3d(col.red(), col.green(), col.blue());
+        GLHelper::setColor(getRoute().getColor());
         return true;
     }
     case 4: {
-        Position p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        Position p = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
         Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3d(c.red(), c.green(), c.blue());
+        GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
         return true;
     }
     case 5: {
-        Position p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        Position p = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
         Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3d(c.red(), c.green(), c.blue());
+        GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
         return true;
     }
     case 6: {
-        Position pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-        Position pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        Position pb = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        Position pe = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
         const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
         SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
         Position minp(b.xmin(), b.ymin());
         Position maxp(b.xmax(), b.ymax());
         SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-        glColor3d(c.red(), c.green(), c.blue());
+        GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
         return true;
     }
     }
@@ -1083,35 +1050,35 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
 
 
 SUMOReal
-GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
-    switch (myActiveScheme) {
+GUIVehicle::getColorValue(size_t activeScheme) const {
+    switch (activeScheme) {
     case 7:
-        return vehicle.getSpeed();
+        return getSpeed();
     case 8:
-        return vehicle.getWaitingSeconds();
+        return getWaitingSeconds();
     case 9:
-        return vehicle.getLastLaneChangeOffset();
+        return getLastLaneChangeOffset();
     case 10:
-        return vehicle.getMaxSpeed();
+        return getMaxSpeed();
     case 11:
-        return vehicle.getHBEFA_CO2Emissions();
+        return getHBEFA_CO2Emissions();
     case 12:
-        return vehicle.getHBEFA_COEmissions();
+        return getHBEFA_COEmissions();
     case 13:
-        return vehicle.getHBEFA_PMxEmissions();
+        return getHBEFA_PMxEmissions();
     case 14:
-        return vehicle.getHBEFA_NOxEmissions();
+        return getHBEFA_NOxEmissions();
     case 15:
-        return vehicle.getHBEFA_HCEmissions();
+        return getHBEFA_HCEmissions();
     case 16:
-        return vehicle.getHBEFA_FuelConsumption();
+        return getHBEFA_FuelConsumption();
     case 17:
-        return vehicle.getHarmonoise_NoiseEmissions();
+        return getHarmonoise_NoiseEmissions();
     case 18:
-        if (vehicle.getNumberReroutes() == 0) {
+        if (getNumberReroutes() == 0) {
             return -1;
         }
-        return vehicle.getNumberReroutes();
+        return getNumberReroutes();
     }
     return 0;
 }
@@ -1143,7 +1110,7 @@ GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int
 
 void
 GUIVehicle::drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw() {
-    s.vehicleColorer.setGlColor(*this);
+    setColor(s);
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
     colors[0] -= darken;

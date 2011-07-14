@@ -34,6 +34,7 @@
 #include <map>
 #include <fx.h>
 #include <fx3d.h>
+#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
@@ -55,7 +56,6 @@ class GUIGlObject;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
-class MFXMutex;
 
 
 // ===========================================================================

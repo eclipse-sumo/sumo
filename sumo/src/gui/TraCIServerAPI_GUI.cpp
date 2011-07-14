@@ -36,8 +36,9 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <traci-server/TraCIConstants.h>
-#include "TraCIServerAPI_GUI.h"
 #include <guisim/GUINet.h>
+#include <guisim/GUIVehicle.h>
+#include "TraCIServerAPI_GUI.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
