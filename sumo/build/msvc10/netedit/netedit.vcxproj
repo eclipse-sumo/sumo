@@ -136,10 +136,15 @@
       <OutputFile>$(OutDir)netedit.exe</OutputFile>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <ShowProgress>NotSet</ShowProgress>
+      <LinkStatus>true</LinkStatus>
     </Link>
     <PreBuildEvent>
       <Command>IF EXIST ..\..\..\src\netedit\.svn\entries python ..\..\..\tools\build\version.py ..\..\..\src\netedit ..\..\..\src\netedit</Command>
     </PreBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
@@ -192,139 +197,6 @@
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\y_libguinetload\y_libguinetload.vcxproj">
-      <Project>{b2ad8eb4-16b1-4bdc-9cf5-f7adadbd316d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libguisim\y_libguisim.vcxproj">
-      <Project>{9046260e-78aa-4458-be80-0747860a0f70}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libgui\y_libgui.vcxproj">
-      <Project>{c9cc8a55-bcf5-44d8-9e22-55ea09757c60}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libmicrosim\y_libmicrosim.vcxproj">
-      <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">
-      <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libnetimport\y_libnetimport.vcxproj">
-      <Project>{91422fef-2369-45e6-87aa-8b38709ad823}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libnetload\y_libnetload.vcxproj">
-      <Project>{5ea5cb8f-2b57-4fab-a769-e9a64b3b9c36}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\y_libnetwrite\y_libnetwrite.vcxproj">
-      <Project>{91422fef-2369-45e6-87aa-8b38709ad824}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj">
-      <Project>{50b2c273-2b6a-4a3a-be24-83e3202de180}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
-      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
-      <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj">
-      <Project>{272D2367-13FE-45C2-84AD-8480861DB43E}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
-      <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libgui_dialogs\z_libgui_dialogs.vcxproj">
-      <Project>{80ac8a07-6702-4d2e-af75-f8db7fda169a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libmicrosim_actions\z_libmicrosim_actions.vcxproj">
-      <Project>{a54d4a8b-9520-40f0-b8cb-152bf506cb47}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libmicrosim_output\z_libmicrosim_output.vcxproj">
-      <Project>{cc278de5-d3d8-4bd8-b8a4-bd76cb8fb4f1}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcxproj">
-      <Project>{af2015d2-2412-4355-87fb-e0d88b0a5fba}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libmicrosim_trigger\z_libmicrosim_trigger.vcxproj">
-      <Project>{26f88652-2664-4ce7-8292-6bd37ee6c3ad}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libnetimport_vissim\z_libnetimport_vissim.vcxproj">
-      <Project>{f7f13336-3e29-4219-8580-a17c71e69718}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
-      <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
-      <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
-      <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
-      <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_div\z_libutils_gui_div.vcxproj">
-      <Project>{e3ab9c37-6b5a-4d8c-88f3-df750a493511}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_globjects\z_libutils_gui_globjects.vcxproj">
-      <Project>{39f2dfde-76c6-46fd-a20a-6c8fd52c9db1}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_images\z_libutils_gui_images.vcxproj">
-      <Project>{5f818af6-963e-40b3-93f3-35e145fde30b}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_settings\z_libutils_gui_settings.vcxproj">
-      <Project>{8c2f733c-1c8e-45c9-a546-17ef0146718d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_tracker\z_libutils_gui_tracker.vcxproj">
-      <Project>{67e76d22-3c3e-44fc-9253-3fe583db7848}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_gui_windows\z_libutils_gui_windows.vcxproj">
-      <Project>{25af2c06-8b08-4b33-8775-657e27c304d9}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_importio\z_libutils_importio.vcxproj">
-      <Project>{9fcf1caf-0189-4242-88ba-47706e741119}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_iodevices\z_libutils_iodevices.vcxproj">
-      <Project>{fc588f88-ffc4-4ebd-a790-1b1fe06e1fc8}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_options\z_libutils_options.vcxproj">
-      <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
-      <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\src\netedit\GNEApplicationWindow.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAttributeCarrier.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange.h" />
@@ -350,6 +222,74 @@
     <ClInclude Include="..\..\..\src\netedit\GNEViewNet.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
     <ClInclude Include="..\..\..\src\version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">
+      <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\y_libnetimport\y_libnetimport.vcxproj">
+      <Project>{91422fef-2369-45e6-87aa-8b38709ad823}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\y_libnetwrite\y_libnetwrite.vcxproj">
+      <Project>{91422fef-2369-45e6-87aa-8b38709ad824}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj">
+      <Project>{50b2c273-2b6a-4a3a-be24-83e3202de180}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_gl2ps\zz_foreign_gl2ps.vcxproj">
+      <Project>{272d2367-13fe-45c2-84ad-8480861db43e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
+      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
+      <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libnetimport_vissim\z_libnetimport_vissim.vcxproj">
+      <Project>{f7f13336-3e29-4219-8580-a17c71e69718}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
+      <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_distribution\z_libutils_distribution.vcxproj">
+      <Project>{f5d8313c-621d-4cce-a6da-83effbde7ce6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_foxtools\z_libutils_foxtools.vcxproj">
+      <Project>{ecaebbbd-18b0-4e40-9507-4ad2b018c1cd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
+      <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_div\z_libutils_gui_div.vcxproj">
+      <Project>{e3ab9c37-6b5a-4d8c-88f3-df750a493511}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_globjects\z_libutils_gui_globjects.vcxproj">
+      <Project>{39f2dfde-76c6-46fd-a20a-6c8fd52c9db1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_images\z_libutils_gui_images.vcxproj">
+      <Project>{5f818af6-963e-40b3-93f3-35e145fde30b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_settings\z_libutils_gui_settings.vcxproj">
+      <Project>{8c2f733c-1c8e-45c9-a546-17ef0146718d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_tracker\z_libutils_gui_tracker.vcxproj">
+      <Project>{67e76d22-3c3e-44fc-9253-3fe583db7848}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_gui_windows\z_libutils_gui_windows.vcxproj">
+      <Project>{25af2c06-8b08-4b33-8775-657e27c304d9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_importio\z_libutils_importio.vcxproj">
+      <Project>{9fcf1caf-0189-4242-88ba-47706e741119}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_iodevices\z_libutils_iodevices.vcxproj">
+      <Project>{fc588f88-ffc4-4ebd-a790-1b1fe06e1fc8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_options\z_libutils_options.vcxproj">
+      <Project>{ee29af87-7317-488d-bf6d-ec422d1dbad6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
+      <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
