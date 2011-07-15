@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/08/11 13:09:28 by SUMO netconvert Version dev-SVN-r10899
+<!-- generated on Fri Jul 15 10:48:41 2011 by SUMO netconvert Version dev-SVN-r11002
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -25,7 +26,7 @@
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" speed="12.50" length="5.00" shape="48.35,58.05 48.16,56.69 47.57,55.73 46.61,55.14 45.25,54.95"/>
+        <lane id=":0_0_0" index="0" speed="12.50" length="5.00" shape="48.35,58.05 48.16,56.69 47.58,55.73 46.61,55.14 45.25,54.95"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" speed="15.28" length="9.50" shape="48.35,58.05 48.35,48.55"/>
@@ -75,7 +76,7 @@
         <lane id="4o_0" index="0" speed="15.28" length="41.95" shape="51.65,58.05 51.65,100.00"/>
     </edge>
 
-    <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.75,58.05 53.25,58.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,56.55">
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.75,58.05 53.25,58.05 53.25,48.55 46.75,48.55 45.25,50.05 45.25,56.55">
         <request index="0" response="000000" foes="010000" cont="0"/>
         <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="001000" cont="1"/>

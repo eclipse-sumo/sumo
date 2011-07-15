@@ -60,8 +60,8 @@ NBJunctionTypesMatrix::NBJunctionTypesMatrix() {
     myValues.push_back("rppppp"); // 000 - 010
     myValues.push_back(" rpppp"); // 010 - 030
     myValues.push_back("  rppp"); // 030 - 050
-    myValues.push_back("   ttp"); // 050 - 070
-    myValues.push_back("    tp"); // 070 - 100
+    myValues.push_back("   ppp"); // 050 - 070
+    myValues.push_back("    pp"); // 070 - 100
     myValues.push_back("     p"); // 100 -
 }
 

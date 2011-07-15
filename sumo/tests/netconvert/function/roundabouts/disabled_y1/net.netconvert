@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:29:00 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Fri Jul 15 10:49:35 2011 by SUMO netconvert Version dev-SVN-r11002
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -10,7 +11,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -52,7 +53,7 @@
         <lane id="9889_0" index="0" speed="13.90" length="91.60" shape="80.92,208.59 142.80,273.88 141.64,275.05"/>
     </edge>
 
-    <junction id="10708" type="traffic_light" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.83,165.81 81.50,163.03 82.80,160.72 81.31,157.68 78.21,156.13 76.04,157.24 73.20,158.76">
+    <junction id="10708" type="priority" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.83,165.81 81.50,163.03 82.80,160.72 81.31,157.68 78.21,156.13 76.04,157.24 73.20,158.76">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -67,13 +68,13 @@
     <junction id="14305" type="priority" x="141.64" y="275.05" incLanes="9889_0" intLanes="" shape="140.55,273.88 142.73,276.22 140.50,273.92">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="17199" type="traffic_light" x="32.32" y="161.93" incLanes="-9887_0 -9890_0" intLanes="" shape="36.03,158.77 33.23,157.14 31.05,155.97 27.99,157.41 26.39,160.50 27.71,162.85 29.41,165.63">
+    <junction id="17199" type="priority" x="32.32" y="161.93" incLanes="-9887_0 -9890_0" intLanes="" shape="36.03,158.77 33.23,157.14 31.05,155.97 27.99,157.41 26.39,160.50 27.71,162.85 29.41,165.63">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="17200" type="traffic_light" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="77.00,211.57 80.08,210.17 81.71,207.10 80.53,204.81 78.93,201.97 72.05,208.72 74.85,210.39">
+    <junction id="17200" type="priority" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="77.00,211.57 80.08,210.17 81.71,207.10 80.53,204.81 78.93,201.97 72.05,208.72 74.85,210.39">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>

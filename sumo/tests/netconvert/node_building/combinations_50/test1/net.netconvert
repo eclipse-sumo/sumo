@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:27:25 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Fri Jul 15 10:48:39 2011 by SUMO netconvert Version dev-SVN-r11002
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -10,7 +11,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -25,7 +26,7 @@
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" speed="13.89" length="5.00" shape="48.35,54.75 48.16,53.39 47.57,52.43 46.61,51.84 45.25,51.65"/>
+        <lane id=":0_0_0" index="0" speed="13.89" length="5.00" shape="48.35,54.75 48.16,53.39 47.58,52.43 46.61,51.84 45.25,51.65"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" speed="13.89" length="9.50" shape="48.35,54.75 48.35,45.25"/>
@@ -122,7 +123,7 @@
         <lane id="4o_0" index="0" speed="13.89" length="45.25" shape="51.65,54.75 51.65,100.00"/>
     </edge>
 
-    <junction id="0" type="traffic_light" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_18_0 :0_19_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25 45.25,46.75 45.25,53.25">
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 3i_0 1i_0" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_18_0 :0_19_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="46.75,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 46.75,45.25 45.25,46.75 45.25,53.25">
         <request index="0" response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1" response="0000000000000000" foes="0111110001100000" cont="0"/>
         <request index="2" response="0000001100000000" foes="0110001111100000" cont="1"/>

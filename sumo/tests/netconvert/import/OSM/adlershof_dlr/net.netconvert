@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 07/08/11 13:17:15 by SUMO netconvert Version dev-SVN-r10899
+<!-- generated on Fri Jul 15 10:49:19 2011 by SUMO netconvert Version dev-SVN-r11002
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -10,6 +11,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
     <projection>
@@ -685,7 +687,7 @@
         <request index="4" response="000000" foes="000100"/>
         <request index="5" response="000011" foes="000011"/>
     </junction>
-    <junction id="261636677" type="traffic_light" x="1119.89" y="114.18" incLanes="24152812#0_0 5198586#4_0" intLanes="" shape="1124.84,115.48 1124.65,112.28 1121.15,109.72 1117.96,109.97 1116.91,112.41 1120.99,117.47">
+    <junction id="261636677" type="priority" x="1119.89" y="114.18" incLanes="24152812#0_0 5198586#4_0" intLanes="" shape="1124.84,115.48 1124.65,112.28 1121.15,109.72 1117.96,109.97 1116.91,112.41 1120.99,117.47">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -1040,7 +1042,7 @@
     <junction id="294831560" type="priority" x="543.50" y="292.50" incLanes="26843133#0_0" intLanes="" shape="543.55,292.49 546.74,292.24 540.26,292.75 543.45,292.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="301292612" type="traffic_light" x="497.67" y="399.45" incLanes="27437972#4_0 27445003_0" intLanes="" shape="500.24,401.71 500.99,398.60 499.85,396.59 496.71,395.98 494.98,397.06 494.14,400.15">
+    <junction id="301292612" type="priority" x="497.67" y="399.45" incLanes="27437972#4_0 27445003_0" intLanes="" shape="500.24,401.71 500.99,398.60 499.85,396.59 496.71,395.98 494.98,397.06 494.14,400.15">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
@@ -1097,7 +1099,7 @@
         <request index="9" response="00000111000" foes="00000111110"/>
         <request index="10" response="00000110001" foes="00000110001"/>
     </junction>
-    <junction id="36268375" type="traffic_light" x="760.15" y="265.38" incLanes="-5198585#2_0 5198585#1_0 -5198597#0_0" intLanes="" shape="761.52,270.88 765.79,265.97 758.62,259.74 754.35,264.64 754.46,266.72 759.22,271.15">
+    <junction id="36268375" type="priority" x="760.15" y="265.38" incLanes="-5198585#2_0 5198585#1_0 -5198597#0_0" intLanes="" shape="761.52,270.88 765.79,265.97 758.62,259.74 754.35,264.64 754.46,266.72 759.22,271.15">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1108,7 +1110,7 @@
         <request index="7" response="000011010" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268376" type="traffic_light" x="891.20" y="379.38" incLanes="-5198585#3_0 -5198586#2_0 5198585#2_0 5198586#1_0" intLanes="" shape="892.72,385.00 896.98,380.09 896.78,377.79 891.80,373.61 889.71,373.77 885.44,378.68 885.62,381.05 890.64,385.18">
+    <junction id="36268376" type="priority" x="891.20" y="379.38" incLanes="-5198585#3_0 -5198586#2_0 5198585#2_0 5198586#1_0" intLanes="" shape="892.72,385.00 896.98,380.09 896.78,377.79 891.80,373.61 889.71,373.77 885.44,378.68 885.62,381.05 890.64,385.18">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
         <request index="1" response="0000000000000000" foes="0111110001100000"/>
         <request index="2" response="0000001100000000" foes="0110001111100000"/>
@@ -1126,7 +1128,7 @@
         <request index="14" response="0000011000110110" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="36268378" type="traffic_light" x="1002.98" y="479.02" incLanes="-5198585#6_0 5198585#5_0 -5784968#0_0" intLanes="" shape="1004.41,484.45 1008.58,479.46 1001.71,473.41 997.29,478.16 997.36,480.29 1002.12,484.71">
+    <junction id="36268378" type="priority" x="1002.98" y="479.02" incLanes="-5198585#6_0 5198585#5_0 -5784968#0_0" intLanes="" shape="1004.41,484.45 1008.58,479.46 1001.71,473.41 997.29,478.16 997.36,480.29 1002.12,484.71">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1146,7 +1148,7 @@
     <junction id="36268391" type="priority" x="1193.59" y="451.66" incLanes="5198588#1_0" intLanes="" shape="1193.55,451.70 1191.45,454.11 1195.73,449.21 1193.62,451.62">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="36268392" type="traffic_light" x="1053.05" y="328.93" incLanes="-5198588#1_0 5198588#0_0 5198587_0" intLanes="" shape="1054.55,334.55 1058.82,329.66 1051.78,323.42 1047.43,328.25 1047.47,330.56 1052.46,334.72">
+    <junction id="36268392" type="priority" x="1053.05" y="328.93" incLanes="-5198588#1_0 5198588#0_0 5198587_0" intLanes="" shape="1054.55,334.55 1058.82,329.66 1051.78,323.42 1047.43,328.25 1047.47,330.56 1052.46,334.72">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1157,13 +1159,13 @@
         <request index="7" response="000011010" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268398" type="traffic_light" x="891.80" y="605.66" incLanes="27437972#0_0 5784968#5_0" intLanes="" shape="895.23,609.83 896.99,607.16 896.80,605.28 892.22,600.67 888.83,601.98 887.17,604.72">
+    <junction id="36268398" type="priority" x="891.80" y="605.66" incLanes="27437972#0_0 5784968#5_0" intLanes="" shape="895.23,609.83 896.99,607.16 896.80,605.28 892.22,600.67 888.83,601.98 887.17,604.72">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="36268403" type="traffic_light" x="936.97" y="550.04" incLanes="5784968#1_0 -5198596#0_0 -5784968#2_0" intLanes="" shape="942.51,548.85 937.75,544.42 935.50,544.46 931.24,549.37 931.39,551.48 936.28,555.76">
+    <junction id="36268403" type="priority" x="936.97" y="550.04" incLanes="5784968#1_0 -5198596#0_0 -5784968#2_0" intLanes="" shape="942.51,548.85 937.75,544.42 935.50,544.46 931.24,549.37 931.39,551.48 936.28,555.76">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1174,7 +1176,7 @@
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268406" type="traffic_light" x="828.36" y="455.87" incLanes="5198596#2_0 -5198586#1_0 -5198596#3_0 5198586#0_0" intLanes="" shape="829.78,461.41 834.04,456.50 833.99,454.14 828.97,450.01 826.91,450.16 822.53,454.97 822.79,457.23 827.64,461.56">
+    <junction id="36268406" type="priority" x="828.36" y="455.87" incLanes="5198596#2_0 -5198586#1_0 -5198596#3_0 5198586#0_0" intLanes="" shape="829.78,461.41 834.04,456.50 833.99,454.14 828.97,450.01 826.91,450.16 822.53,454.97 822.79,457.23 827.64,461.56">
         <request index="0" response="0000000000000000" foes="1000010000100000"/>
         <request index="1" response="0000000000000000" foes="0111110001100000"/>
         <request index="2" response="0000001100000000" foes="0110001111100000"/>
@@ -1203,7 +1205,7 @@
         <request index="7" response="000011010" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268411" type="traffic_light" x="693.88" y="336.61" incLanes="5198596#4_0 5198597#0_0 -5198597#1_0" intLanes="" shape="695.71,342.27 699.80,337.22 699.65,335.18 694.89,330.75 690.14,334.14 691.61,340.47">
+    <junction id="36268411" type="priority" x="693.88" y="336.61" incLanes="5198596#4_0 5198597#0_0 -5198597#1_0" intLanes="" shape="695.71,342.27 699.80,337.22 699.65,335.18 694.89,330.75 690.14,334.14 691.61,340.47">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1214,13 +1216,13 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268415" type="traffic_light" x="778.40" y="511.89" incLanes="-5198586#0_0 27445015#2_0" intLanes="" shape="781.17,516.17 783.17,513.67 783.00,511.61 778.15,507.29 775.63,507.87 773.74,510.46">
+    <junction id="36268415" type="priority" x="778.40" y="511.89" incLanes="-5198586#0_0 27445015#2_0" intLanes="" shape="781.17,516.17 783.17,513.67 783.00,511.61 778.15,507.29 775.63,507.87 773.74,510.46">
         <request index="0" response="1000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0000" foes="0001"/>
     </junction>
-    <junction id="36268416" type="traffic_light" x="1055.08" y="184.85" incLanes="-5198584_0 -5198586#4_0 5198586#3_0" intLanes="" shape="1056.52,190.51 1060.86,185.68 1060.56,183.39 1055.59,179.21 1049.47,186.46 1054.43,190.66">
+    <junction id="36268416" type="priority" x="1055.08" y="184.85" incLanes="-5198584_0 -5198586#4_0 5198586#3_0" intLanes="" shape="1056.52,190.51 1060.86,185.68 1060.56,183.39 1055.59,179.21 1049.47,186.46 1054.43,190.66">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1231,7 +1233,7 @@
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="36268417" type="traffic_light" x="984.96" y="267.80" incLanes="-5198588#0_0 -5198586#3_0 5198586#2_0" intLanes="" shape="986.40,273.46 990.75,268.63 990.45,266.34 985.48,262.15 979.35,269.43 984.32,273.61">
+    <junction id="36268417" type="priority" x="984.96" y="267.80" incLanes="-5198588#0_0 -5198586#3_0 5198586#2_0" intLanes="" shape="986.40,273.46 990.75,268.63 990.45,266.34 985.48,262.15 979.35,269.43 984.32,273.61">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1252,7 +1254,7 @@
         <request index="6" response="00000111" foes="00000111"/>
         <request index="7" response="00000110" foes="00000110"/>
     </junction>
-    <junction id="36268431" type="traffic_light" x="960.73" y="439.70" incLanes="-5198585#5_0 -5198587_0 5198585#4_0" intLanes="" shape="961.87,445.20 966.29,440.44 966.31,438.08 961.32,433.92 959.22,434.09 954.96,439.00">
+    <junction id="36268431" type="priority" x="960.73" y="439.70" incLanes="-5198585#5_0 -5198587_0 5198585#4_0" intLanes="" shape="961.87,445.20 966.29,440.44 966.31,438.08 961.32,433.92 959.22,434.09 954.96,439.00">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1268,7 +1270,7 @@
     <junction id="38919605" type="priority" x="782.81" y="575.88" incLanes="6137239#4_0" intLanes="" shape="782.77,575.91 780.50,578.17 785.11,573.59 782.84,575.84">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="38919652" type="traffic_light" x="616.73" y="561.79" incLanes="-6137239#4_0 5784947#0_0 6137239#3_0" intLanes="" shape="622.11,564.86 621.89,558.36 621.11,557.10 618.30,555.56 611.87,559.09 612.63,565.54 613.45,566.71 616.61,567.55">
+    <junction id="38919652" type="priority" x="616.73" y="561.79" incLanes="-6137239#4_0 5784947#0_0 6137239#3_0" intLanes="" shape="622.11,564.86 621.89,558.36 621.11,557.10 618.30,555.56 611.87,559.09 612.63,565.54 613.45,566.71 616.61,567.55">
         <request index="0" response="000000000" foes="010010000"/>
         <request index="1" response="000000000" foes="110110000"/>
         <request index="2" response="001001000" foes="001001000"/>
@@ -1283,11 +1285,11 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="38919703" type="traffic_light" x="664.49" y="450.74" incLanes="27437972#2_0 5784950#3_0" intLanes="" shape="666.28,453.99 668.14,451.39 662.53,447.87 661.02,450.69 661.52,452.97 664.36,454.44">
+    <junction id="38919703" type="priority" x="664.49" y="450.74" incLanes="27437972#2_0 5784950#3_0" intLanes="" shape="666.28,453.99 668.14,451.39 662.53,447.87 661.02,450.69 661.52,452.97 664.36,454.44">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="38919712" type="traffic_light" x="618.29" y="539.59" incLanes="6137233#4_0 5784950#2_0" intLanes="" shape="621.83,536.26 618.99,534.78 616.00,535.24 613.69,541.32 614.33,543.15 617.09,544.77">
+    <junction id="38919712" type="priority" x="618.29" y="539.59" incLanes="6137233#4_0 5784950#2_0" intLanes="" shape="621.83,536.26 618.99,534.78 616.00,535.24 613.69,541.32 614.33,543.15 617.09,544.77">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -1295,7 +1297,7 @@
     </junction>
     <junction id="38919797" type="unregulated" x="525.69" y="749.30" incLanes="5784947#1_0" intLanes="" shape="527.13,750.00 524.25,748.60">
     </junction>
-    <junction id="38919808" type="traffic_light" x="604.30" y="563.25" incLanes="-6137239#3_0 6137239#2_0 5784950#0_0" intLanes="" shape="610.63,565.78 609.87,559.32 609.14,558.21 606.39,556.58 599.22,560.17 599.44,566.67 600.30,567.98 603.19,569.34">
+    <junction id="38919808" type="priority" x="604.30" y="563.25" incLanes="-6137239#3_0 6137239#2_0 5784950#0_0" intLanes="" shape="610.63,565.78 609.87,559.32 609.14,558.21 606.39,556.58 599.22,560.17 599.44,566.67 600.30,567.98 603.19,569.34">
         <request index="0" response="000000000" foes="111100000"/>
         <request index="1" response="000011000" foes="110011000"/>
         <request index="2" response="100010000" foes="100010000"/>
@@ -1328,7 +1330,7 @@
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="38919880" type="traffic_light" x="339.13" y="454.31" incLanes="-6137239#0_0 -6137233#1_0 6137233#0_0" intLanes="" shape="336.12,460.26 342.61,460.00 344.01,458.87 345.57,452.56 335.78,450.33 334.52,456.70">
+    <junction id="38919880" type="priority" x="339.13" y="454.31" incLanes="-6137239#0_0 -6137233#1_0 6137233#0_0" intLanes="" shape="336.12,460.26 342.61,460.00 344.01,458.87 345.57,452.56 335.78,450.33 334.52,456.70">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -1354,7 +1356,7 @@
     </junction>
     <junction id="38920557" type="unregulated" x="518.91" y="744.71" incLanes="" intLanes="" shape="520.36,745.39 517.46,744.03">
     </junction>
-    <junction id="38920778" type="traffic_light" x="903.89" y="592.25" incLanes="5784968#3_0 27445015#3_0 -5784968#4_0" intLanes="" shape="907.21,596.22 908.91,593.51 908.55,591.52 903.39,587.57 900.15,588.41 898.63,591.22 898.99,593.09 904.01,597.22">
+    <junction id="38920778" type="priority" x="903.89" y="592.25" incLanes="5784968#3_0 27445015#3_0 -5784968#4_0" intLanes="" shape="907.21,596.22 908.91,593.51 908.55,591.52 903.39,587.57 900.15,588.41 898.63,591.22 898.99,593.09 904.01,597.22">
         <request index="0" response="000010000" foes="010010000"/>
         <request index="1" response="000110000" foes="110110000"/>
         <request index="2" response="001001000" foes="001001000"/>
@@ -1365,7 +1367,7 @@
         <request index="7" response="000110011" foes="000110011"/>
         <request index="8" response="000100010" foes="000100010"/>
     </junction>
-    <junction id="56231397" type="traffic_light" x="500.40" y="385.30" incLanes="7727482_0 27441168_0" intLanes="" shape="503.09,387.72 503.95,384.64 501.85,381.67 498.65,381.80 497.25,382.98 496.57,386.11 498.22,388.18 501.36,388.79">
+    <junction id="56231397" type="priority" x="500.40" y="385.30" incLanes="7727482_0 27441168_0" intLanes="" shape="503.09,387.72 503.95,384.64 501.85,381.67 498.65,381.80 497.25,382.98 496.57,386.11 498.22,388.18 501.36,388.79">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
@@ -1382,7 +1384,7 @@
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="56231598" type="traffic_light" x="615.54" y="417.63" incLanes="5198597#2_0 27445015#0_0 7730464_0" intLanes="" shape="620.06,420.94 621.13,417.92 620.08,415.97 614.33,412.95 611.66,414.88 610.79,417.96 612.07,421.59 618.56,421.93">
+    <junction id="56231598" type="priority" x="615.54" y="417.63" incLanes="5198597#2_0 27445015#0_0 7730464_0" intLanes="" shape="620.06,420.94 621.13,417.92 620.08,415.97 614.33,412.95 611.66,414.88 610.79,417.96 612.07,421.59 618.56,421.93">
         <request index="0" response="010010000" foes="010010000"/>
         <request index="1" response="010110000" foes="110110000"/>
         <request index="2" response="001001000" foes="001001000"/>
@@ -1399,7 +1401,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0000" foes="0001"/>
     </junction>
-    <junction id="56242441" type="traffic_light" x="614.99" y="427.87" incLanes="27437972#3_0 -7730464_0" intLanes="" shape="618.37,431.07 619.64,428.14 618.44,424.31 611.94,423.96 610.41,425.11 609.65,428.22">
+    <junction id="56242441" type="priority" x="614.99" y="427.87" incLanes="27437972#3_0 -7730464_0" intLanes="" shape="618.37,431.07 619.64,428.14 618.44,424.31 611.94,423.96 610.41,425.11 609.65,428.22">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
@@ -1413,7 +1415,7 @@
     <junction id="57343510" type="priority" x="14.85" y="179.31" incLanes="24214693#1_0 24214693#1_1" intLanes="" shape="14.84,179.26 13.92,172.82 15.77,185.79 14.85,179.36">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="59993001" type="traffic_light" x="486.97" y="382.40" incLanes="20430080_0 6137245_0" intLanes="" shape="489.70,384.62 490.38,381.50 489.13,379.60 485.99,379.00 484.24,380.15 483.55,383.27 484.81,385.17 487.95,385.78">
+    <junction id="59993001" type="priority" x="486.97" y="382.40" incLanes="20430080_0 6137245_0" intLanes="" shape="489.70,384.62 490.38,381.50 489.13,379.60 485.99,379.00 484.24,380.15 483.55,383.27 484.81,385.17 487.95,385.78">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
