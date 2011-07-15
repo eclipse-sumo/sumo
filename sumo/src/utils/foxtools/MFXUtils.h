@@ -31,6 +31,10 @@
 
 #include <fx.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+class RGBColor;
 
 // ===========================================================================
 // class definitions
@@ -121,6 +125,13 @@ public:
     static FXString getFilename2Write(FXWindow *parent,
                                       const FXString &header, const FXString &extension,
                                       FXIcon *icon, FXString &currentFolder) throw();
+
+
+    /** @brief converts FXColor to RGBColor */
+    static RGBColor getRGBColor(FXColor col);
+
+    /** @brief converts FXColor to RGBColor */
+    static FXColor getFXColor(const RGBColor &col);
 
 };
 
