@@ -24,6 +24,9 @@ BuildRequires:  xorg-x11-devel xorg-x11-Mesa-devel
 %endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version}
 BuildRequires:  libGLU-devel libXext-devel libXft-devel
+%if 0%{?fedora_version} == 15
+BuildRequires:  hdf5 javamail
+%endif
 %endif
 Autoreqprov: on
 
