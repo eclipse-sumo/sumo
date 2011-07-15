@@ -198,11 +198,11 @@ protected:
      * @brief Representation of a lane
      */
     struct OpenDriveLane {
-        OpenDriveLane(int idArg, int levelArg, const std::string &typeArg)
+        OpenDriveLane(int idArg, const std::string &levelArg, const std::string &typeArg)
                 : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION) { }
 
         int id;
-        int level;
+        std::string level;
         std::string type;
         int successor;
         int predecessor;

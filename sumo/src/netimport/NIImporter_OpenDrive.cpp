@@ -85,7 +85,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
 StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "revMajor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMAJOR },
     { "revMinor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMINOR },
-    { "ID",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },
+    { "id",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },
     { "length",         NIImporter_OpenDrive::OPENDRIVE_ATTR_LENGTH },
     { "junction",       NIImporter_OpenDrive::OPENDRIVE_ATTR_JUNCTION },
     { "elementType",    NIImporter_OpenDrive::OPENDRIVE_ATTR_ELEMENTTYPE },
@@ -863,7 +863,6 @@ NIImporter_OpenDrive::myStartElement(int element,
     break;
     case OPENDRIVE_TAG_ROAD: {
         std::string id = attrs.getStringReporting(OPENDRIVE_ATTR_ID, 0, ok);
-        std::cout << "found edge '" << id << "'" << std::endl;
         std::string junction = attrs.getStringReporting(OPENDRIVE_ATTR_JUNCTION, id.c_str(), ok);
         SUMOReal length = attrs.getSUMORealReporting(OPENDRIVE_ATTR_LENGTH, id.c_str(), ok);
         myCurrentEdge = OpenDriveEdge(id, junction, length);
@@ -952,9 +951,9 @@ NIImporter_OpenDrive::myStartElement(int element,
     case OPENDRIVE_TAG_LANE: {
         std::string type = attrs.getStringReporting(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
         int id = attrs.getIntReporting(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
-        int level = attrs.hasAttribute(OPENDRIVE_ATTR_LEVEL)
-                    ? attrs.getIntReporting(OPENDRIVE_ATTR_LEVEL, myCurrentEdge.id.c_str(), ok)
-                    : 0;
+        std::string level = attrs.hasAttribute(OPENDRIVE_ATTR_LEVEL)
+            ? attrs.getStringReporting(OPENDRIVE_ATTR_LEVEL, myCurrentEdge.id.c_str(), ok)
+            : "";
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));
     }
