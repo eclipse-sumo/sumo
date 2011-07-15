@@ -25,6 +25,9 @@ half_by_name
 # trips as input, districts used
 trip_with_taz
 
+# trips as input, districts with explicit source edge
+trip_with_taz_source
+
 # trips as input, no edges, districts used
 trip_taz_noedge
 
@@ -36,4 +39,3 @@ errors
 
 # deprecated element names
 _deprecated_
-
