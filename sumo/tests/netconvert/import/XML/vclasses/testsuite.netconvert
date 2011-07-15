@@ -13,3 +13,7 @@ dismissing_one_lane
 # Tests whether dismissing vehicle class information works (all lanes set)
 dismissing_all_lanes
 
+# Tests whether vclasses can be set for a complete edge, too
+setting_edges
+
+
