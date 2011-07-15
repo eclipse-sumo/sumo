@@ -144,9 +144,16 @@ public:
     /// Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
 
-    /** @brief Returns the center
-        !! Only for closed??? */
+    /** @brief Returns the arithmetic of all corner points 
+     * @note: this is different from the centroid! */
     Position getPolygonCenter() const;
+
+    /** @brief Returns the centroid (closes the polygon if unclosed) */
+    Position getCentroid() const;
+
+    /** @brief enlarges/shrinks the polygon based at the centroid */
+    void scaleSize(SUMOReal factor);
+
     Position getLineCenter() const;
 
     Position pop_back();

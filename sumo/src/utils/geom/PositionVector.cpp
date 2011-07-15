@@ -279,6 +279,50 @@ PositionVector::getPolygonCenter() const {
 
 
 Position
+PositionVector::getCentroid() const {
+    PositionVector tmp = *this;
+    if (!isClosed()) { // make sure its closed
+        tmp.push_back(tmp[0]);
+    }
+    const int endIndex = (int)tmp.size() - 1;
+    SUMOReal div = 0; // 6 * area including sign
+    SUMOReal x = 0;
+    SUMOReal y = 0;
+    if (tmp.area() != 0) { // numerical instability ?
+        // http://en.wikipedia.org/wiki/Polygon
+        for (int i = 0; i < endIndex; i++) {
+            const SUMOReal z = tmp[i].x() * tmp[i+1].y() - tmp[i+1].x() * tmp[i].y();
+            div += z; // area formula
+            x += (tmp[i].x() + tmp[i+1].x()) * z;
+            y += (tmp[i].y() + tmp[i+1].y()) * z;
+        }
+        div *= 3; //  6 / 2, the 2 comes from the area formula
+        return Position(x / div, y / div);
+    } else {
+        // compute by decomposing into line segments
+        // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
+        SUMOReal lengthSum = 0;
+        for (int i = 0; i < endIndex; i++) {
+            SUMOReal length = tmp[i].distanceTo(tmp[i+1]);
+            x += (tmp[i].x() + tmp[i+1].x()) * length / 2;
+            y += (tmp[i].y() + tmp[i+1].y()) * length / 2;
+            lengthSum += length;
+        }
+        return Position(x / lengthSum, y / lengthSum);
+    }
+}
+
+
+void
+PositionVector::scaleSize(SUMOReal factor) {
+    Position centroid = getCentroid();
+    for (int i = 0; i < size(); i++) {
+        myCont[i] = centroid + ((myCont[i] - centroid) * factor);
+    }
+}
+
+
+Position
 PositionVector::getLineCenter() const {
     if (myCont.size()==1) {
         return myCont[0];
@@ -301,7 +345,6 @@ SUMOReal
 PositionVector::area() const {
     SUMOReal area = 0;
     PositionVector tmp = *this;
-    tmp.sortAsPolyCWByAngle();
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
     }
@@ -310,7 +353,10 @@ PositionVector::area() const {
     for (int i = 0; i < endIndex; i++) {
         area += tmp[i].x() * tmp[i+1].y() - tmp[i+1].x() * tmp[i].y();
     }
-    return area / -2;
+    if (area < 0) { // we whether we had cw or ccw order
+        area *= -1;
+    }
+    return area / 2;
 }
 
 

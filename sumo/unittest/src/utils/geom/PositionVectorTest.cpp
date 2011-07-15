@@ -44,16 +44,67 @@ TEST_F(PositionVectorTest, test_method_around) {
 	EXPECT_FALSE(vectorLine->around(Position(0,2)));
 }
 
-/* Test the method 'getPolygonCenter'.*/
-TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
-	Position pos = vectorPolygon->getPolygonCenter();
-	EXPECT_FLOAT_EQ(2, pos.x());
-	EXPECT_FLOAT_EQ(1.6, pos.y());
-	Position pos2 = vectorLine->getPolygonCenter();
+/* Test the method 'area'*/
+TEST_F(PositionVectorTest, test_method_area) {
+    PositionVector square;
+    square.push_back(Position(0,0));
+    square.push_back(Position(1,0));
+    square.push_back(Position(1,1));
+    square.push_back(Position(0,1)); // open
+    EXPECT_FLOAT_EQ(square.area(), 1); 
+    square.push_back(Position(0,0)); // closed
+    EXPECT_FLOAT_EQ(square.area(), 1); 
+}
+
+/* Test the method 'scaleSize'.*/
+TEST_F(PositionVectorTest, test_method_scaleSize) {
+    PositionVector square;
+    square.push_back(Position(0,0));
+    square.push_back(Position(1,0));
+    square.push_back(Position(1,1));
+    square.push_back(Position(0,1));
+    square.push_back(Position(0,0));
+    EXPECT_FLOAT_EQ(square.area(), 1);
+    square.scaleSize(3);
+    EXPECT_FLOAT_EQ(square.area(), 9);
+
+    PositionVector expected;
+    expected.push_back(Position(-1,-1));
+    expected.push_back(Position(2,-1));
+    expected.push_back(Position(2,2));
+    expected.push_back(Position(-1,2));
+    expected.push_back(Position(-1,-1));
+
+    EXPECT_EQ(expected.getCentroid(), square.getCentroid());
+    for (int i = 0; i < square.size(); i++) {
+        EXPECT_FLOAT_EQ(expected[i].x(), square[i].x());
+        EXPECT_FLOAT_EQ(expected[i].y(), square[i].y());
+    }
+}
+
+/* Test the method 'getCentroid'.*/
+TEST_F(PositionVectorTest, test_method_getCentroid) {
+    PositionVector square;
+    square.push_back(Position(0,0));
+    square.push_back(Position(1,0));
+    square.push_back(Position(1,1));
+    square.push_back(Position(0,1));
+    EXPECT_EQ(Position(0.5, 0.5), square.getCentroid());
+
+	Position pos2 = vectorLine->getCentroid();
 	EXPECT_FLOAT_EQ(1, pos2.x());
 	EXPECT_FLOAT_EQ(1, pos2.y());
 	
 }
+
+/* Test the method 'getPolygonCenter'.*/
+TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
+       Position pos = vectorPolygon->getPolygonCenter();
+       EXPECT_FLOAT_EQ(2, pos.x());
+       EXPECT_FLOAT_EQ(1.6, pos.y());
+       Position pos2 = vectorLine->getPolygonCenter();
+}
+
 
 /* Test the method 'getBoxBoundary'*/
 TEST_F(PositionVectorTest, test_method_getBoxBoundary) {	

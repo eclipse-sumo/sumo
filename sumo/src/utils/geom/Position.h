@@ -175,6 +175,18 @@ public:
         return os;
     }
 
+    Position operator+(const Position &p2) const {
+        return Position(myX+p2.myX,  myY+p2.myY, myZ+p2.myZ);
+    }
+
+    Position operator-(const Position &p2) const {
+        return Position(myX-p2.myX,  myY-p2.myY, myZ-p2.myZ);
+    }
+
+    Position operator*(SUMOReal scalar) const {
+        return Position(myX * scalar,myY * scalar, myZ *scalar);
+    }
+
     bool operator==(const Position &p2) const {
         return myX==p2.myX && myY==p2.myY && myZ==p2.myZ;
     }
