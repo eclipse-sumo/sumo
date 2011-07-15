@@ -1383,7 +1383,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
-    std::string myCurrentDistrictID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    myCurrentDistrictID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
