@@ -12,6 +12,7 @@ key;105
 subkey;utopia
 offset;0
 (link;<LINK_NUMBER>;<FROMEDGE>|<FROMLANE>;[<TOEDGE>|<TOLANE>];0)+
+(param;<NAME>;<VALUE>)+
 (<LINK_NUMBER>;<PHASE_LIGHT>[;<PHASE_LIGHT>]+)+
 (min;<PHASE_LENGTH>[;<PHASE_LENGTH>]+)*
 time;<PHASE_LENGTH>[;<PHASE_LENGTH>]+
@@ -40,6 +41,7 @@ allMaxTimes = []
 allNormTimes = []
 allDefs = []
 allLinks = []
+allParams = []
 allKeys = []
 allSubkeys = []
 allOffsets = []
@@ -52,6 +54,7 @@ for tlsFile in allTLS:
     normTimes = []
     defs = []
     links = []
+    params = []
     key = ""
     subkey = ""
     offset = 0
@@ -75,6 +78,8 @@ for tlsFile in allTLS:
             toDef = v[3]
             minor = v[4]=="1"
             links.append( [ fromDef, toDef, linkNo, minor ] )
+        elif v[0]=="param":
+            params.append( [ v[1], v[2] ] )
         elif v[0]=="min":
             minTimes = v[1:]
         elif v[0]=="max":
@@ -92,6 +97,7 @@ for tlsFile in allTLS:
     allNormTimes.append(normTimes)
     allDefs.append(defs)
     allLinks.append(links)
+    allParams.append(params)
     allKeys.append(key)
     allSubkeys.append(subkey)
     allOffsets.append(offset)
@@ -106,6 +112,7 @@ for keyIndex, key in enumerate(allKeys):
     normTimes = allNormTimes[keyIndex]
     defs = allDefs[keyIndex]
     links = allLinks[keyIndex]
+    params = allParams[keyIndex]
     subkey = allSubkeys[keyIndex]
     offset = allOffsets[keyIndex]
     links2index = allLink2Indices[keyIndex]
@@ -165,6 +172,9 @@ for keyIndex, key in enumerate(allKeys):
             sys.exit()
 
     print '    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">'
+    for p in params:
+        print '        <param key="' + p[0] + '" value="' + p[1] + '"/>';
+
     for i in range(0, len(normTimes)):
         state = ""
         for l in range(0, len(linkMap)):
