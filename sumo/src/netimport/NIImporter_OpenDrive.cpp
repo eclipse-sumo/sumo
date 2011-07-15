@@ -275,18 +275,22 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         OpenDriveEdge &e = *i;
         SUMOReal speed = nb.getTypeCont().getSpeed("");
         int priority = nb.getTypeCont().getPriority("");
-        unsigned int nolanes = e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT);
-        if (nolanes>0) {
-            NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, nolanes, priority, -1, -1, e.geom, "", LANESPREAD_RIGHT, true);
+        LaneSpreadFunction lsf = LANESPREAD_CENTER;
+        unsigned int noLanesRight = e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT);
+        unsigned int noLanesLeft = e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT);
+        if(noLanesRight!=0&&noLanesLeft!=0) {
+            lsf = LANESPREAD_RIGHT;
+        }
+        if (noLanesRight>0) {
+            NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, noLanesRight, priority, -1, -1, e.geom, "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
             fromLaneMap[nbe] = e.laneSections.back().buildLaneMapping(OPENDRIVE_TAG_RIGHT);
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
-        nolanes = e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT);
-        if (nolanes>0) {
-            NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, nolanes, priority, -1, -1, e.geom.reverse(), "", LANESPREAD_RIGHT, true);
+        if (noLanesLeft>0) {
+            NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, noLanesLeft, priority, -1, -1, e.geom.reverse(), "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }
