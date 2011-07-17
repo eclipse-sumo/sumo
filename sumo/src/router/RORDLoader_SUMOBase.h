@@ -215,6 +215,7 @@ protected:
     SUMOVTypeParameter *myCurrentVType;
 
     bool myHaveWarnedAboutDeprecatedVType;
+    bool myHaveWarnedAboutDeprecatedRoute;
 
 private:
     /// @brief Invalidated copy constructor

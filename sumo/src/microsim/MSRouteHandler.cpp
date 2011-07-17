@@ -299,6 +299,9 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
+        if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+            WRITE_WARNING("Ids of internal routes are ignored (vehicle '" + myVehicleParameter->id + "').");
+        }
     } else {
         bool ok = true;
         myActiveRouteID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok, false);

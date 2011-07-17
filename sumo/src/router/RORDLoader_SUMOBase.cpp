@@ -60,7 +60,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
         myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
         mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
-        myHaveWarnedAboutDeprecatedVType(false) {
+        myHaveWarnedAboutDeprecatedVType(false), myHaveWarnedAboutDeprecatedRoute(false) {
 }
 
 
@@ -129,7 +129,11 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
     if (myCurrentAlternatives==0) {
         myCurrentIsOk = true;
         if (myVehicleParameter!=0) {
-            myCurrentRouteName = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk, "!" + myVehicleParameter->id);
+            if (attrs.hasAttribute(SUMO_ATTR_ID)) {
+                WRITE_ERROR("Internal routes do not have an id (vehicle '" + myVehicleParameter->id + "').");
+                myCurrentIsOk = false;
+                return;
+            }
         } else {
             myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
         }
@@ -155,6 +159,11 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk));
+    } else {
+        if (!myHaveWarnedAboutDeprecatedRoute) {
+	        WRITE_WARNING("Defining routes as a nested string is deprecated, use the edges attribute instead.");
+	        myHaveWarnedAboutDeprecatedRoute = true;
+	    }
     }
 }
 
