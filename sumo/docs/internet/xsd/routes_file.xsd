@@ -12,6 +12,7 @@
             <xsd:element name="route" type="routeType" minOccurs="0"></xsd:element>
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"></xsd:element>
             <xsd:element name="flow" type="flowType" minOccurs="0"></xsd:element>
+            <xsd:element name="person" type="personType" minOccurs="0"></xsd:element>
         </xsd:choice>
     </xsd:complexType>
 
@@ -173,6 +174,28 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="last" type="xsd:nonNegativeInteger"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="personType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="ride">
+                <xsd:complexType>
+                    <xsd:attribute name="from" type="xsd:string"></xsd:attribute>
+                    <xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
+                    <xsd:attribute name="lines" type="xsd:string" use="required"></xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="walk">
+                <xsd:complexType>
+                    <xsd:attribute name="edges" type="xsd:string" use="required"></xsd:attribute>
+                    <xsd:attribute name="speed" type="xsd:float"></xsd:attribute>
+                    <xsd:attribute name="duration" type="xsd:float"></xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="stop" type="stopType"></xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="depart" type="xsd:float" use="required"></xsd:attribute>
     </xsd:complexType>
 
 </xsd:schema>
