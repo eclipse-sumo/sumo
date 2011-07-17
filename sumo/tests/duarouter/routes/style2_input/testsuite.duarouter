@@ -1,12 +1,3 @@
-# same as one_time but with new style definition (routes have an id)
-withid_one_time
-
-# same as increasing_time but with new style definition (routes have an id)
-withid_increasing_time
-
-# same as unsorted_time but with new style definition (routes have an id)
-withid_unsorted_time
-
 # same as one_time but with new style definition (no id in routes)
 noid_one_time
 
