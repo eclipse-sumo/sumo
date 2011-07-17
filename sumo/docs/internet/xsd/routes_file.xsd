@@ -19,6 +19,11 @@
     <xsd:complexType name="vTypeType">
         <xsd:choice>
             <xsd:element name="carFollowing-Krauss" type="cfKraussType" minOccurs="0"></xsd:element>
+            <xsd:element name="carFollowing-KraussOrig1" type="cfKraussType" minOccurs="0"></xsd:element>
+            <xsd:element name="carFollowing-IDM" type="cfKraussType" minOccurs="0"></xsd:element>
+            <xsd:element name="carFollowing-IDMM" type="cfKraussType" minOccurs="0"></xsd:element>
+            <xsd:element name="carFollowing-BKerner" type="cfKraussType" minOccurs="0"></xsd:element>
+            <xsd:element name="carFollowing-Wiedemann" type="cfKraussType" minOccurs="0"></xsd:element>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="length" type="positiveFloatType"></xsd:attribute>
@@ -71,6 +76,8 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="toTaz" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="fromTaz" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="depart" type="xsd:float" use="required"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
@@ -89,6 +96,8 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="toTaz" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="fromTaz" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="begin" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="end" type="xsd:float"></xsd:attribute>
