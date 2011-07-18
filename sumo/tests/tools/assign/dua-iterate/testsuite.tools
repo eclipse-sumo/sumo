@@ -1,5 +1,8 @@
 # straight call of the script
 simple
 
+# start dua-iterate with routes instead of trips
+start_with_routes
+
 # dua-iterate should recognize called application's failure
 recognize_error

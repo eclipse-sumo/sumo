@@ -59,7 +59,7 @@ def call(command, log):
         print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
         sys.exit(retCode) 
 
-def writeRouteConf(step, options, file, output, routesInfo):
+def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -70,7 +70,7 @@ def writeRouteConf(step, options, file, output, routesInfo):
     if options.districts:
         print >> fd, '        <districts value="%s"/>' % options.districts
     if step==0:
-        print >> fd, '        <trip-files value="%s"/>' % file
+        print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
         print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
@@ -153,7 +153,7 @@ def writeSUMOConf(step, options, files):
     fd.close()
     fd = open("dua_dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
-    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml"/>
+    <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml"/>
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
@@ -162,7 +162,9 @@ def main():
     optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                          default=False, help="continues on unbuild routes")
     optParser.add_option("-t", "--trips", dest="trips",
-                         help="trips in step 0 (mandatory)", metavar="FILE")
+                         help="trips in step 0 (either trips or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-r", "--routes", dest="routes",
+                         help="routes in step 0 (either trips or routes have to be supplied)", metavar="FILE")
     optParser.add_option("-A", "--gA", dest="gA",
                          type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
     optParser.add_option("-B", "--gBeta", dest="gBeta",
@@ -192,9 +194,10 @@ def main():
 
     
     (options, args) = optParser.parse_args()
-    if not options.net or not options.trips:
-        optParser.error("At least --net-file and --trips have to be given!")
-    
+    if not options.net:
+        optParser.error("Option --net-file is mandatory")
+    if (not options.trips and not options.routes) or (options.trips and options.routes):
+        optParser.error("Either --trips or --routes have to be given!")
     duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
     if options.mesosim:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
@@ -213,8 +216,13 @@ def main():
 
     
     log = open("dua-log.txt", "w+")
-    tripFiles = options.trips.split(",")
     starttime = datetime.now()
+    if options.trips:
+        input_demands = options.trips.split(",")
+        initial_type = "trip"
+    else:
+        input_demands = options.routes.split(",")
+        initial_type = "route"
     
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
@@ -222,17 +230,18 @@ def main():
         
         # dua-router
         files = []
-        for tripFile in tripFiles:
-            file = tripFile
-            tripFile = os.path.basename(tripFile)
+        for demand_file in input_demands:
+            basename = os.path.basename(demand_file)
+            basename = basename[:basename.find(".")]
+            output =  basename + "_%s.rou.xml" % step
             if step>0:
-                file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
+                # output of previous step
+                demand_file = basename + "_%s.rou.alt.xml" % (step-1)
     
-            output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
             print ">> Running router"
             btime = datetime.now()
             print ">>> Begin time: %s" % btime
-            writeRouteConf(step, options, file, output, options.routefile)
+            writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
             call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
             etime = datetime.now()
             print ">>> End time: %s" % etime
