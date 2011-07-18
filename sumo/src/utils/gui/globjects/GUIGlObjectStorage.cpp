@@ -49,28 +49,20 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage() throw()
-        : myAktID(1) {}
+        : myAktID(0) {}
 
 
 GUIGlObjectStorage::~GUIGlObjectStorage() throw() {}
 
 
-void
-GUIGlObjectStorage::registerObject(GUIGlObject *object) throw() {
-    myLock.lock();
-    object->setGlID(myAktID);
-    myMap[myAktID++] = object;
-    myFullNameMap[object->getFullName()] = object;
-    myLock.unlock();
-}
-
-
 GUIGlID
-GUIGlObjectStorage::getUniqueID() throw() {
+GUIGlObjectStorage::registerObject(GUIGlObject *object, const std::string &fullName) throw() {
     myLock.lock();
-    GUIGlID ret = myAktID++;
+    GUIGlID id = myAktID++;
+    myMap[id] = object;
+    myFullNameMap[fullName] = object;
     myLock.unlock();
-    return ret;
+    return id;
 }
 
 

@@ -80,18 +80,20 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
         myGLObjectType(type),
         myMicrosimID(microsimID),
-        myPrefix(TypeNames.getString(type)),
-        myFullName("<not yet defined>") {
-    GUIGlObjectStorage::gIDStorage.registerObject(this);
+        myPrefix(TypeNames.getString(type))
+{
+    myFullName = createFullName();
+    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
 GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID) :
         myGLObjectType(type),
         myMicrosimID(microsimID),
-        myPrefix(prefix),
-        myFullName("<not yet defined>") {
-    GUIGlObjectStorage::gIDStorage.registerObject(this);
+        myPrefix(prefix)
+{
+    myFullName = createFullName();
+    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
@@ -101,13 +103,6 @@ GUIGlObject::~GUIGlObject() throw() {
         (*i)->removeObject(this);
     }
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
-}
-
-
-void
-GUIGlObject::setGlID(GUIGlID id) throw() {
-    myGlID = id;
-    myFullName = createFullName();
 }
 
 

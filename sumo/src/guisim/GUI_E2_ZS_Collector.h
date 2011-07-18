@@ -87,8 +87,7 @@ public:
 
     // valid for gui-version and joined collectors only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p,
-        GUIGlID glID);
+        GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p);
 
 public:
     /**
@@ -102,7 +101,6 @@ public:
 
         /// Constructor for collectors joined over lanes
         MyWrapper(GUI_E2_ZS_Collector &detector,
-                  GUIGlID glID,
                   GUI_E2_ZS_CollectorOverLanes &mustBe,
                   GUILaneWrapper &wrapper) throw();
 

@@ -109,12 +109,6 @@ public:
     /// @}
 
 
-
-    /// @brief Needed to set the id
-    friend class GUIGlObjectStorage;
-
-
-
     /// @name interfaces to be implemented by derived classes
     //@{
 
@@ -261,14 +255,6 @@ protected:
     /* usually names are prefixed by a type-specific string. this method can be
      * used to change the default */
     void setPrefix(const std::string& prefix);
-
-private:
-    /** @brief Sets the id of the object
-     *
-     * May not be done within the constructor in the case of compund objects
-     * @param[in] id The (new) id of the object
-     */
-    void setGlID(GUIGlID id) throw();
 
 private:
     /// @brief The numerical id of the object

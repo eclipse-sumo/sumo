@@ -70,14 +70,10 @@ public:
      *  method is called giving the next free id.
      *
      * @param[in] object The object to register
+     * @param[in] fullName The full name of the object to register
+     * @return the GUIGlObject under which the object has been registered
      */
-    void registerObject(GUIGlObject *object) throw();
-
-
-    /** @brief retrieves a unique id for an object to display
-     * @return The next free gl-id
-     */
-    GUIGlID getUniqueID() throw();
+    GUIGlID registerObject(GUIGlObject *object, const std::string &fullName) throw();
 
 
     /** @brief Returns the object from the container locking it
