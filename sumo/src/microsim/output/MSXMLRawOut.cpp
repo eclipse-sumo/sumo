@@ -131,10 +131,12 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
 
 
 void
-MSXMLRawOut::writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError) {
-    of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
-    << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
-    of.closeTag(true);
+MSXMLRawOut::writeVehicle(OutputDevice &of, const MSVehicle &veh) throw(IOError) {
+    if (veh.isOnRoad()) {
+        of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
+        << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
+        of.closeTag(true);
+    }
 }
 
 
