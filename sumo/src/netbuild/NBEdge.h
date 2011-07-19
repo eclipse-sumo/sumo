@@ -864,13 +864,10 @@ public:
 
     void setTurningDestination(NBEdge *e);
 
-
     // returns a reference to the internal structure for the convenience of NETEDIT
     Lane& getLaneStruct(unsigned int lane) {
         return myLanes[lane];
     }
-
-
 
     // returns a reference to the internal structure for the convenience of NETEDIT
     const Lane& getLaneStruct(unsigned int lane) const {
