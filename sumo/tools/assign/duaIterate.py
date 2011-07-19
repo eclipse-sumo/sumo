@@ -60,10 +60,11 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output, routesInfo, initial_type):
+    cfgname = "iteration_%s_%s.rou.cfg" % (step, file)
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
-    fd = open("iteration_" + str(step) + ".rou.cfg", "w")
+    fd = open(cfgname, "w")
     print >> fd, """<configuration>
     <input>
         <net-file value="%s"/>""" % options.net
@@ -97,6 +98,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     </report>
 </configuration>""" % options.noWarnings
     fd.close()
+    return cfgname
 
 def writeSUMOConf(step, options, files):
     fd = open("iteration_" + str(step) + ".sumo.cfg", "w")
@@ -241,8 +243,8 @@ def main():
             print ">> Running router"
             btime = datetime.now()
             print ">>> Begin time: %s" % btime
-            writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
-            call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
+            cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
+            call([duaBinary, "-c", cfgname], log)
             etime = datetime.now()
             print ">>> End time: %s" % etime
             print ">>> Duration: %s" % (etime-btime)
