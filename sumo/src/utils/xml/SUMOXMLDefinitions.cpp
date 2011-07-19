@@ -437,6 +437,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uniformRandomTraffic", AGEN_ATTR_UNI_RAND_TRAFFIC},
     { "departureVariation", AGEN_ATTR_DEP_VARIATION},
 
+    { "modificationStatusNotForPrinting", GNE_ATTR_MODIFICATION_STATUS},
+
     { "",               SUMO_ATTR_NOTHING }
 };
 
