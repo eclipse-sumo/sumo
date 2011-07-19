@@ -17,13 +17,15 @@ Computing step 4: Normalising node positions.
 Computing step 5: Guessing and setting traffic lights.
 Computing step 6: Computing turning directions.
 Computing step 7: Sorting nodes' edges.
-Computing step 8: Computing approached edges.
-Computing step 9: Computing approaching lanes.
-Computing step 10: Dividing of lanes on approached lanes.
-Computing step 11: Appending turnarounds.
-Computing step 12: Rechecking of lane endings.
-Computing step 13: Computing node shapes.
-Computing step 14: Computing edge shapes.
+Computing step 8: Computing node types.
+Computing step 9: Computing priorities.
+Computing step 10: Computing approached edges.
+Computing step 11: Computing approaching lanes.
+Computing step 12: Dividing of lanes on approached lanes.
+Computing step 13: Appending turnarounds.
+Computing step 14: Rechecking of lane endings.
+Computing step 15: Computing node shapes.
+Computing step 16: Computing edge shapes.
 Lane '-27077598#1' has calculated shape length near zero. Revert it back to old shape.
 Lane '-27078849#1' has calculated shape length near zero. Revert it back to old shape.
 Lane '-27078867#2' has calculated shape length near zero. Revert it back to old shape.
@@ -38,9 +40,9 @@ Lane '27079229#0' has calculated shape length near zero. Revert it back to old s
 Lane '27456224#5' has calculated shape length near zero. Revert it back to old shape.
 Lane '27875772#7' has calculated shape length near zero. Revert it back to old shape.
 Lane '27875772#7' has calculated shape length near zero. Revert it back to old shape.
-Computing step 15: Computing traffic light control information.
-Computing step 16: Computing node logics.
-Computing step 17: Computing traffic light logics.
+Computing step 17: Computing traffic light control information.
+Computing step 18: Computing node logics.
+Computing step 19: Computing traffic light logics.
 4 traffic light(s) computed.
 -----------------------------------------------------
 Summary:

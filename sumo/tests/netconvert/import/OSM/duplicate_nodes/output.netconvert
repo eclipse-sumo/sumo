@@ -19,16 +19,18 @@ Computing step 6: Guessing and setting on-/off-ramps.
 Computing step 7: Guessing and setting traffic lights.
 Computing step 8: Computing turning directions.
 Computing step 9: Sorting nodes' edges.
-Computing step 10: Computing approached edges.
-Computing step 11: Computing approaching lanes.
-Computing step 12: Dividing of lanes on approached lanes.
-Computing step 13: Appending turnarounds.
-Computing step 14: Rechecking of lane endings.
-Computing step 15: Computing node shapes.
-Computing step 16: Computing edge shapes.
-Computing step 17: Computing traffic light control information.
-Computing step 18: Computing node logics.
-Computing step 19: Computing traffic light logics.
+Computing step 10: Computing node types.
+Computing step 11: Computing priorities.
+Computing step 12: Computing approached edges.
+Computing step 13: Computing approaching lanes.
+Computing step 14: Dividing of lanes on approached lanes.
+Computing step 15: Appending turnarounds.
+Computing step 16: Rechecking of lane endings.
+Computing step 17: Computing node shapes.
+Computing step 18: Computing edge shapes.
+Computing step 19: Computing traffic light control information.
+Computing step 20: Computing node logics.
+Computing step 21: Computing traffic light logics.
 3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
