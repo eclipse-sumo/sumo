@@ -17,6 +17,7 @@ from __future__ import with_statement
 import re
 from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
+import tempfile
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
 import status, schemaCheck
 
@@ -87,6 +88,27 @@ for platform in ["Win32", "x64"]:
         programSuffix="64"
     log = open(makeLog, 'a')
     try:
+        maxTime = 0
+        for fname in glob.glob(os.path.join(nightlyDir, "sumo-src-*.zip")):
+            if os.path.getmtime(fname) > maxTime:
+                maxTime = os.path.getmtime(fname)
+                maxFile = fname
+        srcZip = zipfile.ZipFile(maxFile)
+        zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
+        write = False
+        for f in srcZip.namelist():
+            if f.endswith('bin/') or f.endswith('examples/') or f.endswith('tools/'):
+                write = True
+            elif f.endswith('/'):
+                write = False
+            elif write or f == "COPYING" or f == "README":
+                zipf.writestr(f, srcZip.read(f))
+        srcZip.close()
+        if os.path.exists(maxFile.replace("-src-", "-doc-")):
+            docZip = zipfile.ZipFile(maxFile.replace("-src-", "-doc-"))
+            for f in docZip.namelist():
+                zipf.writestr(f, srcZip.read(f))
+            docZip.close()
         files_to_zip = (
                 glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
                 glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
@@ -94,9 +116,8 @@ for platform in ["Win32", "x64"]:
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
-        zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
         for f in files_to_zip:
-            zipf.write(f, os.path.basename(f))
+            zipf.write(f, os.path.join(distDir, 'bin', os.path.basename(f)))
             if platform == "Win32":
                 try:
                     shutil.copy2(f, nightlyDir)
