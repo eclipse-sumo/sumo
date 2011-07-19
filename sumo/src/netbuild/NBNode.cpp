@@ -300,7 +300,7 @@ NBNode::swapWhenReversed(bool leftHand,
 }
 
 void
-NBNode::setPriorities() {
+NBNode::computePriorities() {
     // reset all priorities
     EdgeVector::iterator i;
     // check if the junction is not a real junction
@@ -321,18 +321,20 @@ NBNode::setPriorities() {
 }
 
 
-SumoXMLNodeType
-NBNode::computeType(const NBTypeCont &tc) const {
+void
+NBNode::computeType(const NBTypeCont &tc) {
     // the type may already be set from the data
     if (myType!=NODETYPE_UNKNOWN) {
-        return myType;
+        return;
     }
     // check whether the junction is not a real junction
     if (myIncomingEdges.size()==1) {
-        return NODETYPE_PRIORITY_JUNCTION;
+        myType = NODETYPE_PRIORITY_JUNCTION;
+        return;
     }
     if (isSimpleContinuation()) {
-        return NODETYPE_PRIORITY_JUNCTION;
+        myType = NODETYPE_PRIORITY_JUNCTION;
+        return;
     }
     // choose the uppermost type as default
     SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
@@ -356,7 +358,7 @@ NBNode::computeType(const NBTypeCont &tc) const {
             }
         }
     }
-    return type;
+    myType = type;
 }
 
 
@@ -890,7 +892,7 @@ NBNode::writeLogic(OutputDevice &into) const {
 
 
 void
-NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
+NBNode::sortNodesEdges(bool leftHand) {
     // sort the edges
     sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(myIncomingEdges.begin(), myIncomingEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -905,10 +907,6 @@ NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
     if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
         swapWhenReversed(leftHand, myAllEdges.end()-1, myAllEdges.begin());
     }
-    if (myType==NODETYPE_UNKNOWN) {
-        myType = computeType(tc);
-    }
-    setPriorities();
 }
 
 

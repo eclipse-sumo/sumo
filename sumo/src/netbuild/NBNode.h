@@ -250,7 +250,14 @@ public:
     bool writeLogic(OutputDevice &into) const;
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
+    void sortNodesEdges(bool leftHand);
+
+    /** computes the junction type */
+    void computeType(const NBTypeCont &tc);
+
+    /** computes the priorities of participating edges within this junction
+     * @note this depends on node types */
+    void computePriorities();
 
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
@@ -416,12 +423,7 @@ public:
     };
 
 private:
-    // computes the junction type
-    SumoXMLNodeType computeType(const NBTypeCont &tc) const;
     bool isSimpleContinuation() const;
-
-    /// computes the priorities of participating edges within this junction
-    void setPriorities();
 
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();

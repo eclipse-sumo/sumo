@@ -190,8 +190,13 @@ public:
     void computeLogics(const NBEdgeCont &ec, OptionsCont &oc);
 
     /// sorts the nodes' edges
-    void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
+    void sortNodesEdges(bool leftHand);
 
+    /// computes the nodes' types
+    void computeNodeTypes(const NBTypeCont &tc);
+
+    /// computes priorities of edges based on junction types
+    void computePriorities();
 
     /** @brief Returns the number of known nodes
      * @return The number of nodes stored in this container

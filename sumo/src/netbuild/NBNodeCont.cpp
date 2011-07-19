@@ -518,9 +518,25 @@ NBNodeCont::computeLogics(const NBEdgeCont &ec, OptionsCont &oc) {
 
 
 void
-NBNodeCont::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
+NBNodeCont::sortNodesEdges(bool leftHand) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(leftHand, tc);
+        (*i).second->sortNodesEdges(leftHand);
+    }
+}
+
+
+void
+NBNodeCont::computeNodeTypes(const NBTypeCont &tc) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computeType(tc);
+    }
+}
+
+
+void
+NBNodeCont::computePriorities() {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computePriorities();
     }
 }
 

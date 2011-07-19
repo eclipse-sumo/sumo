@@ -168,7 +168,13 @@ NBNetBuilder::compute(OptionsCont &oc, const std::set<std::string> &explicitTurn
     myEdgeCont.computeTurningDirections();
     //
     inform(step, "Sorting nodes' edges.");
-    myNodeCont.sortNodesEdges(oc.getBool("lefthand"), myTypeCont);
+    myNodeCont.sortNodesEdges(oc.getBool("lefthand"));
+    // 
+    inform(step, "Computing node types.");
+    myNodeCont.computeNodeTypes(myTypeCont);
+    // 
+    inform(step, "Computing priorities.");
+    myNodeCont.computePriorities();
     //
     if (oc.getBool("roundabouts.guess")) {
         inform(step, "Guessing and setting roundabouts.");
