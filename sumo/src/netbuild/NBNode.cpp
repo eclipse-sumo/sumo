@@ -843,6 +843,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL
 void
 NBNode::computeLogic(const NBEdgeCont &ec, OptionsCont &oc) {
     delete myRequest; // possibly recomputation step
+    myRequest = 0;
     if (myIncomingEdges.size()==0||myOutgoingEdges.size()==0) {
         // no logic if nothing happens here
         myType = NODETYPE_NOJUNCTION;
