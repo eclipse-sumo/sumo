@@ -90,7 +90,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
 
 
 void
-NBNetBuilder::compute(OptionsCont &oc) {
+NBNetBuilder::compute(OptionsCont &oc, const std::set<std::string> &explicitTurnarounds) {
     int step = 1;
     //
     if (oc.getBool("junctions.join")) {
@@ -188,6 +188,8 @@ NBNetBuilder::compute(OptionsCont &oc) {
     if (!oc.getBool("no-turnarounds")) {
         inform(step, "Appending turnarounds.");
         myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"));
+    } else {
+        myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }
     //
     inform(step, "Rechecking of lane endings.");

@@ -509,6 +509,14 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw() {
 
 
 void
+NBEdgeCont::appendTurnarounds(const std::set<std::string> &ids, bool noTLSControlled) {
+    for (std::set<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        myEdges[*it]->appendTurnaround(noTLSControlled);
+    }
+}
+
+
+void
 NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff);

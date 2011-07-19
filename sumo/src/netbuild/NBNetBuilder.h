@@ -130,9 +130,10 @@ public:
     /** @brief Performs the network building steps
      *
      * @param[in] oc Container that contains options for building
+     * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
      * @exception ProcessError (recheck)
      */
-    void compute(OptionsCont &oc);
+    void compute(OptionsCont &oc, const std::set<std::string> &explicitTurnarounds=std::set<std::string>());
 
 
 

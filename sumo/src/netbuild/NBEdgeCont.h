@@ -339,6 +339,15 @@ public:
     void appendTurnarounds(bool noTLSControlled) throw();
 
 
+    /** @brief Appends turnarounds to all edges stored in the container
+     * Calls "NBEdge::appendTurnaround" for edges with the given ids
+     * @param[in] ids The list of ids for which to append a turnaround
+     * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @see NBEdge::appendTurnaround
+     */
+    void appendTurnarounds(const std::set<std::string> &ids, bool noTLSControlled);
+
+
     /** @brief Translates and rotates the geometries of all known edges by the given values
      *
      * Calls "NBEdge::reshiftPosition" for all edges within the container.
