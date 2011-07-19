@@ -17,7 +17,6 @@ from __future__ import with_statement
 import re
 from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
-import tempfile
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
 import status, schemaCheck
 
@@ -59,7 +58,8 @@ for platform in ["Win32", "x64"]:
     xmlLog = prefix + "xml.log"
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, env["FILEPREFIX"]+"batch_result")
     env["SUMO_REPORT"] = prefix + "report"
-    binaryZip = os.path.join(nightlyDir, "sumo-%s-bin.zip" % env["FILEPREFIX"])
+    binaryZip = os.path.join(nightlyDir, "sumo-%s-svn.zip" % env["FILEPREFIX"])
+    binDir = "sumo-svn/bin/"
 
     for f in [makeLog, makeAllLog, binaryZip] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
         try:
@@ -93,17 +93,23 @@ for platform in ["Win32", "x64"]:
             if os.path.getmtime(fname) > maxTime:
                 maxTime = os.path.getmtime(fname)
                 maxFile = fname
-        srcZip = zipfile.ZipFile(maxFile)
-        zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
-        write = False
-        for f in srcZip.namelist():
-            if f.endswith('bin/') or f.endswith('examples/') or f.endswith('tools/'):
-                write = True
-            elif f.endswith('/'):
-                write = False
-            elif write or f == "COPYING" or f == "README":
-                zipf.writestr(f, srcZip.read(f))
-        srcZip.close()
+        if maxTime > 0:
+            binaryZip = maxFile.replace("-src-", "-%s-" % env["FILEPREFIX"])
+            zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
+            srcZip = zipfile.ZipFile(maxFile)
+            write = False
+            for f in srcZip.namelist():
+                if f.count('/') == 1:
+                    write = False
+                if f.endswith('/') and f.count('/') == 2:
+                    write = (f.endswith('/bin/') or f.endswith('/examples/') or f.endswith('/tools/'))
+                    if f.endswith('/bin/'):
+                        binDir = f
+                elif write or os.path.basename(f) in ["COPYING", "README"]:
+                    zipf.writestr(f, srcZip.read(f))
+            srcZip.close()
+        else:
+            zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
         if os.path.exists(maxFile.replace("-src-", "-doc-")):
             docZip = zipfile.ZipFile(maxFile.replace("-src-", "-doc-"))
             for f in docZip.namelist():
@@ -117,7 +123,7 @@ for platform in ["Win32", "x64"]:
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
         for f in files_to_zip:
-            zipf.write(f, os.path.join(distDir, 'bin', os.path.basename(f)))
+            zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             if platform == "Win32":
                 try:
                     shutil.copy2(f, nightlyDir)
