@@ -76,6 +76,7 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
 
 bool
 NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
+    myExtracted.erase(logic);
     if (myDefinitions.count(logic->getID())) {
         if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
             return false;
@@ -111,14 +112,23 @@ NBTrafficLightLogicCont::removeFully(const std::string id) {
 
 
 bool
-NBTrafficLightLogicCont::remove(const std::string id, const std::string programID) {
+NBTrafficLightLogicCont::removeProgram(const std::string id, const std::string programID, bool del) {
     if (myDefinitions.count(id) && myDefinitions[id].count(programID)) {
-        delete myDefinitions[id][programID];
+        if (del) {
+            delete myDefinitions[id][programID];
+        }
         myDefinitions[id].erase(programID);
         return true;
     } else {
         return false;
     }
+}
+
+
+void 
+NBTrafficLightLogicCont::extract(NBTrafficLightDefinition *definition) {
+    myExtracted.insert(definition);
+    removeProgram(definition->getID(), definition->getProgramID(), false);
 }
 
 
@@ -178,6 +188,10 @@ NBTrafficLightLogicCont::clear() throw() {
         delete *it;
     }
     myComputed.clear();
+    for (std::set<NBTrafficLightDefinition*>::iterator it = myExtracted.begin(); it != myExtracted.end(); it++) {
+        delete *it;
+    }
+    myExtracted.clear();
 }
 
 

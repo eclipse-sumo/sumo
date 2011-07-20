@@ -198,8 +198,10 @@ public:
     /** @brief Adds a traffic light to the list of traffic lights that control this node
      * @param[in] tld The traffic light that controls this node
      */
-    void addTrafficLight(NBTrafficLightDefinition *tld) throw();
+    void addTrafficLight(NBTrafficLightDefinition *tlDef) throw();
 
+    /** @brief Removes the given traffic light from this node */
+    void removeTrafficLight(NBTrafficLightDefinition *tlDef) throw();
 
     /** @brief Removes all references to traffic lights that control this tls
      */

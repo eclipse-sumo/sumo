@@ -229,18 +229,24 @@ NBNode::reinit(const Position &position, SumoXMLNodeType type) throw() {
 
 // -----------  Methods for dealing with assigned traffic lights
 void
-NBNode::addTrafficLight(NBTrafficLightDefinition *tld) throw() {
-    myTrafficLights.insert(tld);
+NBNode::addTrafficLight(NBTrafficLightDefinition *tlDef) throw() {
+    myTrafficLights.insert(tlDef);
     myType = NODETYPE_TRAFFIC_LIGHT;
+}
+
+
+void
+NBNode::removeTrafficLight(NBTrafficLightDefinition *tlDef) throw() {
+    tlDef->removeNode(this);
+    myTrafficLights.erase(tlDef);
 }
 
 
 void
 NBNode::removeTrafficLights() throw() {
     for (std::set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
-        (*i)->removeNode(this);
+        removeTrafficLight(*i);
     }
-    myTrafficLights.clear();
 }
 
 

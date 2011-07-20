@@ -106,10 +106,17 @@ public:
      *  otherwise "false".
      *
      * @param[in] id The id of the logic
-     * @param[in] id The id of the program to remove
+     * @param[in] programID The id of the program to remove
+     * @param[in] del Whether the definition shall be deleted
      * @return Whether the program was within the dictionary
      */
-    bool remove(const std::string id, const std::string programID);
+    bool removeProgram(const std::string id, const std::string programID, bool del=true);
+
+
+    /** @brief Extracts a traffic light definition from myDefinitions 
+     * but keeps it in myExtracted for eventual * deletion (used by NETEDIT)
+     */
+    void extract(NBTrafficLightDefinition *definition);
 
 
     /// @brief Returns a list of all computed logics
@@ -126,11 +133,6 @@ public:
      * @see NBTrafficLightDefinition::compute
      */
     void computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw();
-
-
-    /** @brief Destroys all stored definitions and logics
-     */
-    void clear() throw();
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -209,6 +211,9 @@ private:
     /// @brief The container for tl-ids to their definitions
     Id2Defs myDefinitions;
 
+    /// @brief The container for extracted definitions
+    std::set<NBTrafficLightDefinition*> myExtracted;
+
     /// @brief List of tls which shall have an offset of T/2
     std::set<std::string> myHalfOffsetTLS;
 
@@ -220,6 +225,11 @@ private:
 private:
     /// @brief Returns a list of all definitions (convenience for easier iteration)
     Definitions getDefinitions() const;
+
+    /** @brief Destroys all stored definitions and logics
+     */
+    void clear() throw();
+
 
 };
 
