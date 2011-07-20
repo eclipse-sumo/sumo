@@ -203,6 +203,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             // width, offset
             nbe->setWidth(fromLaneIndex, lane->width);
             nbe->setOffset(fromLaneIndex, lane->offset);
+            nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
         }
     }
     if (mySuspectKeepShape) {
