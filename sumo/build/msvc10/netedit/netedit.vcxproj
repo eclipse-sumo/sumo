@@ -177,6 +177,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEConnector.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEConnector.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
