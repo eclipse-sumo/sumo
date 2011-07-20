@@ -113,6 +113,14 @@ public:
     const MSEdge* getEdge() const;
 
 
+    /** @brief Returns the information whether the vehicle is on a road (is simulated)
+     * @return Whether the vehicle is simulated
+     */
+    virtual bool isOnRoad() const throw() {
+        return true;
+    }
+
+
     /** @brief Performs a rerouting using the given router
      *
      * Tries to find a new route between the current edge and the destination edge, first.

@@ -131,7 +131,7 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
 
 
 void
-MSXMLRawOut::writeVehicle(OutputDevice &of, const MSVehicle &veh) throw(IOError) {
+MSXMLRawOut::writeVehicle(OutputDevice &of, const MSBaseVehicle &veh) throw(IOError) {
     if (veh.isOnRoad()) {
         of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
         << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
