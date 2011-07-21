@@ -111,5 +111,12 @@ NBTrafficLightLogic::setPhaseState(unsigned int phaseIndex, int tlIndex, LinkSta
 }
 
 
+void 
+NBTrafficLightLogic::setPhaseDuration(unsigned int phaseIndex, SUMOTime duration) {
+    assert(phaseIndex < myPhases.size());
+    myPhases[phaseIndex].duration = duration;
+}
+
+
 /****************************************************************************/
 

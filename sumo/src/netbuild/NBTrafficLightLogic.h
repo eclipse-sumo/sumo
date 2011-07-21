@@ -124,6 +124,12 @@ public:
      */
     void setPhaseState(unsigned int phaseIndex, int tlIndex, LinkState linkState);
 
+    /** @brief Modifies the duration for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] duration The new duration for this phase
+     */
+    void setPhaseDuration(unsigned int phaseIndex, SUMOTime duration);
+
 
     /** @brief closes the building process
      *
