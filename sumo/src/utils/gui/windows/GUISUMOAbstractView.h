@@ -221,7 +221,7 @@ public:
 
 
     /// @brief destoys the popup
-    inline void destroyPopup();
+    void destroyPopup();
 
 
 public:
