@@ -316,7 +316,7 @@ PositionVector::getCentroid() const {
 void
 PositionVector::scaleSize(SUMOReal factor) {
     Position centroid = getCentroid();
-    for (int i = 0; i < size(); i++) {
+    for (size_t i = 0; i < size(); i++) {
         myCont[i] = centroid + ((myCont[i] - centroid) * factor);
     }
 }
