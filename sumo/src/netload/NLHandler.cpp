@@ -755,14 +755,16 @@ void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     myAmInTLLogicMode = true;
     bool ok = true;
-    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
-    //
-    if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
-        // @deprecated: assuming a net could still use characters for the id
-        myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0);
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    TrafficLightType type;
+    std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
+    if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+        type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+    } else {
+        WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'");
         return;
     }
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    //
     SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
     if (!ok) {
         return;

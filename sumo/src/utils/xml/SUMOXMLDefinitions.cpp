@@ -489,6 +489,12 @@ StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] 
 };
 
 
+StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVales[] = {
+    { "static", TLTYPE_STATIC },
+    { "actuated", TLTYPE_ACTUATED },
+    { "agentbased", TLTYPE_AGENT }
+};
+
 StringBijection<int> SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
@@ -506,6 +512,9 @@ StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
 
 StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
     SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
+
+StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
+    SUMOXMLDefinitions::trafficLightTypesVales, TLTYPE_AGENT);
 
 /****************************************************************************/
 

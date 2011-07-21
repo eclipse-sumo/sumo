@@ -226,25 +226,23 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     }
     MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
-    if (myLogicType=="actuated") {
-        // build an actuated logic
-        tlLogic =
-            new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                                            myActiveKey, myActiveProgram,
-                                            myActivePhases, step, firstEventOffset, myAdditionalParameter);
-    } else if (myLogicType=="agentbased") {
-        // build an agentbased logic
-        tlLogic =
-            new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
-                                              myActiveKey, myActiveProgram,
-                                              myActivePhases, step, firstEventOffset, myAdditionalParameter);
-    } else {
-        // build a fixed tls-logic
-        tlLogic =
-            new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                          myActiveKey, myActiveProgram,
-                                          myActivePhases, step, firstEventOffset);
-        tlLogic->setParameter(myAdditionalParameter);
+    switch(myLogicType) {
+        case TLTYPE_ACTUATED:
+            tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+            break;
+        case TLTYPE_AGENT:
+            tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+            break;
+        case TLTYPE_STATIC:
+            tlLogic =
+                new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
+                        myActiveKey, myActiveProgram,
+                        myActivePhases, step, firstEventOffset);
+            tlLogic->setParameter(myAdditionalParameter);
     }
     TLInitInfo ii;
     ii.logic = tlLogic;
@@ -323,7 +321,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
 
 void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std::string &programID,
-        const std::string &type, SUMOTime offset) throw() {
+        TrafficLightType type, SUMOTime offset) throw() {
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();

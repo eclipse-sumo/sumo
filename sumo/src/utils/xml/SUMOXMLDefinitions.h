@@ -659,6 +659,16 @@ enum LinkDirection {
 };
 
 
+/**
+ * @enum TrafficLightType
+ */
+enum TrafficLightType {
+    TLTYPE_STATIC,
+    TLTYPE_ACTUATED,
+    TLTYPE_AGENT
+};
+
+
 //@}
 
 /**
@@ -690,6 +700,8 @@ public:
     static StringBijection<LinkState> LinkStates;
 
     static StringBijection<LinkDirection> LinkDirections;
+
+    static StringBijection<TrafficLightType> TrafficLightTypes;
     //@}
 
 private:
@@ -701,6 +713,8 @@ private:
     static StringBijection<LinkState>::Entry linkStateValues[];
 
     static StringBijection<LinkDirection>::Entry linkDirectionValues[];
+
+    static StringBijection<TrafficLightType>::Entry trafficLightTypesVales[];
 
 };
 

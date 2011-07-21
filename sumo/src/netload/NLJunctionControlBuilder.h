@@ -163,7 +163,7 @@ public:
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
      */
     void initTrafficLightLogic(const std::string &id, const std::string &programID,
-                               const std::string &type, SUMOTime offset) throw();
+                               TrafficLightType type, SUMOTime offset) throw();
 
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -317,7 +317,7 @@ protected:
     SUMOTime myOffset;
 
     /// @brief The current logic type
-    std::string myLogicType;
+    TrafficLightType myLogicType;
 
     /// @brief The right-of-way-logic of the currently chosen bitset-logic
     MSBitsetLogic::Logic myActiveLogic;

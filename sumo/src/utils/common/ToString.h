@@ -100,6 +100,12 @@ inline std::string toString<LinkDirection>(const LinkDirection& linkDir, std::st
     return SUMOXMLDefinitions::LinkDirections.getString(linkDir);
 }
 
+template <>
+inline std::string toString<TrafficLightType>(const TrafficLightType& type, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::TrafficLightTypes.getString(type);
+}
+
 #endif
 
 /****************************************************************************/

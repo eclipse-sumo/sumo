@@ -537,6 +537,11 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, 0);
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
+    if (type != toString(TLTYPE_STATIC)) {
+        WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" +
+                toString(TLTYPE_STATIC) + "'");
+    }
     if (ok) {
         myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);
     }
