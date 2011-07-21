@@ -11,8 +11,4 @@
         <no-duration-log value="true"/>
     </report>
 
-    <gui_only>
-        <gui-settings-file value=""/>
-    </gui_only>
-
 </configuration>

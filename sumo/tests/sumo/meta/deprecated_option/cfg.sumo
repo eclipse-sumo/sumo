@@ -11,8 +11,4 @@
         <random value="true"/>
     </random_number>
 
-    <gui_only>
-        <gui-settings-file value=""/>
-    </gui_only>
-
 </configuration>
