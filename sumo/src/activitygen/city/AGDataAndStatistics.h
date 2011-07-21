@@ -59,7 +59,7 @@ public:
     int limitEndAge;
     SUMOReal carRate;
     SUMOReal unemployement;
-    int maxFootDistance;
+    SUMOReal maxFootDistance;
     int incomingTraffic;
     int outgoingTraffic;
     SUMOReal freeTimeActivityRate;
