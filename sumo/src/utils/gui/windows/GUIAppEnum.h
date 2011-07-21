@@ -359,6 +359,7 @@ enum {
     /** replace program with a newly guessed program */
     MID_GNE_GUESS_PROGRAM,
     /** definition related controls */
+    MID_GNE_DEF_OFFSET,
     MID_GNE_DEF_SWITCH,
     MID_GNE_DEF_CREATE,
     MID_GNE_DEF_DELETE,
