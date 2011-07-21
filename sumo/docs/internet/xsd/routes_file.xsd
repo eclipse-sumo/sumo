@@ -79,7 +79,7 @@
         <xsd:attribute name="toTaz" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="fromTaz" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="depart" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="depart" type="departType" use="required"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
@@ -120,6 +120,16 @@
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
+
+    <xsd:simpleType name="departType">
+        <xsd:union memberTypes="nonNegativeFloatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="triggered"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
 
     <xsd:simpleType name="colorType">
         <xsd:restriction base="xsd:string">
