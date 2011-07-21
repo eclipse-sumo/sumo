@@ -7,8 +7,4 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <gui_only>
-        <gui-settings-file value=""/>
-    </gui_only>
-
 </configuration>
