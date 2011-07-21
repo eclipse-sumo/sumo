@@ -211,10 +211,21 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
             fromLane = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
             toLane = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
         }
-        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNumLanes() ||
-                toLane<0 || static_cast<unsigned int>(toLane)>=to->getNumLanes()) {
-            myErrorMsgHandler->inform("False lane index in connection from '" +
-                                      from->getID() + "' to '" + to->getID() + "'.");
+        bool indexError = false;
+        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNumLanes()) {
+            myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) + 
+                    "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
+                    from->getID() + "' to '" + to->getID() + "'.");
+            indexError = true;
+            return;
+        }
+        if (toLane<0 || static_cast<unsigned int>(toLane)>=to->getNumLanes()) {
+            myErrorMsgHandler->inform("Invalid value '" + toString(toLane) + 
+                    "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
+                    from->getID() + "' to '" + to->getID() + "'.");
+            indexError = true;
+        }
+        if (indexError) {
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
