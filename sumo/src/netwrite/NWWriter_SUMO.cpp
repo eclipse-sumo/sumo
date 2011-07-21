@@ -26,7 +26,11 @@
 #else
 #include <config.h>
 #endif
-#include "NWWriter_SUMO.h"
+#include <cmath>
+#include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -35,10 +39,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netbuild/NBDistrict.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/common/ToString.h>
+#include "NWWriter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -102,13 +103,18 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // write tls logics
     std::vector<NBTrafficLightLogic*> logics = tc.getComputed();
     for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it!= logics.end(); it++) {
-        device.openTag(SUMO_TAG_TLLOGIC) << " id=\"" << (*it)->getID() << "\" type=\"static\""
-        << " programID=\"" << (*it)->getProgramID()
-        << "\" offset=\"" << (*it)->getOffset() << "\">\n";
+        device.openTag(SUMO_TAG_TLLOGIC);
+        device.writeAttr(SUMO_ATTR_ID, (*it)->getID());
+        device.writeAttr(SUMO_ATTR_TYPE, toString(TLTYPE_STATIC));
+        device.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
+        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
+        device << ">\n";
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition> &phases = (*it)->getPhases();
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j=phases.begin(); j!=phases.end(); ++j) {
-            device.openTag(SUMO_TAG_PHASE) << " duration=\"" << (*j).duration << "\" state=\"" << (*j).state << "\"";
+            device.openTag(SUMO_TAG_PHASE);
+            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j->duration));
+            device.writeAttr(SUMO_ATTR_STATE, j->state);
             device.closeTag(true);
         }
         device.closeTag();
@@ -590,6 +596,16 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
     into.closeTag();
 }
 
+
+std::string 
+NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
+    SUMOReal time = STEPS2TIME(steps);
+    if (time == std::floor(time)) {
+        return toString(int(time));
+    } else {
+        return toString(time);
+    }
+}
 
 /****************************************************************************/
 

@@ -326,7 +326,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw()
         }
         // no information about yellow times will be generated
         assert((*l)>=0);
-        logic->addStep(duration, buildPhaseState(ec, (unsigned int)(*l)));
+        logic->addStep(TIME2STEPS(duration), buildPhaseState(ec, (unsigned int)(*l)));
     }
     // check whether any warnings were printed
     if (MsgHandler::getWarningInstance()->wasInformed()) {

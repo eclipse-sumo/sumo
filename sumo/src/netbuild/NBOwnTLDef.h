@@ -113,7 +113,7 @@ protected:
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
-                                   unsigned int brakingTime) throw();
+                                   unsigned int brakingTimeSeconds) throw();
 
 
     /** @brief Collects the nodes participating in this traffic light

@@ -167,7 +167,8 @@ NBOwnTLDef::getBestPair(EdgeVector &incoming) throw() {
 
 NBTrafficLightLogic *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
-                      unsigned int brakingTime) throw() {
+                      unsigned int brakingTimeSeconds) throw() {
+    SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     // build complete lists first
     const EdgeVector &incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
@@ -220,7 +221,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             chosen = getBestPair(toProc);
         }
         unsigned int pos = 0;
-        unsigned int duration = OptionsCont::getOptions().getInt("tls.green.time");
+        SUMOTime duration = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
         std::string state((size_t) noLinksAll, 'o');
         // plain straight movers
         for (unsigned int i1=0; i1<(unsigned int) incoming.size(); ++i1) {
@@ -295,7 +296,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
 
         if (haveForbiddenLeftMover) {
             // build left green
-            duration = 6;
+            duration = TIME2STEPS(6);
             for (unsigned int i1=0; i1<pos; ++i1) {
                 if (state[i1]=='Y'||state[i1]=='y') {
                     state[i1] = 'r';

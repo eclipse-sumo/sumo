@@ -161,6 +161,8 @@ private:
     static void writeInternalConnection(OutputDevice &into,
                                         const std::string &from, const std::string &to, int toLane, const std::string &via);
 
+    /// @brief writes a SUMOTime as int if possible, otherwise as a float
+    static std::string writeSUMOTime(SUMOTime time);
 };
 
 

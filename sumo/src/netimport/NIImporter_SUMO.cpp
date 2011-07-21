@@ -535,7 +535,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    int offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDOFFSET, id.c_str(), ok, 0);
+    SUMOTime offset = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok));
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
     if (type != toString(TLTYPE_STATIC)) {
@@ -557,7 +557,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
     const std::string &id = myCurrentTL->getID();
     bool ok = true;
     std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, id.c_str(), ok);
-    int duration = attrs.getIntReporting(SUMO_ATTR_DURATION, id.c_str(), ok);
+    SUMOTime duration = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
         WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + myCurrentTL->getProgramID() + "' must be positive.");
         return;
