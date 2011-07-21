@@ -48,11 +48,21 @@
 // method definitions
 // ===========================================================================
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw() :
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) :
         NBTrafficLightDefinition(id, programID),
-        myTLLogic(0) {
+        myTLLogic(0) 
+{
     myTLLogic = new NBTrafficLightLogic(id, programID, 0);
     myTLLogic->setOffset(offset);
+}
+
+
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition *def, NBTrafficLightLogic *logic) : 
+    NBTrafficLightDefinition(def->getID(), def->getProgramID()),
+    myTLLogic(new NBTrafficLightLogic(logic)) 
+{ 
+    // only copy links to make this usable with GNETLSEditor, everything else will be added later
+    myControlledLinks = def->getControlledLinks();
 }
 
 

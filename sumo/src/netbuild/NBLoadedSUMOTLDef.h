@@ -55,7 +55,13 @@ public:
      * @param[in] programID The programID for the computed logic
      * @param[in] offset The offset for the computed logic
      */
-    NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) throw();
+    NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset);
+
+    /** @brief Constructor that copies from an existing definition and its computed logic (used by NETEDIT)
+     * @param[in] def The definition to copy
+     * @param[in] logic The computed logic of the given def
+     */
+    NBLoadedSUMOTLDef(NBTrafficLightDefinition *def, NBTrafficLightLogic *logic);
 
 
     /// @brief Destructor
@@ -96,6 +102,13 @@ public:
     /** @brief Adds a connection and immediately informs the edges
      */
     void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno);
+
+
+    /** @brief Returns the internal logic
+     */
+    NBTrafficLightLogic* getLogic() {
+        return myTLLogic;
+    }
 
 
 protected:

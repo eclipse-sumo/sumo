@@ -546,10 +546,16 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*) {
 }
 
 
-long
-GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
+void 
+GUISUMOAbstractView::destroyPopup() {
     delete myPopup;
     myPopup = 0;
+}
+
+
+long
+GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
+    destroyPopup();
     FXEvent *e = (FXEvent*) data;
     // check whether the selection-mode is activated
     if (e->state&CONTROLMASK) {
@@ -575,8 +581,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
 
 long
 GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
-    delete myPopup;
-    myPopup = 0;
+    destroyPopup();
     myChanger->onLeftBtnRelease(data);
     if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
@@ -588,8 +593,7 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
 
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data) {
-    delete myPopup;
-    myPopup = 0;
+    destroyPopup();
     myChanger->onRightBtnPress(data);
     grab();
     return 1;
@@ -598,8 +602,7 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data) {
 
 long
 GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
-    delete myPopup;
-    myPopup = 0;
+    destroyPopup();
     if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
         openObjectDialog();
     }

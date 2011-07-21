@@ -92,7 +92,10 @@ public:
     /// Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*,FXSelector,void*);
 
-
+    /// @brief return the real owner of this popup
+    inline GUISUMOAbstractView* getParentView() {
+        return myParent;
+    }
 
 protected:
     /// @brief The parent window

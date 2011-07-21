@@ -133,38 +133,13 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition *definition) {
 
 
 void
-NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() {
+NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) {
     unsigned int numPrograms = 0;
-    for (Id2Defs::iterator it_id = myDefinitions.begin(); it_id != myDefinitions.end(); it_id++) {
-        const std::string& id = it_id->first;
-        const Program2Def& programs = it_id->second;
-        for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-            const std::string& programID = it_prog->first;
-            // check for previous computation
-            if (myComputed.count(id) && myComputed[id].count(programID)) {
-                delete myComputed[id][programID];
-                myComputed[id].erase(programID);
-            }
-            // build program
-            NBTrafficLightDefinition *def = it_prog->second;
-            NBTrafficLightLogic *built = def->compute(ec, oc);
-            if (built==0) {
-                WRITE_WARNING("Could not build program '" + programID + "' for traffic light '" + id + "'");
-                continue;
-            }
-            // compute offset
-            SUMOTime T = built->getDuration();
-            if (myHalfOffsetTLS.count(id)) {
-                built->setOffset((SUMOTime)(T/2.));
-            }
-            if (myQuarterOffsetTLS.count(id)) {
-                built->setOffset((SUMOTime)(T/4.));
-            }
-            // and insert the result after computation
-            myComputed[id][programID] = built;
+    Definitions definitions = getDefinitions();
+    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
+        if (computeSingleLogic(ec, oc, *it)) {
             numPrograms++;
         }
-
     }
     unsigned int numIDs = (unsigned int)myComputed.size();
     std::string progCount = "";
@@ -172,7 +147,35 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
         progCount = "(" + toString(numPrograms) + " programs) ";
     }
     WRITE_MESSAGE(toString(numIDs) + " traffic light(s) " + progCount + "computed.");
+}
 
+
+bool 
+NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont &ec, OptionsCont &oc, NBTrafficLightDefinition* def) {
+    const std::string& id = def->getID();
+    const std::string& programID = def->getProgramID();
+    // check for previous computation
+    if (myComputed.count(id) && myComputed[id].count(programID)) {
+        delete myComputed[id][programID];
+        myComputed[id].erase(programID);
+    }
+    // build program
+    NBTrafficLightLogic *built = def->compute(ec, oc);
+    if (built==0) {
+        WRITE_WARNING("Could not build program '" + programID + "' for traffic light '" + id + "'");
+        return false;
+    }
+    // compute offset
+    SUMOTime T = built->getDuration();
+    if (myHalfOffsetTLS.count(id)) {
+        built->setOffset((SUMOTime)(T/2.));
+    }
+    if (myQuarterOffsetTLS.count(id)) {
+        built->setOffset((SUMOTime)(T/4.));
+    }
+    // and insert the result after computation
+    myComputed[id][programID] = built;
+    return true;
 }
 
 

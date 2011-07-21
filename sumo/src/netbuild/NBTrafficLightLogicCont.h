@@ -132,7 +132,17 @@ public:
      * @param[in] oc Options used during the computation
      * @see NBTrafficLightDefinition::compute
      */
-    void computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw();
+    void computeLogics(NBEdgeCont &ec, OptionsCont &oc);
+
+
+    /** @brief Computes a specific traffic light logic (using by NETEDIT)
+     *
+     * @param[in] ec The edge container used during the computation
+     * @param[in] oc Options used during the computation
+     * @return whether the logic was computed successfully
+     * @see NBTrafficLightDefinition::compute
+     */
+    bool computeSingleLogic(NBEdgeCont &ec, OptionsCont &oc, NBTrafficLightDefinition* def);
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions

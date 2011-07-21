@@ -200,8 +200,6 @@ public:
 
     virtual void onGamingClick(Position /*pos*/) { }
 
-
-
     /// @name Additional visualisations
     /// @{
 
@@ -221,6 +219,9 @@ public:
     bool removeAdditionalGLVisualisation(GUIGlObject * const which);
     /// @}
 
+
+    /// @brief destoys the popup
+    inline void destroyPopup();
 
 
 public:

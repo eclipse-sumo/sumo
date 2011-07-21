@@ -117,6 +117,14 @@ public:
     void addStep(SUMOTime duration, const std::string &state);
 
 
+    /** @brief Modifies the state for an existing phase (used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] tlIndex The index at which to modify the state
+     * @param[in] linkState The new link state for the given index
+     */
+    void setPhaseState(unsigned int phaseIndex, int tlIndex, LinkState linkState);
+
+
     /** @brief closes the building process
      *
      * Joins equal steps.

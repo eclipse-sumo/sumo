@@ -102,6 +102,14 @@ NBTrafficLightLogic::closeBuilding() throw() {
 }
 
 
+void 
+NBTrafficLightLogic::setPhaseState(unsigned int phaseIndex, int tlIndex, LinkState linkState) {
+    assert(phaseIndex < myPhases.size());
+    std::string &phaseState = myPhases[phaseIndex].state;
+    assert(tlIndex < phaseState.size());
+    phaseState[tlIndex] = (char)linkState;
+}
+
 
 /****************************************************************************/
 
