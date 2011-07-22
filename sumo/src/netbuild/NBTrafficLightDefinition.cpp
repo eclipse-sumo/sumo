@@ -95,6 +95,11 @@ NBTrafficLightLogic *
 NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw() {
     // it is not really a traffic light if no incoming edge exists
     if (myControlledLinks.size()==0) {
+        // make a copy of myControlledNodes because it will be modified;
+        std::vector<NBNode*> nodes = myControlledNodes;
+        for (std::vector<NBNode*>::iterator it=nodes.begin(); it != nodes.end(); it++) {
+            (*it)->removeTrafficLight(this);
+        }
         WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
         return 0;
     }
