@@ -81,12 +81,12 @@
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="depart" type="departType" use="required"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
-        <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="departSpeed" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalLane" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalPos" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalSpeed" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="departLane" type="departLaneType"></xsd:attribute>
+        <xsd:attribute name="departPos" type="departPosType"></xsd:attribute>
+        <xsd:attribute name="departSpeed" type="departSpeedType"></xsd:attribute>
+        <xsd:attribute name="arrivalLane" type="arrivalLaneType"></xsd:attribute>
+        <xsd:attribute name="arrivalPos" type="arrivalPosType"></xsd:attribute>
+        <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="flowType">
@@ -105,12 +105,13 @@
         <xsd:attribute name="vehsPerHour" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="number" type="xsd:int"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
-        <xsd:attribute name="departLane" default="departlane" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="departPos" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="departSpeed" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalLane" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalPos" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="arrivalSpeed" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="departLane" type="departLaneType"></xsd:attribute>
+        <xsd:attribute name="departPos" type="departPosType"></xsd:attribute>
+        <xsd:attribute name="departSpeed" type="departSpeedType"></xsd:attribute>
+        <xsd:attribute name="arrivalLane" type="arrivalLaneType"></xsd:attribute>
+        <xsd:attribute name="arrivalPos" type="arrivalPosType"></xsd:attribute>
+        <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"></xsd:attribute>
+        <xsd:attribute name="line" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
@@ -126,6 +127,77 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="departLaneType">
+        <xsd:union memberTypes="xsd:nonNegativeInteger">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="free"/>
+                    <xsd:enumeration value="allowed"/>
+                    <xsd:enumeration value="best"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="departPosType">
+        <xsd:union memberTypes="xsd:float">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="random_free"/>
+                    <xsd:enumeration value="free"/>
+                    <xsd:enumeration value="base"/>
+                    <xsd:enumeration value="pwagSimple"/>
+                    <xsd:enumeration value="pwagGeneric"/>
+                    <xsd:enumeration value="maxSpeedGap"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="departSpeedType">
+        <xsd:union memberTypes="nonNegativeFloatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="max"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="arrivalLaneType">
+        <xsd:union memberTypes="xsd:nonNegativeInteger">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="current"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="arrivalPosType">
+        <xsd:union memberTypes="xsd:float">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="max"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="arrivalSpeedType">
+        <xsd:union memberTypes="nonNegativeFloatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="current"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
