@@ -80,6 +80,9 @@ class MSVehicleControl;
  * network's drawing as only visible items are being drawn.
  */
 class GUINet : public MSNet, public GUIGlObject {
+
+    friend class GUITrafficLightLogicWrapper; // see createTLWrapper
+
 public:
     /** @brief Constructor
      * @param[in] vc The vehicle control to use
@@ -239,6 +242,12 @@ public:
         return myGrid;
     }
 
+    /** @brief Returns the pointer to the unique instance of GUINet (singleton).
+     * @return Pointer to the unique GUINet-instance
+     * @exception ProcessError If a network was not yet constructed
+     */
+    static GUINet* getGUIInstance();
+
 
 private:
     /// @brief Initialises the detector wrappers
@@ -246,6 +255,9 @@ private:
 
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
+
+    /// @brief creates a wrapper for the given logic and returns the GlID
+    GUIGlID createTLWrapper(MSTrafficLightLogic *tll);
 
 
 protected:

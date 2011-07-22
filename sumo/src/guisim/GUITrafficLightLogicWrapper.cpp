@@ -36,20 +36,21 @@
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
-#include <gui/GUIApplicationWindow.h>
-#include <gui/GUITLLogicPhasesTrackerWindow.h>
-#include <microsim/MSLane.h>
-#include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <microsim/traffic_lights/MSTLLogicControl.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <microsim/MSLane.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
+#include <gui/GUIApplicationWindow.h>
+#include <gui/GUITLLogicPhasesTrackerWindow.h>
+#include <gui/GUIGlobals.h>
 #include "GUITrafficLightLogicWrapper.h"
-#include <utils/gui/div/GUIGlobalSelection.h>
+#include "GUINet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -217,11 +218,13 @@ void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
     if (to==-1) {
         myTLLogicControl.switchTo(myTLLogic.getID(), "off");
-        return;
+        MSTrafficLightLogic *tll = myTLLogicControl.getActive(myTLLogic.getID());
+        GUINet::getGUIInstance()->createTLWrapper(tll);
+    } else {
+        const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
+        std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+        myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getProgramID());
     }
-    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
-    std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-    myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getProgramID());
 }
 
 

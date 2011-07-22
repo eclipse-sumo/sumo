@@ -175,27 +175,35 @@ GUINet::initTLMap() {
     myTLLogicWrappers.reserve(logics.size());
     // go through the logics
     for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
-        // get the logic
-        MSTrafficLightLogic *tll = (*i);
-        // get the links
-        const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
-        if (links.size()==0) {
-            continue;
-        }
-        // build the wrapper
-        GUITrafficLightLogicWrapper *tllw =
-            new GUITrafficLightLogicWrapper(*myLogics, *tll);
-        // build the association link->wrapper
-        MSTrafficLightLogic::LinkVectorVector::const_iterator j;
-        for (j=links.begin(); j!=links.end(); j++) {
-            MSTrafficLightLogic::LinkVector::const_iterator j2;
-            for (j2=(*j).begin(); j2!=(*j).end(); j2++) {
-                myLinks2Logic[*j2] = tll->getID();
-            }
-        }
-        myGrid.addAdditionalGLObject(tllw);
-        myLogics2Wrapper[tll] = tllw;
+        createTLWrapper(*i);
     }
+}
+
+
+GUIGlID
+GUINet::createTLWrapper(MSTrafficLightLogic *tll) {
+    if (myLogics2Wrapper.count(tll) > 0) {
+        return myLogics2Wrapper[tll]->getGlID();
+    }
+    // get the links
+    const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
+    if (links.size()==0) { // @legacy this should never happen in 0.13.0+ networks
+        return 0;
+    }
+    // build the wrapper
+    GUITrafficLightLogicWrapper *tllw =
+        new GUITrafficLightLogicWrapper(*myLogics, *tll);
+    // build the association link->wrapper
+    MSTrafficLightLogic::LinkVectorVector::const_iterator j;
+    for (j=links.begin(); j!=links.end(); j++) {
+        MSTrafficLightLogic::LinkVector::const_iterator j2;
+        for (j2=(*j).begin(); j2!=(*j).end(); j2++) {
+            myLinks2Logic[*j2] = tll->getID();
+        }
+    }
+    myGrid.addAdditionalGLObject(tllw);
+    myLogics2Wrapper[tll] = tllw;
+    return tllw->getGlID();
 }
 
 
@@ -221,14 +229,16 @@ GUINet::getEdgeBoundary(const std::string &name) const {
 
 unsigned int
 GUINet::getLinkTLID(MSLink *link) const {
-    Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
-    if (i==myLinks2Logic.end()) {
-        return -1;
+    if (myLinks2Logic.count(link) == 0) {
+        assert(false);
+        return 0;
     }
-    if (myLogics2Wrapper.find(myLogics->getActive((*i).second))==myLogics2Wrapper.end()) {
-        return -1;
+    MSTrafficLightLogic *tll = myLogics->getActive(myLinks2Logic.find(link)->second);
+    if (myLogics2Wrapper.count(tll) == 0) {
+        assert(false);
+        return 0;
     }
-    return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getGlID();
+    return myLogics2Wrapper.find(tll)->second->getGlID();
 }
 
 
@@ -480,6 +490,15 @@ GUINet::getCenteringBoundary() const throw() {
     return getBoundary();
 }
 
+
+GUINet*
+GUINet::getGUIInstance(void) {
+    GUINet *net = dynamic_cast<GUINet*>(MSNet::getInstance());
+    if (net != 0) {
+        return net;
+    }
+    throw ProcessError("A gui-network was not yet constructed.");
+}
 
 /****************************************************************************/
 

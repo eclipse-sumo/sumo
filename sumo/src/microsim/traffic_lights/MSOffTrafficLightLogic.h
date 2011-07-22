@@ -94,21 +94,7 @@ public:
         return 120*DELTA_T;
     }
 
-
-    /** @brief Applies the current signal states to controlled links
-     *
-     * Actually, this method does nothing; the tls stays in the last state
-     *
-     * @param[in] t The current time
-     * @return Always true
-     * @see MSLink::LinkState
-     * @see MSLink::setTLState
-     */
-    bool setTrafficLightSignals(SUMOTime /*t*/) const {
-        return true;
-    }
     /// @}
-
 
 
     /// @name Static Information Retrieval

@@ -156,6 +156,22 @@ MSTrafficLightLogic::collectLinkStates() const {
 }
 
 
+bool
+MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
+    // get the current traffic light signal combination
+    const std::string &state = getCurrentPhaseDef().getState();
+    // go through the links
+    for (size_t i=0; i<myLinks.size(); i++) {
+        const LinkVector &currGroup = myLinks[i];
+        LinkState ls = (LinkState) state[i];
+        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+            (*j)->setTLState(ls, t);
+        }
+    }
+    return true;
+}
+
+
 void
 MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState> &vals) const {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {

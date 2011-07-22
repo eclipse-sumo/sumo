@@ -151,7 +151,7 @@ public:
      * @see LinkState
      * @see MSLink::setTLState
      */
-    virtual bool setTrafficLightSignals(SUMOTime t) const = 0;
+    bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
 
 

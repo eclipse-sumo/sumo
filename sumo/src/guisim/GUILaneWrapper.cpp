@@ -214,15 +214,16 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
-        LinkState state = getLane().getLinkCont()[i]->getState();
-        switch (state) {
+        MSLink* link = getLane().getLinkCont()[i];
+        // select glID
+        switch (link->getState()) {
         case LINKSTATE_TL_GREEN_MAJOR:
         case LINKSTATE_TL_GREEN_MINOR:
         case LINKSTATE_TL_RED:
         case LINKSTATE_TL_YELLOW_MAJOR:
         case LINKSTATE_TL_YELLOW_MINOR:
         case LINKSTATE_TL_OFF_BLINKING:
-            glPushName(net.getLinkTLID(getLane().getLinkCont()[i]));
+            glPushName(net.getLinkTLID(link));
             break;
         case LINKSTATE_MAJOR:
         case LINKSTATE_MINOR:
@@ -232,7 +233,8 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
             glPushName(getGlID());
             break;
         }
-        switch (state) {
+        // select color
+        switch (link->getState()) {
         case LINKSTATE_TL_GREEN_MAJOR:
         case LINKSTATE_TL_GREEN_MINOR:
             glColor3d(0, 1, 0);
@@ -245,7 +247,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
             glColor3d(1, 1, 0);
             break;
         case LINKSTATE_TL_OFF_BLINKING:
-            glColor3d(1, 1, 0);
+            glColor3d(.7, .7, 0);
             break;
         case LINKSTATE_TL_OFF_NOSIGNAL:
             glColor3d(0, 1, 1);

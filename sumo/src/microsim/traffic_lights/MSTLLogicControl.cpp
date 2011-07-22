@@ -139,7 +139,7 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
     if (myVariants.find(programID)==myVariants.end()) {
         if (programID=="off") {
             // build an off-tll if this switch indicates it
-            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, false)) {
+            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, true)) {
                 // inform the user if this fails
                 throw ProcessError("Could not build an off-state for tls '" + myCurrentProgram->getID() + "'.");
             }
@@ -185,10 +185,6 @@ void
 MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::string &programID) {
     // set the found wished sub-program as this tls' current one
     myCurrentProgram = getLogicInstantiatingOff(tlc, programID);
-    // in the case we have switched to an off-state, we'll reset the links
-    if (programID=="off") {
-        myCurrentProgram->resetLinkStates(myOriginalLinkStates);
-    }
 }
 
 

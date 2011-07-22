@@ -80,15 +80,6 @@ public:
      * @see MSTrafficLightLogic::trySwitch
      */
     SUMOTime trySwitch(bool isActive);
-
-
-    /** @brief Applies the current signal states to controlled links
-     * @param[in] t The current time
-     * @return Always true
-     * @see MSLink::LinkState
-     * @see MSLink::setTLState
-     */
-    bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
 
 
