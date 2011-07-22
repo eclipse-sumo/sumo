@@ -134,6 +134,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
                 myCurrentIsOk = false;
                 return;
             }
+            myCurrentRouteName = "!" + myVehicleParameter->id;
         } else {
             myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, 0, myCurrentIsOk);
         }
