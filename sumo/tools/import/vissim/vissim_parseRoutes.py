@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    vissim_parseRoutes.py
 @author  Daniel.Krajzewicz@dlr.de

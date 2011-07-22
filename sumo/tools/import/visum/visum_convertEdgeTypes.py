@@ -24,23 +24,23 @@ fdo = open(sys.argv[2], "w")
 fdo.write("<types>\n")
 parsingTypes = False
 for line in fd:
-	if parsingTypes:
-		if line[0]=='*' or line[0]=='$' or line.find(";")<0:
-			parsingTypes = False
-			continue
+    if parsingTypes:
+        if line[0]=='*' or line[0]=='$' or line.find(";")<0:
+            parsingTypes = False
+            continue
 
-		values = line.strip().split(";")
-		map = {}
-		for i in range(0, len(attributes)):
-			map[attributes[i]] = values[i]
-		fdo.write('   <type id="' + map["nr"])
-		fdo.write('" priority="' + str(100-int(map["rang"])))
-		fdo.write('" nolanes="' + map["anzfahrstreifen"])
-		fdo.write('" speed="' + str(float(map["v0iv"])/3.6))
-		fdo.write('"/>\n')
+        values = line.strip().split(";")
+        map = {}
+        for i in range(0, len(attributes)):
+            map[attributes[i]] = values[i]
+        fdo.write('   <type id="' + map["nr"])
+        fdo.write('" priority="' + str(100-int(map["rang"])))
+        fdo.write('" nolanes="' + map["anzfahrstreifen"])
+        fdo.write('" speed="' + str(float(map["v0iv"])/3.6))
+        fdo.write('"/>\n')
 
-	if line.find("$STRECKENTYP")==0:
-		parsingTypes = True
-		attributes = line[len("$STRECKENTYP:"):].lower().split(";")
+    if line.find("$STRECKENTYP")==0:
+        parsingTypes = True
+        attributes = line[len("$STRECKENTYP:"):].lower().split(";")
 fdo.write("</types>\n")
 

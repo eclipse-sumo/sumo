@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 """
-@file    vissim_parseRoutes.py
+@file    vissim_parseBusStops.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-05-27
 @version $Id$
