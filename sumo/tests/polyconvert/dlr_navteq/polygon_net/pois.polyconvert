@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 09/23/10 11:02:09 by SUMO polyconvert Version dev-SVN-r8982
-<configuration>
+<!-- generated on Fri Jul 22 22:47:44 2011 by SUMO polyconvert Version dev-SVN-r11063
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -9,17 +11,17 @@
     </input>
 
     <output>
-        <output value="pois.poi.xml"/>
+        <output-file value="pois.poi.xml"/>
     </output>
 
     <projection>
-        <proj.shift value="5"/>
+        <proj.scale value="5"/>
         <proj value="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
     </projection>
 
     <processing>
-        <x-offset-to-apply value="-328248"/>
-        <y-offset-to-apply value="-5.77662e+006"/>
+        <offset.x value="-328248"/>
+        <offset.y value="-5.77662e+06"/>
     </processing>
 
     <report>
@@ -30,6 +32,6 @@
 -->
 
 <shapes>
-    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="38161.36,9358.13 38184.02,9310.78 38301.23,9270.89"/>
-    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="39893.88,3159.62 40328.85,2834.25 40363.50,2953.52 40369.96,3145.88"/>
+    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="38161.36,9358.03 38184.02,9310.68 38301.23,9270.79"/>
+    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="39893.88,3159.52 40328.85,2834.15 40363.50,2953.42 40369.96,3145.78"/>
 </shapes>

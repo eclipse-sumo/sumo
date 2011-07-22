@@ -10,7 +10,7 @@ This script patches the traffic lights of an input network for the gaming mode.
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import re
+import re, sys
 from optparse import OptionParser
 
 optParser = OptionParser()
