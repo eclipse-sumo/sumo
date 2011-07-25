@@ -235,7 +235,7 @@ GUINet::getLinkTLID(MSLink *link) const {
     }
     MSTrafficLightLogic *tll = myLogics->getActive(myLinks2Logic.find(link)->second);
     if (myLogics2Wrapper.count(tll) == 0) {
-        assert(false);
+        // tll may have been added via traci. @see ticket #459
         return 0;
     }
     return myLogics2Wrapper.find(tll)->second->getGlID();
