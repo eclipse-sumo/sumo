@@ -42,7 +42,7 @@
 
 
 // ===========================================================================
-// definitions of string representations
+// static members
 // ===========================================================================
 StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"unknown",           SVC_UNKNOWN},
@@ -72,11 +72,38 @@ StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_PEDESTRIAN);
 
 
-// ===========================================================================
-// static members
-// ===========================================================================
-std::map<SUMOVehicleShape, std::string> gVehicleShapeID2Name;
-std::map<std::string, SUMOVehicleShape> gVehicleShapeName2ID;
+StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
+    {"pedestrian",            SVS_PEDESTRIAN},
+    {"bicycle",               SVS_BICYCLE},
+    {"motorcycle",            SVS_MOTORCYCLE},
+    {"passenger",             SVS_PASSENGER},
+    {"passenger/sedan",       SVS_PASSENGER_SEDAN},
+    {"passenger/hatchback",   SVS_PASSENGER_HATCHBACK},
+    {"passenger/wagon",       SVS_PASSENGER_WAGON},
+    {"passenger/van",         SVS_PASSENGER_VAN},
+    {"delivery",              SVS_DELIVERY},
+    {"transport",             SVS_TRANSPORT},
+    {"transport/semitrailer", SVS_TRANSPORT_SEMITRAILER},
+    {"transport/trailer",     SVS_TRANSPORT_1TRAILER},
+    {"bus",                   SVS_BUS},
+    {"bus/city",              SVS_BUS_CITY},
+    {"bus/flexible",          SVS_BUS_CITY_FLEXIBLE},
+    {"bus/overland",          SVS_BUS_OVERLAND},
+    {"bus/trolley",           SVS_BUS_TROLLEY},
+    {"rail",                  SVS_RAIL},
+    {"rail/light",            SVS_RAIL_LIGHT},
+    {"rail/city",             SVS_RAIL_CITY},
+    {"rail/slow",             SVS_RAIL_SLOW},
+    {"rail/fast",             SVS_RAIL_FAST},
+    {"rail/cargo",            SVS_RAIL_CARGO},
+    {"evehicle",              SVS_E_VEHICLE},
+    {"ant",                   SVS_ANT},
+    {"",                      SVS_UNKNOWN}
+};
+
+
+StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
+    sumoVehicleShapeStringInitializer, SVS_UNKNOWN);
 
 
 // ===========================================================================
@@ -168,67 +195,20 @@ parseVehicleClasses(const std::vector<std::string> &classesS,
 }
 
 
-
-
-
-// ------------ Conversion of SUMOVehicleShape
-void
-addToShapeNames(SUMOVehicleShape id, const std::string &name) {
-    gVehicleShapeID2Name[id] = name;
-    gVehicleShapeName2ID[name] = id;
-}
-
-
-void
-initGuiShapeNames() {
-    addToShapeNames(SVS_PEDESTRIAN, "pedestrian");
-    addToShapeNames(SVS_BICYCLE, "bicycle");
-    addToShapeNames(SVS_MOTORCYCLE, "motorcycle");
-    addToShapeNames(SVS_PASSENGER, "passenger");
-    addToShapeNames(SVS_PASSENGER_SEDAN, "passenger/sedan");
-    addToShapeNames(SVS_PASSENGER_HATCHBACK, "passenger/hatchback");
-    addToShapeNames(SVS_PASSENGER_WAGON, "passenger/wagon");
-    addToShapeNames(SVS_PASSENGER_VAN, "passenger/van");
-    addToShapeNames(SVS_DELIVERY, "delivery");
-    addToShapeNames(SVS_TRANSPORT, "transport");
-    addToShapeNames(SVS_TRANSPORT_SEMITRAILER, "transport/semitrailer");
-    addToShapeNames(SVS_TRANSPORT_1TRAILER, "transport/trailer");
-    addToShapeNames(SVS_BUS, "bus");
-    addToShapeNames(SVS_BUS_CITY, "bus/city");
-    addToShapeNames(SVS_BUS_CITY_FLEXIBLE, "bus/flexible");
-    addToShapeNames(SVS_BUS_OVERLAND, "bus/overland");
-    addToShapeNames(SVS_BUS_TROLLEY, "bus/trolley");
-    addToShapeNames(SVS_RAIL, "rail");
-    addToShapeNames(SVS_RAIL_LIGHT, "rail/light");
-    addToShapeNames(SVS_RAIL_CITY, "rail/city");
-    addToShapeNames(SVS_RAIL_SLOW, "rail/slow");
-    addToShapeNames(SVS_RAIL_FAST, "rail/fast");
-    addToShapeNames(SVS_RAIL_CARGO, "rail/cargo");
-    addToShapeNames(SVS_E_VEHICLE, "evehicle");
-    addToShapeNames(SVS_ANT, "ant");
-}
-
-
-std::string
-getVehicleShapeName(SUMOVehicleShape id) {
-    if (id==SVS_UNKNOWN) {
-        return "";
-    }
-    return gVehicleShapeID2Name[id];
-}
-
-
 SUMOVehicleShape
 getVehicleShapeID(const std::string &name) {
-    if (name=="") {
-        return SVS_UNKNOWN;
+    if (SumoVehicleShapeStrings.hasString(name)) {
+        return SumoVehicleShapeStrings.get(name);
+    } else {
+        throw ProcessError("Unknown vehicle shape '" + name + "'.");
     }
-    if (gVehicleShapeName2ID.find(name)!=gVehicleShapeName2ID.end()) {
-        return gVehicleShapeName2ID[name];
-    }
-    throw ProcessError("Unknown vehicle shape '" + name + "'.");
 }
 
+
+std::string 
+getVehicleShapeName(SUMOVehicleShape id) {
+    return SumoVehicleShapeStrings.getString(id);
+}
 
 
 // ------------ Conversion of SUMOEmissionClass

@@ -152,8 +152,6 @@ main(int argc, char **argv) {
             new GUIApplicationWindow(&application, "*.sumo.cfg");
         window->dependentBuild(oc.getBool("game"));
         gSchemeStorage.init(&application);
-        // init simulation and visualization structures
-        initGuiShapeNames();
         // Create app
         application.addSignal(SIGINT,window, MID_QUIT);
         application.create();

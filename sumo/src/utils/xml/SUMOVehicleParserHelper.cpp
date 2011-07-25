@@ -659,18 +659,14 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, cons
 
 SUMOVehicleShape
 SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id) {
-    SUMOVehicleShape vclass = SVS_UNKNOWN;
-    try {
-        bool ok = true;
-        std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_GUISHAPE, id.c_str(), ok, "");
-        if (vclassS=="") {
-            return vclass;
-        }
-        return getVehicleShapeID(vclassS);
-    } catch (...) {
-        WRITE_ERROR("The shape for " + attrs.getObjectType() + " '" + id + "' is not known.");
+    bool ok = true;
+    std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_GUISHAPE, id.c_str(), ok, "");
+    if (SumoVehicleShapeStrings.hasString(vclassS)) {
+        return SumoVehicleShapeStrings.get(vclassS);
+    } else {
+        WRITE_ERROR("The shape '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is not known.");
+        return SVS_UNKNOWN;
     }
-    return vclass;
 }
 
 

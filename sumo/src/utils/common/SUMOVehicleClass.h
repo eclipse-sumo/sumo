@@ -177,6 +177,7 @@ enum SUMOVehicleClass {
 };
 
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
+extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
 /**
  * @enum SUMOEmissionClass
@@ -245,8 +246,6 @@ typedef std::set<SUMOVehicleClass> SUMOVehicleClasses;
 // ===========================================================================
 // method declarations
 // ===========================================================================
-extern void initGuiShapeNames();
-
 
 // ---------------------------------------------------------------------------
 // abstract vehicle class / purpose
