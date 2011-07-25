@@ -717,6 +717,7 @@ PositionVector::nearest_position_on_line_to_point(const Position &p, bool perpen
 
 int
 PositionVector::indexOfClosest(const Position &p) const {
+    assert(size() > 0);
     SUMOReal minDist = std::numeric_limits<SUMOReal>::max();
     SUMOReal dist;
     int closest = 0;

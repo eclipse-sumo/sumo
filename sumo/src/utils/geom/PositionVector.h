@@ -259,7 +259,8 @@ public:
 
     SUMOReal nearest_position_on_line_to_point(const Position &p, bool perpendicular=true) const;
 
-    // @brief index of the closest position to p
+    /* @brief index of the closest position to p
+     * @note: may only be called for a non-empty vector */
     int indexOfClosest(const Position &p) const;
 
     // distances of all my points to s and all of s points to myself
