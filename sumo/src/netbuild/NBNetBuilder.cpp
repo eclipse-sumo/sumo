@@ -90,7 +90,9 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
 
 
 void
-NBNetBuilder::compute(OptionsCont &oc, const std::set<std::string> &explicitTurnarounds) {
+NBNetBuilder::compute(OptionsCont &oc, 
+        const std::set<std::string> &explicitTurnarounds,
+        bool removeUnwishedNodes) {
     int step = 1;
     //
     if (oc.getBool("junctions.join")) {
@@ -116,12 +118,14 @@ NBNetBuilder::compute(OptionsCont &oc, const std::set<std::string> &explicitTurn
         }
     }
     //
-    if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
-        inform(step, "Removing empty nodes and geometry nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
-    } else {
-        inform(step, "Removing empty nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
+    if (removeUnwishedNodes) {
+        if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
+            inform(step, "Removing empty nodes and geometry nodes.");
+            myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
+        } else {
+            inform(step, "Removing empty nodes.");
+            myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
+        }
     }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {

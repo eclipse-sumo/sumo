@@ -131,9 +131,12 @@ public:
      *
      * @param[in] oc Container that contains options for building
      * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
+     * @param[in] removeUnwishedNodes Whether to remove orphan nodes (and optionally convert some nodes to geometry)
      * @exception ProcessError (recheck)
      */
-    void compute(OptionsCont &oc, const std::set<std::string> &explicitTurnarounds=std::set<std::string>());
+    void compute(OptionsCont &oc, 
+            const std::set<std::string> &explicitTurnarounds=std::set<std::string>(),
+            bool removeUnwishedNodes=true);
 
 
 
