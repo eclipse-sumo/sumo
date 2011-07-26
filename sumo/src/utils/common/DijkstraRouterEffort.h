@@ -63,8 +63,8 @@ template<class E, class V, class PF>
 class DijkstraRouterEffortBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
-    DijkstraRouterEffortBase(size_t noE, bool unbuildIsWarningOnly)
-            : myUnbuildIsWarningOnly(unbuildIsWarningOnly) {
+    DijkstraRouterEffortBase(size_t noE, bool unbuildIsWarning) : 
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
         }
@@ -182,11 +182,7 @@ public:
                 }
             }
         }
-        if (!myUnbuildIsWarningOnly) {
-            MsgHandler::getErrorInstance()->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
-        } else {
-            WRITE_WARNING("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
-        }
+        myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 
 
@@ -224,7 +220,8 @@ protected:
 
     EdgeInfoByEffortComparator myComparator;
 
-    bool myUnbuildIsWarningOnly;
+    /// @brief the handler for routing errors
+    MsgHandler * const myErrorMsgHandler;
 
 };
 

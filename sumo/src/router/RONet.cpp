@@ -177,13 +177,14 @@ bool
 RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                     const ROVehicle * const veh) {
     MsgHandler *mh = MsgHandler::getErrorInstance();
+    std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
     if (options.getBool("ignore-errors")) {
         mh = MsgHandler::getWarningInstance();
     }
     RORouteDef * const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
     if (routeDef==0) {
-        mh->inform("The vehicle '" + veh->getID() + "' has no valid route.");
+        mh->inform(noRouteMsg);
         return false;
     }
     // check whether the route was already saved
@@ -194,6 +195,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     RORoute *current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current==0||current->size()==0) {
         delete current;
+        mh->inform(noRouteMsg);
         return false;
     }
     // check whether we have to evaluate the route for not containing loops
@@ -203,6 +205,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     // check whether the route is still valid
     if (current->size()==0) {
         delete current;
+        mh->inform(noRouteMsg + " (after removing loops)");
         return false;
     }
     // add built route
