@@ -134,6 +134,13 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition *definition) {
 
 void
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) {
+    // clean previous logics
+    Logics logics = getComputed();
+    for (Logics::iterator it = logics.begin(); it != logics.end(); it++) {
+        delete *it;
+    }
+    myComputed.clear();
+
     unsigned int numPrograms = 0;
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
@@ -154,11 +161,6 @@ bool
 NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont &ec, OptionsCont &oc, NBTrafficLightDefinition* def) {
     const std::string& id = def->getID();
     const std::string& programID = def->getProgramID();
-    // check for previous computation
-    if (myComputed.count(id) && myComputed[id].count(programID)) {
-        delete myComputed[id][programID];
-        myComputed[id].erase(programID);
-    }
     // build program
     NBTrafficLightLogic *built = def->compute(ec, oc);
     if (built==0) {
