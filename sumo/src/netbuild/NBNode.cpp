@@ -244,7 +244,8 @@ NBNode::removeTrafficLight(NBTrafficLightDefinition *tlDef) throw() {
 
 void
 NBNode::removeTrafficLights() throw() {
-    for (std::set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
+    std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
+    for (std::set<NBTrafficLightDefinition*>::const_iterator i=trafficLights.begin(); i!=trafficLights.end(); ++i) {
         removeTrafficLight(*i);
     }
 }
