@@ -66,12 +66,6 @@
 
 
 // ===========================================================================
-// some constant definitions
-// ===========================================================================
-/** Definition how many points an internal lane-geometry should be made of */
-#define NO_INTERNAL_POINTS 5
-
-// ===========================================================================
 // static members
 // ===========================================================================
 
@@ -551,7 +545,7 @@ NBNode::countInternalLanes(bool includeSplits) const {
 
 PositionVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
-                                 NBEdge *toE, int toL) const {
+                                 NBEdge *toE, int toL, int numPoints) const {
     if (fromL>=(int) fromE->getNumLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
     }
@@ -650,11 +644,11 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             def[i*3+2] = 0;
             def[i*3+3] = init[i].y();
         }
-        SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
-        bezier(noInitialPoints, def, NO_INTERNAL_POINTS, ret_buf);
+        SUMOReal ret_buf[numPoints*3+1];
+        bezier(noInitialPoints, def, numPoints, ret_buf);
         delete[] def;
         Position prev;
-        for (int i=0; i<(int) NO_INTERNAL_POINTS; i++) {
+        for (int i=0; i<(int) numPoints; i++) {
             Position current(ret_buf[i*3+1], ret_buf[i*3+3]);
             if (prev!=current) {
                 ret.push_back(current);

@@ -386,8 +386,18 @@ public:
             NBEdge *toE, unsigned int toL) const;
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
             NBEdge *toE, unsigned int toL) const;
-    PositionVector computeInternalLaneShape(NBEdge *fromE,
-                                            int fromL, NBEdge *toE, int toL) const;
+
+
+    /** @brief Compute the shape for an internal lane
+     * @param[in] fromE The starting edge
+     * @param[in] fromL The index of the starting lane
+     * @param[in] toE The destination edge
+     * @param[in] toL The index of the destination lane
+     * @param[in] numPoints The number of geometry points for the internal lane
+     * @return The shape of the internal lane
+     */
+    PositionVector computeInternalLaneShape(
+            NBEdge *fromE, int fromL, NBEdge *toE, int toL, int numPoints=5) const;
 
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
