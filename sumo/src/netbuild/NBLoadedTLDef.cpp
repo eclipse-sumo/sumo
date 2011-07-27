@@ -458,6 +458,7 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
 
 void
 NBLoadedTLDef::collectNodes() throw() {
+    myControlledNodes.clear();
     SignalGroupCont::const_iterator m;
     for (m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
         SignalGroup *group = (*m).second;
@@ -475,6 +476,7 @@ NBLoadedTLDef::collectNodes() throw() {
 
 void
 NBLoadedTLDef::collectLinks() throw(ProcessError) {
+    myControlledLinks.clear();
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
