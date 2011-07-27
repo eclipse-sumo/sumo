@@ -112,6 +112,12 @@ public:
 
 
 protected:
+    /** @brief Collects the links participating in this traffic light
+     * @exception ProcessError If a link could not be found
+     */
+    void collectLinks() throw(ProcessError) {}
+
+
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls

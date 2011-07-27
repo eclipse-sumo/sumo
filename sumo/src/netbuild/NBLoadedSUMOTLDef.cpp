@@ -83,6 +83,7 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno) {
+    myControlledLinks.push_back(NBConnection(from, fromLane, to, toLane));
     from->setControllingTLInformation(fromLane, to, toLane, getID(), linkno);
     addNode(from->getToNode());
     addNode(to->getFromNode());
