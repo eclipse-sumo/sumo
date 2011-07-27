@@ -1743,6 +1743,12 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
     }
     assert(lane<(int) myLanes.size());
     myLanes[lane].allowed.insert(vclass);
+    if (myLanes[lane].notAllowed.count(vclass) > 0) {
+        // overrride earlier disallow
+        myLanes[lane].notAllowed.erase(vclass);
+        WRITE_WARNING("Overriding previous '" + toString(SUMO_ATTR_DISALLOW) + "=" + 
+                toString(vclass) + "' for lane '" + getLaneID(lane) + "'.")
+    }
 }
 
 
@@ -1758,6 +1764,12 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
     }
     assert(lane<(int) myLanes.size());
     myLanes[lane].notAllowed.insert(vclass);
+    if (myLanes[lane].allowed.count(vclass) > 0) {
+        // overrride earlier allow
+        myLanes[lane].allowed.erase(vclass);
+        WRITE_WARNING("Overriding previous '" + toString(SUMO_ATTR_ALLOW) + "=" +
+                toString(vclass) + "' for lane '" + getLaneID(lane) + "'.")
+    }
 }
 
 
