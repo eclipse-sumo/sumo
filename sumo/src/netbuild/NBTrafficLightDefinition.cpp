@@ -343,7 +343,7 @@ NBTrafficLightDefinition::foes(const NBEdge * const from1, const NBEdge * const 
 
 
 void
-NBTrafficLightDefinition::addNode(NBNode *node) throw() {
+NBTrafficLightDefinition::addNode(NBNode *node) {
     if (std::find(myControlledNodes.begin(), myControlledNodes.end(), node)==myControlledNodes.end()) {
         myControlledNodes.push_back(node);
         std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
@@ -353,7 +353,7 @@ NBTrafficLightDefinition::addNode(NBNode *node) throw() {
 
 
 void
-NBTrafficLightDefinition::removeNode(NBNode *node) throw() {
+NBTrafficLightDefinition::removeNode(NBNode *node) {
     std::vector<NBNode*>::iterator i = std::find(myControlledNodes.begin(), myControlledNodes.end(), node);
     if (i!=myControlledNodes.end()) {
         myControlledNodes.erase(i);

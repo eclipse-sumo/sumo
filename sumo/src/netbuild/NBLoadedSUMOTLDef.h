@@ -91,6 +91,21 @@ public:
                         NBEdge *by, int byLane) throw();
 
 
+    /** @brief Adds a node to the traffic light logic (which invalidates the
+     * loaed logic)
+     *    this method should never be called
+     * @param[in] node A further node that shall be controlled by the tls
+     */
+    void addNode(NBNode *node);
+
+    /** @brief Removes the given node from the list of controlled nodes
+     *    since this invalidates the loaded logic, this definition is based on
+     *    it starts to act like an NBOwnTLDef
+     * @param[in] node The node that shall not be controlled by the tls any more
+     */
+    void removeNode(NBNode *node);
+
+
     /** @brief Adds a phase to the logic
      * the new phase is inserted at the end of the list of already added phases
      * @param[in] duration The duration of the phase to add in SECONDS!

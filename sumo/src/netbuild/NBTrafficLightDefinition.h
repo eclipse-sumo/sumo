@@ -137,13 +137,13 @@ public:
     /** @brief Adds a node to the traffic light logic
      * @param[in] node A further node that shall be controlled by the tls
      */
-    void addNode(NBNode *node) throw();
+    virtual void addNode(NBNode *node);
 
 
     /** @brief Removes the given node from the list of controlled nodes
      * @param[in] node The node that shall not be controlled by the tls any more
      */
-    void removeNode(NBNode *node) throw();
+    virtual void removeNode(NBNode *node);
 
 
     /** @brief Returns the list of controlled nodes

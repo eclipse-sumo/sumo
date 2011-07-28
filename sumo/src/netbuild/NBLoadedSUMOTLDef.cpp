@@ -85,8 +85,8 @@ void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno) {
     myControlledLinks.push_back(NBConnection(from, fromLane, to, toLane));
     from->setControllingTLInformation(fromLane, to, toLane, getID(), linkno);
-    addNode(from->getToNode());
-    addNode(to->getFromNode());
+    NBTrafficLightDefinition::addNode(from->getToNode());
+    NBTrafficLightDefinition::addNode(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
     myControlledInnerEdges.insert(from->getID());
 }
@@ -109,6 +109,24 @@ NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) throw() {}
 void
 NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
     myTLLogic->addStep(duration, state);
+}
+
+
+void 
+NBLoadedSUMOTLDef::addNode(NBNode *node) {
+    NBTrafficLightDefinition::addNode(node);
+    WRITE_WARNING("The loaded traffic light '" + getID() + "' has been invalidated by adding a node.");
+    assert(false);
+    myControlledLinks.clear();
+}
+
+
+void
+NBLoadedSUMOTLDef::removeNode(NBNode *node) {
+    NBTrafficLightDefinition::removeNode(node);
+    // may happend when a controlling node is affected by joinJunctions. 
+    // This traffic light is then obsolete
+    myControlledLinks.clear();
 }
 
 /****************************************************************************/
