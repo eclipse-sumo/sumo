@@ -90,18 +90,7 @@ public:
      * @param[in] classS The string that contains the information whether a vehicle class is allowed
      * @see addVehicleClass
      */
-    static void addVehicleClasses(NBEdge &e,
-                                  const std::string &classS) throw();
-
-
-protected:
-    /** @brief Adds a single vehicle class to all lanes of the given edge
-     *
-     * @param[in] e The edge to set the vehicle class into
-     * @param[in] c The class to set (allow)
-     */
-    static void addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw();
-
+    static void addVehicleClasses(NBEdge &e, const std::string &classS);
 
 };
 

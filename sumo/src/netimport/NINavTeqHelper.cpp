@@ -104,7 +104,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
 
 
 void
-NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw() {
+NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) {
     std::string classS = "0000000000" + oclassS;
     classS = classS.substr(classS.length() - 10);
     // 0: allow all vehicle types
@@ -113,54 +113,44 @@ NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw()
     }
     // Passenger cars -- becomes SVC_PASSENGER
     if (classS[1]=='1') {
-        addVehicleClass(e, SVC_PASSENGER);
+        e.allowVehicleClass(-1, SVC_PASSENGER);
     }
     // High Occupancy Vehicle -- becomes SVC_PASSENGER|SVC_HOV
     if (classS[2]=='1') {
-        addVehicleClass(e, SVC_HOV);
-        addVehicleClass(e, SVC_PASSENGER);
+        e.allowVehicleClass(-1, SVC_HOV);
+        e.allowVehicleClass(-1, SVC_PASSENGER);
     }
     // Emergency Vehicle -- becomes SVC_PUBLIC_EMERGENCY
     if (classS[3]=='1') {
-        addVehicleClass(e, SVC_PUBLIC_EMERGENCY);
+        e.allowVehicleClass(-1, SVC_PUBLIC_EMERGENCY);
     }
     // Taxi -- becomes SVC_PASSENGER|SVC_TAXI
     if (classS[4]=='1') {
-        addVehicleClass(e, SVC_TAXI);
-        addVehicleClass(e, SVC_PASSENGER);
+        e.allowVehicleClass(-1, SVC_TAXI);
+        e.allowVehicleClass(-1, SVC_PASSENGER);
     }
     // Public Bus -- becomes SVC_BUS|SVC_PUBLIC_TRANSPORT
     if (classS[5]=='1') {
-        addVehicleClass(e, SVC_PUBLIC_TRANSPORT);
-        addVehicleClass(e, SVC_BUS);
+        e.allowVehicleClass(-1, SVC_PUBLIC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_BUS);
     }
     // Delivery Truck -- becomes SVC_DELIVERY
     if (classS[6]=='1') {
-        addVehicleClass(e, SVC_DELIVERY);
+        e.allowVehicleClass(-1, SVC_DELIVERY);
     }
     // Transport Truck -- becomes SVC_TRANSPORT
     if (classS[7]=='1') {
-        addVehicleClass(e, SVC_TRANSPORT);
+        e.allowVehicleClass(-1, SVC_TRANSPORT);
     }
     // Bicycle -- becomes SVC_BICYCLE
     if (classS[8]=='1') {
-        addVehicleClass(e, SVC_BICYCLE);
+        e.allowVehicleClass(-1, SVC_BICYCLE);
     }
     // Pedestrian -- becomes SVC_PEDESTRIAN
     if (classS[9]=='1') {
-        addVehicleClass(e, SVC_PEDESTRIAN);
+        e.allowVehicleClass(-1, SVC_PEDESTRIAN);
     }
 }
-
-
-void
-NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw() {
-    for (unsigned int i=0; i<e.getNumLanes(); i++) {
-        e.allowVehicleClass(i, c);
-    }
-}
-
-
 
 /****************************************************************************/
 
