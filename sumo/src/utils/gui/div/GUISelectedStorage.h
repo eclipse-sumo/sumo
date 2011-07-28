@@ -196,6 +196,17 @@ public:
     std::string load(const std::string &filename, GUIGlObjectType type = GLO_MAX);
 
 
+    /** @brief Loads a selection list (optionally with restricted type) and
+     * returns the ids of all active objects
+     *
+     * @param[in] filename The name of the file to load the list of selected objects from
+     * @param[out] msg Any error messages while loading or the empty string
+     * @param[in] type The type of the objects to load if changed from default
+     * @return the set of loaded ids
+     */
+    std::set<GUIGlID> loadIDs(const std::string &filename, std::string &msgOut, GUIGlObjectType type = GLO_MAX);
+
+
     /** @brief Saves a selection list
      *
      * @param[in] type The type of the objects to save

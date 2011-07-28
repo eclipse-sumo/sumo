@@ -186,12 +186,14 @@ GUISelectedStorage::clear() {
 }
 
 
-std::string
-GUISelectedStorage::load(const std::string &filename, GUIGlObjectType type) {
+std::set<GUIGlID> 
+GUISelectedStorage::loadIDs(const std::string &filename, std::string &msgOut, GUIGlObjectType type) {
+    std::set<GUIGlID> result;
     std::ostringstream msg;
     std::ifstream strm(filename.c_str());
     if (!strm.good()) {
-        return "Could not open '" + filename + "'.\n";
+        msgOut = "Could not open '" + filename + "'.\n";
+        return result;
     }
     while (strm.good()) {
         std::string line;
@@ -205,18 +207,30 @@ GUISelectedStorage::load(const std::string &filename, GUIGlObjectType type) {
             if (type != GLO_MAX && (object->getType() != type)) {
                 msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
             } else {
-                select(object->getGlID(), false);
+                result.insert(object->getGlID());
             }
         } else {
             msg << "Item '" + line + "' not found\n";
             continue;
         }
     }
+    strm.close();
+    msgOut = msg.str();
+    return result;
+}
+
+
+std::string
+GUISelectedStorage::load(const std::string &filename, GUIGlObjectType type) {
+    std::string errors;
+    const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
+    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+        select(*it, false);
+    }
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
     }
-    strm.close();
-    return msg.str();
+    return errors;
 }
 
 
