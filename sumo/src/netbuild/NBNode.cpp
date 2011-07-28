@@ -644,7 +644,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             def[i*3+2] = 0;
             def[i*3+3] = init[i].y();
         }
-        SUMOReal ret_buf[numPoints*3+1];
+        SUMOReal *ret_buf = new SUMOReal[numPoints*3+1];
         bezier(noInitialPoints, def, numPoints, ret_buf);
         delete[] def;
         Position prev;
@@ -655,6 +655,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             }
             prev = current;
         }
+        delete[] ret_buf;
     }
     const NBEdge::Lane &lane = fromE->getLaneStruct(fromL);
     if (lane.offset>0) {
