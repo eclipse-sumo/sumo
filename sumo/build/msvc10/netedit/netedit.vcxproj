@@ -180,6 +180,7 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEConnector.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\GNEDialog_Wizard.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEInspector.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEInternalLane.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEConnector.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_About.h" />
+    <ClInclude Include="..\..\..\src\netedit\GNEDialog_Wizard.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEEvent_NetworkLoaded.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEInspector.h" />
