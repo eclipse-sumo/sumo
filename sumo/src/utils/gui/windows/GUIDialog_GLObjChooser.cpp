@@ -150,9 +150,9 @@ GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*) {
 
 long
 GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
-    int selected = myList->getCurrentItem();
-    if (selected>=0) {
-        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+    int current = myList->getCurrentItem();
+    if (current>=0 && myList->isItemSelected(current)) {
+        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
     }
     return 1;
 }
