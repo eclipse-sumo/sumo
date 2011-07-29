@@ -585,6 +585,27 @@ public:
     bool processMetaOptions(bool missingOptions) throw(ProcessError);
 
 
+    /// @brief return the list of subtopics
+    const std::vector<std::string> & getSubTopics() const {
+        return mySubTopics;
+    }
+
+
+    /// @brief return the list of entries for the given subtopic
+    std::vector<std::string> getSubTopicsEntries(const std::string &subtopic) const {
+        if (mySubTopicEntries.count(subtopic) > 0) {
+            return mySubTopicEntries.find(subtopic)->second;
+        } else {
+            return std::vector<std::string>();
+        }
+    }
+
+
+    /// @brief return the type name for the given option
+    std::string getTypeName(const std::string name) {
+        return getSecure(name)->getTypeName();
+    }
+
 private:
     /** @brief Returns the named option
      *
