@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 10:10:46 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on Wed Aug 10 19:58:09 2011 by SUMO sumo Version dev-SVN-r11094
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -21,11 +23,11 @@
 -->
 
 <routes>
-    <vehicle id="veh0" depart="1.00" arrival="58.00">
+    <vehicle id="veh0" type="Car" depart="1.00" arrival="58.00">
         <route edges="1to2 out"/>
     </vehicle>
 
-    <vehicle id="veh1" depart="10.00" arrival="60.00">
+    <vehicle id="veh1" type="Car" depart="10.00" arrival="60.00">
         <route edges="1to2 out"/>
     </vehicle>
 

@@ -223,6 +223,16 @@ public:
      */
     bool closeTag(bool abbreviated=false) throw();
 
+    /** @brief writes an arbitrary attribute
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    OutputDevice &writeAttr(std::string attr, std::string val) {
+        getOStream() << " " << attr << "=\"" << val << "\"";
+        return *this;
+    }
+
     /** @brief writes an named attribute
      *
      * @param[in] attr The attribute (name)
@@ -230,8 +240,7 @@ public:
      */
     template <class T>
     OutputDevice &writeAttr(const SumoXMLAttr attr, const T &val) {
-        getOStream() << " " << toString(attr) << "=\"" << toString(val) << "\"";
-        return *this;
+        return writeAttr(toString(attr), toString(val));
     }
 
 

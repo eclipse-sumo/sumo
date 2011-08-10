@@ -193,14 +193,16 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
 void
 MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     OutputDevice_String od(1);
-    od.openTag("vehicle")
-    << " id=\"" << myHolder.getID() << "\" depart=\""
-    << time2string(myHolder.getDeparture())
-    << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep());
-    if (myWithTaz) {
-        od << "\" fromTaz=\"" << myHolder.getParameter().fromTaz << "\" toTaz=\"" << myHolder.getParameter().toTaz;
+    od.openTag("vehicle").writeAttr(SUMO_ATTR_ID, myHolder.getID());
+    if (myHolder.getVehicleType().getID() != DEFAULT_VTYPE_ID) {
+        od.writeAttr(SUMO_ATTR_TYPE, myHolder.getVehicleType().getID());
     }
-    od << "\">\n";
+    od.writeAttr(SUMO_ATTR_DEPART, time2string(myHolder.getDeparture()));
+    od.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
+    if (myWithTaz) {
+        od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
+    }
+    od << ">\n";
     if (myReplacedRoutes.size() > 0) {
         od.openTag("routeDistribution") << ">\n";
         for (unsigned int i=0; i<myReplacedRoutes.size(); ++i) {
