@@ -32,7 +32,7 @@ for departPos in "random free random_free base pwagSimple pwagGeneric maxSpeedGa
     print ">>> Simulating ((for departPos %s)" % departPos
     call([sumoBinary, "-c", "sumo.sumo.cfg", "-v"])
 
-    dump = sumolib.output.dump.readDump("aggregated.xml", ["occupancy"])
-    print >> fdo, "%s;%s" % (departPos, dump.get("occupancy")[-1]["1fi"])
+    dump = sumolib.output.dump.readDump("aggregated.xml", ["entered"])
+    print >> fdo, "%s;%s" % (departPos, dump.get("entered")[-1]["1si"])
     os.rename("aggregated.xml", departPos + "_aggregated.xml")
 fdo.close()
