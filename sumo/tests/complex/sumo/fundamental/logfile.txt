@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-['/home/micha/programming/delphi/SE/extern/sumo/bin/netconvert', '-c', 'netconvert.netc.cfg']
--------------------------------------------------------------------------------
-['/home/micha/programming/delphi/SE/extern/sumo/bin/sumo', '-c', 'sumo.sumo.cfg', '-v']
