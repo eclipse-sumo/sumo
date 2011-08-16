@@ -351,9 +351,7 @@ if test x"$with_gtest" == x; then
     with_gtest=no
 fi
 if test x"$with_gtest" != xno; then
-    LIB_GTEST="gtest"
-    GTEST_LDFLAGS="-L$with_gtest/lib"
-    AC_SUBST(GTEST_LDFLAGS)
+    LIB_GTEST="$with_gtest/lib/libgtest.a"
     AC_SUBST(LIB_GTEST)
     AM_CPPFLAGS="-I$with_gtest/include $AM_CPPFLAGS"
 fi

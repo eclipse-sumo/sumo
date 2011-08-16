@@ -37,9 +37,7 @@ $(XERCES_LIBS) \
 ./utils/geom/PositionVectorTest.o \
 ./utils/geom/LineTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
--lgtest
-
-#./microsim/MSEventControlTest.o  
+$(LIB_GTEST)
 
 SUBDIRS = utils microsim netbuild
 endif
