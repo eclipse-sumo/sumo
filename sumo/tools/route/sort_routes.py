@@ -39,7 +39,7 @@ routefilename = sys.argv[1]
 outfile = open(routefilename + ".sorted", 'w')
 for line in open(routefilename):
     outfile.write(line)
-    if '<routes>' in line:
+    if '<routes' in line:
         break
 sort_departs(routefilename, outfile)
 outfile.write('</routes>')
