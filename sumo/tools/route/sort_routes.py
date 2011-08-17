@@ -18,11 +18,15 @@ def sort_departs(routefilename, outfile):
     routes_doc = pulldom.parse(sys.argv[1])
     vehicles = []
     for event, parsenode in routes_doc:
-        if event == pulldom.START_ELEMENT and parsenode.localName == 'vehicle':
-            vehicle = parsenode # now we know it's a vehicle
+        if event == pulldom.START_ELEMENT and (parsenode.localName == 'vehicle' or parsenode.localName == 'flow'):
+            vehicle = parsenode # now we know it's a vehicle or a flow
             routes_doc.expandNode(vehicle)
-            depart = int(float(vehicle.getAttribute('depart')))
-            vehicles.append((depart, vehicle.toprettyxml(indent="", newl="")))
+            if (parsenode.localName == 'vehicle'):
+                depart = int(float(vehicle.getAttribute('depart')))
+                vehicles.append((depart, vehicle.toprettyxml(indent="", newl="")))
+            elif (parsenode.localName == 'flow'):
+                begin = int(float(vehicle.getAttribute('begin')))
+                vehicles.append((begin, vehicle.toprettyxml(indent="", newl="")))
     print('read %s vehicles.' % len(vehicles))
     vehicles.sort()
     for depart, vehiclexml in vehicles:
