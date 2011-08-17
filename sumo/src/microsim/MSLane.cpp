@@ -32,6 +32,7 @@
 #include "MSVehicle.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
+#include "MSEdgeControl.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
 #include "MSLink.h"

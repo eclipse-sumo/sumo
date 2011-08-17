@@ -88,6 +88,15 @@ public:
         }
     };
 
+    /** Function-object for stable sorting in containers. */
+    struct ComparatorIdLess
+    {
+        bool operator() (MSLane* const a, MSLane* const b)
+        {
+            return (a->getID() < b->getID());
+        }
+    };
+
 
 public:
     /** @brief Constructor

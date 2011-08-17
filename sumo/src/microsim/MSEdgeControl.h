@@ -36,6 +36,7 @@
 #include <list>
 #include <set>
 #include "MSEdge.h"
+#include "MSLane.h"
 
 
 // ===========================================================================
@@ -220,7 +221,7 @@ private:
     std::vector<MSLane*> myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
-    std::set<MSLane*> myChangedStateLanes;
+    std::set<MSLane*, MSLane::ComparatorIdLess> myChangedStateLanes;
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;
