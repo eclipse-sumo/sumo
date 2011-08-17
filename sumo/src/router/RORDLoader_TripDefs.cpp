@@ -140,37 +140,6 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
 }
 
 
-SUMOTime
-RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
-                               const std::string &id) {
-    if (!attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        return -1;
-    }
-    // get the repetition period
-    bool ok = true;
-    return attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
-}
-
-
-int
-RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
-        const std::string &id) {
-    if (!attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
-        return -1;
-    }
-    // get the repetition number
-    bool ok = true;
-    return attrs.getIntReporting(SUMO_ATTR_REPNUMBER, id.c_str(), ok);
-}
-
-
-std::string
-RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs) {
-    bool ok = true;
-    return attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, ok, "");
-}
-
-
 void
 RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
     if ((element==SUMO_TAG_TRIP||element==SUMO_TAG_TRIP__DEPRECATED) &&

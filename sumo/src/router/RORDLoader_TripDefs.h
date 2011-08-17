@@ -127,16 +127,6 @@ protected:
     ROEdge *getEdge(const SUMOSAXAttributes &attrs, const std::string &purpose,
                     SumoXMLAttr which, const std::string &id, bool emptyAllowed);
 
-    /// Parses and returns the period the trip shall be repeated with
-    SUMOTime getPeriod(const SUMOSAXAttributes &attrs, const std::string &id);
-
-    /// Parses and returns the number of cars that shall use the same parameter
-    int getRepetitionNumber(const SUMOSAXAttributes &attrs, const std::string &id);
-
-    /** @brief Parses and returns the name of the lane the vehicle starts at
-        This value is optional */
-    std::string getLane(const SUMOSAXAttributes &attrs);
-
 protected:
     /// generates numerical ids
     IDSupplier myIdSupplier;
