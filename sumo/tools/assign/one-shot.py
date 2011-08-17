@@ -47,21 +47,21 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <end value="%s"/>' % options.end
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
-    print >> fd, """        <device.routing.probability value="1"/>
-        <device.routing.period value="%s"/>
-        <device.routing.adaptation-interval value="%s"/>
-        <device.routing.with-taz value="%s"/>
+    print >> fd, """        <device.rerouting.probability value="1"/>
+        <device.rerouting.period value="%s"/>
+        <device.rerouting.adaptation-interval value="%s"/>
+        <device.rerouting.with-taz value="%s"/>
         <vehroute-output.last-route value="%s"/>
     </process>
     <reports>
         <verbose value="True"/>
-        <suppress-warnings value="%s"/>
+        <no-warnings value="%s"/>
     </reports>
 </configuration>""" % (step, options.updateInterval, options.withtaz, options.lastRoutes, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
-    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
+    <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
