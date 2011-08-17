@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -177,7 +177,6 @@
     <ClInclude Include="..\..\..\src\netbuild\NBLinkPossibilityMatrix.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLoadedSUMOTLDef.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBLoadedTLDef.h" />
-    <ClInclude Include="..\..\..\src\netbuild\NBMMLDirections.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNetBuilder.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNode.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBNodeCont.h" />
