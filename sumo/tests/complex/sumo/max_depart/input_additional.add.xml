@@ -1,8 +1,7 @@
 <additional>
-    <edgeData id="dump" freq="10" file="aggregated.xml"/>
+    <edgeData id="dump" freq="10000" file="aggregated.xml"/>
 
-    <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70"/>
-    <route id="right" edges="1fi 1si 4o 4fi 4si"/>
-    <route id="left" edges="1fi 1si 3o 3fi"/>
-    <route id="horizontal" edges="1fi 1si 2o 2fi"/>
+    <route id="right" edges="1fi 1si 4o"/>
+    <route id="left" edges="1fi 1si 3o"/>
+    <route id="horizontal" edges="1fi 1si 2o"/>
 </additional>

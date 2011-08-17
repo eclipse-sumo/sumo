@@ -15,7 +15,7 @@ def call(command):
         print >> sys.stderr, "Execution of %s failed." % command
         sys.exit(retCode) 
 
-PERIOD = 10
+PERIOD = 5
 DEPARTSPEED = "max"
 
 fdo = open("results.csv", "w")
@@ -34,5 +34,8 @@ for departPos in "random free random_free base pwagSimple pwagGeneric maxSpeedGa
 
     dump = sumolib.output.dump.readDump("aggregated.xml", ["entered"])
     print >> fdo, "%s;%s" % (departPos, dump.get("entered")[-1]["1si"])
+    
+    if os.path.exists(departPos + "_aggregated.xml"):
+        os.remove(departPos + "_aggregated.xml")
     os.rename("aggregated.xml", departPos + "_aggregated.xml")
 fdo.close()
