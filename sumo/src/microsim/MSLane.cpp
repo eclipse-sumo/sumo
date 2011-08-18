@@ -72,12 +72,13 @@ MSLane::DictType MSLane::myDict;
 MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
                unsigned int numericalID, const PositionVector &shape, SUMOReal width,
                const SUMOVehicleClasses &allowed,
-               const SUMOVehicleClasses &disallowed) throw()
-        : myShape(shape), myID(id), myNumericalID(numericalID),
-        myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
-        myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
-        myLogicalPredecessorLane(0),
-        myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
+               const SUMOVehicleClasses &disallowed) throw() : 
+    Named(id),
+    myShape(shape), myNumericalID(numericalID),
+    myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
+    myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
+    myLogicalPredecessorLane(0),
+    myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
 }
 
 

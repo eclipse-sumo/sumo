@@ -67,6 +67,17 @@ public:
     }
 
 
+    /** Function-object for stable sorting in containers. */
+    struct ComparatorIdLess
+    {
+        bool operator() (Named* const a, Named* const b)
+        {
+            return (a->getID() < b->getID());
+        }
+    };
+
+
+
 protected:
     /// @brief The name of the object
     std::string myID;

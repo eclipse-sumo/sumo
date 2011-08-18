@@ -46,6 +46,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/Named.h>
 
 
 // ===========================================================================
@@ -69,7 +70,7 @@ class OutputDevice;
  * Class which represents a single lane. Somekind of the main class of the
  *  simulation. Allows moving vehicles.
  */
-class MSLane {
+class MSLane : public Named {
 public:
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
@@ -87,16 +88,6 @@ public:
             return cmp->getPositionOnLane() >= pos;
         }
     };
-
-    /** Function-object for stable sorting in containers. */
-    struct ComparatorIdLess
-    {
-        bool operator() (MSLane* const a, MSLane* const b)
-        {
-            return (a->getID() < b->getID());
-        }
-    };
-
 
 public:
     /** @brief Constructor
@@ -322,13 +313,6 @@ public:
 
     /// @name Atomar value getter
     /// @{
-
-    /** @brief Returns this lane's id
-     * @return This lane's id
-     */
-    const std::string &getID() const throw() {
-        return myID;
-    }
 
 
     /** @brief Returns this lane's numerical id
@@ -651,9 +635,6 @@ protected:
 
 
 protected:
-    /// Unique ID.
-    std::string myID;
-
     /// Unique numerical ID (set on reading by netload)
     size_t myNumericalID;
 
