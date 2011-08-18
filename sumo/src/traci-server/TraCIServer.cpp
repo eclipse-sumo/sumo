@@ -407,13 +407,12 @@ TraCIServer::postProcessSimulationStep2() {
 bool
 TraCIServer::commandGetVersion() {
 
-    int apiVersion = 1;
     std::string sumoVersion = VERSION_STRING;
 
     // Prepare response
     tcpip::Storage answerTmp;
 
-    answerTmp.writeInt(apiVersion);
+    answerTmp.writeInt(TRACI_VERSION);
     answerTmp.writeString(sumoVersion);
 
     // When we get here, the response is stored in answerTmp -> put into myOutputStorage

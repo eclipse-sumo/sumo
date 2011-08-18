@@ -245,7 +245,6 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
 
     switch (srcPosType) {
     case POSITION_2D:
-    case POSITION_2_5D:
     case POSITION_3D:
     case POSITION_LAT_LON:
     case POSITION_LAT_LON_ALT: {
@@ -304,7 +303,6 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
     }
     break;
     case POSITION_2D:
-    case POSITION_2_5D:
     case POSITION_3D:
     case POSITION_LAT_LON:
     case POSITION_LAT_LON_ALT:
@@ -370,13 +368,12 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
         }
         break;
     case POSITION_2D:
-    case POSITION_2_5D:
     case POSITION_3D: {
         SUMOReal p1x = inputStorage.readDouble();
         SUMOReal p1y = inputStorage.readDouble();
         pos1.set(p1x, p1y);
     }
-    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+    if (posType == POSITION_3D) {
         inputStorage.readDouble();		// z value is ignored
     }
     roadPos1 = convertCartesianToRoadMap(pos1);
@@ -401,13 +398,12 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
         }
         break;
     case POSITION_2D:
-    case POSITION_2_5D:
     case POSITION_3D: {
         SUMOReal p2x = inputStorage.readDouble();
         SUMOReal p2y = inputStorage.readDouble();
         pos2.set(p2x, p2y);
     }
-    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+    if (posType == POSITION_3D) {
         inputStorage.readDouble();		// z value is ignored
     }
     roadPos2 = convertCartesianToRoadMap(pos2);

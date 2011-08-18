@@ -21,6 +21,11 @@
 
 
 // ****************************************
+// VERSION
+// ****************************************
+#define TRACI_VERSION 2
+
+// ****************************************
 // COMMANDS
 // ****************************************
 // command: get version
@@ -202,35 +207,31 @@
 // ****************************************
 // POSITION REPRESENTATIONS
 // ****************************************
-// Omit position
-#define POSITION_NONE 0x00
+// Position in geo-coordinates
+#define POSITION_LAT_LON 0x00
 // 2D cartesian coordinates
 #define POSITION_2D 0x01
-// 2.5D cartesian coordinates
-#define POSITION_2_5D 0x02
+// Position in geo-coordinates with altitude
+#define POSITION_LAT_LON_ALT 0x02
 // 3D cartesian coordinates
 #define POSITION_3D 0x03
 // Position on road map
 #define POSITION_ROADMAP 0x04
-// Position in geo-coordinates
-#define POSITION_LAT_LON 0x05
-// Position in geo-coordinates with altitude
-#define POSITION_LAT_LON_ALT 0x06
 
 
 
 // ****************************************
 // DATA TYPES
 // ****************************************
-// Boundary Box
+// Boundary Box (4 doubles)
 #define TYPE_BOUNDINGBOX 0x05
-// Polygon
+// Polygon (2*n doubles)
 #define TYPE_POLYGON 0x06
 // unsigned byte
 #define TYPE_UBYTE 0x07
 // signed byte
 #define TYPE_BYTE 0x08
-// 32 bit integer
+// 32 bit signed integer
 #define TYPE_INTEGER 0x09
 // float
 #define TYPE_FLOAT 0x0A

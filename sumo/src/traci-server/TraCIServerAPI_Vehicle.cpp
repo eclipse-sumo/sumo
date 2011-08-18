@@ -958,13 +958,12 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
         }
         break;
     case POSITION_2D:
-    case POSITION_2_5D:
     case POSITION_3D: {
         const double p1x = inputStorage.readDouble();
         const double p1y = inputStorage.readDouble();
         pos.set(p1x, p1y);
     }
-    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+    if (posType == POSITION_3D) {
         inputStorage.readDouble();		// z value is ignored
     }
     roadPos = TraCIServerAPI_Simulation::convertCartesianToRoadMap(pos);

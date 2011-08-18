@@ -1145,12 +1145,7 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
             answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
             break;
         case POSITION_3D:
-        case POSITION_2_5D:
-            if (posType == POSITION_2_5D) {
-                answerLog << "2.5D-Position: ";
-            } else {
-                answerLog << "3D-Position: ";
-            }
+            answerLog << "3D-Position: ";
             pos3D.x = inMsg.readDouble();
             pos3D.y = inMsg.readDouble();
             pos3D.z = inMsg.readDouble();
@@ -1224,12 +1219,7 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
         //	answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y;
         //	break;
         //case POSITION_3D:
-        //case POSITION_2_5D:
-        //	if (posType == POSITION_2_5D) {
-        //		answerLog << "2.5D-Position: ";
-        //	} else {
-        //		answerLog << "3D-Position: ";
-        //	}
+        //	answerLog << "3D-Position: ";
         //	pos3D.x = inMsg.readDouble();
         //	pos3D.y = inMsg.readDouble();
         //	pos3D.z = inMsg.readDouble();
