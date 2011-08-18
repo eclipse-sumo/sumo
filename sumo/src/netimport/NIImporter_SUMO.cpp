@@ -205,6 +205,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             nbe->setOffset(fromLaneIndex, lane->offset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
         }
+        nbe->declareConnectionsAsLoaded();
     }
     if (mySuspectKeepShape) {
         WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");

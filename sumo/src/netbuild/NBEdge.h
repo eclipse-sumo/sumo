@@ -874,6 +874,12 @@ public:
         return myLanes[lane];
     }
 
+    /* declares connections as fully loaded. This is needed to avoid recomputing connections 
+    * if an edge has no connections intentionally. */
+    void declareConnectionsAsLoaded() {
+        myStep = LANES2LANES_USER;
+    }
+
 
 private:
     /**
