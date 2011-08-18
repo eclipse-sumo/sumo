@@ -176,6 +176,10 @@ NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont &ec, OptionsCont &oc, NBT
         built->setOffset((SUMOTime)(T/4.));
     }
     // and insert the result after computation
+    // make sure we don't leak memory if computeSingleLogic is called externally
+    if (myComputed[id][programID] != 0) {
+        delete myComputed[id][programID];
+    }
     myComputed[id][programID] = built;
     return true;
 }

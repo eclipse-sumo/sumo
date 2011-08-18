@@ -312,6 +312,10 @@ protected:
     unsigned int computeBrakingTime(SUMOReal minDecel) const throw();
 
 
+    // @return whether this traffic light is invalid and should be computed
+    virtual bool amInvalid();
+
+
 protected:
     /// @brief The container with participating nodes
     std::vector<NBNode*> myControlledNodes;

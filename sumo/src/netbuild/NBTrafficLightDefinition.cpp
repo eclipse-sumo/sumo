@@ -94,7 +94,7 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition() throw() {}
 NBTrafficLightLogic *
 NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw() {
     // it is not really a traffic light if no incoming edge exists
-    if (myControlledLinks.size()==0) {
+    if (amInvalid()) {
         // make a copy of myControlledNodes because it will be modified;
         std::vector<NBNode*> nodes = myControlledNodes;
         for (std::vector<NBNode*>::iterator it=nodes.begin(); it != nodes.end(); it++) {
@@ -111,6 +111,12 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw()
         brakingTime = oc.getInt("tls.yellow.time");
     }
     return myCompute(ec, brakingTime);
+}
+
+
+bool 
+NBTrafficLightDefinition::amInvalid() {
+    return myControlledLinks.size()==0;
 }
 
 

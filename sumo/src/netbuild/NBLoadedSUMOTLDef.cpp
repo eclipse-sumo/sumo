@@ -84,17 +84,26 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno) {
     myControlledLinks.push_back(NBConnection(from, fromLane, to, toLane));
-    from->setControllingTLInformation(fromLane, to, toLane, getID(), linkno);
-    NBTrafficLightDefinition::addNode(from->getToNode());
-    NBTrafficLightDefinition::addNode(to->getFromNode());
+    myLinkNumbers.push_back(linkno);
+    addNode(from->getToNode());
+    addNode(to->getFromNode());
+    myOriginalNodes.insert(from->getToNode());
+    myOriginalNodes.insert(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
     myControlledInnerEdges.insert(from->getID());
 }
 
 
 void
-NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
-    UNUSED_PARAMETER(ec);
+NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont &) const throw() {
+    // set the information about the link's positions within the tl into the
+    //  edges the links are starting at, respectively
+    for (size_t i = 0; i < myControlledLinks.size(); i++) {
+        const NBConnection &conn = myControlledLinks[i];
+        NBEdge *edge = conn.getFrom();
+        edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), 
+                myLinkNumbers[i]); 
+    }
 }
 
 
@@ -112,21 +121,18 @@ NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
 }
 
 
-void 
-NBLoadedSUMOTLDef::addNode(NBNode *node) {
-    NBTrafficLightDefinition::addNode(node);
-    WRITE_WARNING("The loaded traffic light '" + getID() + "' has been invalidated by adding a node.");
-    assert(false);
-    myControlledLinks.clear();
-}
-
-
-void
-NBLoadedSUMOTLDef::removeNode(NBNode *node) {
-    NBTrafficLightDefinition::removeNode(node);
-    // may happend when a controlling node is affected by joinJunctions. 
-    // This traffic light is then obsolete
-    myControlledLinks.clear();
+bool 
+NBLoadedSUMOTLDef::amInvalid() {
+    // make sure that myControlledNodes are the original nodes
+    if (myControlledNodes.size() != myOriginalNodes.size()) {
+        return true;
+    }
+    for (std::vector<NBNode*>::iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
+        if (myOriginalNodes.count(*i) != 1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /****************************************************************************/
