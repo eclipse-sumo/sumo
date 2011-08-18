@@ -32,7 +32,6 @@
 #include "MSEdge.h"
 #include "MSLinkCont.h"
 #include "MSVehicle.h"
-#include "MSEdgeControl.h"
 #include <bitset>
 #include <deque>
 #include <vector>
@@ -428,7 +427,7 @@ public:
         Otherwise returns false. */
     static bool dictionary(std::string id, MSLane* lane);
 
-    /** @brief Returns the MSEdgeControl associated to the key id if exists
+    /** @brief Returns the MSLane associated to the key id if exists
        Otherwise returns 0. */
     static MSLane* dictionary(std::string id);
 
