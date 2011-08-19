@@ -46,7 +46,6 @@ dist-doc: doc
 	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	cp --parents docs/*.pdf $(distdir)
 	find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
