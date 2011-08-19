@@ -96,6 +96,9 @@ public:
     /// Compares both connections in order to allow sorting
     friend bool operator<(const NBConnection &c1, const NBConnection &c2);
 
+    /// Comparison operator
+    bool operator==(const NBConnection &c);
+
 private:
     /// Checks whether the from-edge is still valid
     NBEdge *checkFrom(const NBEdgeCont &ec);

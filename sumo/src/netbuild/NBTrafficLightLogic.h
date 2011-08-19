@@ -176,6 +176,13 @@ public:
     };
 
 
+    /** @brief Returns the number of participating links
+     */
+    unsigned int getNumLinks() {
+        return myNumLinks;
+    }
+
+
 private:
     /// @brief The number of participating links
     unsigned int myNumLinks;

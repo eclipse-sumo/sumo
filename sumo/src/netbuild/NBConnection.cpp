@@ -145,6 +145,13 @@ operator<(const NBConnection &c1, const NBConnection &c2) {
 }
 
 
+bool
+NBConnection::operator==(const NBConnection &c) {
+    return (myFrom    ==c.myFrom     && myTo    ==c.myTo && 
+            myFromID  ==c.myFromID   && myToID  ==c.myToID &&
+            myFromLane==c.myFromLane && myToLane==c.myToLane);
+}
+
 
 bool
 NBConnection::check(const NBEdgeCont &ec) {

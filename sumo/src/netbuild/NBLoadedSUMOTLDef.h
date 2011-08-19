@@ -100,7 +100,12 @@ public:
 
     /** @brief Adds a connection and immediately informs the edges
      */
-    void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkno);
+    void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkNumber);
+
+
+    /** @brief removes the link with the given number  from the traffic light
+     */
+    void removeLink(unsigned int linkNumber);
 
 
     /** @brief Returns the internal logic
@@ -135,10 +140,11 @@ private:
     /// @brief The original nodes for which the loaded logic is valid
     std::set<NBNode*> myOriginalNodes;
 
-    /// @brief link numbers for the loaded connections 
-    // @note should become obsolete when merging NBConnection and NBEdge::Connection
-    std::vector<int> myLinkNumbers;
+    static const NBConnection DummyConnection;
 
+private:
+    /** @brief Informs edges about being controlled by a tls */
+    void setTLControllingInformation() const;
 };
 
 
