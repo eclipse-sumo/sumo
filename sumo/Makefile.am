@@ -24,7 +24,12 @@ wikidump:
   "-$$site/*&action=history" \
   "-$$site/*&printable=yes" \
   "-$$site/*&oldid=*" \
-  "-$$site/*title=Special:*"
+  "-$$site/*title=Special:*" \
+  "-$$site/*title=Talk:*" \
+  "-$$site/*title=File:*" \
+  "-$$site/*title=File_talk:*" \
+  "-$$site/*title=User:*" \
+  "-$$site/*title=User_talk:*"
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
@@ -46,6 +51,8 @@ dist-doc: doc
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
 	cp -r docs/wiki/sourceforge.net/apps/mediawiki/sumo $(distdir)/docs/wiki
+	sed 's,sourceforge.net/apps/mediawiki/sumo/,,g' docs/wiki/index.html > $(distdir)/docs/wiki/index.html
+	cp docs/wiki/*.gif $(distdir)/docs/wiki
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
