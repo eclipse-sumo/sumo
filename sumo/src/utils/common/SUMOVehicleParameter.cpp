@@ -258,7 +258,7 @@ SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
 
 bool
 SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
-    if (val=="random"||val=="free"||val=="random_free"||val=="base"||val=="pwagSimple"||val=="pwagGeneric") {
+    if (val=="random"||val=="free"||val=="random_free"||val=="base"||val=="pwagSimple"||val=="pwagGeneric"||val=="maxSpeedGap") {
         return true;
     }
     try {
@@ -267,7 +267,7 @@ SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
     } catch (NumberFormatException &) {
     } catch (EmptyData &) {
     }
-    WRITE_ERROR("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", or a float)");
+    WRITE_ERROR("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)");
     return false;
 }
 

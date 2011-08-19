@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A list of time ranges with SUMOReal values
+// A list of time ranges with assigned values
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -44,17 +44,10 @@
  * A time line being a sorted container of non-overlapping time-ranges
  * with assigned values. The container is sorted by the first value of the
  * time-range while being filled. Every new inserted time range
- * may overwrite or split one or mutliple earlier intervals.
+ * may overwrite or split one or multiple earlier intervals.
  */
 template<typename T>
 class ValueTimeLine {
-public:
-    /// @brief Value of time line, indicating validity.
-    typedef std::pair<bool, T> ValidValue;
-
-    /// @brief Sorted map from start of intervals to values.
-    typedef std::map<SUMOReal, ValidValue> TimedValueMap;
-
 public:
     /// @brief Constructor
     ValueTimeLine() { }
@@ -173,7 +166,13 @@ public:
     }
 
 private:
-    /// The list of time periods (with values)
+    /// @brief Value of time line, indicating validity.
+    typedef std::pair<bool, T> ValidValue;
+
+    /// @brief Sorted map from start of intervals to values.
+    typedef std::map<SUMOReal, ValidValue> TimedValueMap;
+
+    /// @brief The list of time periods (with values)
     TimedValueMap myValues;
 
 };
