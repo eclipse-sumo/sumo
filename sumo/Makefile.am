@@ -2,8 +2,29 @@ SUBDIRS = src unittest bin
 
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
-doc:
-	tools/build/makeDoc.py -o docs/sumo-user.html -p docs/sumo-user.pdf
+doc: pydoc doxygen wikidump
+
+pydoc:
+	rm -rf docs/pydoc
+	mkdir docs/pydoc
+	cd docs/pydoc \
+	&& PYTHONPATH="../../tools" python -c "import pydoc, traci, sumolib; [pydoc.writedoc(m) for m in [traci, sumolib.net] + traci._modules.values()]"
+
+doxygen:
+	rm -rf docs/doxygen
+	mkdir docs/doxygen
+	doxygen sumo.doxyconf &> doxygen.log
+
+wikidump:
+	mkdir -p docs/wiki
+	site="sourceforge.net/apps/mediawiki/sumo" && httrack -w http://$$site/index.php?title=Main_Page \
+  -%i -O docs/wiki \
+  -%v S \
+  "-$$site/*&action=edit" \
+  "-$$site/*&action=history" \
+  "-$$site/*&printable=yes" \
+  "-$$site/*&oldid=*" \
+  "-$$site/*title=Special:*"
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
@@ -21,7 +42,10 @@ dist-doc: doc
 	$(am__remove_distdir)
 	mkdir $(distdir)
 	cp --parents docs/*.pdf $(distdir)
-	find docs/tutorial docs/xsd -regex ".*\.\(xml\|cfg\|py\|xsd\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	svn export docs/internet/xsd $(distdir)/docs/xsd
+	cp -r docs/pydoc docs/doxygen $(distdir)/docs
+	cp -r docs/wiki/sourceforge.net/apps/mediawiki/sumo $(distdir)/docs/wiki
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
