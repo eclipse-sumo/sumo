@@ -14,6 +14,12 @@ import socket, time, struct
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
+def _STEPS2TIME(step):
+    return step/1000.
+
+def _TIME2STEPS(time):
+    return int(time*1000)
+
 class FatalTraCIError:
     def __init__(self, desc):
         self._desc = desc
