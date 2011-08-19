@@ -59,10 +59,13 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &p
 
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition *def, NBTrafficLightLogic *logic) : 
     NBTrafficLightDefinition(def->getID(), def->getProgramID()),
-    myTLLogic(new NBTrafficLightLogic(logic)) 
+    myTLLogic(new NBTrafficLightLogic(logic)),
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end())
 { 
-    // only copy links to make this usable with GNETLSEditor, everything else will be added later
     myControlledLinks = def->getControlledLinks();
+    for (int i = 0; i < (int)myControlledLinks.size(); i++) {
+        myLinkNumbers.push_back(i); 
+    }
 }
 
 
