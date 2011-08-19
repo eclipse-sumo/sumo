@@ -413,7 +413,7 @@ TraCIServer::commandGetVersion() {
     tcpip::Storage answerTmp;
 
     answerTmp.writeInt(TRACI_VERSION);
-    answerTmp.writeString(sumoVersion);
+    answerTmp.writeString(std::string("SUMO ") + sumoVersion);
 
     // When we get here, the response is stored in answerTmp -> put into myOutputStorage
     writeStatusCmd(CMD_GETVERSION, RTYPE_OK, "");
