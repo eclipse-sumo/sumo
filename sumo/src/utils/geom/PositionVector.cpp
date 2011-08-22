@@ -550,9 +550,12 @@ PositionVector::appendWithCrossingPoint(const PositionVector &v) {
 PositionVector
 PositionVector::getSubpart(SUMOReal begin, SUMOReal end) const {
     PositionVector ret;
-    Position begPos = positionAtLengthPosition(begin);
+    Position begPos = myCont.front();
+    if (begin > POSITION_EPS) {
+        begPos = positionAtLengthPosition(begin);
+    }
     Position endPos = myCont.back();
-    if (length()>end) {
+    if (end < length() - POSITION_EPS) {
         endPos = positionAtLengthPosition(end);
     }
     ret.push_back(begPos);

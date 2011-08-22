@@ -1002,7 +1002,7 @@ private:
     std::vector<unsigned int> *preparePriorities(
         const EdgeVector *outgoing);
 
-    /** computes teh sum of the given list's entries (sic!) */
+    /** computes the sum of the given list's entries (sic!) */
     unsigned int computePrioritySum(std::vector<unsigned int> *priorities);
 
     /** moves a connection one place to the left;
@@ -1233,21 +1233,17 @@ public:
     };
 
     /**
-     * @class connections_sorter
+     * connections_sorter
      */
-    class connections_sorter {
-    public:
-        /// @brief constructor
-        explicit connections_sorter() { }
-
-        int operator()(const Connection &c1, const Connection &c2) const {
-            if (c1.fromLane!=c2.fromLane) {
-                return c1.fromLane<c2.fromLane;
-            }
-            return 0; // maintain previous order
+    static bool connections_sorter(const Connection &c1, const Connection &c2) {
+        if (c1.fromLane!=c2.fromLane) {
+            return c1.fromLane<c2.fromLane;
         }
-
-    };
+        if (c1.toEdge != c2.toEdge) {
+            return c1.toEdge->getID().compare(c1.toEdge->getID()) < 0;
+        }
+        return c1.toLane<c2.toLane;
+    }
 
     /**
      * connections_relative_edgelane_sorter

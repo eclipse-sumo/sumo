@@ -721,7 +721,7 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
             Line l2(
                 Position(me.x()-offsets2.first, me.y()-offsets2.second),
                 Position(to.x()-offsets2.first, to.y()-offsets2.second));
-            SUMOReal angle = GeomHelper::getCWAngleDiff(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
+            const SUMOReal angle = GeomHelper::getCWAngleDiff(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
             if (angle<10.||angle>350.) {
                 shape.push_back(
                     // (methode umbenennen; was heisst hier "-")
@@ -1170,7 +1170,7 @@ NBEdge::sortOutgoingConnectionsByAngle() {
 
 void
 NBEdge::sortOutgoingConnectionsByIndex() {
-    sort(myConnections.begin(), myConnections.end(), connections_sorter());
+    sort(myConnections.begin(), myConnections.end(), connections_sorter);
 }
 
 

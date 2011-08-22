@@ -128,7 +128,8 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         writeJunction(device, *(*i).second);
     }
     device << "\n";
-    if (!oc.getBool("no-internal-links")) {
+    const bool includeInternal = !oc.getBool("no-internal-links");
+    if (includeInternal) {
         // ... internal nodes if not unwanted
         bool hadAny = false;
         for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
@@ -140,7 +141,6 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
 
     // write the successors of lanes
-    bool includeInternal = !oc.getBool("no-internal-links");
     unsigned int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge=ec.begin(); it_edge!=ec.end(); it_edge++) {
         NBEdge *from = it_edge->second;
