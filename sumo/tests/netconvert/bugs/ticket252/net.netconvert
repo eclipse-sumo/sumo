@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 12:40:38 2011 by SUMO netconvert Version dev-SVN-r10852
+<!-- generated on 08/22/11 18:51:04 by SUMO netconvert Version dev-SVN-r11136
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -11,6 +12,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
     <projection>
@@ -25,7 +27,7 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <offset.x value="-280900"/>
-        <offset.y value="-4.1536e+06"/>
+        <offset.y value="-4.1536e+006"/>
     </processing>
 
 </configuration>
@@ -78,13 +80,13 @@
         <lane id=":445851270_3_0" index="0" speed="26.85" length="3.30" shape="4238.73,3140.17 4241.54,3138.45"/>
     </edge>
     <edge id=":450601528_0" function="internal">
-        <lane id=":450601528_0_0" index="0" speed="29.10" length="0.10" shape="4535.66,2228.75 4535.65,2228.79"/>
+        <lane id=":450601528_0_0" index="0" speed="29.10" length="0.10" shape="4535.66,2228.75 4535.66,2228.78"/>
     </edge>
     <edge id=":450601528_1" function="internal">
-        <lane id=":450601528_1_0" index="0" speed="29.10" length="0.10" shape="4532.43,2228.06 4532.43,2228.06"/>
+        <lane id=":450601528_1_0" index="0" speed="29.10" length="0.10" shape="4532.43,2228.06 4532.44,2228.06"/>
     </edge>
     <edge id=":450601528_2" function="internal">
-        <lane id=":450601528_2_0" index="0" speed="29.10" length="0.10" shape="4529.21,2227.38 4529.21,2227.38"/>
+        <lane id=":450601528_2_0" index="0" speed="29.10" length="0.10" shape="4529.21,2227.38 4529.22,2227.34"/>
     </edge>
     <edge id=":450601590_0" function="internal">
         <lane id=":450601590_0_0" index="0" speed="26.85" length="4.59" shape="4429.05,2720.79 4425.35,2723.50"/>
@@ -188,9 +190,9 @@
         <lane id="38232576_0" index="0" speed="24.60" length="533.44" shape="4517.73,2223.69 4533.48,2097.26 4535.50,2057.84 4537.98,2027.54 4536.37,1998.17 4531.06,1968.82 4523.64,1946.34 4513.22,1924.69 4499.84,1906.89 4482.65,1887.68 4463.25,1871.54 4445.42,1856.89 4425.35,1843.80 4406.09,1832.96 4386.14,1825.15 4364.73,1818.91 4341.85,1814.96 4322.07,1813.21"/>
     </edge>
     <edge id="38232899#0" from="450601528" to="450601590" name="I-95" priority="13" type="highway.motorway" spreadType="center" shape="4532.44,2228.06 4489.88,2417.38 4425.47,2721.79">
-        <lane id="38232899#0_0" index="0" speed="29.10" length="503.46" shape="4535.65,2228.79 4493.10,2418.10 4429.05,2720.79"/>
-        <lane id="38232899#0_1" index="1" speed="29.10" length="503.46" shape="4532.43,2228.06 4489.88,2417.38 4425.82,2720.11"/>
-        <lane id="38232899#0_2" index="2" speed="29.10" length="503.46" shape="4529.21,2227.38 4486.66,2416.65 4422.60,2719.43"/>
+        <lane id="38232899#0_0" index="0" speed="29.10" length="503.48" shape="4535.66,2228.78 4493.10,2418.10 4429.05,2720.79"/>
+        <lane id="38232899#0_1" index="1" speed="29.10" length="503.48" shape="4532.44,2228.06 4489.88,2417.38 4425.82,2720.11"/>
+        <lane id="38232899#0_2" index="2" speed="29.10" length="503.48" shape="4529.22,2227.34 4486.66,2416.65 4422.60,2719.43"/>
     </edge>
     <edge id="38232899#1" from="450601590" to="-12" name="I-95" priority="13" type="highway.motorway" spreadType="center" shape="4425.47,2721.79 4396.47,2958.71 4392.29,3002.65 4391.13,3054.83 4396.40,3246.61 4406.97,3399.20 4411.95,3440.85">
         <lane id="38232899#1_0" index="0" speed="29.10" length="720.06" shape="4428.54,2723.89 4399.75,2959.11 4395.58,3002.97 4394.43,3054.90 4399.70,3246.52 4410.26,3398.97 4415.23,3440.45"/>
@@ -220,7 +222,7 @@
         <lane id="6033364#0_0" index="0" speed="13.40" length="70.28" shape="4155.49,3220.31 4211.37,3177.69"/>
     </edge>
     <edge id="6033364#1" from="49613631" to="49609811" name="Dock St" priority="4" type="highway.residential" shape="4216.05,3176.19 4303.91,3111.10 4326.92,3107.10 4356.71,3110.41 4370.81,3111.29 4403.71,3105.45 4420.70,3100.94">
-        <lane id="6033364#1_0" index="0" speed="13.40" length="223.51" shape="4219.02,3171.94 4303.24,3109.54 4326.86,3105.43 4356.89,3108.77 4370.71,3109.63 4403.43,3103.82 4420.27,3099.34"/>
+        <lane id="6033364#1_0" index="0" speed="13.40" length="223.52" shape="4219.02,3171.94 4303.24,3109.54 4326.86,3105.43 4356.89,3108.77 4370.71,3109.63 4403.43,3103.82 4420.28,3099.34"/>
     </edge>
     <edge id="6034273#0" from="49616450" to="49613629" name="S 14th St" priority="9" type="highway.primary" shape="4198.31,3421.69 4177.58,3354.21 4169.20,3317.28 4148.34,3227.84">
         <lane id="6034273#0_0" index="0" speed="20.10" length="198.40" shape="4193.58,3423.14 4172.85,3355.66 4164.37,3318.38 4144.00,3231.03"/>

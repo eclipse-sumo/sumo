@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Fri Jul 15 10:49:19 2011 by SUMO netconvert Version dev-SVN-r11002
+<!-- generated on 08/22/11 18:50:36 by SUMO netconvert Version dev-SVN-r11136
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -37,8 +37,8 @@
         <lane id="-22917251_0" index="0" speed="22.22" length="53.81" shape="474.41,48.86 479.04,102.47"/>
     </edge>
     <edge id="-24214693#0" from="261599791" to="32266935" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="33.97,176.57 202.12,155.05 478.98,121.02">
-        <lane id="-24214693#0_0" index="0" speed="27.78" length="443.47" shape="33.35,171.66 201.49,150.14 473.43,116.72"/>
-        <lane id="-24214693#0_1" index="1" speed="27.78" length="443.47" shape="33.80,174.93 201.91,153.41 473.83,119.99"/>
+        <lane id="-24214693#0_0" index="0" speed="27.78" length="443.49" shape="33.34,171.66 201.49,150.14 473.43,116.72"/>
+        <lane id="-24214693#0_1" index="1" speed="27.78" length="443.49" shape="33.76,174.93 201.91,153.41 473.83,119.99"/>
     </edge>
     <edge id="-24214693#1" from="57343510" to="261599791" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary">
         <lane id="-24214693#1_0" index="0" speed="27.78" length="19.36" shape="14.14,174.41 33.34,171.66"/>
@@ -316,12 +316,12 @@
         <lane id="24152812#1_0" index="0" speed="13.89" length="48.86" shape="1119.56,109.85 1115.78,61.13"/>
     </edge>
     <edge id="24214693#0" from="32266935" to="261599791" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary" shape="478.98,121.02 202.12,155.05 33.97,176.57">
-        <lane id="24214693#0_0" index="0" speed="27.78" length="443.38" shape="474.64,126.55 202.73,159.96 34.69,181.47"/>
-        <lane id="24214693#0_1" index="1" speed="27.78" length="443.38" shape="474.23,123.27 202.32,156.69 34.24,178.20"/>
+        <lane id="24214693#0_0" index="0" speed="27.78" length="443.46" shape="474.64,126.55 202.73,159.96 34.60,181.48"/>
+        <lane id="24214693#0_1" index="1" speed="27.78" length="443.46" shape="474.23,123.27 202.32,156.69 34.18,178.21"/>
     </edge>
     <edge id="24214693#1" from="261599791" to="57343510" name="Ernst-Ruska-Ufer" priority="9" type="highway.primary">
-        <lane id="24214693#1_0" index="0" speed="27.78" length="19.27" shape="34.59,181.48 15.55,184.21"/>
-        <lane id="24214693#1_1" index="1" speed="27.78" length="19.27" shape="34.18,178.21 15.08,180.94"/>
+        <lane id="24214693#1_0" index="0" speed="27.78" length="19.32" shape="34.67,181.47 15.55,184.21"/>
+        <lane id="24214693#1_1" index="1" speed="27.78" length="19.32" shape="34.21,178.20 15.08,180.94"/>
     </edge>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="6" type="highway.tertiary">
         <lane id="24214694_0" index="0" speed="22.22" length="0.90" shape="476.65,113.13 476.57,112.23"/>
