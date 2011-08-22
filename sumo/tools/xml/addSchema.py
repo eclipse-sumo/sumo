@@ -11,16 +11,20 @@ Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, os.path, sys, shutil
+import os, shutil
+
+schema = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
 
 proc = {
-"input_edges.edg.xml": "<edges xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/edges_file.xsd'",
-"input_nodes.nod.xml": "<nodes xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/nodes_file.xsd'",
-"input_types.typ.xml": "<types xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/types_file.xsd'",
-"input_connections.con.xml": "<connections xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/connections_file.xsd'"
+"input_routes.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"' % schema,
+"input_routes2.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"' % schema,
+"input_edges.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd"' % schema,
+"input_nodes.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd"' % schema,
+"input_types.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd"' % schema,
+"input_connections.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd"' % schema
 }
 
-srcRoot = os.path.join(os.path.dirname(sys.argv[0]), "../")
+srcRoot = os.path.join(os.path.dirname(__file__), "..", "..")
 
 for root, dirs, files in os.walk(srcRoot):
     for name in files:
@@ -32,7 +36,7 @@ for root, dirs, files in os.walk(srcRoot):
             fdi = open("totest.xml")
             fdo = open("totest.patch", "w")
             for line in fdi:
-                if line.find(repTo)<0 and line.find(repFrom)>=0:
+                if repFrom in line and schema not in line:
                     line = line.replace(repFrom, repTo)
                 fdo.write(line)
             fdo.close()

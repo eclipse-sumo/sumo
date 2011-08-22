@@ -16,7 +16,7 @@
 </configuration>
 -->
 
-<nodes>
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
    <node id="301292612" x="43.13" y="56.80" type="traffic_light" tl="joinedS_0"/>
    <node id="38918157" x="88.72" y="78.21" type="unregulated"/>
    <node id="38919945" x="35.18" y="54.83" type="priority"/>
