@@ -1,15 +1,29 @@
-# Test for the unconstrained network
+# Test for importing the network from import/XML/connections/cross3l_unconstrained
 cross3l_unconstrained
 
-# Test for edge2edge connections
+# Test for importing the network from # import/XML/connections/cross3l_edge2edge_conns
 cross3l_edge2edge_conns
 
-# Test for edge2edge connections
+# Test for importing the network from import/XML/connections/cross3l_edge2edge_turn
+cross3l_edge2edge_turn
+
+# Test for importing the network from import/XML/connections/cross3l_lane2lane_conns
 cross3l_lane2lane_conns
 
-# Test for not appending turnarounds
-#cross3l_no_turnarounds
+# Test for importing the network from import/XML/connections/cross3l_noconnection
+cross3l_noconnection
 
-# Test whether setting prohibitions works
-#cross3l_prohibitions
+# Test for importing the network from import/XML/connections/cross3l_no_tls_turnarounds
+cross3l_no_tls_turnarounds
 
+# Test for importing the network from import/XML/connections/cross3l_no_turnarounds
+cross3l_no_turnarounds
+
+# Test for importing the network from import/XML/connections/cross3l_prohibitions
+cross3l_prohibitions
+
+# Test for importing the network from import/XML/connections/cross3l_prohibitions_turns
+cross3l_prohibitions_turns
+
+# Test for importing the network from import/XML/connections/cross3l_uncontrolled
+cross3l_uncontrolled

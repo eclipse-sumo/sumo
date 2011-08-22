@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:27:47 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on 06/01/11 09:27:48 by SUMO netconvert Version dev-SVN-r10489
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -172,18 +172,18 @@
     </edge>
 
     <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_13_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_14_0 :0_15_0 :0_10_0 :0_11_0" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25">
-        <request index="0" response="000000000000" foes="000100100000" cont="0"/>
-        <request index="1" response="000000000000" foes="111100100000" cont="0"/>
-        <request index="2" response="000011000000" foes="100011100000" cont="1"/>
+        <request index="0" response="000000100000" foes="000100100000" cont="0"/>
+        <request index="1" response="000000100000" foes="111100100000" cont="0"/>
+        <request index="2" response="000011100000" foes="100011100000" cont="1"/>
         <request index="3" response="000010010000" foes="000010010000" cont="1"/>
         <request index="4" response="000010000000" foes="000010001000" cont="0"/>
-        <request index="5" response="000110000111" foes="000110000111" cont="0"/>
-        <request index="6" response="000000000000" foes="100000000100" cont="0"/>
-        <request index="7" response="000000000000" foes="100000111100" cont="0"/>
-        <request index="8" response="000000000011" foes="100000100011" cont="1"/>
+        <request index="5" response="000110000000" foes="000110000111" cont="0"/>
+        <request index="6" response="100000000000" foes="100000000100" cont="0"/>
+        <request index="7" response="100000000000" foes="100000111100" cont="0"/>
+        <request index="8" response="100000000011" foes="100000100011" cont="1"/>
         <request index="9" response="010000000010" foes="010000000010" cont="1"/>
         <request index="10" response="000000000010" foes="001000000010" cont="0"/>
-        <request index="11" response="000111000110" foes="000111000110" cont="0"/>
+        <request index="11" response="000000000110" foes="000111000110" cont="0"/>
     </junction>
     <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="0.00,499.95 0.00,493.45 -0.00,503.25 -0.00,500.05">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -239,16 +239,16 @@
     <connection from="3fi" to="3si" fromLane="0" toLane="1" via=":m3_1_0" dir="s" state="M"/>
     <connection from="3fi" to="3si" fromLane="1" toLane="2" via=":m3_2_0" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
-    <connection from="3si" to="2o" fromLane="0" toLane="0" via=":0_6_0" dir="r" state="M"/>
-    <connection from="3si" to="4o" fromLane="1" toLane="0" via=":0_7_0" dir="s" state="M"/>
+    <connection from="3si" to="2o" fromLane="0" toLane="0" via=":0_6_0" dir="r" state="m"/>
+    <connection from="3si" to="4o" fromLane="1" toLane="0" via=":0_7_0" dir="s" state="m"/>
     <connection from="3si" to="1o" fromLane="2" toLane="0" via=":0_8_0" dir="l" state="m"/>
     <connection from="3si" to="3o" fromLane="2" toLane="0" via=":0_9_0" dir="t" state="m"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="0" via=":m4_0_0" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="1" via=":m4_1_0" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="1" toLane="2" via=":m4_2_0" dir="s" state="M"/>
     <connection from="4o" to="4fi" fromLane="0" toLane="1" via=":4_0_0" dir="t" state="M"/>
-    <connection from="4si" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="M"/>
-    <connection from="4si" to="3o" fromLane="1" toLane="0" via=":0_1_0" dir="s" state="M"/>
+    <connection from="4si" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="m"/>
+    <connection from="4si" to="3o" fromLane="1" toLane="0" via=":0_1_0" dir="s" state="m"/>
     <connection from="4si" to="2o" fromLane="2" toLane="0" via=":0_2_0" dir="l" state="m"/>
     <connection from="4si" to="4o" fromLane="2" toLane="0" via=":0_3_0" dir="t" state="m"/>
 
