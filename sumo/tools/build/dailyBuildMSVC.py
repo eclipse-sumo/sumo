@@ -17,8 +17,7 @@ from __future__ import with_statement
 import re
 from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
-import status, schemaCheck
+import status
 
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
@@ -55,7 +54,6 @@ for platform in ["Win32", "x64"]:
     makeAllLog = prefix + "Debug.log"
     statusLog = prefix + "status.log"
     testLog = prefix + "test.log"
-    xmlLog = prefix + "xml.log"
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, env["FILEPREFIX"]+"batch_result")
     env["SUMO_REPORT"] = prefix + "report"
     binaryZip = os.path.join(nightlyDir, "sumo-%s-svn.zip" % env["FILEPREFIX"])
@@ -166,12 +164,9 @@ for platform in ["Win32", "x64"]:
     subprocess.call('texttest.py -s "batch.ArchiveRepository session='+env["FILEPREFIX"]+' before=%s"' % ago.strftime("%d%b%Y"),
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
-    log = open(xmlLog, 'w')
-    schemaCheck.main(env["TEXTTEST_HOME"], log)
-    log.close()
     log = open(statusLog, 'w')
-    status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log, xmlLog)
+    status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
     log.close()
     if not options.remoteDir:
-        toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, xmlLog, statusLog, binaryZip])
+        toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, statusLog, binaryZip])
         subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, toPut))

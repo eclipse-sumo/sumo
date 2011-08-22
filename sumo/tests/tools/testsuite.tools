@@ -24,3 +24,6 @@ trip
 
 # For importing tools
 import
+
+# XML tests
+xml

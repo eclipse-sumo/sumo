@@ -4,7 +4,7 @@ import os, sys, smtplib, re
 from os.path import basename, join, commonprefix
 from datetime import datetime
 
-def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out, xmlLog=""):
+def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     failed = ""
     build = commonprefix([basename(makeLog), basename(makeAllLog)])
     print >> out, build,
@@ -53,11 +53,6 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out, xmlLog=""):
         print >> out, errors, "errors"
         failed += "make debug failed\n\n"
     print >> out, "--"
-    if xmlLog:
-        print >> out, basename(xmlLog)
-        print >> out, "schema check performed"
-        print >> out, "--"
-    
     if failed:
         fromAddr = "sumo-tests@dlr.de"
         toAddr = "sumo-tests@dlr.de"
