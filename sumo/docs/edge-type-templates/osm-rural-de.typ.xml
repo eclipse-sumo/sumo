@@ -1,4 +1,4 @@
-<types>
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd">
   <type id="highway.motorway" priority="13" nolanes="2" speed="41.667"
 		oneway="yes" disallow="bicycle pedestrian"/>
   <type id="highway.motorway_link" priority="8" nolanes="1" speed="27.778"/>

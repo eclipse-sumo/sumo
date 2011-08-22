@@ -11,28 +11,26 @@ Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 
-import os, shutil
+import os, shutil, glob
 
 schema = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
 
 proc = {
-"input_routes.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"' % schema,
-"input_routes2.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"' % schema,
-"input_edges.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd"' % schema,
-"input_nodes.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd"' % schema,
-"input_types.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd"' % schema,
-"input_connections.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd"' % schema
+"*.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"' % schema,
+"*.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd"' % schema,
+"*.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd"' % schema,
+"*.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/types_file.xsd"' % schema,
+"*.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd"' % schema
 }
 
 srcRoot = os.path.join(os.path.dirname(__file__), "..", "..")
 
 for root, dirs, files in os.walk(srcRoot):
-    for name in files:
-        if name in proc:
-            repTo = proc[name]
+    for pattern, repTo in proc.iteritems():
+        for name in glob.glob(os.path.join(root, pattern)):
             repFrom = repTo[:repTo.find(' ')]
-            print "Patching '%s'" % (os.path.join(root, name))
-            shutil.copy(os.path.join(root, name), "totest.xml")
+            print "Patching '%s'" % name
+            shutil.copy(name, "totest.xml")
             fdi = open("totest.xml")
             fdo = open("totest.patch", "w")
             for line in fdi:
@@ -41,7 +39,7 @@ for root, dirs, files in os.walk(srcRoot):
                 fdo.write(line)
             fdo.close()
             fdi.close()
-            shutil.copy("totest.patch", os.path.join(root, name))
+            shutil.copy("totest.patch", name)
         for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)

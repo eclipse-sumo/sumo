@@ -1,4 +1,4 @@
-<connections>
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
 <!--
 	<connection from="34" to="4cruceA45"/>
     <connection from="cruceA454" to="42"/>
