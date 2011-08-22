@@ -89,7 +89,7 @@ void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkNumber) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (myControlledLinks.size() == 0) { // initialize
-        for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
+        for (unsigned int i = 0; i < myTLLogic->getNumLinks(); i++) {
             myControlledLinks.push_back(DummyConnection);
         }
     } 
