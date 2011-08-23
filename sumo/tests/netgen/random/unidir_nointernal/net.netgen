@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 12:37:45 2011 by SUMO netgen Version dev-SVN-r10852
+<!-- generated on Tue Aug 23 08:02:56 2011 by SUMO netgen Version dev-SVN-r11137
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -563,7 +564,7 @@
         <lane id="3734_0" index="0" speed="13.90" length="244.78" shape="2278.81,2196.34 2462.18,2034.18"/>
     </edge>
     <edge id="3737" from="1403" to="2892" priority="-1">
-        <lane id="3737_0" index="0" speed="13.90" length="145.86" shape="844.81,2563.52 989.56,2581.53"/>
+        <lane id="3737_0" index="0" speed="13.90" length="145.92" shape="844.81,2563.52 989.62,2581.53"/>
     </edge>
     <edge id="3739" from="2880" to="2892" priority="-1">
         <lane id="3739_0" index="0" speed="13.90" length="204.48" shape="1153.76,2712.98 992.30,2587.51"/>
