@@ -186,7 +186,7 @@ def cmdSimulationStep(step, position=True):
     updates = []
     while result.ready():
         if result.read("!BB")[1] == tc.CMD_MOVENODE:
-            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+            updates.append((result.read("!iiB")[0], result.readString(), result.read("!dB")[0]))
     return updates
 
 def cmdSimulationStep2(step):
@@ -199,7 +199,7 @@ def cmdSimulationStep2(step):
     subscriptions = []
 #    while result.ready():
 #        if result.read("!BB")[1] == tc.CMD_MOVENODE:
-#            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+#            updates.append((result.read("!iiB")[0], result.readString(), result.read("!dB")[0]))
     return subscriptions
 
 def cmdSubscribeDomainVehicle_Position(position=True):
@@ -214,7 +214,7 @@ def cmdSubscribeDomainVehicle_Position(position=True):
     updates = []
     while result.ready():
         if result.read("!BB")[1] == tc.CMD_MOVENODE:
-            updates.append((result.read("!iiB")[0], result.readString(), result.read("!fB")[0]))
+            updates.append((result.read("!iiB")[0], result.readString(), result.read("!dB")[0]))
     return updates
 
 # ===================================================
@@ -224,13 +224,21 @@ def cmdGetInductionLoopVariable_idList():
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.ID_LIST, "x")
     return result.readStringList() # Variable value 
 
+def cmdGetInductionLoopVariable_position(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.VAR_POSITION, IndLoopID)
+    return result.read("!d")[0] # Variable value
+
+def cmdGetInductionLoopVariable_laneID(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.VAR_LANE_ID, IndLoopID)
+    return result.readString()
+
 def cmdGetInductionLoopVariable_lastStepVehicleNumber(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_NUMBER, IndLoopID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetInductionLoopVariable_lastStepMeanSpeed(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_MEAN_SPEED, IndLoopID)
-    return result.read("!f")[0] # Variable value    
+    return result.read("!d")[0] # Variable value    
 
 def cmdGetInductionLoopVariable_vehicleIds(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, IndLoopID)
@@ -238,15 +246,15 @@ def cmdGetInductionLoopVariable_vehicleIds(IndLoopID):
   
 def cmdGetInductionLoopVariable_lastStepOccupancy(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_OCCUPANCY, IndLoopID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
   
 def cmdGetInductionLoopVariable_lastMeanLength(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_LENGTH, IndLoopID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
   
 def cmdGetInductionLoopVariable_timeSinceDetection(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_TIME_SINCE_DETECTION, IndLoopID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
   
 def cmdGetInductionLoopVariable_vehicleData(IndLoopID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_DATA, IndLoopID)
@@ -288,7 +296,7 @@ def cmdGetMultiEntryExitDetectorVariable_lastStepVehicleNumber(MultiEntryExitDet
 
 def cmdGetMultiEntryExitDetectorVariable_lastStepMeanSpeed(MultiEntryExitDetID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_MEAN_SPEED, MultiEntryExitDetID)
-    return result.read("!f")[0] # Variable value    
+    return result.read("!d")[0] # Variable value    
 
 def cmdGetMultiEntryExitDetectorVariable_vehicleIds(MultiEntryExitDetID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, MultiEntryExitDetID)
@@ -444,18 +452,18 @@ def cmdGetVehicleVariable_idList():
 
 def cmdGetVehicleVariable_speed(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetVehicleVariable_position(vehID):
     """
     Returns the position of the named vehicle within the last step [m,m]
     """
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_POSITION, vehID)
-    return result.read("!ff")
+    return result.read("!dd")
 
 def cmdGetVehicleVariable_angle(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ANGLE, vehID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetVehicleVariable_roadID(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ROAD_ID, vehID)
@@ -479,7 +487,7 @@ def cmdGetVehicleVariable_routeID(vehID):
 
 def cmdGetVehicleVariable_lanePosition(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetVehicleVariable_color(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID)
@@ -593,7 +601,7 @@ def cmdGetVehicleTypeVariable_idList():
 
 def cmdGetVehicleTypeVariable_length(vTypeID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, vTypeID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 
 
@@ -632,7 +640,7 @@ def cmdGetPoiVariable_color(poiID):
 
 def cmdGetPoiVariable_position(poiID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_POI_VARIABLE, tc.VAR_POSITION, poiID)
-    return result.read("!ff") # Variable value 
+    return result.read("!dd") # Variable value 
 
 
 # ===================================================
@@ -658,7 +666,7 @@ def cmdGetPolygonVariable_shape(polyID):
     length = result.read("!B")[0]
     shape = []
     for i in length:
-       shape.append(result.read("!ff"))
+       shape.append(result.read("!dd"))
 
 
 # ---------------------------------------------------
@@ -678,7 +686,7 @@ def cmdChangePolygonVariable_shape(polyID, shape):
     beginChangeMessage(tc.CMD_SET_POLYGON_VARIABLE, 1+1+1+4+len(polyID)+1+1+8*len(shape), tc.VAR_SHAPE, polyID)
     _message.string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
     for p in shape:
-        _message.string += struct.pack("!ff", p[0], p[1])
+        _message.string += struct.pack("!dd", p[0], p[1])
     _sendExact()
 
 def cmdChangePolygonVariable_add(polyID, type, color, fill, layer, shape):
@@ -694,7 +702,7 @@ def cmdChangePolygonVariable_add(polyID, type, color, fill, layer, shape):
     _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
     _message.string += struct.pack("!BB", tc.TYPE_POLYGON, len(shape))
     for p in shape:
-        _message.string += struct.pack("!ff", p[0], p[1])
+        _message.string += struct.pack("!dd", p[0], p[1])
     _sendExact()
 
 
@@ -711,7 +719,7 @@ def cmdGetJunctionVariable_idList():
 
 def cmdGetJunctionVariable_position(nodeID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_JUNCTION_VARIABLE, tc.VAR_POSITION, nodeID)
-    return result.read("!ff") # Variable value
+    return result.read("!dd") # Variable value
 
 
 
@@ -727,11 +735,11 @@ def cmdGetLaneVariable_idList():
 
 def cmdGetLaneVariable_length(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_LENGTH, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_speed(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_allowed(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_ALLOWED, laneID)
@@ -751,43 +759,43 @@ def cmdGetLaneVariable_edgeID(laneID):
 
 def cmdGetLaneVariable_speed(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_CO2emission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_CO2EMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_COemission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_COEMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_HCemission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_HCEMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_PMxemission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_PMXEMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_NOxemission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_NOXEMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_fuelConsumption(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FUELCONSUMPTION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_noiseEmission(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_NOISEEMISSION, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_meanSpeed(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_MEAN_SPEED, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_occupancy(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_OCCUPANCY, laneID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetLaneVariable_vehicleIDs(laneID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
@@ -859,15 +867,15 @@ def cmdGetSimulationVariable_endingTeleportIDList():
 # ---------------------------------------------------
 def cmdGetViewVariable_zoom(viewID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID)
-    return result.read("!f")[0] # Variable value
+    return result.read("!d")[0] # Variable value
 
 def cmdGetViewVariable_offset(viewID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID)
-    return result.read("!ff") # Variable value
+    return result.read("!dd") # Variable value
 
 def cmdGetViewVariable_netSize(viewID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_GUI_VARIABLE, tc.VAR_NET_SIZE, viewID)
-    return result.read("!ff") # Variable value
+    return result.read("!dd") # Variable value
 
 
 # ---------------------------------------------------
@@ -909,7 +917,7 @@ def cmdChangeViewVariable_track(viewID, vehID):
 def cmdStopNode(edge, objectID, pos=1., duration=10000):
     _message.queue.append(tc.CMD_STOP)
     _message.string += struct.pack("!BBiBi", 1+1+4+1+4+len(edge)+4+1+4+8, tc.CMD_STOP, objectID, tc.POSITION_ROADMAP, len(edge)) + edge
-    _message.string += struct.pack("!fBfi", pos, 0, 1., duration)
+    _message.string += struct.pack("!dBdi", pos, 0, 1., duration)
 
 def cmdChangeTarget(edge, objectID):
     _message.queue.append(tc.CMD_CHANGETARGET)

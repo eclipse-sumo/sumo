@@ -32,6 +32,8 @@ def readVehicleData(result):
     return data
 
 RETURN_VALUE_FUNC = {tc.ID_LIST:                        traci.Storage.readStringList,
+                     tc.VAR_POSITION:       traci.Storage.readDouble,
+                     tc.VAR_LANE_ID:       traci.Storage.readString,
                      tc.LAST_STEP_VEHICLE_NUMBER:       traci.Storage.readInt,
                      tc.LAST_STEP_MEAN_SPEED:           traci.Storage.readDouble,
                      tc.LAST_STEP_VEHICLE_ID_LIST:      traci.Storage.readStringList,
@@ -47,6 +49,12 @@ def _getUniversal(varID, loopID):
 
 def getIDList():
     return _getUniversal(tc.ID_LIST, "")
+
+def getPosition(loopID):
+    return _getUniversal(tc.VAR_POSITION, loopID)
+
+def getLaneID(loopID):
+    return _getUniversal(tc.VAR_LANE_ID, loopID)
 
 def getLastStepVehicleNumber(loopID):
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, loopID)

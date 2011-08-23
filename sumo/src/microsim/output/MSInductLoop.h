@@ -95,6 +95,14 @@ public:
     virtual void reset() throw();
 
 
+	/** @brief Returns the position of the detector on the lane
+	 * @return The detector's position in meters
+	 */
+	SUMOReal getPosition() const {
+		return myPosition;
+	}
+
+
     /// @name Methods inherited from MSMoveReminder
     /// @{
 

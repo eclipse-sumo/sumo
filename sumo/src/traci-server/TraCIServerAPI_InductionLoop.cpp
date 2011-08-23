@@ -57,7 +57,8 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION
-            &&variable!=LAST_STEP_VEHICLE_DATA&&variable!=ID_COUNT) {
+            &&variable!=LAST_STEP_VEHICLE_DATA&&variable!=ID_COUNT
+			&&variable!=VAR_POSITION&&variable!=VAR_LANE_ID) {
         server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -142,7 +143,16 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
 
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
-        }
+			break;
+									 }
+		case VAR_POSITION:
+            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+			tempMsg.writeDouble(il->getPosition());
+			break;
+		case VAR_LANE_ID:
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+			tempMsg.writeString(il->getLane()->getID());
+			break;
         default:
             break;
         }
