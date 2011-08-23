@@ -100,12 +100,12 @@ public:
 
     /** @brief Adds a connection and immediately informs the edges
      */
-    void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkNumber);
+    void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex);
 
 
     /** @brief removes the link with the given number  from the traffic light
      */
-    void removeLink(unsigned int linkNumber);
+    void removeLink(unsigned int linkIndex);
 
 
     /** @brief Returns the internal logic

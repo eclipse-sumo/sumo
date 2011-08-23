@@ -86,14 +86,19 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 
 
 void
-NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkNumber) {
+NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (myControlledLinks.size() == 0) { // initialize
         for (unsigned int i = 0; i < myTLLogic->getNumLinks(); i++) {
             myControlledLinks.push_back(DummyConnection);
         }
     } 
-    myControlledLinks[linkNumber] = NBConnection(from, fromLane, to, toLane);
+    if (linkIndex >= myControlledLinks.size()) {
+        WRITE_ERROR("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() + 
+                "' with " + toString(myControlledLinks.size()) + " links.");
+        return;
+    }
+    myControlledLinks[linkIndex] = NBConnection(from, fromLane, to, toLane);
     addNode(from->getToNode());
     addNode(to->getFromNode());
     myOriginalNodes.insert(from->getToNode());
@@ -159,14 +164,14 @@ NBLoadedSUMOTLDef::amInvalid() {
 
 
 void 
-NBLoadedSUMOTLDef::removeLink(unsigned int linkNumber) {
-    myControlledLinks.erase(myControlledLinks.begin() + linkNumber);
+NBLoadedSUMOTLDef::removeLink(unsigned int linkIndex) {
+    myControlledLinks.erase(myControlledLinks.begin() + linkIndex);
     const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases(); 
     NBTrafficLightLogic *newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0);
     newLogic->setOffset(myTLLogic->getOffset());
     for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
         std::string newState = it->state;
-        newState.erase(newState.begin() + linkNumber);
+        newState.erase(newState.begin() + linkIndex);
         newLogic->addStep(it->duration, newState);
     }
     delete myTLLogic;
