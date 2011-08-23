@@ -1,6 +1,6 @@
 /*
  * GL2PS, an OpenGL to PostScript Printing Library
- * Copyright (C) 1999-2009 Christophe Geuzaine <geuz@geuz.org>
+ * Copyright (C) 1999-2011 Christophe Geuzaine <geuz@geuz.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of either:
@@ -34,10 +34,10 @@
  */
 
 /*
-  To compile on Linux: 
+  To compile on Linux:
   gcc gl2psTest.c gl2ps.c -lglut -lGL -lGLU -lX11 -lm
 
-  To compile on MacOSX: 
+  To compile on MacOSX:
   gcc gl2psTest.c gl2ps.c -framework OpenGL -framework GLUT -framework Cocoa
 
   (To enable file compression you must add "-DHAVE_ZLIB -lz" to the
@@ -58,13 +58,14 @@
 #  include <GL/glut.h>
 #endif
 
+static const char *format_string = "Postscript";
 static float rotation = -58.;
-static GLsizei window_w = 0; 
+static GLsizei window_w = 0;
 static GLsizei window_h = 0;
 static GLboolean display_multi = GL_TRUE;
 static GLboolean blend = GL_FALSE;
 static GLboolean teapot = GL_FALSE;
-static char *pixmap[] = {
+static const char *pixmap[] = {
   "****************************************************************",
   "*..............................................................*",
   "*..................++++++++++++++++++++++++++..................*",
@@ -136,14 +137,14 @@ void triangles()
 {
   /* two intersecting triangles */
   glBegin(GL_TRIANGLES);
-  
+
   glColor3f(1., 0., 0.);
-  glVertex3f(-1., 1., 0.);
+  glVertex3f(-1., 0.9, 0.);
   glColor4f(1., 1., 0., 0.1);
   glVertex3f(-1., 0., 0.);
   glColor4f(1., 0., 1., 1.0);
   glVertex3f(1., 0., 0.2);
-  
+
   glColor3f(0., 1., 0.);
   glVertex3f(1., 0., 0.);
   glColor3f(0., 1., 1.);
@@ -161,25 +162,25 @@ void extras()
   glPointSize(1.);
   gl2psPointSize(1.);
   glBegin(GL_POINTS);
-  glVertex3f(-1., 1.1, 0.);
+  glVertex3f(-1., 1.0, 0.);
   glEnd();
 
   glPointSize(3.);
   gl2psPointSize(3.);
   glBegin(GL_POINTS);
-  glVertex3f(-0.8, 1.1, 0.);
+  glVertex3f(-0.8, 1.0, 0.);
   glEnd();
 
   glPointSize(5.);
   gl2psPointSize(5.);
   glBegin(GL_POINTS);
-  glVertex3f(-0.6, 1.1, 0.);
+  glVertex3f(-0.6, 1.0, 0.);
   glEnd();
 
   glPointSize(7.);
   gl2psPointSize(7.);
   glBegin(GL_POINTS);
-  glVertex3f(-0.4, 1.1, 0.);
+  glVertex3f(-0.4, 1.0, 0.);
   glEnd();
 
   glLineWidth(1.);
@@ -193,8 +194,8 @@ void extras()
   glLineStipple(1, 0x087F);
   gl2psEnable(GL2PS_LINE_STIPPLE);
   glBegin(GL_LINES);
-  glVertex3f(-0.2, 1.15, 0.);
-  glVertex3f(0.2, 1.15, 0.);
+  glVertex3f(-0.2, 0.95, 0.);
+  glVertex3f(0.2, 0.95, 0.);
   glEnd();
   glDisable(GL_LINE_STIPPLE);
   gl2psDisable(GL2PS_LINE_STIPPLE);
@@ -211,8 +212,8 @@ void extras()
   /* glLineStipple(1, 0xAAAA); */
   gl2psEnable(GL2PS_LINE_STIPPLE);
   glBegin(GL_LINES);
-  glVertex3f(0.4, 1.15, 0.);
-  glVertex3f(0.8, 1.15, 0.);
+  glVertex3f(0.4, 0.95, 0.);
+  glVertex3f(0.8, 0.95, 0.);
   glEnd();
   glDisable(GL_LINE_STIPPLE);
   gl2psDisable(GL2PS_LINE_STIPPLE);
@@ -239,15 +240,15 @@ void objects()
   glPopMatrix();
 }
 
-void printstring(char *string, float angle)
+void printstring(const char *string, float angle)
 {
   unsigned int i;
-  char *fonts[] = 
+  const char *fonts[] =
     { "Times-Roman", "Times-Bold", "Times-Italic", "Times-BoldItalic",
       "Helvetica", "Helvetica-Bold", "Helvetica-Oblique", "Helvetica-BoldOblique",
       "Courier", "Courier-Bold", "Courier-Oblique", "Courier-BoldOblique",
       "Symbol", "ZapfDingbats" };
-  
+
   /* call gl2psText before the glut function since glutBitmapCharacter
      changes the raster position... */
   gl2psTextOpt(string, fonts[4], 12, GL2PS_TEXT_BL, angle);
@@ -287,35 +288,38 @@ void text()
   printstring("Click and move the mouse to rotate the objects", 0.);
 
   glRasterPos2d(0, 0.75);
-  printstring("rotated", 45.);
+  printstring("rotated!", 45.);
+
+  glRasterPos2d(x, 1.15);
+  printstring(format_string, 0.);
 
   gl2psSpecial(GL2PS_TEX, "% This should only be printed in LaTeX output!");
 }
 
 void cube()
 {
-  glColor3d (0.0,1.0,0.);   
+  glColor3d (0.0,1.0,0.);
   glBegin(GL_POLYGON);
   glVertex3d( 0.5,-0.5,-0.5);
-  glColor4d (0.0,1.0,0.,0.2);   
+  glColor4d (0.0,1.0,0.,0.2);
   glVertex3d( 0.5, 0.5,-0.5);
   glVertex3d(-0.5, 0.5,-0.5);
-  glColor4d (0.0,1.0,0.,1);   
+  glColor4d (0.0,1.0,0.,1);
   glVertex3d(-0.5,-0.5,-0.5);
   glEnd();
 
-  glColor3d (1.0,0.0,0.);   
+  glColor3d (1.0,0.0,0.);
   glBegin(GL_POLYGON);
-  glColor4d (1.0,0.0,0.,0.1);   
+  glColor4d (1.0,0.0,0.,0.1);
   glVertex3d( 0.5,-0.5,0.5);
-  glColor4d (1.0,0.5,1.,0.9);   
+  glColor4d (1.0,0.5,1.,0.9);
   glVertex3d( 0.5, 0.5,0.5);
   glVertex3d(-0.5, 0.5,0.5);
-  glColor4d (1.0,0.5,1.,0.1);   
+  glColor4d (1.0,0.5,1.,0.1);
   glVertex3d(-0.5,-0.5,0.5);
   glEnd();
   glLineWidth(4.0);
-  glColor3d (1.0,1.0,0.);   
+  glColor3d (1.0,1.0,0.);
   glBegin(GL_LINES);
   glVertex3d( 0.5,-0.5, 0.5);
   glVertex3d( 0.5,-0.5,-0.5);
@@ -335,9 +339,9 @@ void image(float x, float y, GLboolean opaque)
 
   /* Fill a pixmap (each pixel contains three floats defining an RGB
      color) */
-  pixels = (opaque == GL_TRUE) 
-    ? (float*)malloc(3*w*h*sizeof(float)) 
-    : (float*)malloc(4*w*h*sizeof(float));
+  pixels = (opaque == GL_TRUE)
+    ? (float*)malloc(3 * w * h * sizeof(float))
+    : (float*)malloc(4 * w * h * sizeof(float));
 
   for(row = h-1; row >= 0; row--){
     for(col = 0; col < w; col++){
@@ -349,7 +353,7 @@ void image(float x, float y, GLboolean opaque)
       case 'a' : r = 255.; g = 209.; b = 0.  ; break;
       case '*' : r = 0.;   g = 0.  ; b = 20. ; break;
       }
-      r /= 255.; g /= 255.; b /= 255.; 
+      r /= 255.; g /= 255.; b /= 255.;
       pixels[pos] = r; pos++;
       pixels[pos] = g; pos++;
       pixels[pos] = b; pos++;
@@ -361,7 +365,7 @@ void image(float x, float y, GLboolean opaque)
       case '.' : pixels[pos] = col / (float)w ; break;
       case 'a' : pixels[pos] = 1 - col / ((float)w - 7)  ; break;
       default  : pixels[pos] = 1.  ; break;
-      }                  
+      }
       pos++;
     }
   }
@@ -402,9 +406,9 @@ void draw_multi()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   /* First viewport with triangles, teapot or torus, etc. */
-  glViewport((GLint)(window_w * 0.05), (GLint)(window_h * 0.525), 
+  glViewport((GLint)(window_w * 0.05), (GLint)(window_h * 0.525),
              (GLsizei)(window_w * 0.9), (GLsizei)(window_h * 0.45));
-  glScissor((GLint)(window_w * 0.05), (GLint)(window_h * 0.525), 
+  glScissor((GLint)(window_w * 0.05), (GLint)(window_h * 0.525),
             (GLsizei)(window_w * 0.9), (GLsizei)(window_h * 0.45));
   glClearColor(0.2, 0.2, 0.2, 0.);
   glGetIntegerv(GL_VIEWPORT, viewport);
@@ -416,7 +420,7 @@ void draw_multi()
   glLoadIdentity();
   glOrtho(-1.3,1.3, -1.3,1.3, -1.3,1.3);
   glMatrixMode(GL_MODELVIEW);
-  
+
   objects();
   triangles();
   extras();
@@ -425,9 +429,9 @@ void draw_multi()
   gl2psEndViewport();
 
   /* Second viewport with cube, image, etc. */
-  glViewport((GLint)(window_w * 0.05), (GLint)(window_h * 0.025), 
+  glViewport((GLint)(window_w * 0.05), (GLint)(window_h * 0.025),
              (GLsizei)(window_w * 0.9), (GLsizei)(window_h * 0.45));
-  glScissor((GLint)(window_w * 0.05), (GLint)(window_h * 0.025), 
+  glScissor((GLint)(window_w * 0.05), (GLint)(window_h * 0.025),
              (GLsizei)(window_w * 0.9), (GLsizei)(window_h * 0.45));
   glClearColor(0.8, 0.8, 0.8, 0.);
   glGetIntegerv(GL_VIEWPORT, viewport);
@@ -497,7 +501,7 @@ void reshape(int w, int h)
 }
 
 void writefile(int format, int sort, int options, int nbcol,
-               char *filename, const char *extension)
+               const char *filename, const char *extension)
 {
   FILE *fp;
   char file[256];
@@ -512,7 +516,7 @@ void writefile(int format, int sort, int options, int nbcol,
   viewport[1] = 0;
   viewport[2] = window_w;
   viewport[3] = window_h;
- 
+
   fp = fopen(file, "wb");
 
   if(!fp){
@@ -526,7 +530,7 @@ void writefile(int format, int sort, int options, int nbcol,
   while(state == GL2PS_OVERFLOW){
     buffsize += 1024*1024;
     gl2psBeginPage(file, "gl2psTest", viewport, format, sort, options,
-                   GL_RGBA, 0, NULL, nbcol, nbcol, nbcol, 
+                   GL_RGBA, 0, NULL, nbcol, nbcol, nbcol,
                    buffsize, fp, file);
     display();
     state = gl2psEndPage();
@@ -560,7 +564,8 @@ void keyboard(unsigned char key, int x, int y)
     else if(format == GL2PS_PDF) format = GL2PS_SVG;
     else if(format == GL2PS_SVG) format = GL2PS_PGF;
     else                         format = GL2PS_PS;
-    printf("Print format changed to '%s'\n", gl2psGetFormatDescription(format));
+    format_string = gl2psGetFormatDescription(format);
+    display();
     break;
   case 'b':
     blend = !blend;
@@ -601,7 +606,7 @@ void keyboard(unsigned char key, int x, int y)
     writefile(format, GL2PS_BSP_SORT, opt, 0, "outBspCulledCompressed", ext);
 #endif
 
-    printf("GL2PS %d.%d.%d%s done with all images\n", GL2PS_MAJOR_VERSION, 
+    printf("GL2PS %d.%d.%d%s done with all images\n", GL2PS_MAJOR_VERSION,
            GL2PS_MINOR_VERSION, GL2PS_PATCH_VERSION, GL2PS_EXTRA_VERSION);
     break;
   }

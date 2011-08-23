@@ -1,32 +1,32 @@
 %
 %  GL2PS, an OpenGL to PostScript Printing Library
-%  Copyright (C) 1999-2009 C. Geuzaine
-% 
+%  Copyright (C) 1999-2011 C. Geuzaine
+%
 %  This program is free software; you can redistribute it and/or
 %  modify it under the terms of either:
-% 
+%
 %  a) the GNU Library General Public License as published by the Free
 %  Software Foundation, either version 2 of the License, or (at your
 %  option) any later version; or
-% 
+%
 %  b) the GL2PS License as published by Christophe Geuzaine, either
 %  version 2 of the License, or (at your option) any later version.
-% 
+%
 %  This program is distributed in the hope that it will be useful, but
 %  WITHOUT ANY WARRANTY; without even the implied warranty of
 %  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either
 %  the GNU Library General Public License or the GL2PS License for
 %  more details.
-% 
+%
 %  You should have received a copy of the GNU Library General Public
 %  License along with this library in the file named "COPYING.LGPL";
 %  if not, write to the Free Software Foundation, Inc., 675 Mass Ave,
 %  Cambridge, MA 02139, USA.
-% 
+%
 %  You should have received a copy of the GL2PS License with this
 %  library in the file named "COPYING.GL2PS"; if not, I will be glad
 %  to provide one.
-% 
+%
 %  For the latest info about gl2ps and a full list of contributors,
 %  see http://www.geuz.org/gl2ps/.
 %
@@ -49,7 +49,7 @@
     /Author (Christophe Geuzaine)
     /Subject (Documentation)
     /Keywords (OpenGL, PostScript, PDF, SVG, Printing)
-  } 
+  }
 \fi
 
 \newcommand{\dd}{\begingroup\Url}
@@ -62,7 +62,7 @@
 
 \title{GL2PS: an OpenGL to PostScript printing library}
 \author{Christophe Geuzaine}
-\date{Version 1.3.5, October 16 2009}
+\date{Version 1.3.6, August 14 2011}
 
 \maketitle
 
@@ -87,24 +87,28 @@
 files created with the <tt>gl2psTest.c</tt> demo provided in the
 distribution. This illustrates the handling of smooth shading,
 intersecting primitives, line stippling, vector text rendering,
-multiple viewports and mixed vector/bitmap output. Compare with a 
-<a href="http://geuz.org/gl2ps/outBitmap.png">PNG</a> screenshot of 
+multiple viewports and mixed vector/bitmap output. Compare with a
+<a href="http://geuz.org/gl2ps/outBitmap.png">PNG</a> screenshot of
 the OpenGL window.</em></small></td>
 </tr>
 </table>
 </center>
 <h2>Download</h2>
-The latest stable version of GL2PS is
-<a href="http://geuz.org/gl2ps/src/gl2ps-1.3.5.tgz">gl2ps-1.3.5.tgz</a>.
-Older versions and nightly CVS snapshots are available 
-<a href="http://geuz.org/gl2ps/src/">here</a>.
+The latest stable version of GL2PS is <a
+href="http://geuz.org/gl2ps/src/gl2ps-1.3.6.tgz">gl2ps-1.3.6.tgz</a>.  Older
+versions and nightly source snapshots are available <a
+href="http://geuz.org/gl2ps/src/">here</a>.  For read-only svn access use:
+'<code>svn co https://geuz.org/svn/gl2ps/trunk gl2ps</code>' (username:
+gl2ps, password: gl2ps).
 <p>
-For questions and discussions about GL2PS features, resources, bugs, 
-etc., see the <a href="http://geuz.org/mailman/listinfo/gl2ps/">gl2ps</a>
-mailing list. You can also subscribe to the
-<a href="http://geuz.org/mailman/listinfo/gl2ps-announce/">gl2ps-announce</a>
-mailing list to be notified automatically when a new version of GL2PS
-is released.
+For questions and discussions about GL2PS see the <a
+href="http://geuz.org/mailman/listinfo/gl2ps/">gl2ps mailing list</a>.  If
+you think you have found a bug you can also file a report directly <a
+href="https://geuz.org/trac/gl2ps/newticket">here</a> (username: gl2ps,
+password: gl2ps). You can also subscribe to the <a
+href="http://geuz.org/mailman/listinfo/gl2ps-announce/">gl2ps-announce</a>
+mailing list to be notified automatically when a new version of GL2PS is
+released.
 <h2>Documentation</h2>}
 
 \tableofcontents
@@ -152,10 +156,10 @@ peculiar to GL2PS begin with \dd{GL2PS}.
 \begin{verbatim}
 GLint gl2psBeginPage( const char *title, const char *producer,
                       GLint viewport[4],
-                      GLint format, GLint sort, GLint options, 
-                      GLint colormode, GLint colorsize, 
-                      GL2PSrgba *colortable, 
-                      GLint nr, GLint ng, GLint nb, 
+                      GLint format, GLint sort, GLint options,
+                      GLint colormode, GLint colorsize,
+                      GL2PSrgba *colortable,
+                      GLint nr, GLint ng, GLint nb,
                       GLint buffersize, FILE *stream,
                       const char *filename )
 \end{verbatim}
@@ -186,7 +190,7 @@ determine the way primitives are handled:
 \item[\dd{format}] Specifies the output format, chosen among:
 
 \begin{description}
-\item[\dd{GL2PS_PS}] The output stream will be in PostScript format. 
+\item[\dd{GL2PS_PS}] The output stream will be in PostScript format.
 \item[\dd{GL2PS_EPS}] The output stream will be in Encapsulated PostScript
   format.
 \item[\dd{GL2PS_PDF}] The output stream will be in Portable Document Format.
@@ -676,7 +680,7 @@ GLint viewport[4];
 
 glGetIntegerv(GL_VIEWPORT, viewport);
 
-while( state == GL2PS_OVERFLOW ){ 
+while( state == GL2PS_OVERFLOW ){
   buffsize += 1024*1024;
   gl2psBeginPage ( "MyTitle", "MySoftware", viewport,
                    GL2PS_EPS, GL2PS_BSP_SORT, GL2PS_SILENT |
@@ -684,7 +688,7 @@ while( state == GL2PS_OVERFLOW ){
                    GL2PS_OCCLUSION_CULL | GL2PS_BEST_ROOT,
                    GL_RGBA, 0, NULL, 0, 0, 0, buffsize,
                    fp, "MyFile" );
-  draw(); 
+  draw();
   state = gl2psEndPage();
 }
 
@@ -763,7 +767,7 @@ sections~\ref{sec:gl2psText}, \ref{sec:gl2psDrawPixels},
 
 Other limitations include:
 \begin{itemize}
-\item 
+\item
 Rendering large and/or complicated scenes is slow and/or can lead to large
 output files. This is normal: vector-based images are not destined to
 replace bitmap images. They just offer an alternative when high quality
@@ -789,11 +793,11 @@ GL2PS does not support textures, fog effects, etc.
 % From the GLpr FAQ:
 %
 % 3. Can GLpr handle 2D texture mapping?
-% 
+%
 %    Only for pixel-based output (i.e., captured with glpImage()).  GLpr
 %    cannot duplicate the effects of texture mapping for vector
 %    (move-draw) output.  Unfortunately, the information required is not
-%    present in the OpenGL feedback buffer.  
+%    present in the OpenGL feedback buffer.
 %
 % 4. Can GLpr handle 1D texture mapping?
 %
@@ -808,7 +812,7 @@ GL2PS does not support textures, fog effects, etc.
 \label{sec:contrib}
 
 \noemail{Michael Sweet}{mike@easysw.com} for the original implementation of
-the feedback buffer parser; 
+the feedback buffer parser;
 %
 \noemail{Bruce Naylor}{naylor@comp-graphics.com} for BSP tree and occlusion
 culling hints;
@@ -817,7 +821,7 @@ culling hints;
 code;
 %
 \noemail{Jean-Fran\c{c}ois Remacle}{remacle@gce.ucl.ac.be} for plane equation
-fixes; 
+fixes;
 %
 \noemail{Bart Kaptein}{B.L.Kaptein@lumc.nl} for memory leak fixes;
 %
@@ -871,10 +875,12 @@ in pdf code;
 %
 \noemail{Sylvestre Ledru}{sylvestre.ledru@scilab.org} for SVG patches;
 %
-\noemail{Calixte Denizet}{Calixte.Denizet@ac-rennes.fr} for 64 bit patch.
+\noemail{Calixte Denizet}{Calixte.Denizet@ac-rennes.fr} for 64 bit patch;
 %
-\noemail{lion\_vasilief@yahoo.fr}{Ion Vasilief} and Paul Griffiths for
-rotated text in PDF output.
+\noemail{Ion Vasilief}{lion\_vasilief@yahoo.fr} and Paul Griffiths for
+rotated text in PDF output;
+%
+\noemail{Ben Abbott}{bpabbott@mac.com} for text alignment in SVG.
 
 \section{Links}
 \label{sec:links}
@@ -1016,6 +1022,9 @@ anymore.
 \item[1.3.5] (Oct 16, 2009) Added support for rotated text in PDF output;
   fixed PDF image output when compiled in 64 bit mode; added cmake
   configuration.
+\item[1.3.6] (Aug 14, 2011) Added support for PixelZoom (set using
+  glPixelZoom) in postscript images; fixed text rotation in TeX; added
+  support for text alignment in SVG; fixed other minor bugs.
 \end{description}
 
 \special{html:<p>
