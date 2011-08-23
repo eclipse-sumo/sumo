@@ -13,6 +13,11 @@
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"></xsd:element>
             <xsd:element name="flow" type="flowType" minOccurs="0"></xsd:element>
             <xsd:element name="person" type="personType" minOccurs="0"></xsd:element>
+            <xsd:element name="include" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="href" type="xsd:string"></xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:choice>
     </xsd:complexType>
 
@@ -96,8 +101,10 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="route" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="toTaz" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="fromTaz" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="toTaz" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="from" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="to" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="begin" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="end" type="xsd:float"></xsd:attribute>
@@ -227,6 +234,15 @@
         </xsd:sequence>
         <xsd:attribute name="edges" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
+        <xsd:attribute name="exitTimes" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="routeDistRouteType">
+        <xsd:sequence>
+            <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="edges" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="cost" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="probability" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="exitTimes" type="xsd:string"></xsd:attribute>
@@ -238,6 +254,7 @@
         <xsd:attribute name="busStop" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="startPos" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="endPos" type="xsd:float"></xsd:attribute>
+        <xsd:attribute name="friendlyPos" type="xsd:boolean"></xsd:attribute>
         <xsd:attribute name="duration" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="until" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="index" type="xsd:string"></xsd:attribute>
@@ -254,14 +271,14 @@
 
     <xsd:complexType name="routeDistributionType">
         <xsd:sequence>
-            <xsd:element name="route" type="routeType" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="route" type="routeDistRouteType" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleRouteDistributionType">
         <xsd:sequence>
-            <xsd:element name="route" type="vehicleRouteType" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="route" type="routeDistRouteType" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="last" type="xsd:nonNegativeInteger"></xsd:attribute>

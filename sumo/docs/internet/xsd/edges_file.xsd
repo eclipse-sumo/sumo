@@ -40,13 +40,14 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="numLanes" use="optional">
+        <xsd:attribute name="endOffset" use="optional">
             <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minExclusive value="0"></xsd:minExclusive>
+                <xsd:restriction base="xsd:float">
+                    <xsd:minInclusive value="0"></xsd:minInclusive>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"></xsd:attribute>
         <xsd:attribute name="speed" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">

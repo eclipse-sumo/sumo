@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jul 11 12:53:56 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on Tue Aug 23 18:13:45 2011 by SUMO netconvert Version dev-SVN-r11143
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <edge-files value="./sumo/bugs/ticket331/input_edges.edg.xml"/>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/bugs/ticket331/net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
 
 <net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
 
-    <location netOffset="1.00,0.00" convBoundary="0.00,0.00,11.00,0.00" origBoundary="-1.00,0.00,10.00,0.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,11.00,0.00" origBoundary="0.00,0.00,11.00,0.00" projParameter="!"/>
 
     <edge id="0" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1">
-        <lane id="0_0" index="0" speed="13.89" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
+        <lane id="0_0" index="0" speed="13.90" length="2.00" shape="0.00,-1.65 2.00,-1.65"/>
     </edge>
     <edge id="1" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1">
-        <lane id="1_0" index="0" speed="13.89" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
+        <lane id="1_0" index="0" speed="13.90" length="9.00" shape="2.00,-1.65 11.00,-1.65"/>
     </edge>
 
     <junction id="SUMOGenerated0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">

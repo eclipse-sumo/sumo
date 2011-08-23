@@ -20,7 +20,9 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-    <edge id="0" from="SUMOGenerated0" to="SUMOGenerated1"/>
-    <edge id="1" from="SUMOGenerated2" to="SUMOGenerated3"/>
-</edges>
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <node id="SUMOGenerated0" x="0.00" y="0.00" type="unregulated"/>
+    <node id="SUMOGenerated1" x="2.00" y="0.00" type="unregulated"/>
+    <node id="SUMOGenerated2" x="2.00" y="0.00" type="unregulated"/>
+    <node id="SUMOGenerated3" x="11.00" y="0.00" type="unregulated"/>
+</nodes>
