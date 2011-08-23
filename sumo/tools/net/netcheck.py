@@ -30,7 +30,7 @@ def getWeaklyConnected(net):
                 if n in edgesLeft:
                     queue.append(n)
                     edgesLeft.remove(n)
-            for n in edge.getIncoming():
+            for n in edge.getIncoming().iterkeys():
                 if n in edgesLeft:
                     queue.append(n)
                     edgesLeft.remove(n)

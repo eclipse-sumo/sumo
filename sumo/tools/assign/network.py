@@ -420,7 +420,7 @@ class NetworkReader(handler.ContentHandler):
                     elif attrs['dir'] == "t": 
                         self._edgeObj.uturn = attrs['state']
         elif name == 'lane' and self._edge != '':
-            self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
+            self._maxSpeed = max(self._maxSpeed, float(attrs['speed']))
             self._laneNumber = self._laneNumber + 1
             self._length = float(attrs['length'])
       

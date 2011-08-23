@@ -73,7 +73,7 @@ net = sumolib.net.Net()
 for e in edges:
     c = net.addEdge(e._id, e._from._id, e._to._id, e._priority, e._function)
     for l in e._lanes:
-        lane = sumolib.net.NetLane(c, l.getSpeed(), l.getLength())
+        lane = sumolib.net.Lane(c, l.getSpeed(), l.getLength())
         lane.setShape(l.getShape())
     c.rebuildShape()
 for n in nodes:

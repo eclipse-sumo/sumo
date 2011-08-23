@@ -51,7 +51,7 @@ net = sumolib.net.readNet(netfile)
 
 print >> detectorFile, "<additional>"
 for tls in net._tlss:
-    for e in sorted(tls.getEdges(), key=sumolib.net.NetEdge.getID):
+    for e in sorted(tls.getEdges(), key=sumolib.net.Edge.getID):
         id = tls._id + "_" + e._id
         print >> detectorFile, '    <e3Detector id="e3_%s" freq="%s" file="%s">' % (id, freq, options.results)
         iedges = net.getDownstreamEdges(e, det_length_input, True)

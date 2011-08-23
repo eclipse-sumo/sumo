@@ -16,7 +16,7 @@ from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
 
-class NetLane:
+class Lane:
     """ Lanes from a sumo network """
 
     def __init__(self, edge, speed, length):
@@ -45,11 +45,11 @@ class NetLane:
     def getEdge(self):
         return self._edge
 
-    def addOutgoing(self, tolane, tls, tllink):
-        self._outgoing.append( [tolane, tls, tllink ] )
+    def addOutgoing(self, conn):
+        self._outgoing.append(conn)
 
 
-class NetEdge:
+class Edge:
     """ Edges from a sumo network """
 
     def __init__(self, id, fromN, toN, prio, function):
@@ -62,7 +62,7 @@ class NetEdge:
         self._lanes = []
         self._speed = None
         self._length = None
-        self._incoming = []
+        self._incoming = {}
         self._outgoing = {}
         self._shape = None
         self._function = function
@@ -73,15 +73,18 @@ class NetEdge:
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
 
-    def addOutgoing(self, edge, fromlane, tolane, tls, tllink):
+    def addOutgoing(self, edge, fromlane, tolane, direction, tls, tllink):
         if edge not in self._outgoing:
             self._outgoing[edge] = []
-        self._outgoing[edge].append( [fromlane, tolane, tls, tllink ] )
-        fromlane.addOutgoing(tolane, tls, tllink)
+        conn = Connection(self, edge, fromlane, tolane, direction, tls, tllink)
+        self._outgoing[edge].append(conn)
+        fromlane.addOutgoing(conn)
+        edge._addIncoming(conn)
 
-    def addIncoming(self, edge):
-        if edge not in self._incoming:
-            self._incoming.append(edge)
+    def _addIncoming(self, conn):
+        if conn._from not in self._incoming:
+            self._incoming[conn._from] = []
+        self._incoming[conn._from].append(conn)
 
     def setShape(self, shape):
         self._shape = shape
@@ -140,7 +143,7 @@ class NetEdge:
          self._tls = tls
          
 
-class NetNode:
+class Node:
     """ Nodes from a sumo network """
     def __init__(self, id, coord, incLanes):
         self._id = id
@@ -177,23 +180,27 @@ class NetNode:
         return -1
 
     def forbids(self, possProhibitor, possProhibited):
-        print self._incLanes
         possProhibitorIndex = self.getLinkIndex(possProhibitor)
         possProhibitedIndex = self.getLinkIndex(possProhibited)
-#        print possProhibitorIndex
-#        print possProhibitedIndex
-        if possProhibitorIndex<0 or possProhibitedIndex<0:
+        if possProhibitorIndex < 0 or possProhibitedIndex < 0:
             return False
         ps = self._prohibits[possProhibitedIndex]
-#        print "%s %s %s" % (len(ps), possProhibitorIndex, possProhibitedIndex)
-#        print ps
-#        print len(ps)-possProhibitorIndex-1
-        if ps[len(ps)-possProhibitorIndex-1]:
-            print possProhibitorIndex
-        return ps[len(ps)-possProhibitorIndex-1]=='1'
+        return ps[-(possProhibitorIndex-1)]=='1'
 
-class NetTLS:
-    """Trafic Light Signal for a sumo network"""
+
+class Connection:
+    """edge connection for a sumo network"""
+    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink):
+        self._from = fromEdge
+        self._to = toEdge
+        self._fromLane = fromLane
+        self._toLane = toLane
+        self._tls = tls
+        self._tlLink = tllink
+
+
+class TLS:
+    """Traffic Light Signal for a sumo network"""
     def __init__(self, id):
         self._id = id
         self._connections = []
@@ -215,7 +222,7 @@ class NetTLS:
         self._programs[program._id] = program
 
 
-class NetTLSProgram:
+class TLSProgram:
     def __init__(self, id, offset, type):
         self._id = id
         self._type = type
@@ -225,12 +232,14 @@ class NetTLSProgram:
     def addPhase(self, state, duration):
         self._phases.append( (state, duration) )
 
-class NetRoundabout:
+
+class Roundabout:
     def __init__(self, nodes):
         self._nodes = nodes
 
     def getNodes(self):
         return self._nodes
+
 
 class Net:
     """The whole sumo network."""
@@ -246,7 +255,7 @@ class Net:
 
     def addNode(self, id, coord=None, incLanes=None):
         if id not in self._id2node:
-            node = NetNode(id, coord, incLanes)
+            node = Node(id, coord, incLanes)
             self._nodes.append(node)
             self._id2node[id] = node
         if coord!=None and self._id2node[id]._coord==None:
@@ -263,17 +272,16 @@ class Net:
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
-            edge = NetEdge(id, fromN, toN, prio, function)
+            edge = Edge(id, fromN, toN, prio, function)
             self._edges.append(edge)
             self._id2edge[id] = edge
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length):
-        lane = NetLane(edge, speed, length)
-        return lane
+        return Lane(edge, speed, length)
 
     def addRoundabout(self, nodes):
-        roundabout = NetRoundabout(nodes)
+        roundabout = Roundabout(nodes)
         self._roundabouts.append(roundabout)
         return roundabout
 
@@ -293,7 +301,7 @@ class Net:
         if tlid in self._id2tls:
             tls = self._id2tls[tlid]
         else:
-            tls = NetTLS(tlid)
+            tls = TLS(tlid)
             self._id2tls[tlid] = tls
             self._tlss.append(tls)
         return tls
@@ -305,7 +313,7 @@ class Net:
 
     def addTLSProgram(self, tlid, programID, offset, type):
         tls = self.getTLSSecure(tlid)
-        program = NetTLSProgram(programID, offset, type)
+        program = TLSProgram(programID, offset, type)
         tls.addProgram(program)
         return program
 
@@ -411,8 +419,7 @@ class NetReader(handler.ContentHandler):
                     tllink = -1
                 toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = toEdge._lanes[tolane]
-                self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
-                connected.addIncoming(self._currentEdge)
+                self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, attrs['dir'], tl, tllink)
         if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
             fromEdge = self._net.getEdge(attrs['from'])
             toEdge = self._net.getEdge(attrs['to'])
@@ -426,8 +433,7 @@ class NetReader(handler.ContentHandler):
             else:
                 tl = ""
                 tllink = -1
-            fromEdge.addOutgoing(toEdge, fromLane, toLane, tl, tllink)
-            toEdge.addIncoming(fromEdge)
+            fromEdge.addOutgoing(toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
         if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes: # deprecated
@@ -439,9 +445,7 @@ class NetReader(handler.ContentHandler):
         if self._withPhases and name=='phase':
             self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))
         if name == 'roundabout':
-            ra= str(attrs['nodes'])
-            ra =ra.split(' ')
-            self._net.addRoundabout(ra)
+            self._net.addRoundabout(attrs['nodes'].split())
 
     def characters(self, content):
         if self._currentLane!=None:
