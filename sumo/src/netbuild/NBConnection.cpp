@@ -40,24 +40,37 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const int NBConnection::InvalidTlIndex = -1;
+const NBConnection NBConnection::InvalidConnection("invalidFrom", 0, "invalidTo", 0);
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
-NBConnection::NBConnection(NBEdge *from, NBEdge *to)
-        : myFrom(from), myTo(to), myFromLane(-1), myToLane(-1) {
-    myFromID = from->getID();
-    myToID = to->getID();
-}
+NBConnection::NBConnection(NBEdge *from, NBEdge *to) : 
+    myFrom(from), myTo(to), 
+    myFromID(from->getID()), myToID(to->getID()),
+    myFromLane(-1), myToLane(-1),
+    myTlIndex(InvalidTlIndex)
+{}
 
 
 NBConnection::NBConnection(const std::string &fromID, NBEdge *from,
-                           const std::string &toID, NBEdge *to)
-        : myFrom(from), myTo(to), myFromID(fromID), myToID(toID),
-        myFromLane(-1), myToLane(-1) {}
+                           const std::string &toID, NBEdge *to) : 
+    myFrom(from), myTo(to), 
+    myFromID(fromID), myToID(toID),
+    myFromLane(-1), myToLane(-1),
+    myTlIndex(InvalidTlIndex)
+{}
 
 
 NBConnection::NBConnection(NBEdge *from, int fromLane,
-                           NBEdge *to, int toLane)
-        : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane) {
+                           NBEdge *to, int toLane, int tlIndex) : 
+    myFrom(from), myTo(to), 
+    myFromLane(fromLane), myToLane(toLane),
+    myTlIndex(tlIndex)
+{
     /* @todo what should we assert here?
     assert(myFromLane<0||from->getNumLanes()>(size_t) myFromLane);
     assert(myToLane<0||to->getNumLanes()>(size_t) myToLane);
@@ -70,10 +83,12 @@ NBConnection::NBConnection(NBEdge *from, int fromLane,
 NBConnection::~NBConnection() {}
 
 
-NBConnection::NBConnection(const NBConnection &c)
-        : myFrom(c.myFrom), myTo(c.myTo),
-        myFromID(c.myFromID), myToID(c.myToID),
-        myFromLane(c.myFromLane), myToLane(c.myToLane) {}
+NBConnection::NBConnection(const NBConnection &c) : 
+    myFrom(c.myFrom), myTo(c.myTo),
+    myFromID(c.myFromID), myToID(c.myToID),
+    myFromLane(c.myFromLane), myToLane(c.myToLane),
+    myTlIndex(c.myTlIndex)
+{}
 
 
 NBEdge *
@@ -146,10 +161,11 @@ operator<(const NBConnection &c1, const NBConnection &c2) {
 
 
 bool
-NBConnection::operator==(const NBConnection &c) {
+NBConnection::operator==(const NBConnection &c) const {
     return (myFrom    ==c.myFrom     && myTo    ==c.myTo && 
             myFromID  ==c.myFromID   && myToID  ==c.myToID &&
-            myFromLane==c.myFromLane && myToLane==c.myToLane);
+            myFromLane==c.myFromLane && myToLane==c.myToLane &&
+            myTlIndex ==c.myTlIndex);
 }
 
 

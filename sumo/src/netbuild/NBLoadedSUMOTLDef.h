@@ -103,9 +103,9 @@ public:
     void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex);
 
 
-    /** @brief removes the link with the given number  from the traffic light
+    /** @brief removes the given connection from the traffic light
      */
-    void removeLink(unsigned int linkIndex);
+    void removeConnection(const NBConnection &conn);
 
 
     /** @brief Returns the internal logic
@@ -117,7 +117,7 @@ public:
 
 protected:
     /** @brief Collects the links participating in this traffic light
-     * @exception ProcessError If a link could not be found
+     *    does nothing because the links are already loaded
      */
     void collectLinks() throw(ProcessError) {}
 
@@ -140,11 +140,10 @@ private:
     /// @brief The original nodes for which the loaded logic is valid
     std::set<NBNode*> myOriginalNodes;
 
-    static const NBConnection DummyConnection;
-
 private:
     /** @brief Informs edges about being controlled by a tls */
     void setTLControllingInformation() const;
+
 };
 
 

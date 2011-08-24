@@ -51,7 +51,7 @@ public:
     NBConnection(NBEdge *from, NBEdge *to);
 
     /// Constructor
-    NBConnection(NBEdge *from, int fromLane, NBEdge *to, int toLane);
+    NBConnection(NBEdge *from, int fromLane, NBEdge *to, int toLane, int tlIndex = InvalidTlIndex);
 
     /// Constructor
     NBConnection(const std::string &fromID, NBEdge *from,
@@ -61,7 +61,7 @@ public:
     NBConnection(const NBConnection &c);
 
     /// Destructor
-    ~NBConnection();
+    virtual ~NBConnection();
 
     /// returns the from-edge (start of the connection)
     NBEdge *getFrom() const;
@@ -90,6 +90,17 @@ public:
     /// returns the to-lane
     int getToLane() const;
 
+    /* @brief returns the index within the controlling tls or InvalidTLIndex if this
+     * link is unontrolled */
+    int getTLIndex() const {
+        return myTlIndex;
+    }
+
+    // @brief reset the tlIndex
+    int setTLIndex(int tlIndex) {
+        myTlIndex = tlIndex;
+    }
+
     /// returns the id of the connection (!!! not really pretty)
     std::string getID() const;
 
@@ -97,7 +108,15 @@ public:
     friend bool operator<(const NBConnection &c1, const NBConnection &c2);
 
     /// Comparison operator
-    bool operator==(const NBConnection &c);
+    bool operator==(const NBConnection &c) const;
+
+    /// Comparison operator
+    bool operator!=(const NBConnection &c) const {
+        return !(*this == c);
+    }
+
+    const static int InvalidTlIndex;
+    const static NBConnection InvalidConnection;
 
 private:
     /// Checks whether the from-edge is still valid
@@ -115,6 +134,9 @@ private:
 
     /// The lanes; may be -1 if no certain lane was specified
     int myFromLane, myToLane;
+
+    // @brief the index within the controlling tls if this connection is tls-controlled
+    int myTlIndex;
 
 };
 
