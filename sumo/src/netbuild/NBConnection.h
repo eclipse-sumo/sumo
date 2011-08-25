@@ -97,7 +97,7 @@ public:
     }
 
     // @brief reset the tlIndex
-    int setTLIndex(int tlIndex) {
+    void setTLIndex(int tlIndex) {
         myTlIndex = tlIndex;
     }
 
