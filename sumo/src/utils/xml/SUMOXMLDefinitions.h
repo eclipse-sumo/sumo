@@ -178,6 +178,8 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPE_DISTRIBUTION,
     SUMO_TAG_VAPORIZER,
     SUMO_TAG_ROUNDABOUT,
+    SUMO_TAG_JOIN,
+    SUMO_TAG_JOINEXCLUDE,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -394,6 +396,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,
+    /// a list of node ids, used for controlling joining
+    SUMO_ATTR_NODES,
 #ifdef _MESSAGES
     // Attributes for message emitter
     /// what events to emit

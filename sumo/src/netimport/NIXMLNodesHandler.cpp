@@ -68,9 +68,24 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
 void
 NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    if (element!=SUMO_TAG_NODE) {
-        return;
+    switch (element) {
+        case SUMO_TAG_NODE:
+            addNode(attrs);
+            break;
+        case SUMO_TAG_JOIN:
+            addJoinCluster(attrs);
+            break;
+        case SUMO_TAG_JOINEXCLUDE:
+            addJoinExclusion(attrs);
+            break;
+        default:
+            break;
     }
+}
+
+
+void 
+NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     // get the id, report a warning if not given or empty...
     myID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -137,6 +152,30 @@ NIXMLNodesHandler::myStartElement(int element,
     // process traffic light definition
     if (type==NODETYPE_TRAFFIC_LIGHT) {
         processTrafficLightDefinitions(attrs, node);
+    }
+}
+
+
+void 
+NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    const std::string clusterString = attrs.getStringReporting(SUMO_ATTR_NODES, 0, ok);
+    const std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
+    if (ok) {
+        myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()));
+    }
+}
+
+
+void 
+NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    const std::vector<std::string> ids = StringTokenizer(
+            attrs.getStringReporting(SUMO_ATTR_NODES, 0, ok)).getVector();
+    if (ok) {
+        for (std::vector<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
+            myNodeCont.addJoinExlusion(*it);
+        }
     }
 }
 

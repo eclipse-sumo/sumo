@@ -94,9 +94,14 @@ NBNetBuilder::compute(OptionsCont &oc,
         const std::set<std::string> &explicitTurnarounds,
         bool removeUnwishedNodes) {
     int step = 1;
-    //
+    // join junctions
+    unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
     if (oc.getBool("junctions.join")) {
-        myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+        numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+    }
+    if (numJoined > 0) {
+        // bit of a misnomer since we're already done
+        inform(step, "Joined " + toString(numJoined) + " junction cluster(s)");
     }
     // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges.");

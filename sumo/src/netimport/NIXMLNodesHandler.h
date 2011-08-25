@@ -76,11 +76,9 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; Parses node information
+    /** @brief Called on the opening of a tag; 
      *
-     * Tries to parse a node. If the node can be parsed, it is stored within
-     *  "myNodeCont". Otherwise an error is generated. Then, if givenm
-     *  the tls information is parsed and inserted into "myTLLogicCont".
+     * In dependence to the obtained type, an appropriate parsing method is called.
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
@@ -94,6 +92,24 @@ protected:
 
 
 private:
+    /*
+     * @brief Parses node information
+     * Tries to parse a node. If the node can be parsed, it is stored within
+     *  "myNodeCont". Otherwise an error is generated. Then, if given
+     *  the tls information is parsed and inserted into "myTLLogicCont".
+     */
+    void addNode(const SUMOSAXAttributes &attrs);
+
+    /*
+     * @brief Parses a cluster of nodes to be joined
+     */
+    void addJoinCluster(const SUMOSAXAttributes &attrs);
+
+    /*
+     * @brief Parses a list of nodes to be excluded from joining
+     */
+    void addJoinExclusion(const SUMOSAXAttributes &attrs);
+
     /** @brief Builds the defined traffic light or adds a node to it
      *
      * @param[in] attrs Attributes within the currently opened node

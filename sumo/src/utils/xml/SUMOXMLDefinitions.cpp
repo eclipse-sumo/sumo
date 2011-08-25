@@ -127,12 +127,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "node",             SUMO_TAG_NODE },
     { "type",             SUMO_TAG_TYPE },
     { "detector_definition", SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED },
-    { "detectorDefinition", SUMO_TAG_DETECTOR_DEFINITION },
-    { "routeDistribution", SUMO_TAG_ROUTE_DISTRIBUTION },
-    { "vtypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED },
-    { "vTypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION },
+    { "detectorDefinition",  SUMO_TAG_DETECTOR_DEFINITION },
+    { "routeDistribution",   SUMO_TAG_ROUTE_DISTRIBUTION },
+    { "vtypeDistribution",   SUMO_TAG_VTYPE_DISTRIBUTION__DEPRECATED },
+    { "vTypeDistribution",   SUMO_TAG_VTYPE_DISTRIBUTION },
     { "vaporizer",        SUMO_TAG_VAPORIZER },
-    { "roundabout",        SUMO_TAG_ROUNDABOUT },
+    { "roundabout",       SUMO_TAG_ROUNDABOUT },
+    { "join",             SUMO_TAG_JOIN },
+    { "joinExclude",      SUMO_TAG_JOINEXCLUDE },
 
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },
@@ -314,6 +316,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "dest",           SUMO_ATTR_DEST },
     { "source",         SUMO_ATTR_SOURCE },
     { "via",            SUMO_ATTR_VIA },
+    { "nodes",          SUMO_ATTR_NODES },
 
 #ifdef _MESSAGES
     { "msg",			SUMO_ATTR_MSG },

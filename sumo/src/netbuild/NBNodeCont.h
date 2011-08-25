@@ -157,10 +157,13 @@ public:
      */
     void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
+    /** @brief Joins loaded junction clusters (see NIXMLNodesHandler)
+     */
+    unsigned int joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
 
     /** @brief Joins junctions that are very close together
      */
-    void joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    unsigned int joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
 
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
@@ -267,6 +270,14 @@ public:
     std::vector<std::string> getAllNames() const throw();
 
 
+    /// @brief add id for a node wich shall not be joined
+    void addJoinExlusion(const std::string &id);
+
+
+    /// @brief add ids of nodes which shall be joined into a single node 
+    void addCluster2Join(std::set<std::string> cluster);
+
+
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
@@ -282,6 +293,7 @@ private:
     /// @name Helper methods for guessing/computing traffic lights
     /// @{
 
+    typedef std::vector<std::set<NBNode*> > NodeClusters;
     /** @brief Builds node clusters
      *
      * A node cluster is made up from nodes which are near by (distance<maxDist) and connected.
@@ -289,7 +301,7 @@ private:
      * @param[in] maxDist The maximum distance between two nodes for clustering
      * @param[in, filled] into The container to store the clusters in
      */
-    void generateNodeClusters(SUMOReal maxDist, std::vector<std::set<NBNode*> >&into) const throw();
+    void generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const throw();
 
 
     /** @brief Returns whethe the given node cluster should be controlled by a tls
@@ -308,6 +320,15 @@ private:
     /// @brief The map of names to nodes
     NodeCont myNodes;
 
+    // @brief set of node ids which should not be joined
+    std::set<std::string> myJoinExclusions;
+
+    // @brief loaded sets of node ids to join
+    std::vector<std::set<std::string> > myClusters2Join;
+
+    /// @brief ids found in loaded join clusters used for error checking
+    std::set<std::string> myJoined;
+
     /// @brief invalidated copy constructor
     NBNodeCont(const NBNodeCont &s);
 
@@ -319,6 +340,11 @@ private:
 
     // @brief replaces oldEdge by an edge between from and to, keeping all attributes
     void remapEdge(NBEdge *oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec);
+
+    // @brief joins the given node clusters
+    void joinNodeClusters(NodeClusters clusters, 
+            NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    
 };
 
 

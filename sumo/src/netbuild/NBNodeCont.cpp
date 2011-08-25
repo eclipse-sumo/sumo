@@ -167,7 +167,7 @@ NBNodeCont::extract(NBNode *node) throw() {
 
 // ----------- (Helper) methods for guessing/computing traffic lights
 void
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, std::vector<std::set<NBNode*> >&into) const throw() {
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const throw() {
     std::set<NBNode*> visited;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         std::vector<NBNode*> toProc;
@@ -337,12 +337,68 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 }
 
 
+void 
+NBNodeCont::addJoinExlusion(const std::string &id) {
+    // error handling has to take place here since joinExclusions could be
+    // loaded from multiple files / command line
+    if (myJoined.count(id) > 0) {
+        WRITE_WARNING("Ignoring join exclusion for node '" + id + 
+                "' since it already occured in a list of nodes to be joined");
+    } else {
+        myJoinExclusions.insert(id);
+    }
+}
+
+
 void
+NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
+    // error handling has to take place here since joins could be loaded from multiple files 
+    for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
+        if (myJoinExclusions.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because node '" + *it + 
+                    "' was already excluded from joining");
+            return;
+        } else if (myJoined.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because node '" + *it + 
+                    "' already occured in another join-cluster");
+            return;
+        } else {
+            myJoined.insert(*it);
+        }
+    }
+    myClusters2Join.push_back(cluster);
+}
+
+
+unsigned int
+NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+    NodeClusters clusters;
+    for (std::vector<std::set<std::string> >::iterator it = myClusters2Join.begin(); it != myClusters2Join.end(); it++) {
+        // verify loaded cluster
+        std::set<NBNode*> cluster;
+        for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
+            NBNode *node = retrieve(*it_id);
+            if (node == 0) {
+                WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
+            } else {
+                cluster.insert(node);
+            }
+        }
+        if (cluster.size() > 1) {
+            clusters.push_back(cluster);
+        }
+    }
+    joinNodeClusters(clusters, dc, ec, tlc);
+    return clusters.size();
+}
+
+
+unsigned int
 NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
-    std::vector<std::set<NBNode*> > cands;
+    NodeClusters cands;
+    NodeClusters clusters;
     generateNodeClusters(maxdist, cands);
-    int numJoined = 0;
-    for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+    for (NodeClusters::iterator i=cands.begin(); i!=cands.end(); ++i) {
         const std::set<NBNode*> &candCluster = (*i);
         std::set<NBNode*> cluster;
         // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
@@ -353,55 +409,68 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
                     (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
                      !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
                 continue;
+            } else if (myJoinExclusions.count(n->getID()) > 0) {
+                continue;
             } else {
                 cluster.insert(n);
             }
         }
         if (cluster.size() > 1) {
-            // ok, we still have something to cluster. create the new node
-            Position pos;
-            std::vector<std::string> member_ids;
-            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-                member_ids.push_back((*j)->getID());
-                pos.add((*j)->getPosition());
-            }
-            pos.mul(1.0 / cluster.size());
-
-            // need to sort the member names to make the output deterministic
-            sort(member_ids.begin(), member_ids.end());
-            std::string id = "cluster";
-            for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
-                id = id + "_" + (*j);
-            }
-            if (!insert(id, pos)) {
-                // should not fail
-                WRITE_WARNING("Could not join junctions " + id);
-                continue;
-            }
-            numJoined++;
-            NBNode* newNode = retrieve(id);
-            // add a traffic light if one of the cluster members was controlled
-            bool setTL = false;
-            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-                if ((*j)->isTLControlled()) {
-                    setTL = true;
-                }
-            }
-            if (setTL) {
-                NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
-                if (!tlc.insert(tlDef)) {
-                    // actually, nothing should fail here
-                    delete tlDef;
-                    throw ProcessError("Could not allocate tls '" + id + "'.");
-                }
-            }
-            // perform the merging
-            for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-                merge(*j, newNode, dc, ec);
-            }
+            clusters.push_back(cluster);
         }
     }
-    WRITE_MESSAGE("Joined " + toString(numJoined) + " junction cluster(s)");
+    joinNodeClusters(clusters, dc, ec, tlc);
+    return clusters.size();
+}
+
+
+void 
+NBNodeCont::joinNodeClusters(NodeClusters clusters, 
+        NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) 
+{
+    for (NodeClusters::iterator i=clusters.begin(); i!=clusters.end(); ++i) {
+        std::set<NBNode*> cluster = *i;
+        assert(cluster.size() > 1);
+        Position pos;
+        std::vector<std::string> member_ids;
+        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+            member_ids.push_back((*j)->getID());
+            pos.add((*j)->getPosition());
+        }
+        pos.mul(1.0 / cluster.size());
+
+        // need to sort the member names to make the output deterministic
+        sort(member_ids.begin(), member_ids.end());
+        std::string id = "cluster";
+        for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
+            id = id + "_" + (*j);
+        }
+        if (!insert(id, pos)) {
+            // should not fail
+            WRITE_WARNING("Could not join junctions " + id);
+            continue;
+        }
+        NBNode* newNode = retrieve(id);
+        // add a traffic light if one of the cluster members was controlled
+        bool setTL = false;
+        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+            if ((*j)->isTLControlled()) {
+                setTL = true;
+            }
+        }
+        if (setTL) {
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
+            if (!tlc.insert(tlDef)) {
+                // actually, nothing should fail here
+                delete tlDef;
+                throw ProcessError("Could not allocate tls '" + id + "'.");
+            }
+        }
+        // perform the merging
+        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+            merge(*j, newNode, dc, ec);
+        }
+    }
 }
 
 
