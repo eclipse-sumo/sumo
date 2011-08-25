@@ -2,8 +2,8 @@ Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate nodes... 
 Found duplicate nodes. Substituting 408437200 with 259645435
- done.
-Removing duplicate edges...  done.
+done.
+Removing duplicate edges... done.
  Import done:
    1024 nodes loaded.
    31 types loaded.

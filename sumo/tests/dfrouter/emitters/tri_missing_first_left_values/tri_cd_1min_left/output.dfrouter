@@ -1,5 +1,5 @@
 Loading net... done.
-Loading detector definitions from 'input_tri.det.xml'...  done.
+Loading detector definitions from 'input_tri.det.xml'... done.
 Loading flows from 'input_tri_flows.txt'... done.
 Scanning for empty detectors... 
 Detector 'MQ_L' has no flow.
@@ -11,8 +11,8 @@ Computed detector types:
  7 in-between detectors
  0 invalid detectors
 Computing routes... done.
-Detected PKW speed higher than allowed speed at 'MQ_1toL' on '1toL'.
 Detected PKW speed higher than allowed speed at 'MQ_1toR' on '1toR'.
+Detected PKW speed higher than allowed speed at 'MQ_1toL' on '1toL'.
 Detected PKW speed higher than allowed speed at 'MQ_Lto2' on 'Lto2'.
 Detected PKW speed higher than allowed speed at 'MQ_R' on 'R'.
 Detected PKW speed higher than allowed speed at 'MQ_Rto2' on 'Rto2'.

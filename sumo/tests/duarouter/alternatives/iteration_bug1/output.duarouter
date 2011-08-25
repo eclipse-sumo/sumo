@@ -1,5 +1,5 @@
 Loading net... done.
-Loading precomputed net weights from 'input_weights.dump.xml' ...  done.
+Loading precomputed net weights from 'input_weights.dump.xml'... done.
 Skipping...
 Skipped until: 1.00
 Reading time step: 1.00  (1.00/86400.00 = 0.00% done)       
