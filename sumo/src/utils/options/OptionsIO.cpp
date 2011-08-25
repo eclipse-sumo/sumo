@@ -83,7 +83,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
     if (!FileHelpers::exists(path)) {
         throw ProcessError("Could not find configuration '" + oc.getString("configuration-file") + "'.");
     }
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading configuration...");
+    PROGRESS_BEGIN_MESSAGE("Loading configuration");
     // build parser
     SAXParser parser;
     parser.setValidationScheme(SAXParser::Val_Auto);
@@ -102,7 +102,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
         throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
     oc.relocateFiles(path);
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 }
 
 

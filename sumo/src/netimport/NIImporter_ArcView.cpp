@@ -118,7 +118,7 @@ NIImporter_ArcView::~NIImporter_ArcView() {}
 void
 NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
+    PROGRESS_BEGIN_MESSAGE("Loading data from '" + mySHPName + "'");
     OGRRegisterAll();
     OGRDataSource *poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
     if (poDS == NULL) {
@@ -281,7 +281,7 @@ NIImporter_ArcView::load() {
         //
         OGRFeature::DestroyFeature(poFeature);
     }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 #else
     WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif

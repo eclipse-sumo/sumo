@@ -114,27 +114,27 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
     if (!FileHelpers::exists(file)) {
         throw ProcessError("The network file '" + file + "' could not be found.");
     }
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
+    PROGRESS_BEGIN_MESSAGE("Loading net");
     RONetHandler handler(toFill, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     if (myOptions.isSet("taz-files", false)) { // dfrouter does not register this option
         file = myOptions.getString("taz-files");
         if (!FileHelpers::exists(file)) {
             throw ProcessError("The districts file '" + file + "' could not be found.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts...");
+        PROGRESS_BEGIN_MESSAGE("Loading districts");
         handler.setFileName(file);
         if (!XMLSubSys::runParser(handler, file)) {
-            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+            PROGRESS_FAILED_MESSAGE();
             throw ProcessError();
         } else {
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
     }
 }
@@ -350,9 +350,9 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     // go through files
     std::vector<std::string> files = myOptions.getStringVector(optionName);
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights from '" + *fileIt + "' ...");
+        PROGRESS_BEGIN_MESSAGE("Loading precomputed net weights from '" + *fileIt + "'");
         if (XMLSubSys::runParser(handler, *fileIt)) {
-            MsgHandler::getMessageInstance()->endProcessMsg(" done.");
+            PROGRESS_DONE_MESSAGE();
         } else {
             WRITE_MESSAGE("failed.");
             return false;

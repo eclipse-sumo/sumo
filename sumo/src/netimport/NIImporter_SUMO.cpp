@@ -105,9 +105,9 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             return;
         }
         setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing sumo-net from '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // build edges
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {

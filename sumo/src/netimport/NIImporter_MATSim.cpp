@@ -106,11 +106,11 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             return;
         }
         nodesHandler.setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from matsim-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing nodes from matsim-file '" + *file + "'");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             return;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // load edges, then
     EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
@@ -118,9 +118,9 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing edges from matsim-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing edges from matsim-file '" + *file + "'");
         XMLSubSys::runParser(edgesHandler, *file);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 

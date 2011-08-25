@@ -74,7 +74,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
     handler.setFileName(file);
     XMLPScanToken token;
     XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *parser = XMLSubSys::getSAXReader(handler);
-    MsgHandler::getMessageInstance()->beginProcessMsg("Parsing network projection from '" + file + "'...");
+    PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file.c_str(), token)) {
         delete parser;
         throw ProcessError("Can not read XML-file '" + handler.getFileName() + "'.");
@@ -82,7 +82,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
     // parse
     while (parser->parseNext(token) && !handler.hasReadAll());
     // clean up
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
     if (!handler.hasReadAll()) {
         throw ProcessError("Could not find projection parameter in net.");
     }

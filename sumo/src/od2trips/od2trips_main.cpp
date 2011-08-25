@@ -229,13 +229,13 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc) {
     if (!FileHelpers::exists(file)) {
         throw ProcessError("Could not find network '" + file + "' to load.");
     }
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
+    PROGRESS_BEGIN_MESSAGE("Loading districts from '" + file + "'");
     // build the xml-parser and handler
     ODDistrictHandler handler(districts, file);
     if (!XMLSubSys::runParser(handler, file)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        PROGRESS_FAILED_MESSAGE();
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 
@@ -300,7 +300,7 @@ readFactor(LineReader &lr, SUMOReal scale) {
 void
 readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType) {
-    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
+    PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as VMR");
     // parse first defs
     std::string line;
     if (matrixHasVehType) {
@@ -361,14 +361,14 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
             }
         } while (di!=names.end());
     }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 }
 
 
 void
 readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType) {
-    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
+    PROGRESS_BEGIN_MESSAGE("Reading matrix '" + lr.getFileName() + "' stored as OR");
     // parse first defs
     std::string line;
     if (matrixHasVehType) {
@@ -410,7 +410,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
             throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
         }
     }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 }
 
 

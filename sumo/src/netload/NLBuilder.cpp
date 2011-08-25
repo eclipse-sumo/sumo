@@ -130,7 +130,7 @@ NLBuilder::build() throw(ProcessError) {
         if (!strm.good()) {
             WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
         } else {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + myOptions.getString("load-state") + "'...");
+            PROGRESS_BEGIN_MESSAGE("Loading state from '" + myOptions.getString("load-state") + "'");
             unsigned int step = myNet.loadState(strm);
             if (myOptions.isDefault("begin")) {
                 myOptions.set("begin", time2string(step));
@@ -247,7 +247,7 @@ NLBuilder::load(const std::string &mmlWhat) {
     std::vector<std::string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!gSuppressMessages) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading " + mmlWhat + " from '" + *fileIt + "' ...");
+            PROGRESS_BEGIN_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         }
         long before = SysUtils::getCurrentMillis();
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt)) {

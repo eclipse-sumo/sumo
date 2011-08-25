@@ -84,12 +84,12 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("Could not open detector file '" + *fileIt + "'");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
+       PROGRESS_BEGIN_MESSAGE("Loading detector definitions from '" + *fileIt + "'");
         RODFDetectorHandler handler(optNet, oc.getBool("ignore-invalid-detectors"), detectors, *fileIt);
         if (XMLSubSys::runParser(handler, *fileIt)) {
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         } else {
-            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+            PROGRESS_FAILED_MESSAGE();
             throw ProcessError();
         }
     }
@@ -109,11 +109,11 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
             throw ProcessError("The measure-file '" + *fileIt + "' can not be opened.");
         }
         // parse
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'...");
+        PROGRESS_BEGIN_MESSAGE("Loading flows from '" + *fileIt + "'");
         RODFDetFlowLoader dfl(dc, flows, string2time(oc.getString("begin")), string2time(oc.getString("end")),
                               string2time(oc.getString("time-offset")), string2time(oc.getString("time-factor")));
         dfl.read(*fileIt);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 
@@ -127,13 +127,13 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     // if a network was loaded... (mode1)
     if (optNet!=0) {
         if (oc.getBool("remove-empty-detectors")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
+            PROGRESS_BEGIN_MESSAGE("Removing empty detectors");
             optNet->removeEmptyDetectors(detectors, flows);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         } else  if (oc.getBool("report-empty-detectors")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Scanning for empty detectors...");
+            PROGRESS_BEGIN_MESSAGE("Scanning for empty detectors");
             optNet->reportEmptyDetectors(detectors, flows);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
         // compute the detector types (optionally)
         if (!detectors.detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {
@@ -141,12 +141,12 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
         }
         // compute routes between the detectors (optionally)
         if (!detectors.detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
+            PROGRESS_BEGIN_MESSAGE("Computing routes");
             optNet->buildRoutes(detectors,
                                 oc.getBool("all-end-follower"), oc.getBool("keep-unfinished-routes"),
                                 oc.getBool("routes-for-all"), !oc.getBool("keep-longer-routes"),
                                 oc.getInt("max-search-depth"));
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
     }
 
@@ -188,12 +188,12 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     if (oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
         optNet->buildEdgeFlowMap(flows, detectors, begin, end, step); // !!!
         if (oc.getBool("revalidate-flows")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
+            PROGRESS_BEGIN_MESSAGE("Rechecking loaded flows");
             optNet->revalidateFlows(detectors, flows, begin, end, step);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-output")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
+            PROGRESS_BEGIN_MESSAGE("Writing emitters");
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
                                     begin, end, step,
                                     *optNet,
@@ -202,33 +202,33 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
                                     oc.getFloat("scale"),
                                     oc.getInt("max-search-depth"),
                                     oc.getBool("emissions-only"));
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-poi-output")) {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
+            PROGRESS_BEGIN_MESSAGE("Writing emitter pois");
             detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            PROGRESS_DONE_MESSAGE();
         }
     }
     // save end speed trigger if wished
     if (oc.isSet("variable-speed-sign-output")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
+        PROGRESS_BEGIN_MESSAGE("Writing speed triggers");
         detectors.writeSpeedTrigger(optNet, oc.getString("variable-speed-sign-output"), flows,
                                     begin, end, step);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // save checking detectors if wished
     if (oc.isSet("validation-output")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Writing validation detectors...");
+        PROGRESS_BEGIN_MESSAGE("Writing validation detectors");
         detectors.writeValidationDetectors(oc.getString("validation-output"),
                                            oc.getBool("validation-output.add-sources"), true, true); // !!!
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // build global rerouter on end if wished
     if (oc.isSet("end-reroute-output")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Writing highway end rerouter...");
+        PROGRESS_BEGIN_MESSAGE("Writing highway end rerouter");
         detectors.writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+       PROGRESS_DONE_MESSAGE();
     }
     /*
        // save the insertion definitions

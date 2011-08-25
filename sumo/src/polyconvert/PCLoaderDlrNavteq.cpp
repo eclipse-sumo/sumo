@@ -79,9 +79,9 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlr-navteq-poi-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poi-file '" + *file + "'");
         loadPOIFile(*file, oc, toFill, tm);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 
@@ -94,9 +94,9 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlr-navteq-poly-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poly-file '" + *file + "'");
         loadPolyFile(*file, oc, toFill, tm);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 

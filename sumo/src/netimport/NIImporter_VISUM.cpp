@@ -173,7 +173,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
             continue;
         }
         // ok, the according information is stored in the file
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing " + (*i).name + "...");
+        PROGRESS_BEGIN_MESSAGE("Parsing " + (*i).name);
         // reset the line reader and let it point to the begin of the according data field
         myLineReader.reinit();
         myLineReader.setPos((*i).position);
@@ -200,7 +200,7 @@ NIImporter_VISUM::load() throw(ProcessError) {
             }
         }
         // close single reader processing
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // build traffic lights
     for (NIVisumTL_Map::iterator j=myNIVisumTLs.begin(); j!=myNIVisumTLs.end(); j++) {

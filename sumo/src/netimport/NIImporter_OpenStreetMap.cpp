@@ -239,20 +239,20 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
             return;
         }
         nodesHandler.setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from osm-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             return;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // load edges, then
     EdgesHandler edgesHandler(myOSMNodes, myEdges);
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing edges from osm-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
         XMLSubSys::runParser(edgesHandler, *file);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 
     /* Remove duplicate nodes with the same coordinates
@@ -261,7 +261,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
      * the shape of an edge. (NBEdge::init calls PositionVector::push_front
      * with the second, which has the same coordinates as the first.) */
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate nodes...");
+        PROGRESS_BEGIN_MESSAGE("Removing duplicate nodes");
         if (myOSMNodes.size() > 1) {
             std::set<const NIOSMNode*, CompareNodes> dupsFinder;
             for (std::map<int, NIOSMNode*>::iterator it = myOSMNodes.begin(); it != myOSMNodes.end(); ++it) {
@@ -274,12 +274,12 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
                 }
             }
         }
-        MsgHandler::getMessageInstance()->endProcessMsg(" done.");
+        PROGRESS_DONE_MESSAGE();
     }
 
     /* Remove duplicate edges with the same shape and attributes */
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Removing duplicate edges...");
+        PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
         if (myEdges.size() > 1) {
             std::set<std::string> toRemove;
             for (std::map<std::string, Edge*>::iterator it = myEdges.begin(), itnext =++myEdges.begin(); itnext != myEdges.end(); ++it, ++itnext) {
@@ -296,7 +296,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
                 myEdges.erase(j);
             }
         }
-        MsgHandler::getMessageInstance()->endProcessMsg(" done.");
+        PROGRESS_DONE_MESSAGE();
     }
 
     /* Mark which nodes are used (by edges or traffic lights).

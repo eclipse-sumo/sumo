@@ -59,9 +59,9 @@ PCLoaderArcView::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("shapefile-prefixes");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing from shape-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
         load(*file, oc, toFill, tm);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 
@@ -236,7 +236,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
         }
         OGRFeature::DestroyFeature(poFeature);
     }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 #else
     WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif

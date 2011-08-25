@@ -74,14 +74,14 @@ void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw(ProcessError) {
         throw ProcessError("The network file '" + file
                            + "' could not be found.");
     }
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading net ...");
+    PROGRESS_BEGIN_MESSAGE("Loading net");
     RONetHandler handler(toFill, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 

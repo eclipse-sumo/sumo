@@ -132,9 +132,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             return;
         }
         handler.setFileName(*file);
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing opendrive from '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing opendrive from '" + *file + "'");
         XMLSubSys::runParser(handler, *file);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
     // convert geometries into a discretised representation
     computeShapes(innerEdges);

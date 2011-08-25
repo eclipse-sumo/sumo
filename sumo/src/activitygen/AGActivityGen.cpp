@@ -56,10 +56,10 @@ AGActivityGen::importInfoCity() {
     XMLSubSys::init(false);
     MsgHandler::initOutputOptions();
     if (!XMLSubSys::runParser(handler, inputFile)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+        PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
     } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 
     std::cout << "### read input done." << std::endl;

@@ -69,11 +69,11 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing XML from '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 

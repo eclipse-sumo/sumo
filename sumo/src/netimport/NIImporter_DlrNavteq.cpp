@@ -69,26 +69,26 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     LineReader lr;
     // load nodes
     std::map<std::string, PositionVector> myGeoms;
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
+    PROGRESS_BEGIN_MESSAGE("Loading nodes");
     std::string file = oc.getString("dlr-navteq-prefix") + "_nodes_unsplitted.txt";
     NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
     if (!lr.setFile(file)) {
         throw ProcessError("The file '" + file + "' could not be opened.");
     }
     lr.readAll(handler1);
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 
     // load traffic lights
     file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
     if (lr.setFile(file)) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading traffic lights...");
+        PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
         TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
         lr.readAll(handler3);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 
     // load edges
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
+    PROGRESS_BEGIN_MESSAGE("Loading edges");
     file = oc.getString("dlr-navteq-prefix") + "_links_unsplitted.txt";
     // parse the file
     EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), file, myGeoms);
@@ -97,7 +97,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     lr.readAll(handler2);
     nb.getEdgeCont().recheckLaneSpread();
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    PROGRESS_DONE_MESSAGE();
 }
 
 

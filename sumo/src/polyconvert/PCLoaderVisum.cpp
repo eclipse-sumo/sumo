@@ -70,9 +70,9 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open visum-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing from visum-file '" + *file + "'...");
+        PROGRESS_BEGIN_MESSAGE("Parsing from visum-file '" + *file + "'");
         load(*file, oc, toFill, tm);
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        PROGRESS_DONE_MESSAGE();
     }
 }
 
