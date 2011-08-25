@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/07/11 07:07:58 by SUMO sumo Version dev-SVN-r10879
+<!-- generated on 08/25/11 10:05:05 by SUMO sumo Version dev-SVN-r11151
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,407 +23,407 @@
 -->
 
 <routes>
-    <vehicle id="10" depart="3.00" arrival="135.00">
+    <vehicle id="10" type="KRAUSS_DEFAULT" depart="3.00" arrival="135.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="13" depart="5.00" arrival="142.00">
+    <vehicle id="13" type="KRAUSS_DEFAULT" depart="5.00" arrival="142.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0" depart="0.00" arrival="146.00">
+    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00" arrival="146.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="20" depart="8.00" arrival="148.00">
+    <vehicle id="20" type="KRAUSS_DEFAULT" depart="8.00" arrival="148.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="35" depart="10.00" arrival="150.00">
+    <vehicle id="35" type="KRAUSS_DEFAULT" depart="10.00" arrival="150.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="64" depart="13.00" arrival="153.00">
+    <vehicle id="64" type="KRAUSS_DEFAULT" depart="13.00" arrival="153.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="99" depart="15.00" arrival="154.00">
+    <vehicle id="99" type="KRAUSS_DEFAULT" depart="15.00" arrival="154.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="98" depart="18.00" arrival="156.00">
+    <vehicle id="98" type="KRAUSS_DEFAULT" depart="18.00" arrival="156.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="97" depart="27.00" arrival="159.00">
+    <vehicle id="97" type="KRAUSS_DEFAULT" depart="27.00" arrival="159.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="96" depart="30.00" arrival="174.00">
+    <vehicle id="96" type="KRAUSS_DEFAULT" depart="30.00" arrival="174.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="95" depart="47.00" arrival="176.00">
+    <vehicle id="95" type="KRAUSS_DEFAULT" depart="47.00" arrival="176.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="94" depart="50.00" arrival="179.00">
+    <vehicle id="94" type="KRAUSS_DEFAULT" depart="50.00" arrival="179.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="93" depart="53.00" arrival="181.00">
+    <vehicle id="93" type="KRAUSS_DEFAULT" depart="53.00" arrival="181.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="92" depart="55.00" arrival="184.00">
+    <vehicle id="92" type="KRAUSS_DEFAULT" depart="55.00" arrival="184.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="91" depart="58.00" arrival="186.00">
+    <vehicle id="91" type="KRAUSS_DEFAULT" depart="58.00" arrival="186.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="90" depart="61.00" arrival="188.00">
+    <vehicle id="90" type="KRAUSS_DEFAULT" depart="61.00" arrival="188.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="9" depart="63.00" arrival="190.00">
+    <vehicle id="9" type="KRAUSS_DEFAULT" depart="63.00" arrival="190.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="89" depart="66.00" arrival="192.00">
+    <vehicle id="89" type="KRAUSS_DEFAULT" depart="66.00" arrival="192.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="88" depart="69.00" arrival="194.00">
+    <vehicle id="88" type="KRAUSS_DEFAULT" depart="69.00" arrival="194.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="87" depart="71.00" arrival="197.00">
+    <vehicle id="87" type="KRAUSS_DEFAULT" depart="71.00" arrival="197.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="86" depart="74.00" arrival="199.00">
+    <vehicle id="86" type="KRAUSS_DEFAULT" depart="74.00" arrival="199.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="85" depart="77.00" arrival="201.00">
+    <vehicle id="85" type="KRAUSS_DEFAULT" depart="77.00" arrival="201.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="84" depart="79.00" arrival="203.00">
+    <vehicle id="84" type="KRAUSS_DEFAULT" depart="79.00" arrival="203.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="83" depart="82.00" arrival="206.00">
+    <vehicle id="83" type="KRAUSS_DEFAULT" depart="82.00" arrival="206.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="82" depart="84.00" arrival="208.00">
+    <vehicle id="82" type="KRAUSS_DEFAULT" depart="84.00" arrival="208.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="81" depart="87.00" arrival="211.00">
+    <vehicle id="81" type="KRAUSS_DEFAULT" depart="87.00" arrival="211.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="80" depart="90.00" arrival="213.00">
+    <vehicle id="80" type="KRAUSS_DEFAULT" depart="90.00" arrival="213.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="8" depart="92.00" arrival="216.00">
+    <vehicle id="8" type="KRAUSS_DEFAULT" depart="92.00" arrival="216.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="79" depart="94.00" arrival="218.00">
+    <vehicle id="79" type="KRAUSS_DEFAULT" depart="94.00" arrival="218.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="78" depart="97.00" arrival="221.00">
+    <vehicle id="78" type="KRAUSS_DEFAULT" depart="97.00" arrival="221.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="77" depart="100.00" arrival="223.00">
+    <vehicle id="77" type="KRAUSS_DEFAULT" depart="100.00" arrival="223.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="76" depart="102.00" arrival="226.00">
+    <vehicle id="76" type="KRAUSS_DEFAULT" depart="102.00" arrival="226.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="75" depart="105.00" arrival="228.00">
+    <vehicle id="75" type="KRAUSS_DEFAULT" depart="105.00" arrival="228.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="74" depart="108.00" arrival="231.00">
+    <vehicle id="74" type="KRAUSS_DEFAULT" depart="108.00" arrival="231.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="73" depart="110.00" arrival="233.00">
+    <vehicle id="73" type="KRAUSS_DEFAULT" depart="110.00" arrival="233.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="72" depart="113.00" arrival="236.00">
+    <vehicle id="72" type="KRAUSS_DEFAULT" depart="113.00" arrival="236.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="71" depart="116.00" arrival="238.00">
+    <vehicle id="71" type="KRAUSS_DEFAULT" depart="116.00" arrival="238.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="70" depart="118.00" arrival="241.00">
+    <vehicle id="70" type="KRAUSS_DEFAULT" depart="118.00" arrival="241.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="7" depart="121.00" arrival="244.00">
+    <vehicle id="7" type="KRAUSS_DEFAULT" depart="121.00" arrival="244.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="69" depart="124.00" arrival="246.00">
+    <vehicle id="69" type="KRAUSS_DEFAULT" depart="124.00" arrival="246.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="68" depart="126.00" arrival="249.00">
+    <vehicle id="68" type="KRAUSS_DEFAULT" depart="126.00" arrival="249.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="67" depart="129.00" arrival="252.00">
+    <vehicle id="67" type="KRAUSS_DEFAULT" depart="129.00" arrival="252.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="66" depart="132.00" arrival="255.00">
+    <vehicle id="66" type="KRAUSS_DEFAULT" depart="132.00" arrival="255.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="63" depart="135.00" arrival="257.00">
+    <vehicle id="63" type="KRAUSS_DEFAULT" depart="135.00" arrival="257.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="65" depart="137.00" arrival="260.00">
+    <vehicle id="65" type="KRAUSS_DEFAULT" depart="137.00" arrival="260.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="62" depart="140.00" arrival="263.00">
+    <vehicle id="62" type="KRAUSS_DEFAULT" depart="140.00" arrival="263.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="61" depart="142.00" arrival="265.00">
+    <vehicle id="61" type="KRAUSS_DEFAULT" depart="142.00" arrival="265.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="60" depart="145.00" arrival="268.00">
+    <vehicle id="60" type="KRAUSS_DEFAULT" depart="145.00" arrival="268.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="6" depart="147.00" arrival="271.00">
+    <vehicle id="6" type="KRAUSS_DEFAULT" depart="147.00" arrival="271.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="59" depart="150.00" arrival="274.00">
+    <vehicle id="59" type="KRAUSS_DEFAULT" depart="150.00" arrival="274.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="58" depart="153.00" arrival="277.00">
+    <vehicle id="58" type="KRAUSS_DEFAULT" depart="153.00" arrival="277.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="57" depart="156.00" arrival="278.00">
+    <vehicle id="57" type="KRAUSS_DEFAULT" depart="156.00" arrival="278.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="56" depart="158.00" arrival="281.00">
+    <vehicle id="56" type="KRAUSS_DEFAULT" depart="158.00" arrival="281.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="55" depart="161.00" arrival="284.00">
+    <vehicle id="55" type="KRAUSS_DEFAULT" depart="161.00" arrival="284.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="54" depart="164.00" arrival="287.00">
+    <vehicle id="54" type="KRAUSS_DEFAULT" depart="164.00" arrival="287.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="53" depart="167.00" arrival="290.00">
+    <vehicle id="53" type="KRAUSS_DEFAULT" depart="167.00" arrival="290.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="52" depart="169.00" arrival="292.00">
+    <vehicle id="52" type="KRAUSS_DEFAULT" depart="169.00" arrival="292.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="51" depart="172.00" arrival="295.00">
+    <vehicle id="51" type="KRAUSS_DEFAULT" depart="172.00" arrival="295.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="50" depart="175.00" arrival="299.00">
+    <vehicle id="50" type="KRAUSS_DEFAULT" depart="175.00" arrival="299.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="5" depart="178.00" arrival="302.00">
+    <vehicle id="5" type="KRAUSS_DEFAULT" depart="178.00" arrival="302.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="49" depart="180.00" arrival="304.00">
+    <vehicle id="49" type="KRAUSS_DEFAULT" depart="180.00" arrival="304.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="48" depart="183.00" arrival="307.00">
+    <vehicle id="48" type="KRAUSS_DEFAULT" depart="183.00" arrival="307.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="47" depart="186.00" arrival="309.00">
+    <vehicle id="47" type="KRAUSS_DEFAULT" depart="186.00" arrival="309.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="46" depart="188.00" arrival="312.00">
+    <vehicle id="46" type="KRAUSS_DEFAULT" depart="188.00" arrival="312.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="45" depart="191.00" arrival="315.00">
+    <vehicle id="45" type="KRAUSS_DEFAULT" depart="191.00" arrival="315.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="44" depart="194.00" arrival="317.00">
+    <vehicle id="44" type="KRAUSS_DEFAULT" depart="194.00" arrival="317.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="43" depart="196.00" arrival="320.00">
+    <vehicle id="43" type="KRAUSS_DEFAULT" depart="196.00" arrival="320.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="42" depart="199.00" arrival="322.00">
+    <vehicle id="42" type="KRAUSS_DEFAULT" depart="199.00" arrival="322.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="41" depart="201.00" arrival="325.00">
+    <vehicle id="41" type="KRAUSS_DEFAULT" depart="201.00" arrival="325.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="40" depart="204.00" arrival="328.00">
+    <vehicle id="40" type="KRAUSS_DEFAULT" depart="204.00" arrival="328.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="4" depart="207.00" arrival="331.00">
+    <vehicle id="4" type="KRAUSS_DEFAULT" depart="207.00" arrival="331.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="39" depart="209.00" arrival="333.00">
+    <vehicle id="39" type="KRAUSS_DEFAULT" depart="209.00" arrival="333.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="38" depart="212.00" arrival="336.00">
+    <vehicle id="38" type="KRAUSS_DEFAULT" depart="212.00" arrival="336.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="37" depart="215.00" arrival="338.00">
+    <vehicle id="37" type="KRAUSS_DEFAULT" depart="215.00" arrival="338.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="34" depart="217.00" arrival="342.00">
+    <vehicle id="34" type="KRAUSS_DEFAULT" depart="217.00" arrival="342.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="36" depart="220.00" arrival="344.00">
+    <vehicle id="36" type="KRAUSS_DEFAULT" depart="220.00" arrival="344.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="33" depart="223.00" arrival="346.00">
+    <vehicle id="33" type="KRAUSS_DEFAULT" depart="223.00" arrival="346.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="32" depart="225.00" arrival="348.00">
+    <vehicle id="32" type="KRAUSS_DEFAULT" depart="225.00" arrival="348.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="31" depart="228.00" arrival="351.00">
+    <vehicle id="31" type="KRAUSS_DEFAULT" depart="228.00" arrival="351.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="30" depart="231.00" arrival="354.00">
+    <vehicle id="30" type="KRAUSS_DEFAULT" depart="231.00" arrival="354.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="3" depart="234.00" arrival="356.00">
+    <vehicle id="3" type="KRAUSS_DEFAULT" depart="234.00" arrival="356.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="29" depart="236.00" arrival="360.00">
+    <vehicle id="29" type="KRAUSS_DEFAULT" depart="236.00" arrival="360.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="28" depart="239.00" arrival="362.00">
+    <vehicle id="28" type="KRAUSS_DEFAULT" depart="239.00" arrival="362.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="27" depart="241.00" arrival="364.00">
+    <vehicle id="27" type="KRAUSS_DEFAULT" depart="241.00" arrival="364.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="26" depart="244.00" arrival="368.00">
+    <vehicle id="26" type="KRAUSS_DEFAULT" depart="244.00" arrival="368.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="25" depart="246.00" arrival="370.00">
+    <vehicle id="25" type="KRAUSS_DEFAULT" depart="246.00" arrival="370.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="24" depart="249.00" arrival="373.00">
+    <vehicle id="24" type="KRAUSS_DEFAULT" depart="249.00" arrival="373.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="23" depart="251.00" arrival="375.00">
+    <vehicle id="23" type="KRAUSS_DEFAULT" depart="251.00" arrival="375.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="22" depart="254.00" arrival="378.00">
+    <vehicle id="22" type="KRAUSS_DEFAULT" depart="254.00" arrival="378.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="2" depart="256.00" arrival="380.00">
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="256.00" arrival="380.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="21" depart="259.00" arrival="382.00">
+    <vehicle id="21" type="KRAUSS_DEFAULT" depart="259.00" arrival="382.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="19" depart="262.00" arrival="385.00">
+    <vehicle id="19" type="KRAUSS_DEFAULT" depart="262.00" arrival="385.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="18" depart="264.00" arrival="388.00">
+    <vehicle id="18" type="KRAUSS_DEFAULT" depart="264.00" arrival="388.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="17" depart="267.00" arrival="391.00">
+    <vehicle id="17" type="KRAUSS_DEFAULT" depart="267.00" arrival="391.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="16" depart="270.00" arrival="393.00">
+    <vehicle id="16" type="KRAUSS_DEFAULT" depart="270.00" arrival="393.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="15" depart="273.00" arrival="396.00">
+    <vehicle id="15" type="KRAUSS_DEFAULT" depart="273.00" arrival="396.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="12" depart="275.00" arrival="399.00">
+    <vehicle id="12" type="KRAUSS_DEFAULT" depart="275.00" arrival="399.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="14" depart="278.00" arrival="401.00">
+    <vehicle id="14" type="KRAUSS_DEFAULT" depart="278.00" arrival="401.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="11" depart="281.00" arrival="404.00">
+    <vehicle id="11" type="KRAUSS_DEFAULT" depart="281.00" arrival="404.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="1" depart="283.00" arrival="407.00">
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="283.00" arrival="407.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="100" depart="286.00" arrival="409.00">
+    <vehicle id="100" type="KRAUSS_DEFAULT" depart="286.00" arrival="409.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
