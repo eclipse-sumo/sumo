@@ -338,14 +338,18 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
 
 void 
-NBNodeCont::addJoinExlusion(const std::string &id) {
-    // error handling has to take place here since joinExclusions could be
-    // loaded from multiple files / command line
-    if (myJoined.count(id) > 0) {
-        WRITE_WARNING("Ignoring join exclusion for node '" + id + 
-                "' since it already occured in a list of nodes to be joined");
-    } else {
-        myJoinExclusions.insert(id);
+NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
+    for (std::vector<std::string>::const_iterator it=ids.begin(); it!=ids.end(); it++) {
+        // error handling has to take place here since joinExclusions could be
+        // loaded from multiple files / command line
+        if (myJoined.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join exclusion for node '" + *it + 
+                    "' since it already occured in a list of nodes to be joined");
+        } else if (check && retrieve(*it) == 0) {
+            WRITE_WARNING("Ignoring join exclusion for unknown node '" + *it + "'");
+        } else {
+            myJoinExclusions.insert(*it);
+        }
     }
 }
 

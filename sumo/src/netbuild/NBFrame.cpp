@@ -127,6 +127,11 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join-dist", "Processing",
                       "Determines the maximal distance for joining junctions (defaults to 15)");
 
+    if (!forNetgen) {
+        oc.doRegister("junctions.join-exclude", new Option_String());
+        oc.addDescription("junctions.join-exclude", "Processing", "Interprets STR as list of junctions to exclude from joining");
+    }
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_String());

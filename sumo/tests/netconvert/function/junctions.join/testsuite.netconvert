@@ -5,7 +5,7 @@ basic
 joinExclude_input_file
 
 # exclude nodes from being joined (via command line)
-joinExclude_cmdline
+exclude_cmdline
 
 # specify which nodes to join via input file
 join_loaded

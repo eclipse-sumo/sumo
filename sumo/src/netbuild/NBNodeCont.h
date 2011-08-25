@@ -270,8 +270,12 @@ public:
     std::vector<std::string> getAllNames() const throw();
 
 
-    /// @brief add id for a node wich shall not be joined
-    void addJoinExlusion(const std::string &id);
+    /* @brief add ids of nodes wich shall not be joined
+     * @param[in] ids A list of ids to exclude from joining
+     * @param[in] ids check Whether to check if these nodes are known
+     * @note checking is off by default because all nodes may not have been loaded yet
+     */
+    void addJoinExclusion(const std::vector<std::string> &ids, bool check=false);
 
 
     /// @brief add ids of nodes which shall be joined into a single node 

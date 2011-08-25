@@ -173,9 +173,7 @@ NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes &attrs) {
     const std::vector<std::string> ids = StringTokenizer(
             attrs.getStringReporting(SUMO_ATTR_NODES, 0, ok)).getVector();
     if (ok) {
-        for (std::vector<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-            myNodeCont.addJoinExlusion(*it);
-        }
+        myNodeCont.addJoinExclusion(ids);
     }
 }
 

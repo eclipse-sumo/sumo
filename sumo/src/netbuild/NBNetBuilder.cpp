@@ -95,6 +95,9 @@ NBNetBuilder::compute(OptionsCont &oc,
         bool removeUnwishedNodes) {
     int step = 1;
     // join junctions
+    if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
+        myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
+    }
     unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
     if (oc.getBool("junctions.join")) {
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
