@@ -367,11 +367,9 @@ enum {
     MID_GNE_DEF_SUBRENAME,
     MID_GNE_DEF_ADDOFF,
     /** phase related controls */
-    MID_GNE_PHASE_SWITCH,
+    MID_GNE_PHASE_TABLE,
     MID_GNE_PHASE_CREATE,
     MID_GNE_PHASE_DELETE,
-    MID_GNE_PHASE_INDEX,
-    MID_GNE_PHASE_DURATION,
 
     /// misc messages
     MID_GNE_NEW_NETWORK,
