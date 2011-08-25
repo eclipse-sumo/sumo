@@ -10,7 +10,7 @@ TESTLOG=$PREFIX/${FILEPREFIX}test.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
-if test $# -ge 6; then
+if test $# -ge 5; then
   NIGHTDIR=$5
 fi
 
