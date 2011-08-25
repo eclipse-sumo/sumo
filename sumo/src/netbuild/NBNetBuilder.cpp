@@ -93,72 +93,83 @@ void
 NBNetBuilder::compute(OptionsCont &oc, 
         const std::set<std::string> &explicitTurnarounds,
         bool removeUnwishedNodes) {
-    int step = 1;
     // join junctions
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
     }
     unsigned int numJoined = myNodeCont.joinLoadedClusters(myDistrictCont, myEdgeCont, myTLLCont);
     if (oc.getBool("junctions.join")) {
+		PROGRESS_BEGIN_MESSAGE("Joining junction clusters");
         numJoined += myNodeCont.joinJunctions(oc.getFloat("junctions.join-dist"), myDistrictCont, myEdgeCont, myTLLCont);
+		PROGRESS_DONE_MESSAGE();
     }
     if (numJoined > 0) {
         // bit of a misnomer since we're already done
-        inform(step, "Joined " + toString(numJoined) + " junction cluster(s)");
+        WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
     // Removes edges that are connecting the same node
-    inform(step, "Removing dummy edges.");
+    PROGRESS_BEGIN_MESSAGE("Removing dummy edges");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Joining double connections.");
+    PROGRESS_BEGIN_MESSAGE("Joining double connections");
     myJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
+	PROGRESS_DONE_MESSAGE();
     //
     if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
-        inform(step, "Finding isolated roads.");
+        PROGRESS_BEGIN_MESSAGE("Finding isolated roads");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
+		PROGRESS_DONE_MESSAGE();
     }
     //
     if (oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges.explicit")) {
-            inform(step, "Removing unwished edges.");
+            PROGRESS_BEGIN_MESSAGE("Removing unwished edges");
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
+			PROGRESS_DONE_MESSAGE();
         }
     }
     //
     if (removeUnwishedNodes) {
+		unsigned int no = 0;
         if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
-            inform(step, "Removing empty nodes and geometry nodes.");
-            myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
+            PROGRESS_BEGIN_MESSAGE("Removing empty nodes and geometry nodes");
+            no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
         } else {
-            inform(step, "Removing empty nodes.");
-            myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
+            PROGRESS_BEGIN_MESSAGE("Removing empty nodes");
+            no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
         }
+        PROGRESS_DONE_MESSAGE();
+		WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
-        inform(step, "Splitting geometry edges.");
+        PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
         myEdgeCont.splitGeometry(myNodeCont);
+		PROGRESS_DONE_MESSAGE();
     }
     //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
-        inform(step, "Normalising node positions.");
+        PROGRESS_BEGIN_MESSAGE("Normalising node positions");
         const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
         const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
         myNodeCont.reshiftNodePositions(x, y);
         myEdgeCont.reshiftEdgePositions(x, y);
         myDistrictCont.reshiftDistrictPositions(x, y);
         GeoConvHelper::moveConvertedBy(x, y);
+		PROGRESS_DONE_MESSAGE();
     }
     //
     myEdgeCont.recomputeLaneShapes();
     //
     if ((oc.exists("ramps.guess")&&oc.getBool("ramps.guess"))||(oc.exists("ramps.set")&&oc.isSet("ramps.set"))) {
-        inform(step, "Guessing and setting on-/off-ramps.");
+        PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
+		PROGRESS_DONE_MESSAGE();
     }
     //
-    inform(step, "Guessing and setting traffic lights.");
+    PROGRESS_BEGIN_MESSAGE("Guessing and setting traffic lights");
     if (oc.isSet("tls.set")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
         for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
@@ -171,62 +182,86 @@ NBNetBuilder::compute(OptionsCont &oc,
         }
     }
     myNodeCont.guessTLs(oc, myTLLCont);
+	PROGRESS_DONE_MESSAGE();
     //
     if (oc.getBool("tls.join")) {
+		PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
         myNodeCont.joinTLS(myTLLCont);
+		PROGRESS_DONE_MESSAGE();
     }
     //
-    inform(step, "Computing turning directions.");
+    PROGRESS_BEGIN_MESSAGE("Computing turning directions");
     myEdgeCont.computeTurningDirections();
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Sorting nodes' edges.");
+    PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
     myNodeCont.sortNodesEdges(oc.getBool("lefthand"));
+	PROGRESS_DONE_MESSAGE();
     // 
-    inform(step, "Computing node types.");
+    PROGRESS_BEGIN_MESSAGE("Computing node types");
     myNodeCont.computeNodeTypes(myTypeCont);
+	PROGRESS_DONE_MESSAGE();
     // 
-    inform(step, "Computing priorities.");
+    PROGRESS_BEGIN_MESSAGE("Computing priorities");
     myNodeCont.computePriorities();
+	PROGRESS_DONE_MESSAGE();
     //
     if (oc.getBool("roundabouts.guess")) {
-        inform(step, "Guessing and setting roundabouts.");
+        PROGRESS_BEGIN_MESSAGE("Guessing and setting roundabouts");
         myEdgeCont.guessRoundabouts(myRoundabouts);
+		PROGRESS_DONE_MESSAGE();
     }
     //
-    inform(step, "Computing approached edges.");
+    PROGRESS_BEGIN_MESSAGE("Computing approached edges");
     myEdgeCont.computeEdge2Edges();
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing approaching lanes.");
+    PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");
     myEdgeCont.computeLanes2Edges();
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Dividing of lanes on approached lanes.");
+    PROGRESS_BEGIN_MESSAGE("Dividing of lanes on approached lanes");
     myNodeCont.computeLanes2Lanes();
     myEdgeCont.sortOutgoingLanesConnections();
+	PROGRESS_DONE_MESSAGE();
     //
+	PROGRESS_BEGIN_MESSAGE("Processing turnarounds");
     if (!oc.getBool("no-turnarounds")) {
-        inform(step, "Appending turnarounds.");
         myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"));
     } else {
         myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Rechecking of lane endings.");
+    PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
     myEdgeCont.recheckLanes();
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing node shapes.");
+    PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing edge shapes.");
+    PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
     myEdgeCont.computeEdgeShapes();
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing traffic light control information.");
+    PROGRESS_BEGIN_MESSAGE("Computing traffic light control information");
     myTLLCont.setTLControllingInformation(myEdgeCont);
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing node logics.");
+    PROGRESS_BEGIN_MESSAGE("Computing node logics");
     myNodeCont.computeLogics(myEdgeCont, oc);
+	PROGRESS_DONE_MESSAGE();
     //
-    inform(step, "Computing traffic light logics.");
-    myTLLCont.computeLogics(myEdgeCont, oc);
+    PROGRESS_BEGIN_MESSAGE("Computing traffic light logics");
+    std::pair<unsigned int, unsigned int> numbers = myTLLCont.computeLogics(myEdgeCont, oc);
+    PROGRESS_DONE_MESSAGE();
+    std::string progCount = "";
+    if (numbers.first != numbers.second) {
+        progCount = "(" + toString(numbers.second) + " programs) ";
+    }
+    WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
+
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
     WRITE_MESSAGE("Summary:");

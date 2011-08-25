@@ -249,8 +249,9 @@ public:
      * @param[in, mod] je The map of joined edges (changes are stored here)
      * @param[in, mod] tlc The traffic lights container to remove nodes from
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
+	 * @return The number of removed nodes
      */
-    void removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
+    unsigned int removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
                              bool removeGeometryNodes) throw();
 

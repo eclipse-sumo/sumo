@@ -132,7 +132,7 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition *definition) {
 }
 
 
-void
+std::pair<unsigned int, unsigned int>
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) {
     // clean previous logics
     Logics logics = getComputed();
@@ -148,12 +148,7 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) {
             numPrograms++;
         }
     }
-    unsigned int numIDs = (unsigned int)myComputed.size();
-    std::string progCount = "";
-    if (numPrograms != numIDs) {
-        progCount = "(" + toString(numPrograms) + " programs) ";
-    }
-    WRITE_MESSAGE(toString(numIDs) + " traffic light(s) " + progCount + "computed.");
+    return std::pair<unsigned int, unsigned int>((unsigned int)myComputed.size(), numPrograms);
 }
 
 

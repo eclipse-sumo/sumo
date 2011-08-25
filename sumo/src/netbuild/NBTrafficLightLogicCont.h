@@ -130,9 +130,10 @@ public:
      *
      * @param[in] ec The edge container used during the computation
      * @param[in] oc Options used during the computation
+     * @return The number of computed tls and programs
      * @see NBTrafficLightDefinition::compute
      */
-    void computeLogics(NBEdgeCont &ec, OptionsCont &oc);
+    std::pair<unsigned int, unsigned int> computeLogics(NBEdgeCont &ec, OptionsCont &oc);
 
 
     /** @brief Computes a specific traffic light logic (using by NETEDIT)

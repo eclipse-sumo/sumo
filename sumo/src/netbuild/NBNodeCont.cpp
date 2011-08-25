@@ -805,7 +805,7 @@ NBNodeCont::computeNodeShapes(bool leftHand) {
 }
 
 
-void
+unsigned int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                                 NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
                                 bool removeGeometryNodes) throw() {
@@ -856,7 +856,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     for (std::vector<NBNode*>::iterator j = toRemove.begin(); j!= toRemove.end(); ++j) {
         erase(*j);
     }
-    WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
+	return no;
 }
 
 
