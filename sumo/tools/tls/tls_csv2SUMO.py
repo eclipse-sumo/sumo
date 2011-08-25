@@ -162,8 +162,7 @@ for keyIndex, key in enumerate(allKeys):
             e = net1._id2edge[e]
             li = e._lanes[int(l)]
             for c in li._outgoing:
-                lo = c[0]
-                indices[n][(li, lo)] = index
+                indices[n][(li, c._toLane)] = index
                 index = index + 1
 
     for l in range(0, len(linkMap)):
