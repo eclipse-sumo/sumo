@@ -25,6 +25,8 @@ tripinfo:tripinfo.xml
 
 [run_dependent_text]
 vehroutes:<!--{[->]}-->
+tripinfo:<!--{[->]}-->
+state:<!--{[->]}-->
 output:visible boundary
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 
