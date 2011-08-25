@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Jul 11 23:37:39 2011 by SUMO sumo Version dev-SVN-r10919
+<!-- generated on 08/25/11 10:12:56 by SUMO sumo Version dev-SVN-r11151
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -28,10 +28,6 @@
     <traci_server>
         <remote-port value="8813"/>
     </traci_server>
-
-    <gui_only>
-        <gui-settings-file value=""/>
-    </gui_only>
 
 </configuration>
 -->
