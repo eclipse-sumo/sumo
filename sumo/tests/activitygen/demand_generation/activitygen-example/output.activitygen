@@ -1,13 +1,8 @@
 first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
-### read input done.
-### pre-processing done.
-### - streets done...
 --> work position: 
   |-> in city: 764
   |-> out city: 77
   |-> in+out city: 841
-### - work done...
-### - bus lines done...
 --> population: 
   |-> city households: 505
   |-> city people: 999
@@ -17,11 +12,9 @@ first completed in getStreet() of City: Consolidation of data not needed in Acti
       |-> retired: 240
     |-> city children: 197
       |-> estimation: 189
-### ...city built.
   |-> working people: 730
     |-> working people in city: 530
     |-> working people from outside: 200
-### allocation done.
 no problem during bus line trip generation...
 after public transportation: 248
 no problem during households' trips generation...
