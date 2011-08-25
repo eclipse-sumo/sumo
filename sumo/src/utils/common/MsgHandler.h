@@ -225,6 +225,10 @@ private:
 // ===========================================================================
 #define WRITE_WARNING(msg) MsgHandler::getWarningInstance()->inform(msg);
 #define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
+#define BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg(msg);
+#define END_MESSAGE(msg) MsgHandler::getMessageInstance()->endProcessMsg(msg);
+#define DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("done.");
+#define FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
 
 #endif
