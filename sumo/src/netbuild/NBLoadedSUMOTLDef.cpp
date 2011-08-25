@@ -83,7 +83,7 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
-    if (linkIndex >= myTLLogic->getNumLinks()) {
+    if (linkIndex >= (int)myTLLogic->getNumLinks()) {
         WRITE_ERROR("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() + 
                 "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         return;
