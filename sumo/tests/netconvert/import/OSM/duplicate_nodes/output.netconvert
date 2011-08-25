@@ -9,29 +9,31 @@ Removing duplicate edges...  done.
    31 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Computing step 1: Removing dummy edges.
-Computing step 2: Joining double connections.
-Computing step 3: Finding isolated roads.
-Computing step 4: Removing empty nodes and geometry nodes.
+Removing dummy edges... done.
+Joining double connections... done.
+Finding isolated roads... 
+done.
+Removing empty nodes and geometry nodes... done.
    2 nodes removed.
-Computing step 5: Normalising node positions.
-Computing step 6: Guessing and setting on-/off-ramps.
-Computing step 7: Guessing and setting traffic lights.
-Computing step 8: Computing turning directions.
-Computing step 9: Sorting nodes' edges.
-Computing step 10: Computing node types.
-Computing step 11: Computing priorities.
-Computing step 12: Computing approached edges.
-Computing step 13: Computing approaching lanes.
-Computing step 14: Dividing of lanes on approached lanes.
-Computing step 15: Appending turnarounds.
-Computing step 16: Rechecking of lane endings.
-Computing step 17: Computing node shapes.
-Computing step 18: Computing edge shapes.
-Computing step 19: Computing traffic light control information.
-Computing step 20: Computing node logics.
-Computing step 21: Computing traffic light logics.
-3 traffic light(s) computed.
+Normalising node positions... done.
+Guessing and setting on-/off-ramps... done.
+Guessing and setting traffic lights... done.
+Joining traffic light nodes... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
+ 3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
