@@ -1,2 +1,11 @@
 # test with default juntion.join-distance
 basic
+
+# exclude nodes from being joined (via input file)
+joinExclude_input_file
+
+# exclude nodes from being joined (via command line)
+joinExclude_cmdline
+
+# specify which nodes to join via input file
+join_loaded
