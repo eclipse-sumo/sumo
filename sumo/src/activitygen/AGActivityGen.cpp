@@ -55,6 +55,7 @@ AGActivityGen::importInfoCity() {
     handler.setFileName(inputFile);
     XMLSubSys::init(false);
     MsgHandler::initOutputOptions();
+    PROGRESS_BEGIN_MESSAGE("Reading input");
     if (!XMLSubSys::runParser(handler, inputFile)) {
         PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
@@ -62,23 +63,38 @@ AGActivityGen::importInfoCity() {
         PROGRESS_DONE_MESSAGE();
     }
 
-    std::cout << "### read input done." << std::endl;
+    PROGRESS_BEGIN_MESSAGE("Consolidating statistics");
     city.statData.consolidateStat(); //some maps are still not
-    std::cout << "### pre-processing done." << std::endl;
+    PROGRESS_DONE_MESSAGE();
+
+    PROGRESS_BEGIN_MESSAGE("Building street representation");
     city.completeStreets();
-    std::cout << "### - streets done..." << std::endl;
+    PROGRESS_DONE_MESSAGE();
+
+    PROGRESS_BEGIN_MESSAGE("Generating work positions");
     city.generateWorkPositions();
-    std::cout << "### - work done..." << std::endl;
+    PROGRESS_DONE_MESSAGE();
+
+    PROGRESS_BEGIN_MESSAGE("Building bus lines");
     city.completeBusLines();
-    std::cout << "### - bus lines done..." << std::endl;
+    PROGRESS_DONE_MESSAGE();
 
+
+    PROGRESS_BEGIN_MESSAGE("Generating population");
     city.generatePopulation();
-    std::cout << "### ...city built." << std::endl;
+    PROGRESS_DONE_MESSAGE();
 
+    PROGRESS_BEGIN_MESSAGE("Allocating schools");
     city.schoolAllocation();
+    PROGRESS_DONE_MESSAGE();
+
+    PROGRESS_BEGIN_MESSAGE("Allocating work places");
     city.workAllocation();
+    PROGRESS_DONE_MESSAGE();
+
+    PROGRESS_BEGIN_MESSAGE("Allocating car places");
     city.carAllocation();
-    std::cout << "### allocation done." << std::endl;
+    PROGRESS_DONE_MESSAGE();
 }
 
 bool
