@@ -63,8 +63,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 print self._file, "svn:eol-style", self._value
                 if self._fix:
                     if os.name == "posix":
-                        subprocess.call(["sed", "-i", 's/\r$//', self._file])
-                        subprocess.call(["sed", "-i", 's/\r/\n/g', self._file])
+                        subprocess.call(["sed", "-i", r's/\r$//', self._file])
+                        subprocess.call(["sed", "-i", r's/\r/\n/g', self._file])
                     subprocess.call(["svn", "ps", "svn:eol-style", "LF", self._file])
         if ext in _SOURCE_EXT:
             if name == 'property' and self._property == "svn:keywords" and self._value != _KEYWORDS\
