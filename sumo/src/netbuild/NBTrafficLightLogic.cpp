@@ -67,7 +67,7 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int index) {
     if (myNumLinks == 0) {
         // initialize
         myNumLinks = (unsigned int)state.size();
@@ -75,7 +75,21 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) {
         throw ProcessError("When adding phase: state length of " + toString(state.size()) +
                            " does not match declared number of links " + toString(myNumLinks));
     }
-    myPhases.push_back(PhaseDefinition(duration, state));
+    if (index < 0 || index >= myPhases.size()) {
+        // insert at the end
+        index = myPhases.size();
+    }
+    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state));
+}
+
+
+void 
+NBTrafficLightLogic::deletePhase(unsigned int index) {
+    if (index >= myPhases.size()) {
+        throw InvalidArgument("Index " + toString(index) + " out of range for logic with " 
+                + toString(myPhases.size()) + " phases.");
+    }
+    myPhases.erase(myPhases.begin() + index);
 }
 
 

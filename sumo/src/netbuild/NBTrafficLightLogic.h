@@ -107,14 +107,13 @@ public:
 
     /** @brief Adds a phase to the logic
      *
-     * This is done during the building; the new phase is inserted at the end of
-     *  the list of already added phases
      * @param[in] duration The duration of the phase to add
      * @param[in] state The state definition of a tls phase
+     * @param[in] index The index of the new phase (-1 means append to end)
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string &state);
+    void addStep(SUMOTime duration, const std::string &state, int index=-1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
@@ -130,6 +129,10 @@ public:
      */
     void setPhaseDuration(unsigned int phaseIndex, SUMOTime duration);
 
+    /* @brief deletes the phase at the given index
+     * @note thhrows InvalidArgument on out-of range index
+    */
+    void deletePhase(unsigned int index);
 
     /** @brief closes the building process
      *
