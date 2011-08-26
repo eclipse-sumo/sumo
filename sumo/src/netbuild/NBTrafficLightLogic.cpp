@@ -48,6 +48,19 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const char NBTrafficLightLogic::allowedStatesInitializer[] = {LINKSTATE_TL_GREEN_MAJOR,
+    LINKSTATE_TL_GREEN_MINOR,
+    LINKSTATE_TL_RED,
+    LINKSTATE_TL_YELLOW_MAJOR,
+    LINKSTATE_TL_YELLOW_MINOR,
+    LINKSTATE_TL_OFF_BLINKING,
+    LINKSTATE_TL_OFF_NOSIGNAL};
+
+const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer);
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
@@ -68,6 +81,7 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 void
 NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int index) {
+    // check state size 
     if (myNumLinks == 0) {
         // initialize
         myNumLinks = (unsigned int)state.size();
@@ -75,6 +89,12 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int in
         throw ProcessError("When adding phase: state length of " + toString(state.size()) +
                            " does not match declared number of links " + toString(myNumLinks));
     }
+    // check state contents
+    const size_t illegal = state.find_first_not_of(ALLOWED_STATES);
+    if (std::string::npos != illegal) {
+        throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
+    }
+    // interpret index
     if (index < 0 || index >= myPhases.size()) {
         // insert at the end
         index = myPhases.size();

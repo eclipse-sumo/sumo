@@ -202,6 +202,10 @@ private:
     /// @brief The junction logic's storage for traffic light phase list
     PhaseDefinitionVector myPhases;
 
+    /// @brief all allowed characters for phase state (see SUMOXMLDefinitions)
+    static const char allowedStatesInitializer[];
+    static const std::string ALLOWED_STATES;
+
 
 };
 
