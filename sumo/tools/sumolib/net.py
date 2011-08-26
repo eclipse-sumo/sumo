@@ -166,7 +166,7 @@ class Node:
 
     def getLinkIndex(self, link):
         ret = 0
-        for lid in e._incLanes:
+        for lid in self._incLanes:
             (e, l) = lid.split("_")
             lane = None
             for et in self._incoming:
@@ -176,7 +176,7 @@ class Node:
             
             if l[0]==link[0] and l[1]==link[1]:
                 return ret
-            ret = ret + 1
+            ret += 1
         return -1
 
     def forbids(self, possProhibitor, possProhibited):
