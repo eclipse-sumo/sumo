@@ -32,7 +32,10 @@ def validate(f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                print >> sys.stderr, entry
+                s = str(entry)
+                if "/sumo/" in s:
+                    s = s[s.index("/sumo/")+6:]
+                print >> sys.stderr, s
     except:
         print >> sys.stderr, "Error on parsing '%s'!" %f
         traceback.print_exc()
