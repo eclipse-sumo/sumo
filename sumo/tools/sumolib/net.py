@@ -156,9 +156,15 @@ class Node:
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)
+        
+    def getOutgoing(self):
+        return self._outgoing
 
     def addIncoming(self, edge):
         self._incoming.append(edge)
+
+    def getIncoming(self):
+        return self._incoming
 
     def setFoes(self, index, foes, prohibits):
         self._foes[index] = foes
@@ -296,6 +302,9 @@ class Net:
 
     def getNode(self, id):
         return self._id2node[id]
+
+    def getNodes(self):
+        return self._nodes
 
     def getTLSSecure(self, tlid):
         if tlid in self._id2tls:
