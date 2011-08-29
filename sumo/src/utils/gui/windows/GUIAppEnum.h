@@ -354,8 +354,6 @@ enum {
     MID_GNE_COMPUTE_JUNCTIONS,
 
     /// tls mode messages
-    /** toggle signaled status */
-    MID_GNE_TLS_TOGGLE,
     /** replace program with a newly guessed program */
     MID_GNE_GUESS_PROGRAM,
     /** definition related controls */
