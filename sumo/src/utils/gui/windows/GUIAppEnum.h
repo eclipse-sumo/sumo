@@ -352,6 +352,7 @@ enum {
 
     /// processing menu messages
     MID_GNE_COMPUTE_JUNCTIONS,
+    MID_GNE_JOIN_JUNCTIONS,
 
     /// tls mode messages
     /** replace program with a newly guessed program */
