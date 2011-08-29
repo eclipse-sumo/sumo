@@ -559,7 +559,11 @@ enum SumoXMLAttr {
     //  
     //@{
     /* whether a feature has been loaded,guessed,modified or approved */
-    GNE_ATTR_MODIFICATION_STATUS
+    GNE_ATTR_MODIFICATION_STATUS,
+    /* first coordinate of edge shape */
+    GNE_ATTR_SHAPE_START,
+    /* last coordinate of edge shape */
+    GNE_ATTR_SHAPE_END
     //@}
 };
 

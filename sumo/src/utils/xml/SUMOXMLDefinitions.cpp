@@ -441,6 +441,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departureVariation", AGEN_ATTR_DEP_VARIATION},
 
     { "modificationStatusNotForPrinting", GNE_ATTR_MODIFICATION_STATUS},
+    { "shapeStartNotForPrinting", GNE_ATTR_SHAPE_START},
+    { "shapeEndNotForPrinting", GNE_ATTR_SHAPE_END},
 
     { "",               SUMO_ATTR_NOTHING }
 };
