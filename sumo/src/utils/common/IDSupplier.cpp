@@ -46,11 +46,10 @@ IDSupplier::IDSupplier(const std::string &prefix, long begin)
 
 
 IDSupplier::IDSupplier(const std::string &prefix, const std::vector<std::string> &knownIDs)
-        : myCurrent(-1), myPrefix(prefix) {
+        : myCurrent(0), myPrefix(prefix) {
     for (std::vector<std::string>::const_iterator id_it = knownIDs.begin(); id_it != knownIDs.end(); ++id_it) {
         avoid(*id_it);
     }
-    myCurrent++;
 }
 
 
@@ -74,7 +73,7 @@ IDSupplier::avoid(const std::string& id) {
         buf >> number;
         // does it continue with a number?
         if (!buf.fail()) {
-            myCurrent = MAX2(myCurrent, number);
+            myCurrent = MAX2(myCurrent, number+1);
         }
     }
 }
