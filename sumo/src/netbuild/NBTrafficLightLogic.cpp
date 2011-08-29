@@ -95,7 +95,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int in
         throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
     }
     // interpret index
-    if (index < 0 || index >= myPhases.size()) {
+    if (index < 0 || index >= (int)myPhases.size()) {
         // insert at the end
         index = myPhases.size();
     }
