@@ -436,32 +436,15 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         std::set<NBNode*> cluster = *i;
         assert(cluster.size() > 1);
         Position pos;
-        std::vector<std::string> member_ids;
-        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-            member_ids.push_back((*j)->getID());
-            pos.add((*j)->getPosition());
-        }
-        pos.mul(1.0 / cluster.size());
-
-        // need to sort the member names to make the output deterministic
-        sort(member_ids.begin(), member_ids.end());
-        std::string id = "cluster";
-        for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
-            id = id + "_" + (*j);
-        }
+        bool setTL;
+        std::string id;
+        analyzeCluster(cluster, id, pos, setTL);
         if (!insert(id, pos)) {
             // should not fail
             WRITE_WARNING("Could not join junctions " + id);
             continue;
         }
         NBNode* newNode = retrieve(id);
-        // add a traffic light if one of the cluster members was controlled
-        bool setTL = false;
-        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-            if ((*j)->isTLControlled()) {
-                setTL = true;
-            }
-        }
         if (setTL) {
             NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
             if (!tlc.insert(tlDef)) {
@@ -474,6 +457,28 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
             merge(*j, newNode, dc, ec);
         }
+    }
+}
+
+
+void 
+NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS) {
+    id = "cluster";
+    hasTLS = false;
+    std::vector<std::string> member_ids;
+    for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+        member_ids.push_back((*j)->getID());
+        pos.add((*j)->getPosition());
+        // add a traffic light if any of the cluster members was controlled
+        if ((*j)->isTLControlled()) {
+            hasTLS = true;
+        }
+    }
+    pos.mul(1.0 / cluster.size());
+    // need to sort the member names to make the output deterministic
+    sort(member_ids.begin(), member_ids.end());
+    for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
+        id = id + "_" + (*j);
     }
 }
 

@@ -283,6 +283,14 @@ public:
     void addCluster2Join(std::set<std::string> cluster);
 
 
+    /* @brief analyzes a cluster of nodes which shall be joined
+     * @param[in] cluster The nodes to be joined
+     * @param[out] id The name for the new node
+     * @param[out] pos The position of the new node
+     * @param[out] hasTLS Whether the new node has a traffic light
+     */
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS);
+
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
