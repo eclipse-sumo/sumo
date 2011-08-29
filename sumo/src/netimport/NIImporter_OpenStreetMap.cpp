@@ -576,7 +576,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         if (!ok) {
             return;
         }
-        if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
+        if (key == "highway" && value.find("traffic_signal") != std::string::npos && 
+                !OptionsCont::getOptions().getBool("osm.discard-tls")) {
             myToFill[myLastNodeID]->tlsControlled = true;
         }
     }

@@ -227,6 +227,9 @@ NIFrame::fillOptions() {
     // register osm options
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
+
+    oc.doRegister("osm.discard-tls", new Option_Bool(false));
+    oc.addDescription("osm.discard-tls", "Processing", "Discards all traffic lights.");
 }
 
 
