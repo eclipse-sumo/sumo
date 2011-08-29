@@ -12,3 +12,6 @@ done
 
 cp $thisdir/../../XML/connections/cross3l_unconstrained/net.netconvert overwrite/input_net.net.xml
 cp $thisdir/../../XML/connections/cross3l_noconnection/net.netconvert overwrite
+
+cp $thisdir/../../XML/connections/cross3l_unconstrained/net.netconvert reset/input_net.net.xml
+cp $thisdir/../../XML/connections/cross3l_noconnection/net.netconvert reset

@@ -30,3 +30,6 @@ cross3l_uncontrolled
 
 # overwrite connections in a sumo network with a con.xml file
 overwrite
+
+# remove a connection with the reset element
+reset
