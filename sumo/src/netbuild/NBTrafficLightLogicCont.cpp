@@ -36,6 +36,7 @@
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
+#include "NBEdgeCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -274,6 +275,8 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->setParticipantsInformation();
     }
+    // clear previous information because tlDefs may have been removed in NETEDIT
+    ec.clearControllingTLInformation();
     // insert the information about the tl-controlling
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->setTLControllingInformation(ec);

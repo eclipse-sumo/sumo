@@ -468,6 +468,14 @@ NBEdgeCont::computeTurningDirections() throw() {
 }
 
 
+void 
+NBEdgeCont::clearControllingTLInformation() const {
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->clearControllingTLInformation();
+    }
+}
+
+
 void
 NBEdgeCont::sortOutgoingLanesConnections() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {

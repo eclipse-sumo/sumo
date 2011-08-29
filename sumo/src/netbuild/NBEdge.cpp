@@ -1443,6 +1443,14 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 }
 
 
+void 
+NBEdge::clearControllingTLInformation() {
+    for (std::vector<Connection>::iterator it=myConnections.begin(); it!=myConnections.end(); it++) {
+        it->tlID = "";
+    }
+}
+
+
 void
 NBEdge::disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane) {
     TLSDisabledConnection c;

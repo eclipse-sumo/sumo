@@ -381,6 +381,11 @@ public:
     void recomputeLaneShapes() throw();
 
 
+    /** @brief Clears information about controlling traffic lights for all connenections of all edges
+     */
+    void clearControllingTLInformation() const;
+
+
     /** @brief Joins the given edges because they connect the same nodes
      *
      * @param[in] dc The district container needed to remove edges
