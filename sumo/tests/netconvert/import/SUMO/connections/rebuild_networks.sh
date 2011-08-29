@@ -9,3 +9,6 @@ do
     cp $thisdir/../../XML/connections/$testdir/net.netconvert $testdir
     cp $thisdir/../../XML/connections/$testdir/net.netconvert $testdir/input_net.net.xml
 done
+
+cp $thisdir/../../XML/connections/cross3l_unconstrained/net.netconvert overwrite/input_net.net.xml
+cp $thisdir/../../XML/connections/cross3l_noconnection/net.netconvert overwrite

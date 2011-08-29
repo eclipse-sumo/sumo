@@ -27,3 +27,6 @@ cross3l_prohibitions_turns
 
 # Test for importing the network from import/XML/connections/cross3l_uncontrolled
 cross3l_uncontrolled
+
+# overwrite connections in a sumo network with a con.xml file
+overwrite

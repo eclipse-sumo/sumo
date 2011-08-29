@@ -112,6 +112,12 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
+        // if we have imported a sumo network we have to reset previous connections (but only once)
+        // @note This will also reset if a second con.xml file is loaded
+        if (OptionsCont::getOptions().isSet("sumo-net-file") && myResetEdges.count(fromEdge) == 0) {
+            fromEdge->invalidateConnections(true);
+            myResetEdges.insert(fromEdge); 
+        }
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE)||attrs.hasAttribute(SUMO_ATTR_FROM_LANE)||attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             parseLaneBound(attrs, fromEdge, toEdge);
