@@ -84,9 +84,10 @@ public:
      *  name and programID exists within this container.
      *
      * @param[in] logic The logic to add
+     * @param[in] renameProgram If true, rename the program to make insertion succeed
      * @return Whether the logic was valid (no logic with the same id and programID is already known)
      */
-    bool insert(NBTrafficLightDefinition *logic) throw();
+    bool insert(NBTrafficLightDefinition *logic, bool forceInsert=false) throw();
 
 
     /** @brief Removes a logic definition (and all programs) from the dictionary

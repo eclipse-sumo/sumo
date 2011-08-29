@@ -282,6 +282,10 @@ public:
     };
 
 
+    void setProgramID(const std::string &programID) {
+        mySubID = programID;
+    }
+
 
 protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
@@ -333,7 +337,7 @@ protected:
     std::set<std::string> myControlledInnerEdges;
 
     /// @brief The tls program's subid
-    const std::string mySubID;
+    std::string mySubID;
 
 };
 

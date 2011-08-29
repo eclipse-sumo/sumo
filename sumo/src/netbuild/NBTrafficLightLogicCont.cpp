@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/IDSupplier.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
@@ -75,11 +76,20 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
 
 
 bool
-NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
+NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic, bool forceInsert) throw() {
     myExtracted.erase(logic);
     if (myDefinitions.count(logic->getID())) {
         if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
-            return false;
+            if (forceInsert) {
+                const Program2Def &programs = myDefinitions[logic->getID()];
+                IDSupplier idS("", 0);
+                for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
+                    idS.avoid(it_prog->first);
+                }
+                logic->setProgramID(idS.getNext());
+            } else {
+                return false;
+            }
         }
     } else {
         myDefinitions[logic->getID()] = Program2Def();
