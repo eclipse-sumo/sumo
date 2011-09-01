@@ -34,9 +34,9 @@ wikidump:
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
-	&& for f in `find build tools docs/tutorial docs/xsd -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
-	&& find build -regex ".*\.\(vcproj\|vsprops\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find docs/tutorial docs/xsd -regex ".*\.\(xml\|cfg\|py\|xsd\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& for f in `find build tools docs/tutorial -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
+	&& find build -regex ".*\.\(vcproj\|vsprops\|vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) \
 	&& xargs cp --parents --target-directory $$abs_distdir < tools_filelist \
 	&& cp tools_filelist $$abs_distdir \
@@ -66,6 +66,11 @@ dist-tests:
 dist-complete: dist dist-doc dist-tests
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
+	tar -xzf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
+	tar -xzf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
+	tar -xzf $(PACKAGE)-src-$(VERSION).tar.gz $(distdir)
+	tar -czf $(PACKAGE)-all-$(VERSION).tar.gz $(distdir)
+	$(am__remove_distdir)
 
 examples:
 	tests/extractTest.py -f tests/examples.txt
