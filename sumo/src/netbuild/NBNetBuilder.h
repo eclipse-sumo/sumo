@@ -201,15 +201,6 @@ public:
 
 
 protected:
-    /** @brief Writes information about the currently processed step
-     *
-     * @param[in, out] step The current building step (incremented)
-     * @param[in] Brief description about what is done in this step
-     */
-    void inform(int &step, const std::string &about) throw();
-
-
-
     /**
      * @class by_id_sorter
      * @brief Sorts nodes by their ids

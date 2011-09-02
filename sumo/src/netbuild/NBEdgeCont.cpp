@@ -138,41 +138,29 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     if (myAmLeftHanded) {
         edge->setLeftHanded();
     }
-    EdgeCont::iterator i = myEdges.find(edge->getID());
-    if (i!=myEdges.end()) {
+    if (myEdges.count(edge->getID())) {
         return false;
     }
     if (ignorePrunning) {
-        myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
+        myEdges[edge->getID()] = edge;
         return true;
     }
     // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
-    if (edge->getSpeed()<myEdgesMinSpeed) {
-        edge->getFromNode()->removeOutgoing(edge);
-        edge->getToNode()->removeIncoming(edge);
-        delete edge;
-        return true;
-    }
+    bool ignore = edge->getSpeed()<myEdgesMinSpeed;
     // check whether the edge is a named edge to keep
-    if (!myRemoveEdgesAfterJoining && myEdges2Keep.size()!=0) {
+    if (!ignore && !myRemoveEdgesAfterJoining && myEdges2Keep.size()!=0) {
         if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID())==myEdges2Keep.end()) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
+            ignore = true;
         }
     }
     // check whether the edge is a named edge to remove
-    if (myEdges2Remove.size()!=0) {
+    if (!ignore && myEdges2Remove.size()!=0) {
         if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID())!=myEdges2Remove.end()) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
+            ignore = true;
         }
     }
     // check whether the edge shall be removed because it does not allow any of the wished classes
-    if (myVehicleClasses2Keep.size()!=0) {
+    if (!ignore && myVehicleClasses2Keep.size()!=0) {
         SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
         // @todo also check disallowed
         if (allowed.size() > 0) {
@@ -184,15 +172,12 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
                 }
             }
             if (matching==0) {
-                edge->getFromNode()->removeOutgoing(edge);
-                edge->getToNode()->removeIncoming(edge);
-                delete edge;
-                return true;
+                ignore = true;
             }
         }
     }
     // check whether the edge shall be removed due to allowing unwished classes only
-    if (myVehicleClasses2Remove.size()!=0) {
+    if (!ignore && myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
         SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
         for (SUMOVehicleClasses::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
@@ -203,34 +188,32 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
         }
         // remove the edge if all allowed
         if (allowed.size()==0&&matching!=0) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
+            ignore = true;
         }
     }
 
     // check whether the edge is within the prunning boundary
-    if (myPrunningBoundary.size()!=0) {
+    if (!ignore && myPrunningBoundary.size()!=0) {
         if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
+            ignore = true;
         }
     }
-    if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
-        edge->getFromNode()->removeOutgoing(edge);
-        edge->getToNode()->removeIncoming(edge);
-        delete edge;
-        return true;
+    if (!ignore && myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
+        ignore = true;
     }
 
-    OptionsCont &oc = OptionsCont::getOptions();
-    if (oc.exists("dismiss-vclasses") && oc.getBool("dismiss-vclasses")) {
-        edge->dismissVehicleClassInformation();
+    if (ignore) {
+        edge->getFromNode()->removeOutgoing(edge);
+        edge->getToNode()->removeIncoming(edge);
+        myIgnoredEdges.insert(edge->getID());
+        delete edge;
+    } else {
+        OptionsCont &oc = OptionsCont::getOptions();
+        if (oc.exists("dismiss-vclasses") && oc.getBool("dismiss-vclasses")) {
+            edge->dismissVehicleClassInformation();
+        }
+        myEdges[edge->getID()] = edge;
     }
-    myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
     return true;
 }
 
@@ -238,7 +221,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
 NBEdge *
 NBEdgeCont::retrieve(const std::string &id) const throw() {
     EdgeCont::const_iterator i = myEdges.find(id);
-    if (i==myEdges.end()) return 0;
+    if (i==myEdges.end()) {
+        return 0;
+    }
     return (*i).second;
 }
 

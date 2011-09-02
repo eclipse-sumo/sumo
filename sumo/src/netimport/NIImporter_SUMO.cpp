@@ -154,7 +154,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         NBEdge *nbe = ed->builtEdge;
-        if (nbe == 0) { // inner edge
+        if (nbe == 0) { // inner edge or removed by explicit list, vclass, ...
             continue;
         }
         for (unsigned int fromLaneIndex=0; fromLaneIndex<(unsigned int) ed->lanes.size(); ++fromLaneIndex) {
@@ -168,8 +168,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                     continue;
                 }
                 NBEdge *toEdge = myEdges[c.toEdgeID]->builtEdge;
-                if (toEdge==0) {
-                    WRITE_ERROR("Target edge '" + c.toEdgeID + "' not built");
+                if (toEdge==0) { // removed by explicit list, vclass, ...
                     continue;
                 }
                 nbe->addLane2LaneConnection(

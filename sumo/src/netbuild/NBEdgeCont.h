@@ -439,6 +439,14 @@ public:
     }
 
 
+    /** @brief Returns whether the edge with the id was ignored during parsing
+     * @return Whether the edge with the id was ignored during parsing
+     */
+    bool wasIgnored(std::string id) const throw() {
+        return myIgnoredEdges.count(id) != 0;
+    }
+
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -450,11 +458,14 @@ private:
 
 
 private:
-    /// @brief The type of the dictionary where an edge may be found by her id
+    /// @brief The type of the dictionary where an edge may be found by its id
     typedef std::map<std::string, NBEdge*> EdgeCont;
 
     /// @brief The instance of the dictionary (id->edge)
     EdgeCont myEdges;
+
+    /// @brief The ids of ignored edges
+    std::set<std::string> myIgnoredEdges;
 
     /// @brief the number of splits of edges during the building
     unsigned int myEdgesSplit;

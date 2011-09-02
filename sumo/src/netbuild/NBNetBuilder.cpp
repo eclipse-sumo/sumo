@@ -277,11 +277,4 @@ NBNetBuilder::compute(OptionsCont &oc,
 }
 
 
-void
-NBNetBuilder::inform(int &step, const std::string &about) throw() {
-    WRITE_MESSAGE("Computing step " + toString<int>(step)+ ": " + about);
-    step++;
-}
-
-
 /****************************************************************************/

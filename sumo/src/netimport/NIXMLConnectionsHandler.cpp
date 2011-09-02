@@ -91,13 +91,9 @@ NIXMLConnectionsHandler::myStartElement(int element,
 
     if (element==SUMO_TAG_CONNECTION) {
         bool ok = true;
-        std::string from = attrs.getOptStringReporting(SUMO_ATTR_FROM, 0, ok, "");
-        std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, 0, ok, "");
-        if (!ok) {
-            return;
-        }
-        if (from.length()==0) {
-            myErrorMsgHandler->inform("A from-edge is not specified within one of the connections");
+        std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "connection", ok);
+        std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", ok, "");
+        if (!ok || myEdgeCont.wasIgnored(from) || myEdgeCont.wasIgnored(to)) {
             return;
         }
         // extract edges
