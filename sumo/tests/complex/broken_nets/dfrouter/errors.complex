@@ -62,29 +62,21 @@ Quitting (on error).
 Error: Attribute 'to' is missing in definition of edge '2'.
 Error: unknown to-edge '2' in connection
 Quitting (on error).
------------------- net/edge[0]/lane[0]@depart:
+------------------ net/edge[0]/lane[0]@index:
  Wrong error code returned (0)!
------------------- net/edge[0]/lane[1]@depart:
+------------------ net/edge[0]/lane[1]@index:
  Wrong error code returned (0)!
------------------- net/edge[1]/lane[0]@depart:
+------------------ net/edge[1]/lane[0]@index:
  Wrong error code returned (0)!
------------------- net/edge[1]/lane[1]@depart:
+------------------ net/edge[1]/lane[1]@index:
  Wrong error code returned (0)!
------------------- net/edge[0]/lane[0]@depart:a
+------------------ net/edge[0]/lane[0]@index:a
  Wrong error code returned (0)!
------------------- net/edge[0]/lane[1]@depart:a
+------------------ net/edge[0]/lane[1]@index:a
  Wrong error code returned (0)!
------------------- net/edge[1]/lane[0]@depart:a
+------------------ net/edge[1]/lane[0]@index:a
  Wrong error code returned (0)!
------------------- net/edge[1]/lane[1]@depart:a
- Wrong error code returned (0)!
------------------- net/edge[0]/lane[0]@depart:<remove>
- Wrong error code returned (0)!
------------------- net/edge[0]/lane[1]@depart:<remove>
- Wrong error code returned (0)!
------------------- net/edge[1]/lane[0]@depart:<remove>
- Wrong error code returned (0)!
------------------- net/edge[1]/lane[1]@depart:<remove>
+------------------ net/edge[1]/lane[1]@index:a
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
@@ -268,3 +260,47 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/junction[2]@incLanes:2_0 a_1
  Wrong error code returned (0)!
+------------------ net/connection[0]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@from:a
+Error: unknown from-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:a
+Error: unknown from-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[0]@from:<remove>
+Error: Attribute 'from' is missing in definition of a connection.
+Error: unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@from:<remove>
+Error: Attribute 'from' is missing in definition of a connection.
+Error: unknown from-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:a
+Error: unknown to-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:a
+Error: unknown to-edge 'a' in connection
+Quitting (on error).
+------------------ net/connection[0]@to:<remove>
+Error: Attribute 'to' is missing in definition of a connection.
+Error: unknown to-edge '' in connection
+Quitting (on error).
+------------------ net/connection[1]@to:<remove>
+Error: Attribute 'to' is missing in definition of a connection.
+Error: unknown to-edge '' in connection
+Quitting (on error).

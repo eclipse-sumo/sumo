@@ -1,4 +1,16 @@
 #!/usr/bin/env python
+"""
+@file    runner.py
+@author  Daniel Krajzewicz
+@date    2007-10-25
+@version $Id$
+
+This script is a test runner for the broken networks.
+
+Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+All rights reserved
+"""
+
 
 import os,subprocess,sys,time
 import xml.dom.minidom as dom
@@ -28,18 +40,14 @@ changes = [
     [ "net/edge[0]@to", "<remove>" ],
     [ "net/edge[1]@to", "<remove>" ],
 
-    [ "net/edge[0]/lane[0]@depart", "" ],
-    [ "net/edge[0]/lane[1]@depart", "" ],
-    [ "net/edge[1]/lane[0]@depart", "" ],
-    [ "net/edge[1]/lane[1]@depart", "" ],
-    [ "net/edge[0]/lane[0]@depart", "a" ],
-    [ "net/edge[0]/lane[1]@depart", "a" ],
-    [ "net/edge[1]/lane[0]@depart", "a" ],
-    [ "net/edge[1]/lane[1]@depart", "a" ],
-    [ "net/edge[0]/lane[0]@depart", "<remove>" ],
-    [ "net/edge[0]/lane[1]@depart", "<remove>" ],
-    [ "net/edge[1]/lane[0]@depart", "<remove>" ],
-    [ "net/edge[1]/lane[1]@depart", "<remove>" ],
+    [ "net/edge[0]/lane[0]@index", "" ],
+    [ "net/edge[0]/lane[1]@index", "" ],
+    [ "net/edge[1]/lane[0]@index", "" ],
+    [ "net/edge[1]/lane[1]@index", "" ],
+    [ "net/edge[0]/lane[0]@index", "a" ],
+    [ "net/edge[0]/lane[1]@index", "a" ],
+    [ "net/edge[1]/lane[0]@index", "a" ],
+    [ "net/edge[1]/lane[1]@index", "a" ],
     [ "net/edge[0]/lane[0]@id", "" ],
     [ "net/edge[0]/lane[1]@id", "" ],
     [ "net/edge[1]/lane[0]@id", "" ],
@@ -119,6 +127,20 @@ changes = [
     [ "net/junction[1]@incLanes", "1_0 a_1" ],
     [ "net/junction[2]@incLanes", "a_0 2_1" ],
     [ "net/junction[2]@incLanes", "2_0 a_1" ],
+
+    [ "net/connection[0]@from", "" ],
+    [ "net/connection[1]@from", "" ],
+    [ "net/connection[0]@from", "a" ],
+    [ "net/connection[1]@from", "a" ],
+    [ "net/connection[0]@from", "<remove>" ],
+    [ "net/connection[1]@from", "<remove>" ],
+    [ "net/connection[0]@to", "" ],
+    [ "net/connection[1]@to", "" ],
+    [ "net/connection[0]@to", "a" ],
+    [ "net/connection[1]@to", "a" ],
+    [ "net/connection[0]@to", "<remove>" ],
+    [ "net/connection[1]@to", "<remove>" ],
+
 ]
 
 def tinyPath(xmlStruct, path, newValue):
@@ -144,30 +166,19 @@ def tinyPath(xmlStruct, path, newValue):
     else:
         raise "?"
 
-call = []
 if sys.argv[1]=="sumo":
-    call.append(checkBinary('sumo'))
-    call.append("--no-step-log")
-    call.append("--no-duration-log")
+    call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
 elif sys.argv[1]=="dfrouter":
-    call.append(checkBinary('dfrouter'))
-    call.append("--detector-files")
-    call.append("input_additional.add.xml")
+    call = [checkBinary('dfrouter'),
+            "--detector-files", "input_additional.add.xml"]
 elif sys.argv[1]=="duarouter":
-    call.append(checkBinary('duarouter'))
-    call.append("-o")
-    call.append("dummy.xml")
-    call.append("-t")
-    call.append("input_additional.add.xml")
+    call = [checkBinary('duarouter'),
+            "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 elif sys.argv[1]=="jtrrouter":
-    call.append(checkBinary('jtrrouter'))
-    call.append("-o")
-    call.append("dummy.xml")
-    call.append("-t")
-    call.append("input_additional.add.xml")
+    call = [checkBinary('jtrrouter'),
+            "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 else:
     print >> sys.stderr, "Unsupported application defined"
-
 
 
 netconvertBinary = checkBinary('netconvert')
