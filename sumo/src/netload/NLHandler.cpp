@@ -317,12 +317,14 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
         closeEdge();
         break;
     case SUMO_TAG_JUNCTION:
-        try {
-            myJunctionControlBuilder.closeJunctionLogic();
-        } catch (InvalidArgument &e) {
-            WRITE_ERROR(e.what());
+        if (!myCurrentIsBroken) {
+            try {
+                myJunctionControlBuilder.closeJunctionLogic();
+                myJunctionControlBuilder.closeJunction();
+            } catch (InvalidArgument &e) {
+                WRITE_ERROR(e.what());
+            }
         }
-        closeJunction();
         break;
     case SUMO_TAG_SUCC:
         closeSuccLane();
@@ -448,6 +450,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
+    int index = attrs.getOptIntReporting(SUMO_ATTR_INDEX, id.c_str(), ok, -1);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
     if (shape.size()<2) {
         WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
@@ -533,19 +536,6 @@ NLHandler::parseLanes(const std::string &junctionID,
             continue;
         }
         into.push_back(lane);
-    }
-}
-
-
-void
-NLHandler::closeJunction() {
-    if (myCurrentIsBroken) {
-        return;
-    }
-    try {
-        myJunctionControlBuilder.closeJunction();
-    } catch (InvalidArgument &e) {
-        WRITE_ERROR(e.what());
     }
 }
 // ----
@@ -718,6 +708,9 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
 
 void
 NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
+    if (myCurrentIsBroken) {
+        return;
+    }
     bool ok = true;
     int request = attrs.getIntReporting(SUMO_ATTR_INDEX, 0, ok);
     bool cont = false;
@@ -742,6 +735,9 @@ NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
 
 void
 NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
+    if (myCurrentIsBroken) {
+        return;
+    }
     bool ok = true;
     // we either a have a junction or a legacy network with ROWLogic
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);

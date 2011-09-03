@@ -259,9 +259,6 @@ private:
     void addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
 
 
-    /// ends the processing of a junction
-    virtual void closeJunction();
-
     void closeWAUT();
 
     /// closes the processing of a lane
