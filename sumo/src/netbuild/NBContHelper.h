@@ -221,7 +221,7 @@ public:
     class edge_similar_direction_sorter {
     public:
         /// constructor
-        explicit edge_similar_direction_sorter(NBEdge *e)
+        explicit edge_similar_direction_sorter(const NBEdge * const e)
                 : myAngle(e->getAngle()) {}
 
         /// comparing operation

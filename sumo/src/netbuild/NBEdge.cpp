@@ -854,7 +854,7 @@ NBEdge::needsLaneSpecificOutput() const {
 
 
 bool
-NBEdge::computeEdge2Edges() {
+NBEdge::computeEdge2Edges(bool noLeftMovers) {
     // return if this relationship has been build in previous steps or
     //  during the import
     if (myStep>=EDGE2EDGES) {
@@ -863,6 +863,9 @@ NBEdge::computeEdge2Edges() {
     if (myConnections.size()==0) {
         const EdgeVector &o = myTo->getOutgoingEdges();
         for (EdgeVector::const_iterator i=o.begin(); i!=o.end(); ++i) {
+            if(noLeftMovers&&myTo->isLeftMover(this, *i)) {
+                continue;
+            }
             myConnections.push_back(Connection(-1, *i, -1));
         }
     }

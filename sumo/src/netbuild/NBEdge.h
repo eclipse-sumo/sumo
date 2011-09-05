@@ -696,7 +696,7 @@ public:
     bool hasLaneSpecificWidth() const;
 
     /// computes the edge (step1: computation of approached edges)
-    bool computeEdge2Edges();
+    bool computeEdge2Edges(bool noLeftMovers);
 
     /// computes the edge, step2: computation of which lanes approach the edges)
     bool computeLanes2Edges();

@@ -107,6 +107,7 @@ NBNetBuilder::compute(OptionsCont &oc,
         // bit of a misnomer since we're already done
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
+
     // Removes edges that are connecting the same node
     PROGRESS_BEGIN_MESSAGE("Removing dummy edges");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
@@ -213,7 +214,7 @@ NBNetBuilder::compute(OptionsCont &oc,
     }
     //
     PROGRESS_BEGIN_MESSAGE("Computing approached edges");
-    myEdgeCont.computeEdge2Edges();
+    myEdgeCont.computeEdge2Edges(oc.getBool("no-left-connections"));
 	PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing approaching lanes");

@@ -470,9 +470,9 @@ NBEdgeCont::sortOutgoingLanesConnections() throw() {
 
 
 void
-NBEdgeCont::computeEdge2Edges() throw() {
+NBEdgeCont::computeEdge2Edges(bool noLeftMovers) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->computeEdge2Edges();
+        (*i).second->computeEdge2Edges(noLeftMovers);
     }
 }
 

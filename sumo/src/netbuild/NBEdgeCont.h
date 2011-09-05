@@ -302,10 +302,11 @@ public:
      *
      * Calls "NBEdge::computeEdge2Edges" for all edges within the container.
      *
+     * @param[in] noLeftMovers Whether left-moving connections shall be omitted
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeEdge2Edges
      */
-    void computeEdge2Edges() throw();
+    void computeEdge2Edges(bool noLeftMovers) throw();
 
 
     /** @brief Computes for each edge which lanes approach the next edges

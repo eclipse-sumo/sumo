@@ -1408,17 +1408,22 @@ NBNode::mustBrake(const NBEdge * const from, const NBEdge * const to, int toLane
 }
 
 
-
 bool
 NBNode::isLeftMover(const NBEdge * const from, const NBEdge * const to) const throw() {
     // when the junction has only one incoming edge, there are no
     //  problems caused by left blockings
-    if (myIncomingEdges.size()==1) {
+    if (myIncomingEdges.size()==1||myOutgoingEdges.size()==1) {
         return false;
     }
-    SUMOReal ccw = GeomHelper::getCCWAngleDiff(from->getAngle(*this), to->getAngle(*this));
-    SUMOReal cw = GeomHelper::getCWAngleDiff(from->getAngle(*this), to->getAngle(*this));
-    return cw<ccw;
+    SUMOReal fromAngle = from->getAngle(*this);
+    SUMOReal toAngle = to->getAngle(*this);
+    SUMOReal cw = GeomHelper::getCWAngleDiff(fromAngle, toAngle);
+    SUMOReal ccw = GeomHelper::getCCWAngleDiff(fromAngle, toAngle);
+    std::vector<NBEdge*>::const_iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), from);
+    do {
+        NBContHelper::nextCW(myAllEdges, i);
+    } while((!hasOutgoing(*i)||from->getTurnDestination()==*i)&&*i!=from);
+    return cw<ccw&&(*i)==to&&myOutgoingEdges.size()>2;
 }
 
 
