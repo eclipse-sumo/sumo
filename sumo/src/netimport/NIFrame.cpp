@@ -249,7 +249,7 @@ NIFrame::checkOptions() {
     }
 #endif
     if (oc.isSet("sumo-net-file")) {
-        oc.set("no-turnarounds", "true"); // turnarounds are loaded from the net file.
+        oc.set("no-turnarounds", "true", true); // turnarounds are loaded from the net file.
     }
     return ok;
 }

@@ -216,7 +216,7 @@ OptionsCont::getIntVector(const std::string &name) const {
 
 
 bool
-OptionsCont::set(const std::string &name, const std::string &value) {
+OptionsCont::set(const std::string &name, const std::string &value, bool keepWritable) {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
@@ -229,6 +229,9 @@ OptionsCont::set(const std::string &name, const std::string &value) {
     } catch (ProcessError &e) {
         WRITE_ERROR("While processing option '" + name + "':\n " + e.what());
         return false;
+    }
+    if (keepWritable) {
+        o->resetWritable();
     }
     return true;
 }

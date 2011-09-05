@@ -534,12 +534,13 @@ public:
      *
      * @param[in] name The name of the option to set
      * @param[in] value The value to set
+     * @param[in] keepWritable Whether it should be possible to re-set this particular value (useful when resetting defaults)
      * @return Whether the value could be set
      * @exception InvalidArgument If the option does not exist
      * @see reportDoubleSetting
      * @see Option::set(const std::string &)
      */
-    bool set(const std::string &name, const std::string &value);
+    bool set(const std::string &name, const std::string &value, bool keepWritable=false);
     /// @}
 
 
