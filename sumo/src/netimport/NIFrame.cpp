@@ -248,8 +248,9 @@ NIFrame::checkOptions() {
         oc.set("proj.scale", std::string("5"));
     }
 #endif
-    if (oc.isSet("sumo-net-file")) {
-        oc.set("no-turnarounds", "true", true); // turnarounds are loaded from the net file.
+    if (oc.isSet("sumo-net-file") && !oc.isSet("no-turnarounds")) {
+        // changed default since turnarounds are loaded from the net file.
+        oc.set("no-turnarounds", "true");
     }
     return ok;
 }
