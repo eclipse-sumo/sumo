@@ -279,6 +279,9 @@
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
 
+        <!-- Disables building connections to left -->
+        <no-left-connections value="false" type="BOOL"/>
+
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
 

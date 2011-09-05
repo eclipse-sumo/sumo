@@ -78,6 +78,7 @@
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
+        <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>

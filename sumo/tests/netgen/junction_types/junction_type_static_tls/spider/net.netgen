@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Mon Jun  6 14:55:56 2011 by SUMO netgen Version dev-SVN-r10510
+<!-- generated on 09/05/11 13:08:34 by SUMO netgen Version dev-SVN-r11200
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -12,7 +13,7 @@
     </spider_network>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <building_defaults>
@@ -403,8 +404,8 @@
     <junction id=":3/1_9_0" type="internal" x="1.73" y="99.31" incLanes=":3/1_0_0 4/1to3/1_0" intLanes=":3/1_8_0"/>
     <junction id=":3/1_10_0" type="internal" x="5.35" y="98.80" incLanes=":3/1_1_0 4/1to3/1_0" intLanes=":3/1_6_0 :3/1_7_0"/>
     <junction id=":3/1_11_0" type="internal" x="5.44" y="105.44" incLanes=":3/1_2_0 4/1to3/1_0" intLanes=":3/1_7_0"/>
-    <junction id=":3/1_12_0" type="internal" x="5.35" y="101.20" incLanes=":3/1_4_0 2/1to3/1_0" intLanes=":3/1_0_0"/>
-    <junction id=":3/1_13_0" type="internal" x="7.70" y="100.00" incLanes=":3/1_5_0" intLanes=""/>
+    <junction id=":3/1_12_0" type="internal" x="5.35" y="101.20" incLanes=":3/1_4_0 4/1to3/1_0" intLanes=":3/1_7_0"/>
+    <junction id=":3/1_13_0" type="internal" x="7.70" y="100.00" incLanes=":3/1_5_0 4/1to3/1_0" intLanes=":3/1_6_0"/>
     <junction id=":3/1_14_0" type="internal" x="5.44" y="94.56" incLanes=":3/1_8_0 2/1to3/1_0" intLanes=":3/1_0_0"/>
     <junction id=":4/1_9_0" type="internal" x="98.80" y="5.35" incLanes=":4/1_1_0 1/1to4/1_0" intLanes=":4/1_4_0"/>
     <junction id=":4/1_10_0" type="internal" x="100.00" y="7.70" incLanes=":4/1_2_0 1/1to4/1_0" intLanes=":4/1_3_0"/>

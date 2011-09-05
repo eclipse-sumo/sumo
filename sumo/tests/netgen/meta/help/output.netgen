@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r10915
+SUMO netgen Version dev-SVN-r11200
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -112,6 +112,7 @@ Usage: netgen [OPTION]*
   --no-turnarounds                    Disables building turnarounds
   --no-turnarounds.tls                Disables building turnarounds at
                                         tls-controlled junctions
+  --no-left-connections               Disables building connections to left
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions

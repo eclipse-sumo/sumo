@@ -186,6 +186,9 @@
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
 
+        <!-- Disables building connections to left -->
+        <no-left-connections value="false" type="BOOL"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 
