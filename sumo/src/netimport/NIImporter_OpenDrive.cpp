@@ -340,7 +340,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
 
-    /*
+    // build inner-edge connections
     for (std::vector<OpenDriveEdge>::iterator i=innerEdges.begin(); i!=innerEdges.end(); ++i) {
         OpenDriveEdge &e = *i;
         std::string pred, succ;
@@ -349,23 +349,23 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             OpenDriveLink &l = *j;
             if (l.elementType!=OPENDRIVE_ET_ROAD) {
                 // we are not interested in connections to nodes
-                cout << "unsupported" << endl;
+                std::cout << "unsupported" << std::endl;
                 continue;
             }
             if(edge2junction.find(l.elementID)!=edge2junction.end()) {
                 // not supported
-                cout << "unsupported" << endl;
+                std::cout << "unsupported" << std::endl;
                 continue;
             }
             if(l.linkType==OPENDRIVE_LT_SUCCESSOR) {
                 if(succ!="") {
-                    cout << "double succ" << endl;
+                    std::cout << "double succ" << std::endl;
                 }
                 succ = l.elementID;
                 succC = l.contactPoint;
             } else {
                 if(pred!="") {
-                    cout << "double pred" << endl;
+                    std::cout << "double pred" << std::endl;
                 }
                 pred = l.elementID;
                 predC = l.contactPoint;
@@ -373,7 +373,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
 
         if(e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT)!=0&&e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT)!=0) {
-            cout << "Both dirs given!" << endl;
+            std::cout << "Both dirs given!" << std::endl;
         }
 
         bool isReversed = false;
@@ -384,9 +384,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
 
         if(succ==""||pred=="") {
-            cout << "Missing edge." << endl;
+            std::cout << "Missing edge." << std::endl;
             continue; // yes, occurs
         }
+        // !!!why edge2junction; e already has the junction...
         NBNode *n = nb.getNodeCont().retrieve(edge2junction[e.id]);
         std::vector<OpenDriveEdge>::iterator predEdge = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(pred));
         if(predEdge==outerEdges.end()) {
@@ -409,7 +410,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             n->hasIncoming(nb.getEdgeCont().retrieve("-" + pred)) ? nb.getEdgeCont().retrieve("-" + pred) : nb.getEdgeCont().retrieve(pred),
             e.id,
             n->hasOutgoing(nb.getEdgeCont().retrieve("-" + succ)) ? nb.getEdgeCont().retrieve("-" + succ) : nb.getEdgeCont().retrieve(succ));
-            /
+            */
         Connection c(fromEdge, e.id, toEdge);
         if(c.from==0||c.to==0||c.from==c.to) {
             throw ProcessError("Something's false");
@@ -420,7 +421,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             *succEdge, c.to->getID()[0]!='-', c.to->getID()[0]=='-' ? OPENDRIVE_TAG_RIGHT : OPENDRIVE_TAG_LEFT);
         connections.push_back(c);
     }
-    */
     for (std::vector<Connection>::const_iterator i=connections.begin(); i!=connections.end(); ++i) {
         if ((*i).from==0 || (*i).to==0) {
             std::cout << "Nope." << std::endl;
@@ -947,8 +947,10 @@ NIImporter_OpenDrive::myStartElement(int element,
     break;
     case OPENDRIVE_TAG_LEFT:
         myCurrentLaneDirection = OPENDRIVE_TAG_LEFT;
+        break;
     case OPENDRIVE_TAG_CENTER:
         myCurrentLaneDirection = OPENDRIVE_TAG_CENTER;
+        break;
     case OPENDRIVE_TAG_RIGHT:
         myCurrentLaneDirection = OPENDRIVE_TAG_RIGHT;
         break;
@@ -961,6 +963,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));
     }
+        break;
     default:
         break;
     }
