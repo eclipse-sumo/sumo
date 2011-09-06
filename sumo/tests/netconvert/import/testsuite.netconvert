@@ -18,3 +18,7 @@ OSM
 
 # Tests for MATSIM-networks
 matsim
+
+# Tests for openDRIVE networks 
+openDRIVE
+
