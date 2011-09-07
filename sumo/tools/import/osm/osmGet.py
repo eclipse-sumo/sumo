@@ -31,10 +31,8 @@ def readCompressed(conn, query, filename):
     response = conn.getresponse()
     print response.status, response.reason
     if response.status == 200:
-        stream = StringIO.StringIO(response.read())
-        decompressor = gzip.GzipFile(fileobj=stream)
         out = open(path.join(os.getcwd(), filename), "w")
-        out.write(decompressor.read())
+        out.write(response.read())
         out.close()
 
 optParser = optparse.OptionParser()
@@ -75,7 +73,7 @@ def get(args=None):
             b = e
         conn.close()
     else:
-        conn = httplib.HTTPConnection("78.46.81.38")
+        conn = httplib.HTTPConnection("www.overpass-api.de")
         if options.area:
             if options.area < 3600000000:
                 options.area += 3600000000
