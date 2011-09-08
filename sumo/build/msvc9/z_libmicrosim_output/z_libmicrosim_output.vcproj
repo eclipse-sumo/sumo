@@ -587,10 +587,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSMsgInductLoop.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSRouteProbe.cpp"
 				>
 			</File>
@@ -649,10 +645,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSMsgInductLoop.h"
 				>
 			</File>
 			<File

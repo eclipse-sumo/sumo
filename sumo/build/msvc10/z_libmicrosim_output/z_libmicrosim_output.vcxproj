@@ -230,7 +230,6 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Harmonoise.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_HBEFA.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Net.cpp" />
-    <ClCompile Include="..\..\..\src\microsim\output\MSMsgInductLoop.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSRouteProbe.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSVTypeProbe.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSXMLRawOut.cpp" />
@@ -247,7 +246,6 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Harmonoise.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_HBEFA.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Net.h" />
-    <ClInclude Include="..\..\..\src\microsim\output\MSMsgInductLoop.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSRouteProbe.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSVTypeProbe.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSXMLRawOut.h" />

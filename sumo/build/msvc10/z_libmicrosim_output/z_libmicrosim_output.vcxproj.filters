@@ -38,9 +38,6 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSMeanData_Net.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\microsim\output\MSMsgInductLoop.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\output\MSRouteProbe.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -83,9 +80,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSMeanData_Net.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\output\MSMsgInductLoop.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSRouteProbe.h">
