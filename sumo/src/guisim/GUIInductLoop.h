@@ -58,12 +58,9 @@ class GUIInductLoop : public MSInductLoop {
 public:
     /**
      * @brief Constructor.
-     *
-     * Adds reminder to MSLane.
-     *
-     * @param id Unique id.
-     * @param lane Lane where detector woks on.
-     * @param position Position of the detector within the lane.
+     * @param[in] id Unique id.
+     * @param[in] lane Lane where detector woks on.
+     * @param[in] position Position of the detector within the lane.
      */
     GUIInductLoop(const std::string &id, MSLane * const lane, SUMOReal position) throw();
 
@@ -81,7 +78,8 @@ public:
 
 
     /** @brief Returns this detector's visualisation-wrapper
-        valid for gui-version only */
+     * @return The wrapper representing the detector
+     */
     virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
 
@@ -180,24 +178,24 @@ public:
         //@}
 
 
-
-        /// Returns the detector itself
+        /// @brief Returns the detector itself
         GUIInductLoop &getLoop();
 
+
     private:
-        /// The wrapped detector
+        /// @brief The wrapped detector
         GUIInductLoop &myDetector;
 
-        /// The detector's boundary
+        /// @brief The detector's boundary
         Boundary myBoundary;
 
-        /// The position in full-geometry mode
+        /// @brief The position in full-geometry mode
         Position myFGPosition;
 
-        /// The rotation in full-geometry mode
+        /// @brief The rotation in full-geometry mode
         SUMOReal myFGRotation;
 
-        /// The position on the lane
+        /// @brief The position on the lane
         SUMOReal myPosition;
 
     private:

@@ -62,6 +62,7 @@ public:
     // well, well, friends are evil; one could think about overriding MSDetectorControl and introducing GUIDetectorControl...
     friend class GUINet;
 
+
     /** @brief Constructor
      */
     MSDetectorControl() throw();
@@ -150,7 +151,8 @@ public:
 
     /** @brief Returns the list of detectors of the given type
      *
-     * @return The container of MSInductLoops
+     * @param[in] type The type of detectors to be retrieved
+     * @return The container of detectors
      */
     const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const throw();
 
@@ -162,10 +164,7 @@ public:
      *  values from the vehicles stored in their containers. This method
      *  goes through all of these detectors and forces a recomputation of
      *  the values.
-     *
-     * The following detector types need an update:
-     * @arg MSE2Collector
-     * @arg MSE3Collector
+     * @param[in] step The current time step
      */
     void updateDetectors(const SUMOTime step) throw();
 
@@ -220,10 +219,11 @@ protected:
     };
 
 protected:
+    /// @brief The detectors map, first by detector type, then using NamedObjectCont (@see NamedObjectCont)
     std::map<SumoXMLTag, NamedObjectCont< MSDetectorFileOutput*> > myDetectors;
 
 
-    /** @brief Map that hold DetectorFileVec for given intervals. */
+    /// @brief Map that hold DetectorFileVec for given intervals
     Intervals myIntervals;
 
     /// @brief The map that holds the last call for each sample interval
@@ -232,7 +232,9 @@ protected:
     /// @brief List of harmonoise detectors
     std::vector<MSMeanData*> myMeanData;
 
+    /// @brief An empty container to return in getTypedDetectors() if no detectors of the asked type exist
     NamedObjectCont< MSDetectorFileOutput*> myEmptyContainer;
+
 
 private:
     /// @brief Invalidated copy constructor.

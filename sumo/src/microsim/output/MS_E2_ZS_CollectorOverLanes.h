@@ -99,14 +99,12 @@ public:
 
 
     /** @brief Returns this detector's id
-     *
      * @return The id of this detector
      */
     const std::string &getID() const throw();
 
 
     /** @brief Returns the id of the lane this detector starts at
-     *
      * @return The id of the lane this detector starts at
      * @todo Check whether this is needed
      */
@@ -142,7 +140,6 @@ public:
 
 
     /** @brief Returns this detector's length [m]
-     *
      * @return This detector's length in meters
      */
     SUMOReal getLength() const  throw() {
@@ -153,7 +150,6 @@ protected:
     /** @brief This method extends the current length up to the given
      *
      * This method is called consecutively until all paths have the desired length
-     *
      * @param[in] length !!!
      * @todo Describe length's usage
      */

@@ -101,10 +101,21 @@ public:
      * @see Command_SaveTLCoupledLaneDet
      * @todo Reckeck/refactor
      */
-    virtual void reset() { }
+    virtual void reset() throw() { }
 
+
+    /** @brief Updates the detector (computes values)
+     *
+     * @param[in] step The current time step
+     */
     virtual void detectorUpdate(const SUMOTime step) throw() { }
 
+
+    /** @brief Builds the graphical representation
+     *
+     * Meant to be overridden by grahical versions of the detectors
+     * @return A wrapper for the detector which performs the user I/O within the GUI
+     */
     virtual GUIDetectorWrapper *buildDetectorGUIRepresentation() { return 0; }
 
 

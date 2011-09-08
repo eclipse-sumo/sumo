@@ -49,23 +49,34 @@
  */
 class GUIE3Collector : public MSE3Collector {
 public:
-    /// Constructor
+    /// @brief Constructor
     GUIE3Collector(const std::string &id,
                    const CrossSectionVector &entries, const CrossSectionVector &exits,
                    SUMOReal haltingSpeedThreshold,
                    SUMOTime haltingTimeThreshold) throw();
 
-    /// Destructor
+    /// @brief Destructor
     ~GUIE3Collector() throw();
 
-    /// Returns the list of entry points
+
+    /** @brief Returns the list of entry points
+     * @return The list of entry points
+     */
     const CrossSectionVector &getEntries() const;
 
-    /// Returns the list of exit points
+
+    /** @brief Returns the list of exit points
+     * @return The list of exit points
+     */
     const CrossSectionVector &getExits() const;
 
-    /// Builds the wrapper
+
+    /** @brief Returns the wrapper for this detector
+     * @return The wrapper representing the detector
+     * @see MyWrapper
+     */
     GUIDetectorWrapper *buildDetectorGUIRepresentation();
+
 
 public:
     /**
@@ -74,10 +85,10 @@ public:
      */
     class MyWrapper : public GUIDetectorWrapper {
     public:
-        /// Constructor
+        /// @brief Constructor
         MyWrapper(GUIE3Collector &detector) throw();
 
-        /// Destrutor
+        /// @brief Destrutor
         ~MyWrapper() throw();
 
 
@@ -111,40 +122,43 @@ public:
         //@}
 
 
-
-        /// Returns the detector itself
+        /// @brief Returns the detector itself
         GUIE3Collector &getDetector();
 
+
     protected:
+        /** @struct SingleCrossingDefinition
+         * @brief Representation of a single crossing point
+         */
         struct SingleCrossingDefinition {
-            /// The position in full-geometry mode
+            /// @brief The position
             Position myFGPosition;
-            /// The rotation in full-geometry mode
+            /// @brief The rotation
             SUMOReal myFGRotation;
         };
 
     protected:
-        /// Builds the description about the position of the entry/exit point
+        /// @brief Builds the description about the position of the entry/exit point
         SingleCrossingDefinition buildDefinition(const MSCrossSection &section);
 
-        /// Draws a single entry/exit point
+        /// @brief Draws a single entry/exit point
         void drawSingleCrossing(const Position &pos, SUMOReal rot,
                                 SUMOReal upscale) const;
 
     private:
-        /// The wrapped detector
+        /// @brief The wrapped detector
         GUIE3Collector &myDetector;
 
-        /// The detector's boundary
+        /// @brief The detector's boundary
         Boundary myBoundary;
 
-        /// Definition of a list of cross (entry/exit-point) positions
+        /// @brief Definition of a list of cross (entry/exit-point) positions
         typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
 
-        /// The list of entry positions
+        /// @brief The list of entry positions
         CrossingDefinitions myEntryDefinitions;
 
-        /// The list of exit positions
+        /// @brief The list of exit positions
         CrossingDefinitions myExitDefinitions;
 
     };

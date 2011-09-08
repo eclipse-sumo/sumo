@@ -81,7 +81,10 @@ public:
     ~GUI_E2_ZS_Collector() throw();
 
 
-    // valid for gui-version only
+    /** @brief Returns the wrapper for this detector
+     * @return The wrapper representing the detector
+     * @see MyWrapper
+     */
     virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
 
@@ -92,10 +95,10 @@ public:
      */
     class MyWrapper : public GUIDetectorWrapper {
     public:
-        /// Constructor
+        /// @brief Constructor
         MyWrapper(GUI_E2_ZS_Collector &detector) throw();
 
-         /// Destrutor
+         /// @brief Destrutor
         ~MyWrapper() throw();
 
 
@@ -129,25 +132,24 @@ public:
         //@}
 
 
-        /// Returns the detector itself
+        /// @brief Returns the detector itself
         GUI_E2_ZS_Collector &getDetector();
 
 
-
     private:
-        /// The wrapped detector
+        /// @brief The wrapped detector
         GUI_E2_ZS_Collector &myDetector;
 
-        /// The detector's boundary
+        /// @brief The detector's boundary
         Boundary myBoundary;
 
-        /// A sequence of positions in full-geometry mode
+        /// @brief A sequence of positions in full-geometry mode
         PositionVector myFullGeometry;
 
-        /// A sequence of lengths in full-geometry mode
+        /// @brief A sequence of lengths in full-geometry mode
         DoubleVector myShapeLengths;
 
-        /// A sequence of rotations in full-geometry mode
+        /// @brief A sequence of rotations in full-geometry mode
         DoubleVector myShapeRotations;
 
     private:
