@@ -138,8 +138,8 @@ MSMeanData_Harmonoise::createValues(MSLane * const lane, const SUMOReal length, 
 
 
 void
-MSMeanData_Harmonoise::update(const SUMOTime step) throw() {
-    MSMeanData::update(step);
+MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) throw() {
+    MSMeanData::detectorUpdate(step);
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
         const std::vector<MeanDataValues*> &lm = *i;
         for (std::vector<MeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {

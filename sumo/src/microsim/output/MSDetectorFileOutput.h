@@ -33,6 +33,13 @@
 
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/Named.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GUIDetectorWrapper;
 
 
 // ===========================================================================
@@ -53,10 +60,10 @@ enum DetectorUsage {
  *
  * @see MSDetector2File
  */
-class MSDetectorFileOutput {
+class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput() throw() { }
+    MSDetectorFileOutput(const std::string &id) throw() : Named(id) { }
 
 
     /// @brief (virtual) destructor
@@ -95,6 +102,10 @@ public:
      * @todo Reckeck/refactor
      */
     virtual void reset() { }
+
+    virtual void detectorUpdate(const SUMOTime step) throw() { }
+
+    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation() { return 0; }
 
 
 private:

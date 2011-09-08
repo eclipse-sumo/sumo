@@ -82,12 +82,8 @@ public:
 
 
     // valid for gui-version only
-    virtual GUIDetectorWrapper *buildDetectorWrapper(GUILaneWrapper &wrapper);
+    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
-
-    // valid for gui-version and joined collectors only
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p);
 
 public:
     /**
@@ -97,14 +93,9 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUI_E2_ZS_Collector &detector, GUILaneWrapper &wrapper) throw();
+        MyWrapper(GUI_E2_ZS_Collector &detector) throw();
 
-        /// Constructor for collectors joined over lanes
-        MyWrapper(GUI_E2_ZS_Collector &detector,
-                  GUI_E2_ZS_CollectorOverLanes &mustBe,
-                  GUILaneWrapper &wrapper) throw();
-
-        /// Destrutor
+         /// Destrutor
         ~MyWrapper() throw();
 
 
@@ -142,9 +133,6 @@ public:
         GUI_E2_ZS_Collector &getDetector();
 
 
-    private:
-        void myConstruct(GUI_E2_ZS_Collector &detector,
-                         GUILaneWrapper &wrapper);
 
     private:
         /// The wrapped detector

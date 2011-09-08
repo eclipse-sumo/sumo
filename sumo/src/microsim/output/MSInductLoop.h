@@ -35,7 +35,6 @@
 #include <functional>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <utils/common/Named.h>
 
 
 // ===========================================================================
@@ -69,8 +68,7 @@ class OutputDevice;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-        : public MSMoveReminder, public MSDetectorFileOutput,
-            public Named {
+        : public MSMoveReminder, public MSDetectorFileOutput {
 public:
     /**
      * @brief Constructor.
@@ -269,16 +267,17 @@ public:
                 : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
                 speedM(lengthM / ((leaveTimeM - entryTimeM))), typeIDM(typeID) {}
 
-        /** @brief The id of the vehicle */
+        /// @brief The id of the vehicle
         std::string idM;
-        /** @brief Length of the vehicle. */
+        /// @brief Length of the vehicle
         SUMOReal lengthM;
-        /** @brief Entry-time of the vehicle in [ms]. */
+        /// @brief Entry-time of the vehicle in [s]
         SUMOReal entryTimeM;
-        /** @brief Leave-time of the vehicle in [ms]. */
+        /// @brief Leave-time of the vehicle in [s]
         SUMOReal leaveTimeM;
-        /** @brief Speed of the vehicle in [m/s]. */
+        /// @brief Speed of the vehicle in [m/s]
         SUMOReal speedM;
+        /// @brief Type of the vehicle in
         std::string typeIDM;
     };
 

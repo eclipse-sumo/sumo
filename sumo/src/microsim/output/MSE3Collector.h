@@ -59,7 +59,7 @@ class OutputDevice;
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
  */
-class MSE3Collector : public MSDetectorFileOutput, public Named {
+class MSE3Collector : public MSDetectorFileOutput {
 public:
     /**
      * @class MSE3EntryReminder
@@ -96,15 +96,14 @@ public:
         bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
-        /** @brief Removes a known vehicle
+        /** @brief Processes state changes of a vehicle
         *
-        * If the reported vehicle is known, it is removed from the list of
-        *  vehicles to regard.
+        * If the reported vehicle is known, and the reason indicates a removal from the network
+		*  (permanent or temporary), the vehicle is removed from the list of vehicles to regard.
         *
         * @param[in] veh The leaving vehicle.
         * @param[in] lastPos Position on the lane when leaving.
-        * @param[in] isArrival whether the vehicle arrived at its destination
-        * @param[in] isLaneChange whether the vehicle changed from the lane
+        * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
         bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
@@ -297,7 +296,7 @@ public:
      *
      * @param[in] currentTime The current simulation time (unused)
      */
-    void update(SUMOTime currentTime) throw();
+    void detectorUpdate(const SUMOTime step) throw();
 
 
 protected:

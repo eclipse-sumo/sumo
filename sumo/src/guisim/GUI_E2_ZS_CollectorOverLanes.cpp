@@ -68,13 +68,7 @@ GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes() throw() {}
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUILaneWrapper &) {
-    throw 1;
-}
-
-
-GUIDetectorWrapper *
-GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper() {
+GUI_E2_ZS_CollectorOverLanes::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, myAlreadyBuild);
 }
 
@@ -105,7 +99,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUIEdge &edge = static_cast<GUIEdge&>(l->getEdge());
         GUILaneWrapper &w = edge.getLaneGeometry(l);
         GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
-        GUIDetectorWrapper *dw = c->buildDetectorWrapper(w, detector);
+        GUIDetectorWrapper *dw = c->buildDetectorGUIRepresentation();
         mySubWrappers.push_back(dw);
         myBoundary.add(dw->getCenteringBoundary());
     }

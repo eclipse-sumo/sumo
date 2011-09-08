@@ -68,16 +68,16 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
     tempMsg.writeString(id);
     if (variable==ID_LIST) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
+        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else if (variable==ID_COUNT) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
+        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
+        MSE3Collector *e3 = static_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
         if (e3==0) {
             server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known", outputStorage);
             return false;

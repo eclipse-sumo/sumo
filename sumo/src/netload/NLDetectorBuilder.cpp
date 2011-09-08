@@ -50,10 +50,6 @@
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
-#ifdef _MESSAGES
-#include <microsim/output/MSMsgInductLoop.h>
-#endif
-
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MELoop.h>
@@ -81,32 +77,6 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string 
 
 
 NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() throw() {}
-
-
-#ifdef _MESSAGES
-void
-NLDetectorBuilder::buildMsgDetector(const std::string &id,
-                                    const std::string &lane, SUMOReal pos, int splInterval,
-                                    const std::string &msg,
-                                    OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
-    if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_MSG) + " '" + id + "').");
-    }
-    if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in e4-detector '" + id + "').");
-    }
-    if (msg == "") {
-        throw InvalidArgument("No Message given (in e4-detector '" + id + "').");
-    }
-    MSLane *clane = getLaneChecking(lane, id);
-    if (pos<0) {
-        pos = clane->getLength() + pos;
-    }
-    pos = getPositionChecking(pos, clane, friendlyPos, id);
-    MSMsgInductLoop *msgloop = createMsgInductLoop(id, msg, clane, pos);
-    myNet.getDetectorControl().add(msgloop, device, splInterval);
-}
-#endif
 
 
 /* -------------------------------------------------------------------------
@@ -142,7 +112,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         // build the loop
         MSInductLoop *loop = createInductLoop(id, clane, pos);
         // add the file output
-        myNet.getDetectorControl().add(loop, device, splInterval);
+        myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 #ifdef HAVE_MESOSIM
     } else {
         if (pos<0) {
@@ -166,7 +136,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         }
         MEInductLoop *loop =
             createMEInductLoop(id, prev, rpos);
-        myNet.getDetectorControl().add(loop, device, splInterval);
+        myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     }
 #endif
 }
@@ -191,20 +161,12 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     MSDetectorFileOutput *det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-                                   clane, pos, length,
-                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold);
-        myNet.getDetectorControl().add(
-            static_cast<MSE2Collector*>(det), device, splInterval);
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, splInterval);
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
-                                  clane, pos, length,
-                                  haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold);
-        myNet.getDetectorControl().add(
-            static_cast<MS_E2_ZS_CollectorOverLanes*>(det), device, splInterval);
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, splInterval);
     }
 }
 
@@ -226,18 +188,12 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     MSDetectorFileOutput *det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-                                   clane, pos, length,
-                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold);
-        myNet.getDetectorControl().add(static_cast<MSE2Collector*>(det));
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
-                                  clane, pos, length,
-                                  haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold);
-        myNet.getDetectorControl().add(static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
     }
     // add the file output
     new Command_SaveTLCoupledDet(tlls, det, myNet.getCurrentTimeStep(), device);
@@ -272,18 +228,12 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     MSDetectorFileOutput *det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-                                   clane, pos, length,
-                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold);
-        myNet.getDetectorControl().add(static_cast<MSE2Collector*>(det));
+        det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
-                                  clane, pos, length,
-                                  haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold);
-        myNet.getDetectorControl().add(static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
+        myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det);
     }
     // add the file output
     new Command_SaveTLCoupledLaneDet(tlls, det, myNet.getCurrentTimeStep(), device, link);
@@ -390,8 +340,7 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument) {
                                           myE3Definition->myEntries, myE3Definition->myExits,
                                           myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
     // add to net
-    myNet.getDetectorControl().add(
-        static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
+    myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
     // clean up
     delete myE3Definition;
     myE3Definition = 0;
@@ -425,7 +374,7 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edg
     }
     MSRouteProbe *probe = new MSRouteProbe(id, e, begin);
     // add the file output
-    myNet.getDetectorControl().add(probe, device, frequency, begin);
+    myNet.getDetectorControl().add(SUMO_TAG_ROUTEPROBE, probe, device, frequency, begin);
 }
 
 
@@ -455,14 +404,6 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id, DetectorUsage usag
     ret->init(lane, length);
     return ret;
 }
-
-#ifdef _MESSAGES
-MSMsgInductLoop *
-NLDetectorBuilder::createMsgInductLoop(const std::string &id, const std::string &msg,
-                                       MSLane *lane, SUMOReal pos) throw() {
-    return new MSMsgInductLoop(id, msg, lane, pos);
-}
-#endif
 
 
 MSInductLoop *

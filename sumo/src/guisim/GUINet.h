@@ -250,9 +250,6 @@ public:
 
 
 private:
-    /// @brief Initialises the detector wrappers
-    void initDetectors();
-
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
 
@@ -277,7 +274,7 @@ protected:
     std::vector<MSTrafficLightLogic*> myTLLogicWrappers;
 
     /// @brief A detector dictionary
-    std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
+    std::vector<GUIDetectorWrapper*> myDetectorDict;
 
 
     /// @brief Definition of a link-to-logic-id map

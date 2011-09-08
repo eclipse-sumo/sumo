@@ -182,7 +182,7 @@ public:
 
     /** @brief Updates the detector
      */
-    virtual void update(const SUMOTime step) throw();
+    virtual void detectorUpdate(const SUMOTime step) throw();
 
 
 protected:

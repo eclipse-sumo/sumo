@@ -239,10 +239,10 @@ MSMeanData::MSMeanData(const std::string &id,
                        const bool trackVehicles,
                        const SUMOReal maxTravelTime, const SUMOReal minSamples,
                        const std::set<std::string> vTypes) throw() :
+        MSDetectorFileOutput(id),
         myMinSamples(minSamples),
         myMaxTravelTime(maxTravelTime),
         myVehicleTypes(vTypes),
-        myID(id),
         myAmEdgeBased(!useLanes),
         myDumpBegin(dumpBegin),
         myDumpEnd(dumpEnd),
@@ -458,7 +458,7 @@ MSMeanData::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 
 
 void
-MSMeanData::update(const SUMOTime step) throw() {
+MSMeanData::detectorUpdate(const SUMOTime step) throw() {
     if (step + DELTA_T == myDumpBegin) {
         init();
     }

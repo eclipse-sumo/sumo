@@ -72,12 +72,9 @@ public:
     ~GUI_E2_ZS_CollectorOverLanes() throw();
 
     // invalid in fact, as collectors do not need a lane
-    virtual GUIDetectorWrapper *buildDetectorWrapper(
-        GUILaneWrapper &lane);
+    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
-    // valid for gui-version only
-    virtual GUIDetectorWrapper *buildDetectorWrapper();
-
+ 
 protected:
     MSE2Collector *buildCollector(size_t c, size_t r,
                                   MSLane *l, SUMOReal start, SUMOReal end) throw();

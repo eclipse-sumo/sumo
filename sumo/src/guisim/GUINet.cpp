@@ -51,10 +51,6 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
-#include <guisim/GUIInductLoop.h>
-#include <guisim/GUI_E2_ZS_Collector.h>
-#include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
-#include <guisim/GUIE3Collector.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
@@ -104,8 +100,8 @@ GUINet::~GUINet() throw() {
         delete(*i3).second;
     }
     //  of detectors
-    for (std::map<std::string, GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
-        delete(*i).second;
+    for (std::vector<GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
+        delete *i;
     }
 }
 
@@ -115,56 +111,6 @@ GUINet::getBoundary() const {
     return myBoundary;
 }
 
-
-void
-GUINet::initDetectors() {
-    // e2 detectors
-    const std::map<std::string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
-    for (std::map<std::string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
-        MSE2Collector *const e2i = (*i2).second;
-        const MSLane *lane = e2i->getLane();
-        GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
-        /*
-        // build the wrapper
-            if ((*i2)->getUsageType()==DU_SUMO_INTERNAL
-                    ||
-                    (*i2)->getUsageType()==DU_TL_CONTROL) {
-                continue;
-            }
-            */
-        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(edge.getLaneGeometry(lane));
-        // add to dictionary
-        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        // add to visualisation
-        myGrid.addAdditionalGLObject(wrapper);
-    }
-    // e2 over lanes -detectors
-    const std::map<std::string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
-    for (std::map<std::string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
-        MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
-        GUIDetectorWrapper *wrapper = static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper();
-        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        myGrid.addAdditionalGLObject(wrapper);
-    }
-    // induction loops
-    const std::map<std::string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
-    for (std::map<std::string, MSInductLoop*>::const_iterator i2=e1.begin(); i2!=e1.end(); i2++) {
-        MSInductLoop *const e1i = (*i2).second;
-        const MSLane *lane = e1i->getLane();
-        GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
-        GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(edge.getLaneGeometry(lane));
-        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        myGrid.addAdditionalGLObject(wrapper);
-    }
-    // e3 detectors
-    const std::map<std::string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
-    for (std::map<std::string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
-        MSE3Collector *const e3i = (*i2).second;
-        GUIDetectorWrapper *wrapper = static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper();
-        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
-        myGrid.addAdditionalGLObject(wrapper);
-    }
-}
 
 
 void
@@ -292,7 +238,14 @@ GUINet::getTLSIDs() const {
 void
 GUINet::initGUIStructures() {
     // initialise detector storage for gui
-    initDetectors();
+    for(std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i=myDetectorControl->myDetectors.begin(); i!=myDetectorControl->myDetectors.end(); ++i) {
+        const std::map<std::string, MSDetectorFileOutput*> &dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
+        for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
+            GUIDetectorWrapper *wrapper = (*j).second->buildDetectorGUIRepresentation();
+            myDetectorDict.push_back(wrapper);
+            myGrid.addAdditionalGLObject(wrapper);
+        }
+    }
     // initialise the tl-map
     initTLMap();
     // initialise edge storage for gui

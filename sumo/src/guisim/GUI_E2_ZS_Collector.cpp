@@ -36,6 +36,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
+#include "GUIEdge.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -67,16 +68,8 @@ GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw() {}
 
 
 GUIDetectorWrapper *
-GUI_E2_ZS_Collector::buildDetectorWrapper(
-    GUILaneWrapper &wrapper) {
-    return new MyWrapper(*this, wrapper);
-}
-
-GUIDetectorWrapper *
-GUI_E2_ZS_Collector::buildDetectorWrapper(
-    GUILaneWrapper &wrapper,
-    GUI_E2_ZS_CollectorOverLanes& p) {
-    return new MyWrapper(*this, p, wrapper);
+GUI_E2_ZS_Collector::buildDetectorGUIRepresentation() {
+    return new MyWrapper(*this);
 }
 
 
@@ -84,27 +77,11 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(
 /* -------------------------------------------------------------------------
  * GUI_E2_ZS_Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
-        GUILaneWrapper &wrapper) throw()
+GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector) throw()
         : GUIDetectorWrapper("E2 detector", detector.getID()),
         myDetector(detector) {
-    myConstruct(detector, wrapper);
-}
-
-
-GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
-    GUI_E2_ZS_Collector &detector,
-    GUI_E2_ZS_CollectorOverLanes &,
-    GUILaneWrapper &wrapper) throw()
-        : GUIDetectorWrapper("ES detector", detector.getID()),
-        myDetector(detector) {
-    myConstruct(detector, wrapper);
-}
-
-void
-GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
-        GUILaneWrapper &wrapper) {
-    const PositionVector &v = wrapper.getShape();
+    GUILaneWrapper &lw = static_cast<GUIEdge&>(detector.getLane()->getEdge()).getLaneGeometry(detector.getLane());
+    const PositionVector &v = lw.getShape();
     Line l(v.getBegin(), v.getEnd());
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());

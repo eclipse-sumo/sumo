@@ -32,7 +32,6 @@
 #include <string>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
-#include <utils/common/Named.h>
 #include <utils/common/RandomDistributor.h>
 
 
@@ -63,7 +62,7 @@ class OutputDevice;
  * @see Named
  */
 
-class MSRouteProbe : public MSDetectorFileOutput, public Named, public MSMoveReminder {
+class MSRouteProbe : public MSDetectorFileOutput, public MSMoveReminder {
 public:
     /** @brief Constructor
      *

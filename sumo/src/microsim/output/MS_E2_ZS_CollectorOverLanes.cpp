@@ -46,7 +46,8 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw()
-        : startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
+        : MSDetectorFileOutput(id),
+        startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),
         myID(id), myStartLaneID(lane->getID()), myUsage(usage) {}
 

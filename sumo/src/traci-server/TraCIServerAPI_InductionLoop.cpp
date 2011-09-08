@@ -71,16 +71,16 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
     // process request
     if (variable==ID_LIST) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
+        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else if (variable==ID_COUNT) {
         std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
+        MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
+        MSInductLoop *il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
         if (il==0) {
             server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known", outputStorage);
             return false;

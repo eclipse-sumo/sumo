@@ -52,7 +52,7 @@ MSInductLoop::MSInductLoop(const std::string& id,
                            MSLane * const lane,
                            SUMOReal positionInMeters) throw() :
         MSMoveReminder(lane),
-        Named(id),
+        MSDetectorFileOutput(id),
         myPosition(positionInMeters),
         myLastLeaveTime(0),
         myVehicleDataCont(),

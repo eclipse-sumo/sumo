@@ -45,7 +45,7 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
                              SUMOTime haltingTimeThreshold,
                              SUMOReal haltingSpeedThreshold,
                              SUMOReal jamDistThreshold) throw()
-        : Named(id), MSMoveReminder(lane),
+        : MSMoveReminder(lane), MSDetectorFileOutput(id),
         myJamHaltingSpeedThreshold(haltingSpeedThreshold),
         myJamHaltingTimeThreshold(haltingTimeThreshold),
         myJamDistanceThreshold(jamDistThreshold),
@@ -146,7 +146,7 @@ MSE2Collector::reset() throw() {
 
 
 void
-MSE2Collector::update(SUMOTime) throw() {
+MSE2Collector::detectorUpdate(const SUMOTime step) throw() {
     JamInfo *currentJam = 0;
     std::map<SUMOVehicle*, SUMOTime> haltingVehicles;
     std::map<SUMOVehicle*, SUMOTime> intervalHaltingVehicles;

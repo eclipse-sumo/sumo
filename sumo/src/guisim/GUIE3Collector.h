@@ -65,7 +65,7 @@ public:
     const CrossSectionVector &getExits() const;
 
     /// Builds the wrapper
-    GUIDetectorWrapper *buildDetectorWrapper();
+    GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
 public:
     /**

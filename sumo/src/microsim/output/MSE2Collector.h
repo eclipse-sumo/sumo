@@ -31,7 +31,6 @@
 
 #include <vector>
 #include <list>
-#include <utils/common/Named.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -71,7 +70,7 @@ class OutputDevice;
  * @see MSDetectorFileOutput
  * @see Command
  */
-class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput {
+class MSE2Collector : public MSMoveReminder, public MSDetectorFileOutput {
 public:
     /** @brief Constructor
      *
@@ -167,7 +166,7 @@ public:
      *
      * @param[in] currentTime The current simulation time
      */
-    void update(SUMOTime currentTime) throw();
+    void detectorUpdate(const SUMOTime step) throw();
 
 
 

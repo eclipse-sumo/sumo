@@ -833,41 +833,6 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
 #endif
 
 
-#ifdef _MESSAGES
-void
-NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
-    bool ok = true;
-    // get the id, report an error if not given or empty...
-    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
-    if (!ok) {
-        return;
-    }
-    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-        myHaveWarnedAboutDeprecatedFriendlyPos = true;
-        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
-    }
-    bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-                       ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-                       : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
-    std::string msg = attrs.getStringReporting(SUMO_ATTR_MSG, id.c_str(), ok);
-    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
-    if (!ok) {
-        return;
-    }
-    try {
-        myDetectorBuilder.buildMsgDetector(id, lane, position, 1, msg,
-                                           OutputDevice::getDevice(file, getFileName()), friendlyPos);
-    } catch (InvalidArgument &e) {
-        WRITE_ERROR(e.what());
-    } catch (IOError &e) {
-        WRITE_ERROR(e.what());
-    }
-}
-#endif
-
-
 void
 NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     bool ok = true;

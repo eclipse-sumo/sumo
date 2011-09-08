@@ -359,7 +359,7 @@ public:
 
     /** @brief Updates the detector
      */
-    virtual void update(const SUMOTime step) throw();
+    virtual void detectorUpdate(const SUMOTime step) throw();
 
 
 protected:
@@ -419,9 +419,6 @@ protected:
     std::vector<std::vector<MeanDataValues*> > myMeasures;
 
 private:
-    /// @brief The id of the detector
-    const std::string myID;
-
     /// @brief Information whether the output shall be edge-based (not lane-based)
     const bool myAmEdgeBased;
 

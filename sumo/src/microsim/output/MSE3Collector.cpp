@@ -116,7 +116,7 @@ MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &exits,
                              SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold) throw()
-        : Named(id), myEntries(entries), myExits(exits),
+        : MSDetectorFileOutput(id), myEntries(entries), myExits(exits),
         myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
         myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0),
         myLastResetTime(-1) {
@@ -277,7 +277,7 @@ MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 
 
 void
-MSE3Collector::update(SUMOTime execTime) throw() {
+MSE3Collector::detectorUpdate(const SUMOTime step) throw() {
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
     myCurrentTouchedVehicles = 0;
@@ -285,9 +285,9 @@ MSE3Collector::update(SUMOTime execTime) throw() {
         SUMOVehicle* veh = pair->first;
         E3Values& values = pair->second;
         values.hadUpdate = true;
-        if (values.entryTime*1000.>=execTime) {
+        if (values.entryTime*1000.>=step) {
             // vehicle entered at this time step
-            SUMOReal fraction = execTime + 1. - values.entryTime;
+            SUMOReal fraction = step + 1. - values.entryTime;
             myCurrentMeanSpeed += fraction * veh->getSpeed();
             myCurrentTouchedVehicles += fraction;
             if (values.haltingBegin>=0) {
@@ -301,9 +301,9 @@ MSE3Collector::update(SUMOTime execTime) throw() {
         myCurrentTouchedVehicles += 1;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
             if (values.haltingBegin==-1) {
-                values.haltingBegin = execTime;
+                values.haltingBegin = step;
             }
-            if (execTime-values.haltingBegin>myHaltingTimeThreshold) {
+            if (step-values.haltingBegin>myHaltingTimeThreshold) {
                 values.haltings++;
                 values.intervalHaltings++;
                 myCurrentHaltingsNumber++;

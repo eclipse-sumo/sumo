@@ -38,6 +38,7 @@
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSLane.h>
+#include "GUIEdge.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -65,8 +66,8 @@ GUIInductLoop::~GUIInductLoop() throw() {}
 
 
 GUIDetectorWrapper *
-GUIInductLoop::buildDetectorWrapper(GUILaneWrapper &wrapper) {
-    return new MyWrapper(*this, wrapper, myPosition);
+GUIInductLoop::buildDetectorGUIRepresentation() {
+    return new MyWrapper(*this, static_cast<GUIEdge&>(getLane()->getEdge()).getLaneGeometry(getLane()), myPosition);
 }
 
 

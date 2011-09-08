@@ -197,7 +197,7 @@ GUIE3Collector::getExits() const {
 
 
 GUIDetectorWrapper *
-GUIE3Collector::buildDetectorWrapper() {
+GUIE3Collector::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this);
 }
 

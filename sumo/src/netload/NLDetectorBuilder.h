@@ -35,10 +35,6 @@
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
-#ifdef _MESSAGES
-#include <microsim/output/MSMsgInductLoop.h>
-#endif
-
 
 // ===========================================================================
 // class declarations
@@ -80,19 +76,6 @@ public:
 
     /// @name Value parsing and detector building methods
     /// @{
-
-#ifdef _MESSAGES
-    /** @brief Builds an e4-detector and adds it to the net
-     *
-     *	@param[in] id The id the detector shall have
-     *	@param[in] lane The name of the lane the detector is placed at
-     */
-    void
-    buildMsgDetector(const std::string &id,
-                     const std::string &lane, SUMOReal pos, int splInterval,
-                     const std::string &msg,
-                     OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
-#endif
 
     /** @brief Builds an e1 detector and adds it to the net
      *
@@ -323,15 +306,6 @@ public:
     ///
     /// Virtual, so they may be overwritten, for generating gui-versions of the detectors, for example.
     /// @{
-
-#ifdef _MESSAGES
-    /** @brief Creates an instance of an e4-detector using the given values
-     *
-     * Simply calls the MSMsgInductLoop constructor
-     */
-    virtual MSMsgInductLoop *createMsgInductLoop(const std::string &id, const std::string &msg,
-            MSLane *lane, SUMOReal pos) throw();
-#endif
 
     /** @brief Creates an instance of an e1 detector using the given values
      *

@@ -82,7 +82,7 @@ public:
 
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */
-    virtual GUIDetectorWrapper *buildDetectorWrapper(GUILaneWrapper &lane);
+    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
 
     /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time

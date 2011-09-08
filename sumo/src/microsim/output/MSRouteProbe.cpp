@@ -50,7 +50,7 @@
 // method definitions
 // ===========================================================================
 MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
-        : Named(id), myCurrentRouteDistribution(0) {
+        : MSDetectorFileOutput(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
     myCurrentRouteDistribution = MSRoute::distDictionary(distID);
     if (myCurrentRouteDistribution == 0) {
