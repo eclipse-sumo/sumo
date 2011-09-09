@@ -61,7 +61,7 @@ MSDetectorControl::~MSDetectorControl() throw() {
 
 
 void
-MSDetectorControl::close(SUMOTime step) throw(IOError) {
+MSDetectorControl::close(SUMOTime step) {
     // flush the last values
     writeOutput(step, true);
     // [...] files are closed on another place [...]
