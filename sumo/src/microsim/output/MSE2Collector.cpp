@@ -71,11 +71,11 @@ MSE2Collector::~MSE2Collector() throw() {
 bool
 MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                           SUMOReal newPos, SUMOReal) throw() {
-    if (newPos <= myStartPos) {
+    if (newPos < myStartPos) {
         // detector not yet reached
         return true;
     }
-    if (oldPos <= myStartPos && newPos > myStartPos) {
+    if (newPos >= myStartPos && oldPos < myStartPos) {
         if (find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh)==myKnownVehicles.end()) {
             myKnownVehicles.push_back(&veh);
         }

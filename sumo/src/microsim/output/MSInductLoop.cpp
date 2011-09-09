@@ -82,7 +82,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         // detector not reached yet
         return true;
     }
-    if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
+    if (newPos >= myPosition && oldPos < myPosition/*myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()*/) {
         // entered the detector by move
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         if (newSpeed!=0) {

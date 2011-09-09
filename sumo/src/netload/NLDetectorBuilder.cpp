@@ -93,14 +93,9 @@ void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    const std::string &lane, SUMOReal pos, int splInterval,
                                    OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
-    if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "').");
-    }
-    if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "').");
-    }
+    checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
-    MSLane *clane = getLaneChecking(lane, id);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
     if (pos<0) {
         pos = clane->getLength() + pos;
     }
@@ -150,13 +145,8 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    SUMOTime haltingTimeThreshold,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
-    if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E2DETECTOR) + " '" + id + "').");
-    }
-    if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E2DETECTOR) + " '" + id + "').");
-    }
-    MSLane *clane = getLaneChecking(lane, id);
+    checkSampleInterval(splInterval, SUMO_TAG_E2DETECTOR, id);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if (!cont) {
@@ -183,7 +173,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
-    MSLane *clane = getLaneChecking(lane, id);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if (!cont) {
@@ -213,8 +203,8 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
-    MSLane *clane = getLaneChecking(lane, id);
-    MSLane *ctoLane = getLaneChecking(tolane, id);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
+    MSLane *ctoLane = getLaneChecking(tolane, SUMO_TAG_E2DETECTOR, id);
     MSLink *link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
     if (link==0) {
         throw InvalidArgument(
@@ -282,12 +272,7 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice& device, int splInterval,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) throw(InvalidArgument) {
-    if (splInterval<0) {
-        throw InvalidArgument("Negative sampling frequency (in " + toString(SUMO_TAG_E3DETECTOR) + " '" + id + "').");
-    }
-    if (splInterval==0) {
-        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(SUMO_TAG_E3DETECTOR) + " '" + id + "').");
-    }
+    checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
     myE3Definition = new E3DetectorDefinition(id, device,
             haltingSpeedThreshold, haltingTimeThreshold,
             splInterval);
@@ -300,7 +285,7 @@ NLDetectorBuilder::addE3Entry(const std::string &lane,
     if (myE3Definition==0) {
         return;
     }
-    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
     // build and save the entry
@@ -314,7 +299,7 @@ NLDetectorBuilder::addE3Exit(const std::string &lane,
     if (myE3Definition==0) {
         return;
     }
-    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
     // build and save the exit
@@ -351,12 +336,7 @@ void
 NLDetectorBuilder::buildVTypeProbe(const std::string &id,
                                    const std::string &vtype, SUMOTime frequency,
                                    OutputDevice& device) throw(InvalidArgument) {
-    if (frequency<0) {
-        throw InvalidArgument("Negative frequency (in vTypeProbe '" + id + "').");
-    }
-    if (frequency==0) {
-        throw InvalidArgument("Frequency must not be zero (in vTypeProbe '" + id + "').");
-    }
+    checkSampleInterval(frequency, SUMO_TAG_VTYPEPROBE, id);
     new MSVTypeProbe(id, vtype, device, frequency);
 }
 
@@ -365,13 +345,8 @@ void
 NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edge,
                                    SUMOTime frequency, SUMOTime begin,
                                    OutputDevice& device) throw(InvalidArgument) {
-    if (frequency<=0) {
-        throw InvalidArgument("Frequency must be larger than zero (in routeprobe '" + id + "').");
-    }
-    MSEdge *e = MSEdge::dictionary(edge);
-    if (e==0) {
-        throw InvalidArgument("The edge with the id '" + edge + "' is not known (in routeprobe '" + id + "').");
-    }
+    checkSampleInterval(frequency, SUMO_TAG_ROUTEPROBE, id);
+    MSEdge *e = getEdgeChecking(edge, SUMO_TAG_ROUTEPROBE, id);
     MSRouteProbe *probe = new MSRouteProbe(id, e, begin);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_ROUTEPROBE, probe, device, frequency, begin);
@@ -457,18 +432,6 @@ NLDetectorBuilder::createE3Detector(const std::string &id,
 }
 
 
-MSLane *
-NLDetectorBuilder::getLaneChecking(const std::string &id,
-                                   const std::string &detid) throw(InvalidArgument) {
-    // get and check the lane
-    MSLane *clane = MSLane::dictionary(id);
-    if (clane==0) {
-        throw InvalidArgument("The lane with the id '" + id + "' is not known (while building detector '" + detid + "').");
-    }
-    return clane;
-}
-
-
 SUMOReal
 NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendlyPos,
                                        const std::string &detid) throw(InvalidArgument) {
@@ -536,6 +499,45 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
         MSNet::getInstance()->getDetectorControl().add(det, device, frequency, begin);
     }
 }
+
+
+
+
+// ------ Value checking/adapting methods ------
+MSEdge *
+NLDetectorBuilder::getEdgeChecking(const std::string &edgeID, SumoXMLTag type, 
+                                   const std::string &detid) throw(InvalidArgument) {
+    // get and check the lane
+    MSEdge *edge = MSEdge::dictionary(edgeID);
+    if (edge==0) {
+        throw InvalidArgument("The lane with the id '" + edgeID + "' is not known (while building " + toString(type) + " '" + detid + "').");
+    }
+    return edge;
+}
+
+
+MSLane *
+NLDetectorBuilder::getLaneChecking(const std::string &laneID, SumoXMLTag type, 
+                                   const std::string &detid) throw(InvalidArgument) {
+    // get and check the lane
+    MSLane *lane = MSLane::dictionary(laneID);
+    if (lane==0) {
+        throw InvalidArgument("The lane with the id '" + laneID + "' is not known (while building " + toString(type) + " '" + detid + "').");
+    }
+    return lane;
+}
+
+
+void 
+NLDetectorBuilder::checkSampleInterval(int splInterval, SumoXMLTag type, const std::string &id) throw(InvalidArgument) {
+    if (splInterval<0) {
+        throw InvalidArgument("Negative sampling frequency (in " + toString(type) + " '" + id + "').");
+    }
+    if (splInterval==0) {
+        throw InvalidArgument("Sampling frequency must not be zero (in " + toString(type) + " '" + id + "').");
+    }
+}
+
 
 /****************************************************************************/
 

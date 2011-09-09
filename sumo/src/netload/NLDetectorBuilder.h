@@ -499,18 +499,6 @@ protected:
 
 
 protected:
-    /** @brief Returns the named lane;
-     *
-     * Throws an InvalidArgument if the lane does not exist
-     *
-     * @param[in] id The id of the lane
-     * @param[in] detid The id of the currently built detector (for error message generation)
-     * @exception InvalidArgument If the named lane is not known
-     */
-    MSLane *getLaneChecking(const std::string &id,
-                            const std::string &detid) throw(InvalidArgument);
-
-
     /** @brief Computes the position to use
      *
      * At first, it is checked whether the given position is negative. If so, the
@@ -553,6 +541,41 @@ protected:
      */
     void convContE2PosLength(const std::string &id, MSLane *clane,
                              SUMOReal &pos, SUMOReal &length, bool frinedly_pos) throw(InvalidArgument);
+
+
+
+    /// @name Value checking/adapting methods
+    /// @{
+    
+    /** @brief Returns the named edge
+     * @param[in] edgeID The id of the lane
+     * @param[in] type The type of the detector (for error message generation)
+     * @param[in] detid The id of the currently built detector (for error message generation)
+     * @exception InvalidArgument If the named edge is not known
+     */
+    MSEdge *getEdgeChecking(const std::string &edgeID, SumoXMLTag type, 
+                            const std::string &detid) throw(InvalidArgument);
+
+
+    /** @brief Returns the named lane
+     * @param[in] laneID The id of the lane
+     * @param[in] type The type of the detector (for error message generation)
+     * @param[in] detid The id of the currently built detector (for error message generation)
+     * @exception InvalidArgument If the named lane is not known
+     */
+    MSLane *getLaneChecking(const std::string &laneID, SumoXMLTag type, 
+                            const std::string &detid) throw(InvalidArgument);
+
+
+    /** @brief Checks whether the given frequency (sample interval) is valid
+     * @param[in] splInterval The sample interval
+     * @param[in] type The type of the detector (for error message generation)
+     * @param[in] id The id of the detector (for error message generation)
+     * @exception InvalidArgument If the given sample interval is invalid (<=0)
+     * @todo Why is splInterval an int???
+     */
+    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string &id) throw(InvalidArgument);
+    /// @}
 
 
 protected:
