@@ -132,6 +132,9 @@ NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
 
 bool 
 NBLoadedSUMOTLDef::amInvalid() {
+    if (myControlledLinks.size()==0) {
+        return true;
+    }
     // make sure that myControlledNodes are the original nodes
     if (myControlledNodes.size() != myOriginalNodes.size()) {
         return true;
