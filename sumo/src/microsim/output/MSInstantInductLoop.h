@@ -2,9 +2,9 @@
 /// @file    MSInstantInductLoop.h
 /// @author  Daniel Krajzewicz
 /// @date    2011-09.08
-/// @version $Id: MSInstantInductLoop.h 9715 2011-02-10 14:03:15Z dkrajzew $
+/// @version $Id:$
 ///
-// An unextended detector measuring at a fixed position on a fixed lane.
+// An instantaneous induction loop
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -50,20 +50,8 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class MSInstantInductLoop
- * @brief An unextended detector measuring at a fixed position on a fixed lane.
+ * @brief An instantaneous induction loop
  *
- * Only vehicles that passed the entire detector are counted. We
- *  ignore vehicles that are emitted onto the detector and vehicles
- *  that change their lane while they are on the detector, because we
- *  cannot determine a meaningful enter/leave-times.
- *
- * This detector uses the MSMoveReminder mechanism, i.e. the vehicles
- *  call the detector if they pass it.
- *
- * Due to the inheritance from MSDetectorFileOutput this detector can
- *  print data to a file at fixed intervals via MSDetector2File.
- *
- * @see MSDetector2File
  * @see MSMoveReminder
  * @see MSDetectorFileOutput
  */
@@ -87,9 +75,6 @@ public:
     /// @brief Destructor
     ~MSInstantInductLoop() throw();
 
-
-
-    void write(char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed);
 
 
     /// @name Methods inherited from MSMoveReminder
@@ -172,11 +157,31 @@ public:
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
 
+
 protected:
+    /** @brief Writes an event line
+     * @param[in] state The current state to report
+     * @param[in] t The event time
+     * @param[in] veh The vehicle responsible for the event
+     * @param[in] speed The speed of the vehicle
+     * @param[in] add An optional attribute to report
+     * @param[in] addValue The value of the optional attribute
+     */
+    void write(const char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char *add=0, SUMOReal addValue=-1);
+
+
+protected:
+    /// @brief The output device to use
     OutputDevice &myOutputDevice;
 
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;
+
+    /// @brief The last exit time
+    SUMOReal myLastExitTime;
+
+    /// @brief The last exit time
+    std::map<SUMOVehicle*, SUMOReal> myEntryTimes;
 
 private:
     /// @brief Invalidated copy constructor.

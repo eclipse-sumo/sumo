@@ -56,9 +56,7 @@ enum DetectorUsage {
  * @brief Base of value-generating classes (detectors)
  *
  * Pure virtual base class for classes (e.g. MSInductLoop) that should produce
- *  XML-output via MSDetector2File.
- *
- * @see MSDetector2File
+ *  XML-output.
  */
 class MSDetectorFileOutput : public Named {
 public:

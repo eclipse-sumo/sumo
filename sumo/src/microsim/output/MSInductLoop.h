@@ -60,10 +60,6 @@ class OutputDevice;
  * This detector uses the MSMoveReminder mechanism, i.e. the vehicles
  *  call the detector if they pass it.
  *
- * Due to the inheritance from MSDetectorFileOutput this detector can
- *  print data to a file at fixed intervals via MSDetector2File.
- *
- * @see MSDetector2File
  * @see MSMoveReminder
  * @see MSDetectorFileOutput
  */

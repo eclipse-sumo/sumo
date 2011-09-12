@@ -2,9 +2,9 @@
 /// @file    MSInstantInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2011-09.08
-/// @version $Id: MSInstantInductLoop.cpp 9525 2011-01-04 21:22:52Z behrisch $
+/// @version $Id:$
 ///
-// An unextended detector measuring at a fixed position on a fixed lane.
+// An instantaneous induction loop
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -51,7 +51,7 @@
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
     OutputDevice &od, MSLane * const lane, SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), MSDetectorFileOutput(id), myOutputDevice(od),
-        myPosition(positionInMeters) {
+        myPosition(positionInMeters), myLastExitTime(-1) {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     writeXMLDetectorProlog(od);
 }
@@ -75,14 +75,26 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                 entryTime += (myPosition - oldPos) / newSpeed;
             }
         }
-        write("enter", entryTime, veh, newSpeed);
+        if(myLastExitTime>=0) {
+            write("enter", entryTime, veh, newSpeed, "gap", entryTime-myLastExitTime);
+        } else {
+            write("enter", entryTime, veh, newSpeed);
+        }
+        myEntryTimes[&veh] = entryTime;
         return true;
     }
     if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition) {
         // vehicle passed the detector
         SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         leaveTime += (myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed;
-        write("leave", leaveTime, veh, newSpeed);
+        std::map<SUMOVehicle*, SUMOReal>::iterator i=myEntryTimes.find(&veh);
+        if(i!=myEntryTimes.end()) {
+            write("leave", leaveTime, veh, newSpeed, "occupancy", leaveTime-(*i).second);
+            myEntryTimes.erase(i);
+        } else {
+            write("leave", leaveTime, veh, newSpeed);
+        }
+        myLastExitTime = leaveTime;
         return false;
     }
     // vehicle stays on the detector
@@ -92,18 +104,25 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 void 
-MSInstantInductLoop::write(char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed) {
+MSInstantInductLoop::write(const char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char *add, SUMOReal addValue) {
     myOutputDevice.openTag("instantOut").writeAttr(
         "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
         "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
         "length", toString(veh.getVehicleType().getLength())).writeAttr(
         "type", veh.getVehicleType().getID());
+    if(add!=0) {
+        myOutputDevice.writeAttr(add, toString(addValue));
+    }
     myOutputDevice << ">";
     myOutputDevice.closeTag();
 }
 
 bool
 MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
+    std::map<SUMOVehicle*, SUMOReal>::iterator i=myEntryTimes.find(&veh);
+    if(i!=myEntryTimes.end()) {
+        myEntryTimes.erase(i);
+    }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         write("leave", STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), veh, veh.getSpeed());
         return false;
