@@ -92,7 +92,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         }
         enterDetectorByMove(veh, entryTime);
     }
-    if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition) {
+    if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition && oldPos - veh.getVehicleType().getLengthWithGap() <= myPosition) {
         // vehicle passed the detector
         SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         leaveTime += (myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed;
@@ -239,12 +239,13 @@ void
 MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal leaveTimestep) throw() {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
-    assert(it != myVehiclesOnDet.end());
-    SUMOReal entryTimestep = it->second;
-    myVehiclesOnDet.erase(it);
-    assert(entryTimestep < leaveTimestep);
-    myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLengthWithGap(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
-    myLastOccupancy = leaveTimestep - entryTimestep;
+    if(it!=myVehiclesOnDet.end()) {
+        SUMOReal entryTimestep = it->second;
+        myVehiclesOnDet.erase(it);
+        assert(entryTimestep < leaveTimestep);
+        myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLengthWithGap(), entryTimestep, leaveTimestep, veh.getVehicleType().getID()));
+        myLastOccupancy = leaveTimestep - entryTimestep;
+    }
     myLastLeaveTime = leaveTimestep;
 }
 

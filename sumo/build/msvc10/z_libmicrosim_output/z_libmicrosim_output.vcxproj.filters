@@ -47,6 +47,9 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSXMLRawOut.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSInstantInductLoop.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h">
@@ -89,6 +92,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\output\MSXMLRawOut.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

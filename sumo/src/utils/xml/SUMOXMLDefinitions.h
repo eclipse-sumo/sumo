@@ -56,8 +56,6 @@ enum SumoXMLTag {
 #ifdef _MESSAGES
     /** tag for a message emitter */
     SUMO_TAG_MSG_EMITTER,
-    /** a msg detector (e-4 detector*/
-    SUMO_TAG_MSG,
 #endif
     /** an e1 detector */
     SUMO_TAG_E1DETECTOR__DEPRECATED,
@@ -85,6 +83,8 @@ enum SumoXMLTag {
     SUMO_TAG_DET_EXIT,
     /// @brief An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
+    /// @brief An instantenous induction loop
+    SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief A calibrator

@@ -124,6 +124,11 @@ protected:
      */
     virtual void addE1Detector(const SUMOSAXAttributes &attrs);
 
+    /** @brief Builds an e1 detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
+    virtual void addInstantE1Detector(const SUMOSAXAttributes &attrs);
+
     /** @brief Builds an e2 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */

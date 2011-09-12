@@ -61,13 +61,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
 
 #ifdef _MESSAGES
     { "msgemitter",		  SUMO_TAG_MSG_EMITTER },
-    { "e4-detector",	  SUMO_TAG_MSG },
 #endif
     { "det_entry",        SUMO_TAG_DET_ENTRY__DEPRECATED },
     { "detEntry",         SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT__DEPRECATED },
     { "detExit",          SUMO_TAG_DET_EXIT },
     { "edgeFollowDetector", SUMO_TAG_EDGEFOLLOWDETECTOR },
+    { "instantInductionLoop", SUMO_TAG_INSTANT_INDUCTION_LOOP },
     { "variableSpeedSign",SUMO_TAG_VSS },
     { "calibrator",       SUMO_TAG_CALIBRATOR },
     { "rerouter",         SUMO_TAG_REROUTER },

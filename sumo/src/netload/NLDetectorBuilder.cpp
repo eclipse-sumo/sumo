@@ -39,6 +39,7 @@
 #include <microsim/output/MSMeanData_Net.h>
 #include <microsim/output/MSMeanData_HBEFA.h>
 #include <microsim/output/MSMeanData_Harmonoise.h>
+#include <microsim/output/MSInstantInductLoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
@@ -96,9 +97,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
-    if (pos<0) {
-        pos = clane->getLength() + pos;
-    }
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
 #endif
@@ -134,6 +132,21 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     }
 #endif
+}
+
+
+void
+NLDetectorBuilder::buildInstantInductLoop(const std::string &id,
+                                   const std::string &lane, SUMOReal pos, 
+								   OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
+    // get and check the lane
+    MSLane *clane = getLaneChecking(lane, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+    // get and check the position
+    pos = getPositionChecking(pos, clane, friendlyPos, id);
+    // build the loop
+    MSInstantInductLoop *loop = createInstantInductLoop(id, clane, pos, device);
+    // add the file output
+    myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop);
 }
 
 
@@ -273,9 +286,7 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) throw(InvalidArgument) {
     checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
-    myE3Definition = new E3DetectorDefinition(id, device,
-            haltingSpeedThreshold, haltingTimeThreshold,
-            splInterval);
+    myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval);
 }
 
 
@@ -388,6 +399,13 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 }
 
 
+MSInstantInductLoop *
+NLDetectorBuilder::createInstantInductLoop(const std::string &id,
+									MSLane *lane, SUMOReal pos, OutputDevice &od) throw() {
+    return new MSInstantInductLoop(id, od, lane, pos);
+}
+
+
 #ifdef HAVE_MESOSIM
 MEInductLoop *
 NLDetectorBuilder::createMEInductLoop(const std::string &id,
@@ -400,25 +418,16 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold,
-        SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw() {
-    return new MSE2Collector(id, usage, lane, pos, length,
-                             haltingTimeThreshold, haltingSpeedThreshold,
-                             jamDistThreshold);
-
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
+    return new MSE2Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold,
-        SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw() {
-    return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
-                                           haltingTimeThreshold, haltingSpeedThreshold,
-                                           jamDistThreshold);
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
+    return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 

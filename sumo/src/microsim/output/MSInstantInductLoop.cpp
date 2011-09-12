@@ -1,0 +1,134 @@
+/****************************************************************************/
+/// @file    MSInstantInductLoop.cpp
+/// @author  Daniel Krajzewicz
+/// @date    2011-09.08
+/// @version $Id: MSInstantInductLoop.cpp 9525 2011-01-04 21:22:52Z behrisch $
+///
+// An unextended detector measuring at a fixed position on a fixed lane.
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+/****************************************************************************/
+
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
+#include "MSInstantInductLoop.h"
+#include <cassert>
+#include <numeric>
+#include <utility>
+#include <utils/common/WrappingCommand.h>
+#include <utils/common/ToString.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/MSLane.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringUtils.h>
+#include <utils/iodevices/OutputDevice.h>
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
+    OutputDevice &od, MSLane * const lane, SUMOReal positionInMeters) throw()
+        : MSMoveReminder(lane), MSDetectorFileOutput(id), myOutputDevice(od),
+        myPosition(positionInMeters) {
+    assert(myPosition >= 0 && myPosition <= myLane->getLength());
+    writeXMLDetectorProlog(od);
+}
+
+
+MSInstantInductLoop::~MSInstantInductLoop() throw() {
+}
+
+
+bool
+MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
+                         SUMOReal newPos, SUMOReal newSpeed) throw() {
+    if (newPos < myPosition) {
+        // detector not reached yet
+        return true;
+    }
+    if (newPos >= myPosition && oldPos < myPosition/* && static_cast<MSVehicle&>(veh).getLane() == myLane*/) {
+        SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        if (newSpeed!=0) {
+            if (myPosition>oldPos) {
+                entryTime += (myPosition - oldPos) / newSpeed;
+            }
+        }
+        write("enter", entryTime, veh, newSpeed);
+        return true;
+    }
+    if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition) {
+        // vehicle passed the detector
+        SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        leaveTime += (myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed;
+        write("leave", leaveTime, veh, newSpeed);
+        return false;
+    }
+    // vehicle stays on the detector
+    write("stay", STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), veh, newSpeed);
+    return true;
+}
+
+
+void 
+MSInstantInductLoop::write(char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed) {
+    myOutputDevice.openTag("instantOut").writeAttr(
+        "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
+        "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
+        "length", toString(veh.getVehicleType().getLength())).writeAttr(
+        "type", veh.getVehicleType().getID());
+    myOutputDevice << ">";
+    myOutputDevice.closeTag();
+}
+
+bool
+MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
+        write("leave", STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), veh, veh.getSpeed());
+        return false;
+    }
+    return true;
+}
+
+
+bool
+MSInstantInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw() {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myPosition) {
+        // vehicle-front is beyond detector. Ignore
+        return false;
+    }
+    // vehicle is in front of detector
+    return true;
+}
+
+
+void
+MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+    dev.writeXMLHeader("instantE1");
+}
+
+
+
+/****************************************************************************/
+

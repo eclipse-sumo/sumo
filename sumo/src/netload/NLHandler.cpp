@@ -46,9 +46,6 @@
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <microsim/output/MSInductLoop.h>
-#include <microsim/output/MSE2Collector.h>
-#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -209,6 +206,9 @@ NLHandler::myStartElement(int element,
             }
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
+            break;
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            addInstantE1Detector(attrs);
             break;
         case SUMO_TAG_VSS:
             myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
@@ -866,6 +866,38 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
 
 
 void
+NLHandler::addInstantE1Detector(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    // get the id, report an error if not given or empty...
+    std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        return;
+    }
+    // inform the user about deprecated values
+    SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
+    }
+    bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+                       ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                       : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
+    std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
+    if (!ok) {
+        return;
+    }
+    try {
+        myDetectorBuilder.buildInstantInductLoop(id, lane, position, OutputDevice::getDevice(file, getFileName()), friendlyPos);
+    } catch (InvalidArgument &e) {
+        WRITE_ERROR(e.what());
+    } catch (IOError &e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -916,45 +948,44 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     std::string lsaid = attrs.getOptStringReporting(SUMO_ATTR_TLID, id.c_str(), ok, "<invalid>");
     std::string toLane = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "<invalid>");
     //
+    if (attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
+        myHaveWarnedAboutDeprecatedTimeThreshold = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
+        myHaveWarnedAboutDeprecatedSpeedThreshold = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
+        myHaveWarnedAboutDeprecatedJamDistThreshold = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+        myHaveWarnedAboutDeprecatedFriendlyPos = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
+    }
+
+    const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
+        ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+        : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+    const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
+        ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+        : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+    const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
+        ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
+        : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+    const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
+    const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
+    const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
+        ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+        : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
+    const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
+    const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
+    if (!ok) {
+        return;
+    }
     try {
-        if (attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)) {
-            myHaveWarnedAboutDeprecatedTimeThreshold = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_TIME_THRESHOLD) + "'.");
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)) {
-            myHaveWarnedAboutDeprecatedSpeedThreshold = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_HALTING_SPEED_THRESHOLD) + "'.");
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)) {
-            myHaveWarnedAboutDeprecatedJamDistThreshold = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
-        }
-        if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
-            myHaveWarnedAboutDeprecatedFriendlyPos = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
-        }
-
-
-        const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
-                                              ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
-                                              : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
-        const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-                                               ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-                                               : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
-        const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
-                                          ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
-                                          : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
-        const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-        const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
-        const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-                                 ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-                                 : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-        const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
-        const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
-        const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
-        if (!ok) {
-            return;
-        }
         if (lsaid!="<invalid>") {
             if (toLane=="<invalid>") {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,

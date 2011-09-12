@@ -44,6 +44,7 @@ class MS_E2_ZS_CollectorOverLanes;
 class MSTrafficLightLogic;
 class MSDetectorControl;
 class MSLane;
+class MSInstantInductLoop;
 
 #ifdef HAVE_MESOSIM
 class MEInductLoop;
@@ -99,6 +100,28 @@ public:
     void buildInductLoop(const std::string &id,
                          const std::string &lane, SUMOReal pos, int splInterval,
                          OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
+
+
+
+
+    /** @brief Builds an instantenous induction and adds it to the net
+     *
+     * Checks the given values, first. If one of the values is invalid
+     *  (lane is not known, sampling frequency<=0, position is larger
+     *  than lane's length, the id is already in use), an InvalidArgument is thrown.
+     *
+     * Otherwise the e1 detector is built by calling "createInductLoop".
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The name of the lane the detector is placed at
+     * @param[in] pos The definition of the position on the lane the detector shall be placed at
+     * @param[in] device The output device the detector shall write into
+     * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void buildInstantInductLoop(const std::string &id,
+                         const std::string &lane, SUMOReal pos, 
+						 OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
 
 
     /** @brief Builds an e2 detector with a fixed interval and adds it to the net
@@ -317,6 +340,19 @@ public:
      */
     virtual MSInductLoop *createInductLoop(const std::string &id,
                                            MSLane *lane, SUMOReal pos) throw();
+
+
+    /** @brief Creates an instance of an e1 detector using the given values
+     *
+     * Simply calls the MSInductLoop constructor
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The lane the detector is placed at
+     * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] od The output device the loop shall use
+     */
+    virtual MSInstantInductLoop *createInstantInductLoop(const std::string &id,
+		MSLane *lane, SUMOReal pos, OutputDevice &od) throw();
 
 
 #ifdef HAVE_MESOSIM
