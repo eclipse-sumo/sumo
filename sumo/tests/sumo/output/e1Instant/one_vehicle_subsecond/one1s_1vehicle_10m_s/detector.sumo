@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/09/11 12:20:31 by SUMO sumo Version dev-SVN-r11219
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<instantE1>
+    <instantOut id="3/1to2/1" time="50.05" state="enter" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+    <instantOut id="3/1to2/1" time="50.10" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+    <instantOut id="3/1to2/1" time="50.20" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+    <instantOut id="3/1to2/1" time="50.30" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+    <instantOut id="3/1to2/1" time="50.40" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+    <instantOut id="3/1to2/1" time="50.55" state="leave" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>
+</instantE1>

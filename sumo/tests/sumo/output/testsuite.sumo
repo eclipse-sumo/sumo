@@ -1,6 +1,9 @@
 # Tests for e1Detectors (induction loops)
 e1
 
+# Tests for instantenous e1Detectors (induction loops)
+e1Instant
+
 # Tests for e2Detectors (lane-areal)
 e2
 
