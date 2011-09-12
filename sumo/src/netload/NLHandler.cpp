@@ -166,9 +166,6 @@ NLHandler::myStartElement(int element,
         case SUMO_TAG_MSG_EMITTER:
             addMsgEmitter(attrs);
             break;
-        case SUMO_TAG_MSG:
-            addMsgDetector(attrs);
-            break;
 #endif
         case SUMO_TAG_E1DETECTOR__DEPRECATED:
             if (!myHaveWarnedAboutDeprecatedE1) {

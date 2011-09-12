@@ -129,13 +129,6 @@ protected:
      */
     virtual void addE2Detector(const SUMOSAXAttributes &attrs);
 
-#ifdef _MESSAGES
-    /** @brief Builds an e4-detector using the given specification
-     * @param[in] attrs The attributes that define the detector
-     */
-    virtual void addMsgDetector(const SUMOSAXAttributes &attrs);
-#endif
-
     /** @brief Starts building of an e3 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
