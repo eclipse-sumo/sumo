@@ -58,8 +58,8 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane * const lane,
-                             SUMOReal position) throw()
-        : MSInductLoop(id, lane, position) {}
+							 SUMOReal position, std::string parkplatz, std::string leavingParkplatz) throw()
+        : MSInductLoop(id, lane, position, parkplatz, leavingParkplatz) {}
 
 
 GUIInductLoop::~GUIInductLoop() throw() {}
@@ -182,7 +182,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     glVertex2d(1.0, -2);
     glVertex2d(1.0, 2);
     glEnd();
-    glTranslated(0, 0, -.01);
+    glTranslated(0, 0, .01);
     glBegin(GL_LINES);
     glVertex2d(0, 2-.1);
     glVertex2d(0, -2+.1);
