@@ -93,7 +93,7 @@ NLDetectorBuilder::~NLDetectorBuilder() throw() {}
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    const std::string &lane, SUMOReal pos, int splInterval,
-                                   OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
+								   OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
@@ -103,7 +103,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         // get and check the position
         pos = getPositionChecking(pos, clane, friendlyPos, id);
         // build the loop
-        MSInductLoop *loop = createInductLoop(id, clane, pos);
+        MSDetectorFileOutput *loop = createInductLoop(id, clane, pos, splitByType);
         // add the file output
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 #ifdef HAVE_MESOSIM
@@ -144,7 +144,7 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string &id,
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // build the loop
-    MSInstantInductLoop *loop = createInstantInductLoop(id, clane, pos, device);
+    MSDetectorFileOutput *loop = createInstantInductLoop(id, clane, pos, device);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop);
 }
@@ -332,7 +332,7 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument) {
     if (myE3Definition==0) {
         return;
     }
-    MSE3Collector *det = createE3Detector(myE3Definition->myID,
+    MSDetectorFileOutput *det = createE3Detector(myE3Definition->myID,
                                           myE3Definition->myEntries, myE3Definition->myExits,
                                           myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
     // add to net
@@ -365,7 +365,7 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edg
 
 
 // -------------------
-MSE2Collector *
+MSDetectorFileOutput *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage,
                                         MSLane *lane, SUMOReal pos, SUMOReal length,
@@ -378,28 +378,28 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 }
 
 
-MS_E2_ZS_CollectorOverLanes *
+MSDetectorFileOutput *
 NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id, DetectorUsage usage,
                                        MSLane *lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
                                        SUMOReal haltingSpeedThreshold,
                                        SUMOReal jamDistThreshold) throw() {
-    MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
+    MSDetectorFileOutput *ret = createMultiLaneE2Detector(id, usage,
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
                                        jamDistThreshold);
-    ret->init(lane, length);
+    static_cast<MS_E2_ZS_CollectorOverLanes*>(ret)->init(lane, length);
     return ret;
 }
 
 
-MSInductLoop *
+MSDetectorFileOutput *
 NLDetectorBuilder::createInductLoop(const std::string &id,
-                                    MSLane *lane, SUMOReal pos) throw() {
-    return new MSInductLoop(id, lane, pos);
+									MSLane *lane, SUMOReal pos, bool splitByType) throw() {
+    return new MSInductLoop(id, lane, pos, splitByType);
 }
 
 
-MSInstantInductLoop *
+MSDetectorFileOutput *
 NLDetectorBuilder::createInstantInductLoop(const std::string &id,
 									MSLane *lane, SUMOReal pos, OutputDevice &od) throw() {
     return new MSInstantInductLoop(id, od, lane, pos);
@@ -415,7 +415,7 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 #endif
 
 
-MSE2Collector *
+MSDetectorFileOutput *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
@@ -423,7 +423,7 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 }
 
 
-MS_E2_ZS_CollectorOverLanes *
+MSDetectorFileOutput *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
@@ -431,7 +431,7 @@ NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
 }
 
 
-MSE3Collector *
+MSDetectorFileOutput *
 NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,

@@ -592,6 +592,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIInstantInductLoop.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIInternalLane.cpp"
 				>
 			</File>
@@ -670,6 +674,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIInductLoop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIInstantInductLoop.h"
 				>
 			</File>
 			<File

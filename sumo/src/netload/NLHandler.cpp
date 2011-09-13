@@ -848,6 +848,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
                        ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
                        : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    bool splitByType = attrs.getOptBoolReporting(SUMO_ATTR_SPLIT_VTYPE, id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
@@ -856,7 +857,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     try {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           OutputDevice::getDevice(file, getFileName()),
-                                          friendlyPos);
+                                          friendlyPos, splitByType);
     } catch (InvalidArgument &e) {
         WRITE_ERROR(e.what());
     } catch (IOError &e) {
