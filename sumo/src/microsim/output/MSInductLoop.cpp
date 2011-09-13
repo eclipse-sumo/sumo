@@ -221,7 +221,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
             writeTypedXMLOutput(dev, startTime, stopTime, (*i).first, (*i).second.first, (*i).second.second);
             dev << "/>\n";
         }
-        dev << "    </interval>\n";
+        dev << "   </interval>\n";
     } else {
         dev << "/>\n";
     }
@@ -255,9 +255,11 @@ MSInductLoop::writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTim
                           ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) vdc.size()
                           : -1;
     if(type!="") {
-        dev << "    ";
+        dev << "      <typedInterval type=\"" + type + "\" ";
+    } else {
+        dev << "   <interval ";
     }
-    dev<<"   <interval begin=\""<<time2string(startTime)<<"\" end=\""<<
+    dev<<"begin=\""<<time2string(startTime)<<"\" end=\""<<
     time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
     dev<<"nVehContrib=\""<<vdc.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
