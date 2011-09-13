@@ -35,6 +35,7 @@
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
+#include <guisim/GUIInstantInductLoop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include "GUIDetectorBuilder.h"
@@ -59,10 +60,17 @@ GUIDetectorBuilder::GUIDetectorBuilder(MSNet &net) throw()
 GUIDetectorBuilder::~GUIDetectorBuilder() throw() {}
 
 
-MSInductLoop *
+MSDetectorFileOutput *
 GUIDetectorBuilder::createInductLoop(const std::string &id,
-                                     MSLane *lane, SUMOReal pos) throw() {
-    return new GUIInductLoop(id, lane, pos);
+									 MSLane *lane, SUMOReal pos, bool splitByType) throw() {
+    return new GUIInductLoop(id, lane, pos, splitByType);
+}
+
+
+MSDetectorFileOutput *
+GUIDetectorBuilder::createInstantInductLoop(const std::string &id,
+									MSLane *lane, SUMOReal pos, OutputDevice &od) throw() {
+    return new GUIInstantInductLoop(id, od, lane, pos);
 }
 
 
@@ -75,32 +83,27 @@ GUIDetectorBuilder::createMEInductLoop(const std::string &id,
 #endif
 
 
-MSE2Collector *
+MSDetectorFileOutput *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
-    return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
-                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold);
-
+    return new GUI_E2_ZS_Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 
-MS_E2_ZS_CollectorOverLanes *
+MSDetectorFileOutput *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
-    return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
-                                            haltingTimeThreshold, haltingSpeedThreshold,
-                                            jamDistThreshold);
+    return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 
-MSE3Collector *
+MSDetectorFileOutput *
 GUIDetectorBuilder::createE3Detector(const std::string &id,
                                      const CrossSectionVector &entries,
                                      const CrossSectionVector &exits,

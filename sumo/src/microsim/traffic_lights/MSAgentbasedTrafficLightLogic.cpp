@@ -85,13 +85,13 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb) {
             std::string id = "TL_" + myID + "_" + myProgramID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
             if (myE2Detectors.find(lane)==myE2Detectors.end()) {
-                MS_E2_ZS_CollectorOverLanes* det =
+                MSDetectorFileOutput* det =
                     nb.buildMultiLaneE2Det(id,
                                            DU_TL_CONTROL, lane, 0, det_offset,
                                            /*haltingTimeThreshold!!!*/ 1,
                                            /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0/3.6),
                                            /*jamDistThreshold!!!*/ 10);
-                myE2Detectors[lane] = det;
+                myE2Detectors[lane] = static_cast<MS_E2_ZS_CollectorOverLanes*>(det);
             }
         }
     }

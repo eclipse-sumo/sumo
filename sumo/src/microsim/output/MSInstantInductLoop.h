@@ -61,15 +61,13 @@ public:
     /**
      * @brief Constructor.
      *
-     * Adds reminder to MSLane.
-     *
-     * @param id Unique id.
-     * @param lane Lane where detector woks on.
-     * @param position Position of the detector within the lane.
+     * @param[in] id Unique id
+     * @param[in] od The device to write to
+     * @param[in] lane Lane where detector woks on.
+     * @param[in] position Position of the detector within the lane.
      */
     MSInstantInductLoop(const std::string& id, OutputDevice &od,
-                 MSLane * const lane,
-                 SUMOReal positionInMeters) throw();
+                 MSLane * const lane, SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor

@@ -5,6 +5,7 @@ GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
 GUIE3Collector.cpp GUIE3Collector.h GUIEdge.cpp GUIEdge.h \
 GUIEventControl.cpp GUIEventControl.h \
 GUIInductLoop.cpp GUIInductLoop.h \
+GUIInstantInductLoop.cpp GUIInstantInductLoop.h \
 GUIInternalLane.cpp GUIInternalLane.h \
 GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUILane.cpp GUILane.h \

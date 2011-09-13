@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GUIInductLoop.cpp
+/// @file    GUIInstantInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Aug 2003
-/// @version $Id$
+/// @version $Id: GUIInstantInductLoop.cpp 11215 2011-09-08 12:03:35Z dkrajzew $
 ///
-// The gui-version of the MSInductLoop, together with the according
+// The gui-version of the MSInstantInductLoop
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -27,11 +27,11 @@
 #include <config.h>
 #endif
 
-#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSInstantInductLoop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUILaneWrapper.h"
-#include "GUIInductLoop.h"
+#include "GUIInstantInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -55,67 +55,28 @@
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
- * GUIInductLoop-methods
+ * GUIInstantInductLoop-methods
  * ----------------------------------------------------------------------- */
-GUIInductLoop::GUIInductLoop(const std::string &id, MSLane * const lane,
-							 SUMOReal position, bool splitByType) throw()
-        : MSInductLoop(id, lane, position, splitByType) {}
+GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice &od,
+                 MSLane * const lane, SUMOReal positionInMeters) throw()
+        : MSInstantInductLoop(id, od, lane, positionInMeters) {}
 
 
-GUIInductLoop::~GUIInductLoop() throw() {}
+GUIInstantInductLoop::~GUIInstantInductLoop() throw() {}
 
 
 GUIDetectorWrapper *
-GUIInductLoop::buildDetectorGUIRepresentation() {
+GUIInstantInductLoop::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, static_cast<GUIEdge&>(getLane()->getEdge()).getLaneGeometry(getLane()), myPosition);
 }
 
 
-void
-GUIInductLoop::reset() throw() {
-    myLock.lock();
-    MSInductLoop::reset();
-    myLock.unlock();
-}
-
-
-void
-GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
-    myLock.lock();
-    MSInductLoop::enterDetectorByMove(veh, entryTimestep);
-    myLock.unlock();
-}
-
-void
-GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
-    myLock.lock();
-    MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
-    myLock.unlock();
-}
-
-void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
-    myLock.lock();
-    MSInductLoop::leaveDetectorByLaneChange(veh);
-    myLock.unlock();
-}
-
-
-std::vector<MSInductLoop::VehicleData>
-GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
-    myLock.lock();
-    std::vector<VehicleData> ret = MSInductLoop::collectVehiclesOnDet(t);
-    myLock.unlock();
-    return ret;
-}
-
-
 /* -------------------------------------------------------------------------
- * GUIInductLoop::MyWrapper-methods
+ * GUIInstantInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
+GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop &detector,
                                     GUILaneWrapper &wrapper, SUMOReal pos) throw()
-        : GUIDetectorWrapper("induct loop", detector.getID()),
+        : GUIDetectorWrapper("instant induct loop", detector.getID()),
         myDetector(detector), myPosition(pos) {
     const PositionVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
@@ -127,11 +88,11 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
 }
 
 
-GUIInductLoop::MyWrapper::~MyWrapper() throw() {}
+GUIInstantInductLoop::MyWrapper::~MyWrapper() throw() {}
 
 
 Boundary
-GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
+GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const throw() {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -140,7 +101,7 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
 
 
 GUIParameterTableWindow *
-GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
+GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw() {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
@@ -148,16 +109,6 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
-    ret->mkItem("passed vehicles [#]", true,
-                new FunctionBinding<GUIInductLoop, unsigned int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
-    ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentSpeed));
-    ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
-    ret->mkItem("vehicle length [m]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentLength));
-    ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;
@@ -165,12 +116,12 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
-    glColor3d(1, 1, 0);
+    glColor3d(1, 0, 1);
     glPushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
@@ -216,8 +167,8 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
 }
 
 
-GUIInductLoop &
-GUIInductLoop::MyWrapper::getLoop() {
+GUIInstantInductLoop &
+GUIInstantInductLoop::MyWrapper::getLoop() {
     return myDetector;
 }
 

@@ -30,14 +30,13 @@
 #endif
 
 #include <string>
-#include <microsim/MSNet.h>
 #include <netload/NLDetectorBuilder.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSDetectorControl;
+class MSNet;
 
 
 // ===========================================================================
@@ -77,9 +76,23 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
+	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    virtual MSInductLoop *createInductLoop(const std::string &id,
-                                           MSLane *lane, SUMOReal pos) throw();
+    virtual MSDetectorFileOutput *createInductLoop(const std::string &id,
+		MSLane *lane, SUMOReal pos, bool splitByType) throw();
+
+    
+    /** @brief Creates an instance of an e1 detector using the given values
+     *
+     * Simply calls the MSInductLoop constructor
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The lane the detector is placed at
+     * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] od The output device the loop shall use
+     */
+    virtual MSDetectorFileOutput *createInstantInductLoop(const std::string &id,
+		MSLane *lane, SUMOReal pos, OutputDevice &od) throw();
 
 
 #ifdef HAVE_MESOSIM
@@ -109,7 +122,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
+    virtual MSDetectorFileOutput *createSingleLaneE2Detector(const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             SUMOReal haltingSpeedThreshold,
@@ -129,7 +142,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
+    virtual MSDetectorFileOutput *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
@@ -146,7 +159,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
      */
-    virtual MSE3Collector *createE3Detector(const std::string &id,
+    virtual MSDetectorFileOutput *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
                                             SUMOReal haltingSpeedThreshold,

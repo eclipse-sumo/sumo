@@ -91,8 +91,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) {
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
             if (myInductLoops.find(lane)==myInductLoops.end()) {
-                myInductLoops[lane] =
-                    nb.createInductLoop(id, lane, ilpos);
+                myInductLoops[lane] = static_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, false));
             }
         }
         // build the lane state-detectors

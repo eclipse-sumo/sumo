@@ -48,15 +48,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSInductLoop::MSInductLoop(const std::string& id,
-                           MSLane * const lane,
-                           SUMOReal positionInMeters) throw() :
+MSInductLoop::MSInductLoop(const std::string& id, MSLane * const lane,
+                           SUMOReal positionInMeters, bool splitByType) throw() :
         MSMoveReminder(lane),
         MSDetectorFileOutput(id),
         myPosition(positionInMeters),
         myLastLeaveTime(0),
         myVehicleDataCont(),
-        myVehiclesOnDet() {
+        myVehiclesOnDet(), mySplitByType(splitByType)
+        {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     reset();
     myLastLeaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
@@ -198,33 +198,71 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
 void
 MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+    writeTypedXMLOutput(dev, startTime, stopTime, "", myVehicleDataCont, myVehiclesOnDet);
+    if(mySplitByType) {
+        dev << ">\n";
+        std::map<std::string, std::pair<VehicleDataCont, VehicleMap> > types;
+        // collect / divide
+        for (std::deque< VehicleData >::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
+            if(types.find((*i).typeIDM)==types.end()) {
+                types[(*i).typeIDM] = make_pair(VehicleDataCont(), VehicleMap());
+            }
+            types[(*i).typeIDM].first.push_back(*i);
+        }
+        for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+            const std::string &type = (*i).first->getVehicleType().getID();
+            if(types.find(type)==types.end()) {
+                types[type] = make_pair(VehicleDataCont(), VehicleMap());
+            }
+            types[type].second[(*i).first] = (*i).second;
+        }
+        // write
+        for(std::map<std::string, std::pair<VehicleDataCont, VehicleMap> >::const_iterator i=types.begin(); i!=types.end(); ++i) {
+            writeTypedXMLOutput(dev, startTime, stopTime, (*i).first, (*i).second.first, (*i).second.second);
+            dev << "/>\n";
+        }
+        dev << "    </interval>\n";
+    } else {
+        dev << "/>\n";
+    }
+    reset();
+}
+
+void
+MSInductLoop::writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime,
+                            const std::string &type, const VehicleDataCont &vdc, const VehicleMap &vm) throw(IOError) {
     SUMOReal t(STEPS2TIME(stopTime-startTime));
-    unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
-    SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
+    unsigned nVehCrossed = (unsigned) vdc.size();
+    if(type=="") {
+        nVehCrossed += myDismissedVehicleNumber;
+    }
+    SUMOReal flow = ((SUMOReal) vdc.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
     SUMOReal occupancy = 0;
-    for (std::deque< VehicleData >::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
+    for (std::deque< VehicleData >::const_iterator i=vdc.begin(); i!=vdc.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(startTime), (*i).entryTimeM);
         timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, t);
         occupancy += timeOnDetDuringInterval;
     }
-    for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+    for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=vm.begin(); i!=vm.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), (*i).second);
         occupancy += timeOnDetDuringInterval;
     }
     occupancy = occupancy / t * (SUMOReal) 100.;
-    SUMOReal meanSpeed = myVehicleDataCont.size()!=0
-                         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size()
+    SUMOReal meanSpeed = vdc.size()!=0
+                         ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) vdc.size()
                          : -1;
-    SUMOReal meanLength = myVehicleDataCont.size()!=0
-                          ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) myVehicleDataCont.size()
+    SUMOReal meanLength = vdc.size()!=0
+                          ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) vdc.size()
                           : -1;
+    if(type!="") {
+        dev << "    ";
+    }
     dev<<"   <interval begin=\""<<time2string(startTime)<<"\" end=\""<<
     time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
-    dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
+    dev<<"nVehContrib=\""<<vdc.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<
-    "\" nVehEntered=\""<<nVehCrossed<<"\"/>\n";
-    reset();
+    "\" nVehEntered=\""<<nVehCrossed<<"\"";
 }
 
 

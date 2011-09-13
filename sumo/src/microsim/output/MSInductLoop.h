@@ -71,13 +71,13 @@ public:
      *
      * Adds reminder to MSLane.
      *
-     * @param id Unique id.
-     * @param lane Lane where detector woks on.
-     * @param position Position of the detector within the lane.
+     * @param[in] id Unique id
+     * @param[in] lane Lane where detector woks on
+     * @param[in] position Position of the detector within the lane
+	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    MSInductLoop(const std::string& id,
-                 MSLane * const lane,
-                 SUMOReal positionInMeters) throw();
+    MSInductLoop(const std::string& id, MSLane * const lane,
+                 SUMOReal positionInMeters, bool splitByType) throw();
 
 
     /// @brief Destructor
@@ -335,6 +335,9 @@ protected:
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;
 
+    /// @brief Whether additional information split by vehicle classes shall be generated
+    bool mySplitByType;
+
     /// @brief Leave-time of the last vehicle detected [s]
     SUMOReal myLastLeaveTime;
 
@@ -361,6 +364,8 @@ protected:
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     VehicleMap myVehiclesOnDet;
 
+    void writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime, 
+        const std::string &type, const VehicleDataCont &vdc, const VehicleMap &vm) throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

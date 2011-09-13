@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GUIInductLoop.h
+/// @file    GUIInstantInductLoop.h
 /// @author  Daniel Krajzewicz
 /// @date    Aug 2003
-/// @version $Id$
+/// @version $Id: GUIInstantInductLoop.h 11216 2011-09-08 12:53:35Z dkrajzew $
 ///
-// The gui-version of the MSInductLoop, together with the according
+// The gui-version of the MSInstantInductLoop
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIInductLoop_h
-#define GUIInductLoop_h
+#ifndef GUIInstantInductLoop_h
+#define GUIInstantInductLoop_h
 
 
 // ===========================================================================
@@ -30,7 +30,7 @@
 #endif
 
 #include <utils/foxtools/MFXMutex.h>
-#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSInstantInductLoop.h>
 #include <utils/geom/Position.h>
 #include "GUIDetectorWrapper.h"
 
@@ -45,37 +45,25 @@ class GUILaneWrapper;
 // class definitions
 // ===========================================================================
 /**
- * @class GUIInductLoop
- * @brief The gui-version of the MSInductLoop.
- *
- * Allows the building of a wrapper (also declared herein) which draws the
- *  detector on the gl-canvas. Uses a mutex to avoid parallel read/write operations.
- *  The mutex is only set within methods that change MSInductLoop-internal state
- *  and within "collectVehiclesOnDet". All other reading operations should be performed
- *  via the simulation loop only.
+ * @class GUIInstantInductLoop
+ * @brief The gui-version of the MSInstantInductLoop
  */
-class GUIInductLoop : public MSInductLoop {
+class GUIInstantInductLoop : public MSInstantInductLoop {
 public:
     /**
      * @brief Constructor.
      * @param[in] id Unique id
-     * @param[in] lane Lane where detector woks on
-     * @param[in] position Position of the detector within the lane
-	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] od The device to write to
+     * @param[in] lane Lane where detector woks on.
+     * @param[in] position Position of the detector within the lane.
      */
-	GUIInductLoop(const std::string &id, MSLane * const lane, SUMOReal position, bool splitByType) throw();
+	GUIInstantInductLoop(const std::string& id, OutputDevice &od,
+                 MSLane * const lane, SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor
-    ~GUIInductLoop() throw();
+    ~GUIInstantInductLoop() throw();
 
-
-    /** @brief Resets all generated values to allow computation of next interval
-     *
-     * Locks the internal mutex before calling MSInductLoop::reset()
-     * @see MSInductLoop::reset()
-     */
-    void reset() throw();
 
 
     /** @brief Returns this detector's visualisation-wrapper
@@ -84,64 +72,15 @@ public:
     virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
 
 
-    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
-     *
-     * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
-     *
-     * @param[in] t The time from which vehicles shall be counted
-     * @return The list of vehicles
-     * @see MSInductLoop::collectVehiclesOnDet()
-     */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
-
-
-protected:
-    /// @name Methods that add and remove vehicles from internal container
-    /// @{
-
-    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
-     *
-     * Locks the internal mutex before calling MSInductLoop::enterDetectorByMove()
-     * @see MSInductLoop::enterDetectorByMove()
-     * @param veh The entering vehicle.
-     * @param entryTimestep Timestep (not necessary integer) of entrance.
-     * @see MSInductLoop::enterDetectorByMove()
-     */
-    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw();
-
-
-    /** @brief Processes a vehicle that leaves the detector
-     *
-     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByMove()
-     * @see MSInductLoop::leaveDetectorByMove()
-     * @param veh The leaving vehicle.
-     * @param leaveTimestep Timestep (not necessary integer) of leaving.
-     * @see MSInductLoop::leaveDetectorByMove()
-     */
-    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw();
-
-
-    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
-     *
-     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByLaneChange()
-     * @see MSInductLoop::leaveDetectorByLaneChange()
-     * @param veh The leaving vehicle.
-     */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh) throw();
-    /// @}
-
-
-
-
 public:
     /**
-     * @class GUIInductLoop::MyWrapper
+     * @class GUIInstantInductLoop::MyWrapper
      * @brief A MSInductLoop-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInductLoop &detector,
+        MyWrapper(GUIInstantInductLoop &detector,
                   GUILaneWrapper &wrapper,
                   SUMOReal pos) throw();
 
@@ -180,12 +119,12 @@ public:
 
 
         /// @brief Returns the detector itself
-        GUIInductLoop &getLoop();
+        GUIInstantInductLoop &getLoop();
 
 
     private:
         /// @brief The wrapped detector
-        GUIInductLoop &myDetector;
+        GUIInstantInductLoop &myDetector;
 
         /// @brief The detector's boundary
         Boundary myBoundary;
