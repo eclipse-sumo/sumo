@@ -31,5 +31,14 @@ cross3l_uncontrolled
 # overwrite connections in a sumo network with a con.xml file
 overwrite
 
-# remove a connection with the reset element
-reset
+# Removing a connection with the reset element should discard all connections from given edge.
+reset_all
+
+# Removing a connection with the reset element twice should raise a warning.
+reset_all_multi
+
+# Removing a lane-to-lane connection with the reset element.
+reset_lane2lane
+
+# Removing a lane-to-lane connection with the reset element twice should raise a warning.
+reset_lane2lane_multi

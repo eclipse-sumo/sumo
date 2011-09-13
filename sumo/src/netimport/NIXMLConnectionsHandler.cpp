@@ -79,14 +79,40 @@ NIXMLConnectionsHandler::myStartElement(int element,
         NBEdge *fromEdge = myEdgeCont.retrieve(from);
         NBEdge *toEdge = myEdgeCont.retrieve(to);
         if (fromEdge==0) {
-            myErrorMsgHandler->inform("The connection-source edge '" + from + "' to reset is not known.");
+            myErrorMsgHandler->inform("The connection-source edge '" +
+                                      from + "' to reset is not known.");
             return;
         }
         if (toEdge==0) {
-            myErrorMsgHandler->inform("The connection-destination edge '" + to + "' to reset is not known.");
+            myErrorMsgHandler->inform("The connection-destination edge '" +
+                                      to + "' to reset is not known.");
             return;
         }
-        fromEdge->removeFromConnections(toEdge);
+        if (!fromEdge->isConnectedTo(toEdge)) {
+            WRITE_WARNING("Target edge '" + toEdge->getID() +
+                    "' is not connected with '" + fromEdge->getID() +
+                    "'; the connection cannot be reset.");
+            return;
+        }
+        int fromLane = -1; // Assume all lanes are to be reset.
+        int toLane = -1;
+        if (attrs.hasAttribute(SUMO_ATTR_LANE)
+            || attrs.hasAttribute(SUMO_ATTR_FROM_LANE)
+            || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
+            if (!parseLaneInfo(attrs, fromEdge, toEdge, &fromLane, &toLane)) {
+              return;
+            }
+            if (!validateLaneInfo(true /* canLanesBeNegative */, fromEdge,
+                                  toEdge, fromLane, toLane)) {
+              return;
+            }
+            if (!fromEdge->hasConnectionTo(toEdge, toLane)) {
+                WRITE_WARNING("Target lane '" + toEdge->getLaneID(toLane) +
+                              "' is not connected with '" + fromEdge->getID() +
+                              "'; the connection cannot be reset.");
+            }
+        }
+        fromEdge->removeFromConnections(toEdge, fromLane, toLane);
     }
 
     if (element==SUMO_TAG_CONNECTION) {
@@ -112,7 +138,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
         // @note This will also reset if a second con.xml file is loaded
         if (OptionsCont::getOptions().isSet("sumo-net-file") && myResetEdges.count(fromEdge) == 0) {
             fromEdge->invalidateConnections(true);
-            myResetEdges.insert(fromEdge); 
+            myResetEdges.insert(fromEdge);
         }
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE)||attrs.hasAttribute(SUMO_ATTR_FROM_LANE)||attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
@@ -141,8 +167,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
 
 
 NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
-        const std::string &def) throw() {
+NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const std::string &def) throw() {
     // split from/to
     size_t div = def.find("->");
     if (div==std::string::npos) {
@@ -193,41 +218,10 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     int fromLane;
     int toLane;
     try {
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-            if (!myHaveWarnedAboutDeprecatedLanes) {
-                myHaveWarnedAboutDeprecatedLanes = true;
-                WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" + toString(SUMO_ATTR_FROM_LANE) +
-                              "' and '" + toString(SUMO_ATTR_TO_LANE) + "' instead.");
-            }
-            std::string laneConn = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-            // split the information
-            StringTokenizer st(laneConn, ':');
-            if (!ok || st.size()!=2) {
-                myErrorMsgHandler->inform("Invalid lane to lane connection from '" +
-                                          from->getID() + "' to '" + to->getID() + "'.");
-                return;
-            }
-            fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-        } else {
-            fromLane = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
-            toLane = attrs.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
-        }
-        bool indexError = false;
-        if (fromLane<0 || static_cast<unsigned int>(fromLane)>=from->getNumLanes()) {
-            myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) + 
-                    "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
-                    from->getID() + "' to '" + to->getID() + "'.");
-            indexError = true;
+        if (!parseLaneInfo(attrs, from, to, &fromLane, &toLane)) {
             return;
         }
-        if (toLane<0 || static_cast<unsigned int>(toLane)>=to->getNumLanes()) {
-            myErrorMsgHandler->inform("Invalid value '" + toString(toLane) + 
-                    "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
-                    from->getID() + "' to '" + to->getID() + "'.");
-            indexError = true;
-        }
-        if (indexError) {
+        if (!validateLaneInfo(false /* canLanesBeNegative */, from, to, fromLane, toLane)) {
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
@@ -267,7 +261,78 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
     }
 }
 
+bool
+NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes &attributes,
+                                       NBEdge *fromEdge,
+                                       NBEdge *toEdge,
+                                       int *fromLane,
+                                       int *toLane) {
+    if (attributes.hasAttribute(SUMO_ATTR_LANE)) {
+       return parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane);
+    } else {
+       return parseLaneDefinition(attributes, fromLane, toLane);
+    }
+}
 
+
+inline bool
+NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes &attributes,
+                                                       NBEdge *from,
+                                                       NBEdge *to,
+                                                       int *fromLane,
+                                                       int *toLane) {
+    bool ok;
+    if (!myHaveWarnedAboutDeprecatedLanes) {
+        myHaveWarnedAboutDeprecatedLanes = true;
+        WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" +
+                      toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) +
+                      "' instead.");
+    }
+
+    std::string laneConn = attributes.getStringReporting(SUMO_ATTR_LANE, 0, ok);
+    StringTokenizer st(laneConn, ':');
+    if (!ok || st.size()!=2) {
+        myErrorMsgHandler->inform("Invalid lane to lane connection from '" +
+                                  from->getID() + "' to '" + to->getID() + "'.");
+        return false; // There was an error.
+    }
+
+    *fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+    *toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+
+    return true; // We succeeded.
+}
+
+
+inline bool
+NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes &attributes,
+                                             int* fromLane,
+                                             int* toLane) {
+    bool ok = true;
+    *fromLane = attributes.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
+    *toLane = attributes.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
+    return ok;
+}
+
+
+bool
+NIXMLConnectionsHandler::validateLaneInfo(bool canLanesBeNegative, NBEdge *fromEdge, NBEdge *toEdge, int fromLane, int toLane) {
+    if ((!canLanesBeNegative && fromLane<0) || 
+            static_cast<unsigned int>(fromLane)>=fromEdge->getNumLanes()) {
+        myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) +
+                "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
+                fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
+        return false;
+    }
+    if ((!canLanesBeNegative && toLane<0) || 
+            static_cast<unsigned int>(toLane)>=toEdge->getNumLanes()) {
+        myErrorMsgHandler->inform("Invalid value '" + toString(toLane) +
+                "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
+                fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
+        return false;
+    }
+    return true;
+}
 
 /****************************************************************************/
 

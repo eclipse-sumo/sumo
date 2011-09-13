@@ -95,8 +95,47 @@ private:
      * @param[in] from The edge at which the connection starts (the on incoming into a node)
      * @param[in] to The edge at which the connection ends (the on outgoing from a node)
      */
-    void parseLaneBound(const SUMOSAXAttributes &attrs,NBEdge *from,
-                        NBEdge *to) throw();
+    void parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *from, NBEdge *to) throw();
+
+
+    /** @brief Parses information about lane-2-lane connection when it describes a lane-2-lane relationship
+     * @param[in] attrs The attributes to get further information about the connection from
+     * @param[in] fromEdge The edge at which the connection starts (the on incoming into a node)
+     * @param[in] toEdge The edge at which the connection ends (the on outgoing from a node)
+     * @param[out] fromLane The lane at which connection starts
+     * @param[out] toLane The lane at which connection ends
+     */
+    bool parseLaneInfo(const SUMOSAXAttributes &attributes, NBEdge *fromEdge, NBEdge *toEdge, int *fromLane, int *toLane);
+
+
+    /** @brief Parses information about lane-2-lane connection in deprecated format.
+     * @param[in] attrs The attributes to get further information about the connection from
+     * @param[in] fromEdge The edge at which the connection starts (the on incoming into a node)
+     * @param[in] toEdge The edge at which the connection ends (the on outgoing from a node)
+     * @param[out] fromLane The lane at which connection starts
+     * @param[out] toLane The lane at which connection ends
+     */
+    inline bool parseDeprecatedLaneDefinition(const SUMOSAXAttributes &attributes,
+                                              NBEdge *fromEdge, NBEdge *toEdge,
+                                              int *fromLane, int *toLane);
+
+
+    /** @brief Parses information about lane-2-lane connection.
+     * @param[in] attrs The attributes to get further information about the connection from
+     * @param[out] fromLane The lane at which connection starts
+     * @param[out] toLane The lane at which connection ends
+     */
+    inline bool parseLaneDefinition(const SUMOSAXAttributes &attributes, int* fromLane, int* toLane);
+
+    /** @brief Validates information about lane-2-lane connection. Returns true iff information represents
+     *         a valid connection for the given edges.
+     * @param[in] canLanesBeNegative Whether negative lane indices are allowed (used when specifying resets)
+     * @param[in] fromEdge The originating edge 
+     * @param[in] toEdge The target edge 
+     * @param[in] fromLane The originating lane index 
+     * @param[in] toLane The target lane index
+     */
+    bool validateLaneInfo(bool canLanesBeNegative, NBEdge *fromEdge, NBEdge *toEdge, int fromLane, int toLane);
 
 
 private:
