@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/23/10 15:25:42 by SUMO sumo Version dev-SVN-r9400
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="15"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+    <interval begin="0.00" end="10.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="10.00" id="4/1to3/1" sampledSeconds="13.00" density="13.32" occupancy="6.66" waitingTime="0.00" speed="9.69" departed="2" arrived="0" entered="0" left="0"/>
+    <interval begin="10.00" end="15.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="10.00" end="15.00" id="4/1to3/1" sampledSeconds="5.76" density="11.80" occupancy="5.90" waitingTime="0.00" speed="9.13" departed="0" arrived="0" entered="0" left="1"/>
+</detector>
