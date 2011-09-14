@@ -1,3 +1,2 @@
-Error: Mismatching phase size in tls '0', program '0'.
-Error: Traffic lights could not be built.
+Error: Invalid linkIndex '11' in connection controlled by '0'
 Quitting (on error).
