@@ -55,7 +55,7 @@ Command_SaveTLSState::~Command_SaveTLSState() {
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) {
-    myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)
+    myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
     << "\" id=\"" << myLogics.getActive()->getID()
     << "\" programID=\"" << myLogics.getActive()->getProgramID()
     << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()

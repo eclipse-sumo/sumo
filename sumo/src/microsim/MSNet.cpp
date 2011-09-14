@@ -459,7 +459,7 @@ MSNet::writeOutput() {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
     }
     // emission output
-    if (OptionsCont::getOptions().isSet("emissions-output")) {
+    if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary");
         od << "    <step time=\"" << time2string(myStep) << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "

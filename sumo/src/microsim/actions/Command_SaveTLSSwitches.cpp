@@ -77,7 +77,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
             SUMOTime lastOn = myPreviousLinkStates[i];
             for (int j=0; j<(int) currLinks.size(); j++) {
                 MSLink *link = currLinks[j];
-                myOutputDevice << "   <tlsswitch id=\"" << light->getID()
+                myOutputDevice << "   <tlsSwitch id=\"" << light->getID()
                 << "\" programID=\"" << light->getProgramID()
                 << "\" fromLane=\"" << currLanes[j]->getID()
                 << "\" toLane=\"" << link->getLane()->getID()
