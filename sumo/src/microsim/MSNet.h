@@ -383,31 +383,19 @@ public:
      *  Otherwise, the bus stop is added to the internal bus stop
      *  container "myBusStopDict".
      *
-     * This control get responsible for deletion of the added bus stop.
+     * This control gets responsible for deletion of the added bus stop.
      *
      * @param[in] busStop The bus stop to add
      * @return Whether the bus stop could be added
      */
-    bool addBusStop(MSBusStop* busStop) throw() {
-        if (myBusStopDict.find(busStop->getID()) == myBusStopDict.end()) {
-            myBusStopDict[busStop->getID()] = busStop;
-            return true;
-        }
-        return false;
-    }
+    bool addBusStop(MSBusStop* busStop);
 
 
     /** @brief Returns the named bus stop
      * @param[in] id The id of the bus stop to return.
      * @return The named bus stop, or 0 if no such stop exists
      */
-    MSBusStop *getBusStop(const std::string &id) throw() {
-        BusStopDictType::iterator it = myBusStopDict.find(id);
-        if (it == myBusStopDict.end()) {
-            return 0;
-        }
-        return it->second;
-    }
+    MSBusStop *getBusStop(const std::string &id) const;
 
 
     /** @brief Returns the bus stop close to the given position
@@ -415,16 +403,11 @@ public:
      * @param[in] pos the position of the bus stop to return.
      * @return The bus stop id on the location, or "" if no such stop exists
      */
-    std::string getBusStopID(const MSLane* lane, const SUMOReal pos) throw() {
-        for (BusStopDictType::iterator it = myBusStopDict.begin(); it != myBusStopDict.end(); ++it) {
-            MSBusStop *stop = it->second;
-            if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
-                return stop->getID();
-            }
-        }
-        return "";
-    }
+    std::string getBusStopID(const MSLane* lane, const SUMOReal pos) const;
     /// @}
+
+
+
 
 
 
@@ -650,10 +633,8 @@ protected:
     int myTooManyVehicles;
 
 
-    /// @brief Bus stop dictionary type
-    typedef std::map< std::string, MSBusStop* > BusStopDictType;
     /// @brief Dictionary of bus stops
-    BusStopDictType myBusStopDict;
+    NamedObjectCont<MSBusStop*> myBusStopDict;
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;

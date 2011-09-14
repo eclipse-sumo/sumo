@@ -615,6 +615,32 @@ MSNet::informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleStat
 
 
 
+// ------ Insertion and retrieval of bus stops ------
+bool 
+MSNet::addBusStop(MSBusStop* busStop) {
+    return myBusStopDict.add(busStop->getID(), busStop);
+}
+
+
+MSBusStop *
+MSNet::getBusStop(const std::string &id) const {
+    return myBusStopDict.get(id);
+}
+
+
+std::string 
+MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
+    const std::map<std::string, MSBusStop*> &vals = myBusStopDict.getMyMap();
+    for (std::map<std::string, MSBusStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
+        MSBusStop *stop = it->second;
+        if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
+            return stop->getID();
+        }
+    }
+    return "";
+}
+
+
 #ifdef _MESSAGES
 MSMessageEmitter*
 MSNet::getMsgEmitter(const std::string& whatemit) {
