@@ -1249,7 +1249,7 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
                         : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             // make sure that the index is in range
             MSTrafficLightLogic *logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
-            if (tlLinkIdx >= logic->getCurrentPhaseDef().getState().size()) {
+            if (tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) + 
                         "' in connection controlled by '" + tlID + "'");
                 return;
