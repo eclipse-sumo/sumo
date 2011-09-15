@@ -352,7 +352,8 @@ NBOwnTLDef::collectLinks() throw(ProcessError) {
                     if (el.toEdge!=0&&el.toLane>=(int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
-                    myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
+                    int tlIndex = (int)myControlledLinks.size();
+                    myControlledLinks.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex));
                 }
             }
         }
@@ -374,13 +375,11 @@ void
 NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const throw() {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    unsigned int pos = 0;
     for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); ++j) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
-        if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
-            pos++;
-        }
+        edge->setControllingTLInformation(
+                conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), conn.getTLIndex());
     }
 }
 
