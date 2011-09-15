@@ -44,10 +44,7 @@
 #include <utils/common/SUMOTime.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/common/UtilExceptions.h>
-
-#ifdef _MESSAGES
 #include <utils/common/NamedObjectCont.h>
-#endif
 
 // ===========================================================================
 // class declarations
