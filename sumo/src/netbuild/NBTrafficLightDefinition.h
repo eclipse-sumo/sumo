@@ -300,7 +300,7 @@ protected:
     /** @brief Collects the links participating in this traffic light
      * @exception ProcessError If a link could not be found
      */
-    virtual void collectLinks() throw(ProcessError);
+    virtual void collectLinks() = 0;
 
 
     /** @brief Build the list of participating edges

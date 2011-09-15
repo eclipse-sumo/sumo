@@ -166,36 +166,6 @@ NBTrafficLightDefinition::collectEdges() throw() {
 }
 
 
-void
-NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
-    myControlledLinks.clear();
-    // build the list of links which are controled by the traffic light
-    for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        NBEdge *incoming = *i;
-        unsigned int noLanes = incoming->getNumLanes();
-        for (unsigned int j=0; j<noLanes; j++) {
-            std::vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
-                const NBEdge::Connection &el = *k;
-                if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
-                    myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
-                }
-            }
-        }
-    }
-    // set the information about the link's positions within the tl into the
-    //  edges the links are starting at, respectively
-    unsigned int pos = 0;
-    for (NBConnectionVector::iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
-        const NBConnection &conn = *j;
-        NBEdge *edge = conn.getFrom();
-        if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
-            pos++;
-        }
-    }
-}
-
-
 bool
 NBTrafficLightDefinition::isLeftMover(const NBEdge * const from,const NBEdge * const to) const throw() {
     // the destination edge may be unused
