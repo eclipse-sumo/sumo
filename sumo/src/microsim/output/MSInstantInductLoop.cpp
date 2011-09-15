@@ -2,7 +2,7 @@
 /// @file    MSInstantInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2011-09.08
-/// @version $Id:$
+/// @version $Id$
 ///
 // An instantaneous induction loop
 /****************************************************************************/
