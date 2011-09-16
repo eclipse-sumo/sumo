@@ -348,9 +348,10 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
             const NBConnection &conn = group->getConnection(j);
             assert(conn.getFromLane()<0||(int) conn.getFrom()->getNumLanes()>conn.getFromLane());
             NBConnection tst(conn);
+            tst.setTLIndex(pos);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
-                if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
+                if (edge->setControllingTLInformation(tst, getID())) {
                     pos++;
                 }
             } else {

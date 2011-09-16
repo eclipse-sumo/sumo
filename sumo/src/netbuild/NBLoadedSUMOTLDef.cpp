@@ -112,7 +112,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
         const NBConnection &c = *it;
         assert(c.getTLIndex() < myTLLogic->getNumLinks());
         NBEdge *edge = c.getFrom();
-        edge->setControllingTLInformation(c.getFromLane(), c.getTo(), c.getToLane(), getID(), c.getTLIndex());
+        edge->setControllingTLInformation(c, getID());
     }
 }
 
@@ -158,7 +158,7 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection &conn) {
     const int removed = conn.getTLIndex();
     // remove the connection and set as uncontrolled
     myControlledLinks.erase(it);
-    conn.getFrom()->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), "", NBConnection::InvalidTlIndex);
+    conn.getFrom()->setControllingTLInformation(conn, "");
     // shift link numbers down so there is no gap
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         NBConnection &c = *it;

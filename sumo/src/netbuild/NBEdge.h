@@ -49,6 +49,7 @@
 // class declarations
 // ===========================================================================
 class NBNode;
+class NBConnection;
 class NBNodeCont;
 class NBEdgeCont;
 class OutputDevice;
@@ -782,8 +783,7 @@ public:
     bool mayBeTLSControlled(int fromLane, NBEdge *toEdge, int toLane) const throw();
 
     /// Returns if the link could be set as to be controlled
-    bool setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
-                                     const std::string &tlID, unsigned int tlPos);
+    bool setControllingTLInformation(const NBConnection& c, const std::string &tlID);
 
     /// @brief clears tlID for all connections
     void clearControllingTLInformation();
