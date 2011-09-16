@@ -393,7 +393,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLigh
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc);
-    return clusters.size();
+    return (int)clusters.size();
 }
 
 
@@ -424,7 +424,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc);
-    return clusters.size();
+    return (int)clusters.size();
 }
 
 

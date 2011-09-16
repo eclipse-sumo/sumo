@@ -97,7 +97,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int in
     // interpret index
     if (index < 0 || index >= (int)myPhases.size()) {
         // insert at the end
-        index = myPhases.size();
+        index = (int)myPhases.size();
     }
     myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state));
 }

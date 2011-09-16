@@ -197,8 +197,8 @@ AGActivityGenHandler::parseCityGates(const SUMOSAXAttributes &attrs) {
 		string edge = attrs.getString(SUMO_ATTR_EDGE);
 		SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
 		AGPosition posi(myCity.getStreet(edge), positionOnEdge);
-		myCity.statData.incoming[myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
-		myCity.statData.outgoing[myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
+		myCity.statData.incoming[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
+		myCity.statData.outgoing[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
 		myCity.cityGates.push_back(posi);
 
 	} catch (const exception& e) {
