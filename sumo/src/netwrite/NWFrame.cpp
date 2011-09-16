@@ -32,6 +32,7 @@
 #include "NWWriter_SUMO.h"
 #include "NWWriter_MATSim.h"
 #include "NWWriter_XML.h"
+#include "NWWriter_OpenDrive.h"
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -64,7 +65,10 @@ NWFrame::fillOptions() {
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
 
     oc.doRegister("matsim-output", new Option_FileName());
-    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATSIM format.");
+    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATsim format.");
+
+    oc.doRegister("opendrive-output", new Option_FileName());
+    oc.addDescription("opendrive-output", "Output", "The generated net will be written to FILE using openDRIVE format.");
 
     oc.doRegister("output.street-names", new Option_Bool(false));
     oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available).");
@@ -87,6 +91,7 @@ void
 NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
+    NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_XML::writeNetwork(oc, nb);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {

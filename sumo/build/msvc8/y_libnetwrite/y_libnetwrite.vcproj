@@ -346,6 +346,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_OpenDrive.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netwrite\NWWriter_SUMO.cpp"
 				>
 			</File>
@@ -364,6 +368,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netwrite\NWWriter_MATSim.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netwrite\NWWriter_OpenDrive.h"
 				>
 			</File>
 			<File

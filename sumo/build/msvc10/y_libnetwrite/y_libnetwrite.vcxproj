@@ -136,12 +136,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netwrite\NWFrame.cpp" />
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_OpenDrive.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_SUMO.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_MATSim.cpp" />
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netwrite\NWFrame.h" />
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_OpenDrive.h" />
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_SUMO.h" />
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_MATSim.h" />
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_XML.h" />

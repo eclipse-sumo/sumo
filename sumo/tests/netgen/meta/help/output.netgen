@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r11200
+SUMO netgen Version dev-SVN-r11246
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -72,7 +72,9 @@ Usage: netgen [OPTION]*
                                         edges and connections to
   -M, --map-output FILE               Writes joined edges information to FILE
   --matsim-output FILE                The generated net will be written to FILE
-                                        using MATSIM format.
+                                        using MATsim format.
+  --opendrive-output FILE             The generated net will be written to FILE
+                                        using openDRIVE format.
   --output.street-names               Street names will be included in the
                                         output (if available).
 

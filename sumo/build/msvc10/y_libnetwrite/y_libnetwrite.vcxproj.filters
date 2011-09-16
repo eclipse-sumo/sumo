@@ -23,6 +23,9 @@
     <ClCompile Include="..\..\..\src\netwrite\NWWriter_XML.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netwrite\NWWriter_OpenDrive.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netwrite\NWFrame.h">
@@ -35,6 +38,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netwrite\NWWriter_XML.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netwrite\NWWriter_OpenDrive.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
