@@ -56,6 +56,12 @@
     <ClCompile Include="..\..\..\src\netimport\NIXMLTypesHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\NIImporter_MATSim.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netimport\NIImporter_ITSUMO.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netimport\NIFrame.h">
@@ -101,6 +107,12 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netimport\NIXMLTypesHandler.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\NIImporter_MATSim.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netimport\NIImporter_ITSUMO.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

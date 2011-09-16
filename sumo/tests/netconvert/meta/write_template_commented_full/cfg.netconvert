@@ -39,8 +39,11 @@
         <!-- Read RoboCup-net from DIR -->
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE"/>
 
-        <!-- Read MATSim-net from FILE -->
+        <!-- Read MATsim-net from FILE -->
         <matsim-files value="" synonymes="matsim" type="FILE"/>
+
+        <!-- Read ITSUMO-net from FILE -->
+        <itsumo-files value="" synonymes="itsumo" type="FILE"/>
 
     </input>
 

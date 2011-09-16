@@ -15,7 +15,8 @@
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
-        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATSim-net from FILE"/>
+        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATsim-net from FILE"/>
+        <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
     </input>
 
     <output>

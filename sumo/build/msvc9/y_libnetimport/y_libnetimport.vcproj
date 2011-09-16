@@ -351,6 +351,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_ITSUMO.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_MATSim.cpp"
 				>
 			</File>
@@ -417,6 +421,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_DlrNavteq.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_ITSUMO.h"
 				>
 			</File>
 			<File

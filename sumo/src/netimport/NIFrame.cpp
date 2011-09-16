@@ -117,7 +117,11 @@ NIFrame::fillOptions() {
 
     oc.doRegister("matsim-files", new Option_FileName());
     oc.addSynonyme("matsim-files", "matsim");
-    oc.addDescription("matsim-files", "Input", "Read MATSim-net from FILE");
+    oc.addDescription("matsim-files", "Input", "Read MATsim-net from FILE");
+
+    oc.doRegister("itsumo-files", new Option_FileName());
+    oc.addSynonyme("itsumo-files", "itsumo");
+    oc.addDescription("itsumo-files", "Input", "Read ITSUMO-net from FILE");
 
 
     // register basic processing options
