@@ -252,9 +252,15 @@ NIFrame::checkOptions() {
         oc.set("proj.scale", std::string("5"));
     }
 #endif
-    if (oc.isSet("sumo-net-file") && oc.isWriteable("no-turnarounds")) {
-        // changed default since turnarounds are loaded from the net file.
-        oc.set("no-turnarounds", "true");
+    if (oc.isSet("sumo-net-file")) {
+        if (oc.isWriteable("no-turnarounds")) {
+            // changed default since turnarounds are loaded from the net file.
+            oc.set("no-turnarounds", "true");
+        }
+        if (oc.isWriteable("offset.disable-normalization")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("offset.disable-normalization", "true");
+        }
     }
     return ok;
 }
