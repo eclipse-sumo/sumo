@@ -2,7 +2,7 @@
 /// @file    NIImporter_ITSUMO.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2011-09-16
-/// @version $Id: NIImporter_ITSUMO.cpp 11163 2011-08-25 11:13:31Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for networks stored in ITSUMO format
 /****************************************************************************/

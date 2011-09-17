@@ -2,7 +2,7 @@
 /// @file    NIImporter_ITSUMO.h
 /// @author  Daniel Krajzewicz
 /// @date    2011-09-16
-/// @version $Id: NIImporter_ITSUMO.h 10974 2011-07-12 21:21:54Z behrisch $
+/// @version $Id$
 ///
 // Importer for networks stored in ITSUMO format
 /****************************************************************************/

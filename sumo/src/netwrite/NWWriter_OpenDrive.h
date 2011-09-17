@@ -2,7 +2,7 @@
 /// @file    NWWriter_OpenDrive.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 04.05.2011
-/// @version $Id: NWWriter_OpenDrive.h 10238 2011-05-05 20:14:59Z behrisch $
+/// @version $Id$
 ///
 // Exporter writing networks using the MATSim format
 /****************************************************************************/
