@@ -13,14 +13,9 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
-def readShape(result):
-    length = result.read("!B")[0]
-    return [result.read("!dd") for i in range(length)]
-
-
 RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
                      tc.VAR_TYPE:  traci.Storage.readString,
-                     tc.VAR_SHAPE: readShape,
+                     tc.VAR_SHAPE: traci.Storage.readShape,
                      tc.VAR_COLOR: lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 

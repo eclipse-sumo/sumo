@@ -15,16 +15,24 @@ import socket, time, struct
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
 def _STEPS2TIME(step):
+    """Conversion from time steps in milliseconds to seconds as float"""
     return step/1000.
 
 def _TIME2STEPS(time):
+    """Conversion from (float) time in seconds to milliseconds as int"""
     return int(time*1000)
 
-class FatalTraCIError:
+class FatalTraCIError(Exception):
+    """Exception class for all TraCI errors"""
     def __init__(self, desc):
         self._desc = desc
 
 class Message:
+    """ A named tuple for internal usage.
+    
+    Simple "struct" for the composed message string
+    together with a list of TraCI commands which are inside.
+    """
     string = ""
     queue = []
 
@@ -61,26 +69,34 @@ class Storage:
             list.append(self.readString())
         return list
 
+    def readShape(self):
+        length = self.read("!B")[0]
+        return [self.read("!dd") for i in range(length)]
+
+
     def ready(self):
         return self._pos < len(self._content) 
 
 
-import constants, vehicle, simulation, route, vehicletype, inductionloop, multientryexit, trafficlights
-import poi, polygon, junction, edge, lane, gui
+import constants
+import inductionloop, multientryexit, trafficlights
+import lane, vehicle, vehicletype, route
+import poi, polygon, junction, edge, simulation, gui
 
-_modules = {constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
-            constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
-            constants.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE: route,
-            constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
-            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE: multientryexit,
+_modules = {constants.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE: inductionloop,
+            constants.RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:\
+            multientryexit,
             constants.RESPONSE_SUBSCRIBE_TL_VARIABLE: trafficlights,
+            constants.RESPONSE_SUBSCRIBE_LANE_VARIABLE: lane,
+            constants.RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE: vehicle,
+            constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype,
+            constants.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE: route,
             constants.RESPONSE_SUBSCRIBE_POI_VARIABLE: poi,
             constants.RESPONSE_SUBSCRIBE_POLYGON_VARIABLE: polygon,
             constants.RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE: junction,
             constants.RESPONSE_SUBSCRIBE_EDGE_VARIABLE: edge,
-            constants.RESPONSE_SUBSCRIBE_LANE_VARIABLE: lane,
-            constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui,
-            constants.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE: vehicletype}
+            constants.RESPONSE_SUBSCRIBE_SIM_VARIABLE: simulation,
+            constants.RESPONSE_SUBSCRIBE_GUI_VARIABLE: gui}
 _connections = {}
 _message = Message()
 
@@ -119,7 +135,8 @@ def _sendExact():
         if prefix[2] or err:
             print prefix, RESULTS[prefix[2]], err
         elif prefix[1] != command:
-            print "Error! Received answer %s for command %s." % (prefix[1], command)
+            print "Error! Received answer %s for command %s." % (prefix[1],
+                                                                 command)
         elif prefix[1] == constants.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
@@ -130,9 +147,11 @@ def _beginMessage(cmdID, varID, objID, length=0):
     _message.queue.append(cmdID)
     length += 1+1+1+4+len(objID)
     if length<=255:
-        _message.string += struct.pack("!BBBi", length, cmdID, varID, len(objID)) + objID
+        _message.string += struct.pack("!BBBi", length,
+                                       cmdID, varID, len(objID)) + objID
     else:
-        _message.string += struct.pack("!BiBBi", 0, length+4, cmdID, varID, len(objID)) + objID
+        _message.string += struct.pack("!BiBBi", 0, length+4,
+                                       cmdID, varID, len(objID)) + objID
 
 def _sendReadOneStringCmd(cmdID, varID, objID):
     _beginMessage(cmdID, varID, objID)
@@ -150,7 +169,8 @@ def _sendDoubleCmd(cmdID, varID, objID, value):
 
 def _sendStringCmd(cmdID, varID, objID, value):
     _beginMessage(cmdID, varID, objID, 1+4+len(value))
-    _message.string += struct.pack("!Bi", constants.TYPE_STRING, len(value)) + value
+    _message.string += struct.pack("!Bi", constants.TYPE_STRING,
+                                   len(value)) + value
     _sendExact()
 
 def _checkResult(cmdID, varID, objID):
@@ -186,7 +206,8 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
         _message.string += struct.pack("!B", length)
     else:
         _message.string += struct.pack("!Bi", 0, length+4)
-    _message.string += struct.pack("!Biii", cmdID, begin, end, len(objID)) + objID
+    _message.string += struct.pack("!Biii", cmdID,
+                                   begin, end, len(objID)) + objID
     _message.string += struct.pack("!B", len(varIDs))
     for v in varIDs:
         _message.string += struct.pack("!B", v)
@@ -201,7 +222,8 @@ def init(port, numRetries=10, host="localhost", label="default"):
     for wait in range(numRetries):
         try:
             _connections[label].connect((host, port))
-            _connections[label].setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            _connections[label].setsockopt(socket.IPPROTO_TCP,
+                                           socket.TCP_NODELAY, 1)
             break
         except socket.error:
             time.sleep(wait)
