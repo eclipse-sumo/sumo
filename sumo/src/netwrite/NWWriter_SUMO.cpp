@@ -187,50 +187,19 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 bool
 NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
-    unsigned int noInternalNoSplits = n.countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
-    std::string innerID = ":" + n.getID();
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
     bool ret = false;
     const EdgeVector &incoming = n.getIncomingEdges();
     for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNumLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                // compute the maximum speed allowed
-                //  see !!! for an explanation (with a_lat_mean ~0.3)
-                SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
-                                (*i)->getLaneShape(j).getEnd().distanceTo(
-                                    (*k).toEdge->getLaneShape((*k).toLane).getBegin())
-                                / (SUMOReal) 2.0 / (SUMOReal) PI;
-                vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0));
-                vmax = ((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0;
-                //
-                Position end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
-                Position beg = (*i)->getLaneShape(j).getEnd();
-
-                PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                assert(shape.size() >= 2);
-                // get internal splits if any
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                if (cross.first>=0) {
-                    std::pair<PositionVector, PositionVector> split = shape.splitAt(cross.first);
-                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, split.first);
-                    writeInternalEdge(into, innerID + "_" + toString(splitNo+noInternalNoSplits), vmax, split.second);
-                    splitNo++;
-                } else {
-                    writeInternalEdge(into, innerID + "_" + toString(lno), vmax, shape);
-                }
-                lno++;
-                ret = true;
+        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+            if ((*k).toEdge==0) {
+                continue;
             }
+            writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape);
+            if((*k).via!=0) {
+                writeInternalEdge(into, (*k).via->id, (*k).via->vmax, (*k).via->shape);
+            }
+            ret = true;
         }
     }
     return ret;
@@ -360,26 +329,22 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
         unsigned int l = 0;
         unsigned int o = n.countInternalLanes(false);
-        for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-            unsigned int noLanesEdge = (*i)->getNumLanes();
-            for (unsigned int j=0; j<noLanesEdge; j++) {
-                std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-                for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                    if ((*k).toEdge==0) {
-                        continue;
-                    }
-                    if (l!=0) {
-                        into << ' ';
-                    }
-                    std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                    if (cross.first<=0) {
-                        into << ':' << n.getID() << '_' << l << "_0";
-                    } else {
-                        into << ':' << n.getID() << '_' << o << "_0";
-                        o++;
-                    }
-                    l++;
+        for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
+            const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+            for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+                if ((*k).toEdge==0) {
+                    continue;
                 }
+                if (l!=0) {
+                    into << ' ';
+                }
+                if ((*k).via==0) {
+                    into << ':' << n.getID() << '_' << l << "_0";
+                } else {
+                    into << ':' << n.getID() << '_' << o << "_0";
+                    o++;
+                }
+                l++;
             }
         }
     }
@@ -409,40 +374,38 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
     std::string innerID = ":" + n.getID();
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNumLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                if (cross.first<=0) {
-                    lno++;
-                    continue;
-                }
-                // write the attributes
-                std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits) + "_0";
-                std::string iid = innerID + "_" + toString(lno) + "_0";
-                PositionVector shape = n.computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                Position pos = shape.positionAtLengthPosition(cross.first);
-                into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << sid << '\"';
-                into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
-                into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
-                into << " incLanes=\"";
-                std::string furtherIncoming = n.getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
-                if (furtherIncoming.length()!=0) {
-                    into << iid << " " << furtherIncoming;
-                } else {
-                    into << iid;
-                }
-                into << "\"";
-                into << " intLanes=\"" << n.getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
-                into.closeTag(true);
-                splitNo++;
-                lno++;
-                ret = true;
+        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+            if ((*k).toEdge==0) {
+                continue;
             }
+            std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
+            if (cross.first<=0) {
+                lno++;
+                continue;
+            }
+            // write the attributes
+            std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits) + "_0";
+            std::string iid = innerID + "_" + toString(lno) + "_0";
+            PositionVector shape = n.computeInternalLaneShape(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
+            Position pos = shape.positionAtLengthPosition(cross.first);
+            //pos = (*k).shape[-1];
+            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << sid << '\"';
+            into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
+            into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
+            into << " incLanes=\"";
+            std::string furtherIncoming = n.getCrossingSourcesNames_dividedBySpace(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
+            if (furtherIncoming.length()!=0) {
+                into << iid << " " << furtherIncoming;
+            } else {
+                into << iid;
+            }
+            into << "\"";
+            into << " intLanes=\"" << n.getCrossingNames_dividedBySpace(*i, (*k).fromLane, (*k).toEdge, (*k).toLane) << "\"";
+            into.closeTag(true);
+            splitNo++;
+            lno++;
+            ret = true;
         }
     }
     return ret;
@@ -461,8 +424,7 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
 
     if (!plain) {
         if (includeInternal) {
-            into.writeAttr(SUMO_ATTR_VIA,
-                           from.getToNode()->getInternalLaneID(&from, c.fromLane, c.toEdge, c.toLane) + "_0");
+            into.writeAttr(SUMO_ATTR_VIA, from.getToNode()->getInternalLaneID(&from, c.fromLane, c.toEdge, c.toLane) + "_0");
         }
         // set information about the controlling tl if any
         if (c.tlID!="") {
@@ -499,8 +461,7 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator it_edge=incoming.begin(); it_edge!=incoming.end(); it_edge++) {
         NBEdge *from = *it_edge;
-        from->sortOutgoingConnectionsByIndex();
-        const std::vector<NBEdge::Connection> connections = from->getConnections();
+        const std::vector<NBEdge::Connection> &connections = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator it_c=connections.begin(); it_c!=connections.end(); it_c++) {
             const NBEdge::Connection &c = *it_c;
             assert(c.toEdge != 0);

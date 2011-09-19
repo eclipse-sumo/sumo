@@ -436,6 +436,51 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw() {
 }
 
 
+bool
+NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
+    // check whether there any splits to perform
+    if (myGeom.size()<3) {
+        return false;
+    }
+    // ok, split
+    NBNode *newFrom = myFrom;
+    NBNode *myLastNode = myTo;
+    NBNode *newTo = 0;
+    NBEdge *currentEdge = this;
+    for (int i=1; i<(int) myGeom.size()-1; i++) {
+        // build the node first
+        if (i!=static_cast<int>(myGeom.size()-2)) {
+            std::string nodename = myID + "_in_between#" + toString(i);
+            if (!nc.insert(nodename, myGeom[i])) {
+                throw ProcessError("Error on adding in-between node '" + nodename + "'.");
+            }
+            newTo = nc.retrieve(nodename);
+        } else {
+            newTo = myLastNode;
+        }
+        if (i==1) {
+            currentEdge->myTo->removeIncoming(this);
+            currentEdge->myTo = newTo;
+            newTo->addIncomingEdge(currentEdge);
+        } else {
+            std::string edgename = myID + "[" + toString(i-1) + "]";
+            // @bug lane-specific width, speed, overall offset and restrictions are ignored
+            currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, (unsigned int) myLanes.size(),
+                                     myPriority, myWidth, UNSPECIFIED_OFFSET, myStreetName, myLaneSpreadFunction);
+            if (!ec.insert(currentEdge, true)) {
+                throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
+            }
+        }
+        newFrom = newTo;
+    }
+    myGeom.clear();
+    myGeom.push_back(myFrom->getPosition());
+    myGeom.push_back(myTo->getPosition());
+    myStep = INIT;
+    return true;
+}
+
+
 // ----------- Setting and getting connections
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge *dest) throw() {
@@ -1742,52 +1787,6 @@ void
 NBEdge::markAsInLane2LaneState() {
     assert(myTo->getOutgoingEdges().size()==0);
     myStep = LANES2LANES_DONE;
-}
-
-
-bool
-NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
-    // check whether there any splits to perform
-    if (myGeom.size()<3) {
-        return false;
-    }
-    // ok, split
-    NBNode *newFrom = myFrom;
-    NBNode *myLastNode = myTo;
-    NBNode *newTo = 0;
-    NBEdge *currentEdge = this;
-    for (int i=1; i<(int) myGeom.size()-1; i++) {
-        // build the node first
-        if (i!=static_cast<int>(myGeom.size()-2)) {
-            std::string nodename = myID + "_in_between#" + toString(i);
-            if (!nc.insert(nodename, myGeom[i])) {
-                throw ProcessError("Error on adding in-between node '" + nodename + "'.");
-            }
-            newTo = nc.retrieve(nodename);
-        } else {
-            newTo = myLastNode;
-        }
-        if (i==1) {
-            currentEdge->myTo->removeIncoming(this);
-            currentEdge->myTo = newTo;
-            newTo->addIncomingEdge(currentEdge);
-        } else {
-            std::string edgename = myID + "[" + toString(i-1) + "]";
-            // @bug lane-specific width, speed, overall offset and restrictions are ignored
-            currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, (unsigned int) myLanes.size(),
-                                     myPriority, myWidth, UNSPECIFIED_OFFSET,
-                                     myStreetName, myLaneSpreadFunction);
-            if (!ec.insert(currentEdge, true)) {
-                throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
-            }
-        }
-        newFrom = newTo;
-    }
-    myGeom.clear();
-    myGeom.push_back(myFrom->getPosition());
-    myGeom.push_back(myTo->getPosition());
-    myStep = INIT;
-    return true;
 }
 
 

@@ -443,6 +443,34 @@ NBEdgeCont::getAllNames() const throw() {
 }
 
 
+// ----- Prunning the input
+void
+NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) {
+    EdgeVector toRemove;
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        NBEdge *edge = (*i).second;
+        if (!myEdges2Keep.count(edge->getID())) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            toRemove.push_back(edge);
+        }
+    }
+    for (EdgeVector::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
+        erase(dc, *j);
+    }
+}
+
+
+void
+NBEdgeCont::splitGeometry(NBNodeCont &nc) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        if ((*i).second->getGeometry().size()<3) {
+            continue;
+        }
+        (*i).second->splitGeometry(*this, nc);
+    }
+}
+
 
 // ----- processing methods
 void
@@ -607,35 +635,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // delete joined edges
     for (i=edges.begin(); i!=edges.end(); i++) {
         erase(dc, *i);
-    }
-}
-
-
-void
-NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
-    EdgeVector toRemove;
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
-        NBEdge *edge = (*i).second;
-        if (!myEdges2Keep.count(edge->getID())) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            toRemove.push_back(edge);
-        }
-        ++i;
-    }
-    for (EdgeVector::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
-        erase(dc, *j);
-    }
-}
-
-
-void
-NBEdgeCont::splitGeometry(NBNodeCont &nc) throw() {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        if ((*i).second->getGeometry().size()<3) {
-            continue;
-        }
-        (*i).second->splitGeometry(*this, nc);
     }
 }
 

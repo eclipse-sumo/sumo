@@ -508,6 +508,14 @@ public:
      * @param[in] yoff The y-offset to apply
      */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
+
+
+    /** @brief Splits this edge at geometry points
+     * @param[in] ec The edge cont to add new edges to
+     * @param[in] nc The node cont to add new nodes to
+     * @return Whether the geometry was changed
+     */
+    bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
     //@}
 
 
@@ -982,7 +990,6 @@ private:
 
     void computeLaneShapes() throw();
 
-    bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
 protected:
     bool acceptBeingTurning(NBEdge *e);
 

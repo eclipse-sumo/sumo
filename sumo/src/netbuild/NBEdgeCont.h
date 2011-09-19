@@ -275,6 +275,29 @@ public:
 
 
 
+    /// @name Prunning the input
+    /// @{
+
+    /** @brief Removes unwished edges (not in keep-edges)
+     * @param[in, opt. changed] dc The district container needed to remove edges
+     * @todo Recheck usage; check whether keep-edges.postload is really useful
+     */
+    void removeUnwishedEdges(NBDistrictCont &dc);
+
+
+    /** @brief Splits edges into multiple if they have a complex geometry
+     *
+     * Calls "NBEdge::splitGeometry" for all edges within the container which
+     *  have more than three positions in their geometry.
+     *
+     * @param[in] nc The node container needed to build (geometry) nodes
+     * @see NBEdge::splitGeometry
+     */
+    void splitGeometry(NBNodeCont &nc);
+    /// @}
+
+
+
     /// @name processing methods
     /// @{
 
@@ -396,25 +419,6 @@ public:
      */
     void joinSameNodeConnectingEdges(NBDistrictCont &dc,
                                      NBTrafficLightLogicCont &tlc, EdgeVector edges) throw();
-
-
-    /** @brief Removes unwished edges (not in keep-edges)
-     *
-     * @param[in] dc The district container needed to remove edges
-     * @todo Recheck usage; check whether keep-edges.postload is really useful
-     */
-    void removeUnwishedEdges(NBDistrictCont &dc) throw();
-
-
-    /** @brief Splits edges into multiple if they have a complex geometry
-     *
-     * Calls "NBEdge::splitGeometry" for all edges within the container which
-     *  have more than three positions in their geometry.
-     *
-     * @param[in] nc The node container needed to build (geometry) nodes
-     * @see NBEdge::splitGeometry
-     */
-    void splitGeometry(NBNodeCont &nc) throw();
 
 
     /** @brief Rechecks whether the lane spread is proper

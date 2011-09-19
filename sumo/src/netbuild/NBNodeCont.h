@@ -199,10 +199,39 @@ public:
      * @param[in, opt. changed] dc The districts container to update
      * @param[in, opt. changed] ec The edge container to remove the edges from
      * @param[in, opt. changed] tc The traffic lights container to update
-     * @post Each edge is a uni-directional connection between two different nodes
+     * @post No two edges with same geometry connecting same nodes exist
      */
     void joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
 
+
+    /** @brief Removes sequences of edges that are not connected with a junction.
+     * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
+     * but they make no sense. Remaining empty nodes are also deleted.
+     *
+     * @param[in, opt. changed] dc The district container needed if edges shall be removed
+     * @param[in, opt. changed] ec The container with the edge to be tested
+     * @param[in, opt. changed] tc The traffic lights container to update
+     */
+    void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+
+
+    /** @brief Removes "unwished" nodes
+     *
+     * Removes nodes if a) no incoming/outgoing edges exist or
+     *  b) if the node is a "geometry" node. In the second case,
+     *  edges that participate at the node will be joined.
+     * Whether the node is a geometry node or not, is determined
+     *  by a call to NBNode::checkIsRemovable.
+     * The node is removed from the list of tls-controlled nodes.
+     * @param[in, opt. changed] dc The district container needed if a node shall be removed
+     * @param[in, opt. changed] ec The edge container needed for joining edges
+     * @param[in, opt. changed] je The map of joined edges (changes are stored here)
+     * @param[in, opt. changed] tlc The traffic lights container to remove nodes from
+     * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
+	 * @return The number of removed nodes
+     */
+    unsigned int removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec, NBJoinedEdgesMap &je, 
+        NBTrafficLightLogicCont &tlc, bool removeGeometryNodes);
     /// @}
 
 
@@ -235,38 +264,11 @@ public:
     void clear();
 
 
-    /** @brief Removes sequences of edges that are not connected with a junction.
-     * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
-     * but they make no sense. Remaining empty nodes are also deleted.
-     *
-     * @param[in] dc The district container needed if edges shall be removed
-     * @param[in] ec The container with the edge to be tested
-     */
-    void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
-
 
     std::string getFreeID();
 
     void computeNodeShapes(bool leftHand);
 
-    /** @brief Removes "unwished" nodes
-     *
-     * Removes nodes if a) no incoming/outgoing edges exist or
-     *  b) if the node is a "geometry" node. In the second case,
-     *  edges that participate at the node will be joined.
-     * Whether the node is a geometry node or not, is determined
-     *  by a call to NBNode::checkIsRemovable.
-     * The node is removed from the list of tls-controlled nodes.
-     * @param[in, mod] dc The district container needed if a node shall be removed
-     * @param[in, mod] ec The edge container needed for joining edges
-     * @param[in, mod] je The map of joined edges (changes are stored here)
-     * @param[in, mod] tlc The traffic lights container to remove nodes from
-     * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
-	 * @return The number of removed nodes
-     */
-    unsigned int removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
-                             bool removeGeometryNodes) throw();
 
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
 

@@ -633,65 +633,6 @@ NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTraf
 }
 
 
-// -----------
-void
-NBNodeCont::reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff);
-    }
-}
-
-
-void
-NBNodeCont::computeLanes2Lanes() {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeLanes2Lanes();
-    }
-}
-
-
-// computes the "wheel" of incoming and outgoing edges for every node
-void
-NBNodeCont::computeLogics(const NBEdgeCont &ec, OptionsCont &oc) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeLogic(ec, oc);
-    }
-}
-
-
-void
-NBNodeCont::sortNodesEdges(bool leftHand) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(leftHand);
-    }
-}
-
-
-void
-NBNodeCont::computeNodeTypes(const NBTypeCont &tc) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeType(tc);
-    }
-}
-
-
-void
-NBNodeCont::computePriorities() {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computePriorities();
-    }
-}
-
-
-void
-NBNodeCont::clear() {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        delete((*i).second);
-    }
-    myNodes.clear();
-}
-
-
 void
 NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
     UNUSED_PARAMETER(tc);
@@ -757,10 +698,8 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
             edgeCounter +=  int(road.size());
-            std::string warningString =
-                "Removed a road without junctions: ";
-            for (EdgeVector::iterator roadIt = road.begin(); roadIt
-                    != road.end(); ++roadIt) {
+            std::string warningString = "Removed a road without junctions: ";
+            for (EdgeVector::iterator roadIt = road.begin(); roadIt != road.end(); ++roadIt) {
                 if (roadIt == road.begin()) {
                     warningString += (*roadIt)->getID();
                 } else {
@@ -770,13 +709,11 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
                 NBNode* fromNode = (*roadIt)->getFromNode();
                 NBNode* toNode = (*roadIt)->getToNode();
                 ec.erase(dc, *roadIt);
-                if (fromNode->getIncomingEdges().size() == 0
-                        && fromNode->getOutgoingEdges().size() == 0) {
+                if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
                     // Node is empty; can be removed
                     erase(fromNode);
                 }
-                if (toNode->getIncomingEdges().size() == 0
-                        && toNode->getOutgoingEdges().size() == 0) {
+                if (toNode->getIncomingEdges().size() == 0 && toNode->getOutgoingEdges().size() == 0) {
                     // Node is empty; can be removed
                     erase(toNode);
                 }
@@ -790,27 +727,10 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
 }
 
 
-std::string
-NBNodeCont::getFreeID() {
-    // !!! not guaranteed to be free
-    std::string ret = "SUMOGenerated" + toString<int>(size());
-    assert(retrieve(ret)==0);
-    return ret;
-}
-
-
-void
-NBNodeCont::computeNodeShapes(bool leftHand) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeNodeShape(leftHand);
-    }
-}
-
-
 unsigned int
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                                 NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
-                                bool removeGeometryNodes) throw() {
+                                bool removeGeometryNodes) {
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
@@ -818,10 +738,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
         bool remove = false;
         std::vector<std::pair<NBEdge*, NBEdge*> > toJoin;
         // check for completely empty nodes
-        if (current->getOutgoingEdges().size()==0
-                &&
-                current->getIncomingEdges().size()==0) {
-
+        if (current->getOutgoingEdges().size()==0 && current->getIncomingEdges().size()==0) {
             // remove if empty
             remove = true;
         }
@@ -861,6 +778,81 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
 	return no;
 }
 
+
+// -----------
+void
+NBNodeCont::reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->reshiftPosition(xoff, yoff);
+    }
+}
+
+
+void
+NBNodeCont::computeLanes2Lanes() {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computeLanes2Lanes();
+    }
+}
+
+
+// computes the "wheel" of incoming and outgoing edges for every node
+void
+NBNodeCont::computeLogics(const NBEdgeCont &ec, OptionsCont &oc) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computeLogic(ec, oc);
+    }
+}
+
+
+void
+NBNodeCont::sortNodesEdges(bool leftHand) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->sortNodesEdges(leftHand);
+    }
+}
+
+
+void
+NBNodeCont::computeNodeTypes(const NBTypeCont &tc) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computeType(tc);
+    }
+}
+
+
+void
+NBNodeCont::computePriorities() {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computePriorities();
+    }
+}
+
+
+void
+NBNodeCont::clear() {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        delete((*i).second);
+    }
+    myNodes.clear();
+}
+
+
+std::string
+NBNodeCont::getFreeID() {
+    // !!! not guaranteed to be free
+    std::string ret = "SUMOGenerated" + toString<int>(size());
+    assert(retrieve(ret)==0);
+    return ret;
+}
+
+
+void
+NBNodeCont::computeNodeShapes(bool leftHand) {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->computeNodeShape(leftHand);
+    }
+}
 
 
 bool
