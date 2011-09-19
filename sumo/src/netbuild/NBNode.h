@@ -416,6 +416,7 @@ public:
         Connections are remapped, too */
     void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
+    void buildInnerEdges();
 
     /**
      * @class nodes_by_id_sorter

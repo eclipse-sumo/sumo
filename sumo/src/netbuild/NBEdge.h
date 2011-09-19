@@ -144,7 +144,7 @@ public:
          */
         Connection(int fromLane_, NBEdge *toEdge_, int toLane_) throw()
                 : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
-                mayDefinitelyPass(false) { }
+                mayDefinitelyPass(false), via(0) { }
 
 
         /// @brief The lane the connections starts at
@@ -159,6 +159,12 @@ public:
         unsigned int tlLinkNo;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
+
+
+        std::string id;
+        PositionVector shape;
+        SUMOReal vmax;
+        Connection *via;
 
     };
 
@@ -883,6 +889,8 @@ public:
     void declareConnectionsAsLoaded() {
         myStep = LANES2LANES_USER;
     }
+
+    void buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsigned int &lno, unsigned int &splitNo);
 
 
 private:

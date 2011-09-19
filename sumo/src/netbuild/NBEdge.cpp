@@ -568,6 +568,52 @@ bool
 NBEdge::hasConnectionTo(NBEdge *destEdge, unsigned int destLane) const throw() {
     return destEdge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(destEdge, destLane))!=myConnections.end();
 }
+
+
+void 
+NBEdge::buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsigned int &lno, unsigned int &splitNo) {
+    sortOutgoingConnectionsByIndex();
+    std::string innerID = ":" + n.getID();
+    for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge==0) {
+            continue;
+        }
+        // compute the maximum speed allowed
+        //  see !!! for an explanation (with a_lat_mean ~0.3)
+        SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
+            getLaneShape((*i).fromLane).getEnd().distanceTo(
+            (*i).toEdge->getLaneShape((*i).toLane).getBegin())
+            / (SUMOReal) 2.0 / (SUMOReal) PI;
+        vmax = MIN2(vmax, ((getSpeed()+(*i).toEdge->getSpeed())/(SUMOReal) 2.0));
+        vmax = (getSpeed()+(*i).toEdge->getSpeed())/(SUMOReal) 2.0;
+        //
+        Position end = (*i).toEdge->getLaneShape((*i).toLane).getBegin();
+        Position beg = getLaneShape((*i).fromLane).getEnd();
+
+        PositionVector shape = n.computeInternalLaneShape(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
+        assert(shape.size() >= 2);
+        // get internal splits if any
+        std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
+        if (cross.first>=0) {
+            std::pair<PositionVector, PositionVector> split = shape.splitAt(cross.first);
+            (*i).id = innerID + "_" + toString(lno);
+            (*i).vmax = vmax;
+            (*i).shape = split.first;
+            (*i).via = new NBEdge::Connection(*i);
+            (*i).via->id = innerID + "_" + toString(splitNo+noInternalNoSplits);
+            (*i).via->vmax = vmax;
+            (*i).via->shape = split.second;
+            splitNo++;
+        } else {
+            (*i).id = innerID + "_" + toString(lno);
+            (*i).vmax = vmax;
+            (*i).shape = shape;
+            (*i).via = 0;
+        }
+        lno++;
+    }
+}
+
 // -----------
 
 

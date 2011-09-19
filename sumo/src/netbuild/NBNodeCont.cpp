@@ -1298,5 +1298,13 @@ NBNodeCont::getAllNames() const throw() {
 }
 
 
+void 
+NBNodeCont::buildInnerEdges() {
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        (*i).second->buildInnerEdges();
+    }
+}
+
+
 /****************************************************************************/
 

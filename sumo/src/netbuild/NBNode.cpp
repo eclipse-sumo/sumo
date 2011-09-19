@@ -1758,5 +1758,17 @@ NBNode::isDistrict() const {
     return myType==NODETYPE_DISTRICT;
 }
 
+
+void 
+NBNode::buildInnerEdges() {
+    unsigned int noInternalNoSplits = countInternalLanes(false);
+    unsigned int lno = 0;
+    unsigned int splitNo = 0;
+    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
+        (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
+    }
+}
+
+
 /****************************************************************************/
 

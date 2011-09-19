@@ -262,6 +262,11 @@ NBNetBuilder::compute(OptionsCont &oc,
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
+    if(!oc.getBool("no-internal-links")) {
+        PROGRESS_BEGIN_MESSAGE("Building inner edges");
+        myNodeCont.buildInnerEdges();
+        PROGRESS_DONE_MESSAGE();
+    }
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
