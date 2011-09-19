@@ -4,7 +4,7 @@
 /// @date    Tue, 04.05.2011
 /// @version $Id$
 ///
-// Exporter writing networks using the MATSim format
+// Exporter writing networks using the openDRIVE format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2011 DLR (http://www.dlr.de/) and contributors
@@ -53,9 +53,16 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class NWWriter_OpenDrive
+ * @brief Exporter writing networks using the openDRIVE format
+ *
  */
 class NWWriter_OpenDrive {
 public:
+    /** @brief Writes the network into a openDRIVE-file
+     *
+     * @param[in] oc The options to use
+     * @param[in] nb The network builder to fill
+     */
     static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
 };
