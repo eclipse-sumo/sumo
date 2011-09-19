@@ -569,6 +569,70 @@ NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::s
 }
 
 
+// ----------- Prunning the input
+void
+NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
+                             NBTrafficLightLogicCont &tc) {
+    unsigned int no = 0;
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        no += (*i).second->removeDummyEdges(dc, ec, tc);
+    }
+    if (no!=0) {
+        WRITE_WARNING(toString(no) + " dummy edge(s) removed.");
+    }
+}
+
+
+void
+NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+    // magic values
+    SUMOReal distanceThreshold = 7; // don't merge edges further apart
+    SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
+
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        // count the edges to other nodes outgoing from the current node
+        std::map<NBNode*, EdgeVector> connectionCount;
+        const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
+        for (EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
+            NBEdge *e = (*j);
+            NBNode *connected = e->getToNode();
+            if (connectionCount.find(connected)==connectionCount.end()) {
+                connectionCount[connected] = EdgeVector();
+            }
+            connectionCount[connected].push_back(e);
+        }
+        // check whether more than a single edge connect another node and join them
+        std::map<NBNode*, EdgeVector>::iterator k;
+        for (k=connectionCount.begin(); k!=connectionCount.end(); k++) {
+            // possibly we do not have anything to join...
+            if ((*k).second.size()<2) {
+                continue;
+            }
+            // for the edges that seem to be a single street,
+            //  check whether the geometry is similar
+            const EdgeVector &ev = (*k).second;
+            const NBEdge* const first = ev.front();
+            EdgeVector::const_iterator jci; // join candidate iterator
+            for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
+                const SUMOReal relativeLengthDifference = fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
+                if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
+                        (relativeLengthDifference > lengthThreshold) ||
+                        (first->getSpeed() != (*jci)->getSpeed())
+                        // @todo check vclass
+                   ) {
+                    break;
+                }
+            }
+            // @bug If there are 3 edges of which 2 can be joined, no joining will
+            //   take place with the current implementation
+            if (jci == ev.end()) {
+                ec.joinSameNodeConnectingEdges(dc, tlc, ev);
+            }
+        }
+    }
+}
+
+
 // -----------
 void
 NBNodeCont::reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff) {
@@ -625,60 +689,6 @@ NBNodeCont::clear() {
         delete((*i).second);
     }
     myNodes.clear();
-}
-
-
-void
-NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
-                         NBEdgeCont &ec) {
-    // magic values
-    SUMOReal distanceThreshold = 7; // don't merge edges further apart
-    SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
-
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        // count the edges to other nodes outgoing from the current
-        //  node
-        std::map<NBNode*, EdgeVector> connectionCount;
-        const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
-        for (EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
-            NBEdge *e = (*j);
-            NBNode *connected = e->getToNode();
-            if (connectionCount.find(connected)==connectionCount.end()) {
-                connectionCount[connected] = EdgeVector();
-            }
-            connectionCount[connected].push_back(e);
-        }
-        // check whether more than a single edge connect another node
-        //  and join them
-        std::map<NBNode*, EdgeVector>::iterator k;
-        for (k=connectionCount.begin(); k!=connectionCount.end(); k++) {
-            // possibly we do not have anything to join...
-            if ((*k).second.size()<2) {
-                continue;
-            }
-            // for the edges that seem to be a single street,
-            //  check whether the geometry is similar
-            const EdgeVector &ev = (*k).second;
-            const NBEdge* const first = ev.front();
-            EdgeVector::const_iterator jci; // join candidate iterator
-            for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
-                const SUMOReal relativeLengthDifference =
-                    fabs(first->getLoadedLength() - (*jci)->getLoadedLength()) / first->getLoadedLength();
-                if ((!first->isNearEnough2BeJoined2(*jci, distanceThreshold)) ||
-                        (relativeLengthDifference > lengthThreshold) ||
-                        (first->getSpeed() != (*jci)->getSpeed())
-                        // @todo check vclass
-                   ) {
-                    break;
-                }
-            }
-            // @bug If there are 3 edges of which 2 can be joined, no joining will
-            //   take place with the current implementation
-            if (jci == ev.end()) {
-                ec.joinSameNodeConnectingEdges(dc, tlc, ev);
-            }
-        }
-    }
 }
 
 
@@ -776,19 +786,6 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
     }
     if (edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-edges.isolated")) {
         WRITE_WARNING("Detected isolated roads. Use the option --remove-edges.isolated to get a list of all affected edges.");
-    }
-}
-
-
-void
-NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBTrafficLightLogicCont &tc) {
-    unsigned int no = 0;
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        no += (*i).second->eraseDummies(dc, ec, tc);
-    }
-    if (no!=0) {
-        WRITE_WARNING(toString(no) + " dummy edge(s) removed.");
     }
 }
 

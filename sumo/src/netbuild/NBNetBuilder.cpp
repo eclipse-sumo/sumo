@@ -115,7 +115,7 @@ NBNetBuilder::compute(OptionsCont &oc,
     //
     PROGRESS_BEGIN_MESSAGE("Joining double connections");
     myJoinedEdges.init(myEdgeCont);
-    myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
+    myNodeCont.joinDoubleNodeConnections(myDistrictCont, myEdgeCont, myTLLCont);
 	PROGRESS_DONE_MESSAGE();
     //
     if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {

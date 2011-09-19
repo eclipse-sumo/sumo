@@ -183,6 +183,29 @@ public:
 
 
 
+    /// @name Prunning the input
+    /// @{
+
+    /** @brief Removes dummy edges (edges lying completely within a node)
+     * @param[in, opt. changed] dc The districts container to update
+     * @param[in, opt. changed] ec The edge container to remove the edges from
+     * @param[in, opt. changed] tc The traffic lights container to update
+     * @post Each edge is a uni-directional connection between two different nodes
+     */
+    void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+
+
+    /** @brief Joins edges connecting the same nodes
+     * @param[in, opt. changed] dc The districts container to update
+     * @param[in, opt. changed] ec The edge container to remove the edges from
+     * @param[in, opt. changed] tc The traffic lights container to update
+     * @post Each edge is a uni-directional connection between two different nodes
+     */
+    void joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+
+    /// @}
+
+
     /// resets the node positions by the specified offset
     void reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff);
 
@@ -211,9 +234,6 @@ public:
     /** deletes all nodes */
     void clear();
 
-    /// Joins edges connecting the same nodes
-    void recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
-                      NBEdgeCont &ec);
 
     /** @brief Removes sequences of edges that are not connected with a junction.
      * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
@@ -224,13 +244,6 @@ public:
      */
     void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
 
-    /** @brief Removes dummy edges (edges lying completely within a node)
-     *  @post Each edge is a uni-directional connection between two different nodes
-     *  @todo Name properly
-     *  @todo Recheck, maybe this should be done on loading
-     */
-    void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
-                          NBTrafficLightLogicCont &tc);
 
     std::string getFreeID();
 

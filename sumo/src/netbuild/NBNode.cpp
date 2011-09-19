@@ -259,6 +259,49 @@ NBNode::isJoinedTLSControlled() const throw() {
 }
 
 
+// ----------- Prunning the input
+unsigned int
+NBNode::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
+    unsigned int ret = 0;
+    unsigned int pos = 0;
+    EdgeVector::const_iterator j=myIncomingEdges.begin();
+    while (j!=myIncomingEdges.end()) {
+        // skip edges which are only incoming and not outgoing
+        if (find(myOutgoingEdges.begin(), myOutgoingEdges.end(), *j)==myOutgoingEdges.end()) {
+            ++j;
+            ++pos;
+            continue;
+        }
+        // an edge with both its origin and destination being the current
+        //  node should be removed
+        NBEdge *dummy = *j;
+        WRITE_WARNING(" Removing dummy edge '" + dummy->getID() + "'");
+        // get the list of incoming edges connected to the dummy
+        EdgeVector incomingConnected;
+        for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
+            if ((*i)->isConnectedTo(dummy)&&*i!=dummy) {
+                incomingConnected.push_back(*i);
+            }
+        }
+        // get the list of outgoing edges connected to the dummy
+        EdgeVector outgoingConnected;
+        for (EdgeVector::const_iterator i=myOutgoingEdges.begin(); i!=myOutgoingEdges.end(); i++) {
+            if (dummy->isConnectedTo(*i)&&*i!=dummy) {
+                outgoingConnected.push_back(*i);
+            }
+        }
+        // let the dummy remap its connections
+        dummy->remapConnections(incomingConnected);
+        remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
+        // delete the dummy
+        ec.erase(dc, dummy);
+        j = myIncomingEdges.begin() + pos;
+        ++ret;
+    }
+    return ret;
+}
+
+
 // -----------
 void
 NBNode::addIncomingEdge(NBEdge *edge) {
@@ -1247,48 +1290,6 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid) {
 }
 
 
-unsigned int
-NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
-    unsigned int ret = 0;
-    unsigned int pos = 0;
-    EdgeVector::const_iterator j=myIncomingEdges.begin();
-    while (j!=myIncomingEdges.end()) {
-        // skip edges which are only incoming and not outgoing
-        if (find(myOutgoingEdges.begin(), myOutgoingEdges.end(), *j)==myOutgoingEdges.end()) {
-            j++;
-            pos++;
-            continue;
-        }
-        // an edge with both its origin and destination being the current
-        //  node should be removed
-        NBEdge *dummy = *j;
-        WRITE_WARNING(" Removing dummy edge '" + dummy->getID() + "'");
-        // get the list of incoming edges connected to the dummy
-        EdgeVector incomingConnected;
-        EdgeVector::const_iterator i;
-        for (i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-            if ((*i)->isConnectedTo(dummy)&&*i!=dummy) {
-                incomingConnected.push_back(*i);
-            }
-        }
-        // get the list of outgoing edges connected to the dummy
-        EdgeVector outgoingConnected;
-        for (i=myOutgoingEdges.begin(); i!=myOutgoingEdges.end(); i++) {
-            if (dummy->isConnectedTo(*i)&&*i!=dummy) {
-                outgoingConnected.push_back(*i);
-            }
-        }
-        // let the dummy remap its connections
-        dummy->remapConnections(incomingConnected);
-        remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
-        // delete the dummy
-        ec.erase(dc, dummy);
-        j = myIncomingEdges.begin() + pos;
-        ret++;
-    }
-    return ret;
-}
-
 
 void
 NBNode::removeOutgoing(NBEdge *edge) {
@@ -1703,9 +1704,7 @@ NBNode::getMaxEdgeWidth() const {
     SUMOReal ret = (*i)->width();
     ++i;
     for (; i!=myAllEdges.end(); i++) {
-        ret = ret > (*i)->width()
-              ? ret
-              : (*i)->width();
+        ret = ret > (*i)->width() ? ret : (*i)->width();
     }
     return ret;
 }

@@ -232,6 +232,25 @@ public:
 
 
 
+    /// @name Prunning the input
+    /// @{
+
+    /** @brief Removes edges which are both incoming and outgoing into this node
+     *
+     * If given, the connections to other edges participating in this node are updated
+     *
+     * @param[in, opt. changed] dc The districts container to update
+     * @param[in, opt. changed] ec The edge container to remove the edges from
+     * @param[in, opt. changed] tc The traffic lights container to update
+     * @return The number of removed edges
+     */
+    unsigned int removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+    /// @}
+
+
+
+
+
     /// adds an incoming edge
     void addIncomingEdge(NBEdge *edge);
 
@@ -293,9 +312,6 @@ public:
 
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
-
-    unsigned int eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec,
-                              NBTrafficLightLogicCont &tc);
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
