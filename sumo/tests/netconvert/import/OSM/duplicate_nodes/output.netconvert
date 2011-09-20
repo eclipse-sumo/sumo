@@ -15,7 +15,7 @@ Finding isolated roads...
 done.
 Removing empty nodes and geometry nodes... done.
    2 nodes removed.
-Normalising node positions... done.
+Moving network to origin... done.
 Guessing and setting on-/off-ramps... done.
 Guessing and setting traffic lights... done.
 Joining traffic light nodes... done.
@@ -34,6 +34,7 @@ Computing traffic light control information... done.
 Computing node logics... done.
 Computing traffic light logics... done.
  3 traffic light(s) computed.
+Building inner edges... done.
 -----------------------------------------------------
 Summary:
  Node type statistics:

@@ -14,6 +14,7 @@ copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
 copy_test_path:matsim.xml
+copy_test_path:opendrive.xodr
 
 [collate_file]
 net:net.net.xml

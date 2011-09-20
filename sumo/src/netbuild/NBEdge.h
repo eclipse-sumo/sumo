@@ -275,6 +275,19 @@ public:
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
+
+    /// @name Applying offset
+    /// @{
+
+    /** @brief Applies an offset to the edge
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
+     */
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
+    /// @}
+
+
+
     /** @brief Marks this edge to be left-handed
      */
     void setLeftHanded() throw() {
@@ -501,13 +514,6 @@ public:
     LaneSpreadFunction getLaneSpreadFunction() const throw() {
         return myLaneSpreadFunction;
     }
-
-
-    /** @brief Applies an offset to the edge
-     * @param[in] xoff The x-offset to apply
-     * @param[in] yoff The y-offset to apply
-     */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
 
 
     /** @brief Splits this edge at geometry points

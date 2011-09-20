@@ -73,7 +73,7 @@ public:
      * @param[in] id The id of the district
      * @param[in] pos The position of the district
      */
-    NBDistrict(const std::string &id, const Position &pos) throw();
+    NBDistrict(const std::string &id, const Position &pos);
 
 
     /** @brief Constructor without position
@@ -82,11 +82,11 @@ public:
      *
      * @param[in] id The id of the district
      */
-    NBDistrict(const std::string &id) throw();
+    NBDistrict(const std::string &id);
 
 
     /// @brief Destructor
-    ~NBDistrict() throw();
+    ~NBDistrict();
 
 
     /** @brief Adds a source
@@ -101,7 +101,7 @@ public:
      * @return Whether the source could be added (was not added before)
      * @todo Consider using only one list for sources/weights
      */
-    bool addSource(NBEdge * const source, SUMOReal weight) throw();
+    bool addSource(NBEdge * const source, SUMOReal weight);
 
 
     /** @brief Adds a sink
@@ -116,7 +116,7 @@ public:
      * @return Whether the sink could be added (was not added before)
      * @todo Consider using only one list for sinks/weights
      */
-    bool addSink(NBEdge * const sink, SUMOReal weight) throw();
+    bool addSink(NBEdge * const sink, SUMOReal weight);
 
 
     /** @brief Returns the position of this district's center
@@ -124,7 +124,9 @@ public:
      * @return The position of this district's center
      * @todo Recheck when this information is set/needed
      */
-    const Position &getPosition() const throw();
+    const Position &getPosition() const {
+        return myPosition;
+    }
 
 
     /** @brief Sets the center coordinates
@@ -132,7 +134,7 @@ public:
      * @param[in] pos The new center to assign
      * @todo Recheck when this information is set/needed
      */
-    void setCenter(const Position &pos) throw();
+    void setCenter(const Position &pos);
 
 
     /** @brief Replaces incoming edges from the vector (sinks) by the given edge
@@ -146,7 +148,7 @@ public:
      * @param[in] which List of edges to replace
      * @param[in] by The replacement
      */
-    void replaceIncoming(const EdgeVector &which, NBEdge * const by) throw();
+    void replaceIncoming(const EdgeVector &which, NBEdge * const by);
 
 
     /** @brief Replaces outgoing edges from the vector (source) by the given edge
@@ -160,7 +162,7 @@ public:
      * @param[in] which List of edges to replace
      * @param[in] by The replacement
      */
-    void replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw();
+    void replaceOutgoing(const EdgeVector &which, NBEdge * const by);
 
 
     /** @brief Removes the given edge from the lists of sources and sinks
@@ -169,21 +171,14 @@ public:
      *
      * @param[in] e The edge to remove from sinks/sources
      */
-    void removeFromSinksAndSources(NBEdge * const e) throw();
+    void removeFromSinksAndSources(NBEdge * const e);
 
 
     /** @brief Sets the shape of this district
      *
      * @param[in] p The new shape
      */
-    void addShape(const PositionVector &p) throw();
-
-
-    /** @brief Applies an offset to the district
-     * @param[in] xoff The x-offset to apply
-     * @param[in] yoff The y-offset to apply
-     */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
+    void addShape(const PositionVector &p);
 
 
     /** @brief Returns the weights of the sources
@@ -224,6 +219,21 @@ public:
     const PositionVector &getShape() const {
         return myShape;
     }
+
+
+
+    /// @name Applying offset
+    /// @{
+
+    /** @brief Applies an offset to the district
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
+     */
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+    /// @}
+
+
+
 
 
 private:

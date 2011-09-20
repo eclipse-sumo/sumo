@@ -221,6 +221,14 @@ NBNode::reinit(const Position &position, SumoXMLNodeType type) throw() {
 
 
 
+// -----------  Applying offset
+void
+NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
+    myPosition.reshiftRotate(xoff, yoff, 0);
+    myPoly.reshiftRotate(xoff, yoff, 0);
+}
+
+
 // -----------  Methods for dealing with assigned traffic lights
 void
 NBNode::addTrafficLight(NBTrafficLightDefinition *tlDef) throw() {
@@ -1067,13 +1075,6 @@ NBNode::getEdgesThatApproach(NBEdge *currentOutgoing) {
         NBContHelper::nextCW(myAllEdges, i);
     }
     return approaching;
-}
-
-
-void
-NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
-    myPosition.reshiftRotate(xoff, yoff, 0);
-    myPoly.reshiftRotate(xoff, yoff, 0);
 }
 
 

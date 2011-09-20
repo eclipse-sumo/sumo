@@ -12,7 +12,7 @@ done.
 Joining double connections... done.
 Removing empty nodes... done.
    5 nodes removed.
-Normalising node positions... done.
+Moving network to origin... done.
 Guessing and setting traffic lights... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.

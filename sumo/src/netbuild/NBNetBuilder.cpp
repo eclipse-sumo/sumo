@@ -158,7 +158,7 @@ NBNetBuilder::compute(OptionsCont &oc,
     // MOVE TO ORIGIN
     //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
-        PROGRESS_BEGIN_MESSAGE("Normalising node positions");
+        PROGRESS_BEGIN_MESSAGE("Moving network to origin");
         const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
         const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
         for(std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {

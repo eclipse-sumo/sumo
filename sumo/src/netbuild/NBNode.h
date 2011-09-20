@@ -107,8 +107,7 @@ public:
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
-        std::deque<int> *spread(const std::vector<int> &approachingLanes,
-                                int dest) const;
+        std::deque<int> *spread(const std::vector<int> &approachingLanes, int dest) const;
 
     };
 
@@ -140,11 +139,14 @@ public:
     ~NBNode() throw();
 
 
+
     /** @brief Resets initial values
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
     void reinit(const Position &position, SumoXMLNodeType type) throw();
+
+
 
     /// @name Atomar getter methods
     /// @{
@@ -248,8 +250,16 @@ public:
     /// @}
 
 
-    /// resets the position by the given amount
+
+    /// @name Applying offset
+    /// @{
+
+    /** @brief Applies an offset to the node
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
+     */
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
+    /// @}
 
 
 

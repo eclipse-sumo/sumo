@@ -216,6 +216,7 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
     }
 }
 
+
 void
 NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
                SUMOReal speed, unsigned int nolanes, int priority,
@@ -297,6 +298,16 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
 
 
 NBEdge::~NBEdge() throw() {}
+
+
+// -----------  Applying offset
+void
+NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw() {
+    myGeom.reshiftRotate(xoff, yoff, 0);
+    for (unsigned int i=0; i<myLanes.size(); i++) {
+        myLanes[i].shape.reshiftRotate(xoff, yoff, 0);
+    }
+}
 
 
 // ----------- Edge geometry access and computation
@@ -424,15 +435,6 @@ NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) throw() {
 void
 NBEdge::addGeometryPoint(int index, const Position &p) throw() {
     myGeom.insertAt(index, p);
-}
-
-
-void
-NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw() {
-    myGeom.reshiftRotate(xoff, yoff, 0);
-    for (unsigned int i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape.reshiftRotate(xoff, yoff, 0);
-    }
 }
 
 
