@@ -147,40 +147,32 @@ public:
 
 
 
-    /// @name Methods for guessing/computing traffic lights
+    /// @name Methods for for joining nodes
     /// @{
 
-    /** @brief Guesses which junctions or junction clusters shall be controlled by tls
-     * @param[in] oc The options that steer the guessing process
-     * @param[filled] tlc The traffic lights control into which new traffic light definitions shall be stored
-     * @todo Recheck exception handling
+    /* @brief add ids of nodes wich shall not be joined
+     * @param[in] ids A list of ids to exclude from joining
+     * @param[in] check Whether to check if these nodes are known
+     * @note checking is off by default because all nodes may not have been loaded yet
      */
-    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
+    void addJoinExclusion(const std::vector<std::string> &ids, bool check=false);
+
+
+    /** @brief add ids of nodes which shall be joined into a single node 
+     * @param[in] cluster The cluster to add
+     */
+    void addCluster2Join(std::set<std::string> cluster);
+
 
     /** @brief Joins loaded junction clusters (see NIXMLNodesHandler)
      */
     unsigned int joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
 
+
     /** @brief Joins junctions that are very close together
      */
     unsigned int joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
-
-    /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
-     * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
-     * @todo Recheck exception handling
-     */
-    void joinTLS(NBTrafficLightLogicCont &tlc);
-
-
-    /** @brief Sets the given node as being controlled by a tls
-     * @param[in] node The node that shall be controlled by a tls
-     * @param[in] tlc The traffic lights control into which the new traffic light definition shall be stored
-     * @param[in] id The id of the tls to add
-     * @todo Recheck exception handling
-     */
-    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
     /// @}
-
 
 
     /// @name Adapting the input
@@ -236,6 +228,37 @@ public:
 
 
 
+    /// @name Methods for guessing/computing traffic lights
+    /// @{
+
+    /** @brief Guesses which junctions or junction clusters shall be controlled by tls
+     * @param[in] oc The options that steer the guessing process
+     * @param[filled] tlc The traffic lights control into which new traffic light definitions shall be stored
+     * @todo Recheck exception handling
+     */
+    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
+
+
+    /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
+     * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
+     * @todo Recheck exception handling
+     */
+    void joinTLS(NBTrafficLightLogicCont &tlc);
+
+
+    /** @brief Sets the given node as being controlled by a tls
+     * @param[in] node The node that shall be controlled by a tls
+     * @param[in] tlc The traffic lights control into which the new traffic light definition shall be stored
+     * @param[in] id The id of the tls to add
+     * @todo Recheck exception handling
+     */
+    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
+    /// @}
+
+
+
+
+
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
 
@@ -284,16 +307,6 @@ public:
     std::vector<std::string> getAllNames() const throw();
 
 
-    /* @brief add ids of nodes wich shall not be joined
-     * @param[in] ids A list of ids to exclude from joining
-     * @param[in] ids check Whether to check if these nodes are known
-     * @note checking is off by default because all nodes may not have been loaded yet
-     */
-    void addJoinExclusion(const std::vector<std::string> &ids, bool check=false);
-
-
-    /// @brief add ids of nodes which shall be joined into a single node 
-    void addCluster2Join(std::set<std::string> cluster);
 
 
     /* @brief analyzes a cluster of nodes which shall be joined
@@ -318,10 +331,14 @@ private:
     void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
 
 
-    /// @name Helper methods for guessing/computing traffic lights
+
+    /// @name Helper methods for for joining nodes
     /// @{
 
+    /// @brief Definition of a node cluster container
     typedef std::vector<std::set<NBNode*> > NodeClusters;
+
+
     /** @brief Builds node clusters
      *
      * A node cluster is made up from nodes which are near by (distance<maxDist) and connected.
@@ -329,16 +346,34 @@ private:
      * @param[in] maxDist The maximum distance between two nodes for clustering
      * @param[in, filled] into The container to store the clusters in
      */
-    void generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const throw();
+    void generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const;
 
+    // @brief merges two nodes using name and position of target
+    void merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec);
+
+    // @brief replaces oldEdge by an edge between from and to, keeping all attributes
+    void remapEdge(NBEdge *oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec);
+
+    // @brief joins the given node clusters
+    void joinNodeClusters(NodeClusters clusters, 
+            NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    
+    /// @}
+
+
+
+    /// @name Helper methods for guessing/computing traffic lights
+    /// @{
 
     /** @brief Returns whethe the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const std::set<NBNode*> &c) const throw();
+    bool shouldBeTLSControlled(const std::set<NBNode*> &c) const;
     /// @}
 
+
+private:
     /// @brief The running internal id
     int myInternalID;
 
@@ -357,22 +392,14 @@ private:
     /// @brief ids found in loaded join clusters used for error checking
     std::set<std::string> myJoined;
 
+
+private:
     /// @brief invalidated copy constructor
     NBNodeCont(const NBNodeCont &s);
 
     /// @brief invalidated assignment operator
     NBNodeCont &operator=(const NBNodeCont &s);
 
-    // @brief merges two nodes using name and position of target
-    void merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec);
-
-    // @brief replaces oldEdge by an edge between from and to, keeping all attributes
-    void remapEdge(NBEdge *oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec);
-
-    // @brief joins the given node clusters
-    void joinNodeClusters(NodeClusters clusters, 
-            NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
-    
 };
 
 

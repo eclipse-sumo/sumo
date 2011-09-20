@@ -179,13 +179,14 @@ NBNetBuilder::compute(OptionsCont &oc,
 
 
     // GUESS RAMPS
-    //
     if ((oc.exists("ramps.guess")&&oc.getBool("ramps.guess"))||(oc.exists("ramps.set")&&oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
 		PROGRESS_DONE_MESSAGE();
     }
-    //
+
+
+    // GUESS TLS POSITIONS
     PROGRESS_BEGIN_MESSAGE("Guessing and setting traffic lights");
     if (oc.isSet("tls.set")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
@@ -206,6 +207,8 @@ NBNetBuilder::compute(OptionsCont &oc,
         myNodeCont.joinTLS(myTLLCont);
 		PROGRESS_DONE_MESSAGE();
     }
+
+
     //
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
     myEdgeCont.computeTurningDirections();

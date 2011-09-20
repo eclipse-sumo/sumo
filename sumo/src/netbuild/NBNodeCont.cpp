@@ -165,410 +165,6 @@ NBNodeCont::extract(NBNode *node) throw() {
 }
 
 
-// ----------- (Helper) methods for guessing/computing traffic lights
-void
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const throw() {
-    std::set<NBNode*> visited;
-    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        std::vector<NBNode*> toProc;
-        if (visited.find((*i).second)!=visited.end()) {
-            continue;
-        }
-        toProc.push_back((*i).second);
-        std::set<NBNode*> c;
-        while (!toProc.empty()) {
-            NBNode *n = toProc.back();
-            toProc.pop_back();
-            if (visited.find(n)!=visited.end()) {
-                continue;
-            }
-            c.insert(n);
-            visited.insert(n);
-            const EdgeVector &edges = n->getEdges();
-            for (EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-                NBEdge *e = *j;
-                NBNode *s = 0;
-                if (n->hasIncoming(e)) {
-                    s = e->getFromNode();
-                } else {
-                    s = e->getToNode();
-                }
-                if (visited.find(s)!=visited.end()) {
-                    continue;
-                }
-                if (n->getPosition().distanceTo(s->getPosition())<maxDist) {
-                    toProc.push_back(s);
-                }
-            }
-        }
-        if (c.size()<2) {
-            continue;
-        }
-        into.push_back(c);
-    }
-}
-
-
-bool
-NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw() {
-    unsigned int noIncoming = 0;
-    unsigned int noOutgoing = 0;
-    bool tooFast = false;
-    SUMOReal f = 0;
-    std::set<NBEdge*> seen;
-    for (std::set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
-        const EdgeVector &edges = (*j)->getEdges();
-        for (EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
-            if (c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
-                continue;
-            }
-            if ((*j)->hasIncoming(*k)) {
-                ++noIncoming;
-                f += (SUMOReal)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
-            } else {
-                ++noOutgoing;
-            }
-            if ((*k)->getLaneSpeed(0)*3.6>79) {
-                tooFast = true;
-            }
-        }
-    }
-    return !tooFast && f>=150./3.6 && c.size()!=0;
-}
-
-
-void
-NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
-    // build list of definitely not tls-controlled junctions
-    std::vector<NBNode*> ncontrolled;
-    if (oc.isSet("tls.unset")) {
-        std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
-        for (std::vector<std::string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
-            NBNode *n = NBNodeCont::retrieve(*i);
-            if (n==0) {
-                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
-            }
-            std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
-            for (std::set<NBTrafficLightDefinition*>::const_iterator j=tls.begin(); j!=tls.end(); ++j) {
-                (*j)->removeNode(n);
-            }
-            n->removeTrafficLights();
-            ncontrolled.push_back(n);
-        }
-    }
-
-    // loop#1 checking whether the node shall be tls controlled,
-    //  because it is assigned to a district
-    if (oc.exists("tls.taz-nodes")&&oc.getBool("tls.taz-nodes")) {
-        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *cur = (*i).second;
-            if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {
-                setAsTLControlled(cur, tlc);
-            }
-        }
-    }
-
-    // maybe no tls shall be guessed
-    if (!oc.getBool("tls.guess")) {
-        return;
-    }
-
-    // guess joined tls first, if wished
-    if (oc.getBool("tls-guess.joining")) {
-        // get node clusters
-        SUMOReal MAXDIST = 25;
-        std::vector<std::set<NBNode*> > cands;
-        generateNodeClusters(MAXDIST, cands);
-        // check these candidates (clusters) whether they should be controlled by a tls
-        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end();) {
-            std::set<NBNode*> &c = (*i);
-            // regard only junctions which are not yet controlled and are not
-            //  forbidden to be controlled
-            for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
-                if ((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
-                    c.erase(j++);
-                } else {
-                    ++j;
-                }
-            }
-            // check whether the cluster should be controlled
-            if (!shouldBeTLSControlled(c)) {
-                i = cands.erase(i);
-            } else {
-                ++i;
-            }
-        }
-        // cands now only contain sets of junctions that shall be joined into being tls-controlled
-        unsigned int index = 0;
-        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
-            std::vector<NBNode*> nodes;
-            for (std::set<NBNode*>::iterator j=(*i).begin(); j!=(*i).end(); j++) {
-                nodes.push_back(*j);
-            }
-            std::string id = "joinedG_" + toString(index++);
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
-            if (!tlc.insert(tlDef)) {
-                // actually, nothing should fail here
-                WRITE_WARNING("Could not build guessed, joined tls");
-                delete tlDef;
-                return;
-            }
-        }
-    }
-
-    // guess tls
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *cur = (*i).second;
-        //  do nothing if already is tl-controlled
-        if (cur->isTLControlled()) {
-            continue;
-        }
-        // do nothing if in the list of explicit non-controlled junctions
-        if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
-            continue;
-        }
-        std::set<NBNode*> c;
-        c.insert(cur);
-        if (!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
-            continue;
-        }
-        setAsTLControlled((*i).second, tlc);
-    }
-}
-
-
-void 
-NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
-    for (std::vector<std::string>::const_iterator it=ids.begin(); it!=ids.end(); it++) {
-        // error handling has to take place here since joinExclusions could be
-        // loaded from multiple files / command line
-        if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for node '" + *it + 
-                    "' since it already occured in a list of nodes to be joined");
-        } else if (check && retrieve(*it) == 0) {
-            WRITE_WARNING("Ignoring join exclusion for unknown node '" + *it + "'");
-        } else {
-            myJoinExclusions.insert(*it);
-        }
-    }
-}
-
-
-void
-NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
-    // error handling has to take place here since joins could be loaded from multiple files 
-    for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
-        if (myJoinExclusions.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + 
-                    "' was already excluded from joining");
-            return;
-        } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because node '" + *it + 
-                    "' already occured in another join-cluster");
-            return;
-        } else {
-            myJoined.insert(*it);
-        }
-    }
-    myClusters2Join.push_back(cluster);
-}
-
-
-unsigned int
-NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
-    NodeClusters clusters;
-    for (std::vector<std::set<std::string> >::iterator it = myClusters2Join.begin(); it != myClusters2Join.end(); it++) {
-        // verify loaded cluster
-        std::set<NBNode*> cluster;
-        for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
-            NBNode *node = retrieve(*it_id);
-            if (node == 0) {
-                WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
-            } else {
-                cluster.insert(node);
-            }
-        }
-        if (cluster.size() > 1) {
-            clusters.push_back(cluster);
-        }
-    }
-    joinNodeClusters(clusters, dc, ec, tlc);
-    return (int)clusters.size();
-}
-
-
-unsigned int
-NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
-    NodeClusters cands;
-    NodeClusters clusters;
-    generateNodeClusters(maxdist, cands);
-    for (NodeClusters::iterator i=cands.begin(); i!=cands.end(); ++i) {
-        const std::set<NBNode*> &candCluster = (*i);
-        std::set<NBNode*> cluster;
-        // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
-        for (std::set<NBNode*>::const_iterator j=candCluster.begin(); j!=candCluster.end(); j++) {
-            NBNode *n = *j;
-            if (n->getIncomingEdges().size() == 1 &&
-                    n->getOutgoingEdges().size() == 1 &&
-                    (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
-                     !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
-                continue;
-            } else if (myJoinExclusions.count(n->getID()) > 0) {
-                continue;
-            } else {
-                cluster.insert(n);
-            }
-        }
-        if (cluster.size() > 1) {
-            clusters.push_back(cluster);
-        }
-    }
-    joinNodeClusters(clusters, dc, ec, tlc);
-    return (int)clusters.size();
-}
-
-
-void 
-NBNodeCont::joinNodeClusters(NodeClusters clusters, 
-        NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) 
-{
-    for (NodeClusters::iterator i=clusters.begin(); i!=clusters.end(); ++i) {
-        std::set<NBNode*> cluster = *i;
-        assert(cluster.size() > 1);
-        Position pos;
-        bool setTL;
-        std::string id;
-        analyzeCluster(cluster, id, pos, setTL);
-        if (!insert(id, pos)) {
-            // should not fail
-            WRITE_WARNING("Could not join junctions " + id);
-            continue;
-        }
-        NBNode* newNode = retrieve(id);
-        if (setTL) {
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
-            if (!tlc.insert(tlDef)) {
-                // actually, nothing should fail here
-                delete tlDef;
-                throw ProcessError("Could not allocate tls '" + id + "'.");
-            }
-        }
-        // perform the merging
-        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-            merge(*j, newNode, dc, ec);
-        }
-    }
-}
-
-
-void 
-NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS) {
-    id = "cluster";
-    hasTLS = false;
-    std::vector<std::string> member_ids;
-    for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
-        member_ids.push_back((*j)->getID());
-        pos.add((*j)->getPosition());
-        // add a traffic light if any of the cluster members was controlled
-        if ((*j)->isTLControlled()) {
-            hasTLS = true;
-        }
-    }
-    pos.mul(1.0 / cluster.size());
-    // need to sort the member names to make the output deterministic
-    sort(member_ids.begin(), member_ids.end());
-    for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
-        id = id + "_" + (*j);
-    }
-}
-
-
-void
-NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec) {
-    // deleting edges changes in the underlying EdgeVector so we have to make a copy
-    EdgeVector incoming = moved->getIncomingEdges();
-    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-        remapEdge(*it, (*it)->getFromNode(), target, dc, ec);
-    }
-    // deleting edges changes in the underlying EdgeVector so we have to make a copy
-    EdgeVector outgoing = moved->getOutgoingEdges();
-    for (EdgeVector::iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        remapEdge(*it, target, (*it)->getToNode(), dc, ec);
-    }
-    erase(moved);
-}
-
-
-void
-NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec) {
-    if (to == from) {
-        // @todo remap connections
-        ec.erase(dc, oldEdge);
-    } else {
-        NBEdge* remapped = new NBEdge(oldEdge->getID(), from, to, oldEdge);
-        remapped->setGeometry(oldEdge->getGeometry());
-        ec.erase(dc, oldEdge); // erase first so we can reuse the name
-        ec.insert(remapped);
-    }
-}
-
-
-void
-NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
-    SUMOReal MAXDIST = 25;
-    std::vector<std::set<NBNode*> > cands;
-    generateNodeClusters(MAXDIST, cands);
-    unsigned int index = 0;
-    for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
-        std::set<NBNode*> &c = (*i);
-        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
-            if (!(*j)->isTLControlled()) {
-                c.erase(j++);
-            } else {
-                ++j;
-            }
-        }
-        if (c.size()<2) {
-            continue;
-        }
-        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
-            std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
-            (*j)->removeTrafficLights();
-            for (std::set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
-                tlc.removeFully((*j)->getID());
-            }
-        }
-        std::string id = "joinedS_" + toString(index++);
-        std::vector<NBNode*> nodes;
-        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); j++) {
-            nodes.push_back(*j);
-        }
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
-        if (!tlc.insert(tlDef)) {
-            // actually, nothing should fail here
-            WRITE_WARNING("Could not build a joined tls.");
-            delete tlDef;
-            return;
-        }
-    }
-}
-
-
-void
-NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id) {
-    if (id=="") {
-        id = node->getID();
-    }
-    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
-    if (!tlc.insert(tlDef)) {
-        // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
-        delete tlDef;
-        return;
-    }
-}
-
-
 // ----------- Adapting the input
 void
 NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
@@ -776,6 +372,408 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
         erase(*j);
     }
 	return no;
+}
+
+
+// ----------- (Helper) methods for joining nodes
+void
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const {
+    std::set<NBNode*> visited;
+    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        std::vector<NBNode*> toProc;
+        if (visited.find((*i).second)!=visited.end()) {
+            continue;
+        }
+        toProc.push_back((*i).second);
+        std::set<NBNode*> c;
+        while (!toProc.empty()) {
+            NBNode *n = toProc.back();
+            toProc.pop_back();
+            if (visited.find(n)!=visited.end()) {
+                continue;
+            }
+            c.insert(n);
+            visited.insert(n);
+            const EdgeVector &edges = n->getEdges();
+            for (EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+                NBEdge *e = *j;
+                NBNode *s = 0;
+                if (n->hasIncoming(e)) {
+                    s = e->getFromNode();
+                } else {
+                    s = e->getToNode();
+                }
+                if (visited.find(s)!=visited.end()) {
+                    continue;
+                }
+                if (n->getPosition().distanceTo(s->getPosition())<maxDist) {
+                    toProc.push_back(s);
+                }
+            }
+        }
+        if (c.size()<2) {
+            continue;
+        }
+        into.push_back(c);
+    }
+}
+
+
+void 
+NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
+    for (std::vector<std::string>::const_iterator it=ids.begin(); it!=ids.end(); it++) {
+        // error handling has to take place here since joinExclusions could be
+        // loaded from multiple files / command line
+        if (myJoined.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join exclusion for node '" + *it +  "' since it already occured in a list of nodes to be joined");
+        } else if (check && retrieve(*it) == 0) {
+            WRITE_WARNING("Ignoring join exclusion for unknown node '" + *it + "'");
+        } else {
+            myJoinExclusions.insert(*it);
+        }
+    }
+}
+
+
+void
+NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
+    // error handling has to take place here since joins could be loaded from multiple files 
+    for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
+        if (myJoinExclusions.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' was already excluded from joining");
+            return;
+        } else if (myJoined.count(*it) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' already occured in another join-cluster");
+            return;
+        } else {
+            myJoined.insert(*it);
+        }
+    }
+    myClusters2Join.push_back(cluster);
+}
+
+
+unsigned int
+NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+    NodeClusters clusters;
+    for (std::vector<std::set<std::string> >::iterator it = myClusters2Join.begin(); it != myClusters2Join.end(); it++) {
+        // verify loaded cluster
+        std::set<NBNode*> cluster;
+        for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
+            NBNode *node = retrieve(*it_id);
+            if (node == 0) {
+                WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
+            } else {
+                cluster.insert(node);
+            }
+        }
+        if (cluster.size() > 1) {
+            clusters.push_back(cluster);
+        }
+    }
+    joinNodeClusters(clusters, dc, ec, tlc);
+    return (int)clusters.size();
+}
+
+
+unsigned int
+NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+    NodeClusters cands;
+    NodeClusters clusters;
+    generateNodeClusters(maxdist, cands);
+    for (NodeClusters::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        const std::set<NBNode*> &candCluster = (*i);
+        std::set<NBNode*> cluster;
+        // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
+        for (std::set<NBNode*>::const_iterator j=candCluster.begin(); j!=candCluster.end(); j++) {
+            NBNode *n = *j;
+            if (n->getIncomingEdges().size() == 1 &&
+                    n->getOutgoingEdges().size() == 1 &&
+                    (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
+                     !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
+                continue;
+            } else if (myJoinExclusions.count(n->getID()) > 0) {
+                continue;
+            } else {
+                cluster.insert(n);
+            }
+        }
+        if (cluster.size() > 1) {
+            clusters.push_back(cluster);
+        }
+    }
+    joinNodeClusters(clusters, dc, ec, tlc);
+    return (int)clusters.size();
+}
+
+
+void 
+NBNodeCont::joinNodeClusters(NodeClusters clusters, 
+        NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) 
+{
+    for (NodeClusters::iterator i=clusters.begin(); i!=clusters.end(); ++i) {
+        std::set<NBNode*> cluster = *i;
+        assert(cluster.size() > 1);
+        Position pos;
+        bool setTL;
+        std::string id;
+        analyzeCluster(cluster, id, pos, setTL);
+        if (!insert(id, pos)) {
+            // should not fail
+            WRITE_WARNING("Could not join junctions " + id);
+            continue;
+        }
+        NBNode* newNode = retrieve(id);
+        if (setTL) {
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
+            if (!tlc.insert(tlDef)) {
+                // actually, nothing should fail here
+                delete tlDef;
+                throw ProcessError("Could not allocate tls '" + id + "'.");
+            }
+        }
+        // perform the merging
+        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+            merge(*j, newNode, dc, ec);
+        }
+    }
+}
+
+
+void 
+NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS) {
+    id = "cluster";
+    hasTLS = false;
+    std::vector<std::string> member_ids;
+    for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); j++) {
+        member_ids.push_back((*j)->getID());
+        pos.add((*j)->getPosition());
+        // add a traffic light if any of the cluster members was controlled
+        if ((*j)->isTLControlled()) {
+            hasTLS = true;
+        }
+    }
+    pos.mul(1.0 / cluster.size());
+    // need to sort the member names to make the output deterministic
+    sort(member_ids.begin(), member_ids.end());
+    for (std::vector<std::string>::iterator j=member_ids.begin(); j!=member_ids.end(); j++) {
+        id = id + "_" + (*j);
+    }
+}
+
+
+void
+NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec) {
+    // deleting edges changes in the underlying EdgeVector so we have to make a copy
+    EdgeVector incoming = moved->getIncomingEdges();
+    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
+        remapEdge(*it, (*it)->getFromNode(), target, dc, ec);
+    }
+    // deleting edges changes in the underlying EdgeVector so we have to make a copy
+    EdgeVector outgoing = moved->getOutgoingEdges();
+    for (EdgeVector::iterator it = outgoing.begin(); it != outgoing.end(); it++) {
+        remapEdge(*it, target, (*it)->getToNode(), dc, ec);
+    }
+    erase(moved);
+}
+
+
+void
+NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec) {
+    if (to == from) {
+        // @todo remap connections
+        ec.erase(dc, oldEdge);
+    } else {
+        NBEdge* remapped = new NBEdge(oldEdge->getID(), from, to, oldEdge);
+        remapped->setGeometry(oldEdge->getGeometry());
+        ec.erase(dc, oldEdge); // erase first so we can reuse the name
+        ec.insert(remapped);
+    }
+}
+
+
+// ----------- (Helper) methods for guessing/computing traffic lights
+bool
+NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const {
+    unsigned int noIncoming = 0;
+    unsigned int noOutgoing = 0;
+    bool tooFast = false;
+    SUMOReal f = 0;
+    std::set<NBEdge*> seen;
+    for (std::set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
+        const EdgeVector &edges = (*j)->getEdges();
+        for (EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
+            if (c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
+                continue;
+            }
+            if ((*j)->hasIncoming(*k)) {
+                ++noIncoming;
+                f += (SUMOReal)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
+            } else {
+                ++noOutgoing;
+            }
+            if ((*k)->getLaneSpeed(0)*3.6>79) {
+                tooFast = true;
+            }
+        }
+    }
+    return !tooFast && f>=150./3.6 && c.size()!=0;
+}
+
+
+void
+NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
+    // build list of definitely not tls-controlled junctions
+    std::vector<NBNode*> ncontrolled;
+    if (oc.isSet("tls.unset")) {
+        std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
+        for (std::vector<std::string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
+            NBNode *n = NBNodeCont::retrieve(*i);
+            if (n==0) {
+                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
+            }
+            std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
+            for (std::set<NBTrafficLightDefinition*>::const_iterator j=tls.begin(); j!=tls.end(); ++j) {
+                (*j)->removeNode(n);
+            }
+            n->removeTrafficLights();
+            ncontrolled.push_back(n);
+        }
+    }
+
+    // loop#1 checking whether the node shall be tls controlled,
+    //  because it is assigned to a district
+    if (oc.exists("tls.taz-nodes")&&oc.getBool("tls.taz-nodes")) {
+        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+            NBNode *cur = (*i).second;
+            if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {
+                setAsTLControlled(cur, tlc);
+            }
+        }
+    }
+
+    // maybe no tls shall be guessed
+    if (!oc.getBool("tls.guess")) {
+        return;
+    }
+
+    // guess joined tls first, if wished
+    if (oc.getBool("tls-guess.joining")) {
+        // get node clusters
+        SUMOReal MAXDIST = 25;
+        std::vector<std::set<NBNode*> > cands;
+        generateNodeClusters(MAXDIST, cands);
+        // check these candidates (clusters) whether they should be controlled by a tls
+        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end();) {
+            std::set<NBNode*> &c = (*i);
+            // regard only junctions which are not yet controlled and are not
+            //  forbidden to be controlled
+            for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+                if ((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
+                    c.erase(j++);
+                } else {
+                    ++j;
+                }
+            }
+            // check whether the cluster should be controlled
+            if (!shouldBeTLSControlled(c)) {
+                i = cands.erase(i);
+            } else {
+                ++i;
+            }
+        }
+        // cands now only contain sets of junctions that shall be joined into being tls-controlled
+        unsigned int index = 0;
+        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+            std::vector<NBNode*> nodes;
+            for (std::set<NBNode*>::iterator j=(*i).begin(); j!=(*i).end(); j++) {
+                nodes.push_back(*j);
+            }
+            std::string id = "joinedG_" + toString(index++);
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
+            if (!tlc.insert(tlDef)) {
+                // actually, nothing should fail here
+                WRITE_WARNING("Could not build guessed, joined tls");
+                delete tlDef;
+                return;
+            }
+        }
+    }
+
+    // guess tls
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        NBNode *cur = (*i).second;
+        //  do nothing if already is tl-controlled
+        if (cur->isTLControlled()) {
+            continue;
+        }
+        // do nothing if in the list of explicit non-controlled junctions
+        if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
+            continue;
+        }
+        std::set<NBNode*> c;
+        c.insert(cur);
+        if (!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
+            continue;
+        }
+        setAsTLControlled((*i).second, tlc);
+    }
+}
+
+
+void
+NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
+    SUMOReal MAXDIST = 25;
+    std::vector<std::set<NBNode*> > cands;
+    generateNodeClusters(MAXDIST, cands);
+    unsigned int index = 0;
+    for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        std::set<NBNode*> &c = (*i);
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+            if (!(*j)->isTLControlled()) {
+                c.erase(j++);
+            } else {
+                ++j;
+            }
+        }
+        if (c.size()<2) {
+            continue;
+        }
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
+            std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
+            (*j)->removeTrafficLights();
+            for (std::set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
+                tlc.removeFully((*j)->getID());
+            }
+        }
+        std::string id = "joinedS_" + toString(index++);
+        std::vector<NBNode*> nodes;
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); j++) {
+            nodes.push_back(*j);
+        }
+        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
+        if (!tlc.insert(tlDef)) {
+            // actually, nothing should fail here
+            WRITE_WARNING("Could not build a joined tls.");
+            delete tlDef;
+            return;
+        }
+    }
+}
+
+
+void
+NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id) {
+    if (id=="") {
+        id = node->getID();
+    }
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
+    if (!tlc.insert(tlDef)) {
+        // actually, nothing should fail here
+        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
+        delete tlDef;
+        return;
+    }
 }
 
 
