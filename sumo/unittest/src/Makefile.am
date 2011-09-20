@@ -6,6 +6,7 @@ endif
 
 if MESOSIM
 INTERNAL_DIRS = internal
+INTERNAL_LIB = ../../src/internal/libinternal.a
 INTERNAL_TESTS = ./internal/HeightMapperTest.o
 endif
 
@@ -37,6 +38,7 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 ../../src/utils/xml/libxml.a \
 ../../src/utils/common/FileHelpers.o \
 ../../src/foreign/tcpip/libtcpip.a \
+$(INTERNAL_LIB) \
 $(MEM_LIBS) \
 $(XERCES_LIBS) \
 ../../src/traci-server/libtraciserver.a \
