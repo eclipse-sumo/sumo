@@ -279,10 +279,10 @@ CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
 if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
-   AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
-   ac_enabled="$ac_enabled GDAL"
+    AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
+    ac_enabled="$ac_enabled GDAL"
 else
-   ac_disabled="$ac_disabled GDAL"
+    ac_disabled="$ac_disabled GDAL"
 fi
 
 
@@ -360,6 +360,32 @@ if test x"$with_gtest" != xno; then
     ac_enabled="$ac_enabled UnitTests"
 else
     ac_disabled="$ac_disabled UnitTests"
+fi
+
+
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for python
+AC_ARG_WITH([python], [AS_HELP_STRING([--with-python],[enable python scripting.])])
+if test x"$with_python" == x; then
+    with_python=no
+fi
+if test x"$with_python" != xno; then
+    PYTHON_LIBS=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('BLDLIBRARY')"`
+    AC_SUBST(PYTHON_LIBS)
+    save_cppflags=$CPPFLAGS
+    PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('INCLUDEPY')"`
+    CPPFLAGS="$CPPFLAGS -I$PYTHON_INCLUDES"
+    export CPPFLAGS
+    AC_CHECK_HEADER([Python.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                    [AC_MSG_ERROR([Python.h not found. Please install the devel package.])])
+    CPPFLAGS=$save_cppflags
+fi
+AM_CONDITIONAL([WITH_PYTHON], [test x"$with_python" != xno])
+if test x"$with_python" != xno; then
+    AC_DEFINE([HAVE_PYTHON], [1], [defined if python is available])
+    ac_enabled="$ac_enabled Python"
+else
+    ac_disabled="$ac_disabled Python"
 fi
 
 
