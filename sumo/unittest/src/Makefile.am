@@ -4,6 +4,17 @@ if CHECK_MEMORY_LEAKS
 MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
 endif
 
+if MESOSIM
+INTERNAL_DIRS = internal
+INTERNAL_TESTS = ./internal/HeightMapperTest.o
+endif
+
+if WITH_GDAL
+GDAL_LIBS = -l$(LIB_GDAL)
+endif
+
+
+
 if WITH_GTEST
 bin_PROGRAMS = sumo-unittest
 
@@ -37,7 +48,9 @@ $(XERCES_LIBS) \
 ./utils/geom/PositionVectorTest.o \
 ./utils/geom/LineTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
+$(INTERNAL_TESTS) \
+$(GDAL_LIBS) \
 $(LIB_GTEST)
 
-SUBDIRS = utils microsim netbuild
+SUBDIRS = utils microsim netbuild $(INTERNAL_DIRS)
 endif
