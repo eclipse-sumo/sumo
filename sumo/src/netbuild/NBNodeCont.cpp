@@ -569,7 +569,7 @@ NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::s
 }
 
 
-// ----------- Prunning the input
+// ----------- Adapting the input
 void
 NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBTrafficLightLogicCont &tc) {

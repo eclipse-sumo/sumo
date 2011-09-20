@@ -183,7 +183,7 @@ public:
 
 
 
-    /// @name Prunning the input
+    /// @name Adapting the input
     /// @{
 
     /** @brief Removes dummy edges (edges lying completely within a node)

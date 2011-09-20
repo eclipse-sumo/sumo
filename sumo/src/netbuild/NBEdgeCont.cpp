@@ -443,7 +443,7 @@ NBEdgeCont::getAllNames() const throw() {
 }
 
 
-// ----- Prunning the input
+// ----- Adapting the input
 void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) {
     EdgeVector toRemove;

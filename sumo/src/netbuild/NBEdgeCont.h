@@ -275,7 +275,7 @@ public:
 
 
 
-    /// @name Prunning the input
+    /// @name Adapting the input
     /// @{
 
     /** @brief Removes unwished edges (not in keep-edges)

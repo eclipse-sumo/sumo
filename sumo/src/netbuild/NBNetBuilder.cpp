@@ -161,9 +161,15 @@ NBNetBuilder::compute(OptionsCont &oc,
         PROGRESS_BEGIN_MESSAGE("Normalising node positions");
         const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
         const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
-        myNodeCont.reshiftNodePositions(x, y);
-        myEdgeCont.reshiftEdgePositions(x, y);
-        myDistrictCont.reshiftDistrictPositions(x, y);
+        for(std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {
+            (*i).second->reshiftPosition(x, y);
+        }
+        for(std::map<std::string, NBEdge*>::const_iterator i=myEdgeCont.begin(); i!=myEdgeCont.end(); ++i) {
+            (*i).second->reshiftPosition(x, y);
+        }
+        for(std::map<std::string, NBDistrict*>::const_iterator i=myDistrictCont.begin(); i!=myDistrictCont.end(); ++i) {
+            (*i).second->reshiftPosition(x, y);
+        }
         GeoConvHelper::moveConvertedBy(x, y);
 		PROGRESS_DONE_MESSAGE();
     }
