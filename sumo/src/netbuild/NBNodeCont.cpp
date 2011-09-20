@@ -781,14 +781,6 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
 
 // -----------
 void
-NBNodeCont::reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff) {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff);
-    }
-}
-
-
-void
 NBNodeCont::computeLanes2Lanes() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLanes2Lanes();

@@ -34,6 +34,7 @@
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBDistrictCont.h"
+#include "NBDistrict.h"
 #include "NBDistribution.h"
 #include "NBRequest.h"
 #include "NBTypeCont.h"
@@ -108,6 +109,8 @@ NBNetBuilder::compute(OptionsCont &oc,
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
 
+
+    // ADAPTING THE INPUT
     // Removes edges that are connecting the same node
     PROGRESS_BEGIN_MESSAGE("Removing dummy edges");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
@@ -150,6 +153,9 @@ NBNetBuilder::compute(OptionsCont &oc,
         myEdgeCont.splitGeometry(myNodeCont);
 		PROGRESS_DONE_MESSAGE();
     }
+
+
+    // MOVE TO ORIGIN
     //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         PROGRESS_BEGIN_MESSAGE("Normalising node positions");
@@ -161,8 +167,12 @@ NBNetBuilder::compute(OptionsCont &oc,
         GeoConvHelper::moveConvertedBy(x, y);
 		PROGRESS_DONE_MESSAGE();
     }
-    //
+
+    // @todo Why?
     myEdgeCont.recomputeLaneShapes();
+
+
+    // GUESS RAMPS
     //
     if ((oc.exists("ramps.guess")&&oc.getBool("ramps.guess"))||(oc.exists("ramps.set")&&oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");

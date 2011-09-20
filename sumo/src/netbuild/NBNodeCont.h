@@ -235,8 +235,6 @@ public:
     /// @}
 
 
-    /// resets the node positions by the specified offset
-    void reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff);
 
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();

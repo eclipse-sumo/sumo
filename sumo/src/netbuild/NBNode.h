@@ -248,6 +248,8 @@ public:
     /// @}
 
 
+    /// resets the position by the given amount
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
 
 
 
@@ -472,8 +474,6 @@ private:
         outgoing edge */
     EdgeVector *getEdgesThatApproach(NBEdge *currentOutgoing);
 
-    /// resets the position by the given amount
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
 
 
 

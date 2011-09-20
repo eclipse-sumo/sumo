@@ -372,17 +372,6 @@ public:
     void appendTurnarounds(const std::set<std::string> &ids, bool noTLSControlled);
 
 
-    /** @brief Translates and rotates the geometries of all known edges by the given values
-     *
-     * Calls "NBEdge::reshiftPosition" for all edges within the container.
-     *
-     * @todo Recheck whether a visitor-pattern should be used herefor
-     * @todo Recheck usage
-     * @see NBEdge::reshiftPosition
-     */
-    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw();
-
-
     /** @brief Computes the shapes of all edges stored in the container
      *
      * Calls "NBEdge::computeEdgeShape" for all edges within the container.

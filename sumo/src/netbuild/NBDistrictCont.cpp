@@ -107,13 +107,6 @@ NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw() {
 }
 
 
-void
-NBDistrictCont::reshiftDistrictPositions(SUMOReal xoff, SUMOReal yoff) throw() {
-    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff);
-    }
-}
-
 
 /****************************************************************************/
 

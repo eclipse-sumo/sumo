@@ -144,18 +144,6 @@ public:
     void removeFromSinksAndSources(NBEdge * const e) throw();
 
 
-    /** @brief Applies an offset to all districts
-     *
-     * This method simply goes through all stored districts and calls their method
-     *  NBDistrict::reshiftPosition.
-     *
-     * @see NBDistrict::reshiftPosition
-     * @param[in] xoff The x-offset to apply
-     * @param[in] yoff The y-offset to apply
-     */
-    void reshiftDistrictPositions(SUMOReal xoff, SUMOReal yoff) throw();
-
-
 private:
     /// @brief The type of the dictionary where a node may be found by her id
     typedef std::map<std::string, NBDistrict*> DistrictCont;

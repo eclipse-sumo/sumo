@@ -538,14 +538,6 @@ NBEdgeCont::appendTurnarounds(const std::set<std::string> &ids, bool noTLSContro
 
 
 void
-NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw() {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff);
-    }
-}
-
-
-void
 NBEdgeCont::computeEdgeShapes() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdgeShape();
