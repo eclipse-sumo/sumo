@@ -57,6 +57,7 @@ $(MESO_LIBS) \
 ./utils/shapes/libshapes.a \
 $(TRACI_LIBS) \
 $(COMMON_LIBS) \
+$(PYTHON_LIBS) \
 $(PROJ_LIBS)
 
 

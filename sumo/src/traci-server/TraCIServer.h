@@ -78,14 +78,22 @@ public:
      */
     static void openSocket(const std::map<int, CmdExecutor> &execs);
 
-    // process all commands until a simulation step is wanted
+    /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
-
-    // check whether close was requested
+    
+    /// @brief check whether close was requested
     static bool wasClosed();
 
-    // check whether close was requested
+    /// @brief request termination of connection
     static void close();
+
+#ifdef HAVE_PYTHON
+    /// @brief process the command
+    static std::string execute(std::string cmd);
+
+    /// @brief run the given script
+    static void runEmbedded(std::string pyFile);
+#endif
 
     void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to);
 
@@ -113,8 +121,7 @@ public:
 private:
 
     // Constructor
-    // Reads the needed parameters out of static OptionsCont
-    TraCIServer();
+    TraCIServer(int port=0);
 
     // Destructor
     // final cleanup
@@ -132,11 +139,11 @@ private:
 
     bool addSubscription(int commandId);
 
-    // singleton instance of the server
+    /// singleton instance of the server
     static TraCIServer* myInstance;
     static bool myDoCloseConnection;
 
-    // socket on which server is listening on
+    /// socket on which server is listening on
     tcpip::Socket* mySocket;
 
     // simulation begin and end time
@@ -147,6 +154,7 @@ private:
     tcpip::Storage myOutputStorage;
     bool myDoingSimStep;
     bool myHaveWarnedDeprecation;
+    const bool myAmEmbedded;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;

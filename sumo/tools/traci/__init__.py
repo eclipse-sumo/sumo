@@ -11,6 +11,11 @@ Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import socket, time, struct
+try:
+    import traciemb
+    _embedded = True
+except ImportError:
+    _embedded = False
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
@@ -120,11 +125,12 @@ def _recvExact():
         return None
 
 def _sendExact():
-    length = struct.pack("!i", len(_message.string)+4)
-    _connections[""].send(length)
-    _connections[""].send(_message.string)
-    _message.string = ""
-    result = _recvExact()
+    if _embedded:
+        result = Storage(traciemb.execute(_message.string))
+    else:
+        length = struct.pack("!i", len(_message.string)+4)
+        _connections[""].send(length + _message.string)
+        result = _recvExact()
     if not result:
         _connections[""].close()
         del _connections[""]
@@ -140,6 +146,7 @@ def _sendExact():
         elif prefix[1] == constants.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
+    _message.string = ""
     _message.queue = []
     return result
 
@@ -217,7 +224,9 @@ def _subscribe(cmdID, begin, end, objID, varIDs):
         print "Error! Received answer %s,%s for subscription command %s,%s."\
               % (response, objectID, cmdID, objID)
 
-def init(port, numRetries=10, host="localhost", label="default"):
+def init(port=8813, numRetries=10, host="localhost", label="default"):
+    if _embedded:
+        return getVersion()
     _connections[""] = _connections[label] = socket.socket()
     for wait in range(numRetries):
         try:
@@ -229,7 +238,7 @@ def init(port, numRetries=10, host="localhost", label="default"):
             time.sleep(wait)
     return getVersion()
 
-def simulationStep(step):
+def simulationStep(step=0):
     """
     Make simulation step and simulate up to "step" second in sim time.
     """

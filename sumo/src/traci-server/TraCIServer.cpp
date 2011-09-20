@@ -34,6 +34,10 @@
 
 #ifndef NO_TRACI
 
+#ifdef HAVE_PYTHON
+#include <Python.h>
+#endif
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -101,7 +105,7 @@ void
 TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
     if (myInstance == 0) {
         if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
-            myInstance = new traci::TraCIServer();
+            myInstance = new traci::TraCIServer(OptionsCont::getOptions().getInt("remote-port"));
             for (std::map<int, CmdExecutor>::const_iterator i=execs.begin(); i!=execs.end(); ++i) {
                 myInstance->myExecutors[i->first] = i->second;
             }
@@ -111,7 +115,8 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor> &execs) {
 
 /*****************************************************************************/
 
-TraCIServer::TraCIServer() {
+TraCIServer::TraCIServer(int port)
+    : mySocket(0), myTargetTime(0), myDoingSimStep(false), myHaveWarnedDeprecation(false), myAmEmbedded(port == 0) {
     myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
     myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
@@ -141,11 +146,7 @@ TraCIServer::TraCIServer() {
     myExecutors[CMD_SET_EDGE_VARIABLE] = &TraCIServerAPI_Edge::processSet;
     myExecutors[CMD_GET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processGet;
 
-    OptionsCont &oc = OptionsCont::getOptions();
-    myTargetTime = 0;
     myDoCloseConnection = false;
-    myDoingSimStep = false;
-    myHaveWarnedDeprecation = false;
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes) {
@@ -154,15 +155,15 @@ TraCIServer::TraCIServer() {
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
 
-    try {
-        int port = oc.getInt("remote-port");
-        // Opens listening socket
-        WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
-        mySocket = new tcpip::Socket(port);
-        mySocket->accept();
-        // When got here, a client has connected
-    } catch (tcpip::SocketException &e) {
-        throw ProcessError(e.what());
+    if (!myAmEmbedded) {
+        try {
+            WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
+            mySocket = new tcpip::Socket(port);
+            mySocket->accept();
+            // When got here, a client has connected
+        } catch (tcpip::SocketException &e) {
+            throw ProcessError(e.what());
+        }
     }
 }
 
@@ -173,17 +174,6 @@ TraCIServer::~TraCIServer() {
     if (mySocket != NULL) {
         mySocket->close();
         delete mySocket;
-    }
-}
-
-/*****************************************************************************/
-
-void
-TraCIServer::close() {
-    if (myInstance!=0) {
-        delete myInstance;
-        myInstance = 0;
-        myDoCloseConnection = true;
     }
 }
 
@@ -203,12 +193,12 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
         if (myInstance == 0) {
             if (!myDoCloseConnection && OptionsCont::getOptions().getInt("remote-port") != 0) {
-                myInstance = new traci::TraCIServer();
+                myInstance = new traci::TraCIServer(OptionsCont::getOptions().getInt("remote-port"));
             } else {
                 return;
             }
         }
-        if (step < myInstance->myTargetTime) {
+        if (myInstance->myAmEmbedded || step < myInstance->myTargetTime) {
             return;
         }
         // Simulation should run until
@@ -263,10 +253,90 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     }
 }
 
+/*****************************************************************************/
+
 bool
 TraCIServer::wasClosed() {
     return myDoCloseConnection;
 }
+
+
+void
+TraCIServer::close() {
+    if (myInstance!=0) {
+        delete myInstance;
+        myInstance = 0;
+        myDoCloseConnection = true;
+    }
+}
+
+/*****************************************************************************/
+
+#ifdef HAVE_PYTHON
+// ===========================================================================
+// python functions (traciemb module)
+// ===========================================================================
+static PyObject*
+traciemb_execute(PyObject *self, PyObject *args) {
+    const char *msg;
+    int size;
+    if (!PyArg_ParseTuple(args, "s#", &msg, &size)) {
+        return NULL;
+    }
+    std::string result = traci::TraCIServer::execute(std::string(msg, size));
+    return Py_BuildValue("s#", result.c_str(), result.size());
+}
+
+static PyMethodDef EmbMethods[] = {
+    {"execute", traciemb_execute, METH_VARARGS,
+     "Execute the given TraCI command and return the result."},
+    {NULL, NULL, 0, NULL}
+};
+
+
+std::string
+TraCIServer::execute(std::string cmd) {
+    try {
+        if (myInstance == 0) {
+            if (!myDoCloseConnection) {
+                myInstance = new traci::TraCIServer();
+            } else {
+                return "";
+            }
+        }
+        myInstance->myInputStorage.reset();
+        myInstance->myOutputStorage.reset();
+        for (std::string::iterator i = cmd.begin(); i != cmd.end(); ++i) {
+            myInstance->myInputStorage.writeChar(*i);
+        }
+        myInstance->dispatchCommand();
+        return std::string(myInstance->myOutputStorage.begin(), myInstance->myOutputStorage.end());
+    } catch (std::invalid_argument &e) {
+        throw ProcessError(e.what());
+    } catch (TraCIException &e) {
+        throw ProcessError(e.what());
+    } catch (tcpip::SocketException &e) {
+        throw ProcessError(e.what());
+    }
+}
+
+
+void
+TraCIServer::runEmbedded(std::string pyFile) {
+    PyObject *pName, *pModule;
+    Py_Initialize();
+    Py_InitModule("traciemb", EmbMethods);
+    pName = PyString_FromString(pyFile.c_str());
+    /* Error checking of pName left out */
+    pModule = PyImport_Import(pName);
+    Py_DECREF(pName);
+    if (pModule == NULL) {
+        PyErr_Print();
+        throw ProcessError("Failed to load \"" + pyFile + "\"!");
+    }
+    Py_Finalize();
+}
+#endif
 
 /*****************************************************************************/
 
@@ -295,6 +365,10 @@ TraCIServer::dispatchCommand() {
                 myTargetTime = nextT;
             } else {
                 myTargetTime += DELTA_T;
+            }
+            if (myAmEmbedded) {
+                MSNet::getInstance()->simulationStep();
+                postProcessSimulationStep2();
             }
             return commandId;
         }

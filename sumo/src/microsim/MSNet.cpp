@@ -246,6 +246,16 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // the simulation loop
     MSNet::SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
+#ifndef NO_TRACI
+#ifdef HAVE_PYTHON
+    if (OptionsCont::getOptions().isSet("python-script")) {
+        traci::TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
+        WRITE_MESSAGE("Simulation End: Script ended");
+        closeSimulation(start);
+        return 0;
+    }
+#endif
+#endif
     while (state==SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
