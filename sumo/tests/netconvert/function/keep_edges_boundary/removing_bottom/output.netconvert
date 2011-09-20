@@ -8,7 +8,7 @@ Joining double connections... done.
 Removing empty nodes... done.
    1 nodes removed.
 Moving network to origin... done.
-Guessing and setting traffic lights... done.
+Assigning nodes to traffic lights... done.
 Computing turning directions... done.
 Sorting nodes' edges... done.
 Computing node types... done.
