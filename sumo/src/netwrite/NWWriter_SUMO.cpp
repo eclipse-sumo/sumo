@@ -328,7 +328,6 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     into << " intLanes=\"";
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
         unsigned int l = 0;
-        unsigned int o = n.countInternalLanes(false);
         for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
             const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
@@ -339,10 +338,9 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
                     into << ' ';
                 }
                 if ((*k).via==0) {
-                    into << ':' << n.getID() << '_' << l << "_0";
+                    into << (*k).id << "_0";
                 } else {
-                    into << ':' << n.getID() << '_' << o << "_0";
-                    o++;
+                    into << (*k).via->id << "_0";
                 }
                 l++;
             }
@@ -364,47 +362,27 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
 
 bool
 NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
-    unsigned int noInternalNoSplits = n.countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
     bool ret = false;
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
-    std::string innerID = ":" + n.getID();
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
         const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
-            if ((*k).toEdge==0) {
+            if ((*k).toEdge==0||(*k).via==0) {
                 continue;
             }
-            std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
-            if (cross.first<=0) {
-                lno++;
-                continue;
-            }
-            // write the attributes
-            std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits) + "_0";
-            std::string iid = innerID + "_" + toString(lno) + "_0";
-            PositionVector shape = n.computeInternalLaneShape(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
-            Position pos = shape.positionAtLengthPosition(cross.first);
-            //pos = (*k).shape[-1];
-            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << sid << '\"';
+            Position pos = (*k).shape[-1];
+            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << (*k).via->id << "_0\"";
             into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
             into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
             into << " incLanes=\"";
-            std::string furtherIncoming = n.getCrossingSourcesNames_dividedBySpace(*i, (*k).fromLane, (*k).toEdge, (*k).toLane);
+            std::string furtherIncoming = (*k).sourceNames;
+            into << (*k).id << "_0";
             if (furtherIncoming.length()!=0) {
-                into << iid << " " << furtherIncoming;
-            } else {
-                into << iid;
+                into << " " << furtherIncoming;
             }
             into << "\"";
-            into << " intLanes=\"" << n.getCrossingNames_dividedBySpace(*i, (*k).fromLane, (*k).toEdge, (*k).toLane) << "\"";
+            into << " intLanes=\"" << (*k).crossingNames << "\"";
             into.closeTag(true);
-            splitNo++;
-            lno++;
             ret = true;
         }
     }
@@ -424,7 +402,7 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
 
     if (!plain) {
         if (includeInternal) {
-            into.writeAttr(SUMO_ATTR_VIA, from.getToNode()->getInternalLaneID(&from, c.fromLane, c.toEdge, c.toLane) + "_0");
+            into.writeAttr(SUMO_ATTR_VIA, c.id + "_0");
         }
         // set information about the controlling tl if any
         if (c.tlID!="") {

@@ -568,22 +568,6 @@ NBNode::extractAndMarkFirst(EdgeVector &s) {
 }
 
 
-unsigned int
-NBNode::countInternalLanes() const {
-    unsigned int lno = 0;
-    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
-            if ((*k).toEdge==0) {
-                continue;
-            }
-            lno++;
-        }
-    }
-    return lno;
-}
-
-
 PositionVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                                  NBEdge *toE, int toL, int numPoints) const {
@@ -734,56 +718,6 @@ NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherT
         return true;
     }
     return false;
-}
-
-
-std::pair<SUMOReal, std::vector<unsigned int> >
-NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsigned int toL) const {
-    std::pair<SUMOReal, std::vector<unsigned int> > ret(-1, std::vector<unsigned int>());
-    LinkDirection dir = getDirection(fromE, toE);
-    switch (dir) {
-    case LINKDIR_LEFT:
-    case LINKDIR_PARTLEFT:
-    case LINKDIR_TURN: {
-        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
-        unsigned int index = 0;
-        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
-            unsigned int noLanesEdge = (*i2)->getNumLanes();
-            for (unsigned int j2=0; j2<noLanesEdge; j2++) {
-                std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
-                for (std::vector<NBEdge::Connection>::iterator k2=elv.begin(); k2!=elv.end(); k2++) {
-                    if ((*k2).toEdge==0) {
-                        continue;
-                    }
-                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
-                        // compute the crossing point
-                        ret.second.push_back(index);
-                        PositionVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).toEdge, (*k2).toLane);
-                        if (thisShape.intersects(otherShape)) {
-                            DoubleVector dv = thisShape.intersectsAtLengths(otherShape);
-                            SUMOReal minDV = dv[0];
-                            if (minDV<thisShape.length()-.1&&minDV>.1) { // !!!?
-                                assert(minDV>=0);
-                                if (ret.first<0||ret.first>minDV) {
-                                    ret.first = minDV;
-                                }
-                            }
-                        }
-                    }
-                    index++;
-                }
-            }
-        }
-        if (dir==LINKDIR_TURN&&ret.first<0&&ret.second.size()!=0) {
-            // let turnarounds wait at the begin if no other crossing point was found
-            ret.first = (SUMOReal) thisShape.length() / 2.;
-        }
-    }
-    break;
-    default:
-        break;
-    }
-    return ret;
 }
 
 
@@ -1567,28 +1501,6 @@ NBNode::getShape() const {
     return myPoly;
 }
 
-std::string
-NBNode::getInternalLaneID(const NBEdge *from, unsigned int fromlane,
-                          NBEdge *to, unsigned int tolane) const {
-    unsigned int l = 0;
-    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNumLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                if ((from==*i)&&(j==fromlane)&&((*k).toEdge==to)&&((*k).toLane==tolane)) {
-                    return ":" + myID + "_" + toString(l);
-                }
-                l++;
-            }
-        }
-    }
-    throw 1;
-}
-
 
 SUMOReal
 NBNode::getMaxEdgeWidth() const {
@@ -1653,7 +1565,16 @@ NBNode::isDistrict() const {
 
 void 
 NBNode::buildInnerEdges() {
-    unsigned int noInternalNoSplits = countInternalLanes();
+    unsigned int noInternalNoSplits = 0;
+    for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
+        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+            if ((*k).toEdge==0) {
+                continue;
+            }
+            noInternalNoSplits++;
+        }
+    }
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
