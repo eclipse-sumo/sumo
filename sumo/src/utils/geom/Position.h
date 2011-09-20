@@ -210,6 +210,19 @@ public:
         return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY) + (myZ-p2.myZ)*(myZ-p2.myZ);
     }
 
+    /// @brief returns the cross product between this point and the second one
+    Position crossProduct(const Position &pos) {
+        return Position(
+                myY * pos.myZ - myZ * pos.myY,
+                myZ * pos.myX - myX * pos.myZ,
+                myX * pos.myY - myY * pos.myX);
+    }
+
+    /// @brief returns the dot product (scalar product) between this point and the second one
+    inline SUMOReal dotProduct(const Position &pos) {
+        return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
+    }
+
 
 private:
     /// The x-position
