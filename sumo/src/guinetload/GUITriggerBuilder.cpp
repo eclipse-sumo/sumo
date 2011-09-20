@@ -71,9 +71,12 @@ void
 GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                 const std::vector<std::string> &lines,
                                 MSLane *lane,
-                                SUMOReal frompos, SUMOReal topos) throw() {
+                                SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
     GUIBusStop *stop = new GUIBusStop(id, lines, *lane, frompos, topos);
-    net.addBusStop(stop);
+    if(!net.addBusStop(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
+    }
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(stop);
 }
 

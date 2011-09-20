@@ -107,10 +107,11 @@ protected:
      * @param[in] lane The lane the bus stop is placed on
      * @param[in] frompos Begin position of the bus stop on the lane
      * @param[in] topos End position of the bus stop on the lane
+     * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
     virtual void buildBusStop(MSNet &net, const std::string &id,
                               const std::vector<std::string> &lines, MSLane *lane,
-                              SUMOReal frompos, SUMOReal topos) throw();
+                              SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
     /// @}
 
 };

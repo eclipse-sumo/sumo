@@ -277,8 +277,12 @@ NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 void
 NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                const std::vector<std::string> &lines,
-                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw() {
-    net.addBusStop(new MSBusStop(id, lines, *lane, frompos, topos));
+                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
+    MSBusStop *stop = new MSBusStop(id, lines, *lane, frompos, topos);
+    if(!net.addBusStop(stop)) {
+        delete stop;
+        throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
+    }
 }
 
 
