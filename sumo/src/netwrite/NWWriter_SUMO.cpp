@@ -450,35 +450,22 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
 
 bool
 NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
-    unsigned int noInternalNoSplits = n.countInternalLanes(false);
-    if (noInternalNoSplits==0) {
-        return false;
-    }
     bool ret = false;
-    unsigned int lno = 0;
-    unsigned int splitNo = 0;
-    std::string innerID = ":" + n.getID();
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
-    for (std::vector<NBEdge*>::const_iterator it_edge=incoming.begin(); it_edge!=incoming.end(); it_edge++) {
-        NBEdge *from = *it_edge;
+    for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
+        NBEdge *from = *i;
         const std::vector<NBEdge::Connection> &connections = from->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator it_c=connections.begin(); it_c!=connections.end(); it_c++) {
-            const NBEdge::Connection &c = *it_c;
+        for (std::vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
+            const NBEdge::Connection &c = *j;
             assert(c.toEdge != 0);
-
-            std::string id = innerID + "_" + toString(lno);
-            std::string sid = innerID + "_" + toString(splitNo+noInternalNoSplits);
-            std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(from, c.fromLane, c.toEdge, c.toLane);
-            if (cross.first>=0) {
+            if (c.via!=0) {
                 // internal split
-                writeInternalConnection(into, id, c.toEdge->getID(), c.toLane, sid + "_0");
-                writeInternalConnection(into, sid, c.toEdge->getID(), c.toLane, "");
-                splitNo++;
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.toLane, c.via->id + "_0");
+                writeInternalConnection(into, c.via->id, c.toEdge->getID(), c.toLane, "");
             } else {
                 // no internal split
-                writeInternalConnection(into, id, c.toEdge->getID(), c.toLane, "");
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.toLane, "");
             }
-            lno++;
             ret = true;
         }
     }
