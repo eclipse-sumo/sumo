@@ -317,8 +317,6 @@ public:
      */
     void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS);
 
-    void buildInnerEdges();
-
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;

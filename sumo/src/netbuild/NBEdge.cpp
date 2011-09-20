@@ -619,12 +619,81 @@ NBEdge::hasConnectionTo(NBEdge *destEdge, unsigned int destLane) const throw() {
 
 void 
 NBEdge::buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsigned int &lno, unsigned int &splitNo) {
-    sortOutgoingConnectionsByIndex();
     std::string innerID = ":" + n.getID();
     for (std::vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
         if ((*i).toEdge==0) {
             continue;
         }
+
+        PositionVector shape = n.computeInternalLaneShape(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
+
+        LinkDirection dir = n.getDirection(this, (*i).toEdge);
+        std::pair<SUMOReal, std::vector<unsigned int> > crossingPositions(-1, std::vector<unsigned int>());
+        std::string crossingNames;
+        std::set<std::string> tmpSourceNames;
+        switch (dir) {
+        case LINKDIR_LEFT:
+        case LINKDIR_PARTLEFT:
+        case LINKDIR_TURN: {
+            unsigned int index = 0;
+            const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
+            for (EdgeVector::const_iterator i2=incoming.begin(); i2!=incoming.end(); ++i2) {
+                const std::vector<Connection> &elv = (*i2)->getConnections();
+                for (std::vector<NBEdge::Connection>::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
+                    if ((*k2).toEdge==0) {
+                        continue;
+                    }
+                    bool needsCont = n.needsCont(this, (*i).toEdge, *i2, (*k2).toEdge, *k2);
+                    // compute the crossing point
+                    if (needsCont) {
+                        crossingPositions.second.push_back(index);
+                        PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
+                        if (shape.intersects(otherShape)) {
+                            DoubleVector dv = shape.intersectsAtLengths(otherShape);
+                            SUMOReal minDV = dv[0];
+                            if (minDV<shape.length()-.1&&minDV>.1) { // !!!?
+                                assert(minDV>=0);
+                                if (crossingPositions.first<0||crossingPositions.first>minDV) {
+                                    crossingPositions.first = minDV;
+                                }
+                            }
+                        }
+                    }
+                    // compute crossing ids
+                    NBEdge *e = getToNode()->getOppositeIncoming(this);
+                    if (e!=*i2) {
+                        index++;
+                        continue;
+                    }
+                    if (needsCont) {
+                        if (crossingNames.length()!=0) {
+                            crossingNames += " ";
+                        }
+                        crossingNames += (":" + n.getID() + "_" + toString(index) + "_0");
+                    }
+
+                    // compute source ids
+                    if ((*k2).mayDefinitelyPass) {
+                        index++;
+                        continue;
+                    }
+                    if (needsCont) {
+                        tmpSourceNames.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
+                    }
+                    index++;
+                }
+            }
+            if (dir==LINKDIR_TURN&&crossingPositions.first<0&&crossingPositions.second.size()!=0) {
+                // let turnarounds wait at the begin if no other crossing point was found
+                crossingPositions.first = (SUMOReal) shape.length() / 2.;
+            }   
+        }
+        break;
+        default:
+        break;
+        }
+
+
         // compute the maximum speed allowed
         //  see !!! for an explanation (with a_lat_mean ~0.3)
         SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
@@ -637,15 +706,20 @@ NBEdge::buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsign
         Position end = (*i).toEdge->getLaneShape((*i).toLane).getBegin();
         Position beg = getLaneShape((*i).fromLane).getEnd();
 
-        PositionVector shape = n.computeInternalLaneShape(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
         assert(shape.size() >= 2);
         // get internal splits if any
-        std::pair<SUMOReal, std::vector<unsigned int> > cross = n.getCrossingPosition(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
-        if (cross.first>=0) {
-            std::pair<PositionVector, PositionVector> split = shape.splitAt(cross.first);
+        if (crossingPositions.first>=0) {
+            std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
             (*i).id = innerID + "_" + toString(lno);
             (*i).vmax = vmax;
             (*i).shape = split.first;
+            (*i).crossingNames = crossingNames;
+            for(std::set<std::string>::iterator q=tmpSourceNames.begin(); q!=tmpSourceNames.end(); ++q) {
+                if((*i).sourceNames.length()!=0) {
+                    (*i).sourceNames += " ";
+                }
+                (*i).sourceNames += *q;
+            }
             (*i).via = new NBEdge::Connection(*i);
             (*i).via->id = innerID + "_" + toString(splitNo+noInternalNoSplits);
             (*i).via->vmax = vmax;
@@ -657,6 +731,8 @@ NBEdge::buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsign
             (*i).shape = shape;
             (*i).via = 0;
         }
+
+
         lno++;
     }
 }

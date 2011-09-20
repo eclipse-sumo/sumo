@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 12:37:46 2011 by SUMO netgen Version dev-SVN-r10852
+<!-- generated on 09/20/11 13:22:06 by SUMO netgen Version dev-SVN-r11265
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -6624,7 +6625,7 @@
     <junction id=":2288_8_0" type="internal" x="1954.80" y="1255.92" incLanes=":2288_2_0 -2732_0" intLanes=":2288_5_0 :2288_6_0 :2288_7_0"/>
     <junction id=":2288_9_0" type="internal" x="1956.80" y="1258.56" incLanes=":2288_3_0 -2732_0" intLanes=":2288_4_0"/>
     <junction id=":2288_10_0" type="internal" x="1954.80" y="1255.92" incLanes=":2288_5_0 2289_0" intLanes=":2288_0_0 :2288_1_0 :2288_2_0"/>
-    <junction id=":2288_11_0" type="internal" x="1954.80" y="1255.91" incLanes=":2288_6_0 2289_0" intLanes=":2288_1_0 :2288_2_0"/>
+    <junction id=":2288_11_0" type="internal" x="1954.72" y="1255.90" incLanes=":2288_6_0 2289_0" intLanes=":2288_1_0 :2288_2_0"/>
     <junction id=":2288_12_0" type="internal" x="1957.35" y="1254.10" incLanes=":2288_7_0 2289_0" intLanes=":2288_2_0"/>
     <junction id=":24_15_0" type="internal" x="1593.07" y="2068.19" incLanes=":24_3_0 25_0" intLanes=":24_10_0 :24_11_0"/>
     <junction id=":24_16_0" type="internal" x="1596.94" y="2072.62" incLanes=":24_4_0 25_0" intLanes=":24_11_0"/>
@@ -6655,7 +6656,7 @@
     <junction id=":2501_6_0" type="internal" x="1982.09" y="469.50" incLanes=":2501_0_0 2502_0" intLanes=":2501_4_0 :2501_5_0"/>
     <junction id=":2501_7_0" type="internal" x="1985.35" y="471.08" incLanes=":2501_1_0 2502_0" intLanes=":2501_5_0"/>
     <junction id=":2713_6_0" type="internal" x="222.71" y="1590.76" incLanes=":2713_2_0 -3151_0" intLanes=":2713_3_0 :2713_4_0 :2713_5_0"/>
-    <junction id=":2713_7_0" type="internal" x="219.86" y="1590.12" incLanes=":2713_4_0 2714_0" intLanes=":2713_1_0 :2713_2_0"/>
+    <junction id=":2713_7_0" type="internal" x="219.89" y="1590.11" incLanes=":2713_4_0 2714_0" intLanes=":2713_1_0 :2713_2_0"/>
     <junction id=":2713_8_0" type="internal" x="218.73" y="1588.13" incLanes=":2713_5_0 2714_0" intLanes=":2713_2_0"/>
     <junction id=":2731_6_0" type="internal" x="2100.66" y="1156.36" incLanes=":2731_2_0 2732_0" intLanes=":2731_4_0"/>
     <junction id=":2731_7_0" type="internal" x="2093.70" y="1151.82" incLanes=":2731_4_0 -3437_0" intLanes=":2731_1_0 :2731_2_0"/>
@@ -6720,11 +6721,11 @@
     <junction id=":360_10_0" type="internal" x="1981.49" y="1667.73" incLanes=":360_4_0 -496_0" intLanes=":360_0_0 :360_1_0"/>
     <junction id=":360_11_0" type="internal" x="1976.67" y="1665.81" incLanes=":360_5_0 -496_0" intLanes=":360_1_0"/>
     <junction id=":3602_3_0" type="internal" x="2078.09" y="2671.65" incLanes=":3602_0_0 4258_0" intLanes=":3602_2_0"/>
-    <junction id=":3606_6_0" type="internal" x="2295.35" y="2626.81" incLanes=":3606_1_0 -4256_0" intLanes=":3606_4_0 :3606_5_0"/>
+    <junction id=":3606_6_0" type="internal" x="2295.35" y="2626.79" incLanes=":3606_1_0 -4256_0" intLanes=":3606_4_0 :3606_5_0"/>
     <junction id=":3606_7_0" type="internal" x="2292.34" y="2625.65" incLanes=":3606_2_0 -4256_0" intLanes=":3606_3_0"/>
     <junction id=":3606_8_0" type="internal" x="2290.88" y="2631.20" incLanes=":3606_5_0 3607_0" intLanes=":3606_1_0"/>
     <junction id=":364_6_0" type="internal" x="1973.03" y="2246.28" incLanes=":364_2_0 365_0" intLanes=":364_3_0"/>
-    <junction id=":37_9_0" type="internal" x="1272.56" y="1525.79" incLanes=":37_1_0 -319_0" intLanes=":37_3_0 :37_4_0"/>
+    <junction id=":37_9_0" type="internal" x="1272.49" y="1525.84" incLanes=":37_1_0 -319_0" intLanes=":37_3_0 :37_4_0"/>
     <junction id=":37_10_0" type="internal" x="1269.61" y="1524.14" incLanes=":37_5_0 38_0" intLanes=":37_0_0"/>
     <junction id=":3741_6_0" type="internal" x="1486.32" y="3350.40" incLanes=":3741_2_0 3742_0" intLanes=":3741_3_0"/>
     <junction id=":3743_9_0" type="internal" x="1664.77" y="3050.35" incLanes=":3743_5_0 3744_0" intLanes=":3743_6_0"/>
@@ -6762,7 +6763,7 @@
     <junction id=":591_9_0" type="internal" x="798.58" y="1595.83" incLanes=":591_3_0 592_0" intLanes=":591_4_0"/>
     <junction id=":591_10_0" type="internal" x="797.61" y="1592.88" incLanes=":591_6_0 -650_0" intLanes=":591_1_0 :591_2_0"/>
     <junction id=":591_11_0" type="internal" x="800.42" y="1591.99" incLanes=":591_7_0 -650_0" intLanes=":591_2_0"/>
-    <junction id=":6_12_0" type="internal" x="1265.89" y="2089.79" incLanes=":6_2_0 -679_0" intLanes=":6_8_0 :6_9_0"/>
+    <junction id=":6_12_0" type="internal" x="1265.89" y="2089.80" incLanes=":6_2_0 -679_0" intLanes=":6_8_0 :6_9_0"/>
     <junction id=":6_13_0" type="internal" x="1272.46" y="2090.29" incLanes=":6_3_0 -679_0" intLanes=":6_9_0"/>
     <junction id=":6_14_0" type="internal" x="1262.80" y="2091.05" incLanes=":6_11_0 -356_0" intLanes=":6_1_0"/>
     <junction id=":617_6_0" type="internal" x="1607.10" y="2634.26" incLanes=":617_1_0 618_0" intLanes=":617_4_0 :617_5_0"/>
@@ -6773,7 +6774,7 @@
     <junction id=":624_9_0" type="internal" x="1074.54" y="1389.78" incLanes=":624_1_0 -732_0" intLanes=":624_6_0 :624_7_0"/>
     <junction id=":624_10_0" type="internal" x="1079.79" y="1389.91" incLanes=":624_2_0 -732_0" intLanes=":624_7_0"/>
     <junction id=":624_11_0" type="internal" x="1071.45" y="1391.27" incLanes=":624_8_0 625_0" intLanes=":624_0_0"/>
-    <junction id=":638_12_0" type="internal" x="1320.62" y="1139.56" incLanes=":638_2_0 -876_0" intLanes=":638_4_0 :638_5_0"/>
+    <junction id=":638_12_0" type="internal" x="1320.67" y="1139.49" incLanes=":638_2_0 -876_0" intLanes=":638_4_0 :638_5_0"/>
     <junction id=":638_13_0" type="internal" x="1319.50" y="1143.90" incLanes=":638_3_0 -876_0" intLanes=":638_5_0"/>
     <junction id=":638_14_0" type="internal" x="1317.26" y="1142.22" incLanes=":638_6_0 730_0" intLanes=":638_0_0 :638_1_0"/>
     <junction id=":638_15_0" type="internal" x="1318.27" y="1137.21" incLanes=":638_7_0 730_0" intLanes=":638_1_0"/>

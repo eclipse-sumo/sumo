@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Aug 23 08:02:56 2011 by SUMO netgen Version dev-SVN-r11137
+<!-- generated on 09/20/11 13:22:04 by SUMO netgen Version dev-SVN-r11265
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -2704,7 +2704,7 @@
     <junction id=":12_6_0" type="internal" x="1338.82" y="1703.15" incLanes=":12_1_0 13_0" intLanes=":12_4_0 :12_5_0"/>
     <junction id=":1372_6_0" type="internal" x="1207.86" y="692.47" incLanes=":1372_2_0 1373_0" intLanes=":1372_3_0 :1372_4_0 :1372_5_0"/>
     <junction id=":1372_7_0" type="internal" x="1209.19" y="692.72" incLanes=":1372_4_0 1427_0" intLanes=":1372_1_0 :1372_2_0"/>
-    <junction id=":1372_8_0" type="internal" x="1209.18" y="692.71" incLanes=":1372_5_0 1427_0" intLanes=":1372_2_0"/>
+    <junction id=":1372_8_0" type="internal" x="1209.19" y="692.71" incLanes=":1372_5_0 1427_0" intLanes=":1372_2_0"/>
     <junction id=":1387_2_0" type="internal" x="2177.63" y="2405.47" incLanes=":1387_1_0 1391_0" intLanes=":1387_0_0"/>
     <junction id=":1440_4_0" type="internal" x="1411.63" y="735.50" incLanes=":1440_1_0 1441_0" intLanes=":1440_2_0 :1440_3_0"/>
     <junction id=":1440_5_0" type="internal" x="1412.30" y="737.83" incLanes=":1440_3_0 1524_0" intLanes=":1440_1_0"/>
@@ -2712,11 +2712,11 @@
     <junction id=":1522_5_0" type="internal" x="943.86" y="919.10" incLanes=":1522_2_0 1523_0" intLanes=":1522_0_0 :1522_1_0"/>
     <junction id=":1522_6_0" type="internal" x="943.25" y="920.71" incLanes=":1522_3_0 1523_0" intLanes=":1522_1_0"/>
     <junction id=":1796_6_0" type="internal" x="1008.30" y="380.96" incLanes=":1796_2_0 1942_0" intLanes=":1796_3_0 :1796_4_0 :1796_5_0"/>
-    <junction id=":1796_7_0" type="internal" x="1008.48" y="379.54" incLanes=":1796_5_0 1797_0" intLanes=":1796_2_0"/>
+    <junction id=":1796_7_0" type="internal" x="1008.45" y="379.51" incLanes=":1796_5_0 1797_0" intLanes=":1796_2_0"/>
     <junction id=":1881_2_0" type="internal" x="960.22" y="1164.65" incLanes=":1881_1_0 1882_0" intLanes=":1881_0_0"/>
     <junction id=":209_4_0" type="internal" x="1721.18" y="2137.87" incLanes=":209_1_0 381_0" intLanes=":209_2_0 :209_3_0"/>
-    <junction id=":209_5_0" type="internal" x="1722.24" y="2138.83" incLanes=":209_3_0 210_0" intLanes=":209_1_0"/>
-    <junction id=":2411_2_0" type="internal" x="1881.60" y="2496.04" incLanes=":2411_1_0 2872_0" intLanes=":2411_0_0"/>
+    <junction id=":209_5_0" type="internal" x="1722.26" y="2138.83" incLanes=":209_3_0 210_0" intLanes=":209_1_0"/>
+    <junction id=":2411_2_0" type="internal" x="1881.58" y="2496.07" incLanes=":2411_1_0 2872_0" intLanes=":2411_0_0"/>
     <junction id=":2960_4_0" type="internal" x="1290.18" y="2899.83" incLanes=":2960_2_0 2961_0" intLanes=":2960_0_0 :2960_1_0"/>
     <junction id=":343_4_0" type="internal" x="1871.39" y="2056.78" incLanes=":343_3_0 344_0" intLanes=":343_1_0"/>
     <junction id=":37_6_0" type="internal" x="1271.23" y="1527.08" incLanes=":37_1_0 117_0" intLanes=":37_4_0 :37_5_0"/>

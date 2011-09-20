@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Jul  5 11:07:36 2011 by SUMO netconvert Version dev-SVN-r10842
+<!-- generated on 09/20/11 13:22:40 by SUMO netconvert Version dev-SVN-r11265
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -232,7 +233,7 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="499.20" y="505.60" incLanes=":0_2_0 3si_0" intLanes=":0_6_0"/>
+    <junction id=":0_12_0" type="internal" x="499.16" y="505.66" incLanes=":0_2_0 3si_0" intLanes=":0_6_0"/>
     <junction id=":0_13_0" type="internal" x="499.33" y="496.12" incLanes=":0_4_0 1si_0 1si_1" intLanes=":0_9_0 :0_10_0"/>
     <junction id=":0_14_0" type="internal" x="509.70" y="500.00" incLanes=":0_5_0 1si_1" intLanes=":0_10_0"/>
     <junction id=":0_15_0" type="internal" x="502.19" y="496.66" incLanes=":0_7_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0"/>

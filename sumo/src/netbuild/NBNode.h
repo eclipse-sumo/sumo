@@ -388,7 +388,7 @@ public:
     const PositionVector &getShape() const;
 
     // @brief adds up all lanes of all incoming edges which have a continuation
-    unsigned int countInternalLanes(bool includeSplits) const;
+    unsigned int countInternalLanes() const;
 
     std::string getInternalLaneID(const NBEdge *from, unsigned int fromlane,
                                   NBEdge *to, unsigned int tolane) const;
@@ -406,16 +406,11 @@ public:
     bool isNearDistrict() const;
     bool isDistrict() const;
 
-    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const;
+    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, const NBEdge::Connection &c) const;
 
     std::pair<SUMOReal, std::vector<unsigned int> > getCrossingPosition(NBEdge *fromE, unsigned int fromL,
             NBEdge *toE, unsigned int toL) const;
-    std::string getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-            NBEdge *toE, unsigned int toL) const;
-    std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-            NBEdge *toE, unsigned int toL) const;
-
-
+ 
     /** @brief Compute the shape for an internal lane
      * @param[in] fromE The starting edge
      * @param[in] fromL The index of the starting lane

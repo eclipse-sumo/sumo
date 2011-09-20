@@ -283,7 +283,12 @@ NBNetBuilder::compute(OptionsCont &oc,
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
     if(!oc.getBool("no-internal-links")) {
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
-        myNodeCont.buildInnerEdges();
+        for(std::map<std::string, NBEdge*>::const_iterator i=myEdgeCont.begin(); i!=myEdgeCont.end(); ++i) {
+            (*i).second->sortOutgoingConnectionsByIndex();
+        }
+        for(std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {
+            (*i).second->buildInnerEdges();
+        }
         PROGRESS_DONE_MESSAGE();
     }
 

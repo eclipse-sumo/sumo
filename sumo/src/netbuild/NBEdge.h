@@ -166,6 +166,9 @@ public:
         SUMOReal vmax;
         Connection *via;
 
+        std::string crossingNames;
+        std::string sourceNames;
+        
     };
 
     /// Computes the offset from the edge shape on the current segment

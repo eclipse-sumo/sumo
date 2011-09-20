@@ -467,7 +467,7 @@ NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                              int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-        const bool hasCrossing = myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0;
+        const bool hasCrossing = (*j).via!=0;
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         od << " " << toString(SUMO_ATTR_RESPONSE) << "=\"";

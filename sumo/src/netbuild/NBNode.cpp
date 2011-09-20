@@ -569,25 +569,15 @@ NBNode::extractAndMarkFirst(EdgeVector &s) {
 
 
 unsigned int
-NBNode::countInternalLanes(bool includeSplits) const {
+NBNode::countInternalLanes() const {
     unsigned int lno = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        unsigned int noLanesEdge = (*i)->getNumLanes();
-        for (unsigned int j=0; j<noLanesEdge; j++) {
-            std::vector<NBEdge::Connection> elv = (*i)->getConnectionsFromLane(j);
-            for (std::vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if ((*k).toEdge==0) {
-                    continue;
-                }
-                lno++;
-                // add internal splits if any
-                if (includeSplits) {
-                    std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
-                    if (cross.first>=0) {
-                        lno++;
-                    }
-                }
+        const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+            if ((*k).toEdge==0) {
+                continue;
             }
+            lno++;
         }
     }
     return lno;
@@ -719,7 +709,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
 
 
 bool
-NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, NBEdge::Connection &c) const {
+NBNode::needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, const NBEdge::Connection &c) const {
     if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return false;
     }
@@ -792,104 +782,6 @@ NBNode::getCrossingPosition(NBEdge *fromE, unsigned int fromL, NBEdge *toE, unsi
     break;
     default:
         break;
-    }
-    return ret;
-}
-
-
-std::string
-NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-                                        NBEdge *toE, unsigned int toL) const {
-    std::string ret;
-    LinkDirection dir = getDirection(fromE, toE);
-    switch (dir) {
-    case LINKDIR_LEFT:
-    case LINKDIR_PARTLEFT:
-    case LINKDIR_TURN: {
-        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
-        unsigned int index = 0;
-        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
-            unsigned int noLanesEdge = (*i2)->getNumLanes();
-            for (unsigned int j2=0; j2<noLanesEdge; j2++) {
-                std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
-                for (std::vector<NBEdge::Connection>::iterator k2=elv.begin(); k2!=elv.end(); k2++) {
-                    if ((*k2).toEdge==0) {
-                        continue;
-                    }
-                    NBEdge *e = fromE->getToNode()->getOppositeIncoming(fromE);
-                    if (e!=*i2) {
-                        index++;
-                        continue;
-                    }
-//                    LinkDirection dir2 = getDirection(*i2, (*k2).toEdge);
-                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
-                        if (ret.length()!=0) {
-                            ret += " ";
-                        }
-                        ret += (":" + myID + "_" + toString(index) + "_0");
-                    }
-                    index++;
-                }
-            }
-        }
-    }
-    break;
-    default:
-        break;
-    }
-    return ret;
-}
-
-
-std::string
-NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
-        NBEdge *toE, unsigned int toL) const {
-    std::string ret;
-    std::vector<std::string> tmp;
-    LinkDirection dir = getDirection(fromE, toE);
-    switch (dir) {
-    case LINKDIR_LEFT:
-    case LINKDIR_PARTLEFT:
-    case LINKDIR_TURN: {
-        PositionVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
-        unsigned int index = 0;
-        for (EdgeVector::const_iterator i2=myIncomingEdges.begin(); i2!=myIncomingEdges.end(); i2++) {
-            unsigned int noLanesEdge = (*i2)->getNumLanes();
-            for (unsigned int j2=0; j2<noLanesEdge; j2++) {
-                std::vector<NBEdge::Connection> elv = (*i2)->getConnectionsFromLane(j2);
-                for (std::vector<NBEdge::Connection>::iterator k2=elv.begin(); k2!=elv.end(); k2++) {
-                    if ((*k2).toEdge==0) {
-                        continue;
-                    }
-                    if ((*k2).mayDefinitelyPass) {
-                        index++;
-                        continue;
-                    }
-                    NBEdge *e = fromE->getToNode()->getOppositeIncoming(fromE);
-                    if (e!=*i2) {
-                        index++;
-                        continue;
-                    }
-                    if (needsCont(fromE, toE, *i2, (*k2).toEdge, *k2)) {
-                        std::string nid = (*i2)->getID() + "_" + toString(j2);
-                        if (find(tmp.begin(), tmp.end(), nid)==tmp.end()) {
-                            tmp.push_back(nid);
-                        }
-                    }
-                    index++;
-                }
-            }
-        }
-    }
-    break;
-    default:
-        break;
-    }
-    for (std::vector<std::string>::iterator i=tmp.begin(); i!=tmp.end(); ++i) {
-        if (ret.length()>0) {
-            ret = ret + " ";
-        }
-        ret = ret + *i;
     }
     return ret;
 }
@@ -1761,7 +1653,7 @@ NBNode::isDistrict() const {
 
 void 
 NBNode::buildInnerEdges() {
-    unsigned int noInternalNoSplits = countInternalLanes(false);
+    unsigned int noInternalNoSplits = countInternalLanes();
     unsigned int lno = 0;
     unsigned int splitNo = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
