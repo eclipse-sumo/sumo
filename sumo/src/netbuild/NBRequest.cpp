@@ -467,16 +467,15 @@ NBRequest::writeLaneResponse(OutputDevice &od, NBEdge *from,
                              int fromLane, int pos) const {
     std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (std::vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
-        const bool hasCrossing = (*j).via!=0;
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         od << " " << toString(SUMO_ATTR_RESPONSE) << "=\"";
         writeResponse(od, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
         od << "\" " << toString(SUMO_ATTR_FOES) << "=\"";
-        writeAreFoes(od, from, (*j).toEdge, hasCrossing);
+        writeAreFoes(od, from, (*j).toEdge, (*j).haveVia);
         od << "\"";
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-            if (hasCrossing) {
+            if ((*j).haveVia) {
                 od.writeAttr(SUMO_ATTR_CONT, 1);
             } else {
                 od.writeAttr(SUMO_ATTR_CONT, 0);

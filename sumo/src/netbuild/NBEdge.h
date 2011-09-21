@@ -144,7 +144,9 @@ public:
          */
         Connection(int fromLane_, NBEdge *toEdge_, int toLane_) throw()
                 : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
-                mayDefinitelyPass(false), via(0) { }
+                mayDefinitelyPass(false), haveVia(false) { }
+
+        ~Connection() { }
 
 
         /// @brief The lane the connections starts at
@@ -164,7 +166,11 @@ public:
         std::string id;
         PositionVector shape;
         SUMOReal vmax;
-        Connection *via;
+
+        bool haveVia;
+        std::string viaID;
+        SUMOReal viaVmax;
+        PositionVector viaShape;
 
         std::string crossingNames;
         std::string sourceNames;

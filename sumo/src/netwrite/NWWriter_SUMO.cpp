@@ -196,8 +196,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
                 continue;
             }
             writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape);
-            if((*k).via!=0) {
-                writeInternalEdge(into, (*k).via->id, (*k).via->vmax, (*k).via->shape);
+            if((*k).haveVia) {
+                writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape);
             }
             ret = true;
         }
@@ -337,10 +337,10 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
                 if (l!=0) {
                     into << ' ';
                 }
-                if ((*k).via==0) {
+                if (!(*k).haveVia) {
                     into << (*k).id << "_0";
                 } else {
-                    into << (*k).via->id << "_0";
+                    into << (*k).viaID << "_0";
                 }
                 l++;
             }
@@ -367,11 +367,11 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
         const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
-            if ((*k).toEdge==0||(*k).via==0) {
+            if ((*k).toEdge==0||!(*k).haveVia) {
                 continue;
             }
             Position pos = (*k).shape[-1];
-            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << (*k).via->id << "_0\"";
+            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << (*k).viaID << "_0\"";
             into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
             into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
             into << " incLanes=\"";
@@ -436,10 +436,10 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
         for (std::vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
             const NBEdge::Connection &c = *j;
             assert(c.toEdge != 0);
-            if (c.via!=0) {
+            if (c.haveVia) {
                 // internal split
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.toLane, c.via->id + "_0");
-                writeInternalConnection(into, c.via->id, c.toEdge->getID(), c.toLane, "");
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.toLane, c.viaID + "_0");
+                writeInternalConnection(into, c.viaID, c.toEdge->getID(), c.toLane, "");
             } else {
                 // no internal split
                 writeInternalConnection(into, c.id, c.toEdge->getID(), c.toLane, "");

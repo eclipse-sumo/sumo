@@ -720,16 +720,15 @@ NBEdge::buildInnerEdges(const NBNode &n, unsigned int noInternalNoSplits, unsign
                 }
                 (*i).sourceNames += *q;
             }
-            (*i).via = new NBEdge::Connection(*i);
-            (*i).via->id = innerID + "_" + toString(splitNo+noInternalNoSplits);
-            (*i).via->vmax = vmax;
-            (*i).via->shape = split.second;
+            (*i).viaID = innerID + "_" + toString(splitNo+noInternalNoSplits);
+            (*i).viaVmax = vmax;
+            (*i).viaShape = split.second;
+            (*i).haveVia = true;
             splitNo++;
         } else {
             (*i).id = innerID + "_" + toString(lno);
             (*i).vmax = vmax;
             (*i).shape = shape;
-            (*i).via = 0;
         }
 
 
