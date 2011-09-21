@@ -99,6 +99,9 @@ public:
     /// Returns the converted boundary
     static const Boundary &getConvBoundary();
 
+    /// Returns the network offset
+    static const Position getOffset();
+
     /// Returns the network base
     static const Position getOffsetBase();
 

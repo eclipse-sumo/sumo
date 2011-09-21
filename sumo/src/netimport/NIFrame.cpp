@@ -123,6 +123,10 @@ NIFrame::fillOptions() {
     oc.addSynonyme("itsumo-files", "itsumo");
     oc.addDescription("itsumo-files", "Input", "Read ITSUMO-net from FILE");
 
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+    oc.doRegister("heightmap.shapefiles", new Option_FileName());
+    oc.addDescription("heightmap.shapefiles", "Input", "Read heightmap from ArcGIS shapefile");
+#endif // have HAVE_MESOSIM
 
     // register basic processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));

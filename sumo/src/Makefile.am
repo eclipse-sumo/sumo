@@ -11,6 +11,7 @@ endif
 if MESOSIM
 MESO_LIBS = ./mesosim/libmesosim.a
 MESOGUI_LIBS = ./mesogui/libmesogui.a
+INTERNAL_LIBS = ./internal/libinternal.a
 endif
 
 if WITH_GUI
@@ -75,6 +76,7 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geom/libgeom.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
+$(INTERNAL_LIBS) \
 $(GDAL_LIBS) \
 $(PROJ_LIBS)
 

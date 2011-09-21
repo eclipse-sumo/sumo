@@ -40,6 +40,7 @@
 class OptionsCont;
 class SUMOSAXHandler;
 class NBNetBuilder;
+class Position;
 
 
 // ===========================================================================
@@ -65,6 +66,12 @@ public:
 
     /** loads data from the files specified in the given option container */
     void load(OptionsCont &oc);
+
+    /**
+     * @brief transforms loaded coordinates 
+     * handles projections, offsets (using GeoConvHelper) and import of height data (using Heightmapper if available)
+     */
+    static bool transformCoordinates(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
 
 private:
     /** loads data from sumo-files */

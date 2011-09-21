@@ -59,6 +59,10 @@
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 
+#ifdef HAVE_MESOSIM 
+#include <internal/HeightMapper.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -84,6 +88,10 @@ NILoader::load(OptionsCont &oc) {
     NIXMLTypesHandler *handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("type-files"), "types");
+    // try to load height data so it is ready for use by other importers
+#ifdef HAVE_MESOSIM 
+    HeightMapper::loadIfSet(oc);
+#endif
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
@@ -177,5 +185,19 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
     }
 }
 
+bool 
+NILoader::transformCoordinates(Position &from, bool includeInBoundary, double x, double y) {
+    bool ok = GeoConvHelper::x2cartesian(from, includeInBoundary, x, y);
+#ifdef HAVE_MESOSIM
+    if (ok) {
+        const HeightMapper& hm = HeightMapper::get();
+        if (hm.ready()) {
+            SUMOReal z = hm.getZ(from - GeoConvHelper::getOffset()); // @todo this needs more work (projections etc)
+            from = Position(from.x(), from.y(), z);
+        }
+    }
+#endif
+    return ok;
+}
 
 /****************************************************************************/

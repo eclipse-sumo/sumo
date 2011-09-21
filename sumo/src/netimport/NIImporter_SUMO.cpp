@@ -45,6 +45,7 @@
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
+#include "NILoader.h"
 #include "NIImporter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -408,6 +409,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
     Position pos(x, y);
+    // NILoader::transformCoordinates(pos, true); // @todo pass geoConvHelper instance
     // the network may have been built with the option "plain.keep-edge-shape" this
     // makes accurate reconstruction of legacy networks impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);

@@ -89,7 +89,7 @@ GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
 
     oc.doRegister("proj.inverse", new Option_Bool(false));
     oc.addDescription("proj.inverse", "Projection", "Inverses projection");
-#endif
+#endif // HAVE_PROJ
 }
 
 
@@ -324,6 +324,12 @@ GeoConvHelper::getConvBoundary() {
 
 
 const Position
+GeoConvHelper::getOffset() {
+    return myOffset;
+}
+
+
+const Position
 GeoConvHelper::getOffsetBase() {
     return Position(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
 }
@@ -333,7 +339,6 @@ const std::string &
 GeoConvHelper::getProjString() {
     return myProjString;
 }
-
 
 
 /****************************************************************************/
