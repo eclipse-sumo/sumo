@@ -96,6 +96,7 @@ m4_if(m4_sysval,[0],[
     AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
     AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile src/internal/Makefile unittest/src/internal/Makefile])
     MESO_DIRS="mesosim internal"
+    UNITTEST_INTERNAL_DIRS="internal"
     AC_SUBST([MESO_DIRS])
     MESOGUI_DIRS="mesogui netedit"
     AC_SUBST([MESOGUI_DIRS])

@@ -5,7 +5,6 @@ MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
 endif
 
 if MESOSIM
-INTERNAL_DIRS = internal
 INTERNAL_LIB = ../../src/internal/libinternal.a
 INTERNAL_TESTS = ./internal/HeightMapperTest.o
 endif
@@ -54,5 +53,5 @@ $(INTERNAL_TESTS) \
 $(GDAL_LIBS) \
 $(LIB_GTEST)
 
-SUBDIRS = utils microsim netbuild $(INTERNAL_DIRS)
+SUBDIRS = utils microsim netbuild $(UNITTEST_INTERNAL_DIRS)
 endif
