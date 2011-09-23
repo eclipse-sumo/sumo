@@ -168,11 +168,12 @@ private:
     /// @brief coordinate transformation which shows up in the location tag of the output
     static GeoConvHelper myDefault;
 
-    /// @brief copy constructor.
-    GeoConvHelper(const GeoConvHelper&);
-
     /// @brief assignment operator.
     GeoConvHelper& operator=(const GeoConvHelper&);
+
+    /// @brief invalidated copy constructor.
+    GeoConvHelper(const GeoConvHelper&);
+
 };
 
 

@@ -89,22 +89,6 @@ GeoConvHelper::GeoConvHelper(const std::string &proj, const Position &offset,
     }
 }
 
-GeoConvHelper::GeoConvHelper(const GeoConvHelper &orig): 
-    myProjString(orig.myProjString),
-#ifdef HAVE_PROJ
-    myProjection(orig.myProjectionMethod == PROJ ? pj_init_plus(orig.myProjString.c_str()) : 0),
-#endif
-    myOffset(orig.myOffset),
-    myProjectionMethod(orig.myProjectionMethod),
-    myOrigBoundary(orig.myOrigBoundary),
-    myConvBoundary(orig.myConvBoundary),
-    myGeoScale(orig.myGeoScale),
-    myUseInverseProjection(orig.myUseInverseProjection),
-    myBaseFound(orig.myBaseFound),
-    myBaseX(orig.myBaseX),
-    myBaseY(orig.myBaseY)
-{ }
-
 
 GeoConvHelper::~GeoConvHelper() {
 #ifdef HAVE_PROJ
