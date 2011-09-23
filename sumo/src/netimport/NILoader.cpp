@@ -186,8 +186,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
 }
 
 bool 
-NILoader::transformCoordinates(Position &from, bool includeInBoundary, double x, double y) {
-    bool ok = GeoConvHelper::getDefaultInstance().x2cartesian(from, includeInBoundary, x, y);
+NILoader::transformCoordinates(Position &from, bool includeInBoundary) {
+    bool ok = GeoConvHelper::getDefaultInstance().x2cartesian(from, includeInBoundary);
 #ifdef HAVE_MESOSIM
     if (ok) {
         const HeightMapper& hm = HeightMapper::get();

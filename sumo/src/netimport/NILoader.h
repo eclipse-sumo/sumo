@@ -71,7 +71,7 @@ public:
      * @brief transforms loaded coordinates 
      * handles projections, offsets (using GeoConvHelper) and import of height data (using Heightmapper if available)
      */
-    static bool transformCoordinates(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
+    static bool transformCoordinates(Position &from, bool includeInBoundary=true);
 
 private:
     /** loads data from sumo-files */
