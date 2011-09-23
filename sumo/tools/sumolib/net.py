@@ -73,13 +73,10 @@ class Edge:
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
 
-    def addOutgoing(self, edge, fromlane, tolane, direction, tls, tllink):
-        if edge not in self._outgoing:
-            self._outgoing[edge] = []
-        conn = Connection(self, edge, fromlane, tolane, direction, tls, tllink)
-        self._outgoing[edge].append(conn)
-        fromlane.addOutgoing(conn)
-        edge._addIncoming(conn)
+    def addOutgoing(self, conn):
+        if conn._to not in self._outgoing:
+            self._outgoing[conn._to] = []
+        self._outgoing[conn._to].append(conn)
 
     def _addIncoming(self, conn):
         if conn._from not in self._incoming:
@@ -264,15 +261,18 @@ class Net:
             node = Node(id, coord, incLanes)
             self._nodes.append(node)
             self._id2node[id] = node
-        if coord!=None and self._id2node[id]._coord==None:
-            self._id2node[id]._coord = coord
+        self.setAdditionalNodeInfo(self._id2node[id], coord, incLanes)
+        return self._id2node[id]
+    
+    def setAdditionalNodeInfo(self, node, coord, incLanes):
+        if coord!=None and node._coord==None:
+            node._coord = coord
             self._ranges[0][0] = min(self._ranges[0][0], coord[0])
             self._ranges[0][1] = max(self._ranges[0][1], coord[0])
             self._ranges[1][0] = min(self._ranges[1][0], coord[1])
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
-        if incLanes!=None and self._id2node[id]._incLanes==None:
-            self._id2node[id]._incLanes = incLanes
-        return self._id2node[id]
+        if incLanes!=None and node._incLanes==None:
+            node._incLanes = incLanes
 
     def addEdge(self, id, fromID, toID, prio, function):
         if id not in self._id2edge:
@@ -290,6 +290,12 @@ class Net:
         roundabout = Roundabout(nodes)
         self._roundabouts.append(roundabout)
         return roundabout
+
+    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink):
+        conn = Connection(fromEdge, toEdge, fromlane, tolane, direction, tls, tllink)
+        fromEdge.addOutgoing(conn)
+        fromlane.addOutgoing(conn)
+        toEdge._addIncoming(conn)
 
     def getEdges(self):
         return self._edges
@@ -369,20 +375,16 @@ class NetReader(handler.ContentHandler):
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
 
     def __init__(self, **others):
-        self._net = Net()
+        self._net = others.get('net', Net())
         self._currentEdge = None
         self._currentNode = None
         self._currentLane = None
         self._currentShape = ""
-        self._withPhases = 'withPrograms' in others.keys() and others['withPrograms']==True
-        self._withConnections = 'withConnections' not in others.keys() or others['withConnections']==True
-        self._withFoes = 'withFoes' not in others.keys() or others['withFoes']==True
-        self._cnt = 0
+        self._withPhases = others.get('withPrograms', False)
+        self._withConnections = others.get('withConnections', True)
+        self._withFoes = others.get('withFoes', True)
 
     def startElement(self, name, attrs):
-#        self._cnt += 1
-#        if self._cnt%1000==0:
-#            print name
         if name == 'edge':
             if not attrs.has_key('function') or attrs['function'] != 'internal':
                 prio = -1
@@ -428,7 +430,7 @@ class NetReader(handler.ContentHandler):
                     tllink = -1
                 toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = toEdge._lanes[tolane]
-                self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, attrs['dir'], tl, tllink)
+                self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[self._currentLane], tolane, attrs['dir'], tl, tllink)
         if name == 'connection' and self._withConnections and attrs['from'][0] != ":":
             fromEdge = self._net.getEdge(attrs['from'])
             toEdge = self._net.getEdge(attrs['to'])
@@ -442,7 +444,7 @@ class NetReader(handler.ContentHandler):
             else:
                 tl = ""
                 tllink = -1
-            fromEdge.addOutgoing(toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
+            self._net.addConnection(fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl, tllink)
         if self._withFoes and (name=='ROWLogic' or name=='row-logic'): # 'row-logic' is deprecated!!!
             self._currentNode = attrs['id']
         if name == 'logicitem' and self._withFoes: # deprecated

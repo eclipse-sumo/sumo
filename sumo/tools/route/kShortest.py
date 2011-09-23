@@ -132,5 +132,5 @@ if options.verbose:
     print "Reading net"
 net = sumolib.net.readNet(options.netfile)
 if options.verbose:
-    print len(net._edges), "edges read"
+    print len(net.getEdges()), "edges read"
 calcPaths(net, options.start)
