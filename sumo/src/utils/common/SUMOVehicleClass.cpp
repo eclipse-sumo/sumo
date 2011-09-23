@@ -257,7 +257,22 @@ getVehicleEmissionTypeName(SUMOEmissionClass id) {
     return "";
 }
 
-
+const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
+const SUMOReal DEFAULT_VEH_MAXSPEED(70.0);
+const SUMOReal DEFAULT_VEH_ACCEL(2.6);
+const SUMOReal DEFAULT_VEH_DECEL(4.5);
+const SUMOReal DEFAULT_VEH_SIGMA(0.5);
+const SUMOReal DEFAULT_VEH_LENGTH(5.);
+const SUMOReal DEFAULT_VEH_MINGAP(2.5);
+const SUMOReal DEFAULT_VEH_TAU(1.);
+const SUMOVehicleClass DEFAULT_VEH_CLASS(SVC_UNKNOWN);
+const SUMOReal DEFAULT_VEH_PROB(1.);
+const SUMOReal DEFAULT_VEH_SPEEDFACTOR(1.);
+const SUMOReal DEFAULT_VEH_SPEEDDEV(0.);
+const SUMOReal DEFAULT_VEH_GUIWIDTH(2.);
+const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL(SUMO_TAG_CF_KRAUSS);
+const std::string DEFAULT_VEH_LANE_CHANGE_MODEL("dkrajzew2008");
+const SUMOVehicleShape DEFAULT_VEH_SHAPE(SVS_UNKNOWN);
 
 /****************************************************************************/
 

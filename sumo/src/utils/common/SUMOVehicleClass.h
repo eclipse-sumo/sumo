@@ -344,23 +344,22 @@ extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
-const std::string DEFAULT_VTYPE_ID = "DEFAULT_VEHTYPE";
-const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
-const SUMOReal DEFAULT_VEH_ACCEL = (SUMOReal) 2.6;
-const SUMOReal DEFAULT_VEH_DECEL = (SUMOReal) 4.5;
-const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
-const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 5.;
-const SUMOReal DEFAULT_VEH_MINGAP = (SUMOReal) 2.5;
-const SUMOReal DEFAULT_VEH_TAU = (SUMOReal) 1.;
-const SUMOVehicleClass DEFAULT_VEH_CLASS = SVC_UNKNOWN;
-const SUMOReal DEFAULT_VEH_PROB = (SUMOReal) 1.;
-const SUMOReal DEFAULT_VEH_SPEEDFACTOR = (SUMOReal) 1.;
-const SUMOReal DEFAULT_VEH_SPEEDDEV = (SUMOReal) 0.;
-const SUMOReal DEFAULT_VEH_GUIWIDTH = (SUMOReal) 2.;
-const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL = SUMO_TAG_CF_KRAUSS;
-const std::string DEFAULT_VEH_LANE_CHANGE_MODEL = "dkrajzew2008";
-const SUMOVehicleShape DEFAULT_VEH_SHAPE = SVS_UNKNOWN;
-
+extern const std::string DEFAULT_VTYPE_ID;
+extern const SUMOReal DEFAULT_VEH_MAXSPEED;
+extern const SUMOReal DEFAULT_VEH_ACCEL;
+extern const SUMOReal DEFAULT_VEH_DECEL;
+extern const SUMOReal DEFAULT_VEH_SIGMA;
+extern const SUMOReal DEFAULT_VEH_LENGTH;
+extern const SUMOReal DEFAULT_VEH_MINGAP;
+extern const SUMOReal DEFAULT_VEH_TAU;
+extern const SUMOVehicleClass DEFAULT_VEH_CLASS;
+extern const SUMOReal DEFAULT_VEH_PROB;
+extern const SUMOReal DEFAULT_VEH_SPEEDFACTOR;
+extern const SUMOReal DEFAULT_VEH_SPEEDDEV;
+extern const SUMOReal DEFAULT_VEH_GUIWIDTH;
+extern const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL;
+extern const std::string DEFAULT_VEH_LANE_CHANGE_MODEL;
+extern const SUMOVehicleShape DEFAULT_VEH_SHAPE;
 
 #endif
 
