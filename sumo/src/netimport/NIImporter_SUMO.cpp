@@ -423,7 +423,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
     Position pos(x, y);
-    // NILoader::transformCoordinates(pos, true); // @todo pass geoConvHelper instance
+    NILoader::transformCoordinates(pos, true, myLocation);
     // the network may have been built with the option "plain.keep-edge-shape" this
     // makes accurate reconstruction of legacy networks impossible. We ought to warn about this
     std::string shapeS = attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, false);
