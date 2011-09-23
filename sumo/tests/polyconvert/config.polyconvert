@@ -14,6 +14,9 @@ log:log.txt
 
 [run_dependent_text]
 pois:<!--{[->]}-->
+errors:Leaked object at 
+errors:*** 9 leaks found
+errors:delete: freed
 
 [floating_point_tolerance]
 pois:0.0101
