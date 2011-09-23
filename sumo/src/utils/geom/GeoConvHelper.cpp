@@ -254,12 +254,10 @@ GeoConvHelper::cartesian2geo(Position &cartesian) {
 
 
 bool
-GeoConvHelper::x2cartesian(Position &from, bool includeInBoundary, double x, double y) {
+GeoConvHelper::x2cartesian(Position &from, bool includeInBoundary) {
     myOrigBoundary.add(from);
-    if (x == -1 && y == -1) {
-        x = from.x();
-        y = from.y();
-    }
+    double x = from.x();
+    double y = from.y();
     if (myProjectionMethod == NONE) {
         from.add(myOffset);
     } else if (myUseInverseProjection) {

@@ -95,7 +95,7 @@ public:
     void cartesian2geo(Position &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    bool x2cartesian(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
+    bool x2cartesian(Position &from, bool includeInBoundary=true);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
     bool usingGeoProjection();
