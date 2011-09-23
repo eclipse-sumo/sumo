@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 
 
@@ -269,6 +270,8 @@ private:
     /// @brief The currently parsed traffic light
     NBLoadedSUMOTLDef *myCurrentTL;
 
+    /// @brief The coordinate transformation which was used to build the loaded network. 
+    GeoConvHelper *myLocation;
 
     /// @brief whether we suspect a net that was built with xml.keep-shape
     bool mySuspectKeepShape;

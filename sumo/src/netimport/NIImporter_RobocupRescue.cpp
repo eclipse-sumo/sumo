@@ -38,13 +38,14 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "NIImporter_RobocupRescue.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include "NILoader.h"
+#include "NIImporter_RobocupRescue.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -162,7 +163,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         }
 
         Position pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
-        GeoConvHelper::x2cartesian(pos);
+        NILoader::transformCoordinates(pos);
         NBNode *node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
         --noNodes;

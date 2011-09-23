@@ -26,7 +26,6 @@
 #else
 #include <config.h>
 #endif
-#include "NIImporter_MATSim.h"
 #include <set>
 #include <functional>
 #include <sstream>
@@ -43,6 +42,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
 #include <utils/xml/XMLSubSys.h>
+#include "NILoader.h"
+#include "NIImporter_MATSim.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -152,7 +153,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
         return;
     }
     Position pos(x, y);
-    if (!GeoConvHelper::x2cartesian(pos)) {
+    if (!NILoader::transformCoordinates(pos)) {
         WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
     }
     NBNode *node = new NBNode(id, pos);

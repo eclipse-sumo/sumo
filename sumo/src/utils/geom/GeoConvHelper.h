@@ -54,6 +54,22 @@ class OptionsCont;
  */
 class GeoConvHelper {
 public:
+
+    /** @brief Constructor based on the stored options
+     * @param[in] oc The OptionsCont from which to read options
+     */
+    GeoConvHelper(OptionsCont &oc); 
+
+    /** @brief Constructor 
+     */
+    GeoConvHelper(const std::string &proj, const Position &offset, 
+        const Boundary &orig, const Boundary &conv, int shift=0, bool inverse=false, bool baseFound=false); 
+
+
+    /// @brief Destructor
+    ~GeoConvHelper();
+
+
     /** @brief Adds projection options to the given container
      *
      * @param[in] oc The options container to add the options to
@@ -61,52 +77,49 @@ public:
      */
     static void addProjectionOptions(OptionsCont &oc);
 
-    /// Initialises the subsystem using the given options
+    /// Initialises the default instance using the given options
     static bool init(OptionsCont &oc);
 
-    /// Initialises the subsystem using the given proj.4-definition and a network offset
-    static bool init(const std::string &proj,
-                     const int shift=0,
-                     bool inverse=false);
-
-    /// Initialises the subsystem using the given proj.4-definition and complete network parameter
-    static bool init(const std::string &proj,
+    /// Initialises the default instance using the given proj.4-definition and complete network parameter
+    static void init(const std::string &proj,
                      const Position &offset,
                      const Boundary &orig,
                      const Boundary &conv);
 
-    /// Closes the subsystem
-    static void close();
+    /// instance is modified during use: boundary adapts may adapt to know coordinates etc
+    static GeoConvHelper& getDefaultInstance() {
+        return myDefault;
+    }
 
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
-    static void cartesian2geo(Position &cartesian);
+    void cartesian2geo(Position &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    static bool x2cartesian(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
+    bool x2cartesian(Position &from, bool includeInBoundary=true, double x=-1, double y=-1);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
-    static bool usingGeoProjection();
+    bool usingGeoProjection();
 
     /// Returns the information whether an inverse transformation will happen
-    static bool usingInverseGeoProjection();
+    bool usingInverseGeoProjection();
 
     /// Shifts the converted boundary by the given amounts
-    static void moveConvertedBy(SUMOReal x, SUMOReal y);
+    void moveConvertedBy(SUMOReal x, SUMOReal y);
 
     /// Returns the original boundary
-    static const Boundary &getOrigBoundary();
+    const Boundary &getOrigBoundary();
 
     /// Returns the converted boundary
-    static const Boundary &getConvBoundary();
+    const Boundary &getConvBoundary();
 
     /// Returns the network offset
-    static const Position getOffset();
+    const Position getOffset();
 
     /// Returns the network base
-    static const Position getOffsetBase();
+    const Position getOffsetBase();
 
     /// Returns the network offset
-    static const std::string &getProjString();
+    const std::string &getProjString();
 
 private:
     enum ProjectionMethod {
@@ -118,37 +131,48 @@ private:
     };
 
     /// A proj options string describing the proj.4-projection to use
-    static std::string myProjString;
+    std::string myProjString;
 
 #ifdef HAVE_PROJ
     /// The proj.4-projection to use
-    static projPJ myProjection;
+    projPJ myProjection;
 #endif
 
     /// The offset to apply
-    static Position myOffset;
+    Position myOffset;
 
     /// The scaling to apply to geo-coordinates
-    static double myGeoScale;
+    double myGeoScale;
 
     /// Information whether no projection shall be done
-    static ProjectionMethod myProjectionMethod;
+    ProjectionMethod myProjectionMethod;
 
     /// Information whether inverse projection shall be used
-    static bool myUseInverseProjection;
+    bool myUseInverseProjection;
 
     /// Information whether the first node conversion was done
-    static bool myBaseFound;
+    bool myBaseFound;
 
     /// The initial x/y-coordinates for a very simple geocoordinates conversion
-    static double myBaseX, myBaseY;
+    double myBaseX, myBaseY;
 
     /// The boundary before conversion (x2cartesian)
-    static Boundary myOrigBoundary;
+    Boundary myOrigBoundary;
 
     /// The boundary after conversion (x2cartesian)
-    static Boundary myConvBoundary;
+    Boundary myConvBoundary;
 
+    /// initi projection based on the known type and a given position
+    void initProjection(double x, double y);
+
+    /// @brief coordinate transformation which shows up in the location tag of the output
+    static GeoConvHelper myDefault;
+
+    /// @brief copy constructor.
+    GeoConvHelper(const GeoConvHelper&);
+
+    /// @brief assignment operator.
+    GeoConvHelper& operator=(const GeoConvHelper&);
 };
 
 

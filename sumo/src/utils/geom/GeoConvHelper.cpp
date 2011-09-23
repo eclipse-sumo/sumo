@@ -29,6 +29,7 @@
 
 #include <map>
 #include <cmath>
+#include <cassert>
 #include "GeoConvHelper.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -47,24 +48,168 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-std::string GeoConvHelper::myProjString = "!";
-#ifdef HAVE_PROJ
-projPJ GeoConvHelper::myProjection = 0;
-#endif
-Position GeoConvHelper::myOffset;
-double GeoConvHelper::myGeoScale = 1.f;
-GeoConvHelper::ProjectionMethod GeoConvHelper::myProjectionMethod = NONE;
-bool GeoConvHelper::myUseInverseProjection = false;
-bool GeoConvHelper::myBaseFound = false;
-double GeoConvHelper::myBaseX = 0;
-double GeoConvHelper::myBaseY = 0;
-Boundary GeoConvHelper::myOrigBoundary;
-Boundary GeoConvHelper::myConvBoundary;
-
+GeoConvHelper GeoConvHelper::myDefault("!", Position(), Boundary(), Boundary());
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+GeoConvHelper::GeoConvHelper(const std::string &proj, const Position &offset, 
+        const Boundary &orig, const Boundary &conv, int shift, bool inverse, bool baseFound):
+    myProjString(proj),
+#ifdef HAVE_PROJ
+    myProjection(0),
+#endif
+    myOffset(offset),
+    myProjectionMethod(NONE),
+    myOrigBoundary(orig),
+    myConvBoundary(conv),
+    myGeoScale(pow(10, (double)-shift)),
+    myUseInverseProjection(inverse),
+    myBaseFound(baseFound),
+    myBaseX(0),
+    myBaseY(0)
+{
+    if (proj == "!") {
+        myProjectionMethod = NONE;
+    } else if (proj == "-") {
+        myProjectionMethod = SIMPLE;
+    } else if (proj == "UTM") {
+        myProjectionMethod = UTM;
+    } else if (proj == "DHDN") {
+        myProjectionMethod = DHDN;
+#ifdef HAVE_PROJ
+    } else {
+        myProjectionMethod = PROJ;
+        myProjection = pj_init_plus(proj.c_str());
+        if (myProjection == 0) {
+            // !!! check pj_errno
+            throw ProcessError("Could not build projection!");
+        }
+#endif
+    }
+}
+
+GeoConvHelper::GeoConvHelper(const GeoConvHelper &orig): 
+    myProjString(orig.myProjString),
+#ifdef HAVE_PROJ
+    myProjection(orig.myProjectionMethod == PROJ ? pj_init_plus(orig.myProjString.c_str()) : 0),
+#endif
+    myOffset(orig.myOffset),
+    myProjectionMethod(orig.myProjectionMethod),
+    myOrigBoundary(orig.myOrigBoundary),
+    myConvBoundary(orig.myConvBoundary),
+    myGeoScale(orig.myGeoScale),
+    myUseInverseProjection(orig.myUseInverseProjection),
+    myBaseFound(orig.myBaseFound),
+    myBaseX(orig.myBaseX),
+    myBaseY(orig.myBaseY)
+{ }
+
+
+GeoConvHelper::~GeoConvHelper() {
+#ifdef HAVE_PROJ
+    if (myProjection != 0) {
+        pj_free(myProjection);
+    }
+#endif
+}
+
+
+GeoConvHelper& 
+GeoConvHelper::operator=(const GeoConvHelper& orig) {
+    myProjString = orig.myProjString;
+    myOffset = orig.myOffset;
+    myProjectionMethod = orig.myProjectionMethod;
+    myOrigBoundary = orig.myOrigBoundary;
+    myConvBoundary = orig.myConvBoundary;
+    myGeoScale = orig.myGeoScale;
+    myUseInverseProjection = orig.myUseInverseProjection;
+    myBaseFound = orig.myBaseFound;
+    myBaseX = orig.myBaseX;
+    myBaseY = orig.myBaseY; 
+#ifdef HAVE_PROJ
+    if (myProjection != 0) {
+        pj_free(myProjection);
+    }
+    myProjection = (orig.myProjectionMethod == PROJ ? pj_init_plus(orig.myProjString.c_str()) : 0);
+#endif
+}
+
+
+bool
+GeoConvHelper::init(OptionsCont &oc) {
+    std::string proj = "!"; // the default
+    int shift = oc.getInt("proj.scale");
+    Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
+    bool inverse = oc.getBool("proj.inverse");
+    bool baseFound = !oc.exists("offset.disable-normalization") || 
+        oc.getBool("offset.disable-normalization") || 
+        !oc.isDefault("offset.x") || 
+        !oc.isDefault("offset.y");
+
+    if (oc.getBool("simple-projection")) {
+        proj = "-";
+    }
+
+#ifdef HAVE_PROJ
+    if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
+        WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
+        return false;
+    }
+    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+    if (numProjections > 1) {
+        WRITE_ERROR("The projection method needs to be uniquely defined.");
+        return false;
+    }
+
+    if (oc.getBool("proj.utm")) {
+        proj = "UTM";
+    } else if (oc.getBool("proj.dhdn")) {
+        proj = "DHDN";
+    } else {
+        proj = oc.getString("proj");
+    }
+#endif
+    myDefault = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse, baseFound);
+    return true;
+}
+
+
+void
+GeoConvHelper::init(const std::string &proj,
+                    const Position &offset,
+                    const Boundary &orig,
+                    const Boundary &conv) {
+    myDefault = GeoConvHelper(proj, offset, orig, conv);
+}
+
+
+void 
+GeoConvHelper::initProjection(double x, double y) {
+    assert(myProjection == 0); // do not reinitialize
+
+    if (myProjectionMethod == UTM) {
+        int zone = (int)(x + 180) / 6 + 1;
+        myProjString = "+proj=utm +zone=" + toString(zone) +
+            " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+        myProjection = pj_init_plus(myProjString.c_str());
+        //!!! check pj_errno
+    }
+    if (myProjectionMethod == DHDN) {
+        int zone = (int)(x / 3);
+        if (zone < 1 || zone > 5) {
+            WRITE_WARNING("Attempt to initialize DHDN-projection on invalid longitude " + toString(x));
+            return;
+        }
+        myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
+            " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+            " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+        myProjection = pj_init_plus(myProjString.c_str());
+        //!!! check pj_errno
+    }
+}
+
+
 void
 GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
     oc.addOptionSubTopic("Projection");
@@ -90,100 +235,6 @@ GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
     oc.doRegister("proj.inverse", new Option_Bool(false));
     oc.addDescription("proj.inverse", "Projection", "Inverses projection");
 #endif // HAVE_PROJ
-}
-
-
-bool
-GeoConvHelper::init(OptionsCont &oc) {
-#ifdef HAVE_PROJ
-    if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
-        WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
-        return false;
-    }
-    unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-    if (numProjections > 1) {
-        WRITE_ERROR("The projection method needs to be uniquely defined.");
-        return false;
-    }
-#endif
-    myOffset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
-    if (oc.getBool("simple-projection")) {
-        return init("-", oc.getInt("proj.scale"));
-    }
-    bool ret = true;
-#ifdef HAVE_PROJ
-    if (oc.getBool("proj.utm")) {
-        myProjectionMethod = UTM;
-        ret = init(".", oc.getInt("proj.scale"));
-    } else if (oc.getBool("proj.dhdn")) {
-        myProjectionMethod = DHDN;
-        ret = init(".", oc.getInt("proj.scale"));
-    } else {
-        ret = init(oc.getString("proj"), oc.getInt("proj.scale"), oc.getBool("proj.inverse"));
-    }
-#endif
-    if (!oc.exists("offset.disable-normalization") || oc.getBool("offset.disable-normalization") || !oc.isDefault("offset.x") || !oc.isDefault("offset.y")) {
-        myBaseFound = true;
-    }
-    return ret;
-}
-
-
-bool
-GeoConvHelper::init(const std::string &proj,
-                    const int shift,
-                    bool inverse) {
-    myProjString = proj;
-    myGeoScale = pow(10, (double)-shift);
-    myUseInverseProjection = inverse;
-    close();
-    myBaseFound = false;
-    myOrigBoundary.reset();
-    myConvBoundary.reset();
-    if (proj=="!") {
-        myProjectionMethod = NONE;
-        return true;
-    }
-    if (proj=="-") {
-        myProjectionMethod = SIMPLE;
-        return true;
-    }
-    if (proj==".") {
-        return true;
-    }
-#ifdef HAVE_PROJ
-    myProjection = pj_init_plus(proj.c_str());
-    // !!! check pj_errno
-    if (myProjection != 0) {
-        myProjectionMethod = PROJ;
-        return true;
-    }
-#endif
-    return false;
-}
-
-
-bool
-GeoConvHelper::init(const std::string &proj,
-                    const Position &offset,
-                    const Boundary &orig,
-                    const Boundary &conv) {
-    bool ret = init(proj);
-    myOffset = offset;
-    myOrigBoundary.add(orig);
-    myConvBoundary.add(conv);
-    return ret;
-}
-
-
-void
-GeoConvHelper::close() {
-#ifdef HAVE_PROJ
-    if (myProjection != 0) {
-        pj_free(myProjection);
-    }
-    myProjection = 0;
-#endif
 }
 
 
@@ -237,24 +288,7 @@ GeoConvHelper::x2cartesian(Position &from, bool includeInBoundary, double x, dou
         }
 #ifdef HAVE_PROJ
         if (myProjection==0) {
-            if (myProjectionMethod == UTM) {
-                int zone = (int)(x + 180) / 6 + 1;
-                myProjString = "+proj=utm +zone=" + toString(zone) +
-                               " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
-                myProjection = pj_init_plus(myProjString.c_str());
-                //!!! check pj_errno
-            }
-            if (myProjectionMethod == DHDN) {
-                int zone = (int)(x / 3);
-                if (zone < 1 || zone > 5) {
-                    return false;
-                }
-                myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
-                               " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
-                               " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
-                myProjection = pj_init_plus(myProjString.c_str());
-                //!!! check pj_errno
-            }
+            initProjection(x, y);
         }
         if (myProjection!=0) {
             projUV p;

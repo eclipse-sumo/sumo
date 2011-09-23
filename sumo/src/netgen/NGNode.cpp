@@ -78,7 +78,7 @@ NGNode::~NGNode() throw() {
 NBNode *
 NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     Position pos(myPosition);
-    GeoConvHelper::x2cartesian(pos);
+    GeoConvHelper::getDefaultInstance().x2cartesian(pos);
     // the center will have no logic!
     if (myAmCenter) {
         return new NBNode(myID, pos, NODETYPE_NOJUNCTION);

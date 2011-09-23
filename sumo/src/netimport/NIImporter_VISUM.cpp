@@ -37,6 +37,7 @@
 #include <utils/common/TplConvertSec.h>
 
 #include <netbuild/NBNetBuilder.h>
+#include "NILoader.h"
 #include "NIImporter_VISUM.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -248,7 +249,7 @@ NIImporter_VISUM::parse_Nodes() {
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
     Position pos(x, y);
-    if (!GeoConvHelper::x2cartesian(pos)) {
+    if (!NILoader::transformCoordinates(pos)) {
         WRITE_ERROR("Unable to project coordinates for node " + myCurrentID + ".");
         return;
     }
@@ -271,7 +272,7 @@ NIImporter_VISUM::parse_Districts() {
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
     Position pos(x, y);
-    if (!GeoConvHelper::x2cartesian(pos, false)) {
+    if (!NILoader::transformCoordinates(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for district " + myCurrentID + ".");
         return;
     }
@@ -295,7 +296,7 @@ NIImporter_VISUM::parse_Point() {
     SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
     Position pos(x, y);
-    if (!GeoConvHelper::x2cartesian(pos, false)) {
+    if (!NILoader::transformCoordinates(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for point " + toString(id) + ".");
         return;
     }
@@ -610,7 +611,7 @@ NIImporter_VISUM::parse_EdgePolys() {
         return;
     }
     Position pos(x, y);
-    if (!GeoConvHelper::x2cartesian(pos)) {
+    if (!NILoader::transformCoordinates(pos)) {
         WRITE_ERROR("Unable to project coordinates for node '" + from->getID() + "'.");
         return;
     }

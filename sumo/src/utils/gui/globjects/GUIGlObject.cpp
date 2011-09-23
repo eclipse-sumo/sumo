@@ -167,7 +167,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret, bool addSepara
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
-    if (GeoConvHelper::usingGeoProjection()) {
+    if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
         new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
     }
     if (addSeparator) {

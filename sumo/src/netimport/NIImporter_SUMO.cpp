@@ -77,8 +77,10 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
         myCurrentEdge(0),
         myCurrentLane(0),
         myCurrentTL(0),
+        myLocation(0),
         mySuspectKeepShape(false),
-        myHaveWarnedAboutDeprecatedSpreadType(false), myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
+        myHaveWarnedAboutDeprecatedSpreadType(false), 
+        myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() throw() {
@@ -89,6 +91,7 @@ NIImporter_SUMO::~NIImporter_SUMO() throw() {
         }
         delete ed;
     }
+    delete myLocation;
 }
 
 
@@ -210,6 +213,17 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     if (mySuspectKeepShape) {
         WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
     }
+
+    // updated GeoConvHelper with the imported location data
+    if (myLocation == 0) {
+        WRITE_ERROR("No location element loaded from '" + oc.getString("sumo-net-file") + "'");
+        return;
+    }
+    GeoConvHelper &fromOptions = GeoConvHelper::getDefaultInstance();
+    GeoConvHelper::init(myLocation->getProjString(),
+            fromOptions.getOffset() + myLocation->getOffset(),
+            myLocation->getOrigBoundary(),
+            myLocation->getConvBoundary());
 }
 
 
@@ -617,21 +631,21 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
 
 void
 NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
-    // see NLHandler::setLocation
+    // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     PositionVector s = GeomConvHelper::parseShapeReporting(
-                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-                           attrs.getObjectType(), 0, ok, false);
+            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+            attrs.getObjectType(), 0, ok, false);
     Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
+            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
     Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-                                attrs.getObjectType(), 0, ok);
+            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+            attrs.getObjectType(), 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];
-        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+        myLocation = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
     }
 }
 

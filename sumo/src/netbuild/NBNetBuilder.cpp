@@ -94,6 +94,7 @@ void
 NBNetBuilder::compute(OptionsCont &oc, 
         const std::set<std::string> &explicitTurnarounds,
         bool removeUnwishedNodes) {
+    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
     // join junctions
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
@@ -159,8 +160,8 @@ NBNetBuilder::compute(OptionsCont &oc,
     //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         PROGRESS_BEGIN_MESSAGE("Moving network to origin");
-        const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
-        const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
+        const SUMOReal x = -geoConvHelper.getConvBoundary().xmin();
+        const SUMOReal y = -geoConvHelper.getConvBoundary().ymin();
         for(std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {
             (*i).second->reshiftPosition(x, y);
         }
@@ -170,7 +171,7 @@ NBNetBuilder::compute(OptionsCont &oc,
         for(std::map<std::string, NBDistrict*>::const_iterator i=myDistrictCont.begin(); i!=myDistrictCont.end(); ++i) {
             (*i).second->reshiftPosition(x, y);
         }
-        GeoConvHelper::moveConvertedBy(x, y);
+        geoConvHelper.moveConvertedBy(x, y);
 		PROGRESS_DONE_MESSAGE();
     }
 
@@ -299,9 +300,9 @@ NBNetBuilder::compute(OptionsCont &oc,
         myNodeCont.printBuiltNodesStatistics();
     }
     WRITE_MESSAGE(" Network boundaries:");
-    WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
-    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffsetBase()));
-    WRITE_MESSAGE("  Converted boundary : " + toString(GeoConvHelper::getConvBoundary()));
+    WRITE_MESSAGE("  Original boundary  : " + toString(geoConvHelper.getOrigBoundary()));
+    WRITE_MESSAGE("  Applied offset     : " + toString(geoConvHelper.getOffsetBase()));
+    WRITE_MESSAGE("  Converted boundary : " + toString(geoConvHelper.getConvBoundary()));
     WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
 }

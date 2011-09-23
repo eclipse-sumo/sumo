@@ -71,6 +71,7 @@ void
 PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
                       PCTypeMap &) throw(ProcessError) {
 #ifdef HAVE_GDAL
+    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
     // get defaults
     std::string prefix = oc.getString("prefix");
     std::string type = oc.getString("type");
@@ -127,7 +128,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
         case wkbPoint: {
             OGRPoint *cgeom = (OGRPoint*) poGeometry;
             Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
@@ -142,7 +143,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             PositionVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                if (!GeoConvHelper::x2cartesian(pos)) {
+                if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
@@ -159,7 +160,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
             PositionVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                if (!GeoConvHelper::x2cartesian(pos)) {
+                if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
                 }
                 shape.push_back_noDoublePos(pos);
@@ -177,7 +178,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
                 Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
                 std::string tid = id + "#" + toString(i);
-                if (!GeoConvHelper::x2cartesian(pos)) {
+                if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
                 }
                 PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
@@ -196,7 +197,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    if (!GeoConvHelper::x2cartesian(pos)) {
+                    if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);
@@ -217,7 +218,7 @@ PCLoaderArcView::load(const std::string &file, OptionsCont &oc, PCPolyContainer 
                 std::string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    if (!GeoConvHelper::x2cartesian(pos)) {
+                    if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
                     }
                     shape.push_back_noDoublePos(pos);

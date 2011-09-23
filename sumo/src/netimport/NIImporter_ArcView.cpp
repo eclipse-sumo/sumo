@@ -41,10 +41,11 @@
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
-#include "NIImporter_ArcView.h"
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/FileHelpers.h>
+#include "NILoader.h"
+#include "NIImporter_ArcView.h"
 
 #ifdef HAVE_GDAL
 #include <ogrsf_frmts.h>
@@ -213,7 +214,7 @@ NIImporter_ArcView::load() {
         PositionVector shape;
         for (int j=0; j<cgeom->getNumPoints(); j++) {
             Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!NILoader::transformCoordinates(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
             }
             shape.push_back_noDoublePos(pos);

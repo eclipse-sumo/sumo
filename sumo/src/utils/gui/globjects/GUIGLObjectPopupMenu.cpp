@@ -108,7 +108,7 @@ GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*) {
 long
 GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*) {
     Position pos = myNetworkPosition;
-    GeoConvHelper::cartesian2geo(pos);
+    GeoConvHelper::getDefaultInstance().cartesian2geo(pos);
     // formated for pasting into google maps
     const std::string posString = toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", " + toString(pos.x(), GEO_OUTPUT_ACCURACY);
     GUIUserIO::copyToClipboard(*myParent->getApp(), posString);

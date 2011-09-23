@@ -26,7 +26,6 @@
 #else
 #include <config.h>
 #endif
-#include "NIImporter_OpenStreetMap.h"
 #include <algorithm>
 #include <set>
 #include <functional>
@@ -50,6 +49,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
+#include "NILoader.h"
+#include "NIImporter_OpenStreetMap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -366,7 +367,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLi
     if (from==0) {
         NIOSMNode *n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat);
-        if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
+        if (!NILoader::transformCoordinates(pos, true, n->lon, n->lat)) {
             WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
             delete from;
             return 0;
@@ -405,7 +406,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat);
-        if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
+        if (!NILoader::transformCoordinates(pos, true, n->lon, n->lat)) {
             throw ProcessError("Unable to project coordinates for edge " + id + ".");
         }
         shape.push_back_noDoublePos(pos);

@@ -236,7 +236,6 @@ MSNet::~MSNet() throw() {
     delete myInsertionEvents;
     delete myEdgeWeights;
     clearAll();
-    GeoConvHelper::close();
     myInstance = 0;
 }
 

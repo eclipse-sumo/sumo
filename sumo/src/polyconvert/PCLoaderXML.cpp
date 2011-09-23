@@ -108,7 +108,7 @@ PCLoaderXML::myStartElement(int element,
             return;
         }
         Position pos(x, y);
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
             WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
         }
         // patch the values
@@ -193,7 +193,7 @@ PCLoaderXML::myCharacters(int element,
         PositionVector shape;
         for (PositionVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position pos((*i));
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + myCurrentID + "'.");
             }
             shape.push_back(pos);

@@ -35,6 +35,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <netimport/NILoader.h>
 #include "NIVissimAbstractEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -52,7 +53,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     const std::deque<Position> &geomC = geom.getCont();
     for (i=geomC.begin(); i!=geomC.end(); ++i) {
         Position p = *i;
-        if (!GeoConvHelper::x2cartesian(p)) {
+        if (!NILoader::transformCoordinates(p)) {
             WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
         }
         myGeom.push_back_noDoublePos(p);

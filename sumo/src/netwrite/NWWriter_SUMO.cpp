@@ -55,6 +55,7 @@
 // ---------------------------------------------------------------------------
 void
 NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
     // check whether a matsim-file shall be generated
     if (!oc.isSet("output-file")) {
         return;
@@ -63,16 +64,16 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device.writeXMLHeader("net", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device << "\n";
     // write network offsets
-    device.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""
-    << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
-    if (GeoConvHelper::usingGeoProjection()) {
+    device.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
+    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
+    if (geoConvHelper.usingGeoProjection()) {
         device.setPrecision(GEO_OUTPUT_ACCURACY);
-        device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
+        device << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
         device.setPrecision();
     } else {
-        device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
+        device << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
     }
-    device << " projParameter=\"" << GeoConvHelper::getProjString() << "\"";
+    device << " projParameter=\"" << geoConvHelper.getProjString() << "\"";
     device.closeTag(true);
     device << "\n";
 

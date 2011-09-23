@@ -39,7 +39,6 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "NIImporter_OpenDrive.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <foreign/eulerspiral/euler.h>
@@ -47,6 +46,8 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/Boundary.h>
+#include "NILoader.h"
+#include "NIImporter_OpenDrive.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -682,7 +683,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
             }
         }
         for (unsigned int j=0; j<e.geom.size(); ++j) {
-            if (!GeoConvHelper::x2cartesian(e.geom[j])) {
+            if (!NILoader::transformCoordinates(e.geom[j])) {
                 WRITE_ERROR("Unable to project coordinates for.");
             }
         }

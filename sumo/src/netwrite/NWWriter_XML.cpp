@@ -66,7 +66,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         NBNode *n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
-        if (GeoConvHelper::usingInverseGeoProjection()) {
+        if (GeoConvHelper::getDefaultInstance().usingInverseGeoProjection()) {
             device.setPrecision(GEO_OUTPUT_ACCURACY);
         }
         device.writeAttr(SUMO_ATTR_X, n->getPosition().x());

@@ -30,12 +30,11 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <cmath>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
-#include "NIXMLEdgesHandler.h"
-#include <cmath>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
@@ -47,6 +46,8 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NILoader.h"
+#include "NIXMLEdgesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -401,7 +402,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     SUMOReal endNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
     if (begNodeXPos!=SUMOXML_INVALID_POSITION&&begNodeYPos!=SUMOXML_INVALID_POSITION) {
         Position pos(begNodeXPos, begNodeYPos);
-        GeoConvHelper::x2cartesian(pos);
+        NILoader::transformCoordinates(pos);
         begNodeXPos = pos.x();
         begNodeYPos = pos.y();
         if (!myHaveWarnedAboutDeprecatedFromTo) {
@@ -411,7 +412,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     }
     if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
         Position pos(endNodeXPos, endNodeYPos);
-        GeoConvHelper::x2cartesian(pos);
+        NILoader::transformCoordinates(pos);
         endNodeXPos = pos.x();
         endNodeYPos = pos.y();
         if (!myHaveWarnedAboutDeprecatedFromTo) {
@@ -491,7 +492,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     PositionVector shape;
     for (int i=0; i<(int) shape1.size(); ++i) {
         Position pos(shape1[i]);
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!NILoader::transformCoordinates(pos)) {
             WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
         }
         shape.push_back(pos);

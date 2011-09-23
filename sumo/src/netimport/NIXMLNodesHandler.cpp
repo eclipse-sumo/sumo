@@ -44,6 +44,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOwnTLDef.h>
+#include "NILoader.h"
 #include "NIXMLNodesHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -111,7 +112,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
         yOk = true;
     }
     if (xOk&&yOk) {
-        if (needConversion&&!GeoConvHelper::x2cartesian(myPosition)) {
+        if (needConversion&&!NILoader::transformCoordinates(myPosition)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {

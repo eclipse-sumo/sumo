@@ -81,6 +81,7 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
                     PCTypeMap &tm) throw(ProcessError) {
+    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
     std::string what;
     std::map<long, Position> punkte;
     std::map<long, PositionVector> kanten;
@@ -101,7 +102,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
             }
             punkte[id] = pos;
@@ -123,7 +124,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
             }
             kanten[id].insertAt(index, pos);
@@ -229,7 +230,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position pos(x, y);
-            if (!GeoConvHelper::x2cartesian(pos)) {
+            if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + num + "'.");
             }
             std::string type = typemap[catid];
@@ -298,7 +299,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             std::string xpos = st.next();
             std::string ypos = st.next();
             Position pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
-            if (!GeoConvHelper::x2cartesian(pos2D)) {
+            if (!geoConvHelper.x2cartesian(pos2D)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
             }
             vec.push_back(pos2D);
@@ -344,7 +345,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                     SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
                     Position pos(x, y);
-                    if (!GeoConvHelper::x2cartesian(pos)) {
+                    if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
                     }
                     PointOfInterest *poi = new PointOfInterest(name, type, pos, color);

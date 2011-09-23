@@ -175,8 +175,8 @@ GUISUMOAbstractView::updatePositionInformation() const {
     Position pos = getPositionInformation();
     std::string text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     myApp->getCartesianLabel().setText(text.c_str());
-    GeoConvHelper::cartesian2geo(pos);
-    if (GeoConvHelper::usingGeoProjection()) {
+    GeoConvHelper::getDefaultInstance().cartesian2geo(pos);
+    if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
         text = "lat:" + toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", lon:" + toString(pos.x(), GEO_OUTPUT_ACCURACY);
     } else {
         text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
