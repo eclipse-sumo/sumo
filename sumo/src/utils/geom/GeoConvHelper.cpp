@@ -117,6 +117,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     }
     myProjection = (orig.myProjectionMethod == PROJ ? pj_init_plus(orig.myProjString.c_str()) : 0);
 #endif
+    return *this;
 }
 
 
