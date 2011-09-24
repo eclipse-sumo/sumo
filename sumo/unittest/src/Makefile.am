@@ -13,6 +13,9 @@ if WITH_GDAL
 GDAL_LIBS = -l$(LIB_GDAL)
 endif
 
+if WITH_PROJ
+PROJ_LIBS = -l$(LIB_PROJ)
+endif
 
 
 if WITH_GTEST
@@ -52,6 +55,7 @@ $(XERCES_LIBS) \
 ./netbuild/NBTrafficLightLogicTest.o \
 $(INTERNAL_TESTS) \
 $(GDAL_LIBS) \
+$(PROJ_LIBS) \
 $(LIB_GTEST)
 
 SUBDIRS = utils microsim netbuild $(UNITTEST_INTERNAL_DIRS)
