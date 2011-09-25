@@ -192,7 +192,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)sumoD.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -203,7 +203,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64D.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -214,7 +214,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)sumo.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -224,7 +224,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -276,7 +276,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)sumoF.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -289,7 +289,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(PlatformName)\$(Configuration)\$(ProjectName)64F.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX64</TargetMachine>

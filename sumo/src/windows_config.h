@@ -60,6 +60,7 @@
 #define VERSION_STRING "0.13.0"
 #endif
 
+/* Define if junction internal lanes should be used. */
 #define HAVE_INTERNAL_LANES 1
 
 /* Definition for the character function of Xerces  */

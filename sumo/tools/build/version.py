@@ -5,7 +5,7 @@
 @date    2007
 @version $Id$
 
-This script rebuilds "/../../src/version.h", the file which
+This script rebuilds "../../src/version.h", the file which
  lets the applications know the version of their build.
 If a version file exists, it is kept, otherwise the current
  SVN revision is used as version information.
@@ -17,7 +17,7 @@ All rights reserved
 import sys
 from os.path import dirname, exists, getmtime, join
 
-versionDir = entriesDir = join(dirname(sys.argv[0]), '..', '..', 'src')
+versionDir = entriesDir = join(dirname(__file__), '..', '..', 'src')
 if len(sys.argv) > 1:
     versionDir = sys.argv[1]
 if len(sys.argv) > 2:
