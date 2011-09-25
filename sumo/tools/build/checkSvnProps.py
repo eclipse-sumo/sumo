@@ -118,6 +118,6 @@ for root, dirs, files in os.walk(svnRoot):
             print fullName, "svn:keywords"
             if options.fix:
                 subprocess.call(["svn", "ps", "svn:keywords", _KEYWORDS, fullName])
-    for ignoreDir in ['.svn', 'foreign', 'mesosim', 'mesogui', 'netedit', 'contributed']:
+    for ignoreDir in ['.svn', 'foreign', 'contributed']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
