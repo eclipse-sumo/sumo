@@ -102,5 +102,14 @@ NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
+void 
+NWFrame::writePositionLong(const Position& pos, OutputDevice &dev) {
+    dev.writeAttr(SUMO_ATTR_X, pos.x());
+    dev.writeAttr(SUMO_ATTR_Y, pos.y());
+    if (pos.z() != 0) {
+        dev.writeAttr(SUMO_ATTR_Z, pos.z());
+    }
+}
+
 /****************************************************************************/
 

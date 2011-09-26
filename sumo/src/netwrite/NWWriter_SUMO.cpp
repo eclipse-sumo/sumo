@@ -39,6 +39,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netbuild/NBDistrict.h>
+#include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -310,7 +311,7 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << n.getID() << '\"';
     into << " type=\"" << toString(n.getType()) << "\"";
-    into << " x=\"" << n.getPosition().x() << "\" y=\"" << n.getPosition().y() << "\"";
+    NWFrame::writePositionLong(n.getPosition(), into);
     into << " incLanes=\"";
     // write the incoming lanes
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
@@ -374,7 +375,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
             Position pos = (*k).shape[-1];
             into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << (*k).viaID << "_0\"";
             into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
-            into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
+            NWFrame::writePositionLong(pos, into);
             into << " incLanes=\"";
             std::string furtherIncoming = (*k).sourceNames;
             into << (*k).id << "_0";

@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>
+#include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 #include "NWWriter_XML.h"
 
@@ -69,8 +70,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (GeoConvHelper::getDefaultInstance().usingInverseGeoProjection()) {
             device.setPrecision(GEO_OUTPUT_ACCURACY);
         }
-        device.writeAttr(SUMO_ATTR_X, n->getPosition().x());
-        device.writeAttr(SUMO_ATTR_Y, n->getPosition().y());
+        NWFrame::writePositionLong(n->getPosition(), device);
         device.setPrecision();
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {

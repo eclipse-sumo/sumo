@@ -289,6 +289,7 @@ enum SumoXMLAttr {
     /* node attributes */
     SUMO_ATTR_X,
     SUMO_ATTR_Y,
+    SUMO_ATTR_Z,
     /* sumo-junction attributes */
     SUMO_ATTR_KEY,
     SUMO_ATTR_REQUESTSIZE,

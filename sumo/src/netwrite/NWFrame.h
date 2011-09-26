@@ -35,6 +35,8 @@
 // ===========================================================================
 class OptionsCont;
 class NBNetBuilder;
+class Position;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -61,6 +63,10 @@ public:
      */
     static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
+    /** @brief Writes the given position to device in long format (one attribute
+     * per dimension)
+     */
+    static void writePositionLong(const Position& pos, OutputDevice &dev);
 
 };
 
