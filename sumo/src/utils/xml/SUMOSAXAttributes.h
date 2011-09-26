@@ -32,7 +32,6 @@
 #include <string>
 #include <vector>
 #include <utils/common/SUMOTime.h>
-#include "SUMOXMLDefinitions.h"
 #include <utils/common/UtilExceptions.h>
 
 

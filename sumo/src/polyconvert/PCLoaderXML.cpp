@@ -34,7 +34,6 @@
 #include <utils/options/Option.h>
 #include <utils/common/StdDefs.h>
 #include <polyconvert/PCPolyContainer.h>
-#include "PCLoaderXML.h"
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
@@ -44,6 +43,8 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include "PCLoaderXML.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
