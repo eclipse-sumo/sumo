@@ -326,13 +326,19 @@ TraCIServer::runEmbedded(std::string pyFile) {
     PyObject *pName, *pModule;
     Py_Initialize();
     Py_InitModule("traciemb", EmbMethods);
-    pName = PyString_FromString(pyFile.c_str());
-    /* Error checking of pName left out */
-    pModule = PyImport_Import(pName);
-    Py_DECREF(pName);
-    if (pModule == NULL) {
-        PyErr_Print();
-        throw ProcessError("Failed to load \"" + pyFile + "\"!");
+    if (pyFile.length() > 3 && !pyFile.compare(pyFile.length() - 3, 3, ".py")) {
+        FILE * pFile = fopen(pyFile.c_str(), "r");
+        PyRun_SimpleFile(pFile, pyFile.c_str());
+        fclose(pFile);
+    } else {
+        pName = PyString_FromString(pyFile.c_str());
+        /* Error checking of pName left out */
+        pModule = PyImport_Import(pName);
+        Py_DECREF(pName);
+        if (pModule == NULL) {
+            PyErr_Print();
+            throw ProcessError("Failed to load \"" + pyFile + "\"!");
+        }
     }
     Py_Finalize();
 }
