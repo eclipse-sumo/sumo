@@ -868,14 +868,14 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
             std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
-                Position(from.x()-offsets.first, from.y()-offsets.second));
+                Position(from.x()-offsets.first, from.y()-offsets.second, from.z()));
         } else if (i==static_cast<int>(myGeom.size()-1)) {
             Position from = myGeom[i-1];
             Position to = myGeom[i];
             std::pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
-                Position(to.x()-offsets.first, to.y()-offsets.second));
+                Position(to.x()-offsets.first, to.y()-offsets.second, to.z()));
         } else {
             Position from = myGeom[i-1];
             Position me = myGeom[i];
@@ -893,12 +893,13 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
             if (angle<10.||angle>350.) {
                 shape.push_back(
                     // (methode umbenennen; was heisst hier "-")
-                    Position(me.x()-offsets.first, me.y()-offsets.second));
+                    Position(me.x()-offsets.first, me.y()-offsets.second, me.z()));
                 continue;
             }
             l2.extrapolateBy(100);
             if (l1.intersects(l2)) {
-                shape.push_back(l1.intersectsAt(l2));
+                Position intersetion = l1.intersectsAt(l2);
+                shape.push_back(Position(intersetion.x(), intersetion.y(), me.z()));
             } else {
                 if (!haveWarned) {
                     WRITE_WARNING("In lane '" + getLaneID(lane) + "': Could not build shape.");
