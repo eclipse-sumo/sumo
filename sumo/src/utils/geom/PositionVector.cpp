@@ -439,7 +439,7 @@ operator<<(std::ostream &os, const PositionVector &geom) {
         if (i!=geom.myCont.begin()) {
             os << " ";
         }
-        os << (*i).x() << "," << (*i).y();
+        os << (*i);
     }
     return os;
 }

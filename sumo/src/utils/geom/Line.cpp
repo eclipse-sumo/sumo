@@ -31,6 +31,7 @@
 #include "Position.h"
 #include "Line.h"
 #include "GeomHelper.h"
+#include <utils/common/ToString.h>
 #include <cassert>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -54,13 +55,10 @@ Line::~Line() {}
 
 void
 Line::extrapolateBy(SUMOReal length) {
-    SUMOReal oldlen = myP1.distanceTo(myP2);
-    SUMOReal x1 = myP1.x() - (myP2.x() - myP1.x()) * (length) / oldlen;
-    SUMOReal y1 = myP1.y() - (myP2.y() - myP1.y()) * (length) / oldlen;
-    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x()) * (length) / oldlen;
-    SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) * (length) / oldlen;
-    myP1 = Position(x1, y1);
-    myP2 = Position(x2, y2);
+    SUMOReal factor = length / myP1.distanceTo(myP2);
+    Position offset = (myP2 - myP1) * factor;
+    myP1.sub(offset);
+    myP2.add(offset);
 }
 
 
@@ -92,15 +90,11 @@ Line::getPositionAtDistance(SUMOReal offset) const {
     SUMOReal length = myP1.distanceTo(myP2);
     if (length==0) {
         if (offset!=0) {
-            throw 1;
+            throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
         }
         return myP1;
     }
-    SUMOReal x = myP1.x() + (myP2.x() - myP1.x()) / length * offset;
-    SUMOReal y = myP1.y() + (myP2.y() - myP1.y()) / length * offset;
-    /*    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x())  / length * offset;
-        SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) / length * offset;*/
-    return Position(x, y);
+    return myP1 + ((myP2 - myP1) * (offset/length));
 }
 
 
