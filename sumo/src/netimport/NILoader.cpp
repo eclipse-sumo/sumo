@@ -185,6 +185,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
     }
 }
 
+
 bool 
 NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHelper *from_srs) {
     Position orig(from);
@@ -204,4 +205,13 @@ NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHe
     return ok;
 }
 
+
+bool 
+NILoader::transformCoordinates(PositionVector &from, bool includeInBoundary, GeoConvHelper *from_srs) {
+    bool ok = true;
+    for (int i=0; i<(int) from.size(); i++) {
+        ok = ok && transformCoordinates(from[i], includeInBoundary, from_srs);
+    }
+    return ok;
+}
 /****************************************************************************/
