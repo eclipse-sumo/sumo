@@ -12,9 +12,12 @@ All rights reserved
 """
 
 import os, subprocess, sys, socket, time, struct, random
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..','..', '..', '..', '..', "tools", "lib"))
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
+from testUtil import checkBinary
+
+#sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
 import traci
 
 PORT = 8813
@@ -61,21 +64,17 @@ for i in range(N):
 print >> routes, "</routes>"
 routes.close()
 
-
-sumoExe = "sumo-gui"
-if "SUMO" in os.environ:
-    sumoExe = os.path.join(os.environ["SUMO"], "sumo-gui")
+sumoBinary = checkBinary('sumo')
 sumoConfig = "cross.sumo.cfg"
-sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen("%s -c %s" % (sumoBinary, sumoConfig), shell=True, stdout=sys.stdout)
 
 
 traci.init(PORT)
 
 programPointer = len(PROGRAM)-1
-veh = []
 step = 0
-while not (step > lastVeh and veh == []):
-    veh = traci.simulationStep(1000)
+while not (step > 10000):
+    traci.simulationStep(1000)
     programPointer = min(programPointer+1, len(PROGRAM)-1)
     no = traci.inductionloop.getLastStepVehicleNumber("0")
     if no > 0:
@@ -84,3 +83,4 @@ while not (step > lastVeh and veh == []):
     step += 1
 
 traci.close()
+sys.stdout.flush()
