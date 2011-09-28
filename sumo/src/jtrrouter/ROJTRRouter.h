@@ -53,9 +53,11 @@ public:
 	 * @param[in] net The net used for routing
 	 * @param[in] unbuildIsWarningOnly Whether not closed routes shall not yield in an error
 	 * @param[in] acceptAllDestinations If false, only sinks will be used as final edges
+     * @param[in] maxEdges The maximum number of edges a route may have
+     * @param[in] ignoreClasses Whether routing shall be done without regarding vehicle classes
 	 */
     ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
-                bool acceptAllDestinations);
+                bool acceptAllDestinations, int maxEdges, bool ignoreClasses);
 
 
     /// @brief Destructor

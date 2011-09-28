@@ -31,7 +31,6 @@
 #include "ROJTRRouter.h"
 #include "ROJTREdge.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -41,13 +40,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly, bool acceptAllDestinations)
+ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly, bool acceptAllDestinations, 
+    int maxEdges, bool ignoreClasses)
         : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
-        myAcceptAllDestination(acceptAllDestinations) {
-    myMaxEdges = (int)(
-                     ((SUMOReal) net.getEdgeNo()) *
-                     OptionsCont::getOptions().getFloat("max-edges-factor"));
-    myIgnoreClasses = OptionsCont::getOptions().getBool("ignore-vclasses");
+        myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
+        myIgnoreClasses(ignoreClasses) {
 }
 
 
