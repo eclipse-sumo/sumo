@@ -111,6 +111,9 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
         myPosition.set(myPosition.x(), attrs.getSUMORealReporting(SUMO_ATTR_Y, myID.c_str(), ok));
         yOk = true;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_Z)) {
+        myPosition.set(myPosition.x(), myPosition.y(), attrs.getSUMORealReporting(SUMO_ATTR_Z, myID.c_str(), ok));
+    }
     if (xOk&&yOk) {
         if (needConversion&&!NILoader::transformCoordinates(myPosition)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");

@@ -488,14 +488,9 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     if (shpdef=="") {
         return PositionVector();
     }
-    PositionVector shape1 = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
-    PositionVector shape;
-    for (int i=0; i<(int) shape1.size(); ++i) {
-        Position pos(shape1[i]);
-        if (!NILoader::transformCoordinates(pos)) {
-            WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
-        }
-        shape.push_back(pos);
+    PositionVector shape = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
+    if (!NILoader::transformCoordinates(shape)) {
+        WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
     return shape;
 }

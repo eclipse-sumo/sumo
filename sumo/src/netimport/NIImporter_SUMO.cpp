@@ -347,6 +347,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->shape = GeomConvHelper::parseShapeReporting(
                                attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
                                attrs.getObjectType(), id.c_str(), ok, true);
+    NILoader::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
@@ -396,6 +397,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
                                attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
                                attrs.getObjectType(), id.c_str(), ok, false);
+    NILoader::transformCoordinates(myCurrentLane->shape, true, myLocation);
 }
 
 
@@ -411,8 +413,6 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         return;
     }
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
-    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
-    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     std::string typeS = attrs.getStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok);
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::NodeTypes.get(typeS);
@@ -422,7 +422,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     } else {
         WRITE_WARNING("Unknown node type '" + typeS + "' for junction '" + id + "'.");
     }
-    Position pos(x, y);
+    Position pos = readPosition(attrs, id, ok);
     NILoader::transformCoordinates(pos, true, myLocation);
     // the network may have been built with the option "plain.keep-edge-shape" this
     // makes accurate reconstruction of legacy networks impossible. We ought to warn about this
@@ -650,4 +650,14 @@ NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
 }
 
 
+Position 
+NIImporter_SUMO::readPosition(const SUMOSAXAttributes &attrs, const std::string &id, bool &ok) {
+    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
+    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
+    SUMOReal z = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_Z)) {
+            z = attrs.getSUMORealReporting(SUMO_ATTR_Z, id.c_str(), ok);
+    }
+    return Position(x,y,z);
+}
 /****************************************************************************/

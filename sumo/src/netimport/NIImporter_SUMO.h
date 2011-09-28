@@ -71,7 +71,6 @@ public:
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
-
 protected:
     /** @brief Constructor
      * @param[in] nc The network builder to fill
@@ -298,6 +297,9 @@ private:
      * @param[in] lanes The list of lane attributes
      */
     static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to);
+
+    /// @brief read position from the given attributes, attribute errors to id
+    static Position readPosition(const SUMOSAXAttributes &attrs, const std::string &id, bool &ok);
 };
 
 
