@@ -60,7 +60,7 @@ public:
     ~ROJTREdgeBuilder() throw();
 
 
-    /// @name Methods to be implemented, inherited from ROAbstractEdgeBuilder
+    /// @name Methods inherited from ROAbstractEdgeBuilder
     /// @{
 
     /** @brief Builds an edge with the given name

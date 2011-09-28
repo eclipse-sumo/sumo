@@ -64,7 +64,7 @@ public:
     ROJTREdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw();
 
 
-    /// Destructor
+    /// @brief Destructor
     ~ROJTREdge() throw();
 
 
@@ -83,8 +83,6 @@ public:
 
     /** @brief adds the information about the percentage of using a certain follower
      *
-     *!!!
-     *
      * @param[in] follower The following edge
      * @param[in] begTime Time begin for which this probability is valid
      * @param[in] endTime Time end for which this probability is valid
@@ -93,21 +91,31 @@ public:
     void addFollowerProbability(ROJTREdge *follower,
                                 SUMOTime begTime, SUMOTime endTime, SUMOReal probability);
 
-    /// Returns the next edge to use
-    ROJTREdge *chooseNext(const ROVehicle *const, SUMOTime time) const;
 
-    /// Sets the turning definition defaults
+    /** @brief Returns the next edge to use
+     * @param[in] veh The vehicle to choose the next edge for
+     * @param[in] time The time at which the next edge shall be entered
+     * @return The chosen edge
+     */
+    ROJTREdge *chooseNext(const ROVehicle *const veh, SUMOTime time) const;
+
+
+    /** @brief Sets the turning definition defaults
+     * @param[in] def The turning percentage defaults
+     */
     void setTurnDefaults(const std::vector<SUMOReal> &defs);
 
+
 private:
-    /// Definition of a map that stores the probabilities of using a certain follower over time
+    /// @brief Definition of a map that stores the probabilities of using a certain follower over time
     typedef std::map<ROJTREdge*, ValueTimeLine<SUMOReal>*> FollowerUsageCont;
 
-    /// Storage for the probabilities of using a certain follower over time
+    /// @brief Storage for the probabilities of using a certain follower over time
     FollowerUsageCont myFollowingDefs;
 
-    /// The defaults for turnings
+    /// @brief The defaults for turnings
     std::vector<SUMOReal> myParsedTurnings;
+
 
 private:
     /// @brief invalidated copy constructor

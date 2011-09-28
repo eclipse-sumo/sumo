@@ -127,7 +127,7 @@ private:
 
 
 private:
-    /// The network to set the information into
+    /// @brief The network to set the information into
     RONet &myNet;
 
     /// @brief The begin and the end of the current interval
@@ -139,6 +139,7 @@ private:
     /// @brief Whether the loader has warned about deprecated usage of characters
     bool myHaveWarnedAboutDeprecatedSources, myHaveWarnedAboutDeprecatedSinks;
     bool myHaveWarnedAboutDeprecatedFromEdge, myHaveWarnedAboutDeprecatedToEdge;
+
 
 };
 

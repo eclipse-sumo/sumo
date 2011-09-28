@@ -41,8 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
-                         bool acceptAllDestinations)
+ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly, bool acceptAllDestinations)
         : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
         myAcceptAllDestination(acceptAllDestinations) {
     myMaxEdges = (int)(

@@ -44,7 +44,7 @@ public:
      * As jtrrouter shares several options with other routing appplications, the
      *  insertion of these is done via a call to ROFrame::fillOptions.
      *
-     * jtrrouer-specific options are added afterwards via calls to "addJTROptions".
+     * jtrrouer-specific options are added afterwards.
      */
     static void fillOptions();
 
@@ -54,13 +54,6 @@ public:
      * @todo probably, more things should be checked...
      */
     static bool checkOptions();
-
-
-protected:
-    /** @brief Inserts options used by jtrrouter only
-     */
-    static void addJTROptions();
-
 
 };
 

@@ -64,15 +64,7 @@ ROJTRFrame::fillOptions() {
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
     ROFrame::fillOptions(oc, false);
-    addJTROptions();
-    // add rand options
-    RandHelper::insertRandOptions();
-}
 
-
-void
-ROJTRFrame::addJTROptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("turn-ratio-file", 't', new Option_FileName());
     oc.addSynonyme("turn-ratio-file", "turns");
     oc.addSynonyme("turn-ratio-file", "turn-definition", true);
@@ -97,6 +89,9 @@ ROJTRFrame::addJTROptions() {
     oc.doRegister("ignore-vclasses", 'i', new Option_Bool(false));
     oc.addSynonyme("ignore-vclasses", "ignore-classes", true);
     oc.addDescription("ignore-vclasses", "Processing", "Ignore road restrictions based on vehicle class");
+
+    // add rand options
+    RandHelper::insertRandOptions();
 }
 
 
