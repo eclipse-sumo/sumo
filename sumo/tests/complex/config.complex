@@ -17,18 +17,26 @@ copy_test_path:settings.xml
 copy_test_path:sumo.sumo.cfg
 copy_test_path:sumo_log.sumo.cfg
 copy_test_path:osm.xml
+copy_test_path:data
 
 [collate_file]
 vehroutes:vehroutes.xml
 state:state.xml
 tripinfo:tripinfo.xml
+net:net.net.xml
+
 
 [run_dependent_text]
+net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 state:<!--{[->]}-->
 output:visible boundary
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
+output:\r{REPLACE \n}
+output:\([0-9]*ms\){REPLACE (TIME)}
+output:\([0-9]* ms\){REPLACE (TIME)}
+
 
 [floating_point_tolerance]
 output:0.0001
