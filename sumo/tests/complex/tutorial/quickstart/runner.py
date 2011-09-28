@@ -28,7 +28,7 @@ except: print "Missing 'quickstart.net.xml'"
 print ">> Netbuilding closed with status %s" % retcode
 sys.stdout.flush()
 # run simulation
-retcode = subprocess.call([sumoBinary, "-c", "data/hello.sumo.cfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([sumoBinary, "-c", "data/quickstart.sumo.cfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
 print ">> Simulation closed with status %s" % retcode
 sys.stdout.flush()
 
