@@ -34,9 +34,9 @@ wikidump:
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
-	&& for f in `find build tools docs/tutorial -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
+	&& for f in `find build tools tests/complex/tutorial -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
 	&& find build -regex ".*\.\(vcproj\|vsprops\|vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) \
 	&& xargs cp --parents --target-directory $$abs_distdir < tools_filelist \
 	&& cp tools_filelist $$abs_distdir \
@@ -46,7 +46,7 @@ dist-doc: doc
 	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	find docs/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
 	cp -r docs/wiki/sourceforge.net/apps/mediawiki/sumo $(distdir)/docs/wiki
