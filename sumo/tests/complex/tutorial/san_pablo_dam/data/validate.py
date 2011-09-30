@@ -1,15 +1,17 @@
-import sys, os, math, csv
+import sys, os, math, csv, subprocess
 
 dDay = 1
 
 # generating route-file with the car-following parameters in sumo-parameters.txt
 exec(compile(open('genDemand.py').read(), 'genDemand.py', 'exec')) 
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "lib"))
+from testUtil import checkBinary
 
 # running the simulation...
-if os.name=='nt':
-	os.system('sumo.exe -c spd-road.sumo.cfg')
-else:
-	os.system('./sumo.exe -c spd-road.sumo.cfg')
+sumoBinary = checkBinary('sumo')
+retcode = subprocess.call([sumoBinary, "-c", "spd-road.sumo.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+sys.stdout.flush()
+sys.stderr.flush()
 
 # analyzing the results...
 # read the empirical times

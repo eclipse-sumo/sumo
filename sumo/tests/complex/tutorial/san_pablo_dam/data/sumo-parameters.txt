@@ -1,6 +1,6 @@
-vMax 25.0
-aMax 2.0
-bMax 5.0
-lCar 5
-sigA 0.8
-tTau 1.5
+vMax 23.3506228721
+aMax 2.1998774732
+bMax 2.82910156929
+lCar 7.80650341705
+sigA 0.1
+tTau 1.1000068209
