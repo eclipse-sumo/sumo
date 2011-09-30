@@ -1,0 +1,6 @@
+vMax 25.0
+aMax 2.0
+bMax 5.0
+lCar 5
+sigA 0.8
+tTau 1.5
