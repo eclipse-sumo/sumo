@@ -28,6 +28,9 @@ no_vehtype
 # Checks whether exit time output works
 exit_times
 
+# Tests whether processing vehicle parameter works
+vtypecheck
+
 
 # Tests for false user input
 errors

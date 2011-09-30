@@ -1,0 +1,27 @@
+<trips>
+   <vType id="0" accel="100"/>
+   <vType id="1" decel="100"/>
+   <vType id="2" sigma="100"/>
+   <vType id="3" length="100"/>
+   <vType id="4" minGap="100"/>
+   <vType id="5" maxSpeed="100"/>
+   <vType id="6" color="0,0,0"/>
+   <vType id="7" vClass="bus"/>
+   <vType id="8" emissionClass="P_7_1"/>
+   <vType id="9" guiShape="passenger/hatchback"/>
+   <vType id="10" guiWidth="100"/>
+
+	<trip type="0" depart="0" from="beg" to="rend"/>
+	<trip type="1" depart="0" from="beg" to="rend"/>
+	<trip type="2" depart="0" from="beg" to="rend"/>
+	<trip type="3" depart="0" from="beg" to="rend"/>
+	<trip type="4" depart="0" from="beg" to="rend"/>
+	<trip type="5" depart="0" from="beg" to="rend"/>
+	<trip type="6" depart="0" from="beg" to="rend"/>
+	<trip type="7" depart="0" from="beg" to="rend"/>
+	<trip type="8" depart="0" from="beg" to="rend"/>
+	<trip type="9" depart="0" from="beg" to="rend"/>
+	<trip type="10" depart="0" from="beg" to="rend"/>
+
+
+</trips>

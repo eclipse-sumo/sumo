@@ -49,8 +49,15 @@ taz_noedge
 # Test with vehicle having same source and destination
 same_edge
 
+# Tests whether processing vehicle parameter works
+vtypecheck
+
+
 # Tests false input
 errors
+
+
+
 
 # Test for deprecated element names
 _deprecated_

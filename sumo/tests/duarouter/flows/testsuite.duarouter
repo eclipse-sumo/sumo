@@ -41,6 +41,9 @@
 # Additional tests for distributing vehicles over time
 distribution_tests
 
+# Tests whether vehicle type attributes are parsed
+vtypecheck
+
 
 # Tests with false user input
 errors
