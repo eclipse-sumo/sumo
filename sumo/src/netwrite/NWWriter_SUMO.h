@@ -34,16 +34,17 @@
 #include <netbuild/NBEdge.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <netbuild/NBConnectionDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class OptionsCont;
 class NBNetBuilder;
 class NBNode;
 class NBDistrict;
-class OptionsCont;
 
 
 // ===========================================================================
@@ -73,6 +74,9 @@ public:
      */
     static void writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c,
                                 bool includeInternal, bool plain=false);
+
+    /// @brief writes the given prohibitions
+    static void writeProhibitions(OutputDevice &into, const NBConnectionProhibits &prohibitions);
 
 protected:
     /// @name Methods for writing network parts
@@ -163,6 +167,10 @@ private:
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);
+
+
+    /// @brief the attribute value for a prohibition
+    static std::string prohibitionConnection(const NBConnection &c);
 };
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 08/22/11 18:50:21 by SUMO netconvert Version dev-SVN-r11136
+<!-- generated on Tue Oct  4 08:07:08 2011 by SUMO netconvert Version dev-SVN-r11329
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -168,7 +168,7 @@
         <lane id="3_1" index="1" speed="13.89" length="35.94" shape="331.92,1827.60 363.96,1843.87"/>
     </edge>
     <edge id="30" from="605001162" to="605001161" name="Am Tower/ (83535600)" priority="-1" type="85" spreadType="center" shape="3459.34,12.84 3515.39,0.00 3617.10,1.50">
-        <lane id="30_0" index="0" speed="13.89" length="166.67" shape="3452.08,14.50 3515.39,-0.00 3617.10,1.50"/>
+        <lane id="30_0" index="0" speed="13.89" length="166.67" shape="3452.08,14.50 3515.39,0.00 3617.10,1.50"/>
     </edge>
     <edge id="31" from="605001162" to="605001163" name="VISUM Strecke 83535603" priority="-1" type="86" spreadType="center" shape="3451.03,26.76 3450.68,31.17 3430.68,29.17">
         <lane id="31_0" index="0" speed="13.89" length="84.95" shape="3451.63,19.34 3450.68,31.17 3377.96,23.90"/>
@@ -1060,4 +1060,34 @@
     <connection from="99" to="22" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="99" to="100" fromLane="0" toLane="0" dir="t" state="m"/>
 
+    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000702[1]->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000702[1]->1000706"/>
+    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000705[1]->1000709" prohibited="1000705[1]->1000706"/>
+    <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000706"/>
+    <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000706"/>
+    <prohibition prohibitor="1000705[1]->1000706" prohibited="1000705[1]->1000709"/>
+    <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000709"/>
+    <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000709"/>
+    <prohibition prohibitor="1000708[1]->1000709" prohibited="1000708[1]->1000700"/>
+    <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000700"/>
+    <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000700"/>
+    <prohibition prohibitor="1000708[1]->1000700" prohibited="1000708[1]->1000709"/>
+    <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000709"/>
+    <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000709"/>
+    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000711[1]->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000711[1]->1000703"/>
+    <prohibition prohibitor="1001203->1001204" prohibited="1001201->1001204"/>
+    <prohibition prohibitor="1001203->1001204" prohibited="1001201->1001204"/>
+    <prohibition prohibitor="1001201->1001204" prohibited="1001205->1001204"/>
+    <prohibition prohibitor="1001201->1001204" prohibited="1001205->1001204"/>
+    <prohibition prohibitor="1001203->1001204" prohibited="1001205->1001204"/>
+    <prohibition prohibitor="1001203->1001204" prohibited="1001205->1001204"/>
 </net>

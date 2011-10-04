@@ -166,6 +166,10 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             device << "\n";
         }
     }
+    // write loaded prohibitions
+    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+        writeProhibitions(device, i->second->getProhibitions());
+    }
 
     // write roundabout information
     const std::vector<std::set<NBEdge*> > &roundabouts = nb.getRoundabouts();
@@ -533,6 +537,28 @@ NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
     } else {
         return toString(time);
     }
+}
+
+
+void 
+NWWriter_SUMO::writeProhibitions(OutputDevice &into, const NBConnectionProhibits &prohibitions) {
+    for (NBConnectionProhibits::const_iterator j=prohibitions.begin(); j!=prohibitions.end(); j++) {
+        NBConnection prohibited = (*j).first;
+        const NBConnectionVector &prohibiting = (*j).second;
+        for (NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
+            NBConnection prohibitor = *k;
+            into.openTag(SUMO_TAG_PROHIBITION);
+            into.writeAttr(SUMO_ATTR_PROHIBITOR, prohibitionConnection(prohibitor));
+            into.writeAttr(SUMO_ATTR_PROHIBITED, prohibitionConnection(prohibited));
+            into.closeTag(true);
+        }
+    }
+}
+
+
+std::string 
+NWWriter_SUMO::prohibitionConnection(const NBConnection &c) {
+    return c.getFrom()->getID() + "->" + c.getTo()->getID();
 }
 
 /****************************************************************************/

@@ -175,6 +175,11 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             cdevice << "\n";
         }
     }
+
+    // write loaded prohibitions to the connections-file
+    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+        NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions());
+    }
     edevice.close();
     cdevice.close();
 }

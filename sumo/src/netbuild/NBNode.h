@@ -431,6 +431,10 @@ public:
 
     void buildInnerEdges();
 
+    const NBConnectionProhibits& getProhibitions() {
+        return myBlockedConnections;
+    }
+
     /**
      * @class nodes_by_id_sorter
      * @brief Used for sorting the cells by the begin time they describe
