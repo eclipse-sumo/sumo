@@ -165,6 +165,11 @@ private:
      */
     void addConnection(const SUMOSAXAttributes &attrs);
 
+    /** @brief Parses a prohibition and saves it
+     * @param[in] attrs The attributes to get the connection from
+     */
+    void addProhibition(const SUMOSAXAttributes &attrs);
+
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
 
@@ -248,8 +253,22 @@ private:
     };
 
 
+    /** @struct Prohibition
+     * @brief Describes the values found in a prohibition
+     */
+    struct Prohibition {
+        std::string prohibitorFrom;
+        std::string prohibitorTo;
+        std::string prohibitedFrom;
+        std::string prohibitedTo;
+    };
+
+
     /// @brief Loaded edge definitions
     std::map<std::string, EdgeAttrs*> myEdges;
+
+    /// @brief Loaded prohibitions
+    std::vector<Prohibition> myProhibitions;
 
     /// @brief The network builder to fill
     NBNetBuilder &myNetBuilder;
@@ -300,6 +319,14 @@ private:
 
     /// @brief read position from the given attributes, attribute errors to id
     static Position readPosition(const SUMOSAXAttributes &attrs, const std::string &id, bool &ok);
+
+    /** @brief parses connection string of a prohibition (very old school)
+     * @param[in] attr The connection attribute
+     * @param[out] from ID of the source edge
+     * @param[out] to ID of the destination edge
+     * @param[out] ok Whether parsing completed successfully
+     */
+    void parseProhibitionConnection(const std::string &attr, std::string &from, std::string &to, bool &ok); 
 };
 
 

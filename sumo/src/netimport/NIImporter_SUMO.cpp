@@ -210,10 +210,18 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         }
         nbe->declareConnectionsAsLoaded();
     }
-    if (mySuspectKeepShape) {
-        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
+    // insert loaded prohibitions
+    for (std::vector<Prohibition>::const_iterator it = myProhibitions.begin(); it != myProhibitions.end(); it++) {
+        NBEdge* prohibitedFrom = myEdges[it->prohibitedFrom]->builtEdge;
+        if (prohibitedFrom == 0) {
+            WRITE_ERROR("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+        } else {
+            NBNode *n = prohibitedFrom->getToNode();
+            n->addSortedLinkFoes(
+                    NBConnection(myEdges[it->prohibitorFrom]->builtEdge, myEdges[it->prohibitorTo]->builtEdge),
+                    NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
+        }
     }
-
     // updated GeoConvHelper with the imported location data
     if (myLocation == 0) {
         WRITE_ERROR("No location element loaded from '" + oc.getString("sumo-net-file") + "'");
@@ -224,6 +232,11 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             fromOptions.getOffset() + myLocation->getOffset(),
             myLocation->getOrigBoundary(),
             myLocation->getConvBoundary());
+    // final warning
+    if (mySuspectKeepShape) {
+        WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
+    }
+
 }
 
 
@@ -273,6 +286,9 @@ NIImporter_SUMO::myStartElement(int element,
         break;
     case SUMO_TAG_LOCATION:
         setLocation(attrs);
+        break;
+    case SUMO_TAG_PROHIBITION:
+        addProhibition(attrs);
         break;
     default:
         break;
@@ -512,6 +528,24 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
 }
 
 
+void
+NIImporter_SUMO::addProhibition(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, 0, ok, "");
+    std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, 0, ok, "");
+    if (!ok) {
+        return;
+    }
+    Prohibition p;
+    parseProhibitionConnection(prohibitor, p.prohibitorFrom, p.prohibitorTo, ok);
+    parseProhibitionConnection(prohibited, p.prohibitedFrom, p.prohibitedTo, ok);
+    if (!ok) {
+        return;
+    }
+    myProhibitions.push_back(p);
+}
+
+
 NIImporter_SUMO::LaneAttrs*
 NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
     std::string edge_id;
@@ -659,5 +693,34 @@ NIImporter_SUMO::readPosition(const SUMOSAXAttributes &attrs, const std::string 
             z = attrs.getSUMORealReporting(SUMO_ATTR_Z, id.c_str(), ok);
     }
     return Position(x,y,z);
+}
+
+
+void
+NIImporter_SUMO::parseProhibitionConnection(const std::string &attr, std::string &from, std::string &to, bool &ok) {
+    // split from/to
+    size_t div = attr.find("->");
+    if (div==std::string::npos) {
+        WRITE_ERROR("Missing connection divider in prohibition attribute '" + attr + "'");
+        ok = false;
+    }
+    from = attr.substr(0, div);
+    to = attr.substr(div+2);
+    // check whether the definition includes a lane information and discard it
+    if (from.find('_')!=std::string::npos) {
+        from= from.substr(0, from.find('_'));
+    }
+    if (to.find('_')!=std::string::npos) {
+        to= to.substr(0, to.find('_'));
+    }
+    // check whether the edges are known 
+    if (myEdges.count(from) == 0) {
+        WRITE_ERROR("Unknown edge prohibition '" + from + "'");
+        ok = false;
+    }
+    if (myEdges.count(to) == 0) {
+        WRITE_ERROR("Unknown edge prohibition '" + to + "'");
+        ok = false;
+    }
 }
 /****************************************************************************/
