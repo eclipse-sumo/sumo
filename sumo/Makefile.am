@@ -47,6 +47,10 @@ dist-doc: doc
 	$(am__remove_distdir)
 	mkdir $(distdir)
 	find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	mkdir $(distdir)/docs
+	mv $(distdir)/tests/complex/tutorial $(distdir)/docs
+	rmdir $(distdir)/tests/complex
+	rmdir $(distdir)/tests
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
 	cp -r docs/wiki/sourceforge.net/apps/mediawiki/sumo $(distdir)/docs/wiki
