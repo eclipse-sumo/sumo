@@ -101,6 +101,11 @@ private:
     void addNode(const SUMOSAXAttributes &attrs);
 
     /*
+     * @brief Parses node deletion information
+     */
+    void deleteNode(const SUMOSAXAttributes &attrs);
+
+    /*
      * @brief Parses a cluster of nodes to be joined
      */
     void addJoinCluster(const SUMOSAXAttributes &attrs);

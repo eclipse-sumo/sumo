@@ -79,6 +79,9 @@ NIXMLNodesHandler::myStartElement(int element,
         case SUMO_TAG_JOINEXCLUDE:
             addJoinExclusion(attrs);
             break;
+        case SUMO_TAG_RESET:
+            deleteNode(attrs);
+            break;
         default:
             break;
     }
@@ -156,6 +159,23 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
     // process traffic light definition
     if (type==NODETYPE_TRAFFIC_LIGHT) {
         processTrafficLightDefinitions(attrs, node);
+    }
+}
+
+
+void 
+NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    // get the id, report a warning if not given or empty...
+    myID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        return;
+    }
+    NBNode *node = myNodeCont.retrieve(myID);
+    if (!myNodeCont.erase(node)) {
+        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown node '" +
+                myID + "'");
+        return;
     }
 }
 

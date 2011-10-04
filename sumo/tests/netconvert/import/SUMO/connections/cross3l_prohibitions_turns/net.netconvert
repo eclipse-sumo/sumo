@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/01/11 09:27:49 by SUMO netconvert Version dev-SVN-r10489
+<!-- generated on Tue Oct  4 08:06:57 2011 by SUMO netconvert Version dev-SVN-r11329
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -11,7 +12,7 @@
     </input>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
@@ -297,4 +298,10 @@
     <connection from=":m4_1" to="4si" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":m4_2" to="4si" fromLane="0" toLane="2" dir="s" state="M"/>
 
+    <prohibition prohibitor="1si->2o" prohibited="3si->1o"/>
+    <prohibition prohibitor="1si->2o" prohibited="3si->2o"/>
+    <prohibition prohibitor="1si->2o" prohibited="3si->4o"/>
+    <prohibition prohibitor="2si->1o" prohibited="4si->1o"/>
+    <prohibition prohibitor="2si->1o" prohibited="4si->2o"/>
+    <prohibition prohibitor="2si->1o" prohibited="4si->3o"/>
 </net>

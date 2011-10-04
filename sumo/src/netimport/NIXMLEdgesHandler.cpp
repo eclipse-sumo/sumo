@@ -93,6 +93,9 @@ NIXMLEdgesHandler::myStartElement(int element,
     case SUMO_TAG_SPLIT:
         addSplit(attrs);
         break;
+    case SUMO_TAG_RESET:
+        deleteEdge(attrs);
+        break;
     default:
         break;
     }
@@ -493,6 +496,23 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
     return shape;
+}
+
+
+void
+NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+    if (!ok) {
+        return;
+    }
+    NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
+    if (edge == 0) {
+        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown edge '" +
+                myCurrentID + "'");
+        return;
+    }
+    myEdgeCont.erase(myDistrictCont, edge);
 }
 
 

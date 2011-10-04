@@ -31,7 +31,7 @@ PLAIN_TYPES = [
         
         ] # file types to compare
 ID_ATTR = 'id' # attribute for unique identifier
-DELETE_ELEMENT = 'delete' # the xml element for signifying deletes
+DELETE_ELEMENT = 'reset' # the xml element for signifying deletes
 
 # provide an order for the attribute names
 ATTRIBUTE_NAMES = {
@@ -81,6 +81,7 @@ class AttributeStore:
             id = xmlnode.getAttribute(ID_ATTR)
             self.id_values[id] = values
         else:
+            #print "add to deleted", values
             self.idless_deleted.add(values)
 
 
@@ -91,8 +92,10 @@ class AttributeStore:
             self.id_values[id] = tuple([self.diff(s, d) for s, d in zip(self.id_values[id], values)])
         else:
             if values in self.idless_deleted:
+                #print "remove from deleted", values
                 self.idless_deleted.remove(values)
             else:
+                #print "add to created", values
                 self.idless_created.add(values)
 
 
@@ -104,27 +107,21 @@ class AttributeStore:
 
 
     def writeDeleted(self, file):
-        if len(self.idless_deleted) == 0:
-            return
-        if self.element_name == 'connection':
-            index_toLane = self.attrnames.index('toLane')
-            for values in self.idless_deleted:
-                valueStrings = ['%s="%s"' % (n, v) for n,v in 
-                        zip(self.attrnames, values) if v != None]
-                file.write('%s<reset %s/>\n' % (" " * INDENT, ' '.join(valueStrings)))
-        else:
-            print "Don't know how to to declare deletion of id-less element %s" % self.element_name
+        self.write_idless(file, self.idless_deleted, DELETE_ELEMENT)
 
 
     def writeCreated(self, file):
-        for values in self.idless_created:
+        self.write_idless(file, self.idless_created, self.element_name)
+
+
+    def write_idless(self, file, value_set, tag):
+        for values in value_set:
             valueStrings = ['%s="%s"' % (n, self.replace_RESET(n,v)) for n,v in
                     zip(self.attrnames, values) if v != None]
-            if len(valueStrings) > 0:
-                file.write('%s<%s %s/>\n' % (
-                    " " * INDENT,
-                    self.element_name,
-                    ' '.join(valueStrings)))
+            file.write('%s<%s %s/>\n' % (
+                " " * INDENT,
+                tag,
+                ' '.join(valueStrings)))
 
 
     def writeChanged(self, file):
