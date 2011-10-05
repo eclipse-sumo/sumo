@@ -61,6 +61,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     writeNodes(oc, nb.getNodeCont());
     writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
+    writeTrafficLights(oc, nb.getTLLogicCont());
 }
 
 
@@ -191,6 +192,15 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NB
     }
     edevice.close();
     cdevice.close();
+}
+
+
+void 
+NWWriter_XML::writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".tll.xml");
+    device.writeXMLHeader("tlLogics", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
+    NWWriter_SUMO::writeTrafficLights(device, tc);
+    device.close();
 }
 /****************************************************************************/
 
