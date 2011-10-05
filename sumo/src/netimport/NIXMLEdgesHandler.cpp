@@ -162,7 +162,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
         myCurrentType = myCurrentEdge->getTypeID();
         myAllowed = myCurrentEdge->getAllowedVehicleClasses();
         myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
-        myShape = myCurrentEdge->getGeometry();
+        if (!myCurrentEdge->hasDefaultGeometry()) {
+            myShape = myCurrentEdge->getGeometry();
+        }
         myCurrentWidth = myCurrentEdge->getWidth();
         myCurrentOffset = myCurrentEdge->getOffset();
         myLanesSpread = myCurrentEdge->getLaneSpreadFunction();

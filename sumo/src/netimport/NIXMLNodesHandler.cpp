@@ -109,10 +109,12 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
         myPosition.set(attrs.getSUMORealReporting(SUMO_ATTR_X, myID.c_str(), ok), myPosition.y());
         xOk = true;
+        needConversion = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_Y)) {
         myPosition.set(myPosition.x(), attrs.getSUMORealReporting(SUMO_ATTR_Y, myID.c_str(), ok));
         yOk = true;
+        needConversion = true;
     }
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
         myPosition.set(myPosition.x(), myPosition.y(), attrs.getSUMORealReporting(SUMO_ATTR_Z, myID.c_str(), ok));
@@ -124,6 +126,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
     } else {
         WRITE_ERROR("Missing position (at node ID='" + myID + "').");
     }
+    bool updateEdgeGeometries = node!=0 && myPosition != node->getPosition();
     // check whether the y-axis shall be flipped
     if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
@@ -154,7 +157,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
             }
         }
         // patch information
-        node->reinit(myPosition, type);
+        node->reinit(myPosition, type, updateEdgeGeometries);
     }
     // process traffic light definition
     if (type==NODETYPE_TRAFFIC_LIGHT) {

@@ -139,13 +139,14 @@ public:
     ~NBNode() throw();
 
 
-
     /** @brief Resets initial values
      * @param[in] position The position of the node
      * @param[in] type The type of the node
+     * @param[in] updateEdgeGeometries Whether the geometires of all
+     *    connected edges shall be updated
      */
-    void reinit(const Position &position, SumoXMLNodeType type) throw();
-
+    void reinit(const Position &position, SumoXMLNodeType type, 
+            bool updateEdgeGeometries=false);
 
 
     /// @name Atomar getter methods

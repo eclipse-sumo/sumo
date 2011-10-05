@@ -210,12 +210,25 @@ NBNode::~NBNode() throw() {
 
 
 void
-NBNode::reinit(const Position &position, SumoXMLNodeType type) throw() {
+NBNode::reinit(const Position &position, SumoXMLNodeType type,
+        bool updateEdgeGeometries) {
     myPosition = position;
     // patch type
     myType = type;
     if (myType!=NODETYPE_TRAFFIC_LIGHT) {
         removeTrafficLights();
+    }
+    if (updateEdgeGeometries) {
+        for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
+            PositionVector geom = (*i)->getGeometry();
+            geom[-1] = myPosition;
+            (*i)->setGeometry(geom);
+        }
+        for (EdgeVector::iterator i=myOutgoingEdges.begin(); i!=myOutgoingEdges.end(); i++) {
+            PositionVector geom = (*i)->getGeometry();
+            geom[0] = myPosition;
+            (*i)->setGeometry(geom);
+        }
     }
 }
 
