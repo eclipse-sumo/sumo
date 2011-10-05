@@ -114,7 +114,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if (!e->hasLaneSpecificSpeed()) {
             edevice.writeAttr(SUMO_ATTR_SPEED, e->getSpeed());
         }
-        // write inner geometry (if any)
+        // write non-default geometry
         if (!e->hasDefaultGeometry()) {
             edevice.writeAttr(SUMO_ATTR_SHAPE, e->getGeometry());
         }
