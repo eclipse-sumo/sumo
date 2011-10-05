@@ -49,12 +49,17 @@ RESET = 0
 # stores attributes for later comparison
 class AttributeStore:
 
-    def __init__(self, attrnames):
-        self.attrnames = attrnames
-        self.id_values = {}
-        self.idless_deleted = set()
-        self.idless_created = set()
-        self.element_name = "notInitialized"
+    def __init__(self):
+        # dict of names-tuples
+        self.attrnames = {}
+        # sets of (tag, id)
+        self.ids_deleted = set()
+        self.ids_created = set()
+        # dict from (tag, id) to (names, values)
+        self.id_attrs = {}
+        # dict from tag to (names, values)-sets
+        self.idless_deleted = defaultdict(lambda:set())
+        self.idless_created = defaultdict(lambda:set())
 
 
     # getAttribute returns "" if not present
@@ -65,76 +70,123 @@ class AttributeStore:
             return None
 
 
-    def diff(self, sourceValue, destValue):
+    def getNames(self, xmlnode):
+        a = xmlnode.attributes
+        all = [a.item(i).localName for i in range(a.length)]
+        instance = tuple([n for n in all if n != ID_ATTR])
+        if not instance in self.attrnames:
+            self.attrnames[instance] = instance
+        # only store a single instance of this tuple to conserve memory
+        return self.attrnames[instance]
+
+
+    def getAttrs(self, xmlnode):
+        names = self.getNames(xmlnode)
+        values = tuple([self.getAttr(xmlnode, a) for a in names])
+        tag = xmlnode.localName
+        id = xmlnode.getAttribute(ID_ATTR)
+        return tag, id, (names, values)
+
+
+    def store(self, xmlnode):
+        tag, id, attrs = self.getAttrs(xmlnode)
+        tagid = (tag, id)
+        if id != "":
+            self.ids_deleted.add(tagid)
+            self.id_attrs[tagid] = attrs
+        else:
+            self.idless_deleted[tag].add(attrs)
+
+
+    def compare(self, xmlnode):
+        tag, id, attrs = self.getAttrs(xmlnode)
+        tagid = (tag, id)
+        if id != "":
+            if tagid in self.ids_deleted:
+                self.ids_deleted.remove(tagid)
+                self.id_attrs[tagid] = self.compareAttrs(self.id_attrs[tagid], attrs)
+            else:
+                self.ids_created.add(tagid)
+                self.id_attrs[tagid] = attrs
+        else:
+            if attrs in self.idless_deleted[tag]:
+                self.idless_deleted[tag].remove(attrs)
+            else:
+                self.idless_created[tag].add(attrs)
+
+
+    def compareAttrs(self, sourceAttrs, destAttrs):
+        snames, svalues = sourceAttrs
+        dnames, dvalues = destAttrs
+        if snames == dnames:
+            values = tuple([self.diff(n,s,d) for n,s,d in zip (snames,svalues,dvalues)])
+            return snames, values
+        else:
+            sdict = defaultdict(lambda:None, zip(snames, svalues))
+            ddict = defaultdict(lambda:None, zip(dnames, dvalues))
+            names = tuple(set(snames + dnames))
+            values = tuple([self.diff(n,sdict[n],ddict[n]) for n in names])
+            return names, values
+
+
+    def diff(self, name, sourceValue, destValue):
         if sourceValue == destValue:
             return None
         elif destValue == None:
-            return RESET
+            return DEFAULT_VALUES[name]
         else:
             return destValue
 
 
-    def store(self, xmlnode):
-        self.element_name = xmlnode.localName
-        values = tuple([self.getAttr(xmlnode, a) for a in self.attrnames])
-        if xmlnode.hasAttribute(ID_ATTR):
-            id = xmlnode.getAttribute(ID_ATTR)
-            self.id_values[id] = values
-        else:
-            #print "add to deleted", values
-            self.idless_deleted.add(values)
-
-
-    def compare(self, xmlnode):
-        values = tuple([self.getAttr(xmlnode, a) for a in self.attrnames])
-        if xmlnode.hasAttribute(ID_ATTR):
-            id = xmlnode.getAttribute(ID_ATTR)
-            self.id_values[id] = tuple([self.diff(s, d) for s, d in zip(self.id_values[id], values)])
-        else:
-            if values in self.idless_deleted:
-                #print "remove from deleted", values
-                self.idless_deleted.remove(values)
-            else:
-                #print "add to created", values
-                self.idless_created.add(values)
-
-
-    def replace_RESET(self, name, value):
-        if value == RESET:
-            return DEFAULT_VALUES[name]
-        else:
-            return value
-
-
     def writeDeleted(self, file):
-        self.write_idless(file, self.idless_deleted, DELETE_ELEMENT)
+        file.write(" " * INDENT + "<!-- Deleted Elements -->\n")
+        # data loss if two elements with different tags 
+        # have the same id
+        for tag, id in self.ids_deleted:
+            file.write('%s<%s %s="%s"/>\n' % (
+                " " * INDENT, DELETE_ELEMENT, ID_ATTR, id))
+
+        # data loss if two elements with different tags 
+        # have the same list of attributes and values
+        for value_set in self.idless_deleted.itervalues():
+            self.write_idless(file, value_set, DELETE_ELEMENT)
 
 
     def writeCreated(self, file):
-        self.write_idless(file, self.idless_created, self.element_name)
-
-
-    def write_idless(self, file, value_set, tag):
-        for values in value_set:
-            valueStrings = ['%s="%s"' % (n, self.replace_RESET(n,v)) for n,v in
-                    zip(self.attrnames, values) if v != None]
-            file.write('%s<%s %s/>\n' % (
-                " " * INDENT,
-                tag,
-                ' '.join(valueStrings)))
+        file.write(" " * INDENT + "<!-- Created Elements -->\n")
+        self.write(file, self.ids_created)
+        for tag, value_set in self.idless_created.iteritems():
+            self.write_idless(file, value_set, tag)
 
 
     def writeChanged(self, file):
-        for id, values in self.id_values.iteritems():
-            valueStrings = ['%s="%s"' % (n, self.replace_RESET(n,v)) for n,v in
-                    zip(self.attrnames, values) if v != None]
-            if len(valueStrings) > 0:
+        file.write(" " * INDENT + "<!-- Changed Elements -->\n")
+        tagids_changed = set(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        self.write(file, tagids_changed)
+
+
+    def write_idless(self, file, attr_set, tag):
+        for attrs in attr_set:
+            file.write('%s<%s %s/>\n' % (
+                " " * INDENT,
+                tag,
+                self.attr_string(attrs)))
+
+
+    def write(self, file, tagids):
+        for tagid in tagids:
+            tag, id = tagid
+            attrs = self.attr_string(self.id_attrs[tagid])
+            if len(attrs) > 0:
                 file.write('%s<%s %s="%s" %s/>\n' % (
                     " " * INDENT,
-                    self.element_name,
+                    tag,
                     ID_ATTR, id,
-                    ' '.join(valueStrings)))
+                    attrs))
 
+
+    def attr_string(self, attrs):
+        return ' '.join(['%s="%s"' % (n,v) for n,v in zip(*attrs) if v != None])
 
 
 def parse_args():
@@ -165,79 +217,16 @@ def create_plain(netfile):
 # creates diff of a flat xml structure 
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type):
-    # result streams
-    deleted = StringIO.StringIO()
-    created = StringIO.StringIO()
-    changed = StringIO.StringIO()
-
-    attrnames = set()
-    source_ids, root_open, root_close = get_ids_and_attrs_and_root(source, attrnames)
-    dest_ids, root_open, root_close = get_ids_and_attrs_and_root(dest, attrnames)
-    # prepare attrnames
-    if type in ATTRIBUTE_NAMES:
-        attrnames = ATTRIBUTE_NAMES[type]
-    else:
-        attrnames.discard(ID_ATTR)
-    attributeStore = AttributeStore(tuple(attrnames))
-    # compare ids
-    deleted_ids = source_ids.difference(dest_ids)
-    created_ids = dest_ids.difference(source_ids)
-
-    #print "source_ids", source_ids
-    #print "dest_ids", dest_ids
-    #print "deleted %s, created %s, maybechanged %s, have_idless %s" % (
-    #        len(deleted_ids), len(created_ids), len(maybechanged_ids), have_idless)
-
-    # process source, store maybechanged and print deletes
-    def handle_source(parsenode):
-        id = parsenode.getAttribute(ID_ATTR)
-        if id in deleted_ids:
-            deleted.write('%s<%s %s="%s"/>\n' % (
-                " " * INDENT, DELETE_ELEMENT, ID_ATTR, id))
-        else:
-            attributeStore.store(parsenode)
-    handle_children(source, handle_source)
-
-    # process dest, compare maybechanged and print creates
-    def handle_dest(parsenode):
-        id = parsenode.getAttribute(ID_ATTR)
-        if id in created_ids:
-            created.write(" " * INDENT)
-            created.write(parsenode.toprettyxml(indent=""))
-        else:
-            attributeStore.compare(parsenode)
-    handle_children(dest, handle_dest)
-
-    attributeStore.writeDeleted(deleted)
-    attributeStore.writeCreated(created)
-    attributeStore.writeChanged(changed)
+    attributeStore = AttributeStore()
+    root_open, root_close = handle_children(source, attributeStore.store)
+    handle_children(dest, attributeStore.compare)
 
     with open(diff, 'w') as diff_file:
         diff_file.write(root_open)
-        write_section(diff_file, "Deleted Elements", deleted)
-        write_section(diff_file, "Created Elements", created)
-        write_section(diff_file, "Changed Elements", changed)
+        attributeStore.writeDeleted(diff_file)
+        attributeStore.writeCreated(diff_file)
+        attributeStore.writeChanged(diff_file)
         diff_file.write(root_close)
-
-
-def write_section(output_file, section_name, stringio):
-    if stringio.len > 0:
-        output_file.write(" " * INDENT + "<!-- %s -->\n" % section_name)
-        output_file.write(stringio.getvalue())
-    
-
-# parses ids and compiles the set of attrnames of a flat xml structure 
-# (only children of the root element and their attrs are compared)
-# idea: get for attribute-values to avoid later comparisons
-def get_ids_and_attrs_and_root(xmlfile, attrnames):
-    ids = set()
-    def callback(parsenode):
-        for i in range(parsenode.attributes.length):
-            attrnames.add(parsenode.attributes.item(i).localName)
-        ids.add(parsenode.getAttribute(ID_ATTR))
-    root_open, root_close = handle_children(xmlfile, callback)
-    ids.discard("")
-    return ids, root_open, root_close
 
 
 # calls function handle_parsenode for all children of the root element
