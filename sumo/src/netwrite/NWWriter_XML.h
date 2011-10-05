@@ -58,12 +58,27 @@ class OptionsCont;
  */
 class NWWriter_XML {
 public:
-    /** @brief Writes the network into XML-files (nodes, edges, connections)
-     *
+    /** @brief Writes the network into XML-files (nodes, edges, connections,
+     *   traffic lights)
      * @param[in] oc The options to use
-     * @param[in] nb The network builder to fill
+     * @param[in] nb The network builder from which to read data
      */
     static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+
+private:
+    /** @brief Writes the nodes file
+     * @param[in] oc The options to use
+     * @param[in] nc The node-container from which to read data
+     */
+    static void writeNodes(const OptionsCont &oc, NBNodeCont &nc);
+
+    /** @brief Writes the edges and connections files
+     * @param[in] oc The options to use
+     * @param[in] nc The node-container from which to read data
+     * @param[in] ec The edge-container from which to read data
+     */
+    static void writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NBEdgeCont &ec);
 
 };
 

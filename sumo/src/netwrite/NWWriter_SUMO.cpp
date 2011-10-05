@@ -81,7 +81,6 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // get involved container
     const NBNodeCont &nc = nb.getNodeCont();
     const NBEdgeCont &ec = nb.getEdgeCont();
-    const NBTrafficLightLogicCont &tc = nb.getTLLogicCont();
     const NBDistrictCont &dc = nb.getDistrictCont();
 
     // write inner lanes
@@ -103,27 +102,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device << "\n";
 
     // write tls logics
-    std::vector<NBTrafficLightLogic*> logics = tc.getComputed();
-    for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it!= logics.end(); it++) {
-        device.openTag(SUMO_TAG_TLLOGIC);
-        device.writeAttr(SUMO_ATTR_ID, (*it)->getID());
-        device.writeAttr(SUMO_ATTR_TYPE, toString(TLTYPE_STATIC));
-        device.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
-        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
-        device << ">\n";
-        // write the phases
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> &phases = (*it)->getPhases();
-        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j=phases.begin(); j!=phases.end(); ++j) {
-            device.openTag(SUMO_TAG_PHASE);
-            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j->duration));
-            device.writeAttr(SUMO_ATTR_STATE, j->state);
-            device.closeTag(true);
-        }
-        device.closeTag();
-    }
-    if (logics.size() > 0) {
-        device << "\n";
-    }
+    writeTrafficLights(device, nb.getTLLogicCont());
 
     // write the nodes (junctions)
     for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
@@ -558,6 +537,32 @@ NWWriter_SUMO::writeProhibitions(OutputDevice &into, const NBConnectionProhibits
 std::string 
 NWWriter_SUMO::prohibitionConnection(const NBConnection &c) {
     return c.getFrom()->getID() + "->" + c.getTo()->getID();
+}
+
+
+void 
+NWWriter_SUMO::writeTrafficLights(OutputDevice &into, const NBTrafficLightLogicCont &tllCont) {
+    std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
+    for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it!= logics.end(); it++) {
+        into.openTag(SUMO_TAG_TLLOGIC);
+        into.writeAttr(SUMO_ATTR_ID, (*it)->getID());
+        into.writeAttr(SUMO_ATTR_TYPE, toString(TLTYPE_STATIC));
+        into.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
+        into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
+        into << ">\n";
+        // write the phases
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> &phases = (*it)->getPhases();
+        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j=phases.begin(); j!=phases.end(); ++j) {
+            into.openTag(SUMO_TAG_PHASE);
+            into.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j->duration));
+            into.writeAttr(SUMO_ATTR_STATE, j->state);
+            into.closeTag(true);
+        }
+        into.closeTag();
+    }
+    if (logics.size() > 0) {
+        into << "\n";
+    }
 }
 
 /****************************************************************************/

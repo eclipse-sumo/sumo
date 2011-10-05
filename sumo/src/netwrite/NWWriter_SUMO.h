@@ -43,6 +43,7 @@
 class OutputDevice;
 class OptionsCont;
 class NBNetBuilder;
+class NBTrafficLightLogicCont;
 class NBNode;
 class NBDistrict;
 
@@ -77,6 +78,9 @@ public:
 
     /// @brief writes the given prohibitions
     static void writeProhibitions(OutputDevice &into, const NBConnectionProhibits &prohibitions);
+
+    /// @brief writes the traffic light logics to the given device
+    static void writeTrafficLights(OutputDevice &into, const NBTrafficLightLogicCont &tllCont);
 
 protected:
     /// @name Methods for writing network parts

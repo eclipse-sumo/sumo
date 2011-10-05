@@ -59,10 +59,16 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     if (!oc.isSet("plain-output-prefix")) {
         return;
     }
+    writeNodes(oc, nb.getNodeCont());
+    writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
+}
+
+
+void
+NWWriter_XML::writeNodes(const OptionsCont &oc, NBNodeCont &nc) {
     // write nodes
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
-    NBNodeCont &nc = nb.getNodeCont();
     for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
@@ -88,12 +94,15 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         device.closeTag(true);
     }
     device.close();
-    // write edges / connections
+}
+
+
+void
+NWWriter_XML::writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NBEdgeCont &ec) {
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
     edevice.writeXMLHeader("edges", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/connections_file.xsd\"");
-    NBEdgeCont &ec = nb.getEdgeCont();
     bool noNames = !oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
         // write the edge itself to the edges-files
@@ -183,7 +192,5 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     edevice.close();
     cdevice.close();
 }
-
-
 /****************************************************************************/
 
