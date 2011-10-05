@@ -3,7 +3,7 @@
 @file    runner.py
 @author  Daniel Krajzewicz
 @date    2007-10-25
-@version $Id: runner.py 11196 2011-09-03 20:00:27Z behrisch $
+@version $Id$
 
 This script is a test runner for the broken networks.
 
