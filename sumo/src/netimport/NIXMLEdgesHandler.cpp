@@ -124,9 +124,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     myNotAllowed = myTypeCont.getDisallowedClasses("");
     myCurrentWidth = myTypeCont.getWidth("");
     myCurrentOffset = NBEdge::UNSPECIFIED_OFFSET;
-    // check whether a type's values shall be used
     myCurrentType = "";
     myShape = PositionVector();
+    myLanesSpread = LANESPREAD_RIGHT;
+    // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
         if (!ok) {
@@ -164,6 +165,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
         myShape = myCurrentEdge->getGeometry();
         myCurrentWidth = myCurrentEdge->getWidth();
         myCurrentOffset = myCurrentEdge->getOffset();
+        myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
     }
     // speed, priority and the number of lanes have now default values;
     // try to read the real values from the file
@@ -214,23 +216,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     }
     // try to get the shape
     myShape = tryGetShape(attrs);
-    // and how to spread the lanes
-    std::string lsfS = toString(LANESPREAD_RIGHT);
-    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
-        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
-        if (!myHaveWarnedAboutDeprecatedSpreadType) {
-            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
-            myHaveWarnedAboutDeprecatedSpreadType = true;
-        }
-    } else {
-        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
-    }
-    if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
-        myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
-    } else {
-        myLanesSpread = LANESPREAD_RIGHT;
-        WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
-    }
+    // try to get the spread type
+    myLanesSpread = tryGetLaneSpread(attrs);
     // get the length or compute it
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         myLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok);
@@ -496,6 +483,29 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
         WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
     }
     return shape;
+}
+
+
+LaneSpreadFunction
+NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes &attrs) {
+    bool ok = true;
+    LaneSpreadFunction result = myLanesSpread;
+    std::string lsfS = toString(result);
+    if (attrs.hasAttribute(SUMO_ATTR_SPREADFUNC__DEPRECATED)) {
+        lsfS = attrs.getStringReporting(SUMO_ATTR_SPREADFUNC__DEPRECATED, myCurrentID.c_str(), ok);
+        if (!myHaveWarnedAboutDeprecatedSpreadType) {
+            WRITE_WARNING("'" + toString(SUMO_ATTR_SPREADFUNC__DEPRECATED) + " is deprecated; please use '" + toString(SUMO_ATTR_SPREADTYPE) + "'.");
+            myHaveWarnedAboutDeprecatedSpreadType = true;
+        }
+    } else {
+        lsfS = attrs.getOptStringReporting(SUMO_ATTR_SPREADTYPE, myCurrentID.c_str(), ok, lsfS);
+    }
+    if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
+        result = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
+    } else {
+        WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
+    }
+    return result;
 }
 
 

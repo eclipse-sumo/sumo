@@ -118,6 +118,11 @@ private:
     PositionVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
 
 
+    /** @brief Tries to parse the spread type
+     */
+    LaneSpreadFunction tryGetLaneSpread(const SUMOSAXAttributes &attrs);
+
+
     /** @brief Sets from/to node information of the currently parsed edge
      *
      * If the nodes could be retrieved/built, they are set in myFromNode/myToNode,
