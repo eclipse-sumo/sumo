@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Oct  4 08:07:08 2011 by SUMO netconvert Version dev-SVN-r11329
+<!-- generated on Thu Oct  6 15:59:54 2011 by SUMO netconvert Version dev-SVN-r11329
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -796,8 +796,6 @@
     <connection from="9" to="48" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="9" to="10" fromLane="1" toLane="1" dir="t" state="m"/>
 
-    <prohibition prohibitor="1000702[1]+1000701->1000707" prohibited="1000702[1]+1000701->1000703"/>
-    <prohibition prohibitor="1000702[1]+1000701->1000703" prohibited="1000702[1]+1000701->1000707"/>
     <prohibition prohibitor="1000714+1000713->1000703" prohibited="1000714+1000713->1000700"/>
     <prohibition prohibitor="1000714+1000713->1000700" prohibited="1000714+1000713->1000703"/>
     <prohibition prohibitor="1000714+1000713->1000712" prohibited="1000714+1000713->1000707"/>
@@ -806,6 +804,8 @@
     <prohibition prohibitor="1000714+1000713->1000707" prohibited="1000714+1000713->1000712"/>
     <prohibition prohibitor="1000702[1]+1000701->1000712" prohibited="1000714+1000713->1000712"/>
     <prohibition prohibitor="1000702[1]+1000701->1000712" prohibited="1000714+1000713->1000712"/>
+    <prohibition prohibitor="1000702[1]+1000701->1000707" prohibited="1000702[1]+1000701->1000703"/>
+    <prohibition prohibitor="1000702[1]+1000701->1000703" prohibited="1000702[1]+1000701->1000707"/>
     <prohibition prohibitor="1000714+1000713->1000700" prohibited="1000704->1000700"/>
     <prohibition prohibitor="1000714+1000713->1000700" prohibited="1000704->1000700"/>
     <prohibition prohibitor="1000714+1000713->1000703" prohibited="1000704->1000700"/>
