@@ -58,6 +58,13 @@ class NBDistrict;
  */
 class NWWriter_SUMO {
 public:
+
+    enum ConnectionStyle {
+        SUMONET, // all connection information
+        PLAIN,   // only edges and link indices
+        TLL      // like plain but include tl information
+    };
+
     /** @brief Writes the network into a SUMO-file
      *
      * @param[in] oc The options to use
@@ -74,7 +81,7 @@ public:
      * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
      */
     static void writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c,
-                                bool includeInternal, bool plain=false);
+                                bool includeInternal, ConnectionStyle style=SUMONET);
 
     /// @brief writes the given prohibitions
     static void writeProhibitions(OutputDevice &into, const NBConnectionProhibits &prohibitions);

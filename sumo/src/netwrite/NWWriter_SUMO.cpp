@@ -376,7 +376,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
 
 void
 NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c,
-                               bool includeInternal, bool plain) {
+                               bool includeInternal, ConnectionStyle style) {
     assert(c.toEdge != 0);
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
@@ -384,7 +384,7 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
     into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
     into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
 
-    if (!plain) {
+    if (style != PLAIN) {
         if (includeInternal) {
             into.writeAttr(SUMO_ATTR_VIA, c.id + "_0");
         }
@@ -393,18 +393,20 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
             into.writeAttr(SUMO_ATTR_TLID, c.tlID);
             into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkNo);
         }
-        // write the direction information
-        LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge);
-        assert(dir != LINKDIR_NODIR);
-        into.writeAttr(SUMO_ATTR_DIR, toString(dir));
-        // write the state information
-        std::string stateCode;
-        if (c.tlID!="") {
-            stateCode = toString(LINKSTATE_TL_OFF_BLINKING);
-        } else {
-            stateCode = from.getToNode()->stateCode(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
+        if (style == SUMONET) {
+            // write the direction information
+            LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge);
+            assert(dir != LINKDIR_NODIR);
+            into.writeAttr(SUMO_ATTR_DIR, toString(dir));
+            // write the state information
+            std::string stateCode;
+            if (c.tlID!="") {
+                stateCode = toString(LINKSTATE_TL_OFF_BLINKING);
+            } else {
+                stateCode = from.getToNode()->stateCode(&from, c.toEdge, c.toLane, c.mayDefinitelyPass);
+            }
+            into.writeAttr(SUMO_ATTR_STATE, stateCode);
         }
-        into.writeAttr(SUMO_ATTR_STATE, stateCode);
     }
     into.closeTag(true);
 }

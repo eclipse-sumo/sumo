@@ -61,7 +61,7 @@ NWWriter_XML::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     writeNodes(oc, nb.getNodeCont());
     writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
-    writeTrafficLights(oc, nb.getTLLogicCont());
+    writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
 }
 
 
@@ -179,7 +179,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NB
         e->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = e->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {
-            NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, true);
+            NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, NWWriter_SUMO::PLAIN);
         }
         if (connections.size() > 0) {
             cdevice << "\n";
@@ -196,10 +196,22 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NB
 
 
 void 
-NWWriter_XML::writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc) {
+NWWriter_XML::writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc, NBEdgeCont &ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".tll.xml");
     device.writeXMLHeader("tlLogics", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
     NWWriter_SUMO::writeTrafficLights(device, tc);
+    // we also need to remember the associations between tlLogics and connections
+    // since the information in con.xml is insufficient
+    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
+        NBEdge *e = (*i).second;
+        // write this edge's tl-controlled connections 
+        const std::vector<NBEdge::Connection> connections = e->getConnections();
+        for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {
+            if (c->tlID != "") {
+                NWWriter_SUMO::writeConnection(device, *e, *c, false, NWWriter_SUMO::TLL);
+            }
+        }
+    }
     device.close();
 }
 /****************************************************************************/

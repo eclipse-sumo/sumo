@@ -84,8 +84,9 @@ private:
     /** @brief Writes the traffic lights file
      * @param[in] oc The options to use
      * @param[in] tc The tll-container from which to read data
+     * @param[in] ec The edge-container from which to read data
      */
-    static void writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc);
+    static void writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc, NBEdgeCont &ec);
 
 };
 
