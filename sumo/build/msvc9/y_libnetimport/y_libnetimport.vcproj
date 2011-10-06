@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIXMLTrafficLightsHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIXMLEdgesHandler.cpp"
 				>
 			</File>
@@ -465,6 +469,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIXMLConnectionsHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIXMLTrafficLightsHandler.h"
 				>
 			</File>
 			<File
