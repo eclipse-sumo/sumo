@@ -26,21 +26,31 @@ from testUtil import checkBinary
 INDENT = 4
 
 # file types to compare
+TYPE_NODES       = '.nod.xml'
+TYPE_EDGES       = '.edg.xml'
+TYPE_CONNECTIONS = '.con.xml'
+TYPE_TLLOGICS    = '.tll.xml'
 PLAIN_TYPES = [
-        '.nod.xml', 
-        '.edg.xml', 
-        '.con.xml',
-        '.tll.xml'
+        TYPE_NODES,
+        TYPE_EDGES,
+        TYPE_CONNECTIONS,
+        TYPE_TLLOGICS
         ] 
 
 # traffic lights have some peculiarities
-# - ids are not unique (only in combination with programID)
-# - the order of their children (phases) is important.
+# CAVEAT1 - ids are not unique (only in combination with programID)
+# CAVEAT2 - the order of their children (phases) is important.
 #     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always export the whole new traffic light
-# - deletes need not be written because they are also signaled by a changed node type 
+# CAVEAT3 - deletes need not be written because they are also signaled by a changed node type 
 #     (and they complicate the handling of deleted tl-connections)
+# CAVEAT4 - deleted connections must be written with their tlID and tlIndex, otherwise
+#     parsing in netconvert becomes tedious
+# CAVEAT5 - phases must maintain their order
+
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
+
+# see CAVEAT1
 def get_id_attrs(tag): 
     if tag == TAG_TLL:
         return ('id', 'programID')
@@ -67,7 +77,9 @@ RESET = 0
 # stores attributes for later comparison
 class AttributeStore:
 
-    def __init__(self, level=1):
+    def __init__(self, type, level=1):
+        # xml type being parsed
+        self.type = type
         # indent level
         self.level = level
         # dict of names-tuples
@@ -77,9 +89,9 @@ class AttributeStore:
         self.ids_created = set()
         # dict from (tag, id) to (names, values)
         self.id_attrs = {}
-        # dict from tag to (names, values)-sets
-        self.idless_deleted = defaultdict(lambda:set())
-        self.idless_created = defaultdict(lambda:set())
+        # dict from tag to (names, values)-sets, need to preserve order (CAVEAT5)
+        self.idless_deleted = defaultdict(lambda:OrderedSet())
+        self.idless_created = defaultdict(lambda:OrderedSet())
 
 
     # getAttribute returns "" if not present
@@ -106,7 +118,7 @@ class AttributeStore:
         values = tuple([self.getValue(xmlnode, a) for a in names])
         children = None
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
-            children = AttributeStore(self.level + 1)
+            children = AttributeStore(self.type, self.level + 1)
         tag = xmlnode.localName
         id = tuple([xmlnode.getAttribute(a) for a in get_id_attrs(tag) if xmlnode.hasAttribute(a)])
         return tag, id, children, (names, values, children)
@@ -160,7 +172,7 @@ class AttributeStore:
         snames, svalues, schildren = sourceAttrs
         dnames, dvalues, dchildren = destAttrs
         # for traffic lights, always use dchildren
-        if schildren and dchildren and tag != TAG_TLL:
+        if schildren and dchildren and tag != TAG_TLL: # see CAVEAT2
             dchildren = schildren
         if snames == dnames:
             values = tuple([self.diff(n,s,d) for n,s,d in zip (snames,svalues,dvalues)])
@@ -186,8 +198,14 @@ class AttributeStore:
         # data loss if two elements with different tags 
         # have the same id
         for tag, id in self.ids_deleted:
-            if tag != TAG_TLL:
-                self.write(file, '<%s %s/>\n' % (DELETE_ELEMENT, self.id_string(tag, id)))
+            additional = ""
+            if self.type == TYPE_TLLOGICS and tag == TAG_CONNECTION:
+                # see CAVEAT4
+                names, values, children = self.id_attrs[(tag, id)]
+                additional = " " + self.attr_string(names, values)
+            if tag != TAG_TLL: # see CAVEAT3
+                self.write(file, '<%s %s%s/>\n' % (
+                    DELETE_ELEMENT, self.id_string(tag, id), additional))
         # data loss if two elements with different tags 
         # have the same list of attributes and values
         for value_set in self.idless_deleted.itervalues():
@@ -247,6 +265,76 @@ class AttributeStore:
         return ' '.join(['%s="%s"' % (n,v) for n,v in zip(idattrs, id)])
 
 
+
+#######################################################################################3
+# [http://code.activestate.com/recipes/576694/]
+# (c) Raymond Hettinger, MIT-License
+
+import collections
+KEY, PREV, NEXT = range(3)
+class OrderedSet(collections.MutableSet):
+
+    def __init__(self, iterable=None):
+        self.end = end = [] 
+        end += [None, end, end]         # sentinel node for doubly linked list
+        self.map = {}                   # key --> [key, prev, next]
+        if iterable is not None:
+            self |= iterable
+
+    def __len__(self):
+        return len(self.map)
+
+    def __contains__(self, key):
+        return key in self.map
+
+    def add(self, key):
+        if key not in self.map:
+            end = self.end
+            curr = end[PREV]
+            curr[NEXT] = end[PREV] = self.map[key] = [key, curr, end]
+
+    def discard(self, key):
+        if key in self.map:        
+            key, prev, next = self.map.pop(key)
+            prev[NEXT] = next
+            next[PREV] = prev
+
+    def __iter__(self):
+        end = self.end
+        curr = end[NEXT]
+        while curr is not end:
+            yield curr[KEY]
+            curr = curr[NEXT]
+
+    def __reversed__(self):
+        end = self.end
+        curr = end[PREV]
+        while curr is not end:
+            yield curr[KEY]
+            curr = curr[PREV]
+
+    def pop(self, last=True):
+        if not self:
+            raise KeyError('set is empty')
+        key = next(reversed(self)) if last else next(iter(self))
+        self.discard(key)
+        return key
+
+    def __repr__(self):
+        if not self:
+            return '%s()' % (self.__class__.__name__,)
+        return '%s(%r)' % (self.__class__.__name__, list(self))
+
+    def __eq__(self, other):
+        if isinstance(other, OrderedSet):
+            return len(self) == len(other) and list(self) == list(other)
+        return set(self) == set(other)
+
+    def __del__(self):
+        self.clear()                    # remove circular references
+#######################################################################################3
+
+
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
     optParser = OptionParser()
@@ -275,7 +363,7 @@ def create_plain(netfile):
 # creates diff of a flat xml structure 
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type):
-    attributeStore = AttributeStore()
+    attributeStore = AttributeStore(type)
     root_open = None
     if os.path.isfile(source):
         root_open, root_close = handle_children(source, attributeStore.store)
