@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,6 +151,7 @@
     <ClCompile Include="..\..\..\src\netimport\NIXMLConnectionsHandler.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIXMLEdgesHandler.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIXMLNodesHandler.cpp" />
+    <ClCompile Include="..\..\..\src\netimport\NIXMLTrafficLightsHandler.cpp" />
     <ClCompile Include="..\..\..\src\netimport\NIXMLTypesHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="..\..\..\src\netimport\NIXMLConnectionsHandler.h" />
     <ClInclude Include="..\..\..\src\netimport\NIXMLEdgesHandler.h" />
     <ClInclude Include="..\..\..\src\netimport\NIXMLNodesHandler.h" />
+    <ClInclude Include="..\..\..\src\netimport\NIXMLTrafficLightsHandler.h" />
     <ClInclude Include="..\..\..\src\netimport\NIXMLTypesHandler.h" />
   </ItemGroup>
   <ItemGroup>
