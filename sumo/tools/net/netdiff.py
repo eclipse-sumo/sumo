@@ -37,6 +37,8 @@ PLAIN_TYPES = [
 # - ids are not unique (only in combination with programID)
 # - the order of their children (phases) is important.
 #     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always export the whole new traffic light
+# - deletes need not be written because they are also signaled by a changed node type 
+#     (and they complicate the handling of deleted tl-connections)
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 def get_id_attrs(tag): 
@@ -184,7 +186,8 @@ class AttributeStore:
         # data loss if two elements with different tags 
         # have the same id
         for tag, id in self.ids_deleted:
-            self.write(file, '<%s %s/>\n' % (DELETE_ELEMENT, self.id_string(tag, id)))
+            if tag != TAG_TLL:
+                self.write(file, '<%s %s/>\n' % (DELETE_ELEMENT, self.id_string(tag, id)))
         # data loss if two elements with different tags 
         # have the same list of attributes and values
         for value_set in self.idless_deleted.itervalues():
