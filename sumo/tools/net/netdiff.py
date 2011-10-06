@@ -33,7 +33,20 @@ PLAIN_TYPES = [
         '.tll.xml'
         ] 
 
-ID_ATTR = 'id' # attribute for unique identifier
+# traffic lights have some peculiarities
+# - ids are not unique (only in combination with programID)
+# - the order of their children (phases) is important.
+#     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always export the whole new traffic light
+TAG_TLL = 'tlLogic'
+TAG_CONNECTION = 'connection'
+def get_id_attrs(tag): 
+    if tag == TAG_TLL:
+        return ('id', 'programID')
+    elif tag == TAG_CONNECTION:
+        return ('from', 'to', 'fromLane', 'toLane')
+    else:
+        return ('id',)
+
 DELETE_ELEMENT = 'reset' # the xml element for signifying deletes
 
 # provide an order for the attribute names
@@ -76,9 +89,10 @@ class AttributeStore:
 
 
     def getNames(self, xmlnode):
+        idattrs = get_id_attrs(xmlnode.localName)
         a = xmlnode.attributes
         all = [a.item(i).localName for i in range(a.length)]
-        instance = tuple([n for n in all if n != ID_ATTR])
+        instance = tuple([n for n in all if n not in idattrs])
         if not instance in self.attrnames:
             self.attrnames[instance] = instance
         # only store a single instance of this tuple to conserve memory
@@ -92,14 +106,14 @@ class AttributeStore:
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
             children = AttributeStore(self.level + 1)
         tag = xmlnode.localName
-        id = xmlnode.getAttribute(ID_ATTR)
+        id = tuple([xmlnode.getAttribute(a) for a in get_id_attrs(tag) if xmlnode.hasAttribute(a)])
         return tag, id, children, (names, values, children)
 
 
     def store(self, xmlnode):
         tag, id, children, attrs = self.getAttrs(xmlnode)
         tagid = (tag, id)
-        if id != "":
+        if id != ():
             self.ids_deleted.add(tagid)
             self.id_attrs[tagid] = attrs
             if children:
@@ -107,17 +121,17 @@ class AttributeStore:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.store(child)
         else:
-            self.no_children_supported(children)
+            self.no_children_supported(children, tag)
             self.idless_deleted[tag].add(attrs)
 
 
     def compare(self, xmlnode):
         tag, id, children, attrs = self.getAttrs(xmlnode)
         tagid = (tag, id)
-        if id != "":
+        if id != ():
             if tagid in self.ids_deleted:
                 self.ids_deleted.remove(tagid)
-                self.id_attrs[tagid] = self.compareAttrs(self.id_attrs[tagid], attrs)
+                self.id_attrs[tagid] = self.compareAttrs(self.id_attrs[tagid], attrs, tag)
             else:
                 self.ids_created.add(tagid)
                 self.id_attrs[tagid] = attrs
@@ -128,22 +142,23 @@ class AttributeStore:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.compare(child)
         else:
-            self.no_children_supported(children)
+            self.no_children_supported(children, tag)
             if attrs in self.idless_deleted[tag]:
                 self.idless_deleted[tag].remove(attrs)
             else:
                 self.idless_created[tag].add(attrs)
 
 
-    def no_children_supported(self, children):
+    def no_children_supported(self, children, tag):
         if children:
-            print("WARNING: Handling of children only supported for elements with id. Ignored for element '%s'" % tag)
+            print("WARNING: Handling of children only supported for elements without id. Ignored for element '%s'" % tag)
 
 
-    def compareAttrs(self, sourceAttrs, destAttrs):
+    def compareAttrs(self, sourceAttrs, destAttrs, tag):
         snames, svalues, schildren = sourceAttrs
         dnames, dvalues, dchildren = destAttrs
-        if schildren and dchildren:
+        # for traffic lights, always use dchildren
+        if schildren and dchildren and tag != TAG_TLL:
             dchildren = schildren
         if snames == dnames:
             values = tuple([self.diff(n,s,d) for n,s,d in zip (snames,svalues,dvalues)])
@@ -169,7 +184,7 @@ class AttributeStore:
         # data loss if two elements with different tags 
         # have the same id
         for tag, id in self.ids_deleted:
-            self.write(file, '<%s %s="%s"/>\n' % (DELETE_ELEMENT, ID_ATTR, id))
+            self.write(file, '<%s %s/>\n' % (DELETE_ELEMENT, self.id_string(tag, id)))
         # data loss if two elements with different tags 
         # have the same list of attributes and values
         for value_set in self.idless_deleted.itervalues():
@@ -207,9 +222,9 @@ class AttributeStore:
                 close_tag = "/>\n"
                 if child_strings.len > 0:
                     close_tag = ">\n%s" % child_strings.getvalue()
-                self.write(file, '<%s %s="%s" %s%s' % (
+                self.write(file, '<%s %s %s%s' % (
                     tag,
-                    ID_ATTR, id,
+                    self.id_string(tag, id),
                     attrs,
                     close_tag))
                 if child_strings.len > 0:
@@ -223,6 +238,10 @@ class AttributeStore:
 
     def attr_string(self, names, values):
         return ' '.join(['%s="%s"' % (n,v) for n,v in zip(names, values) if v != None])
+
+    def id_string(self, tag, id):
+        idattrs = get_id_attrs(tag)
+        return ' '.join(['%s="%s"' % (n,v) for n,v in zip(idattrs, id)])
 
 
 def parse_args():
