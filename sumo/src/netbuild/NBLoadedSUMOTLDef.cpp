@@ -88,13 +88,18 @@ NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toL
                 "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         return;
     }
-    myControlledLinks.push_back(NBConnection(from, fromLane, to, toLane, linkIndex)); 
+    NBConnection conn(from, fromLane, to, toLane, linkIndex);
+    // avoid duplicates
+    remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
+    myControlledLinks.push_back(conn); 
     addNode(from->getToNode());
     addNode(to->getFromNode());
     myOriginalNodes.insert(from->getToNode());
     myOriginalNodes.insert(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
     myControlledInnerEdges.insert(from->getID());
+    // set this information now so that it can be used while loading diffs
+    from->setControllingTLInformation(conn, getID());
 }
 
 
@@ -150,35 +155,39 @@ NBLoadedSUMOTLDef::amInvalid() {
 
 
 void 
-NBLoadedSUMOTLDef::removeConnection(const NBConnection &conn) {
+NBLoadedSUMOTLDef::removeConnection(const NBConnection &conn, bool reconstruct) {
     NBConnectionVector::iterator it = find(myControlledLinks.begin(), myControlledLinks.end(), conn);
     if (it == myControlledLinks.end()) {
         throw ProcessError("Attempt to remove nonexistant connection");
     }
     const int removed = conn.getTLIndex();
-    // remove the connection and set as uncontrolled
+    // remove the connection 
     myControlledLinks.erase(it);
-    conn.getFrom()->setControllingTLInformation(conn, "");
-    // shift link numbers down so there is no gap
-    for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        NBConnection &c = *it;
-        if (c.getTLIndex() > removed) {
-            c.setTLIndex(c.getTLIndex() - 1);
+    if (reconstruct) {
+        // updating the edge is only needed for immediate use in NETEDIT. 
+        // It may conflict with loading diffs
+        conn.getFrom()->setControllingTLInformation(conn, "");
+        // shift link numbers down so there is no gap
+        for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+            NBConnection &c = *it;
+            if (c.getTLIndex() > removed) {
+                c.setTLIndex(c.getTLIndex() - 1);
+            }
         }
+        // update controlling information with new link numbers
+        setTLControllingInformation();
+        // rebuild the logic
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases(); 
+        NBTrafficLightLogic *newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0);
+        newLogic->setOffset(myTLLogic->getOffset());
+        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
+            std::string newState = it->state;
+            newState.erase(newState.begin() + removed);
+            newLogic->addStep(it->duration, newState);
+        }
+        delete myTLLogic;
+        myTLLogic = newLogic;
     }
-    // update controlling information with new link numbers
-    setTLControllingInformation();
-    // rebuild the logic
-    const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases(); 
-    NBTrafficLightLogic *newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0);
-    newLogic->setOffset(myTLLogic->getOffset());
-    for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-        std::string newState = it->state;
-        newState.erase(newState.begin() + removed);
-        newLogic->addStep(it->duration, newState);
-    }
-    delete myTLLogic;
-    myTLLogic = newLogic;
 }
 
 /****************************************************************************/

@@ -134,6 +134,10 @@ public:
     */
     void deletePhase(unsigned int index);
 
+    /* @brief deletes all phases and reset the expect number of links
+    */
+    void resetPhases();
+
     /** @brief closes the building process
      *
      * Joins equal steps.

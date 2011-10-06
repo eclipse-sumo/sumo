@@ -103,10 +103,11 @@ public:
     void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex);
 
 
-    /** @brief removes the given connection from the traffic light
+    /** @brief removes the given connection from the traffic light 
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
-    void removeConnection(const NBConnection &conn);
-
+    void removeConnection(const NBConnection &conn, bool reconstruct=true);
 
     /** @brief Returns the internal logic
      */
@@ -140,9 +141,27 @@ private:
     /// @brief The original nodes for which the loaded logic is valid
     std::set<NBNode*> myOriginalNodes;
 
-private:
     /** @brief Informs edges about being controlled by a tls */
     void setTLControllingInformation() const;
+
+private:
+    /// @brief class for identifying connections
+    class connection_equal {
+    public:
+        /// constructor
+        connection_equal(const NBConnection &c) : myC(c) {}
+
+        bool operator()(const NBConnection &c) const {
+            return c.getFrom() == myC.getFrom() && c.getTo() == myC.getTo() &&
+                c.getFromLane() == myC.getFromLane() && c.getToLane() == myC.getToLane();
+        }
+    private:
+        const NBConnection& myC;
+    private:
+        /// @brief invalidated assignment operator
+        connection_equal &operator=(const connection_equal &s);
+
+    };
 
 };
 

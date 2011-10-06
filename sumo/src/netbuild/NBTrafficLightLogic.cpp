@@ -113,6 +113,13 @@ NBTrafficLightLogic::deletePhase(unsigned int index) {
 }
 
 
+void 
+NBTrafficLightLogic::resetPhases() {
+    myNumLinks = 0;
+    myPhases.clear();
+}
+
+
 SUMOTime
 NBTrafficLightLogic::getDuration() const throw() {
     SUMOTime duration = 0;
