@@ -24,13 +24,15 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'lib'))
 from testUtil import checkBinary
 
 INDENT = 4
+
+# file types to compare
 PLAIN_TYPES = [
         '.nod.xml', 
         '.edg.xml', 
-        '.con.xml' # different logic for deletes, 
-        #  cannot start to print creates until the whole of dest is read
-        
-        ] # file types to compare
+        '.con.xml',
+        '.tll.xml'
+        ] 
+
 ID_ATTR = 'id' # attribute for unique identifier
 DELETE_ELEMENT = 'reset' # the xml element for signifying deletes
 
@@ -252,18 +254,28 @@ def create_plain(netfile):
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type):
     attributeStore = AttributeStore()
-    root_open, root_close = handle_children(source, attributeStore.store)
-    handle_children(dest, attributeStore.compare)
+    root_open = None
+    if os.path.isfile(source):
+        root_open, root_close = handle_children(source, attributeStore.store)
+    else:
+        print "Source file %s is missing. Assuming all elements are created" % source
+    if os.path.isfile(dest):
+        root_open, root_close = handle_children(dest, attributeStore.compare)
+    else:
+        print "Dest file %s is missing. Assuming all elements are deleted" % dest
 
-    with open(diff, 'w') as diff_file:
-        diff_file.write(root_open)
-        attributeStore.write(diff_file, "<!-- Deleted Elements -->\n")
-        attributeStore.writeDeleted(diff_file)
-        attributeStore.write(diff_file, "<!-- Created Elements -->\n")
-        attributeStore.writeCreated(diff_file)
-        attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
-        attributeStore.writeChanged(diff_file)
-        diff_file.write(root_close)
+    if root_open:
+        with open(diff, 'w') as diff_file:
+            diff_file.write(root_open)
+            attributeStore.write(diff_file, "<!-- Deleted Elements -->\n")
+            attributeStore.writeDeleted(diff_file)
+            attributeStore.write(diff_file, "<!-- Created Elements -->\n")
+            attributeStore.writeCreated(diff_file)
+            attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
+            attributeStore.writeChanged(diff_file)
+            diff_file.write(root_close)
+    else:
+        print "Skipping %s due to lack of input files" % diff
 
 
 # calls function handle_parsenode for all children of the root element
@@ -271,8 +283,8 @@ def xmldiff(source, dest, diff, type):
 def handle_children(xmlfile, handle_parsenode):
     root_open = None
     root_close = None
-    xml_doc = pulldom.parse(xmlfile)
     level = 0
+    xml_doc = pulldom.parse(xmlfile)
     for event, parsenode in xml_doc:
         if event == pulldom.START_ELEMENT: 
             # print level, parsenode.getAttribute(ID_ATTR)
