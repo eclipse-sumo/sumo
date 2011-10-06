@@ -12,10 +12,11 @@ NIImporter_RobocupRescue.cpp NIImporter_RobocupRescue.h \
 NIImporter_SUMO.cpp NIImporter_SUMO.h \
 NIImporter_VISUM.cpp NIImporter_VISUM.h \
 NIVisumTL.cpp NIVisumTL.h \
-NIXMLConnectionsHandler.cpp NIXMLEdgesHandler.cpp \
-NIXMLNodesHandler.cpp NIXMLTypesHandler.cpp \
-NIXMLConnectionsHandler.h NIXMLEdgesHandler.h \
-NIXMLNodesHandler.h NIXMLTypesHandler.h \
+NIXMLConnectionsHandler.cpp NIXMLConnectionsHandler.h \
+NIXMLEdgesHandler.cpp NIXMLEdgesHandler.h \
+NIXMLNodesHandler.cpp NIXMLNodesHandler.h \
+NIXMLTypesHandler.cpp NIXMLTypesHandler.h \
+NIXMLTrafficLightsHandler.cpp NIXMLTrafficLightsHandler.h \
 NINavTeqHelper.cpp NINavTeqHelper.h
 
 SUBDIRS = vissim

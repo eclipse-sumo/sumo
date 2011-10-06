@@ -71,6 +71,13 @@ public:
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 
+    /// begins the reading of a traffic lights logic
+    static NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL);
+
+    /// adds a phase to the traffic lights logic currently build
+    static void addPhase(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL);
+
+
 protected:
     /** @brief Constructor
      * @param[in] nc The network builder to fill
@@ -169,12 +176,6 @@ private:
      * @param[in] attrs The attributes to get the connection from
      */
     void addProhibition(const SUMOSAXAttributes &attrs);
-
-    /// begins the reading of a traffic lights logic
-    void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
-
-    /// adds a phase to the traffic lights logic currently build
-    void addPhase(const SUMOSAXAttributes &attrs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes &attrs);

@@ -42,6 +42,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netimport/NIXMLEdgesHandler.h>
 #include <netimport/NIXMLNodesHandler.h>
+#include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
 #include <netimport/NIImporter_DlrNavteq.h>
@@ -148,6 +149,10 @@ NILoader::loadXML(OptionsCont &oc) {
     // load the connections
     loadXMLType(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont()),
                 oc.getStringVector("connection-files"), "connections");
+    // load traffic lights (needs to come last, references loaded edges and connections)
+    loadXMLType(new NIXMLTrafficLightsHandler(
+                myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
+            oc.getStringVector("tllogic-files"), "traffic lights");
 }
 
 

@@ -77,6 +77,9 @@ NIFrame::fillOptions() {
     oc.addSynonyme("connection-files", "connections");
     oc.addDescription("connection-files", "Input", "Read XML-connection defs from FILE");
 
+    oc.doRegister("tllogic-files", 'i', new Option_FileName());
+    oc.addDescription("tllogic-files", "Input", "Read XML-traffic light defs from FILE");
+
     oc.doRegister("type-files", 't', new Option_FileName());
     oc.addSynonyme("type-files", "xml-type-files", true);
     oc.addSynonyme("type-files", "xml-types", true);

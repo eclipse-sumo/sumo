@@ -279,10 +279,10 @@ NIImporter_SUMO::myStartElement(int element,
         break;
     case SUMO_TAG_TLLOGIC__DEPRECATED:
     case SUMO_TAG_TLLOGIC:
-        initTrafficLightLogic(attrs);
+        myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
         break;
     case SUMO_TAG_PHASE:
-        addPhase(attrs);
+        addPhase(attrs, myCurrentTL);
         break;
     case SUMO_TAG_LOCATION:
         setLocation(attrs);
@@ -578,11 +578,11 @@ NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_i
 }
 
 
-void
-NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
-    if (myCurrentTL) {
-        WRITE_ERROR("Definition of tl-logic '" + myCurrentTL->getID() + "' was not finished.");
-        return;
+NBLoadedSUMOTLDef*
+NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL) {
+    if (currentTL) {
+        WRITE_ERROR("Definition of tl-logic '" + currentTL->getID() + "' was not finished.");
+        return 0;
     }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -594,23 +594,25 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
                 toString(TLTYPE_STATIC) + "'");
     }
     if (ok) {
-        myCurrentTL = new NBLoadedSUMOTLDef(id, programID, offset);
+        return new NBLoadedSUMOTLDef(id, programID, offset);
+    } else {
+        return 0;
     }
 }
 
 
 void
-NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
-    if (!myCurrentTL) {
+NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL) {
+    if (!currentTL) {
         WRITE_ERROR("found phase without tl-logic");
         return;
     }
-    const std::string &id = myCurrentTL->getID();
+    const std::string &id = currentTL->getID();
     bool ok = true;
     std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, id.c_str(), ok);
     SUMOTime duration = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
-        WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + myCurrentTL->getProgramID() + "' must be positive.");
+        WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
@@ -618,7 +620,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs) {
     //SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, -1);
     //SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, -1);
     if (ok) {
-        myCurrentTL->addPhase(duration, state);
+        currentTL->addPhase(duration, state);
     }
 }
 
