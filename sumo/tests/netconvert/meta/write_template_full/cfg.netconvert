@@ -7,6 +7,7 @@
         <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE" help="Read XML-node defs from FILE"/>
         <edge-files value="" synonymes="e edges xml-edge-files xml-edges" type="FILE" help="Read XML-edge defs from FILE"/>
         <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE" help="Read XML-connection defs from FILE"/>
+        <tllogic-files value="" synonymes="i" type="FILE" help="Read XML-traffic light defs from FILE"/>
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE" help="Read XML-type defs from FILE"/>
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"/>
         <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"/>

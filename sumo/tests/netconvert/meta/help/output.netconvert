@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11246
+SUMO netconvert Version dev-SVN-r11355
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -23,6 +23,7 @@ Usage: netconvert [OPTION]*
   -n, --node-files FILE               Read XML-node defs from FILE
   -e, --edge-files FILE               Read XML-edge defs from FILE
   -x, --connection-files FILE         Read XML-connection defs from FILE
+  -i, --tllogic-files FILE            Read XML-traffic light defs from FILE
   -t, --type-files FILE               Read XML-type defs from FILE
   --shapefile-prefix FILE             Read shapefiles (ArcView, Tiger, ...)
                                         from files starting with 'FILE'

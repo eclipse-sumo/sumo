@@ -15,6 +15,9 @@
         <!-- Read XML-connection defs from FILE -->
         <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE"/>
 
+        <!-- Read XML-traffic light defs from FILE -->
+        <tllogic-files value="" synonymes="i" type="FILE"/>
+
         <!-- Read XML-type defs from FILE -->
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE"/>
 
