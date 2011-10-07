@@ -375,25 +375,34 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
         return;
     }
     myCurrentIsInternalToSkip = false;
-    // get the function
-    std::string func = attrs.hasAttribute(SUMO_ATTR_FUNCTION) ? attrs.getStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok) : "";
+    // parse the function
+    SumoXMLEdgeFunc func = EDGEFUNC_NORMAL;
+    std::string funcString = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, toString(func));
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
-    // parse the function
-    MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
-    if (func==""||func=="normal") {
-        funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
-    } else if (func=="connector"||func=="sink"||func=="source") {
-        funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
-    } else if (func=="internal") {
-        funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
-    }
-    if (funcEnum<0) {
-        WRITE_ERROR("Edge '" + id + "' has an invalid type ('" + func + "').");
+    if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
+        func = SUMOXMLDefinitions::EdgeFunctions.get(funcString);
+    } else {
+        WRITE_ERROR("Edge '" + id + "' has an invalid type ('" + funcString + "').");
         myCurrentIsBroken = true;
         return;
+    }
+    // interpret the function
+    MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
+    switch (func) {
+        case EDGEFUNC_NORMAL:
+            funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
+            break;
+        case EDGEFUNC_CONNECTOR:
+        case EDGEFUNC_SINK:
+        case EDGEFUNC_SOURCE:
+            funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
+            break;
+        case EDGEFUNC_INTERNAL:
+            funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
+            break;
     }
     // get the street name
     std::string streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
