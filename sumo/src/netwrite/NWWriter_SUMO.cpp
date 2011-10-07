@@ -184,7 +184,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMO
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
-    into.writeAttr(SUMO_ATTR_FUNCTION, toString(NODETYPE_INTERNAL));
+    into.writeAttr(SUMO_ATTR_FUNCTION, toString(EDGEFUNC_INTERNAL));
     into <<">\n";
     into.openTag(SUMO_TAG_LANE);
     into.writeAttr(SUMO_ATTR_ID, id + "_0");

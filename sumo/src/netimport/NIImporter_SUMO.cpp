@@ -117,7 +117,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
         // skip internal edges
-        if (ed->func == "internal") {
+        if (ed->func == toString(EDGEFUNC_INTERNAL)) {
             continue;
         }
         // get and check the nodes
@@ -345,7 +345,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     myCurrentEdge->id = id;
     // get the function
     myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, "normal");
-    if (myCurrentEdge->func == "internal") {
+    if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
         return; // skip internal edges
     }
     // get the type
@@ -392,7 +392,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
         return;
     } 
     myCurrentLane = new LaneAttrs;
-    if (myCurrentEdge->func == "internal") {
+    if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
         return; // skip internal lanes
     }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {

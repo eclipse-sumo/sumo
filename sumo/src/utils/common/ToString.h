@@ -75,6 +75,13 @@ inline std::string toString<SumoXMLNodeType>(const SumoXMLNodeType& nodeType, st
 
 
 template <>
+inline std::string toString<SumoXMLEdgeFunc>(const SumoXMLEdgeFunc& edgeFunc, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::EdgeFunctions.getString(edgeFunc);
+}
+
+
+template <>
 inline std::string toString<SUMOVehicleClass>(const SUMOVehicleClass& vClass, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SumoVehicleClassStrings.getString(vClass);
