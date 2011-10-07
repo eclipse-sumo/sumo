@@ -464,6 +464,16 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
 };
 
 
+StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[] = {
+    {"normal",       EDGEFUNC_NORMAL},
+    {"connector",    EDGEFUNC_CONNECTOR},
+    {"sink",         EDGEFUNC_SINK},
+    {"source",       EDGEFUNC_SOURCE},
+
+    {"internal",     EDGEFUNC_INTERNAL}
+};
+
+
 StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctionValues[] = {
     {"right",             LANESPREAD_RIGHT}, // default
     {"center",            LANESPREAD_CENTER}
@@ -510,6 +520,9 @@ StringBijection<int> SUMOXMLDefinitions::Attrs(
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
     SUMOXMLDefinitions::sumoNodeTypeValues, NODETYPE_UNKNOWN);
+
+StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
+    SUMOXMLDefinitions::sumoEdgeFuncValues, EDGEFUNC_INTERNAL);
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
     SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);

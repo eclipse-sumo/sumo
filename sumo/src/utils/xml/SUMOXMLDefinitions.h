@@ -594,6 +594,20 @@ enum SumoXMLNodeType {
 
 
 /**
+ * @enum SumoXMLEdgeFunc
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * for representing edge functions used in netbuild/netimport and netload
+ */
+enum SumoXMLEdgeFunc {
+    EDGEFUNC_NORMAL,
+    EDGEFUNC_CONNECTOR,
+    EDGEFUNC_SINK,
+    EDGEFUNC_SOURCE,
+    EDGEFUNC_INTERNAL
+};
+
+
+/**
  * @enum LaneSpreadFunction
  * @brief Numbers representing special SUMO-XML-attribute values
  * Information how the edge's lateral offset shall be computed
@@ -705,6 +719,8 @@ public:
     //@{
     static StringBijection<SumoXMLNodeType> NodeTypes;
 
+    static StringBijection<SumoXMLEdgeFunc> EdgeFunctions;
+
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
     static StringBijection<LinkState> LinkStates;
@@ -717,6 +733,8 @@ public:
 private:
 
     static StringBijection<SumoXMLNodeType>::Entry sumoNodeTypeValues[];
+
+    static StringBijection<SumoXMLEdgeFunc>::Entry sumoEdgeFuncValues[];
 
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
 
