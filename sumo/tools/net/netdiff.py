@@ -155,6 +155,20 @@ class AttributeStore:
                 for child in xmlnode.childNodes:
                     if child.nodeType == Node.ELEMENT_NODE:
                         children.compare(child)
+                if tag == TAG_TLL: # see CAVEAT2
+                    child_strings = StringIO.StringIO()
+                    children.writeDeleted(child_strings)
+                    children.writeCreated(child_strings)
+                    children.writeChanged(child_strings)
+                    if child_strings.len > 0:
+                        # there are some changes. Go back and store everything
+                        children = AttributeStore(self.type, self.level + 1)
+                        for child in xmlnode.childNodes:
+                            if child.nodeType == Node.ELEMENT_NODE:
+                                children.compare(child)
+                        self.id_attrs[tagid] = self.id_attrs[tagid][0:2] + (children,)
+
+
         else:
             self.no_children_supported(children, tag)
             if attrs in self.idless_deleted[tag]:
@@ -172,7 +186,7 @@ class AttributeStore:
         snames, svalues, schildren = sourceAttrs
         dnames, dvalues, dchildren = destAttrs
         # for traffic lights, always use dchildren
-        if schildren and dchildren and tag != TAG_TLL: # see CAVEAT2
+        if schildren and dchildren:
             dchildren = schildren
         if snames == dnames:
             values = tuple([self.diff(n,s,d) for n,s,d in zip (snames,svalues,dvalues)])
