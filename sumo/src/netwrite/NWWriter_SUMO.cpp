@@ -56,7 +56,6 @@
 // ---------------------------------------------------------------------------
 void
 NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
-    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
     // check whether a matsim-file shall be generated
     if (!oc.isSet("output-file")) {
         return;
@@ -64,24 +63,13 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
     device.writeXMLHeader("net", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device << "\n";
-    // write network offsets
-    device.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
-    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
-    if (geoConvHelper.usingGeoProjection()) {
-        device.setPrecision(GEO_OUTPUT_ACCURACY);
-        device << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
-        device.setPrecision();
-    } else {
-        device << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
-    }
-    device << " projParameter=\"" << geoConvHelper.getProjString() << "\"";
-    device.closeTag(true);
-    device << "\n";
-
     // get involved container
     const NBNodeCont &nc = nb.getNodeCont();
     const NBEdgeCont &ec = nb.getEdgeCont();
     const NBDistrictCont &dc = nb.getDistrictCont();
+
+    // write network offsets and projection
+    writeLocation(device);
 
     // write inner lanes
     if (!oc.getBool("no-internal-links")) {
@@ -565,6 +553,24 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice &into, const NBTrafficLightLogicC
     if (logics.size() > 0) {
         into << "\n";
     }
+}
+
+
+void 
+NWWriter_SUMO::writeLocation(OutputDevice &into) {
+    const GeoConvHelper &geoConvHelper = GeoConvHelper::getOutputInstance();
+    into.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
+    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
+    if (geoConvHelper.usingGeoProjection()) {
+        into.setPrecision(GEO_OUTPUT_ACCURACY);
+        into << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
+        into.setPrecision();
+    } else {
+        into << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
+    }
+    into << " projParameter=\"" << geoConvHelper.getProjString() << "\"";
+    into.closeTag(true);
+    into << "\n";
 }
 
 /****************************************************************************/

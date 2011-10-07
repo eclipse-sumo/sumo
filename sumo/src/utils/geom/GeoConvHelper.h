@@ -77,18 +77,32 @@ public:
      */
     static void addProjectionOptions(OptionsCont &oc);
 
-    /// Initialises the default instance using the given options
+    /// Initialises the default and the output instance using the given options
     static bool init(OptionsCont &oc);
 
-    /// Initialises the default instance using the given proj.4-definition and complete network parameter
+    /// Initialises the default and the output instance using the given proj.4-definition and complete network parameter
     static void init(const std::string &proj,
                      const Position &offset,
                      const Boundary &orig,
                      const Boundary &conv);
 
-    /// instance is modified during use: boundary adapts may adapt to know coordinates etc
+    /** @brief the coordinate transformation to use for input conversion
+     * @note instance is modified during use: boundary may adapt to new coordinates
+     */
     static GeoConvHelper& getDefaultInstance() {
         return myDefault;
+    }
+
+
+    /** @brief the coordinate transformation for writing the location element
+     */
+    static const GeoConvHelper& getOutputInstance();
+
+    /** @brief sets the coordinate transformation loaded from a location element
+     */
+    static void setLoaded(const GeoConvHelper& loaded) {
+        myLoaded = loaded;
+        myNumLoaded++;
     }
 
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
@@ -98,28 +112,28 @@ public:
     bool x2cartesian(Position &from, bool includeInBoundary=true);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
-    bool usingGeoProjection();
+    bool usingGeoProjection() const;
 
     /// Returns the information whether an inverse transformation will happen
-    bool usingInverseGeoProjection();
+    bool usingInverseGeoProjection() const;
 
     /// Shifts the converted boundary by the given amounts
     void moveConvertedBy(SUMOReal x, SUMOReal y);
 
     /// Returns the original boundary
-    const Boundary &getOrigBoundary();
+    const Boundary &getOrigBoundary() const;
 
     /// Returns the converted boundary
-    const Boundary &getConvBoundary();
+    const Boundary &getConvBoundary() const;
 
     /// Returns the network offset
-    const Position getOffset();
+    const Position getOffset() const;
 
     /// Returns the network base
-    const Position getOffsetBase();
+    const Position getOffsetBase() const;
 
     /// Returns the network offset
-    const std::string &getProjString();
+    const std::string &getProjString() const;
 
 private:
     enum ProjectionMethod {
@@ -165,8 +179,17 @@ private:
     /// initi projection based on the known type and a given position
     void initProjection(double x, double y);
 
-    /// @brief coordinate transformation which shows up in the location tag of the output
+    /// @brief coordinate transformation to use for input conversion
     static GeoConvHelper myDefault;
+
+    /// @brief coordinate transformation loaded from a location element
+    static GeoConvHelper myLoaded;
+
+    /// @brief coordinate transformation to use for writing location element
+    static GeoConvHelper myOutput;
+
+    /// @brief the numer of coordinate transformations loaded from location elements
+    static int myNumLoaded;
 
     /// @brief assignment operator.
     GeoConvHelper& operator=(const GeoConvHelper&);

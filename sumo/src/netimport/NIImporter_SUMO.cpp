@@ -116,7 +116,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     // build edges
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         EdgeAttrs *ed = (*i).second;
-        // skip internal edges (provisionally)
+        // skip internal edges
         if (ed->func == "internal") {
             continue;
         }
@@ -222,16 +222,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                     NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
         }
     }
-    // updated GeoConvHelper with the imported location data
-    if (myLocation == 0) {
-        WRITE_ERROR("No location element loaded from '" + oc.getString("sumo-net-file") + "'");
-        return;
-    }
-    GeoConvHelper &fromOptions = GeoConvHelper::getDefaultInstance();
-    GeoConvHelper::init(myLocation->getProjString(),
-            fromOptions.getOffset() + myLocation->getOffset(),
-            myLocation->getOrigBoundary(),
-            myLocation->getConvBoundary());
+
     // final warning
     if (mySuspectKeepShape) {
         WRITE_WARNING("The input network may have been built using option 'xml.keep-shape'.\n... Accuracy of junction positions cannot be guaranteed.");
@@ -350,11 +341,15 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
         return;
     }
     myCurrentEdge = new EdgeAttrs;
+    myCurrentEdge->builtEdge = 0;
     myCurrentEdge->id = id;
-    // get the type
-    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the function
     myCurrentEdge->func = attrs.getOptStringReporting(SUMO_ATTR_FUNCTION, id.c_str(), ok, "normal");
+    if (myCurrentEdge->func == "internal") {
+        return; // skip internal edges
+    }
+    // get the type
+    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the origin and the destination node
     myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, id.c_str(), ok, "");
     myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, id.c_str(), ok, "");
@@ -365,7 +360,6 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
                                attrs.getObjectType(), id.c_str(), ok, true);
     NILoader::transformCoordinates(myCurrentEdge->shape, true, myLocation);
     myCurrentEdge->maxSpeed = 0;
-    myCurrentEdge->builtEdge = 0;
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     std::string lsfS = toString(LANESPREAD_RIGHT);
@@ -395,8 +389,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     }
     if (!myCurrentEdge) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
-    }
+        return;
+    } 
     myCurrentLane = new LaneAttrs;
+    if (myCurrentEdge->func == "internal") {
+        return; // skip internal lanes
+    }
     if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED__DEPRECATED)) {
         myCurrentLane->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED__DEPRECATED, id.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedMaxSpeed) {
@@ -413,7 +411,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->shape = GeomConvHelper::parseShapeReporting(
                                attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok),
                                attrs.getObjectType(), id.c_str(), ok, false);
-    NILoader::transformCoordinates(myCurrentLane->shape, true, myLocation);
+    // lane coordinates are derived (via lane spread) do not include them in convex boundary
+    NILoader::transformCoordinates(myCurrentLane->shape, false, myLocation);
 }
 
 
@@ -682,6 +681,7 @@ NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
     if (ok) {
         Position networkOffset = s[0];
         myLocation = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+        GeoConvHelper::setLoaded(*myLocation);
     }
 }
 

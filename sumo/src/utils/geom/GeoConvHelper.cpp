@@ -49,6 +49,9 @@
 // static member variables
 // ===========================================================================
 GeoConvHelper GeoConvHelper::myDefault("!", Position(), Boundary(), Boundary());
+GeoConvHelper GeoConvHelper::myLoaded("!", Position(), Boundary(), Boundary());
+GeoConvHelper GeoConvHelper::myOutput("!", Position(), Boundary(), Boundary());
+int GeoConvHelper::myNumLoaded = 0;
 
 // ===========================================================================
 // method definitions
@@ -224,13 +227,13 @@ GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
 
 
 bool
-GeoConvHelper::usingGeoProjection() {
+GeoConvHelper::usingGeoProjection() const {
     return myProjectionMethod != NONE;
 }
 
 
 bool
-GeoConvHelper::usingInverseGeoProjection() {
+GeoConvHelper::usingInverseGeoProjection() const {
     return myUseInverseProjection;
 }
 
@@ -329,34 +332,52 @@ GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y) {
 
 
 const Boundary &
-GeoConvHelper::getOrigBoundary() {
+GeoConvHelper::getOrigBoundary() const {
     return myOrigBoundary;
 }
 
 
 const Boundary &
-GeoConvHelper::getConvBoundary() {
+GeoConvHelper::getConvBoundary() const {
     return myConvBoundary;
 }
 
 
 const Position
-GeoConvHelper::getOffset() {
+GeoConvHelper::getOffset() const {
     return myOffset;
 }
 
 
 const Position
-GeoConvHelper::getOffsetBase() {
+GeoConvHelper::getOffsetBase() const {
     return Position(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
 }
 
 
 const std::string &
-GeoConvHelper::getProjString() {
+GeoConvHelper::getProjString() const {
     return myProjString;
 }
 
+
+const GeoConvHelper&
+GeoConvHelper:: getOutputInstance() {
+    if (myNumLoaded == 0) {
+       return myDefault;
+    } else if (myNumLoaded > 1) {
+        WRITE_WARNING("Multiple location elements have been loaded. Check output location for correctness");
+    }
+    myOutput = GeoConvHelper(
+            // prefer options over loaded location
+            myDefault.usingGeoProjection() ? myDefault.getProjString() : myLoaded.getProjString(),
+            // let offset and boundary lead back to the original coords of the loaded data
+            myDefault.getOffset() + myLoaded.getOffset(),
+            myLoaded.getOrigBoundary(),
+            // the new boundary (updated during loading)
+            myDefault.getConvBoundary());
+    return myOutput;
+}
 
 /****************************************************************************/
 

@@ -44,7 +44,7 @@
         <lane id=":node_right_2_0" index="0" speed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
     </edge>
 
-    <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType">
+    <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="40.00,0.00 20.00,20.00 0.00,0.00">
         <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
         <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
         <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
