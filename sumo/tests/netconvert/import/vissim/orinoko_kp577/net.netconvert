@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Oct  4 08:07:08 2011 by SUMO netconvert Version dev-SVN-r11329
+<!-- generated on Fri Oct  7 09:37:13 2011 by SUMO netconvert Version dev-SVN-r11355
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -1060,22 +1060,22 @@
     <connection from="99" to="22" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="99" to="100" fromLane="0" toLane="0" dir="t" state="m"/>
 
-    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
-    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
-    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
-    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
     <prohibition prohibitor="1000702[1]->1000706" prohibited="1000702[1]->1000703"/>
     <prohibition prohibitor="1000702[1]->1000703" prohibited="1000702[1]->1000706"/>
-    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
-    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
-    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
-    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000700" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
+    <prohibition prohibitor="1000711[1]->1000703" prohibited="1000704->1000700"/>
     <prohibition prohibitor="1000705[1]->1000709" prohibited="1000705[1]->1000706"/>
     <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000706"/>
     <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000706"/>
     <prohibition prohibitor="1000705[1]->1000706" prohibited="1000705[1]->1000709"/>
     <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000709"/>
     <prohibition prohibitor="1000710->1000706" prohibited="1000705[1]->1000709"/>
+    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000703" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
+    <prohibition prohibitor="1000702[1]->1000706" prohibited="1000707->1000703"/>
     <prohibition prohibitor="1000708[1]->1000709" prohibited="1000708[1]->1000700"/>
     <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000700"/>
     <prohibition prohibitor="1000701->1000709" prohibited="1000708[1]->1000700"/>

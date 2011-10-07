@@ -153,10 +153,10 @@ NBConnection::replaceTo(NBEdge *which, int whichLane,
 
 bool
 operator<(const NBConnection &c1, const NBConnection &c2) {
-    return
-        std::pair<NBEdge*, NBEdge*>(c1.getFrom(), c1.getTo())
-        <
-        std::pair<NBEdge*, NBEdge*>(c2.getFrom(), c2.getTo());
+    if (c1.myFromID   != c2.myFromID)   return c1.myFromID   < c2.myFromID;
+    if (c1.myToID     != c2.myToID)     return c1.myToID     < c2.myToID;
+    if (c1.myFromLane != c2.myFromLane) return c1.myFromLane < c2.myFromLane;
+    return c1.myToLane < c2.myToLane;
 }
 
 

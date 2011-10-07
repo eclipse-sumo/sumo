@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Tue Oct  4 08:07:08 2011 by SUMO netconvert Version dev-SVN-r11329
+<!-- generated on Fri Oct  7 09:37:12 2011 by SUMO netconvert Version dev-SVN-r11355
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -1669,12 +1669,6 @@
     <connection from="93[0]" to="93[1]" fromLane="0" toLane="0" tl="454" linkIndex="5" dir="s" state="o"/>
     <connection from="93[1]" to="85[1][1][0]" fromLane="0" toLane="0" dir="t" state="m"/>
 
-    <prohibition prohibitor="2->6[0]" prohibited="4+103->6[0]"/>
-    <prohibition prohibitor="1->7" prohibited="4+103->6[0]"/>
-    <prohibition prohibitor="1->7" prohibited="4+103->6[0]"/>
-    <prohibition prohibitor="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->6[0]"/>
-    <prohibition prohibitor="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->6[0]"/>
-    <prohibition prohibitor="2->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->7"/>
     <prohibition prohibitor="4+103->6[0]" prohibited="1->7"/>
     <prohibition prohibitor="4+103->6[0]" prohibited="1->7"/>
     <prohibition prohibitor="4+103->7" prohibited="2->3[1][1][1][1][1][1][1][1][1][1][0]"/>
@@ -1682,17 +1676,23 @@
     <prohibition prohibitor="4+103->7" prohibited="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]"/>
     <prohibition prohibitor="4+103->6[0]" prohibited="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]"/>
     <prohibition prohibitor="4+103->6[0]" prohibited="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
-    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
+    <prohibition prohibitor="2->6[0]" prohibited="4+103->6[0]"/>
+    <prohibition prohibitor="1->7" prohibited="4+103->6[0]"/>
+    <prohibition prohibitor="1->7" prohibited="4+103->6[0]"/>
+    <prohibition prohibitor="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->6[0]"/>
+    <prohibition prohibitor="3[1][1][1][1][1][1][1][1][1][0]->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->6[0]"/>
+    <prohibition prohibitor="2->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="4+103->7"/>
     <prohibition prohibitor="4+103->7" prohibited="5->20000"/>
     <prohibition prohibitor="4+103->7" prohibited="5->20000"/>
     <prohibition prohibitor="4+103->7" prohibited="5->20000"/>
     <prohibition prohibitor="2->3[1][1][1][1][1][1][1][1][1][1][0]" prohibited="5->20000"/>
     <prohibition prohibitor="2->6[0]" prohibited="5->20000"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->6[0]"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
+    <prohibition prohibitor="4+103->7" prohibited="5->7"/>
     <prohibition prohibitor="73->65[1][1][0]" prohibited="70->65[1][1][0]"/>
     <prohibition prohibitor="73->65[1][1][0]" prohibited="70->65[1][1][0]"/>
     <prohibition prohibitor="73->65[1][1][0]" prohibited="70->65[1][1][0]"/>
