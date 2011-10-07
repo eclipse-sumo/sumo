@@ -102,10 +102,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
             if (!parseLaneInfo(attrs, fromEdge, toEdge, &fromLane, &toLane)) {
               return;
             }
-            if (!validateLaneInfo(true /* canLanesBeNegative */, fromEdge,
-                                  toEdge, fromLane, toLane)) {
-              return;
-            }
+            // we could be trying to reset a connection loaded from a sumo net and which has become obsolete. 
+            // In this case it's ok to encounter invalid lance indices
             if (!fromEdge->hasConnectionTo(toEdge, toLane)) {
                 WRITE_WARNING("Target lane '" + toEdge->getLaneID(toLane) +
                               "' is not connected with '" + fromEdge->getID() +
