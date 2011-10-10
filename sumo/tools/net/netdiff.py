@@ -84,9 +84,9 @@ class AttributeStore:
         self.level = level
         # dict of names-tuples
         self.attrnames = {}
-        # sets of (tag, id)
-        self.ids_deleted = set()
-        self.ids_created = set()
+        # sets of (tag, id) preserve order to avoid dangling references during loading
+        self.ids_deleted = OrderedSet()
+        self.ids_created = OrderedSet()
         # dict from (tag, id) to (names, values)
         self.id_attrs = {}
         # dict from tag to (names, values)-sets, need to preserve order (CAVEAT5)
@@ -233,7 +233,7 @@ class AttributeStore:
 
 
     def writeChanged(self, file):
-        tagids_changed = set(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
+        tagids_changed = OrderedSet(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
         self.write_tagids(file, tagids_changed, False)
 
 
@@ -283,6 +283,7 @@ class AttributeStore:
 #######################################################################################3
 # [http://code.activestate.com/recipes/576694/]
 # (c) Raymond Hettinger, MIT-License
+# added operators by Jakob.Erdmann@dlr.de
 
 import collections
 KEY, PREV, NEXT = range(3)
@@ -346,6 +347,24 @@ class OrderedSet(collections.MutableSet):
 
     def __del__(self):
         self.clear()                    # remove circular references
+
+
+    def __sub__(self, other):
+        result = OrderedSet()
+        for x in self:
+            result.add(x)
+        for x in other:
+            result.discard(x)
+        return result
+
+
+    def __or__(self, other):
+        result = OrderedSet()
+        for x in self:
+            result.add(x)
+        for x in other:
+            result.add(x)
+        return result
 #######################################################################################3
 
 
