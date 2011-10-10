@@ -227,14 +227,14 @@ class AttributeStore:
 
 
     def writeCreated(self, file):
-        self.write_tagids(file, self.ids_created)
+        self.write_tagids(file, self.ids_created, True)
         for tag, value_set in self.idless_created.iteritems():
             self.write_idless(file, value_set, tag)
 
 
     def writeChanged(self, file):
         tagids_changed = set(self.id_attrs.keys()) - (self.ids_deleted | self.ids_created)
-        self.write_tagids(file, tagids_changed)
+        self.write_tagids(file, tagids_changed, False)
 
 
     def write_idless(self, file, attr_set, tag):
@@ -242,7 +242,7 @@ class AttributeStore:
             self.write(file, '<%s %s/>\n' % (tag, self.attr_string(names, values)))
 
 
-    def write_tagids(self, file, tagids):
+    def write_tagids(self, file, tagids, create):
         for tagid in tagids:
             tag, id = tagid
             names, values, children = self.id_attrs[tagid]
@@ -253,7 +253,7 @@ class AttributeStore:
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or child_strings.len > 0:
+            if len(attrs) > 0 or child_strings.len > 0 or create:
                 close_tag = "/>\n"
                 if child_strings.len > 0:
                     close_tag = ">\n%s" % child_strings.getvalue()
