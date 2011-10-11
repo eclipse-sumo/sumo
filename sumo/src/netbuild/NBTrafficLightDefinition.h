@@ -274,6 +274,12 @@ public:
     }
 
 
+    // @breif returns the controlled nodes
+    const std::vector<NBNode*>& getControlledNodes() const {
+        return myControlledNodes;
+    }
+
+
     /** @brief Returns the ProgramID
      * @return The ID of the program (subID)
      */

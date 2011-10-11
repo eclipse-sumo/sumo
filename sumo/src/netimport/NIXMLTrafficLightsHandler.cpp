@@ -139,13 +139,20 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs,
         NBOwnTLDef *newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
                     id, NBTrafficLightDefinition::DefaultProgramID));
         assert(newDef != 0);
+        loadedDef = new NBLoadedSUMOTLDef(id, programID, 0);
+        std::vector<NBNode*> nodes = newDef->getControlledNodes();
+        for (std::vector<NBNode*>::iterator it=nodes.begin(); it != nodes.end(); it++) {
+            (*it)->removeTrafficLight(newDef);
+            (*it)->addTrafficLight(loadedDef);
+        }
         myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
+        myTLLCont.insert(loadedDef);
+
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
         if (type != toString(TLTYPE_STATIC)) {
             WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" +
                     toString(TLTYPE_STATIC) + "'");
         }
-        loadedDef = new NBLoadedSUMOTLDef(id, programID, 0);
     }
     if (attrs.hasAttribute(SUMO_ATTR_OFFSET)) {
         SUMOTime offset = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok));
@@ -166,6 +173,9 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes &attrs) {
     // parse identifying attributes
     NBEdge *from = retrieveEdge(attrs, SUMO_ATTR_FROM, ok);
     NBEdge *to = retrieveEdge(attrs, SUMO_ATTR_TO, ok);
+    if (!ok) {
+        return;
+    }
     int fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok);
     int toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok);
     if (!ok) {
@@ -224,6 +234,9 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes &attrs) {
         // parse identifying attributes
         NBEdge *from = retrieveEdge(attrs, SUMO_ATTR_FROM, ok);
         NBEdge *to = retrieveEdge(attrs, SUMO_ATTR_TO, ok);
+        if (!ok) {
+            return;
+        }
         int fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok);
         int toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok);
         if (!ok) {
@@ -251,6 +264,10 @@ NBEdge*
 NIXMLTrafficLightsHandler::retrieveEdge(
         const SUMOSAXAttributes &attrs, SumoXMLAttr attr, bool &ok) {
     std::string edgeID = attrs.getStringReporting(attr, 0, ok);
+    if (myEdgeCont.wasRemoved(edgeID)) {
+        ok = false;
+        return 0;
+    }
     NBEdge *edge = myEdgeCont.retrieve(edgeID);
     if (edge == 0) {
         WRITE_ERROR("Unknown edge '" + edgeID + "' given in connection.");
