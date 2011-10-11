@@ -74,11 +74,7 @@ NWWriter_XML::writeNodes(const OptionsCont &oc, NBNodeCont &nc) {
         NBNode *n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
-        if (GeoConvHelper::getDefaultInstance().usingInverseGeoProjection()) {
-            device.setPrecision(GEO_OUTPUT_ACCURACY);
-        }
         NWFrame::writePositionLong(n->getPosition(), device);
-        device.setPrecision();
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
@@ -126,7 +122,11 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NB
         }
         // write non-default geometry
         if (!e->hasDefaultGeometry()) {
+            if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
+                edevice.setPrecision(GEO_OUTPUT_ACCURACY);
+            }
             edevice.writeAttr(SUMO_ATTR_SHAPE, e->getGeometry());
+            edevice.setPrecision();
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {

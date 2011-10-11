@@ -28,17 +28,18 @@
 #endif
 
 #include <string>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/options/Option.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <netbuild/NBNetBuilder.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 #include "NWWriter_MATSim.h"
 #include "NWWriter_XML.h"
 #include "NWWriter_OpenDrive.h"
-#include <utils/options/Option.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/common/MsgHandler.h>
-#include <netbuild/NBNetBuilder.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -104,11 +105,15 @@ NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 void 
 NWFrame::writePositionLong(const Position& pos, OutputDevice &dev) {
+    if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
+        dev.setPrecision(GEO_OUTPUT_ACCURACY);
+    }
     dev.writeAttr(SUMO_ATTR_X, pos.x());
     dev.writeAttr(SUMO_ATTR_Y, pos.y());
     if (pos.z() != 0) {
         dev.writeAttr(SUMO_ATTR_Z, pos.z());
     }
+    dev.setPrecision();
 }
 
 /****************************************************************************/
