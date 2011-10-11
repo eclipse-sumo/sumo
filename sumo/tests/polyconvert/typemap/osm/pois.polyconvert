@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on Fri Jul 22 22:47:43 2011 by SUMO polyconvert Version dev-SVN-r11063
+<!-- generated on 10/11/11 09:37:22 by SUMO polyconvert Version dev-SVN-r11366
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/polyconvertConfiguration.xsd">
@@ -21,7 +21,7 @@
 
     <processing>
         <offset.x value="-399346"/>
-        <offset.y value="-5.80937e+06"/>
+        <offset.y value="-5.80937e+006"/>
     </processing>
 
     <report>
@@ -33,7 +33,6 @@
 
 <shapes>
     <poly id="12875811" type="amenity" color="0.93,0.78,0.78" fill="1" layer="-1" shape="889.84,301.19 850.54,291.50 844.23,296.87 883.49,333.34 878.62,352.07 789.79,261.28 826.19,242.49 828.36,234.29 840.62,205.52 868.78,183.39 902.64,183.87 934.03,205.95 945.16,236.59 941.17,269.86 922.31,290.05 889.84,301.19"/>
-    <poly id="24031037" type="boundary" color="1.00,0.33,0.33" fill="0" layer="0" shape="54.64,102.93 268.84,75.64 297.54,80.30 517.74,56.59 568.96,48.56 584.71,19.12 1287.22,-29.50 1667.64,-73.86 1690.94,-76.07 1813.29,-88.44 1954.23,-77.28 2042.15,-59.83 2352.24,2.67 2355.57,10.20 2406.73,20.68 2457.55,21.99 2493.32,30.01 2822.58,88.66 2853.18,87.45 2867.52,87.77 2985.52,111.78"/>
     <poly id="24059329" type="landuse" color="0.76,0.76,0.51" fill="1" layer="-3" shape="568.96,48.56 584.71,19.12 548.46,-100.31 465.44,-77.07 478.86,60.67 568.96,48.56"/>
     <poly id="24153480" type="building" color="1.00,0.90,0.90" fill="1" layer="-1" shape="1085.25,348.46 1110.94,319.99 1099.62,308.57 1075.08,336.44 1085.25,348.46"/>
     <poly id="24153488" type="building" color="1.00,0.90,0.90" fill="1" layer="-1" shape="1133.09,382.79 1154.84,357.98 1146.43,350.65 1124.68,375.46 1133.09,382.79"/>
