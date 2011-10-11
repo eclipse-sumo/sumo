@@ -74,7 +74,11 @@ NWWriter_XML::writeNodes(const OptionsCont &oc, NBNodeCont &nc) {
         NBNode *n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
+        if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
+            device.setPrecision(GEO_OUTPUT_ACCURACY);
+        }
         NWFrame::writePositionLong(n->getPosition(), device);
+        device.setPrecision();
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();

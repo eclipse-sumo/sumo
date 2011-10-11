@@ -28,7 +28,6 @@
 #endif
 
 #include <string>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
@@ -105,15 +104,11 @@ NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 void 
 NWFrame::writePositionLong(const Position& pos, OutputDevice &dev) {
-    if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
-        dev.setPrecision(GEO_OUTPUT_ACCURACY);
-    }
     dev.writeAttr(SUMO_ATTR_X, pos.x());
     dev.writeAttr(SUMO_ATTR_Y, pos.y());
     if (pos.z() != 0) {
         dev.writeAttr(SUMO_ATTR_Z, pos.z());
     }
-    dev.setPrecision();
 }
 
 /****************************************************************************/
