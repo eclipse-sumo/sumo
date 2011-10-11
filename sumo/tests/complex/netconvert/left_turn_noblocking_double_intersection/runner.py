@@ -6,7 +6,7 @@ import sys,os,subprocess,random
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 from testUtil import checkBinary
 
-net_output = 'net.net.xml'
+net_output = 'joined.net.xml'
 trips_output = 'trips.log'
 
 netconvert = checkBinary('netconvert')

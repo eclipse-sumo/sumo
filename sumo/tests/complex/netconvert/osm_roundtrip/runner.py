@@ -14,8 +14,8 @@ from testUtil import checkBinary
 import fpdiff 
 
 osm_input = 'osm.xml'
-net_output = 'net.net.xml'
-net_output2 = 'net.out.net.xml'
+net_output = 'from_osm.net.xml'
+net_output2 = 'reloaded.net.xml'
 
 netconvert = checkBinary('netconvert')
 assert(netconvert)
