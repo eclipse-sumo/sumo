@@ -30,15 +30,11 @@
 #include <map>
 #include <cmath>
 #include <cassert>
-#include "GeoConvHelper.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
-
-#ifdef HAVE_PROJ
-#include <proj_api.h>
-#endif
+#include "GeoConvHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -172,6 +168,7 @@ GeoConvHelper::init(const std::string &proj,
 }
 
 
+#ifdef HAVE_PROJ
 void 
 GeoConvHelper::initProjection(double x, double y) {
     assert(myProjection == 0); // do not reinitialize
@@ -196,6 +193,7 @@ GeoConvHelper::initProjection(double x, double y) {
         //!!! check pj_errno
     }
 }
+#endif
 
 
 void

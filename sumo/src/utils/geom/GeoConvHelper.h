@@ -176,8 +176,10 @@ private:
     /// The boundary after conversion (x2cartesian)
     Boundary myConvBoundary;
 
+#ifdef HAVE_PROJ
     /// initi projection based on the known type and a given position
     void initProjection(double x, double y);
+#endif
 
     /// @brief coordinate transformation to use for input conversion
     static GeoConvHelper myDefault;
