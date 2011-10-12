@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed 12 Oct 2011 08:37:37 AM CEST by Netedit Version dev-SVN-r11376
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/debug/netdiff/delete_node/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/netdiff/delete_node/net.netconvert"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
+
+    <edge id=":node_C_0" function="internal">
+        <lane id=":node_C_0_0" index="0" speed="11.50" length="7.96" shape="4.49,1.85 -3.44,2.62"/>
+    </edge>
+    <edge id=":node_C_1" function="internal">
+        <lane id=":node_C_1_0" index="0" speed="13.50" length="11.34" shape="4.49,1.85 1.80,1.36 -0.12,-0.12 -1.27,-2.59 -1.65,-6.04"/>
+    </edge>
+    <edge id=":node_C_2" function="internal">
+        <lane id=":node_C_2_0" index="0" speed="12.50" length="3.45" shape="4.49,1.85 2.76,0.60 2.22,-0.61"/>
+    </edge>
+    <edge id=":node_C_6" function="internal">
+        <lane id=":node_C_6_0" index="0" speed="12.50" length="3.45" shape="2.22,-0.61 2.86,-1.77 4.68,-2.88"/>
+    </edge>
+    <edge id=":node_C_3" function="internal">
+        <lane id=":node_C_3_0" index="0" speed="13.50" length="4.95" shape="1.65,-6.04 1.84,-4.70 2.41,-3.73 3.36,-3.12 4.68,-2.88"/>
+    </edge>
+    <edge id=":node_C_4" function="internal">
+        <lane id=":node_C_4_0" index="0" speed="12.50" length="8.70" shape="1.65,-6.04 1.28,-4.24 0.17,-2.72 -1.69,-1.50 -4.29,-0.56"/>
+    </edge>
+    <edge id=":node_C_5" function="internal">
+        <lane id=":node_C_5_0" index="0" speed="14.50" length="4.82" shape="1.65,-6.04 0.83,-4.80 0.00,-4.39 -0.82,-4.80 -1.65,-6.04"/>
+    </edge>
+    <edge id=":node_D_0" function="internal">
+        <lane id=":node_D_0_0" index="0" speed="14.50" length="4.82" shape="-1.65,-10.00 -0.83,-11.24 -0.00,-11.65 0.82,-11.24 1.65,-10.00"/>
+    </edge>
+    <edge id=":node_R_0" function="internal">
+        <lane id=":node_R_0_0" index="0" speed="12.50" length="4.73" shape="40.09,-1.38 41.28,-0.54 41.66,0.28 41.24,1.08 40.00,1.85"/>
+    </edge>
+
+    <edge id="edge_C2D" from="node_C" to="node_D" priority="2">
+        <lane id="edge_C2D_0" index="0" speed="15.00" length="3.96" shape="-1.65,-6.04 -1.65,-10.00"/>
+    </edge>
+    <edge id="edge_C2L" from="node_C" to="node_L" priority="2" spreadType="center" shape="0.00,0.00 -15.00,4.00 -40.00,0.00">
+        <lane id="edge_C2L_0" index="0" speed="11.00" length="36.85" shape="-3.44,2.62 -14.91,5.68 -40.26,1.63"/>
+        <lane id="edge_C2L_1" index="1" speed="11.00" length="36.85" shape="-4.29,-0.56 -15.09,2.32 -39.74,-1.63"/>
+    </edge>
+    <edge id="edge_C2R" from="node_C" to="node_R" priority="2" shape="10.00,-1.00 29.00,-0.20">
+        <lane id="edge_C2R_0" index="0" speed="13.00" length="35.44" shape="4.68,-2.88 40.09,-1.38"/>
+    </edge>
+    <edge id="edge_D2C" from="node_D" to="node_C" priority="2">
+        <lane id="edge_D2C_0" index="0" speed="14.00" length="3.96" shape="1.65,-10.00 1.65,-6.04"/>
+    </edge>
+    <edge id="edge_R2C" from="node_R" to="node_C" priority="2" shape="29.00,0.20 3.00,0.20">
+        <lane id="edge_R2C_0" index="0" speed="12.00" length="35.51" shape="40.00,1.85 4.49,1.85"/>
+    </edge>
+
+    <tlLogic id="node_C_reguessed" type="static" programID="0" offset="0">
+        <phase duration="31" state="GGgGrr"/>
+        <phase duration="4" state="yyyyrr"/>
+        <phase duration="31" state="rrrGGG"/>
+        <phase duration="4" state="rrryyy"/>
+    </tlLogic>
+
+    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_6_0 :node_C_3_0 :node_C_4_0 :node_C_5_0" shape="4.42,3.45 4.75,-4.47 3.25,-6.04 -3.25,-6.04 -4.70,-2.11 -3.02,4.17">
+        <request index="0" response="010000" foes="010000" cont="0"/>
+        <request index="1" response="010000" foes="110000" cont="0"/>
+        <request index="2" response="001000" foes="001000" cont="1"/>
+        <request index="3" response="000000" foes="000100" cont="0"/>
+        <request index="4" response="000000" foes="000011" cont="0"/>
+        <request index="5" response="000010" foes="000010" cont="0"/>
+    </junction>
+    <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.05,-10.00 3.25,-10.00 -3.25,-10.00 -0.05,-10.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-40.51,3.21 -39.49,-3.21">
+    </junction>
+    <junction id="node_R" type="priority" x="40.00" y="0.00" incLanes="edge_C2R_0" intLanes=":node_R_0_0" shape="40.00,0.25 40.00,3.45 40.13,-2.98 39.99,0.21">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":node_C_6_0" type="internal" x="2.22" y="-0.61" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0"/>
+
+    <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
+    <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>
+    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_3_0" tl="node_C_reguessed" linkIndex="3" dir="r" state="o"/>
+    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_4_0" tl="node_C_reguessed" linkIndex="4" dir="l" state="o"/>
+    <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_5_0" tl="node_C_reguessed" linkIndex="5" dir="t" state="o"/>
+    <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="0" via=":node_C_0_0" tl="node_C_reguessed" linkIndex="0" dir="s" state="o"/>
+    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_1_0" tl="node_C_reguessed" linkIndex="1" dir="l" state="o"/>
+    <connection from="edge_R2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_2_0" tl="node_C_reguessed" linkIndex="2" dir="t" state="o"/>
+
+    <connection from=":node_C_0" to="edge_C2L" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_1" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_2" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_6_0" dir="s" state="M"/>
+    <connection from=":node_C_6" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_C_4" to="edge_C2L" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":node_C_5" to="edge_C2D" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_D_0" to="edge_D2C" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_R_0" to="edge_R2C" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

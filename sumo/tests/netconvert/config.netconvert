@@ -15,6 +15,10 @@ copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
 copy_test_path:matsim.xml
 copy_test_path:opendrive.xodr
+copy_test_path:input_plain.nod.xml
+copy_test_path:input_plain.edg.xml
+copy_test_path:input_plain.con.xml
+copy_test_path:input_plain.tll.xml
 
 [collate_file]
 net:net.net.xml

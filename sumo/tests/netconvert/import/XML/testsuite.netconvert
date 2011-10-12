@@ -31,6 +31,12 @@ edge_overwrite
 # Tests for setting an offset
 offset
 
+# Load a diff to a sumo network (along with the network)
+# 
+# to rebuild the diff files call
+# $SUMO_HOME/tools/net/netdiff.py input_net.net.xml net.netconvert input_plain
+diff
+
 # testing error input and handling
 errors
 

@@ -1,0 +1,11 @@
+# modify existing network elements and create new ones
+create_and_modify
+
+# delete a edges
+delete_edge
+
+# delete a node (and all incident edges)
+delete_node
+
+# test the diff after applying --junctions.join to a network
+join_junctions
