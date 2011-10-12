@@ -115,7 +115,7 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw()
 
 
 bool 
-NBTrafficLightDefinition::amInvalid() {
+NBTrafficLightDefinition::amInvalid() const {
     return myControlledLinks.size()==0;
 }
 

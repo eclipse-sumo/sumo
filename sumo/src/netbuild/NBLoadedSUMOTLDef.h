@@ -131,7 +131,7 @@ protected:
     NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
                                    unsigned int brakingTime) throw();
 
-    bool amInvalid();
+    bool amInvalid() const;
 
 private:
 

@@ -111,6 +111,11 @@ NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont &) const throw()
 
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
+    // if nodes have been removed our links may have been invalidated as well
+    // since no logic will be built anyway there is no reason to inform any edges
+    if (amInvalid()) {
+        return;
+    }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
@@ -137,7 +142,7 @@ NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
 
 
 bool 
-NBLoadedSUMOTLDef::amInvalid() {
+NBLoadedSUMOTLDef::amInvalid() const {
     if (myControlledLinks.size()==0) {
         return true;
     }
@@ -145,7 +150,7 @@ NBLoadedSUMOTLDef::amInvalid() {
     if (myControlledNodes.size() != myOriginalNodes.size()) {
         return true;
     }
-    for (std::vector<NBNode*>::iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
+    for (std::vector<NBNode*>::const_iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
         if (myOriginalNodes.count(*i) != 1) {
             return true;
         }

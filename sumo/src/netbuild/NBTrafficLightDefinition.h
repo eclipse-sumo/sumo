@@ -323,7 +323,7 @@ protected:
 
 
     // @return whether this traffic light is invalid and should be computed
-    virtual bool amInvalid();
+    virtual bool amInvalid() const;
 
 
 protected:
