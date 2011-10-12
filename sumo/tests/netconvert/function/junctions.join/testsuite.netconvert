@@ -1,6 +1,9 @@
 # test with default juntion.join-distance
 basic
 
+# make sure joining works when the input is a sumo network
+basic_using_sumonet
+
 # exclude nodes from being joined (via input file)
 joinExclude_input_file
 
