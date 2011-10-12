@@ -76,8 +76,9 @@
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    EdgeVector *approaching, NBEdge *currentOutgoing) throw()
-        : myApproaching(approaching), myCurrentOutgoing(currentOutgoing) {
+    EdgeVector *approaching, NBEdge *currentOutgoing) throw() : 
+    myApproaching(approaching), myCurrentOutgoing(currentOutgoing)
+{
     // check whether origin lanes have been given
     assert(myApproaching!=0);
 }
@@ -188,20 +189,23 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
 NBNode::NBNode(const std::string &id, const Position &position) throw() :
         Named(StringUtils::convertUmlaute(id)),
         myPosition(position),
-        myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) { }
+        myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0)
+{ }
 
 
 NBNode::NBNode(const std::string &id, const Position &position,
                SumoXMLNodeType type) throw() :
         Named(StringUtils::convertUmlaute(id)),
         myPosition(position),
-        myType(type), myDistrict(0), myRequest(0) { }
+        myType(type), myDistrict(0), myRequest(0)
+{ }
 
 
 NBNode::NBNode(const std::string &id, const Position &position, NBDistrict *district) throw() :
         Named(StringUtils::convertUmlaute(id)),
         myPosition(position),
-        myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) { }
+        myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0)
+{ }
 
 
 NBNode::~NBNode() throw() {
@@ -1130,35 +1134,30 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid) {
 }
 
 
-
 void
-NBNode::removeOutgoing(NBEdge *edge) {
-    EdgeVector::iterator i = find(myOutgoingEdges.begin(), myOutgoingEdges.end(), edge);
-    if (i!=myOutgoingEdges.end()) {
-        myOutgoingEdges.erase(i);
-        i = find(myAllEdges.begin(), myAllEdges.end(), edge);
+NBNode::removeEdge(NBEdge *edge, bool removeFromConnections) {
+    EdgeVector::iterator i = find(myAllEdges.begin(), myAllEdges.end(), edge);
+    if (i!=myAllEdges.end()) {
         myAllEdges.erase(i);
-        for (i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
-            (*i)->removeFromConnections(edge);
+        i = find(myOutgoingEdges.begin(), myOutgoingEdges.end(), edge);
+        if (i!=myOutgoingEdges.end()) {
+            myOutgoingEdges.erase(i);
+        } else {
+            i = find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
+            if (i!=myIncomingEdges.end()) {
+                myIncomingEdges.erase(i);
+            } else {
+                // edge must have been either incoming or outgoing
+                assert(false);
+            }
+        }
+        if (removeFromConnections) {
+            for (i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
+                (*i)->removeFromConnections(edge);
+            }
         }
     }
 }
-
-
-void
-NBNode::removeIncoming(NBEdge *edge) {
-    EdgeVector::iterator i = find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
-    if (i!=myIncomingEdges.end()) {
-        myIncomingEdges.erase(i);
-        i = find(myAllEdges.begin(), myAllEdges.end(), edge);
-        myAllEdges.erase(i);
-        for (i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
-            (*i)->removeFromConnections(edge);
-        }
-    }
-}
-
-
 
 
 Position

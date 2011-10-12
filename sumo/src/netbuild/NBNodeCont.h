@@ -110,9 +110,10 @@ public:
 
     /** @brief Removes the given node but does not delete it
      * @param[in] node The node to delete and remove
+     * @param[in] remember Whether to keep the node for future reference
      * @return Whether the node could be removed (existed)
      */
-    bool extract(NBNode *node) throw();
+    bool extract(NBNode *node, bool remember=false) throw();
 
     /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
@@ -294,7 +295,6 @@ public:
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
 
 
-
     /** @brief Prints statistics about built nodes
      *
      * Goes through stored nodes, computes the numbers of unregulated, priority and right-before-left
@@ -307,8 +307,6 @@ public:
     std::vector<std::string> getAllNames() const throw();
 
 
-
-
     /* @brief analyzes a cluster of nodes which shall be joined
      * @param[in] cluster The nodes to be joined
      * @param[out] id The name for the new node
@@ -316,6 +314,7 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      */
     void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS);
+
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
@@ -380,6 +379,9 @@ private:
 
     /// @brief The map of names to nodes
     NodeCont myNodes;
+
+    /// @brief The extracted nodes which are kept for reference
+    std::set<NBNode*> myExtractedNodes;
 
     // @brief set of node ids which should not be joined
     std::set<std::string> myJoinExclusions;

@@ -128,6 +128,10 @@ NBEdgeCont::clear() throw() {
         delete((*i).second);
     }
     myEdges.clear();
+    for (EdgeCont::iterator i=myExtractedEdges.begin(); i!=myExtractedEdges.end(); i++) {
+        delete((*i).second);
+    }
+    myExtractedEdges.clear();
 }
 
 
@@ -203,8 +207,8 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     }
 
     if (ignore) {
-        edge->getFromNode()->removeOutgoing(edge);
-        edge->getToNode()->removeIncoming(edge);
+        edge->getFromNode()->removeEdge(edge);
+        edge->getToNode()->removeEdge(edge);
         myIgnoredEdges.insert(edge->getID());
         delete edge;
     } else {
@@ -219,10 +223,17 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
 
 
 NBEdge *
-NBEdgeCont::retrieve(const std::string &id) const throw() {
+NBEdgeCont::retrieve(const std::string &id, bool retrieveExtracted) const throw() {
     EdgeCont::const_iterator i = myEdges.find(id);
     if (i==myEdges.end()) {
-        return 0;
+        if (retrieveExtracted) {
+            i = myExtractedEdges.find(id);
+            if (i==myExtractedEdges.end()) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
     return (*i).second;
 }
@@ -317,10 +328,13 @@ NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw() {
 
 
 void
-NBEdgeCont::extract(NBDistrictCont &dc, NBEdge *edge) throw() {
+NBEdgeCont::extract(NBDistrictCont &dc, NBEdge *edge, bool remember) {
+    if (remember) {
+        myExtractedEdges[edge->getID()] = edge;
+    }
     myEdges.erase(edge->getID());
-    edge->myFrom->removeOutgoing(edge);
-    edge->myTo->removeIncoming(edge);
+    edge->myFrom->removeEdge(edge);
+    edge->myTo->removeEdge(edge);
     dc.removeFromSinksAndSources(edge);
 }
 
@@ -450,8 +464,8 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         NBEdge *edge = (*i).second;
         if (!myEdges2Keep.count(edge->getID())) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
+            edge->getFromNode()->removeEdge(edge);
+            edge->getToNode()->removeEdge(edge);
             toRemove.push_back(edge);
         }
     }

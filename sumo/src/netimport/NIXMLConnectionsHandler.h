@@ -148,9 +148,6 @@ private:
     /// @brief the handler for loading errors
     MsgHandler * const myErrorMsgHandler;
 
-    /// @brief set of edges where we already reset connection information
-    std::set<NBEdge*> myResetEdges;
-
 private:
     /// @brief invalidated copy constructor
     NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);

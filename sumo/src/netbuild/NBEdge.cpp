@@ -220,12 +220,16 @@ NBEdge::NBEdge(const std::string &id, NBNode *from, NBNode *to, NBEdge *tpl) :
 void
 NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
                SUMOReal speed, unsigned int nolanes, int priority,
-               PositionVector geom, SUMOReal width, SUMOReal offset, LaneSpreadFunction spread) throw(ProcessError) {
+               PositionVector geom, SUMOReal width, SUMOReal offset, 
+               LaneSpreadFunction spread,
+               bool tryIgnoreNodePositions) throw(ProcessError) 
+{
+    // connections may still be valid
     if (myFrom!=from) {
-        myFrom->removeOutgoing(this);
+        myFrom->removeEdge(this, false);
     }
     if (myTo!=to) {
-        myTo->removeIncoming(this);
+        myTo->removeEdge(this, false);
     }
     myType = StringUtils::convertUmlaute(type);
     myFrom = from;
@@ -241,7 +245,7 @@ NBEdge::reinit(NBNode *from, NBNode *to, const std::string &type,
     myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
-    init(nolanes, false);
+    init(nolanes, tryIgnoreNodePositions);
 }
 
 
@@ -461,7 +465,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc) {
             newTo = myLastNode;
         }
         if (i==1) {
-            currentEdge->myTo->removeIncoming(this);
+            currentEdge->myTo->removeEdge(this);
             currentEdge->myTo = newTo;
             newTo->addIncomingEdge(currentEdge);
         } else {
@@ -495,7 +499,10 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest) throw() {
     if (dest!=0 && myTo!=dest->myFrom) {
         return false;
     }
-    if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest))==myConnections.end()) {
+    if (dest == 0) {
+        invalidateConnections();
+        myConnections.push_back(Connection(-1, dest, -1));
+    } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest))==myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
     }
     if (myStep<EDGE2EDGES) {

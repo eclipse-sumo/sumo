@@ -264,13 +264,7 @@ NBEdge*
 NIXMLTrafficLightsHandler::retrieveEdge(
         const SUMOSAXAttributes &attrs, SumoXMLAttr attr, bool &ok) {
     std::string edgeID = attrs.getStringReporting(attr, 0, ok);
-    /* @note disabled to fix build. depends on changes not yet checked in
-    if (myEdgeCont.wasRemoved(edgeID)) {
-        ok = false;
-        return 0;
-    }
-    */
-    NBEdge *edge = myEdgeCont.retrieve(edgeID);
+    NBEdge *edge = myEdgeCont.retrieve(edgeID, true);
     if (edge == 0) {
         WRITE_ERROR("Unknown edge '" + edgeID + "' given in connection.");
         ok = false;

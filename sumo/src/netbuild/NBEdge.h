@@ -277,11 +277,13 @@ public:
      * @param[in] width This edge's lane width
      * @param[in] offset Additional offset to the destination node
      * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
     void reinit(NBNode *from, NBNode *to, const std::string &type,
                 SUMOReal speed, unsigned int nolanes, int priority,
                 PositionVector geom, SUMOReal width, SUMOReal offset,
-                LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+                LaneSpreadFunction spread=LANESPREAD_RIGHT,
+                bool tryIgnoreNodePositions=false) throw(ProcessError);
 
 
 
@@ -547,6 +549,7 @@ public:
      *  to an edge is set only once, no multiple connections to next edge are stored.
      *
      * After a first connection to an edge was set, the process step is set to "EDGE2EDGES".
+     * @note Passing 0 implicitly removes all existing connections
      *
      * @param[in] dest The connection's destination edge
      * @return Whether the connection was valid

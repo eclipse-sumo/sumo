@@ -145,7 +145,6 @@ NBNodeCont::retrieve(const Position &position, SUMOReal offset) const throw() {
 bool
 NBNodeCont::erase(NBNode *node) throw() {
     if (extract(node)) {
-        node->removeTrafficLights();
         delete node;
         return true;
     } else {
@@ -155,12 +154,16 @@ NBNodeCont::erase(NBNode *node) throw() {
 
 
 bool
-NBNodeCont::extract(NBNode *node) throw() {
+NBNodeCont::extract(NBNode *node, bool remember) throw() {
     NodeCont::iterator i = myNodes.find(node->getID());
     if (i==myNodes.end()) {
         return false;
     }
     myNodes.erase(i);
+    node->removeTrafficLights();
+    if (remember) {
+        myExtractedNodes.insert(node);
+    }
     return true;
 }
 
@@ -825,6 +828,10 @@ NBNodeCont::clear() {
         delete((*i).second);
     }
     myNodes.clear();
+    for (std::set<NBNode*>::iterator i = myExtractedNodes.begin(); i!= myExtractedNodes.end(); i++) {
+        delete (*i);
+    }
+    myExtractedNodes.clear();
 }
 
 

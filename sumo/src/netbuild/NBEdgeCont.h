@@ -113,9 +113,10 @@ public:
      * If no edge that has the given id is known, 0 is returned.
      *
      * @param[in] id The id of the edge to retrieve
+     * @param[in] bool Whether extracted edges shall be retrieved as well
      * @return The edge with the given id, 0 if no such edge exists
      */
-    NBEdge *retrieve(const std::string &id) const throw();
+    NBEdge *retrieve(const std::string &id, bool retrieveExtracted=false) const throw();
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -161,9 +162,10 @@ public:
      *
      * @param[in] dc The district container, in order to remove the edge from sources/sinks
      * @param[in] edge The edge to remove
+     * @param[in] remember Whether to keep this edge for future reference
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
-    void extract(NBDistrictCont &dc, NBEdge *edge) throw();
+    void extract(NBDistrictCont &dc, NBEdge *edge, bool remember=false);
 
 
     /** @brief Returns the pointer to the begin of the stored edges
@@ -441,6 +443,13 @@ public:
     }
 
 
+    /** @brief Returns whether the edge with the id was deleted explicitly
+     */
+    bool wasRemoved(std::string id) const throw() {
+        return myExtractedEdges.count(id) != 0;
+    }
+
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -457,6 +466,9 @@ private:
 
     /// @brief The instance of the dictionary (id->edge)
     EdgeCont myEdges;
+
+    /// @brief The extracted nodes which are kept for reference
+    EdgeCont myExtractedEdges;
 
     /// @brief The ids of ignored edges
     std::set<std::string> myIgnoredEdges;
@@ -491,6 +503,7 @@ private:
 
     /// @brief Boundary within which an edge must be located in order to be kept
     PositionVector myPrunningBoundary;
+
     /// @}
 
 

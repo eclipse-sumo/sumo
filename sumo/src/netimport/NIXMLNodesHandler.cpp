@@ -175,10 +175,12 @@ NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes &attrs) {
         return;
     }
     NBNode *node = myNodeCont.retrieve(myID);
-    if (!myNodeCont.erase(node)) {
+    if (node == 0) {
         WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown node '" +
                 myID + "'");
         return;
+    } else {
+        myNodeCont.extract(node, true);
     }
 }
 

@@ -234,7 +234,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
     if (myCurrentEdge!=0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
-                              myCurrentWidth, myCurrentOffset, myLanesSpread);
+                              myCurrentWidth, myCurrentOffset, myLanesSpread,
+                              OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size()==0) {
@@ -524,7 +525,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes &attrs) {
                 myCurrentID + "'");
         return;
     }
-    myEdgeCont.erase(myDistrictCont, edge);
+    myEdgeCont.extract(myDistrictCont, edge, true);
 }
 
 

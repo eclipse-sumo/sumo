@@ -326,8 +326,9 @@ public:
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
-    void removeOutgoing(NBEdge *edge);
-    void removeIncoming(NBEdge *edge);
+    /** @brief Removes edge from this node and optionally removes connections as well
+     */
+    void removeEdge(NBEdge *edge, bool removeFromConnections=true);
 
     /** @brief Computes whether the given connection is a left mover across the junction
      *
