@@ -1,0 +1,1 @@
+--sumo-net-file input_net.net.xml --geometry.max-segment-length 40
