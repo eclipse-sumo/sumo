@@ -15,3 +15,7 @@ attributes
 
 # handle non-default spreadType
 spreadType
+
+# apply offset to a loaded network
+# 
+offset
