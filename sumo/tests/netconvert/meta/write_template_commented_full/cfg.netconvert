@@ -297,6 +297,9 @@
         <!-- Removes geometry information from edges -->
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
 
+        <!-- splits geometry to restrict segment length -->
+        <geometry.max-segment-length value="0" type="FLOAT"/>
+
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
 

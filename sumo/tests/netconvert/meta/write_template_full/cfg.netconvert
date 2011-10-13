@@ -115,6 +115,7 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Removes geometry information from edges"/>
+        <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>

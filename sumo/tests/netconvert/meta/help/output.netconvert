@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11355
+SUMO netconvert Version dev-SVN-r11384
  Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -157,6 +157,8 @@ Usage: netconvert [OPTION]*
   --no-left-connections               Disables building connections to left
   --geometry.split                    Splits edges across geometry nodes
   -R, --geometry.remove               Removes geometry information from edges
+  --geometry.max-segment-length FLOAT  splits geometry to restrict segment
+                                        length
   --offset.disable-normalization      Turn off normalizing node positions
   --offset.x FLOAT                    Adds FLOAT to net x-positions
   --offset.y FLOAT                    Adds FLOAT to net y-positions
