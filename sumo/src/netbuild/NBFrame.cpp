@@ -97,6 +97,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
         oc.addSynonyme("geometry.remove", "remove-geometry", true);
         oc.addDescription("geometry.remove", "Processing", "Removes geometry information from edges");
+
+        oc.doRegister("geometry.max-segment-length", new Option_Float(0));
+        oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));

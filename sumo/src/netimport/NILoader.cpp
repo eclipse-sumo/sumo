@@ -199,7 +199,7 @@ NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHe
     if (ok) {
         const HeightMapper& hm = HeightMapper::get();
         if (hm.ready()) {
-            if (from_srs != 0) {
+            if (from_srs != 0 && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
             SUMOReal z = hm.getZ(orig);
@@ -213,6 +213,32 @@ NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHe
 
 bool 
 NILoader::transformCoordinates(PositionVector &from, bool includeInBoundary, GeoConvHelper *from_srs) {
+    const SUMOReal maxLength = OptionsCont::getOptions().getFloat("geometry.max-segment-length");
+    if (maxLength > 0 && from.size() > 1) {
+        // transformation to cartesian coordinates must happen before we can check segment length
+        PositionVector copy = from;
+        for (int i=0; i<(int) from.size(); i++) {
+            transformCoordinates(copy[i], false);
+        }
+        // check lengths and insert new points where needed (in the original
+        // coordinate system)
+        int inserted = 0;
+        for (int i=0; i<(int)copy.size()-1; i++) {
+            Position start = from[i + inserted];
+            Position end = from[i + inserted + 1];
+            SUMOReal length = copy[i].distanceTo(copy[i+1]);
+            const Position step = (end - start) * (maxLength / length);
+            int steps = 0;
+            while (length > maxLength) {
+                length -= maxLength;
+                steps++;
+                from.insertAt(i + inserted + 1, start + (step * steps));
+                inserted++;
+            }
+        }
+        // now perform the transformation again so that height mapping can be
+        // performed for the new points
+    }
     bool ok = true;
     for (int i=0; i<(int) from.size(); i++) {
         ok = ok && transformCoordinates(from[i], includeInBoundary, from_srs);

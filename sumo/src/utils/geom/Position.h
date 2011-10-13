@@ -151,11 +151,10 @@ public:
         myZ -= pos.myZ;
     }
 
-    void norm() {
+    void norm2d() {
         SUMOReal val = sqrt(myX*myX + myY*myY);
         myX = myX / val;
         myY = myY / val;
-        myZ = myZ / val;
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {

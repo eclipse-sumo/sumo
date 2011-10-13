@@ -1182,7 +1182,7 @@ NBNode::getEmptyDir() const {
     if (pos.x()==0&&pos.y()==0) {
         pos = Position(1, 0);
     }
-    pos.norm();
+    pos.norm2d();
     return pos;
 }
 
