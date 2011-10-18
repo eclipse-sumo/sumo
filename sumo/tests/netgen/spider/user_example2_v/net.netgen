@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<!-- generated on 06/14/11 12:40:23 by SUMO netgen Version dev-SVN-r10609
+<!-- generated on 10/17/11 08:44:28 by SUMO netgen Version dev-SVN-r11387
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -345,7 +346,7 @@
         <lane id=":2/2_13_0" index="0" speed="13.90" length="12.41" shape="294.56,492.22 297.28,494.27 300.00,494.95 302.72,494.27 305.44,492.22"/>
     </edge>
     <edge id=":2/2_14" function="internal">
-        <lane id=":2/2_14_0" index="0" speed="13.90" length="12.99" shape="294.56,492.22 297.66,495.55 299.88,498.43 301.21,500.86 301.65,502.85"/>
+        <lane id=":2/2_14_0" index="0" speed="13.90" length="13.19" shape="294.56,492.22 297.16,494.67 299.43,496.99 301.04,499.57 301.65,502.85"/>
     </edge>
     <edge id=":2/2_15" function="internal">
         <lane id=":2/2_15_0" index="0" speed="13.90" length="4.82" shape="294.56,492.22 294.85,493.68 294.56,494.56 293.68,494.85 292.22,494.56"/>
@@ -651,7 +652,7 @@
         <lane id=":4/2_19_0" index="0" speed="13.90" length="2.41" shape="300.00,98.80 299.17,98.39 298.35,97.15"/>
     </edge>
     <edge id=":4/2_12" function="internal">
-        <lane id=":4/2_12_0" index="0" speed="13.90" length="10.81" shape="292.22,105.44 294.67,103.36 296.61,101.85 297.89,100.06 298.35,97.15"/>
+        <lane id=":4/2_12_0" index="0" speed="13.90" length="10.43" shape="292.22,105.44 294.90,102.63 296.82,100.31 297.97,98.48 298.35,97.15"/>
     </edge>
     <edge id=":4/2_13" function="internal">
         <lane id=":4/2_13_0" index="0" speed="13.90" length="17.73" shape="292.22,105.44 296.11,102.53 300.00,101.55 303.89,102.53 307.78,105.44"/>
