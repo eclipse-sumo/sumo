@@ -28,7 +28,7 @@ def readParsePage(page):
     b = c.find("<div id=\"jump-to-nav\">")
     e = c.find("</div>", b)+6
     c = c[:b] + c[e:]
-    c = c + '</div><div id="lastmod">' + lastMod + '</div>'
+    c = c + '</div><hr/><div id="lastmod">' + lastMod + '</div>'
     
     
     return c
@@ -53,11 +53,14 @@ def patchLinks(page, name):
             e = page.find("?", b+9)+7
             e2 = page.find("\"", b+9)
             link = page[e:e2]
-            if link.find("#")>0:
-                link = level + link.replace("#", ".html#")
-            elif link.find("#")<0 and not (link.endswith(".png") or link.endswith(".jpg") or link.endswith(".svg")):
-                link = level + link + ".html"
-            page = page[:b+9] + link + page[e2:]
+            if link.find("action=edit")<0:
+                if link.find("#")>0:
+                    link = level + link.replace("#", ".html#")
+                elif link.find("#")<0 and not (link.endswith(".png") or link.endswith(".jpg") or link.endswith(".svg")):
+                    link = level + link + ".html"
+                page = page[:b+9] + link + page[e2:]
+            else:
+                page = page[:b+9] + "http://sourceforge.net/" + page[b+10:]
         b = page.find("<a href", b+1)
     return page, images, level
 
