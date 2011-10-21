@@ -50,7 +50,7 @@ for root, dirs, files in os.walk(srcRoot):
 			b = cc.find("<a href=")
 			while b>=0:
 				b = cc.find('"', b)
-				if not cc[b:].startswith("http"):
+				if not cc[b+1:].startswith("http"):
 					cc = cc[:b+1] + level + cc[b+1:]
 				b = cc.find("<a href=", b)
 			# content

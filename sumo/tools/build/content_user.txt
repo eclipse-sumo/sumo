@@ -3,19 +3,10 @@
 * [[Sumo at a Glance|The traffic simulation SUMO]] (includes also [[Sumo at a Glance#Features|"Features"]], [[Sumo at a Glance#Included_Applications|"Included Applications"]], and [[Sumo at a Glance#Usage_Examples|"Usage Examples"]])
 
 =Basic Usage=
-* [[Notation|Notation in this documentation]]
-** [[DataTypes|The data types used in this documentation]]
-* [[InstallingSumo|Installing]]
-** [[InstallBinary|Installing the precompiled binary distribution for Windows or Linux]]
-** Build from sources
-*** [[WindowsBuild|How to build SUMO on Windows using MSVC8/9]]
-*** [[LinuxBuild|How to build SUMO on Linux]]
-*** [[MacBuild|How to build SUMO on MacOS]]
-*** [[DocumentationBuild|How to build the documentation]]
-* [[Using the Command Line Applications]]
-** [[Using_the_Command_Line_Applications#Configuration_Files|Using configuration files]]
-
-=Tutorials and First Steps=
+* [[Basics/Notation|Notation in this Documentation]]
+* [[Basics/Basic Computer Skills|Needed, basic Computer Skills]]
+* [[InstallingSumo|Installing SUMO]]
+* [[Basics/Using the Command Line Applications|Using SUMO Command Line Applications]]
 * [[Tutorials]]
 
 =Network Building=
