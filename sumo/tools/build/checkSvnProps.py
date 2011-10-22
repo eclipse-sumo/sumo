@@ -93,13 +93,24 @@ optParser.add_option("-f", "--fix", action="store_true",
                       default=False, help="fix invalid svn properties")
 (options, args) = optParser.parse_args()
 seen = set()
-svnRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+svnRoots = [sumoRoot]
 if len(args) > 0:
-    svnRoot = os.path.abspath(args[0])
-output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", svnRoot], stdout=subprocess.PIPE).communicate()[0]
-xml.sax.parseString(output, PropertyReader(options.fix))
+    svnRoots = [os.path.abspath(a) for a in args]
+else:
+    upDir = os.path.dirname(sumoRoot)
+    for l in subprocess.Popen(["svn", "pg", "svn:externals", upDir], stdout=subprocess.PIPE).communicate()[0].splitlines():
+        if l[:5] == "sumo/":
+            svnRoots.append(os.path.join(upDir, l.split()[0]))
+for svnRoot in svnRoots:
+    if options.verbose:
+        print "checking", svnRoot 
+    output = subprocess.Popen(["svn", "pl", "-v", "-R", "--xml", svnRoot], stdout=subprocess.PIPE).communicate()[0]
+    xml.sax.parseString(output, PropertyReader(options.fix))
 
-for root, dirs, files in os.walk(svnRoot):
+if options.verbose:
+    print "re-checking tree at", sumoRoot 
+for root, dirs, files in os.walk(sumoRoot):
     for name in files:
         fullName = os.path.join(root, name)
         if fullName in seen or subprocess.call(["svn", "ls", fullName], stdout=open(os.devnull, 'w'), stderr=subprocess.STDOUT):

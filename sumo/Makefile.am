@@ -16,20 +16,7 @@ doxygen:
 	doxygen sumo.doxyconf &> doxygen.log
 
 wikidump:
-	mkdir -p docs/wiki
-	site="sourceforge.net/apps/mediawiki/sumo" && httrack -w http://$$site/index.php?title=Main_Page \
-  -%i -O docs/wiki \
-  -%v S \
-  "-$$site/*&action=edit" \
-  "-$$site/*&action=history" \
-  "-$$site/*&printable=yes" \
-  "-$$site/*&oldid=*" \
-  "-$$site/*title=Special:*" \
-  "-$$site/*title=Talk:*" \
-  "-$$site/*title=File:*" \
-  "-$$site/*title=File_talk:*" \
-  "-$$site/*title=User:*" \
-  "-$$site/*title=User_talk:*"
+	cd docs/wiki && ../../tools/build/getWikiPages.py && ../../tools/build/embedInIndex.py
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
