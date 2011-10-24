@@ -110,10 +110,13 @@ getTurningDefaults(OptionsCont &oc) {
 void
 loadJTRDefinitions(RONet &net, OptionsCont &oc) {
     // load the turning definitions (and possible sink definition)
-    if (oc.isSet("turn-ratio-file")) {
+    if (oc.isSet("turn-ratio-files")) {
         ROJTRTurnDefLoader loader(net);
-        if (!XMLSubSys::runParser(loader, oc.getString("turn-ratio-file"))) {
-            throw ProcessError();
+        std::vector<std::string> ratio_files = oc.getStringVector("turn-ratio-files");
+        for (std::vector<std::string>::const_iterator i=ratio_files.begin(); i!=ratio_files.end(); ++i) {
+            if (!XMLSubSys::runParser(loader, *i)) {
+                throw ProcessError();
+            }
         }
     }
     if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
@@ -141,21 +144,16 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
-    try {
-        net.openOutput(oc.getString("output-file"), false);
-    } catch (IOError &e) {
-        throw e;
-    }
+    net.openOutput(oc.getString("output-file"), false);
     // build the router
     ROJTRRouter router(net, oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
         (int) (((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
-        oc.getBool("ignore-vclasses"));
-    // the routes are sorted - process stepwise
+        oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     if (!oc.getBool("unsorted-input")) {
+        // the routes are sorted - process stepwise
         loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
-    }
-    // the routes are not sorted: load all and process
-    else {
+    } else {
+        // the routes are not sorted: load all and process
         loader.processAllRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
     }
     // end the processing

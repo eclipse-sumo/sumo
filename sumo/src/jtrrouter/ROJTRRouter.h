@@ -55,9 +55,11 @@ public:
 	 * @param[in] acceptAllDestinations If false, only sinks will be used as final edges
      * @param[in] maxEdges The maximum number of edges a route may have
      * @param[in] ignoreClasses Whether routing shall be done without regarding vehicle classes
+     * @param[in] allowLoops Whether a vehicle may reuse a road
 	 */
     ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
-                bool acceptAllDestinations, int maxEdges, bool ignoreClasses);
+                bool acceptAllDestinations, int maxEdges, bool ignoreClasses,
+                bool allowLoops);
 
 
     /// @brief Destructor
@@ -106,6 +108,9 @@ private:
 
 	/// @brief Whether vehicle class information shall be ignored
     bool myIgnoreClasses;
+
+    /// @brief Whether a vehicle may reuse a road
+    bool myAllowLoops;
 
 };
 

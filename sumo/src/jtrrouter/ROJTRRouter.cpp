@@ -41,10 +41,10 @@
 // method definitions
 // ===========================================================================
 ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly, bool acceptAllDestinations, 
-    int maxEdges, bool ignoreClasses)
+    int maxEdges, bool ignoreClasses, bool allowLoops)
         : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
         myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
-        myIgnoreClasses(ignoreClasses) {
+        myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) {
 }
 
 

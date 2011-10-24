@@ -18,7 +18,7 @@ assert(jtrrouter)
 args = [jtrrouter,
         '--net-file', 'input_net.net.xml',
         '--flow-files', 'input_flows.flows.xml',
-        '--turn-ratio-file', 'input_turns.turns.xml',
+        '--turn-ratio-files', 'input_turns.turns.xml',
         '--output-file', output_file1,
         '--sinks=end',
         '--seed', None,
