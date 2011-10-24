@@ -1,0 +1,1 @@
+--output-file=routes.rou.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml --sinks=end --turns=input_turns_1.turns.xml,input_turns_2.turns.xml --ignore-errors
