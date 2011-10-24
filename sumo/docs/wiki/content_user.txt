@@ -1,4 +1,4 @@
-=Introduction=
+=[[SUMO User Documentation|Introduction]]=
 * [[TrafficSimulations|Traffic simulations in general]]
 * [[Sumo at a Glance|The traffic simulation SUMO]] (includes also [[Sumo at a Glance#Features|"Features"]], [[Sumo at a Glance#Included_Applications|"Included Applications"]], and [[Sumo at a Glance#Usage_Examples|"Usage Examples"]])
 
@@ -8,6 +8,7 @@
 * [[InstallingSumo|Installing SUMO]]
 * [[Basics/Using the Command Line Applications|Using SUMO Command Line Applications]]
 * [[Tutorials]]
+* [[Basics/File Extensions]]
 
 =Network Building=
 * Introduction to [[Networks/SUMO Road Networks|SUMO Road Networks]]
