@@ -33,16 +33,13 @@ dist-doc: doc
 	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
+	cp -r docs/wiki/docs $(distdir)
 	find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
-	mkdir $(distdir)/docs
 	mv $(distdir)/tests/complex/tutorial $(distdir)/docs
 	rmdir $(distdir)/tests/complex
 	rmdir $(distdir)/tests
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
-	cp -r docs/wiki/sourceforge.net/apps/mediawiki/sumo $(distdir)/docs/wiki
-	sed 's,sourceforge.net/apps/mediawiki/sumo/,,g' docs/wiki/index.html > $(distdir)/docs/wiki/index.html
-	cp docs/wiki/*.gif $(distdir)/docs/wiki
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
