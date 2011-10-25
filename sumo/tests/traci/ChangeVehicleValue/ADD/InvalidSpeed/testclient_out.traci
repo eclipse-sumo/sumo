@@ -1,0 +1,69 @@
+TraCITestClient output file. Date: Tue Oct 25 12:33:21 2011
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=0 objID=xxx
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"veh0" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=128 objID=veh1
+----
+Error while receiving command: tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer

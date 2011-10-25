@@ -1,0 +1,32 @@
+# test adding a vehicle
+ADD
+
+
+# Test error on specifying an invalid ID
+InvalidID
+
+# Test error on specifying an invalid Route
+InvalidRoute
+
+# Test error on specifying an invalid Speed
+InvalidSpeed
+
+# Test error on specifying an invalid Type
+InvalidType
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

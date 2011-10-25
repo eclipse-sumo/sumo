@@ -34,6 +34,11 @@ SetSpeed
 # for moving the vehicle to a different place
 MoveTo
 
+# for adding a vehicle
+ADD
+
+# for removing vehicles
+REMOVE
 
 # rerouting tests
 rerouting

@@ -1,0 +1,16 @@
+Error: Departure speed for vehicle 'veh1' is too high for the departure lane 'e_m0_0'.
+Quitting (on error).
+Error while receiving command: tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer
