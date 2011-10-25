@@ -361,7 +361,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             &&variable!=VAR_ACCEL&&variable!=VAR_DECEL&&variable!=VAR_IMPERFECTION
             &&variable!=VAR_TAU
             &&variable!=VAR_SPEED&&variable!=VAR_SPEEDSETMODE&&variable!=VAR_COLOR
-            &&variable!=ADD
+            &&variable!=ADD&&variable!=REMOVE
        ) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Change Vehicle State: unsupported variable specified", outputStorage);
         return false;
@@ -845,6 +845,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     break;
     case ADD: {
+        if(v!=0) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The vehicle " + id + " to add already exists.", outputStorage);
+            return false;
+        }
         if (valueDataType!=TYPE_COMPOUND) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle requires a compound object.", outputStorage);
             return false;
@@ -855,6 +859,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
         vehicleParams->id = id;
+
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
             return false;
@@ -864,6 +869,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type for vehicle: '"+id+"'");
             return false;
         }
+
         if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Second parameter (route) requires a string.", outputStorage);
             return false;
@@ -874,33 +880,43 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid route '"+routeID+"' for vehicle: '"+id+"'");
             return false;
         }
+
         if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Third parameter (depart) requires an integer.", outputStorage);
             return false;
         }
         vehicleParams->depart = inputStorage.readInt();
         if (vehicleParams->depart < 0) {
-            vehicleParams->departProcedure = (DepartDefinition)vehicleParams->depart;
+            vehicleParams->departProcedure = (DepartDefinition)(int)-vehicleParams->depart;
         }
+
         if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a double.", outputStorage);
             return false;
         }
         vehicleParams->departPos = inputStorage.readDouble();
         if (vehicleParams->departPos < 0) {
-            vehicleParams->departPosProcedure = (DepartPosDefinition)(int)vehicleParams->departPos;
+            vehicleParams->departPosProcedure = (DepartPosDefinition)(int)-vehicleParams->departPos;
+        } else {
+            vehicleParams->departPosProcedure = DEPART_POS_GIVEN;
         }
+
         if (inputStorage.readUnsignedByte()!=TYPE_DOUBLE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a double.", outputStorage);
             return false;
         }
         vehicleParams->departSpeed = inputStorage.readDouble();
         if (vehicleParams->departSpeed < 0) {
-            vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)(int)vehicleParams->departSpeed;
+            vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)(int)-vehicleParams->departSpeed;
+        } else {
+            vehicleParams->departSpeedProcedure = DEPART_SPEED_GIVEN;
         }
+
         if (inputStorage.readUnsignedByte()!=TYPE_BYTE) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);
             return false;
+        } else {
+            vehicleParams->departLaneProcedure = DEPART_LANE_GIVEN;
         }
         vehicleParams->departLane = inputStorage.readByte();
         if (vehicleParams->departLane < 0) {
@@ -911,6 +927,36 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         MSNet::getInstance()->getInsertionControl().add(vehicle);
     }
     break;
+    case REMOVE: {
+        if (valueDataType!=TYPE_BYTE) {
+            server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Removing a vehicle requires an int.", outputStorage);
+            return false;
+        }
+        int why = (int) inputStorage.readByte();
+        MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
+        switch(why) {
+        case 0: 
+            n = MSMoveReminder::NOTIFICATION_TELEPORT;
+            break;
+        case 1: 
+            n = MSMoveReminder::NOTIFICATION_PARKING;
+            break;
+        case 2: 
+            n = MSMoveReminder::NOTIFICATION_ARRIVED;
+            break;
+        case 3: 
+            n = MSMoveReminder::NOTIFICATION_VAPORIZED;
+            break;
+        case 4: 
+        default:
+            n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+            break;
+        }
+        static_cast<MSVehicle*>(v)->onRemovalFromNet(n);
+        static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(static_cast<MSVehicle*>(v));
+              }
+              break;
     default:
         try {
             if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
