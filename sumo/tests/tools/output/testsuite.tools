@@ -9,3 +9,6 @@ generateTLSE3Detectors
 
 # Tests for ITetris Intersection Metrics
 generateITetrisIntersectionMetrics
+
+# Tests for generateMeanDataDefinitions.py
+generateMeanDataDefinitions

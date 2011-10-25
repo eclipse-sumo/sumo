@@ -1,0 +1,1 @@
+--detector-file e3.add.xml --detector-type e3 --output edge-mean-data.add.xml

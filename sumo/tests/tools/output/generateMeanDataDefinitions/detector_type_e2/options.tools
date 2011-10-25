@@ -1,0 +1,1 @@
+--detector-file e2.add.xml --detector-type e2 --output edge-mean-data.add.xml

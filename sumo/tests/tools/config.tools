@@ -27,11 +27,16 @@ copy_test_path:routesy.rou.alt.xml
 copy_test_path:input_districts.xml
 copy_test_path:input_mtx0708.fma
 copy_test_path:vissim.inp
+copy_test_path:e1.add.xml
+copy_test_path:e2.add.xml
+copy_test_path:e3.add.xml
 
 [collate_file]
 detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
+meandata:edge-mean-data.add.xml
+meandata:lane-mean-data.add.xml
 changednet:input_net.net.xml.chg
 edges:edges.xml
 nodes:nodes.xml
