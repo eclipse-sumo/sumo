@@ -15,8 +15,8 @@
         <!-- Read flow-definitions from FILE(s) -->
         <flow-files value="" synonymes="f flow-definition flows" type="FILE"/>
 
-        <!-- Read turning ratios from FILE -->
-        <turn-ratio-file value="" synonymes="t turn-definition turns" type="FILE"/>
+        <!-- Read turning ratios from FILE(s) -->
+        <turn-ratio-files value="" synonymes="t turn-definitions turns" type="FILE"/>
 
     </input>
 
@@ -68,6 +68,9 @@
 
         <!-- Ignore road restrictions based on vehicle class -->
         <ignore-vclasses value="false" synonymes="i ignore-classes" type="BOOL"/>
+
+        <!-- Allow to re-use a road -->
+        <allow-loops value="false" type="BOOL"/>
 
     </processing>
 
