@@ -1,0 +1,7 @@
+INFO:__main__:Reading net...
+INFO:__main__:Generating detectors...
+WARNING:__main__:Detector for lane 1si_2 already generated
+WARNING:__main__:Detector for lane 2si_2 already generated
+WARNING:__main__:Detector for lane 3si_2 already generated
+WARNING:__main__:Detector for lane 4si_2 already generated
+INFO:__main__:12 e1 detectors generated!

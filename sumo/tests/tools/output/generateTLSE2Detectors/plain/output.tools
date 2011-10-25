@@ -1,5 +1,5 @@
 Missing arguments
-Usage: generateTLSE3Detectors.py -n example.net.xml -l 250 -d .1 -f 60
+Usage: generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60
 
 Options:
   -h, --help            show this help message and exit
@@ -15,7 +15,7 @@ Options:
                         Detector's frequency. Defaults to 60.
   -o OUTPUT, --output=OUTPUT
                         The name of the file to write the detector definitions
-                        into. Defaults to e1.add.xml.
+                        into. Defaults to e2.add.xml.
   -r RESULTS, --results-file=RESULTS
                         The name of the file the detectors write their output
-                        into. Defaults to e1output.xml.
+                        into. Defaults to e2output.xml.

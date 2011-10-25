@@ -1,5 +1,8 @@
+# Tests for E1 Detector generation script
+generateTLSE1Detectors
+
 # Tests for E2 Detector geration script
-generateE2Detectors
+generateTLSE2Detectors
 
 # Tests for E3 Detector generation script
 generateTLSE3Detectors

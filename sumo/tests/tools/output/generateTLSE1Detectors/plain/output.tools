@@ -1,5 +1,5 @@
 Missing arguments
-Usage: generateTLSE3Detectors.py -n example.net.xml -l 250 -d .1 -f 60
+Usage: generateTLSE1Detectors.py -n example.net.xml -l 250 -d .1 -f 60
 
 Options:
   -h, --help            show this help message and exit

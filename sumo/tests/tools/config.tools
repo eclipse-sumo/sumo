@@ -29,6 +29,7 @@ copy_test_path:input_mtx0708.fma
 copy_test_path:vissim.inp
 
 [collate_file]
+detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
 changednet:input_net.net.xml.chg

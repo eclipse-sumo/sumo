@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-@file    generateE2TLSDetectors.py 
+@file    generateE1TLSDetectors.py 
 @author  Daniel.Krajzewicz@dlr.de
-@date    2007-10-25
-@version $Id$
+@date    2011-10-07
+@version $Id: generateTLSE1Detectors.py 10691 2011-10-07 11:10:25Z kstosiek $
 
 Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
@@ -97,16 +97,16 @@ if __name__ == "__main__":
     option_parser.add_option("-o", "--output",
                          dest="output",
                          help="The name of the file to write the detector "
-                              "definitions into. Defaults to e2.add.xml.",
+                              "definitions into. Defaults to e1.add.xml.",
                          type="string",
-                         default="e2.add.xml")
+                         default="e1.add.xml")
     option_parser.add_option("-r", "--results-file",
                          dest="results",
                          help="The name of the file the detectors write "
-                              "their output into. Defaults to e2output.xml.",
+                              "their output into. Defaults to e1output.xml.",
                          type="string",
-                         default="e2output.xml")
-    option_parser.set_usage("generateTLSE2Detectors.py -n example.net.xml "
+                         default="e1output.xml")
+    option_parser.set_usage("generateTLSE1Detectors.py -n example.net.xml "
                         "-l 250 -d .1 -f 60")
 
     (options, args) = option_parser.parse_args()
@@ -145,11 +145,11 @@ if __name__ == "__main__":
                 options.requested_distance_to_tls,
                 lane_length)
 
-            detector_xml = xml.dom.minidom.Element("e2Detector")
+            detector_xml = xml.dom.minidom.Element("e1Detector")
             detector_xml.setAttribute("file", options.results)
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("friendlyPos", "x")
-            detector_xml.setAttribute("id", "e2det_" + str(lane_id))
+            detector_xml.setAttribute("id", "e1det_" + str(lane_id))
             detector_xml.setAttribute("lane", str(lane_id))
             detector_xml.setAttribute("pos", str(final_detector_position))
             detector_xml.setAttribute("length", str(final_detector_length))
@@ -162,5 +162,5 @@ if __name__ == "__main__":
     detector_file.write(detectors_xml.toprettyxml())
     detector_file.close()
 
-    LOGGER.info("%d e2 detectors generated!" % len(lanes_with_detectors))
+    LOGGER.info("%d e1 detectors generated!" % len(lanes_with_detectors))
 
