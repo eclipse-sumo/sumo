@@ -232,8 +232,7 @@ def from_stream(input_connections):
         stream. The input_connections argument may be a filename or an opened
         file. """
   
-    LOGGER.info("Reading connections from input stream %s" %
-        (str(input_connections)))
+    LOGGER.info("Reading connections from input stream")
 
     connections = Connections()
     connections_xml_reader = ConnectionsXMLReader(input_connections)

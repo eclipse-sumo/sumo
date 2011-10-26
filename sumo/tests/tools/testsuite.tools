@@ -10,7 +10,7 @@ traceExporter
 # Tests for the assignment tools
 assign
 
-#Output tests
+# Output tests
 output
 
 # Tests for shape scripts
@@ -27,3 +27,6 @@ import
 
 # XML tests
 xml
+
+# Tests for the turn-defs tools
+turndefs

@@ -1,0 +1,12 @@
+CRITICAL:__main__:Missing TURN_DEFINITIONS_FILE.
+Usage: generateTurnDefs.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -c CONNECTIONS_FILE, --connections-file=CONNECTIONS_FILE
+                        Read connections defined in CONNECTIONS_FILE.
+                        Mandatory.
+  -t TURN_DEFINITIONS_FILE, --turn-definitions-file=TURN_DEFINITIONS_FILE
+                        Write the resulting turn definitions to
+                        TURN_DEFINITIONS_FILE. Mandatory.
+

@@ -1,0 +1,50 @@
+<turn-defs>
+	<fromEdge id="1fi">
+		<toEdge id="1si" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="1o">
+		<toEdge id="1fi" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="1si">
+		<toEdge id="1o" probability="25.0"/>
+		<toEdge id="2o" probability="25.0"/>
+		<toEdge id="3o" probability="25.0"/>
+		<toEdge id="4o" probability="25.0"/>
+	</fromEdge>
+	<fromEdge id="2fi">
+		<toEdge id="2si" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="2o">
+		<toEdge id="2fi" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="2si">
+		<toEdge id="1o" probability="41.6666666667"/>
+		<toEdge id="2o" probability="16.6666666667"/>
+		<toEdge id="3o" probability="16.6666666667"/>
+		<toEdge id="4o" probability="25.0"/>
+	</fromEdge>
+	<fromEdge id="3fi">
+		<toEdge id="3si" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="3o">
+		<toEdge id="3fi" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="3si">
+		<toEdge id="1o" probability="50.0"/>
+		<toEdge id="2o" probability="16.6666666667"/>
+		<toEdge id="3o" probability="16.6666666667"/>
+		<toEdge id="4o" probability="16.6666666667"/>
+	</fromEdge>
+	<fromEdge id="4fi">
+		<toEdge id="4si" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="4o">
+		<toEdge id="4fi" probability="100.0"/>
+	</fromEdge>
+	<fromEdge id="4si">
+		<toEdge id="1o" probability="50.0"/>
+		<toEdge id="2o" probability="12.5"/>
+		<toEdge id="3o" probability="25.0"/>
+		<toEdge id="4o" probability="12.5"/>
+	</fromEdge>
+</turn-defs>

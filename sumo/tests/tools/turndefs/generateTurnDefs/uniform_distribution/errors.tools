@@ -1,0 +1,10 @@
+INFO:connections:Reading connections from input stream
+WARNING:connections:Destination for 2fi (lane 0) readded: 2si
+WARNING:connections:Destination for 2si (lane 1) readded: 1o
+WARNING:connections:Destination for 3fi (lane 0) readded: 3si
+WARNING:connections:Destination for 3fi (lane 0) readded: 3si
+WARNING:connections:Destination for 4fi (lane 0) readded: 4si
+WARNING:connections:Destination for 4fi (lane 0) readded: 4si
+WARNING:connections:Destination for 4fi (lane 0) readded: 4si
+INFO:turndefinitions:Creating turn definitions
+INFO:turndefinitions:Converting turn definitions to XML
