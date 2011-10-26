@@ -83,19 +83,15 @@ NIXMLConnectionsHandler::myStartElement(int element,
         NBEdge *fromEdge = myEdgeCont.retrieve(from);
         NBEdge *toEdge = myEdgeCont.retrieve(to);
         if (fromEdge==0) {
-            myErrorMsgHandler->inform("The connection-source edge '" +
-                                      from + "' to reset is not known.");
+            myErrorMsgHandler->inform("The connection-source edge '" + from + "' to reset is not known.");
             return;
         }
         if (toEdge==0) {
-            myErrorMsgHandler->inform("The connection-destination edge '" +
-                                      to + "' to reset is not known.");
+            myErrorMsgHandler->inform("The connection-destination edge '" + to + "' to reset is not known.");
             return;
         }
         if (!fromEdge->isConnectedTo(toEdge)) {
-            WRITE_WARNING("Target edge '" + toEdge->getID() +
-                    "' is not connected with '" + fromEdge->getID() +
-                    "'; the connection cannot be reset.");
+            WRITE_WARNING("Target edge '" + toEdge->getID() + "' is not connected with '" + fromEdge->getID() + "'; the connection cannot be reset.");
             return;
         }
         int fromLane = -1; // Assume all lanes are to be reset.
@@ -109,9 +105,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             // we could be trying to reset a connection loaded from a sumo net and which has become obsolete. 
             // In this case it's ok to encounter invalid lance indices
             if (!fromEdge->hasConnectionTo(toEdge, toLane)) {
-                WRITE_WARNING("Target lane '" + toEdge->getLaneID(toLane) +
-                              "' is not connected with '" + fromEdge->getID() +
-                              "'; the connection cannot be reset.");
+                WRITE_WARNING("Target lane '" + toEdge->getLaneID(toLane) + "' is not connected with '" + fromEdge->getID() + "'; the connection cannot be reset.");
             }
         }
         fromEdge->removeFromConnections(toEdge, fromLane, toLane);
@@ -198,9 +192,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const std::
 
 
 void
-NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
-                                        NBEdge *from,
-                                        NBEdge *to) throw() {
+NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *from, NBEdge *to) throw() {
     if (to==0) {
         // do nothing if it's a dead end
         return;
@@ -258,11 +250,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
 }
 
 bool
-NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes &attributes,
-                                       NBEdge *fromEdge,
-                                       NBEdge *toEdge,
-                                       int *fromLane,
-                                       int *toLane) {
+NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes &attributes, NBEdge *fromEdge, NBEdge *toEdge,
+                                       int *fromLane, int *toLane) {
     if (attributes.hasAttribute(SUMO_ATTR_LANE)) {
        return parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane);
     } else {
@@ -273,11 +262,9 @@ NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes &attributes,
 
 inline bool
 NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes &attributes,
-                                                       NBEdge *from,
-                                                       NBEdge *to,
-                                                       int *fromLane,
-                                                       int *toLane) {
-    bool ok;
+                                                       NBEdge *from, NBEdge *to,
+                                                       int *fromLane, int *toLane) {
+    bool ok = true;
     if (!myHaveWarnedAboutDeprecatedLanes) {
         myHaveWarnedAboutDeprecatedLanes = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_LANE) + "' is deprecated, please use '" +
