@@ -212,7 +212,7 @@ GUIVisualizationTextSettings
 GUISettingsHandler::parseTextSettings(
     const std::string &prefix, const SUMOSAXAttributes &attrs,
     GUIVisualizationTextSettings defaults) {
-    bool ok;
+    bool ok = true;
     return GUIVisualizationTextSettings(
                TplConvert<char>::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
                TplConvert<char>::_2SUMOReal(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
