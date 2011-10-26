@@ -485,7 +485,7 @@ NIImporter_VISUM::parse_Connectors() {
             }
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                                      OptionsCont::getOptions().getInt("connectors-lane-number"),
+                                      OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
@@ -520,7 +520,7 @@ NIImporter_VISUM::parse_Connectors() {
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                                      OptionsCont::getOptions().getInt("connectors-lane-number"),
+                                      OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
