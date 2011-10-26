@@ -52,7 +52,7 @@ class Lane:
 class Edge:
     """ Edges from a sumo network """
 
-    def __init__(self, id, fromN, toN, prio, function):
+    def __init__(self, id, fromN, toN, prio, function, name):
         self._id = id
         self._from = fromN
         self._to = toN
@@ -67,6 +67,13 @@ class Edge:
         self._shape = None
         self._function = function
         self._tls = None
+        self._name = name
+
+    def getName(self):
+        return self._name
+
+    def getTLS(self):
+        return self._tls
 
     def addLane(self, lane):
         self._lanes.append(lane)
@@ -167,6 +174,9 @@ class Node:
         self._foes[index] = foes
         self._prohibits[index] = prohibits
 
+    def areFoes(self, link1, link2):
+        return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
+
     def getLinkIndex(self, link):
         ret = 0
         for lid in self._incLanes:
@@ -214,6 +224,20 @@ class TLS:
         self._connections.append( [inLane, outLane, linkNo] )
         if linkNo>self._maxConnectionNo:
             self._maxConnectionNo = linkNo
+
+    def getConnections(self):
+        return self._connections
+
+    def getID(self):
+        return self._id
+
+    def getLinks(self):
+        links = {}
+        for connection in self._connections:
+            if connection[2] not in links:
+                links[connection[2]] = []
+            links[connection[2]].append(connection)
+        return links
 
     def getEdges(self):
         edges = set()
@@ -274,11 +298,11 @@ class Net:
         if incLanes!=None and node._incLanes==None:
             node._incLanes = incLanes
 
-    def addEdge(self, id, fromID, toID, prio, function):
+    def addEdge(self, id, fromID, toID, prio, function, name):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
-            edge = Edge(id, fromN, toN, prio, function)
+            edge = Edge(id, fromN, toN, prio, function, name)
             self._edges.append(edge)
             self._id2edge[id] = edge
         return self._id2edge[id]
@@ -392,8 +416,12 @@ class NetReader(handler.ContentHandler):
                     prio = int(attrs['priority'])
                 function = ""
                 if attrs.has_key('function'):
-                    function = 'function'
-                self._currentEdge = self._net.addEdge(attrs['id'], attrs['from'], attrs['to'], prio, function)
+                    function = attrs['function']
+                name = ""
+                if attrs.has_key('name'):
+                    name = attrs['name']
+                self._currentEdge = self._net.addEdge(attrs['id'],
+                    attrs['from'], attrs['to'], prio, function, name)
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
