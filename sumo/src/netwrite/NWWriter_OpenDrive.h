@@ -29,23 +29,16 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <map>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/StringBijection.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBEdge;
-class NBEdgeCont;
 class NBNetBuilder;
-class NBNode;
-class NBNodeCont;
-class NBTrafficLightLogicCont;
-class NBTypeCont;
 class OptionsCont;
+class PositionVector;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -64,6 +57,11 @@ public:
      * @param[in] nb The network builder to fill
      */
     static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+protected:
+    static void writePlanView(const PositionVector &shape, OutputDevice& device);
+    static void writeEmptyCenterLane(OutputDevice& device);
+    static int getID(const std::string &origID, StringBijection<int> &map, int &lastID);
 
 };
 
