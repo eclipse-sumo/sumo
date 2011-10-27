@@ -5,9 +5,6 @@ html {
 	width: 960px;
 	margin: 0 auto;
 	text-align: center;
-	background-repeat: repeat-y;
-	background-position: top center;
-	background-image: url(body_bg.png);
 }
 
 body {
@@ -17,14 +14,18 @@ body {
 	width: 960px;
 	margin: 0 auto;
   text-align: center;
-	background-repeat: repeat-y;
-	background-position: top center;
-	background-image: url(body_bg.png);
 }
 
 #container {
 	width: 900px;
 	margin: 0 auto;
+	background-color: #ffffff;
+	border-left: 1px;
+	border-right: 1px;
+	border-top: 0px;
+	border-bottom: 0px;
+	border-style: solid;
+	border-color: #080063;
 }
 
 body#bmission li#lmission a
@@ -237,8 +238,9 @@ del { color: #555555; }
 #logo
 {
     background-color:#080063;
-    height:180;
+    height:160;
     color:white;
+	padding-top: 20px;
 }
 #logo_text1 {
 	font: normal 70px Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
