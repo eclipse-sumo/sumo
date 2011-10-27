@@ -242,7 +242,7 @@ GUINet::initGUIStructures() {
         const std::map<std::string, MSDetectorFileOutput*> &dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
             GUIDetectorWrapper *wrapper = (*j).second->buildDetectorGUIRepresentation();
-            if (wrapper) {
+            if (wrapper != 0) {
                 myDetectorDict.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
             }
