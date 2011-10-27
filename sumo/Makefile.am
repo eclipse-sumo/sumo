@@ -8,7 +8,7 @@ pydoc:
 	rm -rf docs/pydoc
 	mkdir docs/pydoc
 	cd docs/pydoc \
-	&& PYTHONPATH="../../tools" python -c "import pydoc, traci, sumolib; [pydoc.writedoc(m) for m in [traci, sumolib.net] + traci._modules.values()]"
+	&& PYTHONPATH="../../tools" python -c "import pydoc, traci, sumolib; [pydoc.writedoc(m) for m in [traci, sumolib, sumolib.net] + traci._modules.values()]"
 
 doxygen:
 	rm -rf docs/doxygen
@@ -16,7 +16,7 @@ doxygen:
 	doxygen sumo.doxyconf &> doxygen.log
 
 wikidump:
-	cd docs/wiki && ../../tools/build/getWikiPages.py && ../../tools/build/embedInIndex.py
+	cd docs/wiki && ../../tools/build/getWikiPages.py && ../../tools/build/embedInIndex.py && cp *.png *.css docs
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
