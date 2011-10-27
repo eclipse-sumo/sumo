@@ -3,7 +3,7 @@
 @file    generateE1TLSDetectors.py 
 @author  Daniel.Krajzewicz@dlr.de
 @date    2011-10-07
-@version $Id: generateTLSE1Detectors.py 10691 2011-10-07 11:10:25Z kstosiek $
+@version $Id$
 
 Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
