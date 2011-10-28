@@ -4434,8 +4434,8 @@ static int gl2psPrintPDFShaderMask(int obj, int childobj)
                   (int)gl2ps->viewport[2], (int)gl2ps->viewport[3]);
 
   len = (childobj>0)
-    ? strlen("/TrSh sh\n") + (int)log10((double)childobj)+1
-    : strlen("/TrSh0 sh\n");
+    ? (int)strlen("/TrSh sh\n") + (int)log10((double)childobj)+1
+    : (int)strlen("/TrSh0 sh\n");
 
   offs += fprintf(gl2ps->stream,
                   "/Length %d\n"
