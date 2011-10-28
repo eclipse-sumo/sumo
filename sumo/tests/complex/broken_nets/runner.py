@@ -188,7 +188,7 @@ print ">>> Building the correct network"
 retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
 print ">>> Trying the correct network"
 call.append("-n")
-call.append("net.net.xml")
+call.append("correct.net.xml")
 retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
 if retcode!=0:
     print "Error on processing the 'correct' network!"
@@ -200,7 +200,7 @@ call = call[:-1]
 call.append("mod.net.xml")
 print "Running broken net"
 for c in changes:
-    tree = dom.parse("net.net.xml")
+    tree = dom.parse("correct.net.xml")
     tinyPath(tree, c[0], c[1])
     writer = open('mod.net.xml', 'w')
     tree.writexml(writer)
