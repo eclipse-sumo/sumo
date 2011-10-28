@@ -18,8 +18,6 @@ import xml.dom.minidom
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
-LOGGER = logging.getLogger(__name__)
-
 def get_net_file_directory(net_file):
     """ Returns the directory containing the net file given. """
 
@@ -79,10 +77,10 @@ if __name__ == "__main__":
         option_parser.print_help()
         exit()
 
-    LOGGER.info("Reading net...")
+    logging.info("Reading net...")
     network = sumolib.net.readNet(options.net_file)
 
-    LOGGER.info("Generating detectors...")
+    logging.info("Generating detectors...")
     detectors_xml = xml.dom.minidom.Element("additional")
     generated_detectors = 0
     for tls in network._tlss:
@@ -118,5 +116,5 @@ if __name__ == "__main__":
     detector_file.write(detectors_xml.toprettyxml())
     detector_file.close()
 
-    LOGGER.info("%d e3 detectors generated!" % (generated_detectors))
+    logging.info("%d e3 detectors generated!" % (generated_detectors))
 

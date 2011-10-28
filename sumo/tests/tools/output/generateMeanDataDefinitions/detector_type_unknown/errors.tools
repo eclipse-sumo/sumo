@@ -1,4 +1,4 @@
-CRITICAL:__main__:Invalid detector type.
+CRITICAL:root:Invalid detector type.
 Usage: generateMeanDataDefinitions.py [options]
 
 Options:

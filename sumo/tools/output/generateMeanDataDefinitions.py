@@ -8,8 +8,6 @@ import logging
 import optparse
 import sys
 
-LOGGER = logging.getLogger(__name__)
-
 def generate_mean_data_xml(detectors_xml,
                            detectors_type,
                            detectors_frequency,
@@ -51,7 +49,7 @@ if __name__ == "__main__":
 
         if (provided_options.detector_file is None or
             provided_options.detector_file is ""):
-            LOGGER.fatal("Invalid input file. \n"
+            logging.fatal("Invalid input file. \n"
                 + option_parser.format_help())
             exit()
         return xml.dom.minidom.parse(provided_options.detector_file)
@@ -60,8 +58,8 @@ if __name__ == "__main__":
         """ Returns validated detector type located in provided_options.
             Checks if the detector type is one of e1, e2 or e3. """
 
-        if provided_options.detector_type not in {'e1', 'e2', 'e3'}:
-            LOGGER.fatal("Invalid detector type.\n"
+        if provided_options.detector_type not in ('e1', 'e2', 'e3'):
+            logging.fatal("Invalid detector type.\n"
                 + option_parser.format_help())
             exit()
         return provided_options.detector_type
@@ -78,7 +76,7 @@ if __name__ == "__main__":
                     raise ValueError
                 return frequency
             except ValueError:
-                LOGGER.fatal("Invalid time range length specified.\n" +
+                logging.fatal("Invalid time range length specified.\n" +
                     option_parser.format_help())
                 exit()
         return ""

@@ -1,4 +1,4 @@
-CRITICAL:__main__:Invalid input file. 
+CRITICAL:root:Invalid input file. 
 Usage: generateMeanDataDefinitions.py [options]
 
 Options:

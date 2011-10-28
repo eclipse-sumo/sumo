@@ -18,8 +18,6 @@ import xml.dom.minidom
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
-LOGGER = logging.getLogger(__name__)
-
 def get_net_file_directory(net_file):
     """ Returns the directory containing the net file given. """
 
@@ -115,10 +113,10 @@ if __name__ == "__main__":
         option_parser.print_help()
         exit()
 
-    LOGGER.info("Reading net...")
+    logging.info("Reading net...")
     net = sumolib.net.readNet(options.net_file)
     
-    LOGGER.info("Generating detectors...")
+    logging.info("Generating detectors...")
     detectors_xml = xml.dom.minidom.Element("additional")
     lanes_with_detectors = set()
     for tls in net._tlss:
@@ -127,10 +125,10 @@ if __name__ == "__main__":
             lane_length = lane.getLength()
             lane_id = lane.getID()
             
-            LOGGER.debug("Creating detector for lane %s" % (str(lane_id)))
+            logging.debug("Creating detector for lane %s" % (str(lane_id)))
 
             if lane_id in lanes_with_detectors:
-                LOGGER.warn("Detector for lane %s already generated" %
+                logging.warn("Detector for lane %s already generated" %
                     (str(lane_id)))
                 continue           
 
@@ -162,5 +160,5 @@ if __name__ == "__main__":
     detector_file.write(detectors_xml.toprettyxml())
     detector_file.close()
 
-    LOGGER.info("%d e1 detectors generated!" % len(lanes_with_detectors))
+    logging.info("%d e1 detectors generated!" % len(lanes_with_detectors))
 
