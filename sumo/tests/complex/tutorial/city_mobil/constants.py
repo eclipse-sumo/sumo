@@ -33,7 +33,7 @@ OCCUPATION_PROBABILITY = 0.5
 BREAK_DELAY = 1200
 
 PORT = 8813
-BIN_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "bin")
+BIN_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "bin")
 NETCONVERT = os.path.join(BIN_DIR, "netconvert")
 SUMO = os.path.join(BIN_DIR, "sumo")
 SUMOGUI = os.path.join(BIN_DIR, "sumo-gui")

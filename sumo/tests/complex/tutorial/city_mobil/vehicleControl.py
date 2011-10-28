@@ -13,7 +13,7 @@ All rights reserved
 import subprocess, random, sys, os
 from optparse import OptionParser
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "tools"))
 import traci
 import traci.constants as tc
 

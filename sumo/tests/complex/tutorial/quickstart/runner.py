@@ -2,10 +2,10 @@
 """
 @file    runner.py
 @author  Daniel Krajzewicz
-@date    2007-10-25
+@date    2011-09-25
 @version $Id$
 
-This script is a test runner for the broken networks.
+This script is a test runner for the quickstart tutorial.
 
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
@@ -13,7 +13,6 @@ All rights reserved
 
 
 import os,subprocess,sys,time
-import xml.dom.minidom as dom
 import shutil
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 from testUtil import checkBinary

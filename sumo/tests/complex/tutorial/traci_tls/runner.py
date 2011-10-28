@@ -12,12 +12,11 @@ All rights reserved
 """
 
 import os, subprocess, sys, socket, time, struct, random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..','..', '..', '..', '..', "tools", "lib"))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools", "lib"))
+from testUtil import checkBinary
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-from testUtil import checkBinary
-
-#sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "tools"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "tools"))
 import traci
 
 PORT = 8813
@@ -36,7 +35,7 @@ pWE = 1./10
 pEW = 1./11
 pNS = 1./30
 
-routes = open("cross.rou.xml", "w")
+routes = open("data/cross.rou.xml", "w")
 print >> routes, """<routes>
     <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
     <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="17" minGap="3" maxSpeed="25" guiShape="bus"/>
@@ -65,7 +64,7 @@ print >> routes, "</routes>"
 routes.close()
 
 sumoBinary = checkBinary('sumo')
-sumoConfig = "cross.sumo.cfg"
+sumoConfig = "data/cross.sumo.cfg"
 sumoProcess = subprocess.Popen("%s -c %s" % (sumoBinary, sumoConfig), shell=True, stdout=sys.stdout)
 
 

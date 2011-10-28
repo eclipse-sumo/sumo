@@ -5,7 +5,7 @@
 @date    2007-10-25
 @version $Id$
 
-This script is a test runner for the broken networks.
+This script is a test runner for the "Hello SUMO" Tutorial.
 
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
