@@ -12,7 +12,7 @@ All rights reserved
 """
 import net, poi, output
 
-import subprocess
+import os, subprocess
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
@@ -72,3 +72,23 @@ def saveConfiguration(executable, options, filename):
             if opt.action != "store_true":
                 cmd.append(str(value))
     subprocess.call(cmd)
+
+def exeExists(binary):
+    if os.name == "nt" and binary[-4:] != ".exe":
+        binary += ".exe"
+    return os.path.exists(binary)
+
+def checkBinary(name, bindir=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'bin'))):
+    """Checks for the given binary in the places, defined by the environment variables SUMO_HOME and SUMO_BINDIR."""
+    if name == "sumo-gui":
+        envName = "GUISIM_BINARY"
+    else:
+        envName = name.upper() + "_BINARY"
+    binary = os.environ.get(envName, os.path.join(bindir, name))
+    if not exeExists(binary):
+        binary = os.path.join(os.environ.get("SUMO_BINDIR"), name)
+        if not exeExists(binary):
+            binary = os.path.join(os.environ.get("SUMO_HOME"), "bin", name)
+            if not exeExists(binary):
+                return name
+    return binary

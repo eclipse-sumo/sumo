@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import os,subprocess,sys,shutil
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "lib"))
-import traci, testUtil
+import traci, sumolib
 
-sumoBinary = testUtil.checkBinary('sumo')
-netconvertBinary = testUtil.checkBinary('netconvert')
+sumoBinary = sumolib.checkBinary('sumo')
+netconvertBinary = sumolib.checkBinary('netconvert')
 
 DELTA_T = 1
 

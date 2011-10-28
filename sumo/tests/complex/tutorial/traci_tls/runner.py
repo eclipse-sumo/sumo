@@ -12,11 +12,9 @@ All rights reserved
 """
 
 import os, subprocess, sys, socket, time, struct, random
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools", "lib"))
-from testUtil import checkBinary
-if "SUMO_HOME" in os.environ:
-    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "tools"))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools"))
+from sumolib import checkBinary
 import traci
 
 PORT = 8813

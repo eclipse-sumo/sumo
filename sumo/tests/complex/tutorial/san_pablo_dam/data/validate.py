@@ -5,7 +5,7 @@ dDay = 1
 # generating route-file with the car-following parameters in sumo-parameters.txt
 exec(compile(open('genDemand.py').read(), 'genDemand.py', 'exec')) 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools", "lib"))
-from testUtil import checkBinary
+from sumolib import checkBinary
 
 # running the simulation...
 sumoBinary = checkBinary('sumo')

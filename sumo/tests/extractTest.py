@@ -14,8 +14,8 @@ All rights reserved
 """
 import optparse, os, glob, sys, shutil, subprocess
 from os.path import join 
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', "tools", "lib"))
-from testUtil import checkBinary
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', "tools"))
+from sumolib import checkBinary
 
 optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
 optParser.add_option("-o", "--output", default=".", help="send output to directory")

@@ -10,7 +10,7 @@ import difflib
 import StringIO
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
-from testUtil import checkBinary
+from sumolib import checkBinary
 import fpdiff 
 
 osm_input = 'osm.xml'

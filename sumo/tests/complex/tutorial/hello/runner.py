@@ -12,11 +12,10 @@ All rights reserved
 """
 
 
-import os,subprocess,sys,time
-import xml.dom.minidom as dom
-import shutil
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
-from testUtil import checkBinary
+import os,subprocess,sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")) # tutorial in tests
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools")) # tutorial in docs
+from sumolib import checkBinary
 
 
 netconvertBinary = checkBinary('netconvert')

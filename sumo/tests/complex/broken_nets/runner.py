@@ -16,7 +16,7 @@ import os,subprocess,sys,time
 import xml.dom.minidom as dom
 from copy import copy
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools", "lib"))
-from testUtil import checkBinary
+from sumolib import checkBinary
 
 changes = [
     [ "net/edge[0]@from", "" ],

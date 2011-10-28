@@ -3,8 +3,8 @@
 
 # call jtrrouter twice and check that the output differs
 import sys,os,subprocess,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
-from testUtil import checkBinary
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+from sumolib import checkBinary
 
 def get_depart_lines(route_file):
     return [l for l in open(route_file) if 'depart' in l]

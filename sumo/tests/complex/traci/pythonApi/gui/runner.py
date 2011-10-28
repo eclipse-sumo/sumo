@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 import os, subprocess, sys, struct, time
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools", "lib"))
-import traci, testUtil
+import traci, sumolib
 
-sumoBinary = testUtil.checkBinary('sumo-gui')
+sumoBinary = sumolib.checkBinary('sumo-gui')
 
 sumoProcess = subprocess.Popen("%s -Q -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)

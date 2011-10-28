@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 
 import os,subprocess,sys,time
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-import traci, testUtil
+import traci, sumolib
 
 
 PORT = 8813
 DELTA_T = 1000
 
-netconvertBinary = testUtil.checkBinary('netconvert')
-sumoBinary = testUtil.checkBinary('sumo')
+netconvertBinary = sumolib.checkBinary('netconvert')
+sumoBinary = sumolib.checkBinary('sumo')
 
 
 def runSingle(addOption):

@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 import os, subprocess, sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools", "lib"))
-import traci, testUtil
+import traci, sumolib
 
 def check(poiID):
     print "pois", traci.poi.getIDList()
@@ -12,7 +11,7 @@ def check(poiID):
     print "type", traci.poi.getType(poiID)
     print "color", traci.poi.getColor(poiID)
 
-sumoBinary = testUtil.checkBinary('sumo-gui')
+sumoBinary = sumolib.checkBinary('sumo-gui')
 
 sumoProcess = subprocess.Popen("%s -Q -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
