@@ -3,7 +3,7 @@
 
 # call jtrrouter twice and check that the output differs
 import sys,os,subprocess,random
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
 net_output = 'joined.net.xml'

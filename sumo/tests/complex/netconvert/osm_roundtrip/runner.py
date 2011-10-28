@@ -8,10 +8,10 @@
 import sys,os,subprocess
 import difflib
 import StringIO
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 from sumolib import checkBinary
-import fpdiff 
+import fpdiff
 
 osm_input = 'osm.xml'
 net_output = 'from_osm.net.xml'

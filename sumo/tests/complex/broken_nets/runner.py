@@ -15,7 +15,7 @@ All rights reserved
 import os,subprocess,sys,time
 import xml.dom.minidom as dom
 from copy import copy
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools", "lib"))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
 from sumolib import checkBinary
 
 changes = [
