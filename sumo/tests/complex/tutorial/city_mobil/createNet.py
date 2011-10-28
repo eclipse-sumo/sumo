@@ -24,9 +24,9 @@ connections = open("%s.con.xml" % PREFIX, "w")
 print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vType id="car" length="3.5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
-    <vType id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxSpeed="5" color="1,0.2,0.2"/>
-    <vType id="cybercar" length="%s" guiShape="evehicle" maxSpeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
+    <vType id="car" length="3" minGap=".5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
+    <vType id="person" length=".25" minGap="0" guiShape="pedestrian" guiWidth=".25" maxSpeed="5" color="1,0.2,0.2"/>
+    <vType id="cybercar" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
@@ -178,7 +178,7 @@ for row in range(DOUBLE_ROWS):
 for edge in ["cyberin", "cyberout"]:
     print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edge, edge),
     print >> stops, 'startPos="%s" endPos="%s"/>' % (90-2*CYBER_LENGTH-1, 90)
-print >> stops, '    <meandata-edge id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="hbefa"/>' 
+print >> stops, '    <edgeData id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="hbefa"/>' 
 print >> stops, "</additional>"
 stops.close()
 

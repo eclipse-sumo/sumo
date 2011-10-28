@@ -12,7 +12,7 @@ All rights reserved
 """
 
 
-import os,subprocess,sys
+import os,subprocess,sys,shutil
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")) # tutorial in tests
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools")) # tutorial in docs
 from sumolib import checkBinary
