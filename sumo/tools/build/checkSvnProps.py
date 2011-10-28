@@ -99,7 +99,7 @@ if len(args) > 0:
     svnRoots = [os.path.abspath(a) for a in args]
 else:
     upDir = os.path.dirname(sumoRoot)
-    for l in subprocess.Popen(["svn", "pg", "svn:externals", upDir], stdout=subprocess.PIPE).communicate()[0].splitlines():
+    for l in subprocess.Popen(["svn", "pg", "svn:externals", upDir], stdout=subprocess.PIPE, stderr=open(os.devnull, 'w')).communicate()[0].splitlines():
         if l[:5] == "sumo/":
             svnRoots.append(os.path.join(upDir, l.split()[0]))
 for svnRoot in svnRoots:
