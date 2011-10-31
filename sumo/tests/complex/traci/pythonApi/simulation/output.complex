@@ -19,15 +19,16 @@ loaded []
 departed []
 #arrived 0
 arrived []
+min#expected 1
 #teleportStart 0
 teleportStart []
 #teleportEnd 0
 teleportEnd []
 deltaT 1000
 boundary ((0.0, 0.0), (1000.0, 1000.0))
-convert2D (488.65, 501.65)
-convertGeo (488.65, 501.65)
-convertRoad ('1o', 0.0, 0)
+convert2D (488.65000000000003, 501.65000000000003)
+convertGeo (488.65000000000003, 501.65000000000003)
+convertRoad ('1o', 5.684341886080801e-14, 0)
 distance2D 10.0
 drivingDistance2D 1988.08443148
 distanceRoad 22.9386137332

@@ -551,6 +551,9 @@
 // bounding box (get: simulation)
 #define VAR_NET_BOUNDING_BOX 0x7c
 
+// minimum number of expected vehicles (get: simulation)
+#define VAR_MIN_EXPECTED_VEHICLES 0x7d
+
 
 
 // add an instance (poi, polygon, vehicle, route)

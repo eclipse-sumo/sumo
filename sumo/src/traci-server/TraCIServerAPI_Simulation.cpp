@@ -31,6 +31,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/MSInsertionControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include "TraCIConstants.h"
@@ -66,6 +67,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
             &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
             &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
             &&variable!=VAR_DELTA_T&&variable!=VAR_NET_BOUNDING_BOX
+            &&variable!=VAR_MIN_EXPECTED_VEHICLES
             &&variable!=POSITION_CONVERSION&&variable!=DISTANCE_REQUEST
        ) {
         server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
@@ -155,6 +157,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &input
         tempMsg.writeDouble(b.xmax());
         tempMsg.writeDouble(b.ymax());
         break;
+    }
+    break;
+    case VAR_MIN_EXPECTED_VEHICLES: {
+        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+        tempMsg.writeUnsignedByte(TYPE_INTEGER);
+        tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount());
     }
     break;
     case POSITION_CONVERSION:

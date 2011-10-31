@@ -242,9 +242,9 @@ MSInsertionControl::getWaitingVehicleNo() const throw() {
 }
 
 
-bool
-MSInsertionControl::hasPendingFlows() const throw() {
-    return !myFlows.empty();
+int
+MSInsertionControl::getPendingFlowCount() const throw() {
+    return (int)myFlows.size();
 }
 
 

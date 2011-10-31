@@ -20,6 +20,7 @@ RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP:                         traci.Storage.rea
                      tc.VAR_DEPARTED_VEHICLES_IDS:             traci.Storage.readStringList,
                      tc.VAR_ARRIVED_VEHICLES_NUMBER:           traci.Storage.readInt,
                      tc.VAR_ARRIVED_VEHICLES_IDS:              traci.Storage.readStringList,
+                     tc.VAR_MIN_EXPECTED_VEHICLES:             traci.Storage.readInt,
                      tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER: traci.Storage.readInt,
                      tc.VAR_TELEPORT_STARTING_VEHICLES_IDS:    traci.Storage.readStringList,
                      tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER:   traci.Storage.readInt,
@@ -52,6 +53,9 @@ def getArrivedNumber():
 
 def getArrivedIDList():
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
+
+def getMinExpectedNumber():
+    return _getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
 def getStartingTeleportNumber():
     return _getUniversal(tc.VAR_TELEPORT_STARTING_VEHICLES_NUMBER)

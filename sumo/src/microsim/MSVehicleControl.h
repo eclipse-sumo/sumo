@@ -231,19 +231,12 @@ public:
     }
 
 
-    /** @brief Returns the information whether all build vehicles have been removed
-     * @return Whether all loaded vehicles have ended
-     */
-    bool haveAllVehiclesQuit() const throw() {
-        return myLoadedVehNo == myEndedVehNo;
-    }
-
-
-    /** @brief Returns the information whether all build vehicles have either been removed
+    /** @brief Returns the number of build vehicles that have not been removed
      * or need to wait for a passenger
+     * @return Number of active vehicles
      */
-    bool haveAllActiveVehiclesQuit() const throw() {
-        return myLoadedVehNo == (myWaitingForPerson + myEndedVehNo);
+    int getActiveVehicleCount() const throw() {
+        return myLoadedVehNo - (myWaitingForPerson + myEndedVehNo);
     }
     /// @}
 

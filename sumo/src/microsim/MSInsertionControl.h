@@ -120,11 +120,11 @@ public:
     unsigned int getWaitingVehicleNo() const throw();
 
 
-    /** @brief Returns whether any flows are still active
+    /** @brief Returns the number of flows that are still active
      *
-     * @return whether any flows are still active
+     * @return number of active flows
      */
-    bool hasPendingFlows() const throw();
+    int getPendingFlowCount() const throw();
 
 
 private:

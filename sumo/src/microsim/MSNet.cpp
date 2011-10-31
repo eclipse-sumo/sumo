@@ -405,8 +405,8 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
     if (stopTime < 0) {
 #endif
         if (myInsertionEvents->isEmpty()
-                && myVehicleControl->haveAllActiveVehiclesQuit()
-                && !myInserter->hasPendingFlows()
+                && (myVehicleControl->getActiveVehicleCount() == 0)
+                && (myInserter->getPendingFlowCount() == 0)
                 && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {
             if (myPersonControl) {
                 myPersonControl->abortWaiting();
