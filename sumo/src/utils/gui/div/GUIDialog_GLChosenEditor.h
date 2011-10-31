@@ -64,8 +64,8 @@ public:
      * @param[in] parent The parent window
      * @param[in] str The storage of object selections to use
      */
-    GUIDialog_GLChosenEditor(GUIMainWindow *parent,
-                             GUISelectedStorage *str) throw();
+    GUIDialog_GLChosenEditor(GUIMainWindow* parent,
+                             GUISelectedStorage* str) throw();
 
 
     /** @brief Destructor
@@ -133,13 +133,13 @@ public:
 
 private:
     /// @brief The list that holds the ids
-    FXList *myList;
+    FXList* myList;
 
     /// @brief The parent window
-    GUIMainWindow *myParent;
+    GUIMainWindow* myParent;
 
     /// @brief The storage
-    GUISelectedStorage *myStorage;
+    GUISelectedStorage* myStorage;
 
 protected:
     /// FOX needs this

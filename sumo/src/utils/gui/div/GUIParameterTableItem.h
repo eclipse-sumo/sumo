@@ -91,7 +91,7 @@ public:
      *
      * @return The name of the value
      */
-    virtual const std::string &getName() const throw() = 0;
+    virtual const std::string& getName() const throw() = 0;
     /// @}
 
 };
@@ -127,11 +127,11 @@ public:
      * @todo Consider using a reference to the table
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      */
-    GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic,
+    GUIParameterTableItem(FXTable* table, unsigned pos,
+                          const std::string& name, bool dynamic,
                           ValueSource<T> *src) throw()
-            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
-            myValue(src->getValue()), myTable(table) {
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
+          myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
     }
 
@@ -147,11 +147,11 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic,
+    GUIParameterTableItem(FXTable* table, unsigned pos,
+                          const std::string& name, bool dynamic,
                           T value) throw()
-            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-            myValue(value), myTable(table) {
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
+          myValue(value), myTable(table) {
         init(dynamic, toString<T>(value));
     }
 
@@ -167,11 +167,11 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic,
+    GUIParameterTableItem(FXTable* table, unsigned pos,
+                          const std::string& name, bool dynamic,
                           std::string value) throw()
-            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-            myValue(0), myTable(table) {
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
+          myValue(0), myTable(table) {
         init(dynamic, value);
     }
 
@@ -216,7 +216,7 @@ public:
      *
      * @return The name of this value
      */
-    const std::string &getName() const throw() {
+    const std::string& getName() const throw() {
         return myName;
     }
 
@@ -281,7 +281,7 @@ private:
     T myValue;
 
     /// @brief The table this entry belongs to
-    FXTable *myTable;
+    FXTable* myTable;
 
 };
 

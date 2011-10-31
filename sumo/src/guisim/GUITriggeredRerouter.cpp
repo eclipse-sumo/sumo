@@ -98,23 +98,23 @@ FXIMPLEMENT(GUITriggeredRerouter::GUIManip_TriggeredRerouter, GUIManipulator, GU
  * GUITriggeredRerouter::GUIManip_TriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
-    GUIMainWindow &app,
-    const std::string &name, GUITriggeredRerouter &o,
+    GUIMainWindow& app,
+    const std::string& name, GUITriggeredRerouter& o,
     int /*xpos*/, int /*ypos*/)
-        : GUIManipulator(app, name, 0, 0), myParent(&app),
-        myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
-        myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
-        myObject(&o) {
+    : GUIManipulator(app, name, 0, 0), myParent(&app),
+      myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
+      myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
+      myObject(&o) {
     myChosenTarget.setTarget(this);
-    FXVerticalFrame *f1 =
+    FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
-    FXGroupBox *gp = new FXGroupBox(f1, "Change Probability",
+    FXGroupBox* gp = new FXGroupBox(f1, "Change Probability",
                                     GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,
                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
         // default
-        FXHorizontalFrame *gf1 =
+        FXHorizontalFrame* gf1 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION+0,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
@@ -122,7 +122,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     }
     {
         // free
-        FXHorizontalFrame *gf12 =
+        FXHorizontalFrame* gf12 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf12, "User Given: ", &myChosenTarget, FXDataTarget::ID_OPTION+1,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
@@ -137,7 +137,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     }
     {
         // off
-        FXHorizontalFrame *gf13 =
+        FXHorizontalFrame* gf13 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf13, "Off", &myChosenTarget, FXDataTarget::ID_OPTION+2,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
@@ -173,7 +173,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelec
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr) {
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -208,9 +208,9 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*,FX
  * GUITriggeredRerouter::GUITriggeredRerouterPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::GUITriggeredRerouterPopupMenu(
-    GUIMainWindow &app, GUISUMOAbstractView &parent,
-    GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent,
+    GUIGlObject& o)
+    : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() throw() {}
@@ -230,25 +230,25 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(
-    const std::string &id,
+    const std::string& id,
     const std::vector<MSEdge*> &edges,
-    SUMOReal prob, const std::string &aXMLFilename, bool off)
-        : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-        GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
+    SUMOReal prob, const std::string& aXMLFilename, bool off)
+    : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
+      GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     size_t k;
     size_t no = 0;
     for (k=0; k<edges.size(); k++) {
-        GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
+        GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
         no += gedge->getLanes().size();
     }
     myFGPositions.reserve(no);
     myFGRotations.reserve(no);
     for (k=0; k<edges.size(); k++) {
-        GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
+        GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
         const std::vector<MSLane*> &lanes = gedge->getLanes();
         size_t noLanes = lanes.size();
         for (size_t i=0; i<noLanes; ++i) {
-            const PositionVector &v = gedge->getLaneGeometry((size_t) i).getShape();
+            const PositionVector& v = gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
             myBoundary.add(v.positionAtLengthPosition(pos));
@@ -262,10 +262,10 @@ GUITriggeredRerouter::GUITriggeredRerouter(
 GUITriggeredRerouter::~GUITriggeredRerouter() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
-                                   GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
+                                   GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret, false);
@@ -276,18 +276,18 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &) throw() {
+GUIParameterTableWindow*
+GUITriggeredRerouter::getParameterWindow(GUIMainWindow&,
+        GUISUMOAbstractView&) throw() {
     return 0;
 }
 
 
 void
-GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
-        const Position &pos = myFGPositions[i];
+        const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(s.addExaggeration, s.addExaggeration, 1);
@@ -329,15 +329,15 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPopMatrix();
     }
     if (hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep())&&getProbability()>0) {
-        const RerouteInterval & ri =
+        const RerouteInterval& ri =
             getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
         for (std::vector<MSEdge*>::const_iterator i=ri.closed.begin(); i!=ri.closed.end(); ++i) {
-            GUIEdge *gedge = static_cast<GUIEdge*>(*i);
+            GUIEdge* gedge = static_cast<GUIEdge*>(*i);
             const std::vector<MSLane*> &lanes = gedge->getLanes();
             size_t noLanes = lanes.size();
             SUMOReal prob = getProbability()*360;
             for (size_t j=0; j<noLanes; ++j) {
-                const PositionVector &v = gedge->getLaneGeometry((size_t) j).getShape();
+                const PositionVector& v = gedge->getLaneGeometry((size_t) j).getShape();
                 SUMOReal d = 3.;
                 Position pos = v.positionAtLengthPosition(d);
                 SUMOReal rot = -v.rotationDegreeAtLengthPosition(d);
@@ -388,10 +388,10 @@ GUITriggeredRerouter::getCenteringBoundary() const throw() {
 
 
 
-GUIManipulator *
-GUITriggeredRerouter::openManipulator(GUIMainWindow &app,
-                                      GUISUMOAbstractView &) {
-    GUIManip_TriggeredRerouter *gui =
+GUIManipulator*
+GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
+                                      GUISUMOAbstractView&) {
+    GUIManip_TriggeredRerouter* gui =
         new GUIManip_TriggeredRerouter(app, getFullName(), *this, 0, 0);
     gui->create();
     gui->show();

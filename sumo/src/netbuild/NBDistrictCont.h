@@ -70,7 +70,7 @@ public:
      * @param[in] district The district to add
      * @return false if the districts already was in the dictionary
      */
-    bool insert(NBDistrict * const district) throw();
+    bool insert(NBDistrict* const district) throw();
 
 
     /** @brief Returns the districts with the given id
@@ -78,7 +78,7 @@ public:
      * @param[in] id The id of the district to retrieve
      * @return The district with the given id if there was one having it, 0 otherwise
      */
-    NBDistrict *retrieve(const std::string &id) const throw();
+    NBDistrict* retrieve(const std::string& id) const throw();
 
 
     /** @brief Returns the pointer to the begin of the stored districts
@@ -113,7 +113,7 @@ public:
      * @param[in] weight An optional weight of the source
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
-    bool addSource(const std::string &dist, NBEdge * const source,
+    bool addSource(const std::string& dist, NBEdge* const source,
                    SUMOReal weight) throw();
 
 
@@ -129,7 +129,7 @@ public:
      * @param[in] weight An optional weight of the source
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
-    bool addSink(const std::string &dist, NBEdge * const destination,
+    bool addSink(const std::string& dist, NBEdge* const destination,
                  SUMOReal weight) throw();
 
 
@@ -141,7 +141,7 @@ public:
      * @see NBDistrict::removeFromSinksAndSources
      * @param[in] e The edge to remove from sinks/sources
      */
-    void removeFromSinksAndSources(NBEdge * const e) throw();
+    void removeFromSinksAndSources(NBEdge* const e) throw();
 
 
 private:
@@ -154,10 +154,10 @@ private:
 
 private:
     /** invalid copy constructor */
-    NBDistrictCont(const NBDistrictCont &s);
+    NBDistrictCont(const NBDistrictCont& s);
 
     /** invalid assignment operator */
-    NBDistrictCont &operator=(const NBDistrictCont &s);
+    NBDistrictCont& operator=(const NBDistrictCont& s);
 
 
 };

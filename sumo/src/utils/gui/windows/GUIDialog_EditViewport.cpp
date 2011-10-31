@@ -45,7 +45,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]={
+FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]= {
     FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CHANGED, GUIDialog_EditViewport::onCmdChanged),
     FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_OK,      GUIDialog_EditViewport::onCmdOk),
     FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CANCEL,  GUIDialog_EditViewport::onCmdCancel),
@@ -63,11 +63,11 @@ FXIMPLEMENT(GUIDialog_EditViewport,FXDialogBox,GUIDialog_EditViewportMap, ARRAYN
 // ===========================================================================
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         const char* name, SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y) throw()
-        : FXDialogBox(parent, name, DECOR_TITLE|DECOR_BORDER, x, y, 0, 0),
-        myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff) {
-    FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X, 0,0,0,0, 0,0,1,1);
+    : FXDialogBox(parent, name, DECOR_TITLE|DECOR_BORDER, x, y, 0, 0),
+      myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff) {
+    FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X, 0,0,0,0, 0,0,1,1);
     {
-        FXHorizontalFrame *frame0 =
+        FXHorizontalFrame* frame0 =
             new FXHorizontalFrame(f1,FRAME_THICK, 0,0,0,0, 0,0,0,0, 2,2);
         new FXButton(frame0,"\t\tLoad viewport from file",
                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD,
@@ -76,7 +76,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
                      GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
-    FXMatrix *m1 = new FXMatrix(f1, 2, MATRIX_BY_COLUMNS);
+    FXMatrix* m1 = new FXMatrix(f1, 2, MATRIX_BY_COLUMNS);
     {
         new FXLabel(m1, "Zoom:", 0, LAYOUT_CENTER_Y);
         myZoom = new FXRealSpinDial(m1, 16, this, MID_CHANGED, LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
@@ -100,8 +100,8 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     }
     // ok/cancel
     new FXHorizontalSeparator(f1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-    FXHorizontalFrame *f6 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH, 0,0,0,0, 10,10,5,0);
-    FXButton *initial =
+    FXHorizontalFrame* f6 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH, 0,0,0,0, 10,10,5,0);
+    FXButton* initial =
         new FXButton(f6, "&OK", NULL, this, GUIDialog_EditViewport::MID_OK,
                      BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,
                      0,0,0,0,  4,4,3,3);
@@ -175,12 +175,12 @@ GUIDialog_EditViewport::onCmdSave(FXObject*,FXSelector,void* /*data*/) {
         return 1;
     }
     try {
-        OutputDevice &dev = OutputDevice::getDevice(opendialog.getFilename().text());
+        OutputDevice& dev = OutputDevice::getDevice(opendialog.getFilename().text());
         dev << "<viewsettings>\n";
         dev << "    <viewport zoom=\"" << myZoom->getValue() << "\" x=\"" << myXOff->getValue() << "\" y=\"" << myYOff->getValue() << "\"/>\n";
         dev << "</viewsettings>\n";
         dev.close();
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
     return 1;

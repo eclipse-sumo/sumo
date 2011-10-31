@@ -61,7 +61,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROJTREdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw();
+    ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw();
 
 
     /// @brief Destructor
@@ -78,7 +78,7 @@ public:
      * @param[in] s The following edge
      * @see ROEdge::addFollower
      */
-    void addFollower(ROEdge *s) throw();
+    void addFollower(ROEdge* s) throw();
 
 
     /** @brief adds the information about the percentage of using a certain follower
@@ -88,7 +88,7 @@ public:
      * @param[in] endTime Time end for which this probability is valid
      * @param[in] probability The probability to use the given follower
      */
-    void addFollowerProbability(ROJTREdge *follower,
+    void addFollowerProbability(ROJTREdge* follower,
                                 SUMOTime begTime, SUMOTime endTime, SUMOReal probability);
 
 
@@ -97,7 +97,7 @@ public:
      * @param[in] time The time at which the next edge shall be entered
      * @return The chosen edge
      */
-    ROJTREdge *chooseNext(const ROVehicle *const veh, SUMOTime time) const;
+    ROJTREdge* chooseNext(const ROVehicle* const veh, SUMOTime time) const;
 
 
     /** @brief Sets the turning definition defaults
@@ -119,10 +119,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    ROJTREdge(const ROJTREdge &src);
+    ROJTREdge(const ROJTREdge& src);
 
     /// @brief invalidated assignment operator
-    ROJTREdge &operator=(const ROJTREdge &src);
+    ROJTREdge& operator=(const ROJTREdge& src);
 
 
 };

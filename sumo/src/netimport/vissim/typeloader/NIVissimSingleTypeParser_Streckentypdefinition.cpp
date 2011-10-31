@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Streckentypdefinition::NIVissimSingleTypeParser_Streckentypdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Streckentypdefinition::NIVissimSingleTypeParser_Streckentypdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Streckentypdefinition::~NIVissimSingleTypeParser_Streckentypdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Streckentypdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Streckentypdefinition::parse(std::istream& from) {
     readUntil(from, "default");
     std::string tag;
     from >> tag;

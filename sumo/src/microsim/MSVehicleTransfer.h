@@ -73,7 +73,7 @@ public:
      *
      * @param[in] veh The vehicle to add
      */
-    void addVeh(const SUMOTime t, MSVehicle *veh) throw();
+    void addVeh(const SUMOTime t, MSVehicle* veh) throw();
 
 
     /** @brief Checks "movement" of stored vehicles
@@ -97,7 +97,7 @@ public:
     /** @brief Returns the instance of this object
      * @return The singleton instance
      */
-    static MSVehicleTransfer *getInstance() throw();
+    static MSVehicleTransfer* getInstance() throw();
 
 
 private:
@@ -112,7 +112,7 @@ protected:
      */
     struct VehicleInformation {
         /// @brief The vehicle itself
-        MSVehicle *myVeh;
+        MSVehicle* myVeh;
         /// @brief The time at which the vehicle should be moved virtually one edge further
         SUMOTime myProceedTime;
         /// @brief whether the vehicle is or was parking
@@ -123,8 +123,8 @@ protected:
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(MSVehicle *veh, SUMOTime proceedTime, bool parking) throw()
-                : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
+        VehicleInformation(MSVehicle* veh, SUMOTime proceedTime, bool parking) throw()
+            : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
     };
 
@@ -136,7 +136,7 @@ protected:
     VehicleInfVector myVehicles;
 
     /// @brief The static singleton-instance
-    static MSVehicleTransfer *myInstance;
+    static MSVehicleTransfer* myInstance;
 
 };
 

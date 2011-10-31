@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Richtungspfeildefinition::NIVissimSingleTypeParser_Richtungspfeildefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Richtungspfeildefinition::NIVissimSingleTypeParser_Richtungspfeildefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Richtungspfeildefinition::~NIVissimSingleTypeParser_Richtungspfeildefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Richtungspfeildefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Richtungspfeildefinition::parse(std::istream& from) {
     std::string t;
     getline(from, t);
     return true;

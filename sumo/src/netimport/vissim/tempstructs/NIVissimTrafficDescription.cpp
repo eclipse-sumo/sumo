@@ -48,9 +48,9 @@ NIVissimTrafficDescription::DictType NIVissimTrafficDescription::myDict;
 // member method definitions
 // ===========================================================================
 NIVissimTrafficDescription::NIVissimTrafficDescription(
-    int id, const std::string &name,
-    const NIVissimVehicleClassVector &vehicleTypes)
-        : myID(id), myName(name), myVehicleTypes(vehicleTypes) {}
+    int id, const std::string& name,
+    const NIVissimVehicleClassVector& vehicleTypes)
+    : myID(id), myName(name), myVehicleTypes(vehicleTypes) {}
 
 
 NIVissimTrafficDescription::~NIVissimTrafficDescription() {
@@ -63,9 +63,9 @@ NIVissimTrafficDescription::~NIVissimTrafficDescription() {
 
 bool
 NIVissimTrafficDescription::dictionary(int id,
-                                       const std::string &name,
-                                       const NIVissimVehicleClassVector &vehicleTypes) {
-    NIVissimTrafficDescription *o = new NIVissimTrafficDescription(id, name, vehicleTypes);
+                                       const std::string& name,
+                                       const NIVissimVehicleClassVector& vehicleTypes) {
+    NIVissimTrafficDescription* o = new NIVissimTrafficDescription(id, name, vehicleTypes);
     if (!dictionary(id, o)) {
         delete o;
         return false;
@@ -75,7 +75,7 @@ NIVissimTrafficDescription::dictionary(int id,
 
 
 bool
-NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o) {
+NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription* o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -85,7 +85,7 @@ NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o) {
 }
 
 
-NIVissimTrafficDescription *
+NIVissimTrafficDescription*
 NIVissimTrafficDescription::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
@@ -108,7 +108,7 @@ NIVissimTrafficDescription::clearDict() {
 
 SUMOReal
 NIVissimTrafficDescription::meanSpeed(int id) {
-    NIVissimTrafficDescription *i = dictionary(id);
+    NIVissimTrafficDescription* i = dictionary(id);
     assert(i!=0);
     return i->meanSpeed();
 }

@@ -41,11 +41,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Distribution_Points::Distribution_Points(const std::string &id,
-        const PositionVector &points,
+Distribution_Points::Distribution_Points(const std::string& id,
+        const PositionVector& points,
         bool interpolating) throw()
-        : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
-        myInterpolateDist(interpolating) {}
+    : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
+      myInterpolateDist(interpolating) {}
 
 
 Distribution_Points::~Distribution_Points() throw() {}
@@ -54,7 +54,7 @@ Distribution_Points::~Distribution_Points() throw() {}
 SUMOReal
 Distribution_Points::getMax() const {
     assert(myPoints.size()>0);
-    const Position &p = myPoints[-1];
+    const Position& p = myPoints[-1];
     return p.x();
 }
 

@@ -109,12 +109,12 @@ FXDEFMAP(MFXEditableTable) MFXEditableTableMap[]= {
 FXIMPLEMENT(MFXEditableTable,FXTable,MFXEditableTableMap,ARRAYNUMBER(MFXEditableTableMap))
 
 
-MFXEditableTable::MFXEditableTable(FXComposite *p, FXObject* tgt,
+MFXEditableTable::MFXEditableTable(FXComposite* p, FXObject* tgt,
                                    FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
                                    FXint pl,FXint pr,FXint pt,FXint pb)
-        : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
-        myEditedItem(0) {
+    : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+      myEditedItem(0) {
     myEditor=
         new FXTextField((FXComposite*)getParent(),1,this,
                         ID_EDITOR,FRAME_NORMAL|LAYOUT_EXPLICIT);
@@ -182,9 +182,13 @@ MFXEditableTable::editItem(FXTableItem* item,FXint how) {
     FXint x = getColumnX(myEditedCol) + getRowHeader()->getWidth() + xpos;
     FXint y = getRowY(myEditedRow) + getColumnHeader()->getHeight() + ypos;
     FXIcon* icon = item->getIcon();
-    if (icon) x += icon->getWidth() + 4;
+    if (icon) {
+        x += icon->getWidth() + 4;
+    }
     FXint vw = getViewportWidth();
-    if (vertical->shown()) vw -= vertical->getWidth();
+    if (vertical->shown()) {
+        vw -= vertical->getWidth();
+    }
     if (vw>getColumnWidth(myEditedCol)) {
         vw = getColumnWidth(myEditedCol) + x;
     }
@@ -200,21 +204,27 @@ MFXEditableTable::editItem(FXTableItem* item,FXint how) {
     } else if (how == 'A') {
         myEditor->killSelection();
         myEditor->setCursorPos(myEditor->getText().length());
-    } else myEditor->selectAll();
+    } else {
+        myEditor->selectAll();
+    }
     myEditedItem = it;
 }
 
 
 void
 MFXEditableTable::editEnd() {
-    if (!myEditedItem) return;
+    if (!myEditedItem) {
+        return;
+    }
     FXTableItem* item= myEditedItem;
     myEditedItem = NULL;
     myEditor->hide();
     setFocus();
     FXString text = myEditor->getText();
     myEditedItem = 0;
-    if (item->getText() == text) return;
+    if (item->getText() == text) {
+        return;
+    }
     if (handle(item, FXSEL(SEL_COMMAND,ID_EDITEND), &text)) {
         item->setText(text);
         handle(this, FXSEL(SEL_CHANGED,0), item);
@@ -233,7 +243,7 @@ MFXEditableTable::editEnd() {
 
 
 long
-MFXEditableTable::onEditEnd(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onEditEnd(FXObject*,FXSelector ,void*) {
     delete myEditedItem;
     myEditedItem = 0;
     return 1;
@@ -242,7 +252,9 @@ MFXEditableTable::onEditEnd(FXObject *,FXSelector ,void *) {
 
 void
 MFXEditableTable::editCancel() {
-    if (!myEditedItem) return;
+    if (!myEditedItem) {
+        return;
+    }
     myEditedItem = 0;
     myEditor->hide();
     setFocus();
@@ -286,7 +298,7 @@ MFXEditableTable::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-MFXEditableTable::onEditFocusOut(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onEditFocusOut(FXObject*,FXSelector ,void*) {
     editEnd();
     return 0;
 }
@@ -314,126 +326,126 @@ MFXEditableTable::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
 
 
 long
-MFXEditableTable::onHScrollerChanged(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onHScrollerChanged(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXScrollArea::onHScrollerChanged(o, s, d);
 }
 
 
 long
-MFXEditableTable::onVScrollerChanged(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onVScrollerChanged(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXScrollArea::onVScrollerChanged(o, s, d);
 }
 
 
 long
-MFXEditableTable::onHScrollerDragged(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onHScrollerDragged(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXScrollArea::onHScrollerDragged(o, s, d);
 }
 
 
 long
-MFXEditableTable::onVScrollerDragged(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onVScrollerDragged(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXScrollArea::onVScrollerDragged(o, s, d);
 }
 
 
 long
-MFXEditableTable::onAutoScroll(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onAutoScroll(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onAutoScroll(o, s, d);
 }
 
 
 long
-MFXEditableTable::onUngrabbed(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onUngrabbed(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onUngrabbed(o, s, d);
 }
 
 
 long
-MFXEditableTable::onRightBtnPress(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onRightBtnPress(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onRightBtnPress(o, s, d);
 }
 
 
 long
-MFXEditableTable::onTabKeyPress(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onTabKeyPress(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onKeyPress(o, s, d);
 }
 
 
 long
-MFXEditableTable::onTabKeyRelease(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onTabKeyRelease(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onKeyRelease(o, s, d);
 }
 
 
 long
-MFXEditableTable::onFocusIn(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onFocusIn(FXObject* o,FXSelector s,void* d) {
 //    editEnd();
     return FXTable::onFocusIn(o, s, d);
 }
 
 
 long
-MFXEditableTable::onFocusOut(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onFocusOut(FXObject* o,FXSelector s,void* d) {
 //    editEnd();
     return FXTable::onFocusOut(o, s, d);
 }
 
 
 long
-MFXEditableTable::onSelectionLost(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onSelectionLost(FXObject* o,FXSelector s,void* d) {
 //    editEnd();
     return FXTable::onSelectionLost(o, s, d);
 }
 
 
 long
-MFXEditableTable::onSelectionGained(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onSelectionGained(FXObject* o,FXSelector s,void* d) {
 //    editEnd();
     return FXTable::onSelectionGained(o, s, d);
 }
 
 
 long
-MFXEditableTable::onSelectionRequest(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onSelectionRequest(FXObject* o,FXSelector s,void* d) {
 //    editEnd();
     return FXTable::onSelectionRequest(o, s, d);
 }
 
 
 long
-MFXEditableTable::onClipboardLost(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onClipboardLost(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onClipboardLost(o, s, d);
 }
 
 
 long
-MFXEditableTable::onClipboardGained(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onClipboardGained(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onClipboardGained(o, s, d);
 }
 
 
 long
-MFXEditableTable::onClipboardRequest(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onClipboardRequest(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onClipboardRequest(o, s, d);
 }
 
 
 long
-MFXEditableTable::onDoubleClicked(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onDoubleClicked(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -441,7 +453,7 @@ MFXEditableTable::onDoubleClicked(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onTripleClicked(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onTripleClicked(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -449,42 +461,42 @@ MFXEditableTable::onTripleClicked(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCommand(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCommand(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCommand(o, s, d);
 }
 
 
 long
-MFXEditableTable::onUpdHorzGrid(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onUpdHorzGrid(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onUpdHorzGrid(o, s, d);
 }
 
 
 long
-MFXEditableTable::onUpdVertGrid(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onUpdVertGrid(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onUpdVertGrid(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdHorzGrid(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdHorzGrid(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdHorzGrid(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdVertGrid(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdVertGrid(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdVertGrid(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdDeleteColumn(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdDeleteColumn(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -492,7 +504,7 @@ MFXEditableTable::onCmdDeleteColumn(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onUpdDeleteColumn(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onUpdDeleteColumn(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -500,7 +512,7 @@ MFXEditableTable::onUpdDeleteColumn(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdDeleteRow(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdDeleteRow(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -508,7 +520,7 @@ MFXEditableTable::onCmdDeleteRow(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onUpdDeleteRow(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onUpdDeleteRow(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -516,7 +528,7 @@ MFXEditableTable::onUpdDeleteRow(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdInsertColumn(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdInsertColumn(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -524,7 +536,7 @@ MFXEditableTable::onCmdInsertColumn(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdInsertRow(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdInsertRow(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -533,70 +545,70 @@ MFXEditableTable::onCmdInsertRow(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdMoveLeft(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveLeft(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveLeft(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveRight(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveRight(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveRight(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveUp(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveUp(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveUp(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveDown(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveDown(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveDown(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveHome(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveHome(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveHome(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveEnd(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveEnd(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveEnd(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveTop(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveTop(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveTop(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMoveBottom(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMoveBottom(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMoveBottom(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMovePageDown(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMovePageDown(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMovePageDown(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdMovePageUp(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMovePageUp(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMovePageUp(o, s, d);
 }
@@ -604,14 +616,14 @@ MFXEditableTable::onCmdMovePageUp(FXObject *o,FXSelector s,void *d) {
 
 
 long
-MFXEditableTable::onCmdSelectRowIndex(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdSelectRowIndex(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdSelectRowIndex(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdSelectColumnIndex(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdSelectColumnIndex(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -619,7 +631,7 @@ MFXEditableTable::onCmdSelectColumnIndex(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdSelectColumn(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdSelectColumn(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -627,14 +639,14 @@ MFXEditableTable::onCmdSelectColumn(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdSelectRow(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdSelectRow(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdSelectRow(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdSelectCell(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdSelectCell(FXObject*,FXSelector ,void*) {
 //    editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -642,7 +654,7 @@ MFXEditableTable::onCmdSelectCell(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdSelectAll(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdSelectAll(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -650,7 +662,7 @@ MFXEditableTable::onCmdSelectAll(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdDeselectAll(FXObject *,FXSelector ,void *) {
+MFXEditableTable::onCmdDeselectAll(FXObject*,FXSelector ,void*) {
     editEnd();
     return 1;
 //    return FXTable::onUngrabbed(o, s, d);
@@ -658,14 +670,14 @@ MFXEditableTable::onCmdDeselectAll(FXObject *,FXSelector ,void *) {
 
 
 long
-MFXEditableTable::onCmdMark(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdMark(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdMark(o, s, d);
 }
 
 
 long
-MFXEditableTable::onCmdExtend(FXObject *o,FXSelector s,void *d) {
+MFXEditableTable::onCmdExtend(FXObject* o,FXSelector s,void* d) {
     editEnd();
     return FXTable::onCmdExtend(o, s, d);
 }

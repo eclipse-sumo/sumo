@@ -48,7 +48,7 @@ class StringBijection {
 public:
 
     struct Entry {
-        const char *str;
+        const char* str;
         const T key;
     };
 
@@ -70,7 +70,7 @@ public:
     }
 
 
-    T get(const std::string &str) {
+    T get(const std::string& str) {
         if (hasString(str)) {
             return myString2T[str];
         } else {
@@ -89,7 +89,7 @@ public:
     }
 
 
-    bool hasString(const std::string &str) {
+    bool hasString(const std::string& str) {
         return myString2T.count(str) != 0;
     }
 

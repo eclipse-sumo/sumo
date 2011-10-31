@@ -56,39 +56,39 @@ public:
     /** @brief Adds a visualization scheme
      * @param[in] scheme The visualization scheme to add
      */
-    void add(const GUIVisualizationSettings &scheme) throw();
+    void add(const GUIVisualizationSettings& scheme) throw();
 
 
     /** @brief Returns the named scheme
      * @param[in] name The name of the visualization scheme to return
      * @return The named visualization scheme
      */
-    GUIVisualizationSettings &get(const std::string &name) throw();
+    GUIVisualizationSettings& get(const std::string& name) throw();
 
 
     /** @brief Returns the default scheme
      * @return The default visualization scheme
      */
-    GUIVisualizationSettings &getDefault() throw();
+    GUIVisualizationSettings& getDefault() throw();
 
 
     /** @brief Returns the information whether a setting with the given name is stored
      * @param[in] name The name of regarded scheme
      * @return Whether the named scheme is known
      */
-    bool contains(const std::string &name) const throw();
+    bool contains(const std::string& name) const throw();
 
 
     /** @brief Removes the setting with the given name
      * @param[in] name The name of the scheme to remove
      */
-    void remove(const std::string &name) throw();
+    void remove(const std::string& name) throw();
 
 
     /** @brief Makes the scheme with the given name the default
      * @param[in] name The name of the scheme to marks as default
      */
-    void setDefault(const std::string &name) throw();
+    void setDefault(const std::string& name) throw();
 
 
     /** @brief Returns a list of stored settings names
@@ -106,13 +106,13 @@ public:
     /** @brief Initialises the storage with some default settings
      * @param[in] app The application
      */
-    void init(FXApp *app) throw();
+    void init(FXApp* app) throw();
 
 
     /** @brief Writes the current scheme into the registry
      * @param[in] app The application
      */
-    void writeSettings(FXApp *app) throw();
+    void writeSettings(FXApp* app) throw();
 
 
     /** @brief Makes the given viewport the default

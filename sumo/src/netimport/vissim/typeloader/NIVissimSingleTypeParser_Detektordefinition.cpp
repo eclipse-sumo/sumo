@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Detektordefinition::NIVissimSingleTypeParser_Detektordefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Detektordefinition::NIVissimSingleTypeParser_Detektordefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Detektordefinition::~NIVissimSingleTypeParser_Detektordefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Detektordefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Detektordefinition::parse(std::istream& from) {
     std::string tag;
     while (tag!="strecke") {
         tag = myRead(from);

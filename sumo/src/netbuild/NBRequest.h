@@ -66,12 +66,12 @@ public:
         outgoing only edges). By now no further informations are needed to
         describe the junctions. These parameter must not be changed during the
         logic's building */
-    NBRequest(const NBEdgeCont &ec,
-              NBNode *junction,
-              const EdgeVector &all,
-              const EdgeVector &incoming,
-              const EdgeVector &outgoing,
-              const NBConnectionProhibits &loadedProhibits);
+    NBRequest(const NBEdgeCont& ec,
+              NBNode* junction,
+              const EdgeVector& all,
+              const EdgeVector& incoming,
+              const EdgeVector& outgoing,
+              const NBConnectionProhibits& loadedProhibits);
 
     /** destructor */
     ~NBRequest();
@@ -90,8 +90,8 @@ public:
      * @param[in] possProhibitedTo The maybe prohibited connection's end
      * @return Whether the first flow prohibits the second one
      */
-    bool mustBrake(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
-                   const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo) const throw();
+    bool mustBrake(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
+                   const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo) const throw();
 
 
     /** @brief Returns the information whether the described flow must let any other flow pass
@@ -99,7 +99,7 @@ public:
      * @param[in] to The connection's end edge
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge * const from, const NBEdge * const to) const throw(); // !!!
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const throw();   // !!!
 
     /** @brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream
@@ -108,8 +108,8 @@ public:
      * @param[in] to2 The ending edge of the second stream
      * @return Whether both stream are foes (cross)
      */
-    bool foes(const NBEdge * const from1, const NBEdge * const to1,
-              const NBEdge * const from2, const NBEdge * const to2) const throw();
+    bool foes(const NBEdge* const from1, const NBEdge* const to1,
+              const NBEdge* const from2, const NBEdge* const to2) const throw();
 
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -120,16 +120,16 @@ public:
      * @param[in] regardNonSignalisedLowerPriority Whether the right of way rules without traffic lights shall be regarded
      * @return Whether the first flow prohibits the second one
      */
-    bool forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
-                 const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+    bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
+                 const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const throw();
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
-    void writeLogic(std::string key, OutputDevice &into) const;
+    void writeLogic(std::string key, OutputDevice& into) const;
 
     /// prints the request
-    friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
+    friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
 
     /// reports warnings if any occured
     static void reportWarnings();
@@ -138,11 +138,11 @@ public:
 private:
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */
-    void setBlocking(bool leftHanded, NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
+    void setBlocking(bool leftHanded, NBEdge* from1, NBEdge* to1, NBEdge* from2, NBEdge* to2);
 
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
-    int writeLaneResponse(OutputDevice &od, NBEdge *from, int lane,
+    int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
                           int pos) const;
 
     /** @brief Writes the response of a certain link
@@ -163,12 +163,12 @@ private:
      * @param[in] mayDefinitelyPass Whether this link is definitely not disturbed
      * @exception IOError not yet implemented
      */
-    void writeResponse(OutputDevice &od, const NBEdge * const from, const NBEdge * const to,
+    void writeResponse(OutputDevice& od, const NBEdge* const from, const NBEdge* const to,
                        int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError);
 
 
     /** writes which participating links are foes to the given */
-    void writeAreFoes(OutputDevice &od, NBEdge *from, NBEdge *to,
+    void writeAreFoes(OutputDevice& od, NBEdge* from, NBEdge* to,
                       bool isInnerEnd) const;
 
 
@@ -180,36 +180,36 @@ private:
      * @param[in] to The destination edge (outgoing from this logic)
      * @return The index within the internal container
      */
-    int getIndex(const NBEdge * const from, const NBEdge * const to) const throw();
+    int getIndex(const NBEdge* const from, const NBEdge* const to) const throw();
 
 
     /** returns the distance between the incoming (from) and the outgoing (to)
         edge clockwise in edges */
-    size_t distanceCounterClockwise(NBEdge *from, NBEdge *to);
+    size_t distanceCounterClockwise(NBEdge* from, NBEdge* to);
 
     /** computes the relationships between links outgoing right of the given
         link */
-    void computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge *from, NBEdge *to);
+    void computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to);
 
     /** computes the relationships between links outgoing left of the given
         link */
-    void computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge *from, NBEdge *to);
+    void computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge* from, NBEdge* to);
 
 
     void resetSignalised();
 
 private:
     /// the node the request is assigned to
-    NBNode *myJunction;
+    NBNode* myJunction;
 
     /** all (icoming and outgoing) of the junctions edges */
-    const EdgeVector &myAll;
+    const EdgeVector& myAll;
 
     /** edges incoming to the junction */
-    const EdgeVector &myIncoming;
+    const EdgeVector& myIncoming;
 
     /** edges outgoing from the junction */
-    const EdgeVector &myOutgoing;
+    const EdgeVector& myOutgoing;
 
     /** definition of a container to store boolean informations about a link
         into */

@@ -44,12 +44,12 @@
 // method definitions
 // ===========================================================================
 #ifdef HAVE_INTERNAL_LANES
-MSInternalJunction::MSInternalJunction(const std::string &id,
-                                       const Position &position,
-                                       const PositionVector &shape,
+MSInternalJunction::MSInternalJunction(const std::string& id,
+                                       const Position& position,
+                                       const PositionVector& shape,
                                        std::vector<MSLane*> incoming,
                                        std::vector<MSLane*> internal) throw()
-        : MSLogicJunction(id, position, shape, incoming, internal) {}
+    : MSLogicJunction(id, position, shape, incoming, internal) {}
 
 
 
@@ -62,10 +62,10 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
     unsigned int requestPos = 0;
     myInternalLaneFoes = myInternalLanes;
     for (std::vector<MSLane*>::const_iterator i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
-        MSLane *l = *i;
-        const MSLinkCont &lc = l->getLinkCont();
+        MSLane* l = *i;
+        const MSLinkCont& lc = l->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
-            MSLane *via = (*j)->getViaLane();
+            MSLane* via = (*j)->getViaLane();
             if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via)==myInternalLanes.end()) {
                 continue;
             }
@@ -74,7 +74,7 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
     }
     if (myIncomingLanes.size()!=0) {
         // for the first incoming lane
-        const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();
+        const MSLinkCont& links = myIncomingLanes[0]->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);

@@ -55,7 +55,7 @@
 // static methods
 // ---------------------------------------------------------------------------
 void
-NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether a matsim-file shall be generated
     if (!oc.isSet("output-file")) {
         return;
@@ -64,9 +64,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device.writeXMLHeader("net", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device << "\n";
     // get involved container
-    const NBNodeCont &nc = nb.getNodeCont();
-    const NBEdgeCont &ec = nb.getEdgeCont();
-    const NBDistrictCont &dc = nb.getDistrictCont();
+    const NBNodeCont& nc = nb.getNodeCont();
+    const NBEdgeCont& ec = nb.getEdgeCont();
+    const NBDistrictCont& dc = nb.getDistrictCont();
 
     // write network offsets and projection
     writeLocation(device);
@@ -112,7 +112,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // write the successors of lanes
     unsigned int numConnections = 0;
     for (std::map<std::string, NBEdge*>::const_iterator it_edge=ec.begin(); it_edge!=ec.end(); it_edge++) {
-        NBEdge *from = it_edge->second;
+        NBEdge* from = it_edge->second;
         from->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = from->getConnections();
         numConnections += (unsigned int)connections.size();
@@ -159,9 +159,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 
 bool
-NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
+NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBNode& n) {
     bool ret = false;
-    const EdgeVector &incoming = n.getIncomingEdges();
+    const EdgeVector& incoming = n.getIncomingEdges();
     for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
         const std::vector<NBEdge::Connection> &elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
@@ -169,7 +169,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
                 continue;
             }
             writeInternalEdge(into, (*k).id, (*k).vmax, (*k).shape);
-            if((*k).haveVia) {
+            if ((*k).haveVia) {
                 writeInternalEdge(into, (*k).viaID, (*k).viaVmax, (*k).viaShape);
             }
             ret = true;
@@ -180,7 +180,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice &into, const NBNode &n) {
 
 
 void
-NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMOReal vmax, const PositionVector &shape) {
+NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMOReal vmax, const PositionVector& shape) {
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
@@ -198,7 +198,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice &into, const std::string &id, SUMO
 
 
 void
-NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
+NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
     into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
@@ -236,7 +236,7 @@ NWWriter_SUMO::writeEdge(OutputDevice &into, const NBEdge &e, bool noNames) {
 
 
 void
-NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::string &lID, const NBEdge::Lane &lane, SUMOReal length, unsigned int index) {
+NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, const NBEdge::Lane& lane, SUMOReal length, unsigned int index) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE) << " id=\"" << lID << "\"";
     // the first lane of an edge will be the depart lane
@@ -278,7 +278,7 @@ NWWriter_SUMO::writeLane(OutputDevice &into, const std::string &eID, const std::
 
 
 void
-NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
+NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     // write the attributes
     into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << n.getID() << '\"';
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
@@ -333,7 +333,7 @@ NWWriter_SUMO::writeJunction(OutputDevice &into, const NBNode &n) {
 
 
 bool
-NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
+NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
     bool ret = false;
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
@@ -363,7 +363,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice &into, const NBNode &n) {
 
 
 void
-NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBEdge::Connection &c,
+NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
                                bool includeInternal, ConnectionStyle style) {
     assert(c.toEdge != 0);
     into.openTag(SUMO_TAG_CONNECTION);
@@ -401,14 +401,14 @@ NWWriter_SUMO::writeConnection(OutputDevice &into, const NBEdge &from, const NBE
 
 
 bool
-NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
+NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
     bool ret = false;
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
-        NBEdge *from = *i;
+        NBEdge* from = *i;
         const std::vector<NBEdge::Connection> &connections = from->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
-            const NBEdge::Connection &c = *j;
+            const NBEdge::Connection& c = *j;
             assert(c.toEdge != 0);
             if (c.haveVia) {
                 // internal split
@@ -426,8 +426,8 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice &into, const NBNode &n) {
 
 
 void
-NWWriter_SUMO::writeInternalConnection(OutputDevice &into,
-                                       const std::string &from, const std::string &to, int toLane, const std::string &via) {
+NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
+                                       const std::string& from, const std::string& to, int toLane, const std::string& via) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
     into.writeAttr(SUMO_ATTR_TO, to);
@@ -443,10 +443,10 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice &into,
 
 
 void
-NWWriter_SUMO::writeRoundabout(OutputDevice &into, const std::set<NBEdge*> &r) {
+NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::set<NBEdge*> &r) {
     std::vector<NBNode*> nodes;
     for (std::set<NBEdge*>::const_iterator j=r.begin(); j!=r.end(); ++j) {
-        NBNode *n = (*j)->getToNode();
+        NBNode* n = (*j)->getToNode();
         if (find(nodes.begin(), nodes.end(), n)==nodes.end()) {
             nodes.push_back(n);
         }
@@ -466,7 +466,7 @@ NWWriter_SUMO::writeRoundabout(OutputDevice &into, const std::set<NBEdge*> &r) {
 
 
 void
-NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
+NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
     std::vector<SUMOReal> sourceW = d.getSourceWeights();
     VectorHelper<SUMOReal>::normaliseSum(sourceW, 1.0);
     std::vector<SUMOReal> sinkW = d.getSinkWeights();
@@ -497,7 +497,7 @@ NWWriter_SUMO::writeDistrict(OutputDevice &into, const NBDistrict &d) {
 }
 
 
-std::string 
+std::string
 NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
     SUMOReal time = STEPS2TIME(steps);
     if (time == std::floor(time)) {
@@ -508,11 +508,11 @@ NWWriter_SUMO::writeSUMOTime(SUMOTime steps) {
 }
 
 
-void 
-NWWriter_SUMO::writeProhibitions(OutputDevice &into, const NBConnectionProhibits &prohibitions) {
+void
+NWWriter_SUMO::writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions) {
     for (NBConnectionProhibits::const_iterator j=prohibitions.begin(); j!=prohibitions.end(); j++) {
         NBConnection prohibited = (*j).first;
-        const NBConnectionVector &prohibiting = (*j).second;
+        const NBConnectionVector& prohibiting = (*j).second;
         for (NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection prohibitor = *k;
             into.openTag(SUMO_TAG_PROHIBITION);
@@ -524,14 +524,14 @@ NWWriter_SUMO::writeProhibitions(OutputDevice &into, const NBConnectionProhibits
 }
 
 
-std::string 
-NWWriter_SUMO::prohibitionConnection(const NBConnection &c) {
+std::string
+NWWriter_SUMO::prohibitionConnection(const NBConnection& c) {
     return c.getFrom()->getID() + "->" + c.getTo()->getID();
 }
 
 
-void 
-NWWriter_SUMO::writeTrafficLights(OutputDevice &into, const NBTrafficLightLogicCont &tllCont) {
+void
+NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont) {
     std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
     for (std::vector<NBTrafficLightLogic*>::iterator it = logics.begin(); it!= logics.end(); it++) {
         into.openTag(SUMO_TAG_TLLOGIC);
@@ -556,11 +556,11 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice &into, const NBTrafficLightLogicC
 }
 
 
-void 
-NWWriter_SUMO::writeLocation(OutputDevice &into) {
-    const GeoConvHelper &geoConvHelper = GeoConvHelper::getOutputInstance();
+void
+NWWriter_SUMO::writeLocation(OutputDevice& into) {
+    const GeoConvHelper& geoConvHelper = GeoConvHelper::getOutputInstance();
     into.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
-    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
+                                    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
     if (geoConvHelper.usingGeoProjection()) {
         into.setPrecision(GEO_OUTPUT_ACCURACY);
         into << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";

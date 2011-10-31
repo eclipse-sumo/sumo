@@ -69,20 +69,20 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
     /// begins the reading of a traffic lights logic
-    static NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL);
+    static NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
     /// adds a phase to the traffic lights logic currently build
-    static void addPhase(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL);
+    static void addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
 
 protected:
     /** @brief Constructor
      * @param[in] nc The network builder to fill
      */
-    NIImporter_SUMO(NBNetBuilder &nb);
+    NIImporter_SUMO(NBNetBuilder& nb);
 
 
     /// @brief Destructor
@@ -104,7 +104,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -115,7 +115,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string &chars) throw(ProcessError);
+                      const std::string& chars) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -130,7 +130,7 @@ protected:
 
 private:
     /// @brief load the network
-    void _loadNetwork(const OptionsCont &oc);
+    void _loadNetwork(const OptionsCont& oc);
 
     /// @name Object instance parsing methods
     //@{
@@ -138,47 +138,47 @@ private:
     /** @brief Parses an edge and stores the values in "myCurrentEdge"
      * @param[in] attrs The attributes to get the edge's values from
      */
-    void addEdge(const SUMOSAXAttributes &attrs);
+    void addEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses a lane and stores the values in "myCurrentLane"
      * @param[in] attrs The attributes to get the lane's values from
      */
-    void addLane(const SUMOSAXAttributes &attrs);
+    void addLane(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses a junction and saves it in the node control
      * @param[in] attrs The attributes to get the junction's values from
      */
-    void addJunction(const SUMOSAXAttributes &attrs);
+    void addJunction(const SUMOSAXAttributes& attrs);
 
 
     /** @brief (deprecated) Parses a succedge-definition and saves it
      *    by assigning "myCurrentEdge" and "myCurrentLane" to the read values
      * @param[in] attrs The attributes to get the succedge-definition from
      */
-    void addSuccEdge(const SUMOSAXAttributes &attrs);
+    void addSuccEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @brief (deprecated) Parses a succlane-definition and saves it
      *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the succlane-definition from
      */
-    void addSuccLane(const SUMOSAXAttributes &attrs);
+    void addSuccLane(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a connection and saves it
      *    into the lane's definition stored in "myCurrentLane"
      * @param[in] attrs The attributes to get the connection from
      */
-    void addConnection(const SUMOSAXAttributes &attrs);
+    void addConnection(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a prohibition and saves it
      * @param[in] attrs The attributes to get the connection from
      */
-    void addProhibition(const SUMOSAXAttributes &attrs);
+    void addProhibition(const SUMOSAXAttributes& attrs);
 
     /// Parses network location description
-    void setLocation(const SUMOSAXAttributes &attrs);
+    void setLocation(const SUMOSAXAttributes& attrs);
     //@}
 
 
@@ -248,7 +248,7 @@ private:
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge
-        NBEdge *builtEdge;
+        NBEdge* builtEdge;
         /// @brief The lane spread function
         LaneSpreadFunction lsf;
     };
@@ -272,25 +272,25 @@ private:
     std::vector<Prohibition> myProhibitions;
 
     /// @brief The network builder to fill
-    NBNetBuilder &myNetBuilder;
+    NBNetBuilder& myNetBuilder;
 
     /// @brief The node container to fill
-    NBNodeCont &myNodeCont;
+    NBNodeCont& myNodeCont;
 
     /// @brief The node container to fill
-    NBTrafficLightLogicCont &myTLLCont;
+    NBTrafficLightLogicCont& myTLLCont;
 
     /// @brief The currently parsed edge's definition (to add loaded lanes to)
-    EdgeAttrs *myCurrentEdge;
+    EdgeAttrs* myCurrentEdge;
 
     /// @brief The currently parsed lanes's definition (to add the shape to)
-    LaneAttrs *myCurrentLane;
+    LaneAttrs* myCurrentLane;
 
     /// @brief The currently parsed traffic light
-    NBLoadedSUMOTLDef *myCurrentTL;
+    NBLoadedSUMOTLDef* myCurrentTL;
 
-    /// @brief The coordinate transformation which was used to build the loaded network. 
-    GeoConvHelper *myLocation;
+    /// @brief The coordinate transformation which was used to build the loaded network.
+    GeoConvHelper* myLocation;
 
     /// @brief whether we suspect a net that was built with xml.keep-shape
     bool mySuspectKeepShape;
@@ -309,17 +309,17 @@ private:
      * @param[out] edge_id ID of this lane's edge
      * @param[out] index Index of this lane
      */
-    static void interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index);
+    static void interpretLaneID(const std::string& lane_id, std::string& edge_id, unsigned int& index);
 
     /** @brief reconstructs the edge shape from the node positions and the given lane shapes
      * since we do not know the original LaneSpreadFunction this is only an
      * approximation
      * @param[in] lanes The list of lane attributes
      */
-    static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to);
+    static PositionVector reconstructEdgeShape(const EdgeAttrs* edge, const Position& from, const Position& to);
 
     /// @brief read position from the given attributes, attribute errors to id
-    static Position readPosition(const SUMOSAXAttributes &attrs, const std::string &id, bool &ok);
+    static Position readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok);
 
     /** @brief parses connection string of a prohibition (very old school)
      * @param[in] attr The connection attribute
@@ -327,7 +327,7 @@ private:
      * @param[out] to ID of the destination edge
      * @param[out] ok Whether parsing completed successfully
      */
-    void parseProhibitionConnection(const std::string &attr, std::string &from, std::string &to, bool &ok); 
+    void parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok);
 };
 
 

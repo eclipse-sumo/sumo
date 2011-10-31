@@ -60,8 +60,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                   tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                   tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -95,7 +95,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
     // process request
     if (variable==ID_LIST||variable==ID_COUNT) {
         std::vector<std::string> ids;
-        MSVehicleControl &c = MSNet::getInstance()->getVehicleControl();
+        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
         for (MSVehicleControl::constVehIt i=c.loadedVehBegin(); i!=c.loadedVehEnd(); ++i) {
             if ((*i).second->isOnRoad()) {
                 ids.push_back((*i).first);
@@ -109,7 +109,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        MSVehicle *v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
+        MSVehicle* v = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
         if (v==0) {
             server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
             return false;
@@ -218,7 +218,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -255,7 +255,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -278,7 +278,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
         }
         break;
         case VAR_EDGES: {
-            const MSRoute &r = v->getRoute();
+            const MSRoute& r = v->getRoute();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeInt(r.size());
             for (MSRouteIterator i=r.begin(); i!=r.end(); ++i) {
@@ -299,7 +299,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
             tempContent.writeInt((int) bestLanes.size());
             ++cnt;
             for (std::vector<MSVehicle::LaneQ>::const_iterator i=bestLanes.begin(); i!=bestLanes.end(); ++i) {
-                const MSVehicle::LaneQ &lq = *i;
+                const MSVehicle::LaneQ& lq = *i;
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(lq.lane->getID());
                 ++cnt;
@@ -344,8 +344,8 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer &server, tcpip::Storage &inputSto
 
 
 bool
-TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                   tcpip::Storage &outputStorage) {
+TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                   tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -368,7 +368,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     // id
     std::string id = inputStorage.readString();
-    SUMOVehicle *v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+    SUMOVehicle* v = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (v==0&&variable!=ADD) {
         server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + id + "' is not known", outputStorage);
         return false;
@@ -535,7 +535,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         std::string rid = inputStorage.readString();
-        const MSRoute *r = MSRoute::dictionary(rid);
+        const MSRoute* r = MSRoute::dictionary(rid);
         if (r==0) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route '" + rid + "' is not known.", outputStorage);
             return false;
@@ -585,7 +585,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -605,7 +605,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -628,7 +628,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -668,7 +668,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -688,7 +688,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -711,7 +711,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
                 return false;
             }
             std::string edgeID = inputStorage.readString();
-            MSEdge *edge = MSEdge::dictionary(edgeID);
+            MSEdge* edge = MSEdge::dictionary(edgeID);
             if (edge==0) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
@@ -784,12 +784,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         SUMOReal position = inputStorage.readDouble();
         // process
-        MSLane *l = MSLane::dictionary(laneID);
+        MSLane* l = MSLane::dictionary(laneID);
         if (l==0) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unknown lane '" + laneID + "'.", outputStorage);
             return false;
         }
-        MSEdge &destinationEdge = l->getEdge();
+        MSEdge& destinationEdge = l->getEdge();
         if (!static_cast<MSVehicle*>(v)->willPass(&destinationEdge)) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle '" + laneID + "' may be set onto an edge to pass only.", outputStorage);
             return false;
@@ -797,7 +797,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         static_cast<MSVehicle*>(v)->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
         while (v->getEdge()!=&destinationEdge) {
-            const MSEdge *nextEdge = v->succEdge(1);
+            const MSEdge* nextEdge = v->succEdge(1);
             // let the vehicle move to the next edge
             if (static_cast<MSVehicle*>(v)->enterLaneAtMove(nextEdge->getLanes()[0], true)) {
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(v);
@@ -845,7 +845,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
     }
     break;
     case ADD: {
-        if(v!=0) {
+        if (v!=0) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The vehicle " + id + " to add already exists.", outputStorage);
             return false;
         }
@@ -864,7 +864,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
             return false;
         }
-        MSVehicleType *vehicleType = MSNet::getInstance()->getVehicleControl().getVType(inputStorage.readString());
+        MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(inputStorage.readString());
         if (!vehicleType) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid type for vehicle: '"+id+"'");
             return false;
@@ -875,7 +875,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
             return false;
         }
         const std::string routeID = inputStorage.readString();
-        const MSRoute *route = MSRoute::dictionary(routeID);
+        const MSRoute* route = MSRoute::dictionary(routeID);
         if (!route) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid route '"+routeID+"' for vehicle: '"+id+"'");
             return false;
@@ -922,7 +922,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         if (vehicleParams->departLane < 0) {
             vehicleParams->departLaneProcedure = (DepartLaneDefinition)vehicleParams->departLane;
         }
-        SUMOVehicle *vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
+        SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
         MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams->id, vehicle);
         MSNet::getInstance()->getInsertionControl().add(vehicle);
     }
@@ -934,20 +934,20 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         }
         int why = (int) inputStorage.readByte();
         MSMoveReminder::Notification n = MSMoveReminder::NOTIFICATION_ARRIVED;
-        switch(why) {
-        case 0: 
+        switch (why) {
+        case 0:
             n = MSMoveReminder::NOTIFICATION_TELEPORT;
             break;
-        case 1: 
+        case 1:
             n = MSMoveReminder::NOTIFICATION_PARKING;
             break;
-        case 2: 
+        case 2:
             n = MSMoveReminder::NOTIFICATION_ARRIVED;
             break;
-        case 3: 
+        case 3:
             n = MSMoveReminder::NOTIFICATION_VAPORIZED;
             break;
-        case 4: 
+        case 4:
         default:
             n = MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
             break;
@@ -955,15 +955,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
         static_cast<MSVehicle*>(v)->onRemovalFromNet(n);
         static_cast<MSVehicle*>(v)->getLane()->removeVehicle(static_cast<MSVehicle*>(v));
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(static_cast<MSVehicle*>(v));
-              }
-              break;
+    }
+    break;
     default:
         try {
             if (!TraCIServerAPI_VehicleType::setVariable(CMD_SET_VEHICLE_VARIABLE, variable, valueDataType,
                     getSingularType(v), server, inputStorage, outputStorage)) {
                 return false;
             }
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
             return false;
         }
@@ -975,8 +975,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer &server, tcpip::Storage &inputSto
 
 
 bool
-TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-        tcpip::Storage &outputStorage, const MSVehicle* v) {
+TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+        tcpip::Storage& outputStorage, const MSVehicle* v) {
     if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
         server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
         return false;
@@ -998,7 +998,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
             roadPos.second = inputStorage.readDouble();
             roadPos.first = TraCIServerAPI_Simulation::getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos.second);
             pos = roadPos.first->getShape().positionAtLengthPosition(roadPos.second);
-        } catch (TraCIException &e) {
+        } catch (TraCIException& e) {
             server.writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, e.what());
             return false;
         }
@@ -1042,11 +1042,11 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer &server, tcpip
 }
 
 // ------ helper functions ------
-MSVehicleType &
-TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle * const veh) throw() {
-    const MSVehicleType &oType = veh->getVehicleType();
+MSVehicleType&
+TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) throw() {
+    const MSVehicleType& oType = veh->getVehicleType();
     std::string newID = oType.getID().find('@')==std::string::npos ? oType.getID() + "@" + veh->getID() : oType.getID();
-    MSVehicleType *type = MSVehicleType::build(newID, &oType);
+    MSVehicleType* type = MSVehicleType::build(newID, &oType);
     static_cast<MSVehicle*>(veh)->replaceVehicleType(type);
     return *type;
 }

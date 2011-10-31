@@ -40,10 +40,10 @@
 class AGBus {
 public:
     AGBus(std::string name, int depTime) :
-            name(name),
-            departureTime(depTime) {};
+        name(name),
+        departureTime(depTime) {};
     AGBus(int depTime) :
-            departureTime(depTime) {};
+        departureTime(depTime) {};
     void setName(std::string name);
     int getDeparture();
     std::string getName();

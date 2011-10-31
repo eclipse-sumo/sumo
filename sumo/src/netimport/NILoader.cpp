@@ -60,7 +60,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 
-#ifdef HAVE_MESOSIM 
+#ifdef HAVE_MESOSIM
 #include <internal/HeightMapper.h>
 #endif
 
@@ -72,25 +72,25 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NILoader::NILoader(NBNetBuilder &nb) throw()
-        : myNetBuilder(nb) {}
+NILoader::NILoader(NBNetBuilder& nb) throw()
+    : myNetBuilder(nb) {}
 
 
 NILoader::~NILoader() throw() {}
 
 
 void
-NILoader::load(OptionsCont &oc) {
+NILoader::load(OptionsCont& oc) {
     // build the projection
     if (!GeoConvHelper::init(oc)) {
         throw ProcessError("Could not build projection!");
     }
     // load types first
-    NIXMLTypesHandler *handler =
+    NIXMLTypesHandler* handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("type-files"), "types");
     // try to load height data so it is ready for use by other importers
-#ifdef HAVE_MESOSIM 
+#ifdef HAVE_MESOSIM
     HeightMapper::loadIfSet(oc);
 #endif
     // try to load using different methods
@@ -135,7 +135,7 @@ NILoader::load(OptionsCont &oc) {
  * file loading methods
  * ----------------------------------------------------------------------- */
 void
-NILoader::loadXML(OptionsCont &oc) {
+NILoader::loadXML(OptionsCont& oc) {
     // load nodes
     loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
@@ -151,14 +151,14 @@ NILoader::loadXML(OptionsCont &oc) {
                 oc.getStringVector("connection-files"), "connections");
     // load traffic lights (needs to come last, references loaded edges and connections)
     loadXMLType(new NIXMLTrafficLightsHandler(
-                myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
-            oc.getStringVector("tllogic-files"), "traffic lights");
+                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
+                oc.getStringVector("tllogic-files"), "traffic lights");
 }
 
 
 void
-NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &files,
-                      const std::string &type) {
+NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &files,
+                      const std::string& type) {
     // build parser
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(*handler);
     std::string exceptMsg = "";
@@ -191,8 +191,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
 }
 
 
-bool 
-NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHelper *from_srs) {
+bool
+NILoader::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
     bool ok = GeoConvHelper::getDefaultInstance().x2cartesian(from, includeInBoundary);
 #ifdef HAVE_MESOSIM
@@ -211,8 +211,8 @@ NILoader::transformCoordinates(Position &from, bool includeInBoundary, GeoConvHe
 }
 
 
-bool 
-NILoader::transformCoordinates(PositionVector &from, bool includeInBoundary, GeoConvHelper *from_srs) {
+bool
+NILoader::transformCoordinates(PositionVector& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     const SUMOReal maxLength = OptionsCont::getOptions().getFloat("geometry.max-segment-length");
     if (maxLength > 0 && from.size() > 1) {
         // transformation to cartesian coordinates must happen before we can check segment length

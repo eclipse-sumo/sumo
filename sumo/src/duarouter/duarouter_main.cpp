@@ -74,7 +74,7 @@
  * weights which may be supplied in a separate file
  */
 void
-initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
+initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // load the net
     RODUAEdgeBuilder builder(oc.getBool("weights.expand"), oc.getBool("weights.interpolate"));
     loader.loadNet(net, builder);
@@ -93,13 +93,13 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
  * Computes the routes saving them
  */
 void
-computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
+computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
     try {
         net.openOutput(oc.getString("output-file"), true);
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         throw e;
     }
     // build the router
@@ -151,7 +151,7 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
         // end the processing
         net.closeOutput();
         delete router;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         net.closeOutput();
         delete router;
         throw;
@@ -163,13 +163,13 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
     oc.setApplicationName("duarouter", "SUMO duarouter Version " + (std::string)VERSION_STRING);
     int ret = 0;
-    RONet *net = 0;
+    RONet* net = 0;
     try {
         XMLSubSys::init(false);
         RODUAFrame::fillOptions();
@@ -179,7 +179,9 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!RODUAFrame::checkOptions()) throw ProcessError();
+        if (!RODUAFrame::checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         // load data
         ROLoader loader(oc, false);
@@ -188,17 +190,17 @@ main(int argc, char **argv) {
         // build routes
         try {
             computeRoutes(*net, loader, oc);
-        } catch (SAXParseException &e) {
+        } catch (SAXParseException& e) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
-        } catch (SAXException &e) {
+        } catch (SAXException& e) {
             WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
             throw ProcessError();
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

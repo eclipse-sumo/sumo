@@ -45,21 +45,24 @@ AGChild::print() {
 }
 
 bool
-AGChild::setSchool(AGSchool *school) {
-    if (school == NULL)
+AGChild::setSchool(AGSchool* school) {
+    if (school == NULL) {
         return false;
+    }
     bool enoughPlace = school->addNewChild();
-    if (enoughPlace)
+    if (enoughPlace) {
         this->school = school;
+    }
     return enoughPlace;
 }
 
 bool
 AGChild::alocateASchool(std::list<AGSchool> *schools, AGPosition housePos) {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
-    AGSchool *sch = NULL;
-    if (schools->size() == 0)
+    AGSchool* sch = NULL;
+    if (schools->size() == 0) {
         return false;
+    }
     std::list<AGSchool>::iterator it;
 
     for (it = schools->begin() ; it!=schools->end() ; ++it) {
@@ -74,16 +77,18 @@ AGChild::alocateASchool(std::list<AGSchool> *schools, AGPosition housePos) {
 bool
 AGChild::leaveSchool() {
     if (school != NULL)
-        if (!school->removeChild())
+        if (!school->removeChild()) {
             return false;
+        }
     school = NULL;
     return true;
 }
 
 bool
 AGChild::haveASchool() {
-    if (school == NULL)
+    if (school == NULL) {
         return false;
+    }
     return true;
 }
 

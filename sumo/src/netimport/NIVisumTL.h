@@ -82,7 +82,7 @@ public:
     class SignalGroup : public TimePeriod {
     public:
         // constructor
-        SignalGroup(const std::string &Name, SUMOTime StartTime, SUMOTime EndTime);
+        SignalGroup(const std::string& Name, SUMOTime StartTime, SUMOTime EndTime);
         // destructor
         ~SignalGroup();
     private:
@@ -100,7 +100,7 @@ public:
 public:
     // constructor
     NIVisumTL();
-    NIVisumTL(const std::string &Name, SUMOTime CycleTime, SUMOTime IntermediateTime,
+    NIVisumTL(const std::string& Name, SUMOTime CycleTime, SUMOTime IntermediateTime,
               bool PhaseDefined);
     // destructor
     ~NIVisumTL();
@@ -122,7 +122,7 @@ public:
     void AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
     void AddPhase(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
     // build the trafficlight
-    void build(NBTrafficLightLogicCont &tlc);
+    void build(NBTrafficLightLogicCont& tlc);
 private:
     // name of traffic light
     std::string myName;

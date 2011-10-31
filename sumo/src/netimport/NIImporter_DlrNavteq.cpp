@@ -61,7 +61,7 @@
 // static methods
 // ---------------------------------------------------------------------------
 void
-NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("dlr-navteq-prefix")) {
         return;
@@ -105,10 +105,10 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_DlrNavteq::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont &nc,
-        const std::string &file,
+NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont& nc,
+        const std::string& file,
         std::map<std::string, PositionVector> &geoms) throw()
-        : myNodeCont(nc), myGeoms(geoms) {
+    : myNodeCont(nc), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
 
@@ -117,7 +117,7 @@ NIImporter_DlrNavteq::NodesHandler::~NodesHandler() throw() {}
 
 
 bool
-NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(ProcessError) {
     if (result[0]=='#') {
         return true;
     }
@@ -163,7 +163,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
     }
 
     if (intermediate==0) {
-        NBNode *n = new NBNode(id, geoms[0]);
+        NBNode* n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
             throw ProcessError("Could not add node '" + id + "'.");
@@ -178,11 +178,11 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_DlrNavteq::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-        const std::string &file,
+NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
+        const std::string& file,
         std::map<std::string,
         PositionVector> &geoms) throw()
-        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
+    : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
 
@@ -191,7 +191,7 @@ NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() throw() {}
 
 
 bool
-NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) throw(ProcessError) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed
@@ -221,7 +221,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
     // length
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    } catch (NumberFormatException &) {
+    } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
     }
     // vehicle_type
@@ -242,15 +242,15 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
         if (theRest[11] != "-1") {
             try {
                 nolanes = TplConvert<char>::_2int(theRest[11].c_str());
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Non-numerical value for the extended number of lanes (edge '" + id + "'.");
             }
         }
         connection = (theRest.size() == 13) && (theRest[12] == "1");
     }
     // try to get the nodes
-    NBNode *from = myNodeCont.retrieve(fromID);
-    NBNode *to = myNodeCont.retrieve(toID);
+    NBNode* from = myNodeCont.retrieve(fromID);
+    NBNode* to = myNodeCont.retrieve(toID);
     if (from==0) {
         throw ProcessError("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
     }
@@ -258,7 +258,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
         throw ProcessError("The to-node '" + toID + "' of edge '" + id + "' could not be found");
     }
     // build the edge
-    NBEdge *e = 0;
+    NBEdge* e = 0;
     if (interID=="-1") {
         e = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1);
     } else {
@@ -288,10 +288,10 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_DlrNavteq::TrafficlightsHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlc,
-        const std::string &file) throw()
-        : myNodeCont(nc), myTLLogicCont(tlc) {
+NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont& nc,
+        NBTrafficLightLogicCont& tlc,
+        const std::string& file) throw()
+    : myNodeCont(nc), myTLLogicCont(tlc) {
     UNUSED_PARAMETER(file);
 }
 
@@ -300,7 +300,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() throw() {}
 
 
 bool
-NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) throw(ProcessError) {
 // #ID     POICOL-TYPE     DESCRIPTION     LONGITUDE       LATITUDE        NAVTEQ_LINK_ID  NODEID
 
     if (result[0]=='#') {
@@ -308,13 +308,13 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string &result) th
     }
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     std::string nodeID = st.getVector().back();
-    NBNode *node = myNodeCont.retrieve(nodeID);
+    NBNode* node = myNodeCont.retrieve(nodeID);
     if (node==0) {
         WRITE_WARNING("The traffic light node '" + nodeID + "' could not be found");
     } else {
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
             node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(nodeID, node);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(nodeID, node);
             if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;

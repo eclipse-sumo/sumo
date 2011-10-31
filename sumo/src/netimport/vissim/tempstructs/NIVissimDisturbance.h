@@ -47,32 +47,32 @@ class NBEdge;
 class NBDistrictCont;
 
 class NIVissimDisturbance
-            : public NIVissimBoundedClusterObject {
+        : public NIVissimBoundedClusterObject {
 public:
-    NIVissimDisturbance(int id, const std::string &name,
-                        const NIVissimExtendedEdgePoint &edge,
-                        const NIVissimExtendedEdgePoint &by,
+    NIVissimDisturbance(int id, const std::string& name,
+                        const NIVissimExtendedEdgePoint& edge,
+                        const NIVissimExtendedEdgePoint& by,
                         SUMOReal timegap, SUMOReal waygap, SUMOReal vmax);
     virtual ~NIVissimDisturbance();
     void computeBounding();
-    bool addToNode(NBNode *node, NBDistrictCont &dc,
-                   NBNodeCont &nc, NBEdgeCont &ec);
+    bool addToNode(NBNode* node, NBDistrictCont& dc,
+                   NBNodeCont& nc, NBEdgeCont& ec);
     int getEdgeID() const {
         return myEdge.getEdgeID();
     }
     int getDisturbanceID() const {
         return myDisturbance.getEdgeID();
     }
-    NBConnection getConnection(NBNode *node, int aedgeid);
+    NBConnection getConnection(NBNode* node, int aedgeid);
 
 public:
-    static bool dictionary(int id, const std::string &name,
-                           const NIVissimExtendedEdgePoint &edge,
-                           const NIVissimExtendedEdgePoint &by,
+    static bool dictionary(int id, const std::string& name,
+                           const NIVissimExtendedEdgePoint& edge,
+                           const NIVissimExtendedEdgePoint& by,
                            SUMOReal timegap, SUMOReal waygap, SUMOReal vmax);
-    static bool dictionary(int id, NIVissimDisturbance *o);
-    static NIVissimDisturbance *dictionary(int id);
-    static IntVector getWithin(const AbstractPoly &poly);
+    static bool dictionary(int id, NIVissimDisturbance* o);
+    static NIVissimDisturbance* dictionary(int id);
+    static IntVector getWithin(const AbstractPoly& poly);
     static void clearDict();
     static void dict_SetDisturbances();
     static void reportRefused();

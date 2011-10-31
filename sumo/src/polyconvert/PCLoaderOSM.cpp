@@ -58,8 +58,8 @@
 // static interface
 // ---------------------------------------------------------------------------
 void
-PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError) {
+PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                       PCTypeMap& tm) throw(ProcessError) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -93,14 +93,14 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // instatiate polygons
     for (std::map<std::string, PCOSMEdge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-        PCOSMEdge *e = (*i).second;
+        PCOSMEdge* e = (*i).second;
         if (!e->myIsAdditional) {
             continue;
         }
         // compute shape
         PositionVector vec;
         for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
-            PCOSMNode *n = nodes.find(*j)->second;
+            PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + e->id + "'.");
@@ -115,7 +115,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         if (tm.has(e->myType)) {
-            const PCTypeMap::TypeDef &def = tm.get(e->myType);
+            const PCTypeMap::TypeDef& def = tm.get(e->myType);
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -123,7 +123,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             discard = def.discard;
             layer = def.layer;
         } else if (e->myType.find(".")!=std::string::npos&&tm.has(e->myType.substr(0, e->myType.find(".")))) {
-            const PCTypeMap::TypeDef &def = tm.get(e->myType.substr(0, e->myType.find(".")));
+            const PCTypeMap::TypeDef& def = tm.get(e->myType.substr(0, e->myType.find(".")));
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -139,7 +139,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             if (oc.getBool("osm.keep-full-type")) {
                 type = e->myType;
             }
-            Polygon *poly = new Polygon(name, type, color, vec, fill);
+            Polygon* poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
                 WRITE_ERROR("Polygon '" + name + "' could not been added.");
                 delete poly;
@@ -148,7 +148,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     }
     // instantiate pois
     for (std::map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
-        PCOSMNode *n = (*i).second;
+        PCOSMNode* n = (*i).second;
         if (!n->myIsAdditional) {
             continue;
         }
@@ -160,14 +160,14 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         std::string type;
         RGBColor color;
         if (tm.has(n->myType)) {
-            const PCTypeMap::TypeDef &def = tm.get(n->myType);
+            const PCTypeMap::TypeDef& def = tm.get(n->myType);
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
             discard = def.discard;
             layer = def.layer;
         } else if (type.find(".")!=std::string::npos&&tm.has(type.substr(0, type.find(".")))) {
-            const PCTypeMap::TypeDef &def = tm.get(type.substr(0, type.find(".")));
+            const PCTypeMap::TypeDef& def = tm.get(type.substr(0, type.find(".")));
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -190,7 +190,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
             }
-            PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+            PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + name + "' could not been added.");
                 delete poi;
@@ -215,14 +215,14 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<int, PCOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
+    : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
 PCLoaderOSM::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_NODE) {
         bool ok = true;
@@ -235,7 +235,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &
             myLastNodeID = id;
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
-            PCOSMNode *toAdd = new PCOSMNode();
+            PCOSMNode* toAdd = new PCOSMNode();
             toAdd->id = id;
             toAdd->myIsAdditional = false;
             bool ok = true;
@@ -285,8 +285,8 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) throw(ProcessError) {
 PCLoaderOSM::EdgesHandler::EdgesHandler(
     const std::map<int, PCOSMNode*> &osmNodes,
     std::map<std::string, PCOSMEdge*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill) {
+    : SUMOSAXHandler("osm - file"),
+      myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
 
@@ -295,7 +295,7 @@ PCLoaderOSM::EdgesHandler::~EdgesHandler() throw() {
 
 
 void
-PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {

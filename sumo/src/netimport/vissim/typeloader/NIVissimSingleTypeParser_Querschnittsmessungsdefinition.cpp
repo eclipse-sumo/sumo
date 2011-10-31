@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Querschnittsmessungsdefinition::NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Querschnittsmessungsdefinition::NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Querschnittsmessungsdefinition::~NIVissimSingleTypeParser_Querschnittsmessungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Querschnittsmessungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Querschnittsmessungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
     if (tag=="von") {
         while (tag!="fahrzeugklassen"&&tag!="konfdatei") {

@@ -46,8 +46,8 @@
  * @brief Reroutes vehicles passing an edge
  */
 class GUITriggeredRerouter
-        : public MSTriggeredRerouter,
-            public GUIGlObject_AbstractAdd {
+    : public MSTriggeredRerouter,
+      public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] id The id of the rerouter
@@ -56,9 +56,9 @@ public:
      * @param[in] aXMLFilename The file to read further definitions from
      * @param[in] off Whether the rerouter is off (not working) initially
      */
-    GUITriggeredRerouter(const std::string &id,
+    GUITriggeredRerouter(const std::string& id,
                          const std::vector<MSEdge*> &edges, SUMOReal prob,
-                         const std::string &aXMLFilename, bool off);
+                         const std::string& aXMLFilename, bool off);
 
 
     /// @brief Destructor
@@ -76,8 +76,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -87,8 +87,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -103,21 +103,21 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
 
-    GUIManipulator *openManipulator(GUIMainWindow &app,
-                                    GUISUMOAbstractView &parent);
+    GUIManipulator* openManipulator(GUIMainWindow& app,
+                                    GUISUMOAbstractView& parent);
 
 public:
     class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITriggeredRerouterPopupMenu)
     public:
 
-        GUITriggeredRerouterPopupMenu(GUIMainWindow &app,
-                                      GUISUMOAbstractView &parent, GUIGlObject &o);
+        GUITriggeredRerouterPopupMenu(GUIMainWindow& app,
+                                      GUISUMOAbstractView& parent, GUIGlObject& o);
 
         ~GUITriggeredRerouterPopupMenu() throw();
 
@@ -141,8 +141,8 @@ public:
             ID_LAST
         };
         /// Constructor
-        GUIManip_TriggeredRerouter(GUIMainWindow &app,
-                                   const std::string &name, GUITriggeredRerouter &o,
+        GUIManip_TriggeredRerouter(GUIMainWindow& app,
+                                   const std::string& name, GUITriggeredRerouter& o,
                                    int xpos, int ypos);
 
         /// Destructor
@@ -155,7 +155,7 @@ public:
         long onCmdChangeOption(FXObject*,FXSelector,void*);
 
     private:
-        GUIMainWindow *myParent;
+        GUIMainWindow* myParent;
 
         FXint myChosenValue;
 
@@ -163,11 +163,11 @@ public:
 
         SUMOReal myUsageProbability;
 
-        FXRealSpinDial *myUsageProbabilityDial;
+        FXRealSpinDial* myUsageProbabilityDial;
 
         FXDataTarget myUsageProbabilityTarget;
 
-        GUITriggeredRerouter *myObject;
+        GUITriggeredRerouter* myObject;
 
     protected:
         GUIManip_TriggeredRerouter() { }

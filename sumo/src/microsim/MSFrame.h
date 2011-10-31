@@ -87,7 +87,7 @@ public:
      * @param[in] oc The options container to get the values from
      * @see MSGlobals
      */
-    static void setMSGlobals(OptionsCont &oc);
+    static void setMSGlobals(OptionsCont& oc);
 
 };
 

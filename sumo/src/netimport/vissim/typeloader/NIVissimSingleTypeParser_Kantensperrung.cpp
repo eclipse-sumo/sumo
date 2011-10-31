@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Kantensperrung::~NIVissimSingleTypeParser_Kantensperrung() {}
 
 
 bool
-NIVissimSingleTypeParser_Kantensperrung::parse(std::istream &from) {
+NIVissimSingleTypeParser_Kantensperrung::parse(std::istream& from) {
     std::string tag;
     from >> tag;
     //

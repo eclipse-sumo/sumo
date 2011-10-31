@@ -35,8 +35,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMoveReminder::MSMoveReminder(MSLane * const lane, const bool doAdd) throw()
-        : myLane(lane) {
+MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd) throw()
+    : myLane(lane) {
     if (myLane!=0 && doAdd) {
         // add reminder to lane
         myLane->addMoveReminder(this);

@@ -57,7 +57,7 @@ GUICompleteSchemeStorage::~GUICompleteSchemeStorage() throw() { }
 
 
 void
-GUICompleteSchemeStorage::add(const GUIVisualizationSettings &scheme) throw() {
+GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) throw() {
     std::string name = scheme.name;
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
@@ -66,26 +66,26 @@ GUICompleteSchemeStorage::add(const GUIVisualizationSettings &scheme) throw() {
 }
 
 
-GUIVisualizationSettings &
-GUICompleteSchemeStorage::get(const std::string &name) throw() {
+GUIVisualizationSettings&
+GUICompleteSchemeStorage::get(const std::string& name) throw() {
     return mySettings.find(name)->second;
 }
 
 
-GUIVisualizationSettings &
+GUIVisualizationSettings&
 GUICompleteSchemeStorage::getDefault() throw() {
     return mySettings.find(myDefaultSettingName)->second;
 }
 
 
 bool
-GUICompleteSchemeStorage::contains(const std::string &name) const throw() {
+GUICompleteSchemeStorage::contains(const std::string& name) const throw() {
     return mySettings.find(name)!=mySettings.end();
 }
 
 
 void
-GUICompleteSchemeStorage::remove(const std::string &name) throw() {
+GUICompleteSchemeStorage::remove(const std::string& name) throw() {
     if (!contains(name)) {
         return;
     }
@@ -95,7 +95,7 @@ GUICompleteSchemeStorage::remove(const std::string &name) throw() {
 
 
 void
-GUICompleteSchemeStorage::setDefault(const std::string &name) throw() {
+GUICompleteSchemeStorage::setDefault(const std::string& name) throw() {
     if (!contains(name)) {
         return;
     }
@@ -125,7 +125,7 @@ convert(const FXColor c) throw() {
 
 
 void
-GUICompleteSchemeStorage::init(FXApp *app) throw() {
+GUICompleteSchemeStorage::init(FXApp* app) throw() {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
@@ -187,12 +187,12 @@ GUICompleteSchemeStorage::init(FXApp *app) throw() {
 
 
 void
-GUICompleteSchemeStorage::writeSettings(FXApp *app) throw() {
+GUICompleteSchemeStorage::writeSettings(FXApp* app) throw() {
     const std::vector<std::string> &names = getNames();
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
     size_t gidx = 0;
     for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
-        const GUIVisualizationSettings &item = mySettings.find(*i)->second;
+        const GUIVisualizationSettings& item = mySettings.find(*i)->second;
         std::string sname = "visset#" + toString(gidx);
 
         app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());

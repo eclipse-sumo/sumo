@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 void
-MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
+MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep) throw(IOError) {
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
     const std::vector<MSEdge*> &edges = ec.getEdges();
@@ -61,7 +61,7 @@ MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
 
 
 void
-MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
+MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError) {
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if (!dump) {
@@ -113,7 +113,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
 
 
 void
-MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
+MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) throw(IOError) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
     if (lane.getVehicleNumber()!=0) {
         of << ">\n";
@@ -131,10 +131,10 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
 
 
 void
-MSXMLRawOut::writeVehicle(OutputDevice &of, const MSBaseVehicle &veh) throw(IOError) {
+MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) throw(IOError) {
     if (veh.isOnRoad()) {
         of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
-        << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
+                              << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
         of.closeTag(true);
     }
 }

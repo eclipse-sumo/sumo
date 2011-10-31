@@ -71,8 +71,8 @@ public:
      * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
      * @todo The lane should not be given as a pointer
      */
-    GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
-                        MSLane * const lane, SUMOReal startPos, SUMOReal detLength,
+    GUI_E2_ZS_Collector(const std::string& id, DetectorUsage usage,
+                        MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                         SUMOReal jamDistThreshold) throw();
 
@@ -85,7 +85,7 @@ public:
      * @return The wrapper representing the detector
      * @see MyWrapper
      */
-    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
+    virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
 
 public:
@@ -96,9 +96,9 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUI_E2_ZS_Collector &detector) throw();
+        MyWrapper(GUI_E2_ZS_Collector& detector) throw();
 
-         /// @brief Destrutor
+        /// @brief Destrutor
         ~MyWrapper() throw();
 
 
@@ -112,8 +112,8 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+        GUIParameterTableWindow* getParameterWindow(
+            GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -128,17 +128,17 @@ public:
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
+        void drawGL(const GUIVisualizationSettings& s) const throw();
         //@}
 
 
         /// @brief Returns the detector itself
-        GUI_E2_ZS_Collector &getDetector();
+        GUI_E2_ZS_Collector& getDetector();
 
 
     private:
         /// @brief The wrapped detector
-        GUI_E2_ZS_Collector &myDetector;
+        GUI_E2_ZS_Collector& myDetector;
 
         /// @brief The detector's boundary
         Boundary myBoundary;

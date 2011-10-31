@@ -66,7 +66,7 @@ public:
      * @param[in] file The name of the file to open
      * @see setFile
      */
-    LineReader(const std::string &file) throw();
+    LineReader(const std::string& file) throw();
 
 
     /// @brief Destructor
@@ -85,7 +85,7 @@ public:
      *
      * @param[in] lh The LineHandler to report read lines to
      */
-    void readAll(LineHandler &lh) throw(ProcessError);
+    void readAll(LineHandler& lh) throw(ProcessError);
 
 
     /** @brief Reads a single (the next) line from the file and reports it to the given LineHandler
@@ -95,7 +95,7 @@ public:
      * @param[in] lh The LineHandler to report read lines to
      * @return Whether a further line exists
      */
-    bool readLine(LineHandler &lh) throw(ProcessError);
+    bool readLine(LineHandler& lh) throw(ProcessError);
 
 
     /** @brief Reads a single (the next) line from the file and returns it
@@ -122,7 +122,7 @@ public:
      * @param[in] file The name of the file to open
      * @return Whether the file could be opened
      */
-    bool setFile(const std::string &file) throw();
+    bool setFile(const std::string& file) throw();
 
 
     /** @brief Returns the current position within the file

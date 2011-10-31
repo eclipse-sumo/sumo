@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_LSAKopplungsdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_LSAKopplungsdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_LSAKopplungsdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_LSAKopplungsdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

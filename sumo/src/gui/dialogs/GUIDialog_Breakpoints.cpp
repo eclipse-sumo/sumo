@@ -81,10 +81,10 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent) throw()
-        : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-        myParent(parent) {
-    FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent) throw()
+    : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
+      myParent(parent) {
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
     // build the table
     myTable = new MFXAddEditTypedTable(hbox, this, MID_TABLE, LAYOUT_FILL_X|LAYOUT_FILL_Y);
@@ -102,7 +102,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent) throw()
     myTable->getRowHeader()->setWidth(0);
     rebuildList();
     // build the layout
-    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0, 4,4,4,4);
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0, 4,4,4,4);
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED, 0, 0, 0, 0, 4, 4, 3, 3);
     // "Save"
@@ -131,7 +131,7 @@ GUIDialog_Breakpoints::rebuildList() throw() {
     // set table attributes
     myTable->setTableSize((FXint) gBreakpoints.size()+1, 1);
     myTable->setColumnText(0, "Time");
-    FXHeader *header = myTable->getColumnHeader();
+    FXHeader* header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
     for (k=0; k<1; k++) {
@@ -188,10 +188,10 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*) {
     }
     std::string content = encode2TXT();
     try {
-        OutputDevice &dev = OutputDevice::getDevice(file.text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text());
         dev << content;
         dev.close();
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
     return 1;
@@ -228,8 +228,8 @@ GUIDialog_Breakpoints::onCmdClose(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
-    MFXEditedTableItem *i = (MFXEditedTableItem*) data;
+GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void* data) {
+    MFXEditedTableItem* i = (MFXEditedTableItem*) data;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ")==std::string::npos) {
@@ -245,7 +245,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     case 0:
         try {
             gBreakpoints[row] = string2time(value);
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             std::string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }

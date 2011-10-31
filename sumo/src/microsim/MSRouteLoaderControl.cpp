@@ -39,13 +39,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
+MSRouteLoaderControl::MSRouteLoaderControl(MSNet&,
         int inAdvanceStepNo,
         LoaderVector loader)
-        : myLastLoadTime(-inAdvanceStepNo),
-        myInAdvanceStepNo(inAdvanceStepNo),
-        myRouteLoaders(loader),
-        myAllLoaded(false) {
+    : myLastLoadTime(-inAdvanceStepNo),
+      myInAdvanceStepNo(inAdvanceStepNo),
+      myRouteLoaders(loader),
+      myAllLoaded(false) {
     myLoadAll = myInAdvanceStepNo<=0;
     myAllLoaded = false;
     myLastLoadTime = -1 * (int) myInAdvanceStepNo;

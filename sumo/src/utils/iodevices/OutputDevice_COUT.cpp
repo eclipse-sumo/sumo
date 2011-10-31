@@ -44,7 +44,7 @@ OutputDevice_COUT::OutputDevice_COUT() throw(IOError) {}
 OutputDevice_COUT::~OutputDevice_COUT() throw() {}
 
 
-std::ostream &
+std::ostream&
 OutputDevice_COUT::getOStream() throw() {
     return std::cout;
 }

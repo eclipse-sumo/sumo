@@ -49,14 +49,14 @@ class MSNet;
  * Base class for triggered file readers which work with XML-files
  */
 class MSTriggeredXMLReader : public MSTriggeredReader,
-            public SUMOSAXHandler {
+    public SUMOSAXHandler {
 public:
     /// Destructor
     virtual ~MSTriggeredXMLReader();
 
 protected:
     /// Constructor (for derived classes)
-    MSTriggeredXMLReader(MSNet &net, const std::string &filename);
+    MSTriggeredXMLReader(MSNet& net, const std::string& filename);
 
     /// reads from the XML-file (parses from file)
     bool readNextTriggered();

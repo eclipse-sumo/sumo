@@ -63,8 +63,8 @@ public:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                          PCTypeMap &tm) throw(ProcessError);
+    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                          PCTypeMap& tm) throw(ProcessError);
 
 
 protected:
@@ -130,7 +130,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -156,10 +156,10 @@ protected:
 
     private:
         /// @brief Invalidated copy constructor
-        NodesHandler(const NodesHandler &s);
+        NodesHandler(const NodesHandler& s);
 
         /// @brief Invalidated assignment operator
-        NodesHandler &operator=(const NodesHandler &s);
+        NodesHandler& operator=(const NodesHandler& s);
 
     };
 
@@ -195,7 +195,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -216,7 +216,7 @@ protected:
         std::map<std::string, PCOSMEdge*> &myEdgeMap;
 
         /// @brief The currently built edge
-        PCOSMEdge *myCurrentEdge;
+        PCOSMEdge* myCurrentEdge;
 
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
@@ -224,10 +224,10 @@ protected:
 
     private:
         /// @brief Invalidated copy constructor
-        EdgesHandler(const EdgesHandler &s);
+        EdgesHandler(const EdgesHandler& s);
 
         /// @brief Invalidated assignment operator
-        EdgesHandler &operator=(const EdgesHandler &s);
+        EdgesHandler& operator=(const EdgesHandler& s);
 
     };
 

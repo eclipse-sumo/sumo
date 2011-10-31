@@ -84,19 +84,19 @@ NIVisumTL::TimePeriod::SetStartTime(SUMOTime StartTime) {
  * ----------------------------------------------------------------------- */
 
 NIVisumTL::Phase::Phase()
-        : NIVisumTL::TimePeriod() {}
+    : NIVisumTL::TimePeriod() {}
 
 NIVisumTL::Phase::Phase(SUMOTime StartTime, SUMOTime EndTime)
-        : NIVisumTL::TimePeriod(StartTime, EndTime) {}
+    : NIVisumTL::TimePeriod(StartTime, EndTime) {}
 
 NIVisumTL::Phase::~Phase() {}
 
 /* -------------------------------------------------------------------------
  * methods from NIVisumTL::SignalGroup
  * ----------------------------------------------------------------------- */
-NIVisumTL::SignalGroup::SignalGroup(const std::string &Name,
+NIVisumTL::SignalGroup::SignalGroup(const std::string& Name,
                                     SUMOTime StartTime, SUMOTime EndTime)
-        : NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name) {}
+    : NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name) {}
 
 
 NIVisumTL::SignalGroup::~SignalGroup() {}
@@ -124,10 +124,10 @@ NIVisumTL::SignalGroup::GetPhases() {
 NIVisumTL::NIVisumTL() {}
 
 
-NIVisumTL::NIVisumTL(const std::string &Name, SUMOTime CycleTime,
+NIVisumTL::NIVisumTL(const std::string& Name, SUMOTime CycleTime,
                      SUMOTime IntermediateTime, bool PhaseDefined)
-        : myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
-        myPhaseDefined(PhaseDefined) {}
+    : myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
+      myPhaseDefined(PhaseDefined) {}
 
 NIVisumTL::~NIVisumTL() {
     for (NIVisumTL::PhaseMap::iterator i=myPhases.begin();
@@ -195,23 +195,23 @@ NIVisumTL::SignalGroup* NIVisumTL::GetSignalGroup(const std::string Name) {
 }
 
 void
-NIVisumTL::build(NBTrafficLightLogicCont &tlc) {
+NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
     for (NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
-        NBNode *Node = (*ni);
-        NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
+        NBNode* Node = (*ni);
+        NBLoadedTLDef* def = new NBLoadedTLDef(Node->getID(), Node);
         tlc.insert(def);
         def->setCycleDuration((unsigned int) myCycleTime);
         // signalgroups
         for (SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++) {
             std::string GroupName = (*gi).first;
-            NIVisumTL::SignalGroup &SG = *(*gi).second;
+            NIVisumTL::SignalGroup& SG = *(*gi).second;
             def->addSignalGroup(GroupName);
             def->addToSignalGroup(GroupName, *SG.GetConnections());
             def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
             // phases
             if (myPhaseDefined) {
                 for (PhaseMap::iterator pi = SG.GetPhases()->begin(); pi!= SG.GetPhases()->end(); pi++) {
-                    NIVisumTL::Phase &PH = *(*pi).second;
+                    NIVisumTL::Phase& PH = *(*pi).second;
                     def->addSignalGroupPhaseBegin(GroupName, PH.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(GroupName, PH.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
                 };

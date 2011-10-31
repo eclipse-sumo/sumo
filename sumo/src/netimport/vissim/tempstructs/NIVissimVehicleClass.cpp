@@ -37,7 +37,7 @@
 NIVissimVehicleClass::NIVissimVehicleClass(int type,
         SUMOReal percentage,
         int vwish)
-        : myType(type), myPercentage(percentage), myVWish(vwish) {}
+    : myType(type), myPercentage(percentage), myVWish(vwish) {}
 
 
 NIVissimVehicleClass::~NIVissimVehicleClass() {}

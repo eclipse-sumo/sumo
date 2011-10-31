@@ -54,7 +54,7 @@ public:
      *
      * @param[in, filled] tc The type container to fill
      */
-    NIXMLTypesHandler(NBTypeCont &tc);
+    NIXMLTypesHandler(NBTypeCont& tc);
 
 
     /// @brief Destructor
@@ -77,23 +77,23 @@ protected:
      * @note policy is to throw no exception in order to allow further processing
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 
 private:
     /// @brief The type container to fill
-    NBTypeCont &myTypeCont;
+    NBTypeCont& myTypeCont;
 
 
     bool myHaveWarnedAboutDeprecatedNoLanes;
 
 private:
     /** @brief invalid copy constructor */
-    NIXMLTypesHandler(const NIXMLTypesHandler &s);
+    NIXMLTypesHandler(const NIXMLTypesHandler& s);
 
     /** @brief invalid assignment operator */
-    NIXMLTypesHandler &operator=(const NIXMLTypesHandler &s);
+    NIXMLTypesHandler& operator=(const NIXMLTypesHandler& s);
 
 
 };

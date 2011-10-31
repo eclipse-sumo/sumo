@@ -59,22 +59,22 @@ GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes(std::string id,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw()
-        : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
-                                      haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold) {}
+    : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
+                                  haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold) {}
 
 
 
 GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes() throw() {}
 
 
-GUIDetectorWrapper *
+GUIDetectorWrapper*
 GUI_E2_ZS_CollectorOverLanes::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, myAlreadyBuild);
 }
 
 
-MSE2Collector *
-GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
+MSE2Collector*
+GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
         SUMOReal start, SUMOReal end) throw() {
     std::string id = makeID(myID, c, r);
     if (start+end<l->getLength()) {
@@ -90,16 +90,16 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
  * GUI_E2_ZS_CollectorOverLanes::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
-    GUI_E2_ZS_CollectorOverLanes &detector,
-    const LaneDetMap &detectors) throw()
-        : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
-        myDetector(detector) {
+    GUI_E2_ZS_CollectorOverLanes& detector,
+    const LaneDetMap& detectors) throw()
+    : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
+      myDetector(detector) {
     for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
-        MSLane *l = (*i).first;
-        GUIEdge &edge = static_cast<GUIEdge&>(l->getEdge());
-        GUILaneWrapper &w = edge.getLaneGeometry(l);
-        GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
-        GUIDetectorWrapper *dw = c->buildDetectorGUIRepresentation();
+        MSLane* l = (*i).first;
+        GUIEdge& edge = static_cast<GUIEdge&>(l->getEdge());
+        GUILaneWrapper& w = edge.getLaneGeometry(l);
+        GUI_E2_ZS_Collector* c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
+        GUIDetectorWrapper* dw = c->buildDetectorGUIRepresentation();
         mySubWrappers.push_back(dw);
         myBoundary.add(dw->getCenteringBoundary());
     }
@@ -120,10 +120,10 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::getCenteringBoundary() const throw() {
 }
 
 
-GUIParameterTableWindow *
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 12);
+GUIParameterTableWindow*
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIMainWindow& app,
+        GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 12);
     // add items
     /*
     myMkExistingItem(*ret, "density [?]", E2::DENSITY);
@@ -167,14 +167,14 @@ ret.mkItem(name.c_str(), true, binding);
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
         (*i)->drawGL(s);
     }
 }
 
 
-GUI_E2_ZS_CollectorOverLanes &
+GUI_E2_ZS_CollectorOverLanes&
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::getLoop() {
     return myDetector;
 }

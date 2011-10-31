@@ -62,9 +62,9 @@ public:
      * @param[in] varName The name of the value
      * @param[in] src The value source
      */
-    GUIParam_PopupMenuInterface(GUIMainWindow &app,
-                                GUIParameterTableWindow &parentWindow,
-                                GUIGlObject &o, const std::string &varName,
+    GUIParam_PopupMenuInterface(GUIMainWindow& app,
+                                GUIParameterTableWindow& parentWindow,
+                                GUIGlObject& o, const std::string& varName,
                                 ValueSource<SUMOReal> *src) throw();
 
 
@@ -86,13 +86,13 @@ public:
 
 protected:
     /// @brief The object the table displays
-    GUIGlObject *myObject;
+    GUIGlObject* myObject;
 
     /// @brief The parameter window this popup was initiated by
-    GUIParameterTableWindow *myParentWindow;
+    GUIParameterTableWindow* myParentWindow;
 
     /** @brief The main application window; holder of some needed values */
-    GUIMainWindow *myApplication;
+    GUIMainWindow* myApplication;
 
     /// @brief The name of the value
     std::string myVarName;

@@ -67,8 +67,8 @@ public:
      * @param[in] begPos Begin position of the bus stop on the lane
      * @param[in] endPos End position of the bus stop on the lane
      */
-    MSBusStop(const std::string &id,
-              const std::vector<std::string> &lines, MSLane &lane,
+    MSBusStop(const std::string& id,
+              const std::vector<std::string> &lines, MSLane& lane,
               SUMOReal begPos, SUMOReal endPos) throw();
 
 
@@ -80,7 +80,7 @@ public:
      *
      * @return Reference to the lane the bus stop is located at
      */
-    const MSLane &getLane() const throw();
+    const MSLane& getLane() const throw();
 
 
     /** @brief Returns the begin position of this bus stop
@@ -108,7 +108,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(void *what, SUMOReal beg, SUMOReal end) throw();
+    void enter(void* what, SUMOReal beg, SUMOReal end) throw();
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -120,7 +120,7 @@ public:
      * @param[in] what The vehicle that leaves the bus stop
      * @see computeLastFreePos
      */
-    void leaveFrom(void *what) throw();
+    void leaveFrom(void* what) throw();
 
 
     /** @brief Returns the last free position on this stop
@@ -148,7 +148,7 @@ protected:
     std::map<void*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
 
     /// @brief The lane this bus stop is located at
-    MSLane &myLane;
+    MSLane& myLane;
 
     /// @brief The begin position this bus stop is located at
     SUMOReal myBegPos;

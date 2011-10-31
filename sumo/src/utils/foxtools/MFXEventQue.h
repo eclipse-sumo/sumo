@@ -38,9 +38,9 @@ public:
     MFXEventQue() { }
     ~MFXEventQue() { }
 
-    void *top();
+    void* top();
     void pop();
-    void add(void *what);
+    void add(void* what);
     size_t size();
     bool empty();
 private:

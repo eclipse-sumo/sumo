@@ -51,9 +51,9 @@
 class RORDGenerator_ODAmounts : public RORDLoader_TripDefs {
 public:
     /// Constructor
-    RORDGenerator_ODAmounts(RONet &net,
+    RORDGenerator_ODAmounts(RONet& net,
                             SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-                            bool randomize, const std::string &file="") throw(ProcessError);
+                            bool randomize, const std::string& file="") throw(ProcessError);
 
     /// Destructor
     ~RORDGenerator_ODAmounts() throw();
@@ -86,7 +86,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -99,10 +99,10 @@ protected:
     //@}
 
     /// Parses the interval information
-    void parseInterval(const SUMOSAXAttributes &attrs);
+    void parseInterval(const SUMOSAXAttributes& attrs);
 
     /// Parses the trip amount definition
-    void parseFlowAmountDef(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void parseFlowAmountDef(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
     /// Closes the current embedding interval
     void myEndInterval();
@@ -117,7 +117,7 @@ protected:
     class FlowDef {
     public:
         /// Constructor
-        FlowDef(ROVehicle *vehicle, SUMOVTypeParameter *type, RORouteDef *route,
+        FlowDef(ROVehicle* vehicle, SUMOVTypeParameter* type, RORouteDef* route,
                 SUMOTime intBegin, SUMOTime intEnd,
                 unsigned int vehicles2insert, bool randomize);
 
@@ -128,23 +128,23 @@ protected:
         bool applicableForTime(SUMOTime time) const;
 
         /// Adds routes to start within the given time into the given net
-        void addRoutes(RONet &net, SUMOTime time);
+        void addRoutes(RONet& net, SUMOTime time);
 
         /// Adds a single route to start within the given time into the given net
-        void addSingleRoute(RONet &net, SUMOTime time);
+        void addSingleRoute(RONet& net, SUMOTime time);
 
         /// Returns the end of the period this FlowDef describes
         SUMOTime getIntervalEnd() const;
 
     private:
         /// (description of) the vehicle to insert
-        ROVehicle *myVehicle;
+        ROVehicle* myVehicle;
 
         /// (description of) the vehicle type to use
-        SUMOVTypeParameter *myVehicleType;
+        SUMOVTypeParameter* myVehicleType;
 
         /// (description of) the route to use
-        RORouteDef *myRoute;
+        RORouteDef* myRoute;
 
         /// The begin of the described interval
         SUMOTime myIntervalBegin;
@@ -209,10 +209,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    RORDGenerator_ODAmounts(const RORDGenerator_ODAmounts &src);
+    RORDGenerator_ODAmounts(const RORDGenerator_ODAmounts& src);
 
     /// @brief Invalidated assignment operator
-    RORDGenerator_ODAmounts &operator=(const RORDGenerator_ODAmounts &src);
+    RORDGenerator_ODAmounts& operator=(const RORDGenerator_ODAmounts& src);
 
 };
 

@@ -42,15 +42,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Verbindungsdefinition::~NIVissimSingleTypeParser_Verbindungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     int id;
     from >> id; // type-checking is missing!
     std::string tag;
@@ -79,7 +79,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
             try {
                 TplConvert<char>::_2SUMOReal(tag.c_str());
                 tag = myRead(from);
-            } catch (NumberFormatException &) {}
+            } catch (NumberFormatException&) {}
         } else {
             tag = y;
         }
@@ -156,12 +156,12 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
                     tag = readEndSecure(from);
                 }
                 // build and add the definition
-                NIVissimClosedLaneDef *cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
+                NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
                 clv.push_back(cld);
             }
         } while (tag!="DATAEND");
     }
-    NIVissimConnection *c = new NIVissimConnection(id, name, from_def, to_def, geom,
+    NIVissimConnection* c = new NIVissimConnection(id, name, from_def, to_def, geom,
             direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2, seglength,
             assignedVehicles, clv);
 

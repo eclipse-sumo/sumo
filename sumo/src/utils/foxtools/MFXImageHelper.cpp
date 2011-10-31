@@ -58,11 +58,11 @@ MFXImageHelper::checkSupported(FXString ext) throw(InvalidArgument) {
 }
 
 
-FXImage *
-MFXImageHelper::loadImage(FXApp *a, const std::string& file) {
+FXImage*
+MFXImageHelper::loadImage(FXApp* a, const std::string& file) {
     FXString ext=FXPath::extension(file.c_str());
     checkSupported(ext);
-    FXImage *img=NULL;
+    FXImage* img=NULL;
     if (comparecase(ext,"gif")==0) {
         img=new FXGIFImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     } else if (comparecase(ext,"bmp")==0) {
@@ -105,11 +105,13 @@ MFXImageHelper::loadImage(FXApp *a, const std::string& file) {
 
 
 FXbool
-MFXImageHelper::scalePower2(FXImage *image) {
+MFXImageHelper::scalePower2(FXImage* image) {
     FXint newHeight;
     for (FXint exp = 30; exp >= 0; exp--) {
         newHeight = 2 << exp;
-        if (image->getHeight() & newHeight) break;
+        if (image->getHeight() & newHeight) {
+            break;
+        }
     }
     if (2 * newHeight - image->getHeight() < image->getHeight() - newHeight) {
         newHeight *= 2;
@@ -117,7 +119,9 @@ MFXImageHelper::scalePower2(FXImage *image) {
     FXint newWidth;
     for (FXint exp = 30; exp >= 0; exp--) {
         newWidth = 2 << exp;
-        if (image->getWidth() & newWidth) break;
+        if (image->getWidth() & newWidth) {
+            break;
+        }
     }
     if (2 * newWidth - image->getWidth() < image->getWidth() - newWidth) {
         newWidth *= 2;
@@ -134,7 +138,7 @@ MFXImageHelper::scalePower2(FXImage *image) {
 // Save file
 FXbool
 MFXImageHelper::saveImage(const std::string& file,
-                          int width, int height, FXColor *data) {
+                          int width, int height, FXColor* data) {
     FXString ext=FXPath::extension(file.c_str());
     checkSupported(ext);
     FXFileStream stream;

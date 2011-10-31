@@ -49,9 +49,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string &id, const RGBColor * const color) throw()
-        : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
-        myColor(color) {}
+RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color) throw()
+    : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
+      myColor(color) {}
 
 
 RORouteDef::~RORouteDef() throw() {

@@ -80,7 +80,7 @@ public:
     static bool gUseMesoSim;
 
     /// mesoscopic simulation infrastructure
-    static MELoop *gMesoNet;
+    static MELoop* gMesoNet;
 #endif
 
 };

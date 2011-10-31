@@ -65,7 +65,7 @@
 // ===========================================================================
 void
 fillOptions() throw() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -189,8 +189,8 @@ fillOptions() throw() {
 
 
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
     oc.setApplicationName("polyconvert", "SUMO polyconvert Version " + (std::string)VERSION_STRING);
     int ret = 0;
@@ -281,7 +281,7 @@ main(int argc, char **argv) {
         } else {
             throw ProcessError();
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

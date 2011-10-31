@@ -49,19 +49,19 @@
 
 using namespace std;
 
-NIVissimNodeDef_Poly::NIVissimNodeDef_Poly(int id, const std::string &name,
-        const PositionVector &poly)
-        : NIVissimNodeDef_Edges(id, name, NIVissimNodeParticipatingEdgeVector()),
-        myPoly(poly) {}
+NIVissimNodeDef_Poly::NIVissimNodeDef_Poly(int id, const std::string& name,
+        const PositionVector& poly)
+    : NIVissimNodeDef_Edges(id, name, NIVissimNodeParticipatingEdgeVector()),
+      myPoly(poly) {}
 
 
 NIVissimNodeDef_Poly::~NIVissimNodeDef_Poly() {}
 
 
 bool
-NIVissimNodeDef_Poly::dictionary(int id, const std::string &name,
-                                 const PositionVector &poly) {
-    NIVissimNodeDef_Poly *o = new NIVissimNodeDef_Poly(id, name, poly);
+NIVissimNodeDef_Poly::dictionary(int id, const std::string& name,
+                                 const PositionVector& poly) {
+    NIVissimNodeDef_Poly* o = new NIVissimNodeDef_Poly(id, name, poly);
     if (!NIVissimNodeDef::dictionary(id, o)) {
         delete o;
         assert(false);
@@ -99,9 +99,9 @@ NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
     IntVector edges;
     Boundary boundary(myPoly.getBoxBoundary());
     for (IntVector::const_iterator i=within.begin(); i!=within.end(); i++) {
-        NIVissimConnection *c =
+        NIVissimConnection* c =
             NIVissimConnection::dictionary(*i);
-        NIVissimEdge *e =
+        NIVissimEdge* e =
             NIVissimEdge::dictionary(*i);
         if (c!=0) {
             connections.push_back(*i);
@@ -111,10 +111,10 @@ NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
             edges.push_back(*i);
         }
     }
-    NIVissimConnectionCluster *c =
+    NIVissimConnectionCluster* c =
         new NIVissimConnectionCluster(connections, boundary, myID, edges);
     for (IntVector::iterator j=edges.begin(); j!=edges.end(); j++) {
-        NIVissimEdge *edge = NIVissimEdge::dictionary(*j);
+        NIVissimEdge* edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
     }
 }

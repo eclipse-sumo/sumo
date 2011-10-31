@@ -73,9 +73,9 @@ public:
         /** @brief Constructor
          * @param[in] length The length of the object for which the data gets collected
          */
-        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
+        MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes=0,
-                             const MSMeanData_Net *parent=0) throw();
+                             const MSMeanData_Net* parent=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -130,7 +130,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice &dev, const SUMOTime period,
+        void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes, const int numVehicles=-1) const throw(IOError);
 
     protected:
@@ -197,7 +197,7 @@ public:
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
      * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData_Net(const std::string &id,
+    MSMeanData_Net(const std::string& id,
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const bool withEmpty, const bool withInternal,
                    const bool trackVehicles,
@@ -214,7 +214,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
 
     /** @brief Resets network value in order to allow processing of the next interval
      *

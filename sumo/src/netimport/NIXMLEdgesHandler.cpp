@@ -62,19 +62,19 @@ const SUMOReal SUMOXML_INVALID_POSITION = -999999.;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
-                                     NBEdgeCont &ec,
-                                     NBTypeCont &tc,
-                                     NBDistrictCont &dc,
-                                     OptionsCont &options) throw()
-        : SUMOSAXHandler("xml-edges - file"),
-        myOptions(options),
-        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
-        myHaveWarnedAboutDeprecatedSpreadType(false),
-        myHaveWarnedAboutDeprecatedFromTo(false),
-        myHaveWarnedAboutDeprecatedNoLanes(false),
-        myHaveWarnedAboutDeprecatedLaneId(false) {}
+NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
+                                     NBEdgeCont& ec,
+                                     NBTypeCont& tc,
+                                     NBDistrictCont& dc,
+                                     OptionsCont& options) throw()
+    : SUMOSAXHandler("xml-edges - file"),
+      myOptions(options),
+      myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
+      myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
+      myHaveWarnedAboutDeprecatedSpreadType(false),
+      myHaveWarnedAboutDeprecatedFromTo(false),
+      myHaveWarnedAboutDeprecatedNoLanes(false),
+      myHaveWarnedAboutDeprecatedLaneId(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -82,7 +82,7 @@ NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
 
 void
 NIXMLEdgesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         addEdge(attrs);
@@ -103,7 +103,7 @@ NIXMLEdgesHandler::myStartElement(int element,
 
 
 void
-NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
+NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myIsUpdate = false;
     bool ok = true;
     // initialise the edge
@@ -255,7 +255,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
+NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge==0) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
             WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
@@ -310,7 +310,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes &attrs) {
 }
 
 
-void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
+void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == 0) {
         WRITE_WARNING("Ignoring 'split' because it cannot be assigned to an edge");
         return;
@@ -344,9 +344,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
             try {
                 int lane = TplConvert<char>::_2int((*i).c_str());
                 e.lanes.push_back(lane);
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
             }
         }
@@ -361,7 +361,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes &attrs) {
 
 
 bool
-NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
+NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) throw() {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
     bool ok = true;
@@ -426,18 +426,18 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
 
 
 SUMOReal
-NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
-                                  const std::string &attrName) {
+NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes& attrs, SumoXMLAttr attrID,
+                                  const std::string& attrName) {
     UNUSED_PARAMETER(attrName);
     bool ok = true;
     return attrs.getOptSUMORealReporting(attrID, myCurrentID.c_str(), ok, SUMOXML_INVALID_POSITION);
 }
 
 
-NBNode *
-NIXMLEdgesHandler::insertNodeChecking(const Position &pos,
-                                      const std::string &name, const std::string &dir) {
-    NBNode *ret = 0;
+NBNode*
+NIXMLEdgesHandler::insertNodeChecking(const Position& pos,
+                                      const std::string& name, const std::string& dir) {
+    NBNode* ret = 0;
     if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
         WRITE_ERROR("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
         return ret;
@@ -471,7 +471,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position &pos,
 
 
 PositionVector
-NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
+NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) throw() {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         return myShape;
     }
@@ -490,7 +490,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
 
 
 LaneSpreadFunction
-NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes &attrs) {
+NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     LaneSpreadFunction result = myLanesSpread;
     std::string lsfS = toString(result);
@@ -513,16 +513,16 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes &attrs) {
+NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myCurrentID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
-    NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
+    NBEdge* edge = myEdgeCont.retrieve(myCurrentID);
     if (edge == 0) {
         WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown edge '" +
-                myCurrentID + "'");
+                      myCurrentID + "'");
         return;
     }
     myEdgeCont.extract(myDistrictCont, edge, true);
@@ -538,7 +538,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                     WRITE_ERROR("Duplicate edge occured. ID='" + myCurrentID + "'");
                     delete myCurrentEdge;
                 }
-            } catch (InvalidArgument &e) {
+            } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
                 throw;
             } catch (...) {
@@ -547,7 +547,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
         }
         if (mySplits.size()!=0) {
             std::vector<Split>::iterator i;
-            NBEdge *e = myCurrentEdge;
+            NBEdge* e = myCurrentEdge;
             SUMOReal length = e->getLength();
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             unsigned int noLanesMax = e->getNumLanes();
@@ -565,11 +565,11 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             std::string edgeid = e->getID();
             SUMOReal seen = 0;
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
-                const Split &exp = *i;
+                const Split& exp = *i;
                 assert(exp.lanes.size()!=0);
                 if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos && exp.pos>seen) {
                     std::string nid = edgeid + "." +  toString(exp.nameid);
-                    NBNode *rn = new NBNode(nid, exp.gpos);
+                    NBNode* rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
                         std::string nid = myCurrentID + "." +  toString(exp.nameid);
@@ -578,8 +578,8 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                                            pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size());
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
-                        NBEdge *pe = myEdgeCont.retrieve(pid);
-                        NBEdge *ne = myEdgeCont.retrieve(nid);
+                        NBEdge* pe = myEdgeCont.retrieve(pid);
+                        NBEdge* ne = myEdgeCont.retrieve(nid);
                         // reconnect lanes
                         pe->invalidateConnections(true);
                         //  new on right

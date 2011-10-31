@@ -62,23 +62,23 @@ public:
     };
 
     /// Constructor
-    NLDiscreteEventBuilder(MSNet &net);
+    NLDiscreteEventBuilder(MSNet& net);
 
     /// Destructor
     ~NLDiscreteEventBuilder();
 
     /// Builds an action and saves it for further use
-    void addAction(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void addAction(const SUMOSAXAttributes& attrs, const std::string& basePath);
 
 private:
     /// Builds an action which saves the state of a certain tls into a file
-    void buildSaveTLStateCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLStateCommand(const SUMOSAXAttributes& attrs, const std::string& basePath);
 
     /// Builds an action which saves the switch times of links into a file
-    void buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLSwitchesCommand(const SUMOSAXAttributes& attrs, const std::string& basePath);
 
     /// Builds an action which saves the switch times and states of tls into a file
-    void buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& attrs, const std::string& basePath);
 
 private:
     NLDiscreteEventBuilder& operator=(const NLDiscreteEventBuilder&); // just to avoid a compiler warning
@@ -90,7 +90,7 @@ protected:
     /// Build actions that shall be executed during the simulation
     KnownActions myActions;
 
-    MSNet &myNet;
+    MSNet& myNet;
 
 };
 

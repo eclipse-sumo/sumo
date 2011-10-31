@@ -58,7 +58,7 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow *parent) throw();
+    GUIDialog_Breakpoints(GUIMainWindow* parent) throw();
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints() throw();
@@ -97,10 +97,10 @@ private:
 
 private:
     /// @brief The list that holds the ids
-    MFXAddEditTypedTable *myTable;
+    MFXAddEditTypedTable* myTable;
 
     /// @brief The parent window
-    GUIMainWindow *myParent;
+    GUIMainWindow* myParent;
 
 
 protected:

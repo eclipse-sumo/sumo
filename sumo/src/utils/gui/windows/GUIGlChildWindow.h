@@ -46,8 +46,8 @@
 class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
 public:
-    GUIGlChildWindow(FXMDIClient* p, GUIMainWindow *parentWindow,
-                     FXMDIMenu *mdimenu, const FXString& name,
+    GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow,
+                     FXMDIMenu* mdimenu, const FXString& name,
                      FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0);
 
     virtual ~GUIGlChildWindow();
@@ -62,8 +62,8 @@ public:
     long onCmdRecenterView(FXObject*,FXSelector,void*);
     long onCmdEditViewport(FXObject*,FXSelector,void*);
     long onCmdEditViewScheme(FXObject*,FXSelector,void*);
-    long onCmdShowToolTips(FXObject*sender,FXSelector,void*);
-    long onCmdZoomStyle(FXObject*sender,FXSelector,void*);
+    long onCmdShowToolTips(FXObject* sender,FXSelector,void*);
+    long onCmdZoomStyle(FXObject* sender,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
 
     virtual void buildNavigationToolBar();
@@ -71,9 +71,9 @@ public:
     virtual void buildScreenshotToolBar();
 
 
-    FXToolBar &getNavigationToolBar(GUISUMOAbstractView &v);
-    FXPopup *getLocatorPopup();
-    FXComboBox &getColoringSchemesCombo();
+    FXToolBar& getNavigationToolBar(GUISUMOAbstractView& v);
+    FXPopup* getLocatorPopup();
+    FXComboBox& getColoringSchemesCombo();
 
     /** @brief Centers the view onto the given artifact
      * @param[in] id The id of the object to center the view on
@@ -84,32 +84,32 @@ public:
     /** @brief Returns the main window
      * @return This view's parent
      */
-    GUIMainWindow *getParent() throw() {
+    GUIMainWindow* getParent() throw() {
         return myParent;
     }
 
 
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
-    virtual bool isSelected(GUIGlObject *o) const;
+    virtual bool isSelected(GUIGlObject* o) const;
 
 
 protected:
     /// the view
-    GUISUMOAbstractView *myView;
+    GUISUMOAbstractView* myView;
 
     /// The tool bar
-    FXToolBar *myNavigationToolBar;
+    FXToolBar* myNavigationToolBar;
 
     /// The locator menu
-    FXPopup *myLocatorPopup;
-    FXMenuButton *myLocatorButton;
+    FXPopup* myLocatorPopup;
+    FXMenuButton* myLocatorButton;
 
-    FXVerticalFrame *myContentFrame;
+    FXVerticalFrame* myContentFrame;
 
-    FXComboBox *myColoringSchemes;
+    FXComboBox* myColoringSchemes;
 
     /// @brief The parent window
-    GUIMainWindow *myParent;
+    GUIMainWindow* myParent;
 
 
 protected:

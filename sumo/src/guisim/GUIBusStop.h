@@ -75,8 +75,8 @@ public:
      * @param[in] begPos Begin position of the bus stop on the lane
      * @param[in] endPos End position of the bus stop on the lane
      */
-    GUIBusStop(const std::string &id,
-               const std::vector<std::string> &lines, MSLane &lane,
+    GUIBusStop(const std::string& id,
+               const std::vector<std::string> &lines, MSLane& lane,
                SUMOReal frompos, SUMOReal topos) throw();
 
 
@@ -95,8 +95,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -108,8 +108,8 @@ public:
      * @return The built parameter window (always 0 in this case)
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -124,7 +124,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 

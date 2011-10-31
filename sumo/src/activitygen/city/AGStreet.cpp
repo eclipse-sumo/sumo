@@ -38,7 +38,7 @@
 // method definitions
 // ===========================================================================
 AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) throw() :
-        edge(edge) {
+    edge(edge) {
     pop = static_cast<int>(popDensity * edge->getLength());
     work = static_cast<int>(workDensity * edge->getLength());
 }

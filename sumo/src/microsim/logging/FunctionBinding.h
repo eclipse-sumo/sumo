@@ -47,8 +47,8 @@ public:
     typedef R(T::* Operation)() const;
 
     FunctionBinding(T* const source, Operation operation) :
-            mySource(source),
-            myOperation(operation) {}
+        mySource(source),
+        myOperation(operation) {}
 
     /// Destructor.
     ~FunctionBinding() {}

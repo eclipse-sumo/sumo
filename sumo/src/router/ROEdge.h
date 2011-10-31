@@ -85,7 +85,7 @@ public:
      * @param[in] interpolate Whether the edge shall interpolate at interval boundaries
      * @todo useBoundariesOnOverride and interpolate should not be members of the edge
      */
-    ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index,
+    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index,
            bool useBoundariesOnOverride, bool interpolate=false) throw();
 
 
@@ -104,7 +104,7 @@ public:
      * @param[in] lane The lane to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addLane(ROLane *lane) throw();
+    virtual void addLane(ROLane* lane) throw();
 
 
     /** @brief Adds information about a connected edge
@@ -114,7 +114,7 @@ public:
      * @param[in] lane The lane to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addFollower(ROEdge *s) throw();
+    virtual void addFollower(ROEdge* s) throw();
 
 
     /** @brief Sets the type of te edge
@@ -132,7 +132,7 @@ public:
      *
      * @param[in] measure The name of the measure to use.
      */
-    void buildTimeLines(const std::string &measure) throw();
+    void buildTimeLines(const std::string& measure) throw();
     //@}
 
 
@@ -143,7 +143,7 @@ public:
     /** @brief Returns the id of the edge
      * @return This edge's id
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myID;
     }
 
@@ -191,7 +191,7 @@ public:
     /** @brief Returns the node this edge starts at
      * @return The node this edge starts at
      */
-    RONode *getFromNode() const throw() {
+    RONode* getFromNode() const throw() {
         return myFromNode;
     }
 
@@ -199,7 +199,7 @@ public:
     /** @brief Returns the node this edge ends at
      * @return The node this edge ends at
      */
-    RONode *getToNode() const throw() {
+    RONode* getToNode() const throw() {
         return myToNode;
     }
 
@@ -209,7 +209,7 @@ public:
      * @param[in] e The edge which may be connected
      * @return Whether the given edge is a direct successor to this one
      */
-    bool isConnectedTo(const ROEdge * const e) const throw() {
+    bool isConnectedTo(const ROEdge* const e) const throw() {
         return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
     }
 
@@ -218,14 +218,14 @@ public:
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle must not enter this edge
      */
-    bool prohibits(const ROVehicle * const vehicle) const throw();
+    bool prohibits(const ROVehicle* const vehicle) const throw();
 
 
     /** @brief Returns whether this edge succeding edges prohibit the given vehicle to pass them
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle may continue its route on any of the following edges
      */
-    bool allFollowersProhibit(const ROVehicle * const vehicle) const throw();
+    bool allFollowersProhibit(const ROVehicle* const vehicle) const throw();
     //@}
 
 
@@ -265,7 +265,7 @@ public:
      * @param[in] pos The position of the list within the list of following
      * @return The following edge, stored at position pos
      */
-    ROEdge *getFollower(unsigned int pos) const throw() {
+    ROEdge* getFollower(unsigned int pos) const throw() {
         return myFollowingEdges[pos];
     }
 
@@ -277,7 +277,7 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const throw();
 
 
     /** @brief Returns the travel time for this edge
@@ -287,16 +287,16 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getTravelTime(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const throw();
 
 
-    SUMOReal getCOEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getCO2Effort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getPMxEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getHCEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getNOxEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getFuelEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-    SUMOReal getNoiseEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getCOEffort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getCO2Effort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getPMxEffort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getHCEffort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getNOxEffort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getFuelEffort(const ROVehicle* const veh, SUMOReal time) const throw();
+    SUMOReal getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const throw();
     //@}
 
     /** @brief Returns the ROEdge at the index */
@@ -310,7 +310,7 @@ protected:
      * @param[in] time The tim for which the effort shall be returned
      * @return Whether the effort is given
      */
-    bool getStoredEffort(SUMOReal time, SUMOReal &ret) const throw();
+    bool getStoredEffort(SUMOReal time, SUMOReal& ret) const throw();
 
 
 
@@ -366,16 +366,16 @@ protected:
     SUMOVehicleClasses myNotAllowedClasses;
 
     /// @brief The nodes this edge is connecting
-    RONode *myFromNode, *myToNode;
+    RONode* myFromNode, *myToNode;
 
     static std::vector<ROEdge*> myEdges;
 
 private:
     /// @brief Invalidated copy constructor
-    ROEdge(const ROEdge &src);
+    ROEdge(const ROEdge& src);
 
     /// @brief Invalidated assignment operator
-    ROEdge &operator=(const ROEdge &src);
+    ROEdge& operator=(const ROEdge& src);
 
 };
 

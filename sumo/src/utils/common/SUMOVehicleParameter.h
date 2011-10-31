@@ -230,8 +230,8 @@ public:
      * @param[in] oc The options to get defaults from
      * @exception IOError not yet implemented
      */
-    void writeAs(const std::string &xmlElem, OutputDevice &dev,
-                 const OptionsCont &oc) const throw(IOError);
+    void writeAs(const std::string& xmlElem, OutputDevice& dev,
+                 const OptionsCont& oc) const throw(IOError);
 
 
     /** @brief Returns whether the defaults shall be used
@@ -239,7 +239,7 @@ public:
      * @param[in] optionName The name of the option to determine whether its value shall be used
      * @return Whether the option is set and --defaults-override was set
      */
-    bool defaultOptionOverrides(const OptionsCont &oc, const std::string &optionName) const throw();
+    bool defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const throw();
 
 
 
@@ -250,42 +250,42 @@ public:
      * @param[in] val The departlane value to validate
      * @return Whether the given value is a valid departlane definition
      */
-    static bool departlaneValidate(const std::string &val) throw();
+    static bool departlaneValidate(const std::string& val) throw();
 
 
     /** @brief Validates a given departpos value
      * @param[in] val The departpos value to validate
      * @return Whether the given value is a valid departpos definition
      */
-    static bool departposValidate(const std::string &val) throw();
+    static bool departposValidate(const std::string& val) throw();
 
 
     /** @brief Validates a given departspeed value
      * @param[in] val The departspeed value to validate
      * @return Whether the given value is a valid departspeed definition
      */
-    static bool departspeedValidate(const std::string &val) throw();
+    static bool departspeedValidate(const std::string& val) throw();
 
 
     /** @brief Validates a given arrivallane value
      * @param[in] val The arrivallane value to validate
      * @return Whether the given value is a valid arrivallane definition
      */
-    static bool arrivallaneValidate(const std::string &val) throw();
+    static bool arrivallaneValidate(const std::string& val) throw();
 
 
     /** @brief Validates a given arrivalpos value
      * @param[in] val The arrivalpos value to validate
      * @return Whether the given value is a valid arrivalpos definition
      */
-    static bool arrivalposValidate(const std::string &val) throw();
+    static bool arrivalposValidate(const std::string& val) throw();
 
 
     /** @brief Validates a given arrivalspeed value
      * @param[in] val The arrivalspeed value to validate
      * @return Whether the given value is a valid arrivalspeed definition
      */
-    static bool arrivalspeedValidate(const std::string &val) throw();
+    static bool arrivalspeedValidate(const std::string& val) throw();
     /// @}
 
 

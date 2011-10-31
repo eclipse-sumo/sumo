@@ -58,7 +58,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    RODFEdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw();
+    RODFEdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw();
 
 
     /// @brief Destructor
@@ -74,10 +74,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    RODFEdge(const RODFEdge &src);
+    RODFEdge(const RODFEdge& src);
 
     /// @brief Invalidated assignment operator
-    RODFEdge &operator=(const RODFEdge &src);
+    RODFEdge& operator=(const RODFEdge& src);
 
 };
 

@@ -68,8 +68,9 @@ AGSchool::removeChild() {
 
 bool
 AGSchool::acceptThisAge(int age) {
-    if (age <= endAge && age >= beginAge)
+    if (age <= endAge && age >= beginAge) {
         return true;
+    }
     return false;
 }
 

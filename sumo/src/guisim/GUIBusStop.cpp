@@ -67,10 +67,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIBusStop::GUIBusStop(const std::string &id, const std::vector<std::string> &lines, MSLane &lane,
+GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &lines, MSLane& lane,
                        SUMOReal frompos, SUMOReal topos) throw()
-        : MSBusStop(id, lines, lane, frompos, topos),
-        GUIGlObject_AbstractAdd("bus_stop", GLO_TRIGGER, id) {
+    : MSBusStop(id, lines, lane, frompos, topos),
+      GUIGlObject_AbstractAdd("bus_stop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
@@ -78,8 +78,8 @@ GUIBusStop::GUIBusStop(const std::string &id, const std::vector<std::string> &li
     myFGShapeLengths.reserve(myFGShape.size()-1);
     int e = (int) myFGShape.size() - 1;
     for (int i=0; i<e; ++i) {
-        const Position &f = myFGShape[i];
-        const Position &s = myFGShape[i+1];
+        const Position& f = myFGShape[i];
+        const Position& s = myFGShape[i+1];
         myFGShapeLengths.push_back(f.distanceTo(s));
         myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
@@ -97,10 +97,10 @@ GUIBusStop::GUIBusStop(const std::string &id, const std::vector<std::string> &li
 GUIBusStop::~GUIBusStop() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUIBusStop::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUIBusStop::getPopUpMenu(GUIMainWindow& app,
+                         GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -110,15 +110,15 @@ GUIBusStop::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUIBusStop::getParameterWindow(GUIMainWindow &,
-                               GUISUMOAbstractView &) throw() {
+GUIParameterTableWindow*
+GUIBusStop::getParameterWindow(GUIMainWindow&,
+                               GUISUMOAbstractView&) throw() {
     return 0;
 }
 
 
 void
-GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIBusStop::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
     RGBColor green(76./255., 170./255., 50./255.);
@@ -129,7 +129,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    if (s.scale*s.addExaggeration>=10) {
+    if (s.scale* s.addExaggeration>=10) {
         // draw the lines
         for (i=0; i!=myLines.size(); ++i) {
             glPushMatrix();
@@ -155,7 +155,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
         glTranslated(0, 0, .1);
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-        if (s.scale*s.addExaggeration>=4.5) {
+        if (s.scale* s.addExaggeration>=4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6 * s.addExaggeration, green, myFGSignRot);
         }
     }

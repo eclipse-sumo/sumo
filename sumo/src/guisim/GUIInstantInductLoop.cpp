@@ -57,15 +57,15 @@
 /* -------------------------------------------------------------------------
  * GUIInstantInductLoop-methods
  * ----------------------------------------------------------------------- */
-GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice &od,
-                 MSLane * const lane, SUMOReal positionInMeters) throw()
-        : MSInstantInductLoop(id, od, lane, positionInMeters) {}
+GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
+        MSLane* const lane, SUMOReal positionInMeters) throw()
+    : MSInstantInductLoop(id, od, lane, positionInMeters) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() throw() {}
 
 
-GUIDetectorWrapper *
+GUIDetectorWrapper*
 GUIInstantInductLoop::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, static_cast<GUIEdge&>(getLane()->getEdge()).getLaneGeometry(getLane()), myPosition);
 }
@@ -74,11 +74,11 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 /* -------------------------------------------------------------------------
  * GUIInstantInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop &detector,
-                                    GUILaneWrapper &wrapper, SUMOReal pos) throw()
-        : GUIDetectorWrapper("instant induct loop", detector.getID()),
-        myDetector(detector), myPosition(pos) {
-    const PositionVector &v = wrapper.getShape();
+GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector,
+        GUILaneWrapper& wrapper, SUMOReal pos) throw()
+    : GUIDetectorWrapper("instant induct loop", detector.getID()),
+      myDetector(detector), myPosition(pos) {
+    const PositionVector& v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
     Line l(v.getBegin(), v.getEnd());
     SUMOReal sgPos = pos / v.length() * l.length();
@@ -100,10 +100,10 @@ GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const throw() {
 
 
 
-GUIParameterTableWindow *
-GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw() {
-    GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
+GUIParameterTableWindow*
+GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
+        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) throw() {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
@@ -116,7 +116,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
@@ -167,7 +167,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const
 }
 
 
-GUIInstantInductLoop &
+GUIInstantInductLoop&
 GUIInstantInductLoop::MyWrapper::getLoop() {
     return myDetector;
 }

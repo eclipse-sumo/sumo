@@ -65,7 +65,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -75,7 +75,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const;
+    SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const;
 
 
     /** @brief Returns the model's name
@@ -93,7 +93,7 @@ public:
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const;
+    MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
 private:

@@ -52,7 +52,7 @@ public:
      * @param[in] prunningBoundary The pruning boundary (onyl valid if prune==true)
      * @param[in] removeByNames Names of objects that shall not be added
      */
-    PCPolyContainer(bool prune, const Boundary &prunningBoundary,
+    PCPolyContainer(bool prune, const Boundary& prunningBoundary,
                     const std::vector<std::string> &removeByNames) throw();
 
 
@@ -75,7 +75,7 @@ public:
      * @param[in] ignorePrunning Whether the polygon shall be kept, even though it would be prunned
      * @return Whether the polygon could been added (no one with the same id was added before)
      */
-    bool insert(const std::string &id, Polygon *poly, int layer,
+    bool insert(const std::string& id, Polygon* poly, int layer,
                 bool ignorePrunning=false) throw();
 
 
@@ -94,7 +94,7 @@ public:
      * @param[in] ignorePrunning Whether the poi shall be kept, even though it would be prunned
      * @return Whether the poi could been added (no one with the same id was added before)
      */
-    bool insert(const std::string &id, PointOfInterest *poi, int layer,
+    bool insert(const std::string& id, PointOfInterest* poi, int layer,
                 bool ignorePrunning=false) throw();
 
 
@@ -129,14 +129,14 @@ public:
      * @param[in] id The id of the polygon to get the information about
      * @return Whether the named polygon was added before
      */
-    bool containsPolygon(const std::string &kidey) throw();
+    bool containsPolygon(const std::string& kidey) throw();
 
 
     /** @brief Saves the stored polygons into the given file
      * @param[in] file The name of the file to write stored objects' definitions into
      * @exception IOError If the file could not been opened
      */
-    void save(const std::string &file) throw(IOError);
+    void save(const std::string& file) throw(IOError);
 
 
     /** @brief Retuns a unique id for a given name
@@ -147,7 +147,7 @@ public:
      * @param[in] key The key to get a running number for
      * @return Unique id (running number of calls that used this key)
      */
-    int getEnumIDFor(const std::string &key) throw();
+    int getEnumIDFor(const std::string& key) throw();
 
 
 public:
@@ -183,10 +183,10 @@ public:
 
 private:
     /// @brief Invalidated copy constructor
-    PCPolyContainer(const PCPolyContainer &s);
+    PCPolyContainer(const PCPolyContainer& s);
 
     /// @brief Invalidated assignment operator
-    PCPolyContainer &operator=(const PCPolyContainer &s);
+    PCPolyContainer& operator=(const PCPolyContainer& s);
 
 
 };

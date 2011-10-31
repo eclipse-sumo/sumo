@@ -66,8 +66,8 @@ public:
      * @param[in] lane Lane where detector woks on.
      * @param[in] position Position of the detector within the lane.
      */
-    MSInstantInductLoop(const std::string& id, OutputDevice &od,
-                 MSLane * const lane, SUMOReal positionInMeters) throw();
+    MSInstantInductLoop(const std::string& id, OutputDevice& od,
+                        MSLane* const lane, SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor
@@ -141,8 +141,8 @@ public:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occurs
      */
-    void writeXMLOutput(OutputDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime) throw(IOError) { }
+    void writeXMLOutput(OutputDevice& dev,
+                        SUMOTime startTime, SUMOTime stopTime) throw(IOError) { }
 
 
     /** @brief Open the XML-output
@@ -153,7 +153,7 @@ public:
      * @param[in] dev The output device to write the root into
      * @exception IOError If an error on writing occurs
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
 
 
 protected:
@@ -165,12 +165,12 @@ protected:
      * @param[in] add An optional attribute to report
      * @param[in] addValue The value of the optional attribute
      */
-    void write(const char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char *add=0, SUMOReal addValue=-1);
+    void write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char* add=0, SUMOReal addValue=-1);
 
 
 protected:
     /// @brief The output device to use
-    OutputDevice &myOutputDevice;
+    OutputDevice& myOutputDevice;
 
     /// @brief Detector's position on lane [m]
     const SUMOReal myPosition;

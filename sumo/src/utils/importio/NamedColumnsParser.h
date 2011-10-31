@@ -74,8 +74,8 @@ public:
      * @param[in] chomp Whether the lines shall be trimmed (white spaces shall be removed)
      * @param[in] ignoreCase Whether the case shall be ignored when parsing the definitions
      */
-    NamedColumnsParser(const std::string &def, const std::string &defDelim=";",
-                       const std::string &lineDelim=";", bool chomp=false,
+    NamedColumnsParser(const std::string& def, const std::string& defDelim=";",
+                       const std::string& lineDelim=";", bool chomp=false,
                        bool ignoreCase=true) throw();
 
 
@@ -94,8 +94,8 @@ public:
      * @param[in] chomp Whether the lines shall be trimmed (white spaces shall be removed)
      * @param[in] ignoreCase Whether the case shall be ignored when parsing the definitions
      */
-    void reinit(const std::string &def, const std::string &defDelim=";",
-                const std::string &lineDelim=";", bool chomp=false,
+    void reinit(const std::string& def, const std::string& defDelim=";",
+                const std::string& lineDelim=";", bool chomp=false,
                 bool ignoreCase=true) throw();
 
 
@@ -107,7 +107,7 @@ public:
      *
      * @param[in] line The line to parse
      */
-    void parseLine(const std::string &line) throw();
+    void parseLine(const std::string& line) throw();
 
 
     /** @brief Returns the named information
@@ -124,7 +124,7 @@ public:
      * @return The obtained value
      * @exception UnknownElement when the element was not named during the initialisation
      * @exception OutOfBoundsException when the line was too short and did not contain the item */
-    std::string get(const std::string &name,
+    std::string get(const std::string& name,
                     bool prune=false) const throw(UnknownElement, OutOfBoundsException);
 
 
@@ -133,7 +133,7 @@ public:
      * @param[in] name The name of the value to check
      * @return Whether the named value is stored in the parsed line
      */
-    bool know(const std::string &name) const throw();
+    bool know(const std::string& name) const throw();
 
 
     /** @brief Returns whether the number of named columns matches the actual number
@@ -156,7 +156,7 @@ private:
      * @param[in] delim The delimiter string
      * @param[in] chomp Whether the tokens shall be prunned
      */
-    void reinitMap(std::string def, const std::string &delim=";",
+    void reinitMap(std::string def, const std::string& delim=";",
                    bool chomp=false) throw();
 
 
@@ -168,7 +168,7 @@ private:
      * @param[in, out] str The string to prune (optionally)
      * @param[in] prune Whether the string shall be prunned
      */
-    void checkPrune(std::string &str, bool prune) const throw();
+    void checkPrune(std::string& str, bool prune) const throw();
 
 
 private:

@@ -59,14 +59,14 @@ class OutputDevice;
 class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUIRunThread(MFXInterThreadEventClient *mw,
-                 FXRealSpinDial &simDelay, MFXEventQue &eq, FXEX::FXThreadEvent &ev);
+    GUIRunThread(MFXInterThreadEventClient* mw,
+                 FXRealSpinDial& simDelay, MFXEventQue& eq, FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
 
     /// initialises the thread with the new simulation
-    virtual void init(GUINet *net, SUMOTime start, SUMOTime end);
+    virtual void init(GUINet* net, SUMOTime start, SUMOTime end);
 
     /// starts the execution
     virtual FXint run();
@@ -96,20 +96,20 @@ public:
     virtual void deleteSim();
 
     /** returns the loaded network */
-    GUINet &getNet() const;
+    GUINet& getNet() const;
 
     /** halts the thread before it shall be deleted */
     void prepareDestruction();
 
     /// Retrieves messages from the loading module
-    void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
+    void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
 protected:
     void makeStep() throw();
 
 protected:
     /// the loaded simulation network
-    GUINet *myNet;
+    GUINet* myNet;
 
     /// the times the simulation starts and ends with
     SUMOTime mySimStartTime, mySimEndTime;
@@ -133,13 +133,13 @@ protected:
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
-    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    FXRealSpinDial &mySimDelay;
+    FXRealSpinDial& mySimDelay;
 
-    MFXEventQue &myEventQue;
+    MFXEventQue& myEventQue;
 
-    FXEX::FXThreadEvent &myEventThrow;
+    FXEX::FXThreadEvent& myEventThrow;
 
     MFXMutex mySimulationLock;
 

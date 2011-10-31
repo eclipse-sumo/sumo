@@ -47,12 +47,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &programID,
-        const Phases &phases,
+MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+        const std::string& id, const std::string& programID,
+        const Phases& phases,
         unsigned int step, SUMOTime delay, const std::map<std::string, std::string> &parameter)
-        : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
-        myContinue(false) {
+    : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
+      myContinue(false) {
     myMaxGap = SUMOReal(3.1);
     if (parameter.find("max-gap")!=parameter.end()) {
         myMaxGap = TplConvert<char>::_2SUMOReal(parameter.find("max-gap")->second.c_str());
@@ -69,7 +69,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcon
 
 
 void
-MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) {
+MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
@@ -77,9 +77,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) {
     LaneVector::const_iterator i;
     // build the induct loops
     for (i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
-        const LaneVector &lanes = *i2;
+        const LaneVector& lanes = *i2;
         for (i=lanes.begin(); i!=lanes.end(); i++) {
-            MSLane *lane = (*i);
+            MSLane* lane = (*i);
             SUMOReal length = lane->getLength();
             SUMOReal speed = lane->getMaxSpeed();
             SUMOReal inductLoopPosition = myDetectorGap * speed;
@@ -96,7 +96,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) {
         }
         // build the lane state-detectors
         for (i=lanes.begin(); i!=lanes.end(); i++) {
-            MSLane *lane = (*i);
+            MSLane* lane = (*i);
             SUMOReal length = lane->getLength();
             // check whether the position is o.k. (not longer than the lane)
             SUMOReal lslen = det_offset;
@@ -148,7 +148,7 @@ MSActuatedTrafficLightLogic::duration() const {
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = (int) getCurrentPhaseDef().minDuration;
-    const std::string &state = getCurrentPhaseDef().getState();
+    const std::string& state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++) {
         if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
@@ -190,7 +190,7 @@ MSActuatedTrafficLightLogic::gapControl() {
     }
 
     // now the gapcontrol starts
-    const std::string &state = getCurrentPhaseDef().getState();
+    const std::string& state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
         if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);

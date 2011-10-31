@@ -50,19 +50,19 @@ const int StringTokenizer::SPACE = 32;
 // method definitions
 // ===========================================================================
 StringTokenizer::StringTokenizer(std::string tosplit)
-        : myTosplit(tosplit), myPos(0) {
+    : myTosplit(tosplit), myPos(0) {
     prepareWhitechar(tosplit);
 }
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars)
-        : myTosplit(tosplit), myPos(0) {
+    : myTosplit(tosplit), myPos(0) {
     prepare(tosplit, token, splitAtAllChars);
 }
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, int special)
-        : myTosplit(tosplit), myPos(0) {
+    : myTosplit(tosplit), myPos(0) {
     switch (special) {
     case NEWLINE:
         prepare(tosplit, "\r\n", true);
@@ -71,7 +71,7 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
         prepareWhitechar(tosplit);
         break;
     default:
-        char *buf = new char[2];
+        char* buf = new char[2];
         buf[0] = (char) special;
         buf[1] = 0;
         prepare(tosplit, buf, false);
@@ -131,7 +131,7 @@ size_t StringTokenizer::size() const {
     return myStarts.size();
 }
 
-void StringTokenizer::prepare(const std::string &tosplit, const std::string &token, bool splitAtAllChars) {
+void StringTokenizer::prepare(const std::string& tosplit, const std::string& token, bool splitAtAllChars) {
     size_t beg = 0;
     size_t len = token.length();
     if (splitAtAllChars) {
@@ -157,7 +157,7 @@ void StringTokenizer::prepare(const std::string &tosplit, const std::string &tok
     }
 }
 
-void StringTokenizer::prepareWhitechar(const std::string &tosplit) {
+void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
     size_t len = tosplit.length();
     size_t beg = 0;
     while (beg<len&&tosplit[beg]<=SPACE) {

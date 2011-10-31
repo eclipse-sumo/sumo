@@ -73,8 +73,8 @@
 /**
  * loads the net, additional routes and the detectors
  */
-MSNet *
-load(OptionsCont &oc) {
+MSNet*
+load(OptionsCont& oc) {
     MSFrame::setMSGlobals(oc);
     MSVehicleControl* vc = 0;
 #ifdef HAVE_MESOSIM
@@ -86,7 +86,7 @@ load(OptionsCont &oc) {
 #ifdef HAVE_MESOSIM
     }
 #endif
-    MSNet *net = new MSNet(vc, new MSEventControl(),
+    MSNet* net = new MSNet(vc, new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
     NLDetectorBuilder db(*net);
@@ -107,13 +107,13 @@ load(OptionsCont &oc) {
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");
     oc.setApplicationName("sumo", "SUMO sumo Version " + (std::string)VERSION_STRING);
     int ret = 0;
-    MSNet *net = 0;
+    MSNet* net = 0;
     try {
         // initialise subsystems
         XMLSubSys::init(false);
@@ -124,7 +124,9 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!MSFrame::checkOptions()) throw ProcessError();
+        if (!MSFrame::checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         // load the net
         net = load(oc);
@@ -138,7 +140,7 @@ main(int argc, char **argv) {
             // report the end when wished
             WRITE_MESSAGE("Simulation ended at time: " + time2string(net->getCurrentTimeStep()));
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

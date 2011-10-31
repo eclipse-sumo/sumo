@@ -55,12 +55,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
-                                     NBTrafficLightLogicCont &tlc,
-                                     OptionsCont &options)
-        : SUMOSAXHandler("xml-nodes - file"),
-        myOptions(options),
-        myNodeCont(nc), myTLLogicCont(tlc) {}
+NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
+                                     NBTrafficLightLogicCont& tlc,
+                                     OptionsCont& options)
+    : SUMOSAXHandler("xml-nodes - file"),
+      myOptions(options),
+      myNodeCont(nc), myTLLogicCont(tlc) {}
 
 
 NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
@@ -68,35 +68,35 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
 
 void
 NIXMLNodesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-        case SUMO_TAG_NODE:
-            addNode(attrs);
-            break;
-        case SUMO_TAG_JOIN:
-            addJoinCluster(attrs);
-            break;
-        case SUMO_TAG_JOINEXCLUDE:
-            addJoinExclusion(attrs);
-            break;
-        case SUMO_TAG_RESET:
-            deleteNode(attrs);
-            break;
-        default:
-            break;
+    case SUMO_TAG_NODE:
+        addNode(attrs);
+        break;
+    case SUMO_TAG_JOIN:
+        addJoinCluster(attrs);
+        break;
+    case SUMO_TAG_JOINEXCLUDE:
+        addJoinExclusion(attrs);
+        break;
+    case SUMO_TAG_RESET:
+        deleteNode(attrs);
+        break;
+    default:
+        break;
     }
 }
 
 
-void 
-NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
+void
+NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report a warning if not given or empty...
     myID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
-    NBNode *node = myNodeCont.retrieve(myID);
+    NBNode* node = myNodeCont.retrieve(myID);
     // retrieve the position of the node
     bool xOk = false;
     bool yOk = false;
@@ -166,18 +166,18 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes &attrs) {
 }
 
 
-void 
-NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes &attrs) {
+void
+NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report a warning if not given or empty...
     myID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
-    NBNode *node = myNodeCont.retrieve(myID);
+    NBNode* node = myNodeCont.retrieve(myID);
     if (node == 0) {
         WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown node '" +
-                myID + "'");
+                      myID + "'");
         return;
     } else {
         myNodeCont.extract(node, true);
@@ -185,8 +185,8 @@ NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes &attrs) {
 }
 
 
-void 
-NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes &attrs) {
+void
+NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string clusterString = attrs.getStringReporting(SUMO_ATTR_NODES, 0, ok);
     const std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
@@ -196,8 +196,8 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes &attrs) {
 }
 
 
-void 
-NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes &attrs) {
+void
+NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::vector<std::string> ids = StringTokenizer(
             attrs.getStringReporting(SUMO_ATTR_NODES, 0, ok)).getVector();
@@ -208,8 +208,8 @@ NIXMLNodesHandler::addJoinExclusion(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs,
-        NBNode *currentNode) {
+NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
+        NBNode* currentNode) {
     // try to get the tl-id
     // if a tl-id is given, we will look whether this tl already exists
     //  if so, we will add the node to it (and to all programs with this id), otherwise allocate a new one with this id
@@ -228,7 +228,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     } else {
         // we need to add a new defition
         tlID = tlID == "" ? myID : tlID;
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(tlID, currentNode);
+        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode);
         if (!myTLLogicCont.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;

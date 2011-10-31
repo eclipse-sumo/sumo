@@ -58,14 +58,14 @@ OptionsCont OptionsCont::myOptions;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsCont &
+OptionsCont&
 OptionsCont::getOptions() {
     return myOptions;
 }
 
 
 OptionsCont::OptionsCont()
-        : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
+    : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
     myCopyrightNotices.push_back("Copyright (C) 2001-2011 DLR and contributors; http://sumo.sourceforge.net");
 }
 
@@ -76,7 +76,7 @@ OptionsCont::~OptionsCont() {
 
 
 void
-OptionsCont::doRegister(const std::string &name, Option *v) {
+OptionsCont::doRegister(const std::string& name, Option* v) {
     assert(v!=0);
     ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
     if (i==myAddresses.end()) {
@@ -90,14 +90,14 @@ OptionsCont::doRegister(const std::string &name, Option *v) {
 
 
 void
-OptionsCont::doRegister(const std::string &name1, char abbr, Option *v) {
+OptionsCont::doRegister(const std::string& name1, char abbr, Option* v) {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
 }
 
 
 void
-OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, bool isDeprecated) {
+OptionsCont::addSynonyme(const std::string& name1, const std::string& name2, bool isDeprecated) {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
     if (i1==myValues.end()&&i2==myValues.end()) {
@@ -125,13 +125,13 @@ OptionsCont::addSynonyme(const std::string &name1, const std::string &name2, boo
 
 
 bool
-OptionsCont::exists(const std::string &name) const {
+OptionsCont::exists(const std::string& name) const {
     return myValues.count(name) > 0;
 }
 
 
 bool
-OptionsCont::isSet(const std::string &name, bool failOnNonExistant) const {
+OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         if (failOnNonExistant) {
@@ -145,7 +145,7 @@ OptionsCont::isSet(const std::string &name, bool failOnNonExistant) const {
 
 
 bool
-OptionsCont::isDefault(const std::string &name) const {
+OptionsCont::isDefault(const std::string& name) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -154,8 +154,8 @@ OptionsCont::isDefault(const std::string &name) const {
 }
 
 
-Option *
-OptionsCont::getSecure(const std::string &name) const {
+Option*
+OptionsCont::getSecure(const std::string& name) const {
     KnownContType::const_iterator k = myValues.find(name);
     if (k==myValues.end()) {
         throw ProcessError("No option with the name '" + name + "' exists.");
@@ -171,7 +171,9 @@ OptionsCont::getSecure(const std::string &name) const {
                     break;
                 }
             }
-            if (defaultName != "") break;
+            if (defaultName != "") {
+                break;
+            }
         }
         WRITE_WARNING("Please note that '" + name + "' is deprecated.\n Use '" + defaultName + "' instead.");
         s->second = true;
@@ -181,43 +183,43 @@ OptionsCont::getSecure(const std::string &name) const {
 
 
 std::string
-OptionsCont::getString(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getString(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->getString();
 }
 
 
 SUMOReal
-OptionsCont::getFloat(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getFloat(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->getFloat();
 }
 
 
 int
-OptionsCont::getInt(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getInt(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->getInt();
 }
 
 
 bool
-OptionsCont::getBool(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getBool(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->getBool();
 }
 
 
-const IntVector &
-OptionsCont::getIntVector(const std::string &name) const {
-    Option *o = getSecure(name);
+const IntVector&
+OptionsCont::getIntVector(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->getIntVector();
 }
 
 
 bool
-OptionsCont::set(const std::string &name, const std::string &value) {
-    Option *o = getSecure(name);
+OptionsCont::set(const std::string& name, const std::string& value) {
+    Option* o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
         return false;
@@ -226,7 +228,7 @@ OptionsCont::set(const std::string &name, const std::string &value) {
         if (!o->set(value)) {
             return false;
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         WRITE_ERROR("While processing option '" + name + "':\n " + e.what());
         return false;
     }
@@ -235,8 +237,8 @@ OptionsCont::set(const std::string &name, const std::string &value) {
 
 
 std::vector<std::string>
-OptionsCont::getSynonymes(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getSynonymes(const std::string& name) const {
+    Option* o = getSecure(name);
     std::vector<std::string> v(0);
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
         if ((*i).second==o&&name!=(*i).first) {
@@ -282,7 +284,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 
 void
-OptionsCont::relocateFiles(const std::string &configuration) const {
+OptionsCont::relocateFiles(const std::string& configuration) const {
     for (ItemAddressContType::const_iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         if ((*i)->isFileName() && (*i)->isSet()) {
             StringTokenizer st((*i)->getString(), ";, ", true);
@@ -304,8 +306,8 @@ OptionsCont::relocateFiles(const std::string &configuration) const {
 
 
 bool
-OptionsCont::isUsableFileList(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::isUsableFileList(const std::string& name) const {
+    Option* o = getSecure(name);
     // check whether the option is set
     //  return false i not
     if (!o->isSet()) {
@@ -333,8 +335,8 @@ OptionsCont::isUsableFileList(const std::string &name) const {
 
 
 bool
-OptionsCont::checkDependingSuboptions(const std::string &name, const std::string &prefix) const {
-    Option *o = getSecure(name);
+OptionsCont::checkDependingSuboptions(const std::string& name, const std::string& prefix) const {
+    Option* o = getSecure(name);
     if (o->isSet()) {
         return true;
     }
@@ -356,7 +358,7 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
 
 
 void
-OptionsCont::reportDoubleSetting(const std::string &arg) const {
+OptionsCont::reportDoubleSetting(const std::string& arg) const {
     std::vector<std::string> synonymes = getSynonymes(arg);
     std::ostringstream s;
     s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
@@ -382,8 +384,8 @@ OptionsCont::convertChar(char abbr) const {
 
 
 bool
-OptionsCont::isBool(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::isBool(const std::string& name) const {
+    Option* o = getSecure(name);
     return o->isBool();
 }
 
@@ -397,8 +399,8 @@ OptionsCont::resetWritable() {
 
 
 bool
-OptionsCont::isWriteable(const std::string &name) {
-    Option *o = getSecure(name);
+OptionsCont::isWriteable(const std::string& name) {
+    Option* o = getSecure(name);
     return o->isWriteable();
 }
 
@@ -417,10 +419,10 @@ OptionsCont::clear() {
 
 
 void
-OptionsCont::addDescription(const std::string &name,
-                            const std::string &subtopic,
-                            const std::string &description) {
-    Option *o = getSecure(name);
+OptionsCont::addDescription(const std::string& name,
+                            const std::string& subtopic,
+                            const std::string& description) {
+    Option* o = getSecure(name);
     assert(o!=0);
     assert(find(mySubTopics.begin(), mySubTopics.end(), subtopic)!=mySubTopics.end());
     o->setDescription(description);
@@ -429,33 +431,33 @@ OptionsCont::addDescription(const std::string &name,
 
 
 void
-OptionsCont::setApplicationName(const std::string &appName,
-                                const std::string &fullName) {
+OptionsCont::setApplicationName(const std::string& appName,
+                                const std::string& fullName) {
     myAppName = appName;
     myFullName = fullName;
 }
 
 
 void
-OptionsCont::setApplicationDescription(const std::string &appDesc) {
+OptionsCont::setApplicationDescription(const std::string& appDesc) {
     myAppDescription = appDesc;
 }
 
 
 void
-OptionsCont::addCallExample(const std::string &example) {
+OptionsCont::addCallExample(const std::string& example) {
     myCallExamples.push_back(example);
 }
 
 
 void
-OptionsCont::setAdditionalHelpMessage(const std::string &add) {
+OptionsCont::setAdditionalHelpMessage(const std::string& add) {
     myAdditionalMessage = add;
 }
 
 
 void
-OptionsCont::addCopyrightNotice(const std::string &copyrightLine) {
+OptionsCont::addCopyrightNotice(const std::string& copyrightLine) {
     myCopyrightNotices.push_back(copyrightLine);
 }
 
@@ -467,14 +469,14 @@ OptionsCont::clearCopyrightNotices() {
 
 
 void
-OptionsCont::addOptionSubTopic(const std::string &topic) {
+OptionsCont::addOptionSubTopic(const std::string& topic) {
     mySubTopics.push_back(topic);
     mySubTopicEntries[topic] = std::vector<std::string>();
 }
 
 
 void
-OptionsCont::splitLines(std::ostream &os, std::string what,
+OptionsCont::splitLines(std::ostream& os, std::string what,
                         size_t offset, size_t nextOffset) {
     while (what.length()>0) {
         if (what.length()>79-offset) {
@@ -606,22 +608,22 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
 }
 
 void
-OptionsCont::printHelp(std::ostream &os) {
+OptionsCont::printHelp(std::ostream& os) {
     std::vector<std::string>::const_iterator i, j;
 //#define WIKI_OUTPUT 1
 #ifdef WIKI_OUTPUT
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
         os << "===" << (*i) << "===\n";
-		os << "{| cellspacing=\"0\" border=\"1\" width=\"90%\" align=\"center\"\n";
-		os << "|-\n";
-		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Option\n";
-		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Default Value\n";
-		os << "! style=\"background:#ddffdd;\" valign=\"top\" | Description\n";
+        os << "{| cellspacing=\"0\" border=\"1\" width=\"90%\" align=\"center\"\n";
+        os << "|-\n";
+        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Option\n";
+        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Default Value\n";
+        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Description\n";
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         for (j=entries.begin(); j!=entries.end(); ++j) {
             // start length computation
             size_t csize = (*j).length() + 2;
-            Option *o = getSecure(*j);
+            Option* o = getSecure(*j);
             os << "|-\n";
             os << "| valign=\"top\" | ";
             // write abbreviation if given
@@ -637,10 +639,10 @@ OptionsCont::printHelp(std::ostream &os) {
             os << "| valign=\"top\" | " << defaultValue << "\n";
             os << "| valign=\"top\" | " << o->getDescription() << "\n";
         }
-		os << "|-\n";
-		os << "|}\n\n";
-	}
-	return;
+        os << "|-\n";
+        os << "|}\n\n";
+    }
+    return;
 #endif
     // print application description
     os << ' ' << std::endl;
@@ -673,7 +675,7 @@ OptionsCont::printHelp(std::ostream &os) {
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         for (j=entries.begin(); j!=entries.end(); ++j) {
-            Option *o = getSecure(*j);
+            Option* o = getSecure(*j);
             // name, two leading spaces and "--"
             size_t csize = (*j).length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
@@ -699,7 +701,7 @@ OptionsCont::printHelp(std::ostream &os) {
         for (j=entries.begin(); j!=entries.end(); ++j) {
             // start length computation
             size_t csize = (*j).length() + 2;
-            Option *o = getSecure(*j);
+            Option* o = getSecure(*j);
             os << "  ";
             // write abbreviation if given
             std::vector<std::string> synonymes = getSynonymes(*j);
@@ -735,7 +737,7 @@ OptionsCont::printHelp(std::ostream &os) {
 
 
 void
-OptionsCont::writeConfiguration(std::ostream &os, bool filled,
+OptionsCont::writeConfiguration(std::ostream& os, bool filled,
                                 bool complete, bool addComments) {
     // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
@@ -750,7 +752,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         bool hadOne = false;
         for (std::vector<std::string>::const_iterator j=entries.begin(); j!=entries.end(); ++j) {
-            Option *o = getSecure(*j);
+            Option* o = getSecure(*j);
             bool write = complete || (filled&&!o->isDefault());
             if (!write) {
                 continue;
@@ -799,7 +801,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeSchema(std::ostream &os, bool addComments) {
+OptionsCont::writeSchema(std::ostream& os, bool addComments) {
     // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
@@ -833,7 +835,7 @@ OptionsCont::writeSchema(std::ostream &os, bool addComments) {
         os << "        </xsd:sequence>\n";
         os << "    </xsd:complexType>\n\n";
         for (std::vector<std::string>::const_iterator j=entries.begin(); j!=entries.end(); ++j) {
-            Option *o = getSecure(*j);
+            Option* o = getSecure(*j);
             std::string type = o->getTypeName();
             std::transform(type.begin(), type.end(), type.begin(), tolower);
             if (type == "bool") {
@@ -859,7 +861,7 @@ OptionsCont::writeSchema(std::ostream &os, bool addComments) {
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) {
+OptionsCont::writeXMLHeader(std::ostream& os, const std::string xmlParams) {
     time_t rawtime;
     char buffer [80];
 
@@ -873,8 +875,8 @@ OptionsCont::writeXMLHeader(std::ostream &os, const std::string xmlParams) {
 
 
 std::vector<std::string>
-OptionsCont::getStringVector(const std::string &name) const {
-    Option *o = getSecure(name);
+OptionsCont::getStringVector(const std::string& name) const {
+    Option* o = getSecure(name);
     std::string def = o->getString();
     if (def.find(';')!=std::string::npos&&!myHaveInformedAboutDeprecatedDivider) {
         WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
@@ -890,8 +892,8 @@ OptionsCont::getStringVector(const std::string &name) const {
 
 
 bool
-OptionsCont::isInStringVector(const std::string &optionName,
-                              const std::string &itemName) {
+OptionsCont::isInStringVector(const std::string& optionName,
+                              const std::string& itemName) {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
         return find(values.begin(), values.end(), itemName)!=values.end();

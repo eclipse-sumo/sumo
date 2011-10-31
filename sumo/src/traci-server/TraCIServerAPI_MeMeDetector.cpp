@@ -47,8 +47,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                        tcpip::Storage &outputStorage) {
+TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                        tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -77,7 +77,7 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer &server, tcpip::Storage &inp
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSE3Collector *e3 = static_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
+        MSE3Collector* e3 = static_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
         if (e3==0) {
             server.writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known", outputStorage);
             return false;

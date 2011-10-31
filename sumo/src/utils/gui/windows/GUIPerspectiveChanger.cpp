@@ -39,10 +39,10 @@
 // method definitions
 // ===========================================================================
 GUIPerspectiveChanger::GUIPerspectiveChanger(
-    GUISUMOAbstractView &callBack,
+    GUISUMOAbstractView& callBack,
     const Boundary& viewPort) :
-        myCallback(callBack),
-        myViewPort(viewPort) {}
+    myCallback(callBack),
+    myViewPort(viewPort) {}
 
 
 GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
@@ -69,11 +69,11 @@ GUIPerspectiveChanger::onRightBtnRelease(void*) {
 
 
 void
-GUIPerspectiveChanger::onMouseWheel(void *) {}
+GUIPerspectiveChanger::onMouseWheel(void*) {}
 
 
 void
-GUIPerspectiveChanger::onMouseMove(void *) {}
+GUIPerspectiveChanger::onMouseMove(void*) {}
 
 
 FXint
@@ -91,9 +91,9 @@ GUIPerspectiveChanger::getMouseYPosition() const {
 Boundary
 GUIPerspectiveChanger::patchedViewPort() {
     // avoid division by zero
-    if (myCallback.getHeight() == 0 || 
+    if (myCallback.getHeight() == 0 ||
             myCallback.getWidth() == 0 ||
-            myViewPort.getHeight() == 0 || 
+            myViewPort.getHeight() == 0 ||
             myViewPort.getWidth() == 0) {
         return myViewPort;
     }

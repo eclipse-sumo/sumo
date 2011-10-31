@@ -58,11 +58,11 @@ public:
         virtual ~ROAbstractEdgeEffortRetriever() { }
 
         /// This function should return the effort to use
-        virtual SUMOReal getEffort(const V *const, SUMOTime time, const E * const edge,
+        virtual SUMOReal getEffort(const V* const, SUMOTime time, const E* const edge,
                                    SUMOReal dist) = 0;
 
         /// Returns the name of this retriever
-        virtual const std::string &getID() const = 0;
+        virtual const std::string& getID() const = 0;
 
     };
 
@@ -76,11 +76,11 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
-    virtual void compute(const E *from, const E *to, const V * const vehicle,
+    virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime time, std::vector<const E*> &into) = 0;
 
     virtual SUMOReal recomputeCosts(const std::vector<const E*> &edges,
-                                    const V * const v, SUMOTime time) throw() = 0;
+                                    const V* const v, SUMOTime time) throw() = 0;
 
 };
 
@@ -88,7 +88,7 @@ public:
 template<class E, class V>
 struct prohibited_withRestrictions {
 public:
-    inline bool operator()(const E *edge, const V *vehicle) {
+    inline bool operator()(const E* edge, const V* vehicle) {
         if (std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
             return true;
         }
@@ -107,7 +107,7 @@ protected:
 template<class E, class V>
 struct prohibited_noRestrictions {
 public:
-    inline bool operator()(const E *, const V *) {
+    inline bool operator()(const E*, const V*) {
         return false;
     }
 };

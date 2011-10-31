@@ -42,31 +42,31 @@
  */
 class NIVissimAbstractEdge {
 public:
-    NIVissimAbstractEdge(int id, const PositionVector &geom);
+    NIVissimAbstractEdge(int id, const PositionVector& geom);
     virtual ~NIVissimAbstractEdge();
     Position getGeomPosition(SUMOReal pos) const;
     void splitAssigning();
-    bool crossesEdge(NIVissimAbstractEdge *c) const;
-    Position crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
-    bool overlapsWith(const AbstractPoly &p, SUMOReal offset=0.0) const;
+    bool crossesEdge(NIVissimAbstractEdge* c) const;
+    Position crossesEdgeAtPoint(NIVissimAbstractEdge* c) const;
+    bool overlapsWith(const AbstractPoly& p, SUMOReal offset=0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
-    SUMOReal crossesAtPoint(const Position &p1,
-                            const Position &p2) const;
+    SUMOReal crossesAtPoint(const Position& p1,
+                            const Position& p2) const;
 
     virtual void buildGeom() = 0;
     int getID() const;
-    const PositionVector &getGeometry() const;
+    const PositionVector& getGeometry() const;
 
     void addDisturbance(int disturbance);
 
-    const IntVector &getDisturbances() const;
+    const IntVector& getDisturbances() const;
 
 public:
-    static bool dictionary(int id, NIVissimAbstractEdge *e);
-    static NIVissimAbstractEdge *dictionary(int id);
+    static bool dictionary(int id, NIVissimAbstractEdge* e);
+    static NIVissimAbstractEdge* dictionary(int id);
     static void splitAndAssignToNodes();
-    static IntVector getWithin(const AbstractPoly &p, SUMOReal offset=0.0);
+    static IntVector getWithin(const AbstractPoly& p, SUMOReal offset=0.0);
     static void clearDict();
 
 

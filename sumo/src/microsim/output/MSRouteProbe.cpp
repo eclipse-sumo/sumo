@@ -49,8 +49,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
-        : MSDetectorFileOutput(id), myCurrentRouteDistribution(0) {
+MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime begin) throw()
+    : MSDetectorFileOutput(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
     myCurrentRouteDistribution = MSRoute::distDictionary(distID);
     if (myCurrentRouteDistribution == 0) {
@@ -59,7 +59,7 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+        MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg!=0) {
             seg->addDetector(this);
             seg = seg->getNextSegment();
@@ -88,14 +88,14 @@ MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason)
 
 
 void
-MSRouteProbe::writeXMLOutput(OutputDevice &dev,
+MSRouteProbe::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j=0; j<routes.size(); ++j) {
-            const MSRoute *r = routes[j];
+            const MSRoute* r = routes[j];
             dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";
             for (MSRouteIterator i = r->begin(); i!=r->end(); ++i) {
                 if (i != r->begin()) {
@@ -114,6 +114,6 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSRouteProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
     dev.writeXMLHeader("route-probes");
 }

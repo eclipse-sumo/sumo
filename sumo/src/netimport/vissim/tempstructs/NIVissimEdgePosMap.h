@@ -44,7 +44,7 @@ public:
     ~NIVissimEdgePosMap();
     void add(int edgeid, SUMOReal pos);
     void add(int edgeid, SUMOReal from, SUMOReal to);
-    void join(NIVissimEdgePosMap &with);
+    void join(NIVissimEdgePosMap& with);
 private:
     typedef std::pair<SUMOReal, SUMOReal> Range;
     typedef std::map<int, Range> ContType;

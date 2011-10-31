@@ -40,15 +40,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Routenentscheidungsdefinition::NIVissimSingleTypeParser_Routenentscheidungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Routenentscheidungsdefinition::NIVissimSingleTypeParser_Routenentscheidungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Routenentscheidungsdefinition::~NIVissimSingleTypeParser_Routenentscheidungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Routenentscheidungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Routenentscheidungsdefinition::parse(std::istream& from) {
     std::string tag;
     while (tag!="fahrzeugklassen") {
         tag = myRead(from);

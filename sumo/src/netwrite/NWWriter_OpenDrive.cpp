@@ -50,7 +50,7 @@
 // static methods
 // ---------------------------------------------------------------------------
 void
-NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether a matsim-file shall be generated
     if (!oc.isSet("opendrive-output")) {
         return;
@@ -66,9 +66,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     device << "<OpenDRIVE>\n";
     device << "    <header revMajor=\"1\" revMinor=\"3\" name=\"\" version=\"1.00\" date=\"!!!\" north=\"0.0000000000000000e+00\" south=\"0.0000000000000000e+00\" east=\"0.0000000000000000e+00\" west=\"0.0000000000000000e+00\" maxRoad=\"517\" maxJunc=\"2\" maxPrg=\"0\"/>\n";
     // write normal edges (road)
-    const NBEdgeCont &ec = nb.getEdgeCont();
+    const NBEdgeCont& ec = nb.getEdgeCont();
     for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
-        const NBEdge *e = (*i).second;
+        const NBEdge* e = (*i).second;
         device << "    <road name=\"" << e->getStreetName() << "\" length=\"" << e->getLength() << "\" id=\"" << getID(e->getID(), edgeMap, edgeID) << "\" junction=\"-1\">\n";
         device << "        <link>\n";
         device << "            <predecessor elementType=\"junction\" elementId=\"" << getID(e->getFromNode()->getID(), nodeMap, nodeID) << "\"/>\n";
@@ -83,7 +83,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         writeEmptyCenterLane(device);
         device << "                <right>\n";
         const std::vector<NBEdge::Lane> &lanes = e->getLanes();
-        for(int j=e->getNumLanes(); --j>=0;) {
+        for (int j=e->getNumLanes(); --j>=0;) {
             device << "                    <lane id=\"-" << e->getNumLanes()-j <<"\" type=\"driving\" level=\"0\">\n";
             device << "                        <link>\n";
             device << "                            <predecessor id=\"-1\"/>\n"; // internal roads have this
@@ -102,20 +102,20 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     device << "\n";
     // write junction-internal edges (road)
-    const NBNodeCont &nc = nb.getNodeCont();
+    const NBNodeCont& nc = nb.getNodeCont();
     for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        NBNode *n = (*i).second;
+        NBNode* n = (*i).second;
         unsigned int index = 0;
         const std::vector<NBEdge*> &incoming = (*i).second->getIncomingEdges();
-        for(std::vector<NBEdge*>::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
+        for (std::vector<NBEdge*>::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
             const std::vector<NBEdge::Connection> &elv = (*j)->getConnections();
-            for(std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if((*k).toEdge==0) {
+            for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+                if ((*k).toEdge==0) {
                     continue;
                 }
-                const NBEdge::Connection &c = *k;
+                const NBEdge::Connection& c = *k;
                 PositionVector shape = c.shape;
-                if(c.haveVia) {
+                if (c.haveVia) {
                     shape.appendWithCrossingPoint(c.viaShape);
                 }
                 device << "    <road name=\"" << c.id << "\" length=\"" << shape.length() << "\" id=\"" << getID(c.id, edgeMap, edgeID) << "\" junction=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
@@ -151,18 +151,18 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
     // write junctions (junction)
     for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        NBNode *n = (*i).second;
+        NBNode* n = (*i).second;
         device << "    <junction name=\"" << n->getID() << "\" id=\"" << getID(n->getID(), nodeMap, nodeID) << "\">\n";
         unsigned int index = 0;
         const std::vector<NBEdge*> &incoming = n->getIncomingEdges();
-        for(std::vector<NBEdge*>::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
+        for (std::vector<NBEdge*>::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
             const std::vector<NBEdge::Connection> &elv = (*j)->getConnections();
-            for(std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
-                if((*k).toEdge==0) {
+            for (std::vector<NBEdge::Connection>::const_iterator k=elv.begin(); k!=elv.end(); ++k) {
+                if ((*k).toEdge==0) {
                     continue;
                 }
-                device << "    <connection id=\"" << index << "\" incomingRoad=\"" << getID((*j)->getID(), edgeMap, edgeID)  
-                    << "\" connectingRoad=\"" << getID((*k).id, edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
+                device << "    <connection id=\"" << index << "\" incomingRoad=\"" << getID((*j)->getID(), edgeMap, edgeID)
+                       << "\" connectingRoad=\"" << getID((*k).id, edgeMap, edgeID) << "\" contactPoint=\"start\"/>\n";
                 ++index;
             }
         }
@@ -174,12 +174,12 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
-void 
-NWWriter_OpenDrive::writePlanView(const PositionVector &shape, OutputDevice& device) {
+void
+NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& device) {
     device << "        <planView>\n";
     SUMOReal offset = 0;
-    for(unsigned int j=0; j<shape.size()-1; ++j) {
-        const Position &p = shape[j];
+    for (unsigned int j=0; j<shape.size()-1; ++j) {
+        const Position& p = shape[j];
         Line l = shape.lineAt(j);
         device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << l.atan2Angle() << "\" length=\"" << l.length() << "\"><line/></geometry>\n";
         offset += l.length();
@@ -199,9 +199,9 @@ NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device) {
 }
 
 
-int 
-NWWriter_OpenDrive::getID(const std::string &origID, StringBijection<int> &map, int &lastID) {
-    if(map.hasString(origID)) {
+int
+NWWriter_OpenDrive::getID(const std::string& origID, StringBijection<int> &map, int& lastID) {
+    if (map.hasString(origID)) {
         return map.get(origID);
     }
     map.insert(origID, lastID++);

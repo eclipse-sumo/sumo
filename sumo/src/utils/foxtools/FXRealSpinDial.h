@@ -70,10 +70,10 @@ class FXDial;
 class /*FXAPI*/ FXRealSpinDial : public FXPacker {
     FXDECLARE(FXRealSpinDial)
 protected:
-    FXRealSpinDialText *textField; // Text field
-    FXArrowButton *upButton;          // The up button
-    FXArrowButton *downButton;        // The down button
-    FXDial        *dial;              // The up/down dial
+    FXRealSpinDialText* textField; // Text field
+    FXArrowButton* upButton;          // The up button
+    FXArrowButton* downButton;        // The down button
+    FXDial*        dial;              // The up/down dial
     FXdouble       range[2];          // Reported data range
     FXdouble       incr[3];           // Increments (fine,normal,coarse)
     FXdouble       pos;               // Current position
@@ -120,7 +120,7 @@ public:
 public:
 
     /// Construct a spinner
-    FXRealSpinDial(FXComposite *p,FXint cols,FXObject *tgt=NULL,
+    FXRealSpinDial(FXComposite* p,FXint cols,FXObject* tgt=NULL,
                    FXSelector sel=0,FXuint opts=SPINDIAL_NORMAL,
                    FXint x=0,FXint y=0,FXint w=0,FXint h=0,
                    FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD
@@ -208,10 +208,10 @@ public:
     }
 
     /// Set the text font
-    void setFont(FXFont *fnt);
+    void setFont(FXFont* fnt);
 
     /// Get the text font
-    FXFont *getFont() const;
+    FXFont* getFont() const;
 
     /// Set the status line help text for this spinner
     void setHelpText(const FXString& text);
@@ -298,7 +298,7 @@ public:
     /// Set a format string for number display, using printf
     /// syntax.  Format must contain no more than one %fmt pattern.
     /// Calling this overrides the simple precision/exponent number format.
-    void setFormatString(const FXchar *fmt);
+    void setFormatString(const FXchar* fmt);
 
     /// Return the format string for number display.
     FXString getNumberFormatString() const;
@@ -306,7 +306,7 @@ public:
     /// Mark the text entry as selected
     void selectAll();
 
-    const FXDial &getDial() const;
+    const FXDial& getDial() const;
 
     /// Destructor
     virtual ~FXRealSpinDial();

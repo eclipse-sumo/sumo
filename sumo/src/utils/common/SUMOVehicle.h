@@ -83,10 +83,10 @@ public:
     /** @brief Returns the vehicle's type
      * @return The vehicle's type
      */
-    virtual const MSVehicleType &getVehicleType() const = 0;
+    virtual const MSVehicleType& getVehicleType() const = 0;
 
     /// Returns the current route
-    virtual const MSRoute &getRoute() const = 0;
+    virtual const MSRoute& getRoute() const = 0;
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
@@ -104,7 +104,7 @@ public:
     virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
 
     /// Replaces the current route by the given edges
-    virtual bool replaceRouteEdges(const MSEdgeVector &edges, bool onInit=false) = 0;
+    virtual bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit=false) = 0;
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, bool onInit=false) = 0;
@@ -129,13 +129,13 @@ public:
      *
      * @return The current edge in the vehicle's route
      */
-    virtual const MSEdge * getEdge() const = 0;
+    virtual const MSEdge* getEdge() const = 0;
 
     /** @brief Returns the vehicle's parameter (including departure definition)
      *
      * @return The vehicle's parameter
      */
-    virtual const SUMOVehicleParameter &getParameter() const throw() = 0;
+    virtual const SUMOVehicleParameter& getParameter() const throw() = 0;
 
     /** @brief Called when the vehicle is inserted into the network
      *

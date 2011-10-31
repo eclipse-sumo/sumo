@@ -101,7 +101,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput *d, OutputDevice& device, int splInterval, SUMOTime begin=-1) throw(ProcessError);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin=-1) throw(ProcessError);
 
 
 
@@ -117,9 +117,9 @@ public:
      * @param[in] d The detector to add
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput *d) throw(ProcessError);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d) throw(ProcessError);
 
-    
+
     /** @brief Adds a mean data object
      *
      * The detector is pushed into the internal list.
@@ -131,7 +131,7 @@ public:
      * @param[in] frequency The frequency for output generation
      * @param[in] begin The begin of the first interval
      */
-    void add(MSMeanData *mn, OutputDevice& device,
+    void add(MSMeanData* mn, OutputDevice& device,
              SUMOTime frequency, SUMOTime begin) throw();
 
 
@@ -144,7 +144,7 @@ public:
      * @param[in] begin The start of the first sample interval to use
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
-                                OutputDevice *device,
+                                OutputDevice* device,
                                 SUMOTime interval, SUMOTime begin=-1) throw();
 
 

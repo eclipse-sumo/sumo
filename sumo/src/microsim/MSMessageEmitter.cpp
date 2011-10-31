@@ -49,10 +49,10 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
                                    bool tableOut,
                                    bool xy,
                                    SUMOReal step) :
-        myDev(OutputDevice::getDevice(file, base)),
-        writeLCEvent(false),
-        writeBEvent(false),
-        writeHBEvent(false) {
+    myDev(OutputDevice::getDevice(file, base)),
+    writeLCEvent(false),
+    writeBEvent(false),
+    writeHBEvent(false) {
 #ifdef _DEBUG
     std::cout << "constructing MSMessageEmitter with file '" + file + "'" << std::endl;
 #endif
@@ -61,8 +61,9 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
     MSMessageEmitter::reverseOrder = reverse;
     MSMessageEmitter::myStep = step;
     setWriteEvents(whatemit);
-    if (!tableOutput)
+    if (!tableOutput) {
         initXML();
+    }
 }
 
 
@@ -87,15 +88,15 @@ MSMessageEmitter::trimmed(const std::string& str, const char* sepSet) {
 
 void
 MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep,
-                                       MSLane *oldlane, SUMOReal myPos,
-                                       SUMOReal mySpeed, MSLane *newlane,
+                                       MSLane* oldlane, SUMOReal myPos,
+                                       SUMOReal mySpeed, MSLane* newlane,
                                        SUMOReal x, SUMOReal y) {
     //myDev << "LaneChangeEvent\n";
     if (tableOutput) {
         if (!reverseOrder) {
             myDev << id + "\t\t"
-            + oldlane->getID() + "\t" + newlane->getID()
-            + "\t";
+                  + oldlane->getID() + "\t" + newlane->getID()
+                  + "\t";
             if (xyCoords) {
                 myDev << x << "\t" << y << "\t";
             }
@@ -107,8 +108,8 @@ MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep
         } else {
             myDev << timeStep;
             myDev << "\t" + id + "\t\t"
-            + oldlane->getID() + "\t" + newlane->getID()
-            + "\t";
+                  + oldlane->getID() + "\t" + newlane->getID()
+                  + "\t";
             if (xyCoords) {
                 myDev << x << "\t" << y << "\t";
             }
@@ -119,8 +120,8 @@ MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep
     } else {
         if (!reverseOrder) {
             myDev << "   <message vID=\"" + id + "\" oldlane=\""
-            + oldlane->getID() + "\" newlane=\""
-            + newlane->getID() + "\" pos=\"";
+                  + oldlane->getID() + "\" newlane=\""
+                  + newlane->getID() + "\" pos=\"";
             myDev << myPos;
             myDev << "\" speed=\"" << mySpeed;
             if (xyCoords) {
@@ -135,8 +136,8 @@ MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep
             myDev << "   <message timestep=\"";
             myDev << timeStep;
             myDev << "\" vID=\"" + id + "\" oldlane=\""
-            + oldlane->getID() + "\" newlane=\""
-            + newlane->getID() + "\" pos=\"";
+                  + oldlane->getID() + "\" newlane=\""
+                  + newlane->getID() + "\" pos=\"";
             myDev << myPos;
             myDev << "\" speed=\"" << mySpeed;
             myDev << "\" edge=\"" << oldlane->getEdge().getID();
@@ -183,7 +184,7 @@ MSMessageEmitter::getEventsEnabled(const std::string& enabled) {
 
 
 void
-MSMessageEmitter::writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+MSMessageEmitter::writeHeartBeatEvent(const std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                                       SUMOReal speed, SUMOReal x, SUMOReal y) {
     if (fmod(timeStep, myStep) == 0) {
         if (tableOutput) {
@@ -305,7 +306,7 @@ MSMessageEmitter::writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSL
 
 
 void
-MSMessageEmitter::setWriteEvents(std::string &events) {
+MSMessageEmitter::setWriteEvents(std::string& events) {
     std::string tmp;
     StringTokenizer st(events, ";");
     while (st.hasNext()) {

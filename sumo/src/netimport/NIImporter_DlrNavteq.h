@@ -68,7 +68,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 protected:
@@ -87,7 +87,7 @@ protected:
          * @param[in] file The name of the parsed file
          * @param[in, geoms] geoms Storage for read edge geometries
          */
-        NodesHandler(NBNodeCont &nc, const std::string &file,
+        NodesHandler(NBNodeCont& nc, const std::string& file,
                      std::map<std::string, PositionVector> &geoms) throw();
 
 
@@ -106,12 +106,12 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string &result) throw(ProcessError);
+        bool report(const std::string& result) throw(ProcessError);
 
 
     protected:
         // @brief The node container to store parsed nodes into
-        NBNodeCont &myNodeCont;
+        NBNodeCont& myNodeCont;
 
         /// @brief A container for parsed geometries
         std::map<std::string, PositionVector> &myGeoms;
@@ -143,8 +143,8 @@ protected:
          * @param[in] file The name of the parsed file
          * @param[in] geoms The previously read edge geometries
          */
-        EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                     const std::string &file, std::map<std::string, PositionVector> &geoms) throw();
+        EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
+                     const std::string& file, std::map<std::string, PositionVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -160,15 +160,15 @@ protected:
              * @exception ProcessError if something fails
              * @see LineHandler::report
          */
-        bool report(const std::string &result) throw(ProcessError);
+        bool report(const std::string& result) throw(ProcessError);
 
 
     protected:
         /// @brief The node container to get the referenced nodes from
-        NBNodeCont &myNodeCont;
+        NBNodeCont& myNodeCont;
 
         /// @brief The edge container to store loaded edges into
-        NBEdgeCont &myEdgeCont;
+        NBEdgeCont& myEdgeCont;
 
         /// @brief Previously read edge geometries
         std::map<std::string, PositionVector> &myGeoms;
@@ -202,8 +202,8 @@ protected:
          * @param[in, filled] tlc The traffic lights container to fill
          * @param[in] file The name of the parsed file
          */
-        TrafficlightsHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
-                             const std::string &file) throw();
+        TrafficlightsHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
+                             const std::string& file) throw();
 
 
         /// @brief Destructor
@@ -219,15 +219,15 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string &result) throw(ProcessError);
+        bool report(const std::string& result) throw(ProcessError);
 
 
     protected:
         /// @brief The node container to get the referenced nodes from
-        NBNodeCont &myNodeCont;
+        NBNodeCont& myNodeCont;
 
         /// @brief The traffic lights container to add built tls to
-        NBTrafficLightLogicCont &myTLLogicCont;
+        NBTrafficLightLogicCont& myTLLogicCont;
 
 
     private:

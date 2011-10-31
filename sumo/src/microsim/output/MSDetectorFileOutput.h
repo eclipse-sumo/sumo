@@ -61,7 +61,7 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string &id) throw() : Named(id) { }
+    MSDetectorFileOutput(const std::string& id) throw() : Named(id) { }
 
 
     /// @brief (virtual) destructor
@@ -77,7 +77,7 @@ public:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occurs
      */
-    virtual void writeXMLOutput(OutputDevice &dev,
+    virtual void writeXMLOutput(OutputDevice& dev,
                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError) = 0;
 
 
@@ -89,7 +89,7 @@ public:
      * @param[in] dev The output device to write the root into
      * @exception IOError If an error on writing occurs
      */
-    virtual void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) = 0;
+    virtual void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) = 0;
 
 
     /** @brief Resets collected values
@@ -114,7 +114,9 @@ public:
      * Meant to be overridden by grahical versions of the detectors
      * @return A wrapper for the detector which performs the user I/O within the GUI
      */
-    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation() { return 0; }
+    virtual GUIDetectorWrapper* buildDetectorGUIRepresentation() {
+        return 0;
+    }
 
 
 private:

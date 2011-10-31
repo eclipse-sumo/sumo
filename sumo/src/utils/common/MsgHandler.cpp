@@ -53,17 +53,17 @@ bool gSuppressMessages = false;
 // ===========================================================================
 // static member variables
 // ===========================================================================
-MsgHandler *MsgHandler::myErrorInstance = 0;
-MsgHandler *MsgHandler::myWarningInstance = 0;
-MsgHandler *MsgHandler::myMessageInstance = 0;
+MsgHandler* MsgHandler::myErrorInstance = 0;
+MsgHandler* MsgHandler::myWarningInstance = 0;
+MsgHandler* MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
-AbstractMutex *MsgHandler::myLock = 0;
+AbstractMutex* MsgHandler::myLock = 0;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MsgHandler *
+MsgHandler*
 MsgHandler::getMessageInstance() {
     if (myMessageInstance==0) {
         myMessageInstance = new MsgHandler(MT_MESSAGE);
@@ -72,7 +72,7 @@ MsgHandler::getMessageInstance() {
 }
 
 
-MsgHandler *
+MsgHandler*
 MsgHandler::getWarningInstance() {
     if (myWarningInstance==0) {
         myWarningInstance = new MsgHandler(MT_WARNING);
@@ -81,7 +81,7 @@ MsgHandler::getWarningInstance() {
 }
 
 
-MsgHandler *
+MsgHandler*
 MsgHandler::getErrorInstance() {
     if (myErrorInstance==0) {
         myErrorInstance = new MsgHandler(MT_ERROR);
@@ -222,7 +222,7 @@ MsgHandler::clear() {
 
 
 void
-MsgHandler::addRetriever(OutputDevice *retriever) {
+MsgHandler::addRetriever(OutputDevice* retriever) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -246,7 +246,7 @@ MsgHandler::addRetriever(OutputDevice *retriever) {
 
 
 void
-MsgHandler::removeRetriever(OutputDevice *retriever) {
+MsgHandler::removeRetriever(OutputDevice* retriever) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -317,28 +317,28 @@ MsgHandler::initOutputOptions(bool gui) {
     // build the logger if possible
     if (oc.isSet("log")) {
         try {
-            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("log"));
+            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
             getErrorInstance()->addRetriever(logFile);
             getWarningInstance()->addRetriever(logFile);
             getMessageInstance()->addRetriever(logFile);
-        } catch (IOError &) {
+        } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
         }
     }
     if (oc.isSet("message-log")) {
         try {
-            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("message-log"));
+            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
             getMessageInstance()->addRetriever(logFile);
-        } catch (IOError &) {
+        } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
         }
     }
     if (oc.isSet("error-log")) {
         try {
-            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("error-log"));
+            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
             getErrorInstance()->addRetriever(logFile);
             getWarningInstance()->addRetriever(logFile);
-        } catch (IOError &) {
+        } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
         }
     }
@@ -363,8 +363,8 @@ MsgHandler::cleanupOnEnd() {
 
 
 MsgHandler::MsgHandler(MsgType type)
-        : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
-        myReport2CERR(type!=MT_MESSAGE) {}
+    : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
+      myReport2CERR(type!=MT_MESSAGE) {}
 
 
 MsgHandler::~MsgHandler() {
@@ -378,7 +378,7 @@ MsgHandler::wasInformed() const {
 
 
 void
-MsgHandler::assignLock(AbstractMutex *lock) {
+MsgHandler::assignLock(AbstractMutex* lock) {
     assert(myLock==0);
     myLock = lock ;
 }

@@ -53,39 +53,39 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDetectorBuilder::GUIDetectorBuilder(MSNet &net) throw()
-        : NLDetectorBuilder(net) {}
+GUIDetectorBuilder::GUIDetectorBuilder(MSNet& net) throw()
+    : NLDetectorBuilder(net) {}
 
 
 GUIDetectorBuilder::~GUIDetectorBuilder() throw() {}
 
 
-MSDetectorFileOutput *
-GUIDetectorBuilder::createInductLoop(const std::string &id,
-									 MSLane *lane, SUMOReal pos, bool splitByType) throw() {
+MSDetectorFileOutput*
+GUIDetectorBuilder::createInductLoop(const std::string& id,
+                                     MSLane* lane, SUMOReal pos, bool splitByType) throw() {
     return new GUIInductLoop(id, lane, pos, splitByType);
 }
 
 
-MSDetectorFileOutput *
-GUIDetectorBuilder::createInstantInductLoop(const std::string &id,
-									MSLane *lane, SUMOReal pos, OutputDevice &od) throw() {
+MSDetectorFileOutput*
+GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
+        MSLane* lane, SUMOReal pos, OutputDevice& od) throw() {
     return new GUIInstantInductLoop(id, od, lane, pos);
 }
 
 
 #ifdef HAVE_MESOSIM
-MEInductLoop *
-GUIDetectorBuilder::createMEInductLoop(const std::string &id,
-                                       MESegment *s, SUMOReal pos) throw() {
+MEInductLoop*
+GUIDetectorBuilder::createMEInductLoop(const std::string& id,
+                                       MESegment* s, SUMOReal pos) throw() {
     return new GUIMEInductLoop(id, s, pos);
 }
 #endif
 
 
-MSDetectorFileOutput *
-GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+MSDetectorFileOutput*
+GUIDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
@@ -93,9 +93,9 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 }
 
 
-MSDetectorFileOutput *
-GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos,
+MSDetectorFileOutput*
+GUIDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw() {
@@ -103,10 +103,10 @@ GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
 }
 
 
-MSDetectorFileOutput *
-GUIDetectorBuilder::createE3Detector(const std::string &id,
-                                     const CrossSectionVector &entries,
-                                     const CrossSectionVector &exits,
+MSDetectorFileOutput*
+GUIDetectorBuilder::createE3Detector(const std::string& id,
+                                     const CrossSectionVector& entries,
+                                     const CrossSectionVector& exits,
                                      SUMOReal haltingSpeedThreshold,
                                      SUMOTime haltingTimeThreshold) throw() {
     return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);

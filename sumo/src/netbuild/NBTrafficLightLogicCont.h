@@ -75,7 +75,7 @@ public:
      * @param[in] oc The options container to read options from
      * @todo Recheck exceptions
      */
-    void applyOptions(OptionsCont &oc) throw();
+    void applyOptions(OptionsCont& oc) throw();
 
 
     /** @brief Adds a logic definition to the dictionary
@@ -87,7 +87,7 @@ public:
      * @param[in] renameProgram If true, rename the program to make insertion succeed
      * @return Whether the logic was valid (no logic with the same id and programID is already known)
      */
-    bool insert(NBTrafficLightDefinition *logic, bool forceInsert=false) throw();
+    bool insert(NBTrafficLightDefinition* logic, bool forceInsert=false) throw();
 
 
     /** @brief Removes a logic definition (and all programs) from the dictionary
@@ -114,10 +114,10 @@ public:
     bool removeProgram(const std::string id, const std::string programID, bool del=true);
 
 
-    /** @brief Extracts a traffic light definition from myDefinitions 
+    /** @brief Extracts a traffic light definition from myDefinitions
      * but keeps it in myExtracted for eventual * deletion (used by NETEDIT)
      */
-    void extract(NBTrafficLightDefinition *definition);
+    void extract(NBTrafficLightDefinition* definition);
 
 
     /// @brief Returns a list of all computed logics
@@ -134,7 +134,7 @@ public:
      * @return The number of computed tls and programs
      * @see NBTrafficLightDefinition::compute
      */
-    std::pair<unsigned int, unsigned int> computeLogics(NBEdgeCont &ec, OptionsCont &oc);
+    std::pair<unsigned int, unsigned int> computeLogics(NBEdgeCont& ec, OptionsCont& oc);
 
 
     /** @brief Computes a specific traffic light logic (using by NETEDIT)
@@ -144,7 +144,7 @@ public:
      * @return whether the logic was computed successfully
      * @see NBTrafficLightDefinition::compute
      */
-    bool computeSingleLogic(NBEdgeCont &ec, OptionsCont &oc, NBTrafficLightDefinition* def);
+    bool computeSingleLogic(NBEdgeCont& ec, OptionsCont& oc, NBTrafficLightDefinition* def);
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -154,8 +154,8 @@ public:
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      * @todo Recheck usage
      */
-    void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
+    void remapRemoved(NBEdge* removed,
+                      const EdgeVector& incoming, const EdgeVector& outgoing) throw();
 
 
     /** @brief Replaces occurences of the removed edge/lane in all definitions by the given edge
@@ -166,8 +166,8 @@ public:
      * @param[in] byLane The lane to use instead
      * @todo Recheck usage
      */
-    void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane) throw();
+    void replaceRemoved(NBEdge* removed, int removedLane,
+                        NBEdge* by, int byLane) throw();
 
 
     /** @brief Returns the named definition
@@ -176,7 +176,7 @@ public:
      * @param[in] programID The id of the program to return
      * @return The named definition, 0 if it is not known
      */
-    NBTrafficLightDefinition* getDefinition(const std::string &id, const std::string &programID) const;
+    NBTrafficLightDefinition* getDefinition(const std::string& id, const std::string& programID) const;
 
 
     /** @brief Returns all programs for the given tl-id
@@ -184,7 +184,7 @@ public:
      * @param[in] id The tl-id for which to return all programs
      * @return The map of programIDs to definitions
      */
-    const std::map<std::string, NBTrafficLightDefinition*>& getPrograms(const std::string &id) const;
+    const std::map<std::string, NBTrafficLightDefinition*>& getPrograms(const std::string& id) const;
 
 
     /** @brief Returns the computed logic for the given name
@@ -193,7 +193,7 @@ public:
      * @param[in] programID The id of the program to return
      * @return The named definition, 0 if it is not known
      */
-    NBTrafficLightLogic* getLogic(const std::string &id, const std::string &programID) const;
+    NBTrafficLightLogic* getLogic(const std::string& id, const std::string& programID) const;
 
 
     /** @brief Informs the edges about being controlled by a tls
@@ -205,7 +205,7 @@ public:
      * @see NBTrafficLightDefinition::setParticipantsInformation
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont &ec) throw();
+    void setTLControllingInformation(const NBEdgeCont& ec) throw();
 
 
 private:

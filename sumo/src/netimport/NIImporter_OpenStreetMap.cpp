@@ -75,7 +75,7 @@ public:
 /** @brief A functor to substitute a node in the node list of an Edge
  */
 class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function<
-            std::pair<std::string, Edge*>, void> {
+        std::pair<std::string, Edge*>, void> {
 public:
     /** @brief Initializes the functor with the node to substitute
      * and the node with that the node in the first argument
@@ -88,7 +88,7 @@ public:
      */
     SubstituteNode(const NIOSMNode* const toSubstitute,
                    const NIOSMNode* const substituteWith) :
-            myToSubstitute(toSubstitute), mySubstituteWith(substituteWith) {
+        myToSubstitute(toSubstitute), mySubstituteWith(substituteWith) {
     }
     /** @brief Substitutes the nodes in the edge of the given pair
      *
@@ -111,20 +111,20 @@ public:
     }
 
 private:
-    const NIOSMNode * const myToSubstitute, * const mySubstituteWith;
+    const NIOSMNode* const myToSubstitute, * const mySubstituteWith;
 };
 
 /** @brief Functor which compares two Edges according to all values but id
  */
 class NIImporter_OpenStreetMap::SimilarEdge : public std::unary_function<
-            std::pair<std::string, Edge*>, bool> {
+        std::pair<std::string, Edge*>, bool> {
 public:
     /** @brief Initializes the functor with the fixed comparison partner
      *
      * @param[in] p0 A pair with the Edge all other nodes should be compared with.
      */
     SimilarEdge(const std::pair<std::string, Edge*>& p0) :
-            myP0(p0) {
+        myP0(p0) {
     }
 
     /** @brief Compares the Edge (p1.second) with the node given in the constructor for equality
@@ -160,7 +160,7 @@ const std::string NIImporter_OpenStreetMap::compoundTypeSeparator("|");
 
 
 void
-NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_OpenStreetMap::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_OpenStreetMap importer;
     importer._loadNetwork(oc, nb);
 }
@@ -182,14 +182,14 @@ NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
 
 
 void
-NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("osm-files")) {
         return;
     }
     // preset types
     //  for highways
-    NBTypeCont &tc = nb.getTypeCont();
+    NBTypeCont& tc = nb.getTypeCont();
     SUMOReal const WIDTH = NBEdge::UNSPECIFIED_WIDTH;
     tc.insert("highway.motorway",      3, (SUMOReal)(160./3.6), 13, WIDTH, SVC_UNKNOWN, true);
     tc.insert("highway.motorway_link", 1, (SUMOReal)(80. /3.6), 12, WIDTH, SVC_UNKNOWN, true);
@@ -306,7 +306,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
     std::map<int, int> nodeUsage;
     // Mark which nodes are used by edges (begin and end)
     for (std::map<std::string, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        Edge *e = (*i).second;
+        Edge* e = (*i).second;
         if (!e->myCurrentIsRoad) {
             continue;
         }
@@ -328,25 +328,25 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
     /* Instantiate edges
      * Only those nodes in the middle of an edge which are used by more than
      * one edge are instantiated. Other nodes are considered as geometry nodes. */
-    NBNodeCont &nc = nb.getNodeCont();
-    NBEdgeCont &ec = nb.getEdgeCont();
-    NBTrafficLightLogicCont &tlsc = nb.getTLLogicCont();
+    NBNodeCont& nc = nb.getNodeCont();
+    NBEdgeCont& ec = nb.getEdgeCont();
+    NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
     for (std::map<std::string, Edge*>::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        Edge *e = (*i).second;
+        Edge* e = (*i).second;
         if (!e->myCurrentIsRoad) {
             continue;
         }
         // build nodes;
         //  the from- and to-nodes must be built in any case
         //  the geometry nodes are only built if more than one edge references them
-        NBNode *currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
-        NBNode *last = insertNodeChecking(*(e->myCurrentNodes.end()-1), nc, tlsc);
+        NBNode* currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
+        NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end()-1), nc, tlsc);
         int running = 0;
         std::vector<int> passed;
         for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end()-1 && j != e->myCurrentNodes.begin()) {
-                NBNode *currentTo = insertNodeChecking(*j, nc, tlsc);
+                NBNode* currentTo = insertNodeChecking(*j, nc, tlsc);
                 insertEdge(e, running, currentFrom, currentTo, passed, ec, tc);
                 currentFrom = currentTo;
                 running++;
@@ -361,11 +361,11 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) 
 }
 
 
-NBNode *
-NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) {
-    NBNode *from = nc.retrieve(toString(id));
+NBNode*
+NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc) {
+    NBNode* from = nc.retrieve(toString(id));
     if (from==0) {
-        NIOSMNode *n = myOSMNodes.find(id)->second;
+        NIOSMNode* n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat);
         if (!NILoader::transformCoordinates(pos, true)) {
             WRITE_ERROR("Unable to project coordinates for node " + toString(id) + ".");
@@ -381,7 +381,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLi
         if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
-            NBOwnTLDef *tlDef = new NBOwnTLDef(toString(id), from);
+            NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), from);
             if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
@@ -394,8 +394,8 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLi
 
 
 void
-NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                                     const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc) {
+NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+                                     const std::vector<int> &passed, NBEdgeCont& ec, NBTypeCont& tc) {
     // patch the id
     std::string id = e->id;
     if (index>=0) {
@@ -404,7 +404,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     // convert the shape
     PositionVector shape;
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
-        NIOSMNode *n = myOSMNodes.find(*i)->second;
+        NIOSMNode* n = myOSMNodes.find(*i)->second;
         Position pos(n->lon, n->lat);
         if (!NILoader::transformCoordinates(pos, true)) {
             throw ProcessError("Unable to project coordinates for edge " + id + ".");
@@ -480,7 +480,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         }
         LaneSpreadFunction lsf = addSecond ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (e->myIsOneWay!="-1") {
-            NBEdge *nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(id, from, to, type, speed, noLanes, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, e->streetName, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
@@ -492,7 +492,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             if (e->myIsOneWay!="-1") {
                 id = "-" + id;
             }
-            NBEdge *nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(id, to, from, type, speed, noLanes, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), e->streetName, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
@@ -508,7 +508,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {
+    : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {
 }
 
 
@@ -516,7 +516,7 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
@@ -557,7 +557,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 WRITE_ERROR("Node's '" + toString(id) + "' lat information is not numeric.");
                 return;
             }
-            NIOSMNode *toAdd = new NIOSMNode();
+            NIOSMNode* toAdd = new NIOSMNode();
             toAdd->id = id;
             toAdd->tlsControlled = false;
             toAdd->lat = tlat;
@@ -577,7 +577,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         if (!ok) {
             return;
         }
-        if (key == "highway" && value.find("traffic_signal") != std::string::npos && 
+        if (key == "highway" && value.find("traffic_signal") != std::string::npos &&
                 !OptionsCont::getOptions().getBool("osm.discard-tls")) {
             myToFill[myLastNodeID]->tlsControlled = true;
         }
@@ -601,8 +601,8 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) throw(ProcessE
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
     std::map<std::string, Edge*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill) {
+    : SUMOSAXHandler("osm - file"),
+      myOSMNodes(osmNodes), myEdgeMap(toFill) {
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
     mySpeedMap["walk"] = 5.;
@@ -618,7 +618,7 @@ NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+        const SUMOSAXAttributes& attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -674,7 +674,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key=="lanes") {
             try {
                 myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
@@ -686,7 +686,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 }
                 try {
                     myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
-                } catch (NumberFormatException &) {
+                } catch (NumberFormatException&) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
                 }
             }

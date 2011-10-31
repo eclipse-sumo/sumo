@@ -43,9 +43,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
-        OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics) {
+Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants& logics,
+        OutputDevice& od)
+    : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switches");
 }
@@ -57,9 +57,9 @@ Command_SaveTLSSwitches::~Command_SaveTLSSwitches() {
 
 SUMOTime
 Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
-    MSTrafficLightLogic *light = myLogics.getActive();
-    const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
-    const std::string &state = light->getCurrentPhaseDef().getState();
+    MSTrafficLightLogic* light = myLogics.getActive();
+    const MSTrafficLightLogic::LinkVectorVector& links = light->getLinks();
+    const std::string& state = light->getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) links.size(); i++) {
         if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
             if (myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
@@ -72,19 +72,19 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
                 // was not yet green
                 continue;
             }
-            const MSTrafficLightLogic::LinkVector &currLinks = links[i];
-            const MSTrafficLightLogic::LaneVector &currLanes = light->getLanesAt(i);
+            const MSTrafficLightLogic::LinkVector& currLinks = links[i];
+            const MSTrafficLightLogic::LaneVector& currLanes = light->getLanesAt(i);
             SUMOTime lastOn = myPreviousLinkStates[i];
             for (int j=0; j<(int) currLinks.size(); j++) {
-                MSLink *link = currLinks[j];
+                MSLink* link = currLinks[j];
                 myOutputDevice << "   <tlsSwitch id=\"" << light->getID()
-                << "\" programID=\"" << light->getProgramID()
-                << "\" fromLane=\"" << currLanes[j]->getID()
-                << "\" toLane=\"" << link->getLane()->getID()
-                << "\" begin=\"" << time2string(lastOn)
-                << "\" end=\"" << time2string(currentTime)
-                << "\" duration=\"" << time2string(currentTime-lastOn)
-                << "\"/>\n";
+                               << "\" programID=\"" << light->getProgramID()
+                               << "\" fromLane=\"" << currLanes[j]->getID()
+                               << "\" toLane=\"" << link->getLane()->getID()
+                               << "\" begin=\"" << time2string(lastOn)
+                               << "\" end=\"" << time2string(currentTime)
+                               << "\" duration=\"" << time2string(currentTime-lastOn)
+                               << "\"/>\n";
             }
             myPreviousLinkStates.erase(myPreviousLinkStates.find(i));
         }

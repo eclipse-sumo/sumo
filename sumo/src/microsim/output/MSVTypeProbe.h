@@ -63,8 +63,8 @@ public:
      * @param[in] od The output device to write into
      * @param[in] frequency The output frequency [ms]
      */
-    MSVTypeProbe(const std::string &id, const std::string &vType,
-                 OutputDevice &od, SUMOTime frequency);
+    MSVTypeProbe(const std::string& id, const std::string& vType,
+                 OutputDevice& od, SUMOTime frequency);
 
 
     /// @brief Destructor
@@ -94,7 +94,7 @@ private:
     std::string myVType;
 
     /// @brief The device to write into
-    OutputDevice &myOutputDevice;
+    OutputDevice& myOutputDevice;
 
     /// @brief The frequency of reporting
     SUMOTime myFrequency;

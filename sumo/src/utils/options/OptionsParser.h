@@ -60,7 +60,7 @@ public:
      * @return Whether the parsing was successfull
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(int argc, char **argv);
+    static bool parse(int argc, char** argv);
 
 private:
     /** @brief parses the previous arguments
@@ -71,7 +71,7 @@ private:
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(char *arg1, char *arg2, bool &ok);
+    static int check(char* arg1, char* arg2, bool& ok);
 
 
     /** @brief Returns the whether the given token is an option
@@ -81,7 +81,7 @@ private:
      * @param[in] arg1 The token to check
      * @return Whether the token is an option
      */
-    static bool checkParameter(char *arg1);
+    static bool checkParameter(char* arg1);
 
 
     /** @brief returns the whether the given token is an abbreviation
@@ -91,7 +91,7 @@ private:
      * @param[in] arg1 The token to check
      * @return Whether the token is an abbreviation
      */
-    static bool isAbbreviation(char *arg1);
+    static bool isAbbreviation(char* arg1);
 
 
     /** @brief Converts char* to string
@@ -99,7 +99,7 @@ private:
      * @param[in] arg The c-string to convert
      * @return The string converted into a std::string
      */
-    static std::string convert(char *arg);
+    static std::string convert(char* arg);
 
 
     /** @brief converts char to string
@@ -119,7 +119,7 @@ private:
      * @param[in] arg The token to parse
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool processNonBooleanSingleSwitch(OptionsCont &oc, char *arg);
+    static bool processNonBooleanSingleSwitch(OptionsCont& oc, char* arg);
 
 
 };

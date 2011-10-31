@@ -70,27 +70,27 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-    GUIGlChildWindow *parent,
-    FXIcon *icon,
-    const FXString &title,
+    GUIGlChildWindow* parent,
+    FXIcon* icon,
+    const FXString& title,
     GUIGlObjectType type,
     const std::vector<GUIGlID> &ids,
-    GUIGlObjectStorage &glStorage):
-        FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
-        myObjectType(type),
-        myParent(parent) {
-    FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
+    GUIGlObjectStorage& glStorage):
+    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
+    myObjectType(type),
+    myParent(parent) {
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
     // build the list
-    FXVerticalFrame *layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
+    FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
     myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
-    FXVerticalFrame *style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
+    FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
     myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
     for (std::vector<GUIGlID>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
-        GUIGlObject *o = glStorage.getObjectBlocking(*i);
+        GUIGlObject* o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;
         }
-        const std::string &name = o->getMicrosimID();
+        const std::string& name = o->getMicrosimID();
         bool selected = myParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myIDs.insert(o->getGlID());
@@ -98,7 +98,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
         glStorage.unblockObject(*i);
     }
     // build the buttons
-    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
     new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
                  this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
@@ -160,7 +160,7 @@ GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr) {
+GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void* ptr) {
     FXEvent* event=(FXEvent*)ptr;
     switch (event->code) {
     case KEY_Return:

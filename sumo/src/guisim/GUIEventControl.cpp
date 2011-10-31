@@ -62,7 +62,7 @@ GUIEventControl::execute(SUMOTime execTime) throw(ProcessError) {
     myLock.lock();
     try {
         MSEventControl::execute(execTime);
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }

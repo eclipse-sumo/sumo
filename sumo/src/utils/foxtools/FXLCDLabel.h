@@ -52,7 +52,7 @@ enum {
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-            FXLCDLabel : public FXHorizontalFrame {
+        FXLCDLabel : public FXHorizontalFrame {
     FXDECLARE(FXLCDLabel)
 
 protected:
@@ -133,10 +133,10 @@ public:
     virtual FXint getDefaultHeight();
 
     /// save resources
-    virtual void save(FXStream &store) const;
+    virtual void save(FXStream& store) const;
 
     /// load resources
-    virtual void load(FXStream &store);
+    virtual void load(FXStream& store);
 
     /// dtor
     virtual ~FXLCDLabel();

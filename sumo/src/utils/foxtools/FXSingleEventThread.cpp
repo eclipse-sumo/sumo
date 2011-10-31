@@ -31,7 +31,7 @@
 using namespace FXEX;
 
 // Message map
-FXDEFMAP(FXSingleEventThread) FXSingleEventThreadMap[]={
+FXDEFMAP(FXSingleEventThread) FXSingleEventThreadMap[]= {
     FXMAPFUNC(SEL_IO_READ,FXSingleEventThread::ID_THREAD_EVENT,FXSingleEventThread::onThreadSignal),
     FXMAPFUNC(SEL_THREAD,0,FXSingleEventThread::onThreadEvent),
 };
@@ -39,8 +39,8 @@ FXIMPLEMENT(FXSingleEventThread,FXObject,FXSingleEventThreadMap,ARRAYNUMBER(FXSi
 
 
 
-FXSingleEventThread::FXSingleEventThread(FXApp *a, MFXInterThreadEventClient *client)
-        : FXObject(), myClient(client) {
+FXSingleEventThread::FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client)
+    : FXObject(), myClient(client) {
     myApp = (a);
 #ifndef WIN32
     FXMALLOC(&event,FXThreadEventHandle,2);

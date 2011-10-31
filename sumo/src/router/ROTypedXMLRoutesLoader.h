@@ -57,7 +57,7 @@ class Options;
  * @todo recheck/refactor
  */
 class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
-            public SUMOSAXHandler {
+    public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *
@@ -68,8 +68,8 @@ public:
      * @param[in] file Name of the used input file
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
-    ROTypedXMLRoutesLoader(RONet &net,
-                           SUMOTime begin, SUMOTime end, const std::string &file="") throw(ProcessError);
+    ROTypedXMLRoutesLoader(RONet& net,
+                           SUMOTime begin, SUMOTime end, const std::string& file="") throw(ProcessError);
 
 
     /// @brief Destructor
@@ -130,7 +130,7 @@ protected:
 
 protected:
     /// @brief The parser used
-    SAX2XMLReader *myParser;
+    SAX2XMLReader* myParser;
 
     /// @brief Information about the current position within the file
     XMLPScanToken myToken;
@@ -141,10 +141,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    ROTypedXMLRoutesLoader(const ROTypedXMLRoutesLoader &src);
+    ROTypedXMLRoutesLoader(const ROTypedXMLRoutesLoader& src);
 
     /// @brief Invalidated assignment operator
-    ROTypedXMLRoutesLoader &operator=(const ROTypedXMLRoutesLoader &src);
+    ROTypedXMLRoutesLoader& operator=(const ROTypedXMLRoutesLoader& src);
 
 };
 

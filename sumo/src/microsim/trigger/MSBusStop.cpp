@@ -39,12 +39,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSBusStop::MSBusStop(const std::string &id,
+MSBusStop::MSBusStop(const std::string& id,
                      const std::vector<std::string> &lines,
-                     MSLane &lane,
+                     MSLane& lane,
                      SUMOReal begPos, SUMOReal endPos) throw()
-        : MSTrigger(id), myLines(lines), myLane(lane),
-        myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos) {
+    : MSTrigger(id), myLines(lines), myLane(lane),
+      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos) {
     computeLastFreePos();
 }
 
@@ -52,7 +52,7 @@ MSBusStop::MSBusStop(const std::string &id,
 MSBusStop::~MSBusStop() throw() {}
 
 
-const MSLane &
+const MSLane&
 MSBusStop::getLane() const throw() {
     return myLane;
 }
@@ -71,7 +71,7 @@ MSBusStop::getEndLanePosition() const throw() {
 
 
 void
-MSBusStop::enter(void *what, SUMOReal beg, SUMOReal end) throw() {
+MSBusStop::enter(void* what, SUMOReal beg, SUMOReal end) throw() {
     myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
     computeLastFreePos();
 }
@@ -84,7 +84,7 @@ MSBusStop::getLastFreePos() const throw() {
 
 
 void
-MSBusStop::leaveFrom(void *what) throw() {
+MSBusStop::leaveFrom(void* what) throw() {
     assert(myEndPositions.find(what)!=myEndPositions.end());
     myEndPositions.erase(myEndPositions.find(what));
     computeLastFreePos();

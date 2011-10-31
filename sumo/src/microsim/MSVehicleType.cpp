@@ -49,21 +49,21 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const std::string &id, SUMOReal length,
+MSVehicleType::MSVehicleType(const std::string& id, SUMOReal length,
                              SUMOReal minGap, SUMOReal maxSpeed, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
                              SUMOVehicleClass vclass,
                              SUMOEmissionClass emissionClass,
                              SUMOReal guiWidth, SUMOVehicleShape shape,
-                             const std::string &lcModel,
-                             const RGBColor &c) throw()
-        : myID(id), myLength(length),
-        myMinGap(minGap), myMaxSpeed(maxSpeed),
-        myDefaultProbability(prob), mySpeedFactor(speedFactor),
-        mySpeedDev(speedDev), myLaneChangeModel(lcModel),
-        myEmissionClass(emissionClass), myColor(c),
-        myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
-        myOriginalType(0) {
+                             const std::string& lcModel,
+                             const RGBColor& c) throw()
+    : myID(id), myLength(length),
+      myMinGap(minGap), myMaxSpeed(maxSpeed),
+      myDefaultProbability(prob), mySpeedFactor(speedFactor),
+      mySpeedDev(speedDev), myLaneChangeModel(lcModel),
+      myEmissionClass(emissionClass), myColor(c),
+      myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
+      myOriginalType(0) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
 }
@@ -75,7 +75,7 @@ MSVehicleType::~MSVehicleType() throw() {
 
 
 void
-MSVehicleType::saveState(std::ostream &os) {
+MSVehicleType::saveState(std::ostream& os) {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeFloat(os, myLength);
     FileHelpers::writeFloat(os, myMinGap);
@@ -98,7 +98,7 @@ MSVehicleType::saveState(std::ostream &os) {
 
 // ------------ Setter methods
 void
-MSVehicleType::setLength(const SUMOReal &length) throw() {
+MSVehicleType::setLength(const SUMOReal& length) throw() {
     assert(myOriginalType!=0);
     if (length<0) {
         myLength = myOriginalType->myLength;
@@ -109,7 +109,7 @@ MSVehicleType::setLength(const SUMOReal &length) throw() {
 
 
 void
-MSVehicleType::setMinGap(const SUMOReal &minGap) throw() {
+MSVehicleType::setMinGap(const SUMOReal& minGap) throw() {
     assert(myOriginalType!=0);
     if (minGap<0) {
         myMinGap = myOriginalType->myMinGap;
@@ -120,7 +120,7 @@ MSVehicleType::setMinGap(const SUMOReal &minGap) throw() {
 
 
 void
-MSVehicleType::setMaxSpeed(const SUMOReal &maxSpeed) throw() {
+MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) throw() {
     assert(myOriginalType!=0);
     if (maxSpeed<0) {
         myMaxSpeed = myOriginalType->myMaxSpeed;
@@ -137,7 +137,7 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) throw() {
 
 
 void
-MSVehicleType::setDefaultProbability(const SUMOReal &prob) throw() {
+MSVehicleType::setDefaultProbability(const SUMOReal& prob) throw() {
     assert(myOriginalType!=0);
     if (prob<0) {
         myDefaultProbability = myOriginalType->myDefaultProbability;
@@ -148,7 +148,7 @@ MSVehicleType::setDefaultProbability(const SUMOReal &prob) throw() {
 
 
 void
-MSVehicleType::setSpeedFactor(const SUMOReal &factor) throw() {
+MSVehicleType::setSpeedFactor(const SUMOReal& factor) throw() {
     assert(myOriginalType!=0);
     if (factor<0) {
         mySpeedFactor = myOriginalType->mySpeedFactor;
@@ -159,7 +159,7 @@ MSVehicleType::setSpeedFactor(const SUMOReal &factor) throw() {
 
 
 void
-MSVehicleType::setSpeedDeviation(const SUMOReal &dev) throw() {
+MSVehicleType::setSpeedDeviation(const SUMOReal& dev) throw() {
     assert(myOriginalType!=0);
     if (dev<0) {
         mySpeedDev = myOriginalType->mySpeedDev;
@@ -176,13 +176,13 @@ MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) throw() {
 
 
 void
-MSVehicleType::setColor(const RGBColor &color) throw() {
+MSVehicleType::setColor(const RGBColor& color) throw() {
     myColor = color;
 }
 
 
 void
-MSVehicleType::setWidth(const SUMOReal &width) throw() {
+MSVehicleType::setWidth(const SUMOReal& width) throw() {
     assert(myOriginalType!=0);
     if (width<0) {
         myWidth = myOriginalType->myWidth;
@@ -201,7 +201,7 @@ MSVehicleType::setShape(SUMOVehicleShape shape) throw() {
 
 // ------------ Static methods for building vehicle types
 SUMOReal
-MSVehicleType::get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, SUMOReal defaultValue) {
+MSVehicleType::get(const SUMOVTypeParameter::CFParams& from, SumoXMLAttr attr, SUMOReal defaultValue) {
     if (from.count(attr)) {
         return from.find(attr)->second;
     } else {
@@ -210,13 +210,13 @@ MSVehicleType::get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, S
 }
 
 
-MSVehicleType *
-MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
-    MSVehicleType *vtype = new MSVehicleType(
+MSVehicleType*
+MSVehicleType::build(SUMOVTypeParameter& from) throw(ProcessError) {
+    MSVehicleType* vtype = new MSVehicleType(
         from.id, from.length, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.width, from.shape, from.lcModel, from.color);
-    MSCFModel *model = 0;
+    MSCFModel* model = 0;
     switch (from.cfModel) {
     case SUMO_TAG_CF_IDM:
         model = new MSCFModel_IDM(vtype,
@@ -280,9 +280,9 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
 }
 
 
-MSVehicleType *
-MSVehicleType::build(const std::string &id, const MSVehicleType *from) throw() {
-    MSVehicleType *vtype = new MSVehicleType(
+MSVehicleType*
+MSVehicleType::build(const std::string& id, const MSVehicleType* from) throw() {
+    MSVehicleType* vtype = new MSVehicleType(
         id, from->myLength, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
         from->myWidth, from->myShape, from->myLaneChangeModel, from->myColor);

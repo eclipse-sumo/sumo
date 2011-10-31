@@ -38,9 +38,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite *parent) throw()
-        : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
-        myStyles(0) {
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent) throw()
+    : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
+      myStyles(0) {
     setStyled(true);
     setEditable(false);
     myStyles = new FXHiliteStyle[4];
@@ -91,7 +91,7 @@ GUIMessageWindow::~GUIMessageWindow() throw() {
 
 
 void
-GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg) throw() {
+GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) throw() {
     if (!isEnabled()) {
         show();
     }

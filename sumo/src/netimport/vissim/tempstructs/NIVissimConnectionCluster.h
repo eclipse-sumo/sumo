@@ -60,36 +60,36 @@ class NIVissimConnectionCluster {
 public:
     /** @brief Constructor
         Build the boundary; The boundary includes both incoming and outgoing nodes */
-    NIVissimConnectionCluster(const IntVector &connections, int nodeCluster,
+    NIVissimConnectionCluster(const IntVector& connections, int nodeCluster,
                               int edgeid);
 
-    NIVissimConnectionCluster(const IntVector &connections,
-                              const Boundary &boundary, int nodeCluster, const IntVector &edges);
+    NIVissimConnectionCluster(const IntVector& connections,
+                              const Boundary& boundary, int nodeCluster, const IntVector& edges);
 
     /// Destructor
     ~NIVissimConnectionCluster();
 
     /// Returns the information whether the given cluster overlaps the current
-    bool overlapsWith(NIVissimConnectionCluster *c, SUMOReal offset=0) const;
+    bool overlapsWith(NIVissimConnectionCluster* c, SUMOReal offset=0) const;
 
     bool hasNodeCluster() const;
 
-    NBNode *getNBNode() const;
+    NBNode* getNBNode() const;
 
-    bool around(const Position &p, SUMOReal offset=0) const;
+    bool around(const Position& p, SUMOReal offset=0) const;
 
     SUMOReal getPositionForEdge(int edgeid) const;
 
     friend class NIVissimEdge; // !!! debug
 
-    const IntVector &getConnections() const {
+    const IntVector& getConnections() const {
         return myConnections;
     }
 
-    PositionVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
-    PositionVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
-    NIVissimConnection *getIncomingContinuation(NIVissimEdge *e) const;
-    NIVissimConnection *getOutgoingContinuation(NIVissimEdge *e) const;
+    PositionVector getIncomingContinuationGeometry(NIVissimEdge* e) const;
+    PositionVector getOutgoingContinuationGeometry(NIVissimEdge* e) const;
+    NIVissimConnection* getIncomingContinuation(NIVissimEdge* e) const;
+    NIVissimConnection* getOutgoingContinuation(NIVissimEdge* e) const;
 
 
 public:
@@ -103,7 +103,7 @@ public:
 
     static void searchForConnection(int id);
 
-    static void _debugOut(std::ostream &into);
+    static void _debugOut(std::ostream& into);
 
     static size_t dictSize();
 
@@ -115,12 +115,12 @@ public:
 private:
     class NodeSubCluster {
     public:
-        NodeSubCluster(NIVissimConnection *c);
+        NodeSubCluster(NIVissimConnection* c);
         ~NodeSubCluster();
-        void add(NIVissimConnection *c);
-        void add(const NodeSubCluster &c);
+        void add(NIVissimConnection* c);
+        void add(const NodeSubCluster& c);
         size_t size() const;
-        bool overlapsWith(const NodeSubCluster &c, SUMOReal offset=0);
+        bool overlapsWith(const NodeSubCluster& c, SUMOReal offset=0);
         IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
@@ -136,11 +136,11 @@ private:
     public:
         /// constructor
         explicit same_direction_sorter(SUMOReal angle)
-                : myAngle(angle) { }
+            : myAngle(angle) { }
 
     public:
         /// comparing operation
-        int operator()(NIVissimConnection *c1, NIVissimConnection *c2) const {
+        int operator()(NIVissimConnection* c1, NIVissimConnection* c2) const {
             return
                 fabs(c1->getGeometry().beginEndAngle()-myAngle)
                 <
@@ -152,25 +152,25 @@ private:
 
 private:
     /// Adds the second cluster
-    void add(NIVissimConnectionCluster *c);
+    void add(NIVissimConnectionCluster* c);
 
-    void removeConnections(const NodeSubCluster &c);
+    void removeConnections(const NodeSubCluster& c);
 
     void recomputeBoundary();
 
     void recheckEdges();
 
-    bool joinable(NIVissimConnectionCluster *c2, SUMOReal offset);
+    bool joinable(NIVissimConnectionCluster* c2, SUMOReal offset);
 
 
     IntVector getDisturbanceParticipators();
 
-    IntVector extendByToTreatAsSame(const IntVector &iv1,
-                                    const IntVector &iv2) const;
+    IntVector extendByToTreatAsSame(const IntVector& iv1,
+                                    const IntVector& iv2) const;
 
-    bool isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2);
+    bool isWeakDistrictConnRealisation(NIVissimConnectionCluster* c2);
 
-    bool liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2);
+    bool liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2);
 
 
 

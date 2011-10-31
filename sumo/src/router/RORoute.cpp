@@ -45,16 +45,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
+RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route,
-                 const RGBColor * const color) throw()
-        : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-        myProbability(prop), myRoute(route), myColor(color) {}
+                 const RGBColor* const color) throw()
+    : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
+      myProbability(prop), myRoute(route), myColor(color) {}
 
 
-RORoute::RORoute(const RORoute &src) throw()
-        : Named(src.myID), myCosts(src.myCosts),
-        myProbability(src.myProbability), myRoute(src.myRoute), myColor(0) {
+RORoute::RORoute(const RORoute& src) throw()
+    : Named(src.myID), myCosts(src.myCosts),
+      myProbability(src.myProbability), myRoute(src.myRoute), myColor(0) {
     if (src.myColor!=0) {
         myColor = new RGBColor(*src.myColor);
     }
@@ -67,7 +67,7 @@ RORoute::~RORoute() throw() {
 
 
 void
-RORoute::add(ROEdge *edge) throw() {
+RORoute::add(ROEdge* edge) throw() {
     myRoute.push_back(edge);
 }
 
@@ -90,9 +90,9 @@ RORoute::recheckForLoops() throw() {
 }
 
 
-OutputDevice &
+OutputDevice&
 RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                            OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
+                            OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const {
     UNUSED_PARAMETER(router);
     // (optional) alternatives header
     if (asAlternatives) {

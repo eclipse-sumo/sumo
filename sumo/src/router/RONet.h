@@ -85,7 +85,7 @@ public:
      * @param[in] edge The edge to add
      * @return Whether the edge was added (if not, it was deleted, too)
      */
-    virtual bool addEdge(ROEdge *edge) throw();
+    virtual bool addEdge(ROEdge* edge) throw();
 
 
     /** @brief Retrieves an edge from the network
@@ -97,7 +97,7 @@ public:
      * @return The named edge if known, otherwise 0
      * @todo Check whether a const pointer may be returned
      */
-    ROEdge *getEdge(const std::string &name) const throw() {
+    ROEdge* getEdge(const std::string& name) const throw() {
         return myEdges.get(name);
     }
 
@@ -110,7 +110,7 @@ public:
      *
      * @param[in] node The node to add
      */
-    void addNode(RONode *node) throw();
+    void addNode(RONode* node) throw();
 
 
     /** @brief Retrieves an node from the network
@@ -119,7 +119,7 @@ public:
      * @return The named node if known, otherwise 0
      * @todo Check whether a const pointer may be returned
      */
-    RONode *getNode(const std::string &id) const throw() {
+    RONode* getNode(const std::string& id) const throw() {
         return myNodes.get(id);
     }
     //@}
@@ -138,7 +138,7 @@ public:
      * @param[in] def The vehicle type to add
      * @return Whether the vehicle type could be added
      */
-    virtual bool addVehicleType(SUMOVTypeParameter *type) throw();
+    virtual bool addVehicleType(SUMOVTypeParameter* type) throw();
 
 
     /** @brief Retrieves the named vehicle type
@@ -153,7 +153,7 @@ public:
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    SUMOVTypeParameter *getVehicleTypeSecure(const std::string &id) throw();
+    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id) throw();
 
 
     /* @brief Adds a route definition to the network
@@ -166,7 +166,7 @@ public:
      * @return Whether the route definition could be added
      * @todo Rename myRoutes to myRouteDefinitions
      */
-    bool addRouteDef(RORouteDef *def) throw();
+    bool addRouteDef(RORouteDef* def) throw();
 
 
     /** @brief Returns the named route definition
@@ -176,7 +176,7 @@ public:
      * @todo Check whether a const pointer may be returned
      * @todo Rename myRoutes to myRouteDefinitions
      */
-    RORouteDef *getRouteDef(const std::string &name) const throw() {
+    RORouteDef* getRouteDef(const std::string& name) const throw() {
         return myRoutes.get(name);
     }
 
@@ -192,7 +192,7 @@ public:
      * @param[in] veh The vehicle to add
      * @return Whether the vehicle could be added
      */
-    virtual bool addVehicle(const std::string &id, ROVehicle *veh) throw();
+    virtual bool addVehicle(const std::string& id, ROVehicle* veh) throw();
     // @}
 
 
@@ -211,7 +211,7 @@ public:
      * @param[in] options The time until which route definitions shall be processed
      * @return The last seen departure time>=time
      */
-    SUMOTime saveAndRemoveRoutesUntil(OptionsCont &options,
+    SUMOTime saveAndRemoveRoutesUntil(OptionsCont& options,
                                       SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
 
 
@@ -233,7 +233,7 @@ public:
      * @param[in] filename The (base) name of the file(s) to create
      * @param[in] useAlternatives Whether a file for writing alternatives shall be created
      */
-    void openOutput(const std::string &filename, bool useAlternatives) throw(IOError);
+    void openOutput(const std::string& filename, bool useAlternatives) throw(IOError);
 
 
     /** @brief closes the file output for computed routes */
@@ -248,7 +248,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
-    ROEdge *getRandomSource() throw();
+    ROEdge* getRandomSource() throw();
 
 
     /** @brief Returns a random edge which may be used as a starting point
@@ -257,7 +257,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
-    const ROEdge *getRandomSource() const throw();
+    const ROEdge* getRandomSource() const throw();
 
 
     /** @brief Returns a random edge which may be used as an ending point
@@ -266,7 +266,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
-    ROEdge *getRandomDestination() throw();
+    ROEdge* getRandomDestination() throw();
 
 
     /** @brief Returns a random edge which may be used as an ending point
@@ -275,7 +275,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
-    const ROEdge *getRandomDestination() const throw();
+    const ROEdge* getRandomDestination() const throw();
 
 
     /// Returns the number of edges thenetwork contains
@@ -289,8 +289,8 @@ public:
 
 
 protected:
-    bool computeRoute(OptionsCont &options,
-                      SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
+    bool computeRoute(OptionsCont& options,
+                      SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle* const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations() const;
@@ -321,10 +321,10 @@ protected:
     mutable std::vector<ROEdge*> myDestinationEdges;
 
     /// The file to write the computed routes into
-    OutputDevice *myRoutesOutput;
+    OutputDevice* myRoutesOutput;
 
     /// The file to write the computed route alternatives into
-    OutputDevice *myRouteAlternativesOutput;
+    OutputDevice* myRouteAlternativesOutput;
 
     /// @brief The number of read routes
     unsigned int myReadRouteNo;
@@ -341,10 +341,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    RONet(const RONet &src);
+    RONet(const RONet& src);
 
     /// @brief Invalidated assignment operator
-    RONet &operator=(const RONet &src);
+    RONet& operator=(const RONet& src);
 
 };
 

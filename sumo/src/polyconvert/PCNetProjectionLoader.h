@@ -63,8 +63,8 @@ public:
      * @param[out] projParameter The projection parameter to fill from values read from the network
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, Position &netOffset, Boundary &origNetBoundary,
-                          Boundary &convNetBoundary, std::string &projParameter) throw(ProcessError);
+    static void loadIfSet(OptionsCont& oc, Position& netOffset, Boundary& origNetBoundary,
+                          Boundary& convNetBoundary, std::string& projParameter) throw(ProcessError);
 
 
 protected:
@@ -74,8 +74,8 @@ protected:
      * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
      * @param[out] projParameter The projection parameter to fill from values read from the network
      */
-    PCNetProjectionLoader(Position &netOffset,
-                          Boundary &origNetBoundary, Boundary &convNetBoundary, std::string &projParameter) throw();
+    PCNetProjectionLoader(Position& netOffset,
+                          Boundary& origNetBoundary, Boundary& convNetBoundary, std::string& projParameter) throw();
 
 
     /// @brief Destructor
@@ -100,7 +100,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -111,22 +111,22 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string &chars) throw(ProcessError);
+                      const std::string& chars) throw(ProcessError);
     //@}
 
 
 private:
     /// @brief The network offset to fill from values read from the network
-    Position &myNetOffset;
+    Position& myNetOffset;
 
     /// @brief The original network boundary to fill from values read from the network
-    Boundary &myOrigNetBoundary;
+    Boundary& myOrigNetBoundary;
 
     /// @brief The converted network boundary to fill from values read from the network
-    Boundary &myConvNetBoundary;
+    Boundary& myConvNetBoundary;
 
     /// @brief The projection parameter to fill from values read from the network
-    std::string &myProjParameter;
+    std::string& myProjParameter;
 
     /// @brief Information whether the parameter was read
     bool myFoundOffset, myFoundOrigNetBoundary, myFoundConvNetBoundary, myFoundProj;

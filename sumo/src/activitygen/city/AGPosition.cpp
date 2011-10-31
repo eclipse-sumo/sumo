@@ -41,12 +41,12 @@
 // method definitions
 // ===========================================================================
 AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) throw() :
-        street(&str), position(pos), pos2d(compute2dPosition()) {
+    street(&str), position(pos), pos2d(compute2dPosition()) {
 }
 
 
 AGPosition::AGPosition(const AGStreet& str) throw() :
-        street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition()) {
+    street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition()) {
 }
 
 
@@ -57,7 +57,7 @@ AGPosition::print() const throw() {
 
 
 bool
-AGPosition::operator==(const AGPosition &pos) const throw() {
+AGPosition::operator==(const AGPosition& pos) const throw() {
     return pos2d.almostSame(pos.pos2d);
 }
 

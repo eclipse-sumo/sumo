@@ -42,14 +42,14 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
+SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
         const std::map<int, XMLCh*> &predefinedTags,
         const std::map<int, std::string> &predefinedTagsMML,
-        const std::string &objectType) throw() :
-        SUMOSAXAttributes(objectType),
-        myAttrs(attrs),
-        myPredefinedTags(predefinedTags),
-        myPredefinedTagsMML(predefinedTagsMML) { }
+        const std::string& objectType) throw() :
+    SUMOSAXAttributes(objectType),
+    myAttrs(attrs),
+    myPredefinedTags(predefinedTags),
+    myPredefinedTagsMML(predefinedTagsMML) { }
 
 
 
@@ -100,7 +100,7 @@ SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
-        const std::string &str) const throw(EmptyData) {
+        const std::string& str) const throw(EmptyData) {
     return TplConvertSec<XMLCh>::_2strSec(getAttributeValueSecure(id), str);
 }
 
@@ -118,7 +118,7 @@ SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
 }
 
 
-const XMLCh *
+const XMLCh*
 SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const throw() {
     AttrMap::const_iterator i=myPredefinedTags.find(id);
     assert(i!=myPredefinedTags.end());
@@ -127,8 +127,8 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const throw() {
 
 
 SUMOReal
-SUMOSAXAttributesImpl_Xerces::getFloat(const std::string &id) const throw(EmptyData, NumberFormatException) {
-    XMLCh *t = XMLString::transcode(id.c_str());
+SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) {
+    XMLCh* t = XMLString::transcode(id.c_str());
     SUMOReal result = TplConvert<XMLCh>::_2SUMOReal(myAttrs.getValue(t));
     XMLString::release(&t);
     return result;
@@ -136,8 +136,8 @@ SUMOSAXAttributesImpl_Xerces::getFloat(const std::string &id) const throw(EmptyD
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string &id) const throw() {
-    XMLCh *t = XMLString::transcode(id.c_str());
+SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const throw() {
+    XMLCh* t = XMLString::transcode(id.c_str());
     bool result = myAttrs.getIndex(t)>=0;
     XMLString::release(&t);
     return result;
@@ -145,9 +145,9 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string &id) const throw() 
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string &id,
-        const std::string &str) const throw() {
-    XMLCh *t = XMLString::transcode(id.c_str());
+SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
+        const std::string& str) const throw() {
+    XMLCh* t = XMLString::transcode(id.c_str());
     std::string result = TplConvertSec<XMLCh>::_2strSec(myAttrs.getValue(t), str);
     XMLString::release(&t);
     return result;

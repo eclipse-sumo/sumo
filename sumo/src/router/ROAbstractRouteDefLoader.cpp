@@ -44,9 +44,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(RONet &net, SUMOTime begin,
+ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(RONet& net, SUMOTime begin,
         SUMOTime end) throw()
-        : myNet(net), myBegin(begin), myEnd(end) {}
+    : myNet(net), myBegin(begin), myEnd(end) {}
 
 
 ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader() throw() {}

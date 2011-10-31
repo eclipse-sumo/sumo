@@ -37,10 +37,10 @@
 class MFXImageHelper {
 public:
     static void checkSupported(FXString ext) throw(InvalidArgument);
-    static FXImage * loadImage(FXApp *a, const std::string& file);
-    static FXbool scalePower2(FXImage *image);
+    static FXImage* loadImage(FXApp* a, const std::string& file);
+    static FXbool scalePower2(FXImage* image);
     static FXbool saveImage(const std::string& file,
-                            int width, int height, FXColor *data);
+                            int width, int height, FXColor* data);
 
 
 };

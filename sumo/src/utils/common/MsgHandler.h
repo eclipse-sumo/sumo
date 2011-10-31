@@ -71,13 +71,13 @@ public:
     };
 
     /// Returns the instance to add normal messages to
-    static MsgHandler *getMessageInstance();
+    static MsgHandler* getMessageInstance();
 
     /// Returns the instance to add warnings to
-    static MsgHandler *getWarningInstance();
+    static MsgHandler* getWarningInstance();
 
     /// Returns the instance to add errors to
-    static MsgHandler *getErrorInstance();
+    static MsgHandler* getErrorInstance();
 
     static void initOutputOptions(bool gui=false);
 
@@ -109,10 +109,10 @@ public:
     void clear();
 
     /// Adds a further retriever to the instance responsible for a certain msg type
-    void addRetriever(OutputDevice *retriever);
+    void addRetriever(OutputDevice* retriever);
 
     /// Removes the retriever from the
-    void removeRetriever(OutputDevice *retriever);
+    void removeRetriever(OutputDevice* retriever);
 
     /// Sets the information whether stdout shall be used as output device
     void report2cout(bool value);
@@ -125,13 +125,13 @@ public:
 
     /** @brief Sets the lock to use
         The lock will not be deleted */
-    static void assignLock(AbstractMutex *lock);
+    static void assignLock(AbstractMutex* lock);
 
     /** @brief Generic output operator
      * @return The MsgHandler for further processing
      */
     template <class T>
-    MsgHandler &operator<<(const T &t) {
+    MsgHandler& operator<<(const T& t) {
         if (myReport2COUT) {
             std::cout << t;
         }
@@ -148,7 +148,7 @@ public:
 
 protected:
     /// Builds the string which includes the mml-message type
-    inline std::string build(const std::string &msg, bool addType) {
+    inline std::string build(const std::string& msg, bool addType) {
         if (addType) {
             switch (myType) {
             case MT_MESSAGE:
@@ -176,20 +176,20 @@ private:
 
 private:
     /// The instance to handle errors
-    static MsgHandler *myErrorInstance;
+    static MsgHandler* myErrorInstance;
 
     /// The instance to handle warnings
-    static MsgHandler *myWarningInstance;
+    static MsgHandler* myWarningInstance;
 
     /// The instance to handle normal messages
-    static MsgHandler *myMessageInstance;
+    static MsgHandler* myMessageInstance;
 
     /// Information whether a process information is printed to cout
     static bool myAmProcessingProcess;
 
     /** @brief The lock if any has to be used
         The lock will not be deleted */
-    static AbstractMutex *myLock;
+    static AbstractMutex* myLock;
 
 private:
     /// The type of the instance
@@ -212,10 +212,10 @@ private:
 
 private:
     /** invalid copy constructor */
-    MsgHandler(const MsgHandler &s);
+    MsgHandler(const MsgHandler& s);
 
     /** invalid assignment operator */
-    MsgHandler &operator=(const MsgHandler &s);
+    MsgHandler& operator=(const MsgHandler& s);
 
 };
 

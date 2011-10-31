@@ -40,7 +40,7 @@
  */
 class NIVissimClosedLaneDef {
 public:
-    NIVissimClosedLaneDef(int lane, const IntVector &assignedVehicles);
+    NIVissimClosedLaneDef(int lane, const IntVector& assignedVehicles);
     ~NIVissimClosedLaneDef();
 private:
     int myLaneNo;

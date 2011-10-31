@@ -45,7 +45,7 @@
  * utility methods
  * ----------------------------------------------------------------------- */
 void
-NBContHelper::nextCW(const EdgeVector &edges, EdgeVector::const_iterator &from) {
+NBContHelper::nextCW(const EdgeVector& edges, EdgeVector::const_iterator& from) {
     from++;
     if (from==edges.end()) {
         from = edges.begin();
@@ -54,7 +54,7 @@ NBContHelper::nextCW(const EdgeVector &edges, EdgeVector::const_iterator &from) 
 
 
 void
-NBContHelper::nextCCW(const EdgeVector &edges, EdgeVector::const_iterator &from) {
+NBContHelper::nextCCW(const EdgeVector& edges, EdgeVector::const_iterator& from) {
     if (from==edges.begin()) {
         from = edges.end() - 1;
     } else {
@@ -63,8 +63,8 @@ NBContHelper::nextCCW(const EdgeVector &edges, EdgeVector::const_iterator &from)
 }
 
 
-std::ostream &
-NBContHelper::out(std::ostream &os, const std::vector<bool> &v) {
+std::ostream&
+NBContHelper::out(std::ostream& os, const std::vector<bool> &v) {
     for (std::vector<bool>::const_iterator i=v.begin(); i!=v.end(); i++) {
         os << *i;
     }
@@ -72,9 +72,9 @@ NBContHelper::out(std::ostream &os, const std::vector<bool> &v) {
 }
 
 
-NBEdge *
-NBContHelper::findConnectingEdge(const EdgeVector &edges,
-                                 NBNode *from, NBNode *to) {
+NBEdge*
+NBContHelper::findConnectingEdge(const EdgeVector& edges,
+                                 NBNode* from, NBNode* to) {
     for (EdgeVector::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         if ((*i)->getToNode()==to && (*i)->getFromNode()==from) {
             return *i;
@@ -86,7 +86,7 @@ NBContHelper::findConnectingEdge(const EdgeVector &edges,
 
 
 SUMOReal
-NBContHelper::maxSpeed(const EdgeVector &ev) {
+NBContHelper::maxSpeed(const EdgeVector& ev) {
     assert(ev.size()>0);
     SUMOReal max = (*(ev.begin()))->getSpeed();
     for (EdgeVector::const_iterator i=ev.begin()+1; i!=ev.end(); i++) {
@@ -103,14 +103,14 @@ NBContHelper::maxSpeed(const EdgeVector &ev) {
  * methods from edge_by_junction_angle_sorter
  * ----------------------------------------------------------------------- */
 int
-NBContHelper::edge_by_junction_angle_sorter::operator()(NBEdge *e1, NBEdge *e2) const {
+NBContHelper::edge_by_junction_angle_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     return getConvAngle(e1) < getConvAngle(e2);
 }
 
 
 
 SUMOReal
-NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const {
+NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge* e) const {
 
     SUMOReal angle;
     // convert angle if the edge is an outgoing edge
@@ -135,13 +135,13 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const {
 /* -------------------------------------------------------------------------
  * methods from node_with_incoming_finder
  * ----------------------------------------------------------------------- */
-NBContHelper::node_with_incoming_finder::node_with_incoming_finder(const NBEdge * const e)
-        : myEdge(e) {}
+NBContHelper::node_with_incoming_finder::node_with_incoming_finder(const NBEdge* const e)
+    : myEdge(e) {}
 
 
 bool
-NBContHelper::node_with_incoming_finder::operator()(const NBNode * const n) const {
-    const EdgeVector &incoming = n->getIncomingEdges();
+NBContHelper::node_with_incoming_finder::operator()(const NBNode* const n) const {
+    const EdgeVector& incoming = n->getIncomingEdges();
     return std::find(incoming.begin(), incoming.end(), myEdge)!=incoming.end();
 }
 
@@ -150,13 +150,13 @@ NBContHelper::node_with_incoming_finder::operator()(const NBNode * const n) cons
 /* -------------------------------------------------------------------------
  * methods from node_with_outgoing_finder
  * ----------------------------------------------------------------------- */
-NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(const NBEdge * const e)
-        : myEdge(e) {}
+NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(const NBEdge* const e)
+    : myEdge(e) {}
 
 
 bool
-NBContHelper::node_with_outgoing_finder::operator()(const NBNode * const n) const {
-    const EdgeVector &outgoing = n->getOutgoingEdges();
+NBContHelper::node_with_outgoing_finder::operator()(const NBNode* const n) const {
+    const EdgeVector& outgoing = n->getOutgoingEdges();
     return std::find(outgoing.begin(), outgoing.end(), myEdge)!=outgoing.end();
 }
 
@@ -165,18 +165,18 @@ NBContHelper::node_with_outgoing_finder::operator()(const NBNode * const n) cons
 /* -------------------------------------------------------------------------
  * methods from !!!
  * ----------------------------------------------------------------------- */
-NBContHelper::edge_with_destination_finder::edge_with_destination_finder(NBNode *dest)
-        : myDestinationNode(dest) {}
+NBContHelper::edge_with_destination_finder::edge_with_destination_finder(NBNode* dest)
+    : myDestinationNode(dest) {}
 
 
 bool
-NBContHelper::edge_with_destination_finder::operator()(NBEdge *e) const {
+NBContHelper::edge_with_destination_finder::operator()(NBEdge* e) const {
     return e->getToNode()==myDestinationNode;
 }
 
 
-std::ostream &
-operator<<(std::ostream &os, const EdgeVector &ev) {
+std::ostream&
+operator<<(std::ostream& os, const EdgeVector& ev) {
     for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); i++) {
         if (i!=ev.begin()) {
             os << ", ";
@@ -190,7 +190,7 @@ operator<<(std::ostream &os, const EdgeVector &ev) {
 
 
 SUMOReal
-NBContHelper::getMaxSpeed(const EdgeVector &edges) {
+NBContHelper::getMaxSpeed(const EdgeVector& edges) {
     if (edges.size()==0) {
         return -1;
     }
@@ -205,7 +205,7 @@ NBContHelper::getMaxSpeed(const EdgeVector &edges) {
 
 
 SUMOReal
-NBContHelper::getMinSpeed(const EdgeVector &edges) {
+NBContHelper::getMinSpeed(const EdgeVector& edges) {
     if (edges.size()==0) {
         return -1;
     }

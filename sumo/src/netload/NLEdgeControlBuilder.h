@@ -84,8 +84,8 @@ public:
      * @param[in] streetName The street name of the edge
      * @exception InvalidArgument If an edge with the same name was already built
      */
-    void beginEdgeParsing(const std::string &id, MSEdge::EdgeBasicFunction function,
-                          const std::string &streetName);
+    void beginEdgeParsing(const std::string& id, MSEdge::EdgeBasicFunction function,
+                          const std::string& streetName);
 
 
     /** @brief Adds a lane to the current edge;
@@ -105,18 +105,18 @@ public:
      * @see MSInternalLane
      * @todo Definitely not a good way
      */
-    virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
-                            SUMOReal length, const PositionVector &shape,
-                            SUMOReal width, const SUMOVehicleClasses &allowed,
-                            const SUMOVehicleClasses &disallowed);
+    virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
+                            SUMOReal length, const PositionVector& shape,
+                            SUMOReal width, const SUMOVehicleClasses& allowed,
+                            const SUMOVehicleClasses& disallowed);
 
 
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
-    virtual MSEdge *closeEdge();
+    virtual MSEdge* closeEdge();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl *build();
+    MSEdgeControl* build();
 
 
     /** @brief Builds an edge instance (MSEdge in this case)
@@ -128,7 +128,7 @@ public:
      * @param[in] id The id of the edge to build
      * @param[in] streetName The street name of the edge to build
      */
-    virtual MSEdge *buildEdge(const std::string &id, const std::string &streetName="") throw();
+    virtual MSEdge* buildEdge(const std::string& id, const std::string& streetName="") throw();
 
 
 protected:
@@ -142,7 +142,7 @@ protected:
     EdgeCont myEdges;
 
     /// @brief pointer to the currently chosen edge
-    MSEdge *myActiveEdge;
+    MSEdge* myActiveEdge;
 
     /// @brief pointer to a temporary lane storage
     std::vector<MSLane*> *myLaneStorage;
@@ -152,10 +152,10 @@ protected:
 
 private:
     /// @brief invalidated copy constructor
-    NLEdgeControlBuilder(const NLEdgeControlBuilder &s);
+    NLEdgeControlBuilder(const NLEdgeControlBuilder& s);
 
     /// @brief invalidated assignment operator
-    NLEdgeControlBuilder &operator=(const NLEdgeControlBuilder &s);
+    NLEdgeControlBuilder& operator=(const NLEdgeControlBuilder& s);
 
 };
 

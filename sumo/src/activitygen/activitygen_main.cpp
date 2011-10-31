@@ -64,8 +64,8 @@
 // ===========================================================================
 
 /// Loads the network
-void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw(ProcessError) {
-    OptionsCont &oc = OptionsCont::getOptions();
+void loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) throw(ProcessError) {
+    OptionsCont& oc = OptionsCont::getOptions();
     std::string file = oc.getString("net-file");
     if (file == "") {
         throw ProcessError("Missing definition of network to load!");
@@ -87,10 +87,10 @@ void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) throw(ProcessError) {
 
 /****************************************************************************/
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     int ret = 0;
-    OptionsCont &oc = OptionsCont::getOptions();
-    RONet *net = 0;
+    OptionsCont& oc = OptionsCont::getOptions();
+    RONet* net = 0;
     try {
         // Initialise subsystems and process options
         XMLSubSys::init(false);
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
             WRITE_MESSAGE("\n\t ---- end of ActivityGen ----\n");
         }
         ret = 0;
-    } catch (ProcessError &pe) {
+    } catch (ProcessError& pe) {
         if (std::string(pe.what())!=std::string("Process Error") && std::string(pe.what())!=std::string("")) {
             WRITE_ERROR(pe.what());
         }

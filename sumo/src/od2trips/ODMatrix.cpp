@@ -47,8 +47,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODMatrix::ODMatrix(const ODDistrictCont &dc) throw()
-        : myDistricts(dc), myNoLoaded(0), myNoWritten(0), myNoDiscarded(0) {}
+ODMatrix::ODMatrix(const ODDistrictCont& dc) throw()
+    : myDistricts(dc), myNoLoaded(0), myNoWritten(0), myNoDiscarded(0) {}
 
 
 ODMatrix::~ODMatrix() throw() {
@@ -61,8 +61,8 @@ ODMatrix::~ODMatrix() throw() {
 
 void
 ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
-              SUMOTime end, const std::string &origin, const std::string &destination,
-              const std::string &vehicleType) throw() {
+              SUMOTime end, const std::string& origin, const std::string& destination,
+              const std::string& vehicleType) throw() {
     myNoLoaded += vehicleNumber;
     if (myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
@@ -80,7 +80,7 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
             WRITE_ERROR("District '" + destination + "' has no sink.");
             myNoDiscarded += vehicleNumber;
         } else {
-            ODCell *cell = new ODCell();
+            ODCell* cell = new ODCell();
             cell->begin = begin;
             cell->end = end;
             cell->origin = origin;
@@ -94,9 +94,9 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 
 
 SUMOReal
-ODMatrix::computeDeparts(ODCell *cell,
-                         size_t &vehName, std::vector<ODVehicle> &into,
-                         bool uniform, const std::string &prefix) throw() {
+ODMatrix::computeDeparts(ODCell* cell,
+                         size_t& vehName, std::vector<ODVehicle> &into,
+                         bool uniform, const std::string& prefix) throw() {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
     SUMOReal mrand = RandHelper::rand();
@@ -127,17 +127,17 @@ ODMatrix::computeDeparts(ODCell *cell,
 
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
-                OutputDevice &dev, bool uniform, bool noVtype,
-                const std::string &prefix) throw() {
+                OutputDevice& dev, bool uniform, bool noVtype,
+                const std::string& prefix) throw() {
     if (myContainer.size()==0) {
         return;
     }
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
     // recheck begin time
-    ODCell *first = *myContainer.begin();
+    ODCell* first = *myContainer.begin();
     begin = MAX2(begin, first->begin);
     CellVector::iterator next = myContainer.begin();
     std::vector<ODVehicle> vehicles;
@@ -179,8 +179,8 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
             myNoWritten++;
             dev.openTag("trip") << " id=\"" << (*i).id << "\" depart=\"" << t << ".00\" "
-            << "from=\"" << (*i).from << "\" "
-            << "to=\"" << (*i).to << "\"";
+                                << "from=\"" << (*i).from << "\" "
+                                << "to=\"" << (*i).to << "\"";
             if (!noVtype&&(*i).cell->vehicleType.length()!=0) {
                 dev << " type=\"" << (*i).cell->vehicleType << "\"";
             }
@@ -232,9 +232,9 @@ ODMatrix::getNoDiscarded() const throw() {
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &newCells) throw() {
+ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& newCells) throw() {
     for (size_t i=0; i<ps.getAreaNo(); ++i) {
-        ODCell *ncell = new ODCell();
+        ODCell* ncell = new ODCell();
         ncell->begin = (SUMOTime) ps.getAreaBegin(i);
         ncell->end = (SUMOTime) ps.getAreaEnd(i);
         ncell->origin = cell->origin;
@@ -247,7 +247,7 @@ ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &ne
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points &ps) throw() {
+ODMatrix::applyCurve(const Distribution_Points& ps) throw() {
     CellVector oldCells = myContainer;
     myContainer.clear();
     for (CellVector::iterator i=oldCells.begin(); i!=oldCells.end(); ++i) {

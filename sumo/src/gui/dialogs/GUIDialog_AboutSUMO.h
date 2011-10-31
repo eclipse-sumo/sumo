@@ -62,10 +62,10 @@ public:
 
 private:
     /// @brief Icons for the widget
-    FXIcon *myDLRIcon;
+    FXIcon* myDLRIcon;
 
     /// @brief Font for the widget
-    FXFont *myHeadlineFont;
+    FXFont* myHeadlineFont;
 
 };
 

@@ -59,7 +59,7 @@ namespace FXEX {
  * This is a base class for ojects which can send messages to the application
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-            FXBaseObject : public FXObject {
+        FXBaseObject : public FXObject {
     FXDECLARE(FXBaseObject)
 
 protected:
@@ -78,12 +78,12 @@ protected:
     };
 
 private:
-    FXApp        *app;             // application pointer
+    FXApp*        app;             // application pointer
 
 protected:
-    FXObject     *target;          // application target
+    FXObject*     target;          // application target
     FXSelector    message;         // application message
-    void         *data;            // user data
+    void*         data;            // user data
     FXuint        datalen;         // length of user data
     FXuint        flags;           // state flags
     FXuint        options;         // option flags
@@ -119,10 +119,10 @@ public:
 
 public:
     /// Just supply the target and selector (de-serialisation too)
-    FXBaseObject(FXObject *tgt=NULL,FXSelector sel=0);
+    FXBaseObject(FXObject* tgt=NULL,FXSelector sel=0);
 
     /// Alternnatively, supply the app object as well
-    FXBaseObject(FXApp *a,FXObject *tgt=NULL,FXSelector sel=0);
+    FXBaseObject(FXApp* a,FXObject* tgt=NULL,FXSelector sel=0);
 
     /// application pointer
     FXApp* getApp();
@@ -153,7 +153,7 @@ public:
     }
 
     /// set user data
-    void setUserData(void *d) {
+    void setUserData(void* d) {
         data=d;
     }
 

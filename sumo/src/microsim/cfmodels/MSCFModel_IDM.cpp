@@ -41,9 +41,9 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel,
                              SUMOReal headwayTime, SUMOReal delta,
                              SUMOReal internalStepping)
-        : MSCFModel(vtype, accel, decel, headwayTime), myDelta(delta),
-        myAdaptationFactor(1.), myAdaptationTime(0.), myExpFactor(0),
-        myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myDelta(delta),
+      myAdaptationFactor(1.), myAdaptationTime(0.), myExpFactor(0),
+      myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel* decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
 }
 
 
@@ -51,9 +51,9 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
                              SUMOReal accel, SUMOReal decel, SUMOReal headwayTime,
                              SUMOReal adaptationFactor, SUMOReal adaptationTime,
                              SUMOReal internalStepping)
-        : MSCFModel(vtype, accel, decel, headwayTime), myDelta(4.),
-        myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime), myExpFactor(exp(-TS/adaptationTime)),
-        myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel*decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myDelta(4.),
+      myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime), myExpFactor(exp(-TS/adaptationTime)),
+      myTwoSqrtAccelDecel(SUMOReal(2*sqrt(accel* decel))), myIterations(MAX2(1, int(TS/internalStepping + .5))) {
 }
 
 
@@ -61,7 +61,7 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
 SUMOReal
-MSCFModel_IDM::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+MSCFModel_IDM::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
     if (myExpFactor > 0.) {
         VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
@@ -73,13 +73,13 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_IDM::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_IDM::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
 
 SUMOReal
-MSCFModel_IDM::stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const {
     if (gap2pred<0.01) {
         return 0;
     }
@@ -89,7 +89,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const {
 
 /// @todo update interactionGap logic to IDM
 SUMOReal
-MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
+MSCFModel_IDM::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
@@ -103,7 +103,7 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
 
 
 SUMOReal
-MSCFModel_IDM::_v(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
+MSCFModel_IDM::_v(const MSVehicle* const veh, SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
     gap2pred += myType->getMinGap();
     SUMOReal headwayTime = myHeadwayTime;
     if (myExpFactor > 0.) {
@@ -121,7 +121,7 @@ MSCFModel_IDM::_v(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal egoSp
 }
 
 
-MSCFModel *
-MSCFModel_IDM::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_IDM::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_IDM(vtype, myAccel, myDecel, myHeadwayTime, myDelta, TS/myIterations);
 }

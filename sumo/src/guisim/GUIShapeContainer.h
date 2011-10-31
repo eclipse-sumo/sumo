@@ -52,7 +52,7 @@ class Position;
 class GUIShapeContainer : public ShapeContainer {
 public:
     /// @brief Constructor
-    GUIShapeContainer(SUMORTree &vis) throw();
+    GUIShapeContainer(SUMORTree& vis) throw();
 
 
     /// @brief Destructor
@@ -69,8 +69,8 @@ public:
      * @return Whether the PoI could be added (no other with same id exists in the layer)
      * @see ShapeContainer::addPoI
      */
-    virtual bool addPoI(const std::string &name, int layer, const std::string &type,
-                        const RGBColor &c, const Position &pos) throw();
+    virtual bool addPoI(const std::string& name, int layer, const std::string& type,
+                        const RGBColor& c, const Position& pos) throw();
 
 
     /** @brief Builds a polygon using the given values and adds it to the according layer
@@ -82,8 +82,8 @@ public:
      * @return Whether the polygon could be added (no other with same id exists in the layer)
      * @see ShapeContainer::addPolygon
      */
-    virtual bool addPolygon(const std::string &name, int layer,
-                            const std::string &type, const RGBColor &c, bool filled, const PositionVector &shape) throw();
+    virtual bool addPolygon(const std::string& name, int layer,
+                            const std::string& type, const RGBColor& c, bool filled, const PositionVector& shape) throw();
 
 
 
@@ -93,7 +93,7 @@ public:
      * @return Whether the polygon could be removed
      * @see ShapeContainer::removePolygon
      */
-    bool removePolygon(int layer, const std::string &id) throw();
+    bool removePolygon(int layer, const std::string& id) throw();
 
 
     /** @brief Removes a PoI from the container
@@ -102,7 +102,7 @@ public:
      * @return Whether the poi could be removed
      * @see ShapeContainer::removePoI
      */
-    bool removePoI(int layer, const std::string &id) throw();
+    bool removePoI(int layer, const std::string& id) throw();
 
 
 
@@ -112,7 +112,7 @@ public:
      * @param[in] pos The PoI's new position
      * @see ShapeContainer::movePoI
      */
-    void movePoI(int layer, const std::string &id, const Position &pos) throw();
+    void movePoI(int layer, const std::string& id, const Position& pos) throw();
 
 
     /** @brief Assigns a shape to the named polygon
@@ -120,7 +120,7 @@ public:
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
-    void reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw();
+    void reshapePolygon(int layer, const std::string& id, const PositionVector& shape) throw();
 
 
     /// Returns the gl-ids of all shapes
@@ -132,7 +132,7 @@ private:
     MFXMutex myLock;
 
     /// @brief The RTree structure to add and remove visualization elements
-    SUMORTree &myVis;
+    SUMORTree& myVis;
 
 };
 

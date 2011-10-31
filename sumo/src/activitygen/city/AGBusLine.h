@@ -45,7 +45,7 @@
 class AGBusLine {
 public:
     AGBusLine(std::string lineNr) :
-            lineNumber(lineNr) {};
+        lineNumber(lineNr) {};
     void setMaxTripTime(int time);
     void setBusNames();
     int nbrBuses();

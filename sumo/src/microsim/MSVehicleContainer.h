@@ -66,16 +66,16 @@ public:
     ~MSVehicleContainer();
 
     /// Adds a single vehicle
-    void add(SUMOVehicle *veh);
+    void add(SUMOVehicle* veh);
 
     /// Adds a container with vehicles departing at the given time
-    void add(SUMOTime time, const VehicleVector &cont);
+    void add(SUMOTime time, const VehicleVector& cont);
 
     /// Returns the information whether any vehicles want to depart at the given time
     bool anyWaitingFor(SUMOTime time) const;
 
     /// Returns the uppermost vehicle vector
-    const VehicleVector &top();
+    const VehicleVector& top();
 
     /// Returns the time the uppermost vehicle vector is assigned to
     SUMOTime topTime() const;
@@ -93,13 +93,13 @@ public:
     void showArray() const;
 
     /// Prints the contents of the container
-    friend std::ostream &operator << (std::ostream &strm,
-                                      MSVehicleContainer &cont);
+    friend std::ostream& operator << (std::ostream& strm,
+                                      MSVehicleContainer& cont);
 
 private:
     /** @brief Replaces the existing single departure time vector by the one given
     */
-    void addReplacing(const VehicleDepartureVector &cont);
+    void addReplacing(const VehicleDepartureVector& cont);
 
     /** Returns the information whether the container must be extended */
     bool isFull() const;

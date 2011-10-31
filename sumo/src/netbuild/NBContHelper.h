@@ -54,20 +54,20 @@ class NBContHelper {
 public:
     /** Moves the given iterator clockwise within the given container
         of edges sorted clockwise */
-    static void nextCW(const EdgeVector &edges,
-                       EdgeVector::const_iterator &from);
+    static void nextCW(const EdgeVector& edges,
+                       EdgeVector::const_iterator& from);
 
     /** Moves the given iterator counter clockwise within the given container
         of edges sorted clockwise */
-    static void nextCCW(const EdgeVector &edges,
-                        EdgeVector::const_iterator &from);
+    static void nextCCW(const EdgeVector& edges,
+                        EdgeVector::const_iterator& from);
 
-    static SUMOReal getMaxSpeed(const EdgeVector &edges);
+    static SUMOReal getMaxSpeed(const EdgeVector& edges);
 
-    static SUMOReal getMinSpeed(const EdgeVector &edges);
+    static SUMOReal getMinSpeed(const EdgeVector& edges);
 
     /** writes the vector of bools to the given stream */
-    static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
+    static std::ostream& out(std::ostream& os, const std::vector<bool> &v);
 
     /**
      * edge_by_angle_sorter
@@ -76,18 +76,18 @@ public:
     class edge_by_junction_angle_sorter {
     public:
         /// constructor
-        explicit edge_by_junction_angle_sorter(NBNode *n) : myNode(n) {}
+        explicit edge_by_junction_angle_sorter(NBNode* n) : myNode(n) {}
 
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const;
+        int operator()(NBEdge* e1, NBEdge* e2) const;
 
     private:
         /// Converts the angle of the edge if it is an incoming edge
-        SUMOReal getConvAngle(NBEdge *e) const;
+        SUMOReal getConvAngle(NBEdge* e) const;
 
     private:
         /// the edge to compute the relative angle of
-        NBNode *myNode;
+        NBNode* myNode;
 
     };
 
@@ -102,12 +102,12 @@ public:
     class relative_edge_sorter {
     public:
         /// constructor
-        explicit relative_edge_sorter(NBEdge *e, NBNode *n)
-                : myEdge(e), myNode(n) {}
+        explicit relative_edge_sorter(NBEdge* e, NBNode* n)
+            : myEdge(e), myNode(n) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const {
+        int operator()(NBEdge* e1, NBEdge* e2) const {
             if (e1==0||e2==0) {
                 return -1;
             }
@@ -120,10 +120,10 @@ public:
 
     private:
         /// the edge to compute the relative angle of
-        NBEdge *myEdge;
+        NBEdge* myEdge;
 
         /// the node to use
-        NBNode *myNode;
+        NBNode* myNode;
 
     };
 
@@ -135,7 +135,7 @@ public:
     class edge_by_priority_sorter {
     public:
         /// comparing operator
-        int operator()(NBEdge *e1, NBEdge *e2) const {
+        int operator()(NBEdge* e1, NBEdge* e2) const {
             if (e1->getPriority()!=e2->getPriority()) {
                 return e1->getPriority() > e2->getPriority();
             }
@@ -161,8 +161,8 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        explicit edge_opposite_direction_sorter(const NBEdge * const e, const NBNode * const n) throw()
-                : myNode(n) {
+        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n) throw()
+            : myNode(n) {
             myAngle = getEdgeAngleAt(e, n);
         }
 
@@ -171,7 +171,7 @@ public:
          * @param[in] e2 The second edge to compare
          * @return Which edge is more opposite to the related one
          */
-        int operator()(NBEdge *e1, NBEdge *e2) const throw() {
+        int operator()(NBEdge* e1, NBEdge* e2) const throw() {
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 > d2;
@@ -182,7 +182,7 @@ public:
          * @param[in] e The edge to compare the angle difference of
          * @return The angle difference
          */
-        SUMOReal getDiff(const NBEdge * const e) const throw() {
+        SUMOReal getDiff(const NBEdge* const e) const throw() {
             SUMOReal d = getEdgeAngleAt(e, myNode);
             return GeomHelper::getMinAngleDiff(d, myAngle);
         }
@@ -193,7 +193,7 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        SUMOReal getEdgeAngleAt(const NBEdge * const e, const NBNode * const n) const throw() {
+        SUMOReal getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const throw() {
             if (e->getFromNode()==n) {
                 return e->getGeometry().getBegLine().atan2DegreeAngle();
             } else {
@@ -206,7 +206,7 @@ public:
         SUMOReal myAngle;
 
         /// @brief The related node
-        const NBNode * const myNode;
+        const NBNode* const myNode;
 
     };
 
@@ -221,11 +221,11 @@ public:
     class edge_similar_direction_sorter {
     public:
         /// constructor
-        explicit edge_similar_direction_sorter(const NBEdge * const e)
-                : myAngle(e->getAngle()) {}
+        explicit edge_similar_direction_sorter(const NBEdge* const e)
+            : myAngle(e->getAngle()) {}
 
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const {
+        int operator()(NBEdge* e1, NBEdge* e2) const {
             SUMOReal d1 = GeomHelper::getMinAngleDiff(e1->getAngle(), myAngle);
             SUMOReal d2 = GeomHelper::getMinAngleDiff(e2->getAngle(), myAngle);
             return d1 < d2;
@@ -243,16 +243,16 @@ public:
     class node_with_incoming_finder {
     public:
         /// constructor
-        node_with_incoming_finder(const NBEdge * const e);
+        node_with_incoming_finder(const NBEdge* const e);
 
-        bool operator()(const NBNode * const n) const;
+        bool operator()(const NBNode* const n) const;
 
     private:
-        const NBEdge * const myEdge;
+        const NBEdge* const myEdge;
 
     private:
         /// @brief invalidated assignment operator
-        node_with_incoming_finder &operator=(const node_with_incoming_finder &s);
+        node_with_incoming_finder& operator=(const node_with_incoming_finder& s);
 
     };
 
@@ -263,16 +263,16 @@ public:
     class node_with_outgoing_finder {
     public:
         /// constructor
-        node_with_outgoing_finder(const NBEdge * const e);
+        node_with_outgoing_finder(const NBEdge* const e);
 
-        bool operator()(const NBNode * const n) const;
+        bool operator()(const NBNode* const n) const;
 
     private:
-        const NBEdge * const myEdge;
+        const NBEdge* const myEdge;
 
     private:
         /// @brief invalidated assignment operator
-        node_with_outgoing_finder &operator=(const node_with_outgoing_finder &s);
+        node_with_outgoing_finder& operator=(const node_with_outgoing_finder& s);
 
     };
 
@@ -282,28 +282,28 @@ public:
     class edge_with_destination_finder {
     public:
         /// constructor
-        edge_with_destination_finder(NBNode *dest);
+        edge_with_destination_finder(NBNode* dest);
 
-        bool operator()(NBEdge *e) const;
+        bool operator()(NBEdge* e) const;
 
     private:
-        NBNode *myDestinationNode;
+        NBNode* myDestinationNode;
 
     private:
         /// @brief invalidated assignment operator
-        edge_with_destination_finder &operator=(const edge_with_destination_finder &s);
+        edge_with_destination_finder& operator=(const edge_with_destination_finder& s);
 
     };
 
 
     /** Tries to return the first edge within the given container which
         connects both given nodes */
-    static NBEdge *findConnectingEdge(const EdgeVector &edges,
-                                      NBNode *from, NBNode *to);
+    static NBEdge* findConnectingEdge(const EdgeVector& edges,
+                                      NBNode* from, NBNode* to);
 
 
     /** returns the maximum speed allowed on the edges */
-    static SUMOReal maxSpeed(const EdgeVector &ev);
+    static SUMOReal maxSpeed(const EdgeVector& ev);
 
     /**
      * same_connection_edge_sorter
@@ -317,7 +317,7 @@ public:
         explicit same_connection_edge_sorter() { }
 
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const {
+        int operator()(NBEdge* e1, NBEdge* e2) const {
             std::pair<SUMOReal, SUMOReal> mm1 = getMinMaxRelAngles(e1);
             std::pair<SUMOReal, SUMOReal> mm2 = getMinMaxRelAngles(e2);
             if (mm1.first==mm2.first && mm1.second==mm2.second) {
@@ -335,10 +335,10 @@ public:
         /**
          *
          */
-        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge *e) const {
+        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge* e) const {
             SUMOReal min = 360;
             SUMOReal max = 360;
-            const EdgeVector &ev = e->getConnectedEdges();
+            const EdgeVector& ev = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
                 SUMOReal angle = NBHelpers::normRelAngle(
                                      e->getAngle(), (*i)->getAngle());
@@ -354,22 +354,22 @@ public:
     };
 
 
-    friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);
+    friend std::ostream& operator<<(std::ostream& os, const EdgeVector& ev);
 
     class opposite_finder {
     public:
         /// constructor
-        opposite_finder(NBEdge *edge, const NBNode *n)
-                : myReferenceEdge(edge), myAtNode(n) { }
+        opposite_finder(NBEdge* edge, const NBNode* n)
+            : myReferenceEdge(edge), myAtNode(n) { }
 
-        bool operator()(NBEdge *e) const {
+        bool operator()(NBEdge* e) const {
             return e->isTurningDirectionAt(myAtNode, myReferenceEdge)||
                    myReferenceEdge->isTurningDirectionAt(myAtNode, e);
         }
 
     private:
-        NBEdge *myReferenceEdge;
-        const NBNode *myAtNode;
+        NBEdge* myReferenceEdge;
+        const NBNode* myAtNode;
 
     };
 

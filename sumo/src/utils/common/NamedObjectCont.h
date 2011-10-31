@@ -71,7 +71,7 @@ public:
      * @param[in] item The item to add
      * @return If the item could been added (no item with the same id was within the container before)
      */
-    virtual bool add(const std::string &id, T item) throw() {
+    virtual bool add(const std::string& id, T item) throw() {
         if (myMap.find(id)!=myMap.end()) {
             return false;
         }
@@ -85,7 +85,7 @@ public:
      * @param[in] id The id of the item to remove
      * @return If the item could been removed (an item with the id was within the container before)
      */
-    virtual bool remove(const std::string &id) throw() {
+    virtual bool remove(const std::string& id) throw() {
         if (myMap.find(id)==myMap.end()) {
             return false;
         }
@@ -104,7 +104,7 @@ public:
      * @param[in] id The id of the item to retrieve
      * @return The item stored under the given id, or 0 if no such item exists
      */
-    T get(const std::string &id) const throw() {
+    T get(const std::string& id) const throw() {
         typename std::map<std::string, T>::const_iterator i = myMap.find(id);
         if (i==myMap.end()) {
             return 0;
@@ -142,7 +142,7 @@ public:
      * @param[in] id The id of the item to delete
      * @return Whether the object could be deleted (was within the map)
      */
-    bool erase(const std::string &id) throw() {
+    bool erase(const std::string& id) throw() {
         typename IDMap::iterator i=myMap.find(id);
         if (i==myMap.end()) {
             return false;

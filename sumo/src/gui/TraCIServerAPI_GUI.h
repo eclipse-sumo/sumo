@@ -58,8 +58,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
 
     /** @brief Processes a set value command (Command 0xcc: Change GUI State)
@@ -68,29 +68,29 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage) throw(traci::TraCIException, std::invalid_argument);
+    static bool processSet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage) throw(traci::TraCIException, std::invalid_argument);
 
 
 protected:
     /** @brief Returns the main window
      * @return The main window (should exist)
      */
-    static GUIMainWindow *getMainWindow() throw();
+    static GUIMainWindow* getMainWindow() throw();
 
 
     /** @brief Returns the named view
      * @param[in] viewName The name of the view
      * @return The named view if existing, 0 otherwise
      */
-    static GUISUMOAbstractView * const getNamedView(const std::string &id) throw();
+    static GUISUMOAbstractView* const getNamedView(const std::string& id) throw();
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_GUI(const TraCIServerAPI_GUI &s);
+    TraCIServerAPI_GUI(const TraCIServerAPI_GUI& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_GUI &operator=(const TraCIServerAPI_GUI &s);
+    TraCIServerAPI_GUI& operator=(const TraCIServerAPI_GUI& s);
 
 
 };

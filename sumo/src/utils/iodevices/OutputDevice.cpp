@@ -58,14 +58,14 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string &name,
-                        const std::string &base) throw(IOError) {
+OutputDevice::getDevice(const std::string& name,
+                        const std::string& base) throw(IOError) {
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name)!=myOutputDevices.end()) {
         return *myOutputDevices[name];
     }
     // build the device
-    OutputDevice *dev = 0;
+    OutputDevice* dev = 0;
     // check whether the device shall print to stdout
     if (name=="stdout" || name=="-") {
         dev = new OutputDevice_COUT();
@@ -73,9 +73,9 @@ OutputDevice::getDevice(const std::string &name,
         try {
             int port = TplConvert<char>::_2int(name.substr(name.find(":")+1).c_str());
             dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             throw IOError("Given port number '" + name.substr(name.find(":")+1) + "' is not numeric.");
-        } catch (EmptyData &) {
+        } catch (EmptyData&) {
             throw IOError("No port number given.");
         }
     } else {
@@ -89,8 +89,8 @@ OutputDevice::getDevice(const std::string &name,
 
 
 bool
-OutputDevice::createDeviceByOption(const std::string &optionName,
-                                   const std::string &rootElement) throw(IOError) {
+OutputDevice::createDeviceByOption(const std::string& optionName,
+                                   const std::string& rootElement) throw(IOError) {
     if (!OptionsCont::getOptions().isSet(optionName)) {
         return false;
     }
@@ -103,7 +103,7 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
 
 
 OutputDevice&
-OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, InvalidArgument) {
+OutputDevice::getDeviceByOption(const std::string& optionName) throw(IOError, InvalidArgument) {
     std::string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName)==myOutputDevices.end()) {
         throw InvalidArgument("Device '" + devName + "' has not been created.");
@@ -143,7 +143,7 @@ OutputDevice::realString(const SUMOReal v, const int precision) {
 // member method definitions
 // ===========================================================================
 OutputDevice::OutputDevice(const unsigned int defaultIndentation) throw(IOError)
-        : myDefaultIndentation(defaultIndentation) {
+    : myDefaultIndentation(defaultIndentation) {
 }
 
 
@@ -173,8 +173,8 @@ OutputDevice::setPrecision(unsigned int precision) throw() {
 
 
 bool
-OutputDevice::writeXMLHeader(const std::string &rootElement, const std::string xmlParams,
-                             const std::string &attrs, const std::string &comment) throw() {
+OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string xmlParams,
+                             const std::string& attrs, const std::string& comment) throw() {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), xmlParams);
         if (comment != "") {
@@ -200,7 +200,7 @@ OutputDevice::indent() throw() {
 
 
 OutputDevice&
-OutputDevice::openTag(const std::string &xmlElement) throw() {
+OutputDevice::openTag(const std::string& xmlElement) throw() {
     getOStream() << std::string(4*(myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
     postWriteHook();
     myXMLStack.push_back(xmlElement);
@@ -209,7 +209,7 @@ OutputDevice::openTag(const std::string &xmlElement) throw() {
 
 
 OutputDevice&
-OutputDevice::openTag(const SumoXMLTag &xmlElement) throw() {
+OutputDevice::openTag(const SumoXMLTag& xmlElement) throw() {
     return openTag(toString(xmlElement));
 }
 
@@ -236,7 +236,7 @@ OutputDevice::postWriteHook() throw() {}
 
 
 void
-OutputDevice::inform(const std::string &msg) {
+OutputDevice::inform(const std::string& msg) {
     getOStream() << msg << '\n';
     postWriteHook();
 }

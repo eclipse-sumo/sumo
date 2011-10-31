@@ -42,22 +42,22 @@
 // method definitions
 // ===========================================================================
 AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw() :
-        location(inStreet),
-        openingTime(generateOpeningTime(*ds)),
-        closingTime(generateClosingTime(*ds)),
-        ds(ds),
-        adult(0) {
+    location(inStreet),
+    openingTime(generateOpeningTime(*ds)),
+    closingTime(generateClosingTime(*ds)),
+    ds(ds),
+    adult(0) {
     ds->workPositions++;
 }
 
 /****************************************************************************/
 
 AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) throw() :
-        location(inStreet, pos),
-        openingTime(generateOpeningTime(*ds)),
-        closingTime(generateClosingTime(*ds)),
-        ds(ds),
-        adult(0) {
+    location(inStreet, pos),
+    openingTime(generateOpeningTime(*ds)),
+    closingTime(generateClosingTime(*ds)),
+    ds(ds),
+    adult(0) {
     ds->workPositions++;
 }
 
@@ -84,8 +84,9 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
     for (std::map<int,SUMOReal>::const_iterator it=ds.beginWorkHours.begin();
             it!=ds.beginWorkHours.end(); ++it) {
         cumul += it->second;
-        if (cumul >= choice)
+        if (cumul >= choice) {
             return it->first;
+        }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 9.00am --" << std::endl;
     return 900;
@@ -100,8 +101,9 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) throw() {
     for (std::map<int,SUMOReal>::const_iterator it=ds.endWorkHours.begin();
             it!=ds.endWorkHours.end(); ++it) {
         cumul += it->second;
-        if (cumul >= choice)
+        if (cumul >= choice) {
             return it->first;
+        }
     }
     std::cout << "-- WARNING: work time distribution not complete (Sum(proportions) != 1): AUTODEFINED at 5.00pm --" << std::endl;
     return 1700;

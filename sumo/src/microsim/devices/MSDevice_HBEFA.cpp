@@ -47,7 +47,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_HBEFA::insertOptions() throw() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Emissions");
 
     oc.doRegister("device.hbefa.probability", new Option_Float(0.));//!!! describe
@@ -63,8 +63,8 @@ MSDevice_HBEFA::insertOptions() throw() {
 
 
 void
-MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
-    OptionsCont &oc = OptionsCont::getOptions();
+MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
+    OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getFloat("device.hbefa.probability")==0 && !oc.isSet("device.hbefa.explicit")) {
         // no route computation is modelled
         return;
@@ -88,9 +88,9 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into
 // ---------------------------------------------------------------------------
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
-MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle &holder, const std::string &id) throw()
-        : MSDevice(holder, id),
-        myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
+MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id) throw()
+    : MSDevice(holder, id),
+      myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 
 
@@ -114,7 +114,7 @@ MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*new
 
 void
 MSDevice_HBEFA::generateOutput() const throw(IOError) {
-    OutputDevice &os = OutputDevice::getDeviceByOption("tripinfo-output");
+    OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     (os.openTag("emissions") <<
      " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
      "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<

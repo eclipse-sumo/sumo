@@ -74,8 +74,8 @@ public:
      * @param[in] dc The districts container (needed if an edge must be split)
      * @param[in] options The options to use while building edges
      */
-    NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                      NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options) throw();
+    NIXMLEdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
+                      NBTypeCont& tc, NBDistrictCont& dc, OptionsCont& options) throw();
 
 
     /// @brief Destructor
@@ -94,7 +94,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -115,12 +115,12 @@ private:
      * @param[in] attrs The attributes to read the shape from
      * @return The edge's shape
      */
-    PositionVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
+    PositionVector tryGetShape(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief Tries to parse the spread type
      */
-    LaneSpreadFunction tryGetLaneSpread(const SUMOSAXAttributes &attrs);
+    LaneSpreadFunction tryGetLaneSpread(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Sets from/to node information of the currently parsed edge
@@ -130,22 +130,22 @@ private:
      * @param[in] attrs The SAX-attributes to parse the nodes from
      * @return Whether valid nodes exist
      */
-    bool setNodes(const SUMOSAXAttributes &attrs) throw();
+    bool setNodes(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
-    SUMOReal tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
-                            const std::string &attrName);
+    SUMOReal tryGetPosition(const SUMOSAXAttributes& attrs, SumoXMLAttr attrID,
+                            const std::string& attrName);
 
 
-    NBNode * insertNodeChecking(const Position &pos,
-                                const std::string &name, const std::string &dir);
+    NBNode* insertNodeChecking(const Position& pos,
+                               const std::string& name, const std::string& dir);
 
 
 private:
     /// @brief A reference to the program's options
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
 
     /// @name Currently parsed edge's values
@@ -176,7 +176,7 @@ private:
     std::string myCurrentType;
 
     /// @brief The nodes the edge starts and ends at
-    NBNode *myFromNode, *myToNode;
+    NBNode* myFromNode, *myToNode;
 
     /// @brief The current edge's length
     SUMOReal myLength;
@@ -199,23 +199,23 @@ private:
     bool myIsUpdate;
 
     /// @brief The currently processed edge
-    NBEdge *myCurrentEdge;
+    NBEdge* myCurrentEdge;
 
 
     /// @name Used instance containers (access to nodes, edges, types, etc.)
     /// @{
 
     /// @brief The nodes container (for retrieval of referenced nodes)
-    NBNodeCont &myNodeCont;
+    NBNodeCont& myNodeCont;
 
     /// @brief The edges container (for insertion of build edges)
-    NBEdgeCont &myEdgeCont;
+    NBEdgeCont& myEdgeCont;
 
     /// @brief The types container (for retrieval of type defaults)
-    NBTypeCont &myTypeCont;
+    NBTypeCont& myTypeCont;
 
     /// @brief The districts container (needed if an edge must be split)
-    NBDistrictCont &myDistrictCont;
+    NBDistrictCont& myDistrictCont;
     /// @}
 
 
@@ -246,7 +246,7 @@ private:
         explicit split_sorter() { }
 
         /// @brief Comparing operator
-        int operator()(const Split &e1, const Split &e2) const {
+        int operator()(const Split& e1, const Split& e2) const {
             return e1.pos < e2.pos;
         }
     };
@@ -259,10 +259,10 @@ private:
     public:
         /// @brief Constructor
         explicit split_by_pos_finder(SUMOReal pos)
-                : myPosition(pos) { }
+            : myPosition(pos) { }
 
         /// @brief Comparing operator
-        bool operator()(const Split &e) {
+        bool operator()(const Split& e) {
             return e.pos==myPosition;
         }
 
@@ -277,7 +277,7 @@ private:
     bool myHaveReportedAboutOverwriting;
 
     bool myHaveWarnedAboutDeprecatedSpreadType, myHaveWarnedAboutDeprecatedFromTo,
-    myHaveWarnedAboutDeprecatedNoLanes, myHaveWarnedAboutDeprecatedLaneId;
+         myHaveWarnedAboutDeprecatedNoLanes, myHaveWarnedAboutDeprecatedLaneId;
 
 
 private:
@@ -285,31 +285,31 @@ private:
     /** @brief Parses an edge and stores the values in "myCurrentEdge"
      * @param[in] attrs The attributes to get the edge's values from
      */
-    void addEdge(const SUMOSAXAttributes &attrs);
+    void addEdge(const SUMOSAXAttributes& attrs);
 
     /** @brief parses delete tag and deletes the specified edge
      * @param[in] attrs The attributes to get the edge's id from
      */
-    void deleteEdge(const SUMOSAXAttributes &attrs);
+    void deleteEdge(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a lane and modifies myCurrentEdge according to the given
      * attribures
      * @param[in] attrs The attributes to get the lanes's values from
      */
-    void addLane(const SUMOSAXAttributes &attrs);
+    void addLane(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a split and stores it in mySplits. Splits are executed Upon reading the end
      * tag of an edge
      * @param[in] attrs The attributes to get the splits's values from
      */
-    void addSplit(const SUMOSAXAttributes &attrs);
+    void addSplit(const SUMOSAXAttributes& attrs);
 
 private:
     /** @brief invalid copy constructor */
-    NIXMLEdgesHandler(const NIXMLEdgesHandler &s);
+    NIXMLEdgesHandler(const NIXMLEdgesHandler& s);
 
     /** @brief invalid assignment operator */
-    NIXMLEdgesHandler &operator=(const NIXMLEdgesHandler &s);
+    NIXMLEdgesHandler& operator=(const NIXMLEdgesHandler& s);
 
 };
 

@@ -39,15 +39,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Fahrverhaltendefinition::NIVissimSingleTypeParser_Fahrverhaltendefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Fahrverhaltendefinition::NIVissimSingleTypeParser_Fahrverhaltendefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Fahrverhaltendefinition::~NIVissimSingleTypeParser_Fahrverhaltendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream& from) {
     std::string tmp;
     from >> tmp;
     // in the both next cases, we do not have to overread anything

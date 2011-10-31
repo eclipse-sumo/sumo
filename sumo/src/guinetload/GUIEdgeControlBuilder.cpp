@@ -49,28 +49,28 @@
 // method definitions
 // ===========================================================================
 GUIEdgeControlBuilder::GUIEdgeControlBuilder() throw()
-        : NLEdgeControlBuilder() {}
+    : NLEdgeControlBuilder() {}
 
 
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
 
 
-MSEdge *
+MSEdge*
 GUIEdgeControlBuilder::closeEdge() {
-    MSEdge *ret = NLEdgeControlBuilder::closeEdge();
+    MSEdge* ret = NLEdgeControlBuilder::closeEdge();
     static_cast<GUIEdge*>(ret)->initGeometry();
     return ret;
 }
 
 
-MSLane *
-GUIEdgeControlBuilder::addLane(const std::string &id,
+MSLane*
+GUIEdgeControlBuilder::addLane(const std::string& id,
                                SUMOReal maxSpeed, SUMOReal length,
-                               const PositionVector &shape,
+                               const PositionVector& shape,
                                SUMOReal width,
-                               const SUMOVehicleClasses &allowed,
-                               const SUMOVehicleClasses &disallowed) {
-    MSLane *lane = 0;
+                               const SUMOVehicleClasses& allowed,
+                               const SUMOVehicleClasses& disallowed) {
+    MSLane* lane = 0;
     switch (myFunction) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(id, maxSpeed, length, myActiveEdge,
@@ -90,8 +90,8 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
 
 
 
-MSEdge *
-GUIEdgeControlBuilder::buildEdge(const std::string &id, const std::string &streetName) throw() {
+MSEdge*
+GUIEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) throw() {
     return new GUIEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 

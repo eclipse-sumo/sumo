@@ -58,7 +58,7 @@ ROVehicleCont::getTopVehicle() const throw() {
 
 
 bool
-ROVehicleCont::add(const std::string &id, ROVehicle *item) throw() {
+ROVehicleCont::add(const std::string& id, ROVehicle* item) throw() {
     if (NamedObjectCont<ROVehicle*>::add(id, item)) {
         mySorted.push(item);
         return true;
@@ -75,8 +75,8 @@ ROVehicleCont::clear() throw() {
 
 
 bool
-ROVehicleCont::erase(const std::string &id) throw() {
-    const ROVehicle * const topVeh = getTopVehicle();
+ROVehicleCont::erase(const std::string& id) throw() {
+    const ROVehicle* const topVeh = getTopVehicle();
     bool wasTop = topVeh!=0&&topVeh->getID()==id;
     if (!NamedObjectCont<ROVehicle*>::erase(id)) {
         return false;

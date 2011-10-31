@@ -39,7 +39,7 @@
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal accel, SUMOReal decel,
                                    SUMOReal dawdle, SUMOReal headwayTime)
-        : MSCFModel_KraussOrig1(vtype, accel, decel, dawdle, headwayTime) {
+    : MSCFModel_KraussOrig1(vtype, accel, decel, dawdle, headwayTime) {
 }
 
 
@@ -47,13 +47,13 @@ MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
 SUMOReal
-MSCFModel_Krauss::followSpeed(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
     return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed)));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0, 0), maxNextSpeed(veh->getSpeed())));
 }
 
@@ -94,8 +94,8 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
 }
 
 
-MSCFModel *
-MSCFModel_Krauss::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_Krauss::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Krauss(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }
 

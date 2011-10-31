@@ -61,9 +61,9 @@ public:
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
      */
-    MSSimpleTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                              const std::string &id, const std::string &subid,
-                              const Phases &phases, unsigned int step, SUMOTime delay);
+    MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                              const std::string& id, const std::string& subid,
+                              const Phases& phases, unsigned int step, SUMOTime delay);
 
 
     /// @brief Destructor
@@ -98,14 +98,14 @@ public:
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases &getPhases() const;
+    const Phases& getPhases() const;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @todo Recheck!
      */
-    Phases &getPhases();
+    Phases& getPhases();
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
@@ -113,7 +113,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition &getPhase(unsigned int givenstep) const;
+    const MSPhaseDefinition& getPhase(unsigned int givenstep) const;
     /// @}
 
 
@@ -132,7 +132,7 @@ public:
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition &getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const;
     /// @}
 
 
@@ -175,7 +175,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
                                unsigned int step, SUMOTime stepDuration);
     /// @}
 

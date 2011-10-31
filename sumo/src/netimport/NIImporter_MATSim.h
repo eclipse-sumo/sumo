@@ -70,7 +70,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 private:
@@ -83,7 +83,7 @@ private:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
          */
-        NodesHandler(NBNodeCont &toFill) throw();
+        NodesHandler(NBNodeCont& toFill) throw();
 
 
         /// @brief Destructor
@@ -101,21 +101,21 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
         //@}
 
 
     private:
         /// @brief The nodes container to fill
-        NBNodeCont &myNodeCont;
+        NBNodeCont& myNodeCont;
 
 
     private:
         /** @brief invalidated copy constructor */
-        NodesHandler(const NodesHandler &s);
+        NodesHandler(const NodesHandler& s);
 
         /** @brief invalidated assignment operator */
-        NodesHandler &operator=(const NodesHandler &s);
+        NodesHandler& operator=(const NodesHandler& s);
 
     };
 
@@ -135,7 +135,7 @@ private:
          * @param[in] lanesFromCapacity Whether the lane number shall be computed from the capacity
          * @param[in] capacity2Lanes The converter from flow to lanes
          */
-        EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
+        EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
                      bool keepEdgeLengths, bool lanesFromCapacity,
                      NBCapacity2Lanes capacity2Lanes) throw();
 
@@ -155,16 +155,16 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
         //@}
 
 
     private:
         /// @brief The previously parsed nodes
-        const NBNodeCont &myNodeCont;
+        const NBNodeCont& myNodeCont;
 
         /// @brief The edge container to fill
-        NBEdgeCont &myEdgeCont;
+        NBEdgeCont& myEdgeCont;
 
         /// @brief The capacity norming
         SUMOReal myCapacityNorm;
@@ -181,10 +181,10 @@ private:
 
     private:
         /** @brief invalidated copy constructor */
-        EdgesHandler(const EdgesHandler &s);
+        EdgesHandler(const EdgesHandler& s);
 
         /** @brief invalidated assignment operator */
-        EdgesHandler &operator=(const EdgesHandler &s);
+        EdgesHandler& operator=(const EdgesHandler& s);
 
     };
 

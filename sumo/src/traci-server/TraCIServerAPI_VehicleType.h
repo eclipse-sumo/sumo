@@ -49,8 +49,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
 
     /** @brief Processes a value request for the given type
@@ -59,7 +59,7 @@ public:
      * @param[in] v The vehicle type to get the value from
      * @param[out] tempMsg The storage to write the result to
      */
-    static bool getVariable(const int variable, const MSVehicleType &v, tcpip::Storage &tempMsg);
+    static bool getVariable(const int variable, const MSVehicleType& v, tcpip::Storage& tempMsg);
 
 
     /** @brief Processes a set value command (Command 0xc5: Change Vehicle Type State)
@@ -68,8 +68,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processSet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
 
     /** @brief Processes a set value for the given type
@@ -79,16 +79,16 @@ public:
      * @param[out] outputStorage The storage to write the result to
      */
     static bool setVariable(const int cmd, const int variable, const int valueDataType,
-                            MSVehicleType &v, traci::TraCIServer &server,
-                            tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
+                            MSVehicleType& v, traci::TraCIServer& server,
+                            tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_VehicleType(const TraCIServerAPI_VehicleType &s);
+    TraCIServerAPI_VehicleType(const TraCIServerAPI_VehicleType& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_VehicleType &operator=(const TraCIServerAPI_VehicleType &s);
+    TraCIServerAPI_VehicleType& operator=(const TraCIServerAPI_VehicleType& s);
 
 
 };

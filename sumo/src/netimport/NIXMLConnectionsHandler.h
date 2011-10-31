@@ -56,7 +56,7 @@ public:
     /** @brief Constructor
      * @param[in] ec The edge container which includes the edges to change connections of
      */
-    NIXMLConnectionsHandler(NBEdgeCont &ec) throw();
+    NIXMLConnectionsHandler(NBEdgeCont& ec) throw();
 
 
     /// @brief Destructor
@@ -75,7 +75,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 private:
@@ -87,7 +87,7 @@ private:
      * @param[in] def The definition of the connection
      * @return The parsed connection
      */
-    NBConnection parseConnection(const std::string &defRole, const std::string &def) throw();
+    NBConnection parseConnection(const std::string& defRole, const std::string& def) throw();
 
 
     /** @brief Parses a connection when it describes a lane-2-lane relationship
@@ -95,7 +95,7 @@ private:
      * @param[in] from The edge at which the connection starts (the on incoming into a node)
      * @param[in] to The edge at which the connection ends (the on outgoing from a node)
      */
-    void parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *from, NBEdge *to) throw();
+    void parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) throw();
 
 
     /** @brief Parses information about lane-2-lane connection when it describes a lane-2-lane relationship
@@ -105,7 +105,7 @@ private:
      * @param[out] fromLane The lane at which connection starts
      * @param[out] toLane The lane at which connection ends
      */
-    bool parseLaneInfo(const SUMOSAXAttributes &attributes, NBEdge *fromEdge, NBEdge *toEdge, int *fromLane, int *toLane);
+    bool parseLaneInfo(const SUMOSAXAttributes& attributes, NBEdge* fromEdge, NBEdge* toEdge, int* fromLane, int* toLane);
 
 
     /** @brief Parses information about lane-2-lane connection in deprecated format.
@@ -115,9 +115,9 @@ private:
      * @param[out] fromLane The lane at which connection starts
      * @param[out] toLane The lane at which connection ends
      */
-    inline bool parseDeprecatedLaneDefinition(const SUMOSAXAttributes &attributes,
-                                              NBEdge *fromEdge, NBEdge *toEdge,
-                                              int *fromLane, int *toLane);
+    inline bool parseDeprecatedLaneDefinition(const SUMOSAXAttributes& attributes,
+            NBEdge* fromEdge, NBEdge* toEdge,
+            int* fromLane, int* toLane);
 
 
     /** @brief Parses information about lane-2-lane connection.
@@ -125,35 +125,35 @@ private:
      * @param[out] fromLane The lane at which connection starts
      * @param[out] toLane The lane at which connection ends
      */
-    inline bool parseLaneDefinition(const SUMOSAXAttributes &attributes, int* fromLane, int* toLane);
+    inline bool parseLaneDefinition(const SUMOSAXAttributes& attributes, int* fromLane, int* toLane);
 
     /** @brief Validates information about lane-2-lane connection. Returns true iff information represents
      *         a valid connection for the given edges.
      * @param[in] canLanesBeNegative Whether negative lane indices are allowed (used when specifying resets)
-     * @param[in] fromEdge The originating edge 
-     * @param[in] toEdge The target edge 
-     * @param[in] fromLane The originating lane index 
+     * @param[in] fromEdge The originating edge
+     * @param[in] toEdge The target edge
+     * @param[in] fromLane The originating lane index
      * @param[in] toLane The target lane index
      */
-    bool validateLaneInfo(bool canLanesBeNegative, NBEdge *fromEdge, NBEdge *toEdge, int fromLane, int toLane);
+    bool validateLaneInfo(bool canLanesBeNegative, NBEdge* fromEdge, NBEdge* toEdge, int fromLane, int toLane);
 
 
 private:
     /// @brief The edge container to fill
-    NBEdgeCont &myEdgeCont;
+    NBEdgeCont& myEdgeCont;
 
     /// @brief Information whether we have a deprecated attribute
     bool myHaveWarnedAboutDeprecatedLanes;
 
     /// @brief the handler for loading errors
-    MsgHandler * const myErrorMsgHandler;
+    MsgHandler* const myErrorMsgHandler;
 
 private:
     /// @brief invalidated copy constructor
-    NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);
+    NIXMLConnectionsHandler(const NIXMLConnectionsHandler& s);
 
     /// @brief invalidated assignment operator
-    NIXMLConnectionsHandler &operator=(const NIXMLConnectionsHandler &s);
+    NIXMLConnectionsHandler& operator=(const NIXMLConnectionsHandler& s);
 
 
 };

@@ -104,28 +104,28 @@ public:
          * @param[in] netWasLoaded Whether the network has already been loaded (the links have been assigned)
          * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
          */
-        bool addLogic(const std::string &programID, MSTrafficLightLogic*logic, bool netWasLoaded,
+        bool addLogic(const std::string& programID, MSTrafficLightLogic* logic, bool netWasLoaded,
                       bool isNewDefault=true);
 
 
 
-        MSTrafficLightLogic* getLogic(const std::string &programID) const;
-        void addSwitchCommand(OnSwitchAction *c);
+        MSTrafficLightLogic* getLogic(const std::string& programID) const;
+        void addSwitchCommand(OnSwitchAction* c);
         std::vector<MSTrafficLightLogic*> getAllLogics() const;
         void saveInitialStates();
-        bool isActive(const MSTrafficLightLogic *tl) const;
+        bool isActive(const MSTrafficLightLogic* tl) const;
         MSTrafficLightLogic* getActive() const;
-        void switchTo(MSTLLogicControl &tlc, const std::string &programID);
-        MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
-                const std::string &programID);
+        void switchTo(MSTLLogicControl& tlc, const std::string& programID);
+        MSTrafficLightLogic* getLogicInstantiatingOff(MSTLLogicControl& tlc,
+                const std::string& programID);
         void executeOnSwitchActions() const;
-        void addLink(MSLink *link, MSLane *lane, unsigned int pos);
+        void addLink(MSLink* link, MSLane* lane, unsigned int pos);
 
 
 
     private:
         /// @brief The currently used program
-        MSTrafficLightLogic *myCurrentProgram;
+        MSTrafficLightLogic* myCurrentProgram;
 
         /// @brief A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> myVariants;
@@ -200,7 +200,7 @@ public:
      * @return The variants of the named tls
      * @exception InvalidArgument
      */
-    TLSLogicVariants &get(const std::string &id) const;
+    TLSLogicVariants& get(const std::string& id) const;
 
 
     /** @brief Returns a single program (variant) defined by the tls id and the program programID
@@ -209,7 +209,7 @@ public:
      * @param[in] programID The program id of the tls program to get
      * @return The defined tls program if existing, 0 otherwise
      */
-    MSTrafficLightLogic* get(const std::string &id, const std::string &programID) const;
+    MSTrafficLightLogic* get(const std::string& id, const std::string& programID) const;
 
 
     /** @brief Returns the active program of a named tls
@@ -217,7 +217,7 @@ public:
      * @param[in] id The id of the tls to get the active program of
      * @return The current program of the defined tls if existing, 0 otherwise
      */
-    MSTrafficLightLogic* getActive(const std::string &id) const;
+    MSTrafficLightLogic* getActive(const std::string& id) const;
 
 
     /**
@@ -249,8 +249,8 @@ public:
      * @exception ProcessError In the case an additional tls program is loaded and no one for the tls existed in the network
      * @return true if the tls program could be added, false otherwise
      */
-    bool add(const std::string &id, const std::string &programID,
-             MSTrafficLightLogic *logic, bool newDefault=true);
+    bool add(const std::string& id, const std::string& programID,
+             MSTrafficLightLogic* logic, bool newDefault=true);
 
 
 
@@ -258,14 +258,14 @@ public:
      * @param[in] id The id of the tls to ask for
      * @return Whether a tls with the given id is known
      */
-    bool knows(const std::string &id) const;
+    bool knows(const std::string& id) const;
 
 
     /** @brief Returns whether the given tls program is the currently active for his tls
      * @param[in] tl The tls to ask for
      * @return Whether the given tl is currently active (or a different program is used)
      */
-    bool isActive(const MSTrafficLightLogic *tl) const;
+    bool isActive(const MSTrafficLightLogic* tl) const;
 
 
     /** @brief Switches the named (id) tls to the named (programID) program
@@ -276,7 +276,7 @@ public:
      * @param[in] programID The program id of the tls (program) to switch to
      * @exception ProcessError If either the tls or the program to switch to is not known
      */
-    void switchTo(const std::string &id, const std::string &programID);
+    void switchTo(const std::string& id, const std::string& programID);
 
 
 
@@ -291,8 +291,8 @@ public:
      * @param[in] startProg The begin program of the WAUT
      * @exception InvalidArgument If the id is already used by another WAUT
      */
-    void addWAUT(SUMOTime refTime, const std::string &id,
-                 const std::string &startProg);
+    void addWAUT(SUMOTime refTime, const std::string& id,
+                 const std::string& startProg);
 
 
     /** @brief Adds a WAUT switch step to a previously built WAUT
@@ -303,8 +303,8 @@ public:
      * @param[in] to The program the WAUT shall start to switch to at the given time
      * @exception InvalidArgument If the named WAUT is not known
      */
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when,
-                       const std::string &to);
+    void addWAUTSwitch(const std::string& wautid, SUMOTime when,
+                       const std::string& to);
 
 
     /** @brief Adds a tls to the list of tls to be switched by the named WAUT
@@ -318,8 +318,8 @@ public:
      * @exception InvalidArgument If the named WAUT or the named tls are not known
      * @exception ProcessError If the initial switch fails
      */
-    void addWAUTJunction(const std::string &wautid, const std::string &tls,
-                         const std::string &proc, bool synchron);
+    void addWAUTJunction(const std::string& wautid, const std::string& tls,
+                         const std::string& proc, bool synchron);
 
 
     /** @brief Closes loading of a WAUT
@@ -332,7 +332,7 @@ public:
      * @exception InvalidArgument If the named WAUT is not known
      * @see SwitchInitCommand
      */
-    void closeWAUT(const std::string &wautid);
+    void closeWAUT(const std::string& wautid);
     /// @}
 
 
@@ -351,7 +351,7 @@ public:
      * @param[in] tlid The id of the tls to get the current phases of
      * @return A pair containing the current time and the current phases of the named tls
      */
-    std::pair<SUMOTime, MSPhaseDefinition> getPhaseDef(const std::string &tlid) const;
+    std::pair<SUMOTime, MSPhaseDefinition> getPhaseDef(const std::string& tlid) const;
 
 
 
@@ -370,8 +370,8 @@ protected:
          * @param[in] wautid The id of the WAUT
          * @param[in] index The first position within the WAUT table
          */
-        SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid, unsigned int index)
-                : myParent(p), myWAUTID(wautid), myIndex(index) { }
+        SwitchInitCommand(MSTLLogicControl& p, const std::string& wautid, unsigned int index)
+            : myParent(p), myWAUTID(wautid), myIndex(index) { }
 
 
         /// @brief Destructor
@@ -406,7 +406,7 @@ protected:
         /** @brief Returns the WAUT-id
          * @return The WAUT id
          */
-        const std::string &getWAUTID() const {
+        const std::string& getWAUTID() const {
             return myWAUTID;
         }
 
@@ -414,14 +414,14 @@ protected:
         /** @brief Returns a reference to the index
          * @return A reference to the index
          */
-        unsigned int &getIndex() {
+        unsigned int& getIndex() {
             return myIndex;
         }
 
 
     protected:
         /// @brief The control to call
-        MSTLLogicControl &myParent;
+        MSTLLogicControl& myParent;
 
         /// @brief The id of the WAUT that shall switch
         std::string myWAUTID;
@@ -448,7 +448,7 @@ public:
      * @param[in] The command which initialises the switch
      * @return The time offset to next call
      */
-    SUMOTime initWautSwitch(SwitchInitCommand &cmd);
+    SUMOTime initWautSwitch(SwitchInitCommand& cmd);
 
 
 protected:
@@ -505,10 +505,10 @@ protected:
          * @param[in] to The destination tls program
          * @param[in] synchron Whether the switch shall be done in synchronuous mode
          */
-        WAUTSwitchProcedure(MSTLLogicControl &control, WAUT &waut,
-                            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure(MSTLLogicControl& control, WAUT& waut,
+                            MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                             bool synchron)
-                : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control) { }
+            : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control) { }
 
 
         /// @brief Destructor
@@ -533,7 +533,7 @@ protected:
          * @return Whether the current step is the GSP
          * @see getGSPValue
          */
-        bool isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic &logic);
+        bool isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic& logic);
 
 
         /** @brief Returns the difference between a given time and the start of the phase
@@ -541,7 +541,7 @@ protected:
          * @param[in] toTime The time to ask for
          * @return How much time elapsed between the last pahse start and the given time
          */
-        SUMOTime getDiffToStartOfPhase(MSTrafficLightLogic &logic, SUMOTime toTime);
+        SUMOTime getDiffToStartOfPhase(MSTrafficLightLogic& logic, SUMOTime toTime);
 
 
         /** @brief switches the given logic directly to the given position
@@ -549,7 +549,7 @@ protected:
          * @param[in] logic The logic to switch
          * @param[in] toTime The time offset within the logic's phases to switch to
          */
-        void switchToPos(SUMOTime simStep, MSTrafficLightLogic &logic, SUMOTime toTime);
+        void switchToPos(SUMOTime simStep, MSTrafficLightLogic& logic, SUMOTime toTime);
 
 
         /** @brief Returns the GSP-value
@@ -559,24 +559,24 @@ protected:
          * @return The GSP value; 0 if not given.
          * @see MSTrafficLightLogic::getParameterValue
          */
-        unsigned int getGSPValue(const MSTrafficLightLogic &logic) const;
+        unsigned int getGSPValue(const MSTrafficLightLogic& logic) const;
 
 
     protected:
         /// @brief The current program of the tls to switch
-        MSTrafficLightLogic *myFrom;
+        MSTrafficLightLogic* myFrom;
 
         /// @brief The program to switch the tls to
-        MSTrafficLightLogic *myTo;
+        MSTrafficLightLogic* myTo;
 
         /// @brief Information whether to switch synchron (?)
         bool mySwitchSynchron;
 
         /// @brief The WAUT responsible for switching
-        WAUT &myWAUT;
+        WAUT& myWAUT;
 
         /// @brief The control the logic belongs to
-        MSTLLogicControl &myControl;
+        MSTLLogicControl& myControl;
 
 
     private:
@@ -602,8 +602,8 @@ protected:
          * @param[in] to The destination tls program
          * @param[in] synchron Whether the switch shall be done in synchronuous mode
          */
-        WAUTSwitchProcedure_JustSwitch(MSTLLogicControl &control, WAUT &waut,
-                                       MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_JustSwitch(MSTLLogicControl& control, WAUT& waut,
+                                       MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                                        bool synchron);
 
 
@@ -642,8 +642,8 @@ protected:
          * @param[in] to The destination tls program
          * @param[in] synchron Whether the switch shall be done in synchronuous mode
          */
-        WAUTSwitchProcedure_GSP(MSTLLogicControl &control, WAUT &waut,
-                                MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_GSP(MSTLLogicControl& control, WAUT& waut,
+                                MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                                 bool synchron);
 
         /// @brief Destructor
@@ -686,8 +686,8 @@ protected:
          * @param[in] to The destination tls program
          * @param[in] synchron Whether the switch shall be done in synchronuous mode
          */
-        WAUTSwitchProcedure_Stretch(MSTLLogicControl &control, WAUT &waut,
-                                    MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_Stretch(MSTLLogicControl& control, WAUT& waut,
+                                    MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                                     bool synchron);
 
 
@@ -746,7 +746,7 @@ protected:
          * @param[in] from The tls program to get the number of stretch areas from
          * @return The number of stretch areas
          */
-        int getStretchAreaNo(MSTrafficLightLogic *from) const;
+        int getStretchAreaNo(MSTrafficLightLogic* from) const;
 
 
         /** @brief Returns the numbered Stretch-area for the given program
@@ -756,7 +756,7 @@ protected:
          * @param[in] index The index (identifier) for the area
          * @return The definition of the stretch area
          */
-        StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
+        StretchBereichDef getStretchBereichDef(MSTrafficLightLogic* from, int index) const;
 
 
     private:
@@ -777,11 +777,11 @@ protected:
         /// @brief The id of the junction to switch
         std::string junction;
         /// @brief The current program of the tls
-        MSTrafficLightLogic *from;
+        MSTrafficLightLogic* from;
         /// @brief The program to switch the tls to
-        MSTrafficLightLogic *to;
+        MSTrafficLightLogic* to;
         /// @brief The used procedure
-        WAUTSwitchProcedure *proc;
+        WAUTSwitchProcedure* proc;
     };
 
 

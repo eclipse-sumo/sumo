@@ -49,10 +49,11 @@
 // ===========================================================================
 void
 AGCity::completeStreets() {
-    if (streetsCompleted)
+    if (streetsCompleted) {
         return;
-    else
+    } else {
         streetsCompleted = true;
+    }
 
     NrStreets = 0;
     int pop=0, work=0;
@@ -128,16 +129,18 @@ void
 AGCity::generateOutgoingWP() {
     // work positions outside the city
     SUMOReal nbrWorkers = static_cast<SUMOReal>(statData.getPeopleYoungerThan(statData.limitAgeRetirement) - statData.getPeopleYoungerThan(statData.limitAgeChildren));
-    if (nbrWorkers <= 0)
+    if (nbrWorkers <= 0) {
         return;
+    }
     nbrWorkers *= (1.0 - statData.unemployement);
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
     int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic))/(nbrWorkers - static_cast<float>(statData.outgoingTraffic)));
 
-    if (cityGates.empty())
+    if (cityGates.empty()) {
         return;
+    }
 
     for (int i=0 ; i<nbrOutWorkPositions ; ++i) {
         int posi = statData.getRandomCityGateByOutgoing();
@@ -190,15 +193,18 @@ AGCity::generatePopulation() {
     for (itt=households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
             nbrSingle++;
-            if (itt->adults.front().isWorking())
+            if (itt->adults.front().isWorking()) {
                 workingP++;
+            }
         }
         if (itt->getAdultNbr() == 2) {
             nbrCouple += 2;
-            if (itt->adults.front().isWorking())
+            if (itt->adults.front().isWorking()) {
                 workingP++;
-            if (itt->adults.back().isWorking())
+            }
+            if (itt->adults.back().isWorking()) {
                 workingP++;
+            }
         }
         nbrChild += itt->getPeopleNbr() - itt->getAdultNbr();
         nbrHH++;
@@ -264,8 +270,9 @@ AGCity::workAllocation() {
     bool shortage;
 
     for (it = households.begin() ; it != households.end() ; ++it) {
-        if (it->retiredHouseholders())
+        if (it->retiredHouseholders()) {
             continue;
+        }
         shortage = !it->allocateAdultsWork();
         if (shortage) {
             std::cout << "===> ERROR: Not enough work positions in the city for all working people..." << std::endl;
@@ -291,14 +298,17 @@ AGCity::workAllocation() {
     std::list<AGHousehold>::iterator itt;
     for (itt=households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
-            if (itt->adults.front().isWorking())
+            if (itt->adults.front().isWorking()) {
                 workingP++;
+            }
         }
         if (itt->getAdultNbr() == 2) {
-            if (itt->adults.front().isWorking())
+            if (itt->adults.front().isWorking()) {
                 workingP++;
-            if (itt->adults.back().isWorking())
+            }
+            if (itt->adults.back().isWorking()) {
                 workingP++;
+            }
         }
     }
     std::cout << "  |-> working people: " << peopleIncoming.size() + workingP << std::endl;
@@ -324,8 +334,9 @@ AGCity::carAllocation() {
     // nR = (R * Drivers - AlreadyCars) / (Drivers - AlreadyCars)
     SUMOReal newRate = (statData.carRate * statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT) / (statData.getPeopleOlderThan(statData.limitAgeChildren) - statData.hhFarFromPT);
     //std::cout << " - " << newRate << std::endl;
-    if (newRate < 0 || newRate >= 1)
+    if (newRate < 0 || newRate >= 1) {
         newRate = 0;
+    }
 
     nbrCars = 0;
     int nbrAdults = 0;
@@ -361,8 +372,9 @@ AGCity::getStreet(const std::string& edge) {
     //rest of the function
     std::vector<AGStreet>::iterator it = streets.begin();
     while (it != streets.end()) {
-        if (it->getName() == edge)
+        if (it->getName() == edge) {
             return *it;
+        }
         ++it;
     }
     std::cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << std::endl;
@@ -371,8 +383,9 @@ AGCity::getStreet(const std::string& edge) {
 
 const AGStreet&
 AGCity::getRandomStreet() {
-    if (streets.empty())
+    if (streets.empty()) {
         throw(std::runtime_error("No street found in this city"));
+    }
     return streets[RandHelper::rand(streets.size())];
 }
 

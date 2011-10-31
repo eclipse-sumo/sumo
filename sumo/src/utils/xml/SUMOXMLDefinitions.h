@@ -558,7 +558,7 @@ enum SumoXMLAttr {
     AGEN_ATTR_OUTGOING,
 
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
-    //  
+    //
     //@{
     /* whether a feature has been loaded,guessed,modified or approved */
     GNE_ATTR_MODIFICATION_STATUS,

@@ -57,10 +57,10 @@
 // method definitions
 // ===========================================================================
 RONet::RONet() throw()
-        : myVehicleTypes(),
-        myRoutesOutput(0), myRouteAlternativesOutput(0),
-        myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-        myHaveRestrictions(false) {}
+    : myVehicleTypes(),
+      myRoutesOutput(0), myRouteAlternativesOutput(0),
+      myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
+      myHaveRestrictions(false) {}
 
 
 RONet::~RONet() throw() {
@@ -73,7 +73,7 @@ RONet::~RONet() throw() {
 
 
 bool
-RONet::addEdge(ROEdge *edge) throw() {
+RONet::addEdge(ROEdge* edge) throw() {
     if (!myEdges.add(edge->getID(), edge)) {
         WRITE_ERROR("The edge '" + edge->getID() + "' occurs at least twice.");
         delete edge;
@@ -84,7 +84,7 @@ RONet::addEdge(ROEdge *edge) throw() {
 
 
 void
-RONet::addNode(RONode *node) throw() {
+RONet::addNode(RONode* node) throw() {
     if (!myNodes.add(node->getID(), node)) {
         WRITE_ERROR("The node '" + node->getID() + "' occurs at least twice.");
         delete node;
@@ -93,13 +93,13 @@ RONet::addNode(RONode *node) throw() {
 
 
 bool
-RONet::addRouteDef(RORouteDef *def) throw() {
+RONet::addRouteDef(RORouteDef* def) throw() {
     return myRoutes.add(def->getID(), def);
 }
 
 
 void
-RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOError) {
+RONet::openOutput(const std::string& filename, bool useAlternatives) throw(IOError) {
     myRoutesOutput = &OutputDevice::getDevice(filename);
     myRoutesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     if (useAlternatives) {
@@ -128,10 +128,10 @@ RONet::closeOutput() throw() {
 
 
 
-SUMOVTypeParameter *
-RONet::getVehicleTypeSecure(const std::string &id) throw() {
+SUMOVTypeParameter*
+RONet::getVehicleTypeSecure(const std::string& id) throw() {
     // check whether the type was already known
-    SUMOVTypeParameter *type = myVehicleTypes.get(id);
+    SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (type!=0) {
         return type;
     }
@@ -151,7 +151,7 @@ RONet::getVehicleTypeSecure(const std::string &id) throw() {
 
 
 bool
-RONet::addVehicleType(SUMOVTypeParameter *type) throw() {
+RONet::addVehicleType(SUMOVTypeParameter* type) throw() {
     if (!myVehicleTypes.add(type->id, type)) {
         WRITE_ERROR("The vehicle type '" + type->id + "' occurs at least twice.");
         delete type;
@@ -162,7 +162,7 @@ RONet::addVehicleType(SUMOVTypeParameter *type) throw() {
 
 
 bool
-RONet::addVehicle(const std::string &id, ROVehicle *veh) throw() {
+RONet::addVehicle(const std::string& id, ROVehicle* veh) throw() {
     if (myVehIDs.find(id)==myVehIDs.end()&&myVehicles.add(id, veh)) {
         myVehIDs.insert(id);
         myReadRouteNo++;
@@ -174,14 +174,14 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh) throw() {
 
 
 bool
-RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                    const ROVehicle * const veh) {
-    MsgHandler *mh = MsgHandler::getErrorInstance();
+RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+                    const ROVehicle* const veh) {
+    MsgHandler* mh = MsgHandler::getErrorInstance();
     std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
     if (options.getBool("ignore-errors")) {
         mh = MsgHandler::getWarningInstance();
     }
-    RORouteDef * const routeDef = veh->getRouteDefinition();
+    RORouteDef* const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
     if (routeDef==0) {
         mh->inform(noRouteMsg);
@@ -192,7 +192,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
         return true;
     }
     //
-    RORoute *current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
+    RORoute* current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current==0||current->size()==0) {
         delete current;
         mh->inform(noRouteMsg);
@@ -215,13 +215,13 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
 
 
 SUMOTime
-RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                 SUMOTime time) {
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while (myVehicles.size()!=0) {
         // get the next vehicle
-        const ROVehicle * const veh = myVehicles.getTopVehicle();
+        const ROVehicle* const veh = myVehicles.getTopVehicle();
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
         if (currentTime>time) {
@@ -264,7 +264,7 @@ RONet::furtherStored() {
 }
 
 
-ROEdge *
+ROEdge*
 RONet::getRandomSource() throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
@@ -276,7 +276,7 @@ RONet::getRandomSource() throw() {
 }
 
 
-const ROEdge *
+const ROEdge*
 RONet::getRandomSource() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
@@ -289,7 +289,7 @@ RONet::getRandomSource() const throw() {
 
 
 
-ROEdge *
+ROEdge*
 RONet::getRandomDestination() throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
@@ -301,7 +301,7 @@ RONet::getRandomDestination() throw() {
 }
 
 
-const ROEdge *
+const ROEdge*
 RONet::getRandomDestination() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
@@ -320,7 +320,7 @@ RONet::checkSourceAndDestinations() const {
     }
     const std::map<std::string, ROEdge*> &edges = myEdges.getMyMap();
     for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        ROEdge *e = (*i).second;
+        ROEdge* e = (*i).second;
         ROEdge::EdgeType type = e->getType();
         // !!! add something like "classified edges only" for using only sources or sinks
         if (type!=ROEdge::ET_SOURCE) {

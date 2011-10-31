@@ -50,8 +50,8 @@ class NBEdgeCont;
 // class definitions
 // ===========================================================================
 class NIVissimConnection
-        : public NIVissimBoundedClusterObject,
-            public NIVissimAbstractEdge {
+    : public NIVissimBoundedClusterObject,
+      public NIVissimAbstractEdge {
 public:
     enum Direction {
         NIVC_DIR_RIGHT,
@@ -59,14 +59,14 @@ public:
         NIVC_DIR_ALL
     };
 
-    NIVissimConnection(int id, const std::string &name,
-                       const NIVissimExtendedEdgePoint &from_def,
-                       const NIVissimExtendedEdgePoint &to_def,
-                       const PositionVector &geom,
+    NIVissimConnection(int id, const std::string& name,
+                       const NIVissimExtendedEdgePoint& from_def,
+                       const NIVissimExtendedEdgePoint& to_def,
+                       const PositionVector& geom,
                        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-                       const IntVector &assignedVehicles,
-                       const NIVissimClosedLanesVector &clv);
+                       const IntVector& assignedVehicles,
+                       const NIVissimClosedLanesVector& clv);
     virtual ~NIVissimConnection();
     void computeBounding();
     int getFromEdgeID() const;
@@ -76,9 +76,9 @@ public:
     Position getFromGeomPosition() const;
     Position getToGeomPosition() const;
     void setNodeCluster(int nodeid);
-    const Boundary &getBoundingBox() const;
+    const Boundary& getBoundingBox() const;
 
-    unsigned int buildEdgeConnections(NBEdgeCont &ec);
+    unsigned int buildEdgeConnections(NBEdgeCont& ec);
 
     void buildGeom();
 
@@ -91,28 +91,28 @@ public:
      * @param[in] The built from-edge
      * @param[in] The built to-edge
      */
-    void recheckLanes(const NBEdge * const fromEdge, const NBEdge * const toEdge) throw();
+    void recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) throw();
 
 public:
-    const IntVector &getFromLanes() const;
-    const IntVector &getToLanes() const;
+    const IntVector& getFromLanes() const;
+    const IntVector& getToLanes() const;
 
 
 
-    static bool dictionary(int id, const std::string &name,
-                           const NIVissimExtendedEdgePoint &from_def,
-                           const NIVissimExtendedEdgePoint &to_def,
-                           const PositionVector &geom,
+    static bool dictionary(int id, const std::string& name,
+                           const NIVissimExtendedEdgePoint& from_def,
+                           const NIVissimExtendedEdgePoint& to_def,
+                           const PositionVector& geom,
                            Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                            SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-                           const IntVector &assignedVehicles,
-                           const NIVissimClosedLanesVector &clv);
-    static bool dictionary(int id, NIVissimConnection *o);
-    static NIVissimConnection *dictionary(int id);
-    static IntVector getWithin(const AbstractPoly &poly);
+                           const IntVector& assignedVehicles,
+                           const NIVissimClosedLanesVector& clv);
+    static bool dictionary(int id, NIVissimConnection* o);
+    static NIVissimConnection* dictionary(int id);
+    static IntVector getWithin(const AbstractPoly& poly);
     static void buildNodeClusters();
     static IntVector getForEdge(int edgeid, bool omitNodeAssigned=true);
-    static void dict_buildNBEdgeConnections(NBEdgeCont &ec);
+    static void dict_buildNBEdgeConnections(NBEdgeCont& ec);
     static void dict_assignToEdges();
     static int getMaxID();
 

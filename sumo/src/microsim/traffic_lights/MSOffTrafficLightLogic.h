@@ -54,15 +54,15 @@ public:
      * @param[in] id This tls' id
      * The sub-id is always "off".
      */
-    MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                           const std::string &id);
+    MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                           const std::string& id);
 
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @param[in] edgeContinuations Information about edge predecessors/successors
      */
-    virtual void init(NLDetectorBuilder &nb);
+    virtual void init(NLDetectorBuilder& nb);
 
 
     /// @brief Destructor
@@ -76,7 +76,7 @@ public:
      * @param[in] logic The logic to use the information about controlled links/lanes from
      * @see MSTrafficLightLogic::adaptLinkInformationFrom
      */
-    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+    void adaptLinkInformationFrom(const MSTrafficLightLogic& logic);
     /// @}
 
 
@@ -111,7 +111,7 @@ public:
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases &getPhases() const;
+    const Phases& getPhases() const;
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
@@ -119,7 +119,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition &getPhase(unsigned int givenstep) const;
+    const MSPhaseDefinition& getPhase(unsigned int givenstep) const;
     /// @}
 
 
@@ -138,7 +138,7 @@ public:
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition &getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const;
     /// @}
 
 
@@ -181,7 +181,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
         UNUSED_PARAMETER(tlcontrol);
         UNUSED_PARAMETER(simStep);
         UNUSED_PARAMETER(step);

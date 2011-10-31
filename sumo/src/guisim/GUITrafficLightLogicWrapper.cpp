@@ -79,9 +79,9 @@ FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, G
  * GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
-    GUIMainWindow &app, GUISUMOAbstractView &parent,
-    GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent,
+    GUIGlObject& o)
+    : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() throw() {}
@@ -129,23 +129,23 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-    MSTLLogicControl &control, MSTrafficLightLogic &tll) throw() :
-        GUIGlObject(GLO_TLLOGIC, tll.getID()),
-        myTLLogicControl(control), myTLLogic(tll) {}
+    MSTLLogicControl& control, MSTrafficLightLogic& tll) throw() :
+    GUIGlObject(GLO_TLLOGIC, tll.getID()),
+    myTLLogicControl(control), myTLLogic(tll) {}
 
 
 GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent) throw() {
+GUIGLObjectPopupMenu*
+GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
+        GUISUMOAbstractView& parent) throw() {
     myApp = &app;
-    GUIGLObjectPopupMenu *ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
+    const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());
     std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
     if (logics.size()>1) {
         std::vector<MSTrafficLightLogic*>::const_iterator i;
@@ -172,7 +172,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
 
 void
 GUITrafficLightLogicWrapper::begin2TrackPhases() {
-    GUITLLogicPhasesTrackerWindow *window =
+    GUITLLogicPhasesTrackerWindow* window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
                                           new FuncBinding_StringParam<MSTLLogicControl, std::pair<SUMOTime, MSPhaseDefinition> >
                                           (&MSNet::getInstance()->getTLSControl(), &MSTLLogicControl::getPhaseDef, myTLLogic.getID()));
@@ -183,7 +183,7 @@ GUITrafficLightLogicWrapper::begin2TrackPhases() {
 
 void
 GUITrafficLightLogicWrapper::showPhases() {
-    GUITLLogicPhasesTrackerWindow *window =
+    GUITLLogicPhasesTrackerWindow* window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
                                           static_cast<MSSimpleTrafficLightLogic&>(myTLLogic).getPhases());
     window->setBeginTime(0);
@@ -192,9 +192,9 @@ GUITrafficLightLogicWrapper::showPhases() {
 }
 
 
-GUIParameterTableWindow *
-GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &) throw() {
+GUIParameterTableWindow*
+GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow&,
+        GUISUMOAbstractView&) throw() {
     return 0;
 }
 
@@ -202,9 +202,9 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const throw() {
     Boundary ret;
-    const MSTrafficLightLogic::LaneVectorVector &lanes = myTLLogic.getLanes();
+    const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLanes();
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-        const MSTrafficLightLogic::LaneVector &lanes2 = (*i);
+        const MSTrafficLightLogic::LaneVector& lanes2 = (*i);
         for (MSTrafficLightLogic::LaneVector::const_iterator j=lanes2.begin(); j!=lanes2.end(); ++j) {
             ret.add((*j)->getShape()[-1]);
         }
@@ -218,10 +218,10 @@ void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
     if (to==-1) {
         myTLLogicControl.switchTo(myTLLogic.getID(), "off");
-        MSTrafficLightLogic *tll = myTLLogicControl.getActive(myTLLogic.getID());
+        MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
         GUINet::getGUIInstance()->createTLWrapper(tll);
     } else {
-        const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
+        const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());
         std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getProgramID());
     }
@@ -229,7 +229,7 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
 
 
 int
-GUITrafficLightLogicWrapper::getLinkIndex(const MSLink * const link) const {
+GUITrafficLightLogicWrapper::getLinkIndex(const MSLink* const link) const {
     return myTLLogic.getLinkIndex(link);
 }
 
@@ -240,15 +240,15 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
         if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic)) {
             return;
         };
-        const std::string &curState = myTLLogic.getCurrentPhaseDef().getState();
+        const std::string& curState = myTLLogic.getCurrentPhaseDef().getState();
         if (curState.find_first_of("gG") == std::string::npos) {
             // no link is 'green' at the moment. find those that turn green next
-            const MSTrafficLightLogic::Phases &phases = myTLLogic.getPhases();
+            const MSTrafficLightLogic::Phases& phases = myTLLogic.getPhases();
             unsigned int curPhaseIdx = myTLLogic.getCurrentPhaseIndex();
             unsigned int phaseIdx = (curPhaseIdx + 1) % phases.size();
             std::vector<unsigned int> nextGreen;
             while (phaseIdx != curPhaseIdx) {
-                const std::string &state = phases[phaseIdx]->getState();
+                const std::string& state = phases[phaseIdx]->getState();
                 for (unsigned int linkIdx = 0; linkIdx < state.size(); linkIdx++) {
                     if ((LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MINOR ||
                             (LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MAJOR) {
@@ -262,7 +262,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
             }
             // highlight nextGreen links
             for (std::vector<unsigned int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
-                const MSTrafficLightLogic::LaneVector &lanes = myTLLogic.getLanesAt(*it_idx);
+                const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
                     glColor3d(0,1,0);

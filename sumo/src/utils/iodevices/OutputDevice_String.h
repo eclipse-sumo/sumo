@@ -67,7 +67,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream &getOStream() throw();
+    std::ostream& getOStream() throw();
     /// @}
 
 

@@ -52,8 +52,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
     /**
      * Converts a cartesian position to the closest road map position
@@ -71,18 +71,18 @@ public:
      */
     static const MSLane* getLaneChecking(std::string roadID, int laneIndex, SUMOReal pos);
 
-    static bool commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                          tcpip::Storage &outputStorage, int commandId);
+    static bool commandPositionConversion(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                                          tcpip::Storage& outputStorage, int commandId);
 
-    static bool commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                                       tcpip::Storage &outputStorage, int commandId);
+    static bool commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                                       tcpip::Storage& outputStorage, int commandId);
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_Simulation(const TraCIServerAPI_Simulation &s);
+    TraCIServerAPI_Simulation(const TraCIServerAPI_Simulation& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_Simulation &operator=(const TraCIServerAPI_Simulation &s);
+    TraCIServerAPI_Simulation& operator=(const TraCIServerAPI_Simulation& s);
 
 
 };

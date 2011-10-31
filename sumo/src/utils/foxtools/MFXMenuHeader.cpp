@@ -33,11 +33,11 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-MFXMenuHeader::MFXMenuHeader(FXComposite* p, FXFont *fnt,
+MFXMenuHeader::MFXMenuHeader(FXComposite* p, FXFont* fnt,
                              const FXString& text,
                              FXIcon* ic, FXObject* tgt,
                              FXSelector sel,FXuint opts)
-        : FXMenuCommand(p, text, ic, tgt, sel, opts) {
+    : FXMenuCommand(p, text, ic, tgt, sel, opts) {
     setFont(fnt);
 }
 

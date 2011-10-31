@@ -49,16 +49,16 @@ public:
     NIVissimBoundedClusterObject();
     virtual ~NIVissimBoundedClusterObject();
     virtual void computeBounding() = 0;
-    bool crosses(const AbstractPoly &poly, SUMOReal offset=0) const;
+    bool crosses(const AbstractPoly& poly, SUMOReal offset=0) const;
     void inCluster(int id);
     bool clustered() const;
-    const Boundary &getBoundary() const;
+    const Boundary& getBoundary() const;
 public:
     static void closeLoading();
 protected:
     typedef std::set<NIVissimBoundedClusterObject*> ContType;
     static ContType myDict;
-    Boundary *myBoundary;
+    Boundary* myBoundary;
     int myClusterID;
 };
 

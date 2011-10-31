@@ -64,15 +64,15 @@ public:
      *
      * @todo Are costs/prob really mandatory?
      */
-    RORoute(const std::string &id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route, const RGBColor * const color) throw();
+    RORoute(const std::string& id, SUMOReal costs, SUMOReal prob,
+            const std::vector<const ROEdge*> &route, const RGBColor* const color) throw();
 
 
     /** @brief Copy constructor
      *
      * @param[in] src The route to copy
      */
-    RORoute(const RORoute &src) throw();
+    RORoute(const RORoute& src) throw();
 
 
     /// @brief Destructor
@@ -84,14 +84,14 @@ public:
      * @param[in] edge The edge to add
      * @todo What for? Isn't the route already complete?
      */
-    void add(ROEdge *edge) throw();
+    void add(ROEdge* edge) throw();
 
 
     /** @brief Returns the first edge in the route
      *
      * @return The route's first edge
      */
-    const ROEdge *getFirst() const throw() {
+    const ROEdge* getFirst() const throw() {
         return myRoute[0];
     }
 
@@ -100,7 +100,7 @@ public:
      *
      * @return The route's last edge
      */
-    const ROEdge *getLast() const throw() {
+    const ROEdge* getLast() const throw() {
         return myRoute.back();
     }
 
@@ -169,8 +169,8 @@ public:
      */
     void recheckForLoops() throw();
 
-    OutputDevice &
-    writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
+    OutputDevice&
+    writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
 
 
 private:
@@ -184,11 +184,11 @@ private:
     std::vector<const ROEdge*> myRoute;
 
     /// @brief The color of the route
-    const RGBColor *myColor;
+    const RGBColor* myColor;
 
 private:
     /// @brief Invalidated assignment operator
-    RORoute &operator=(const RORoute &src);
+    RORoute& operator=(const RORoute& src);
 
 };
 

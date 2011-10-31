@@ -43,9 +43,9 @@
 // member method definitions
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a)
-        : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
-        myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
-        myRunAtBegin(false), myAmGaming(false), myListInternal(false) {
+    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
+      myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
+      myRunAtBegin(false), myAmGaming(false), myListInternal(false) {
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
@@ -70,13 +70,13 @@ GUIMainWindow::~GUIMainWindow() {
 
 
 void
-GUIMainWindow::addChild(FXMDIChild *child, bool /*updateOnSimStep !!!*/) {
+GUIMainWindow::addChild(FXMDIChild* child, bool /*updateOnSimStep !!!*/) {
     mySubWindows.push_back(child);
 }
 
 
 void
-GUIMainWindow::removeChild(FXMDIChild *child) {
+GUIMainWindow::removeChild(FXMDIChild* child) {
     std::vector<FXMDIChild*>::iterator i = std::find(mySubWindows.begin(), mySubWindows.end(), child);
     if (i!=mySubWindows.end()) {
         mySubWindows.erase(i);
@@ -85,7 +85,7 @@ GUIMainWindow::removeChild(FXMDIChild *child) {
 
 
 void
-GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/) {
+GUIMainWindow::addChild(FXMainWindow* child, bool /*updateOnSimStep !!!*/) {
     myTrackerLock.lock();
     myTrackerWindows.push_back(child);
     myTrackerLock.unlock();
@@ -93,7 +93,7 @@ GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/) {
 
 
 void
-GUIMainWindow::removeChild(FXMainWindow *child) {
+GUIMainWindow::removeChild(FXMainWindow* child) {
     myTrackerLock.lock();
     std::vector<FXMainWindow*>::iterator i = std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
     myTrackerWindows.erase(i);
@@ -111,8 +111,8 @@ GUIMainWindow::getViewIDs() const throw() {
 }
 
 
-FXMDIChild *
-GUIMainWindow::getViewByID(const std::string &id) const throw() {
+FXMDIChild*
+GUIMainWindow::getViewByID(const std::string& id) const throw() {
     for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
         if (std::string((*i)->getTitle().text())==id) {
             return *i;
@@ -122,7 +122,7 @@ GUIMainWindow::getViewByID(const std::string &id) const throw() {
 }
 
 
-FXFont *
+FXFont*
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
 }
@@ -141,19 +141,19 @@ GUIMainWindow::updateChildren() {
 }
 
 
-FXGLVisual *
+FXGLVisual*
 GUIMainWindow::getGLVisual() const {
     return myGLVisual;
 }
 
 
-FXLabel &
+FXLabel&
 GUIMainWindow::getCartesianLabel() {
     return *myCartesianCoordinate;
 }
 
 
-FXLabel &
+FXLabel&
 GUIMainWindow::getGeoLabel() {
     return *myGeoCoordinate;
 }

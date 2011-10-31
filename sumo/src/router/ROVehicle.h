@@ -64,8 +64,8 @@ public:
      *
      * @todo Why is the vehicle builder given?
      */
-    ROVehicle(const SUMOVehicleParameter &pars,
-              RORouteDef *route, SUMOVTypeParameter *type) throw();
+    ROVehicle(const SUMOVehicleParameter& pars,
+              RORouteDef* route, SUMOVTypeParameter* type) throw();
 
 
     /// @brief Destructor
@@ -98,7 +98,7 @@ public:
      *
      * @return The id of the vehicle
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myParameter.id;
     }
 
@@ -125,7 +125,7 @@ public:
      * @todo What is the given route definition?
      */
     void saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                      OutputDevice &os, OutputDevice * const altos, bool withExitTimes) const throw(IOError);
+                      OutputDevice& os, OutputDevice* const altos, bool withExitTimes) const throw(IOError);
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route
@@ -137,7 +137,7 @@ public:
      *
      * @todo Is this used? What for if everything is replaced?
      */
-    virtual ROVehicle *copy(const std::string &id, unsigned int depTime, RORouteDef *newRoute) throw();
+    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) throw();
 
 
 protected:
@@ -145,18 +145,18 @@ protected:
     SUMOVehicleParameter myParameter;
 
     /// @brief The type of the vehicle
-    SUMOVTypeParameter *myType;
+    SUMOVTypeParameter* myType;
 
     /// @brief The route the vehicle takes
-    RORouteDef *myRoute;
+    RORouteDef* myRoute;
 
 
 private:
     /// @brief Invalidated copy constructor
-    ROVehicle(const ROVehicle &src);
+    ROVehicle(const ROVehicle& src);
 
     /// @brief Invalidated assignment operator
-    ROVehicle &operator=(const ROVehicle &src);
+    ROVehicle& operator=(const ROVehicle& src);
 
 };
 

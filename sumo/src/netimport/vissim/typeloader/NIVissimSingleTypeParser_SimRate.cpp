@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_SimRate::NIVissimSingleTypeParser_SimRate(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_SimRate::NIVissimSingleTypeParser_SimRate(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_SimRate::~NIVissimSingleTypeParser_SimRate() {}
 
 
 bool
-NIVissimSingleTypeParser_SimRate::parse(std::istream &) {
+NIVissimSingleTypeParser_SimRate::parse(std::istream&) {
     return true;
 }
 

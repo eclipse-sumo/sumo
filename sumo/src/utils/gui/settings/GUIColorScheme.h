@@ -47,7 +47,7 @@ public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
                    const std::string& colName="", const bool isFixed=false)
-            : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
+        : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
         addColor(baseColor, 0, colName);
     }
 
@@ -128,7 +128,7 @@ public:
         }
     }
 
-    const std::string &getName() const {
+    const std::string& getName() const {
         return myName;
     }
 
@@ -160,7 +160,7 @@ public:
         myAllowNegativeValues = value;
     }
 
-    void save(OutputDevice &dev) const {
+    void save(OutputDevice& dev) const {
         dev << "            <colorScheme name=\"" << myName;
         if (!myIsFixed) {
             dev << "\" interpolated=\"" << myIsInterpolated;
@@ -185,7 +185,7 @@ public:
         dev << "            </colorScheme>\n";
     }
 
-    bool operator==(const GUIColorScheme &c) const {
+    bool operator==(const GUIColorScheme& c) const {
         return myName == c.myName && myColors == c.myColors && myThresholds == c.myThresholds && myIsInterpolated == c.myIsInterpolated;
     }
 

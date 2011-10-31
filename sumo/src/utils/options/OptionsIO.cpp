@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 void
-OptionsIO::getOptions(bool loadConfig, int argc, char **argv) throw(ProcessError) {
+OptionsIO::getOptions(bool loadConfig, int argc, char** argv) throw(ProcessError) {
     // preparse the options
     //  (maybe another configuration file was chosen)
     if (!OptionsParser::parse(argc, argv)) {
@@ -75,7 +75,7 @@ OptionsIO::getOptions(bool loadConfig, int argc, char **argv) throw(ProcessError
 
 void
 OptionsIO::loadConfiguration() throw(ProcessError) {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }
@@ -98,7 +98,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
         if (handler.errorOccured()) {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
-    } catch (const XMLException &e) {
+    } catch (const XMLException& e) {
         throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
     oc.relocateFiles(path);

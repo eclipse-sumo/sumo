@@ -53,7 +53,7 @@ class NLDetectorBuilder;
  * @brief An actuated (adaptive) traffic light logic
  */
 class MSActuatedTrafficLightLogic :
-            public MSSimpleTrafficLightLogic {
+    public MSSimpleTrafficLightLogic {
 public:
     /// @brief Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
@@ -68,9 +68,9 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameter The parameter to use for tls set-up
      */
-    MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                                const std::string &id, const std::string &programID,
-                                const MSSimpleTrafficLightLogic::Phases &phases,
+    MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                const std::string& id, const std::string& programID,
+                                const MSSimpleTrafficLightLogic::Phases& phases,
                                 unsigned int step, SUMOTime delay,
                                 const std::map<std::string, std::string> &parameter);
 
@@ -79,7 +79,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb);
+    void init(NLDetectorBuilder& nb);
 
 
     /// @brief Destructor

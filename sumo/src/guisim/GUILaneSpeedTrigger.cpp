@@ -101,23 +101,23 @@ FXIMPLEMENT(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger, GUIManipulator, GUIM
  * GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger - methods
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
-    GUIMainWindow &app,
-    const std::string &name, GUILaneSpeedTrigger &o,
+    GUIMainWindow& app,
+    const std::string& name, GUILaneSpeedTrigger& o,
     int /*xpos*/, int /*ypos*/)
-        : GUIManipulator(app, name, 0, 0),
-        myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
-        mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
-        myObject(&o) {
+    : GUIManipulator(app, name, 0, 0),
+      myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
+      mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
+      myObject(&o) {
     myChosenTarget.setTarget(this);
-    FXVerticalFrame *f1 =
+    FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
-    FXGroupBox *gp = new FXGroupBox(f1, "Change Speed",
+    FXGroupBox* gp = new FXGroupBox(f1, "Change Speed",
                                     GROUPBOX_TITLE_LEFT|FRAME_RIDGE,
                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
         // default
-        FXHorizontalFrame *gf1 =
+        FXHorizontalFrame* gf1 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION+0,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
@@ -125,7 +125,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     }
     {
         // loaded
-        FXHorizontalFrame *gf0 =
+        FXHorizontalFrame* gf0 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf0, "Loaded", &myChosenTarget, FXDataTarget::ID_OPTION+1,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
@@ -133,7 +133,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     }
     {
         // predefined
-        FXHorizontalFrame *gf2 =
+        FXHorizontalFrame* gf2 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf2, "Predefined: ", &myChosenTarget, FXDataTarget::ID_OPTION+2,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
@@ -155,7 +155,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     }
     {
         // free
-        FXHorizontalFrame *gf12 =
+        FXHorizontalFrame* gf12 =
             new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
         new FXRadioButton(gf12, "Free Entry: ", &myChosenTarget, FXDataTarget::ID_OPTION+3,
                           ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
@@ -195,7 +195,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelecto
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject *sender,FXSelector,void*ptr) {
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myChosenValue!=3 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -214,7 +214,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*,FXSelector
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXSelector,void*ptr) {
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myChosenValue!=2 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -258,9 +258,9 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSe
  * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
-    GUIMainWindow &app, GUISUMOAbstractView &parent,
-    GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent,
+    GUIGlObject& o)
+    : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() throw() {}
@@ -280,16 +280,16 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
  * GUILaneSpeedTrigger - methods
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(
-    const std::string &id,const std::vector<MSLane*> &destLanes,
-    const std::string &aXMLFilename) throw(ProcessError)
-        : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-        GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
-        myShowAsKMH(true), myLastValue(-1) {
+    const std::string& id,const std::vector<MSLane*> &destLanes,
+    const std::string& aXMLFilename) throw(ProcessError)
+    : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
+      GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
+      myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
     std::vector<MSLane*>::const_iterator i;
     for (i=destLanes.begin(); i!=destLanes.end(); ++i) {
-        const PositionVector &v = (*i)->getShape();
+        const PositionVector& v = (*i)->getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
         myBoundary.add(v.positionAtLengthPosition(0));
         Line l(v.getBegin(), v.getEnd());
@@ -303,10 +303,10 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
 GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
-                                  GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
+                                  GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret);
@@ -318,10 +318,10 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret =
+GUIParameterTableWindow*
+GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
+                                        GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 1);
     // add items
     ret->mkItem("speed [m/s]", true,
@@ -333,12 +333,12 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
     for (size_t i=0; i<myFGPositions.size(); ++i) {
-        const Position &pos = myFGPositions[i];
+        const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
         glScaled(s.addExaggeration, s.addExaggeration, 1);
@@ -407,10 +407,10 @@ GUILaneSpeedTrigger::getCenteringBoundary() const throw() {
 }
 
 
-GUIManipulator *
-GUILaneSpeedTrigger::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &) {
-    GUIManip_LaneSpeedTrigger *gui =
+GUIManipulator*
+GUILaneSpeedTrigger::openManipulator(GUIMainWindow& app,
+                                     GUISUMOAbstractView&) {
+    GUIManip_LaneSpeedTrigger* gui =
         new GUIManip_LaneSpeedTrigger(app, getFullName(), *this, 0, 0);
     gui->create();
     gui->show();

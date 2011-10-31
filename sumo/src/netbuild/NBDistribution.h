@@ -43,10 +43,10 @@
  */
 class NBDistribution {
 public:
-    static bool dictionary(const std::string &type, const std::string &id,
-                           Distribution *d);
-    static Distribution *dictionary(const std::string &type,
-                                    const std::string &id);
+    static bool dictionary(const std::string& type, const std::string& id,
+                           Distribution* d);
+    static Distribution* dictionary(const std::string& type,
+                                    const std::string& id);
     static void clear();
 private:
     typedef std::map<std::string, Distribution*> DistDict;

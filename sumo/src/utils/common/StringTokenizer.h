@@ -129,11 +129,11 @@ public:
 private:
     /** splits the first string at all occurences of the second. If the third parameter is true
         split at all chars given in the second */
-    void prepare(const std::string &tosplit, const std::string &token,
+    void prepare(const std::string& tosplit, const std::string& token,
                  bool splitAtAllChars);
 
     /** splits the first string at all occurences of whitechars */
-    void prepareWhitechar(const std::string &tosplit);
+    void prepareWhitechar(const std::string& tosplit);
 
 private:
     /** a list of positions/lengths */

@@ -51,16 +51,16 @@
 // method definitions
 // ===========================================================================
 ShapeContainer::ShapeContainer() throw()
-        : myMinLayer(100), myMaxLayer(-100) {}
+    : myMinLayer(100), myMaxLayer(-100) {}
 
 
 ShapeContainer::~ShapeContainer() throw() {}
 
 
 bool
-ShapeContainer::addPoI(const std::string &name, int layer, const std::string &type, const RGBColor &c,
-                       const Position &pos) throw() {
-    PointOfInterest *p = new PointOfInterest(name, type, pos, c);
+ShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+                       const Position& pos) throw() {
+    PointOfInterest* p = new PointOfInterest(name, type, pos, c);
     if (!add(layer, p)) {
         delete p;
         return false;
@@ -70,9 +70,9 @@ ShapeContainer::addPoI(const std::string &name, int layer, const std::string &ty
 
 
 bool
-ShapeContainer::addPolygon(const std::string &name, int layer, const std::string &type, const RGBColor &c,
-                           bool filled, const PositionVector &shape) throw() {
-    Polygon *p = new Polygon(name, type, c, shape, filled);
+ShapeContainer::addPolygon(const std::string& name, int layer, const std::string& type, const RGBColor& c,
+                           bool filled, const PositionVector& shape) throw() {
+    Polygon* p = new Polygon(name, type, c, shape, filled);
     if (!add(layer, p)) {
         delete p;
         return false;
@@ -83,7 +83,7 @@ ShapeContainer::addPolygon(const std::string &name, int layer, const std::string
 
 
 bool
-ShapeContainer::removePolygon(int layer, const std::string &id) throw() {
+ShapeContainer::removePolygon(int layer, const std::string& id) throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         return false;
     }
@@ -92,7 +92,7 @@ ShapeContainer::removePolygon(int layer, const std::string &id) throw() {
 
 
 bool
-ShapeContainer::removePoI(int layer, const std::string &id) throw() {
+ShapeContainer::removePoI(int layer, const std::string& id) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         return false;
     }
@@ -102,9 +102,9 @@ ShapeContainer::removePoI(int layer, const std::string &id) throw() {
 
 
 void
-ShapeContainer::movePoI(int layer, const std::string &id, const Position &pos) throw() {
+ShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) throw() {
     if (myPOILayers.find(layer)!=myPOILayers.end()) {
-        PointOfInterest *p = myPOILayers.find(layer)->second.get(id);
+        PointOfInterest* p = myPOILayers.find(layer)->second.get(id);
         if (p!=0) {
             static_cast<Position*>(p)->set(pos);
         }
@@ -113,9 +113,9 @@ ShapeContainer::movePoI(int layer, const std::string &id, const Position &pos) t
 
 
 void
-ShapeContainer::reshapePolygon(int layer, const std::string &id, const PositionVector &shape) throw() {
+ShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) throw() {
     if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
-        Polygon *p = myPolygonLayers.find(layer)->second.get(id);
+        Polygon* p = myPolygonLayers.find(layer)->second.get(id);
         if (p!=0) {
             p->setShape(shape);
         }
@@ -148,7 +148,7 @@ ShapeContainer::getPOICont(int layer) const throw() {
 
 
 bool
-ShapeContainer::add(int layer, Polygon *p) throw() {
+ShapeContainer::add(int layer, Polygon* p) throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         myPolygonLayers[layer] = NamedObjectCont<Polygon*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -159,7 +159,7 @@ ShapeContainer::add(int layer, Polygon *p) throw() {
 
 
 bool
-ShapeContainer::add(int layer, PointOfInterest *p) throw() {
+ShapeContainer::add(int layer, PointOfInterest* p) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
         myMinLayer = MIN2(layer, myMinLayer);

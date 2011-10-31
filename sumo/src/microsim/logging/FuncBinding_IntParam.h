@@ -47,10 +47,10 @@ public:
 
     FuncBinding_IntParam(T* source, Operation operation,
                          size_t param)
-            :
-            mySource(source),
-            myOperation(operation),
-            myParam(param) {}
+        :
+        mySource(source),
+        myOperation(operation),
+        myParam(param) {}
 
     /// Destructor.
     ~FuncBinding_IntParam() {}

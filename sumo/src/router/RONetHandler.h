@@ -61,7 +61,7 @@ public:
      * @param[in] net The network instance to fill
      * @param[in] eb The abstract edge builder to use
      */
-    RONetHandler(RONet &net, ROAbstractEdgeBuilder &eb);
+    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb);
 
 
     /// @brief Destructor
@@ -80,7 +80,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 protected:
@@ -98,7 +98,7 @@ protected:
      * @todo The edge is "built" first, then the nodes are added; should be done while constructing, probably a legacy issue
      * @todo No exception?
      */
-    void parseEdge(const SUMOSAXAttributes &attrs);
+    void parseEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses and builds a lane
@@ -109,7 +109,7 @@ protected:
      * @param[in] attrs The attributes (of the "lane"-element) to parse
      * @todo No exception?
      */
-    virtual void parseLane(const SUMOSAXAttributes &attrs);
+    virtual void parseLane(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses a junction's position
@@ -120,7 +120,7 @@ protected:
      * @todo In fact, the junction should be built given its position.
      * @todo No exception?
      */
-    void parseJunction(const SUMOSAXAttributes &attrs);
+    void parseJunction(const SUMOSAXAttributes& attrs);
 
 
     /** @begin (deprecated) Begins parsing edges that are approached by an edge
@@ -133,7 +133,7 @@ protected:
      * @param[in] attrs The attributes (of the "succ"-element) to parse
      * @exception ProcessError If the edge given in cedge@edge is not known
      */
-    void parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void parseConnectingEdge(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @begin (deprecated) Parses an approached edge and lets the approaching know about the connection
@@ -146,14 +146,14 @@ protected:
      * @param[in] attrs The attributes (of the "succlane"-element) to parse
      * @todo No exception?
      */
-    void parseConnectedEdge(const SUMOSAXAttributes &attrs);
+    void parseConnectedEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a connection
      * Called on the occurence of a "connection" element
      * @param[in] attrs The attributes (of the "connection"-element) to parse
      */
-    void parseConnection(const SUMOSAXAttributes &attrs);
+    void parseConnection(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a district and creates a pseudo edge for it
@@ -165,7 +165,7 @@ protected:
      * @param[in] attrs The attributes (of the "district"-element) to parse
      * @exception ProcessError If an edge given in district@edges is not known
      */
-    void parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void parseDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @begin Parses a district edge and connects it to the district
@@ -179,36 +179,36 @@ protected:
      * @param[in] isSource whether a "dsource or a "dsink" was given
      * @todo No exception?
      */
-    void parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
+    void parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource);
 
     //@}
 
 
 protected:
     /// @brief The net to store the information into
-    RONet &myNet;
+    RONet& myNet;
 
     /// @brief The name of the edge/node that is currently processed
     std::string myCurrentName;
 
     /// @brief The currently built edge
-    ROEdge *myCurrentEdge;
+    ROEdge* myCurrentEdge;
 
     /** @brief An indicator whether the next edge shall be read (internal edges are not read by now) */
     bool myProcess;
 
     /// @brief The object used to build of edges of the desired type
-    ROAbstractEdgeBuilder &myEdgeBuilder;
+    ROAbstractEdgeBuilder& myEdgeBuilder;
 
     bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
 
 
 private:
     /// @brief Invalidated copy constructor
-    RONetHandler(const RONetHandler &src);
+    RONetHandler(const RONetHandler& src);
 
     /// @brief Invalidated assignment operator
-    RONetHandler &operator=(const RONetHandler &src);
+    RONetHandler& operator=(const RONetHandler& src);
 
 };
 

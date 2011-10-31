@@ -51,10 +51,10 @@ class OutputDevice;
  * @brief A complete route description containing all edges the driver will pass.
  */
 class RORouteDef_Complete :
-            public RORouteDef {
+    public RORouteDef {
 public:
     /// Constructor
-    RORouteDef_Complete(const std::string &id, const RGBColor * const color,
+    RORouteDef_Complete(const std::string& id, const RGBColor* const color,
                         const std::vector<const ROEdge*> &edges,
                         bool tryRepair) throw();
 
@@ -62,21 +62,21 @@ public:
     virtual ~RORouteDef_Complete() throw();
 
     /// Builds the route
-    RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
-                               const ROVehicle &veh) const;
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
+                               const ROVehicle& veh) const;
 
     /** @brief Adds an route alternative (see further comments)
     *
      * Here, as in most cases, the alternative is the route that was build
      * as last and will stay the only route known */
     void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                        const ROVehicle *const, RORoute *current, SUMOTime begin);
+                        const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
-    RORouteDef *copy(const std::string &id) const;
+    RORouteDef* copy(const std::string& id) const;
 
-    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-            OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
+    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+            OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
 
 protected:
     /// The list of edges the driver passes
@@ -90,10 +90,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    RORouteDef_Complete(const RORouteDef_Complete &src);
+    RORouteDef_Complete(const RORouteDef_Complete& src);
 
     /// @brief Invalidated assignment operator
-    RORouteDef_Complete &operator=(const RORouteDef_Complete &src);
+    RORouteDef_Complete& operator=(const RORouteDef_Complete& src);
 
 };
 

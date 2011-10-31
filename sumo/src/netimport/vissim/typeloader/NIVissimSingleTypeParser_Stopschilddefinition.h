@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Stopschilddefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Stopschilddefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Stopschilddefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Stopschilddefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

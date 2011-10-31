@@ -59,8 +59,8 @@ public:
      * @param[in] position The position of the junction
      * @param[in] shape The shape of the junction
      */
-    MSJunction(const std::string &id, const Position &position,
-               const PositionVector &shape) throw();
+    MSJunction(const std::string& id, const Position& position,
+               const PositionVector& shape) throw();
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
@@ -68,23 +68,23 @@ public:
 
 
     /** returns the junction's position */
-    const Position &getPosition() const;
+    const Position& getPosition() const;
 
     /// Returns the id of the junction
-    const std::string &getID() const;
+    const std::string& getID() const;
 
     /** @brief Returns this junction's shape
      * @return The shape of this junction
      */
-    const PositionVector &getShape() const throw() {
+    const PositionVector& getShape() const throw() {
         return myShape;
     }
 
-    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink *const /*srcLink*/) const throw() {
+    virtual const std::vector<MSLink*> &getFoeLinks(const MSLink* const /*srcLink*/) const throw() {
         return myEmptyLinks;
     }
 
-    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const /*srcLink*/) const throw() {
+    virtual const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const /*srcLink*/) const throw() {
         return myEmptyLanes;
     }
 

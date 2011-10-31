@@ -54,7 +54,7 @@ public:
      * @param[in] endTime The last time step for which values shall be read
      * @param[in] timeOffset The offset which shall be applied to the read times
      */
-    RODFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
+    RODFDetFlowLoader(const RODFDetectorCon& dets, RODFDetectorFlows& into,
                       SUMOTime startTime, SUMOTime endTime,
                       SUMOTime timeOffset, int timeScale) throw();
 
@@ -77,12 +77,12 @@ public:
      * @exception IOError Not yet implemented!
      * @exception ProcessError Thrown if a value could not be parsed properly or a needed value is missing
      */
-    void read(const std::string &file) throw(IOError, ProcessError);
+    void read(const std::string& file) throw(IOError, ProcessError);
 
 
 private:
     /// @brief The container for read detector values
-    RODFDetectorFlows &myStorage;
+    RODFDetectorFlows& myStorage;
 
     /// @brief The time offset to apply to read time values
     const SUMOTime myTimeOffset;
@@ -97,7 +97,7 @@ private:
     NamedColumnsParser myLineHandler;
 
     /// @brief Container holding known detectors
-    const RODFDetectorCon &myDetectorContainer;
+    const RODFDetectorCon& myDetectorContainer;
 
     /// @brief Whether a warning about overriding boundaries was already written
     bool myHaveWarnedAboutOverridingBoundaries;
@@ -108,10 +108,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    RODFDetFlowLoader(const RODFDetFlowLoader &src);
+    RODFDetFlowLoader(const RODFDetFlowLoader& src);
 
     /// @brief Invalidated assignment operator
-    RODFDetFlowLoader &operator=(const RODFDetFlowLoader &src);
+    RODFDetFlowLoader& operator=(const RODFDetFlowLoader& src);
 
 };
 

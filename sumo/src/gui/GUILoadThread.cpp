@@ -69,10 +69,10 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
-                             MFXEventQue &eq, FXEX::FXThreadEvent &ev)
-        : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
-        myEventThrow(ev) {
+GUILoadThread::GUILoadThread(MFXInterThreadEventClient* mw,
+                             MFXEventQue& eq, FXEX::FXThreadEvent& ev)
+    : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
+      myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_WARNING);
@@ -89,12 +89,12 @@ GUILoadThread::~GUILoadThread() {
 
 FXint
 GUILoadThread::run() {
-    GUINet *net = 0;
+    GUINet* net = 0;
     int simStartTime = 0;
     int simEndTime = 0;
 
     // remove old options
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.clear();
     // within gui-based applications, nothing is reported to the console
     MsgHandler::getErrorInstance()->report2cout(false);
@@ -137,7 +137,7 @@ GUILoadThread::run() {
 #ifdef HAVE_MESOSIM
     }
 #endif
-    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder();
+    GUIEdgeControlBuilder* eb = new GUIEdgeControlBuilder();
     GUIDetectorBuilder db(*net);
     NLJunctionControlBuilder jb(*net, db);
     GUITriggerBuilder tb;
@@ -155,7 +155,7 @@ GUILoadThread::run() {
             simStartTime = string2time(oc.getString("begin"));
             simEndTime = string2time(oc.getString("end"));
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }
@@ -163,7 +163,7 @@ GUILoadThread::run() {
         delete net;
         net = 0;
 #ifndef _DEBUG
-    } catch (std::exception &e) {
+    } catch (std::exception& e) {
         WRITE_ERROR(e.what());
         delete net;
         net = 0;
@@ -180,7 +180,7 @@ GUILoadThread::run() {
 
 
 void
-GUILoadThread::submitEndAndCleanup(GUINet *net,
+GUILoadThread::submitEndAndCleanup(GUINet* net,
                                    SUMOTime simStartTime,
                                    SUMOTime simEndTime) {
     // remove message callbacks
@@ -188,7 +188,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile,
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile,
             OptionsCont::getOptions().getString("gui-settings-file"));
     myEventQue.add(e);
     myEventThrow.signal();
@@ -198,7 +198,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
 bool
 GUILoadThread::initOptions() {
     try {
-        OptionsCont &oc = OptionsCont::getOptions();
+        OptionsCont& oc = OptionsCont::getOptions();
         oc.clear();
         MSFrame::fillOptions();
         if (myLoadNet) {
@@ -208,7 +208,7 @@ GUILoadThread::initOptions() {
         }
         OptionsIO::getOptions(true, 1, 0);
         return true;
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }
@@ -219,7 +219,7 @@ GUILoadThread::initOptions() {
 
 
 void
-GUILoadThread::load(const std::string &file, bool isNet) {
+GUILoadThread::load(const std::string& file, bool isNet) {
     myFile = file;
     myLoadNet = isNet;
     start();
@@ -227,14 +227,14 @@ GUILoadThread::load(const std::string &file, bool isNet) {
 
 
 void
-GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg) {
-    GUIEvent *e = new GUIEvent_Message(type, msg);
+GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
+    GUIEvent* e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
 }
 
 
-const std::string &
+const std::string&
 GUILoadThread::getFileName() const {
     return myFile;
 }

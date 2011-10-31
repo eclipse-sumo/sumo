@@ -75,13 +75,13 @@
 // member method definitions
 // ===========================================================================
 GUIViewTraffic::GUIViewTraffic(
-    FXComposite *p,
-    GUIMainWindow &app,
-    GUISUMOViewParent *parent,
-    GUINet &net, FXGLVisual *glVis,
-    FXGLCanvas *share) :
-        GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-        myTrackedID(-1) {}
+    FXComposite* p,
+    GUIMainWindow& app,
+    GUISUMOViewParent* parent,
+    GUINet& net, FXGLVisual* glVis,
+    FXGLCanvas* share) :
+    GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
+    myTrackedID(-1) {}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
@@ -89,7 +89,7 @@ GUIViewTraffic::~GUIViewTraffic() {
 
 
 void
-GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v) {
+GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
     // build coloring tools
     {
         const std::vector<std::string> &names = gSchemeStorage.getNames();
@@ -135,7 +135,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v) {
 
 
 bool
-GUIViewTraffic::setColorScheme(const std::string &name) {
+GUIViewTraffic::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
@@ -237,18 +237,18 @@ GUIViewTraffic::showViewschemeEditor() {
 
 void
 GUIViewTraffic::onGamingClick(Position pos) {
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*> &logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic *minTll = 0;
+    MSTrafficLightLogic* minTll = 0;
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
-        MSTrafficLightLogic *tll = (*i);
+        MSTrafficLightLogic* tll = (*i);
         if (tlsControl.isActive(tll)) {
             // get the links
-            const MSTrafficLightLogic::LaneVector &lanes = tll->getLanesAt(0);
+            const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
             if (lanes.size()>0) {
-                const Position &endPos = lanes[0]->getShape().getEnd();
+                const Position& endPos = lanes[0]->getShape().getEnd();
                 if (endPos.distanceTo(pos) < minDist) {
                     minDist = endPos.distanceTo(pos);
                     minTll = tll;
@@ -257,10 +257,10 @@ GUIViewTraffic::onGamingClick(Position pos) {
         }
     }
     if (minTll != 0) {
-        const MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(minTll->getID());
+        const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
-            MSSimpleTrafficLightLogic *l = (MSSimpleTrafficLightLogic*) logics[0];
+            MSSimpleTrafficLightLogic* l = (MSSimpleTrafficLightLogic*) logics[0];
             for (unsigned int i = 0; i < logics.size()-1; i++) {
                 if (minTll->getProgramID() == logics[i]->getProgramID()) {
                     l = (MSSimpleTrafficLightLogic*) logics[i+1];

@@ -52,7 +52,7 @@ public:
      * @param[in] forDuarouter whether duarouter-specific options shall be added
      * @todo Why is the container given? Everywhere else not...
      */
-    static void fillOptions(OptionsCont &oc, bool forDuarouter);
+    static void fillOptions(OptionsCont& oc, bool forDuarouter);
 
 
     /** @brief Checks whether options are valid
@@ -66,7 +66,7 @@ public:
      * @todo Why is the container given? Everywhere else not...
      * @todo probably, more things should be checked...
      */
-    static bool checkOptions(OptionsCont &oc);
+    static bool checkOptions(OptionsCont& oc);
 
 };
 

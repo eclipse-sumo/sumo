@@ -51,19 +51,19 @@
 // method definitions
 // ===========================================================================
 NGNode::NGNode() throw()
-        : xID(-1), yID(-1), myID(""), myAmCenter(false) {}
+    : xID(-1), yID(-1), myID(""), myAmCenter(false) {}
 
 
-NGNode::NGNode(const std::string &id) throw()
-        : xID(-1), yID(-1), myID(id), myAmCenter(false) {}
+NGNode::NGNode(const std::string& id) throw()
+    : xID(-1), yID(-1), myID(id), myAmCenter(false) {}
 
 
-NGNode::NGNode(const std::string &id, int xIDa, int yIDa) throw()
-        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false) {}
+NGNode::NGNode(const std::string& id, int xIDa, int yIDa) throw()
+    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false) {}
 
 
-NGNode::NGNode(const std::string &id, int xIDa, int yIDa, bool amCenter) throw()
-        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter) {}
+NGNode::NGNode(const std::string& id, int xIDa, int yIDa, bool amCenter) throw()
+    : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter) {}
 
 
 NGNode::~NGNode() throw() {
@@ -75,15 +75,15 @@ NGNode::~NGNode() throw() {
 }
 
 
-NBNode *
-NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
+NBNode*
+NGNode::buildNBNode(NBNetBuilder& nb) const throw(ProcessError) {
     Position pos(myPosition);
     GeoConvHelper::getDefaultInstance().x2cartesian(pos);
     // the center will have no logic!
     if (myAmCenter) {
         return new NBNode(myID, pos, NODETYPE_NOJUNCTION);
     }
-    NBNode *node = 0;
+    NBNode* node = 0;
     std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ?
                         OptionsCont::getOptions().getString("default-junction-type") : "";
 
@@ -93,7 +93,7 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
 
         // check whether it is a traffic light junction
         if (type == NODETYPE_TRAFFIC_LIGHT) {
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, node);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(myID, node);
             if (!nb.getTLLogicCont().insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
@@ -110,19 +110,19 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
 
 
 void
-NGNode::addLink(NGEdge *link) throw() {
+NGNode::addLink(NGEdge* link) throw() {
     LinkList.push_back(link);
 }
 
 
 void
-NGNode::removeLink(NGEdge *link) throw() {
+NGNode::removeLink(NGEdge* link) throw() {
     LinkList.remove(link);
 }
 
 
 bool
-NGNode::connected(NGNode *node) const throw() {
+NGNode::connected(NGNode* node) const throw() {
     for (NGEdgeList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
         if (find(node->LinkList.begin(), node->LinkList.end(), *i)!=node->LinkList.end()) {
             return true;

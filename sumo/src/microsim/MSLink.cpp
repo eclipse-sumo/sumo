@@ -49,18 +49,18 @@ SUMOTime MSLink::myLookaheadTime = TIME2STEPS(3);
 MSLink::MSLink(MSLane* succLane,
                LinkDirection dir, LinkState state,
                SUMOReal length) throw()
-        :
-        myLane(succLane),
-        myRequestIdx(0), myRespondIdx(0),
-        myState(state), myDirection(dir),  myLength(length) {}
+    :
+    myLane(succLane),
+    myRequestIdx(0), myRespondIdx(0),
+    myState(state), myDirection(dir),  myLength(length) {}
 #else
-MSLink::MSLink(MSLane* succLane, MSLane *via,
+MSLink::MSLink(MSLane* succLane, MSLane* via,
                LinkDirection dir, LinkState state, SUMOReal length) throw()
-        :
-        myLane(succLane),
-        myRequestIdx(0), myRespondIdx(0),
-        myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via) {}
+    :
+    myLane(succLane),
+    myRequestIdx(0), myRespondIdx(0),
+    myState(state), myDirection(dir), myLength(length),
+    myJunctionInlane(via) {}
 #endif
 
 
@@ -81,7 +81,7 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(SUMOVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
+MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(approaching));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -93,7 +93,7 @@ MSLink::setApproaching(SUMOVehicle *approaching, SUMOTime arrivalTime, SUMOReal 
 
 
 void
-MSLink::addBlockedLink(MSLink *link) throw() {
+MSLink::addBlockedLink(MSLink* link) throw() {
     myBlockedFoeLinks.insert(link);
 }
 
@@ -111,7 +111,7 @@ MSLink::willHaveBlockedFoe() const throw() {
 
 
 void
-MSLink::removeApproaching(SUMOVehicle *veh) {
+MSLink::removeApproaching(SUMOVehicle* veh) {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(veh));
     if (i!=myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -196,7 +196,7 @@ MSLink::setTLState(LinkState state, SUMOTime /*t*/) throw() {
 }
 
 
-MSLane *
+MSLane*
 MSLink::getLane() const throw() {
     return myLane;
 }

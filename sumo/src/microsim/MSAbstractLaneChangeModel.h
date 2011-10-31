@@ -77,11 +77,11 @@ enum LaneChangeAction {
     LCA_BLOCKED_BY_FOLLOWER = LCA_BLOCKED_BY_LEFT_FOLLOWER | LCA_BLOCKED_BY_RIGHT_FOLLOWER,
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT
 
-    // The vehicle is blocked being overlapping
-    // This is currently not used, but I'll keep it while working on this, as
-    //  overlapping may be interested, but surely divided by leader/follower
-    // LCA_OVERLAPPING = 64
-    /// @}
+                  // The vehicle is blocked being overlapping
+                  // This is currently not used, but I'll keep it while working on this, as
+                  //  overlapping may be interested, but surely divided by leader/follower
+                  // LCA_OVERLAPPING = 64
+                  /// @}
 
 };
 
@@ -108,9 +108,9 @@ public:
          * @param[in] neighLead The leader on the lane the vehicle want to change to
          * @param[in] neighFollow The follower on the lane the vehicle want to change to
          */
-        MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead, MSVehicle *neighFollow) throw()
-                : myLeader(leader), myNeighLeader(neighLead),
-                myNeighFollower(neighFollow) { }
+        MSLCMessager(MSVehicle* leader,  MSVehicle* neighLead, MSVehicle* neighFollow) throw()
+            : myLeader(leader), myNeighLeader(neighLead),
+              myNeighFollower(neighFollow) { }
 
 
         /// @brief Destructor
@@ -122,7 +122,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void *informLeader(void *info, MSVehicle *sender) throw() {
+        void* informLeader(void* info, MSVehicle* sender) throw() {
             assert(myLeader!=0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
@@ -133,7 +133,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void *informNeighLeader(void *info, MSVehicle *sender) throw() {
+        void* informNeighLeader(void* info, MSVehicle* sender) throw() {
             assert(myNeighLeader!=0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
@@ -144,7 +144,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void *informNeighFollower(void *info, MSVehicle *sender) throw() {
+        void* informNeighFollower(void* info, MSVehicle* sender) throw() {
             assert(myNeighFollower!=0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
@@ -152,11 +152,11 @@ public:
 
     private:
         /// @brief The leader on the informed vehicle's lane
-        MSVehicle *myLeader;
+        MSVehicle* myLeader;
         /// @brief The leader on the lane the vehicle want to change to
-        MSVehicle *myNeighLeader;
+        MSVehicle* myNeighLeader;
         /// @brief The follower on the lane the vehicle want to change to
-        MSVehicle *myNeighFollower;
+        MSVehicle* myNeighFollower;
 
     };
 
@@ -165,12 +165,12 @@ public:
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
      */
-    MSAbstractLaneChangeModel(MSVehicle &v) throw()
-            : myVehicle(v), myOwnState(0),
+    MSAbstractLaneChangeModel(MSVehicle& v) throw()
+        : myVehicle(v), myOwnState(0),
 #ifndef NO_TRACI
-            myChangeRequest(MSVehicle::REQUEST_NONE),
+          myChangeRequest(MSVehicle::REQUEST_NONE),
 #endif
-            myCarFollowModel(v.getCarFollowModel()) {
+          myCarFollowModel(v.getCarFollowModel()) {
     }
 
 
@@ -193,27 +193,27 @@ public:
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
-        MSLCMessager &msgPass, int blocked,
+        MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-        const MSLane &neighLane,
+        const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        MSVehicle **lastBlocked) = 0;
+        MSVehicle** lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
-        MSLCMessager &msgPass, int blocked,
+        MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-        const MSLane &neighLane,
+        const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        MSVehicle **lastBlocked) = 0;
+        MSVehicle** lastBlocked) = 0;
 
-    virtual void *inform(void *info, MSVehicle *sender) = 0;
+    virtual void* inform(void* info, MSVehicle* sender) = 0;
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *
@@ -227,7 +227,7 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
-                                const MSCFModel &cfModel) = 0;
+                                const MSCFModel& cfModel) = 0;
 
     virtual void changed() = 0;
 
@@ -256,7 +256,7 @@ public:
 #endif
 
 protected:
-    virtual bool congested(const MSVehicle * const neighLeader) {
+    virtual bool congested(const MSVehicle* const neighLeader) {
         if (neighLeader==0) {
             return false;
         }
@@ -273,7 +273,7 @@ protected:
         return false;
     }
 
-    virtual bool predInteraction(const MSVehicle * const leader) {
+    virtual bool predInteraction(const MSVehicle* const leader) {
         if (leader==0) {
             return false;
         }
@@ -289,7 +289,7 @@ protected:
 
 protected:
     /// @brief The vehicle this lane-changer belongs to
-    MSVehicle &myVehicle;
+    MSVehicle& myVehicle;
 
     /// @brief The current state of the vehicle
     int myOwnState;
@@ -300,7 +300,7 @@ protected:
 #endif
 
     /// @brief The vehicle's car following model
-    const MSCFModel &myCarFollowModel;
+    const MSCFModel& myCarFollowModel;
 
 };
 

@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 OptionsLoader::OptionsLoader()
-        : myError(false), myOptions(OptionsCont::getOptions()), myItem() {}
+    : myError(false), myOptions(OptionsCont::getOptions()), myItem() {}
 
 
 OptionsLoader::~OptionsLoader() {}
@@ -69,15 +69,15 @@ void OptionsLoader::startElement(const XMLCh* const name,
 }
 
 
-void OptionsLoader::setValue(const std::string &key,
-                             std::string &value) {
+void OptionsLoader::setValue(const std::string& key,
+                             std::string& value) {
     if (value.length()>0) {
         try {
             if (!setSecure(key, value)) {
                 WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             WRITE_ERROR(e.what());
             myError = true;
         }
@@ -92,8 +92,8 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 
 bool
-OptionsLoader::setSecure(const std::string &name,
-                         const std::string &value) const {
+OptionsLoader::setSecure(const std::string& name,
+                         const std::string& value) const {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;

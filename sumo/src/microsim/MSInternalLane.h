@@ -88,10 +88,10 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    MSInternalLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-                   unsigned int numericalID, const PositionVector &shape, SUMOReal width,
-                   const SUMOVehicleClasses &allowed,
-                   const SUMOVehicleClasses &disallowed) throw();
+    MSInternalLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
+                   unsigned int numericalID, const PositionVector& shape, SUMOReal width,
+                   const SUMOVehicleClasses& allowed,
+                   const SUMOVehicleClasses& disallowed) throw();
 
 
     /// @brief Destructor
@@ -110,7 +110,7 @@ public:
      * @param[in] foescont The junction inner state to set information about vehicles into
      * @param[in] foesIdx This lane's index within this state
      */
-    void setParentJunctionInformation(MSLogicJunction::InnerState * const foescont,
+    void setParentJunctionInformation(MSLogicJunction::InnerState* const foescont,
                                       unsigned int foesIdx) throw();
 
 
@@ -132,7 +132,7 @@ public:
 
 private:
     /// @brief The container of junction-internal vehicle-occupied lanes
-    MSLogicJunction::InnerState * myFoesCont;
+    MSLogicJunction::InnerState* myFoesCont;
 
     /// @brief The index on which to write into this container
     int myFoesIndex;
@@ -145,10 +145,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    MSInternalLane(const MSInternalLane &s);
+    MSInternalLane(const MSInternalLane& s);
 
     /// @brief invalidated assignment operator
-    MSInternalLane &operator=(const MSInternalLane &s);
+    MSInternalLane& operator=(const MSInternalLane& s);
 
 
 };

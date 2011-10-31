@@ -74,7 +74,7 @@
  * data processing methods
  * ----------------------------------------------------------------------- */
 void
-readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
+readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
     if (!oc.isSet("detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
@@ -84,7 +84,7 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("Could not open detector file '" + *fileIt + "'");
         }
-       PROGRESS_BEGIN_MESSAGE("Loading detector definitions from '" + *fileIt + "'");
+        PROGRESS_BEGIN_MESSAGE("Loading detector definitions from '" + *fileIt + "'");
         RODFDetectorHandler handler(optNet, oc.getBool("ignore-invalid-detectors"), detectors, *fileIt);
         if (XMLSubSys::runParser(handler, *fileIt)) {
             PROGRESS_DONE_MESSAGE();
@@ -97,7 +97,7 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
 
 
 void
-readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc) {
+readDetectorFlows(RODFDetectorFlows& flows, OptionsCont& oc, RODFDetectorCon& dc) {
     if (!oc.isSet("measure-files")) {
         // ok, not given, return an empty container
         return;
@@ -119,7 +119,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
 
 
 void
-startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &detectors, OptionsCont &oc) {
+startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& detectors, OptionsCont& oc) {
     if (oc.getBool("print-absolute-flows")) {
         flows.printAbsolute();
     }
@@ -228,7 +228,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     if (oc.isSet("end-reroute-output")) {
         PROGRESS_BEGIN_MESSAGE("Writing highway end rerouter");
         detectors.writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
-       PROGRESS_DONE_MESSAGE();
+        PROGRESS_DONE_MESSAGE();
     }
     /*
        // save the insertion definitions
@@ -244,15 +244,15 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
     oc.setApplicationName("dfrouter", "SUMO dfrouter Version " + (std::string)VERSION_STRING);
     int ret = 0;
-    RODFNet *net = 0;
-    RODFDetectorCon *detectors = 0;
-    RODFDetectorFlows *flows = 0;
+    RODFNet* net = 0;
+    RODFDetectorCon* detectors = 0;
+    RODFDetectorFlows* flows = 0;
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init(false);
@@ -263,7 +263,9 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!RODFFrame::checkOptions()) throw ProcessError();
+        if (!RODFFrame::checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         // load data
         ROLoader loader(oc, false);
@@ -280,7 +282,7 @@ main(int argc, char **argv) {
         readDetectorFlows(*flows, oc, *detectors);
         // build routes
         startComputation(net, *flows, *detectors, oc);
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

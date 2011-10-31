@@ -63,7 +63,7 @@ public:
         the higher number is increased by one for each step while the smaller
         is increased by smaller/higher.
         In each step, the callback is executed. */
-    static void compute(BresenhamCallBack *callBack, const unsigned int val1, const unsigned int val2);
+    static void compute(BresenhamCallBack* callBack, const unsigned int val1, const unsigned int val2);
 };
 
 

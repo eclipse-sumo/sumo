@@ -70,8 +70,8 @@ public:
      * @param[in] edge The edge where the distribution shall be estimated
      * @param[in] begin The start of the first reporting interval
      */
-    MSRouteProbe(const std::string &id,
-                 const MSEdge *edge,
+    MSRouteProbe(const std::string& id,
+                 const MSEdge* edge,
                  SUMOTime begin) throw();
 
 
@@ -113,7 +113,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev,
+    void writeXMLOutput(OutputDevice& dev,
                         SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
@@ -124,7 +124,7 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
 private:

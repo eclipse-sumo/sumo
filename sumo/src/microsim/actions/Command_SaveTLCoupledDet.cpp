@@ -44,10 +44,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device)
-        : myDevice(device), myLogics(tlls), myDetector(dtf),
-        myStartTime(begin) {
+Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants& tlls,
+        MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device)
+    : myDevice(device), myLogics(tlls), myDetector(dtf),
+      myStartTime(begin) {
     tlls.addSwitchCommand(this);
     dtf->writeXMLDetectorProlog(device);
 }

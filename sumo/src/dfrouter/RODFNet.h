@@ -59,77 +59,77 @@ public:
 
     void buildApproachList();
 
-    void computeTypes(RODFDetectorCon &dets,
+    void computeTypes(RODFDetectorCon& dets,
                       bool sourcesStrict) const;
-    void buildRoutes(RODFDetectorCon &det, bool allEndFollower,
+    void buildRoutes(RODFDetectorCon& det, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const;
-    SUMOReal getAbsPos(const RODFDetector &det) const;
+    SUMOReal getAbsPos(const RODFDetector& det) const;
 
-    void buildEdgeFlowMap(const RODFDetectorFlows &flows,
-                          const RODFDetectorCon &detectors,
+    void buildEdgeFlowMap(const RODFDetectorFlows& flows,
+                          const RODFDetectorCon& detectors,
                           SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
-    void revalidateFlows(const RODFDetectorCon &detectors,
-                         RODFDetectorFlows &flows,
+    void revalidateFlows(const RODFDetectorCon& detectors,
+                         RODFDetectorFlows& flows,
                          SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
 
-    void removeEmptyDetectors(RODFDetectorCon &detectors,
-                              RODFDetectorFlows &flows);
+    void removeEmptyDetectors(RODFDetectorCon& detectors,
+                              RODFDetectorFlows& flows);
 
-    void reportEmptyDetectors(RODFDetectorCon &detectors,
-                              RODFDetectorFlows &flows);
+    void reportEmptyDetectors(RODFDetectorCon& detectors,
+                              RODFDetectorFlows& flows);
 
-    void buildDetectorDependencies(RODFDetectorCon &detectors);
+    void buildDetectorDependencies(RODFDetectorCon& detectors);
 
-    void mesoJoin(RODFDetectorCon &detectors, RODFDetectorFlows &flows);
+    void mesoJoin(RODFDetectorCon& detectors, RODFDetectorFlows& flows);
 
-    bool hasDetector(ROEdge *edge) const;
-    const std::vector<std::string> &getDetectorList(ROEdge *edge) const;
+    bool hasDetector(ROEdge* edge) const;
+    const std::vector<std::string> &getDetectorList(ROEdge* edge) const;
 
 
 protected:
-    void revalidateFlows(const RODFDetector *detector,
-                         RODFDetectorFlows &flows,
+    void revalidateFlows(const RODFDetector* detector,
+                         RODFDetectorFlows& flows,
                          SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
-    bool isSource(const RODFDetector &det,
-                  const RODFDetectorCon &detectors, bool strict) const;
-    bool isFalseSource(const RODFDetector &det,
-                       const RODFDetectorCon &detectors) const;
-    bool isDestination(const RODFDetector &det,
-                       const RODFDetectorCon &detectors) const;
+    bool isSource(const RODFDetector& det,
+                  const RODFDetectorCon& detectors, bool strict) const;
+    bool isFalseSource(const RODFDetector& det,
+                       const RODFDetectorCon& detectors) const;
+    bool isDestination(const RODFDetector& det,
+                       const RODFDetectorCon& detectors) const;
 
-    ROEdge *getDetectorEdge(const RODFDetector &det) const;
-    bool isSource(const RODFDetector &det, ROEdge *edge,
-                  std::vector<ROEdge*> &seen, const RODFDetectorCon &detectors,
+    ROEdge* getDetectorEdge(const RODFDetector& det) const;
+    bool isSource(const RODFDetector& det, ROEdge* edge,
+                  std::vector<ROEdge*> &seen, const RODFDetectorCon& detectors,
                   bool strict) const;
-    bool isFalseSource(const RODFDetector &det, ROEdge *edge,
-                       std::vector<ROEdge*> &seen, const RODFDetectorCon &detectors) const;
-    bool isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
-                       const RODFDetectorCon &detectors) const;
+    bool isFalseSource(const RODFDetector& det, ROEdge* edge,
+                       std::vector<ROEdge*> &seen, const RODFDetectorCon& detectors) const;
+    bool isDestination(const RODFDetector& det, ROEdge* edge, std::vector<ROEdge*> &seen,
+                       const RODFDetectorCon& detectors) const;
 
-    void computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int no,
+    void computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int no,
                           bool keepUnfoundEnds,
                           bool keepShortestOnly,
-                          std::vector<ROEdge*> &visited, const RODFDetector &det,
-                          RODFRouteCont &into, const RODFDetectorCon &detectors,
+                          std::vector<ROEdge*> &visited, const RODFDetector& det,
+                          RODFRouteCont& into, const RODFDetectorCon& detectors,
                           int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const;
 
-    void buildDetectorEdgeDependencies(RODFDetectorCon &dets) const;
+    void buildDetectorEdgeDependencies(RODFDetectorCon& dets) const;
 
-    bool hasApproaching(ROEdge *edge) const;
-    bool hasApproached(ROEdge *edge) const;
+    bool hasApproaching(ROEdge* edge) const;
+    bool hasApproached(ROEdge* edge) const;
 
-    bool hasInBetweenDetectorsOnly(ROEdge *edge,
-                                   const RODFDetectorCon &detectors) const;
-    bool hasSourceDetector(ROEdge *edge,
-                           const RODFDetectorCon &detectors) const;
+    bool hasInBetweenDetectorsOnly(ROEdge* edge,
+                                   const RODFDetectorCon& detectors) const;
+    bool hasSourceDetector(ROEdge* edge,
+                           const RODFDetectorCon& detectors) const;
 
     struct IterationEdge {
         int depth;
-        ROEdge *edge;
+        ROEdge* edge;
     };
 
 protected:
@@ -142,7 +142,7 @@ protected:
         ~DFRouteDescByTimeComperator() { }
 
         /// Comparing method
-        bool operator()(const RODFRouteDesc &nod1, const RODFRouteDesc &nod2) const {
+        bool operator()(const RODFRouteDesc& nod1, const RODFRouteDesc& nod2) const {
             return nod1.duration_2>nod2.duration_2;
         }
     };

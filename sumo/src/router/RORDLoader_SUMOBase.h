@@ -59,15 +59,15 @@ class RORoute;
  *  single class (this one).
  */
 class RORDLoader_SUMOBase :
-            public ROTypedXMLRoutesLoader {
+    public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
-    RORDLoader_SUMOBase(RONet &net,
+    RORDLoader_SUMOBase(RONet& net,
                         SUMOTime begin, SUMOTime end,
                         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
                         const int maxRouteNumber, const bool tryRepair, const bool withTaz,
                         const bool keepRoutes, const bool skipRouteCalculation,
-                        const std::string &file="") throw(ProcessError);
+                        const std::string& file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_SUMOBase() throw();
@@ -98,7 +98,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -109,7 +109,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string &chars) throw(ProcessError);
+                      const std::string& chars) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -122,10 +122,10 @@ protected:
     //@}
 
     /// Begins the parsing of the next route alternative in the file
-    void startAlternative(const SUMOSAXAttributes &attrs);
+    void startAlternative(const SUMOSAXAttributes& attrs);
 
     /// Begins the parsing of a route alternative of the opened route
-    void startRoute(const SUMOSAXAttributes &attrs);
+    void startRoute(const SUMOSAXAttributes& attrs);
 
     bool closeVehicle() throw();
 
@@ -155,10 +155,10 @@ protected:
 
 protected:
     /// @brief The parsed vehicle parameter
-    SUMOVehicleParameter *myVehicleParameter;
+    SUMOVehicleParameter* myVehicleParameter;
 
     /// @brief The color of the current route/vehicle
-    RGBColor *myColor;
+    RGBColor* myColor;
 
     /// @brief Information whether the currently parsed item is valid
     bool myCurrentIsOk;
@@ -170,7 +170,7 @@ protected:
     bool myHaveNextRoute;
 
     /// @brief The currently parsed route alternatives
-    RORouteDef_Alternatives *myCurrentAlternatives;
+    RORouteDef_Alternatives* myCurrentAlternatives;
 
     /// @brief The costs of the current alternative
     SUMOReal myCost;
@@ -203,7 +203,7 @@ protected:
     const bool mySkipRouteCalculation;
 
     /// @brief The currently parsed route
-    RORouteDef_Complete *myCurrentRoute;
+    RORouteDef_Complete* myCurrentRoute;
 
     /// @brief The name of the currently parsed route
     std::string myCurrentRouteName;
@@ -212,17 +212,17 @@ protected:
     SUMOTime myCurrentDepart;
 
     /// @brief The currently parsed vehicle type
-    SUMOVTypeParameter *myCurrentVType;
+    SUMOVTypeParameter* myCurrentVType;
 
     bool myHaveWarnedAboutDeprecatedVType;
     bool myHaveWarnedAboutDeprecatedRoute;
 
 private:
     /// @brief Invalidated copy constructor
-    RORDLoader_SUMOBase(const RORDLoader_SUMOBase &src);
+    RORDLoader_SUMOBase(const RORDLoader_SUMOBase& src);
 
     /// @brief Invalidated assignment operator
-    RORDLoader_SUMOBase &operator=(const RORDLoader_SUMOBase &src);
+    RORDLoader_SUMOBase& operator=(const RORDLoader_SUMOBase& src);
 
 };
 

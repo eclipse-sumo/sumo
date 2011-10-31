@@ -41,9 +41,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
-        OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics) {
+Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants& logics,
+        OutputDevice& od)
+    : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-states");
 }
@@ -56,10 +56,10 @@ Command_SaveTLSState::~Command_SaveTLSState() {
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) {
     myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
-    << "\" id=\"" << myLogics.getActive()->getID()
-    << "\" programID=\"" << myLogics.getActive()->getProgramID()
-    << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-    << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
+                   << "\" id=\"" << myLogics.getActive()->getID()
+                   << "\" programID=\"" << myLogics.getActive()->getProgramID()
+                   << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
+                   << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
     return DELTA_T;
 }
 

@@ -46,10 +46,10 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-    StringBijection<int>::Entry *tags, int terminatorTag,
-    StringBijection<int>::Entry *attrs, int terminatorAttr,
-    const std::string &file)
-        : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
+    StringBijection<int>::Entry* tags, int terminatorTag,
+    StringBijection<int>::Entry* attrs, int terminatorAttr,
+    const std::string& file)
+    : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
     while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
@@ -73,21 +73,21 @@ GenericSAXHandler::~GenericSAXHandler() {
 
 
 void
-GenericSAXHandler::setFileName(const std::string &name) throw() {
+GenericSAXHandler::setFileName(const std::string& name) throw() {
     myFileName = name;
 }
 
 
-const std::string &
+const std::string&
 GenericSAXHandler::getFileName() const throw() {
     return myFileName;
 }
 
 
 XMLCh*
-GenericSAXHandler::convert(const std::string &name) const throw() {
+GenericSAXHandler::convert(const std::string& name) const throw() {
     size_t len = name.length();
-    XMLCh *ret = new XMLCh[len+1];
+    XMLCh* ret = new XMLCh[len+1];
     size_t i=0;
     for (; i<len; i++) {
         ret[i] = (XMLCh) name[i];
@@ -131,7 +131,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
         for (i=0; i<myCharactersVector.size(); ++i) {
             len += myCharactersVector[i].length();
         }
-        char *buf = new char[len+1];
+        char* buf = new char[len+1];
         size_t pos = 0;
         for (i=0; i<myCharactersVector.size(); ++i) {
             memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
@@ -143,7 +143,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
         // call user handler
         try {
             myCharacters(element, buf);
-        } catch (std::runtime_error &) {
+        } catch (std::runtime_error&) {
             delete[] buf;
             throw;
         }
@@ -176,7 +176,7 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 
 
 int
-GenericSAXHandler::convertTag(const std::string &tag) const throw() {
+GenericSAXHandler::convertTag(const std::string& tag) const throw() {
     TagMap::const_iterator i=myTagMap.find(tag);
     if (i==myTagMap.end()) {
         return SUMO_TAG_NOTHING;
@@ -188,11 +188,11 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw() {
 std::string
 GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
     std::ostringstream buf;
-    char *pMsg = XMLString::transcode(exception.getMessage());
+    char* pMsg = XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
     buf << " In file '" << getFileName() << "'" << std::endl;
     buf << " At line/column " << exception.getLineNumber()+1
-    << '/' << exception.getColumnNumber() << "." << std::endl;
+        << '/' << exception.getColumnNumber() << "." << std::endl;
     XMLString::release(&pMsg);
     return buf.str();
 }
@@ -217,11 +217,11 @@ GenericSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessE
 
 
 void
-GenericSAXHandler::myStartElement(int, const SUMOSAXAttributes &) {}
+GenericSAXHandler::myStartElement(int, const SUMOSAXAttributes&) {}
 
 
 void
-GenericSAXHandler::myCharacters(int, const std::string &) {}
+GenericSAXHandler::myCharacters(int, const std::string&) {}
 
 
 void

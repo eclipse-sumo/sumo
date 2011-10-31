@@ -40,13 +40,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-IDSupplier::IDSupplier(const std::string &prefix, long begin)
-        : myCurrent(begin), myPrefix(prefix) {}
+IDSupplier::IDSupplier(const std::string& prefix, long begin)
+    : myCurrent(begin), myPrefix(prefix) {}
 
 
 
-IDSupplier::IDSupplier(const std::string &prefix, const std::vector<std::string> &knownIDs)
-        : myCurrent(0), myPrefix(prefix) {
+IDSupplier::IDSupplier(const std::string& prefix, const std::vector<std::string> &knownIDs)
+    : myCurrent(0), myPrefix(prefix) {
     for (std::vector<std::string>::const_iterator id_it = knownIDs.begin(); id_it != knownIDs.end(); ++id_it) {
         avoid(*id_it);
     }

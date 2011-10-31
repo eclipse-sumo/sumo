@@ -69,7 +69,7 @@ public:
      * @param[in] oc The options to use
      * @param[in, out] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 protected:
@@ -113,7 +113,7 @@ protected:
 
     ~NIImporter_OpenStreetMap();
 
-    void _loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    void _loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 private:
 
@@ -142,7 +142,7 @@ private:
      * @return The built/found node
      * @exception ProcessError If the tls could not be added to the container
      */
-    NBNode *insertNodeChecking(int id, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc);
+    NBNode* insertNodeChecking(int id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc);
 
 
     /** @brief Builds an NBEdge
@@ -157,8 +157,8 @@ private:
      * @param[in] tc The type container to get information about the edge from
      * @exception ProcessError If the edge could not be added to the container
      */
-    void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                    const std::vector<int> &passed, NBEdgeCont &ec, NBTypeCont &tc);
+    void insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+                    const std::vector<int> &passed, NBEdgeCont& ec, NBTypeCont& tc);
 
 
 
@@ -190,7 +190,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -219,10 +219,10 @@ private:
 
     private:
         /** @brief invalidated copy constructor */
-        NodesHandler(const NodesHandler &s);
+        NodesHandler(const NodesHandler& s);
 
         /** @brief invalidated assignment operator */
-        NodesHandler &operator=(const NodesHandler &s);
+        NodesHandler& operator=(const NodesHandler& s);
 
     };
 
@@ -258,7 +258,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
         /** @brief Called when a closing tag occurs
@@ -279,7 +279,7 @@ private:
         std::map<std::string, Edge*> &myEdgeMap;
 
         /// @brief The currently built edge
-        Edge *myCurrentEdge;
+        Edge* myCurrentEdge;
 
         /// @brief The element stack
         std::vector<int> myParentElements;
@@ -290,10 +290,10 @@ private:
 
     private:
         /** @brief invalidated copy constructor */
-        EdgesHandler(const EdgesHandler &s);
+        EdgesHandler(const EdgesHandler& s);
 
         /** @brief invalidated assignment operator */
-        EdgesHandler &operator=(const EdgesHandler &s);
+        EdgesHandler& operator=(const EdgesHandler& s);
 
     };
 

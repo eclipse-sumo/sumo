@@ -45,7 +45,7 @@ public:
     /** @brief Constructor
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(const std::string &content, bool isFile=true) throw();
+    GUISettingsHandler(const std::string& content, bool isFile=true) throw();
 
 
     /// @brief Destructor
@@ -62,7 +62,7 @@ public:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 
@@ -84,7 +84,7 @@ public:
      * @param[out] xoff Variable to store the loaded x-offset into
      * @param[out] yoff Variable to store the loaded y-offset into
      */
-    void setViewport(SUMOReal &zoom, SUMOReal &xoff, SUMOReal &yoff) const throw();
+    void setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const throw();
 
 
     /** @brief Makes a snapshot if it has been parsed
@@ -138,7 +138,7 @@ private:
 
     /// @brief parse combined settings of bool, size and color
     GUIVisualizationTextSettings parseTextSettings(
-        const std::string &prefix, const SUMOSAXAttributes &attrs,
+        const std::string& prefix, const SUMOSAXAttributes& attrs,
         GUIVisualizationTextSettings defaults);
 
 };

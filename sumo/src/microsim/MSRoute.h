@@ -60,8 +60,8 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
 class MSRoute : public Named {
 public:
     /// Constructor
-    MSRoute(const std::string &id, const MSEdgeVector &edges,
-            unsigned int references, const RGBColor &c,
+    MSRoute(const std::string& id, const MSEdgeVector& edges,
+            unsigned int references, const RGBColor& c,
             const std::vector<SUMOVehicleParameter::Stop> &stops) throw();
 
     /// Destructor
@@ -77,7 +77,7 @@ public:
     unsigned size() const;
 
     /// returns the destination edge
-    const MSEdge *getLastEdge() const;
+    const MSEdge* getLastEdge() const;
 
     /** @brief increments the reference counter for the route */
     void addReference() const;
@@ -86,15 +86,15 @@ public:
     void release() const;
 
     /// output the edge ids up to but not including the id of the given edge
-    void writeEdgeIDs(OutputDevice &os, const MSEdge *const from, const MSEdge *const upTo=0) const;
+    void writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo=0) const;
 
-    bool contains(const MSEdge * const edge) const throw() {
+    bool contains(const MSEdge* const edge) const throw() {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
     }
 
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
 
-    const MSEdge *operator[](unsigned index) const;
+    const MSEdge* operator[](unsigned index) const;
 
 #ifdef HAVE_MESOSIM
     /// @name State I/O (mesosim only)
@@ -104,18 +104,18 @@ public:
      *
      * @param[in] os The stream to write the routes into (binary)
      */
-    static void dict_saveState(std::ostream &os) throw();
+    static void dict_saveState(std::ostream& os) throw();
 
 
     /** @brief Loads routes from the state.
      *
      * @param[in] bis The input to read the routes from (binary)
      */
-    static void dict_loadState(BinaryInputDevice &bis) throw();
+    static void dict_loadState(BinaryInputDevice& bis) throw();
     /// @}
 #endif
 
-    const MSEdgeVector &getEdges() const {
+    const MSEdgeVector& getEdges() const {
         return myEdges;
     }
 
@@ -132,7 +132,7 @@ public:
     SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const;
 
     /// Returns the color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /// Returns the stops
     const std::vector<SUMOVehicleParameter::Stop> &getStops() const;
@@ -147,7 +147,7 @@ public:
      * @param[in] route pointer to the route object
      * @return          whether adding was successful
      */
-    static bool dictionary(const std::string &id, const MSRoute *route);
+    static bool dictionary(const std::string& id, const MSRoute* route);
 
     /** @brief Adds a route distribution to the dictionary.
      *
@@ -158,7 +158,7 @@ public:
      * @param[in] route pointer to the distribution object
      * @return          whether adding was successful
      */
-    static bool dictionary(const std::string &id, RandomDistributor<const MSRoute*> *routeDist);
+    static bool dictionary(const std::string& id, RandomDistributor<const MSRoute*> *routeDist);
 
     /** @brief Returns the named route or a sample from the named distribution.
      *
@@ -168,7 +168,7 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute *dictionary(const std::string &id);
+    static const MSRoute* dictionary(const std::string& id);
 
     /** @brief Returns the named route distribution.
      *
@@ -177,7 +177,7 @@ public:
      * @param[in] id    the id of the route distribution
      * @return          the route distribution
      */
-    static RandomDistributor<const MSRoute*> *distDictionary(const std::string &id);
+    static RandomDistributor<const MSRoute*> *distDictionary(const std::string& id);
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();

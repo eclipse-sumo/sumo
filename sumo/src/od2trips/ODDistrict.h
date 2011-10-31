@@ -53,7 +53,7 @@ public:
      *
      * @param[in] id The id of the district
      */
-    ODDistrict(const std::string &id) throw();
+    ODDistrict(const std::string& id) throw();
 
 
     /// @brief Destructor
@@ -73,7 +73,7 @@ public:
      * @param[in] id The id of the source
      * @param[in] weight The weight (probability to be chosen) of the source
      */
-    void addSource(const std::string &id, SUMOReal weight) throw();
+    void addSource(const std::string& id, SUMOReal weight) throw();
 
 
     /** @brief Adds a sink connection
@@ -89,7 +89,7 @@ public:
      * @param[in] id The id of the sink
      * @param[in] weight The weight (probability to be chosen) of the sink
      */
-    void addSink(const std::string &id, SUMOReal weight) throw();
+    void addSink(const std::string& id, SUMOReal weight) throw();
 
 
     /** @brief Returns the id of a source to use
@@ -138,10 +138,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    ODDistrict(const ODDistrict &s);
+    ODDistrict(const ODDistrict& s);
 
     /// @brief invalidated assignment operator
-    ODDistrict &operator=(const ODDistrict &s);
+    ODDistrict& operator=(const ODDistrict& s);
 
 
 };

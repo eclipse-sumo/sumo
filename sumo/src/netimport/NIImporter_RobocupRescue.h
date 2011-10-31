@@ -61,7 +61,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 protected:
@@ -70,7 +70,7 @@ protected:
      * @param[in] nc The node control to fill
      * @param[in] ec The edge control to fill
      */
-    NIImporter_RobocupRescue(NBNodeCont &nc, NBEdgeCont &ec);
+    NIImporter_RobocupRescue(NBNodeCont& nc, NBEdgeCont& ec);
 
 
     /// @brief Destructor
@@ -80,21 +80,21 @@ protected:
     /** @brief Loads nodes from the given file
      * @param[in] file The file to read nodes from
      */
-    void loadNodes(const std::string &file);
+    void loadNodes(const std::string& file);
 
 
     /** @brief Loads edges from the given file
      * @param[in] file The file to read edges from
      */
-    void loadEdges(const std::string &file);
+    void loadEdges(const std::string& file);
 
 
 protected:
     /// @brief The node container to fill
-    NBNodeCont &myNodeCont;
+    NBNodeCont& myNodeCont;
 
     /// @brief The edge container to fill
-    NBEdgeCont &myEdgeCont;
+    NBEdgeCont& myEdgeCont;
 
 };
 

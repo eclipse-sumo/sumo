@@ -49,8 +49,8 @@ public:
     // conversion methods not throwing an exeption without a length
     /** converts a 0-terminated char-type array into std::string
         returns the default value if the data is empty */
-    static std::string _2strSec(const E * const data,
-                                const std::string &def) {
+    static std::string _2strSec(const E* const data,
+                                const std::string& def) {
         return _2strSec(data, TplConvert<E>::getLength(data), def);
     }
 
@@ -58,7 +58,7 @@ public:
     /** converts a 0-terminated char-type array into the integer value
             described by it
         returns the default value if the data is empty */
-    static int _2intSec(const E * const data, int def) {
+    static int _2intSec(const E* const data, int def) {
         return _2intSec(data, INT_MAX, def);
     }
 
@@ -66,7 +66,7 @@ public:
     /** converts a 0-terminated char-type array into the long value
             described by it
         returns the default value if the data is empty */
-    static long _2longSec(const E * const data, long def) {
+    static long _2longSec(const E* const data, long def) {
         return _2longSec(data, INT_MAX, def);
     }
 
@@ -74,7 +74,7 @@ public:
     /** converts a 0-terminated char-type array into the SUMOReal value
             described by it
         returns the default value if the data is empty */
-    static SUMOReal _2SUMORealSec(const E * const data, SUMOReal def) {
+    static SUMOReal _2SUMORealSec(const E* const data, SUMOReal def) {
         return _2SUMORealSec(data, INT_MAX, def);
     }
 
@@ -83,7 +83,7 @@ public:
             described by it
         returns true when the first char is one of the following: '1', 'x', 't', 'T'
         returns the default value if the data is empty */
-    static bool _2boolSec(const E * const data, bool def) {
+    static bool _2boolSec(const E* const data, bool def) {
         return _2boolSec(data, 1, def);
     }
 
@@ -91,7 +91,7 @@ public:
     /** converts a 0-terminated char-type array into a 0-terminated
             0-terminated c-char-string
         returns the default value if the data is empty */
-    static char *_2charpSec(const E * const data, char *def) {
+    static char* _2charpSec(const E* const data, char* def) {
         return _2charpSec(data, TplConvert<E>::getLength(data), def);
     }
 
@@ -100,8 +100,8 @@ public:
     /** converts a char-type array into std::string considering
             the given length
         returns the default value if the data is empty */
-    static std::string _2strSec(const E * const data, int length,
-                                const std::string &def) {
+    static std::string _2strSec(const E* const data, int length,
+                                const std::string& def) {
         if (data==0||length==0) {
             return def;
         }
@@ -112,7 +112,7 @@ public:
     /** converts a char-type array into the integer value described
             by it considering the given length
         returns the default value if the data is empty */
-    static int _2intSec(const E * const data, int length, int def) {
+    static int _2intSec(const E* const data, int length, int def) {
         if (data==0||length==0||data[0]==0) {
             return def;
         }
@@ -123,7 +123,7 @@ public:
     /** converts a char-type array into the long value described
             by it considering the given length
         returns the default value if the data is empty */
-    static long _2longSec(const E * const data, int length, long def) {
+    static long _2longSec(const E* const data, int length, long def) {
         if (data==0||length==0||data[0]==0) {
             return def;
         }
@@ -134,7 +134,7 @@ public:
     /** converts a char-type array into the SUMOReal value described
             by it considering the given length
         returns the default value if the data is empty */
-    static SUMOReal _2SUMORealSec(const E * const data, int length, SUMOReal def) {
+    static SUMOReal _2SUMORealSec(const E* const data, int length, SUMOReal def) {
         if (data==0||length==0||data[0]==0) {
             return def;
         }
@@ -145,7 +145,7 @@ public:
     /** converts a char-type array into the SUMOReal value described
             by it considering the given length
         returns the default value if the data is empty */
-    static bool _2boolSec(const E * const data, int length, bool def) {
+    static bool _2boolSec(const E* const data, int length, bool def) {
         if (data==0||length==0||data[0]==0) {
             return def;
         }
@@ -156,7 +156,7 @@ public:
     /** converts a char-type array into a 0-terminated 0-terminated
             c-char-string considering the given length
         returns the default value if the data is empty */
-    static char *_2charpSec(const E * const data, int length, char *def) {
+    static char* _2charpSec(const E* const data, int length, char* def) {
         if (data==0||length==0) {
             return TplConvert<E>::copy(def);
         }

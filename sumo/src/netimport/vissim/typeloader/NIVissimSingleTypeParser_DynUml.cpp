@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_DynUml::NIVissimSingleTypeParser_DynUml(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_DynUml::NIVissimSingleTypeParser_DynUml(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_DynUml::~NIVissimSingleTypeParser_DynUml() {}
 
 
 bool
-NIVissimSingleTypeParser_DynUml::parse(std::istream &from) {
+NIVissimSingleTypeParser_DynUml::parse(std::istream& from) {
     std::vector<std::string> tmp;
     tmp.push_back("reisezeit");
     tmp.push_back("kante");

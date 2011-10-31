@@ -58,7 +58,7 @@
 // method definitions
 // ===========================================================================
 NBNodeCont::NBNodeCont() throw()
-        : myInternalID(1) {}
+    : myInternalID(1) {}
 
 
 NBNodeCont::~NBNodeCont() throw() {
@@ -68,38 +68,38 @@ NBNodeCont::~NBNodeCont() throw() {
 
 // ----------- Insertion/removal/retrieval of nodes
 bool
-NBNodeCont::insert(const std::string &id, const Position &position,
-                   NBDistrict *district) throw() {
+NBNodeCont::insert(const std::string& id, const Position& position,
+                   NBDistrict* district) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return false;
     }
-    NBNode *node = new NBNode(id, position, district);
+    NBNode* node = new NBNode(id, position, district);
     myNodes[id] = node;
     return true;
 }
 
 
 bool
-NBNodeCont::insert(const std::string &id, const Position &position) throw() {
+NBNodeCont::insert(const std::string& id, const Position& position) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return false;
     }
-    NBNode *node = new NBNode(id, position);
+    NBNode* node = new NBNode(id, position);
     myNodes[id] = node;
     return true;
 }
 
 
 Position
-NBNodeCont::insert(const std::string &id) throw() {
+NBNodeCont::insert(const std::string& id) throw() {
     std::pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return (*i).second->getPosition();
     } else {
-        NBNode *node = new NBNode(id, Position(-1.0, -1.0));
+        NBNode* node = new NBNode(id, Position(-1.0, -1.0));
         myNodes[id] = node;
     }
     return Position(-1, -1);
@@ -107,7 +107,7 @@ NBNodeCont::insert(const std::string &id) throw() {
 
 
 bool
-NBNodeCont::insert(NBNode *node) throw() {
+NBNodeCont::insert(NBNode* node) throw() {
     std::string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -118,8 +118,8 @@ NBNodeCont::insert(NBNode *node) throw() {
 }
 
 
-NBNode *
-NBNodeCont::retrieve(const std::string &id) const throw() {
+NBNode*
+NBNodeCont::retrieve(const std::string& id) const throw() {
     NodeCont::const_iterator i = myNodes.find(id);
     if (i==myNodes.end()) {
         return 0;
@@ -128,10 +128,10 @@ NBNodeCont::retrieve(const std::string &id) const throw() {
 }
 
 
-NBNode *
-NBNodeCont::retrieve(const Position &position, SUMOReal offset) const throw() {
+NBNode*
+NBNodeCont::retrieve(const Position& position, SUMOReal offset) const throw() {
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *node = (*i).second;
+        NBNode* node = (*i).second;
         if (fabs(node->getPosition().x()-position.x())<offset
                 &&
                 fabs(node->getPosition().y()-position.y())<offset) {
@@ -143,7 +143,7 @@ NBNodeCont::retrieve(const Position &position, SUMOReal offset) const throw() {
 
 
 bool
-NBNodeCont::erase(NBNode *node) throw() {
+NBNodeCont::erase(NBNode* node) throw() {
     if (extract(node)) {
         delete node;
         return true;
@@ -154,7 +154,7 @@ NBNodeCont::erase(NBNode *node) throw() {
 
 
 bool
-NBNodeCont::extract(NBNode *node, bool remember) throw() {
+NBNodeCont::extract(NBNode* node, bool remember) throw() {
     NodeCont::iterator i = myNodes.find(node->getID());
     if (i==myNodes.end()) {
         return false;
@@ -170,8 +170,8 @@ NBNodeCont::extract(NBNode *node, bool remember) throw() {
 
 // ----------- Adapting the input
 void
-NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBTrafficLightLogicCont &tc) {
+NBNodeCont::removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec,
+                             NBTrafficLightLogicCont& tc) {
     unsigned int no = 0;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         no += (*i).second->removeDummyEdges(dc, ec, tc);
@@ -183,7 +183,7 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
 
 
 void
-NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+NBNodeCont::joinDoubleNodeConnections(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
     SUMOReal distanceThreshold = 7; // don't merge edges further apart
     SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference
@@ -191,10 +191,10 @@ NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTraf
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current node
         std::map<NBNode*, EdgeVector> connectionCount;
-        const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
+        const EdgeVector& outgoing = (*i).second->getOutgoingEdges();
         for (EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
-            NBEdge *e = (*j);
-            NBNode *connected = e->getToNode();
+            NBEdge* e = (*j);
+            NBNode* connected = e->getToNode();
             if (connectionCount.find(connected)==connectionCount.end()) {
                 connectionCount[connected] = EdgeVector();
             }
@@ -209,7 +209,7 @@ NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTraf
             }
             // for the edges that seem to be a single street,
             //  check whether the geometry is similar
-            const EdgeVector &ev = (*k).second;
+            const EdgeVector& ev = (*k).second;
             const NBEdge* const first = ev.front();
             EdgeVector::const_iterator jci; // join candidate iterator
             for (jci=ev.begin()+1; jci!=ev.end(); ++jci) {
@@ -233,7 +233,7 @@ NBNodeCont::joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTraf
 
 
 void
-NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
+NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
     UNUSED_PARAMETER(tc);
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
     int edgeCounter = 0;
@@ -241,17 +241,17 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
         // Test whether this node starts at a dead end, i.e. it has only one adjacent node
         // to which an edge exists and from which an edge may come.
-        NBEdge *e = ec.retrieve(*it);
+        NBEdge* e = ec.retrieve(*it);
         if (e == 0) {
             continue;
         }
         NBNode* from = e->getFromNode();
-        const EdgeVector &outgoingEdges = from->getOutgoingEdges();
+        const EdgeVector& outgoingEdges = from->getOutgoingEdges();
         if (outgoingEdges.size() != 1) {
             // At this node, several edges or no edge start; so, this node is no dead end.
             continue;
         }
-        const EdgeVector &incomingEdges = from->getIncomingEdges();
+        const EdgeVector& incomingEdges = from->getIncomingEdges();
         if (incomingEdges.size() > 1) {
             // At this node, several edges end; so, this node is no dead end.
             continue;
@@ -276,8 +276,8 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
             eOld = e;
             from = e->getFromNode();
             to = e->getToNode();
-            const EdgeVector &outgoingEdgesOfToNode = to->getOutgoingEdges();
-            const EdgeVector &incomingEdgesOfToNode = to->getIncomingEdges();
+            const EdgeVector& outgoingEdgesOfToNode = to->getOutgoingEdges();
+            const EdgeVector& incomingEdgesOfToNode = to->getIncomingEdges();
             adjacentNodes.clear();
             for (EdgeVector::const_iterator itOfOutgoings=outgoingEdgesOfToNode.begin(); itOfOutgoings!=outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
                 if ((*itOfOutgoings)->getToNode() != from        // The back path
@@ -327,13 +327,13 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
 
 
 unsigned int
-NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                                NBJoinedEdgesMap &je, NBTrafficLightLogicCont &tlc,
+NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
+                                NBJoinedEdgesMap& je, NBTrafficLightLogicCont& tlc,
                                 bool removeGeometryNodes) {
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *current = (*i).second;
+        NBNode* current = (*i).second;
         bool remove = false;
         std::vector<std::pair<NBEdge*, NBEdge*> > toJoin;
         // check for completely empty nodes
@@ -359,8 +359,8 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
             continue;
         }
         for (std::vector<std::pair<NBEdge*, NBEdge*> >::iterator j=toJoin.begin(); j!=toJoin.end(); j++) {
-            NBEdge *begin = (*j).first;
-            NBEdge *continuation = (*j).second;
+            NBEdge* begin = (*j).first;
+            NBEdge* continuation = (*j).second;
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             tlc.replaceRemoved(continuation, -1, begin, -1);
@@ -374,13 +374,13 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     for (std::vector<NBNode*>::iterator j = toRemove.begin(); j!= toRemove.end(); ++j) {
         erase(*j);
     }
-	return no;
+    return no;
 }
 
 
 // ----------- (Helper) methods for joining nodes
 void
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const {
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const {
     std::set<NBNode*> visited;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         std::vector<NBNode*> toProc;
@@ -390,17 +390,17 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const {
         toProc.push_back((*i).second);
         std::set<NBNode*> c;
         while (!toProc.empty()) {
-            NBNode *n = toProc.back();
+            NBNode* n = toProc.back();
             toProc.pop_back();
             if (visited.find(n)!=visited.end()) {
                 continue;
             }
             c.insert(n);
             visited.insert(n);
-            const EdgeVector &edges = n->getEdges();
+            const EdgeVector& edges = n->getEdges();
             for (EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-                NBEdge *e = *j;
-                NBNode *s = 0;
+                NBEdge* e = *j;
+                NBNode* s = 0;
                 if (n->hasIncoming(e)) {
                     s = e->getFromNode();
                 } else {
@@ -422,7 +422,7 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const {
 }
 
 
-void 
+void
 NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
     for (std::vector<std::string>::const_iterator it=ids.begin(); it!=ids.end(); it++) {
         // error handling has to take place here since joinExclusions could be
@@ -440,7 +440,7 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string> &ids, bool check) {
 
 void
 NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
-    // error handling has to take place here since joins could be loaded from multiple files 
+    // error handling has to take place here since joins could be loaded from multiple files
     for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
         if (myJoinExclusions.count(*it) > 0) {
             WRITE_WARNING("Ignoring join-cluster because node '" + *it + "' was already excluded from joining");
@@ -457,13 +457,13 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
 
 
 unsigned int
-NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     NodeClusters clusters;
     for (std::vector<std::set<std::string> >::iterator it = myClusters2Join.begin(); it != myClusters2Join.end(); it++) {
         // verify loaded cluster
         std::set<NBNode*> cluster;
         for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
-            NBNode *node = retrieve(*it_id);
+            NBNode* node = retrieve(*it_id);
             if (node == 0) {
                 WRITE_WARNING("Ignoring unknown node '" + *it_id + "' while joining");
             } else {
@@ -480,7 +480,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLigh
 
 
 unsigned int
-NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) {
+NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     NodeClusters cands;
     NodeClusters clusters;
     generateNodeClusters(maxdist, cands);
@@ -489,7 +489,7 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
         std::set<NBNode*> cluster;
         // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
         for (std::set<NBNode*>::const_iterator j=candCluster.begin(); j!=candCluster.end(); j++) {
-            NBNode *n = *j;
+            NBNode* n = *j;
             if (n->getIncomingEdges().size() == 1 &&
                     n->getOutgoingEdges().size() == 1 &&
                     (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
@@ -510,10 +510,9 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, 
 }
 
 
-void 
-NBNodeCont::joinNodeClusters(NodeClusters clusters, 
-        NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc) 
-{
+void
+NBNodeCont::joinNodeClusters(NodeClusters clusters,
+                             NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     for (NodeClusters::iterator i=clusters.begin(); i!=clusters.end(); ++i) {
         std::set<NBNode*> cluster = *i;
         assert(cluster.size() > 1);
@@ -528,7 +527,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         }
         NBNode* newNode = retrieve(id);
         if (setTL) {
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, newNode);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, newNode);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
@@ -543,8 +542,8 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
 }
 
 
-void 
-NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS) {
+void
+NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS) {
     id = "cluster";
     hasTLS = false;
     std::vector<std::string> member_ids;
@@ -566,7 +565,7 @@ NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position 
 
 
 void
-NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec) {
+NBNodeCont::merge(NBNode* moved, NBNode* target, NBDistrictCont& dc, NBEdgeCont& ec) {
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     EdgeVector incoming = moved->getIncomingEdges();
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
@@ -582,7 +581,7 @@ NBNodeCont::merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont 
 
 
 void
-NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec) {
+NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode* from, NBNode* to, NBDistrictCont& dc, NBEdgeCont& ec) {
     if (to == from) {
         // @todo remap connections
         ec.erase(dc, oldEdge);
@@ -604,7 +603,7 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const {
     SUMOReal f = 0;
     std::set<NBEdge*> seen;
     for (std::set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
-        const EdgeVector &edges = (*j)->getEdges();
+        const EdgeVector& edges = (*j)->getEdges();
         for (EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
             if (c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
                 continue;
@@ -625,13 +624,13 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const {
 
 
 void
-NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
+NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("tls.unset")) {
         std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
         for (std::vector<std::string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
-            NBNode *n = NBNodeCont::retrieve(*i);
+            NBNode* n = NBNodeCont::retrieve(*i);
             if (n==0) {
                 throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
             }
@@ -648,7 +647,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     //  because it is assigned to a district
     if (oc.exists("tls.taz-nodes")&&oc.getBool("tls.taz-nodes")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *cur = (*i).second;
+            NBNode* cur = (*i).second;
             if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {
                 setAsTLControlled(cur, tlc);
             }
@@ -693,7 +692,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
                 nodes.push_back(*j);
             }
             std::string id = "joinedG_" + toString(index++);
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
                 WRITE_WARNING("Could not build guessed, joined tls");
@@ -705,7 +704,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
     // guess tls
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *cur = (*i).second;
+        NBNode* cur = (*i).second;
         //  do nothing if already is tl-controlled
         if (cur->isTLControlled()) {
             continue;
@@ -725,7 +724,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 
 
 void
-NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
+NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc) {
     SUMOReal MAXDIST = 25;
     std::vector<std::set<NBNode*> > cands;
     generateNodeClusters(MAXDIST, cands);
@@ -754,7 +753,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
         for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); j++) {
             nodes.push_back(*j);
         }
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
+        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             WRITE_WARNING("Could not build a joined tls.");
@@ -766,11 +765,11 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
 
 
 void
-NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id) {
+NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::string id) {
     if (id=="") {
         id = node->getID();
     }
-    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
+    NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
         WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
@@ -791,7 +790,7 @@ NBNodeCont::computeLanes2Lanes() {
 
 // computes the "wheel" of incoming and outgoing edges for every node
 void
-NBNodeCont::computeLogics(const NBEdgeCont &ec, OptionsCont &oc) {
+NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLogic(ec, oc);
     }
@@ -807,7 +806,7 @@ NBNodeCont::sortNodesEdges(bool leftHand) {
 
 
 void
-NBNodeCont::computeNodeTypes(const NBTypeCont &tc) {
+NBNodeCont::computeNodeTypes(const NBTypeCont& tc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeType(tc);
     }
@@ -829,7 +828,7 @@ NBNodeCont::clear() {
     }
     myNodes.clear();
     for (std::set<NBNode*>::iterator i = myExtractedNodes.begin(); i!= myExtractedNodes.end(); i++) {
-        delete (*i);
+        delete(*i);
     }
     myExtractedNodes.clear();
 }
@@ -853,12 +852,12 @@ NBNodeCont::computeNodeShapes(bool leftHand) {
 
 
 bool
-NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
+NBNodeCont::mayNeedOnRamp(OptionsCont& oc, NBNode* cur) const {
     if (cur->getIncomingEdges().size()==2&&cur->getOutgoingEdges().size()==1) {
         // may be an on-ramp
-        NBEdge *pot_highway = cur->getIncomingEdges()[0];
-        NBEdge *pot_ramp = cur->getIncomingEdges()[1];
-        NBEdge *cont = cur->getOutgoingEdges()[0];
+        NBEdge* pot_highway = cur->getIncomingEdges()[0];
+        NBEdge* pot_ramp = cur->getIncomingEdges()[1];
+        NBEdge* cont = cur->getOutgoingEdges()[0];
 
         // do not build ramps on connectors
         if (pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||cont->isMacroscopicConnector()) {
@@ -900,12 +899,12 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
 
 
 bool
-NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
-                        NBEdgeCont &ec, NBDistrictCont &dc,
-                        EdgeVector &incremented) {
-    NBEdge *pot_highway = cur->getIncomingEdges()[0];
-    NBEdge *pot_ramp = cur->getIncomingEdges()[1];
-    NBEdge *cont = cur->getOutgoingEdges()[0];
+NBNodeCont::buildOnRamp(OptionsCont& oc, NBNode* cur,
+                        NBEdgeCont& ec, NBDistrictCont& dc,
+                        EdgeVector& incremented) {
+    NBEdge* pot_highway = cur->getIncomingEdges()[0];
+    NBEdge* pot_ramp = cur->getIncomingEdges()[1];
+    NBEdge* cont = cur->getOutgoingEdges()[0];
     bool bEdgeDeleted = false;
 
     // assign highway/ramp properly
@@ -940,7 +939,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             }
             //
             cont->invalidateConnections(true);
-            const EdgeVector &o1 = cont->getToNode()->getOutgoingEdges();
+            const EdgeVector& o1 = cont->getToNode()->getOutgoingEdges();
             if (o1.size()==1&&o1[0]->getNumLanes()<cont->getNumLanes()) {
                 cont->addLane2LaneConnections(cont->getNumLanes()-o1[0]->getNumLanes(),
                                               o1[0], 0, o1[0]->getNumLanes(), NBEdge::L2L_VALIDATED);
@@ -951,7 +950,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     PositionVector g = cont->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     cont->setGeometry(g);
-                } catch (InvalidArgument &) {
+                } catch (InvalidArgument&) {
                     WRITE_WARNING("For edge '" + cont->getID() + "': could not compute shape.");
                 }
             }
@@ -963,7 +962,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     } else {
         bEdgeDeleted=true;
         // there is enough place to build a ramp; do it
-        NBNode *rn =
+        NBNode* rn =
             new NBNode(cont->getID() + "-AddedOnRampNode",
                        cont->getGeometry().positionAtLengthPosition(
                            oc.getFloat("ramps.ramp-length")));
@@ -978,8 +977,8 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return true;
         } else {
-            NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
-            NBEdge *added = ec.retrieve(name);
+            NBEdge* added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
+            NBEdge* added = ec.retrieve(name);
             incremented.push_back(added_ramp);
             if (added_ramp->getNumLanes()!=added->getNumLanes()) {
                 int off = added_ramp->getNumLanes()-added->getNumLanes();
@@ -992,7 +991,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
-                    } catch (InvalidArgument &) {
+                    } catch (InvalidArgument&) {
                         WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
                     }
                 }
@@ -1020,12 +1019,12 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 
 
 void
-NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
-                         NBEdgeCont &ec, NBDistrictCont &dc,
-                         EdgeVector &incremented) {
-    NBEdge *pot_highway = cur->getOutgoingEdges()[0];
-    NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
-    NBEdge *prev = cur->getIncomingEdges()[0];
+NBNodeCont::buildOffRamp(OptionsCont& oc, NBNode* cur,
+                         NBEdgeCont& ec, NBDistrictCont& dc,
+                         EdgeVector& incremented) {
+    NBEdge* pot_highway = cur->getOutgoingEdges()[0];
+    NBEdge* pot_ramp = cur->getOutgoingEdges()[1];
+    NBEdge* prev = cur->getIncomingEdges()[0];
     // assign highway/ramp properly
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
         std::swap(pot_highway, pot_ramp);
@@ -1063,7 +1062,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     PositionVector g = prev->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset);
                     prev->setGeometry(g);
-                } catch (InvalidArgument &) {
+                } catch (InvalidArgument&) {
                     WRITE_WARNING("For edge '" + prev->getID() + "': could not compute shape.");
                 }
             }
@@ -1076,7 +1075,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         Position pos =
             prev->getGeometry().positionAtLengthPosition(
                 prev->getGeometry().length()-oc.getFloat("ramps.ramp-length"));
-        NBNode *rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
+        NBNode* rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
 
@@ -1089,8 +1088,8 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return;
         } else {
-            NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
-            NBEdge *added = ec.retrieve(name);
+            NBEdge* added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
+            NBEdge* added = ec.retrieve(name);
             if (added_ramp->getNumLanes()!=added->getNumLanes()) {
                 incremented.push_back(added_ramp);
                 int off = added_ramp->getNumLanes()-added->getNumLanes();
@@ -1104,7 +1103,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                         SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
                         g.move2side(factor);
                         added_ramp->setGeometry(g);
-                    } catch (InvalidArgument &) {
+                    } catch (InvalidArgument&) {
                         WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
                     }
                 }
@@ -1131,12 +1130,12 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
 
 
 bool
-NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
+NBNodeCont::mayNeedOffRamp(OptionsCont& oc, NBNode* cur) const {
     if (cur->getIncomingEdges().size()==1&&cur->getOutgoingEdges().size()==2) {
         // may be an off-ramp
-        NBEdge *pot_highway = cur->getOutgoingEdges()[0];
-        NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
-        NBEdge *prev = cur->getIncomingEdges()[0];
+        NBEdge* pot_highway = cur->getOutgoingEdges()[0];
+        NBEdge* pot_ramp = cur->getOutgoingEdges()[1];
+        NBEdge* prev = cur->getIncomingEdges()[0];
 
         // do not build ramps on connectors
         if (pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||prev->isMacroscopicConnector()) {
@@ -1190,14 +1189,14 @@ NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
 
 
 void
-NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
-                       NBDistrictCont &dc) {
+NBNodeCont::guessRamps(OptionsCont& oc, NBEdgeCont& ec,
+                       NBDistrictCont& dc) {
     EdgeVector incremented;
     bool bEdgeDeleted=false;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *cur = (*i).second;
+            NBNode* cur = (*i).second;
             if (mayNeedOnRamp(oc, cur)) {
                 buildOnRamp(oc, cur, ec, dc, incremented);
             }
@@ -1210,12 +1209,12 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
     if (oc.isSet("ramps.set")) {
         std::vector<std::string> edges = oc.getStringVector("ramps.set");
         for (std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-            NBEdge *e = ec.retrieve(*i);
+            NBEdge* e = ec.retrieve(*i);
             if (e==0) {
                 WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
-            NBNode *from = e->getFromNode();
+            NBNode* from = e->getFromNode();
             if (from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
                 bEdgeDeleted = buildOnRamp(oc, from, ec, dc, incremented);
             }
@@ -1225,7 +1224,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 WRITE_WARNING("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
-            NBNode *to = e->getToNode();
+            NBNode* to = e->getToNode();
             if (to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
                 buildOffRamp(oc, to, ec, dc, incremented);
             }

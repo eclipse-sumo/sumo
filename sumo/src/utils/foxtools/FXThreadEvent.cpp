@@ -65,7 +65,7 @@ namespace FXEX {
 #endif
 
 // Message map
-FXDEFMAP(FXThreadEvent) FXThreadEventMap[]={
+FXDEFMAP(FXThreadEvent) FXThreadEventMap[]= {
     FXMAPTYPE(0,FXThreadEvent::onThreadEvent),
     FXMAPFUNC(SEL_THREAD,0, FXThreadEvent::onThreadEvent),
     FXMAPFUNC(SEL_IO_READ,FXThreadEvent::ID_THREAD_EVENT,FXThreadEvent::onThreadSignal),

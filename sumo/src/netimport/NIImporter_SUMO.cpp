@@ -60,7 +60,7 @@
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_SUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_SUMO importer(nb);
     importer._loadNetwork(oc);
 }
@@ -69,23 +69,23 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
-NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder &nb)
-        : SUMOSAXHandler("sumo-network"),
-        myNetBuilder(nb),
-        myNodeCont(nb.getNodeCont()),
-        myTLLCont(nb.getTLLogicCont()),
-        myCurrentEdge(0),
-        myCurrentLane(0),
-        myCurrentTL(0),
-        myLocation(0),
-        mySuspectKeepShape(false),
-        myHaveWarnedAboutDeprecatedSpreadType(false), 
-        myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
+NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
+    : SUMOSAXHandler("sumo-network"),
+      myNetBuilder(nb),
+      myNodeCont(nb.getNodeCont()),
+      myTLLCont(nb.getTLLogicCont()),
+      myCurrentEdge(0),
+      myCurrentLane(0),
+      myCurrentTL(0),
+      myLocation(0),
+      mySuspectKeepShape(false),
+      myHaveWarnedAboutDeprecatedSpreadType(false),
+      myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
 
 
 NIImporter_SUMO::~NIImporter_SUMO() throw() {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        EdgeAttrs *ed = (*i).second;
+        EdgeAttrs* ed = (*i).second;
         for (std::vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
             delete *j;
         }
@@ -96,7 +96,7 @@ NIImporter_SUMO::~NIImporter_SUMO() throw() {
 
 
 void
-NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
+NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
     // check whether the option is set (properly)
     if (!oc.isUsableFileList("sumo-net-file")) {
         return;
@@ -115,14 +115,14 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     }
     // build edges
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        EdgeAttrs *ed = (*i).second;
+        EdgeAttrs* ed = (*i).second;
         // skip internal edges
         if (ed->func == toString(EDGEFUNC_INTERNAL)) {
             continue;
         }
         // get and check the nodes
-        NBNode *from = myNodeCont.retrieve(ed->fromNode);
-        NBNode *to = myNodeCont.retrieve(ed->toNode);
+        NBNode* from = myNodeCont.retrieve(ed->fromNode);
+        NBNode* to = myNodeCont.retrieve(ed->toNode);
         if (from==0) {
             WRITE_ERROR("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
             continue;
@@ -142,7 +142,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
             geom = reconstructEdgeShape(ed, from->getPosition(), to->getPosition());
         }
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to,
+        NBEdge* e = new NBEdge(ed->id, from, to,
                                ed->type, ed->maxSpeed,
                                (unsigned int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
@@ -156,13 +156,13 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
     }
     // assign further lane attributes (edges are built)
     for (std::map<std::string, EdgeAttrs*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        EdgeAttrs *ed = (*i).second;
-        NBEdge *nbe = ed->builtEdge;
+        EdgeAttrs* ed = (*i).second;
+        NBEdge* nbe = ed->builtEdge;
         if (nbe == 0) { // inner edge or removed by explicit list, vclass, ...
             continue;
         }
         for (unsigned int fromLaneIndex=0; fromLaneIndex<(unsigned int) ed->lanes.size(); ++fromLaneIndex) {
-            LaneAttrs *lane = ed->lanes[fromLaneIndex];
+            LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
             const std::vector<Connection> &connections = lane->connections;
             for (std::vector<Connection>::const_iterator c_it=connections.begin(); c_it!=connections.end(); c_it++) {
@@ -171,7 +171,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                     WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
                     continue;
                 }
-                NBEdge *toEdge = myEdges[c.toEdgeID]->builtEdge;
+                NBEdge* toEdge = myEdges[c.toEdgeID]->builtEdge;
                 if (toEdge==0) { // removed by explicit list, vclass, ...
                     continue;
                 }
@@ -185,7 +185,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
                     if (programs.size() > 0) {
                         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
                         for (it = programs.begin(); it!= programs.end(); it++) {
-                            NBLoadedSUMOTLDef *tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
+                            NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
                             if (tlDef) {
                                 tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkNo);
                             } else {
@@ -216,10 +216,10 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
         if (prohibitedFrom == 0) {
             WRITE_ERROR("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
         } else {
-            NBNode *n = prohibitedFrom->getToNode();
+            NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
-                    NBConnection(myEdges[it->prohibitorFrom]->builtEdge, myEdges[it->prohibitorTo]->builtEdge),
-                    NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
+                NBConnection(myEdges[it->prohibitorFrom]->builtEdge, myEdges[it->prohibitorTo]->builtEdge),
+                NBConnection(prohibitedFrom, myEdges[it->prohibitedTo]->builtEdge));
         }
     }
 
@@ -234,7 +234,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont &oc) {
 
 void
 NIImporter_SUMO::myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                const SUMOSAXAttributes& attrs) throw(ProcessError) {
     /* our goal is to reproduce the input net faithfully
      * there are different types of objects in the netfile:
      * 1) those which must be loaded into NBNetBuilder-Containers for processing
@@ -289,7 +289,7 @@ NIImporter_SUMO::myStartElement(int element,
 
 void
 NIImporter_SUMO::myCharacters(int element,
-                              const std::string &chars) throw(ProcessError) {
+                              const std::string& chars) throw(ProcessError) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
 }
@@ -333,7 +333,7 @@ NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
 
 
 void
-NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -381,7 +381,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
@@ -390,7 +390,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     if (!myCurrentEdge) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element");
         return;
-    } 
+    }
     myCurrentLane = new LaneAttrs;
     if (myCurrentEdge->func == toString(EDGEFUNC_INTERNAL)) {
         return; // skip internal lanes
@@ -417,7 +417,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -451,7 +451,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
             mySuspectKeepShape = true;
         }
     }
-    NBNode *node = new NBNode(id, pos, type);
+    NBNode* node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
         WRITE_ERROR("Problems on adding junction '" + id + "'.");
         delete node;
@@ -461,7 +461,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string edge_id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
     myCurrentEdge = 0;
@@ -476,7 +476,7 @@ NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentLane==0) {
         WRITE_ERROR("Found succlane outside succ element");
         return;
@@ -501,14 +501,14 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
     if (myEdges.count(fromID) == 0) {
         WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
         return;
     }
-    EdgeAttrs *from = myEdges[fromID];
+    EdgeAttrs* from = myEdges[fromID];
     Connection conn;
     conn.toEdgeID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
     unsigned int fromLaneIdx = attrs.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
@@ -528,7 +528,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes &attrs) {
 
 
 void
-NIImporter_SUMO::addProhibition(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, 0, ok, "");
     std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, 0, ok, "");
@@ -561,7 +561,7 @@ NIImporter_SUMO::getLaneAttrsFromID(EdgeAttrs* edge, std::string lane_id) {
 
 
 void
-NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_id, unsigned int &index) {
+NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_id, unsigned int& index) {
     // assume lane_id = edge_id + '_' + index
     size_t sep_index = lane_id.rfind('_');
     if (sep_index == std::string::npos) {
@@ -578,7 +578,7 @@ NIImporter_SUMO::interpretLaneID(const std::string &lane_id, std::string &edge_i
 
 
 NBLoadedSUMOTLDef*
-NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL) {
+NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
         WRITE_ERROR("Definition of tl-logic '" + currentTL->getID() + "' was not finished.");
         return 0;
@@ -590,7 +590,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedS
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, 0, ok);
     if (type != toString(TLTYPE_STATIC)) {
         WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" +
-                toString(TLTYPE_STATIC) + "'");
+                      toString(TLTYPE_STATIC) + "'");
     }
     if (ok) {
         return new NBLoadedSUMOTLDef(id, programID, offset);
@@ -601,12 +601,12 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedS
 
 
 void
-NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL) {
+NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (!currentTL) {
         WRITE_ERROR("found phase without tl-logic");
         return;
     }
-    const std::string &id = currentTL->getID();
+    const std::string& id = currentTL->getID();
     bool ok = true;
     std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, id.c_str(), ok);
     SUMOTime duration = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_DURATION, id.c_str(), ok));
@@ -625,8 +625,8 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *cur
 
 
 PositionVector
-NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &from, const Position &to) {
-    const PositionVector &firstLane = edge->lanes[0]->shape;
+NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& from, const Position& to) {
+    const PositionVector& firstLane = edge->lanes[0]->shape;
     PositionVector result;
     result.push_back(from);
 
@@ -638,8 +638,8 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
         Position me = firstLane[i];
         Position to = firstLane[i+1];
         std::pair<SUMOReal, SUMOReal> offsets = NBEdge::laneOffset(
-                                                    from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1,
-                                                    noLanes, edge->lsf, false);
+                from, me, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1,
+                noLanes, edge->lsf, false);
         std::pair<SUMOReal, SUMOReal> offsets2 = NBEdge::laneOffset(
                     me, to, SUMO_const_laneWidthAndOffset, (unsigned int)noLanes-1,
                     noLanes, edge->lsf, false);
@@ -665,18 +665,18 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position &fro
 
 
 void
-NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
+NIImporter_SUMO::setLocation(const SUMOSAXAttributes& attrs) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     PositionVector s = GeomConvHelper::parseShapeReporting(
-            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
-            attrs.getObjectType(), 0, ok, false);
+                           attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
+                           attrs.getObjectType(), 0, ok, false);
     Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(
-            attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
-            attrs.getObjectType(), 0, ok);
+                                attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, 0, ok),
+                                attrs.getObjectType(), 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];
@@ -686,20 +686,20 @@ NIImporter_SUMO::setLocation(const SUMOSAXAttributes &attrs) {
 }
 
 
-Position 
-NIImporter_SUMO::readPosition(const SUMOSAXAttributes &attrs, const std::string &id, bool &ok) {
+Position
+NIImporter_SUMO::readPosition(const SUMOSAXAttributes& attrs, const std::string& id, bool& ok) {
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     SUMOReal z = 0;
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-            z = attrs.getSUMORealReporting(SUMO_ATTR_Z, id.c_str(), ok);
+        z = attrs.getSUMORealReporting(SUMO_ATTR_Z, id.c_str(), ok);
     }
     return Position(x,y,z);
 }
 
 
 void
-NIImporter_SUMO::parseProhibitionConnection(const std::string &attr, std::string &from, std::string &to, bool &ok) {
+NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok) {
     // split from/to
     size_t div = attr.find("->");
     if (div==std::string::npos) {
@@ -715,7 +715,7 @@ NIImporter_SUMO::parseProhibitionConnection(const std::string &attr, std::string
     if (to.find('_')!=std::string::npos) {
         to= to.substr(0, to.find('_'));
     }
-    // check whether the edges are known 
+    // check whether the edges are known
     if (myEdges.count(from) == 0) {
         WRITE_ERROR("Unknown edge prohibition '" + from + "'");
         ok = false;

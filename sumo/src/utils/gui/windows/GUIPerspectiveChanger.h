@@ -64,17 +64,17 @@ public:
     };
 
     /// Constructor
-    GUIPerspectiveChanger(GUISUMOAbstractView &callBack, const Boundary& viewPort);
+    GUIPerspectiveChanger(GUISUMOAbstractView& callBack, const Boundary& viewPort);
 
     /// Destructor
     virtual ~GUIPerspectiveChanger();
 
-    virtual void onLeftBtnPress(void *data);
-    virtual bool onLeftBtnRelease(void *data);
-    virtual void onRightBtnPress(void *data);
-    virtual bool onRightBtnRelease(void *data);
-    virtual void onMouseWheel(void *data);
-    virtual void onMouseMove(void *data);
+    virtual void onLeftBtnPress(void* data);
+    virtual bool onLeftBtnRelease(void* data);
+    virtual void onRightBtnPress(void* data);
+    virtual bool onRightBtnRelease(void* data);
+    virtual void onMouseWheel(void* data);
+    virtual void onMouseMove(void* data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual SUMOReal getRotation() const = 0;
@@ -91,7 +91,7 @@ public:
     /** @brief Centers the view to the given position,
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
-    virtual void centerTo(const Position &pos, SUMOReal radius, bool applyZoom=true) = 0;
+    virtual void centerTo(const Position& pos, SUMOReal radius, bool applyZoom=true) = 0;
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */
@@ -128,7 +128,7 @@ public:
 
 protected:
     /// The parent window (canvas to scale)
-    GUISUMOAbstractView &myCallback;
+    GUISUMOAbstractView& myCallback;
 
     /// the current mouse position
     FXint myMouseXPosition, myMouseYPosition;

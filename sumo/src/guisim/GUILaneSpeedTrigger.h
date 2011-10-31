@@ -48,8 +48,8 @@
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUILaneSpeedTrigger
-        : public MSLaneSpeedTrigger,
-            public GUIGlObject_AbstractAdd {
+    : public MSLaneSpeedTrigger,
+      public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
@@ -57,9 +57,9 @@ public:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      */
-    GUILaneSpeedTrigger(const std::string &id,
+    GUILaneSpeedTrigger(const std::string& id,
                         const std::vector<MSLane*> &destLanes,
-                        const std::string &file) throw(ProcessError);
+                        const std::string& file) throw(ProcessError);
 
 
     /** destructor */
@@ -77,8 +77,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -88,8 +88,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -104,21 +104,21 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
 
-    GUIManipulator *openManipulator(GUIMainWindow &app,
-                                    GUISUMOAbstractView &parent);
+    GUIManipulator* openManipulator(GUIMainWindow& app,
+                                    GUISUMOAbstractView& parent);
 
 public:
     class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)
     public:
 
-        GUILaneSpeedTriggerPopupMenu(GUIMainWindow &app,
-                                     GUISUMOAbstractView &parent, GUIGlObject &o);
+        GUILaneSpeedTriggerPopupMenu(GUIMainWindow& app,
+                                     GUISUMOAbstractView& parent, GUIGlObject& o);
 
         ~GUILaneSpeedTriggerPopupMenu() throw();
 
@@ -141,8 +141,8 @@ public:
             ID_LAST
         };
         /// Constructor
-        GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
-                                  const std::string &name, GUILaneSpeedTrigger &o,
+        GUIManip_LaneSpeedTrigger(GUIMainWindow& app,
+                                  const std::string& name, GUILaneSpeedTrigger& o,
                                   int xpos, int ypos);
 
         /// Destructor
@@ -157,7 +157,7 @@ public:
         long onCmdChangeOption(FXObject*,FXSelector,void*);
 
     private:
-        GUIMainWindow *myParent;
+        GUIMainWindow* myParent;
 
         FXint myChosenValue;
 
@@ -167,11 +167,11 @@ public:
 
         FXDataTarget mySpeedTarget;
 
-        FXRealSpinDial *myUserDefinedSpeed;
+        FXRealSpinDial* myUserDefinedSpeed;
 
-        FXComboBox *myPredefinedValues;
+        FXComboBox* myPredefinedValues;
 
-        GUILaneSpeedTrigger *myObject;
+        GUILaneSpeedTrigger* myObject;
 
     protected:
         GUIManip_LaneSpeedTrigger() { }

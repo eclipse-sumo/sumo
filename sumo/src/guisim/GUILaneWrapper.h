@@ -64,7 +64,7 @@ public:
      * @param[in] lane The lane to be represented
      * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
      */
-    GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw();
+    GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) throw();
 
 
     /// @brief Destructor
@@ -82,8 +82,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -93,8 +93,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -109,7 +109,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
@@ -117,14 +117,14 @@ public:
     /** @brief Returns the represented lane
      * @return The lane represented by this wrapper
      */
-    const MSLane &getLane() const throw() {
+    const MSLane& getLane() const throw() {
         return myLane;
     }
 
 
-    const PositionVector &getShape() const;
-    const DoubleVector &getShapeRotations() const;
-    const DoubleVector &getShapeLengths() const;
+    const PositionVector& getShape() const;
+    const DoubleVector& getShapeRotations() const;
+    const DoubleVector& getShapeLengths() const;
 
     SUMOReal firstWaitingTime() const;
 
@@ -133,11 +133,11 @@ public:
     static SUMOReal getOverallMaxSpeed();
 
     /// Returns true if the given lane id the lane this wrapper wraps the geometry of
-    bool forLane(const MSLane &lane) const;
+    bool forLane(const MSLane& lane) const;
 
 
     /// @brief draw lane borders and white markings
-    void drawMarkings(const GUIVisualizationSettings &s) const;
+    void drawMarkings(const GUIVisualizationSettings& s) const;
 
 
     /// Returns the number of links
@@ -197,10 +197,10 @@ protected:
     SUMOReal myVisLength;
 
     /// The assigned lane
-    MSLane &myLane;
+    MSLane& myLane;
 
     /// The shape of the lane
-    const PositionVector &myShape;
+    const PositionVector& myShape;
 
     /// The rotations of the shape parts
     DoubleVector myShapeRotations;
@@ -229,13 +229,13 @@ private:
 
     /// @brief helper methods
     void ROWdrawAction_drawLinkNo() const;
-    void ROWdrawAction_drawTLSLinkNo(const GUINet &net) const;
-    void ROWdrawAction_drawLinkRules(const GUINet &net) const;
+    void ROWdrawAction_drawTLSLinkNo(const GUINet& net) const;
+    void ROWdrawAction_drawLinkRules(const GUINet& net) const;
     void ROWdrawAction_drawArrows() const;
     void ROWdrawAction_drawLane2LaneConnections() const;
 
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings &s) const;
+    void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;

@@ -78,20 +78,18 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(
 // method definitions
 // ===========================================================================
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
-        myGLObjectType(type),
-        myMicrosimID(microsimID),
-        myPrefix(TypeNames.getString(type))
-{
+    myGLObjectType(type),
+    myMicrosimID(microsimID),
+    myPrefix(TypeNames.getString(type)) {
     myFullName = createFullName();
     myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
 GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID) :
-        myGLObjectType(type),
-        myMicrosimID(microsimID),
-        myPrefix(prefix)
-{
+    myGLObjectType(type),
+    myMicrosimID(microsimID),
+    myPrefix(prefix) {
     myFullName = createFullName();
     myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
@@ -107,14 +105,14 @@ GUIGlObject::~GUIGlObject() throw() {
 
 
 void
-GUIGlObject::setMicrosimID(const std::string &newID) {
+GUIGlObject::setMicrosimID(const std::string& newID) {
     myMicrosimID = newID;
     myFullName = createFullName();
 }
 
 
 void
-GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret, GUIMainWindow &app,
+GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app,
                               bool addSeparator) throw() {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     if (addSeparator) {
@@ -124,7 +122,7 @@ GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret, GUIMainWindow &app,
 
 
 void
-GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -133,7 +131,7 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator)
 
 
 void
-GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy name to clipboard", 0, ret, MID_COPY_NAME);
     new FXMenuCommand(ret, "Copy typed name to clipboard", 0, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
@@ -143,7 +141,7 @@ GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparato
 
 
 void
-GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     if (gSelected.isSelected(getType(), getGlID())) {
         new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
@@ -156,7 +154,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparat
 
 
 void
-GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -165,7 +163,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret, bool addSepara
 
 
 void
-GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
         new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
@@ -177,7 +175,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret, bool addSeparator
 
 
 void
-GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator) throw() {
+GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) throw() {
     new FXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -186,13 +184,13 @@ GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret, bool addS
 
 
 void
-GUIGlObject::addParameterTable(GUIParameterTableWindow *t) throw() {
+GUIGlObject::addParameterTable(GUIParameterTableWindow* t) throw() {
     myParamWindows.insert(t);
 }
 
 
 void
-GUIGlObject::removeParameterTable(GUIParameterTableWindow *t) throw() {
+GUIGlObject::removeParameterTable(GUIParameterTableWindow* t) throw() {
     std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.find(t);
     if (i!=myParamWindows.end()) {
         myParamWindows.erase(i);
@@ -214,7 +212,7 @@ GUIGlObject::createFullName() const {
 
 void
 GUIGlObject::drawName(const Position& pos, const SUMOReal scale,
-                      const GUIVisualizationTextSettings &settings, const SUMOReal angle) const {
+                      const GUIVisualizationTextSettings& settings, const SUMOReal angle) const {
     if (settings.show) {
         GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, settings.size / scale, settings.color, angle);
     }

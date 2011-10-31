@@ -48,10 +48,10 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
-        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise *parent) throw()
-        : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
-        currentTimeN(0), meanNTemp(0), myParent(parent) {}
+MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
+        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise* parent) throw()
+    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
+      currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
 
 MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -68,7 +68,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) throw() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) const throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const throw() {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
     v.meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(meanNTemp)/10.);
@@ -100,7 +100,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMov
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
+MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
     dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp*TS/STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
@@ -118,13 +118,13 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMO
 // ---------------------------------------------------------------------------
 // MSMeanData_Harmonoise - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string &id,
+MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const SUMOTime dumpBegin, const SUMOTime dumpEnd,
         const bool useLanes, const bool withEmpty, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
         const std::set<std::string> vTypes) throw()
-        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
+    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 
@@ -132,7 +132,7 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Harmonoise::createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+MSMeanData_Harmonoise::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
     return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 

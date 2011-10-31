@@ -62,16 +62,16 @@ public:
     class MSPersonStage {
     public:
         /// constructor
-        MSPersonStage(const MSEdge &destination);
+        MSPersonStage(const MSEdge& destination);
 
         /// destructor
         virtual ~MSPersonStage();
 
         /// returns the destination edge
-        const MSEdge &getDestination() const;
+        const MSEdge& getDestination() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge) = 0;
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge) = 0;
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -80,19 +80,19 @@ public:
         void setArrived(SUMOTime now);
 
         /// Whether the person waits for a vehicle of the line specified.
-        virtual bool isWaitingFor(const std::string &line) const;
+        virtual bool isWaitingFor(const std::string& line) const;
 
         /** @brief Called on writing tripinfo output
          *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError) = 0;
+        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError) = 0;
 
 
     protected:
         /// the next edge to reach (either by walking or driving)
-        const MSEdge &myDestination;
+        const MSEdge& myDestination;
 
         /// the time at which this stage started
         SUMOTime myDeparted;
@@ -123,14 +123,14 @@ public:
         ~MSPersonStage_Walking();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
 
         /** @brief Called on writing tripinfo output
          *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
 
     private:
         /// the time the person is walking
@@ -152,24 +152,24 @@ public:
     class MSPersonStage_Driving : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge &destination,
+        MSPersonStage_Driving(const MSEdge& destination,
                               const std::vector<std::string> &lines);
 
         /// destructor
         ~MSPersonStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
 
         /// Whether the person waits for a vehicle of the line specified.
-        bool isWaitingFor(const std::string &line) const;
+        bool isWaitingFor(const std::string& line) const;
 
         /** @brief Called on writing tripinfo output
          *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
 
     private:
         /// the lines  to choose from
@@ -190,20 +190,20 @@ public:
     class MSPersonStage_Waiting : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Waiting(const MSEdge &destination, SUMOTime duration, SUMOTime until);
+        MSPersonStage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until);
 
         /// destructor
         ~MSPersonStage_Waiting();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet *net, MSPerson *person, SUMOTime now, const MSEdge &previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
 
         /** @brief Called on writing tripinfo output
          *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice &os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
 
     private:
         /// the time the person is waiting
@@ -227,17 +227,17 @@ public:
 
 private:
     /// the plan of the person
-    const SUMOVehicleParameter *myParameter;
+    const SUMOVehicleParameter* myParameter;
 
     /// the plan of the person
-    MSPersonPlan *myPlan;
+    MSPersonPlan* myPlan;
 
     /// the iterator over the route
     MSPersonPlan::iterator myStep;
 
 public:
     /// constructor
-    MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan *plan);
+    MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan);
 
     /// destructor
     ~MSPerson();
@@ -246,7 +246,7 @@ public:
     const std::string& getID() const throw();
 
     /// proceeds to the next step of the route
-    void proceed(MSNet *net, SUMOTime time);
+    void proceed(MSNet* net, SUMOTime time);
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const throw();
@@ -255,17 +255,17 @@ public:
     void setDeparted(SUMOTime now);
 
     /// Returns the current destination.
-    const MSEdge &getDestination() const;
+    const MSEdge& getDestination() const;
 
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    void tripInfoOutput(OutputDevice &os) const throw(IOError);
+    void tripInfoOutput(OutputDevice& os) const throw(IOError);
 
     /// Whether the person waits for a vehicle of the line specified.
-    bool isWaitingFor(const std::string &line) const;
+    bool isWaitingFor(const std::string& line) const;
 
 private:
     /// @brief Invalidated copy constructor.

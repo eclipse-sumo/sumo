@@ -52,12 +52,12 @@ const SUMOReal MSCFModel_Wiedemann::D_MAX = 150;
 MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
         SUMOReal accel, SUMOReal decel,
         SUMOReal security, SUMOReal estimation) :
-        MSCFModel(vtype, accel, decel, 1.0),
-        mySecurity(security),
-        myEstimation(estimation),
-        myAX(vtype->getLength() + 1. + 2. * security),
-        myCX(25. *(1. + security + estimation)),
-        myMinAccel(0.2 * myAccel) { // +noise?
+    MSCFModel(vtype, accel, decel, 1.0),
+    mySecurity(security),
+    myEstimation(estimation),
+    myAX(vtype->getLength() + 1. + 2. * security),
+    myCX(25. *(1. + security + estimation)),
+    myMinAccel(0.2 * myAccel) { // +noise?
 }
 
 
@@ -65,7 +65,7 @@ MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
 
 
 SUMOReal
-MSCFModel_Wiedemann::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+MSCFModel_Wiedemann::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     vars->accelSign = vNext > veh->getSpeed() ? 1. : -1.;
@@ -74,13 +74,13 @@ MSCFModel_Wiedemann::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_Wiedemann::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, predSpeed, gap2pred);
 }
 
 
 SUMOReal
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which
@@ -92,20 +92,20 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const 
 
 
 SUMOReal
-MSCFModel_Wiedemann::interactionGap(const MSVehicle * const , SUMOReal vL) const {
+MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , SUMOReal vL) const {
     UNUSED_PARAMETER(vL);
     return D_MAX;
 }
 
 
-MSCFModel *
-MSCFModel_Wiedemann::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Wiedemann(vtype, myAccel, myDecel, mySecurity, myEstimation);
 }
 
 
 SUMOReal
-MSCFModel_Wiedemann::_v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const {
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const SUMOReal dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const SUMOReal v = veh->getSpeed();

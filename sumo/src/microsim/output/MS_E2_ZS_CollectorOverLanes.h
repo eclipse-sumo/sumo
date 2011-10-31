@@ -60,7 +60,7 @@ class MSE2Collector;
  *  combinations shall be treated.
  */
 class MS_E2_ZS_CollectorOverLanes :
-            public MSDetectorFileOutput {
+    public MSDetectorFileOutput {
 public:
     /// Definition of a E2 collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;
@@ -77,7 +77,7 @@ public:
      * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
      * @todo The lane should not be given as a pointer
      */
-    MS_E2_ZS_CollectorOverLanes(const std::string &id,
+    MS_E2_ZS_CollectorOverLanes(const std::string& id,
                                 DetectorUsage usage, MSLane* lane, SUMOReal startPos,
                                 SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                                 SUMOReal jamDistThreshold) throw();
@@ -91,7 +91,7 @@ public:
      * @param[in] lane The lane the detector starts at
      * @param[in] startPos Begin position of the detector
      */
-    void init(MSLane *lane, SUMOReal detLength) throw();
+    void init(MSLane* lane, SUMOReal detLength) throw();
 
 
     /// @brief Destructor
@@ -101,14 +101,14 @@ public:
     /** @brief Returns this detector's id
      * @return The id of this detector
      */
-    const std::string &getID() const throw();
+    const std::string& getID() const throw();
 
 
     /** @brief Returns the id of the lane this detector starts at
      * @return The id of the lane this detector starts at
      * @todo Check whether this is needed
      */
-    const std::string &getStartLaneID() const throw();
+    const std::string& getStartLaneID() const throw();
 
 
 
@@ -123,7 +123,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev,
+    void writeXMLOutput(OutputDevice& dev,
                         SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
@@ -134,7 +134,7 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
 
@@ -163,7 +163,7 @@ protected:
      * @param[in] r !!!
      * @todo Describe!
      */
-    std::string  makeID(const std::string &baseID,
+    std::string  makeID(const std::string& baseID,
                         size_t c, size_t r) const throw();
 
 
@@ -175,8 +175,8 @@ protected:
      * @param[in] end !!!
      * @todo Describe!
      */
-    virtual MSE2Collector *buildCollector(size_t c, size_t r,
-                                          MSLane *l, SUMOReal start, SUMOReal end) throw();
+    virtual MSE2Collector* buildCollector(size_t c, size_t r,
+                                          MSLane* l, SUMOReal start, SUMOReal end) throw();
 
 
     /** @brief Returns the list of lanes predecessing the given one
@@ -184,7 +184,7 @@ protected:
      * @param[in] l The lane to return predecessors of
      * @return List of lanes predecessing the given one
      */
-    std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l) throw();
+    std::vector<MSLane*> getLanePredeccessorLanes(MSLane* l) throw();
 
 protected:
     /// @brief The position the collector starts at

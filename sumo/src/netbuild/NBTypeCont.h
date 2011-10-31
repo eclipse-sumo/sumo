@@ -79,7 +79,7 @@ public:
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
-    bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
+    bool insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
                 SUMOReal width, SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false) throw();
 
     /** @brief Adds a type into the list
@@ -93,7 +93,7 @@ public:
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
-    bool insert(const std::string &id, int noLanes,
+    bool insert(const std::string& id, int noLanes,
                 SUMOReal maxSpeed, int prio,
                 const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
                 SUMOReal width, bool oneWayIsDefault) throw();
@@ -115,13 +115,13 @@ public:
     /** @brief Returns whether the named type is in the container
      * @return Whether the named type is known
      */
-    bool knows(const std::string &type) const throw();
+    bool knows(const std::string& type) const throw();
 
 
     /** @brief Marks a type as to be discarded
      * @param[in] id The id of the type
      */
-    bool markAsToDiscard(const std::string &id) throw();
+    bool markAsToDiscard(const std::string& id) throw();
 
 
 
@@ -134,7 +134,7 @@ public:
      * @param[in] type The name of the type to return the lane number for
      * @return The number of lanes an edge of this type has
      */
-    int getNumLanes(const std::string &type) const throw();
+    int getNumLanes(const std::string& type) const throw();
 
 
     /** @brief Returns the maximal velocity for the given type [m/s]
@@ -143,7 +143,7 @@ public:
      * @param[in] type The name of the type to return the speed for
      * @return The allowed speed on edges of this type
      */
-    SUMOReal getSpeed(const std::string &type) const throw();
+    SUMOReal getSpeed(const std::string& type) const throw();
 
 
     /** @brief Returns the priority for the given type
@@ -152,7 +152,7 @@ public:
      * @param[in] type The name of the type to return the priority for
      * @return The priority of edges of this type
      */
-    int getPriority(const std::string &type) const throw();
+    int getPriority(const std::string& type) const throw();
 
 
     /** @brief Returns whether edges are one-way per default for the given type
@@ -162,7 +162,7 @@ public:
      * @return Whether edges of this type are one-way per default
      * @todo There is no default for one-way!?
      */
-    bool getIsOneWay(const std::string &type) const throw();
+    bool getIsOneWay(const std::string& type) const throw();
 
 
     /** @brief Returns the information whether edges of this type shall be discarded.
@@ -170,7 +170,7 @@ public:
      * Returns false if the type is not known.
      * @return Whether edges of this type shall be discarded.
      */
-    bool getShallBeDiscarded(const std::string &type) const throw();
+    bool getShallBeDiscarded(const std::string& type) const throw();
 
 
     /** @brief Returns allowed vehicle classes for the given type
@@ -179,7 +179,7 @@ public:
      * @param[in] type The name of the type to return the list of allowed vehicles classes for
      * @return List of vehicles class which may use edges of the given type
      */
-    const SUMOVehicleClasses &getAllowedClasses(const std::string &type) const throw();
+    const SUMOVehicleClasses& getAllowedClasses(const std::string& type) const throw();
 
 
     /** @brief Returns not allowed vehicle classes for the given type
@@ -188,7 +188,7 @@ public:
      * @param[in] type The name of the type to return the list of not allowed vehicles classes for
      * @return List of vehicles class which may not use edges of the given type
      */
-    const SUMOVehicleClasses &getDisallowedClasses(const std::string &type) const throw();
+    const SUMOVehicleClasses& getDisallowedClasses(const std::string& type) const throw();
 
 
     /** @brief Returns the lane width for the given type [m/s]
@@ -197,7 +197,7 @@ public:
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
-    SUMOReal getWidth(const std::string &type) const throw();
+    SUMOReal getWidth(const std::string& type) const throw();
     /// @}
 
 
@@ -205,13 +205,13 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition()
-                : noLanes(1), speed((SUMOReal) 13.9), priority(-1),
-                oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
+            : noLanes(1), speed((SUMOReal) 13.9), priority(-1),
+              oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         /// @brief Constructor
         TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, SUMOReal _width)
-                : noLanes(_noLanes), speed(_speed), priority(_priority),
-                oneWay(true), discard(false), width(_width) { }
+            : noLanes(_noLanes), speed(_speed), priority(_priority),
+              oneWay(true), discard(false), width(_width) { }
 
         /// @brief The number of lanes of an edge
         int noLanes;
@@ -239,7 +239,7 @@ private:
      * @param[in] name The name of the type to retrieve
      * @return The named type
      */
-    const TypeDefinition &getType(const std::string &name) const;
+    const TypeDefinition& getType(const std::string& name) const;
 
 
 private:
@@ -258,10 +258,10 @@ private:
 
 private:
     /** @brief invalid copy constructor */
-    NBTypeCont(const NBTypeCont &s);
+    NBTypeCont(const NBTypeCont& s);
 
     /** @brief invalid assignment operator */
-    NBTypeCont &operator=(const NBTypeCont &s);
+    NBTypeCont& operator=(const NBTypeCont& s);
 
 
 };

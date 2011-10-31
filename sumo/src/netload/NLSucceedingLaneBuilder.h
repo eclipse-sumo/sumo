@@ -55,7 +55,7 @@ public:
      *
      * @param[in] jb The junction control builder to obtain referenced tls from
      */
-    NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw();
+    NLSucceedingLaneBuilder(NLJunctionControlBuilder& jb) throw();
 
 
     /// @brief Destructor
@@ -67,7 +67,7 @@ public:
      * @param[in] laneId The id of the lane from which connections will be built
      * @todo Why is the ID kept, not already the lane itself?
      */
-    void openSuccLane(const std::string &laneId) throw();
+    void openSuccLane(const std::string& laneId) throw();
 
 
     /** @brief Adds a succeeding lane
@@ -89,12 +89,12 @@ public:
      * @see LinkState
      * @see MSLink
      */
-    void addSuccLane(const std::string &laneId,
+    void addSuccLane(const std::string& laneId,
 #ifdef HAVE_INTERNAL_LANES
-                     const std::string &viaID, SUMOReal pass,
+                     const std::string& viaID, SUMOReal pass,
 #endif
                      LinkDirection dir, LinkState state,
-                     const std::string &tlid="", unsigned int linkNo=0) throw(InvalidArgument);
+                     const std::string& tlid="", unsigned int linkNo=0) throw(InvalidArgument);
 
 
     /** @brief Ends the computation of a container holding the succeeding lanes of a lane
@@ -110,7 +110,7 @@ public:
     /** @brief Returns the name of the lane the succeeding lanes are added to
      * @return The ID of the currently opened lane
      */
-    const std::string &getCurrentLaneName() const throw();
+    const std::string& getCurrentLaneName() const throw();
 
 
 private:
@@ -120,18 +120,18 @@ private:
 
     /// @brief The list of connections
     /// @todo Is it really necessary to have this as a pointer - the link container is rebuilt anyway
-    MSLinkCont *mySuccLanes;
+    MSLinkCont* mySuccLanes;
 
     /// @brief The junction control builder to obtain referenced tls from
-    NLJunctionControlBuilder &myJunctionControlBuilder;
+    NLJunctionControlBuilder& myJunctionControlBuilder;
 
 
 private:
     /** @brief invalid copy constructor */
-    NLSucceedingLaneBuilder(const NLSucceedingLaneBuilder &s);
+    NLSucceedingLaneBuilder(const NLSucceedingLaneBuilder& s);
 
     /** @brief invalid assignment operator */
-    NLSucceedingLaneBuilder &operator=(const NLSucceedingLaneBuilder &s);
+    NLSucceedingLaneBuilder& operator=(const NLSucceedingLaneBuilder& s);
 
 
 };

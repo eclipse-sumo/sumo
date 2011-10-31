@@ -46,13 +46,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
+ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
         SUMOTime begin,
         SUMOTime end,
-        const std::string &file) throw(ProcessError)
-        : ROAbstractRouteDefLoader(net, begin, end),
-        SUMOSAXHandler(file),
-        myParser(0), myToken(), myEnded(false) {
+        const std::string& file) throw(ProcessError)
+    : ROAbstractRouteDefLoader(net, begin, end),
+      SUMOSAXHandler(file),
+      myParser(0), myToken(), myEnded(false) {
     try {
         myParser = XMLSubSys::getSAXReader(*this);
         myParser->parseFirst(getFileName().c_str(), myToken);

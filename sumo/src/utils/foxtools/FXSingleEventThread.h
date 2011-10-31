@@ -37,7 +37,7 @@ public:
     long onThreadEvent(FXObject*,FXSelector,void*);
 
 public:
-    FXSingleEventThread(FXApp *a,MFXInterThreadEventClient *client);
+    FXSingleEventThread(FXApp* a,MFXInterThreadEventClient* client);
 
     void signal();
 
@@ -52,8 +52,8 @@ public:
     static void sleep(long ms);
 
 private:
-    FXApp *myApp;
-    MFXInterThreadEventClient *myClient;
+    FXApp* myApp;
+    MFXInterThreadEventClient* myClient;
 
 protected:
     FXSingleEventThread() { }

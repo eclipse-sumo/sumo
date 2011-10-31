@@ -42,14 +42,14 @@
  */
 class NIVissimClosures {
 public:
-    NIVissimClosures(const std::string &id,
+    NIVissimClosures(const std::string& id,
                      int from_node, int to_node,
-                     IntVector &overEdges);
+                     IntVector& overEdges);
     ~NIVissimClosures();
-    static bool dictionary(const std::string &id,
-                           int from_node, int to_node, IntVector &overEdges);
-    static bool dictionary(const std::string &name, NIVissimClosures *o);
-    static NIVissimClosures *dictionary(const std::string &name);
+    static bool dictionary(const std::string& id,
+                           int from_node, int to_node, IntVector& overEdges);
+    static bool dictionary(const std::string& name, NIVissimClosures* o);
+    static NIVissimClosures* dictionary(const std::string& name);
     static void clearDict();
 private:
     typedef std::map<std::string, NIVissimClosures*> DictType;

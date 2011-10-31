@@ -60,8 +60,8 @@
 // method definitions
 // ===========================================================================
 void
-PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                             PCTypeMap &tm) throw(ProcessError) {
+PCLoaderDlrNavteq::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                             PCTypeMap& tm) throw(ProcessError) {
     if (oc.isSet("dlr-navteq-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
     }
@@ -72,8 +72,8 @@ PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                                PCTypeMap &tm) throw(ProcessError) {
+PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
+                                PCTypeMap& tm) throw(ProcessError) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -87,8 +87,8 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                                 PCTypeMap &tm) throw(ProcessError) {
+PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
+                                 PCTypeMap& tm) throw(ProcessError) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -102,9 +102,9 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
-                               OptionsCont &oc, PCPolyContainer &toFill,
-                               PCTypeMap &tm) throw(ProcessError) {
+PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
+                               OptionsCont& oc, PCPolyContainer& toFill,
+                               PCTypeMap& tm) throw(ProcessError) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // parse
@@ -154,7 +154,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
         int layer = oc.getInt("layer");
         RGBColor color;
         if (tm.has(type)) {
-            const PCTypeMap::TypeDef &def = tm.get(type);
+            const PCTypeMap::TypeDef& def = tm.get(type);
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -170,7 +170,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
             if (OptionsCont::getOptions().isInStringVector("prune.keep-list", name)) {
                 ignorePrunning = true;
             }
-            PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+            PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + name + "' could not been added.");
                 delete poi;
@@ -181,9 +181,9 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
 
 
 void
-PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
-                                OptionsCont &oc, PCPolyContainer &toFill,
-                                PCTypeMap &tm) throw(ProcessError) {
+PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
+                                OptionsCont& oc, PCPolyContainer& toFill,
+                                PCTypeMap& tm) throw(ProcessError) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poly
@@ -247,7 +247,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
         int layer = oc.getInt("layer");
         RGBColor color;
         if (tm.has(type)) {
-            const PCTypeMap::TypeDef &def = tm.get(type);
+            const PCTypeMap::TypeDef& def = tm.get(type);
             name = def.prefix + name;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -260,7 +260,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
             color = c;
         }
         if (!discard) {
-            Polygon *poly = new Polygon(name, type, color, vec, fill);
+            Polygon* poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
                 WRITE_ERROR("Polygon '" + name + "' could not been added.");
                 delete poly;

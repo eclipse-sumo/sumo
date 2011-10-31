@@ -62,13 +62,13 @@ int NIVissimDisturbance::refusedProhibits = 0;
 
 
 NIVissimDisturbance::NIVissimDisturbance(int id,
-        const std::string &name,
-        const NIVissimExtendedEdgePoint &edge,
-        const NIVissimExtendedEdgePoint &by,
+        const std::string& name,
+        const NIVissimExtendedEdgePoint& edge,
+        const NIVissimExtendedEdgePoint& by,
         SUMOReal timegap, SUMOReal waygap,
         SUMOReal vmax)
-        : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
-        myTimeGap(timegap), myWayGap(waygap), myVMax(vmax) {}
+    : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
+      myTimeGap(timegap), myWayGap(waygap), myVMax(vmax) {}
 
 
 NIVissimDisturbance::~NIVissimDisturbance() {}
@@ -77,13 +77,13 @@ NIVissimDisturbance::~NIVissimDisturbance() {}
 
 bool
 NIVissimDisturbance::dictionary(int id,
-                                const std::string &name,
-                                const NIVissimExtendedEdgePoint &edge,
-                                const NIVissimExtendedEdgePoint &by,
+                                const std::string& name,
+                                const NIVissimExtendedEdgePoint& edge,
+                                const NIVissimExtendedEdgePoint& by,
                                 SUMOReal timegap, SUMOReal waygap, SUMOReal vmax) {
     UNUSED_PARAMETER(id);
     int nid = myRunningID++;
-    NIVissimDisturbance *o =
+    NIVissimDisturbance* o =
         new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
     if (!dictionary(nid, o)) {
         delete o;
@@ -93,7 +93,7 @@ NIVissimDisturbance::dictionary(int id,
 
 
 bool
-NIVissimDisturbance::dictionary(int id, NIVissimDisturbance *o) {
+NIVissimDisturbance::dictionary(int id, NIVissimDisturbance* o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -103,7 +103,7 @@ NIVissimDisturbance::dictionary(int id, NIVissimDisturbance *o) {
 }
 
 
-NIVissimDisturbance *
+NIVissimDisturbance*
 NIVissimDisturbance::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
@@ -113,7 +113,7 @@ NIVissimDisturbance::dictionary(int id) {
 }
 
 IntVector
-NIVissimDisturbance::getWithin(const AbstractPoly &poly) {
+NIVissimDisturbance::getWithin(const AbstractPoly& poly) {
     IntVector ret;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         if ((*i).second->crosses(poly)) {
@@ -127,7 +127,7 @@ NIVissimDisturbance::getWithin(const AbstractPoly &poly) {
 void
 NIVissimDisturbance::computeBounding() {
     assert(myBoundary==0);
-    Boundary *bound = new Boundary();
+    Boundary* bound = new Boundary();
     if (NIVissimAbstractEdge::dictionary(myEdge.getEdgeID())!=0) {
         bound->add(myEdge.getGeomPosition());
     }
@@ -141,27 +141,27 @@ NIVissimDisturbance::computeBounding() {
 
 
 bool
-NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
-                               NBNodeCont &nc, NBEdgeCont &ec) {
+NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
+                               NBNodeCont& nc, NBEdgeCont& ec) {
     myNode = 0;
-    NIVissimConnection *pc =
+    NIVissimConnection* pc =
         NIVissimConnection::dictionary(myEdge.getEdgeID());
-    NIVissimConnection *bc =
+    NIVissimConnection* bc =
         NIVissimConnection::dictionary(myDisturbance.getEdgeID());
     if (pc==0 && bc==0) {
         // This has not been tested completely, yet
         // Both competing abstract edges are normal edges
         // We have to find a crossing point, build a node here,
         //  split both edges and add the connections
-        NIVissimEdge *e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
-        NIVissimEdge *e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
+        NIVissimEdge* e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
+        NIVissimEdge* e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
         WRITE_WARNING("Ugly split to prohibit '" + toString<int>(e1->getID())+ "' by '" + toString<int>(e2->getID())+ "'.");
         Position pos = e1->crossesEdgeAtPoint(e2);
         std::string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
-        NBNode *node1 = nc.retrieve(id1);
-        NBNode *node2 = nc.retrieve(id2);
-        NBNode *node = 0;
+        NBNode* node1 = nc.retrieve(id1);
+        NBNode* node2 = nc.retrieve(id2);
+        NBNode* node = 0;
         assert(node1==0||node2==0);
         if (node1==0&&node2==0) {
             refusedProhibits++;
@@ -184,10 +184,10 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
                    node);
         // !!! in some cases, one of the edges is not being build because it's too short
         // !!! what to do in these cases?
-        NBEdge *mayDriveFrom = ec.retrieve(toString<int>(e1->getID()) + "[0]");
-        NBEdge *mayDriveTo = ec.retrieve(toString<int>(e1->getID()) + "[1]");
-        NBEdge *mustStopFrom = ec.retrieve(toString<int>(e2->getID()) + "[0]");
-        NBEdge *mustStopTo = ec.retrieve(toString<int>(e2->getID()) + "[1]");
+        NBEdge* mayDriveFrom = ec.retrieve(toString<int>(e1->getID()) + "[0]");
+        NBEdge* mayDriveTo = ec.retrieve(toString<int>(e1->getID()) + "[1]");
+        NBEdge* mustStopFrom = ec.retrieve(toString<int>(e2->getID()) + "[0]");
+        NBEdge* mustStopTo = ec.retrieve(toString<int>(e2->getID()) + "[1]");
         if (mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
             node->addSortedLinkFoes(
                 NBConnection(mayDriveFrom, mayDriveTo),
@@ -204,7 +204,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // The connection will be prohibitesd by all connections
         //  outgoing from the "real" edge
 
-        NBEdge *e = ec.retrievePossiblySplitted(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
+        NBEdge* e = ec.retrievePossiblySplitted(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if (e==0) {
             WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'. Have not found disturbance.");
             refusedProhibits++;
@@ -219,14 +219,14 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // get the begin of the prohibited connection
         std::string id_pcoe = toString<int>(pc->getFromEdgeID());
         std::string id_pcie = toString<int>(pc->getToEdgeID());
-        NBEdge *pcoe = ec.retrievePossiblySplitted(id_pcoe, id_pcie, true);
-        NBEdge *pcie = ec.retrievePossiblySplitted(id_pcie, id_pcoe, false);
+        NBEdge* pcoe = ec.retrievePossiblySplitted(id_pcoe, id_pcie, true);
+        NBEdge* pcie = ec.retrievePossiblySplitted(id_pcie, id_pcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (pcoe!=0&&pcie!=0&&pcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
-            NBNode *node = e->getToNode();
-            const EdgeVector &connected = e->getConnectedEdges();
+            NBNode* node = e->getToNode();
+            const EdgeVector& connected = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(
                     NBConnection(e, *i),
@@ -258,7 +258,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // We have to split the other one and add the prohibition
         //  description
 
-        NBEdge *e = ec.retrievePossiblySplitted(
+        NBEdge* e = ec.retrievePossiblySplitted(
                         toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         if (e==0) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
@@ -275,14 +275,14 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // get the begin of the prohibiting connection
         std::string id_bcoe = toString<int>(bc->getFromEdgeID());
         std::string id_bcie = toString<int>(bc->getToEdgeID());
-        NBEdge *bcoe = ec.retrievePossiblySplitted(id_bcoe, id_bcie, true);
-        NBEdge *bcie = ec.retrievePossiblySplitted(id_bcie, id_bcoe, false);
+        NBEdge* bcoe = ec.retrievePossiblySplitted(id_bcoe, id_bcie, true);
+        NBEdge* bcie = ec.retrievePossiblySplitted(id_bcie, id_bcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (bcoe!=0&&bcie!=0&&bcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
-            NBNode *node = e->getToNode();
-            const EdgeVector &connected = e->getConnectedEdges();
+            NBNode* node = e->getToNode();
+            const EdgeVector& connected = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(
                     NBConnection(bcoe, bcie),
@@ -322,12 +322,12 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
 
 
 NBConnection
-NIVissimDisturbance::getConnection(NBNode *node, int aedgeid) {
+NIVissimDisturbance::getConnection(NBNode* node, int aedgeid) {
     if (NIVissimEdge::dictionary(myEdge.getEdgeID())==0) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(aedgeid);
-        NBEdge *from =
+        NIVissimConnection* c = NIVissimConnection::dictionary(aedgeid);
+        NBEdge* from =
             node->getPossiblySplittedIncoming(toString<int>(c->getFromEdgeID()));
-        NBEdge *to =
+        NBEdge* to =
             node->getPossiblySplittedOutgoing(toString<int>(c->getToEdgeID()));
 
         // source is a connection
@@ -353,7 +353,7 @@ NIVissimDisturbance::clearDict() {
 void
 NIVissimDisturbance::dict_SetDisturbances() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimDisturbance *d = (*i).second;
+        NIVissimDisturbance* d = (*i).second;
         NIVissimAbstractEdge::dictionary(d->myEdge.getEdgeID())->addDisturbance((*i).first);
         NIVissimAbstractEdge::dictionary(d->myDisturbance.getEdgeID())->addDisturbance((*i).first);
     }

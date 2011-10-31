@@ -70,8 +70,8 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
-                : duration(durationArg), state(stateArg) { }
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg) throw()
+            : duration(durationArg), state(stateArg) { }
 
         /// @brief Destructor
         ~PhaseDefinition() throw() { }
@@ -80,7 +80,7 @@ public:
          * @param[in] pd A second phase
          * @return Whether this and the given phases are same
          */
-        bool operator!=(const PhaseDefinition &pd) const throw() {
+        bool operator!=(const PhaseDefinition& pd) const throw() {
             return pd.duration != duration || pd.state != state;
         }
 
@@ -92,7 +92,7 @@ public:
      * @param[in] subid The id of the program
      * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
      */
-    NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
+    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks) throw();
 
 
     /** @brief Copy Constructor
@@ -113,7 +113,7 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string &state, int index=-1);
+    void addStep(SUMOTime duration, const std::string& state, int index=-1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
@@ -162,7 +162,7 @@ public:
     /** @brief Returns the ProgramID
      * @return The ID of the program (subID)
      */
-    const std::string & getProgramID() const {
+    const std::string& getProgramID() const {
         return mySubID;
     };
 

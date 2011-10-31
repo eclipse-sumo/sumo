@@ -41,49 +41,49 @@
  *
  */
 class NIVissimSingleTypeParser_Signalgruppendefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Signalgruppendefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Signalgruppendefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Signalgruppendefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 private:
     /// Parses a traffic light group which belongs to a fixed time traffic light
-    bool parseFixedTime(int id, const std::string &name, int lsaid,
-                        std::istream &from);
+    bool parseFixedTime(int id, const std::string& name, int lsaid,
+                        std::istream& from);
 
     /// Parses a traffic light group which belongs to a VAS traffic light
-    bool parseVAS(int id, const std::string &name, int lsaid,
-                  std::istream &from);
+    bool parseVAS(int id, const std::string& name, int lsaid,
+                  std::istream& from);
 
     /// Parses a traffic light group which belongs to a VSPLUS traffic light
-    bool parseVSPLUS(int id, const std::string &name, int lsaid,
-                     std::istream &from);
+    bool parseVSPLUS(int id, const std::string& name, int lsaid,
+                     std::istream& from);
 
     /// Parses a traffic light group which belongs to a TRENDS traffic light
-    bool parseTRENDS(int id, const std::string &name, int lsaid,
-                     std::istream &from);
+    bool parseTRENDS(int id, const std::string& name, int lsaid,
+                     std::istream& from);
 
     /// Parses a traffic light group which belongs to a VAStraffic light
-    bool parseVAP(int id, const std::string &name, int lsaid,
-                  std::istream &from);
+    bool parseVAP(int id, const std::string& name, int lsaid,
+                  std::istream& from);
 
     /// Parses a traffic light group which belongs to a TL traffic light
-    bool parseTL(int id, const std::string &name, int lsaid,
-                 std::istream &from);
+    bool parseTL(int id, const std::string& name, int lsaid,
+                 std::istream& from);
 
     /// Parses a traffic light group which belongs to a POS traffic light
-    bool parsePOS(int id, const std::string &name, int lsaid,
-                  std::istream &from);
+    bool parsePOS(int id, const std::string& name, int lsaid,
+                  std::istream& from);
 
     /// Parses a traffic light group which belongs fixed time traffic light with an extern definition
-    bool parseExternFixedTime(int id, const std::string &name, int lsaid,
-                              std::istream &from);
+    bool parseExternFixedTime(int id, const std::string& name, int lsaid,
+                              std::istream& from);
 
 };
 

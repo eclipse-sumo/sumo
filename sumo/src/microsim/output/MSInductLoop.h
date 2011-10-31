@@ -74,9 +74,9 @@ public:
      * @param[in] id Unique id
      * @param[in] lane Lane where detector woks on
      * @param[in] position Position of the detector within the lane
-	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    MSInductLoop(const std::string& id, MSLane * const lane,
+    MSInductLoop(const std::string& id, MSLane* const lane,
                  SUMOReal positionInMeters, bool splitByType) throw();
 
 
@@ -89,12 +89,12 @@ public:
     virtual void reset() throw();
 
 
-	/** @brief Returns the position of the detector on the lane
-	 * @return The detector's position in meters
-	 */
-	SUMOReal getPosition() const {
-		return myPosition;
-	}
+    /** @brief Returns the position of the detector on the lane
+     * @return The detector's position in meters
+     */
+    SUMOReal getPosition() const {
+        return myPosition;
+    }
 
 
     /// @name Methods inherited from MSMoveReminder
@@ -229,7 +229,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -238,7 +238,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
 
@@ -258,10 +258,10 @@ public:
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep,
-                    const std::string &typeID) throw()
-                : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-                speedM(lengthM / ((leaveTimeM - entryTimeM))), typeIDM(typeID) {}
+        VehicleData(const std::string& id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep,
+                    const std::string& typeID) throw()
+            : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
+              speedM(lengthM / ((leaveTimeM - entryTimeM))), typeIDM(typeID) {}
 
         /// @brief The id of the vehicle
         std::string idM;
@@ -364,8 +364,8 @@ protected:
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     VehicleMap myVehiclesOnDet;
 
-    void writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime, 
-        const std::string &type, const VehicleDataCont &vdc, const VehicleMap &vm) throw(IOError);
+    void writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime,
+                             const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

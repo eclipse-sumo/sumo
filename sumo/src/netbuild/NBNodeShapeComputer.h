@@ -49,7 +49,7 @@ class NBEdge;
 class NBNodeShapeComputer {
 public:
     /// Constructor
-    NBNodeShapeComputer(const NBNode &node);
+    NBNodeShapeComputer(const NBNode& node);
 
     /// Destructor
     ~NBNodeShapeComputer();
@@ -71,12 +71,12 @@ private:
     PositionVector computeNodeShapeByCrosses();
 
 
-    void replaceLastChecking(PositionVector &g, bool decenter,
+    void replaceLastChecking(PositionVector& g, bool decenter,
                              PositionVector counter, size_t counterLanes, SUMOReal counterDist,
                              int laneDiff);
 
 
-    void replaceFirstChecking(PositionVector &g, bool decenter,
+    void replaceFirstChecking(PositionVector& g, bool decenter,
                               PositionVector counter, size_t counterLanes, SUMOReal counterDist,
                               int laneDiff);
 
@@ -110,7 +110,7 @@ private:
 
 private:
     /// The node to compute the geometry for
-    const NBNode &myNode;
+    const NBNode& myNode;
 
 };
 

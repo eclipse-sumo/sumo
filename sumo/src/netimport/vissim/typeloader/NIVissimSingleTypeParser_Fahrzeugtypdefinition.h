@@ -41,21 +41,21 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrzeugtypdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Fahrzeugtypdefinition(NIImporter_Vissim &parent,
-            NIImporter_Vissim::ColorMap &colorMap);
+    NIVissimSingleTypeParser_Fahrzeugtypdefinition(NIImporter_Vissim& parent,
+            NIImporter_Vissim::ColorMap& colorMap);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Fahrzeugtypdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 private:
     /// The color map to use
-    NIImporter_Vissim::ColorMap &myColorMap;
+    NIImporter_Vissim::ColorMap& myColorMap;
 };
 
 

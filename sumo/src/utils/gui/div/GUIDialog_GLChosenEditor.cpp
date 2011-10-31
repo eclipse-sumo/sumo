@@ -70,12 +70,12 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
-        GUISelectedStorage *str) throw()
-        : FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-        myParent(parent), myStorage(str) {
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
+        GUISelectedStorage* str) throw()
+    : FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
+      myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
-    FXHorizontalFrame *hbox =
+    FXHorizontalFrame* hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
                               0,0,0,0);
     // build the list
@@ -83,7 +83,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
                         LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_MULTIPLESELECT);
     rebuildList();
     // build the layout
-    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
             4,4,4,4);
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
@@ -127,10 +127,10 @@ GUIDialog_GLChosenEditor::rebuildList() throw() {
     myList->clearItems();
     const std::set<GUIGlID> &chosen = gSelected.getSelected();
     for (std::set<GUIGlID>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
-        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
-            FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
+            FXListItem* item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData(object);
             GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
@@ -176,7 +176,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*) {
     }
     try {
         gSelected.save(file.text());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
     return 1;
@@ -190,7 +190,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     std::vector<GUIGlID> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            selected.push_back(static_cast<GUIGlObject *>(myList->getItem(i)->getData())->getGlID());
+            selected.push_back(static_cast<GUIGlObject*>(myList->getItem(i)->getData())->getGlID());
         }
     }
     // remove items from list

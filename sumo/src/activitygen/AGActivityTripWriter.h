@@ -44,8 +44,8 @@
 class AGActivityTripWriter {
 public:
     AGActivityTripWriter(std::string file) :
-            fileName(file),
-            routes(file.c_str()) {
+        fileName(file),
+        routes(file.c_str()) {
         initialize();
     }
 

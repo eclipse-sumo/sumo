@@ -38,21 +38,21 @@
 
 NIVissimClosures::DictType NIVissimClosures::myDict;
 
-NIVissimClosures::NIVissimClosures(const std::string &id,
+NIVissimClosures::NIVissimClosures(const std::string& id,
                                    int from_node, int to_node,
-                                   IntVector &overEdges)
-        : myID(id), myFromNode(from_node), myToNode(to_node),
-        myOverEdges(overEdges) {}
+                                   IntVector& overEdges)
+    : myID(id), myFromNode(from_node), myToNode(to_node),
+      myOverEdges(overEdges) {}
 
 
 NIVissimClosures::~NIVissimClosures() {}
 
 
 bool
-NIVissimClosures::dictionary(const std::string &id,
+NIVissimClosures::dictionary(const std::string& id,
                              int from_node, int to_node,
-                             IntVector &overEdges) {
-    NIVissimClosures *o = new NIVissimClosures(id, from_node, to_node,
+                             IntVector& overEdges) {
+    NIVissimClosures* o = new NIVissimClosures(id, from_node, to_node,
             overEdges);
     if (!dictionary(id, o)) {
         delete o;
@@ -63,7 +63,7 @@ NIVissimClosures::dictionary(const std::string &id,
 
 
 bool
-NIVissimClosures::dictionary(const std::string &name, NIVissimClosures *o) {
+NIVissimClosures::dictionary(const std::string& name, NIVissimClosures* o) {
     DictType::iterator i=myDict.find(name);
     if (i==myDict.end()) {
         myDict[name] = o;
@@ -73,8 +73,8 @@ NIVissimClosures::dictionary(const std::string &name, NIVissimClosures *o) {
 }
 
 
-NIVissimClosures *
-NIVissimClosures::dictionary(const std::string &name) {
+NIVissimClosures*
+NIVissimClosures::dictionary(const std::string& name) {
     DictType::iterator i=myDict.find(name);
     if (i==myDict.end()) {
         return 0;

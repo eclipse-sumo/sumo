@@ -100,7 +100,7 @@ public:
      * @param[in] pos the position with which the comparison is done
      * @return true if both AGPositions are (almost) at the same place
      */
-    bool operator==(const AGPosition &pos) const throw();
+    bool operator==(const AGPosition& pos) const throw();
 
     /** @brief Computes the distance between two AGPosition objects.
      *

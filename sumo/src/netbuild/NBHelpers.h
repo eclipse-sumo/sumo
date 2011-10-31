@@ -66,10 +66,10 @@ public:
     static SUMOReal normRelAngle(SUMOReal angle1, SUMOReal angle2);
 
     /** converts the numerical id to its "normal" string representation */
-    static std::string normalIDRepresentation(const std::string &id);
+    static std::string normalIDRepresentation(const std::string& id);
 
     /** returns the distance between both nodes */
-    static SUMOReal distance(NBNode *node1, NBNode *node2);
+    static SUMOReal distance(NBNode* node1, NBNode* node2);
 
 };
 

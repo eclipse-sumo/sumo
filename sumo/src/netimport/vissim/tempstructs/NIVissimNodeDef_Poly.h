@@ -36,13 +36,13 @@
 #include "NIVissimNodeDef_Edges.h"
 
 class NIVissimNodeDef_Poly :
-            public NIVissimNodeDef_Edges {
+    public NIVissimNodeDef_Edges {
 public:
-    NIVissimNodeDef_Poly(int id, const std::string &name,
-                         const PositionVector &poly);
+    NIVissimNodeDef_Poly(int id, const std::string& name,
+                         const PositionVector& poly);
     virtual ~NIVissimNodeDef_Poly();
-    static bool dictionary(int id, const std::string &name,
-                           const PositionVector &poly);
+    static bool dictionary(int id, const std::string& name,
+                           const PositionVector& poly);
 //    virtual void computeBounding();
 //    SUMOReal getEdgePosition(int edgeid) const;
     void searchAndSetConnections(SUMOReal offset);

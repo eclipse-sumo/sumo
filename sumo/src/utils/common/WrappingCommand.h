@@ -69,8 +69,8 @@ public:
      * @param[in] operation The objects' method that will be called on execute()
      */
     WrappingCommand(T* receiver, Operation operation)
-            : myReceiver(receiver), myOperation(operation),
-            myAmDescheduledByParent(false) {}
+        : myReceiver(receiver), myOperation(operation),
+          myAmDescheduledByParent(false) {}
 
 
     /// @brief Destructor

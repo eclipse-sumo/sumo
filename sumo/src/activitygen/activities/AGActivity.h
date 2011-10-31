@@ -42,14 +42,14 @@
 // ===========================================================================
 class AGActivity {
 public:
-    AGActivity(AGHousehold *hh, AGDataAndStatistics *das, std::list<AGTrip>* prevTrips, int prio) :
-            hh(hh),
-            ds(das),
-            activityPriority(prio),
-            genDone(false),
-            timePerKm(das->speedTimePerKm),
-            previousTrips(prevTrips),
-            carPreference(das->carPreference) {};
+    AGActivity(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips, int prio) :
+        hh(hh),
+        ds(das),
+        activityPriority(prio),
+        genDone(false),
+        timePerKm(das->speedTimePerKm),
+        previousTrips(prevTrips),
+        carPreference(das->carPreference) {};
 
     /**
      * returns whether the generation could have been well done
@@ -112,9 +112,9 @@ public:
      */
     SUMOReal carPreference;
 
-    AGHousehold *hh;
+    AGHousehold* hh;
 
-    AGDataAndStatistics *ds;
+    AGDataAndStatistics* ds;
 
 };
 

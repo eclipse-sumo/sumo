@@ -50,12 +50,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet &net,
-                           ROAbstractEdgeBuilder &eb)
-        : SUMOSAXHandler("sumo-network"),
-        myNet(net), myCurrentName(),
-        myCurrentEdge(0), myEdgeBuilder(eb),
-        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
+RONetHandler::RONetHandler(RONet& net,
+                           ROAbstractEdgeBuilder& eb)
+    : SUMOSAXHandler("sumo-network"),
+      myNet(net), myCurrentName(),
+      myCurrentEdge(0), myEdgeBuilder(eb),
+      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
 RONetHandler::~RONetHandler() throw() {}
@@ -63,7 +63,7 @@ RONetHandler::~RONetHandler() throw() {}
 
 void
 RONetHandler::myStartElement(int element,
-                             const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                             const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         // in the first step, we do need the name to allocate the edge
@@ -119,7 +119,7 @@ RONetHandler::myStartElement(int element,
 
 
 void
-RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
+RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
     myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -139,12 +139,12 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     if (!ok) {
         return;
     }
-    RONode *fromNode = myNet.getNode(from);
+    RONode* fromNode = myNet.getNode(from);
     if (fromNode==0) {
         fromNode = new RONode(from);
         myNet.addNode(fromNode);
     }
-    RONode *toNode = myNet.getNode(to);
+    RONode* toNode = myNet.getNode(to);
     if (toNode==0) {
         toNode = new RONode(to);
         myNet.addNode(toNode);
@@ -173,7 +173,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
 
 
 void
-RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
+RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge==0) {
         // was an internal edge to skip or an error occured
         return;
@@ -209,7 +209,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
 
 
 void
-RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
+RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -220,7 +220,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     if (ok) {
-        RONode *n = myNet.getNode(id);
+        RONode* n = myNet.getNode(id);
         if (n==0) {
             n = new RONode(id);
             myNet.addNode(n);
@@ -233,7 +233,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
 
 
 void
-RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE,0, ok);
     if (id[0]==':') {
@@ -248,7 +248,7 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessE
 
 
 void
-RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
+RONetHandler::parseConnectedEdge(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge==0) {
         // earlier error or internal link
         return;
@@ -258,7 +258,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
     if (id=="SUMO_NO_DESTINATION") {
         return;
     }
-    ROEdge *succ = myNet.getEdge(id.substr(0, id.rfind('_')));
+    ROEdge* succ = myNet.getEdge(id.substr(0, id.rfind('_')));
     if (succ!=0) {
         // connect edge
         myCurrentEdge->addFollower(succ);
@@ -269,7 +269,7 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
 
 
 void
-RONetHandler::parseConnection(const SUMOSAXAttributes &attrs) {
+RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
     std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
@@ -289,23 +289,23 @@ RONetHandler::parseConnection(const SUMOSAXAttributes &attrs) {
 
 
 void
-RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     myCurrentEdge = 0;
     bool ok = true;
     myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
         return;
     }
-    ROEdge *sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0);
+    ROEdge* sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0);
     sink->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(sink);
-    ROEdge *source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
+    ROEdge* source = myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0);
     source->setType(ROEdge::ET_DISTRICT);
     myNet.addEdge(source);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
         for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
-            ROEdge *edge = myNet.getEdge(*i);
+            ROEdge* edge = myNet.getEdge(*i);
             // check whether the edge exists
             if (edge==0) {
                 throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
@@ -318,10 +318,10 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) 
 
 
 void
-RONetHandler::parseDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
+RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, myCurrentName.c_str(), ok);
-    ROEdge *succ = myNet.getEdge(id);
+    ROEdge* succ = myNet.getEdge(id);
     if (succ!=0) {
         // connect edge
         if (isSource) {

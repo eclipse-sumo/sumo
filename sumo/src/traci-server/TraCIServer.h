@@ -70,7 +70,7 @@ namespace traci {
 class TraCIServer : public MSNet::VehicleStateListener {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
-    typedef bool(*CmdExecutor)(traci::TraCIServer &server, tcpip::Storage &inputStorage, tcpip::Storage &outputStorage);
+    typedef bool(*CmdExecutor)(traci::TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);
 
 
     /** @brief Initialises the server
@@ -80,7 +80,7 @@ public:
 
     /// @brief process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
-    
+
     /// @brief check whether close was requested
     static bool wasClosed();
 
@@ -95,10 +95,10 @@ public:
     static void runEmbedded(std::string pyFile);
 #endif
 
-    void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to);
+    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
 
-    void writeStatusCmd(int commandId, int status, const std::string &description);
-    void writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage);
+    void writeStatusCmd(int commandId, int status, const std::string& description);
+    void writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage);
 
     const std::map<MSNet::VehicleState, std::vector<std::string> > &getVehicleStateChanges() const {
         return myVehicleStateChanges;
@@ -115,7 +115,7 @@ public:
         return myExecutors;
     }
 
-    void writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg);
+    void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
 
 
 private:
@@ -162,9 +162,9 @@ private:
 
     class Subscription {
     public:
-        Subscription(int commandIdArg, const std::string &idArg, const std::vector<int> &variablesArg,
+        Subscription(int commandIdArg, const std::string& idArg, const std::vector<int> &variablesArg,
                      SUMOTime beginTimeArg, SUMOTime endTimeArg)
-                : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg) {}
+            : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg) {}
         int commandId;
         std::string id;
         std::vector<int> variables;
@@ -175,8 +175,8 @@ private:
 
     std::vector<Subscription> mySubscriptions;
 
-    bool processSingleSubscription(const TraCIServer::Subscription &s, tcpip::Storage &writeInto,
-                                   std::string &errors);
+    bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,
+                                   std::string& errors);
 
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 

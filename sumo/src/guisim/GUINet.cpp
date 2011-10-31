@@ -77,12 +77,12 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefiniti
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-               MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError) :
-        MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
-        GUIGlObject(GLO_NETWORK, ""),
-        myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
-        myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
+GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
+               MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents) throw(ProcessError) :
+    MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
+    GUIGlObject(GLO_NETWORK, ""),
+    myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
+    myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 }
 
@@ -106,7 +106,7 @@ GUINet::~GUINet() throw() {
 }
 
 
-const Boundary &
+const Boundary&
 GUINet::getBoundary() const {
     return myBoundary;
 }
@@ -127,17 +127,17 @@ GUINet::initTLMap() {
 
 
 GUIGlID
-GUINet::createTLWrapper(MSTrafficLightLogic *tll) {
+GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     if (myLogics2Wrapper.count(tll) > 0) {
         return myLogics2Wrapper[tll]->getGlID();
     }
     // get the links
-    const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
+    const MSTrafficLightLogic::LinkVectorVector& links = tll->getLinks();
     if (links.size()==0) { // @legacy this should never happen in 0.13.0+ networks
         return 0;
     }
     // build the wrapper
-    GUITrafficLightLogicWrapper *tllw =
+    GUITrafficLightLogicWrapper* tllw =
         new GUITrafficLightLogicWrapper(*myLogics, *tll);
     // build the association link->wrapper
     MSTrafficLightLogic::LinkVectorVector::const_iterator j;
@@ -154,32 +154,32 @@ GUINet::createTLWrapper(MSTrafficLightLogic *tll) {
 
 
 Position
-GUINet::getJunctionPosition(const std::string &name) const {
+GUINet::getJunctionPosition(const std::string& name) const {
     // !!! no check for existance!
     return myJunctions->get(name)->getPosition();
 }
 
 
 bool
-GUINet::vehicleExists(const std::string &name) const {
+GUINet::vehicleExists(const std::string& name) const {
     return myVehicleControl->getVehicle(name)!=0;
 }
 
 
 Boundary
-GUINet::getEdgeBoundary(const std::string &name) const {
-    GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
+GUINet::getEdgeBoundary(const std::string& name) const {
+    GUIEdge* edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
     return edge->getBoundary();
 }
 
 
 unsigned int
-GUINet::getLinkTLID(MSLink *link) const {
+GUINet::getLinkTLID(MSLink* link) const {
     if (myLinks2Logic.count(link) == 0) {
         assert(false);
         return 0;
     }
-    MSTrafficLightLogic *tll = myLogics->getActive(myLinks2Logic.find(link)->second);
+    MSTrafficLightLogic* tll = myLogics->getActive(myLinks2Logic.find(link)->second);
     if (myLogics2Wrapper.count(tll) == 0) {
         // tll may have been added via traci. @see ticket #459
         return 0;
@@ -189,7 +189,7 @@ GUINet::getLinkTLID(MSLink *link) const {
 
 
 int
-GUINet::getLinkTLIndex(MSLink *link) const {
+GUINet::getLinkTLIndex(MSLink* link) const {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     if (i==myLinks2Logic.end()) {
         return -1;
@@ -238,10 +238,10 @@ GUINet::getTLSIDs() const {
 void
 GUINet::initGUIStructures() {
     // initialise detector storage for gui
-    for(std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i=myDetectorControl->myDetectors.begin(); i!=myDetectorControl->myDetectors.end(); ++i) {
+    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i=myDetectorControl->myDetectors.begin(); i!=myDetectorControl->myDetectors.end(); ++i) {
         const std::map<std::string, MSDetectorFileOutput*> &dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
-            GUIDetectorWrapper *wrapper = (*j).second->buildDetectorGUIRepresentation();
+            GUIDetectorWrapper* wrapper = (*j).second->buildDetectorGUIRepresentation();
             if (wrapper != 0) {
                 myDetectorDict.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
@@ -260,10 +260,10 @@ GUINet::initGUIStructures() {
         myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
     }
     // build the visualization tree
-    float *cmin = new float[2];
-    float *cmax = new float[2];
+    float* cmin = new float[2];
+    float* cmax = new float[2];
     for (std::vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
-        GUIEdge *edge = *i;
+        GUIEdge* edge = *i;
         Boundary b;
         const std::vector<MSLane*> &lanes = edge->getLanes();
         for (std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
@@ -281,7 +281,7 @@ GUINet::initGUIStructures() {
         }
     }
     for (std::vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
-        GUIJunctionWrapper *junction = *i;
+        GUIJunctionWrapper* junction = *i;
         Boundary b = junction->getBoundary();
         b.grow(2.);
         cmin[0] = b.xmin();
@@ -381,10 +381,10 @@ GUINet::setIdleDuration(int val) {
 }
 
 
-GUIGLObjectPopupMenu *
-GUINet::getPopUpMenu(GUIMainWindow &app,
-                     GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUINet::getPopUpMenu(GUIMainWindow& app,
+                     GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
@@ -393,10 +393,10 @@ GUINet::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUINet::getParameterWindow(GUIMainWindow &app,
-                           GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret =
+GUIParameterTableWindow*
+GUINet::getParameterWindow(GUIMainWindow& app,
+                           GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
@@ -437,7 +437,7 @@ GUINet::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUINet::drawGL(const GUIVisualizationSettings&/*s*/) const throw() {
+GUINet::drawGL(const GUIVisualizationSettings& /*s*/) const throw() {
 }
 
 Boundary
@@ -448,7 +448,7 @@ GUINet::getCenteringBoundary() const throw() {
 
 GUINet*
 GUINet::getGUIInstance(void) {
-    GUINet *net = dynamic_cast<GUINet*>(MSNet::getInstance());
+    GUINet* net = dynamic_cast<GUINet*>(MSNet::getInstance());
     if (net != 0) {
         return net;
     }

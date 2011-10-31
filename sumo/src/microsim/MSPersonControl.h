@@ -61,19 +61,19 @@ public:
     ~MSPersonControl();
 
     /// adds a single person, returns false iff an id clash occured
-    bool add(const std::string &id, MSPerson *person);
+    bool add(const std::string& id, MSPerson* person);
 
     /// removes a single person
-    void erase(MSPerson *person);
+    void erase(MSPerson* person);
 
     /// sets the arrival time for a waiting or walking person
-    void setArrival(SUMOTime time, MSPerson *person);
+    void setArrival(SUMOTime time, MSPerson* person);
 
     /// checks whether any persons waiting or walking time is over
     void checkArrivedPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
-    void addWaiting(const MSEdge* edge, MSPerson *person) throw();
+    void addWaiting(const MSEdge* edge, MSPerson* person) throw();
 
     /** @brief board any applicable persons
      * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
@@ -81,7 +81,7 @@ public:
      * @param[in] the vehicle which is taking on passengers
      * @return Whether any persons have been boarded
      */
-    bool boardAnyWaiting(const MSEdge* edge, MSVehicle *vehicle) throw();
+    bool boardAnyWaiting(const MSEdge* edge, MSVehicle* vehicle) throw();
 
     /// checks whether any person waits to finish her plan
     bool hasPersons() const throw();

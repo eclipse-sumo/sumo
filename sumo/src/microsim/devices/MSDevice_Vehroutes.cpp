@@ -69,7 +69,7 @@ MSDevice_Vehroutes::init() throw(IOError) {
 
 
 MSDevice_Vehroutes*
-MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into, unsigned int maxRoutes) throw() {
+MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes) throw() {
     if (maxRoutes < INT_MAX) {
         return new MSDevice_Vehroutes(v, "vehroute_" + v.getID(), maxRoutes);
     }
@@ -89,7 +89,7 @@ MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &
 // MSDevice_Vehroutes::StateListener-methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) {
+MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
     if (to == MSNet::VEHICLE_STATE_NEWROUTE) {
         myDevices[vehicle]->addRoute();
     }
@@ -99,8 +99,8 @@ MSDevice_Vehroutes::StateListener::vehicleStateChanged(const SUMOVehicle * const
 // ---------------------------------------------------------------------------
 // MSDevice_Vehroutes-methods
 // ---------------------------------------------------------------------------
-MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle &holder, const std::string &id, unsigned int maxRoutes) throw()
-        : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
+MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes) throw()
+    : MSDevice(holder, id), myCurrentRoute(&holder.getRoute()), myMaxRoutes(maxRoutes), myLastSavedAt(0) {
     myCurrentRoute->addReference();
 }
 
@@ -138,7 +138,7 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveRe
 
 
 void
-MSDevice_Vehroutes::writeXMLRoute(OutputDevice &os, int index) const {
+MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     // check if a previous route shall be written
     os.openTag("route");
     if (index>=0) {

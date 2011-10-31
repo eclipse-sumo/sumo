@@ -64,8 +64,8 @@ public:
      * @todo Options are only given to determine whether "flip-y" is set; maybe this should be done by giving a bool
      * @todo Why are options not const?
      */
-    NIXMLNodesHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
-                      OptionsCont &options);
+    NIXMLNodesHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
+                      OptionsCont& options);
 
 
     /// @brief Destructor
@@ -76,7 +76,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * In dependence to the obtained type, an appropriate parsing method is called.
      *
@@ -87,7 +87,7 @@ protected:
      * @todo ProcessErrors are thrown when parsing traffic lights!?
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 
@@ -98,35 +98,35 @@ private:
      *  "myNodeCont". Otherwise an error is generated. Then, if given
      *  the tls information is parsed and inserted into "myTLLogicCont".
      */
-    void addNode(const SUMOSAXAttributes &attrs);
+    void addNode(const SUMOSAXAttributes& attrs);
 
     /*
      * @brief Parses node deletion information
      */
-    void deleteNode(const SUMOSAXAttributes &attrs);
+    void deleteNode(const SUMOSAXAttributes& attrs);
 
     /*
      * @brief Parses a cluster of nodes to be joined
      */
-    void addJoinCluster(const SUMOSAXAttributes &attrs);
+    void addJoinCluster(const SUMOSAXAttributes& attrs);
 
     /*
      * @brief Parses a list of nodes to be excluded from joining
      */
-    void addJoinExclusion(const SUMOSAXAttributes &attrs);
+    void addJoinExclusion(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds the defined traffic light or adds a node to it
      *
      * @param[in] attrs Attributes within the currently opened node
      * @param[in] currentNode The built node to add the tls information to
      */
-    void processTrafficLightDefinitions(const SUMOSAXAttributes &attrs,
-                                        NBNode *currentNode);
+    void processTrafficLightDefinitions(const SUMOSAXAttributes& attrs,
+                                        NBNode* currentNode);
 
 
 private:
     /// @brief A reference to the program's options
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
     /// @brief The id of the currently parsed node
     std::string myID;
@@ -135,18 +135,18 @@ private:
     Position myPosition;
 
     /// @brief The node container to add built nodes to
-    NBNodeCont &myNodeCont;
+    NBNodeCont& myNodeCont;
 
     /// @brief The traffic lights container to add built tls to
-    NBTrafficLightLogicCont &myTLLogicCont;
+    NBTrafficLightLogicCont& myTLLogicCont;
 
 
 private:
     /** @brief invalid copy constructor */
-    NIXMLNodesHandler(const NIXMLNodesHandler &s);
+    NIXMLNodesHandler(const NIXMLNodesHandler& s);
 
     /** @brief invalid assignment operator */
-    NIXMLNodesHandler &operator=(const NIXMLNodesHandler &s);
+    NIXMLNodesHandler& operator=(const NIXMLNodesHandler& s);
 
 };
 

@@ -54,14 +54,14 @@ class AGCity;
 // ===========================================================================
 class AGHousehold {
 public:
-    AGHousehold(AGPosition pos, AGCity *city, int idHouseholds) :
-            location(pos),
-            myCity(city),
-            idHH(idHouseholds) {};
-    AGHousehold(AGStreet *str, AGCity *city, int idHouseholds) :
-            location(*str),
-            myCity(city),
-            idHH(idHouseholds) {};
+    AGHousehold(AGPosition pos, AGCity* city, int idHouseholds) :
+        location(pos),
+        myCity(city),
+        idHH(idHouseholds) {};
+    AGHousehold(AGStreet* str, AGCity* city, int idHouseholds) :
+        location(*str),
+        myCity(city),
+        idHH(idHouseholds) {};
     /**
      * - function generating one first Adult.
      * - a second person is created depending on the mean number of adults per Households
@@ -125,7 +125,7 @@ private:
 
     bool decisionProba(SUMOReal p);
 
-    AGCity *myCity;
+    AGCity* myCity;
     AGPosition location;
     int numberOfPeople;
     int numberOfCars;

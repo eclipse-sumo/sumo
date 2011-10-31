@@ -64,10 +64,10 @@ public:
     /// Use this constructor only.
     MSBitSetLogic(unsigned int nLinks,
                   Logic* logic,
-                  Foes *foes,
+                  Foes* foes,
                   std::bitset<64> conts)
-            : MSJunctionLogic(nLinks), myLogic(logic),
-            myInternalLinksFoes(foes), myConts(conts) {}
+        : MSJunctionLogic(nLinks), myLogic(logic),
+          myInternalLinksFoes(foes), myConts(conts) {}
 
 
     /// Destructor.
@@ -78,7 +78,7 @@ public:
 
 
     /// Returns the foes of the given link
-    const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
+    const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const throw() {
         return (*myLogic)[linkIndex];
     }
 
@@ -104,7 +104,7 @@ private:
     Logic* myLogic;
 
     /// internal lanes logic
-    Foes *myInternalLinksFoes;
+    Foes* myInternalLinksFoes;
 
     std::bitset<64> myConts;
 

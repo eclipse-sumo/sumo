@@ -64,25 +64,25 @@ public:
 
 
     /// Returns the name of the vehicle
-    const std::string &getID() const throw();
+    const std::string& getID() const throw();
 
     /** @brief Returns the vehicle's parameter (including departure definition)
      *
      * @return The vehicle's parameter
      */
-    const SUMOVehicleParameter &getParameter() const throw();
+    const SUMOVehicleParameter& getParameter() const throw();
 
 
     /** @brief Returns the current route
      * @return The route the vehicle uses
      */
-    const MSRoute &getRoute() const throw();
+    const MSRoute& getRoute() const throw();
 
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    const MSVehicleType &getVehicleType() const throw();
+    const MSVehicleType& getVehicleType() const throw();
 
 
     /** @brief Returns the current maximum speed
@@ -143,7 +143,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(const MSEdgeVector &edges, bool onInit=false) throw();
+    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit=false) throw();
 
 
     /** @brief Returns the vehicle's acceleration before dawdling
@@ -195,7 +195,7 @@ public:
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string &msg) const throw();
+    bool hasValidRoute(std::string& msg) const throw();
 
     /** @brief Adds a MoveReminder dynamically
      *
@@ -236,7 +236,7 @@ protected:
     const MSRoute* myRoute;
 
     /// @brief This Vehicle's type.
-    const MSVehicleType *myType;
+    const MSVehicleType* myType;
 
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;

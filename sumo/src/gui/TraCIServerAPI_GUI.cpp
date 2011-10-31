@@ -55,8 +55,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -79,7 +79,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
-        GUISUMOAbstractView *v = getNamedView(id);
+        GUISUMOAbstractView* v = getNamedView(id);
         if (v==0) {
             server.writeStatusCmd(CMD_GET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
             return false;
@@ -95,7 +95,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempMsg.writeDouble(v->getChanger().getYPos());
             break;
         case VAR_VIEW_SCHEMA: {
-            FXComboBox &c = v->getColoringSchemesCombo();
+            FXComboBox& c = v->getColoringSchemesCombo();
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString((std::string)c.getItem(c.getCurrentItem()).text());
             break;
@@ -120,8 +120,8 @@ TraCIServerAPI_GUI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
 
 
 bool
-TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) throw(TraCIException, std::invalid_argument) {
+TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) throw(TraCIException, std::invalid_argument) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -133,7 +133,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     }
     // id
     std::string id = inputStorage.readString();
-    GUISUMOAbstractView *v = getNamedView(id);
+    GUISUMOAbstractView* v = getNamedView(id);
     if (v==0) {
         server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "View '" + id + "' is not known", outputStorage);
         return false;
@@ -202,7 +202,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         if (id=="") {
             v->stopTrack();
         } else {
-            SUMOVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+            SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
             if (veh==0) {
                 server.writeStatusCmd(CMD_SET_GUI_VARIABLE, RTYPE_ERR, "Could not find vehicle '" + id + "'.", outputStorage);
                 return false;
@@ -221,9 +221,9 @@ TraCIServerAPI_GUI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
 }
 
 
-GUIMainWindow *
+GUIMainWindow*
 TraCIServerAPI_GUI::getMainWindow() throw() {
-    FXWindow *w = FXApp::instance()->getRootWindow()->getFirst();
+    FXWindow* w = FXApp::instance()->getRootWindow()->getFirst();
     while (w!=0&&dynamic_cast<GUIMainWindow*>(w)==0) {
         w = w->getNext();
     }
@@ -235,13 +235,13 @@ TraCIServerAPI_GUI::getMainWindow() throw() {
 }
 
 
-GUISUMOAbstractView * const
-TraCIServerAPI_GUI::getNamedView(const std::string &id) throw() {
-    GUIMainWindow *mw = static_cast<GUIMainWindow*>(getMainWindow());
+GUISUMOAbstractView* const
+TraCIServerAPI_GUI::getNamedView(const std::string& id) throw() {
+    GUIMainWindow* mw = static_cast<GUIMainWindow*>(getMainWindow());
     if (mw==0) {
         return 0;
     }
-    GUIGlChildWindow *c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
+    GUIGlChildWindow* c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
     if (c==0) {
         return 0;
     }

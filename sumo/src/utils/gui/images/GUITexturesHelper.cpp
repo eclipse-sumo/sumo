@@ -55,7 +55,7 @@ bool gAllowTextures;
 // method definitions
 // ===========================================================================
 GUIGlID
-GUITexturesHelper::add(FXImage *i) {
+GUITexturesHelper::add(FXImage* i) {
     GUIGlID id;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);

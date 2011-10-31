@@ -42,9 +42,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteLoader::MSRouteLoader(MSNet &,
-                             MSRouteHandler *handler)
-        : myParser(0), myMoreAvailable(true), myHandler(handler) {
+MSRouteLoader::MSRouteLoader(MSNet&,
+                             MSRouteHandler* handler)
+    : myParser(0), myMoreAvailable(true), myHandler(handler) {
     myParser = XMLSubSys::getSAXReader(*myHandler);
 }
 

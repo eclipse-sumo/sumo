@@ -47,9 +47,9 @@
 LineReader::LineReader() throw() {}
 
 
-LineReader::LineReader(const std::string &file) throw()
-        : myFileName(file),
-        myRead(0) {
+LineReader::LineReader(const std::string& file) throw()
+    : myFileName(file),
+      myRead(0) {
     reinit();
 }
 
@@ -64,7 +64,7 @@ LineReader::hasMore() const throw() {
 
 
 void
-LineReader::readAll(LineHandler &lh) throw(ProcessError) {
+LineReader::readAll(LineHandler& lh) throw(ProcessError) {
     while (myRread<myAvailable) {
         if (!readLine(lh)) {
             return;
@@ -74,7 +74,7 @@ LineReader::readAll(LineHandler &lh) throw(ProcessError) {
 
 
 bool
-LineReader::readLine(LineHandler &lh) throw(ProcessError) {
+LineReader::readLine(LineHandler& lh) throw(ProcessError) {
     std::string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
@@ -185,7 +185,7 @@ LineReader::getFileName() const throw() {
 
 
 bool
-LineReader::setFile(const std::string &file) throw() {
+LineReader::setFile(const std::string& file) throw() {
     myFileName = file;
     reinit();
     return myStrm.good();

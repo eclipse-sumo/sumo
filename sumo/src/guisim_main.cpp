@@ -68,7 +68,7 @@
  * ----------------------------------------------------------------------- */
 void
 fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("");
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -104,12 +104,12 @@ fillOptions() {
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
+main(int argc, char** argv) {
     // make the output aware of threading
     MFXMutex lock;
     MsgHandler::assignLock(&lock);
     // get the options
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
     oc.setApplicationName("sumo-gui.exe", "SUMO gui Version " + (std::string)VERSION_STRING);
@@ -148,8 +148,8 @@ main(int argc, char **argv) {
         gAllowTextures = !oc.getBool("disable-textures");
 
         // build the main window
-        GUIApplicationWindow * window =
-            new GUIApplicationWindow(&application, "*.sumo.cfg");
+        GUIApplicationWindow* window =
+        new GUIApplicationWindow(&application, "*.sumo.cfg");
         window->dependentBuild(oc.getBool("game"));
         gSchemeStorage.init(&application);
         // Create app
@@ -158,7 +158,7 @@ main(int argc, char **argv) {
         // Load configuration given on command line
         if (oc.isSet("configuration-file")) {
             window->loadOnStartup(oc.getString("configuration-file"),
-                                  !oc.getBool("no-start"));
+            !oc.getBool("no-start"));
         }
         // Run
         ret = application.run();

@@ -57,7 +57,7 @@ public:
      *
      * @param[in] net The network to which's detector control built detector shall be added
      */
-    GUIDetectorBuilder(MSNet &net) throw();
+    GUIDetectorBuilder(MSNet& net) throw();
 
 
     /// @brief Destructor
@@ -76,12 +76,12 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
-	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    virtual MSDetectorFileOutput *createInductLoop(const std::string &id,
-		MSLane *lane, SUMOReal pos, bool splitByType) throw();
+    virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
+            MSLane* lane, SUMOReal pos, bool splitByType) throw();
 
-    
+
     /** @brief Creates an instance of an e1 detector using the given values
      *
      * Simply calls the MSInductLoop constructor
@@ -91,8 +91,8 @@ public:
      * @param[in] pos The position on the lane the detector is placed at
      * @param[in] od The output device the loop shall use
      */
-    virtual MSDetectorFileOutput *createInstantInductLoop(const std::string &id,
-		MSLane *lane, SUMOReal pos, OutputDevice &od) throw();
+    virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
+            MSLane* lane, SUMOReal pos, OutputDevice& od) throw();
 
 
 #ifdef HAVE_MESOSIM
@@ -105,8 +105,8 @@ public:
      * @param[in] pos ?
      * @todo Position is not used, herein!?
      */
-    virtual MEInductLoop *createMEInductLoop(const std::string &id,
-            MESegment *s, SUMOReal pos) throw();
+    virtual MEInductLoop* createMEInductLoop(const std::string& id,
+            MESegment* s, SUMOReal pos) throw();
 #endif
 
 
@@ -122,8 +122,8 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MSDetectorFileOutput *createSingleLaneE2Detector(const std::string &id,
-            DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+    virtual MSDetectorFileOutput* createSingleLaneE2Detector(const std::string& id,
+            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
@@ -142,8 +142,8 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MSDetectorFileOutput *createMultiLaneE2Detector(
-        const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
+    virtual MSDetectorFileOutput* createMultiLaneE2Detector(
+        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw();
@@ -159,11 +159,11 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
      */
-    virtual MSDetectorFileOutput *createE3Detector(const std::string &id,
-                                            const CrossSectionVector &entries,
-                                            const CrossSectionVector &exits,
-                                            SUMOReal haltingSpeedThreshold,
-                                            SUMOTime haltingTimeThreshold) throw();
+    virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
+            const CrossSectionVector& entries,
+            const CrossSectionVector& exits,
+            SUMOReal haltingSpeedThreshold,
+            SUMOTime haltingTimeThreshold) throw();
     /// @}
 
 

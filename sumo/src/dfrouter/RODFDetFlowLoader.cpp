@@ -46,13 +46,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
-                                     RODFDetectorFlows &into,
+RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon& dets,
+                                     RODFDetectorFlows& into,
                                      SUMOTime startTime, SUMOTime endTime,
                                      SUMOTime timeOffset, SUMOTime timeScale) throw()
-        : myStorage(into), myTimeOffset(timeOffset), myTimeScale(timeScale),
-        myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets),
-        myHaveWarnedAboutOverridingBoundaries(false), myHaveWarnedAboutPartialDefs(false) {}
+    : myStorage(into), myTimeOffset(timeOffset), myTimeScale(timeScale),
+      myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets),
+      myHaveWarnedAboutOverridingBoundaries(false), myHaveWarnedAboutPartialDefs(false) {}
 
 
 
@@ -60,7 +60,7 @@ RODFDetFlowLoader::~RODFDetFlowLoader() throw() {}
 
 
 void
-RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
+RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
     LineReader lr(file);
     // parse first line
     myLineHandler.reinit(lr.readLine(), ";", ";", true, true);
@@ -108,7 +108,7 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
                 WRITE_WARNING("At least one line does not contain the correct number of columns.");
             }
             continue;
-        } catch (UnknownElement &) {} catch (OutOfBoundsException &) {} catch (NumberFormatException &) {}
+        } catch (UnknownElement&) {} catch (OutOfBoundsException&) {} catch (NumberFormatException&) {}
         throw ProcessError("The detector-flow-file '" + lr.getFileName() + "' is corrupt;\n"
                            + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
                            + " The according column names must be given in the first line of the file.");

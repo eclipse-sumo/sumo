@@ -117,7 +117,7 @@ private:
      * @param[in] c The vehicle emission class
      * @return The function parameter (for all pollutants)
      */
-    static inline double *getParameterForClass(SUMOEmissionClass c) throw() {
+    static inline double* getParameterForClass(SUMOEmissionClass c) throw() {
         return myFunctionParameter[c];
     }
 
@@ -131,7 +131,7 @@ private:
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
      */
-    static inline double computeUsing(double *f, double v, double a) throw() {
+    static inline double computeUsing(double* f, double v, double a) throw() {
         if (a<0) {
             return 0.;
         }

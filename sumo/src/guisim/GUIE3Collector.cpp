@@ -52,11 +52,11 @@
 /* -------------------------------------------------------------------------
  * GUIE3Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector) throw()
-        : GUIDetectorWrapper("E3 detector", detector.getID()),
-        myDetector(detector) {
-    const CrossSectionVector &entries = detector.getEntries();
-    const CrossSectionVector &exits = detector.getExits();
+GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) throw()
+    : GUIDetectorWrapper("E3 detector", detector.getID()),
+      myDetector(detector) {
+    const CrossSectionVector& entries = detector.getEntries();
+    const CrossSectionVector& exits = detector.getExits();
     CrossSectionVectorConstIt i;
     for (i=entries.begin(); i!=entries.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i);
@@ -75,10 +75,10 @@ GUIE3Collector::MyWrapper::~MyWrapper() throw() {}
 
 
 GUIE3Collector::MyWrapper::SingleCrossingDefinition
-GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section) {
-    const MSLane *lane = section.myLane;
+GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection& section) {
+    const MSLane* lane = section.myLane;
     SUMOReal pos = section.myPosition;
-    const PositionVector &v = lane->getShape();
+    const PositionVector& v = lane->getShape();
     Line l(v.getBegin(), v.getEnd());
     SingleCrossingDefinition def;
     def.myFGPosition = v.positionAtLengthPosition(pos);
@@ -87,10 +87,10 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section) {
 }
 
 
-GUIParameterTableWindow *
-GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret =
+GUIParameterTableWindow*
+GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
+        GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
     // values
@@ -107,7 +107,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
@@ -128,7 +128,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
 
 
 void
-GUIE3Collector::MyWrapper::drawSingleCrossing(const Position &pos,
+GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
         SUMOReal rot, SUMOReal upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
@@ -164,7 +164,7 @@ GUIE3Collector::MyWrapper::getCenteringBoundary() const throw() {
 }
 
 
-GUIE3Collector &
+GUIE3Collector&
 GUIE3Collector::MyWrapper::getDetector() {
     return myDetector;
 }
@@ -173,30 +173,30 @@ GUIE3Collector::MyWrapper::getDetector() {
 /* -------------------------------------------------------------------------
  * GUIE3Collector-methods
  * ----------------------------------------------------------------------- */
-GUIE3Collector::GUIE3Collector(const std::string &id,
-                               const CrossSectionVector &entries,  const CrossSectionVector &exits,
+GUIE3Collector::GUIE3Collector(const std::string& id,
+                               const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                SUMOReal haltingSpeedThreshold,
                                SUMOTime haltingTimeThreshold) throw()
-        : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold) {}
+    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold) {}
 
 
 GUIE3Collector::~GUIE3Collector() throw() {}
 
 
-const CrossSectionVector &
+const CrossSectionVector&
 GUIE3Collector::getEntries() const {
     return myEntries;
 }
 
 
-const CrossSectionVector &
+const CrossSectionVector&
 GUIE3Collector::getExits() const {
     return myExits;
 }
 
 
 
-GUIDetectorWrapper *
+GUIDetectorWrapper*
 GUIE3Collector::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this);
 }

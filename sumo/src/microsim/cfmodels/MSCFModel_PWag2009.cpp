@@ -38,9 +38,9 @@
 // ===========================================================================
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
                                        SUMOReal dawdle, SUMOReal headwayTime, SUMOReal tauLast, SUMOReal apProb)
-        : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle),
-        myTauDecel(decel * headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel * tauLast),
-        myActionPointProbability(apProb) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle),
+      myTauDecel(decel* headwayTime), myDecelDivTau(decel / headwayTime), myTauLastDecel(decel* tauLast),
+      myActionPointProbability(apProb) {
 }
 
 
@@ -48,7 +48,7 @@ MSCFModel_PWag2009::~MSCFModel_PWag2009() {}
 
 
 SUMOReal
-MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+MSCFModel_PWag2009::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
     const SUMOReal speed = veh->getSpeed();
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
@@ -56,7 +56,7 @@ MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
     SUMOReal apref = vars->aOld;
     const SUMOReal asafe = SPEED2ACCEL(vNext-speed);
     if (apref <= asafe && RandHelper::rand() > myActionPointProbability*TS) {
-        std::pair<MSVehicle * const, SUMOReal> l = veh->getLane()->getLeaderOnConsecutive(100., 0., speed, *veh, veh->getBestLanesContinuation(veh->getLane()));
+        std::pair<MSVehicle* const, SUMOReal> l = veh->getLane()->getLeaderOnConsecutive(100., 0., speed, *veh, veh->getBestLanesContinuation(veh->getLane()));
         if (l.first) {
             apref = myDecelDivTau * (l.second+(l.first->getSpeed()-speed)*myHeadwayTime-speed*myHeadwayTime) / (speed+myTauDecel);
             apref += myDawdle*RandHelper::rand((SUMOReal)-1., (SUMOReal)1.);
@@ -71,13 +71,13 @@ MSCFModel_PWag2009::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_PWag2009::followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return _v(veh, speed, gap, predSpeed);
 }
 
 
 SUMOReal
-MSCFModel_PWag2009::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     return _v(veh, veh->getSpeed(), gap, 0);
 }
 
@@ -92,7 +92,7 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
 // more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
 // seen so far in data ...
 SUMOReal
-MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
+MSCFModel_PWag2009::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
@@ -101,7 +101,7 @@ MSCFModel_PWag2009::_v(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap
 }
 
 
-MSCFModel *
-MSCFModel_PWag2009::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myHeadwayTime, myTauLastDecel/myDecel, myActionPointProbability);
 }

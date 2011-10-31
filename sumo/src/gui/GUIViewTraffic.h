@@ -59,14 +59,14 @@ class MSRoute;
 class GUIViewTraffic : public GUISUMOAbstractView {
 public:
     /// constructor
-    GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
-                   GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
-                   FXGLCanvas *share);
+    GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
+                   GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
+                   FXGLCanvas* share);
     /// destructor
     virtual ~GUIViewTraffic();
 
     /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow &);
+    virtual void buildViewToolBars(GUIGlChildWindow&);
 
 
     /** @brief Starts vehicle tracking
@@ -85,7 +85,7 @@ public:
      */
     int getTrackedID() const;
 
-    bool setColorScheme(const std::string &name);
+    bool setColorScheme(const std::string& name);
 
     void showViewschemeEditor();
 

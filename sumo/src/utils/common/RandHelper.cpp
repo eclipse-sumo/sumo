@@ -48,7 +48,7 @@ MTRand RandHelper::myRandomNumberGenerator;
 // ===========================================================================
 void
 RandHelper::insertRandOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // registers random number options
     oc.addOptionSubTopic("Random Number");
 
@@ -64,7 +64,7 @@ RandHelper::insertRandOptions() {
 
 void
 RandHelper::initRandGlobal() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getBool("random")) {
         myRandomNumberGenerator.seed();
     } else {

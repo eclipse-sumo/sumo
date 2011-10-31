@@ -67,12 +67,12 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
-                           FXRealSpinDial &simDelay, MFXEventQue &eq,
-                           FXEX::FXThreadEvent &ev)
-        : FXSingleEventThread(gFXApp, parent),
-        myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
-        mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
+GUIRunThread::GUIRunThread(MFXInterThreadEventClient* parent,
+                           FXRealSpinDial& simDelay, MFXEventQue& eq,
+                           FXEX::FXThreadEvent& ev)
+    : FXSingleEventThread(gFXApp, parent),
+      myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
+      mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_WARNING);
@@ -92,7 +92,7 @@ GUIRunThread::~GUIRunThread() {
 
 
 void
-GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end) {
+GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     // assign new values
     myNet = net;
     mySimStartTime = start;
@@ -151,7 +151,7 @@ GUIRunThread::run() {
 
 void
 GUIRunThread::makeStep() throw() {
-    GUIEvent *e = 0;
+    GUIEvent* e = 0;
     // simulation is being perfomed
     mySimulationInProgress = true;
     // execute a single step
@@ -197,7 +197,7 @@ GUIRunThread::makeStep() throw() {
         }
         // simulation step is over
         mySimulationInProgress = false;
-    } catch (ProcessError &e2) {
+    } catch (ProcessError& e2) {
         if (string(e2.what())!=string("Process Error") && std::string(e2.what())!=string("")) {
             WRITE_ERROR(e2.what());
         }
@@ -278,7 +278,7 @@ GUIRunThread::deleteSim() {
 }
 
 
-GUINet &
+GUINet&
 GUIRunThread::getNet() const {
     return *myNet;
 }
@@ -292,8 +292,8 @@ GUIRunThread::prepareDestruction() {
 
 
 void
-GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg) {
-    GUIEvent *e = new GUIEvent_Message(type, msg);
+GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
+    GUIEvent* e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
 }

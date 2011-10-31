@@ -43,11 +43,11 @@
  *  (each points y-value)
  */
 class Distribution_Points :
-            public Distribution {
+    public Distribution {
 public:
     /// Constructor
-    Distribution_Points(const std::string &id,
-                        const PositionVector &points, bool interpolating=false) throw();
+    Distribution_Points(const std::string& id,
+                        const PositionVector& points, bool interpolating=false) throw();
 
     /// Destructor
     virtual ~Distribution_Points() throw();

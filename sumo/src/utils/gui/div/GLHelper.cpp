@@ -53,19 +53,19 @@ std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 // method definitions
 // ===========================================================================
 void
-GLHelper::drawFilledPoly(const PositionVector &v, bool close) throw() {
+GLHelper::drawFilledPoly(const PositionVector& v, bool close) throw() {
     if (v.size()==0) {
         return;
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBegin(GL_POLYGON);
-    const PositionVector::ContType &l = v.getCont();
+    const PositionVector::ContType& l = v.getCont();
     for (PositionVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-        const Position &p = *i;
+        const Position& p = *i;
         glVertex2d(p.x(), p.y());
     }
     if (close) {
-        const Position &p = *(l.begin());
+        const Position& p = *(l.begin());
         glVertex2d(p.x(), p.y());
     }
     glEnd();
@@ -73,7 +73,7 @@ GLHelper::drawFilledPoly(const PositionVector &v, bool close) throw() {
 
 
 void
-GLHelper::drawBoxLine(const Position &beg, SUMOReal rot, SUMOReal visLength,
+GLHelper::drawBoxLine(const Position& beg, SUMOReal rot, SUMOReal visLength,
                       SUMOReal width) throw() {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -89,7 +89,7 @@ GLHelper::drawBoxLine(const Position &beg, SUMOReal rot, SUMOReal visLength,
 
 
 void
-GLHelper::drawBoxLine(const Position &beg1, const Position &beg2,
+GLHelper::drawBoxLine(const Position& beg1, const Position& beg2,
                       SUMOReal rot, SUMOReal visLength,
                       SUMOReal width) throw() {
     glPushMatrix();
@@ -106,7 +106,7 @@ GLHelper::drawBoxLine(const Position &beg1, const Position &beg2,
 
 
 void
-GLHelper::drawBoxLines(const PositionVector &geom,
+GLHelper::drawBoxLines(const PositionVector& geom,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw() {
@@ -118,8 +118,8 @@ GLHelper::drawBoxLines(const PositionVector &geom,
 
 
 void
-GLHelper::drawBoxLines(const PositionVector &geom1,
-                       const PositionVector &geom2,
+GLHelper::drawBoxLines(const PositionVector& geom1,
+                       const PositionVector& geom2,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw() {
@@ -131,11 +131,11 @@ GLHelper::drawBoxLines(const PositionVector &geom1,
 
 
 void
-GLHelper::drawBoxLines(const PositionVector &geom, SUMOReal width) throw() {
+GLHelper::drawBoxLines(const PositionVector& geom, SUMOReal width) throw() {
     int e = (int) geom.size() - 1;
     for (int i=0; i<e; i++) {
-        const Position &f = geom[i];
-        const Position &s = geom[i+1];
+        const Position& f = geom[i];
+        const Position& s = geom[i+1];
         drawBoxLine(f,
                     (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI,
                     f.distanceTo(s),
@@ -145,7 +145,7 @@ GLHelper::drawBoxLines(const PositionVector &geom, SUMOReal width) throw() {
 
 
 void
-GLHelper::drawLine(const Position &beg, SUMOReal rot, SUMOReal visLength) throw() {
+GLHelper::drawLine(const Position& beg, SUMOReal rot, SUMOReal visLength) throw() {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -158,7 +158,7 @@ GLHelper::drawLine(const Position &beg, SUMOReal rot, SUMOReal visLength) throw(
 
 
 void
-GLHelper::drawLine(const Position &beg1, const Position &beg2,
+GLHelper::drawLine(const Position& beg1, const Position& beg2,
                    SUMOReal rot, SUMOReal visLength) throw() {
     glPushMatrix();
     glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
@@ -173,7 +173,7 @@ GLHelper::drawLine(const Position &beg1, const Position &beg2,
 
 
 void
-GLHelper::drawLine(const PositionVector &v) throw() {
+GLHelper::drawLine(const PositionVector& v) throw() {
     glBegin(GL_LINES);
     int e = (int) v.size() - 1;
     for (int i=0; i<e; ++i) {
@@ -186,7 +186,7 @@ GLHelper::drawLine(const PositionVector &v) throw() {
 
 
 void
-GLHelper::drawLine(const Position &beg, const Position &end) throw() {
+GLHelper::drawLine(const Position& beg, const Position& end) throw() {
     glBegin(GL_LINES);
     glVertex2d(beg.x(), beg.y());
     glVertex2d(end.x(), end.y());
@@ -281,7 +281,7 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Line &l, SUMOReal tLength,
+GLHelper::drawTriangleAtEnd(const Line& l, SUMOReal tLength,
                             SUMOReal tWidth) throw() {
     if (l.length()<tLength) {
         tWidth = tWidth * l.length() / tLength;
@@ -315,7 +315,7 @@ GLHelper::getColor() {
 
 
 void
-GLHelper::drawText(const std::string &text, const Position& pos,
+GLHelper::drawText(const std::string& text, const Position& pos,
                    const SUMOReal layer, const SUMOReal size,
                    const RGBColor& col, const SUMOReal angle) {
     glPushMatrix();
@@ -333,7 +333,7 @@ GLHelper::drawText(const std::string &text, const Position& pos,
 }
 
 void
-GLHelper::drawTextBox(const std::string &text, const Position& pos,
+GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const SUMOReal layer, const SUMOReal size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const SUMOReal angle) {

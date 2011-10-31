@@ -81,8 +81,8 @@ public:
      * @return The corresponding (built or existing) device
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static OutputDevice& getDevice(const std::string &name,
-                                   const std::string &base="") throw(IOError);
+    static OutputDevice& getDevice(const std::string& name,
+                                   const std::string& base="") throw(IOError);
 
 
     /** @brief Creates the device using the output definition stored in the named option
@@ -101,8 +101,8 @@ public:
      * @return Whether a device was built (the option was set)
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static bool createDeviceByOption(const std::string &optionName,
-                                     const std::string &rootElement="") throw(IOError);
+    static bool createDeviceByOption(const std::string& optionName,
+                                     const std::string& rootElement="") throw(IOError);
 
 
     /** @brief Returns the device described by the option
@@ -117,7 +117,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      * @exception InvalidArgument If the option with the given name does not exist
      */
-    static OutputDevice& getDeviceByOption(const std::string &name) throw(IOError, InvalidArgument);
+    static OutputDevice& getDeviceByOption(const std::string& name) throw(IOError, InvalidArgument);
 
 
     /**  Closes all registered devices
@@ -174,10 +174,10 @@ public:
      * @todo Check which parameter is used herein
      * @todo Describe what is saved
      */
-    bool writeXMLHeader(const std::string &rootElement,
+    bool writeXMLHeader(const std::string& rootElement,
                         const std::string xmlParams="",
-                        const std::string &attrs="",
-                        const std::string &comment="") throw();
+                        const std::string& attrs="",
+                        const std::string& comment="") throw();
 
 
     /** @brief Adds indentation
@@ -198,7 +198,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const std::string &xmlElement) throw();
+    OutputDevice& openTag(const std::string& xmlElement) throw();
 
 
     /** @brief Opens an XML tag
@@ -208,7 +208,7 @@ public:
      * @param[in] xmlElement Id of the element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const SumoXMLTag &xmlElement) throw();
+    OutputDevice& openTag(const SumoXMLTag& xmlElement) throw();
 
 
     /** @brief Closes the most recently opened tag
@@ -228,7 +228,7 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    OutputDevice &writeAttr(std::string attr, std::string val) {
+    OutputDevice& writeAttr(std::string attr, std::string val) {
         getOStream() << " " << attr << "=\"" << val << "\"";
         return *this;
     }
@@ -239,7 +239,7 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    OutputDevice &writeAttr(const SumoXMLAttr attr, const T &val) {
+    OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
         return writeAttr(toString(attr), toString(val));
     }
 
@@ -250,14 +250,14 @@ public:
      *
      * @param[in] msg The msg to write to the device
      */
-    void inform(const std::string &msg);
+    void inform(const std::string& msg);
 
 
     /** @brief Abstract output operator
      * @return The OutputDevice for further processing
      */
     template <class T>
-    OutputDevice &operator<<(const T &t) {
+    OutputDevice& operator<<(const T& t) {
         getOStream() << t;
         postWriteHook();
         return *this;
@@ -265,7 +265,7 @@ public:
 
 protected:
     /// @brief Returns the associated ostream
-    virtual std::ostream &getOStream() throw() = 0;
+    virtual std::ostream& getOStream() throw() = 0;
 
 
     /** @brief Called after every write access.

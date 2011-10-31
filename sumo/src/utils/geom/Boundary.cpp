@@ -42,15 +42,15 @@
 // method definitions
 // ===========================================================================
 Boundary::Boundary()
-        : myXmin(10000000000.0), myXmax(-10000000000.0),
-        myYmin(10000000000.0), myYmax(-10000000000.0),
-        myWasInitialised(false) {}
+    : myXmin(10000000000.0), myXmax(-10000000000.0),
+      myYmin(10000000000.0), myYmax(-10000000000.0),
+      myWasInitialised(false) {}
 
 
 Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
-        : myXmin(10000000000.0), myXmax(-10000000000.0),
-        myYmin(10000000000.0), myYmax(-10000000000.0),
-        myWasInitialised(false) {
+    : myXmin(10000000000.0), myXmax(-10000000000.0),
+      myYmin(10000000000.0), myYmax(-10000000000.0),
+      myWasInitialised(false) {
     add(x1, y1);
     add(x2, y2);
 }
@@ -87,13 +87,13 @@ Boundary::add(SUMOReal x, SUMOReal y) {
 
 
 void
-Boundary::add(const Position &p) {
+Boundary::add(const Position& p) {
     add(p.x(), p.y());
 }
 
 
 void
-Boundary::add(const Boundary &p) {
+Boundary::add(const Boundary& p) {
     add(p.xmin(), p.ymin());
     add(p.xmax(), p.ymax());
 }
@@ -142,7 +142,7 @@ Boundary::getHeight() const {
 
 
 bool
-Boundary::around(const Position &p, SUMOReal offset) const {
+Boundary::around(const Position& p, SUMOReal offset) const {
     return
         (p.x()<=myXmax+offset && p.x()>=myXmin-offset) &&
         (p.y()<=myYmax+offset && p.y()>=myYmin-offset);
@@ -150,7 +150,7 @@ Boundary::around(const Position &p, SUMOReal offset) const {
 
 
 bool
-Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const {
+Boundary::overlapsWith(const AbstractPoly& p, SUMOReal offset) const {
     if (
         // check whether one of my points lies within the given poly
         partialWithin(p, offset) ||
@@ -171,7 +171,7 @@ Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const {
 
 
 bool
-Boundary::crosses(const Position &p1, const Position &p2) const {
+Boundary::crosses(const Position& p1, const Position& p2) const {
     return
         GeomHelper::intersects(p1, p2, Position(myXmax, myYmax), Position(myXmin, myYmax))
         ||
@@ -184,7 +184,7 @@ Boundary::crosses(const Position &p1, const Position &p2) const {
 
 
 bool
-Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const {
+Boundary::partialWithin(const AbstractPoly& poly, SUMOReal offset) const {
     return
         poly.around(Position(myXmax, myYmax), offset) ||
         poly.around(Position(myXmin, myYmax), offset) ||
@@ -193,7 +193,7 @@ Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const {
 }
 
 
-Boundary &
+Boundary&
 Boundary::grow(SUMOReal by) {
     myXmax += by;
     myYmax += by;
@@ -226,8 +226,8 @@ Boundary::flipY() {
 
 
 
-std::ostream &
-operator<<(std::ostream &os, const Boundary &b) {
+std::ostream&
+operator<<(std::ostream& os, const Boundary& b) {
     os << b.myXmin << "," << b.myYmin << "," << b.myXmax << "," << b.myYmax;
     return os;
 }

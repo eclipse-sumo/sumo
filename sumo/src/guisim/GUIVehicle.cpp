@@ -129,9 +129,9 @@ double vehiclePoly_EVehicleBackGlass[] =  { 0.65,0,  0.9,0,  0.9,0.4,  0.57,0.3,
  * GUIVehicle::GUIVehiclePopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
-    GUIMainWindow &app, GUISUMOAbstractView &parent,
-    GUIGlObject &o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations)
-        : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
+    GUIMainWindow& app, GUISUMOAbstractView& parent,
+    GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations)
+    : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
 }
 
 
@@ -216,8 +216,8 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*) {
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
                        int vehicleIndex) throw(ProcessError)
-        : MSVehicle(pars, route, type, vehicleIndex),
-        GUIGlObject(GLO_VEHICLE, pars->id) {
+    : MSVehicle(pars, route, type, vehicleIndex),
+      GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);
     myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
@@ -235,10 +235,10 @@ GUIVehicle::~GUIVehicle() throw() {
 }
 
 
-GUIGLObjectPopupMenu *
-GUIVehicle::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this, myAdditionalVisualizations);
+GUIGLObjectPopupMenu*
+GUIVehicle::getPopUpMenu(GUIMainWindow& app,
+                         GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIVehiclePopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -274,10 +274,10 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUIVehicle::getParameterWindow(GUIMainWindow &app,
-                               GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret =
+GUIParameterTableWindow*
+GUIVehicle::getParameterWindow(GUIMainWindow& app,
+                               GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 15);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
@@ -328,7 +328,7 @@ GUIVehicle::getCenteringBoundary() const throw() {
 
 
 inline void
-drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh, SUMOReal upscale) {
     SUMOReal length = veh.getVehicleType().getLengthWithGap();
     glPushMatrix();
     glScaled(upscale, upscale, 1);
@@ -356,7 +356,7 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
 }
 
 inline void
-drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
+drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh, SUMOReal upscale) {
     SUMOReal length = veh.getVehicleType().getLengthWithGap();
     SUMOReal offset = veh.getVehicleType().getMinGap();
     glPushMatrix();
@@ -380,7 +380,7 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
 
 
 void
-drawPoly(double *poses, SUMOReal offset) {
+drawPoly(double* poses, SUMOReal offset) {
     glPushMatrix();
     glTranslated(0, 0, offset*.1);
     glPolygonOffset(0, offset*-1);
@@ -396,7 +396,7 @@ drawPoly(double *poses, SUMOReal offset) {
 
 
 inline void
-drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
+drawAction_drawVehicleAsPoly(const GUIVehicle& veh, SUMOReal upscale) {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
@@ -803,7 +803,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
 #define BRAKELIGHT_POS 1.2
 
 inline void
-drawAction_drawBlinker(const GUIVehicle &veh, double dir) {
+drawAction_drawBlinker(const GUIVehicle& veh, double dir) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
     glTranslated(dir, BLINKER_POS_FRONT+veh.getVehicleType().getMinGap(), 0);
@@ -817,7 +817,7 @@ drawAction_drawBlinker(const GUIVehicle &veh, double dir) {
 
 
 inline void
-drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
+drawAction_drawVehicleBlinker(const GUIVehicle& veh) {
     if (veh.getVehicleType().getGuiWidth()<.5) {
         return;
     }
@@ -838,7 +838,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
 
 
 inline void
-drawAction_drawVehicleBrakeLight(const GUIVehicle &veh) {
+drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT)) {
         return;
     }
@@ -855,7 +855,7 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle &veh) {
 
 
 void
-GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIVehicle::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
@@ -956,7 +956,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 
 void
-GUIVehicle::drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw() {
+GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0,0,getType() -.1); // don't draw on top of other cars
@@ -991,9 +991,9 @@ GUIVehicle::getBestLanes() const throw() {
 }
 
 
-void 
-GUIVehicle::setColor(const GUIVisualizationSettings &s) const {
-    const GUIColorer &c = s.vehicleColorer;
+void
+GUIVehicle::setColor(const GUIVisualizationSettings& s) const {
+    const GUIColorer& c = s.vehicleColorer;
     if (!setFunctionalColor(c.getActive())) {
         GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
     }
@@ -1017,7 +1017,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
     }
     case 4: {
         Position p = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
         Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
@@ -1026,7 +1026,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
     }
     case 5: {
         Position p = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
         Position center = b.getCenter();
         SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
         SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
@@ -1036,7 +1036,7 @@ GUIVehicle::setFunctionalColor(size_t activeScheme) const {
     case 6: {
         Position pb = getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
         Position pe = getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        const Boundary& b = ((GUINet*) MSNet::getInstance())->getBoundary();
         SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
         Position minp(b.xmin(), b.ymin());
         Position maxp(b.xmax(), b.ymax());
@@ -1086,13 +1086,13 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
 
 // ------------ Additional visualisations
 bool
-GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw() {
+GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const throw() {
     return myAdditionalVisualizations.find(parent)!=myAdditionalVisualizations.end()&&(myAdditionalVisualizations.find(parent)->second&which)!=0;
 }
 
 
 bool
-GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw() {
+GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw() {
     if (myAdditionalVisualizations.find(parent)==myAdditionalVisualizations.end()) {
         myAdditionalVisualizations[parent] = 0;
     }
@@ -1102,25 +1102,33 @@ GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView * const parent, int wh
 
 
 bool
-GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw() {
+GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw() {
     myAdditionalVisualizations[parent] &= ~which;
     return parent->removeAdditionalGLVisualisation(this);
 }
 
 
 void
-GUIVehicle::drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw() {
+GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const throw() {
     setColor(s);
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
     colors[0] -= darken;
-    if (colors[0]<0) colors[0] = 0;
+    if (colors[0]<0) {
+        colors[0] = 0;
+    }
     colors[1] -= darken;
-    if (colors[1]<0) colors[1] = 0;
+    if (colors[1]<0) {
+        colors[1] = 0;
+    }
     colors[2] -= darken;
-    if (colors[2]<0) colors[2] = 0;
+    if (colors[2]<0) {
+        colors[2] = 0;
+    }
     colors[3] -= darken;
-    if (colors[3]<0) colors[3] = 0;
+    if (colors[3]<0) {
+        colors[3] = 0;
+    }
     glColor3dv(colors);
     if (routeNo==0) {
         draw(*myRoute);
@@ -1146,7 +1154,7 @@ GUIVehicle::drawBestLanes() const throw() {
             rmax = MAX2((*i).occupation, rmax);
         }
         for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-            const PositionVector &shape = (*i).lane->getShape();
+            const PositionVector& shape = (*i).lane->getShape();
             SUMOReal g = (*i).length / gmax;
             SUMOReal r = (*i).occupation / rmax;
             glColor3d(r, g, 0);
@@ -1169,12 +1177,12 @@ GUIVehicle::drawBestLanes() const throw() {
 
 
 void
-GUIVehicle::draw(const MSRoute &r) const throw() {
+GUIVehicle::draw(const MSRoute& r) const throw() {
     MSRouteIterator i = r.begin();
     for (; i!=r.end(); ++i) {
-        const MSEdge *e = *i;
-        const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        const MSEdge* e = *i;
+        const GUIEdge* ge = static_cast<const GUIEdge*>(e);
+        const GUILaneWrapper& lane = ge->getLaneGeometry((size_t) 0);
         GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 1.0);
     }
 }

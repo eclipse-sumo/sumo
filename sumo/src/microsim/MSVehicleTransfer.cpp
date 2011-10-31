@@ -44,16 +44,16 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
+MSVehicleTransfer* MSVehicleTransfer::myInstance = 0;
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle *veh) throw() {
+MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) throw() {
     // get the current edge of the vehicle
-    const MSEdge *e = veh->getEdge();
+    const MSEdge* e = veh->getEdge();
     if (veh->isParking()) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_PARKING);
     } else {
@@ -74,7 +74,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
     // go through vehicles
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
-        VehicleInformation &desc = *i;
+        VehicleInformation& desc = *i;
 
         if (desc.myParking) {
             // handle parking vehicles
@@ -85,14 +85,14 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
             // parking finished, head back into traffic
         }
         const SUMOVehicleClass vclass = desc.myVeh->getVehicleType().getVehicleClass();
-        const MSEdge *e = desc.myVeh->getEdge();
-        const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+        const MSEdge* e = desc.myVeh->getEdge();
+        const MSEdge* nextEdge = desc.myVeh->succEdge(1);
 
         // get the lane on which this vehicle should continue
         // first select all the lanes which allow continuation onto nextEdge
         //   then pick the one which is least occupied
         // @todo maybe parking vehicles should always continue on the rightmost lane?
-        MSLane *l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
+        MSLane* l = e->getFreeLane(e->allowedLanes(*nextEdge, vclass), vclass);
 
         if (desc.myParking) {
             // handle parking vehicles
@@ -115,7 +115,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
                     desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
                     // get the one beyond the one the vehicle moved to
                     // !!! only move reminders are called but the edge is not advanced
-                    const MSEdge *nextEdge = desc.myVeh->succEdge(1);
+                    const MSEdge* nextEdge = desc.myVeh->succEdge(1);
                     // let the vehicle move to the next edge
                     if (nextEdge==0) {
                         WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
@@ -139,7 +139,7 @@ MSVehicleTransfer::hasPending() const throw() {
 }
 
 
-MSVehicleTransfer *
+MSVehicleTransfer*
 MSVehicleTransfer::getInstance() throw() {
     if (myInstance==0) {
         myInstance = new MSVehicleTransfer();

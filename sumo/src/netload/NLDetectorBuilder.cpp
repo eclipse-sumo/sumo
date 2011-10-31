@@ -68,13 +68,13 @@
 /* -------------------------------------------------------------------------
  * NLDetectorBuilder::E3DetectorDefinition-methods
  * ----------------------------------------------------------------------- */
-NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string &id,
+NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string& id,
         OutputDevice& device, SUMOReal haltingSpeedThreshold,
         SUMOTime haltingTimeThreshold, int splInterval) throw()
-        : myID(id), myDevice(device),
-        myHaltingSpeedThreshold(haltingSpeedThreshold),
-        myHaltingTimeThreshold(haltingTimeThreshold),
-        mySampleInterval(splInterval) {}
+    : myID(id), myDevice(device),
+      myHaltingSpeedThreshold(haltingSpeedThreshold),
+      myHaltingTimeThreshold(haltingTimeThreshold),
+      mySampleInterval(splInterval) {}
 
 
 NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() throw() {}
@@ -83,27 +83,27 @@ NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() throw() {}
 /* -------------------------------------------------------------------------
  * NLDetectorBuilder-methods
  * ----------------------------------------------------------------------- */
-NLDetectorBuilder::NLDetectorBuilder(MSNet &net) throw()
-        : myNet(net), myE3Definition(0) {}
+NLDetectorBuilder::NLDetectorBuilder(MSNet& net) throw()
+    : myNet(net), myE3Definition(0) {}
 
 
 NLDetectorBuilder::~NLDetectorBuilder() throw() {}
 
 
 void
-NLDetectorBuilder::buildInductLoop(const std::string &id,
-                                   const std::string &lane, SUMOReal pos, int splInterval,
-								   OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument) {
+NLDetectorBuilder::buildInductLoop(const std::string& id,
+                                   const std::string& lane, SUMOReal pos, int splInterval,
+                                   OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
 #endif
         // get and check the position
         pos = getPositionChecking(pos, clane, friendlyPos, id);
         // build the loop
-        MSDetectorFileOutput *loop = createInductLoop(id, clane, pos, splitByType);
+        MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, splitByType);
         // add the file output
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
 #ifdef HAVE_MESOSIM
@@ -111,8 +111,8 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         if (pos<0) {
             pos = clane->getLength() + pos;
         }
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
-        MESegment *prev = s;
+        MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
+        MESegment* prev = s;
         SUMOReal cpos = 0;
         while (cpos+prev->getLength()<pos&&s!=0) {
             prev = s;
@@ -127,7 +127,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
                 throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane + "' length.");
             }
         }
-        MEInductLoop *loop =
+        MEInductLoop* loop =
             createMEInductLoop(id, prev, rpos);
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     }
@@ -136,32 +136,32 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildInstantInductLoop(const std::string &id,
-                                   const std::string &lane, SUMOReal pos, 
-								   OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
+NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
+        const std::string& lane, SUMOReal pos,
+        OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
     // get and check the lane
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // build the loop
-    MSDetectorFileOutput *loop = createInstantInductLoop(id, clane, pos, device);
+    MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop);
 }
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
-                                   const std::string &lane, SUMOReal pos, SUMOReal length,
+NLDetectorBuilder::buildE2Detector(const std::string& id,
+                                   const std::string& lane, SUMOReal pos, SUMOReal length,
                                    bool cont, int splInterval,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument) {
     checkSampleInterval(splInterval, SUMO_TAG_E2DETECTOR, id);
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
     // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput *det = 0;
+    MSDetectorFileOutput* det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
@@ -175,10 +175,10 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
-                                   const std::string &lane, SUMOReal pos, SUMOReal length,
+NLDetectorBuilder::buildE2Detector(const std::string& id,
+                                   const std::string& lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
-                                   MSTLLogicControl::TLSLogicVariants &tlls,
+                                   MSTLLogicControl::TLSLogicVariants& tlls,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
                                    SUMOReal haltingSpeedThreshold,
@@ -186,9 +186,9 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
     // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput *det = 0;
+    MSDetectorFileOutput* det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
@@ -204,11 +204,11 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const std::string &id,
-                                   const std::string &lane, SUMOReal pos, SUMOReal length,
+NLDetectorBuilder::buildE2Detector(const std::string& id,
+                                   const std::string& lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
-                                   MSTLLogicControl::TLSLogicVariants &tlls,
-                                   const std::string &tolane,
+                                   MSTLLogicControl::TLSLogicVariants& tlls,
+                                   const std::string& tolane,
                                    OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
                                    SUMOReal haltingSpeedThreshold,
@@ -216,9 +216,9 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
     if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
-    MSLane *ctoLane = getLaneChecking(tolane, SUMO_TAG_E2DETECTOR, id);
-    MSLink *link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E2DETECTOR, id);
+    MSLane* ctoLane = getLaneChecking(tolane, SUMO_TAG_E2DETECTOR, id);
+    MSLink* link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
     if (link==0) {
         throw InvalidArgument(
             "The detector output can not be build as no connection between lanes '"
@@ -228,7 +228,7 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
         pos = -pos;
     }
     // check whether the detector may lie over more than one lane
-    MSDetectorFileOutput *det = 0;
+    MSDetectorFileOutput* det = 0;
     if (!cont) {
         convUncontE2PosLength(id, clane, pos, length, friendlyPos);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED, clane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
@@ -244,8 +244,8 @@ NLDetectorBuilder::buildE2Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
-        SUMOReal &pos, SUMOReal &length,
+NLDetectorBuilder::convUncontE2PosLength(const std::string& id, MSLane* clane,
+        SUMOReal& pos, SUMOReal& length,
         bool friendlyPos) throw(InvalidArgument) {
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
@@ -271,8 +271,8 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
 
 
 void
-NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane * clane,
-                                       SUMOReal &pos, SUMOReal&/*length*/,
+NLDetectorBuilder::convContE2PosLength(const std::string& id, MSLane* clane,
+                                       SUMOReal& pos, SUMOReal& /*length*/,
                                        bool friendlyPos) throw(InvalidArgument) {
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
@@ -281,7 +281,7 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane * clane,
 
 
 void
-NLDetectorBuilder::beginE3Detector(const std::string &id,
+NLDetectorBuilder::beginE3Detector(const std::string& id,
                                    OutputDevice& device, int splInterval,
                                    SUMOReal haltingSpeedThreshold,
                                    SUMOTime haltingTimeThreshold) throw(InvalidArgument) {
@@ -291,12 +291,12 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::addE3Entry(const std::string &lane,
+NLDetectorBuilder::addE3Entry(const std::string& lane,
                               SUMOReal pos, bool friendlyPos) throw(InvalidArgument) {
     if (myE3Definition==0) {
         return;
     }
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
     // build and save the entry
@@ -305,12 +305,12 @@ NLDetectorBuilder::addE3Entry(const std::string &lane,
 
 
 void
-NLDetectorBuilder::addE3Exit(const std::string &lane,
+NLDetectorBuilder::addE3Exit(const std::string& lane,
                              SUMOReal pos, bool friendlyPos) throw(InvalidArgument) {
     if (myE3Definition==0) {
         return;
     }
-    MSLane *clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
+    MSLane* clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
     // build and save the exit
@@ -332,9 +332,9 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument) {
     if (myE3Definition==0) {
         return;
     }
-    MSDetectorFileOutput *det = createE3Detector(myE3Definition->myID,
-                                          myE3Definition->myEntries, myE3Definition->myExits,
-                                          myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
+    MSDetectorFileOutput* det = createE3Detector(myE3Definition->myID,
+                                myE3Definition->myEntries, myE3Definition->myExits,
+                                myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
     // add to net
     myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
     // clean up
@@ -344,8 +344,8 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument) {
 
 
 void
-NLDetectorBuilder::buildVTypeProbe(const std::string &id,
-                                   const std::string &vtype, SUMOTime frequency,
+NLDetectorBuilder::buildVTypeProbe(const std::string& id,
+                                   const std::string& vtype, SUMOTime frequency,
                                    OutputDevice& device) throw(InvalidArgument) {
     checkSampleInterval(frequency, SUMO_TAG_VTYPEPROBE, id);
     new MSVTypeProbe(id, vtype, device, frequency);
@@ -353,22 +353,22 @@ NLDetectorBuilder::buildVTypeProbe(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edge,
+NLDetectorBuilder::buildRouteProbe(const std::string& id, const std::string& edge,
                                    SUMOTime frequency, SUMOTime begin,
                                    OutputDevice& device) throw(InvalidArgument) {
     checkSampleInterval(frequency, SUMO_TAG_ROUTEPROBE, id);
-    MSEdge *e = getEdgeChecking(edge, SUMO_TAG_ROUTEPROBE, id);
-    MSRouteProbe *probe = new MSRouteProbe(id, e, begin);
+    MSEdge* e = getEdgeChecking(edge, SUMO_TAG_ROUTEPROBE, id);
+    MSRouteProbe* probe = new MSRouteProbe(id, e, begin);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_ROUTEPROBE, probe, device, frequency, begin);
 }
 
 
 // -------------------
-MSDetectorFileOutput *
-NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
+MSDetectorFileOutput*
+NLDetectorBuilder::buildSingleLaneE2Det(const std::string& id,
                                         DetectorUsage usage,
-                                        MSLane *lane, SUMOReal pos, SUMOReal length,
+                                        MSLane* lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold,
                                         SUMOReal haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold) throw() {
@@ -378,63 +378,63 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 }
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id, DetectorUsage usage,
-                                       MSLane *lane, SUMOReal pos, SUMOReal length,
+MSDetectorFileOutput*
+NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usage,
+                                       MSLane* lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
                                        SUMOReal haltingSpeedThreshold,
                                        SUMOReal jamDistThreshold) throw() {
-    MSDetectorFileOutput *ret = createMultiLaneE2Detector(id, usage,
-                                       lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
-                                       jamDistThreshold);
+    MSDetectorFileOutput* ret = createMultiLaneE2Detector(id, usage,
+                                lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
+                                jamDistThreshold);
     static_cast<MS_E2_ZS_CollectorOverLanes*>(ret)->init(lane, length);
     return ret;
 }
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::createInductLoop(const std::string &id,
-									MSLane *lane, SUMOReal pos, bool splitByType) throw() {
+MSDetectorFileOutput*
+NLDetectorBuilder::createInductLoop(const std::string& id,
+                                    MSLane* lane, SUMOReal pos, bool splitByType) throw() {
     return new MSInductLoop(id, lane, pos, splitByType);
 }
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::createInstantInductLoop(const std::string &id,
-									MSLane *lane, SUMOReal pos, OutputDevice &od) throw() {
+MSDetectorFileOutput*
+NLDetectorBuilder::createInstantInductLoop(const std::string& id,
+        MSLane* lane, SUMOReal pos, OutputDevice& od) throw() {
     return new MSInstantInductLoop(id, od, lane, pos);
 }
 
 
 #ifdef HAVE_MESOSIM
-MEInductLoop *
-NLDetectorBuilder::createMEInductLoop(const std::string &id,
-                                      MESegment *s, SUMOReal pos) throw() {
+MEInductLoop*
+NLDetectorBuilder::createMEInductLoop(const std::string& id,
+                                      MESegment* s, SUMOReal pos) throw() {
     return new MEInductLoop(id, s, pos);
 }
 #endif
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+MSDetectorFileOutput*
+NLDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
     return new MSE2Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos,
+MSDetectorFileOutput*
+NLDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
+        DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
     return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
 
-MSDetectorFileOutput *
-NLDetectorBuilder::createE3Detector(const std::string &id,
-                                    const CrossSectionVector &entries,
-                                    const CrossSectionVector &exits,
+MSDetectorFileOutput*
+NLDetectorBuilder::createE3Detector(const std::string& id,
+                                    const CrossSectionVector& entries,
+                                    const CrossSectionVector& exits,
                                     SUMOReal haltingSpeedThreshold,
                                     SUMOTime haltingTimeThreshold) throw() {
     return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
@@ -442,8 +442,8 @@ NLDetectorBuilder::createE3Detector(const std::string &id,
 
 
 SUMOReal
-NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendlyPos,
-                                       const std::string &detid) throw(InvalidArgument) {
+NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane* lane, bool friendlyPos,
+                                       const std::string& detid) throw(InvalidArgument) {
     // check whether it is given from the end
     if (pos<0) {
         pos = lane->getLength() + pos;
@@ -468,11 +468,11 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 
 
 void
-NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
-        SUMOTime begin, SUMOTime end, const std::string &type,
+NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
+        SUMOTime begin, SUMOTime end, const std::string& type,
         const bool useLanes, const bool withEmpty, const bool withInternal, const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
-        const SUMOReal haltSpeed, const std::string &vTypes,
+        const SUMOReal haltSpeed, const std::string& vTypes,
         OutputDevice& device) throw(InvalidArgument) {
     if (begin < 0) {
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
@@ -488,7 +488,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
     while (st.hasNext()) {
         vt.insert(st.next());
     }
-    MSMeanData *det = 0;
+    MSMeanData* det = 0;
     if (type==""||type=="performance"||type=="traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty, withInternal, trackVehicles,
                                  maxTravelTime, minSamples, haltSpeed, vt);
@@ -513,11 +513,11 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
 
 
 // ------ Value checking/adapting methods ------
-MSEdge *
-NLDetectorBuilder::getEdgeChecking(const std::string &edgeID, SumoXMLTag type, 
-                                   const std::string &detid) throw(InvalidArgument) {
+MSEdge*
+NLDetectorBuilder::getEdgeChecking(const std::string& edgeID, SumoXMLTag type,
+                                   const std::string& detid) throw(InvalidArgument) {
     // get and check the lane
-    MSEdge *edge = MSEdge::dictionary(edgeID);
+    MSEdge* edge = MSEdge::dictionary(edgeID);
     if (edge==0) {
         throw InvalidArgument("The lane with the id '" + edgeID + "' is not known (while building " + toString(type) + " '" + detid + "').");
     }
@@ -525,11 +525,11 @@ NLDetectorBuilder::getEdgeChecking(const std::string &edgeID, SumoXMLTag type,
 }
 
 
-MSLane *
-NLDetectorBuilder::getLaneChecking(const std::string &laneID, SumoXMLTag type, 
-                                   const std::string &detid) throw(InvalidArgument) {
+MSLane*
+NLDetectorBuilder::getLaneChecking(const std::string& laneID, SumoXMLTag type,
+                                   const std::string& detid) throw(InvalidArgument) {
     // get and check the lane
-    MSLane *lane = MSLane::dictionary(laneID);
+    MSLane* lane = MSLane::dictionary(laneID);
     if (lane==0) {
         throw InvalidArgument("The lane with the id '" + laneID + "' is not known (while building " + toString(type) + " '" + detid + "').");
     }
@@ -537,8 +537,8 @@ NLDetectorBuilder::getLaneChecking(const std::string &laneID, SumoXMLTag type,
 }
 
 
-void 
-NLDetectorBuilder::checkSampleInterval(int splInterval, SumoXMLTag type, const std::string &id) throw(InvalidArgument) {
+void
+NLDetectorBuilder::checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id) throw(InvalidArgument) {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in " + toString(type) + " '" + id + "').");
     }

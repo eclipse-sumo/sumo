@@ -60,7 +60,7 @@ public:
      * @param[in] begin Vehicles departing before this time shall not be loaded
      * @param[in] end Vehicles departing after this time shall not be loaded
      */
-    ROAbstractRouteDefLoader(RONet &net, SUMOTime begin, SUMOTime end) throw();
+    ROAbstractRouteDefLoader(RONet& net, SUMOTime begin, SUMOTime end) throw();
 
 
     /// @brief Destructor
@@ -101,7 +101,7 @@ public:
 
 protected:
     /// @brief The network to add routes to
-    RONet &myNet;
+    RONet& myNet;
 
     /// @brief The time for which the first route shall be loaded
     SUMOTime myBegin;
@@ -112,10 +112,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    ROAbstractRouteDefLoader(const ROAbstractRouteDefLoader &src);
+    ROAbstractRouteDefLoader(const ROAbstractRouteDefLoader& src);
 
     /// @brief Invalidated assignment operator
-    ROAbstractRouteDefLoader &operator=(const ROAbstractRouteDefLoader &src);
+    ROAbstractRouteDefLoader& operator=(const ROAbstractRouteDefLoader& src);
 
 };
 

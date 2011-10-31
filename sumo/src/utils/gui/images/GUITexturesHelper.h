@@ -56,7 +56,7 @@ public:
                                 SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
 
     /// Adds a texture to use
-    static unsigned int add(FXImage *i);
+    static unsigned int add(FXImage* i);
 
 };
 

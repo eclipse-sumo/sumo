@@ -52,8 +52,8 @@ int GeoConvHelper::myNumLoaded = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GeoConvHelper::GeoConvHelper(const std::string &proj, const Position &offset, 
-        const Boundary &orig, const Boundary &conv, int shift, bool inverse, bool baseFound):
+GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
+                             const Boundary& orig, const Boundary& conv, int shift, bool inverse, bool baseFound):
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
@@ -66,8 +66,7 @@ GeoConvHelper::GeoConvHelper(const std::string &proj, const Position &offset,
     myUseInverseProjection(inverse),
     myBaseFound(baseFound),
     myBaseX(0),
-    myBaseY(0)
-{
+    myBaseY(0) {
     if (proj == "!") {
         myProjectionMethod = NONE;
     } else if (proj == "-") {
@@ -98,7 +97,7 @@ GeoConvHelper::~GeoConvHelper() {
 }
 
 
-GeoConvHelper& 
+GeoConvHelper&
 GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myProjString = orig.myProjString;
     myOffset = orig.myOffset;
@@ -109,7 +108,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myUseInverseProjection = orig.myUseInverseProjection;
     myBaseFound = orig.myBaseFound;
     myBaseX = orig.myBaseX;
-    myBaseY = orig.myBaseY; 
+    myBaseY = orig.myBaseY;
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
         pj_free(myProjection);
@@ -121,15 +120,15 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
 
 
 bool
-GeoConvHelper::init(OptionsCont &oc) {
+GeoConvHelper::init(OptionsCont& oc) {
     std::string proj = "!"; // the default
     int shift = oc.getInt("proj.scale");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.getBool("proj.inverse");
-    bool baseFound = !oc.exists("offset.disable-normalization") || 
-        oc.getBool("offset.disable-normalization") || 
-        !oc.isDefault("offset.x") || 
-        !oc.isDefault("offset.y");
+    bool baseFound = !oc.exists("offset.disable-normalization") ||
+                     oc.getBool("offset.disable-normalization") ||
+                     !oc.isDefault("offset.x") ||
+                     !oc.isDefault("offset.y");
 
     if (oc.getBool("simple-projection")) {
         proj = "-";
@@ -160,23 +159,23 @@ GeoConvHelper::init(OptionsCont &oc) {
 
 
 void
-GeoConvHelper::init(const std::string &proj,
-                    const Position &offset,
-                    const Boundary &orig,
-                    const Boundary &conv) {
+GeoConvHelper::init(const std::string& proj,
+                    const Position& offset,
+                    const Boundary& orig,
+                    const Boundary& conv) {
     myDefault = GeoConvHelper(proj, offset, orig, conv);
 }
 
 
 #ifdef HAVE_PROJ
-void 
+void
 GeoConvHelper::initProjection(double x, double y) {
     assert(myProjection == 0); // do not reinitialize
 
     if (myProjectionMethod == UTM) {
         int zone = (int)(x + 180) / 6 + 1;
         myProjString = "+proj=utm +zone=" + toString(zone) +
-            " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+                       " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
         myProjection = pj_init_plus(myProjString.c_str());
         //!!! check pj_errno
     }
@@ -187,8 +186,8 @@ GeoConvHelper::initProjection(double x, double y) {
             return;
         }
         myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
-            " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
-            " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+                       " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+                       " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
         myProjection = pj_init_plus(myProjString.c_str());
         //!!! check pj_errno
     }
@@ -197,7 +196,7 @@ GeoConvHelper::initProjection(double x, double y) {
 
 
 void
-GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
+GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Projection");
 
     oc.doRegister("simple-projection", new Option_Bool(false));
@@ -237,7 +236,7 @@ GeoConvHelper::usingInverseGeoProjection() const {
 
 
 void
-GeoConvHelper::cartesian2geo(Position &cartesian) {
+GeoConvHelper::cartesian2geo(Position& cartesian) {
     cartesian.sub(myOffset);
     if (myProjectionMethod == NONE) {
         return;
@@ -256,7 +255,7 @@ GeoConvHelper::cartesian2geo(Position &cartesian) {
 
 
 bool
-GeoConvHelper::x2cartesian(Position &from, bool includeInBoundary) {
+GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     myOrigBoundary.add(from);
     double x = from.x();
     double y = from.y();
@@ -329,13 +328,13 @@ GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y) {
 }
 
 
-const Boundary &
+const Boundary&
 GeoConvHelper::getOrigBoundary() const {
     return myOrigBoundary;
 }
 
 
-const Boundary &
+const Boundary&
 GeoConvHelper::getConvBoundary() const {
     return myConvBoundary;
 }
@@ -353,7 +352,7 @@ GeoConvHelper::getOffsetBase() const {
 }
 
 
-const std::string &
+const std::string&
 GeoConvHelper::getProjString() const {
     return myProjString;
 }
@@ -362,18 +361,18 @@ GeoConvHelper::getProjString() const {
 const GeoConvHelper&
 GeoConvHelper:: getOutputInstance() {
     if (myNumLoaded == 0) {
-       return myDefault;
+        return myDefault;
     } else if (myNumLoaded > 1) {
         WRITE_WARNING("Multiple location elements have been loaded. Check output location for correctness");
     }
     myOutput = GeoConvHelper(
-            // prefer options over loaded location
-            myDefault.usingGeoProjection() ? myDefault.getProjString() : myLoaded.getProjString(),
-            // let offset and boundary lead back to the original coords of the loaded data
-            myDefault.getOffset() + myLoaded.getOffset(),
-            myLoaded.getOrigBoundary(),
-            // the new boundary (updated during loading)
-            myDefault.getConvBoundary());
+                   // prefer options over loaded location
+                   myDefault.usingGeoProjection() ? myDefault.getProjString() : myLoaded.getProjString(),
+                   // let offset and boundary lead back to the original coords of the loaded data
+                   myDefault.getOffset() + myLoaded.getOffset(),
+                   myLoaded.getOrigBoundary(),
+                   // the new boundary (updated during loading)
+                   myDefault.getConvBoundary());
     return myOutput;
 }
 

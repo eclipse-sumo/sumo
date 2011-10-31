@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Stauparameterdefinition::~NIVissimSingleTypeParser_Stauparameterdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Stauparameterdefinition::parse(std::istream &) {
+NIVissimSingleTypeParser_Stauparameterdefinition::parse(std::istream&) {
     return true;
 }
 

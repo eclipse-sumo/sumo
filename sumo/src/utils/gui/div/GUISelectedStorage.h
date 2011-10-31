@@ -193,7 +193,7 @@ public:
      * @param[in] type The type of the objects to load if changed from default
      * @return error messages if errors occured or the empty string
      */
-    std::string load(const std::string &filename, GUIGlObjectType type = GLO_MAX);
+    std::string load(const std::string& filename, GUIGlObjectType type = GLO_MAX);
 
 
     /** @brief Loads a selection list (optionally with restricted type) and
@@ -204,7 +204,7 @@ public:
      * @param[in] type The type of the objects to load if changed from default
      * @return the set of loaded ids
      */
-    std::set<GUIGlID> loadIDs(const std::string &filename, std::string &msgOut, GUIGlObjectType type = GLO_MAX);
+    std::set<GUIGlID> loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type = GLO_MAX);
 
 
     /** @brief Saves a selection list
@@ -212,19 +212,19 @@ public:
      * @param[in] type The type of the objects to save
      * @param[in] filename The name of the file to save the list of selected objects into
      */
-    void save(GUIGlObjectType type, const std::string &filename);
+    void save(GUIGlObjectType type, const std::string& filename);
 
     /** @brief Saves the combined selection of all types
      *
      * @param[in] filename The name of the file to save the list of selected objects into
      */
-    void save(const std::string &filename) const;
+    void save(const std::string& filename) const;
 
 
     /** @brief Adds a dialog to be updated
      * @param[in] updateTarget the callback for selection changes
      */
-    void add2Update(UpdateTarget *updateTarget);
+    void add2Update(UpdateTarget* updateTarget);
 
 
     /** @brief Removes the dialog to be updated
@@ -271,7 +271,7 @@ public:
         /** @brief Saves the list of selected objects to a file named as given
          * @param[in] filename The name of the file to save the list into
          */
-        void save(const std::string &filename);
+        void save(const std::string& filename);
 
 
         /** @brief Returns the list of selected ids
@@ -294,15 +294,15 @@ private:
     std::set<GUIGlID> myAllSelected;
 
     /// @brief The dialog to be updated
-    UpdateTarget *myUpdateTarget;
+    UpdateTarget* myUpdateTarget;
 
     /* @brief load items into the given set, optionally restricting to type
      */
-    std::string load(GUIGlObjectType type, const std::string &filename, bool restrictType, std::set<GUIGlID>& into);
+    std::string load(GUIGlObjectType type, const std::string& filename, bool restrictType, std::set<GUIGlID>& into);
 
 
     /// @brief saves items from the given set
-    static void save(const std::string &filename, const std::set<GUIGlID>& ids);
+    static void save(const std::string& filename, const std::set<GUIGlID>& ids);
 
 };
 

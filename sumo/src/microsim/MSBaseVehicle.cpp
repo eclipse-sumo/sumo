@@ -51,17 +51,17 @@
 // method definitions
 // ===========================================================================
 MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) throw(ProcessError) :
-        myParameter(pars),
-        myRoute(route),
-        myType(type),
-        myCurrEdge(route->begin()),
-        myIndividualMaxSpeed(0.0),
-        myHasIndividualMaxSpeed(false),
-        myReferenceSpeed(-1.0),
-        myMoveReminders(0),
-        myDeparture(-1),
-        myArrivalPos(-1),
-        myNumberReroutes(0) {
+    myParameter(pars),
+    myRoute(route),
+    myType(type),
+    myCurrEdge(route->begin()),
+    myIndividualMaxSpeed(0.0),
+    myHasIndividualMaxSpeed(false),
+    myReferenceSpeed(-1.0),
+    myMoveReminders(0),
+    myDeparture(-1),
+    myArrivalPos(-1),
+    myNumberReroutes(0) {
     // init devices
     MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices);
     MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
@@ -83,25 +83,25 @@ MSBaseVehicle::~MSBaseVehicle() throw() {
 }
 
 
-const std::string &
+const std::string&
 MSBaseVehicle::getID() const throw() {
     return myParameter->id;
 }
 
 
-const SUMOVehicleParameter &
+const SUMOVehicleParameter&
 MSBaseVehicle::getParameter() const throw() {
     return *myParameter;
 }
 
 
-const MSRoute &
+const MSRoute&
 MSBaseVehicle::getRoute() const throw() {
     return *myRoute;
 }
 
 
-const MSVehicleType &
+const MSVehicleType&
 MSBaseVehicle::getVehicleType() const throw() {
     return *myType;
 }
@@ -123,8 +123,9 @@ MSBaseVehicle::adaptMaxSpeed(SUMOReal referenceSpeed) {
         myIndividualMaxSpeed = myType->getMaxSpeedWithDeviation(referenceSpeed);
         myReferenceSpeed = referenceSpeed;
     }
-    if (myHasIndividualMaxSpeed)
+    if (myHasIndividualMaxSpeed) {
         return myIndividualMaxSpeed;
+    }
     return MIN2(myType->getMaxSpeed(), referenceSpeed);
 }
 
@@ -167,7 +168,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(const MSEdgeVector &edges, bool onInit) throw() {
+MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) throw() {
     // build a new id, first
     std::string id = getID();
     if (id[0]!='!') {
@@ -178,7 +179,7 @@ MSBaseVehicle::replaceRouteEdges(const MSEdgeVector &edges, bool onInit) throw()
     } else {
         id = id + "!var#1";
     }
-    MSRoute *newRoute = new MSRoute(id, edges, 0, myRoute->getColor(), myRoute->getStops());
+    MSRoute* newRoute = new MSRoute(id, edges, 0, myRoute->getColor(), myRoute->getStops());
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;
@@ -228,7 +229,7 @@ MSBaseVehicle::isStopped() const {
 
 
 bool
-MSBaseVehicle::hasValidRoute(std::string &msg) const throw() {
+MSBaseVehicle::hasValidRoute(std::string& msg) const throw() {
     MSRouteIterator last = myRoute->end() - 1;
     // check connectivity, first
     for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {

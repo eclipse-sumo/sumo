@@ -90,7 +90,7 @@ StringBijection<int>::Entry NIImporter_MATSim::matsimAttrs[] = {
 // static methods
 // ---------------------------------------------------------------------------
 void
-NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("matsim-files")) {
         return;
@@ -129,10 +129,10 @@ NIImporter_MATSim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont &toFill) throw()
-        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
-                            matsimAttrs, MATSIM_ATTR_NOTHING,
-                            "matsim - file"), myNodeCont(toFill) {
+NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont& toFill) throw()
+    : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
+                        matsimAttrs, MATSIM_ATTR_NOTHING,
+                        "matsim - file"), myNodeCont(toFill) {
 }
 
 
@@ -140,7 +140,7 @@ NIImporter_MATSim::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
+NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element != MATSIM_TAG_NODE) {
         return;
     }
@@ -156,7 +156,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     if (!NILoader::transformCoordinates(pos)) {
         WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
     }
-    NBNode *node = new NBNode(id, pos);
+    NBNode* node = new NBNode(id, pos);
     if (!myNodeCont.insert(node)) {
         delete node;
         WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
@@ -168,14 +168,14 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont &nc, NBEdgeCont &toFill,
+NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
         bool keepEdgeLengths, bool lanesFromCapacity,
         NBCapacity2Lanes capacity2Lanes) throw()
-        : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
-                            matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"),
-        myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
-        myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
-        myCapacity2Lanes(capacity2Lanes) {
+    : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
+                        matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"),
+    myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
+    myKeepEdgeLengths(keepEdgeLengths), myLanesFromCapacity(lanesFromCapacity),
+    myCapacity2Lanes(capacity2Lanes) {
 }
 
 
@@ -185,7 +185,7 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() throw() {
 
 void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+        const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     if (element==MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
@@ -208,8 +208,8 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             int minutes = TplConvert<char>::_2int(st.next().c_str());
             int seconds = TplConvert<char>::_2int(st.next().c_str());
             myCapacityNorm = (SUMOReal)(hours*3600+minutes*60+seconds);
-        } catch (NumberFormatException &) {
-        } catch (EmptyData &) {
+        } catch (NumberFormatException&) {
+        } catch (EmptyData&) {
         }
         return;
     }
@@ -228,8 +228,8 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     //bool oneWay = attrs.getOptBoolReporting(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
     std::string modes = attrs.getOptStringReporting(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
     std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
-    NBNode *fromNode = myNodeCont.retrieve(fromNodeID);
-    NBNode *toNode = myNodeCont.retrieve(toNodeID);
+    NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
+    NBNode* toNode = myNodeCont.retrieve(toNodeID);
     if (fromNode==0) {
         WRITE_ERROR("Could not find from-node for edge '" + id + "'.");
     }
@@ -242,7 +242,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
-    NBEdge *edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, -1, -1);
+    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, -1, -1);
     if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }

@@ -47,9 +47,9 @@
 // ---------------------------------------------------------------------------
 // SAXWeightsHandler::ToRetrieveDefinition methods
 // ---------------------------------------------------------------------------
-SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string &attributeName,
-        bool edgeBased, EdgeFloatTimeLineRetriever &destination)
-        : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination) {
+SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string& attributeName,
+        bool edgeBased, EdgeFloatTimeLineRetriever& destination)
+    : myAttributeName(attributeName), myAmEdgeBased(edgeBased), myDestination(destination) {
 }
 
 
@@ -61,15 +61,15 @@ SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
 // SAXWeightsHandler methods
 // ---------------------------------------------------------------------------
 SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
-                                     const std::string &file)
-        : SUMOSAXHandler(file), myDefinitions(defs),
-        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {}
+                                     const std::string& file)
+    : SUMOSAXHandler(file), myDefinitions(defs),
+      myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {}
 
 
-SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
-                                     const std::string &file)
-        : SUMOSAXHandler(file),
-        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {
+SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition* def,
+                                     const std::string& file)
+    : SUMOSAXHandler(file),
+      myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {
     myDefinitions.push_back(def);
 }
 
@@ -83,7 +83,7 @@ SAXWeightsHandler::~SAXWeightsHandler() throw() {
 
 
 void SAXWeightsHandler::myStartElement(int element,
-                                       const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                       const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_INTERVAL: {
         bool ok = true;
@@ -108,7 +108,7 @@ void SAXWeightsHandler::myStartElement(int element,
 
 
 void
-SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge) {
+SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
     // !!!! no error handling!
     std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
@@ -135,9 +135,9 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge) {
                     (*i)->myAggValue += attrs.getFloat((*i)->myAttributeName);
                     ++((*i)->myNoLanes);
                     (*i)->myHadAttribute = true;
-                } catch (EmptyData &) {
+                } catch (EmptyData&) {
                     WRITE_ERROR("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
-                } catch (NumberFormatException &) {
+                } catch (NumberFormatException&) {
                     WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
                 }
             }

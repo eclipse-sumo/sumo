@@ -36,12 +36,14 @@
 // method definitions
 // ===========================================================================
 bool
-AGTrip::operator <(AGTrip & trip) {
-    if (getDay() < trip.getDay())
+AGTrip::operator <(AGTrip& trip) {
+    if (getDay() < trip.getDay()) {
         return true;
+    }
     if (getDay() == trip.getDay())
-        if (getTime() < trip.getTime())
+        if (getTime() < trip.getTime()) {
             return true;
+        }
     return false;
 }
 
@@ -63,7 +65,7 @@ AGTrip::addLayOver(AGPosition by) {
 }
 
 void
-AGTrip::addLayOver(AGTrip &trip) {
+AGTrip::addLayOver(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
     for (it=trip.passBy.begin() ; it!=trip.passBy.end() ; ++it) {
         passBy.push_back(*it);
@@ -72,7 +74,7 @@ AGTrip::addLayOver(AGTrip &trip) {
 }
 
 void
-AGTrip::addLayOverWithoutDestination(AGTrip & trip) {
+AGTrip::addLayOverWithoutDestination(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
     for (it=trip.passBy.begin() ; it!=trip.passBy.end() ; ++it) {
         passBy.push_back(*it);
@@ -121,7 +123,7 @@ AGTrip::getTimeTrip(SUMOReal secPerKm) {
     positions.push_back(to);
 
     bool firstPass = true;
-    AGPosition *temp;
+    AGPosition* temp;
     for (it=positions.begin() ; it!=positions.end() ; ++it) {
         if (firstPass) {
             temp = &*it;
@@ -180,10 +182,11 @@ AGTrip::setDep(AGPosition departure) {
 
 bool
 AGTrip::isDaily() {
-    if (day == 0)
+    if (day == 0) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 int

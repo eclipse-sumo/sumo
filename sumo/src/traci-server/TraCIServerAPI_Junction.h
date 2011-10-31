@@ -49,16 +49,16 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_Junction(const TraCIServerAPI_Junction &s);
+    TraCIServerAPI_Junction(const TraCIServerAPI_Junction& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_Junction &operator=(const TraCIServerAPI_Junction &s);
+    TraCIServerAPI_Junction& operator=(const TraCIServerAPI_Junction& s);
 
 
 };

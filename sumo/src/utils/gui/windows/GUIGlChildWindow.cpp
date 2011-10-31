@@ -41,7 +41,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[]={
+FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,       GUIGlChildWindow::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,       GUIGlChildWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,       GUIGlChildWindow::onCmdShowToolTips),
@@ -58,13 +58,13 @@ FXIMPLEMENT(GUIGlChildWindow,FXMDIChild,GUIGlChildWindowMap,ARRAYNUMBER(GUIGlChi
 // ===========================================================================
 GUIGlChildWindow::GUIGlChildWindow(
     FXMDIClient* p,
-    GUIMainWindow *parentWindow,
-    FXMDIMenu *mdimenu, const FXString& name,
+    GUIMainWindow* parentWindow,
+    FXMDIMenu* mdimenu, const FXString& name,
     FXIcon* ic,
     FXuint opts,FXint x, FXint y, FXint w, FXint h) :
-        FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
-        myView(0),
-        myParent(parentWindow) {
+    FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
+    myView(0),
+    myParent(parentWindow) {
     // Make MDI Window Menu
     setTracking();
     myContentFrame =
@@ -108,7 +108,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
                  GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
                  ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // toggle button for zooming style
-    MFXCheckableButton *zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
+    MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myNavigationToolBar,
             "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
             GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE,
             BUTTON_NORMAL|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT,
@@ -164,25 +164,25 @@ GUIGlChildWindow::buildScreenshotToolBar() {
 }
 
 
-FXGLCanvas *
+FXGLCanvas*
 GUIGlChildWindow::getBuildGLCanvas() const {
     return myView;
 }
 
 
-FXToolBar &
-GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView &) {
+FXToolBar&
+GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView&) {
     return *myNavigationToolBar;
 }
 
 
-FXPopup *
+FXPopup*
 GUIGlChildWindow::getLocatorPopup() {
     return myLocatorPopup;
 }
 
 
-FXComboBox &
+FXComboBox&
 GUIGlChildWindow::getColoringSchemesCombo() {
     return *myColoringSchemes;
 }
@@ -211,8 +211,8 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*,FXSelector,void*) {
 
 
 long
-GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*) {
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+GUIGlChildWindow::onCmdShowToolTips(FXObject* sender,FXSelector,void*) {
+    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     myView->showToolTips(button->amChecked());
     update();
@@ -222,8 +222,8 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*) {
 
 
 long
-GUIGlChildWindow::onCmdZoomStyle(FXObject*sender,FXSelector,void*) {
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
+GUIGlChildWindow::onCmdZoomStyle(FXObject* sender,FXSelector,void*) {
+    MFXCheckableButton* button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     getApp()->reg().writeIntEntry("gui","zoomAtCenter",
                                   button->amChecked() ? 0 : 1);
@@ -234,7 +234,7 @@ GUIGlChildWindow::onCmdZoomStyle(FXObject*sender,FXSelector,void*) {
 
 
 long
-GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data) {
+GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void* data) {
     myView->setColorScheme((char*) data);
     return 1;
 }
@@ -249,7 +249,7 @@ GUIGlChildWindow::setView(GUIGlID id) {
 
 
 bool
-GUIGlChildWindow::isSelected(GUIGlObject *o) const {
+GUIGlChildWindow::isSelected(GUIGlObject* o) const {
     return gSelected.isSelected(o->getType(), o->getGlID());
 }
 /****************************************************************************/

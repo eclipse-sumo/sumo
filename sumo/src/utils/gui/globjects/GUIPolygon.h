@@ -53,7 +53,7 @@ public:
      */
     GUIPolygon(int layer,
                const std::string name, const std::string type,
-               const RGBColor &color, const PositionVector &shape,
+               const RGBColor& color, const PositionVector& shape,
                bool fill) throw();
 
     /// @brief Destructor
@@ -71,8 +71,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -82,8 +82,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -98,7 +98,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 

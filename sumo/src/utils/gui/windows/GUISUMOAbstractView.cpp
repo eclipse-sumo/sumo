@@ -105,24 +105,24 @@ FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView,FXGLCanvas,GUISUMOAbstractViewMap,ARRAY
 /* -------------------------------------------------------------------------
  * GUISUMOAbstractView - methods
  * ----------------------------------------------------------------------- */
-GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
-        GUIMainWindow &app,
-        GUIGlChildWindow *parent,
-        const SUMORTree &grid,
-        FXGLVisual *glVis, FXGLCanvas *share)
-        : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
-                     LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 0, 0),
-        myApp(&app),
-        myParent(parent),
-        myGrid(&((SUMORTree&)grid)),
-        myChanger(0),
-        myMouseHotspotX(app.getDefaultCursor()->getHotX()),
-        myMouseHotspotY(app.getDefaultCursor()->getHotY()),
-        myPopup(0),
-        myUseToolTips(false),
-        myAmInitialised(false),
-        myViewportChooser(0),
-        myVisualizationChanger(0) {
+GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p,
+        GUIMainWindow& app,
+        GUIGlChildWindow* parent,
+        const SUMORTree& grid,
+        FXGLVisual* glVis, FXGLCanvas* share)
+    : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
+                 LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 0, 0),
+    myApp(&app),
+    myParent(parent),
+    myGrid(&((SUMORTree&)grid)),
+    myChanger(0),
+    myMouseHotspotX(app.getDefaultCursor()->getHotX()),
+    myMouseHotspotY(app.getDefaultCursor()->getHotY()),
+    myPopup(0),
+    myUseToolTips(false),
+    myAmInitialised(false),
+    myViewportChooser(0),
+    myVisualizationChanger(0) {
     setTarget(this);
     enable();
     flags|=FLAG_ENABLED;
@@ -261,7 +261,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     int prevLayer = -1000;
     for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
         GUIGlID id = *it;
-        GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o==0) {
             continue;
         }
@@ -339,7 +339,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
 void
 GUISUMOAbstractView::showToolTipFor(unsigned int id) {
     if (id!=0) {
-        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object!=0) {
             Position pos = getPositionInformation();
             pos.add(0, p2m(15));
@@ -474,7 +474,7 @@ GUISUMOAbstractView::recenterView() {
 
 void
 GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist) {
-    GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o!=0 && dynamic_cast<GUIGlObject*>(o)!=0) {
         if (applyZoom && zoomDist < 0) {
             myChanger->setViewport(o->getCenteringBoundary());
@@ -546,7 +546,7 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*) {
 }
 
 
-void 
+void
 GUISUMOAbstractView::destroyPopup() {
     delete myPopup;
     myPopup = 0;
@@ -554,9 +554,9 @@ GUISUMOAbstractView::destroyPopup() {
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onLeftBtnPress(FXObject*,FXSelector ,void* data) {
     destroyPopup();
-    FXEvent *e = (FXEvent*) data;
+    FXEvent* e = (FXEvent*) data;
     // check whether the selection-mode is activated
     if (e->state&CONTROLMASK) {
         // try to get the object-id if so
@@ -580,7 +580,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onLeftBtnRelease(FXObject*,FXSelector ,void* data) {
     destroyPopup();
     myChanger->onLeftBtnRelease(data);
     if (myApp->isGaming()) {
@@ -592,7 +592,7 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onRightBtnPress(FXObject*,FXSelector ,void* data) {
     destroyPopup();
     myChanger->onRightBtnPress(data);
     grab();
@@ -601,7 +601,7 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onRightBtnRelease(FXObject*,FXSelector ,void* data) {
     destroyPopup();
     if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
         openObjectDialog();
@@ -612,14 +612,14 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onMouseWheel(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onMouseWheel(FXObject*,FXSelector ,void* data) {
     myChanger->onMouseWheel(data);
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data) {
+GUISUMOAbstractView::onMouseMove(FXObject*,FXSelector ,void* data) {
     SUMOReal xpos = myChanger->getXPos();
     SUMOReal ypos = myChanger->getYPos();
     SUMOReal zoom = myChanger->getZoom();
@@ -639,7 +639,7 @@ GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data) {
 
 
 long
-GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void* /*data*/) {
+GUISUMOAbstractView::onMouseLeft(FXObject*,FXSelector ,void* /*data*/) {
     return 1;
 }
 
@@ -653,7 +653,7 @@ GUISUMOAbstractView::openObjectDialog() {
     if (makeCurrent()) {
         // initialise the select mode
         unsigned int id = getObjectUnderCursor();
-        GUIGlObject *o = 0;
+        GUIGlObject* o = 0;
         if (id!=0) {
             o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         } else {
@@ -677,8 +677,8 @@ GUISUMOAbstractView::openObjectDialog() {
 
 
 long
-GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data) {
-    FXEvent *e = (FXEvent*) data;
+GUISUMOAbstractView::onKeyPress(FXObject* o,FXSelector sel,void* data) {
+    FXEvent* e = (FXEvent*) data;
     if ((e->state&ALTMASK)!=0) {
         setDefaultCursor(getApp()->getDefaultCursor(DEF_CROSSHAIR_CURSOR));
         grabKeyboard();
@@ -706,8 +706,8 @@ GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data) {
 
 
 long
-GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
-    FXEvent *e = (FXEvent*) data;
+GUISUMOAbstractView::onKeyRelease(FXObject* o,FXSelector sel,void* data) {
+    FXEvent* e = (FXEvent*) data;
     if ((e->state&ALTMASK)==0) {
         ungrabKeyboard();
         setDefaultCursor(getApp()->getDefaultCursor(DEF_ARROW_CURSOR));
@@ -724,7 +724,7 @@ GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
 
 
 std::string
-GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
+GUISUMOAbstractView::makeSnapshot(const std::string& destFile) {
     std::string errorMessage;
     FXString ext=FXPath::extension(destFile.c_str());
     bool useGL2PS = ext=="ps"||ext=="eps"||ext=="pdf"||ext=="svg"||ext=="tex"||ext=="pgf";
@@ -775,7 +775,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
         } else {
             return "Could not save '" + destFile + "'.\n Unrecognized format '" + std::string(ext.text()) + "'.";
         }
-        FILE *fp = fopen(destFile.c_str(), "wb");
+        FILE* fp = fopen(destFile.c_str(), "wb");
         if (fp==0) {
             return "Could not save '" + destFile + "'.\n Could not open file for writing";
         }
@@ -829,7 +829,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
         }
         swapBuffers();
         glFinish();
-        FXColor *buf;
+        FXColor* buf;
         FXMALLOC(&buf, FXColor, getWidth()*getHeight());
         // read from the back buffer
         glReadBuffer(GL_BACK);
@@ -840,12 +840,12 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
         // mirror
         size_t mwidth = getWidth();
         size_t mheight = getHeight();
-        FXColor *paa = buf;
-        FXColor *pbb = buf + mwidth * (mheight-1);
+        FXColor* paa = buf;
+        FXColor* pbb = buf + mwidth * (mheight-1);
         do {
-            FXColor *pa=paa;
+            FXColor* pa=paa;
             paa+=mwidth;
-            FXColor *pb=pbb;
+            FXColor* pb=pbb;
             pbb-=mwidth;
             do {
                 FXColor t=*pa;
@@ -857,7 +857,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string &destFile) {
             if (!MFXImageHelper::saveImage(destFile, getWidth(), getHeight(), buf)) {
                 errorMessage = "Could not save '" + destFile + "'.";
             }
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             errorMessage = "Could not save '" + destFile + "'.\n" + e.what();
         }
         FXFREE(&buf);
@@ -919,7 +919,7 @@ GUISUMOAbstractView::getGridHeight() const {
 }
 
 
-FXComboBox &
+FXComboBox&
 GUISUMOAbstractView::getColoringSchemesCombo() {
     return myParent->getColoringSchemesCombo();
 }
@@ -930,16 +930,16 @@ GUISUMOAbstractView::drawDecals() {
     glTranslated(0, 0, .99);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end();) {
-        GUISUMOAbstractView::Decal &d = *l;
+        GUISUMOAbstractView::Decal& d = *l;
         if (!d.initialised) {
             try {
-                FXImage *i = MFXImageHelper::loadImage(getApp(), d.filename);
+                FXImage* i = MFXImageHelper::loadImage(getApp(), d.filename);
                 if (MFXImageHelper::scalePower2(i)) {
                     WRITE_WARNING("Scaling '" + d.filename + "'.");
                 }
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
-            } catch (InvalidArgument &e) {
+            } catch (InvalidArgument& e) {
                 WRITE_ERROR("Could not load '" + d.filename + "'.\n" + e.what());
                 l = myDecals.erase(l);
                 continue;
@@ -962,7 +962,7 @@ GUISUMOAbstractView::drawDecals() {
 
 // ------------ Additional visualisations
 bool
-GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) {
+GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject* const which) {
     if (myAdditionallyDrawn.find(which)==myAdditionallyDrawn.end()) {
         myAdditionallyDrawn[which] = 1;
     } else {
@@ -974,7 +974,7 @@ GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject * const which) {
 
 
 bool
-GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject * const which) {
+GUISUMOAbstractView::removeAdditionalGLVisualisation(GUIGlObject* const which) {
     if (getTrackedID()==static_cast<int>(which->getGlID())) {
         stopTrack();
     }

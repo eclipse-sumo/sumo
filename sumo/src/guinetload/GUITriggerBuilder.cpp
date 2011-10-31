@@ -50,30 +50,30 @@ GUITriggerBuilder::~GUITriggerBuilder() throw() {}
 
 
 MSLaneSpeedTrigger*
-GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
-        const std::string &id, const std::vector<MSLane*> &destLanes,
-        const std::string &file) throw(ProcessError) {
-    GUILaneSpeedTrigger *lst = new GUILaneSpeedTrigger(id, destLanes, file);
+GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
+        const std::string& id, const std::vector<MSLane*> &destLanes,
+        const std::string& file) throw(ProcessError) {
+    GUILaneSpeedTrigger* lst = new GUILaneSpeedTrigger(id, destLanes, file);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
     return lst;
 }
 
 
 void
-GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
+GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  std::vector<MSEdge*> &edges,
-                                 SUMOReal prob, const std::string &file, bool off) throw() {
+                                 SUMOReal prob, const std::string& file, bool off) throw() {
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUITriggeredRerouter(id, edges, prob, file, off));
 }
 
 
 void
-GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
+GUITriggerBuilder::buildBusStop(MSNet& net, const std::string& id,
                                 const std::vector<std::string> &lines,
-                                MSLane *lane,
+                                MSLane* lane,
                                 SUMOReal frompos, SUMOReal topos) throw(InvalidArgument) {
-    GUIBusStop *stop = new GUIBusStop(id, lines, *lane, frompos, topos);
-    if(!net.addBusStop(stop)) {
+    GUIBusStop* stop = new GUIBusStop(id, lines, *lane, frompos, topos);
+    if (!net.addBusStop(stop)) {
         delete stop;
         throw InvalidArgument("Could not build bus stop '" + id + "'; probably declared twice.");
     }

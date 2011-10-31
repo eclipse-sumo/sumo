@@ -65,10 +65,10 @@ public:
      * @param[in] type The type of gl-objects to show instances of
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_GLObjChooser(GUIGlChildWindow *parent, FXIcon *icon, const FXString &title,
+    GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title,
                            GUIGlObjectType type,
                            const std::vector<GUIGlID> &ids,
-                           GUIGlObjectStorage &glStorage);
+                           GUIGlObjectStorage& glStorage);
 
 
     /// @brief Destructor
@@ -78,7 +78,7 @@ public:
     /** @brief Returns the chosen (selected) object
      * @return The selected object
      */
-    GUIGlObject *getObject() const throw() {
+    GUIGlObject* getObject() const throw() {
         return static_cast<GUIGlObject*>(mySelected);
     }
 
@@ -106,19 +106,19 @@ public:
 
 private:
     /// @brief The list that holds the ids
-    FXList *myList;
+    FXList* myList;
 
     /// @brief The artifact to choose
     GUIGlObjectType myObjectType;
 
     /// @brief The parent window
-    GUIGlChildWindow *myParent;
+    GUIGlChildWindow* myParent;
 
     /// @brief The chosen id
-    GUIGlObject *mySelected;
+    GUIGlObject* mySelected;
 
     /// @brief The text field
-    FXTextField *myTextEntry;
+    FXTextField* myTextEntry;
 
     /// myList contains (void) pointers to elements of myIDs instead of the more
     //volatile pointers to GUIGlObject

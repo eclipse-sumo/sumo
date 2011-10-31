@@ -50,8 +50,8 @@
 class GUIE3Collector : public MSE3Collector {
 public:
     /// @brief Constructor
-    GUIE3Collector(const std::string &id,
-                   const CrossSectionVector &entries, const CrossSectionVector &exits,
+    GUIE3Collector(const std::string& id,
+                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                    SUMOReal haltingSpeedThreshold,
                    SUMOTime haltingTimeThreshold) throw();
 
@@ -62,20 +62,20 @@ public:
     /** @brief Returns the list of entry points
      * @return The list of entry points
      */
-    const CrossSectionVector &getEntries() const;
+    const CrossSectionVector& getEntries() const;
 
 
     /** @brief Returns the list of exit points
      * @return The list of exit points
      */
-    const CrossSectionVector &getExits() const;
+    const CrossSectionVector& getExits() const;
 
 
     /** @brief Returns the wrapper for this detector
      * @return The wrapper representing the detector
      * @see MyWrapper
      */
-    GUIDetectorWrapper *buildDetectorGUIRepresentation();
+    GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
 
 public:
@@ -86,7 +86,7 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIE3Collector &detector) throw();
+        MyWrapper(GUIE3Collector& detector) throw();
 
         /// @brief Destrutor
         ~MyWrapper() throw();
@@ -102,8 +102,8 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+        GUIParameterTableWindow* getParameterWindow(
+            GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -118,12 +118,12 @@ public:
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
+        void drawGL(const GUIVisualizationSettings& s) const throw();
         //@}
 
 
         /// @brief Returns the detector itself
-        GUIE3Collector &getDetector();
+        GUIE3Collector& getDetector();
 
 
     protected:
@@ -139,15 +139,15 @@ public:
 
     protected:
         /// @brief Builds the description about the position of the entry/exit point
-        SingleCrossingDefinition buildDefinition(const MSCrossSection &section);
+        SingleCrossingDefinition buildDefinition(const MSCrossSection& section);
 
         /// @brief Draws a single entry/exit point
-        void drawSingleCrossing(const Position &pos, SUMOReal rot,
+        void drawSingleCrossing(const Position& pos, SUMOReal rot,
                                 SUMOReal upscale) const;
 
     private:
         /// @brief The wrapped detector
-        GUIE3Collector &myDetector;
+        GUIE3Collector& myDetector;
 
         /// @brief The detector's boundary
         Boundary myBoundary;

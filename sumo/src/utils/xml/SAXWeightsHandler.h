@@ -91,7 +91,7 @@ public:
          * @param[in] beg The begin of the interval the weight is valid for
          * @param[in] end The end of the interval the weight is valid for
          */
-        virtual void addEdgeWeight(const std::string &id,
+        virtual void addEdgeWeight(const std::string& id,
                                    SUMOReal val, SUMOReal beg, SUMOReal end) const throw() = 0;
 
     private:
@@ -105,8 +105,8 @@ public:
     class ToRetrieveDefinition {
     public:
         /// Constructor
-        ToRetrieveDefinition(const std::string &attributeName, bool edgeBased,
-                             EdgeFloatTimeLineRetriever &destination);
+        ToRetrieveDefinition(const std::string& attributeName, bool edgeBased,
+                             EdgeFloatTimeLineRetriever& destination);
 
         /// Destructor
         ~ToRetrieveDefinition();
@@ -119,7 +119,7 @@ public:
         bool myAmEdgeBased;
 
         /// The class that shall be called when new data is avaiable
-        EdgeFloatTimeLineRetriever &myDestination;
+        EdgeFloatTimeLineRetriever& myDestination;
 
         /// aggregated value over the lanes read within the current edge
         SUMOReal myAggValue;
@@ -146,7 +146,7 @@ public:
      *  not deleted!
      */
     SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &defs,
-                      const std::string &file);
+                      const std::string& file);
 
 
     /**
@@ -154,8 +154,8 @@ public:
      *
      * Gets a single definition. Please note that the retrievers are not deleted!
      */
-    SAXWeightsHandler(ToRetrieveDefinition *def,
-                      const std::string &file);
+    SAXWeightsHandler(ToRetrieveDefinition* def,
+                      const std::string& file);
 
 
     /// Destructor
@@ -174,7 +174,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -189,7 +189,7 @@ protected:
 
 private:
     /// Parses the efforts of a lane for the previously read times
-    void tryParse(const SUMOSAXAttributes &attrs, bool isEdge);
+    void tryParse(const SUMOSAXAttributes& attrs, bool isEdge);
 
 
 private:
@@ -208,10 +208,10 @@ private:
 
 private:
     /// we made the copy constructor invalid
-    SAXWeightsHandler(const SAXWeightsHandler &src);
+    SAXWeightsHandler(const SAXWeightsHandler& src);
 
     /// we made the assignment operator invalid
-    SAXWeightsHandler &operator=(const SAXWeightsHandler &src);
+    SAXWeightsHandler& operator=(const SAXWeightsHandler& src);
 
 };
 

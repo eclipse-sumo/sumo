@@ -70,7 +70,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 private:
@@ -83,7 +83,7 @@ private:
         /** @brief Contructor
          * @param[in] toFill The container to fill
          */
-        Handler(NBNetBuilder &toFill) throw();
+        Handler(NBNetBuilder& toFill) throw();
 
 
         /// @brief Destructor
@@ -101,7 +101,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
         /**
@@ -112,7 +112,7 @@ private:
          * @param[in] chars The complete embedded character string
          * @exceptions ProcessError These method may throw a ProcessError if something fails
          */
-        void myCharacters(int element, const std::string &chars);
+        void myCharacters(int element, const std::string& chars);
 
 
         /** @brief Callback method for a closing tag to implement by derived classes
@@ -127,7 +127,7 @@ private:
 
     private:
         /// @brief The container to fill
-        NBNetBuilder &myNetBuilder;
+        NBNetBuilder& myNetBuilder;
 
         /// @brief A temporary parameter map
         std::map<std::string, std::string> myParameter;
@@ -135,7 +135,7 @@ private:
 
         struct Lane {
         public:
-            Lane(const std::string &id, unsigned int idx, SUMOReal v)
+            Lane(const std::string& id, unsigned int idx, SUMOReal v)
                 : myID(id), myIndex(idx), myV(v) {}
             std::string myID;
             unsigned int myIndex;
@@ -146,14 +146,14 @@ private:
 
         struct LaneSet {
         public:
-            LaneSet(const std::string &id, const std::vector<Lane> &lanes, SUMOReal v, int pos, NBNode *from, NBNode *to)
+            LaneSet(const std::string& id, const std::vector<Lane> &lanes, SUMOReal v, int pos, NBNode* from, NBNode* to)
                 : myID(id), myLanes(lanes), myV(v), myPosition(pos), myFrom(from), myTo(to) {}
             std::string myID;
             std::vector<Lane> myLanes;
             SUMOReal myV;
             int myPosition;
-            NBNode *myFrom;
-            NBNode *myTo;
+            NBNode* myFrom;
+            NBNode* myTo;
         };
 
         std::map<std::string, LaneSet*> myLaneSets;
@@ -161,7 +161,7 @@ private:
 
         struct Section {
         public:
-            Section(const std::string &id, const std::vector<LaneSet*> &laneSets) 
+            Section(const std::string& id, const std::vector<LaneSet*> &laneSets)
                 : myID(id), myLaneSets(laneSets) {}
             std::string myID;
             std::vector<LaneSet*> myLaneSets;
@@ -172,10 +172,10 @@ private:
 
     private:
         /** @brief invalidated copy constructor */
-        Handler(const Handler &s);
+        Handler(const Handler& s);
 
         /** @brief invalidated assignment operator */
-        Handler &operator=(const Handler &s);
+        Handler& operator=(const Handler& s);
 
     };
 

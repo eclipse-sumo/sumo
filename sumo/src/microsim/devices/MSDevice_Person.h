@@ -60,7 +60,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Person* buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw();
+    static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw();
 
 
 public:
@@ -121,7 +121,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Person(SUMOVehicle &holder, const std::string &id) throw();
+    MSDevice_Person(SUMOVehicle& holder, const std::string& id) throw();
 
 
 private:

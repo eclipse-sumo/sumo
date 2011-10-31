@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Stauzaehlerdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Stauzaehlerdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Stauzaehlerdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Stauzaehlerdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

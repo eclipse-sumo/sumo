@@ -44,30 +44,30 @@ public:
     GUIMainWindow(FXApp* a);
     virtual ~GUIMainWindow();
     /// Adds a further child window to the list
-    void addChild(FXMDIChild *child, bool updateOnSimStep=true);
-    void addChild(FXMainWindow *child, bool updateOnSimStep=true);
+    void addChild(FXMDIChild* child, bool updateOnSimStep=true);
+    void addChild(FXMainWindow* child, bool updateOnSimStep=true);
 
     /// removes the given child window from the list
-    void removeChild(FXMDIChild *child);
-    void removeChild(FXMainWindow  *child);
+    void removeChild(FXMDIChild* child);
+    void removeChild(FXMainWindow*  child);
 
     std::vector<std::string> getViewIDs() const throw();
-    FXMDIChild *getViewByID(const std::string &id) const throw();
+    FXMDIChild* getViewByID(const std::string& id) const throw();
 
     void updateChildren();
 
-    FXFont *getBoldFont();
+    FXFont* getBoldFont();
 
-    FXGLVisual *getGLVisual() const;
+    FXGLVisual* getGLVisual() const;
 
-    virtual FXGLCanvas *getBuildGLCanvas() const = 0;
+    virtual FXGLCanvas* getBuildGLCanvas() const = 0;
 
     virtual SUMOTime getCurrentSimTime() const = 0;
 
-    virtual void setStatusBarText(const std::string &) { }
+    virtual void setStatusBarText(const std::string&) { }
 
-    FXLabel &getCartesianLabel();
-    FXLabel &getGeoLabel();
+    FXLabel& getCartesianLabel();
+    FXLabel& getGeoLabel();
 
     /// @brief return whether the gui is in gaming mode
     bool isGaming() const {
@@ -86,23 +86,23 @@ protected:
     MFXMutex myTrackerLock;
 
     /// Font used for popup-menu titles
-    FXFont *myBoldFont;
+    FXFont* myBoldFont;
 
     /// The multi view panel
-    FXMDIClient *myMDIClient;
+    FXMDIClient* myMDIClient;
 
     /// The status bar
-    FXStatusBar *myStatusbar;
+    FXStatusBar* myStatusbar;
 
     /// Labels for the current cartesian and geo-coordinate
-    FXLabel *myCartesianCoordinate, *myGeoCoordinate;
-    FXHorizontalFrame *myCartesianFrame, *myGeoFrame;
+    FXLabel* myCartesianCoordinate, *myGeoCoordinate;
+    FXHorizontalFrame* myCartesianFrame, *myGeoFrame;
 
 
     /// The gl-visual used
-    FXGLVisual *myGLVisual;
+    FXGLVisual* myGLVisual;
 
-    FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
+    FXDockSite* myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 
     bool myRunAtBegin;
 

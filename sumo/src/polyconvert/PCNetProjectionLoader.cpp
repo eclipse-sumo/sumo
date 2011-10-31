@@ -58,10 +58,10 @@
 // static interface
 // ---------------------------------------------------------------------------
 void
-PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
-                                 Position &netOffset, Boundary &origNetBoundary,
-                                 Boundary &convNetBoundary,
-                                 std::string &projParameter) throw(ProcessError) {
+PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
+                                 Position& netOffset, Boundary& origNetBoundary,
+                                 Boundary& convNetBoundary,
+                                 std::string& projParameter) throw(ProcessError) {
     if (!oc.isSet("net")) {
         return;
     }
@@ -74,7 +74,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
     PCNetProjectionLoader handler(netOffset, origNetBoundary, convNetBoundary, projParameter);
     handler.setFileName(file);
     XMLPScanToken token;
-    XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *parser = XMLSubSys::getSAXReader(handler);
+    XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* parser = XMLSubSys::getSAXReader(handler);
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file.c_str(), token)) {
         delete parser;
@@ -95,14 +95,14 @@ PCNetProjectionLoader::loadIfSet(OptionsCont &oc,
 // ---------------------------------------------------------------------------
 // handler methods
 // ---------------------------------------------------------------------------
-PCNetProjectionLoader::PCNetProjectionLoader(Position &netOffset,
-        Boundary &origNetBoundary, Boundary &convNetBoundary,
-        std::string &projParameter) throw()
-        : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
-        myOrigNetBoundary(origNetBoundary), myConvNetBoundary(convNetBoundary),
-        myProjParameter(projParameter),
-        myFoundOffset(false), myFoundOrigNetBoundary(false),
-        myFoundConvNetBoundary(false), myFoundProj(false) {}
+PCNetProjectionLoader::PCNetProjectionLoader(Position& netOffset,
+        Boundary& origNetBoundary, Boundary& convNetBoundary,
+        std::string& projParameter) throw()
+    : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
+      myOrigNetBoundary(origNetBoundary), myConvNetBoundary(convNetBoundary),
+      myProjParameter(projParameter),
+      myFoundOffset(false), myFoundOrigNetBoundary(false),
+      myFoundConvNetBoundary(false), myFoundProj(false) {}
 
 
 PCNetProjectionLoader::~PCNetProjectionLoader() throw() {}
@@ -110,7 +110,7 @@ PCNetProjectionLoader::~PCNetProjectionLoader() throw() {}
 
 void
 PCNetProjectionLoader::myStartElement(int element,
-                                      const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                      const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_LOCATION) {
         return;
     }
@@ -134,7 +134,7 @@ PCNetProjectionLoader::myStartElement(int element,
 
 void
 PCNetProjectionLoader::myCharacters(int element,
-                                    const std::string &chars) throw(ProcessError) {
+                                    const std::string& chars) throw(ProcessError) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
 }

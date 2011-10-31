@@ -50,8 +50,8 @@
 // method definitions
 // ===========================================================================
 NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
-        const std::string &name, const NIVissimNodeParticipatingEdgeVector &edges)
-        : NIVissimNodeDef(id, name), myEdges(edges) {}
+        const std::string& name, const NIVissimNodeParticipatingEdgeVector& edges)
+    : NIVissimNodeDef(id, name), myEdges(edges) {}
 
 
 NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges() {
@@ -63,9 +63,9 @@ NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges() {
 
 
 bool
-NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
-                                  const NIVissimNodeParticipatingEdgeVector &edges) {
-    NIVissimNodeDef_Edges *o = new NIVissimNodeDef_Edges(id, name, edges);
+NIVissimNodeDef_Edges::dictionary(int id, const std::string& name,
+                                  const NIVissimNodeParticipatingEdgeVector& edges) {
+    NIVissimNodeDef_Edges* o = new NIVissimNodeDef_Edges(id, name, edges);
     if (!NIVissimNodeDef::dictionary(id, o)) {
         delete o;
         return false;
@@ -80,10 +80,10 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
     IntVector edges;
     Boundary boundary;
     for (NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NIVissimNodeParticipatingEdge *edge = *i;
-        NIVissimConnection *c =
+        NIVissimNodeParticipatingEdge* edge = *i;
+        NIVissimConnection* c =
             NIVissimConnection::dictionary(edge->getID());
-        NIVissimEdge *e =
+        NIVissimEdge* e =
             NIVissimEdge::dictionary(edge->getID());
         if (c!=0) {
             connections.push_back(edge->getID());
@@ -97,10 +97,10 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
             boundary.add(e->getGeomPosition(edge->getToPos()));
         }
     }
-    NIVissimConnectionCluster *c =
+    NIVissimConnectionCluster* c =
         new NIVissimConnectionCluster(connections, boundary, myID, edges);
     for (IntVector::iterator j=edges.begin(); j!=edges.end(); j++) {
-        NIVissimEdge *edge = NIVissimEdge::dictionary(*j);
+        NIVissimEdge* edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
     }
 }
@@ -110,7 +110,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
 SUMOReal
 NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const {
     for (NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NIVissimNodeParticipatingEdge *edge = *i;
+        NIVissimNodeParticipatingEdge* edge = *i;
         if (edge->getID()==edgeid) {
             return (edge->getFromPos() + edge->getToPos()) / (SUMOReal) 2.0;
         }

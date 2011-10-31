@@ -76,8 +76,8 @@ protected:
      * @param[in] incoming The incoming lanes
      * @param[in] internal The internal lanes
      */
-    MSLogicJunction(const std::string &id, const Position &position,
-                    const PositionVector &shape,
+    MSLogicJunction(const std::string& id, const Position& position,
+                    const PositionVector& shape,
                     std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
                     , std::vector<MSLane*> internal

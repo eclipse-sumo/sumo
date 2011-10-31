@@ -54,7 +54,7 @@ public:
         /** @brief Constructor
          * @param[in] id The id of the signal group
          */
-        SignalGroup(const std::string &id) throw();
+        SignalGroup(const std::string& id) throw();
 
         /// @brief Destructor
         ~SignalGroup() throw();
@@ -62,7 +62,7 @@ public:
         /** @brief Inserts a controlled connection
          * @param[in] c The connection to be controlled by this signal group
          */
-        void addConnection(const NBConnection &c) throw();
+        void addConnection(const NBConnection& c) throw();
 
         /** @brief Sets the begin of a phase
          * @param[in] time The time at which the phase starts
@@ -107,37 +107,37 @@ public:
          * @param[in] from The connection's end edge
          * @return Whether the connection is controlled by this signal
          */
-        bool containsConnection(NBEdge *from, NBEdge *to) const throw();
+        bool containsConnection(NBEdge* from, NBEdge* to) const throw();
 
         /** @brief Returns whether this signal controls the given edge
          * @param[in] from The incoming edge
          * @return Whether this edge is controlled by this signal
          */
-        bool containsIncoming(NBEdge *from) const throw();
+        bool containsIncoming(NBEdge* from) const throw();
 
         /** @brief Replaces the given incoming edge by the others given
          * @param[in] which The edge to replace
          * @param[in] by The replacements
          */
-        void remapIncoming(NBEdge *which, const EdgeVector &by) throw(ProcessError);
+        void remapIncoming(NBEdge* which, const EdgeVector& by) throw(ProcessError);
 
         /** @brief Returns whether this signal controls a connection where the given edge is the destination
          * @param[in] from The outgoing edge
          * @return Whether this edge's predecessing edge is controlled by this signal
          */
-        bool containsOutgoing(NBEdge *to) const throw();
+        bool containsOutgoing(NBEdge* to) const throw();
 
         /** @brief Replaces the given outgoing edge by the others given
          * @param[in] which The edge to replace
          * @param[in] by The replacements
          */
-        void remapOutgoing(NBEdge *which, const EdgeVector &by) throw(ProcessError);
+        void remapOutgoing(NBEdge* which, const EdgeVector& by) throw(ProcessError);
 
         /** @brief Returns the connection at the given index
          * @param[in] pos The position within this signal
          * @return The connection at the given index
          */
-        const NBConnection &getConnection(unsigned int pos) const throw();
+        const NBConnection& getConnection(unsigned int pos) const throw();
 
         /** @brief Sets the yellow time
          * @param[in] tyellow The yellow time to set
@@ -150,7 +150,7 @@ public:
          * @param[in] by The edge to insert instead
          * @param[in] byLane This edge's lane to insert instead
          */
-        void remap(NBEdge *removed, int removedLane, NBEdge *by, int byLane) throw();
+        void remap(NBEdge* removed, int removedLane, NBEdge* by, int byLane) throw();
 
         /** @class PhaseDef
          * @brief Definition of a single, loaded phase
@@ -162,7 +162,7 @@ public:
              * @param[in] color A signal's color from this time
              */
             PhaseDef(SUMOTime time, TLColor color) throw()
-                    : myTime(time), myColor(color) { }
+                : myTime(time), myColor(color) { }
 
             /// @brief The begin time of this phase
             SUMOTime myTime;
@@ -182,7 +182,7 @@ public:
              * @param[in] p1 a phase definition
              * @param[in] p2 a phase definition
              */
-            int operator()(const PhaseDef &p1, const PhaseDef &p2) {
+            int operator()(const PhaseDef& p1, const PhaseDef& p2) {
                 return p1.myTime<p2.myTime;
             }
         };
@@ -206,7 +206,7 @@ public:
      * @param[in] id The id of the tls
      * @param[in] junctions Junctions controlled by this tls
      */
-    NBLoadedTLDef(const std::string &id,
+    NBLoadedTLDef(const std::string& id,
                   const std::vector<NBNode*> &junctions) throw();
 
 
@@ -214,13 +214,13 @@ public:
      * @param[in] id The id of the tls
      * @param[in] junction The junction controlled by this tls
      */
-    NBLoadedTLDef(const std::string &id, NBNode *junction) throw();
+    NBLoadedTLDef(const std::string& id, NBNode* junction) throw();
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      */
-    NBLoadedTLDef(const std::string &id) throw();
+    NBLoadedTLDef(const std::string& id) throw();
 
 
     /// @brief Destructor
@@ -232,7 +232,7 @@ public:
      * @param[in] to The connection's end edge
      * @return The signal group which controls the given connection
      */
-    SignalGroup *findGroup(NBEdge *from, NBEdge *to) const throw();
+    SignalGroup* findGroup(NBEdge* from, NBEdge* to) const throw();
 
 
     /** @brief Sets the duration of a cycle
@@ -244,23 +244,23 @@ public:
     /** @brief Adds a signal group
      * @param[in] id The id of the signal group
      */
-    void addSignalGroup(const std::string &id) throw();
+    void addSignalGroup(const std::string& id) throw();
 
 
     /** @brief Adds a connection to a signal group
      * @param[in] groupid The id of the signal group to add the connection to
      * @param[in] connection The connection to add
      */
-    bool addToSignalGroup(const std::string &groupid,
-                          const NBConnection &connection) throw();
+    bool addToSignalGroup(const std::string& groupid,
+                          const NBConnection& connection) throw();
 
 
     /** @brief Adds a list of connections to a signal group
      * @param[in] groupid The id of the signal group to add the connections to
      * @param[in] connections The connections to add
      */
-    bool addToSignalGroup(const std::string &groupid,
-                          const NBConnectionVector &connections) throw();
+    bool addToSignalGroup(const std::string& groupid,
+                          const NBConnectionVector& connections) throw();
 
 
     /** @brief Sets the information about the begin of a phase
@@ -268,7 +268,7 @@ public:
      * @param[in] time The time the phase starts at
      * @param[in] color The color of the signal during this phase
      */
-    void addSignalGroupPhaseBegin(const std::string &groupid,
+    void addSignalGroupPhaseBegin(const std::string& groupid,
                                   SUMOTime time, TLColor color) throw();
 
 
@@ -277,7 +277,7 @@ public:
      * @param[in] tRedYellow The duration of redyellow
      * @param[in] tYellow The duration of yellow
      */
-    void setSignalYellowTimes(const std::string &groupid,
+    void setSignalYellowTimes(const std::string& groupid,
                               SUMOTime tRedYellow, SUMOTime tYellow) throw();
 
 
@@ -288,7 +288,7 @@ public:
      * @param[in] ec The container of edges
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
+    void setTLControllingInformation(const NBEdgeCont& ec) const throw();
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -297,8 +297,8 @@ public:
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      * @see NBTrafficLightDefinition::remapRemoved
      */
-    void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
+    void remapRemoved(NBEdge* removed,
+                      const EdgeVector& incoming, const EdgeVector& outgoing) throw();
     /// @}
 
 
@@ -312,7 +312,7 @@ protected:
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
+    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
                                    unsigned int brakingTime) throw();
 
 
@@ -336,9 +336,9 @@ protected:
      * @param[in] strmpos The index of this connection within the masks
      * @return Whether the given connection must brake
      */
-    bool mustBrake(const NBEdgeCont &ec,
-                   const NBConnection &possProhibited,
-                   const std::string &state,
+    bool mustBrake(const NBEdgeCont& ec,
+                   const NBConnection& possProhibited,
+                   const std::string& state,
                    unsigned int strmpos) const throw();
 
 
@@ -349,8 +349,8 @@ protected:
      * @param[in] byLane This edge's lane to insert instead
      * @see NBTrafficLightDefinition::replaceRemoved
      */
-    void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane) throw();
+    void replaceRemoved(NBEdge* removed, int removedLane,
+                        NBEdge* by, int byLane) throw();
     /// @}
 
 private:
@@ -359,7 +359,7 @@ private:
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    std::string buildPhaseState(const NBEdgeCont &ec, unsigned int time) const throw();
+    std::string buildPhaseState(const NBEdgeCont& ec, unsigned int time) const throw();
 
 
 private:

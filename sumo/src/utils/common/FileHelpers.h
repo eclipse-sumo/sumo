@@ -64,7 +64,7 @@ public:
      * @param[in] path The path to the file to return the folder it is located in
      * @return The directory of the named file
      */
-    static std::string getFilePath(const std::string &path);
+    static std::string getFilePath(const std::string& path);
 
 
     /** @brief Returns the second path as a relative path to the first file
@@ -79,8 +79,8 @@ public:
      * @param[in] path The path to the references file (relativ to configuration path)
      * @return The file's position (relative to curent working directory)
      */
-    static std::string getConfigurationRelative(const std::string &configPath,
-            const std::string &path);
+    static std::string getConfigurationRelative(const std::string& configPath,
+            const std::string& path);
 
 
     /** @brief Returns the information whether the given name represents a socket
@@ -91,7 +91,7 @@ public:
      * @param[in] name The name of a file
      * @return Whether the name names a socket
      */
-    static bool isSocket(const std::string &name);
+    static bool isSocket(const std::string& name);
 
 
     /** @brief Returns the information whether the given path is absolute
@@ -104,7 +104,7 @@ public:
      * @param[in] path The path to examine
      * @return Whether the path is absolute
      */
-    static bool isAbsolute(const std::string &path);
+    static bool isAbsolute(const std::string& path);
 
 
     /** @brief Returns the path from a configuration so that it is accessable from the current working directory
@@ -119,7 +119,7 @@ public:
      * @return The file's position
      */
     static std::string checkForRelativity(std::string filename,
-                                          const std::string &basePath);
+                                          const std::string& basePath);
     //@}
 
 
@@ -133,7 +133,7 @@ public:
      * @param[in] value The integer to write
      * @return Reference to the stream
      */
-    static std::ostream &writeInt(std::ostream &strm, int value);
+    static std::ostream& writeInt(std::ostream& strm, int value);
 
 
     /** @brief Writes an unsigned integer binary
@@ -142,7 +142,7 @@ public:
      * @param[in] value The unsigned integer to write
      * @return Reference to the stream
      */
-    static std::ostream &writeUInt(std::ostream &strm, unsigned int value);
+    static std::ostream& writeUInt(std::ostream& strm, unsigned int value);
 
 
     /** @brief Writes a float binary
@@ -153,7 +153,7 @@ public:
      * @param[in] value The float to write
      * @return Reference to the stream
      */
-    static std::ostream &writeFloat(std::ostream &strm, SUMOReal value);
+    static std::ostream& writeFloat(std::ostream& strm, SUMOReal value);
 
 
     /** @brief Writes a byte binary
@@ -162,7 +162,7 @@ public:
      * @param[in] value The byte to write
      * @return Reference to the stream
      */
-    static std::ostream &writeByte(std::ostream &strm, unsigned char value);
+    static std::ostream& writeByte(std::ostream& strm, unsigned char value);
 
 
     /** @brief Writes a string binary
@@ -175,7 +175,7 @@ public:
      * @param[in] value The string to write
      * @return Reference to the stream
      */
-    static std::ostream &writeString(std::ostream &strm, const std::string &value);
+    static std::ostream& writeString(std::ostream& strm, const std::string& value);
     //@}
 
     /** @brief Writes a time description binary
@@ -187,7 +187,7 @@ public:
      * @param[in] value The time to write
      * @return Reference to the stream
      */
-    static std::ostream &writeTime(std::ostream &strm, SUMOTime value);
+    static std::ostream& writeTime(std::ostream& strm, SUMOTime value);
 
 
 };

@@ -101,10 +101,10 @@ public:
     void commandDistanceRequest(testclient::Position pos1, testclient::PositionRoadMap pos2, int flag);
     void commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag);
 
-    void commandGetVariable(int domID, int varID, const std::string &objID);
-    void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile);
-    void commandSubscribeVariable(int domID, const std::string &objID, int beginTime, int endTime, int varNo, std::ifstream &defFile);
-    void commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile);
+    void commandGetVariable(int domID, int varID, const std::string& objID);
+    void commandGetVariablePlus(int domID, int varID, const std::string& objID, std::ifstream& defFile);
+    void commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
+    void commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile);
 
     void commandClose();
 
@@ -136,7 +136,7 @@ private:
 
     bool validateDistanceRequest(tcpip::Storage& inMsg);
 
-    bool readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType);
+    bool readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType);
 
 
     /** @brief Parses the next value type / value pair from the stream and inserts it into the storage
@@ -146,7 +146,7 @@ private:
      * @param[out] msg If any error occurs, this should be filled
      * @return The number of written bytes
      */
-    int setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg);
+    int setValueTypeDependant(tcpip::Storage& into, std::ifstream& defFile, std::stringstream& msg);
 
 
 

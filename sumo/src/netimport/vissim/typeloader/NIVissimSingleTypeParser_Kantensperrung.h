@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Kantensperrung :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Kantensperrung();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

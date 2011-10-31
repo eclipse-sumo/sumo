@@ -45,12 +45,12 @@
 // member method definitions
 // ===========================================================================
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
-    MSTLLogicControl &tlcontrol,
-    const std::string &id, const std::string &programID,
-    const Phases &phases, unsigned int step, SUMOTime delay,
+    MSTLLogicControl& tlcontrol,
+    const std::string& id, const std::string& programID,
+    const Phases& phases, unsigned int step, SUMOTime delay,
     const std::map<std::string, std::string> &parameter)
-        : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
-        tSinceLastDecision(0), stepOfLastDecision(0) {
+    : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
+      tSinceLastDecision(0), stepOfLastDecision(0) {
 
     tDecide = 1;
     if (parameter.find("decision-horizon")!=parameter.end()) {
@@ -72,15 +72,15 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 
 
 void
-MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb) {
+MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the detectors
     for (i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
-        const LaneVector &lanes = *i2;
+        const LaneVector& lanes = *i2;
         for (i=lanes.begin(); i!=lanes.end(); i++) {
-            MSLane *lane = (*i);
+            MSLane* lane = (*i);
             // Build the lane state detetcor and set it into the container
             std::string id = "TL_" + myID + "_" + myProgramID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
@@ -173,7 +173,7 @@ MSAgentbasedTrafficLightLogic::nextStep() {
 
 void
 MSAgentbasedTrafficLightLogic::collectData() {
-    const std::string &state = getCurrentPhaseDef().getState();
+    const std::string& state = getCurrentPhaseDef().getState();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {

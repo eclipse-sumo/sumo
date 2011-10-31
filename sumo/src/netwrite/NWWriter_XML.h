@@ -63,7 +63,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder from which to read data
      */
-    static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 private:
@@ -71,14 +71,14 @@ private:
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      */
-    static void writeNodes(const OptionsCont &oc, NBNodeCont &nc);
+    static void writeNodes(const OptionsCont& oc, NBNodeCont& nc);
 
     /** @brief Writes the edges and connections files
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
-    static void writeEdgesAndConnections(const OptionsCont &oc, NBNodeCont &nc, NBEdgeCont &ec);
+    static void writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec);
 
 
     /** @brief Writes the traffic lights file
@@ -86,7 +86,7 @@ private:
      * @param[in] tc The tll-container from which to read data
      * @param[in] ec The edge-container from which to read data
      */
-    static void writeTrafficLights(const OptionsCont &oc, NBTrafficLightLogicCont &tc, NBEdgeCont &ec);
+    static void writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec);
 
 };
 

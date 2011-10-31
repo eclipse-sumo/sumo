@@ -123,7 +123,7 @@ public:
 
 protected:
     /// @brief The calling view
-    GUISUMOAbstractView *myParent;
+    GUISUMOAbstractView* myParent;
 
     /// @brief The old zoom
     SUMOReal myOldZoom;
@@ -132,7 +132,7 @@ protected:
     SUMOReal myOldXOff, myOldYOff;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinDial *myZoom, *myXOff, *myYOff;
+    FXRealSpinDial* myZoom, *myXOff, *myYOff;
 
 
 protected:

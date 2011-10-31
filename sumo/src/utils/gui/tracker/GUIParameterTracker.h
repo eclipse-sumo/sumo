@@ -61,7 +61,7 @@ public:
      * @param[in] app The main application window
      * @param[in] name The title of the tracker
      */
-    GUIParameterTracker(GUIMainWindow &app, const std::string &name) throw();
+    GUIParameterTracker(GUIMainWindow& app, const std::string& name) throw();
 
 
     /// @brief Destructor
@@ -77,8 +77,8 @@ public:
      * @param[in] src The value source of the object
      * @param[in] newTracked The description of the tracked value
      */
-    void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
-                    TrackerValueDesc *newTracked) throw();
+    void addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
+                    TrackerValueDesc* newTracked) throw();
 
 
     /// @name FOX-callbacks
@@ -116,8 +116,8 @@ public:
          * @param[in] app The main window
          * @param[in] parent The parent tracker window this view belongs to
          */
-        GUIParameterTrackerPanel(FXComposite *c, GUIMainWindow &app,
-                                 GUIParameterTracker &parent) throw();
+        GUIParameterTrackerPanel(FXComposite* c, GUIMainWindow& app,
+                                 GUIParameterTracker& parent) throw();
 
         /// @brief Destructor
         ~GUIParameterTrackerPanel() throw();
@@ -136,7 +136,7 @@ public:
         long onPaint(FXObject*,FXSelector,void*);
 
         /// Called on a simulation step
-        long onSimStep(FXObject*sender,FXSelector,void*);
+        long onSimStep(FXObject* sender,FXSelector,void*);
         /// @}
 
 
@@ -149,18 +149,18 @@ public:
          * @param[in] desc The tracked values to draw
          * @param[in] namePos Position to display the name at (currently unused)
          */
-        void drawValue(TrackerValueDesc &desc, SUMOReal namePos) throw();
+        void drawValue(TrackerValueDesc& desc, SUMOReal namePos) throw();
 
 
     private:
         /// @brief The parent window
-        GUIParameterTracker *myParent;
+        GUIParameterTracker* myParent;
 
         /// @brief the sizes of the window
         int myWidthInPixels, myHeightInPixels;
 
         /// @brief The main application
-        GUIMainWindow *myApplication;
+        GUIMainWindow* myApplication;
 
     protected:
         /// FOX needs this
@@ -178,28 +178,28 @@ private:
 
 protected:
     /// @brief The main application
-    GUIMainWindow *myApplication;
+    GUIMainWindow* myApplication;
 
     /// @brief The list of tracked values
     std::vector<TrackerValueDesc*> myTracked;
 
     /// @brief The panel to display the values in
-    GUIParameterTrackerPanel *myPanel;
+    GUIParameterTrackerPanel* myPanel;
 
     /// @brief The value sources
     std::vector<GLObjectValuePassConnector<SUMOReal>*> myValuePassers;
 
     /// @brief for some menu detaching fun
-    FXToolBarShell *myToolBarDrag;
+    FXToolBarShell* myToolBarDrag;
 
     /// @brief A combo box to select an aggregation interval
-    FXComboBox *myAggregationInterval;
+    FXComboBox* myAggregationInterval;
 
     /// @brief The simulation delay
     FXdouble myAggregationDelay;
 
     /// @brief The tracker tool bar
-    FXToolBar *myToolBar;
+    FXToolBar* myToolBar;
 
 protected:
     /// Fox needs this

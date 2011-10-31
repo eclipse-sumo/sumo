@@ -55,12 +55,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw() :
-        SUMOSAXHandler("xml-connection-description"),
-        myEdgeCont(ec),
-        myHaveWarnedAboutDeprecatedLanes(false),
-        myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
-                          MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {}
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec) throw() :
+    SUMOSAXHandler("xml-connection-description"),
+    myEdgeCont(ec),
+    myHaveWarnedAboutDeprecatedLanes(false),
+    myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
+                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {}
 
 
 NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
@@ -68,7 +68,7 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
 
 void
 NIXMLConnectionsHandler::myStartElement(int element,
-                                        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                        const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element==SUMO_TAG_RESET) {
         bool ok = true;
         std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
@@ -80,8 +80,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
         if (myEdgeCont.wasRemoved(from) || myEdgeCont.wasRemoved(to)) {
             return;
         }
-        NBEdge *fromEdge = myEdgeCont.retrieve(from);
-        NBEdge *toEdge = myEdgeCont.retrieve(to);
+        NBEdge* fromEdge = myEdgeCont.retrieve(from);
+        NBEdge* toEdge = myEdgeCont.retrieve(to);
         if (fromEdge==0) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' to reset is not known.");
             return;
@@ -97,12 +97,12 @@ NIXMLConnectionsHandler::myStartElement(int element,
         int fromLane = -1; // Assume all lanes are to be reset.
         int toLane = -1;
         if (attrs.hasAttribute(SUMO_ATTR_LANE)
-            || attrs.hasAttribute(SUMO_ATTR_FROM_LANE)
-            || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
+                || attrs.hasAttribute(SUMO_ATTR_FROM_LANE)
+                || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             if (!parseLaneInfo(attrs, fromEdge, toEdge, &fromLane, &toLane)) {
-              return;
+                return;
             }
-            // we could be trying to reset a connection loaded from a sumo net and which has become obsolete. 
+            // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
             // In this case it's ok to encounter invalid lance indices
             if (!fromEdge->hasConnectionTo(toEdge, toLane)) {
                 WRITE_WARNING("Target lane '" + toEdge->getLaneID(toLane) + "' is not connected with '" + fromEdge->getID() + "'; the connection cannot be reset.");
@@ -119,8 +119,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
             return;
         }
         // extract edges
-        NBEdge *fromEdge = myEdgeCont.retrieve(from);
-        NBEdge *toEdge = to.length()!=0 ? myEdgeCont.retrieve(to) : 0;
+        NBEdge* fromEdge = myEdgeCont.retrieve(from);
+        NBEdge* toEdge = to.length()!=0 ? myEdgeCont.retrieve(to) : 0;
         // check whether they are valid
         if (fromEdge==0) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' is not known.");
@@ -150,14 +150,14 @@ NIXMLConnectionsHandler::myStartElement(int element,
             // something failed
             return;
         }
-        NBNode *n = prohibitorC.getFrom()->getToNode();
+        NBNode* n = prohibitorC.getFrom()->getToNode();
         n->addSortedLinkFoes(prohibitorC, prohibitedC);
     }
 }
 
 
 NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const std::string &def) throw() {
+NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) throw() {
     // split from/to
     size_t div = def.find("->");
     if (div==std::string::npos) {
@@ -176,8 +176,8 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const std::
         toDef = toDef.substr(0, toDef.find('_'));
     }
     // retrieve them now
-    NBEdge *fromE = myEdgeCont.retrieve(fromDef);
-    NBEdge *toE = myEdgeCont.retrieve(toDef);
+    NBEdge* fromE = myEdgeCont.retrieve(fromDef);
+    NBEdge* toE = myEdgeCont.retrieve(toDef);
     // check
     if (fromE==0) {
         myErrorMsgHandler->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
@@ -192,7 +192,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const std::
 
 
 void
-NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *from, NBEdge *to) throw() {
+NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) throw() {
     if (to==0) {
         // do nothing if it's a dead end
         return;
@@ -216,14 +216,14 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *
             WRITE_WARNING("Target lane '" + to->getLaneID(toLane) + "' is already connected from '" + from->getID() + "'.");
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
-            NBEdge *nFrom = from;
+            NBEdge* nFrom = from;
             bool toNext = true;
             do {
                 if (nFrom->getToNode()->getOutgoingEdges().size()!=1) {
                     toNext = false;
                     break;
                 }
-                NBEdge *t = nFrom->getToNode()->getOutgoingEdges()[0];
+                NBEdge* t = nFrom->getToNode()->getOutgoingEdges()[0];
                 if (t->getID().substr(0, t->getID().find('/'))!=nFrom->getID().substr(0, nFrom->getID().find('/'))) {
                     toNext = false;
                     break;
@@ -239,7 +239,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *
                 from = nFrom;
             }
         }
-    } catch (NumberFormatException &) {
+    } catch (NumberFormatException&) {
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");
     }
     //
@@ -250,20 +250,20 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs, NBEdge *
 }
 
 bool
-NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes &attributes, NBEdge *fromEdge, NBEdge *toEdge,
-                                       int *fromLane, int *toLane) {
+NIXMLConnectionsHandler::parseLaneInfo(const SUMOSAXAttributes& attributes, NBEdge* fromEdge, NBEdge* toEdge,
+                                       int* fromLane, int* toLane) {
     if (attributes.hasAttribute(SUMO_ATTR_LANE)) {
-       return parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane);
+        return parseDeprecatedLaneDefinition(attributes, fromEdge, toEdge, fromLane, toLane);
     } else {
-       return parseLaneDefinition(attributes, fromLane, toLane);
+        return parseLaneDefinition(attributes, fromLane, toLane);
     }
 }
 
 
 inline bool
-NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes &attributes,
-                                                       NBEdge *from, NBEdge *to,
-                                                       int *fromLane, int *toLane) {
+NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& attributes,
+        NBEdge* from, NBEdge* to,
+        int* fromLane, int* toLane) {
     bool ok = true;
     if (!myHaveWarnedAboutDeprecatedLanes) {
         myHaveWarnedAboutDeprecatedLanes = true;
@@ -288,9 +288,9 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes &
 
 
 inline bool
-NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes &attributes,
-                                             int* fromLane,
-                                             int* toLane) {
+NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes,
+        int* fromLane,
+        int* toLane) {
     bool ok = true;
     *fromLane = attributes.getIntReporting(SUMO_ATTR_FROM_LANE, 0, ok);
     *toLane = attributes.getIntReporting(SUMO_ATTR_TO_LANE, 0, ok);
@@ -299,19 +299,19 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes &attributes
 
 
 bool
-NIXMLConnectionsHandler::validateLaneInfo(bool canLanesBeNegative, NBEdge *fromEdge, NBEdge *toEdge, int fromLane, int toLane) {
-    if ((!canLanesBeNegative && fromLane<0) || 
+NIXMLConnectionsHandler::validateLaneInfo(bool canLanesBeNegative, NBEdge* fromEdge, NBEdge* toEdge, int fromLane, int toLane) {
+    if ((!canLanesBeNegative && fromLane<0) ||
             static_cast<unsigned int>(fromLane)>=fromEdge->getNumLanes()) {
         myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) +
-                "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
-                fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
+                                  "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
+                                  fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
         return false;
     }
-    if ((!canLanesBeNegative && toLane<0) || 
+    if ((!canLanesBeNegative && toLane<0) ||
             static_cast<unsigned int>(toLane)>=toEdge->getNumLanes()) {
         myErrorMsgHandler->inform("Invalid value '" + toString(toLane) +
-                "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
-                fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
+                                  "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
+                                  fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
         return false;
     }
     return true;

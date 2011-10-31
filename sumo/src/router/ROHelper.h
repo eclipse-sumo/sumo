@@ -64,7 +64,7 @@ public:
      * @return Whether the first vehicle departs later than the second
      * @todo Check whether both vehicles can be const
      */
-    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const throw() {
+    bool operator()(ROVehicle* veh1, ROVehicle* veh2) const throw() {
         if (veh1->getDepartureTime()==veh2->getDepartureTime()) {
             return veh1->getID()>veh2->getID();
         }
@@ -102,7 +102,7 @@ void recheckForLoops(std::vector<const ROEdge*> &edges) throw();
 
 
 /// @brief Output operator for edge lists (edges will be written as their ids, divided by spaces)
-std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev);
+std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*> &ev);
 
 
 

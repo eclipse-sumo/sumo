@@ -46,8 +46,8 @@
 Line::Line() {}
 
 
-Line::Line(const Position &p1, const Position &p2)
-        : myP1(p1), myP2(p2) {}
+Line::Line(const Position& p1, const Position& p2)
+    : myP1(p1), myP2(p2) {}
 
 
 Line::~Line() {}
@@ -73,13 +73,13 @@ Line::extrapolateSecondBy(SUMOReal length) {
     myP2 = GeomHelper::extrapolate_second(myP1, myP2, length);
 }
 
-const Position &
+const Position&
 Line::p1() const {
     return myP1;
 }
 
 
-const Position &
+const Position&
 Line::p2() const {
     return myP2;
 }
@@ -107,7 +107,7 @@ Line::move2side(SUMOReal amount) {
 
 
 DoubleVector
-Line::intersectsAtLengths(const PositionVector &v) {
+Line::intersectsAtLengths(const PositionVector& v) {
     PositionVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for (size_t i=0; i<p.size(); i++) {
@@ -139,13 +139,13 @@ Line::atan2PositiveAngle() const {
 }
 
 Position
-Line::intersectsAt(const Line &l) const {
+Line::intersectsAt(const Line& l) const {
     return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
 }
 
 
 bool
-Line::intersects(const Line &l) const {
+Line::intersects(const Line& l) const {
     return GeomHelper::intersects(myP1, myP2, l.myP1, l.myP2);
 }
 
@@ -167,7 +167,7 @@ Line::add(SUMOReal x, SUMOReal y) {
 
 
 void
-Line::add(const Position &p) {
+Line::add(const Position& p) {
     myP1.add(p.x(), p.y());
     myP2.add(p.x(), p.y());
 }
@@ -181,7 +181,7 @@ Line::sub(SUMOReal x, SUMOReal y) {
 
 
 
-Line &
+Line&
 Line::reverse() {
     Position tmp(myP1);
     myP1 = myP2;
@@ -191,7 +191,7 @@ Line::reverse() {
 
 
 SUMOReal
-Line::intersectsAtLength(const Line &v) {
+Line::intersectsAtLength(const Line& v) {
     Position pos =
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
     return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, pos);
@@ -209,7 +209,7 @@ Line::rotateAtP1(SUMOReal rot) {
 
 
 void
-Line::rotateAround(const Position &at, SUMOReal rot) {
+Line::rotateAround(const Position& at, SUMOReal rot) {
     myP1.add(-at.x(), -at.y());
     myP2.add(-at.x(), -at.y());
     {

@@ -186,7 +186,7 @@ public:
      * @return Whether the given edge will be passed by the vehicle
      * @todo Move to MSRoute?
      */
-    bool willPass(const MSEdge * const edge) const throw();
+    bool willPass(const MSEdge* const edge) const throw();
 
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
@@ -194,7 +194,7 @@ public:
      * If the vehicle does not have such a container, it is built.
      * @return The vehicle's knowledge about edge weights
      */
-    MSEdgeWeightsStorage &getWeightsStorage() throw();
+    MSEdgeWeightsStorage& getWeightsStorage() throw();
     //@}
 
 
@@ -279,8 +279,8 @@ public:
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool moveRegardingCritical(SUMOTime t, const MSLane* const lane, const MSVehicle * const pred,
-                               const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
+    bool moveRegardingCritical(SUMOTime t, const MSLane* const lane, const MSVehicle* const pred,
+                               const MSVehicle* const neigh, SUMOReal lengthsInFront) throw();
 
 
 
@@ -329,7 +329,7 @@ public:
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */
-    MSLane *getLane() const throw() {
+    MSLane* getLane() const throw() {
         return myLane;
     }
 
@@ -451,8 +451,8 @@ public:
 
 
 
-    MSAbstractLaneChangeModel &getLaneChangeModel();
-    const MSAbstractLaneChangeModel &getLaneChangeModel() const;
+    MSAbstractLaneChangeModel& getLaneChangeModel();
+    const MSAbstractLaneChangeModel& getLaneChangeModel() const;
 
     /// @name strategical/tactical lane choosing methods
     /// @{
@@ -462,7 +462,7 @@ public:
      */
     struct LaneQ {
         /// @brief The described lane
-        MSLane *lane;
+        MSLane* lane;
         /// @brief The overall length which may be driven when using this lane without a lane change
         SUMOReal length;
         /// @brief The overall vehicle sum on consecutive lanes which can be passed without a lane change
@@ -495,7 +495,7 @@ public:
      * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false, MSLane *startLane=0) const throw();
+    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false, MSLane* startLane=0) const throw();
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
@@ -508,7 +508,7 @@ public:
      * @return The best lane information for the given lane
      * @todo Describe better
      */
-    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane * const l) const throw();
+    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane* const l) const throw();
     /// @}
 
 
@@ -520,7 +520,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSVehicle::myType
      */
-    void replaceVehicleType(MSVehicleType *type) throw();
+    void replaceVehicleType(MSVehicleType* type) throw();
 
 
     /** @brief Returns the vehicle's car following model definition
@@ -530,7 +530,7 @@ public:
      *
      * @return The vehicle's car following model definition
      */
-    inline const MSCFModel &getCarFollowModel() const throw() {
+    inline const MSCFModel& getCarFollowModel() const throw() {
         return myType->getCarFollowModel();
     }
 
@@ -554,9 +554,9 @@ public:
         /// @brief The edge in the route to stop at
         MSRouteIterator edge;
         /// @brief The lane to stop at
-        const MSLane *lane;
+        const MSLane* lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
-        MSBusStop *busstop;
+        MSBusStop* busstop;
         /// @brief The stopping position start
         SUMOReal startPos;
         /// @brief The stopping position end
@@ -580,7 +580,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffset=0) throw();
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset=0) throw();
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
@@ -601,7 +601,7 @@ public:
     bool isParking() const;
     /// @}
 
-    bool knowsEdgeTest(MSEdge &edge) const;
+    bool knowsEdgeTest(MSEdge& edge) const;
     unsigned int getLaneIndex() const;
 
     /**
@@ -818,7 +818,7 @@ public:
         SUMOReal influenceSpeed(SUMOTime currentTime, SUMOReal speed, SUMOReal vSafe, SUMOReal vMin, SUMOReal vMax);
 
 
-        ChangeRequest checkForLaneChanges(SUMOTime currentTime, const MSEdge &currentEdge, unsigned int currentLaneIndex);
+        ChangeRequest checkForLaneChanges(SUMOTime currentTime, const MSEdge& currentEdge, unsigned int currentLaneIndex);
 
 
         /** @brief Sets whether the safe velocity shall be regarded
@@ -876,7 +876,7 @@ public:
      * If no influencer was existing before, one is built, first
      * @return Reference to this vehicle's speed influencer
      */
-    Influencer &getInfluencer();
+    Influencer& getInfluencer();
 
 
 #endif
@@ -884,7 +884,7 @@ public:
 protected:
 
     void checkRewindLinkLanes(SUMOReal lengthsInFront) throw();
-    SUMOReal getSpaceTillLastStanding(MSLane *l, bool &foundStopped) throw();
+    SUMOReal getSpaceTillLastStanding(MSLane* l, bool& foundStopped) throw();
 
     /// @name Interaction with move reminders
     ///@{
@@ -904,7 +904,7 @@ protected:
      * @see MSMoveReminder
      * @see MSLane::getMoveReminder
      */
-    void adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw();
+    void adaptLaneEntering2MoveReminder(const MSLane& enteredLane) throw();
     ///@}
 
 
@@ -920,9 +920,9 @@ protected:
 
 #ifdef _MESSAGES
     /// The message emitters
-    MSMessageEmitter *myLCMsgEmitter;
-    MSMessageEmitter *myBMsgEmitter;
-    MSMessageEmitter *myHBMsgEmitter;
+    MSMessageEmitter* myLCMsgEmitter;
+    MSMessageEmitter* myBMsgEmitter;
+    MSMessageEmitter* myHBMsgEmitter;
 #endif
 
     /// @brief This Vehicles driving state (pos and speed)
@@ -931,9 +931,9 @@ protected:
     /// The lane the vehicle is on
     MSLane* myLane;
 
-    MSAbstractLaneChangeModel *myLaneChangeModel;
+    MSAbstractLaneChangeModel* myLaneChangeModel;
 
-    mutable const MSEdge *myLastBestLanesEdge;
+    mutable const MSEdge* myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
     mutable std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
     static std::vector<MSLane*> myEmptyLaneVector;
@@ -963,17 +963,17 @@ protected:
 
 private:
     struct DriveProcessItem {
-        MSLink *myLink;
+        MSLink* myLink;
         SUMOReal myVLinkPass;
         SUMOReal myVLinkWait;
         bool mySetRequest;
         SUMOTime myArrivalTime;
         SUMOReal myArrivalSpeed;
         SUMOReal myDistance;
-        DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
+        DriveProcessItem(MSLink* link, SUMOReal vPass, SUMOReal vWait, bool setRequest,
                          SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal distance) :
-                myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
-                myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance) { };
+            myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
+            myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed), myDistance(distance) { };
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
@@ -982,14 +982,14 @@ private:
     DriveItemVector myLFLinkLanes;
 
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
-    MSEdgeWeightsStorage *myEdgeWeights;
+    MSEdgeWeightsStorage* myEdgeWeights;
 
     /// @brief The per vehicle variables of the car following model
-    MSCFModel::VehicleVariables *myCFVariables;
+    MSCFModel::VehicleVariables* myCFVariables;
 
 #ifndef NO_TRACI
     /// @brief An instance of a velicty/lane influencing instance; built in "getInfluencer"
-    Influencer *myInfluencer;
+    Influencer* myInfluencer;
 #endif
 
 private:

@@ -339,8 +339,8 @@ extern FXAPI const FXuchar fxexversion[3];
 static void get_time_now(unsigned long* abs_sec, unsigned long* abs_nsec);
 static DWORD get_timeout(unsigned long secs, unsigned long nsecs,DWORD default_to);
 #else
-void convert_timeval(struct timeval *tv,FXuint ms);
-void convert_timespec(struct timespec *ts,FXuint ms);
+void convert_timeval(struct timeval* tv,FXuint ms);
+void convert_timespec(struct timespec* ts,FXuint ms);
 #endif
 
 } // namespace FXUtils

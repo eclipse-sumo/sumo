@@ -75,10 +75,10 @@ public:
      * @param[in] tb The trigger builder to use
      * @param[in] xmlHandler The xml handler to use
      */
-    NLBuilder(OptionsCont &oc, MSNet &net,
-              NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
-              NLDetectorBuilder &db,
-              NLHandler &xmlHandler) throw();
+    NLBuilder(OptionsCont& oc, MSNet& net,
+              NLEdgeControlBuilder& eb, NLJunctionControlBuilder& jb,
+              NLDetectorBuilder& db,
+              NLHandler& xmlHandler) throw();
 
 
     /// @brief Destructor
@@ -107,7 +107,7 @@ protected:
      * @param[in] mmlWhat The option to get the file list from
      * @return Whether loading of all files was successfull
      */
-    bool load(const std::string &mmlWhat);
+    bool load(const std::string& mmlWhat);
 
 
     /** @brief Closes the net building process
@@ -129,7 +129,7 @@ protected:
      * @return The built route loader control
      * @exception ProcessError If an error occured
      */
-    MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError);
+    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc) throw(ProcessError);
 
 
 
@@ -142,7 +142,7 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeEffort : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeEffort(MSNet &net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeEffort(MSNet& net) throw() : myNet(net) {}
 
         /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeEffort() throw() { }
@@ -155,12 +155,12 @@ protected:
          * @param[in] end The end of the interval the weight is valid for
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
-        void addEdgeWeight(const std::string &id,
+        void addEdgeWeight(const std::string& id,
                            SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
 
     private:
         /// @brief The network edges shall be obtained from
-        MSNet &myNet;
+        MSNet& myNet;
 
     };
 
@@ -173,7 +173,7 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeTravelTime(MSNet &net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(MSNet& net) throw() : myNet(net) {}
 
         /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() { }
@@ -186,42 +186,42 @@ protected:
          * @param[in] end The end of the interval the weight is valid for
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
-        void addEdgeWeight(const std::string &id,
+        void addEdgeWeight(const std::string& id,
                            SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
 
     private:
         /// @brief The network edges shall be obtained from
-        MSNet &myNet;
+        MSNet& myNet;
 
     };
 
 
 protected:
     /// @brief The options to get the names of the files to load and further information from
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
     /// @brief The edge control builder to use
-    NLEdgeControlBuilder &myEdgeBuilder;
+    NLEdgeControlBuilder& myEdgeBuilder;
 
     /// @brief The junction control builder to use
-    NLJunctionControlBuilder &myJunctionBuilder;
+    NLJunctionControlBuilder& myJunctionBuilder;
 
     /// @brief The detector control builder to use
-    NLDetectorBuilder &myDetectorBuilder;
+    NLDetectorBuilder& myDetectorBuilder;
 
     /// @brief The net to fill
-    MSNet &myNet;
+    MSNet& myNet;
 
     /// @brief The handler used to parse the net
-    NLHandler &myXMLHandler;
+    NLHandler& myXMLHandler;
 
 
 private:
     /// @brief invalidated copy operator
-    NLBuilder(const NLBuilder &s);
+    NLBuilder(const NLBuilder& s);
 
     /// @brief invalidated assignment operator
-    NLBuilder &operator=(const NLBuilder &s);
+    NLBuilder& operator=(const NLBuilder& s);
 
 };
 

@@ -99,27 +99,33 @@ AGActivityGen::importInfoCity() {
 
 bool
 AGActivityGen::timeTripValidation(AGTrip trip) {
-    if (trip.getDay() > durationInDays+1)
+    if (trip.getDay() > durationInDays+1) {
         return false;
+    }
     if (trip.getDay() == 1) { //first day
-        if (trip.getTime() < beginTime)
+        if (trip.getTime() < beginTime) {
             return false;
-        if (durationInDays == 0 && trip.getTime() > endTime)
+        }
+        if (durationInDays == 0 && trip.getTime() > endTime) {
             return false;
+        }
     }
     if (trip.getDay() == durationInDays+1) { //last day
-        if (trip.getTime() > endTime)
+        if (trip.getTime() > endTime) {
             return false;
-        if (durationInDays == 0 && trip.getTime() < beginTime)
+        }
+        if (durationInDays == 0 && trip.getTime() < beginTime) {
             return false;
+        }
     }
     return true;
 }
 
 void
-AGActivityGen::varDepTime(AGTrip & trip) {
-    if (trip.getType() != "default")
+AGActivityGen::varDepTime(AGTrip& trip) {
+    if (trip.getType() != "default") {
         return;
+    }
     //buses are on time and random are already spread
     int variation = (int)RandHelper::randNorm(0, city.statData.departureVariation);
     AGTime depTime(trip.getDay(), 0, 0, trip.getTime());
@@ -141,16 +147,19 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     int firstTrip = trips.front().getTime() + trips.front().getDay()*86400;
     int lastTrip = trips.front().getTime() + trips.front().getDay()*86400;
     std::map<int, int> histogram;
-    for (int i=0 ; i<100 ; ++i)
+    for (int i=0 ; i<100 ; ++i) {
         histogram[i] = 0;
+    }
     //END var TESTS
     for (it=trips.begin() ; it!=trips.end() ; ++it) {
         atw.addTrip(*it);
         //TEST
-        if (it->getTime() + 86400*it->getDay() > lastTrip)
+        if (it->getTime() + 86400*it->getDay() > lastTrip) {
             lastTrip = it->getTime() + 86400*it->getDay();
-        if (it->getTime() + 86400*it->getDay() < firstTrip)
+        }
+        if (it->getTime() + 86400*it->getDay() < firstTrip) {
             firstTrip = it->getTime() + 86400*it->getDay();
+        }
         //++histogram[((it->getDay()-1)*86400 + it->getTime())/3600];
         ++histogram[(it->getTime())/3600];
         //END TEST
@@ -203,8 +212,9 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
                 tr.setVehicleName(os.str());
                 tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
                 varDepTime(tr); //slight variation on each "default" car
-                if (timeTripValidation(tr))
+                if (timeTripValidation(tr)) {
                     expTrips.push_back(tr);
+                }
                 //else
                 //	std::cout << "trop tard 1 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << std::endl;
             }
@@ -221,8 +231,9 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
             tr.setVehicleName(os.str());
             tr.addLayOverWithoutDestination(*it); //intermediate destinations are taken in account too
             varDepTime(tr); //slight variation on each "default" car
-            if (timeTripValidation(tr))
+            if (timeTripValidation(tr)) {
                 expTrips.push_back(tr);
+            }
             //else
             //	std::cout << "trop tard 2 pour " << tr.getVehicleName() << " " << tr.getTime() << " day: " << tr.getDay() << std::endl;
         }

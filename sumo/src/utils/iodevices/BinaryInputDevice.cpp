@@ -43,8 +43,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-BinaryInputDevice::BinaryInputDevice(const std::string &name) throw()
-        : myStream(name.c_str(), std::fstream::in|std::fstream::binary) {}
+BinaryInputDevice::BinaryInputDevice(const std::string& name) throw()
+    : myStream(name.c_str(), std::fstream::in|std::fstream::binary) {}
 
 
 BinaryInputDevice::~BinaryInputDevice() throw() {}
@@ -56,37 +56,37 @@ BinaryInputDevice::good() const throw() {
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, int &i) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, int& i) throw() {
     os.myStream.read((char*) &i, sizeof(int));
     return os;
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, unsigned int &i) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, unsigned int& i) throw() {
     os.myStream.read((char*) &i, sizeof(unsigned int));
     return os;
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, SUMOReal &f) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, SUMOReal& f) throw() {
     os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, bool &b) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, bool& b) throw() {
     b = 0;
     os.myStream.read((char*) &b, sizeof(char));
     return os;
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, std::string &s) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, std::string& s) throw() {
     unsigned int size;
     os >> size;
     if (size<BUF_MAX) {
@@ -99,8 +99,8 @@ operator>>(BinaryInputDevice &os, std::string &s) throw() {
 }
 
 
-BinaryInputDevice &
-operator>>(BinaryInputDevice &os, long &l) throw() {
+BinaryInputDevice&
+operator>>(BinaryInputDevice& os, long& l) throw() {
     os.myStream.read((char*) &l, sizeof(long));
     return os;
 }

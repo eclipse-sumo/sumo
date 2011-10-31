@@ -47,20 +47,18 @@
 // method definitions
 // ===========================================================================
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset) :
-        NBTrafficLightDefinition(id, programID),
-        myTLLogic(0) 
-{
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset) :
+    NBTrafficLightDefinition(id, programID),
+    myTLLogic(0) {
     myTLLogic = new NBTrafficLightLogic(id, programID, 0);
     myTLLogic->setOffset(offset);
 }
 
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition *def, NBTrafficLightLogic *logic) : 
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
     NBTrafficLightDefinition(def->getID(), def->getProgramID()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end())
-{ 
+    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
     myControlledLinks = def->getControlledLinks();
 }
 
@@ -70,8 +68,8 @@ NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() {
 }
 
 
-NBTrafficLightLogic *
-NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw() {
+NBTrafficLightLogic*
+NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) throw() {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(ec);
     UNUSED_PARAMETER(brakingTime);
@@ -81,17 +79,17 @@ NBLoadedSUMOTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) thr
 
 
 void
-NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex) {
+NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
-        WRITE_ERROR("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() + 
-                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+        WRITE_ERROR("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
+                    "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         return;
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex);
     // avoid duplicates
     remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
-    myControlledLinks.push_back(conn); 
+    myControlledLinks.push_back(conn);
     addNode(from->getToNode());
     addNode(to->getFromNode());
     myOriginalNodes.insert(from->getToNode());
@@ -104,7 +102,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge *from, NBEdge *to, int fromLane, int toL
 
 
 void
-NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont &) const throw() {
+NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont&) const throw() {
     setTLControllingInformation();
 }
 
@@ -119,9 +117,9 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection &c = *it;
+        const NBConnection& c = *it;
         assert(c.getTLIndex() < myTLLogic->getNumLinks());
-        NBEdge *edge = c.getFrom();
+        NBEdge* edge = c.getFrom();
         edge->setControllingTLInformation(c, getID());
     }
 }
@@ -136,12 +134,12 @@ NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) throw() {}
 
 
 void
-NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string &state) {
+NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state) {
     myTLLogic->addStep(duration, state);
 }
 
 
-bool 
+bool
 NBLoadedSUMOTLDef::amInvalid() const {
     if (myControlledLinks.size()==0) {
         return true;
@@ -159,22 +157,22 @@ NBLoadedSUMOTLDef::amInvalid() const {
 }
 
 
-void 
-NBLoadedSUMOTLDef::removeConnection(const NBConnection &conn, bool reconstruct) {
+void
+NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) {
     NBConnectionVector::iterator it = find(myControlledLinks.begin(), myControlledLinks.end(), conn);
     if (it == myControlledLinks.end()) {
         throw ProcessError("Attempt to remove nonexistant connection");
     }
     const int removed = conn.getTLIndex();
-    // remove the connection 
+    // remove the connection
     myControlledLinks.erase(it);
     if (reconstruct) {
-        // updating the edge is only needed for immediate use in NETEDIT. 
+        // updating the edge is only needed for immediate use in NETEDIT.
         // It may conflict with loading diffs
         conn.getFrom()->setControllingTLInformation(conn, "");
         // shift link numbers down so there is no gap
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-            NBConnection &c = *it;
+            NBConnection& c = *it;
             if (c.getTLIndex() > removed) {
                 c.setTLIndex(c.getTLIndex() - 1);
             }
@@ -182,8 +180,8 @@ NBLoadedSUMOTLDef::removeConnection(const NBConnection &conn, bool reconstruct) 
         // update controlling information with new link numbers
         setTLControllingInformation();
         // rebuild the logic
-        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases(); 
-        NBTrafficLightLogic *newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0);
+        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
+        NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0);
         newLogic->setOffset(myTLLogic->getOffset());
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
             std::string newState = it->state;

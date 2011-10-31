@@ -51,7 +51,7 @@
 // ===========================================================================
 void
 RODUAFrame::fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
@@ -74,7 +74,7 @@ RODUAFrame::fillOptions() {
 
 void
 RODUAFrame::addImportOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // register import options
     oc.doRegister("trip-files", 't', new Option_FileName());
     oc.addSynonyme("trips", "trip-files");
@@ -96,7 +96,7 @@ RODUAFrame::addImportOptions() {
 
 void
 RODUAFrame::addDUAOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // register Gawron's DUE-settings
     oc.doRegister("gawron.beta", new Option_Float(SUMOReal(0.3)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
@@ -131,7 +131,7 @@ RODUAFrame::addDUAOptions() {
 
 bool
 RODUAFrame::checkOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     bool ok = ROFrame::checkOptions(oc);
     ok &= (!oc.isSet("departlane") || SUMOVehicleParameter::departlaneValidate(oc.getString("departlane")));
     ok &= (!oc.isSet("departpos") || SUMOVehicleParameter::departposValidate(oc.getString("departpos")));

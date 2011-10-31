@@ -61,9 +61,9 @@ public:
      * @param[in] id Unique id
      * @param[in] lane Lane where detector woks on
      * @param[in] position Position of the detector within the lane
-	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-	GUIInductLoop(const std::string &id, MSLane * const lane, SUMOReal position, bool splitByType) throw();
+    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, bool splitByType) throw();
 
 
     /// @brief Destructor
@@ -81,7 +81,7 @@ public:
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector
      */
-    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
+    virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
 
     /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
@@ -141,8 +141,8 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInductLoop &detector,
-                  GUILaneWrapper &wrapper,
+        MyWrapper(GUIInductLoop& detector,
+                  GUILaneWrapper& wrapper,
                   SUMOReal pos) throw();
 
         /// @brief Destructor
@@ -159,8 +159,8 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+        GUIParameterTableWindow* getParameterWindow(
+            GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -175,17 +175,17 @@ public:
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
+        void drawGL(const GUIVisualizationSettings& s) const throw();
         //@}
 
 
         /// @brief Returns the detector itself
-        GUIInductLoop &getLoop();
+        GUIInductLoop& getLoop();
 
 
     private:
         /// @brief The wrapped detector
-        GUIInductLoop &myDetector;
+        GUIInductLoop& myDetector;
 
         /// @brief The detector's boundary
         Boundary myBoundary;

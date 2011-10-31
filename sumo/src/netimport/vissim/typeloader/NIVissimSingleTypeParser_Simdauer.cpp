@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Simdauer::NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Simdauer::NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Simdauer::~NIVissimSingleTypeParser_Simdauer() {}
 
 
 bool
-NIVissimSingleTypeParser_Simdauer::parse(std::istream &from) {
+NIVissimSingleTypeParser_Simdauer::parse(std::istream& from) {
     std::string duration;
     from >> duration;
     // !!!

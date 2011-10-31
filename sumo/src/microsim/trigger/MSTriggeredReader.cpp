@@ -38,8 +38,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTriggeredReader::MSTriggeredReader(MSNet &)
-        : myOffset(0), myWasInitialised(false) {}
+MSTriggeredReader::MSTriggeredReader(MSNet&)
+    : myOffset(0), myWasInitialised(false) {}
 
 
 MSTriggeredReader::~MSTriggeredReader() {}

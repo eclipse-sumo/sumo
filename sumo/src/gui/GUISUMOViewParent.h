@@ -76,8 +76,8 @@ public:
      * @param[in] w Initial width
      * @param[in] h Initial height
      */
-    GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
-                      const FXString& name, GUIMainWindow *parentWindow,
+    GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
+                      const FXString& name, GUIMainWindow* parentWindow,
                       FXIcon* ic=NULL, FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0);
 
 
@@ -86,7 +86,7 @@ public:
      * @param[in] net The network to show
      * @todo Check whether this could be done in the constructor
      */
-    virtual GUISUMOAbstractView* init(FXGLCanvas *share, GUINet &net);
+    virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net);
 
 
     /// @brief Destructor
@@ -94,16 +94,16 @@ public:
 
 
     /// @brief Called if the user wants to make a snapshot (screenshot)
-    long onCmdMakeSnapshot(FXObject*sender,FXSelector,void*);
+    long onCmdMakeSnapshot(FXObject* sender,FXSelector,void*);
 
     /// @brief Called on a simulation step
-    long onSimStep(FXObject*sender,FXSelector,void*);
+    long onSimStep(FXObject* sender,FXSelector,void*);
 
     /// @brief  locator-callback
     long onCmdLocate(FXObject*,FXSelector,void*);
 
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
-    bool isSelected(GUIGlObject *o) const;
+    bool isSelected(GUIGlObject* o) const;
 
 protected:
     /// @brief FOX needs this

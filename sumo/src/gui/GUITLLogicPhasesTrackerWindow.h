@@ -61,8 +61,8 @@ class MFXMutex;
  * @brief This window displays a phase diagram for a chosen tl-logic.
  */
 class GUITLLogicPhasesTrackerWindow
-        : public FXMainWindow,
-            public ValueRetriever<std::pair<SUMOTime, MSPhaseDefinition> > {
+    : public FXMainWindow,
+      public ValueRetriever<std::pair<SUMOTime, MSPhaseDefinition> > {
     FXDECLARE(GUITLLogicPhasesTrackerWindow)
 public:
     /** @brief Constructor to track current phases
@@ -71,8 +71,8 @@ public:
      * @param[in] wrapper The tracked logic's wrapper
      * @param[in] src The value source to track
      */
-    GUITLLogicPhasesTrackerWindow(GUIMainWindow &app,
-                                  MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+    GUITLLogicPhasesTrackerWindow(GUIMainWindow& app,
+                                  MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
                                   ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src) throw();
 
 
@@ -83,9 +83,9 @@ public:
      * @param[in] phases The phases to show
      */
     GUITLLogicPhasesTrackerWindow(
-        GUIMainWindow &app,
-        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-        const MSSimpleTrafficLightLogic::Phases &phases) throw();
+        GUIMainWindow& app,
+        MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
+        const MSSimpleTrafficLightLogic::Phases& phases) throw();
 
 
     /// @brief Destructor
@@ -112,13 +112,13 @@ public:
     /// {
 
     /// @brief called on size change
-    long onConfigure(FXObject *sender, FXSelector sel, void *data);
+    long onConfigure(FXObject* sender, FXSelector sel, void* data);
 
     /// @brief called if the widget shall be repainted
-    long onPaint(FXObject *sender, FXSelector sel, void *data);
+    long onPaint(FXObject* sender, FXSelector sel, void* data);
 
     /// @brief called on a simulation step
-    long onSimStep(FXObject *sender, FXSelector sel, void *data);
+    long onSimStep(FXObject* sender, FXSelector sel, void* data);
     /// }
 
 
@@ -144,8 +144,8 @@ public:
          * @param[in] app The main application window
          * @param[in] parent This panel's logial parent
          */
-        GUITLLogicPhasesTrackerPanel(FXComposite *c,
-                                     GUIMainWindow &app, GUITLLogicPhasesTrackerWindow &parent) throw();
+        GUITLLogicPhasesTrackerPanel(FXComposite* c,
+                                     GUIMainWindow& app, GUITLLogicPhasesTrackerWindow& parent) throw();
 
         /// @brief Destructor
         ~GUITLLogicPhasesTrackerPanel() throw();
@@ -167,10 +167,10 @@ public:
 
     private:
         /// @brief The parent window
-        GUITLLogicPhasesTrackerWindow *myParent;
+        GUITLLogicPhasesTrackerWindow* myParent;
 
         /// @brief The main application
-        GUIMainWindow *myApplication;
+        GUIMainWindow* myApplication;
 
     protected:
         /// @brief protected constructor for FOX
@@ -182,15 +182,15 @@ public:
     /** @brief Draws all values
      * @param[in] The target panel
      */
-    void drawValues(GUITLLogicPhasesTrackerPanel &caller) throw();
+    void drawValues(GUITLLogicPhasesTrackerPanel& caller) throw();
 
 
 private:
     /// @brief The main application
-    GUIMainWindow *myApplication;
+    GUIMainWindow* myApplication;
 
     /// @brief The logic to display
-    MSTrafficLightLogic *myTLLogic;
+    MSTrafficLightLogic* myTLLogic;
 
     /// @brief The list of phases
     PhasesVector myPhases;
@@ -199,7 +199,7 @@ private:
     DurationsVector myDurations;
 
     /// @brief The panel to draw on
-    GUITLLogicPhasesTrackerPanel *myPanel;
+    GUITLLogicPhasesTrackerPanel* myPanel;
 
     /// @brief A lock to avoid addition of new values while drawing
     MFXMutex myLock;
@@ -231,13 +231,13 @@ private:
     bool myAmInTrackingMode;
 
     /// @brief The tool bar drag (tracking mode)
-    FXToolBarShell *myToolBarDrag;
+    FXToolBarShell* myToolBarDrag;
 
     /// @brief The tool bar (tracking mode)
-    FXToolBar *myToolBar;
+    FXToolBar* myToolBar;
 
     /// @brief The offset changer (tracking mode)
-    FXRealSpinDial *myBeginOffset;
+    FXRealSpinDial* myBeginOffset;
 
 
 protected:

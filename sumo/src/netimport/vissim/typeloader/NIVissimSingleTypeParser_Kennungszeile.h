@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Kennungszeile :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Kennungszeile(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Kennungszeile(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Kennungszeile();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrtverlaufdateien :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Fahrtverlaufdateien(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Fahrtverlaufdateien(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Fahrtverlaufdateien();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

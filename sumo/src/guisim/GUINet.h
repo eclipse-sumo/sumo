@@ -91,8 +91,8 @@ public:
      * @param[in] insertionEvents The event control to use for insertion events
      * @exception ProcessError If a network was already constructed
      */
-    GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-           MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents) throw(ProcessError);
+    GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
+           MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents) throw(ProcessError);
 
 
     /// @brief Destructor
@@ -110,8 +110,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -121,8 +121,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(
+        GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -137,21 +137,21 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
     /// returns the bounder of the network
-    const Boundary &getBoundary() const;
+    const Boundary& getBoundary() const;
 
     /// returns the position of a junction
-    Position getJunctionPosition(const std::string &name) const;
+    Position getJunctionPosition(const std::string& name) const;
 
     /// returns the information whether the vehicle still exists
-    bool vehicleExists(const std::string &name) const;
+    bool vehicleExists(const std::string& name) const;
 
     /// returns the boundary of an edge
-    Boundary getEdgeBoundary(const std::string &name) const;
+    Boundary getEdgeBoundary(const std::string& name) const;
 
     /// Some further steps needed for gui processing
     void guiSimulationStep();
@@ -203,11 +203,11 @@ public:
 
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
-    unsigned int getLinkTLID(MSLink *link) const;
+    unsigned int getLinkTLID(MSLink* link) const;
 
     /** Returns the index of the link within the junction that controls the given link;
      * Returns -1 if the link is not controlled by a tls */
-    int getLinkTLIndex(MSLink *link) const;
+    int getLinkTLIndex(MSLink* link) const;
 
 
     /// @name locator-methods
@@ -230,7 +230,7 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    SUMORTree &getVisualisationSpeedUp() throw() {
+    SUMORTree& getVisualisationSpeedUp() throw() {
         return myGrid;
     }
 
@@ -238,7 +238,7 @@ public:
     /** @brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
      */
-    const SUMORTree &getVisualisationSpeedUp() const throw() {
+    const SUMORTree& getVisualisationSpeedUp() const throw() {
         return myGrid;
     }
 
@@ -254,7 +254,7 @@ private:
     void initTLMap();
 
     /// @brief creates a wrapper for the given logic and returns the GlID
-    GUIGlID createTLWrapper(MSTrafficLightLogic *tll);
+    GUIGlID createTLWrapper(MSTrafficLightLogic* tll);
 
 
 protected:

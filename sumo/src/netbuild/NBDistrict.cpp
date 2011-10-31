@@ -47,13 +47,13 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBDistrict::NBDistrict(const std::string &id, const Position &pos)
-        : Named(StringUtils::convertUmlaute(id)),
-        myPosition(pos) {}
+NBDistrict::NBDistrict(const std::string& id, const Position& pos)
+    : Named(StringUtils::convertUmlaute(id)),
+      myPosition(pos) {}
 
 
-NBDistrict::NBDistrict(const std::string &id)
-        : Named(id), myPosition(0, 0) {}
+NBDistrict::NBDistrict(const std::string& id)
+    : Named(id), myPosition(0, 0) {}
 
 
 NBDistrict::~NBDistrict() {}
@@ -68,7 +68,7 @@ NBDistrict::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 
 
 bool
-NBDistrict::addSource(NBEdge * const source, SUMOReal weight) {
+NBDistrict::addSource(NBEdge* const source, SUMOReal weight) {
     EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);
     if (i!=mySources.end()) {
         return false;
@@ -81,7 +81,7 @@ NBDistrict::addSource(NBEdge * const source, SUMOReal weight) {
 
 
 bool
-NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) {
+NBDistrict::addSink(NBEdge* const sink, SUMOReal weight) {
     EdgeVector::iterator i = find(mySinks.begin(), mySinks.end(), sink);
     if (i!=mySinks.end()) {
         return false;
@@ -94,13 +94,13 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) {
 
 
 void
-NBDistrict::setCenter(const Position &pos) {
+NBDistrict::setCenter(const Position& pos) {
     myPosition = pos;
 }
 
 
 void
-NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) {
+NBDistrict::replaceIncoming(const EdgeVector& which, NBEdge* const by) {
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
@@ -109,7 +109,7 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) {
     EdgeVector::iterator i=mySinks.begin();
     WeightsCont::iterator j=mySinkWeights.begin();
     for (; i!=mySinks.end(); i++, j++) {
-        NBEdge *tmp = (*i);
+        NBEdge* tmp = (*i);
         SUMOReal val = (*j);
         if (find(which.begin(), which.end(), tmp)==which.end()) {
             // if the current edge shall not be replaced, add to the
@@ -132,7 +132,7 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) {
 
 
 void
-NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) {
+NBDistrict::replaceOutgoing(const EdgeVector& which, NBEdge* const by) {
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
@@ -141,7 +141,7 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) {
     EdgeVector::iterator i=mySources.begin();
     WeightsCont::iterator j=mySourceWeights.begin();
     for (; i!=mySources.end(); i++, j++) {
-        NBEdge *tmp = (*i);
+        NBEdge* tmp = (*i);
         SUMOReal val = (*j);
         if (find(which.begin(), which.end(), tmp)==which.end()) {
             // if the current edge shall not be replaced, add to the
@@ -164,7 +164,7 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) {
 
 
 void
-NBDistrict::removeFromSinksAndSources(NBEdge * const e) {
+NBDistrict::removeFromSinksAndSources(NBEdge* const e) {
     size_t i;
     for (i=0; i<mySinks.size(); ++i) {
         if (mySinks[i]==e) {
@@ -182,7 +182,7 @@ NBDistrict::removeFromSinksAndSources(NBEdge * const e) {
 
 
 void
-NBDistrict::addShape(const PositionVector &p) {
+NBDistrict::addShape(const PositionVector& p) {
     myShape = p;
 }
 

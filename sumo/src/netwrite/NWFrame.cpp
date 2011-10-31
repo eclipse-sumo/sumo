@@ -50,7 +50,7 @@
 // ===========================================================================
 void
 NWFrame::fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // register options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "sumo-output");
@@ -77,7 +77,7 @@ NWFrame::fillOptions() {
 
 bool
 NWFrame::checkOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")) {
@@ -88,7 +88,7 @@ NWFrame::checkOptions() {
 
 
 void
-NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
@@ -102,8 +102,8 @@ NWFrame::writeNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
-void 
-NWFrame::writePositionLong(const Position& pos, OutputDevice &dev) {
+void
+NWFrame::writePositionLong(const Position& pos, OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_X, pos.x());
     dev.writeAttr(SUMO_ATTR_Y, pos.y());
     if (pos.z() != 0) {

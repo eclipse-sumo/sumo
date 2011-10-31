@@ -67,7 +67,7 @@ FileHelpers::exists(std::string path) {
 // file path evaluating functions
 // ---------------------------------------------------------------------------
 std::string
-FileHelpers::getFilePath(const std::string &path) {
+FileHelpers::getFilePath(const std::string& path) {
     size_t beg = path.find_last_of("\\/");
     if (beg==std::string::npos||beg==0) {
         return "";
@@ -77,22 +77,22 @@ FileHelpers::getFilePath(const std::string &path) {
 
 
 std::string
-FileHelpers::getConfigurationRelative(const std::string &configPath,
-                                      const std::string &path) {
+FileHelpers::getConfigurationRelative(const std::string& configPath,
+                                      const std::string& path) {
     std::string retPath = getFilePath(configPath);
     return retPath + path;
 }
 
 
 bool
-FileHelpers::isSocket(const std::string &name) {
+FileHelpers::isSocket(const std::string& name) {
     size_t colonPos = name.find(":");
     return (colonPos != std::string::npos) && (colonPos > 1);
 }
 
 
 bool
-FileHelpers::isAbsolute(const std::string &path) {
+FileHelpers::isAbsolute(const std::string& path) {
     if (isSocket(path)) {
         return true;
     }
@@ -116,7 +116,7 @@ FileHelpers::isAbsolute(const std::string &path) {
 
 std::string
 FileHelpers::checkForRelativity(std::string filename,
-                                const std::string &basePath) {
+                                const std::string& basePath) {
     if (!isAbsolute(filename)) {
         filename = getConfigurationRelative(basePath, filename);
     }
@@ -127,46 +127,46 @@ FileHelpers::checkForRelativity(std::string filename,
 // ---------------------------------------------------------------------------
 // binary reading/writing functions
 // ---------------------------------------------------------------------------
-std::ostream &
-FileHelpers::writeInt(std::ostream &strm, int value) {
+std::ostream&
+FileHelpers::writeInt(std::ostream& strm, int value) {
     strm.write((char*) &value, sizeof(int));
     return strm;
 }
 
 
-std::ostream &
-FileHelpers::writeUInt(std::ostream &strm, unsigned int value) {
+std::ostream&
+FileHelpers::writeUInt(std::ostream& strm, unsigned int value) {
     strm.write((char*) &value, sizeof(unsigned int));
     return strm;
 }
 
 
-std::ostream &
-FileHelpers::writeFloat(std::ostream &strm, SUMOReal value) {
+std::ostream&
+FileHelpers::writeFloat(std::ostream& strm, SUMOReal value) {
     strm.write((char*) &value, sizeof(SUMOReal));
     return strm;
 }
 
 
-std::ostream &
-FileHelpers::writeByte(std::ostream &strm, unsigned char value) {
+std::ostream&
+FileHelpers::writeByte(std::ostream& strm, unsigned char value) {
     strm.write((char*) &value, sizeof(char));
     return strm;
 }
 
 
-std::ostream &
-FileHelpers::writeString(std::ostream &strm, const std::string &value) {
+std::ostream&
+FileHelpers::writeString(std::ostream& strm, const std::string& value) {
     size_t size = value.length();
-    const char *cstr = value.c_str();
+    const char* cstr = value.c_str();
     writeUInt(strm, (unsigned int) size);
     strm.write((char*) cstr, (std::streamsize)(sizeof(char)*size));
     return strm;
 }
 
 
-std::ostream &
-FileHelpers::writeTime(std::ostream &strm, SUMOTime value) {
+std::ostream&
+FileHelpers::writeTime(std::ostream& strm, SUMOTime value) {
     strm.write((char*) &value, sizeof(SUMOTime));
     return strm;
 }

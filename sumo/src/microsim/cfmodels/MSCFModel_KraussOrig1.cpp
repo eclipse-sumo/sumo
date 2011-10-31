@@ -39,7 +39,7 @@
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
         SUMOReal dawdle, SUMOReal headwayTime)
-        : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel*headwayTime) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel* headwayTime) {
 }
 
 
@@ -47,7 +47,7 @@ MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
 
 
 SUMOReal
-MSCFModel_KraussOrig1::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -67,13 +67,13 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel_KraussOrig1::followSpeed(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_KraussOrig1::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
 }
 
@@ -100,7 +100,7 @@ SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
 }
 
 
-MSCFModel *
-MSCFModel_KraussOrig1::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_KraussOrig1::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_KraussOrig1(vtype, myAccel, myDecel, myDawdle, myHeadwayTime);
 }

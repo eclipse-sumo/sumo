@@ -48,8 +48,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) {
+TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -80,7 +80,7 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempMsg.writeInt((int) ids.size());
         }
     } else {
-        PointOfInterest *p = 0;
+        PointOfInterest* p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPOICont(i).get(id);
@@ -117,8 +117,8 @@ TraCIServerAPI_POI::processGet(TraCIServer &server, tcpip::Storage &inputStorage
 
 
 bool
-TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) {
+TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -129,7 +129,7 @@ TraCIServerAPI_POI::processSet(TraCIServer &server, tcpip::Storage &inputStorage
     }
     // id
     std::string id = inputStorage.readString();
-    PointOfInterest *p = 0;
+    PointOfInterest* p = 0;
     int layer = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (variable!=ADD&&variable!=REMOVE) {

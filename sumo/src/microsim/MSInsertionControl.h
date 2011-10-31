@@ -68,7 +68,7 @@ public:
      * @param[in] maxDepartDelay Vehicles waiting for insertion longer than this time are deleted (-1: no deletion)
      * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
      */
-    MSInsertionControl(MSVehicleControl &vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
+    MSInsertionControl(MSVehicleControl& vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
 
 
     /// @brief Destructor.
@@ -100,14 +100,14 @@ public:
      *
      * @param[in] veh The vehicle to add for later insertion
      */
-    void add(SUMOVehicle *veh) throw();
+    void add(SUMOVehicle* veh) throw();
 
 
     /** @brief Adds parameter for a vehicle flow for departure
      *
      * @param[in] flow The flow to add for later insertion
      */
-    void add(SUMOVehicleParameter *pars) throw();
+    void add(SUMOVehicleParameter* pars) throw();
 
 
     /** @brief Returns the number of waiting vehicles
@@ -142,15 +142,15 @@ private:
      * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
      * @return The number of emitted vehicles (0 or 1)
      */
-    unsigned int tryInsert(SUMOTime time, SUMOVehicle *veh,
-                           MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
+    unsigned int tryInsert(SUMOTime time, SUMOVehicle* veh,
+                           MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError);
 
 
     /** @brief Checks whether any flow is blocked due to this vehicle and clears the block
      *
      * @param[in] veh The vehicle to check for
      */
-    void checkFlowWait(SUMOVehicle *veh) throw();
+    void checkFlowWait(SUMOVehicle* veh) throw();
 
 
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
@@ -168,12 +168,12 @@ private:
      * @return The number of emitted vehicles
      */
     unsigned int checkFlows(SUMOTime time,
-                            MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
+                            MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError);
 
 
 private:
     /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)
-    MSVehicleControl &myVehicleControl;
+    MSVehicleControl& myVehicleControl;
 
     /// @brief All loaded vehicles sorted by their departure time
     MSVehicleContainer myAllVeh;
@@ -190,7 +190,7 @@ private:
         /// @brief whether it has route or vehicle type distribution
         bool isVolatile;
         /// @brief The last created vehicle
-        SUMOVehicle *vehicle;
+        SUMOVehicle* vehicle;
     };
 
     /// @brief Container for periodical vehicle parameters

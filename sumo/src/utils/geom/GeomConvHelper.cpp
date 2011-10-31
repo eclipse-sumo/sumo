@@ -44,8 +44,8 @@
 // method definitions
 // ===========================================================================
 PositionVector
-GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string &objecttype,
-                                    const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
+GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string& objecttype,
+                                    const char* objectid, bool& ok, bool allowEmpty, bool report) throw() {
     if (shpdef=="") {
         if (!allowEmpty) {
             emitError(report, "Shape", objecttype, objectid, "the shape is empty");
@@ -71,11 +71,11 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string
                 SUMOReal z = TplConvert<char>::_2SUMOReal(pos.next().c_str());
                 shape.push_back(Position(x, y, z));
             }
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             emitError(report, "Shape", objecttype, objectid, "not numeric position entry");
             ok = false;
             return PositionVector();
-        } catch (EmptyData &) {
+        } catch (EmptyData&) {
             emitError(report, "Shape", objecttype, objectid, "empty position entry");
             ok = false;
             return PositionVector();
@@ -86,8 +86,8 @@ GeomConvHelper::parseShapeReporting(const std::string &shpdef, const std::string
 
 
 Boundary
-GeomConvHelper::parseBoundaryReporting(const std::string &def, const std::string &objecttype,
-                                       const char *objectid, bool &ok, bool report) throw() {
+GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string& objecttype,
+                                       const char* objectid, bool& ok, bool report) throw() {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
         emitError(report, "Bounding box", objecttype, objectid, "mismatching entry number");
@@ -100,9 +100,9 @@ GeomConvHelper::parseBoundaryReporting(const std::string &def, const std::string
         SUMOReal xmax = TplConvert<char>::_2SUMOReal(st.next().c_str());
         SUMOReal ymax = TplConvert<char>::_2SUMOReal(st.next().c_str());
         return Boundary(xmin, ymin, xmax, ymax);
-    } catch (NumberFormatException &) {
+    } catch (NumberFormatException&) {
         emitError(report, "Shape", objecttype, objectid, "not numeric entry");
-    } catch (EmptyData &) {
+    } catch (EmptyData&) {
         emitError(report, "Shape", objecttype, objectid, "empty entry");
     }
     ok = false;
@@ -111,8 +111,8 @@ GeomConvHelper::parseBoundaryReporting(const std::string &def, const std::string
 
 
 void
-GeomConvHelper::emitError(bool report, const std::string &what, const std::string &objecttype,
-                          const char *objectid, const std::string &desc) throw() {
+GeomConvHelper::emitError(bool report, const std::string& what, const std::string& objecttype,
+                          const char* objectid, const std::string& desc) throw() {
     if (!report) {
         return;
     }

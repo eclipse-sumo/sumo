@@ -64,7 +64,7 @@ int NIVissimConnectionCluster::myStaticBlaID = 0;
 // ---------------------------------------------------------------------------
 // NIVissimConnectionCluster::NodeSubCluster - methods
 // ---------------------------------------------------------------------------
-NIVissimConnectionCluster::NodeSubCluster::NodeSubCluster(NIVissimConnection *c) {
+NIVissimConnectionCluster::NodeSubCluster::NodeSubCluster(NIVissimConnection* c) {
     add(c);
 }
 
@@ -73,14 +73,14 @@ NIVissimConnectionCluster::NodeSubCluster::~NodeSubCluster() {}
 
 
 void
-NIVissimConnectionCluster::NodeSubCluster::add(NIVissimConnection *c) {
+NIVissimConnectionCluster::NodeSubCluster::add(NIVissimConnection* c) {
     myBoundary.add(c->getBoundingBox());
     myConnections.push_back(c);
 }
 
 
 void
-NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::NodeSubCluster &c) {
+NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::NodeSubCluster& c) {
     for (ConnectionCont::const_iterator i=c.myConnections.begin(); i!=c.myConnections.end(); i++) {
         add(*i);
     }
@@ -107,7 +107,7 @@ NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const {
 
 bool
 NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
-    const NIVissimConnectionCluster::NodeSubCluster &c,
+    const NIVissimConnectionCluster::NodeSubCluster& c,
     SUMOReal offset) {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c.myBoundary.xmax()>=c.myBoundary.xmin());
@@ -120,9 +120,9 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
 // NIVissimConnectionCluster - methods
 // ---------------------------------------------------------------------------
 NIVissimConnectionCluster::NIVissimConnectionCluster(
-    const IntVector &connections, int nodeCluster, int edgeid)
-        : myConnections(connections), myNodeCluster(nodeCluster),
-        myBlaID(myStaticBlaID++) {
+    const IntVector& connections, int nodeCluster, int edgeid)
+    : myConnections(connections), myNodeCluster(nodeCluster),
+      myBlaID(myStaticBlaID++) {
     recomputeBoundary();
     myClusters.push_back(this);
     assert(edgeid>0);
@@ -131,7 +131,7 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
     }
     // add information about incoming and outgoing edges
     for (IntVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         assert(c!=0);
         myOutgoingEdges.push_back(c->getToEdgeID());
         myIncomingEdges.push_back(c->getFromEdgeID());
@@ -143,16 +143,16 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
 
 
 NIVissimConnectionCluster::NIVissimConnectionCluster(
-    const IntVector &connections, const Boundary &boundary,
-    int nodeCluster, const IntVector &edges)
-        : myConnections(connections), myBoundary(boundary),
-        myNodeCluster(nodeCluster), myEdges(edges) {
+    const IntVector& connections, const Boundary& boundary,
+    int nodeCluster, const IntVector& edges)
+    : myConnections(connections), myBoundary(boundary),
+      myNodeCluster(nodeCluster), myEdges(edges) {
     myClusters.push_back(this);
     recomputeBoundary();
     assert(myBoundary.xmax()>=myBoundary.xmin());
     // add information about incoming and outgoing edges
     for (IntVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         assert(c!=0);
         myOutgoingEdges.push_back(c->getToEdgeID());
         myIncomingEdges.push_back(c->getFromEdgeID());
@@ -176,7 +176,7 @@ NIVissimConnectionCluster::getNextFreeNodeID() {
 
 
 bool
-NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c,
+NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster* c,
                                         SUMOReal offset) const {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c->myBoundary.xmax()>=c->myBoundary.xmin());
@@ -185,7 +185,7 @@ NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c,
 
 
 void
-NIVissimConnectionCluster::add(NIVissimConnectionCluster *c) {
+NIVissimConnectionCluster::add(NIVissimConnectionCluster* c) {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c->myBoundary.xmax()>=c->myBoundary.xmin());
     myBoundary.add(c->myBoundary);
@@ -327,7 +327,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
 
 
 bool
-NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offset) {
+NIVissimConnectionCluster::joinable(NIVissimConnectionCluster* c2, SUMOReal offset) {
     // join clusters which have at least one connection in common
     if (VectorHelper<int>::subSetExists(myConnections, c2->myConnections)) {
         return true;
@@ -384,7 +384,7 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offs
 
 
 bool
-NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2) {
+NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionCluster* c2) {
     if ((myIncomingEdges.size()==1&&myOutgoingEdges.size()==1)) {
         return false;
     }
@@ -399,11 +399,11 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     // connections must cross
     bool crosses = false;
     for (IntVector::const_iterator j1=myConnections.begin(); j1!=myConnections.end()&&!crosses; j1++) {
-        NIVissimConnection *c1 = NIVissimConnection::dictionary(*j1);
-        const PositionVector &g1 = c1->getGeometry();
+        NIVissimConnection* c1 = NIVissimConnection::dictionary(*j1);
+        const PositionVector& g1 = c1->getGeometry();
         for (IntVector::const_iterator j2=c2->myConnections.begin(); j2!=c2->myConnections.end()&&!crosses; j2++) {
-            NIVissimConnection *c2 = NIVissimConnection::dictionary(*j2);
-            const PositionVector &g2 = c2->getGeometry();
+            NIVissimConnection* c2 = NIVissimConnection::dictionary(*j2);
+            const PositionVector& g2 = c2->getGeometry();
             if (g1.intersects(g2)) {
                 crosses = true;
             }
@@ -417,8 +417,8 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
         return false;
     }
     // check whether the connection is bidirectional
-    NIVissimEdge *oe = NIVissimEdge::dictionary(myOutgoingEdges[0]);
-    NIVissimEdge *ie = NIVissimEdge::dictionary(c2->myIncomingEdges[0]);
+    NIVissimEdge* oe = NIVissimEdge::dictionary(myOutgoingEdges[0]);
+    NIVissimEdge* ie = NIVissimEdge::dictionary(c2->myIncomingEdges[0]);
     if (oe==0||ie==0) {
         return false;
     }
@@ -431,15 +431,15 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
 
 
 bool
-NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2) {
+NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
     //
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c1 = NIVissimConnection::dictionary(*i);
         for (IntVector::iterator j=cc2->myConnections.begin(); j!=cc2->myConnections.end(); j++) {
-            NIVissimConnection *c2 = NIVissimConnection::dictionary(*j);
+            NIVissimConnection* c2 = NIVissimConnection::dictionary(*j);
             if (c1->getFromEdgeID()==c2->getFromEdgeID()) {
-                NIVissimEdge *e = NIVissimEdge::dictionary(c1->getFromEdgeID());
-                const PositionVector &g = e->getGeometry();
+                NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
+                const PositionVector& g = e->getGeometry();
                 SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point(
                                     g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
                 SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point(
@@ -449,8 +449,8 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2) {
                 }
             }
             if (c1->getToEdgeID()==c2->getToEdgeID()) {
-                NIVissimEdge *e = NIVissimEdge::dictionary(c1->getFromEdgeID());
-                const PositionVector &g = e->getGeometry();
+                NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
+                const PositionVector& g = e->getGeometry();
                 SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point(
                                     g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
                 SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point(
@@ -466,11 +466,11 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2) {
 
 
 IntVector
-NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector &iv1,
-        const IntVector &iv2) const {
+NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector& iv1,
+        const IntVector& iv2) const {
     IntVector ret(iv1);
     for (IntVector::const_iterator i=iv1.begin(); i!=iv1.end(); i++) {
-        NIVissimEdge *e = NIVissimEdge::dictionary(*i);
+        NIVissimEdge* e = NIVissimEdge::dictionary(*i);
         const std::vector<NIVissimEdge*> treatAsSame = e->getToTreatAsSame();
         for (std::vector<NIVissimEdge*>::const_iterator j=treatAsSame.begin(); j!=treatAsSame.end(); j++) {
             if (find(iv2.begin(), iv2.end(), (*j)->getID())==iv2.end()) {
@@ -485,10 +485,10 @@ IntVector
 NIVissimConnectionCluster::getDisturbanceParticipators() {
     IntVector ret;
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
-        const IntVector &disturbances = c->getDisturbances();
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
+        const IntVector& disturbances = c->getDisturbances();
         for (IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
-            NIVissimDisturbance *d = NIVissimDisturbance::dictionary(*j);
+            NIVissimDisturbance* d = NIVissimDisturbance::dictionary(*j);
             ret.push_back(d->getEdgeID());
             ret.push_back(d->getDisturbanceID());
         }
@@ -544,7 +544,7 @@ NIVissimConnectionCluster::searchForConnection(int id) {
 
 
 void
-NIVissimConnectionCluster::_debugOut(std::ostream &into) {
+NIVissimConnectionCluster::_debugOut(std::ostream& into) {
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         IntVector connections = (*i)->myConnections;
         for (IntVector::iterator j=connections.begin(); j!=connections.end(); j++) {
@@ -573,9 +573,9 @@ NIVissimConnectionCluster::dictSize() {
 
 
 void
-NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c) {
+NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
     for (NodeSubCluster::ConnectionCont::const_iterator i=c.myConnections.begin(); i!=c.myConnections.end(); i++) {
-        NIVissimConnection *conn = *i;
+        NIVissimConnection* conn = *i;
         int connid = conn->getID();
         IntVector::iterator j = find(myConnections.begin(), myConnections.end(), connid);
         if (j!=myConnections.end()) {
@@ -590,7 +590,7 @@ void
 NIVissimConnectionCluster::recomputeBoundary() {
     myBoundary = Boundary();
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c!=0) {
             myBoundary.add(c->getFromGeomPosition());
             myBoundary.add(c->getToGeomPosition());
@@ -603,14 +603,14 @@ NIVissimConnectionCluster::recomputeBoundary() {
 }
 
 
-NBNode *
+NBNode*
 NIVissimConnectionCluster::getNBNode() const {
     return NIVissimNodeCluster::dictionary(myNodeCluster)->getNBNode();
 }
 
 
 bool
-NIVissimConnectionCluster::around(const Position &p, SUMOReal offset) const {
+NIVissimConnectionCluster::around(const Position& p, SUMOReal offset) const {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     return myBoundary.around(p, offset);
 }
@@ -623,14 +623,14 @@ NIVissimConnectionCluster::recheckEdges() {
     // remove the cluster from all edges at first
     IntVector::iterator i;
     for (i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NIVissimEdge *edge = NIVissimEdge::dictionary(*i);
+        NIVissimEdge* edge = NIVissimEdge::dictionary(*i);
         edge->removeFromConnectionCluster(this);
     }
     // clear edge information
     myEdges.clear();
     // recheck which edges do still participate and add edges
     for (i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         assert(myBoundary.xmax()>=myBoundary.xmin());
         if (myBoundary.around(c->getFromGeomPosition(), 5)) {
             myEdges.push_back(c->getFromEdgeID());
@@ -642,7 +642,7 @@ NIVissimConnectionCluster::recheckEdges() {
     }
     // connect edges
     for (i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NIVissimEdge *edge = NIVissimEdge::dictionary(*i);
+        NIVissimEdge* edge = NIVissimEdge::dictionary(*i);
         edge->addToConnectionCluster(this);
     }
 }
@@ -656,7 +656,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
         size_t part = 0;
         IntVector::const_iterator i;
         for (i=myConnections.begin(); i!=myConnections.end(); i++) {
-            NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+            NIVissimConnection* c = NIVissimConnection::dictionary(*i);
             if (c->getFromEdgeID()==edgeid) {
                 part++;
                 sum += c->getFromPosition();
@@ -674,7 +674,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     if (myNodeCluster>=0) {
         // try to find the nearest point on the edge
         //  !!! only the main geometry is regarded
-        NIVissimNodeDef *node =
+        NIVissimNodeDef* node =
             NIVissimNodeDef::dictionary(myNodeCluster);
         if (node!=0) {
             SUMOReal pos = node->getEdgePosition(edgeid);
@@ -701,13 +701,13 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     WRITE_WARNING("NIVissimConnectionCluster: how to get an edge's position?");
     // !!!
     assert(myBoundary.xmin()<=myBoundary.xmax());
-    NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
+    NIVissimEdge* edge = NIVissimEdge::dictionary(edgeid);
     IntVector::const_iterator i = find(myEdges.begin(), myEdges.end(), edgeid);
     if (i==myEdges.end()) {
         // edge does not exist!?
         throw 1;
     }
-    const PositionVector &edgeGeom = edge->getGeometry();
+    const PositionVector& edgeGeom = edge->getGeometry();
     Position p = GeomHelper::crossPoint(myBoundary, edgeGeom);
     return GeomHelper::nearest_position_on_line_to_point(
                edgeGeom.getBegin(), edgeGeom.getEnd(), p);
@@ -726,11 +726,11 @@ NIVissimConnectionCluster::clearDict() {
 
 
 PositionVector
-NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) const {
+NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge* e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c->getFromEdgeID()==e->getID()) {
             edgeIsIncoming.push_back(c);
         }
@@ -742,18 +742,18 @@ NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) cons
     // sort connected edges in same direction
     sort(edgeIsIncoming.begin(), edgeIsIncoming.end(),
          same_direction_sorter(e->getGeometry().beginEndAngle()));
-    NIVissimConnection *c = *(edgeIsIncoming.begin());
+    NIVissimConnection* c = *(edgeIsIncoming.begin());
     return c->getGeometry();
 }
 
 
 
-NIVissimConnection *
-NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const {
+NIVissimConnection*
+NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge* e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c->getFromEdgeID()==e->getID()) {
             edgeIsIncoming.push_back(c);
         }
@@ -771,11 +771,11 @@ NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const {
 
 
 PositionVector
-NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) const {
+NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge* e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c->getToEdgeID()==e->getID()) {
             edgeIsOutgoing.push_back(c);
         }
@@ -787,17 +787,17 @@ NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) cons
     // sort connected edges in same direction
     sort(edgeIsOutgoing.begin(), edgeIsOutgoing.end(),
          same_direction_sorter(e->getGeometry().beginEndAngle()));
-    NIVissimConnection *c = *(edgeIsOutgoing.begin());
+    NIVissimConnection* c = *(edgeIsOutgoing.begin());
     return c->getGeometry();
 }
 
 
 NIVissimConnection*
-NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge *e) const {
+NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge* e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c->getToEdgeID()==e->getID()) {
             edgeIsOutgoing.push_back(c);
         }

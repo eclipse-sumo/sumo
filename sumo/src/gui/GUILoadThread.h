@@ -52,8 +52,8 @@ class GUINet;
 class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,
-                  FXEX::FXThreadEvent &ev);
+    GUILoadThread(MFXInterThreadEventClient* mw, MFXEventQue& eq,
+                  FXEX::FXThreadEvent& ev);
 
     /// destructor
     virtual ~GUILoadThread();
@@ -63,12 +63,12 @@ public:
     FXint run();
 
     /// begins the loading of the given file
-    void load(const std::string &file, bool isNet);
+    void load(const std::string& file, bool isNet);
 
     /// Retrieves messages from the loading module
-    void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
+    void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
-    const std::string &getFileName() const;
+    const std::string& getFileName() const;
 
 protected:
     virtual bool initOptions();
@@ -79,22 +79,22 @@ protected:
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
      * application is informed about the loading */
-    void submitEndAndCleanup(GUINet *net, SUMOTime simStartTime, SUMOTime simEndTime);
+    void submitEndAndCleanup(GUINet* net, SUMOTime simStartTime, SUMOTime simEndTime);
 
 protected:
     /// the parent window to inform about the loading
-    MFXInterThreadEventClient *myParent;
+    MFXInterThreadEventClient* myParent;
 
     /// the path to load the simulation from
     std::string myFile;
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
-    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    MFXEventQue &myEventQue;
+    MFXEventQue& myEventQue;
 
-    FXEX::FXThreadEvent &myEventThrow;
+    FXEX::FXThreadEvent& myEventThrow;
 
     /// Information whether only the network shall be loaded
     bool myLoadNet;

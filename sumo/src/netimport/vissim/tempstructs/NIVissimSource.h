@@ -41,15 +41,15 @@
  */
 class NIVissimSource {
 public:
-    NIVissimSource(const std::string &id, const std::string &name,
-                   const std::string &edgeid, SUMOReal q, bool exact,
+    NIVissimSource(const std::string& id, const std::string& name,
+                   const std::string& edgeid, SUMOReal q, bool exact,
                    int vehicle_combination, SUMOReal beg, SUMOReal end);
     ~NIVissimSource();
-    static bool dictionary(const std::string &id, const std::string &name,
-                           const std::string &edgeid, SUMOReal q, bool exact,
+    static bool dictionary(const std::string& id, const std::string& name,
+                           const std::string& edgeid, SUMOReal q, bool exact,
                            int vehicle_combination, SUMOReal beg, SUMOReal end);
-    static bool dictionary(const std::string &id, NIVissimSource *o);
-    static NIVissimSource *dictionary(const std::string &id);
+    static bool dictionary(const std::string& id, NIVissimSource* o);
+    static NIVissimSource* dictionary(const std::string& id);
     static void clearDict();
 private:
     std::string myID;

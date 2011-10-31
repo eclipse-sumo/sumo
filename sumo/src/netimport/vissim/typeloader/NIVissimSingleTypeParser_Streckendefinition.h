@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Streckendefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Streckendefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

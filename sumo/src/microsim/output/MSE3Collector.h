@@ -72,7 +72,7 @@ public:
          * @param[in] crossSection The position at which the entry lies
          * @param[in] collector The detector the entry belongs to
          */
-        MSE3EntryReminder(const MSCrossSection &crossSection, MSE3Collector& collector) throw();
+        MSE3EntryReminder(const MSCrossSection& crossSection, MSE3Collector& collector) throw();
 
 
         /// @name Methods inherited from MSMoveReminder.
@@ -99,7 +99,7 @@ public:
         /** @brief Processes state changes of a vehicle
         *
         * If the reported vehicle is known, and the reason indicates a removal from the network
-		*  (permanent or temporary), the vehicle is removed from the list of vehicles to regard.
+        *  (permanent or temporary), the vehicle is removed from the list of vehicles to regard.
         *
         * @param[in] veh The leaving vehicle.
         * @param[in] lastPos Position on the lane when leaving.
@@ -139,7 +139,7 @@ public:
          * @param[in] crossSection The position at which the exit lies
          * @param[in] collector The detector the exit belongs to
          */
-        MSE3LeaveReminder(const MSCrossSection &crossSection, MSE3Collector& collector) throw();
+        MSE3LeaveReminder(const MSCrossSection& crossSection, MSE3Collector& collector) throw();
 
 
         /// @name methods from MSMoveReminder
@@ -191,8 +191,8 @@ public:
      *  @param[in] haltingSpeedThreshold A vehicle must not drive a greater speed than haltingSpeedThreshold to be a "halting" vehicle.
      *  @param[in] haltingTimeThreshold A vehicle must not drive a greater speed for more than haltingTimeThreshold to be a "halting" vehicle.
      */
-    MSE3Collector(const std::string &id,
-                  const CrossSectionVector &entries, const CrossSectionVector &exits,
+    MSE3Collector(const std::string& id,
+                  const CrossSectionVector& entries, const CrossSectionVector& exits,
                   SUMOReal haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold) throw();
 
@@ -272,7 +272,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "e3Detector" as root element
@@ -283,7 +283,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
 

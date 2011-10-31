@@ -55,19 +55,19 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 // method definitions
 // ===========================================================================
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent) throw()
-        : FXDialogBox(parent, "Application Settings"),
-        myAppQuitOnEnd(gQuitOnEnd),
-        myAllowTextures(gAllowTextures) {
-    FXCheckButton *b = 0;
-    FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
+    : FXDialogBox(parent, "Application Settings"),
+      myAppQuitOnEnd(gQuitOnEnd),
+      myAllowTextures(gAllowTextures) {
+    FXCheckButton* b = 0;
+    FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this ,MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
     new FXHorizontalSeparator(f1,SEPARATOR_GROOVE|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X);
     b = new FXCheckButton(f1, "Allow Textures", this ,MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
     b->disable();
-    FXHorizontalFrame *f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
-    FXButton *initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
+    FXButton* initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     new FXButton(f2,"&Cancel",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     initial->setFocus();
     setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));

@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Zusammensetzungsdefinition::NIVissimSingleTypeParser_Zusammensetzungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Zusammensetzungsdefinition::NIVissimSingleTypeParser_Zusammensetzungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Zusammensetzungsdefinition::~NIVissimSingleTypeParser_Zusammensetzungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
     while (tag!="fahrzeugtyp") {
         tag = readEndSecure(from, "fahrzeugtyp");

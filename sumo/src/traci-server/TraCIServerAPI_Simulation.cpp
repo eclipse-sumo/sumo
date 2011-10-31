@@ -53,8 +53,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Simulation::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                      tcpip::Storage &outputStorage) {
+TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                      tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -240,8 +240,8 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 
 
 bool
-TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-        tcpip::Storage &outputStorage, int commandId) {
+TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+        tcpip::Storage& outputStorage, int commandId) {
     tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
     Position cartesianPos;
@@ -277,7 +277,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
         try {
             cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
             GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
-        } catch (TraCIException &e) {
+        } catch (TraCIException& e) {
             server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }
@@ -354,8 +354,8 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer &server,
 /****************************************************************************/
 
 bool
-TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-        tcpip::Storage &outputStorage, int commandId) {
+TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+        tcpip::Storage& outputStorage, int commandId) {
     Position pos1;
     Position pos2;
     std::pair<const MSLane*, SUMOReal> roadPos1;
@@ -370,7 +370,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
             roadPos1.second = inputStorage.readDouble();
             roadPos1.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
             pos1 = roadPos1.first->getShape().positionAtLengthPosition(roadPos1.second);
-        } catch (TraCIException &e) {
+        } catch (TraCIException& e) {
             server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }
@@ -400,7 +400,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer &server, tc
             roadPos2.second = inputStorage.readDouble();
             roadPos2.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
             pos2 = roadPos2.first->getShape().positionAtLengthPosition(roadPos2.second);
-        } catch (TraCIException &e) {
+        } catch (TraCIException& e) {
             server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
             return false;
         }

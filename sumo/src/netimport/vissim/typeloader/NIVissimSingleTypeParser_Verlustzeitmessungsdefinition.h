@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Verlustzeitmessungsdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Verlustzeitmessungsdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Verlustzeitmessungsdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Verlustzeitmessungsdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

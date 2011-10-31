@@ -54,7 +54,7 @@ public:
      * @param[in] id The id of the tls
      * @param[in] junctions Junctions controlled by this tls
      */
-    NBOwnTLDef(const std::string &id,
+    NBOwnTLDef(const std::string& id,
                const std::vector<NBNode*> &junctions) throw();
 
 
@@ -62,13 +62,13 @@ public:
      * @param[in] id The id of the tls
      * @param[in] junction The junction controlled by this tls
      */
-    NBOwnTLDef(const std::string &id, NBNode *junction) throw();
+    NBOwnTLDef(const std::string& id, NBNode* junction) throw();
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      */
-    NBOwnTLDef(const std::string &id) throw();
+    NBOwnTLDef(const std::string& id) throw();
 
 
     /// @brief Destructor
@@ -90,15 +90,15 @@ public:
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      * @see NBTrafficLightDefinition::remapRemoved
      */
-    void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
+    void remapRemoved(NBEdge* removed,
+                      const EdgeVector& incoming, const EdgeVector& outgoing) throw();
 
 
     /** @brief Informs edges about being controlled by a tls
      * @param[in] ec The container of edges
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
+    void setTLControllingInformation(const NBEdgeCont& ec) const throw();
     /// @}
 
 
@@ -112,7 +112,7 @@ protected:
      * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
+    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
                                    unsigned int brakingTimeSeconds) throw();
 
 
@@ -136,8 +136,8 @@ protected:
      * @param[in] byLane This edge's lane to insert instead
      * @see NBTrafficLightDefinition::replaceRemoved
      */
-    void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane) throw();
+    void replaceRemoved(NBEdge* removed, int removedLane,
+                        NBEdge* by, int byLane) throw();
     /// @}
 
 
@@ -154,7 +154,7 @@ protected:
      * @param[in] e The edge to ask for his priority
      * @return The edge's priority at his destination node
      */
-    int getToPrio(const NBEdge * const e) throw();
+    int getToPrio(const NBEdge* const e) throw();
 
 
     /** @brief Returns how many streams outgoing from the edges can pass the junction without being blocked
@@ -162,14 +162,14 @@ protected:
      * @param[in] e2 The second edge
      * @todo There are several magic numbers; describe
      */
-    SUMOReal computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const NBEdge * const e2) throw();
+    SUMOReal computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const NBEdge* const e2) throw();
 
 
     /** @brief Returns the combination of two edges from the given which has most unblocked streams
      * @param[in] edges The list of edges to include in the computation
      * @return The two edges for which the weighted number of unblocked streams is the highest
      */
-    std::pair<NBEdge*, NBEdge*> getBestCombination(const EdgeVector &edges) throw();
+    std::pair<NBEdge*, NBEdge*> getBestCombination(const EdgeVector& edges) throw();
 
 
     /** @brief Returns the combination of two edges from the given which has most unblocked streams
@@ -179,7 +179,7 @@ protected:
      * @param[in, changed] incoming The list of edges which are participating in the logic
      * @return The two edges for which the weighted number of unblocked streams is the highest
      */
-    std::pair<NBEdge*, NBEdge*> getBestPair(EdgeVector &incoming) throw();
+    std::pair<NBEdge*, NBEdge*> getBestPair(EdgeVector& incoming) throw();
 
 
     /** @class edge_by_incoming_priority_sorter
@@ -191,7 +191,7 @@ protected:
          * @param[in] e1 an edge
          * @param[in] e2 an edge
          */
-        int operator()(const NBEdge * const e1, const NBEdge * const e2) const {
+        int operator()(const NBEdge* const e1, const NBEdge* const e2) const {
             if (e1->getJunctionPriority(e1->getToNode())!=e2->getJunctionPriority(e2->getToNode())) {
                 return e1->getJunctionPriority(e1->getToNode())> e2->getJunctionPriority(e2->getToNode());
             }

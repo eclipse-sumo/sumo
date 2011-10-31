@@ -74,7 +74,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MeanDataValues() throw();
@@ -157,7 +157,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        virtual void write(OutputDevice &dev, const SUMOTime period,
+        virtual void write(OutputDevice& dev, const SUMOTime period,
                            const SUMOReal numLanes,
                            const int numVehicles=-1) const throw(IOError) = 0;
 
@@ -193,7 +193,7 @@ public:
     class MeanDataValueTracker : public MeanDataValues {
     public:
         /** @brief Constructor */
-        MeanDataValueTracker(MSLane * const lane, const SUMOReal length,
+        MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
                              const std::set<std::string>* const vTypes=0,
                              const MSMeanData* const parent=0) throw();
 
@@ -261,7 +261,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice &dev, const SUMOTime period,
+        void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
                    const int numVehicles=-1) const throw(IOError);
 
@@ -276,7 +276,7 @@ public:
         public:
             /** @brief Constructor */
             TrackerEntry(MeanDataValues* const values) throw()
-                    : myNumVehicleEntered(0), myNumVehicleLeft(0), myValues(values) {}
+                : myNumVehicleEntered(0), myNumVehicleLeft(0), myValues(values) {}
 
             /// @brief The number of vehicles which entered in the current interval
             int myNumVehicleEntered;
@@ -314,7 +314,7 @@ public:
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData(const std::string &id,
+    MSMeanData(const std::string& id,
                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                const bool useLanes, const bool withEmpty, const bool withInternal,
                const bool trackVehicles,
@@ -346,7 +346,7 @@ public:
      * @see write
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
     /** @brief Opens the XML-output using "netstats" as root element
      *
@@ -354,7 +354,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
     /** @brief Updates the detector
@@ -368,7 +368,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -391,8 +391,8 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
-                   MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*> &edgeValues,
+                   MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
     /** @brief Checks for emptiness and writes prefix into the given stream
      *
@@ -402,7 +402,7 @@ protected:
      * @return whether further output should be generated
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    bool writePrefix(OutputDevice &dev, const MeanDataValues &values,
+    bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
                      const std::string prefix) const throw(IOError);
 
 protected:

@@ -48,7 +48,7 @@ NBJoinedEdgesMap::~NBJoinedEdgesMap() {}
 
 
 void
-NBJoinedEdgesMap::init(NBEdgeCont &ec) {
+NBJoinedEdgesMap::init(NBEdgeCont& ec) {
     const std::vector<std::string> edgeNames = ec.getAllNames();
     myMap.clear();
     for (std::vector<std::string>::const_iterator i=edgeNames.begin(); i!=edgeNames.end(); i++) {
@@ -61,7 +61,7 @@ NBJoinedEdgesMap::init(NBEdgeCont &ec) {
 
 
 void
-NBJoinedEdgesMap::appended(const std::string &to, const std::string &what) {
+NBJoinedEdgesMap::appended(const std::string& to, const std::string& what) {
     copy(myMap[what].begin(), myMap[what].end(), back_inserter(myMap[to]));
     JoinedEdgesMap::iterator i = myMap.find(what);
     assert(i!=myMap.end());
@@ -69,12 +69,12 @@ NBJoinedEdgesMap::appended(const std::string &to, const std::string &what) {
 }
 
 
-std::ostream &
-operator<<(std::ostream &os, const NBJoinedEdgesMap &jemap) {
+std::ostream&
+operator<<(std::ostream& os, const NBJoinedEdgesMap& jemap) {
     NBJoinedEdgesMap::JoinedEdgesMap::const_iterator i;
     for (i=jemap.myMap.begin(); i!=jemap.myMap.end(); ++i) {
         os << (*i).first << "\t";
-        const NBJoinedEdgesMap::MappedEdgesVector &e = (*i).second;
+        const NBJoinedEdgesMap::MappedEdgesVector& e = (*i).second;
         for (NBJoinedEdgesMap::MappedEdgesVector::const_iterator j=e.begin(); j!=e.end(); ++j) {
             os << (*j) << ":" << jemap.myLengths.find(*j)->second << "\t";
         }

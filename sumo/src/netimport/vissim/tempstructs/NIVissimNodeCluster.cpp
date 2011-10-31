@@ -56,12 +56,12 @@ int NIVissimNodeCluster::myCurrentID = 1;
 
 
 NIVissimNodeCluster::NIVissimNodeCluster(int id, int nodeid, int tlid,
-        const IntVector &connectors,
-        const IntVector &disturbances,
+        const IntVector& connectors,
+        const IntVector& disturbances,
         bool amEdgeSplitOnly)
-        : myID(id), myNodeID(nodeid), myTLID(tlid),
-        myConnectors(connectors), myDisturbances(disturbances),
-        myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly) {}
+    : myID(id), myNodeID(nodeid), myTLID(tlid),
+      myConnectors(connectors), myDisturbances(disturbances),
+      myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly) {}
 
 
 NIVissimNodeCluster::~NIVissimNodeCluster() {}
@@ -70,7 +70,7 @@ NIVissimNodeCluster::~NIVissimNodeCluster() {}
 
 
 bool
-NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o) {
+NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster* o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -83,21 +83,21 @@ NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o) {
 
 int
 NIVissimNodeCluster::dictionary(int nodeid, int tlid,
-                                const IntVector &connectors,
-                                const IntVector &disturbances,
+                                const IntVector& connectors,
+                                const IntVector& disturbances,
                                 bool amEdgeSplitOnly) {
     int id = nodeid;
     if (nodeid<0) {
         id = myCurrentID++;
     }
-    NIVissimNodeCluster *o = new NIVissimNodeCluster(id,
+    NIVissimNodeCluster* o = new NIVissimNodeCluster(id,
             nodeid, tlid, connectors, disturbances, amEdgeSplitOnly);
     dictionary(id, o);
     return id;
 }
 
 
-NIVissimNodeCluster *
+NIVissimNodeCluster*
 NIVissimNodeCluster::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
@@ -126,7 +126,7 @@ NIVissimNodeCluster::getNodeName() const {
 
 
 void
-NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
+NIVissimNodeCluster::buildNBNode(NBNodeCont& nc) {
     if (myConnectors.size()==0) {
         return; // !!! Check, whether this can happen
     }
@@ -138,16 +138,16 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
     if (myAmEdgeSplit) {
 // !!! should be        assert(myTLID==-1);
         for (i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-            NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+            NIVissimConnection* c1 = NIVissimConnection::dictionary(*i);
             crossings.push_back_noDoublePos(c1->getFromGeomPosition());
         }
     } else {
         // compute the places the connections cross
         for (i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-            NIVissimAbstractEdge *c1 = NIVissimAbstractEdge::dictionary(*i);
+            NIVissimAbstractEdge* c1 = NIVissimAbstractEdge::dictionary(*i);
             c1->buildGeom();
             for (j=i+1; j!=myConnectors.end(); j++) {
-                NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
+                NIVissimAbstractEdge* c2 = NIVissimAbstractEdge::dictionary(*j);
                 c2->buildGeom();
                 if (c1->crossesEdge(c2)) {
                     crossings.push_back_noDoublePos(c1->crossesEdgeAtPoint(c2));
@@ -157,7 +157,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
         // alternative way: compute via positions of crossings
         if (crossings.size()==0) {
             for (i=myConnectors.begin(); i!=myConnectors.end(); i++) {
-                NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
+                NIVissimConnection* c1 = NIVissimConnection::dictionary(*i);
                 crossings.push_back_noDoublePos(c1->getFromGeomPosition());
                 crossings.push_back_noDoublePos(c1->getToGeomPosition());
             }
@@ -176,7 +176,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
                     "actuated_traffic_light");
             }
         }*/
-    NBNode *node = new NBNode(getNodeName(), pos, NODETYPE_PRIORITY_JUNCTION);
+    NBNode* node = new NBNode(getNodeName(), pos, NODETYPE_PRIORITY_JUNCTION);
     if (!nc.insert(node)) {
         delete node;
         throw 1;
@@ -186,7 +186,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
 
 
 void
-NIVissimNodeCluster::buildNBNodes(NBNodeCont &nc) {
+NIVissimNodeCluster::buildNBNodes(NBNodeCont& nc) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         (*i).second->buildNBNode(nc);
     }
@@ -205,9 +205,9 @@ NIVissimNodeCluster::getFromNode(int edgeid) {
     int ret = -1;
     bool mult = false;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimNodeCluster *c = (*i).second;
+        NIVissimNodeCluster* c = (*i).second;
         for (IntVector::iterator j=c->myConnectors.begin(); j!=c->myConnectors.end(); j++) {
-            NIVissimConnection *conn = NIVissimConnection::dictionary(*j);
+            NIVissimConnection* conn = NIVissimConnection::dictionary(*j);
             if (conn!=0&&conn->getToEdgeID()==edgeid) {
 //                return (*i).first;
                 if (ret!=-1&&(*i).first!=ret) {
@@ -228,9 +228,9 @@ int
 NIVissimNodeCluster::getToNode(int edgeid) {
     int ret = -1;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimNodeCluster *c = (*i).second;
+        NIVissimNodeCluster* c = (*i).second;
         for (IntVector::iterator j=c->myConnectors.begin(); j!=c->myConnectors.end(); j++) {
-            NIVissimConnection *conn = NIVissimConnection::dictionary(*j);
+            NIVissimConnection* conn = NIVissimConnection::dictionary(*j);
             if (conn!=0&&conn->getFromEdgeID()==edgeid) {
 //                return (*i).first;
                 if (ret!=-1&&ret!=(*i).first) {
@@ -248,9 +248,9 @@ NIVissimNodeCluster::getToNode(int edgeid) {
 
 
 void
-NIVissimNodeCluster::_debugOut(std::ostream &into) {
+NIVissimNodeCluster::_debugOut(std::ostream& into) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimNodeCluster *c = (*i).second;
+        NIVissimNodeCluster* c = (*i).second;
         into << endl << c->myID << ":";
         for (IntVector::iterator j=c->myConnectors.begin(); j!=c->myConnectors.end(); j++) {
             if (j!=c->myConnectors.begin()) {
@@ -264,7 +264,7 @@ NIVissimNodeCluster::_debugOut(std::ostream &into) {
 
 
 
-NBNode *
+NBNode*
 NIVissimNodeCluster::getNBNode() const {
     return myNBNode;
 }
@@ -277,13 +277,13 @@ NIVissimNodeCluster::getPos() const {
 
 
 void
-NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont &dc,
-        NBNodeCont &nc, NBEdgeCont &ec) {
+NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont& dc,
+        NBNodeCont& nc, NBEdgeCont& ec) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        const IntVector &disturbances = (*i).second->myDisturbances;
-        NBNode *node = nc.retrieve((*i).second->getNodeName());
+        const IntVector& disturbances = (*i).second->myDisturbances;
+        NBNode* node = nc.retrieve((*i).second->getNodeName());
         for (IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
-            NIVissimDisturbance *disturbance = NIVissimDisturbance::dictionary(*j);
+            NIVissimDisturbance* disturbance = NIVissimDisturbance::dictionary(*j);
             disturbance->addToNode(node, dc, nc, ec);
         }
     }

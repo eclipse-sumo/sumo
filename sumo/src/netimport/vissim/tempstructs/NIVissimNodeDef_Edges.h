@@ -37,13 +37,13 @@
 #include "NIVissimNodeDef.h"
 
 class NIVissimNodeDef_Edges :
-            public NIVissimNodeDef {
+    public NIVissimNodeDef {
 public:
-    NIVissimNodeDef_Edges(int id, const std::string &name,
-                          const NIVissimNodeParticipatingEdgeVector &edges);
+    NIVissimNodeDef_Edges(int id, const std::string& name,
+                          const NIVissimNodeParticipatingEdgeVector& edges);
     virtual ~NIVissimNodeDef_Edges();
-    static bool dictionary(int id, const std::string &name,
-                           const NIVissimNodeParticipatingEdgeVector &edges);
+    static bool dictionary(int id, const std::string& name,
+                           const NIVissimNodeParticipatingEdgeVector& edges);
 //    virtual void computeBounding();
     virtual void searchAndSetConnections();
     virtual SUMOReal getEdgePosition(int edgeid) const;
@@ -54,7 +54,7 @@ public:
     class id_matches {
     public:
         explicit id_matches(int id) : myEdgeID(id) { }
-        bool operator()(NIVissimNodeParticipatingEdge *e) {
+        bool operator()(NIVissimNodeParticipatingEdge* e) {
             return e->getID()==myEdgeID;
         }
     private:
@@ -63,13 +63,13 @@ public:
 
     class lying_within_match {
     public:
-        explicit lying_within_match(NIVissimNodeParticipatingEdge *e) : myEdge(e) { }
-        bool operator()(NIVissimExtendedEdgePoint *e) {
+        explicit lying_within_match(NIVissimNodeParticipatingEdge* e) : myEdge(e) { }
+        bool operator()(NIVissimExtendedEdgePoint* e) {
             return e->getEdgeID()==myEdge->getID() &&
                    myEdge->positionLiesWithin(e->getPosition());
         }
     private:
-        NIVissimNodeParticipatingEdge *myEdge;
+        NIVissimNodeParticipatingEdge* myEdge;
     };
 
 protected:

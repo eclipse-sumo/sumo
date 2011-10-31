@@ -63,9 +63,9 @@ public:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      */
-    MSLaneSpeedTrigger(const std::string &id,
+    MSLaneSpeedTrigger(const std::string& id,
                        const std::vector<MSLane*> &destLanes,
-                       const std::string &file);
+                       const std::string& file);
 
 
     /** @brief Destructor */
@@ -107,7 +107,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs);
+                                const SUMOSAXAttributes& attrs);
 
     /** @brief Called on the closing of a tag;
      *

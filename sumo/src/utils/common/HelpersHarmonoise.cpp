@@ -102,7 +102,7 @@ mySurfaceCorrection[27] = { 0.7, 0.2, 3.6, -1.0, -1.8, -0.1, -0.9, -0.7, -1.1, -
 // ===========================================================================
 SUMOReal
 HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) throw() {
-    double *alphaT, *betaT, *alphaR, *betaR;
+    double* alphaT, *betaT, *alphaR, *betaR;
     double ac = 0;
     if (c>=SVE_HDV_3_1 && c<=SVE_HDV_12_12) {
         alphaT = myT_A_C3_Parameter;

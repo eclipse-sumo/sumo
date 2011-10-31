@@ -86,8 +86,8 @@ public:
      * @param[in] numTries ?
      * @todo check meanings of connectivity/numTries
      */
-    NGRandomNetBuilder(NGNet &net, SUMOReal minAngle, SUMOReal minDistance, SUMOReal maxDistance, SUMOReal connectivity,
-                       int numTries, const TNeighbourDistribution &neighborDist) throw();
+    NGRandomNetBuilder(NGNet& net, SUMOReal minAngle, SUMOReal minDistance, SUMOReal maxDistance, SUMOReal connectivity,
+                       int numTries, const TNeighbourDistribution& neighborDist) throw();
 
 
 
@@ -104,7 +104,7 @@ private:
      *
      * @param[in] node The node to remove
      */
-    void removeOuterNode(NGNode *node) throw();
+    void removeOuterNode(NGNode* node) throw();
 
 
     /** @brief Checks whether the angle of this node's connections are valid
@@ -136,7 +136,7 @@ private:
      * @param[in] baseNode ?
      * @todo Describe better
      */
-    bool createNewNode(NGNode *baseNode) throw();
+    bool createNewNode(NGNode* baseNode) throw();
 
 
     /** @brief finds possible connections between Node and OuterNodes complying with restrictions
@@ -144,12 +144,12 @@ private:
      * @param[in] node ?
      * @todo Describe better
      */
-    void findPossibleOuterNodes(NGNode *node) throw();
+    void findPossibleOuterNodes(NGNode* node) throw();
 
 
 private:
     /// @brief The network to fill
-    NGNet &myNet;
+    NGNet& myNet;
 
     /// @brief The list of outer nodes
     NGNodeList myOuterNodes;

@@ -47,7 +47,7 @@
 // method definitions
 // ===========================================================================
 void
-ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
+ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     // register options
     // register I/O options
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -152,7 +152,7 @@ ROFrame::fillOptions(OptionsCont &oc, bool forDuarouter) {
 
 
 bool
-ROFrame::checkOptions(OptionsCont &oc) {
+ROFrame::checkOptions(OptionsCont& oc) {
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
         WRITE_ERROR("No output specified.");

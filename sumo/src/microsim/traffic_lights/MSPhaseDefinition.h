@@ -66,9 +66,9 @@ public:
      * @param[in] durationArg The duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg)
-            : duration(durationArg), minDuration(durationArg), maxDuration(durationArg),
-            myLastSwitch(0), state(stateArg) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg)
+        : duration(durationArg), minDuration(durationArg), maxDuration(durationArg),
+          myLastSwitch(0), state(stateArg) {
         myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
     }
 
@@ -81,9 +81,9 @@ public:
      * @param[in] stateArg The state in the phase
      */
     MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
-                      const std::string &stateArg)
-            : duration(durationArg),
-            myLastSwitch(0), state(stateArg) {
+                      const std::string& stateArg)
+        : duration(durationArg),
+          myLastSwitch(0), state(stateArg) {
         myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
         minDuration = minDurationArg<0 ? durationArg : minDurationArg;
         maxDuration = maxDurationArg<0 ? durationArg : maxDurationArg;
@@ -97,7 +97,7 @@ public:
     /** @brief Returns the state within this phase
      * @return The state in this phase
      */
-    const std::string &getState() const {
+    const std::string& getState() const {
         return state;
     }
 
@@ -135,7 +135,7 @@ public:
      * @param[in] pd The phase definition to compare against
      * @return Whether the given phase definition differs
      */
-    bool operator!=(const MSPhaseDefinition &pd) {
+    bool operator!=(const MSPhaseDefinition& pd) {
         return state!=pd.state;
     }
 

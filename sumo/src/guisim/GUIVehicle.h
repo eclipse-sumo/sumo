@@ -87,7 +87,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -97,7 +97,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -112,7 +112,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
 
 
 
@@ -120,7 +120,7 @@ public:
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView * const parent, const GUIVisualizationSettings &s) const throw();
+    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const throw();
     //@}
 
 
@@ -133,7 +133,7 @@ public:
      * @param[in] which The visualisation feature
      * @return see comment
      */
-    bool hasActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) const throw();
+    bool hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const throw();
 
 
     /** @brief Adds the named visualisation feature to the given view
@@ -142,7 +142,7 @@ public:
      * @return Always true
      * @see GUISUMOAbstractView::addAdditionalGLVisualisation
      */
-    bool addActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+    bool addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw();
 
 
     /** @brief Adds the named visualisation feature to the given view
@@ -151,7 +151,7 @@ public:
      * @return Whether the vehicle was known to the view
      * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
      */
-    bool removeActiveAddVisualisation(GUISUMOAbstractView * const parent, int which) throw();
+    bool removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw();
     /// @}
 
 
@@ -189,8 +189,8 @@ public:
          * @param[in] o The object of interest
          * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
-        GUIVehiclePopupMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent, GUIGlObject &o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
+        GUIVehiclePopupMenu(GUIMainWindow& app,
+                            GUISUMOAbstractView& parent, GUIGlObject& o, std::map<GUISUMOAbstractView*, int> &additionalVisualizations);
 
         /// @brief Destructor
         ~GUIVehiclePopupMenu() throw();
@@ -248,7 +248,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void draw(const MSRoute &r) const throw();
+    void draw(const MSRoute& r) const throw();
 
 
     /** @brief Chooses the route to draw and draws it, darkening it as given
@@ -256,7 +256,7 @@ public:
      * @param[in] routeNo The route to show (0: the current, >0: prior)
      * @param[in] darken The amount to darken the route by
      */
-    void drawRoute(const GUIVisualizationSettings &s, int routeNo, SUMOReal darken) const throw();
+    void drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const throw();
 
 
     /** @brief Draws the vehicle's best lanes
@@ -269,10 +269,10 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
-    MSDevice_Vehroutes *myRoutes;
+    MSDevice_Vehroutes* myRoutes;
 
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings &s) const;
+    void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;

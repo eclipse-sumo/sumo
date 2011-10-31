@@ -48,12 +48,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILane::GUILane(const std::string &id, SUMOReal maxSpeed, SUMOReal length,
-                 MSEdge * const edge, unsigned int numericalID,
-                 const PositionVector &shape, SUMOReal width,
-                 const SUMOVehicleClasses &allowed,
-                 const SUMOVehicleClasses &disallowed) throw()
-        : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
+GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
+                 MSEdge* const edge, unsigned int numericalID,
+                 const PositionVector& shape, SUMOReal width,
+                 const SUMOVehicleClasses& allowed,
+                 const SUMOVehicleClasses& disallowed) throw()
+    : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
 
 
 GUILane::~GUILane() throw() {
@@ -66,14 +66,14 @@ GUILane::~GUILane() throw() {
 
 // ------ Vehicle insertion ------
 void
-GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
-                            const MSLane::VehCont::iterator &at,
+GUILane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+                            const MSLane::VehCont::iterator& at,
                             MSMoveReminder::Notification notification) throw(ProcessError) {
     myLock.lock();
     try {
         MSLane::incorporateVehicle(veh, pos, speed, at, notification);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -81,7 +81,7 @@ GUILane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
 
 
 // ------ Access to vehicles ------
-const MSLane::VehCont &
+const MSLane::VehCont&
 GUILane::getVehiclesSecure() const throw() {
     myLock.lock();
     return myVehicles;
@@ -101,7 +101,7 @@ GUILane::moveCritical(SUMOTime t) {
         bool ret = MSLane::moveCritical(t);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -115,21 +115,21 @@ GUILane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         bool ret = MSLane::setCritical(t, into);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
 }
 
 
-MSVehicle *
-GUILane::removeVehicle(MSVehicle * remVehicle) {
+MSVehicle*
+GUILane::removeVehicle(MSVehicle* remVehicle) {
     myLock.lock();
     try {
-        MSVehicle *ret = MSLane::removeVehicle(remVehicle);
+        MSVehicle* ret = MSLane::removeVehicle(remVehicle);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -142,7 +142,7 @@ GUILane::swapAfterLaneChange(SUMOTime t) {
     try {
         MSLane::swapAfterLaneChange(t);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -156,14 +156,14 @@ GUILane::integrateNewVehicle(SUMOTime t) {
         bool ret = MSLane::integrateNewVehicle(t);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
 }
 
 
-GUILaneWrapper *
+GUILaneWrapper*
 GUILane::buildLaneWrapper(unsigned int index) {
     return new GUILaneWrapper(*this, myShape, index);
 }
@@ -175,7 +175,7 @@ GUILane::detectCollisions(SUMOTime timestep) {
     try {
         MSLane::detectCollisions(timestep);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }

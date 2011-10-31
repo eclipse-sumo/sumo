@@ -57,8 +57,8 @@ public:
      * @param[in] lane Lane where detector woks on.
      * @param[in] position Position of the detector within the lane.
      */
-	GUIInstantInductLoop(const std::string& id, OutputDevice &od,
-                 MSLane * const lane, SUMOReal positionInMeters) throw();
+    GUIInstantInductLoop(const std::string& id, OutputDevice& od,
+                         MSLane* const lane, SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor
@@ -69,7 +69,7 @@ public:
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector
      */
-    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
+    virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
 
 public:
@@ -80,8 +80,8 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIInstantInductLoop &detector,
-                  GUILaneWrapper &wrapper,
+        MyWrapper(GUIInstantInductLoop& detector,
+                  GUILaneWrapper& wrapper,
                   SUMOReal pos) throw();
 
         /// @brief Destructor
@@ -98,8 +98,8 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+        GUIParameterTableWindow* getParameterWindow(
+            GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -114,17 +114,17 @@ public:
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
+        void drawGL(const GUIVisualizationSettings& s) const throw();
         //@}
 
 
         /// @brief Returns the detector itself
-        GUIInstantInductLoop &getLoop();
+        GUIInstantInductLoop& getLoop();
 
 
     private:
         /// @brief The wrapped detector
-        GUIInstantInductLoop &myDetector;
+        GUIInstantInductLoop& myDetector;
 
         /// @brief The detector's boundary
         Boundary myBoundary;

@@ -40,12 +40,12 @@
 // ==========================================================================
 // method definitions
 // ==========================================================================
-OutputDevice_Network::OutputDevice_Network(const std::string &host,
+OutputDevice_Network::OutputDevice_Network(const std::string& host,
         const int port) throw(IOError) {
     mySocket = new tcpip::Socket(host, port);
     try {
         mySocket->connect();
-    } catch (tcpip::SocketException &e) {
+    } catch (tcpip::SocketException& e) {
         throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
     }
 }
@@ -57,7 +57,7 @@ OutputDevice_Network::~OutputDevice_Network() throw() {
 }
 
 
-std::ostream &
+std::ostream&
 OutputDevice_Network::getOStream() throw() {
     return myMessage;
 }

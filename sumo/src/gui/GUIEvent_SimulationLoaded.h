@@ -53,20 +53,20 @@ class GUINet;
 class GUIEvent_SimulationLoaded : public GUIEvent {
 public:
     /// constructor
-    GUIEvent_SimulationLoaded(GUINet *net,
+    GUIEvent_SimulationLoaded(GUINet* net,
                               SUMOTime startTime, SUMOTime endTime,
-                              const std::string &file,
-                              const std::string &settingsFile)
-            : GUIEvent(EVENT_SIMULATION_LOADED),
-            myNet(net), myBegin(startTime), myEnd(endTime),
-            myFile(file), mySettingsFile(settingsFile) { }
+                              const std::string& file,
+                              const std::string& settingsFile)
+        : GUIEvent(EVENT_SIMULATION_LOADED),
+          myNet(net), myBegin(startTime), myEnd(endTime),
+          myFile(file), mySettingsFile(settingsFile) { }
 
     /// destructor
     ~GUIEvent_SimulationLoaded() { }
 
 public:
     /// the loaded net
-    GUINet          *myNet;
+    GUINet*          myNet;
 
     /// the time the simulation shall start with
     SUMOTime     myBegin;

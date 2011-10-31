@@ -43,15 +43,15 @@ class MSLink;
 // ===========================================================================
 // member method definition
 // ===========================================================================
-MSJunction::MSJunction(const std::string &id, const Position &position,
-                       const PositionVector &shape) throw()
-        : myID(id), myPosition(position), myShape(shape) {}
+MSJunction::MSJunction(const std::string& id, const Position& position,
+                       const PositionVector& shape) throw()
+    : myID(id), myPosition(position), myShape(shape) {}
 
 
 MSJunction::~MSJunction() {}
 
 
-const Position &
+const Position&
 MSJunction::getPosition() const {
     return myPosition;
 }
@@ -61,7 +61,7 @@ void
 MSJunction::postloadInit() throw(ProcessError) {}
 
 
-const std::string &
+const std::string&
 MSJunction::getID() const {
     return myID;
 }

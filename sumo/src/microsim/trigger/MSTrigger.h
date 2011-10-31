@@ -48,7 +48,7 @@ public:
      *
      * @param[in] id The id of the trigger
      */
-    MSTrigger(const std::string &id) : Named(id) { }
+    MSTrigger(const std::string& id) : Named(id) { }
 
 
     /// @brief Destructor

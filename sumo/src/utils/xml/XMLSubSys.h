@@ -106,7 +106,7 @@ public:
      * @return The built Xerces-SAX-reader, 0 if something failed
      * @see getSAXReader()
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader(SUMOSAXHandler &handler) throw();
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader(SUMOSAXHandler& handler) throw();
 
 
     /**
@@ -116,7 +116,7 @@ public:
      *
      * @param[in] handler The handler to assign to the built reader
      */
-    static void setHandler(GenericSAXHandler &handler);
+    static void setHandler(GenericSAXHandler& handler);
 
 
     /**
@@ -136,8 +136,8 @@ public:
      * @param[in] file The file to run the parser at
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
-    static bool runParser(GenericSAXHandler &handler,
-                          const std::string &file) throw();
+    static bool runParser(GenericSAXHandler& handler,
+                          const std::string& file) throw();
 
 
 protected:
@@ -151,7 +151,7 @@ protected:
      *
      * @return The built Xerces-SAX-reader, 0 if something failed
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader() throw();
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader() throw();
 
 
     /**
@@ -163,13 +163,13 @@ protected:
      * @param[in] feature Name of the feature to set
      * @param[in] value Value of the feature to set
      */
-    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
-                           const std::string &feature, bool value) throw();
+    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
+                           const std::string& feature, bool value) throw();
 
 
 private:
     /// @brief The XML Readers used for repeated parsing
-    static std::vector<XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *> myReaders;
+    static std::vector<XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader*> myReaders;
 
     /// @brief Information whether the reader is parsing
     static unsigned int myNextFreeReader;

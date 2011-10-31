@@ -75,8 +75,8 @@ public:
      * @param[in] A district assigned to the node
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string &id, const Position &position,
-                NBDistrict *district) throw();
+    bool insert(const std::string& id, const Position& position,
+                NBDistrict* district) throw();
 
 
     /** @brief Inserts a node into the map
@@ -84,28 +84,28 @@ public:
      * @param[in] position The node's position
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string &id, const Position &position) throw();
+    bool insert(const std::string& id, const Position& position) throw();
 
 
     /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @return Whether the node could be added (no other with the same id is stored)
      */
-    Position insert(const std::string &id) throw();
+    Position insert(const std::string& id) throw();
 
 
     /** @brief Inserts a node into the map
      * @param[in] node The node to insert
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(NBNode *node) throw();
+    bool insert(NBNode* node) throw();
 
 
     /** @brief Removes the given node, deleting it
      * @param[in] node The node to delete and remove
      * @return Whether the node could be removed (existed)
      */
-    bool erase(NBNode *node) throw();
+    bool erase(NBNode* node) throw();
 
 
     /** @brief Removes the given node but does not delete it
@@ -113,13 +113,13 @@ public:
      * @param[in] remember Whether to keep the node for future reference
      * @return Whether the node could be removed (existed)
      */
-    bool extract(NBNode *node, bool remember=false) throw();
+    bool extract(NBNode* node, bool remember=false) throw();
 
     /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
      * @return The node with the given id, or 0 if no such node exists
      */
-    NBNode *retrieve(const std::string &id) const throw();
+    NBNode* retrieve(const std::string& id) const throw();
 
 
     /** @brief Returns the node with the given coordinates
@@ -127,7 +127,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode *retrieve(const Position &position, SUMOReal offset=0.) const throw();
+    NBNode* retrieve(const Position& position, SUMOReal offset=0.) const throw();
 
 
     /** @brief Returns the pointer to the begin of the stored nodes
@@ -159,7 +159,7 @@ public:
     void addJoinExclusion(const std::vector<std::string> &ids, bool check=false);
 
 
-    /** @brief add ids of nodes which shall be joined into a single node 
+    /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
     void addCluster2Join(std::set<std::string> cluster);
@@ -167,12 +167,12 @@ public:
 
     /** @brief Joins loaded junction clusters (see NIXMLNodesHandler)
      */
-    unsigned int joinLoadedClusters(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    unsigned int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Joins junctions that are very close together
      */
-    unsigned int joinJunctions(SUMOReal maxdist, NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    unsigned int joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
     /// @}
 
 
@@ -185,7 +185,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post Each edge is a uni-directional connection between two different nodes
      */
-    void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+    void removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
 
 
     /** @brief Joins edges connecting the same nodes
@@ -194,7 +194,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post No two edges with same geometry connecting same nodes exist
      */
-    void joinDoubleNodeConnections(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
+    void joinDoubleNodeConnections(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Removes sequences of edges that are not connected with a junction.
@@ -205,7 +205,7 @@ public:
      * @param[in, opt. changed] ec The container with the edge to be tested
      * @param[in, opt. changed] tc The traffic lights container to update
      */
-    void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+    void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
 
 
     /** @brief Removes "unwished" nodes
@@ -221,10 +221,10 @@ public:
      * @param[in, opt. changed] je The map of joined edges (changes are stored here)
      * @param[in, opt. changed] tlc The traffic lights container to remove nodes from
      * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
-	 * @return The number of removed nodes
+     * @return The number of removed nodes
      */
-    unsigned int removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec, NBJoinedEdgesMap &je, 
-        NBTrafficLightLogicCont &tlc, bool removeGeometryNodes);
+    unsigned int removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec, NBJoinedEdgesMap& je,
+                                     NBTrafficLightLogicCont& tlc, bool removeGeometryNodes);
     /// @}
 
 
@@ -237,14 +237,14 @@ public:
      * @param[filled] tlc The traffic lights control into which new traffic light definitions shall be stored
      * @todo Recheck exception handling
      */
-    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
+    void guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
      * @todo Recheck exception handling
      */
-    void joinTLS(NBTrafficLightLogicCont &tlc);
+    void joinTLS(NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Sets the given node as being controlled by a tls
@@ -253,7 +253,7 @@ public:
      * @param[in] id The id of the tls to add
      * @todo Recheck exception handling
      */
-    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
+    void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::string id="");
     /// @}
 
 
@@ -264,13 +264,13 @@ public:
     void computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
-    void computeLogics(const NBEdgeCont &ec, OptionsCont &oc);
+    void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
 
     /// sorts the nodes' edges
     void sortNodesEdges(bool leftHand);
 
     /// computes the nodes' types
-    void computeNodeTypes(const NBTypeCont &tc);
+    void computeNodeTypes(const NBTypeCont& tc);
 
     /// computes priorities of edges based on junction types
     void computePriorities();
@@ -292,7 +292,7 @@ public:
     void computeNodeShapes(bool leftHand);
 
 
-    void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
+    void guessRamps(OptionsCont& oc, NBEdgeCont& ec, NBDistrictCont& dc);
 
 
     /** @brief Prints statistics about built nodes
@@ -313,17 +313,17 @@ public:
      * @param[out] pos The position of the new node
      * @param[out] hasTLS Whether the new node has a traffic light
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position &pos, bool& hasTLS);
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS);
 
 
 private:
-    bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
-    bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
-    bool buildOnRamp(OptionsCont &oc, NBNode *cur,
-                     NBEdgeCont &ec, NBDistrictCont &dc, EdgeVector &incremented);
+    bool mayNeedOnRamp(OptionsCont& oc, NBNode* cur) const;
+    bool mayNeedOffRamp(OptionsCont& oc, NBNode* cur) const;
+    bool buildOnRamp(OptionsCont& oc, NBNode* cur,
+                     NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented);
 
-    void buildOffRamp(OptionsCont &oc, NBNode *cur,
-                      NBEdgeCont &ec, NBDistrictCont &dc, EdgeVector &incremented);
+    void buildOffRamp(OptionsCont& oc, NBNode* cur,
+                      NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented);
 
     void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
 
@@ -343,18 +343,18 @@ private:
      * @param[in] maxDist The maximum distance between two nodes for clustering
      * @param[in, filled] into The container to store the clusters in
      */
-    void generateNodeClusters(SUMOReal maxDist, NodeClusters &into) const;
+    void generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const;
 
     // @brief merges two nodes using name and position of target
-    void merge(NBNode *moved, NBNode *target, NBDistrictCont &dc, NBEdgeCont &ec);
+    void merge(NBNode* moved, NBNode* target, NBDistrictCont& dc, NBEdgeCont& ec);
 
     // @brief replaces oldEdge by an edge between from and to, keeping all attributes
-    void remapEdge(NBEdge *oldEdge, NBNode *from, NBNode *to, NBDistrictCont &dc, NBEdgeCont &ec);
+    void remapEdge(NBEdge* oldEdge, NBNode* from, NBNode* to, NBDistrictCont& dc, NBEdgeCont& ec);
 
     // @brief joins the given node clusters
-    void joinNodeClusters(NodeClusters clusters, 
-            NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tlc);
-    
+    void joinNodeClusters(NodeClusters clusters,
+                          NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+
     /// @}
 
 
@@ -395,10 +395,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    NBNodeCont(const NBNodeCont &s);
+    NBNodeCont(const NBNodeCont& s);
 
     /// @brief invalidated assignment operator
-    NBNodeCont &operator=(const NBNodeCont &s);
+    NBNodeCont& operator=(const NBNodeCont& s);
 
 };
 

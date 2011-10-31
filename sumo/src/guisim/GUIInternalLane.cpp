@@ -48,13 +48,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIInternalLane::GUIInternalLane(const std::string &id,
+GUIInternalLane::GUIInternalLane(const std::string& id,
                                  SUMOReal maxSpeed, SUMOReal length,
-                                 MSEdge * const edge, unsigned int numericalID,
-                                 const PositionVector &shape, SUMOReal width,
-                                 const SUMOVehicleClasses &allowed,
-                                 const SUMOVehicleClasses &disallowed) throw()
-        : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
+                                 MSEdge* const edge, unsigned int numericalID,
+                                 const PositionVector& shape, SUMOReal width,
+                                 const SUMOVehicleClasses& allowed,
+                                 const SUMOVehicleClasses& disallowed) throw()
+    : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
 
 
 GUIInternalLane::~GUIInternalLane() throw() {
@@ -67,14 +67,14 @@ GUIInternalLane::~GUIInternalLane() throw() {
 
 // ------ Vehicle insertion ------
 void
-GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
-                                    const MSLane::VehCont::iterator &at,
+GUIInternalLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+                                    const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification) throw(ProcessError) {
     myLock.lock();
     try {
         MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -82,7 +82,7 @@ GUIInternalLane::incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed
 
 
 // ------ Access to vehicles ------
-const MSLane::VehCont &
+const MSLane::VehCont&
 GUIInternalLane::getVehiclesSecure() const throw() {
     myLock.lock();
     return myVehicles;
@@ -102,7 +102,7 @@ GUIInternalLane::moveCritical(SUMOTime t) {
         bool ret = MSInternalLane::moveCritical(t);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -116,21 +116,21 @@ GUIInternalLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         bool ret = MSInternalLane::setCritical(t, into);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
 }
 
 
-MSVehicle *
-GUIInternalLane::removeVehicle(MSVehicle * remVehicle) {
+MSVehicle*
+GUIInternalLane::removeVehicle(MSVehicle* remVehicle) {
     myLock.lock();
     try {
-        MSVehicle *ret = MSLane::removeVehicle(remVehicle);
+        MSVehicle* ret = MSLane::removeVehicle(remVehicle);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -143,7 +143,7 @@ GUIInternalLane::swapAfterLaneChange(SUMOTime t) {
     try {
         MSLane::swapAfterLaneChange(t);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
@@ -157,14 +157,14 @@ GUIInternalLane::integrateNewVehicle(SUMOTime t) {
         bool ret = MSLane::integrateNewVehicle(t);
         myLock.unlock();
         return ret;
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }
 }
 
 
-GUILaneWrapper *
+GUILaneWrapper*
 GUIInternalLane::buildLaneWrapper(unsigned int index) {
     return new GUILaneWrapper(*this, myShape, index);
 }
@@ -176,7 +176,7 @@ GUIInternalLane::detectCollisions(SUMOTime timestep) {
     try {
         MSLane::detectCollisions(timestep);
         myLock.unlock();
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         myLock.unlock();
         throw;
     }

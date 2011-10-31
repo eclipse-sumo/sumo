@@ -53,13 +53,13 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSRoute::MSRoute(const std::string &id,
-                 const MSEdgeVector &edges,
-                 unsigned int references, const RGBColor &c,
+MSRoute::MSRoute(const std::string& id,
+                 const MSEdgeVector& edges,
+                 unsigned int references, const RGBColor& c,
                  const std::vector<SUMOVehicleParameter::Stop> &stops) throw()
-        : Named(id), myEdges(edges),
-        myReferenceCounter(references),
-        myColor(c), myStops(stops) {}
+    : Named(id), myEdges(edges),
+      myReferenceCounter(references),
+      myColor(c), myStops(stops) {}
 
 
 MSRoute::~MSRoute() throw() {}
@@ -80,7 +80,7 @@ MSRoute::size() const {
 }
 
 
-const MSEdge *
+const MSEdge*
 MSRoute::getLastEdge() const {
     assert(myEdges.size()>0);
     return myEdges[myEdges.size()-1];
@@ -104,7 +104,7 @@ MSRoute::release() const {
 
 
 bool
-MSRoute::dictionary(const std::string &id, const MSRoute* route) {
+MSRoute::dictionary(const std::string& id, const MSRoute* route) {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDict[id] = route;
         return true;
@@ -114,7 +114,7 @@ MSRoute::dictionary(const std::string &id, const MSRoute* route) {
 
 
 bool
-MSRoute::dictionary(const std::string &id, RandomDistributor<const MSRoute*>* routeDist) {
+MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* routeDist) {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDistDict[id] = routeDist;
         return true;
@@ -124,7 +124,7 @@ MSRoute::dictionary(const std::string &id, RandomDistributor<const MSRoute*>* ro
 
 
 const MSRoute*
-MSRoute::dictionary(const std::string &id) {
+MSRoute::dictionary(const std::string& id) {
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
@@ -138,7 +138,7 @@ MSRoute::dictionary(const std::string &id) {
 
 
 RandomDistributor<const MSRoute*> *
-MSRoute::distDictionary(const std::string &id) {
+MSRoute::distDictionary(const std::string& id) {
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
         return 0;
@@ -173,7 +173,7 @@ MSRoute::insertIDs(std::vector<std::string> &into) {
 
 
 void
-MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *const from, const MSEdge *const upTo) const {
+MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
     MSEdgeVector::const_iterator i = myEdges.begin();
     if (from != 0) {
         i = std::find(myEdges.begin(), myEdges.end(), from);
@@ -202,7 +202,7 @@ MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const {
 }
 
 
-const MSEdge *
+const MSEdge*
 MSRoute::operator[](unsigned index) const {
     return myEdges[index];
 }
@@ -210,7 +210,7 @@ MSRoute::operator[](unsigned index) const {
 
 #ifdef HAVE_MESOSIM
 void
-MSRoute::dict_saveState(std::ostream &os) throw() {
+MSRoute::dict_saveState(std::ostream& os) throw() {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
@@ -281,7 +281,7 @@ MSRoute::dict_saveState(std::ostream &os) throw() {
 
 
 void
-MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
+MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
     unsigned int numRoutes;
     bis >> numRoutes;
     for (; numRoutes>0; numRoutes--) {
@@ -318,7 +318,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
                     edges.push_back(prev);
                     field++;
                 }
-                MSRoute *r = new MSRoute(id, edges, references,
+                MSRoute* r = new MSRoute(id, edges, references,
                                          RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
                 dictionary(id, r);
             } else {
@@ -340,7 +340,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
                     assert(MSEdge::dictionary(edgeID)!=0);
                     edges.push_back(MSEdge::dictionary(edgeID));
                 }
-                MSRoute *r = new MSRoute(id, edges, references,
+                MSRoute* r = new MSRoute(id, edges, references,
                                          RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
                 dictionary(id, r);
             } else {
@@ -364,7 +364,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
             for (; no>0; no--) {
                 std::string routeID;
                 bis >> routeID;
-                const MSRoute *r = dictionary(routeID);
+                const MSRoute* r = dictionary(routeID);
                 assert(r!=0);
                 SUMOReal prob;
                 bis >> prob;
@@ -437,7 +437,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
 }
 
 
-const RGBColor &
+const RGBColor&
 MSRoute::getColor() const {
     return myColor;
 }

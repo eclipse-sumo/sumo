@@ -111,7 +111,9 @@ bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
 
     for (i1 = 1; i1<=cpts; i1++) { /* main loop */
 
-        if ((1.0 - t) < 5e-6) t = 1.0;
+        if ((1.0 - t) < 5e-6) {
+            t = 1.0;
+        }
 
         for (j = 1; j <= 3; j++) { /* generate a point on the curve */
             jcount = j;

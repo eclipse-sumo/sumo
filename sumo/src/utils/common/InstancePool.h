@@ -73,7 +73,7 @@ public:
         if (myFreeInstances.size()==0) {
             return 0;
         } else {
-            T *instance = myFreeInstances.back();
+            T* instance = myFreeInstances.back();
             myFreeInstances.pop_back();
             return instance;
         }
@@ -84,7 +84,7 @@ public:
      *
      * @param[in] instance An instance to add
      */
-    void addFreeInstance(T *instance) {
+    void addFreeInstance(T* instance) {
         myFreeInstances.push_back(instance);
     }
 

@@ -72,9 +72,9 @@
 // NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight - methods
 // ---------------------------------------------------------------------------
 void
-NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string &id,
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string& id,
         SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
-    MSEdge *edge = MSEdge::dictionary(id);
+    MSEdge* edge = MSEdge::dictionary(id);
     if (edge!=0) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
@@ -87,9 +87,9 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
 // NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime - methods
 // ---------------------------------------------------------------------------
 void
-NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
         SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
-    MSEdge *edge = MSEdge::dictionary(id);
+    MSEdge* edge = MSEdge::dictionary(id);
     if (edge!=0) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
@@ -101,15 +101,15 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
 // ---------------------------------------------------------------------------
 // NLBuilder - methods
 // ---------------------------------------------------------------------------
-NLBuilder::NLBuilder(OptionsCont &oc,
-                     MSNet &net,
-                     NLEdgeControlBuilder &eb,
-                     NLJunctionControlBuilder &jb,
-                     NLDetectorBuilder &db,
-                     NLHandler &xmlHandler) throw()
-        : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
-        myDetectorBuilder(db),
-        myNet(net), myXMLHandler(xmlHandler) {}
+NLBuilder::NLBuilder(OptionsCont& oc,
+                     MSNet& net,
+                     NLEdgeControlBuilder& eb,
+                     NLJunctionControlBuilder& jb,
+                     NLDetectorBuilder& db,
+                     NLHandler& xmlHandler) throw()
+    : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
+      myDetectorBuilder(db),
+      myNet(net), myXMLHandler(xmlHandler) {}
 
 
 NLBuilder::~NLBuilder() throw() {}
@@ -196,10 +196,10 @@ NLBuilder::build() throw(ProcessError) {
 
 void
 NLBuilder::buildNet() throw(ProcessError) {
-    MSEdgeControl *edges = 0;
-    MSJunctionControl *junctions = 0;
-    MSRouteLoaderControl *routeLoaders = 0;
-    MSTLLogicControl *tlc = 0;
+    MSEdgeControl* edges = 0;
+    MSJunctionControl* junctions = 0;
+    MSRouteLoaderControl* routeLoaders = 0;
+    MSTLLogicControl* tlc = 0;
     try {
         edges = myEdgeBuilder.build();
         junctions = myJunctionBuilder.build();
@@ -223,13 +223,13 @@ NLBuilder::buildNet() throw(ProcessError) {
         }
 #endif
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         delete edges;
         delete junctions;
         delete routeLoaders;
         delete tlc;
         throw ProcessError(e.what());
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         delete edges;
         delete junctions;
         delete routeLoaders;
@@ -240,7 +240,7 @@ NLBuilder::buildNet() throw(ProcessError) {
 
 
 bool
-NLBuilder::load(const std::string &mmlWhat) {
+NLBuilder::load(const std::string& mmlWhat) {
     if (!OptionsCont::getOptions().isUsableFileList(mmlWhat)) {
         return false;
     }
@@ -262,8 +262,8 @@ NLBuilder::load(const std::string &mmlWhat) {
 }
 
 
-MSRouteLoaderControl *
-NLBuilder::buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError) {
+MSRouteLoaderControl*
+NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) throw(ProcessError) {
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing

@@ -52,9 +52,9 @@ public:
      * @param[in] device The output device to write the detector values into
      * @param[in] link The link that shall be observed
      */
-    Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
-                                 MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device,
-                                 MSLink *link);
+    Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
+                                 MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device,
+                                 MSLink* link);
 
 
     /// @brief Destructor
@@ -76,7 +76,7 @@ public:
 
 private:
     /// @brief The link to observe
-    MSLink *myLink;
+    MSLink* myLink;
 
     /// @brief The state the link had the last time
     LinkState myLastState;

@@ -38,8 +38,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string &fullName) throw(IOError)
-        : myFileStream(0) {
+OutputDevice_File::OutputDevice_File(const std::string& fullName) throw(IOError)
+    : myFileStream(0) {
 #ifdef WIN32
     if (fullName=="/dev/null") {
         myFileStream = new std::ofstream("NUL");
@@ -63,7 +63,7 @@ OutputDevice_File::~OutputDevice_File() throw() {
 }
 
 
-std::ostream &
+std::ostream&
 OutputDevice_File::getOStream() throw() {
     return *myFileStream;
 }

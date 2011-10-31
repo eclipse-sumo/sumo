@@ -73,7 +73,7 @@ NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to) {
 
 
 void
-NIVissimEdgePosMap::join(NIVissimEdgePosMap &with) {
+NIVissimEdgePosMap::join(NIVissimEdgePosMap& with) {
     for (ContType::iterator i=with.myCont.begin(); i!=with.myCont.end(); i++) {
         add((*i).first, (*i).second.first, (*i).second.second);
     }

@@ -45,8 +45,8 @@
 class MSRouteLoader {
 public:
     /// constructor
-    MSRouteLoader(MSNet &net,
-                  MSRouteHandler *handler);
+    MSRouteLoader(MSNet& net,
+                  MSRouteHandler* handler);
 
     /// destructor
     ~MSRouteLoader();
@@ -70,7 +70,7 @@ private:
     /// information whether more vehicles should be available
     bool myMoreAvailable;
 
-    MSRouteHandler *myHandler;
+    MSRouteHandler* myHandler;
 
 };
 

@@ -51,7 +51,7 @@ class NBEdgeCont;
 
 class NIVissimTL {
 public:
-    NIVissimTL(int id, const std::string &type, const std::string &name,
+    NIVissimTL(int id, const std::string& type, const std::string& name,
                SUMOTime absdur, SUMOTime offset);
     ~NIVissimTL();
 //    void computeBounding();
@@ -59,20 +59,20 @@ public:
     int getID() const;
 
 public:
-    static bool dictionary(int id, const std::string &type,
-                           const std::string &name, SUMOTime absdur, SUMOTime offset);
-    static bool dictionary(int id, NIVissimTL *o);
-    static NIVissimTL *dictionary(int id);
+    static bool dictionary(int id, const std::string& type,
+                           const std::string& name, SUMOTime absdur, SUMOTime offset);
+    static bool dictionary(int id, NIVissimTL* o);
+    static NIVissimTL* dictionary(int id);
 //    static IntVector getWithin(const AbstractPoly &poly, SUMOReal offset);
     static void clearDict();
-    static bool dict_SetSignals(NBTrafficLightLogicCont &tlc,
-                                NBEdgeCont &ec);
+    static bool dict_SetSignals(NBTrafficLightLogicCont& tlc,
+                                NBEdgeCont& ec);
 
 public:
     class NIVissimTLSignal;
     class NIVissimTLSignalGroup;
-    typedef std::map<int, NIVissimTLSignal *> SSignalDictType;
-    typedef std::map<int, NIVissimTLSignalGroup *> SGroupDictType;
+    typedef std::map<int, NIVissimTLSignal*> SSignalDictType;
+    typedef std::map<int, NIVissimTLSignalGroup*> SGroupDictType;
     typedef std::map<int, SSignalDictType> SignalDictType;
     typedef std::map<int, SGroupDictType> GroupDictType;
 
@@ -81,17 +81,17 @@ public:
      */
     class NIVissimTLSignal {
     public:
-        NIVissimTLSignal(int lsaid, int id, const std::string &name,
-                         const IntVector &groupids, int edgeid, int laneno,
-                         SUMOReal position, const IntVector &assignedVehicleTypes);
+        NIVissimTLSignal(int lsaid, int id, const std::string& name,
+                         const IntVector& groupids, int edgeid, int laneno,
+                         SUMOReal position, const IntVector& assignedVehicleTypes);
         ~NIVissimTLSignal();
-        bool isWithin(const PositionVector &poly) const;
+        bool isWithin(const PositionVector& poly) const;
         Position getPosition() const;
-        bool addTo(NBEdgeCont &ec, NBLoadedTLDef *node) const;
+        bool addTo(NBEdgeCont& ec, NBLoadedTLDef* node) const;
 
     public:
-        static bool dictionary(int lsaid, int id, NIVissimTLSignal *o);
-        static NIVissimTLSignal *dictionary(int lsaid, int id);
+        static bool dictionary(int lsaid, int id, NIVissimTLSignal* o);
+        static NIVissimTLSignal* dictionary(int lsaid, int id);
         static void clearDict();
         static SSignalDictType getSignalsFor(int tlid);
 
@@ -109,14 +109,14 @@ public:
 
     class NIVissimTLSignalGroup {
     public:
-        NIVissimTLSignalGroup(int lsaid, int id, const std::string &name,
-                              bool isGreenBegin, const DoubleVector &times,
+        NIVissimTLSignalGroup(int lsaid, int id, const std::string& name,
+                              bool isGreenBegin, const DoubleVector& times,
                               SUMOTime tredyellow, SUMOTime tyellow);
         ~NIVissimTLSignalGroup();
-        bool addTo(NBLoadedTLDef *node) const;
+        bool addTo(NBLoadedTLDef* node) const;
     public:
-        static bool dictionary(int lsaid, int id, NIVissimTLSignalGroup *o);
-        static NIVissimTLSignalGroup *dictionary(int lsaid, int id);
+        static bool dictionary(int lsaid, int id, NIVissimTLSignalGroup* o);
+        static NIVissimTLSignalGroup* dictionary(int lsaid, int id);
         static void clearDict();
         static SGroupDictType getGroupsFor(int tlid);
 
@@ -135,7 +135,7 @@ protected:
     std::string myName;
     SUMOTime myAbsDuration;
     SUMOTime myOffset;
-    NIVissimTLSignalGroup *myCurrentGroup;
+    NIVissimTLSignalGroup* myCurrentGroup;
     std::string myType;
 private:
     typedef std::map<int, NIVissimTL*> DictType;

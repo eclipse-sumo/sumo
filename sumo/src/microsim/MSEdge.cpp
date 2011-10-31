@@ -59,11 +59,11 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdge::MSEdge(const std::string &id, unsigned int numericalID,
-               const std::string &streetName) throw() :
-        myID(id), myNumericalID(numericalID), myLanes(0),
-        myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
-        myStreetName(streetName) {}
+MSEdge::MSEdge(const std::string& id, unsigned int numericalID,
+               const std::string& streetName) throw() :
+    myID(id), myNumericalID(numericalID), myLanes(0),
+    myLaneChanger(0), myVaporizationRequests(0), myLastFailedInsertionTime(-1),
+    myStreetName(streetName) {}
 
 
 MSEdge::~MSEdge() throw() {
@@ -97,11 +97,11 @@ MSEdge::closeBuilding() {
     myAllowed[0] = new std::vector<MSLane*>();
     for (std::vector<MSLane*>::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         myAllowed[0]->push_back(*i);
-        const MSLinkCont &lc = (*i)->getLinkCont();
+        const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
-            MSLane *toL = (*j)->getLane();
+            MSLane* toL = (*j)->getLane();
             if (toL!=0) {
-                MSEdge &to = toL->getEdge();
+                MSEdge& to = toL->getEdge();
                 //
                 if (std::find(mySuccessors.begin(), mySuccessors.end(), &to)==mySuccessors.end()) {
                     mySuccessors.push_back(&to);
@@ -130,11 +130,11 @@ MSEdge::rebuildAllowedLanes() throw() {
     // ... all others will be not regarded (allowed) ...
     SUMOVehicleClasses vclasses;
     for (std::vector<MSLane*>::const_iterator i2=myLanes->begin(); i2!=myLanes->end(); ++i2) {
-        const SUMOVehicleClasses &allowed = (*i2)->getAllowedClasses();
+        const SUMOVehicleClasses& allowed = (*i2)->getAllowedClasses();
         for (SUMOVehicleClasses::const_iterator j=allowed.begin(); j!=allowed.end(); j++) {
             vclasses.insert(*j);
         }
-        const SUMOVehicleClasses &disallowed = (*i2)->getNotAllowedClasses();
+        const SUMOVehicleClasses& disallowed = (*i2)->getNotAllowedClasses();
         for (SUMOVehicleClasses::const_iterator j=disallowed.begin(); j!=disallowed.end(); j++) {
             vclasses.insert(*j);
         }
@@ -166,7 +166,7 @@ MSEdge::rebuildAllowedLanes() throw() {
 
 // ------------ Access to the edge's lanes
 MSLane*
-MSEdge::leftLane(const MSLane * const lane) const throw() {
+MSEdge::leftLane(const MSLane* const lane) const throw() {
     std::vector<MSLane*>::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->end()-1) {
         return 0;
@@ -176,7 +176,7 @@ MSEdge::leftLane(const MSLane * const lane) const throw() {
 
 
 MSLane*
-MSEdge::rightLane(const MSLane * const lane) const throw() {
+MSEdge::rightLane(const MSLane* const lane) const throw() {
     std::vector<MSLane*>::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->begin()) {
         return 0;
@@ -198,11 +198,11 @@ MSEdge::allowedLanes(SUMOVehicleClass vclass) const throw() {
 
 
 const std::vector<MSLane*>*
-MSEdge::allowedLanes(const MSEdge *destination, SUMOVehicleClass vclass) const throw() {
+MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const throw() {
     if (myHaveClassConstraints&&vclass!=SVC_UNKNOWN) {
         ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
         if (i!=myClassedAllowed.end()) {
-            const AllowedLanesCont &c = (*i).second;
+            const AllowedLanesCont& c = (*i).second;
             AllowedLanesCont::const_iterator j = (*i).second.find(destination);
             if (j==c.end()) {
                 // Destination-edge not found.
@@ -236,7 +236,7 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError) {
 }
 
 
-MSLane *
+MSLane*
 MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass vclass) const throw() {
     if (allowed==0) {
         allowed = allowedLanes(vclass);
@@ -255,8 +255,8 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
 }
 
 
-MSLane *
-MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
+MSLane*
+MSEdge::getDepartLane(const MSVehicle& veh) const throw() {
     switch (veh.getParameter().departLaneProcedure) {
     case DEPART_LANE_GIVEN:
         if ((int) myLanes->size() <= veh.getParameter().departLane || !(*myLanes)[veh.getParameter().departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
@@ -287,7 +287,7 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
                 bestLanes->push_back((*i).lane);
             }
         }
-        MSLane *ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass());
+        MSLane* ret = getFreeLane(bestLanes, veh.getVehicleType().getVehicleClass());
         delete bestLanes;
         return ret;
     }
@@ -303,14 +303,14 @@ MSEdge::getDepartLane(const MSVehicle &veh) const throw() {
 
 
 bool
-MSEdge::insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError) {
+MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const throw(ProcessError) {
     // when vaporizing, no vehicles are inserted...
     if (isVaporizing()) {
         return false;
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        const SUMOVehicleParameter &pars = v.getParameter();
+        const SUMOVehicleParameter& pars = v.getParameter();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
         case DEPART_POS_GIVEN:
@@ -358,14 +358,14 @@ MSEdge::changeLanes(SUMOTime t) throw() {
 
 
 #ifdef HAVE_INTERNAL_LANES
-const MSEdge *
-MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw() {
+const MSEdge*
+MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const throw() {
     //@todo to be optimized
     for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
-        MSLane *l = *i;
-        const MSLinkCont &lc = l->getLinkCont();
+        MSLane* l = *i;
+        const MSLinkCont& lc = l->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
-            MSLink *link = *j;
+            MSLink* link = *j;
             if (&link->getLane()->getEdge()==followerAfterInternal) {
                 return &link->getViaLane()->getEdge();
             }
@@ -381,7 +381,7 @@ MSEdge::getCurrentTravelTime() const throw() {
     SUMOReal v = 0;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
         unsigned segments = 0;
         do {
             v += first->getMeanSpeed();
@@ -407,7 +407,7 @@ MSEdge::getCurrentTravelTime() const throw() {
 
 
 bool
-MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
+MSEdge::prohibits(const SUMOVehicle* const vehicle) const throw() {
     if (myFunction == EDGEFUNCTION_DISTRICT || !myHaveClassConstraints) {
         return false;
     }
@@ -422,7 +422,7 @@ MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
 
 
 bool
-MSEdge::dictionary(const std::string &id, MSEdge* ptr) throw() {
+MSEdge::dictionary(const std::string& id, MSEdge* ptr) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -438,7 +438,7 @@ MSEdge::dictionary(const std::string &id, MSEdge* ptr) throw() {
 
 
 MSEdge*
-MSEdge::dictionary(const std::string &id) throw() {
+MSEdge::dictionary(const std::string& id) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -479,8 +479,8 @@ MSEdge::insertIDs(std::vector<std::string> &into) throw() {
 
 
 void
-MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
-                       const std::string &rid) throw(ProcessError) {
+MSEdge::parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into,
+                       const std::string& rid) throw(ProcessError) {
     StringTokenizer st(desc);
     parseEdgesList(st.getVector(), into, rid);
 }
@@ -488,9 +488,9 @@ MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into
 
 void
 MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
-                       const std::string &rid) throw(ProcessError) {
+                       const std::string& rid) throw(ProcessError) {
     for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
-        const MSEdge *edge = MSEdge::dictionary(*i);
+        const MSEdge* edge = MSEdge::dictionary(*i);
         // check whether the edge exists
         if (edge==0) {
             throw ProcessError("The edge '" + *i + "' within the route " + rid + " is not known."

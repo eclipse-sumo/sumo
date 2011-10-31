@@ -46,8 +46,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node)
-        : myNode(node) {}
+NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node)
+    : myNode(node) {}
 
 
 NBNodeShapeComputer::~NBNodeShapeComputer() {}
@@ -78,8 +78,8 @@ NBNodeShapeComputer::compute(bool leftHand) {
     if (geometryLike) {
         // additionally, the angle between the edges must not be larger than 45 degrees
         //  (otherwise, we will try to compute the shape in a different way)
-        const EdgeVector &incoming = myNode.getIncomingEdges();
-        const EdgeVector &outgoing = myNode.getOutgoingEdges();
+        const EdgeVector& incoming = myNode.getIncomingEdges();
+        const EdgeVector& outgoing = myNode.getOutgoingEdges();
         SUMOReal maxAngle = SUMOReal(0);
         for (EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
             SUMOReal ia = (*i)->getAngle(myNode);
@@ -107,7 +107,7 @@ NBNodeShapeComputer::compute(bool leftHand) {
 
 
 void
-computeSameEnd(PositionVector& l1, PositionVector &l2) {
+computeSameEnd(PositionVector& l1, PositionVector& l2) {
     Line sub(l1.lineAt(0).getPositionAtDistance(100), l1[1]);
     Line tmp(sub);
     tmp.rotateAtP1(PI/2);
@@ -132,7 +132,7 @@ computeSameEnd(PositionVector& l1, PositionVector &l2) {
 
 
 void
-NBNodeShapeComputer::replaceLastChecking(PositionVector &g, bool decenter,
+NBNodeShapeComputer::replaceLastChecking(PositionVector& g, bool decenter,
         PositionVector counter,
         size_t counterLanes, SUMOReal counterDist,
         int laneDiff) {
@@ -159,7 +159,7 @@ NBNodeShapeComputer::replaceLastChecking(PositionVector &g, bool decenter,
 
 
 void
-NBNodeShapeComputer::replaceFirstChecking(PositionVector &g, bool decenter,
+NBNodeShapeComputer::replaceFirstChecking(PositionVector& g, bool decenter,
         PositionVector counter,
         size_t counterLanes, SUMOReal counterDist,
         int laneDiff) {

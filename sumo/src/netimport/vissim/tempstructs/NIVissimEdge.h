@@ -58,14 +58,14 @@ class NBDistrictCont;
  * @brief A temporary storage for edges imported from Vissim
  */
 class NIVissimEdge
-            : public NIVissimAbstractEdge {
+        : public NIVissimAbstractEdge {
 public:
     /// Constructor
-    NIVissimEdge(int id, const std::string &name,
-                 const std::string &type, int noLanes, SUMOReal zuschlag1,
+    NIVissimEdge(int id, const std::string& name,
+                 const std::string& type, int noLanes, SUMOReal zuschlag1,
                  SUMOReal zuschlag2, SUMOReal length,
-                 const PositionVector &geom,
-                 const NIVissimClosedLanesVector &clv);
+                 const PositionVector& geom,
+                 const NIVissimClosedLanesVector& clv);
 
     /// Destructor
     ~NIVissimEdge();
@@ -81,7 +81,7 @@ public:
 
     /** @brief Returns the node at the given position
         As this may be ambigous, a second node not to return may be supplied */
-    NBNode *getNodeAt(const Position &p, NBNode *other=0);
+    NBNode* getNodeAt(const Position& p, NBNode* other=0);
 
     /** Returns the begin position of the edge */
     Position getBegin2D() const;
@@ -94,15 +94,15 @@ public:
 
     void checkDistrictConnectionExistanceAt(SUMOReal pos);
 
-    void mergedInto(NIVissimConnectionCluster *old,
-                    NIVissimConnectionCluster *act);
+    void mergedInto(NIVissimConnectionCluster* old,
+                    NIVissimConnectionCluster* act);
 
-    void removeFromConnectionCluster(NIVissimConnectionCluster *c);
-    void addToConnectionCluster(NIVissimConnectionCluster *c);
+    void removeFromConnectionCluster(NIVissimConnectionCluster* c);
+    void addToConnectionCluster(NIVissimConnectionCluster* c);
     void setSpeed(size_t lane, int speedDist);
-    bool addToTreatAsSame(NIVissimEdge *e);
+    bool addToTreatAsSame(NIVissimEdge* e);
 
-    NIVissimConnection* getConnectionTo(NIVissimEdge *e);
+    NIVissimConnection* getConnectionTo(NIVissimEdge* e);
     const std::vector<NIVissimEdge*> &getToTreatAsSame() const;
 
 
@@ -113,8 +113,8 @@ public:
         return myAmWithinJunction;
     }
 
-    NIVissimEdge *getBestIncoming() const throw();
-    NIVissimEdge *getBestOutgoing() const throw();
+    NIVissimEdge* getBestIncoming() const throw();
+    NIVissimEdge* getBestOutgoing() const throw();
 
     friend class NIVissimNodeDef_Edges;
     friend class NIVissimNodeDef_Poly;
@@ -122,17 +122,17 @@ public:
 public:
     /** @brief Adds the described item to the dictionary
         Builds the edge first */
-    static bool dictionary(int id, const std::string &name,
-                           const std::string &type, int noLanes, SUMOReal zuschlag1,
+    static bool dictionary(int id, const std::string& name,
+                           const std::string& type, int noLanes, SUMOReal zuschlag1,
                            SUMOReal zuschlag2, SUMOReal length,
-                           const PositionVector &geom,
-                           const NIVissimClosedLanesVector &clv);
+                           const PositionVector& geom,
+                           const NIVissimClosedLanesVector& clv);
 
     /// Adds the edge to the dictionary
-    static bool dictionary(int id, NIVissimEdge *o);
+    static bool dictionary(int id, NIVissimEdge* o);
 
     /// Returns the named edge from the dictionary
-    static NIVissimEdge *dictionary(int id);
+    static NIVissimEdge* dictionary(int id);
 
     /** @brief Clusters connections of each edge
      *
@@ -145,8 +145,8 @@ public:
     static void buildConnectionClusters() throw();
 
     /// Builds NBEdges from the VissimEdges within the dictionary
-    static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                  NBEdgeCont &ec, SUMOReal offset);
+    static void dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
+                                  NBEdgeCont& ec, SUMOReal offset);
 
     static void dict_propagateSpeeds(/* NBDistribution &dc */);
 
@@ -177,20 +177,20 @@ private:
      * @param[in] sameNodesOffset Offset used to discriminate nodes
      * @exception ProcessError If one of the built nodes or edges could not be added to the according container
      */
-    void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
-                     NBEdgeCont &ec, SUMOReal sameNodesOffset) throw(ProcessError);
+    void buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc,
+                     NBEdgeCont& ec, SUMOReal sameNodesOffset) throw(ProcessError);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>
-    getFromNode(NBNodeCont &nc, ConnectionClusters &clusters);
+    getFromNode(NBNodeCont& nc, ConnectionClusters& clusters);
 
     /// Returns the destination node
     std::pair<NIVissimConnectionCluster*, NBNode*>
-    getToNode(NBNodeCont &nc, ConnectionClusters &clusters);
+    getToNode(NBNodeCont& nc, ConnectionClusters& clusters);
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
-    std::pair<NBNode*, NBNode*> resolveSameNode(NBNodeCont &nc,
-            SUMOReal offset, NBNode *prevFrom, NBNode *prevTo);
+    std::pair<NBNode*, NBNode*> resolveSameNode(NBNodeCont& nc,
+            SUMOReal offset, NBNode* prevFrom, NBNode* prevTo);
 
 //    SUMOReal recheckSpeedPatches();
 
@@ -207,13 +207,13 @@ private:
 
 
 private:
-    static NBNode *getNodeSecure(int nodeid, const Position &pos,
-                                 const std::string &possibleName);
+    static NBNode* getNodeSecure(int nodeid, const Position& pos,
+                                 const std::string& possibleName);
 
     std::pair<NBNode*, NBNode*>
-    remapOneOfNodes(NBNodeCont &nc,
-                    NIVissimDistrictConnection *d,
-                    NBNode *fromNode, NBNode *toNode);
+    remapOneOfNodes(NBNodeCont& nc,
+                    NIVissimDistrictConnection* d,
+                    NBNode* fromNode, NBNode* toNode);
 
 private:
     /**
@@ -245,8 +245,8 @@ private:
         explicit connection_cluster_position_sorter(int edgeid);
 
         /// comparing operation
-        int operator()(NIVissimConnectionCluster *cc1,
-                       NIVissimConnectionCluster *cc2) const;
+        int operator()(NIVissimConnectionCluster* cc1,
+                       NIVissimConnectionCluster* cc2) const;
 
     private:
         /// The id of the edge

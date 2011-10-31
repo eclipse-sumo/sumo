@@ -41,28 +41,28 @@
  *
  */
 class NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 private:
     /// ?? (unknown vissim-description)
-    bool parseOnlyMe(std::istream &from);
+    bool parseOnlyMe(std::istream& from);
 
     /// parses a disturbance described by its position
-    bool parsePositionDescribed(std::istream &from);
+    bool parsePositionDescribed(std::istream& from);
 
     /// parses a full description of a disturbance
-    bool parseNumbered(std::istream &from);
+    bool parseNumbered(std::istream& from);
 
-    NIVissimExtendedEdgePoint parsePos(std::istream &from);
+    NIVissimExtendedEdgePoint parsePos(std::istream& from);
 
 };
 

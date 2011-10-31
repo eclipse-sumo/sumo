@@ -56,11 +56,11 @@ public:
      * @param[in] allowed Vehicle classes that may pass this lane
      * @param[in] disallowed Vehicle classes that may not pass this lane
      */
-    ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
-           const SUMOVehicleClasses &allowed,
-           const SUMOVehicleClasses &disallowed) throw()
-            : Named(id), myLength(length), myMaxSpeed(maxSpeed),
-            myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
+    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed,
+           const SUMOVehicleClasses& allowed,
+           const SUMOVehicleClasses& disallowed) throw()
+        : Named(id), myLength(length), myMaxSpeed(maxSpeed),
+          myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
     }
 
 
@@ -87,7 +87,7 @@ public:
     /** @brief Returns the list of allowed vehicle classes
      * @return The list of vehicle classes allowed on this lane
      */
-    const SUMOVehicleClasses &getAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getAllowedClasses() const throw() {
         return myAllowedClasses;
     }
 
@@ -95,7 +95,7 @@ public:
     /** @brief Returns the list of not allowed vehicle classes
      * @return The list of vehicle classes not allowed on this lane
      */
-    const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getNotAllowedClasses() const throw() {
         return myNotAllowedClasses;
     }
 
@@ -116,10 +116,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    ROLane(const ROLane &src);
+    ROLane(const ROLane& src);
 
     /// @brief Invalidated assignment operator
-    ROLane &operator=(const ROLane &src);
+    ROLane& operator=(const ROLane& src);
 
 };
 

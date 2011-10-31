@@ -83,8 +83,8 @@ public:
      * @param[in] programID This tls' sub-id (program id)
      * @param[in] delay The time to wait before the first switch
      */
-    MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                        const std::string &id, const std::string &programID, SUMOTime delay);
+    MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                        const std::string& id, const std::string& programID, SUMOTime delay);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -92,7 +92,7 @@ public:
      * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    virtual void init(NLDetectorBuilder &nb);
+    virtual void init(NLDetectorBuilder& nb);
 
 
     /// @brief Destructor
@@ -108,7 +108,7 @@ public:
      * @param[in] lane The lane this link starts at
      * @param[in] pos The link's index (signal group) within this program
      */
-    void addLink(MSLink *link, MSLane *lane, unsigned int pos);
+    void addLink(MSLink* link, MSLane* lane, unsigned int pos);
 
 
     /** @brief Applies information about controlled links and lanes from the given logic
@@ -118,7 +118,7 @@ public:
      *
      * @param[in] logic The logic to use the information about controlled links/lanes from
      */
-    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic& logic);
 
 
     /** @brief Returns the (uncontrolled) states of the controlled links
@@ -162,7 +162,7 @@ public:
     /** @brief Returns this tl-logic's id
      * @return This tls' id
      */
-    const std::string &getID() const {
+    const std::string& getID() const {
         return myID;
     }
 
@@ -170,7 +170,7 @@ public:
     /** @brief Returns this tl-logic's id
      * @return This program's id
      */
-    const std::string &getProgramID() const {
+    const std::string& getProgramID() const {
         return myProgramID;
     }
 
@@ -178,7 +178,7 @@ public:
     /** @brief Returns the list of lists of all lanes controlled by this tls
      * @return All lanes controlled by this tls, sorted by the signal index
      */
-    const LaneVectorVector &getLanes() const {
+    const LaneVectorVector& getLanes() const {
         return myLanes;
     }
 
@@ -187,7 +187,7 @@ public:
      * @param[in] i The index of the signal
      * @return The lanes controlled by the signal at the given index
      */
-    const LaneVector &getLanesAt(unsigned int i) const {
+    const LaneVector& getLanesAt(unsigned int i) const {
         return myLanes[i];
     }
 
@@ -195,7 +195,7 @@ public:
     /** @brief Returns the list of lists of all affected links
      * @return All links controlled by this tls, sorted by the signal index
      */
-    const LinkVectorVector &getLinks() const {
+    const LinkVectorVector& getLinks() const {
         return myLinks;
     }
 
@@ -204,7 +204,7 @@ public:
      * @param[in] i The index of the signal
      * @return The links controlled by the signal at the given index
      */
-    const LinkVector &getLinksAt(unsigned int i) const {
+    const LinkVector& getLinksAt(unsigned int i) const {
         return myLinks[i];
     }
 
@@ -213,7 +213,7 @@ public:
      * @param[in] link The link to retrieve the index for
      * @return The index of the given link (-1 if it is not controlled by this tls)
      */
-    int getLinkIndex(const MSLink * const link) const;
+    int getLinkIndex(const MSLink* const link) const;
 
 
     /** @brief Returns the number of phases
@@ -225,14 +225,14 @@ public:
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      */
-    virtual const Phases &getPhases() const = 0;
+    virtual const Phases& getPhases() const = 0;
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
      * @param[in] givenstep The index of the phase within the plan
      * @return The definition of the phase at the given position
      */
-    virtual const MSPhaseDefinition &getPhase(unsigned int givenstep) const = 0;
+    virtual const MSPhaseDefinition& getPhase(unsigned int givenstep) const = 0;
     /// @}
 
 
@@ -249,7 +249,7 @@ public:
     /** @brief Returns the definition of the current phase
      * @return The current phase
      */
-    virtual const MSPhaseDefinition &getCurrentPhaseDef() const = 0;
+    virtual const MSPhaseDefinition& getCurrentPhaseDef() const = 0;
 
 
     /** @brief Returns the cycle time (in ms)
@@ -316,7 +316,7 @@ public:
      * @param[in] step Index of the phase to use
      * @param[in] stepDuration The left duration of the phase
      */
-    virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
+    virtual void changeStepAndDuration(MSTLLogicControl& tlcontrol,
                                        SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
 
     /// @}
@@ -336,7 +336,7 @@ public:
      * @param[in] key The name of the parameter
      * @return The value of the parameter, "" if the parameter is not known
      */
-    std::string getParameterValue(const std::string &key) const;
+    std::string getParameterValue(const std::string& key) const;
     /// @}
 
 
@@ -352,8 +352,8 @@ protected:
          * @param[in] tlLogic The controlled tls logic
          * @param[in] duration Duration till next switch
          */
-        SwitchCommand(MSTLLogicControl &tlcontrol,
-                      MSTrafficLightLogic *tlLogic,
+        SwitchCommand(MSTLLogicControl& tlcontrol,
+                      MSTrafficLightLogic* tlLogic,
                       SUMOTime nextSwitch);
 
         /// @brief Destructor
@@ -369,7 +369,7 @@ protected:
         /** @brief Marks this swicth as invalid (if the phase duration has changed, f.e.)
          * @param[in] tlLogic The controlled tls logic
          */
-        void deschedule(MSTrafficLightLogic *tlLogic);
+        void deschedule(MSTrafficLightLogic* tlLogic);
 
 
         /** @brief Returns the assumed next switch time
@@ -382,10 +382,10 @@ protected:
 
     private:
         /// @brief The responsible traffic lights control
-        MSTLLogicControl &myTLControl;
+        MSTLLogicControl& myTLControl;
 
         /// @brief The logic to be executed on a switch
-        MSTrafficLightLogic *myTLLogic;
+        MSTrafficLightLogic* myTLLogic;
 
         /// @brief Assumed switch time (may change in case of adaptive traffic lights)
         SUMOTime myAssumedNextSwitch;
@@ -422,7 +422,7 @@ protected:
     SUMOTime myCurrentDurationIncrement;
 
     /// @brief The current switch command
-    SwitchCommand *mySwitchCommand;
+    SwitchCommand* mySwitchCommand;
 
     /// @brief The cycle time (without changes)
     SUMOTime myDefaultCycleTime;
@@ -430,10 +430,10 @@ protected:
 
 private:
     /// @brief invalidated copy constructor
-    MSTrafficLightLogic(const MSTrafficLightLogic &s);
+    MSTrafficLightLogic(const MSTrafficLightLogic& s);
 
     /// @brief invalidated assignment operator
-    MSTrafficLightLogic& operator=(const MSTrafficLightLogic &s);
+    MSTrafficLightLogic& operator=(const MSTrafficLightLogic& s);
 
 };
 

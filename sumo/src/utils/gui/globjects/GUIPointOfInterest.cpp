@@ -53,23 +53,23 @@
 // method definitions
 // ===========================================================================
 GUIPointOfInterest::GUIPointOfInterest(int layer,
-                                       const std::string &id,
-                                       const std::string &type,
-                                       const Position &p,
-                                       const RGBColor &c) throw() :
-        PointOfInterest(id, type, p, c),
-        GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
-        myLayer(layer) {}
+                                       const std::string& id,
+                                       const std::string& type,
+                                       const Position& p,
+                                       const RGBColor& c) throw() :
+    PointOfInterest(id, type, p, c),
+    GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
+    myLayer(layer) {}
 
 
 GUIPointOfInterest::~GUIPointOfInterest() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent) throw() {
+GUIGLObjectPopupMenu*
+GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
+                                 GUISUMOAbstractView& parent) throw() {
 
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
     new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
@@ -82,9 +82,9 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
-                                       GUISUMOAbstractView &) throw() {
+GUIParameterTableWindow*
+GUIPointOfInterest::getParameterWindow(GUIMainWindow&,
+                                       GUISUMOAbstractView&) throw() {
     return 0;
 }
 
@@ -99,7 +99,7 @@ GUIPointOfInterest::getCenteringBoundary() const throw() {
 
 
 void
-GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const throw() {
     if (s.scale*(1.3/3.0)<s.minPOISize) {
         return;
     }

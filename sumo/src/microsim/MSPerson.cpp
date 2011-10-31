@@ -49,14 +49,14 @@
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage::MSPersonStage(const MSEdge &destination)
-        : myDestination(destination), myDeparted(-1), myArrived(-1) {}
+MSPerson::MSPersonStage::MSPersonStage(const MSEdge& destination)
+    : myDestination(destination), myDeparted(-1), myArrived(-1) {}
 
 
 MSPerson::MSPersonStage::~MSPersonStage() {}
 
 
-const MSEdge &
+const MSEdge&
 MSPerson::MSPersonStage::getDestination() const {
     return myDestination;
 }
@@ -77,7 +77,7 @@ MSPerson::MSPersonStage::setArrived(SUMOTime now) {
 
 
 bool
-MSPerson::MSPersonStage::isWaitingFor(const std::string&/*line*/) const {
+MSPerson::MSPersonStage::isWaitingFor(const std::string& /*line*/) const {
     return false;
 }
 
@@ -85,7 +85,7 @@ MSPerson::MSPersonStage::isWaitingFor(const std::string&/*line*/) const {
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(MSEdgeVector route, SUMOTime walkingTime, SUMOReal speed)
-        : MSPersonStage(*route.back()), myWalkingTime(walkingTime) {
+    : MSPersonStage(*route.back()), myWalkingTime(walkingTime) {
     if (speed > 0) {
         SUMOReal time = 0;
         for (MSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
@@ -102,13 +102,13 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {}
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
-        const MSEdge & /*previousEdge*/) {
+        const MSEdge& /*previousEdge*/) {
     net->getPersonControl().setArrival(MAX2(now, now + myWalkingTime), person);
 }
 
 
 void
-MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const throw(IOError) {
     (os.openTag("walk") <<
      " arrival=\"" << time2string(myArrived) <<
      "\"").closeTag(true);
@@ -119,9 +119,9 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice &os) const throw(IO
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge &destination,
+MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
         const std::vector<std::string> &lines)
-        : MSPersonStage(destination), myLines(lines.begin(), lines.end()) {}
+    : MSPersonStage(destination), myLines(lines.begin(), lines.end()) {}
 
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
@@ -130,8 +130,8 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
         MSPerson* person, SUMOTime /*now*/,
-        const MSEdge &previousEdge) {
-    SUMOVehicle *v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
+        const MSEdge& previousEdge) {
+    SUMOVehicle* v = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (v != 0 && v->getParameter().departProcedure == DEPART_TRIGGERED) {
         v->addPerson(person);
         net->getInsertionControl().add(v);
@@ -144,13 +144,13 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
 
 
 bool
-MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string &line) const {
+MSPerson::MSPersonStage_Driving::isWaitingFor(const std::string& line) const {
     return myLines.count(line) > 0;
 }
 
 
 void
-MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os) const throw(IOError) {
     (os.openTag("ride") <<
      " depart=\"" << time2string(myDeparted) <<
      "\" arrival=\"" << time2string(myArrived) <<
@@ -161,9 +161,9 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice &os) const throw(IO
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Waiting - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge &destination,
+MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until)
-        : MSPersonStage(destination), myWaitingDuration(duration), myWaitingUntil(until) {}
+    : MSPersonStage(destination), myWaitingDuration(duration), myWaitingUntil(until) {}
 
 
 MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
@@ -172,14 +172,14 @@ MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
 void
 MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
         MSPerson* person, SUMOTime now,
-        const MSEdge & /*previousEdge*/) {
+        const MSEdge& /*previousEdge*/) {
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     net->getPersonControl().setArrival(until, person);
 }
 
 
 void
-MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice& os) const throw(IOError) {
     (os.openTag("stop") <<
      " arrival=\"" << time2string(myArrived) <<
      "\"").closeTag(true);
@@ -189,8 +189,8 @@ MSPerson::MSPersonStage_Waiting::tripInfoOutput(OutputDevice &os) const throw(IO
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */
-MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan *plan)
-        : myParameter(pars), myPlan(plan) {
+MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan)
+    : myParameter(pars), myPlan(plan) {
     myStep = myPlan->begin();
 }
 
@@ -212,7 +212,7 @@ MSPerson::getID() const throw() {
 
 void
 MSPerson::proceed(MSNet* net, SUMOTime time) {
-    const MSEdge &arrivedAt = (*myStep)->getDestination();
+    const MSEdge& arrivedAt = (*myStep)->getDestination();
     (*myStep)->setArrived(time);
     myStep++;
     if (myStep != myPlan->end()) {
@@ -235,14 +235,14 @@ MSPerson::setDeparted(SUMOTime now) {
 }
 
 
-const MSEdge &
+const MSEdge&
 MSPerson::getDestination() const {
     return (*myStep)->getDestination();
 }
 
 
 void
-MSPerson::tripInfoOutput(OutputDevice &os) const throw(IOError) {
+MSPerson::tripInfoOutput(OutputDevice& os) const throw(IOError) {
     for (MSPersonPlan::const_iterator i=myPlan->begin(); i!=myPlan->end(); ++i) {
         (*i)->tripInfoOutput(os);
     }
@@ -250,7 +250,7 @@ MSPerson::tripInfoOutput(OutputDevice &os) const throw(IOError) {
 
 
 bool
-MSPerson::isWaitingFor(const std::string &line) const {
+MSPerson::isWaitingFor(const std::string& line) const {
     return (*myStep)->isWaitingFor(line);
 }
 

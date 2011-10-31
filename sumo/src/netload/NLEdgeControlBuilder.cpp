@@ -56,7 +56,7 @@
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
-        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
+    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
     myActiveEdge = (MSEdge*) 0;
     myLaneStorage = new std::vector<MSLane*>();
 }
@@ -69,7 +69,7 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder() {
 
 void
 NLEdgeControlBuilder::beginEdgeParsing(
-    const std::string &id, MSEdge::EdgeBasicFunction function,
+    const std::string& id, MSEdge::EdgeBasicFunction function,
     const std::string& streetName) {
     myActiveEdge = buildEdge(id, streetName);
     if (MSEdge::dictionary(id) != 0) {
@@ -80,13 +80,13 @@ NLEdgeControlBuilder::beginEdgeParsing(
 }
 
 
-MSLane *
-NLEdgeControlBuilder::addLane(const std::string &id,
+MSLane*
+NLEdgeControlBuilder::addLane(const std::string& id,
                               SUMOReal maxSpeed, SUMOReal length,
-                              const PositionVector &shape, SUMOReal width,
-                              const SUMOVehicleClasses &allowed,
-                              const SUMOVehicleClasses &disallowed) {
-    MSLane *lane = 0;
+                              const PositionVector& shape, SUMOReal width,
+                              const SUMOVehicleClasses& allowed,
+                              const SUMOVehicleClasses& disallowed) {
+    MSLane* lane = 0;
     switch (myFunction) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(id, maxSpeed, length, myActiveEdge,
@@ -105,7 +105,7 @@ NLEdgeControlBuilder::addLane(const std::string &id,
 }
 
 
-MSEdge *
+MSEdge*
 NLEdgeControlBuilder::closeEdge() {
     std::vector<MSLane*> *lanes = new std::vector<MSLane*>();
     lanes->reserve(myLaneStorage->size());
@@ -116,7 +116,7 @@ NLEdgeControlBuilder::closeEdge() {
 }
 
 
-MSEdgeControl *
+MSEdgeControl*
 NLEdgeControlBuilder::build() {
     for (EdgeCont::iterator i1=myEdges.begin(); i1!=myEdges.end(); i1++) {
         (*i1)->closeBuilding();
@@ -130,8 +130,8 @@ NLEdgeControlBuilder::build() {
 }
 
 
-MSEdge *
-NLEdgeControlBuilder::buildEdge(const std::string &id, const std::string &streetName) throw() {
+MSEdge*
+NLEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) throw() {
     return new MSEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 

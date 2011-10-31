@@ -65,8 +65,8 @@ public:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                          PCTypeMap &tm) throw(ProcessError);
+    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                          PCTypeMap& tm) throw(ProcessError);
 
 
 protected:
@@ -75,8 +75,8 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @param[in] oc The options container to get further options from
      */
-    PCLoaderXML(PCPolyContainer &toFill,
-                PCTypeMap &tm, OptionsCont &oc) throw();
+    PCLoaderXML(PCPolyContainer& toFill,
+                PCTypeMap& tm, OptionsCont& oc) throw();
 
 
     /// @brief Destructor
@@ -95,7 +95,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -106,19 +106,19 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string &chars) throw(ProcessError);
+                      const std::string& chars) throw(ProcessError);
     //@}
 
 
 private:
     /// @brief The container to store the converted polygons/pois into
-    PCPolyContainer &myCont;
+    PCPolyContainer& myCont;
 
     /// @brief The type map to use
-    PCTypeMap &myTypeMap;
+    PCTypeMap& myTypeMap;
 
     /// @brief Settings to use
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
 
     /// @name Temporary storages used when parsing polygons

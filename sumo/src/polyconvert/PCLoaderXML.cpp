@@ -58,8 +58,8 @@
 // static interface
 // ---------------------------------------------------------------------------
 void
-PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError) {
+PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                       PCTypeMap& tm) throw(ProcessError) {
     if (!oc.isSet("xml-files")) {
         return;
     }
@@ -83,10 +83,10 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 // ---------------------------------------------------------------------------
 // handler methods
 // ---------------------------------------------------------------------------
-PCLoaderXML::PCLoaderXML(PCPolyContainer &toFill,
-                         PCTypeMap &tm, OptionsCont &oc) throw()
-        : SUMOSAXHandler("xml-poi-definition"),
-        myCont(toFill), myTypeMap(tm), myOptions(oc) {}
+PCLoaderXML::PCLoaderXML(PCPolyContainer& toFill,
+                         PCTypeMap& tm, OptionsCont& oc) throw()
+    : SUMOSAXHandler("xml-poi-definition"),
+      myCont(toFill), myTypeMap(tm), myOptions(oc) {}
 
 
 PCLoaderXML::~PCLoaderXML() throw() {}
@@ -94,7 +94,7 @@ PCLoaderXML::~PCLoaderXML() throw() {}
 
 void
 PCLoaderXML::myStartElement(int element,
-                            const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                            const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
         return;
     }
@@ -117,7 +117,7 @@ PCLoaderXML::myStartElement(int element,
         int layer = myOptions.getInt("layer");
         RGBColor color;
         if (myTypeMap.has(type)) {
-            const PCTypeMap::TypeDef &def = myTypeMap.get(type);
+            const PCTypeMap::TypeDef& def = myTypeMap.get(type);
             id = def.prefix + id;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -133,7 +133,7 @@ PCLoaderXML::myStartElement(int element,
             if (OptionsCont::getOptions().isInStringVector("prune.keep-list", id)) {
                 ignorePrunning = true;
             }
-            PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
+            PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
             if (!myCont.insert(id, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + id + "' could not been added.");
                 delete poi;
@@ -151,7 +151,7 @@ PCLoaderXML::myStartElement(int element,
         }
         RGBColor color;
         if (myTypeMap.has(type)) {
-            const PCTypeMap::TypeDef &def = myTypeMap.get(type);
+            const PCTypeMap::TypeDef& def = myTypeMap.get(type);
             id = def.prefix + id;
             type = def.id;
             color = RGBColor::parseColor(def.color);
@@ -183,14 +183,14 @@ PCLoaderXML::myStartElement(int element,
 
 void
 PCLoaderXML::myCharacters(int element,
-                          const std::string &chars) throw(ProcessError) {
+                          const std::string& chars) throw(ProcessError) {
     if (element==SUMO_TAG_POLY) {
         bool ok = true;
         PositionVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
         if (!ok) {
             return;
         }
-        const PositionVector::ContType &cont = pshape.getCont();
+        const PositionVector::ContType& cont = pshape.getCont();
         PositionVector shape;
         for (PositionVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position pos((*i));
@@ -199,7 +199,7 @@ PCLoaderXML::myCharacters(int element,
             }
             shape.push_back(pos);
         }
-        Polygon *poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, false);
+        Polygon* poly = new Polygon(myCurrentID, myCurrentType, myCurrentColor, shape, false);
         if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
             WRITE_ERROR("Polygon '" + myCurrentID + "' could not been added.");
             delete poly;

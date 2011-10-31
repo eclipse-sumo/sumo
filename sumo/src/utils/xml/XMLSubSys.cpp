@@ -74,9 +74,9 @@ XMLSubSys::close() throw() {
 }
 
 
-SAX2XMLReader *
-XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw() {
-    SAX2XMLReader *reader = getSAXReader();
+SAX2XMLReader*
+XMLSubSys::getSAXReader(SUMOSAXHandler& handler) throw() {
+    SAX2XMLReader* reader = getSAXReader();
     if (reader==0) {
         return 0;
     }
@@ -87,15 +87,15 @@ XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw() {
 
 
 void
-XMLSubSys::setHandler(GenericSAXHandler &handler) {
+XMLSubSys::setHandler(GenericSAXHandler& handler) {
     myReaders[myNextFreeReader-1]->setContentHandler(&handler);
     myReaders[myNextFreeReader-1]->setErrorHandler(&handler);
 }
 
 
 bool
-XMLSubSys::runParser(GenericSAXHandler &handler,
-                     const std::string &file) throw() {
+XMLSubSys::runParser(GenericSAXHandler& handler,
+                     const std::string& file) throw() {
     try {
         if (myNextFreeReader == myReaders.size()) {
             myReaders.push_back(getSAXReader());
@@ -107,7 +107,7 @@ XMLSubSys::runParser(GenericSAXHandler &handler,
         myReaders[myNextFreeReader-1]->parse(file.c_str());
         handler.setFileName(prevFile);
         myNextFreeReader--;
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }
@@ -120,15 +120,15 @@ XMLSubSys::runParser(GenericSAXHandler &handler,
 }
 
 
-SAX2XMLReader *
+SAX2XMLReader*
 XMLSubSys::getSAXReader() throw() {
-    SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
+    SAX2XMLReader* reader = XMLReaderFactory::createXMLReader();
     if (reader==0) {
         WRITE_ERROR("The XML-parser could not be build");
         return 0;
     }
     if (!myEnableValidation) {
-        reader->setProperty(XMLUni::fgXercesScannerName, (void *)XMLUni::fgWFXMLScanner);
+        reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
     }
     setFeature(*reader, "http://xml.org/sax/features/namespaces", false);
     setFeature(*reader, "http://apache.org/xml/features/validation/schema", myEnableValidation);
@@ -140,9 +140,9 @@ XMLSubSys::getSAXReader() throw() {
 
 
 void
-XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
-                      const std::string &feature, bool value) throw() {
-    XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
+XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
+                      const std::string& feature, bool value) throw() {
+    XMLCh* xmlFeature = XMLString::transcode(feature.c_str());
     reader.setFeature(xmlFeature, value);
     XMLString::release(&xmlFeature);
 }

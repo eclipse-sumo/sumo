@@ -78,14 +78,14 @@ public:
      * @see MSLane
      * @see MSInternalLane
      */
-    virtual MSLane *addLane(const std::string &id,
+    virtual MSLane* addLane(const std::string& id,
                             SUMOReal maxSpeed, SUMOReal length,
-                            const PositionVector &shape, SUMOReal width,
-                            const SUMOVehicleClasses &allowed,
-                            const SUMOVehicleClasses &disallowed);
+                            const PositionVector& shape, SUMOReal width,
+                            const SUMOVehicleClasses& allowed,
+                            const SUMOVehicleClasses& disallowed);
 
 
-    MSEdge *closeEdge();
+    MSEdge* closeEdge();
 
 
     /** @brief Builds an edge instance (GUIEdge in this case)
@@ -96,15 +96,15 @@ public:
      *
      * @param[in] id The id of the edge to build
      */
-    MSEdge *buildEdge(const std::string &id, const std::string &streetName) throw();
+    MSEdge* buildEdge(const std::string& id, const std::string& streetName) throw();
 
 
 private:
     /// @brief invalidated copy constructor
-    GUIEdgeControlBuilder(const GUIEdgeControlBuilder &s);
+    GUIEdgeControlBuilder(const GUIEdgeControlBuilder& s);
 
     /// @brief invalidated assignment operator
-    GUIEdgeControlBuilder &operator=(const GUIEdgeControlBuilder &s);
+    GUIEdgeControlBuilder& operator=(const GUIEdgeControlBuilder& s);
 
 };
 

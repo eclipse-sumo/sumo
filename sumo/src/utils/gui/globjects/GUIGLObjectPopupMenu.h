@@ -59,8 +59,8 @@ public:
      * @param[in] parent The parent view for changing it
      * @param[in] o The object of interest
      */
-    GUIGLObjectPopupMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent, GUIGlObject &o) throw();
+    GUIGLObjectPopupMenu(GUIMainWindow& app,
+                         GUISUMOAbstractView& parent, GUIGlObject& o) throw();
 
 
     /// @brief Destructor
@@ -99,13 +99,13 @@ public:
 
 protected:
     /// @brief The parent window
-    GUISUMOAbstractView *myParent;
+    GUISUMOAbstractView* myParent;
 
     /// @brief The object that belongs to this popup-menu
-    GUIGlObject *myObject;
+    GUIGlObject* myObject;
 
     /// @brief The main application
-    GUIMainWindow *myApplication;
+    GUIMainWindow* myApplication;
 
     /// @brief The position within the network the cursor was above when instanting the popup
     Position myNetworkPosition;

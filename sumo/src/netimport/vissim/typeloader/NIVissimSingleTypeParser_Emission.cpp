@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Emission::NIVissimSingleTypeParser_Emission(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Emission::NIVissimSingleTypeParser_Emission(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Emission::~NIVissimSingleTypeParser_Emission() {}
 
 
 bool
-NIVissimSingleTypeParser_Emission::parse(std::istream &) {
+NIVissimSingleTypeParser_Emission::parse(std::istream&) {
     return true;
 }
 

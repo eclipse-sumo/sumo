@@ -66,7 +66,7 @@ public:
      * @param[in] id The id of the route
      * @param[in] color The color of the route
      */
-    RORouteDef(const std::string &id, const RGBColor * const color) throw();
+    RORouteDef(const std::string& id, const RGBColor* const color) throw();
 
 
     /// @brief Destructor
@@ -76,17 +76,17 @@ public:
     /** @brief Builds the complete route
      *
      * (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
-                                       const ROVehicle &veh) const = 0;
+    virtual RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
+                                       const ROVehicle& veh) const = 0;
 
     /** @brief Adds an alternative to the list of routes
     *
      * (This may be the new route) */
     virtual void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                const ROVehicle *const, RORoute *current, SUMOTime begin) = 0;
+                                const ROVehicle* const, RORoute* current, SUMOTime begin) = 0;
 
     /** @brief Returns a copy of the route definition */
-    virtual RORouteDef *copy(const std::string &id) const = 0;
+    virtual RORouteDef* copy(const std::string& id) const = 0;
 
     /// Returns the color of the route
     const RGBColor* getColor() const {
@@ -102,8 +102,8 @@ public:
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @return The same device for further usage
      */
-    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-            OutputDevice &dev, const ROVehicle * const veh,
+    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+            OutputDevice& dev, const ROVehicle* const veh,
             bool asAlternatives, bool withExitTimes) const = 0;
 
 protected:
@@ -111,15 +111,15 @@ protected:
 
 protected:
     /// The color the route shall have
-    const RGBColor * const myColor;
+    const RGBColor* const myColor;
 
 
 private:
     /// @brief Invalidated copy constructor
-    RORouteDef(const RORouteDef &src);
+    RORouteDef(const RORouteDef& src);
 
     /// @brief Invalidated assignment operator
-    RORouteDef &operator=(const RORouteDef &src);
+    RORouteDef& operator=(const RORouteDef& src);
 
 };
 

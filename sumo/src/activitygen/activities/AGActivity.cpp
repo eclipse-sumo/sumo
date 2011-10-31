@@ -58,11 +58,13 @@ AGActivity::possibleTranspMean(AGPosition destination) {
 
     if (destination.distanceTo(hh->getPosition()) <= ds->maxFootDistance) {
         transp = FOOT;
-        if (hh->getCarNbr() != 0)
+        if (hh->getCarNbr() != 0) {
             transp += CAR;
+        }
         if (destination.minDistanceTo(ds->busStations) <= ds->maxFootDistance
-                && hh->getPosition().minDistanceTo(ds->busStations) <= ds->maxFootDistance)
+                && hh->getPosition().minDistanceTo(ds->busStations) <= ds->maxFootDistance) {
             transp += BUS;
+        }
     } else if (hh->getCarNbr() == 0) {
         SUMOReal d1 = destination.distanceTo(hh->getPosition());
         SUMOReal d2 = destination.minDistanceTo(ds->busStations) + hh->getPosition().minDistanceTo(ds->busStations);
@@ -120,10 +122,12 @@ AGActivity::arrHour(AGPosition from, AGPosition to, int departure) {
 
 int
 AGActivity::randomTimeBetween(int begin, int end) {
-    if (0 > begin || begin > end)
+    if (0 > begin || begin > end) {
         return -1;
-    if (begin == end)
+    }
+    if (begin == end) {
         return begin;
+    }
     int tAlea = RandHelper::rand(end - begin);
     return (begin + tAlea);
 }

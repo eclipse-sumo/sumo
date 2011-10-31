@@ -49,7 +49,7 @@
 class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:
     /// Constructor
-    TrackerValueDesc(const std::string &name, const RGBColor &col,
+    TrackerValueDesc(const std::string& name, const RGBColor& col,
                      SUMOTime recordBegin);
 
     /// Destructor
@@ -68,7 +68,7 @@ public:
     SUMOReal getYCenter() const;
 
     /// Returns the color to use to display the value
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /** @brief returns the vector of collected values
         The values will be locked - no further addition will be perfomed until
@@ -81,7 +81,7 @@ public:
     const std::vector<SUMOReal> &getAggregatedValues();
 
     /// Returns the name of the value
-    const std::string &getName() const;
+    const std::string& getName() const;
 
     /// Adds a new value to the list
     void addValue(SUMOReal value);

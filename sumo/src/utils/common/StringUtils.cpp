@@ -90,8 +90,8 @@ StringUtils::convertUmlaute(std::string str) {
 
 
 std::string
-StringUtils::replace(std::string str, const char *what,
-                     const char *by) {
+StringUtils::replace(std::string str, const char* what,
+                     const char* by) {
     const std::string what_tmp(what);
     const std::string by_tmp(by);
     size_t idx = str.find(what);
@@ -128,7 +128,7 @@ StringUtils::toTimeString(int time) {
 
 
 std::string
-StringUtils::escapeXML(const std::string &orig) throw() {
+StringUtils::escapeXML(const std::string& orig) throw() {
     std::string result = replace(orig, "&", "&amp;");
     result = replace(result, ">", "&gt;");
     result = replace(result, "<", "&lt;");

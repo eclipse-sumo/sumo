@@ -101,7 +101,7 @@ public:
      * @param[in] numericalID The numerical id (index) of the edge
      * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string &id, unsigned int numericalID, const std::string& streetName="") throw();
+    MSEdge(const std::string& id, unsigned int numericalID, const std::string& streetName="") throw();
 
 
     /// @brief Destructor.
@@ -130,7 +130,7 @@ public:
      * @return The lane left to the given, 0 if no such lane exists
      * @todo This method searches for the given in the container; probably, this could be done faster
      */
-    MSLane* leftLane(const MSLane * const lane) const throw();
+    MSLane* leftLane(const MSLane* const lane) const throw();
 
 
     /** @brief Returns the lane right to the one given, 0 if the given lane is rightmost
@@ -181,7 +181,7 @@ public:
     /** @brief Returns the id of the edge
      * @return This edge's id
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myID;
     }
 
@@ -313,7 +313,7 @@ public:
      * @return Whether the vehicle could be inserted
      * @see MSLane::insertVehicle
      */
-    bool insertVehicle(SUMOVehicle &v, SUMOTime time) const throw(ProcessError);
+    bool insertVehicle(SUMOVehicle& v, SUMOTime time) const throw(ProcessError);
 
 
     /** @brief Finds the emptiest lane allowing the vehicle class
@@ -343,7 +343,7 @@ public:
      * @param[in] veh The vehicle to get the depart lane for
      * @return a possible/chosen depart lane, 0 if no lane can be used
      */
-    MSLane* getDepartLane(const MSVehicle &veh) const throw();
+    MSLane* getDepartLane(const MSVehicle& veh) const throw();
 
 
     /** @brief Returns the last time a vehicle could not be inserted
@@ -369,11 +369,11 @@ public:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @todo extension: inner junctions are not filled
-    const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw();
+    const MSEdge* getInternalFollowingEdge(MSEdge* followerAfterInternal) const throw();
 #endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
-    bool prohibits(const SUMOVehicle * const vehicle) const throw();
+    bool prohibits(const SUMOVehicle* const vehicle) const throw();
 
     void rebuildAllowedLanes() throw();
 
@@ -382,10 +382,10 @@ public:
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
-    static bool dictionary(const std::string &id, MSEdge* edge) throw();
+    static bool dictionary(const std::string& id, MSEdge* edge) throw();
 
     /** @brief Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
-    static MSEdge* dictionary(const std::string &id) throw();
+    static MSEdge* dictionary(const std::string& id) throw();
 
     /** @brief Returns the MSEdge at the index */
     static MSEdge* dictionary(size_t index) throw();
@@ -412,8 +412,8 @@ public:
      * @param[in] rid The id of the route these description belongs to; used for error message generation
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
-    static void parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
-                               const std::string &rid) throw(ProcessError);
+    static void parseEdgesList(const std::string& desc, std::vector<const MSEdge*> &into,
+                               const std::string& rid) throw(ProcessError);
 
 
     /** @brief Parses the given string vector assuming it edge ids
@@ -423,7 +423,7 @@ public:
      * @exception ProcessError If one of the strings contained is not a known edge id
      */
     static void parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
-                               const std::string &rid) throw(ProcessError);
+                               const std::string& rid) throw(ProcessError);
     /// @}
 
 
@@ -437,7 +437,7 @@ protected:
         explicit by_id_sorter() { }
 
         /// @brief comparing operator
-        int operator()(const MSEdge * const e1, const MSEdge * const e2) const {
+        int operator()(const MSEdge* const e1, const MSEdge* const e2) const {
             return e1->getID()<e2->getID();
         }
 
@@ -452,7 +452,7 @@ protected:
      * @param[in] vclass The vehicle class for which this information shall be returned
      * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
      */
-    const std::vector<MSLane*>* allowedLanes(const MSEdge *destination,
+    const std::vector<MSLane*>* allowedLanes(const MSEdge* destination,
             SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
 
 protected:

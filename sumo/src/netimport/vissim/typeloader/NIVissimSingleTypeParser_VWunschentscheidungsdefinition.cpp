@@ -44,15 +44,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_VWunschentscheidungsdefinition::NIVissimSingleTypeParser_VWunschentscheidungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition::NIVissimSingleTypeParser_VWunschentscheidungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition::~NIVissimSingleTypeParser_VWunschentscheidungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream& from) {
     std::string tag;
     from >> tag; // id
     from >> tag; // name
@@ -91,10 +91,10 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &fro
     int numid = TplConvert<char>::_2int(edgeid.c_str());
     int numlane = TplConvert<char>::_2int(lane.c_str()) - 1;
     int numv = TplConvert<char>::_2int(vwunsch.c_str());
-    NIVissimEdge *e = NIVissimEdge::dictionary(numid);
+    NIVissimEdge* e = NIVissimEdge::dictionary(numid);
     if (e==0) {
-        NIVissimConnection *c = NIVissimConnection::dictionary(numid);
-        const IntVector &lanes = c->getToLanes();
+        NIVissimConnection* c = NIVissimConnection::dictionary(numid);
+        const IntVector& lanes = c->getToLanes();
         e = NIVissimEdge::dictionary(c->getToEdgeID());
         for (IntVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
             e->setSpeed((*j), numv);

@@ -47,7 +47,7 @@ class TraCIException : public std::runtime_error {
 public:
     /** constructor */
     TraCIException(std::string what)
-            : std::runtime_error(what) {}
+        : std::runtime_error(what) {}
 };
 
 }

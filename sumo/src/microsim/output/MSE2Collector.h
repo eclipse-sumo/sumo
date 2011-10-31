@@ -84,8 +84,8 @@ public:
      * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
      * @todo The lane should not be given as a pointer
      */
-    MSE2Collector(const std::string &id, DetectorUsage usage,
-                  MSLane * const lane, SUMOReal startPos, SUMOReal detLength,
+    MSE2Collector(const std::string& id, DetectorUsage usage,
+                  MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                   SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                   SUMOReal jamDistThreshold) throw();
 
@@ -181,7 +181,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -190,7 +190,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
     /// @}
 
 
@@ -287,16 +287,16 @@ protected:
          *
          * @param[in] lane The lane the detector is placed at
          */
-        by_vehicle_position_sorter(const MSLane * const lane) throw()
-                : myLane(lane) { }
+        by_vehicle_position_sorter(const MSLane* const lane) throw()
+            : myLane(lane) { }
 
 
         /** @brief copy constructor
          *
          * @param[in] s The instance to copy
          */
-        by_vehicle_position_sorter(const by_vehicle_position_sorter &s) throw()
-                : myLane(s.myLane) { }
+        by_vehicle_position_sorter(const by_vehicle_position_sorter& s) throw()
+            : myLane(s.myLane) { }
 
 
         /** @brief Comparison funtcion
@@ -305,7 +305,7 @@ protected:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
-        int operator()(const SUMOVehicle *v1, const SUMOVehicle *v2) throw() {
+        int operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) throw() {
             const MSVehicle* const occ = myLane->getPartialOccupator();
             if (v1 == occ) {
                 return true;
@@ -320,7 +320,7 @@ protected:
         by_vehicle_position_sorter& operator=(const by_vehicle_position_sorter&); // just to avoid a compiler warning
     private:
         /// @brief The lane the detector is placed at
-        const MSLane * const myLane;
+        const MSLane* const myLane;
     };
 
 

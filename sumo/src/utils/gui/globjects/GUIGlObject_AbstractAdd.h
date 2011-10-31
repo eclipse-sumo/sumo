@@ -42,7 +42,7 @@
  * @class GUIGlObject_AbstractAdd
  */
 class GUIGlObject_AbstractAdd :
-            public GUIGlObject {
+    public GUIGlObject {
 public:
     GUIGlObject_AbstractAdd(
         const std::string& prefix,
@@ -55,7 +55,7 @@ public:
     static void clearDictionary();
 
     /// Returns a named object
-    static GUIGlObject_AbstractAdd *get(const std::string &name);
+    static GUIGlObject_AbstractAdd* get(const std::string& name);
 
     /// Returns the list of all additional objects
     static const std::vector<GUIGlObject_AbstractAdd*> &getObjectList();

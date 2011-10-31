@@ -161,7 +161,7 @@ public:
 };
 
 template<class T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+std::ostream& operator<<(std::ostream& os, const std::vector<T> &v) {
     for (typename std::vector<T>::const_iterator i=v.begin(); i!=v.end(); i++) {
         if (i!=v.begin()) {
             os << ", ";

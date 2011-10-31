@@ -104,8 +104,8 @@ MSNet* MSNet::myInstance = 0;
 // MSNet::EdgeWeightsProxi - methods
 // ---------------------------------------------------------------------------
 SUMOReal
-MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e,
-                                   const SUMOVehicle * const v,
+MSNet::EdgeWeightsProxi::getEffort(const MSEdge* const e,
+                                   const SUMOVehicle* const v,
                                    SUMOReal t) const {
     SUMOReal value;
     if (myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
@@ -119,8 +119,8 @@ MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e,
 
 
 SUMOReal
-MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge * const e,
-                                       const SUMOVehicle * const v,
+MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge* const e,
+                                       const SUMOVehicle* const v,
                                        SUMOReal t) const {
     SUMOReal value;
     if (myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
@@ -129,7 +129,7 @@ MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge * const e,
     if (myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
-    const MSLane * const l = e->getLanes()[0];
+    const MSLane* const l = e->getLanes()[0];
     return l->getLength() / l->getMaxSpeed();
 }
 
@@ -147,13 +147,13 @@ MSNet::getInstance(void) throw(ProcessError) {
 }
 
 
-MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-             MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents,
-             ShapeContainer *shapeCont) throw(ProcessError) {
+MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
+             MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
+             ShapeContainer* shapeCont) throw(ProcessError) {
     if (myInstance!=0) {
         throw ProcessError("A network was already constructed.");
     }
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
@@ -185,9 +185,9 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
 
 
 void
-MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
-                     MSRouteLoaderControl *routeLoaders,
-                     MSTLLogicControl *tlc,
+MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
+                     MSRouteLoaderControl* routeLoaders,
+                     MSTLLogicControl* tlc,
                      std::vector<SUMOTime> stateDumpTimes,
                      std::vector<std::string> stateDumpFiles) throw() {
     myEdges = edges;
@@ -292,9 +292,9 @@ MSNet::closeSimulation(SUMOTime start) {
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
         }
         msg << "Vehicles: " << "\n"
-        << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << "\n"
-        << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-        << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
+            << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << "\n"
+            << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
+            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
@@ -471,12 +471,12 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary");
         od << "    <step time=\"" << time2string(myStep) << "\" "
-        << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
-        << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
-        << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
-        << "waiting=\"" << myInserter->getWaitingVehicleNo() << "\" "
-        << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
-        << "meanWaitingTime=\"";
+           << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
+           << "emitted=\"" << myVehicleControl->getDepartedVehicleNo() << "\" "
+           << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
+           << "waiting=\"" << myInserter->getWaitingVehicleNo() << "\" "
+           << "ended=\"" << myVehicleControl->getEndedVehicleNo() << "\" "
+           << "meanWaitingTime=\"";
         myVehicleControl->printMeanWaitingTime(od);
         od << "\" meanTravelTime=\"";
         myVehicleControl->printMeanTravelTime(od);
@@ -499,7 +499,7 @@ MSNet::logSimulationDuration() const throw() {
 
 #ifdef HAVE_MESOSIM
 void
-MSNet::saveState(std::ostream &os) throw() {
+MSNet::saveState(std::ostream& os) throw() {
     FileHelpers::writeString(os, VERSION_STRING);
     FileHelpers::writeUInt(os, sizeof(size_t));
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
@@ -514,7 +514,7 @@ MSNet::saveState(std::ostream &os) throw() {
 
 
 unsigned int
-MSNet::loadState(BinaryInputDevice &bis) throw() {
+MSNet::loadState(BinaryInputDevice& bis) throw() {
     std::string version;
     unsigned int sizeT, fpSize, numEdges, step;
     bis >> version;
@@ -545,7 +545,7 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
 #endif
 
 
-MSPersonControl &
+MSPersonControl&
 MSNet::getPersonControl() throw() {
     if (myPersonControl==0) {
         myPersonControl = new MSPersonControl();
@@ -554,7 +554,7 @@ MSNet::getPersonControl() throw() {
 }
 
 
-MSEdgeWeightsStorage &
+MSEdgeWeightsStorage&
 MSNet::getWeightsStorage() throw() {
     if (myEdgeWeights==0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
@@ -580,15 +580,15 @@ MSNet::postSimStepOutput() const throw() {
         oss << std::setprecision(OUTPUT_ACCURACY);
         if (mySimStepDuration!=0) {
             oss << " (" << mySimStepDuration << "ms ~= "
-            << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
-            << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+                << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
+                << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
         } else {
             oss << " (0ms ?*RT. ?";
         }
         oss << "UPS, vehicles"
-        << " TOT " << myVehicleControl->getDepartedVehicleNo()
-        << " ACT " << myVehicleControl->getRunningVehicleNo()
-        << ")                                              ";
+            << " TOT " << myVehicleControl->getDepartedVehicleNo()
+            << " ACT " << myVehicleControl->getRunningVehicleNo()
+            << ")                                              ";
         msg = oss.str();
         std::string prev = "Step #" + time2string(myStep-DELTA_T);
         msg = msg.substr(0, 78 - prev.length());
@@ -599,7 +599,7 @@ MSNet::postSimStepOutput() const throw() {
 
 
 void
-MSNet::addVehicleStateListener(VehicleStateListener *listener) throw() {
+MSNet::addVehicleStateListener(VehicleStateListener* listener) throw() {
     if (find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener)==myVehicleStateListeners.end()) {
         myVehicleStateListeners.push_back(listener);
     }
@@ -607,7 +607,7 @@ MSNet::addVehicleStateListener(VehicleStateListener *listener) throw() {
 
 
 void
-MSNet::removeVehicleStateListener(VehicleStateListener *listener) throw() {
+MSNet::removeVehicleStateListener(VehicleStateListener* listener) throw() {
     std::vector<VehicleStateListener*>::iterator i= find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
     if (i!=myVehicleStateListeners.end()) {
         myVehicleStateListeners.erase(i);
@@ -616,7 +616,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener *listener) throw() {
 
 
 void
-MSNet::informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleState to) throw() {
+MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) throw() {
     for (std::vector<VehicleStateListener*>::iterator i=myVehicleStateListeners.begin(); i!=myVehicleStateListeners.end(); ++i) {
         (*i)->vehicleStateChanged(vehicle, to);
     }
@@ -625,23 +625,23 @@ MSNet::informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleStat
 
 
 // ------ Insertion and retrieval of bus stops ------
-bool 
+bool
 MSNet::addBusStop(MSBusStop* busStop) {
     return myBusStopDict.add(busStop->getID(), busStop);
 }
 
 
-MSBusStop *
-MSNet::getBusStop(const std::string &id) const {
+MSBusStop*
+MSNet::getBusStop(const std::string& id) const {
     return myBusStopDict.get(id);
 }
 
 
-std::string 
+std::string
 MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
     const std::map<std::string, MSBusStop*> &vals = myBusStopDict.getMyMap();
     for (std::map<std::string, MSBusStop*>::const_iterator it = vals.begin(); it != vals.end(); ++it) {
-        MSBusStop *stop = it->second;
+        MSBusStop* stop = it->second;
         if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
             return stop->getID();
         }
@@ -655,7 +655,7 @@ MSMessageEmitter*
 MSNet::getMsgEmitter(const std::string& whatemit) {
     msgEmitVec.clear();
     msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
-    MSMessageEmitter *msgEmitter = 0;
+    MSMessageEmitter* msgEmitter = 0;
     for (int i = 0; i < msgEmitVec.size(); ++i) {
         if (msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
             msgEmitter = msgEmitVec.at(i);
@@ -676,7 +676,7 @@ MSNet::createMsgEmitter(std::string& id,
                         bool table,
                         bool xy,
                         SUMOReal step) {
-    MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
+    MSMessageEmitter* msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
     myMsgEmitter.add(id, msgEmitter);
 }
 #endif

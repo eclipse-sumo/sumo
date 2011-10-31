@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 void
-SystemFrame::addConfigurationOptions(OptionsCont &oc) {
+SystemFrame::addConfigurationOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Configuration");
 
     oc.doRegister("configuration-file", 'c', new Option_FileName());
@@ -67,7 +67,7 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc) {
 
 
 void
-SystemFrame::addReportOptions(OptionsCont &oc) {
+SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Report");
 
     oc.doRegister("verbose", 'v', new Option_Bool(false));

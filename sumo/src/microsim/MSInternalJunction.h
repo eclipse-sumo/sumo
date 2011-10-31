@@ -63,8 +63,8 @@ public:
      * @param[in] incoming The incoming lanes
      * @param[in] internal The internal lanes
      */
-    MSInternalJunction(const std::string &id, const Position &position,
-                       const PositionVector &shape,
+    MSInternalJunction(const std::string& id, const Position& position,
+                       const PositionVector& shape,
                        std::vector<MSLane*> incoming, std::vector<MSLane*> internal) throw();
 
     /// Destructor.
@@ -73,12 +73,12 @@ public:
 
     void postloadInit() throw(ProcessError);
 
-    const std::vector<MSLink*> &getFoeLinks(const MSLink *const srcLink) const throw() {
+    const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const throw() {
         UNUSED_PARAMETER(srcLink);
         return myInternalLinkFoes;
     }
 
-    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink *const srcLink) const throw() {
+    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const srcLink) const throw() {
         UNUSED_PARAMETER(srcLink);
         return myInternalLaneFoes;
     }

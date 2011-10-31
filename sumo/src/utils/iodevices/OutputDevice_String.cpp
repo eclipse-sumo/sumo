@@ -40,7 +40,7 @@
 // method definitions
 // ===========================================================================
 OutputDevice_String::OutputDevice_String(const unsigned int defaultIndentation) throw(IOError)
-        : OutputDevice(defaultIndentation) {
+    : OutputDevice(defaultIndentation) {
 }
 
 
@@ -54,7 +54,7 @@ OutputDevice_String::getString() throw() {
 }
 
 
-std::ostream &
+std::ostream&
 OutputDevice_String::getOStream() throw() {
     return myStream;
 }

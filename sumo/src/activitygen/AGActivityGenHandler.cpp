@@ -55,16 +55,16 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGActivityGenHandler::AGActivityGenHandler(AGCity &city, RONet *net)
-        : SUMOSAXHandler("sumo-stat"), net(net),
-        myCity(city) {}
+AGActivityGenHandler::AGActivityGenHandler(AGCity& city, RONet* net)
+    : SUMOSAXHandler("sumo-stat"), net(net),
+      myCity(city) {}
 
 
 AGActivityGenHandler::~AGActivityGenHandler() throw() {}
 
 
 void
-AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes &attrs)
+AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs)
 throw(ProcessError) {
     try {
         switch (element) {
@@ -125,88 +125,90 @@ throw(ProcessError) {
         default:
             break;
         }
-    } catch (const exception &e) {
+    } catch (const exception& e) {
         throw ProcessError(e.what());
     }
 }
 
 
 void
-AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes &attrs) {
-	try {
-		myCity.statData.inhabitants = attrs.getInt(AGEN_ATTR_INHABITANTS);
-		myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
-		myCity.statData.limitAgeChildren = attrs.getIntSecure(AGEN_ATTR_CHILDREN, 18);
-		myCity.statData.limitAgeRetirement = attrs.getIntSecure(AGEN_ATTR_RETIREMENT, 63);
-		myCity.statData.carRate = attrs.getFloatSecure(AGEN_ATTR_CARS, 0.58);
-		myCity.statData.unemployement = attrs.getFloatSecure(AGEN_ATTR_UNEMPLOYEMENT, 0.06);
-		myCity.statData.maxFootDistance = attrs.getFloatSecure(AGEN_ATTR_MAX_FOOT_DIST, 300.0);
-		myCity.statData.incomingTraffic = attrs.getInt(AGEN_ATTR_IN_TRAFFIC);
-		myCity.statData.outgoingTraffic = attrs.getInt(AGEN_ATTR_OUT_TRAFFIC);
+AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
+    try {
+        myCity.statData.inhabitants = attrs.getInt(AGEN_ATTR_INHABITANTS);
+        myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
+        myCity.statData.limitAgeChildren = attrs.getIntSecure(AGEN_ATTR_CHILDREN, 18);
+        myCity.statData.limitAgeRetirement = attrs.getIntSecure(AGEN_ATTR_RETIREMENT, 63);
+        myCity.statData.carRate = attrs.getFloatSecure(AGEN_ATTR_CARS, 0.58);
+        myCity.statData.unemployement = attrs.getFloatSecure(AGEN_ATTR_UNEMPLOYEMENT, 0.06);
+        myCity.statData.maxFootDistance = attrs.getFloatSecure(AGEN_ATTR_MAX_FOOT_DIST, 300.0);
+        myCity.statData.incomingTraffic = attrs.getInt(AGEN_ATTR_IN_TRAFFIC);
+        myCity.statData.outgoingTraffic = attrs.getInt(AGEN_ATTR_OUT_TRAFFIC);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_GENERAL) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_GENERAL) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseParameters(const SUMOSAXAttributes &attrs) {
-	try	{
-		myCity.statData.carPreference = attrs.getFloatSecure(AGEN_ATTR_CARPREF, 0.0);
-		myCity.statData.speedTimePerKm = attrs.getFloatSecure(AGEN_ATTR_CITYSPEED, 360.0);
-		myCity.statData.freeTimeActivityRate = attrs.getFloatSecure(AGEN_ATTR_FREETIMERATE, 0.15);
-		myCity.statData.uniformRandomTrafficRate = attrs.getFloatSecure(AGEN_ATTR_UNI_RAND_TRAFFIC, 0.0);
-		myCity.statData.departureVariation = attrs.getFloatSecure(AGEN_ATTR_DEP_VARIATION, 0.0);
+AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
+    try	{
+        myCity.statData.carPreference = attrs.getFloatSecure(AGEN_ATTR_CARPREF, 0.0);
+        myCity.statData.speedTimePerKm = attrs.getFloatSecure(AGEN_ATTR_CITYSPEED, 360.0);
+        myCity.statData.freeTimeActivityRate = attrs.getFloatSecure(AGEN_ATTR_FREETIMERATE, 0.15);
+        myCity.statData.uniformRandomTrafficRate = attrs.getFloatSecure(AGEN_ATTR_UNI_RAND_TRAFFIC, 0.0);
+        myCity.statData.departureVariation = attrs.getFloatSecure(AGEN_ATTR_DEP_VARIATION, 0.0);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_PARAM) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_PARAM) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseStreets(const SUMOSAXAttributes &attrs) {
-	try {
-		SUMOReal pop = 0;
-		SUMOReal work = 0;
+AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
+    try {
+        SUMOReal pop = 0;
+        SUMOReal work = 0;
 
-		if (attrs.hasAttribute(AGEN_ATTR_POPULATION))
-			pop = attrs.getFloat(AGEN_ATTR_POPULATION);
-		if (attrs.hasAttribute(AGEN_ATTR_OUT_WORKPOSITION))
-			work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
+        if (attrs.hasAttribute(AGEN_ATTR_POPULATION)) {
+            pop = attrs.getFloat(AGEN_ATTR_POPULATION);
+        }
+        if (attrs.hasAttribute(AGEN_ATTR_OUT_WORKPOSITION)) {
+            work = attrs.getFloat(AGEN_ATTR_OUT_WORKPOSITION);
+        }
 
-		AGStreet str(net->getEdge(attrs.getString(SUMO_ATTR_EDGE)), pop, work);
-		myCity.streets.push_back(str);
+        AGStreet str(net->getEdge(attrs.getString(SUMO_ATTR_EDGE)), pop, work);
+        myCity.streets.push_back(str);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_STREET) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_STREET) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseCityGates(const SUMOSAXAttributes &attrs) {
-	try {
-		string edge = attrs.getString(SUMO_ATTR_EDGE);
-		SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
-		AGPosition posi(myCity.getStreet(edge), positionOnEdge);
-		myCity.statData.incoming[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
-		myCity.statData.outgoing[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
-		myCity.cityGates.push_back(posi);
+AGActivityGenHandler::parseCityGates(const SUMOSAXAttributes& attrs) {
+    try {
+        string edge = attrs.getString(SUMO_ATTR_EDGE);
+        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        AGPosition posi(myCity.getStreet(edge), positionOnEdge);
+        myCity.statData.incoming[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_INCOMING);
+        myCity.statData.outgoing[(int)myCity.cityGates.size()] = attrs.getFloat(AGEN_ATTR_OUTGOING);
+        myCity.cityGates.push_back(posi);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_CITYGATES) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_CITYGATES) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
@@ -215,32 +217,32 @@ AGActivityGenHandler::parseWorkHours() {
 }
 
 void
-AGActivityGenHandler::parseOpeningHour(const SUMOSAXAttributes &attrs) {
+AGActivityGenHandler::parseOpeningHour(const SUMOSAXAttributes& attrs) {
     if (myCurrentObject == "workHours") {
-    	try {
-    		myCity.statData.beginWorkHours[attrs.getInt(AGEN_ATTR_HOUR)] = attrs.getFloat(AGEN_ATTR_PROP);
+        try {
+            myCity.statData.beginWorkHours[attrs.getInt(AGEN_ATTR_HOUR)] = attrs.getFloat(AGEN_ATTR_PROP);
 
-    	} catch (const exception& e) {
-    		WRITE_ERROR("Error while parsing the element " +
-    				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_OPENING) + ": "
-    				+ e.what());
-    		throw ProcessError();
-    	}
+        } catch (const exception& e) {
+            WRITE_ERROR("Error while parsing the element " +
+                        SUMOXMLDefinitions::Tags.getString(AGEN_TAG_OPENING) + ": "
+                        + e.what());
+            throw ProcessError();
+        }
     }
 }
 
 void
-AGActivityGenHandler::parseClosingHour(const SUMOSAXAttributes &attrs) {
+AGActivityGenHandler::parseClosingHour(const SUMOSAXAttributes& attrs) {
     if (myCurrentObject == "workHours") {
-    	try {
-    		myCity.statData.endWorkHours[attrs.getInt(AGEN_ATTR_HOUR)] = attrs.getFloat(AGEN_ATTR_PROP);
+        try {
+            myCity.statData.endWorkHours[attrs.getInt(AGEN_ATTR_HOUR)] = attrs.getFloat(AGEN_ATTR_PROP);
 
-    	} catch (const exception& e) {
-    		WRITE_ERROR("Error while parsing the element " +
-    				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_CLOSING) + ": "
-    				+ e.what());
-    		throw ProcessError();
-    	}
+        } catch (const exception& e) {
+            WRITE_ERROR("Error while parsing the element " +
+                        SUMOXMLDefinitions::Tags.getString(AGEN_TAG_CLOSING) + ": "
+                        + e.what());
+            throw ProcessError();
+        }
     }
 }
 
@@ -250,59 +252,59 @@ AGActivityGenHandler::parseSchools() {
 }
 
 void
-AGActivityGenHandler::parseSchool(const SUMOSAXAttributes &attrs) {
-	try {
-		string edge = attrs.getString(SUMO_ATTR_EDGE);
-		SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
-		AGPosition posi(myCity.getStreet(edge), positionOnEdge);
-		int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE);
-		int endAge = attrs.getInt(AGEN_ATTR_ENDAGE);
-		int capacity = attrs.getInt(AGEN_ATTR_CAPACITY);
-		int openingHour = attrs.getInt(AGEN_ATTR_OPENING);
-		int closingHour = attrs.getInt(AGEN_ATTR_CLOSING);
-		AGSchool sch(capacity, posi, beginAge, endAge, openingHour, closingHour);
-		myCity.schools.push_back(sch);
+AGActivityGenHandler::parseSchool(const SUMOSAXAttributes& attrs) {
+    try {
+        string edge = attrs.getString(SUMO_ATTR_EDGE);
+        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        AGPosition posi(myCity.getStreet(edge), positionOnEdge);
+        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE);
+        int endAge = attrs.getInt(AGEN_ATTR_ENDAGE);
+        int capacity = attrs.getInt(AGEN_ATTR_CAPACITY);
+        int openingHour = attrs.getInt(AGEN_ATTR_OPENING);
+        int closingHour = attrs.getInt(AGEN_ATTR_CLOSING);
+        AGSchool sch(capacity, posi, beginAge, endAge, openingHour, closingHour);
+        myCity.schools.push_back(sch);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_SCHOOL) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_SCHOOL) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes &attrs) {
-	try {
-		string edge = attrs.getString(SUMO_ATTR_EDGE);
-		SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
-		int id = attrs.getInt(SUMO_ATTR_ID);
-		AGPosition posi(myCity.getStreet(edge), positionOnEdge);
-		myCity.statData.busStations.insert(std::pair<int, AGPosition>(id, posi));
+AGActivityGenHandler::parseBusStation(const SUMOSAXAttributes& attrs) {
+    try {
+        string edge = attrs.getString(SUMO_ATTR_EDGE);
+        SUMOReal positionOnEdge = attrs.getFloat(SUMO_ATTR_POSITION);
+        int id = attrs.getInt(SUMO_ATTR_ID);
+        AGPosition posi(myCity.getStreet(edge), positionOnEdge);
+        myCity.statData.busStations.insert(std::pair<int, AGPosition>(id, posi));
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BUSSTATION) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BUSSTATION) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseBusLine(const SUMOSAXAttributes &attrs) {
-	try {
-		myCurrentObject = "busLine";
-		AGBusLine busL(attrs.getString(SUMO_ATTR_ID));
-		busL.setMaxTripTime(attrs.getInt(AGEN_ATTR_MAX_TRIP_DURATION));
-		myCity.busLines.push_front(busL);
-		currentBusLine = &*myCity.busLines.begin();
+AGActivityGenHandler::parseBusLine(const SUMOSAXAttributes& attrs) {
+    try {
+        myCurrentObject = "busLine";
+        AGBusLine busL(attrs.getString(SUMO_ATTR_ID));
+        busL.setMaxTripTime(attrs.getInt(AGEN_ATTR_MAX_TRIP_DURATION));
+        myCity.busLines.push_front(busL);
+        currentBusLine = &*myCity.busLines.begin();
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BUSLINE) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BUSLINE) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
@@ -316,48 +318,52 @@ AGActivityGenHandler::parseRevStations() {
 }
 
 void
-AGActivityGenHandler::parseStation(const SUMOSAXAttributes &attrs) {
-    if (myCurrentObject != "busLine")
+AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
+    if (myCurrentObject != "busLine") {
         return;
+    }
 
     try {
-		bool ok = true;
-		int refID = attrs.hasAttribute(SUMO_ATTR_REFID)
-					? attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok)
-					: attrs.getIntReporting(SUMO_ATTR_REFID__DEPRECATED, myCurrentObject.c_str(), ok);
-		if (!ok)
-			throw ProcessError();
+        bool ok = true;
+        int refID = attrs.hasAttribute(SUMO_ATTR_REFID)
+                    ? attrs.getIntReporting(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok)
+                    : attrs.getIntReporting(SUMO_ATTR_REFID__DEPRECATED, myCurrentObject.c_str(), ok);
+        if (!ok) {
+            throw ProcessError();
+        }
 
-		if (!isRevStation)
-			currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);
-		else
-			currentBusLine->locateRevStation(myCity.statData.busStations.find(refID)->second);
+        if (!isRevStation) {
+            currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);
+        } else {
+            currentBusLine->locateRevStation(myCity.statData.busStations.find(refID)->second);
+        }
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_STATION) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_STATION) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
-AGActivityGenHandler::parseFrequency(const SUMOSAXAttributes &attrs) {
-    if (myCurrentObject != "busLine")
+AGActivityGenHandler::parseFrequency(const SUMOSAXAttributes& attrs) {
+    if (myCurrentObject != "busLine") {
         return;
+    }
 
     try {
-		int beginB = attrs.getInt(SUMO_ATTR_BEGIN);
-		int endB = attrs.getInt(SUMO_ATTR_END);
-		int rateB = attrs.getInt(AGEN_ATTR_RATE);
-		currentBusLine->generateBuses(beginB, endB, rateB);
+        int beginB = attrs.getInt(SUMO_ATTR_BEGIN);
+        int endB = attrs.getInt(SUMO_ATTR_END);
+        int rateB = attrs.getInt(AGEN_ATTR_RATE);
+        currentBusLine->generateBuses(beginB, endB, rateB);
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_FREQUENCY) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_FREQUENCY) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 void
@@ -366,20 +372,20 @@ AGActivityGenHandler::parsePopulation() {
 }
 
 void
-AGActivityGenHandler::parseBracket(const SUMOSAXAttributes &attrs) {
-	try {
-		int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
-		int endAge = attrs.getInt(AGEN_ATTR_ENDAGE); //NOT included in the bracket
-		if (myCurrentObject == "population") {
-			myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
-		}
+AGActivityGenHandler::parseBracket(const SUMOSAXAttributes& attrs) {
+    try {
+        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
+        int endAge = attrs.getInt(AGEN_ATTR_ENDAGE); //NOT included in the bracket
+        if (myCurrentObject == "population") {
+            myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
+        }
 
-	} catch (const exception& e) {
-		WRITE_ERROR("Error while parsing the element " +
-				SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": " +
-				e.what());
-		throw ProcessError();
-	}
+    } catch (const exception& e) {
+        WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": " +
+                    e.what());
+        throw ProcessError();
+    }
 }
 
 /****************************************************************************/

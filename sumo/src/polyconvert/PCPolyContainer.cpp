@@ -46,10 +46,10 @@
 // method definitions
 // ===========================================================================
 PCPolyContainer::PCPolyContainer(bool prune,
-                                 const Boundary &prunningBoundary,
+                                 const Boundary& prunningBoundary,
                                  const std::vector<std::string> &removeByNames) throw()
-        : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
-        myRemoveByNames(removeByNames) {}
+    : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
+      myRemoveByNames(removeByNames) {}
 
 
 PCPolyContainer::~PCPolyContainer() throw() {
@@ -58,7 +58,7 @@ PCPolyContainer::~PCPolyContainer() throw() {
 
 
 bool
-PCPolyContainer::insert(const std::string &id, Polygon *poly,
+PCPolyContainer::insert(const std::string& id, Polygon* poly,
                         int layer, bool ignorePrunning) throw() {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
@@ -86,7 +86,7 @@ PCPolyContainer::insert(const std::string &id, Polygon *poly,
 
 
 bool
-PCPolyContainer::insert(const std::string &id, PointOfInterest *poi,
+PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
                         int layer, bool ignorePrunning) throw() {
     // check whether the poi lies within the wished area
     //  - if such an area was given
@@ -113,7 +113,7 @@ PCPolyContainer::insert(const std::string &id, PointOfInterest *poi,
 
 
 bool
-PCPolyContainer::containsPolygon(const std::string &id) throw() {
+PCPolyContainer::containsPolygon(const std::string& id) throw() {
     return myPolyCont.find(id)!=myPolyCont.end();
 }
 
@@ -143,27 +143,27 @@ PCPolyContainer::report() throw() {
 
 
 void
-PCPolyContainer::save(const std::string &file) throw(IOError) {
+PCPolyContainer::save(const std::string& file) throw(IOError) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("shapes", " encoding=\"iso-8859-1\"");
     // write polygons
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
         out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-        << "\" type=\"" << (*i).second->getType()
-        << "\" color=\"" << (*i).second->getColor()
-        << "\" fill=\"" << (*i).second->fill()
-        << "\" layer=\"" << myPolyLayerMap[(*i).second]
-        << "\" shape=\"" << (*i).second->getShape() << "\"";
+                            << "\" type=\"" << (*i).second->getType()
+                            << "\" color=\"" << (*i).second->getColor()
+                            << "\" fill=\"" << (*i).second->fill()
+                            << "\" layer=\"" << myPolyLayerMap[(*i).second]
+                            << "\" shape=\"" << (*i).second->getShape() << "\"";
         out.closeTag(true);
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
         out.openTag("poi") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
-        << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
-        << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
-        << "\" layer=\"" << myPOILayerMap[(*i).second]
-        << "\" x=\"" << (*i).second->x()
-        << "\" y=\"" << (*i).second->y() << "\"";
+                           << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
+                           << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
+                           << "\" layer=\"" << myPOILayerMap[(*i).second]
+                           << "\" x=\"" << (*i).second->x()
+                           << "\" y=\"" << (*i).second->y() << "\"";
         out.closeTag(true);
     }
     out.close();
@@ -171,7 +171,7 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
 
 
 int
-PCPolyContainer::getEnumIDFor(const std::string &key) throw() {
+PCPolyContainer::getEnumIDFor(const std::string& key) throw() {
     if (myIDEnums.find(key)==myIDEnums.end()) {
         myIDEnums[key] = 0;
         return 0;

@@ -63,7 +63,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void writeNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void writeNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 };
 

@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Zeitschrittfaktor :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Zeitschrittfaktor(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Zeitschrittfaktor(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Zeitschrittfaktor();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

@@ -41,9 +41,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
-        OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics) {
+Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants& logics,
+        OutputDevice& od)
+    : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switch-states");
 }
@@ -55,13 +55,13 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() {
 
 SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
-    const std::string &state = myLogics.getActive()->getCurrentPhaseDef().getState();
+    const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
     if (state!=myPreviousState||myLogics.getActive()->getProgramID()!=myPreviousProgramID) {
         myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)
-        << "\" id=\"" << myLogics.getActive()->getID()
-        << "\" programID=\"" << myLogics.getActive()->getProgramID()
-        << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-        << "\" state=\"" << state << "\"/>\n";
+                       << "\" id=\"" << myLogics.getActive()->getID()
+                       << "\" programID=\"" << myLogics.getActive()->getProgramID()
+                       << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
+                       << "\" state=\"" << state << "\"/>\n";
         myPreviousState = state;
         myPreviousProgramID = myLogics.getActive()->getProgramID();
     }

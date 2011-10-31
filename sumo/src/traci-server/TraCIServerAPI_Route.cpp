@@ -48,8 +48,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                 tcpip::Storage &outputStorage) {
+TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                 tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -77,7 +77,7 @@ TraCIServerAPI_Route::processGet(TraCIServer &server, tcpip::Storage &inputStora
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        const MSRoute *r = MSRoute::dictionary(id);
+        const MSRoute* r = MSRoute::dictionary(id);
         if (r==0) {
             server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Route '" + id + "' is not known", outputStorage);
             return false;

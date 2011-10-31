@@ -49,7 +49,7 @@ class GUIManipulator : public FXDialogBox {
     FXDECLARE(GUIManipulator)
 public:
     /// Constructor
-    GUIManipulator(GUIMainWindow &app, const std::string &name,
+    GUIManipulator(GUIMainWindow& app, const std::string& name,
                    int xpos, int ypos);
 
     /// Destructor

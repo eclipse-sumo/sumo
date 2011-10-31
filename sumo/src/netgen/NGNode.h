@@ -61,7 +61,7 @@ public:
      *
      * @param[in] id The id of the node
      */
-    NGNode(const std::string &id) throw();
+    NGNode(const std::string& id) throw();
 
 
     /** @brief Constructor
@@ -70,7 +70,7 @@ public:
      * @param[in] xPos The x-position of the node
      * @param[in] yPos The y-position of the node
      */
-    NGNode(const std::string &id, int xPos, int yPos) throw();
+    NGNode(const std::string& id, int xPos, int yPos) throw();
 
 
     /** @brief Constructor
@@ -80,7 +80,7 @@ public:
      * @param[in] yPos The y-position of the node
      * @param[in] amCenter Information whether this is the center-node of a spider-net
      */
-    NGNode(const std::string &id, int xID, int yID, bool amCenter) throw();
+    NGNode(const std::string& id, int xID, int yID, bool amCenter) throw();
 
 
     /// @brief Destructor
@@ -91,7 +91,7 @@ public:
      *
      * @return The id of the node
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myID;
     }
 
@@ -100,7 +100,7 @@ public:
      *
      * @return The position of the node
      */
-    const Position &getPosition() const throw() {
+    const Position& getPosition() const throw() {
         return myPosition;
     }
 
@@ -156,14 +156,14 @@ public:
      * @todo There is no interaction with explicit node setting options? Where is this done?
      * @todo Check whether throwing an exception is really necessary, here
      */
-    NBNode *buildNBNode(NBNetBuilder &nb) const throw(ProcessError);
+    NBNode* buildNBNode(NBNetBuilder& nb) const throw(ProcessError);
 
 
     /** @brief Adds the given link to the internal list
      *
      * @param[in] link The link to add
      */
-    void addLink(NGEdge *link) throw();
+    void addLink(NGEdge* link) throw();
 
 
     /** @brief Removes the given link
@@ -173,7 +173,7 @@ public:
      *
      * @param[in] link The link to remove
      */
-    void removeLink(NGEdge *link) throw();
+    void removeLink(NGEdge* link) throw();
 
 
     /** @brief Returns whether the other node is connected
@@ -181,7 +181,7 @@ public:
      * @param[in] node The link to check whether it is connected
      * @return Whether the given node is connected
      */
-    bool connected(NGNode *node) const throw();
+    bool connected(NGNode* node) const throw();
 
 
     /** @brief Returns whether the node has the given position

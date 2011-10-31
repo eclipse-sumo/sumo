@@ -69,7 +69,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into, unsigned int maxRoutes=INT_MAX) throw();
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes=INT_MAX) throw();
 
 
 public:
@@ -129,7 +129,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Vehroutes(SUMOVehicle &holder, const std::string &id, unsigned int maxRoutes) throw();
+    MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes) throw();
 
 
     /** @brief Called on route output
@@ -137,7 +137,7 @@ private:
      * @param[in] os the device to write into
      * @param[in] index The index of the route to write (-1 writes the current route)
      */
-    void writeXMLRoute(OutputDevice &os, int index=-1) const;
+    void writeXMLRoute(OutputDevice& os, int index=-1) const;
 
 
     /** @brief Called on route change
@@ -167,7 +167,7 @@ private:
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        void vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to);
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
 
         /// @brief A map for internal notification
         std::map<const SUMOVehicle*, MSDevice_Vehroutes*> myDevices;
@@ -191,20 +191,20 @@ private:
     class RouteReplaceInfo {
     public:
         /// Constructor
-        RouteReplaceInfo(const MSEdge * const edge_, const SUMOTime time_, const MSRoute * const route_)
-                : edge(edge_), time(time_), route(route_) {}
+        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_)
+            : edge(edge_), time(time_), route(route_) {}
 
         /// Destructor
         ~RouteReplaceInfo() { }
 
         /// The edge the vehicle was on when the route was replaced
-        const MSEdge * edge;
+        const MSEdge* edge;
 
         /// The time the route was replaced
         SUMOTime time;
 
         /// The prior route
-        const MSRoute * route;
+        const MSRoute* route;
 
     };
 

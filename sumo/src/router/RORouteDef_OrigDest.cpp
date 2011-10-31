@@ -48,13 +48,13 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string &id,
-        const RGBColor * const color,
-        const ROEdge *from,
-        const ROEdge *to,
+RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string& id,
+        const RGBColor* const color,
+        const ROEdge* from,
+        const ROEdge* to,
         bool removeFirst) throw()
-        : RORouteDef(id, color), myFrom(from), myTo(to), myCurrent(0),
-        myRemoveFirst(removeFirst) {}
+    : RORouteDef(id, color), myFrom(from), myTo(to), myCurrent(0),
+      myRemoveFirst(removeFirst) {}
 
 
 RORouteDef_OrigDest::~RORouteDef_OrigDest() throw() {
@@ -62,9 +62,9 @@ RORouteDef_OrigDest::~RORouteDef_OrigDest() throw() {
 }
 
 
-RORoute *
+RORoute*
 RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                       SUMOTime begin, const ROVehicle &veh) const {
+                                       SUMOTime begin, const ROVehicle& veh) const {
     std::vector<const ROEdge*> edges;
     router.compute(myFrom, myTo, &veh, begin, edges);
     if (myRemoveFirst&&edges.size()>2) {
@@ -77,23 +77,23 @@ RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
 
 void
 RORouteDef_OrigDest::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                    const ROVehicle *const veh, RORoute *current, SUMOTime begin) {
+                                    const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
     myCurrent = current;
     myStartTime = begin;
     current->setCosts(router.recomputeCosts(current->getEdgeVector(), veh, begin));
 }
 
 
-RORouteDef *
-RORouteDef_OrigDest::copy(const std::string &id) const {
+RORouteDef*
+RORouteDef_OrigDest::copy(const std::string& id) const {
     return new RORouteDef_OrigDest(id, copyColorIfGiven(), myFrom, myTo,
                                    myRemoveFirst);
 }
 
 
-OutputDevice &
+OutputDevice&
 RORouteDef_OrigDest::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                        OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
+                                        OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const {
     return myCurrent->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
 }
 

@@ -49,13 +49,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
-        : SUMOSAXHandler("turn-ratio-file"), myNet(net),
-        myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
-        myHaveWarnedAboutDeprecatedSources(false),
-        myHaveWarnedAboutDeprecatedSinks(false),
-        myHaveWarnedAboutDeprecatedFromEdge(false),
-        myHaveWarnedAboutDeprecatedToEdge(false) {}
+ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net) throw()
+    : SUMOSAXHandler("turn-ratio-file"), myNet(net),
+      myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
+      myHaveWarnedAboutDeprecatedSources(false),
+      myHaveWarnedAboutDeprecatedSinks(false),
+      myHaveWarnedAboutDeprecatedFromEdge(false),
+      myHaveWarnedAboutDeprecatedToEdge(false) {}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
@@ -63,7 +63,7 @@ ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
 
 void
 ROJTRTurnDefLoader::myStartElement(int element,
-                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -92,7 +92,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
-                ROEdge *edge = myNet.getEdge(id);
+                ROEdge* edge = myNet.getEdge(id);
                 if (edge==0) {
                     throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
                 }
@@ -106,7 +106,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
-                ROEdge *edge = myNet.getEdge(id);
+                ROEdge* edge = myNet.getEdge(id);
                 if (edge==0) {
                     throw ProcessError("The edge '" + id + "' declared as a source is not known.");
                 }
@@ -122,10 +122,10 @@ ROJTRTurnDefLoader::myStartElement(int element,
 
 void
 ROJTRTurnDefLoader::myCharacters(int element,
-                                 const std::string &chars) throw(ProcessError) {
+                                 const std::string& chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_SINK: {
-        ROEdge *edge = myNet.getEdge(chars);
+        ROEdge* edge = myNet.getEdge(chars);
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
         }
@@ -137,7 +137,7 @@ ROJTRTurnDefLoader::myCharacters(int element,
     }
     break;
     case SUMO_TAG_SOURCE: {
-        ROEdge *edge = myNet.getEdge(chars);
+        ROEdge* edge = myNet.getEdge(chars);
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
         }
@@ -155,7 +155,7 @@ ROJTRTurnDefLoader::myCharacters(int element,
 
 
 void
-ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
+ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) throw() {
     myEdge = 0;
     bool ok = true;
     // get the id, report an error if not given or empty...
@@ -173,7 +173,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
 
 
 void
-ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
+ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) throw() {
     if (myEdge==0) {
         return;
     }
@@ -184,7 +184,7 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     //
-    ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
+    ROJTREdge* edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if (edge==0) {
         WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;

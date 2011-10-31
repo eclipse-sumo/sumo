@@ -44,7 +44,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 MSDevice_Person*
-MSDevice_Person::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
+MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
     MSDevice_Person* device = new MSDevice_Person(v, "person_" + v.getID());
     into.push_back(device);
     return device;
@@ -54,8 +54,8 @@ MSDevice_Person::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &int
 // ---------------------------------------------------------------------------
 // MSDevice_Person-methods
 // ---------------------------------------------------------------------------
-MSDevice_Person::MSDevice_Person(SUMOVehicle &holder, const std::string &id) throw()
-        : MSDevice(holder, id), myPersons(), myStopped(holder.isStopped()) {
+MSDevice_Person::MSDevice_Person(SUMOVehicle& holder, const std::string& id) throw()
+    : MSDevice(holder, id), myPersons(), myStopped(holder.isStopped()) {
 }
 
 

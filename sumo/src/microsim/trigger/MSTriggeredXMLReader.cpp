@@ -48,11 +48,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
-        const std::string &filename)
-        : MSTriggeredReader(net),
-        SUMOSAXHandler(filename),
-        myParser(0), myHaveMore(true) {
+MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet& net,
+        const std::string& filename)
+    : MSTriggeredReader(net),
+      SUMOSAXHandler(filename),
+      myParser(0), myHaveMore(true) {
     Command* c = new WrappingCommand< MSTriggeredReader >(this, &MSTriggeredReader::wrappedExecute);
     MSNet::getInstance()->getInsertionEvents().addEvent(c, net.getCurrentTimeStep(), MSEventControl::NO_CHANGE);
 }
@@ -81,10 +81,10 @@ MSTriggeredXMLReader::myInit() {
             throw ProcessError("Can not read XML-file '" + getFileName() + "'.");
 
         }
-    } catch (SAXException &e) {
+    } catch (SAXException& e) {
         throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
 
-    } catch (XMLException &e) {
+    } catch (XMLException& e) {
         throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
 
     }

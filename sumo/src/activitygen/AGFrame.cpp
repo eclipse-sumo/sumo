@@ -45,7 +45,7 @@
 // method definitions
 // ===========================================================================
 void AGFrame::fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription(
         "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO.");

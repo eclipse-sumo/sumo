@@ -74,11 +74,11 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    GUILane(const std::string &id, SUMOReal maxSpeed,
-            SUMOReal length, MSEdge * const edge, unsigned int numericalID,
-            const PositionVector &shape, SUMOReal width,
-            const SUMOVehicleClasses &allowed,
-            const SUMOVehicleClasses &disallowed) throw();
+    GUILane(const std::string& id, SUMOReal maxSpeed,
+            SUMOReal length, MSEdge* const edge, unsigned int numericalID,
+            const PositionVector& shape, SUMOReal width,
+            const SUMOVehicleClasses& allowed,
+            const SUMOVehicleClasses& disallowed) throw();
 
 
     /// @brief Destructor
@@ -98,7 +98,7 @@ public:
      * @return The vehicles on this lane
      * @see MSLane::getVehiclesSecure
      */
-    const VehCont &getVehiclesSecure() const throw();
+    const VehCont& getVehiclesSecure() const throw();
 
 
     /** @brief Allows to use the container for microsimulation again
@@ -132,8 +132,8 @@ public:
     void detectCollisions(SUMOTime timestep);
 
 
-    GUILaneWrapper *buildLaneWrapper(unsigned int index);
-    MSVehicle *removeVehicle(MSVehicle *remVehicle);
+    GUILaneWrapper* buildLaneWrapper(unsigned int index);
+    MSVehicle* removeVehicle(MSVehicle* remVehicle);
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
@@ -150,8 +150,8 @@ protected:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
-                                    const MSLane::VehCont::iterator &at,
+    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+                                    const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
 

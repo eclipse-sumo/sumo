@@ -44,11 +44,11 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id, const std::string &subid, const Phases &phases,
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
+        const std::string& id, const std::string& subid, const Phases& phases,
         unsigned int step, SUMOTime delay)
-        : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
-        myStep(step) {
+    : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
+      myStep(step) {
     for (size_t i=0; i<myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
@@ -100,19 +100,19 @@ MSSimpleTrafficLightLogic::getPhaseNumber() const {
 }
 
 
-const MSSimpleTrafficLightLogic::Phases &
+const MSSimpleTrafficLightLogic::Phases&
 MSSimpleTrafficLightLogic::getPhases() const {
     return myPhases;
 }
 
 
-MSSimpleTrafficLightLogic::Phases &
+MSSimpleTrafficLightLogic::Phases&
 MSSimpleTrafficLightLogic::getPhases() {
     return myPhases;
 }
 
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSSimpleTrafficLightLogic::getPhase(unsigned int givenStep) const {
     assert(myPhases.size()>givenStep);
     return *myPhases[givenStep];
@@ -126,7 +126,7 @@ MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const {
 }
 
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
     return *myPhases[myStep];
 }
@@ -185,7 +185,7 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
 
 // ------------ Changing phases and phase durations
 void
-MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
+MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration+simStep);

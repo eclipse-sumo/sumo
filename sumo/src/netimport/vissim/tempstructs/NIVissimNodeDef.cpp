@@ -47,15 +47,15 @@ using namespace std;
 NIVissimNodeDef::DictType NIVissimNodeDef::myDict;
 int NIVissimNodeDef::myMaxID = 0;
 
-NIVissimNodeDef::NIVissimNodeDef(int id, const std::string &name)
-        : myID(id), myName(name) {}
+NIVissimNodeDef::NIVissimNodeDef(int id, const std::string& name)
+    : myID(id), myName(name) {}
 
 
 NIVissimNodeDef::~NIVissimNodeDef() {}
 
 
 bool
-NIVissimNodeDef::dictionary(int id, NIVissimNodeDef *o) {
+NIVissimNodeDef::dictionary(int id, NIVissimNodeDef* o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -69,7 +69,7 @@ NIVissimNodeDef::dictionary(int id, NIVissimNodeDef *o) {
 }
 
 
-NIVissimNodeDef *
+NIVissimNodeDef*
 NIVissimNodeDef::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {

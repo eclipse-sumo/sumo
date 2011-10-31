@@ -48,15 +48,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSInductLoop::MSInductLoop(const std::string& id, MSLane * const lane,
+MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            SUMOReal positionInMeters, bool splitByType) throw() :
-        MSMoveReminder(lane),
-        MSDetectorFileOutput(id),
-        myPosition(positionInMeters),
-        myLastLeaveTime(0),
-        myVehicleDataCont(),
-        myVehiclesOnDet(), mySplitByType(splitByType)
-        {
+    MSMoveReminder(lane),
+    MSDetectorFileOutput(id),
+    myPosition(positionInMeters),
+    myLastLeaveTime(0),
+    myVehicleDataCont(),
+    myVehiclesOnDet(), mySplitByType(splitByType) {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     reset();
     myLastLeaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
@@ -190,34 +189,34 @@ MSInductLoop::getTimestepsSinceLastDetection() const throw() {
 
 
 void
-MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
     dev.writeXMLHeader("detector");
 }
 
 
 void
-MSInductLoop::writeXMLOutput(OutputDevice &dev,
+MSInductLoop::writeXMLOutput(OutputDevice& dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     writeTypedXMLOutput(dev, startTime, stopTime, "", myVehicleDataCont, myVehiclesOnDet);
-    if(mySplitByType) {
+    if (mySplitByType) {
         dev << ">\n";
         std::map<std::string, std::pair<VehicleDataCont, VehicleMap> > types;
         // collect / divide
         for (std::deque< VehicleData >::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
-            if(types.find((*i).typeIDM)==types.end()) {
+            if (types.find((*i).typeIDM)==types.end()) {
                 types[(*i).typeIDM] = make_pair(VehicleDataCont(), VehicleMap());
             }
             types[(*i).typeIDM].first.push_back(*i);
         }
         for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
-            const std::string &type = (*i).first->getVehicleType().getID();
-            if(types.find(type)==types.end()) {
+            const std::string& type = (*i).first->getVehicleType().getID();
+            if (types.find(type)==types.end()) {
                 types[type] = make_pair(VehicleDataCont(), VehicleMap());
             }
             types[type].second[(*i).first] = (*i).second;
         }
         // write
-        for(std::map<std::string, std::pair<VehicleDataCont, VehicleMap> >::const_iterator i=types.begin(); i!=types.end(); ++i) {
+        for (std::map<std::string, std::pair<VehicleDataCont, VehicleMap> >::const_iterator i=types.begin(); i!=types.end(); ++i) {
             writeTypedXMLOutput(dev, startTime, stopTime, (*i).first, (*i).second.first, (*i).second.second);
             dev << "/>\n";
         }
@@ -229,11 +228,11 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
 }
 
 void
-MSInductLoop::writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime,
-                            const std::string &type, const VehicleDataCont &vdc, const VehicleMap &vm) throw(IOError) {
+MSInductLoop::writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime,
+                                  const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) throw(IOError) {
     SUMOReal t(STEPS2TIME(stopTime-startTime));
     unsigned nVehCrossed = (unsigned) vdc.size();
-    if(type=="") {
+    if (type=="") {
         nVehCrossed += myDismissedVehicleNumber;
     }
     SUMOReal flow = ((SUMOReal) vdc.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
@@ -254,17 +253,17 @@ MSInductLoop::writeTypedXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTim
     SUMOReal meanLength = vdc.size()!=0
                           ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) vdc.size()
                           : -1;
-    if(type!="") {
+    if (type!="") {
         dev << "      <typedInterval type=\"" + type + "\" ";
     } else {
         dev << "   <interval ";
     }
     dev<<"begin=\""<<time2string(startTime)<<"\" end=\""<<
-    time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
+       time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
     dev<<"nVehContrib=\""<<vdc.size()<<"\" flow=\""<<flow<<
-    "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
-    "\" length=\""<<meanLength<<
-    "\" nVehEntered=\""<<nVehCrossed<<"\"";
+       "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
+       "\" length=\""<<meanLength<<
+       "\" nVehEntered=\""<<nVehCrossed<<"\"";
 }
 
 
@@ -279,7 +278,7 @@ void
 MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal leaveTimestep) throw() {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
-    if(it!=myVehiclesOnDet.end()) {
+    if (it!=myVehiclesOnDet.end()) {
         SUMOReal entryTimestep = it->second;
         myVehiclesOnDet.erase(it);
         assert(entryTimestep < leaveTimestep);
@@ -314,7 +313,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
     }
     SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
     for (VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
-        SUMOVehicle *v = (*i).first;
+        SUMOVehicle* v = (*i).first;
         VehicleData d(v->getID(), v->getVehicleType().getLengthWithGap(), (*i).second, STEPS2TIME(ct), v->getVehicleType().getID());
         d.speedM = v->getSpeed();
         ret.push_back(d);

@@ -86,18 +86,18 @@ public:
     class ApproachingDivider : public Bresenham::BresenhamCallBack {
     private:
         /// @brief The list of edges that approach the current edge
-        EdgeVector *myApproaching;
+        EdgeVector* myApproaching;
 
         /// @brief The approached current edge
-        NBEdge *myCurrentOutgoing;
+        NBEdge* myCurrentOutgoing;
 
     public:
         /** @brief Constructor
          * @param[in] approaching The list of the edges that approach the outgoing edge
          * @param[in] currentOutgoing The outgoing edge
          */
-        ApproachingDivider(EdgeVector *approaching,
-                           NBEdge *currentOutgoing) throw();
+        ApproachingDivider(EdgeVector* approaching,
+                           NBEdge* currentOutgoing) throw();
 
         /// @brief Destructor
         ~ApproachingDivider() throw();
@@ -116,7 +116,7 @@ public:
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      */
-    NBNode(const std::string &id, const Position &position) throw();
+    NBNode(const std::string& id, const Position& position) throw();
 
 
     /** @brief Constructor
@@ -124,7 +124,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    NBNode(const std::string &id, const Position &position, SumoXMLNodeType type) throw();
+    NBNode(const std::string& id, const Position& position, SumoXMLNodeType type) throw();
 
 
     /** @brief Constructor
@@ -132,7 +132,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents
      */
-    NBNode(const std::string &id, const Position &position, NBDistrict *district) throw();
+    NBNode(const std::string& id, const Position& position, NBDistrict* district) throw();
 
 
     /// @brief Destructor
@@ -145,8 +145,8 @@ public:
      * @param[in] updateEdgeGeometries Whether the geometires of all
      *    connected edges shall be updated
      */
-    void reinit(const Position &position, SumoXMLNodeType type, 
-            bool updateEdgeGeometries=false);
+    void reinit(const Position& position, SumoXMLNodeType type,
+                bool updateEdgeGeometries=false);
 
 
     /// @name Atomar getter methods
@@ -155,7 +155,7 @@ public:
     /** @brief Returns the position of this node
      * @return This node's position
      */
-    const Position &getPosition() const throw() {
+    const Position& getPosition() const throw() {
         return myPosition;
     }
 
@@ -163,7 +163,7 @@ public:
     /** @brief Returns this node's incoming edges
      * @return The edges which yield in this node
      */
-    const EdgeVector &getIncomingEdges() const throw() {
+    const EdgeVector& getIncomingEdges() const throw() {
         return myIncomingEdges;
     }
 
@@ -171,7 +171,7 @@ public:
     /** @brief Returns this node's outgoing edges
      * @return The edges which start at this node
      */
-    const EdgeVector &getOutgoingEdges() const throw() {
+    const EdgeVector& getOutgoingEdges() const throw() {
         return myOutgoingEdges;
     }
 
@@ -179,7 +179,7 @@ public:
     /** @brief Returns all edges which participate in this node
      * @return Edges that start or end at this node
      */
-    const EdgeVector &getEdges() const throw() {
+    const EdgeVector& getEdges() const throw() {
         return myAllEdges;
     }
 
@@ -201,10 +201,10 @@ public:
     /** @brief Adds a traffic light to the list of traffic lights that control this node
      * @param[in] tld The traffic light that controls this node
      */
-    void addTrafficLight(NBTrafficLightDefinition *tlDef) throw();
+    void addTrafficLight(NBTrafficLightDefinition* tlDef) throw();
 
     /** @brief Removes the given traffic light from this node */
-    void removeTrafficLight(NBTrafficLightDefinition *tlDef) throw();
+    void removeTrafficLight(NBTrafficLightDefinition* tlDef) throw();
 
     /** @brief Removes all references to traffic lights that control this tls
      */
@@ -247,7 +247,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @return The number of removed edges
      */
-    unsigned int removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+    unsigned int removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
     /// @}
 
 
@@ -265,10 +265,10 @@ public:
 
 
     /// adds an incoming edge
-    void addIncomingEdge(NBEdge *edge);
+    void addIncomingEdge(NBEdge* edge);
 
     /// adds an outgoing edge
-    void addOutgoingEdge(NBEdge *edge);
+    void addOutgoingEdge(NBEdge* edge);
 
 
 
@@ -277,17 +277,17 @@ public:
     void computeLanes2Lanes();
 
     /// computes the node's type, logic and traffic light
-    void computeLogic(const NBEdgeCont &ec, OptionsCont &oc);
+    void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
-    bool writeLogic(OutputDevice &into) const;
+    bool writeLogic(OutputDevice& into) const;
 
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges(bool leftHand);
 
     /** computes the junction type */
-    void computeType(const NBTypeCont &tc);
+    void computeType(const NBTypeCont& tc);
 
     /** computes the priorities of participating edges within this junction
      * @note this depends on node types */
@@ -302,33 +302,33 @@ public:
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's incoming edges
      */
-    bool hasIncoming(const NBEdge * const e) const throw();
+    bool hasIncoming(const NBEdge* const e) const throw();
 
 
     /** @brief Returns whether the given edge starts at this node
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's outgoing edges
      */
-    bool hasOutgoing(const NBEdge * const e) const throw();
+    bool hasOutgoing(const NBEdge* const e) const throw();
 
 
-    NBEdge *getOppositeIncoming(NBEdge *e) const;
+    NBEdge* getOppositeIncoming(NBEdge* e) const;
     void invalidateIncomingConnections();
     void invalidateOutgoingConnections();
 
     void removeDoubleEdges();
-    NBEdge *getConnectionTo(NBNode *n) const;
+    NBEdge* getConnectionTo(NBNode* n) const;
 
 
-    void addSortedLinkFoes(const NBConnection &mayDrive,
-                           const NBConnection &mustStop);
+    void addSortedLinkFoes(const NBConnection& mayDrive,
+                           const NBConnection& mustStop);
 
-    NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
-    NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
+    NBEdge* getPossiblySplittedIncoming(const std::string& edgeid);
+    NBEdge* getPossiblySplittedOutgoing(const std::string& edgeid);
 
     /** @brief Removes edge from this node and optionally removes connections as well
      */
-    void removeEdge(NBEdge *edge, bool removeFromConnections=true);
+    void removeEdge(NBEdge* edge, bool removeFromConnections=true);
 
     /** @brief Computes whether the given connection is a left mover across the junction
      *
@@ -339,7 +339,7 @@ public:
      * @param[in] from The outgoing edge (the end of the connection)
      * @return Whether the described connection is a left-mover
      */
-    bool isLeftMover(const NBEdge * const from, const NBEdge * const to) const throw();
+    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const throw();
 
 
     /** @brief Returns the information whether the described flow must let any other flow pass
@@ -348,7 +348,7 @@ public:
      * @param[in] toLane The lane the connection ends at
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge * const from, const NBEdge * const to, int toLane) const throw();
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const throw();
 
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -359,8 +359,8 @@ public:
      * @param[in] regardNonSignalisedLowerPriority Whether the right of way rules without traffic lights shall be regarded
      * @return Whether the second flow prohibits the first one
      */
-    bool forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
-                 const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+    bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
+                 const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const throw();
 
 
@@ -371,8 +371,8 @@ public:
      * @param[in] to2 The ending edge of the second stream
      * @return Whether both stream are foes (cross)
      */
-    bool foes(const NBEdge * const from1, const NBEdge * const to1,
-              const NBEdge * const from2, const NBEdge * const to2) const throw();
+    bool foes(const NBEdge* const from1, const NBEdge* const to1,
+              const NBEdge* const from2, const NBEdge* const to2) const throw();
 
 
     /** @brief Returns the representation of the described stream's direction
@@ -380,14 +380,14 @@ public:
      * @param[in] outgoing The edge the stream ends at
      * @return The direction of the stream
      */
-    LinkDirection getDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw();
+    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const throw();
 
-    std::string stateCode(const NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
+    std::string stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
     void computeNodeShape(bool leftHand);
 
 
-    const PositionVector &getShape() const;
+    const PositionVector& getShape() const;
 
     bool checkIsRemovable() const;
 
@@ -401,8 +401,8 @@ public:
     bool isNearDistrict() const;
     bool isDistrict() const;
 
-    bool needsCont(NBEdge *fromE, NBEdge *toE, NBEdge *otherFromE, NBEdge *otherToE, const NBEdge::Connection &c) const;
- 
+    bool needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherToE, const NBEdge::Connection& c) const;
+
     /** @brief Compute the shape for an internal lane
      * @param[in] fromE The starting edge
      * @param[in] fromL The index of the starting lane
@@ -412,24 +412,24 @@ public:
      * @return The shape of the internal lane
      */
     PositionVector computeInternalLaneShape(
-            NBEdge *fromE, int fromL, NBEdge *toE, int toL, int numPoints=5) const;
+        NBEdge* fromE, int fromL, NBEdge* toE, int toL, int numPoints=5) const;
 
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
-    void replaceIncoming(NBEdge *which, NBEdge *by, unsigned int laneOff);
+    void replaceIncoming(NBEdge* which, NBEdge* by, unsigned int laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
         Connections are remapped, too */
-    void replaceIncoming(const EdgeVector &which, NBEdge *by);
+    void replaceIncoming(const EdgeVector& which, NBEdge* by);
 
     /** @brief Replaces occurences of the first edge within the list of outgoing by the second
         Connections are remapped, too */
-    void replaceOutgoing(NBEdge *which, NBEdge *by, unsigned int laneOff);
+    void replaceOutgoing(NBEdge* which, NBEdge* by, unsigned int laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
         Connections are remapped, too */
-    void replaceOutgoing(const EdgeVector &which, NBEdge *by);
+    void replaceOutgoing(const EdgeVector& which, NBEdge* by);
 
     void buildInnerEdges();
 
@@ -448,7 +448,7 @@ public:
 
         /** @brief Comparing operator
          */
-        int operator()(NBNode *n1, NBNode *n2) const {
+        int operator()(NBNode* n1, NBNode* n2) const {
             return n1->getID()<n2->getID();
         }
 
@@ -464,26 +464,26 @@ private:
         performs the swapping of two edges in the myAllEdges-list when the
         outgoing is in clockwise direction to the incoming */
     bool swapWhenReversed(bool leftHand,
-                          const EdgeVector::iterator &i1,
-                          const EdgeVector::iterator &i2);
+                          const EdgeVector::iterator& i1,
+                          const EdgeVector::iterator& i2);
 
     /** removes the first edge from the list, marks it as higher priorised and
         returns it */
-    NBEdge* extractAndMarkFirst(EdgeVector &s);
+    NBEdge* extractAndMarkFirst(EdgeVector& s);
 
     /** returns a list of edges which are connected to the given
         outgoing edge */
-    EdgeVector *getEdgesThatApproach(NBEdge *currentOutgoing);
+    EdgeVector* getEdgesThatApproach(NBEdge* currentOutgoing);
 
 
 
 
-    void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
+    void replaceInConnectionProhibitions(NBEdge* which, NBEdge* by,
                                          unsigned int whichLaneOff, unsigned int byLaneOff);
 
 
-    void remapRemoved(NBTrafficLightLogicCont &tc,
-                      NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
+    void remapRemoved(NBTrafficLightLogicCont& tc,
+                      NBEdge* removed, const EdgeVector& incoming, const EdgeVector& outgoing);
 
 
 private:
@@ -506,21 +506,21 @@ private:
     NBConnectionProhibits myBlockedConnections;
 
     /// The district the node is the centre of
-    NBDistrict *myDistrict;
+    NBDistrict* myDistrict;
 
     /// the (outer) shape of the junction
     PositionVector myPoly;
 
-    NBRequest *myRequest;
+    NBRequest* myRequest;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 
 private:
     /// @brief invalidated copy constructor
-    NBNode(const NBNode &s);
+    NBNode(const NBNode& s);
 
     /// @brief invalidated assignment operator
-    NBNode &operator=(const NBNode &s);
+    NBNode& operator=(const NBNode& s);
 
 
 };

@@ -90,7 +90,7 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
     do {
         changed = false;
         for (unsigned int b=0; b<nodes.size()&&!changed; ++b) {
-            RONode *bn = nodes[b];
+            RONode* bn = nodes[b];
             for (unsigned int e=b+1; e<nodes.size()&&!changed; ++e) {
                 if (bn==nodes[e]) {
                     changed = true;
@@ -107,7 +107,7 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
 
 }
 
-std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev) {
+std::ostream& operator<<(std::ostream& os, const std::vector<const ROEdge*> &ev) {
     bool hadFirst = false;
     for (std::vector<const ROEdge*>::const_iterator j=ev.begin(); j!=ev.end(); j++) {
         if ((*j)->getType() != ROEdge::ET_DISTRICT) {

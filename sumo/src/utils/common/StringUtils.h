@@ -52,8 +52,8 @@ public:
 
     /** Replaces all occurences of the second string by the third
         string within the first string */
-    static std::string replace(std::string str, const char *what,
-                               const char *by);
+    static std::string replace(std::string str, const char* what,
+                               const char* by);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
@@ -66,7 +66,7 @@ public:
      * @param[in] orig The original string
      * @return the string with the escaped sequences
      */
-    static std::string escapeXML(const std::string &orig) throw();
+    static std::string escapeXML(const std::string& orig) throw();
 
     /// An empty string
     static std::string emptyString;

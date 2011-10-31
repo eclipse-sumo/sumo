@@ -42,29 +42,29 @@
  *
  */
 class NIVissimSingleTypeParser_Lichtsignalanlagendefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Lichtsignalanlagendefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 private:
     /// parses a traffic light with fixed times (no other types are supported by now)
-    bool parseFixedTime(int id, std::string name, std::istream &from);
+    bool parseFixedTime(int id, std::string name, std::istream& from);
 
     /** @brief Parses a vas-traffic light;
         All other actuated traffic lights are parsed using "parseRestActuated"
         as they have a different format */
-    bool parseVAS(int id, std::string name, std::istream &from);
+    bool parseVAS(int id, std::string name, std::istream& from);
 
     /// Parses actuated traffic lights (beside VAS)
-    bool parseRestActuated(int id, std::string name, std::istream &from,
-                           const std::string &type);
+    bool parseRestActuated(int id, std::string name, std::istream& from,
+                           const std::string& type);
 
 };
 

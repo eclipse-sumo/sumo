@@ -89,7 +89,7 @@ public:
      * @param[in, out] dev The device to write into
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice &dev) const throw(IOError);
+    void write(OutputDevice& dev) const throw(IOError);
 
     /** @brief Validates stored car-following parameter
      */

@@ -61,8 +61,8 @@ class SUMOVehicle;
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-        public MSTrigger, public MSMoveReminder,
-            public SUMOSAXHandler {
+    public MSTrigger, public MSMoveReminder,
+    public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *
@@ -71,9 +71,9 @@ public:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
      */
-    MSTriggeredRerouter(const std::string &id,
+    MSTriggeredRerouter(const std::string& id,
                         const std::vector<MSEdge*> &edges,
-                        SUMOReal prob, const std::string &file, bool off);
+                        SUMOReal prob, const std::string& file, bool off);
 
 
     /** @brief Destructor */
@@ -114,16 +114,16 @@ public:
     bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
-    bool hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;
+    bool hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
 
     /// Returns the rerouting definition valid for the given time and vehicle
-    const RerouteInterval &getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;
+    const RerouteInterval& getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
 
     /// Returns whether a rerouting definition is valid for the given time
     bool hasCurrentReroute(SUMOTime time) const;
 
     /// Returns the rerouting definition valid for the given time and vehicle
-    const RerouteInterval &getCurrentReroute(SUMOTime time) const;
+    const RerouteInterval& getCurrentReroute(SUMOTime time) const;
 
     /// Sets whether the process is currently steered by the user
     void setUserMode(bool val);
@@ -152,7 +152,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -188,8 +188,8 @@ protected:
     //@}
 
     static bool myHaveWarnedAboutDeprecatedDestProbReroute,
-    myHaveWarnedAboutDeprecatedClosingReroute,
-    myHaveWarnedAboutDeprecatedRouteReroute;
+           myHaveWarnedAboutDeprecatedClosingReroute,
+           myHaveWarnedAboutDeprecatedRouteReroute;
 
 private:
     /// @brief Invalidated copy constructor.

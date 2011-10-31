@@ -86,7 +86,7 @@ public:
      * @param[in] state The state of this link
      * @param[in] length The length of this link
      */
-    MSLink(MSLane* succLane, MSLane *via,
+    MSLink(MSLane* succLane, MSLane* via,
            LinkDirection dir, LinkState state,
            SUMOReal length) throw();
 #endif
@@ -116,13 +116,13 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(SUMOVehicle *approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
+    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
 
-    void addBlockedLink(MSLink *link) throw();
+    void addBlockedLink(MSLink* link) throw();
 
 
 
-    void removeApproaching(SUMOVehicle *veh);
+    void removeApproaching(SUMOVehicle* veh);
 
 
 
@@ -179,7 +179,7 @@ public:
      *
      * @return The lane approached by this link
      */
-    MSLane *getLane() const throw();
+    MSLane* getLane() const throw();
 
 
     /** @brief Returns the respond index (for visualization)
@@ -228,11 +228,11 @@ public:
 
 private:
     struct ApproachingVehicleInformation {
-        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle *_vehicle, const bool _willPass)
-                : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
+        ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime, SUMOVehicle* _vehicle, const bool _willPass)
+            : arrivalTime(_arrivalTime), leavingTime(_leavingTime), vehicle(_vehicle), willPass(_willPass) {}
         SUMOTime arrivalTime;
         SUMOTime leavingTime;
-        SUMOVehicle *vehicle;
+        SUMOVehicle* vehicle;
         bool willPass;
     };
 
@@ -240,14 +240,14 @@ private:
 
     class vehicle_in_request_finder {
     public:
-        explicit vehicle_in_request_finder(const SUMOVehicle * const v) : myVehicle(v) { }
-        bool operator()(const ApproachingVehicleInformation &vo) {
+        explicit vehicle_in_request_finder(const SUMOVehicle* const v) : myVehicle(v) { }
+        bool operator()(const ApproachingVehicleInformation& vo) {
             return vo.vehicle == myVehicle;
         }
     private:
         vehicle_in_request_finder& operator=(const vehicle_in_request_finder&); // just to avoid a compiler warning
     private:
-        const SUMOVehicle * const myVehicle;
+        const SUMOVehicle* const myVehicle;
 
     };
 
@@ -281,7 +281,7 @@ private:
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used
-    MSLane * const myJunctionInlane;
+    MSLane* const myJunctionInlane;
 #endif
 
     std::vector<MSLink*> myFoeLinks;
@@ -291,10 +291,10 @@ private:
 
 private:
     /// invalidated copy constructor
-    MSLink(const MSLink &s);
+    MSLink(const MSLink& s);
 
     /// invalidated assignment operator
-    MSLink &operator=(const MSLink &s);
+    MSLink& operator=(const MSLink& s);
 
 };
 

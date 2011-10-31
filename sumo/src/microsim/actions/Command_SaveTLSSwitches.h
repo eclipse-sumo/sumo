@@ -58,8 +58,8 @@ public:
      * @param[in] tlls The logic to write state of
      * @param[in] od The output device to write the state into
      */
-    Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
-                            OutputDevice &od);
+    Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants& logics,
+                            OutputDevice& od);
 
 
     /// @brief Destructor
@@ -88,10 +88,10 @@ public:
 
 private:
     /// @brief The device to write to
-    OutputDevice &myOutputDevice;
+    OutputDevice& myOutputDevice;
 
     /// @brief The traffic light logic to use
-    const MSTLLogicControl::TLSLogicVariants &myLogics;
+    const MSTLLogicControl::TLSLogicVariants& myLogics;
 
     /// @brief Storage for prior states; map from signal group to last green time begin
     std::map<int, SUMOTime> myPreviousLinkStates;

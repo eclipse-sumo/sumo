@@ -67,7 +67,9 @@ MFXMutex::MFXMutex() : lock_(0) {
 //       some other thread is accessing the mutexHandle, then you have
 //       a design flaw in your program, and so it should crash!
 MFXMutex::~MFXMutex() {
-    if (lock_) fxerror("MFXMutex: mutex still locked\n");
+    if (lock_) {
+        fxerror("MFXMutex: mutex still locked\n");
+    }
 #if !defined(WIN32)
     pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
     FXFREE(&mutexHandle);

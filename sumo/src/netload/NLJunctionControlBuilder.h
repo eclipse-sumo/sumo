@@ -76,7 +76,7 @@ public:
      * @param[in] net The network to fill
      * @param[in] db The detector builder to use
      */
-    NLJunctionControlBuilder(MSNet &net, NLDetectorBuilder &db) throw();
+    NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder& db) throw();
 
 
     /** @brief Destructor
@@ -100,9 +100,9 @@ public:
      * @exception InvalidArgument If the junction type is not known
      * @todo Check why "key" is given
      */
-    void openJunction(const std::string &id, const std::string &key,
-                      const std::string &type, SUMOReal x, SUMOReal y,
-                      const PositionVector &shape,
+    void openJunction(const std::string& id, const std::string& key,
+                      const std::string& type, SUMOReal x, SUMOReal y,
+                      const PositionVector& shape,
                       const std::vector<MSLane*> &incomingLanes,
                       const std::vector<MSLane*> &internalLanes) throw(InvalidArgument);
 
@@ -129,13 +129,13 @@ public:
      *
      * @return The built junction control
      */
-    MSJunctionControl *build() const throw();
+    MSJunctionControl* build() const throw();
 
 
     /** @brief Initialises a junction logic
      * @param[in] id The id of the row-logic
      */
-    void initJunctionLogic(const std::string &id) throw();
+    void initJunctionLogic(const std::string& id) throw();
 
 
     /** @brief Adds a logic item
@@ -149,8 +149,8 @@ public:
      * @param[in] cont Whether the request is followed by an internal end
      * @todo Recheck "cont"; is the description correct?
      */
-    void addLogicItem(int request, const std::string &response,
-                      const std::string &foes, bool cont) throw(InvalidArgument);
+    void addLogicItem(int request, const std::string& response,
+                      const std::string& foes, bool cont) throw(InvalidArgument);
 
 
     /** @brief Begins the reading of a traffic lights logic
@@ -162,7 +162,7 @@ public:
      * @todo Why is the type not verified?
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
      */
-    void initTrafficLightLogic(const std::string &id, const std::string &programID,
+    void initTrafficLightLogic(const std::string& id, const std::string& programID,
                                TrafficLightType type, SUMOTime offset) throw();
 
 
@@ -175,7 +175,7 @@ public:
      * @todo min/max is used only by one junction type. Recheck
      * @todo min/max: maybe only one type of a phase definition should be built
      */
-    void addPhase(SUMOTime duration, const std::string &state,
+    void addPhase(SUMOTime duration, const std::string& state,
                   int min, int max) throw();
 
 
@@ -185,7 +185,7 @@ public:
      * @return The named logic
      * @exception InvalidArgument If the named tls logic was not built before
      */
-    MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id)
+    MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id)
     const throw(InvalidArgument);
 
 
@@ -198,7 +198,7 @@ public:
      * @exception ProcessError If the traffic lights were not correct
      * @see MSTLLogicControl::closeNetworkReading
      */
-    MSTLLogicControl *buildTLLogics() const throw(ProcessError);
+    MSTLLogicControl* buildTLLogics() const throw(ProcessError);
 
 
     /** @brief Ends the building of a traffic lights logic
@@ -232,19 +232,19 @@ public:
      * @todo Where are these parameter used? Describe!
      * @todo Can a parameter be overwritten?
      */
-    void addParam(const std::string &key, const std::string &value) throw();
+    void addParam(const std::string& key, const std::string& value) throw();
 
 
     /** @brief Returns the active key
      * @return The active key
      */
-    const std::string &getActiveKey() const throw();
+    const std::string& getActiveKey() const throw();
 
 
     /** @brief Returns the active sub key
      * @return The active sub key
      */
-    const std::string &getActiveSubKey() const throw();
+    const std::string& getActiveSubKey() const throw();
 
 
     /** @brief Returns the used tls control
@@ -254,7 +254,7 @@ public:
      *
      * @return The tls control to use
      */
-    MSTLLogicControl &getTLLogicControlToUse() const throw();
+    MSTLLogicControl& getTLLogicControlToUse() const throw();
 
 
 protected:
@@ -267,7 +267,7 @@ protected:
      * @exception InvalidArgument If the logic was not built before
      * @todo Where is this used?
      */
-    MSJunctionLogic *getJunctionLogicSecure() throw(InvalidArgument);
+    MSJunctionLogic* getJunctionLogicSecure() throw(InvalidArgument);
 
 
 protected:
@@ -280,7 +280,7 @@ protected:
      *
      * @return The built junction
      */
-    virtual MSJunction *buildNoLogicJunction() throw();
+    virtual MSJunction* buildNoLogicJunction() throw();
 
 
     /** @brief Builds a junction with a logic
@@ -291,7 +291,7 @@ protected:
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */
-    virtual MSJunction *buildLogicJunction() throw(InvalidArgument);
+    virtual MSJunction* buildLogicJunction() throw(InvalidArgument);
 
 
 #ifdef HAVE_INTERNAL_LANES
@@ -301,17 +301,17 @@ protected:
      *
      * @return The built junction
      */
-    virtual MSJunction *buildInternalJunction() throw();
+    virtual MSJunction* buildInternalJunction() throw();
 #endif
     /// @}
 
 
 protected:
     /// @brief The net to use
-    MSNet &myNet;
+    MSNet& myNet;
 
     /// @brief The detector builder to use
-    NLDetectorBuilder &myDetectorBuilder;
+    NLDetectorBuilder& myDetectorBuilder;
 
     /// @brief The switch offset within the tls
     SUMOTime myOffset;
@@ -338,7 +338,7 @@ protected:
     int myRequestItemNumber;
 
     /// @brief The junctions controls
-    mutable MSJunctionControl *myJunctions;
+    mutable MSJunctionControl* myJunctions;
 
     /// @brief The list of the incoming lanes of the currently chosen junction
     LaneVector myActiveIncomingLanes;
@@ -370,7 +370,7 @@ protected:
     /// @brief A definition of junction initialisation
     struct TLInitInfo {
         /// @brief The logic to initialise
-        MSTrafficLightLogic *logic;
+        MSTrafficLightLogic* logic;
         /// @brief The loaded logic's parameter
         std::map<std::string, std::string> params;
     };
@@ -380,7 +380,7 @@ protected:
 
 
     /// @brief The tls control to use (0 if net's tls control shall be used)
-    mutable MSTLLogicControl *myLogicControl;
+    mutable MSTLLogicControl* myLogicControl;
 
 
     /// @brief Definition of a parameter map (key->value)
@@ -399,10 +399,10 @@ protected:
 
 private:
     /** @brief invalidated copy operator */
-    NLJunctionControlBuilder(const NLJunctionControlBuilder &s);
+    NLJunctionControlBuilder(const NLJunctionControlBuilder& s);
 
     /** @brief invalidated assignment operator */
-    NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
+    NLJunctionControlBuilder& operator=(const NLJunctionControlBuilder& s);
 
     static const int NO_REQUEST_SIZE;
 

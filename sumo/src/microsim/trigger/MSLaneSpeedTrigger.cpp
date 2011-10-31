@@ -52,11 +52,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
+MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string &file)
-        : MSTrigger(id), SUMOSAXHandler(file),
-        myDestLanes(destLanes), myAmOverriding(false), myDidInit(false) {
+                                       const std::string& file)
+    : MSTrigger(id), SUMOSAXHandler(file),
+      myDestLanes(destLanes), myAmOverriding(false), myDidInit(false) {
     myCurrentSpeed = destLanes[0]->getMaxSpeed();
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
@@ -107,7 +107,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
     for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((*i)->getEdge());
+            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge((*i)->getEdge());
             while (first!=0) {
                 first->setSpeed(speed, currentTime);
                 first = first->getNextSegment();
@@ -134,7 +134,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
 
 void
 MSLaneSpeedTrigger::myStartElement(int element,
-                                   const SUMOSAXAttributes &attrs) {
+                                   const SUMOSAXAttributes& attrs) {
     // check whether the correct tag is read
     if (element!=SUMO_TAG_STEP) {
         return;

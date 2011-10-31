@@ -40,7 +40,7 @@
 
 NIVissimNodeParticipatingEdge::NIVissimNodeParticipatingEdge(
     int edgeid, SUMOReal frompos, SUMOReal topos)
-        : myEdgeID(edgeid), myFromPos(frompos), myToPos(topos) {}
+    : myEdgeID(edgeid), myFromPos(frompos), myToPos(topos) {}
 
 NIVissimNodeParticipatingEdge::~NIVissimNodeParticipatingEdge() {}
 

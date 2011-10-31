@@ -53,7 +53,7 @@ class NBNetBuilder;
 class NGNet {
 public:
     /// @brief Constructor
-    NGNet(NBNetBuilder &nb) throw();
+    NGNet(NBNetBuilder& nb) throw();
 
 
     /// @brief Destructor
@@ -165,7 +165,7 @@ public:
      *
      * @param[in] node The node to add
      */
-    void add(NGNode *node) throw();
+    void add(NGNode* node) throw();
 
 
     /** @brief Adds the given edge to the network
@@ -174,7 +174,7 @@ public:
      *
      * @param[in] edge The edge to add
      */
-    void add(NGEdge *edge) throw();
+    void add(NGEdge* edge) throw();
 
 
     /** @brief Returns the number of stored nodes
@@ -193,7 +193,7 @@ private:
      * @param[in] node1 The first node to connect
      * @param[in] node2 The second node to connect
      */
-    void connect(NGNode *node1, NGNode *node2) throw();
+    void connect(NGNode* node1, NGNode* node2) throw();
 
 
 private:
@@ -201,7 +201,7 @@ private:
     int myLastID;
 
     /// @brief The builder used to build NB*-structures
-    NBNetBuilder &myNetBuilder;
+    NBNetBuilder& myNetBuilder;
 
     /// @brief The list of nodes
     NGNodeList myNodeList;

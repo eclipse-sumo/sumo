@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Linksverkehr::NIVissimSingleTypeParser_Linksverkehr(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Linksverkehr::NIVissimSingleTypeParser_Linksverkehr(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Linksverkehr::~NIVissimSingleTypeParser_Linksverkehr() {}
 
 
 bool
-NIVissimSingleTypeParser_Linksverkehr::parse(std::istream &) {
+NIVissimSingleTypeParser_Linksverkehr::parse(std::istream&) {
     return true;
 }
 

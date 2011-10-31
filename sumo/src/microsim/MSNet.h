@@ -120,9 +120,9 @@ public:
      * @exception ProcessError If a network was already constructed
      * @see closeBuilding
      */
-    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-          MSEventControl *endOfTimestepEvents, MSEventControl *insertionEvents,
-          ShapeContainer *shapeCont=0) throw(ProcessError);
+    MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
+          MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
+          ShapeContainer* shapeCont=0) throw(ProcessError);
 
 
     /// @brief Destructor
@@ -140,8 +140,8 @@ public:
      * @param[in] stateDumpFiles Filenames for states
      * @todo Try to move all this to the constructor?
      */
-    void closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
-                       MSRouteLoaderControl *routeLoaders, MSTLLogicControl *tlc,
+    void closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
+                       MSRouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles) throw();
 
 
@@ -236,14 +236,14 @@ public:
      *
      * @param[in] os The stream to write the state into (binary)
      */
-    void saveState(std::ostream &os) throw();
+    void saveState(std::ostream& os) throw();
 
 
     /** @brief Loads the network state
      *
      * @param[in] bis The input to read the state from (binary)
      */
-    unsigned int loadState(BinaryInputDevice &bis) throw();
+    unsigned int loadState(BinaryInputDevice& bis) throw();
     /// @}
 #endif
 
@@ -255,7 +255,7 @@ public:
      * @see MSVehicleControl
      * @see myVehicleControl
      */
-    MSVehicleControl &getVehicleControl() throw() {
+    MSVehicleControl& getVehicleControl() throw() {
         return *myVehicleControl;
     }
 
@@ -268,7 +268,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSPersonControl &getPersonControl() throw();
+    MSPersonControl& getPersonControl() throw();
 
 
     /** @brief Returns the edge control
@@ -276,7 +276,7 @@ public:
      * @see MSEdgeControl
      * @see myEdges
      */
-    MSEdgeControl &getEdgeControl() throw() {
+    MSEdgeControl& getEdgeControl() throw() {
         return *myEdges;
     }
 
@@ -286,7 +286,7 @@ public:
      * @see MSInsertionControl
      * @see myInserter
      */
-    MSInsertionControl &getInsertionControl() throw() {
+    MSInsertionControl& getInsertionControl() throw() {
         return *myInserter;
     }
 
@@ -296,7 +296,7 @@ public:
      * @see MSDetectorControl
      * @see myDetectorControl
      */
-    MSDetectorControl &getDetectorControl() throw() {
+    MSDetectorControl& getDetectorControl() throw() {
         return *myDetectorControl;
     }
 
@@ -306,7 +306,7 @@ public:
      * @see MSTLLogicControl
      * @see myLogics
      */
-    MSTLLogicControl &getTLSControl() throw() {
+    MSTLLogicControl& getTLSControl() throw() {
         return *myLogics;
     }
 
@@ -316,7 +316,7 @@ public:
      * @see MSJunctionControl
      * @see myJunctions
      */
-    MSJunctionControl &getJunctionControl() throw() {
+    MSJunctionControl& getJunctionControl() throw() {
         return *myJunctions;
     }
 
@@ -326,7 +326,7 @@ public:
      * @see MSEventControl
      * @see myBeginOfTimestepEvents
      */
-    MSEventControl &getBeginOfTimestepEvents() throw() {
+    MSEventControl& getBeginOfTimestepEvents() throw() {
         return *myBeginOfTimestepEvents;
     }
 
@@ -336,7 +336,7 @@ public:
      * @see MSEventControl
      * @see myEndOfTimestepEvents
      */
-    MSEventControl &getEndOfTimestepEvents() throw() {
+    MSEventControl& getEndOfTimestepEvents() throw() {
         return *myEndOfTimestepEvents;
     }
 
@@ -346,7 +346,7 @@ public:
      * @see MSEventControl
      * @see myInsertionEvents
      */
-    MSEventControl &getInsertionEvents() throw() {
+    MSEventControl& getInsertionEvents() throw() {
         return *myInsertionEvents;
     }
 
@@ -356,7 +356,7 @@ public:
      * @see ShapeContainer
      * @see myShapeContainer
      */
-    ShapeContainer &getShapeContainer() throw() {
+    ShapeContainer& getShapeContainer() throw() {
         return *myShapeContainer;
     }
 
@@ -366,7 +366,7 @@ public:
      * If the net does not have such a container, it is built.
      * @return The net's knowledge about edge weights
      */
-    MSEdgeWeightsStorage &getWeightsStorage() throw();
+    MSEdgeWeightsStorage& getWeightsStorage() throw();
     /// @}
 
 
@@ -392,7 +392,7 @@ public:
      * @param[in] id The id of the bus stop to return.
      * @return The named bus stop, or 0 if no such stop exists
      */
-    MSBusStop *getBusStop(const std::string &id) const;
+    MSBusStop* getBusStop(const std::string& id) const;
 
 
     /** @brief Returns the bus stop close to the given position
@@ -443,7 +443,7 @@ public:
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        virtual void vehicleStateChanged(const SUMOVehicle * const vehicle, VehicleState to) = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to) = 0;
 
     };
 
@@ -451,13 +451,13 @@ public:
     /** @brief Adds a vehicle states listener
      * @param[in] listener The listener to add
      */
-    void addVehicleStateListener(VehicleStateListener *listener) throw();
+    void addVehicleStateListener(VehicleStateListener* listener) throw();
 
 
     /** @brief Removes a vehicle states listener
      * @param[in] listener The listener to remove
      */
-    void removeVehicleStateListener(VehicleStateListener *listener) throw();
+    void removeVehicleStateListener(VehicleStateListener* listener) throw();
 
 
     /** @brief Informs all added listeners about a vehicle's state change
@@ -465,7 +465,7 @@ public:
      * @param[in] to The state the vehicle has changed to
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const SUMOVehicle * const vehicle, VehicleState to) throw();
+    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) throw();
     /// @}
 
 
@@ -484,9 +484,9 @@ public:
          * @param[in] vehKnowledge The vehicle's edge weights knowledge
          * @param[in] netKnowledge The global edge weights knowledge
          */
-        EdgeWeightsProxi(const MSEdgeWeightsStorage &vehKnowledge,
-                         const MSEdgeWeightsStorage &netKnowledge)
-                : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
+        EdgeWeightsProxi(const MSEdgeWeightsStorage& vehKnowledge,
+                         const MSEdgeWeightsStorage& netKnowledge)
+            : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
 
 
         /// @brief Destructor
@@ -500,7 +500,7 @@ public:
          * @return The travel time for an edge
          * @see DijkstraRouterTT_ByProxi
          */
-        SUMOReal getTravelTime(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
+        SUMOReal getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) const;
 
 
         /** @brief Returns the effort to pass an edge
@@ -510,17 +510,17 @@ public:
          * @return The effort (abstract) for an edge
          * @see DijkstraRouterTT_ByProxi
          */
-        SUMOReal getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const;
+        SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) const;
 
     private:
         EdgeWeightsProxi& operator=(const EdgeWeightsProxi&); // just to avoid a compiler warning
 
     private:
         /// @brief The vehicle's knownledge
-        const MSEdgeWeightsStorage &myVehicleKnowledge;
+        const MSEdgeWeightsStorage& myVehicleKnowledge;
 
         /// @brief The global knownledge
-        const MSEdgeWeightsStorage &myNetKnowledge;
+        const MSEdgeWeightsStorage& myNetKnowledge;
 
     };
 
@@ -536,7 +536,7 @@ public:
      * @param whatemit std::string defining the requested MSMessageEmitter.
      * @return the first MessageEmitter found, which has the requested element enabled
      */
-    MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+    MSMessageEmitter* getMsgEmitter(const std::string& whatemit);
 
     /**
      *
@@ -557,7 +557,7 @@ protected:
     static MSNet* myInstance;
 
     /// @brief Route loader for dynamic loading of routes
-    MSRouteLoaderControl *myRouteLoaders;
+    MSRouteLoaderControl* myRouteLoaders;
 
     /// @brief Current time step.
     SUMOTime myStep;
@@ -568,29 +568,29 @@ protected:
     /// @{
 
     /// @brief Controls vehicle building and deletion; @see MSVehicleControl
-    MSVehicleControl *myVehicleControl;
+    MSVehicleControl* myVehicleControl;
     /// @brief Controls person building and deletion; @see MSPersonControl
-    MSPersonControl *myPersonControl;
+    MSPersonControl* myPersonControl;
     /// @brief Controls edges, performs vehicle movement; @see MSEdgeControl
     MSEdgeControl* myEdges;
     /// @brief Controls junctions, realizes right-of-way rules; @see MSJunctionControl
     MSJunctionControl* myJunctions;
     /// @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl
-    MSTLLogicControl *myLogics;
+    MSTLLogicControl* myLogics;
     /// @brief Controls vehicle insertion; @see MSInsertionControl
     MSInsertionControl* myInserter;
     /// @brief Controls detectors; @see MSDetectorControl
-    MSDetectorControl *myDetectorControl;
+    MSDetectorControl* myDetectorControl;
     /// @brief Controls events executed at the begin of a time step; @see MSEventControl
-    MSEventControl *myBeginOfTimestepEvents;
+    MSEventControl* myBeginOfTimestepEvents;
     /// @brief Controls events executed at the end of a time step; @see MSEventControl
-    MSEventControl *myEndOfTimestepEvents;
+    MSEventControl* myEndOfTimestepEvents;
     /// @brief Controls insertion events; @see MSEventControl
-    MSEventControl *myInsertionEvents;
+    MSEventControl* myInsertionEvents;
     /// @brief A container for geometrical shapes; @see ShapeContainer
-    ShapeContainer *myShapeContainer;
+    ShapeContainer* myShapeContainer;
     /// @brief The net's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
-    MSEdgeWeightsStorage *myEdgeWeights;
+    MSEdgeWeightsStorage* myEdgeWeights;
     /// @}
 
 

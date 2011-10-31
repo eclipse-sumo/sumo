@@ -49,15 +49,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORDLoader_TripDefs::RORDLoader_TripDefs(RONet &net,
+RORDLoader_TripDefs::RORDLoader_TripDefs(RONet& net,
         SUMOTime begin, SUMOTime end,
         bool emptyDestinationsAllowed, bool withTaz,
-        const std::string &fileName) throw(ProcessError)
-        : ROTypedXMLRoutesLoader(net, begin, end, fileName),
-        myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-        myWithTaz(withTaz),
-        myDepartureTime(-1), myCurrentVehicleType(0),
-        myParameter(0), myHaveWarnedAboutDeprecatedTripDef(false) {}
+        const std::string& fileName) throw(ProcessError)
+    : ROTypedXMLRoutesLoader(net, begin, end, fileName),
+      myEmptyDestinationsAllowed(emptyDestinationsAllowed),
+      myWithTaz(withTaz),
+      myDepartureTime(-1), myCurrentVehicleType(0),
+      myParameter(0), myHaveWarnedAboutDeprecatedTripDef(false) {}
 
 
 RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
@@ -65,7 +65,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
 
 void
 RORDLoader_TripDefs::myStartElement(int element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element==SUMO_TAG_TRIP__DEPRECATED&&!myHaveWarnedAboutDeprecatedTripDef) {
         myHaveWarnedAboutDeprecatedTripDef = true;
         WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
@@ -105,7 +105,7 @@ RORDLoader_TripDefs::myStartElement(int element,
 
 
 std::string
-RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs) {
+RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes& attrs) {
     // try to get the id, do not report an error if not given or empty...
     bool ok = true;
     std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, ok, "", false);
@@ -118,10 +118,10 @@ RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs) {
 }
 
 
-ROEdge *
-RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
-                             const std::string &purpose,
-                             SumoXMLAttr which, const std::string &vid,
+ROEdge*
+RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes& attrs,
+                             const std::string& purpose,
+                             SumoXMLAttr which, const std::string& vid,
                              bool emptyAllowed) {
     UNUSED_PARAMETER(purpose);
     bool ok = true;
@@ -132,7 +132,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
     if (which == SUMO_ATTR_TO_TAZ) {
         id += "-sink";
     }
-    ROEdge *e = myNet.getEdge(id);
+    ROEdge* e = myNet.getEdge(id);
     if (e==0 && !emptyAllowed) {
         WRITE_ERROR("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
     }
@@ -149,9 +149,9 @@ RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
             delete myParameter;
             return;
         }
-        RGBColor *col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);
-        SUMOVTypeParameter *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
+        RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
+        RORouteDef* route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);
+        SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
@@ -159,7 +159,7 @@ RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
         if (myNet.addRouteDef(route)) {
             myNextRouteRead = true;
             // build the vehicle
-            ROVehicle *veh = new ROVehicle(*myParameter, route, type);
+            ROVehicle* veh = new ROVehicle(*myParameter, route, type);
             myNet.addVehicle(myParameter->id, veh);
         } else {
             WRITE_ERROR("The vehicle '" + myParameter->id + "' occurs at least twice.");

@@ -57,7 +57,7 @@ MSPersonControl::~MSPersonControl() {
 
 
 bool
-MSPersonControl::add(const std::string &id, MSPerson *person) {
+MSPersonControl::add(const std::string& id, MSPerson* person) {
     if (myPersons.find(id) == myPersons.end()) {
         myPersons[id] = person;
         return true;
@@ -67,8 +67,8 @@ MSPersonControl::add(const std::string &id, MSPerson *person) {
 
 
 void
-MSPersonControl::erase(MSPerson *person) {
-    const std::string &id = person->getID();
+MSPersonControl::erase(MSPerson* person) {
+    const std::string& id = person->getID();
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         od.openTag("personinfo") << " id=\"" << id << "\" ";
@@ -79,9 +79,9 @@ MSPersonControl::erase(MSPerson *person) {
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         od.openTag("person") << " id=\"" << id
-        << "\" depart=\"" << time2string(person->getDesiredDepart())
-        << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep())
-        << "\">\n";
+                             << "\" depart=\"" << time2string(person->getDesiredDepart())
+                             << "\" arrival=\"" << time2string(MSNet::getInstance()->getCurrentTimeStep())
+                             << "\">\n";
         od.closeTag();
         od << "\n";
     }
@@ -93,7 +93,7 @@ MSPersonControl::erase(MSPerson *person) {
 }
 
 void
-MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
+MSPersonControl::setArrival(const SUMOTime time, MSPerson* person) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
     if (myArrivals.find(step)==myArrivals.end()) {
         myArrivals[step] = PersonVector();
@@ -105,7 +105,7 @@ MSPersonControl::setArrival(const SUMOTime time, MSPerson *person) {
 void
 MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
     while (myArrivals.find(time)!=myArrivals.end()) {
-        const PersonVector &persons = myArrivals[time];
+        const PersonVector& persons = myArrivals[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (size_t i=0; i < persons.size(); ++i) {
             persons[i]->proceed(net, time);
@@ -116,7 +116,7 @@ MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
 
 
 void
-MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson *person) throw() {
+MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) throw() {
     if (myWaiting.find(edge) == myWaiting.end()) {
         myWaiting[edge] = std::vector<MSPerson*>();
     }
@@ -125,12 +125,12 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson *person) throw() 
 
 
 bool
-MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle *vehicle) throw() {
+MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) throw() {
     bool ret = false;
     if (myWaiting.find(edge) != myWaiting.end()) {
-        PersonVector &waitPersons = myWaiting[edge];
+        PersonVector& waitPersons = myWaiting[edge];
         for (PersonVector::iterator i=waitPersons.begin(); i!=waitPersons.end();) {
-            const std::string &line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
+            const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
             if ((*i)->isWaitingFor(line)) {
                 vehicle->addPerson(*i);
                 i = waitPersons.erase(i);

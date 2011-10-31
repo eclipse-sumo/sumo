@@ -43,7 +43,7 @@ namespace FXEX {
  * Seven-segment (eg LCD/watch style) widget
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-            FXSevenSegment : public FXFrame {
+        FXSevenSegment : public FXFrame {
     FXDECLARE(FXSevenSegment)
 
 private:
@@ -62,19 +62,19 @@ protected:
     FXSevenSegment() {}
 
     // Draws the individual segment types
-    void drawTopSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawLeftTopSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawRightTopSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawMiddleSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawLeftBottomSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawRightBottomSegment(FXDCWindow &dc,FXshort x,FXshort y);
-    void drawBottomSegment(FXDCWindow &dc,FXshort x,FXshort y);
+    void drawTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawLeftTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawRightTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawMiddleSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawLeftBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawRightBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
 
     // Draw a seven-segment unit (each segment can be set indepentantly)
-    void drawSegments(FXDCWindow &dc,FXbool s1,FXbool s2,FXbool s3,FXbool s4,FXbool s5,FXbool s6,FXbool s7);
+    void drawSegments(FXDCWindow& dc,FXbool s1,FXbool s2,FXbool s3,FXbool s4,FXbool s5,FXbool s6,FXbool s7);
 
     // Draw an alphanumeric figure (consisting of seven segments)
-    virtual void drawFigure(FXDCWindow &dc, FXchar figure);
+    virtual void drawFigure(FXDCWindow& dc, FXchar figure);
 
 public:
     long onPaint(FXObject*,FXSelector,void*);
@@ -88,7 +88,7 @@ public:
 
 public:
     /// create a seven segment display
-    FXSevenSegment(FXComposite* p,FXObject *tgt=NULL,FXSelector sel=0,FXuint opts=FRAME_NONE,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    FXSevenSegment(FXComposite* p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=FRAME_NONE,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
 
     /// set the text on the display
     void setText(const FXchar val);
@@ -141,10 +141,10 @@ public:
     virtual FXint getDefaultHeight();
 
     /// save resources
-    virtual void save(FXStream &store) const;
+    virtual void save(FXStream& store) const;
 
     /// load resources
-    virtual void load(FXStream &store);
+    virtual void load(FXStream& store);
 
     /// dtor
     virtual ~FXSevenSegment() {}

@@ -83,7 +83,7 @@ public:
 protected:
     /// constructor
     GUIEvent(GUIEventType ownType)
-            : myType(ownType) { }
+        : myType(ownType) { }
 
 
 protected:

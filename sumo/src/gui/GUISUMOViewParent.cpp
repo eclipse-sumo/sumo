@@ -83,18 +83,18 @@ FXIMPLEMENT(GUISUMOViewParent, GUIGlChildWindow, GUISUMOViewParentMap, ARRAYNUMB
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
+GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      const FXString& name,
-                                     GUIMainWindow *parentWindow,
+                                     GUIMainWindow* parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
-        : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
+    : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
     myParent->addChild(this, false);
 }
 
 
 GUISUMOAbstractView*
-GUISUMOViewParent::init(FXGLCanvas *share, GUINet &net) {
+GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net) {
     myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                 myParent->getGLVisual(), share);
     myView->buildViewToolBars(*this);
@@ -140,7 +140,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
 
 
 long
-GUISUMOViewParent::onCmdLocate(FXObject *,FXSelector sel,void*) {
+GUISUMOViewParent::onCmdLocate(FXObject*,FXSelector sel,void*) {
     GUIGlObjectType type;
     std::vector<GUIGlID> ids;
     GUIIcon icon;
@@ -188,7 +188,7 @@ GUISUMOViewParent::onCmdLocate(FXObject *,FXSelector sel,void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser *chooser = new GUIDialog_GLObjChooser(
+    GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
         this, GUIIconSubSys::getIcon(icon), title.c_str(), type, ids, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
@@ -205,7 +205,7 @@ GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
 
 
 bool
-GUISUMOViewParent::isSelected(GUIGlObject *o) const {
+GUISUMOViewParent::isSelected(GUIGlObject* o) const {
     GUIGlObjectType type = o->getType();
     if (gSelected.isSelected(type, o->getGlID())) {
         return true;
@@ -214,7 +214,7 @@ GUISUMOViewParent::isSelected(GUIGlObject *o) const {
         assert(edge);
         size_t noLanes = edge->getLanes().size();
         for (size_t j=0; j<noLanes; ++j) {
-            const GUILaneWrapper &l = edge->getLaneGeometry(j);
+            const GUILaneWrapper& l = edge->getLaneGeometry(j);
             if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
                 return true;
             }

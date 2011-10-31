@@ -68,9 +68,9 @@ public:
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal length, const bool doAdd,
+        MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes=0,
-                             const MSMeanData_Harmonoise *parent=0) throw();
+                             const MSMeanData_Harmonoise* parent=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -119,7 +119,7 @@ public:
          * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice &dev, const SUMOTime period,
+        void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
                    const int numVehicles=-1) const throw(IOError);
 
@@ -169,7 +169,7 @@ public:
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData_Harmonoise(const std::string &id,
+    MSMeanData_Harmonoise(const std::string& id,
                           const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                           const bool useLanes, const bool withEmpty, const bool withInternal,
                           const bool trackVehicles,
@@ -191,7 +191,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

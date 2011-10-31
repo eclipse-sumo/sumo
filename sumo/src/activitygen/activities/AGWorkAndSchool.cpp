@@ -45,12 +45,15 @@ AGWorkAndSchool::generateTrips() {
 
     buildWorkDestinations();
 
-    if (hh->getCarNbr() < (int)personsDrivingCars.size())
-        return false; //to rebuild the household
-    if (childrenNeedingCarAccompaniment.size() !=0 && hh->getCarNbr() == 0)
-        return false; //to rebuild the household
-    if (adultNeedingCarAccompaniment.size() != 0 && hh->getCarNbr() == 0)
+    if (hh->getCarNbr() < (int)personsDrivingCars.size()) {
+        return false;    //to rebuild the household
+    }
+    if (childrenNeedingCarAccompaniment.size() !=0 && hh->getCarNbr() == 0) {
+        return false;    //to rebuild the household
+    }
+    if (adultNeedingCarAccompaniment.size() != 0 && hh->getCarNbr() == 0) {
         return false;
+    }
 
     carAllocation();
 
@@ -59,8 +62,9 @@ AGWorkAndSchool::generateTrips() {
         return true; // no trip to generate
     }
 
-    if (! carsToTrips())
+    if (! carsToTrips()) {
         return false;
+    }
 
     genDone = true;
     return true;
@@ -91,10 +95,11 @@ AGWorkAndSchool::buildWorkDestinations() {
                     workingPeoplePossCar.push_back(*itA);
                 } else if (this->possibleTranspMean(itA->getWorkPosition().getPosition()) == 4) {
                     //only the car is possible (and there is one (use of possibleTranspMean))
-                    if (hh->getCarNbr() > (int)personsDrivingCars.size())
+                    if (hh->getCarNbr() > (int)personsDrivingCars.size()) {
                         personsDrivingCars.push_back(*itA);
-                    else
+                    } else {
                         adultNeedingCarAccompaniment.push_back(*itA);
+                    }
                 }
             }
         }
@@ -149,8 +154,9 @@ AGWorkAndSchool::carsToTrips() {
     std::list<AGCar>::iterator itCar = hh->cars.begin();
     for (itDriA=personsDrivingCars.begin() ; itDriA!= personsDrivingCars.end() ; ++itDriA) {
         //check if the number of cars is lower than the number of drivers
-        if (itCar == hh->cars.end())
+        if (itCar == hh->cars.end()) {
             return false;
+        }
         AGTrip trip(hh->getPosition(), itDriA->getWorkPosition().getPosition(), *itCar, depHour(hh->getPosition(), itDriA->getWorkPosition().getPosition(), itDriA->getWorkPosition().getOpening()));
         ++itCar;
         tempTrip.push_back(trip);
@@ -231,17 +237,20 @@ AGWorkAndSchool::checkDriversScheduleMatching() {
     std::list<AGAdult>::iterator itA;
     for (itAccT=tempAccTrip.begin() ; itAccT!=tempAccTrip.end() ; ++itAccT) {
         for (itDriT=tempTrip.begin() ; itDriT!=tempTrip.end() ; ++itDriT) {
-            if (itAccT->getArrTime(this->timePerKm) < itDriT->getArrTime(this->timePerKm))
+            if (itAccT->getArrTime(this->timePerKm) < itDriT->getArrTime(this->timePerKm)) {
                 check = true;
+            }
         }
         for (itA=notNeedingDrivers.begin() ; itA!=notNeedingDrivers.end() ; ++itA) {
-            if (!itA->isWorking())
+            if (!itA->isWorking()) {
                 check = true;
-            else if (itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkPosition().getOpening())
+            } else if (itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkPosition().getOpening()) {
                 check = true;
+            }
         }
-        if (!check) //at least one trip is not performed by the existing drivers because it is to late for them
+        if (!check) { //at least one trip is not performed by the existing drivers because it is to late for them
             return false;
+        }
         check = false;
     }
     return true;
@@ -334,16 +343,18 @@ AGWorkAndSchool::getUnusedCar() {
     std::string nameCar = "";
     std::string nameCarUsed = "";
     //only two cars can be used in the household, so: the first one or the last one is not used.
-    if (!tempTrip.empty())
+    if (!tempTrip.empty()) {
         nameCarUsed = tempTrip.front().getVehicleName();
-    else if (!partialActivityTrips.empty())
+    } else if (!partialActivityTrips.empty()) {
         nameCarUsed = partialActivityTrips.front().getVehicleName();
+    }
 
     if (nameCarUsed.size() != 0) {
-        if (hh->cars.front().getName() == nameCarUsed)
+        if (hh->cars.front().getName() == nameCarUsed) {
             nameCar = hh->cars.back().getName();
-        else
+        } else {
             nameCar = hh->cars.front().getName();
+        }
     }
     return nameCar;
 }

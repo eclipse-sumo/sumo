@@ -52,7 +52,7 @@
 // ===========================================================================
 void
 RODFFrame::fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics

@@ -47,8 +47,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-        tcpip::Storage &outputStorage) {
+TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+        tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -58,7 +58,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
             &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
             &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION
             &&variable!=LAST_STEP_VEHICLE_DATA&&variable!=ID_COUNT
-			&&variable!=VAR_POSITION&&variable!=VAR_LANE_ID) {
+            &&variable!=VAR_POSITION&&variable!=VAR_LANE_ID) {
         server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -80,7 +80,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSInductLoop *il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
+        MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
         if (il==0) {
             server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known", outputStorage);
             return false;
@@ -123,7 +123,7 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
             tempContent.writeInt((int) vd.size());
             ++cnt;
             for (unsigned int i=0; i<vd.size(); ++i) {
-                MSInductLoop::VehicleData &svd = vd[i];
+                MSInductLoop::VehicleData& svd = vd[i];
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(svd.idM);
                 ++cnt;
@@ -143,16 +143,16 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer &server, tcpip::Storage &in
 
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
-			break;
-									 }
-		case VAR_POSITION:
+            break;
+        }
+        case VAR_POSITION:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-			tempMsg.writeDouble(il->getPosition());
-			break;
-		case VAR_LANE_ID:
+            tempMsg.writeDouble(il->getPosition());
+            break;
+        case VAR_LANE_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
-			tempMsg.writeString(il->getLane()->getID());
-			break;
+            tempMsg.writeString(il->getLane()->getID());
+            break;
         default:
             break;
         }

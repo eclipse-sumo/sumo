@@ -53,7 +53,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXHandler(const std::string &file="");
+    SUMOSAXHandler(const std::string& file="");
 
 
     /// Destructor
@@ -65,10 +65,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    SUMOSAXHandler(const SUMOSAXHandler &s);
+    SUMOSAXHandler(const SUMOSAXHandler& s);
 
     /// @brief invalidated assignment operator
-    const SUMOSAXHandler &operator=(const SUMOSAXHandler &s);
+    const SUMOSAXHandler& operator=(const SUMOSAXHandler& s);
 
 };
 

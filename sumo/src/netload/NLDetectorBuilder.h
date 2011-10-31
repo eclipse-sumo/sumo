@@ -64,7 +64,7 @@ public:
      *
      * @param[in] net The network to which's detector control built detector shall be added
      */
-    NLDetectorBuilder(MSNet &net) throw();
+    NLDetectorBuilder(MSNet& net) throw();
 
 
     /// @brief Destructor
@@ -91,12 +91,12 @@ public:
      * @param[in] splInterval The aggregation time span the detector shall use
      * @param[in] device The output device the detector shall write into
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
-	 * @param[in] splitByType Whether vehicle types shall be disaggregated
+     * @param[in] splitByType Whether vehicle types shall be disaggregated
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildInductLoop(const std::string &id,
-                         const std::string &lane, SUMOReal pos, int splInterval,
-						 OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument);
+    void buildInductLoop(const std::string& id,
+                         const std::string& lane, SUMOReal pos, int splInterval,
+                         OutputDevice& device, bool friendlyPos, bool splitByType) throw(InvalidArgument);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -114,9 +114,9 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildInstantInductLoop(const std::string &id,
-                         const std::string &lane, SUMOReal pos, 
-						 OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
+    void buildInstantInductLoop(const std::string& id,
+                                const std::string& lane, SUMOReal pos,
+                                OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
 
 
     /** @brief Builds an e2 detector with a fixed interval and adds it to the net
@@ -143,7 +143,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
+    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval, OutputDevice& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
@@ -173,8 +173,8 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
-                         bool cont, MSTLLogicControl::TLSLogicVariants &tlls,
+    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
+                         bool cont, MSTLLogicControl::TLSLogicVariants& tlls,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
@@ -205,8 +205,8 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
-                         bool cont, MSTLLogicControl::TLSLogicVariants &tlls, const std::string &tolane,
+    void buildE2Detector(const std::string& id, const std::string& lane, SUMOReal pos, SUMOReal length,
+                         bool cont, MSTLLogicControl::TLSLogicVariants& tlls, const std::string& tolane,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
                          SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
@@ -225,7 +225,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @exception InvalidArgument If one of the values is invalid
      */
-    void beginE3Detector(const std::string &id, OutputDevice& device, int splInterval,
+    void beginE3Detector(const std::string& id, OutputDevice& device, int splInterval,
                          SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw(InvalidArgument);
 
 
@@ -241,7 +241,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void addE3Entry(const std::string &lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
+    void addE3Entry(const std::string& lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
 
 
     /** @brief Builds an exit point of an e3 detector
@@ -256,7 +256,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void addE3Exit(const std::string &lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
+    void addE3Exit(const std::string& lane, SUMOReal pos, bool friendlyPos) throw(InvalidArgument);
 
 
     /** @brief Builds of an e3 detector using collected values
@@ -294,8 +294,8 @@ public:
      * @param[in] device The output device the detector shall write into
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildVTypeProbe(const std::string &id,
-                         const std::string &vtype, SUMOTime frequency,
+    void buildVTypeProbe(const std::string& id,
+                         const std::string& vtype, SUMOTime frequency,
                          OutputDevice& device) throw(InvalidArgument);
 
 
@@ -313,7 +313,7 @@ public:
      * @param[in] device The output device the detector shall write into
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildRouteProbe(const std::string &id, const std::string &edge,
+    void buildRouteProbe(const std::string& id, const std::string& edge,
                          SUMOTime frequency, SUMOTime begin,
                          OutputDevice& device) throw(InvalidArgument);
     /// @}
@@ -332,10 +332,10 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] lane The lane the detector is placed at
      * @param[in] pos The position on the lane the detector is placed at
-	 * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
+     * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    virtual MSDetectorFileOutput *createInductLoop(const std::string &id,
-		MSLane *lane, SUMOReal pos, bool splitByType) throw();
+    virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
+            MSLane* lane, SUMOReal pos, bool splitByType) throw();
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -347,8 +347,8 @@ public:
      * @param[in] pos The position on the lane the detector is placed at
      * @param[in] od The output device the loop shall use
      */
-    virtual MSDetectorFileOutput *createInstantInductLoop(const std::string &id,
-		MSLane *lane, SUMOReal pos, OutputDevice &od) throw();
+    virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
+            MSLane* lane, SUMOReal pos, OutputDevice& od) throw();
 
 #ifdef HAVE_MESOSIM
     /** @brief Creates an instance of a mesoscopic e1 detector using the given values
@@ -360,8 +360,8 @@ public:
      * @param[in] pos ?
      * @todo Position is not used, herein!?
      */
-    virtual MEInductLoop *createMEInductLoop(const std::string &id,
-            MESegment *s, SUMOReal pos) throw();
+    virtual MEInductLoop* createMEInductLoop(const std::string& id,
+            MESegment* s, SUMOReal pos) throw();
 #endif
 
 
@@ -377,8 +377,8 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MSDetectorFileOutput *createSingleLaneE2Detector(const std::string &id,
-            DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+    virtual MSDetectorFileOutput* createSingleLaneE2Detector(const std::string& id,
+            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
@@ -397,8 +397,8 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      */
-    virtual MSDetectorFileOutput *createMultiLaneE2Detector(
-        const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
+    virtual MSDetectorFileOutput* createMultiLaneE2Detector(
+        const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
         SUMOReal jamDistThreshold) throw();
 
@@ -413,9 +413,9 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
      */
-    virtual MSDetectorFileOutput *createE3Detector(const std::string &id,
-                                            const CrossSectionVector &entries, const CrossSectionVector &exits,
-                                            SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw();
+    virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
+            const CrossSectionVector& entries, const CrossSectionVector& exits,
+            SUMOReal haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw();
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -435,11 +435,11 @@ public:
      * @param[in] vTypes the set of vehicle types to consider
      * @exception InvalidArgument If one of the values is invalid
      */
-    void createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
-                                SUMOTime begin, SUMOTime end, const std::string &type,
+    void createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
+                                SUMOTime begin, SUMOTime end, const std::string& type,
                                 const bool useLanes, const bool withEmpty, const bool withInternal, const bool trackVehicles,
                                 const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                                const SUMOReal haltSpeed, const std::string &vTypes,
+                                const SUMOReal haltSpeed, const std::string& vTypes,
                                 OutputDevice& device) throw(InvalidArgument);
     /// @}
 
@@ -457,10 +457,10 @@ public:
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      * @todo Check whether this method is really needful
      */
-    MSDetectorFileOutput *buildSingleLaneE2Det(const std::string &id,
-                                        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-                                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                                        SUMOReal jamDistThreshold) throw();
+    MSDetectorFileOutput* buildSingleLaneE2Det(const std::string& id,
+            DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
+            SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+            SUMOReal jamDistThreshold) throw();
 
 
     /** @brief Builds an e2 detector that continues on preceeding lanes
@@ -475,7 +475,7 @@ public:
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      * @todo Check whether this method is really needful
      */
-    MSDetectorFileOutput *buildMultiLaneE2Det(const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+    MSDetectorFileOutput* buildMultiLaneE2Det(const std::string& id, DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
 
@@ -496,7 +496,7 @@ protected:
          * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
          * @param[in] splInterval The aggregation time span the detector shall use
          */
-        E3DetectorDefinition(const std::string &id,
+        E3DetectorDefinition(const std::string& id,
                              OutputDevice& device, SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold, int splInterval) throw();
 
@@ -546,8 +546,8 @@ protected:
      * @param[in] detid The id of the currently built detector (for error message generation)
      * @exception InvalidArgument If the defined position is invalid
      */
-    SUMOReal getPositionChecking(SUMOReal pos, MSLane *lane, bool friendlyPos,
-                                 const std::string &detid) throw(InvalidArgument);
+    SUMOReal getPositionChecking(SUMOReal pos, MSLane* lane, bool friendlyPos,
+                                 const std::string& detid) throw(InvalidArgument);
 
 
     /** @brief Converts the length and the position information for an e2 detector
@@ -558,8 +558,8 @@ protected:
      * @param[in, out] length The length definition to convert
      * @exception InvalidArgument If the defined position or the defined length is invalid
      */
-    void convUncontE2PosLength(const std::string &id, MSLane *clane,
-                               SUMOReal &pos, SUMOReal &length, bool frinedly_pos) throw(InvalidArgument);
+    void convUncontE2PosLength(const std::string& id, MSLane* clane,
+                               SUMOReal& pos, SUMOReal& length, bool frinedly_pos) throw(InvalidArgument);
 
 
     /** @brief Converts the length and the position information for an e2ol-detector
@@ -570,22 +570,22 @@ protected:
      * @param[in, out] length The length definition to convert
      * @exception InvalidArgument If the defined position or the defined length is invalid
      */
-    void convContE2PosLength(const std::string &id, MSLane *clane,
-                             SUMOReal &pos, SUMOReal &length, bool frinedly_pos) throw(InvalidArgument);
+    void convContE2PosLength(const std::string& id, MSLane* clane,
+                             SUMOReal& pos, SUMOReal& length, bool frinedly_pos) throw(InvalidArgument);
 
 
 
     /// @name Value checking/adapting methods
     /// @{
-    
+
     /** @brief Returns the named edge
      * @param[in] edgeID The id of the lane
      * @param[in] type The type of the detector (for error message generation)
      * @param[in] detid The id of the currently built detector (for error message generation)
      * @exception InvalidArgument If the named edge is not known
      */
-    MSEdge *getEdgeChecking(const std::string &edgeID, SumoXMLTag type, 
-                            const std::string &detid) throw(InvalidArgument);
+    MSEdge* getEdgeChecking(const std::string& edgeID, SumoXMLTag type,
+                            const std::string& detid) throw(InvalidArgument);
 
 
     /** @brief Returns the named lane
@@ -594,8 +594,8 @@ protected:
      * @param[in] detid The id of the currently built detector (for error message generation)
      * @exception InvalidArgument If the named lane is not known
      */
-    MSLane *getLaneChecking(const std::string &laneID, SumoXMLTag type, 
-                            const std::string &detid) throw(InvalidArgument);
+    MSLane* getLaneChecking(const std::string& laneID, SumoXMLTag type,
+                            const std::string& detid) throw(InvalidArgument);
 
 
     /** @brief Checks whether the given frequency (sample interval) is valid
@@ -605,18 +605,18 @@ protected:
      * @exception InvalidArgument If the given sample interval is invalid (<=0)
      * @todo Why is splInterval an int???
      */
-    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string &id) throw(InvalidArgument);
+    void checkSampleInterval(int splInterval, SumoXMLTag type, const std::string& id) throw(InvalidArgument);
     /// @}
 
 
 protected:
     /// @brief The net to fill
-    MSNet &myNet;
+    MSNet& myNet;
 
 
 private:
     /// @brief definition of the currently parsed e3 detector
-    E3DetectorDefinition *myE3Definition;
+    E3DetectorDefinition* myE3Definition;
 
 
 private:

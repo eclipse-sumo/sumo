@@ -208,7 +208,7 @@ private:
 
 protected:
     /// @brief Lane on which the reminder works
-    MSLane * const myLane;
+    MSLane* const myLane;
 
 
 #ifdef HAVE_MESOSIM

@@ -99,9 +99,9 @@ public:
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
-        StringBijection<int>::Entry *tags, int terminatorTag,
-        StringBijection<int>::Entry *attrs, int terminatorAttr,
-        const std::string &file);
+        StringBijection<int>::Entry* tags, int terminatorTag,
+        StringBijection<int>::Entry* attrs, int terminatorAttr,
+        const std::string& file);
 
 
     /** @brief Destructor */
@@ -165,7 +165,7 @@ public:
      *
      * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
      */
-    void setFileName(const std::string &name) throw();
+    void setFileName(const std::string& name) throw();
 
 
     /**
@@ -173,7 +173,7 @@ public:
      *
      * @return The name of the currently processed file
      */
-    const std::string &getFileName() const throw();
+    const std::string& getFileName() const throw();
 
 
     /// @name SAX ErrorHandler callbacks
@@ -236,7 +236,7 @@ protected:
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs);
+                                const SUMOSAXAttributes& attrs);
 
 
     /**
@@ -248,7 +248,7 @@ protected:
      * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myCharacters(int element,
-                              const std::string &chars);
+                              const std::string& chars);
 
 
     /** @brief Callback method for a closing tag to implement by derived classes
@@ -268,7 +268,7 @@ private:
      * @param[in] name The string to convert
      * @return The string converted into a XMLCh-string
      */
-    XMLCh *convert(const std::string &name) const throw();
+    XMLCh* convert(const std::string& name) const throw();
 
 
     /**
@@ -279,7 +279,7 @@ private:
      * @param[in] tag The string to convert
      * @return The int-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
      */
-    int convertTag(const std::string &tag) const throw();
+    int convertTag(const std::string& tag) const throw();
 
 
 private:

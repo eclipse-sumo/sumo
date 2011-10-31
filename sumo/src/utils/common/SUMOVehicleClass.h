@@ -172,7 +172,7 @@ enum SUMOVehicleClass {
     SVC_BICYCLE = 524288,
     /// @brief is a pedestrian
     SVC_PEDESTRIAN = 1048576
-    //@}
+                     //@}
 
 };
 
@@ -262,7 +262,7 @@ extern std::string getVehicleClassCompoundName(int id);
  * @param[in] ids The ids to encode
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids);
+extern std::string getVehicleClassNames(const SUMOVehicleClasses& ids);
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -270,21 +270,21 @@ extern std::string getVehicleClassNames(const SUMOVehicleClasses &ids);
  * @return The internal representation of this class. Name must not be a
  * compound name
  */
-extern SUMOVehicleClass getVehicleClassID(const std::string &name);
+extern SUMOVehicleClass getVehicleClassID(const std::string& name);
 
 /** @brief Returns the OR'ed id of the compound class given by its name
  * @param[in] name The name of the abstract vehicle class
  * @return The OR'ed combination of base enum values
  */
-extern int getVehicleClassCompoundID(const std::string &name);
+extern int getVehicleClassCompoundID(const std::string& name);
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
  * @param[in] classNames Space separated class names
  * @param[out] container The set of vehicle classes to fill
  */
-extern void parseVehicleClasses(const std::string &classNames,
-                                SUMOVehicleClasses &container);
+extern void parseVehicleClasses(const std::string& classNames,
+                                SUMOVehicleClasses& container);
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
@@ -293,10 +293,10 @@ extern void parseVehicleClasses(const std::string &classNames,
  * @param[out] allowed The set of allowed vehicle classes to fill
  * @param[out] disallowed The set of disallowed vehicle classes to fill
  */
-extern void parseVehicleClasses(const std::string &allowedS,
-                                const std::string &disallowedS,
-                                SUMOVehicleClasses &allowed,
-                                SUMOVehicleClasses &disallowed);
+extern void parseVehicleClasses(const std::string& allowedS,
+                                const std::string& disallowedS,
+                                SUMOVehicleClasses& allowed,
+                                SUMOVehicleClasses& disallowed);
 
 
 /** @brief Parses the given vector of class names into their enum-representation
@@ -304,7 +304,7 @@ extern void parseVehicleClasses(const std::string &allowedS,
  * @param[out] classes The parsed classes
  */
 extern void parseVehicleClasses(const std::vector<std::string> &classesS,
-                                SUMOVehicleClasses &classes);
+                                SUMOVehicleClasses& classes);
 
 
 // ---------------------------------------------------------------------------
@@ -321,7 +321,7 @@ extern std::string getVehicleShapeName(SUMOVehicleShape id);
  * @param[in] name The name of the shape class
  * @return The internal representation of this class
  */
-extern SUMOVehicleShape getVehicleShapeID(const std::string &name);
+extern SUMOVehicleShape getVehicleShapeID(const std::string& name);
 
 
 // ---------------------------------------------------------------------------
@@ -338,7 +338,7 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
  * @param[in] name The name of the emission class
  * @return The internal representation of this class
  */
-extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
+extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name) throw(ProcessError);
 
 
 // ---------------------------------------------------------------------------

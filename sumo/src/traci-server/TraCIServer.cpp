@@ -161,7 +161,7 @@ TraCIServer::TraCIServer(int port)
             mySocket = new tcpip::Socket(port);
             mySocket->accept();
             // When got here, a client has connected
-        } catch (tcpip::SocketException &e) {
+        } catch (tcpip::SocketException& e) {
             throw ProcessError(e.what());
         }
     }
@@ -180,7 +180,7 @@ TraCIServer::~TraCIServer() {
 /*****************************************************************************/
 
 void
-TraCIServer::vehicleStateChanged(const SUMOVehicle * const vehicle, MSNet::VehicleState to) {
+TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
     if (myDoCloseConnection || OptionsCont::getOptions().getInt("remote-port") == 0) {
         return;
     }
@@ -239,11 +239,11 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=myInstance->myVehicleStateChanges.begin(); i!=myInstance->myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
-    } catch (std::invalid_argument &e) {
+    } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
-    } catch (TraCIException &e) {
+    } catch (TraCIException& e) {
         throw ProcessError(e.what());
-    } catch (tcpip::SocketException &e) {
+    } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
     }
     if (myInstance != NULL) {
@@ -277,8 +277,8 @@ TraCIServer::close() {
 // python functions (traciemb module)
 // ===========================================================================
 static PyObject*
-traciemb_execute(PyObject *self, PyObject *args) {
-    const char *msg;
+traciemb_execute(PyObject* self, PyObject* args) {
+    const char* msg;
     int size;
     if (!PyArg_ParseTuple(args, "s#", &msg, &size)) {
         return NULL;
@@ -288,8 +288,10 @@ traciemb_execute(PyObject *self, PyObject *args) {
 }
 
 static PyMethodDef EmbMethods[] = {
-    {"execute", traciemb_execute, METH_VARARGS,
-     "Execute the given TraCI command and return the result."},
+    {
+        "execute", traciemb_execute, METH_VARARGS,
+        "Execute the given TraCI command and return the result."
+    },
     {NULL, NULL, 0, NULL}
 };
 
@@ -311,11 +313,11 @@ TraCIServer::execute(std::string cmd) {
         }
         myInstance->dispatchCommand();
         return std::string(myInstance->myOutputStorage.begin(), myInstance->myOutputStorage.end());
-    } catch (std::invalid_argument &e) {
+    } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
-    } catch (TraCIException &e) {
+    } catch (TraCIException& e) {
         throw ProcessError(e.what());
-    } catch (tcpip::SocketException &e) {
+    } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
     }
 }
@@ -323,11 +325,11 @@ TraCIServer::execute(std::string cmd) {
 
 void
 TraCIServer::runEmbedded(std::string pyFile) {
-    PyObject *pName, *pModule;
+    PyObject* pName, *pModule;
     Py_Initialize();
     Py_InitModule("traciemb", EmbMethods);
     if (pyFile.length() > 3 && !pyFile.compare(pyFile.length() - 3, 3, ".py")) {
-        FILE * pFile = fopen(pyFile.c_str(), "r");
+        FILE* pFile = fopen(pyFile.c_str(), "r");
         PyRun_SimpleFile(pFile, pyFile.c_str());
         fclose(pFile);
     } else {
@@ -457,7 +459,7 @@ TraCIServer::postProcessSimulationStep2() {
     writeStatusCmd(CMD_SIMSTEP2, RTYPE_OK, "");
     int noActive = 0;
     for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end();) {
-        const Subscription &s = *i;
+        const Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE) && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
         if ((s.endTime<t) || isArrivedVehicle) {
             i = mySubscriptions.erase(i);
@@ -471,7 +473,7 @@ TraCIServer::postProcessSimulationStep2() {
     }
     myOutputStorage.writeInt(noActive);
     for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ++i) {
-        const Subscription &s = *i;
+        const Subscription& s = *i;
         if (s.beginTime>t) {
             continue;
         }
@@ -531,21 +533,21 @@ TraCIServer::commandAddVehicle() {
     SUMOReal insertionSpeed = myInputStorage.readFloat();
 
     // find vehicleType
-    MSVehicleType *vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vehicleTypeId);
+    MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vehicleTypeId);
     if (!vehicleType) {
         writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid vehicleTypeId: '"+vehicleTypeId+"'");
         return false;
     }
 
     // find route
-    const MSRoute *route = MSRoute::dictionary(routeId);
+    const MSRoute* route = MSRoute::dictionary(routeId);
     if (!route) {
         writeStatusCmd(CMD_ADDVEHICLE, RTYPE_ERR, "Invalid routeId: '"+routeId+"'");
         return false;
     }
 
     // find lane
-    MSLane *lane;
+    MSLane* lane;
     if (laneId != "") {
         lane = MSLane::dictionary(laneId);
         if (!lane) {
@@ -569,7 +571,7 @@ TraCIServer::commandAddVehicle() {
     SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
     vehicleParams->id = vehicleId;
     vehicleParams->depart = MSNet::getInstance()->getCurrentTimeStep()+1;
-    MSVehicle *vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType));
+    MSVehicle* vehicle = static_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType));
     if (vehicle == NULL) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Could not build vehicle");
         return false;
@@ -609,13 +611,13 @@ TraCIServer::commandAddVehicle() {
 /*****************************************************************************/
 
 void
-TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description) {
+TraCIServer::writeStatusCmd(int commandId, int status, const std::string& description) {
     writeStatusCmd(commandId, status, description, myOutputStorage);
 }
 
 
 void
-TraCIServer::writeStatusCmd(int commandId, int status, const std::string &description, tcpip::Storage &outputStorage) {
+TraCIServer::writeStatusCmd(int commandId, int status, const std::string& description, tcpip::Storage& outputStorage) {
     if (status == RTYPE_ERR) {
         WRITE_ERROR("Answered with error to command " + toString(commandId) + ": " + description);
     } else if (status == RTYPE_NOTIMPLEMENTED) {
@@ -680,8 +682,8 @@ TraCIServer::addSubscription(int commandId) {
 
 
 bool
-TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &writeInto,
-                                       std::string &errors) {
+TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& writeInto,
+                                       std::string& errors) {
     bool ok = true;
     tcpip::Storage outputStorage;
     for (std::vector<int>::const_iterator i=s.variables.begin(); i!=s.variables.end(); ++i) {
@@ -699,7 +701,9 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
         // copy response part
         if (ok) {
             int length = tmpOutput.readUnsignedByte();
-            while (--length>0) tmpOutput.readUnsignedByte();
+            while (--length>0) {
+                tmpOutput.readUnsignedByte();
+            }
             int lengthLength = 1;
             length = tmpOutput.readUnsignedByte();
             if (length==0) {
@@ -741,7 +745,7 @@ TraCIServer::processSingleSubscription(const Subscription &s, tcpip::Storage &wr
 }
 
 void
-TraCIServer::writeResponseWithLength(tcpip::Storage &outputStorage, tcpip::Storage &tempMsg) {
+TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg) {
     if (tempMsg.size()<254) {
         outputStorage.writeUnsignedByte(1 + (int)tempMsg.size()); // command length -> short
     } else {

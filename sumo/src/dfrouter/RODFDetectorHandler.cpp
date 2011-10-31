@@ -47,11 +47,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFDetectorHandler::RODFDetectorHandler(RODFNet *optNet, bool ignoreErrors, RODFDetectorCon &con,
-        const std::string &file)
-        : SUMOSAXHandler(file),
-        myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con),
-        myHaveWarnedAboutDeprecatedDetectorDefinition(false) {}
+RODFDetectorHandler::RODFDetectorHandler(RODFNet* optNet, bool ignoreErrors, RODFDetectorCon& con,
+        const std::string& file)
+    : SUMOSAXHandler(file),
+      myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con),
+      myHaveWarnedAboutDeprecatedDetectorDefinition(false) {}
 
 
 RODFDetectorHandler::~RODFDetectorHandler() throw() {}
@@ -59,7 +59,7 @@ RODFDetectorHandler::~RODFDetectorHandler() throw() {}
 
 void
 RODFDetectorHandler::myStartElement(int element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED&&!myHaveWarnedAboutDeprecatedDetectorDefinition) {
         myHaveWarnedAboutDeprecatedDetectorDefinition = true;
         WRITE_WARNING("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");
@@ -76,7 +76,7 @@ RODFDetectorHandler::myStartElement(int element,
             if (!ok) {
                 throw ProcessError();
             }
-            ROEdge *edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
+            ROEdge* edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
             unsigned int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
             if (edge == 0 || laneIndex >= edge->getLaneNo()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
@@ -94,12 +94,12 @@ RODFDetectorHandler::myStartElement(int element,
             } else if (mml_type=="sink") {
                 type = SINK_DETECTOR;
             }
-            RODFDetector *detector = new RODFDetector(id, lane, pos, type);
+            RODFDetector* detector = new RODFDetector(id, lane, pos, type);
             if (!myContainer.addDetector(detector)) {
                 delete detector;
                 throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
             }
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             if (myIgnoreErrors) {
                 WRITE_WARNING(e.what());
             } else {

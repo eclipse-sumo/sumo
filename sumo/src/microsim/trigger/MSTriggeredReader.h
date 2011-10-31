@@ -52,7 +52,7 @@ public:
 
 protected:
     /// Constructor (for an abstract class)
-    MSTriggeredReader(MSNet &net);
+    MSTriggeredReader(MSNet& net);
 
     /** @brief Processes the next event
         Returns true if the next element shall be read (a new timestemp is then available also)

@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Emission :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Emission(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Emission(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Emission();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

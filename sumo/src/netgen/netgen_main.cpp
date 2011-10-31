@@ -63,7 +63,7 @@
 // ===========================================================================
 void
 fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("--grid [grid-network options] -o <OUTPUTFILE>");
     oc.addCallExample("--spider [spider-network options] -o <OUTPUTFILE>");
@@ -104,9 +104,9 @@ checkOptions() {
 }
 
 
-NGNet *
-buildNetwork(NBNetBuilder &nb) {
-    OptionsCont &oc = OptionsCont::getOptions();
+NGNet*
+buildNetwork(NBNetBuilder& nb) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider")) {
         // check values
@@ -127,7 +127,7 @@ buildNetwork(NBNetBuilder &nb) {
             throw ProcessError();
         }
         // build if everything's ok
-        NGNet *net = new NGNet(nb);
+        NGNet* net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
                              oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
         return net;
@@ -170,7 +170,7 @@ buildNetwork(NBNetBuilder &nb) {
             throw ProcessError();
         }
         // build if everything's ok
-        NGNet *net = new NGNet(nb);
+        NGNet* net = new NGNet(nb);
         net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
         return net;
     }
@@ -182,7 +182,7 @@ buildNetwork(NBNetBuilder &nb) {
     neighborDist.add(4, oc.getFloat("rand.neighbor-dist4"));
     neighborDist.add(5, oc.getFloat("rand.neighbor-dist5"));
     neighborDist.add(6, oc.getFloat("rand.neighbor-dist6"));
-    NGNet *net = new NGNet(nb);
+    NGNet* net = new NGNet(nb);
     NGRandomNetBuilder randomNet(*net,
                                  oc.getFloat("rand.min-angle"),
                                  oc.getFloat("rand.min-distance"),
@@ -197,8 +197,8 @@ buildNetwork(NBNetBuilder &nb) {
 
 
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
     oc.setApplicationName("netgen", "SUMO netgen Version " + (std::string)VERSION_STRING);
@@ -213,12 +213,14 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!checkOptions()) throw ProcessError();
+        if (!checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);
         // build the netgen-network description
-        NGNet *net = buildNetwork(nb);
+        NGNet* net = buildNetwork(nb);
         // ... and we have to do this...
         oc.resetWritable();
         // transfer to the netbuilding structures
@@ -230,7 +232,7 @@ main(int argc, char **argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.compute(oc);
         NWFrame::writeNetwork(oc, nb);
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

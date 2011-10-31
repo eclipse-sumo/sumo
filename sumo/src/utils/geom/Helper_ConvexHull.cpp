@@ -46,7 +46,7 @@
 // Assume that a class is already given for the object:
 //    Position with coordinates {SUMOReal x, y;}
 PositionVector
-simpleHull_2D(const PositionVector &V) {
+simpleHull_2D(const PositionVector& V) {
     if (V.size()<3) {
         throw ProcessError();
     }
@@ -71,8 +71,9 @@ simpleHull_2D(const PositionVector &V) {
             throw ProcessError();
         }
         if ((isLeft(D[bot], D[bot+1], V[i]) > 0) &&
-                (isLeft(D[top-1], D[top], V[i]) > 0))
-            continue;         // skip an interior vertex
+                (isLeft(D[top-1], D[top], V[i]) > 0)) {
+            continue;    // skip an interior vertex
+        }
 
         // incrementally add an exterior vertex to the deque hull
         // get the rightmost tangent at the deque bot

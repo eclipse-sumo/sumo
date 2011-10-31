@@ -43,16 +43,16 @@
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::NIVissimSingleTypeParser_Fahrzeugtypdefinition(
-    NIImporter_Vissim &parent, NIImporter_Vissim::ColorMap &colorMap)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent),
-        myColorMap(colorMap) {}
+    NIImporter_Vissim& parent, NIImporter_Vissim::ColorMap& colorMap)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent),
+      myColorMap(colorMap) {}
 
 
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::~NIVissimSingleTypeParser_Fahrzeugtypdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream& from) {
     // id
     int id;
     from >> id; // type-checking is missing!

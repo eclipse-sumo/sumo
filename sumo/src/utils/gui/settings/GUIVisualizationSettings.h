@@ -52,18 +52,18 @@ class OutputDevice;
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
     GUIVisualizationTextSettings(bool _show, float _size, RGBColor _color) :
-            show(_show), size(_size), color(_color) {}
+        show(_show), size(_size), color(_color) {}
 
     bool show;
     float size;
     RGBColor color;
 
-    bool operator==(const GUIVisualizationTextSettings &other) {
+    bool operator==(const GUIVisualizationTextSettings& other) {
         return show == other.show &&
                size == other.size &&
                color == other.color;
     }
-    bool operator!=(const GUIVisualizationTextSettings &other) {
+    bool operator!=(const GUIVisualizationTextSettings& other) {
         return !((*this) == other);
     }
 
@@ -212,7 +212,7 @@ public:
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */
-    void save(OutputDevice &dev) const throw(IOError);
+    void save(OutputDevice& dev) const throw(IOError);
 
     /** @brief Returns the number of the active lane (edge) coloring schme
      * @return number of the active scheme
@@ -225,7 +225,7 @@ public:
     GUIColorScheme& getLaneEdgeScheme();
 
     /** @brief Assignment operator */
-    bool operator==(const GUIVisualizationSettings &vs2);
+    bool operator==(const GUIVisualizationSettings& vs2);
 };
 
 

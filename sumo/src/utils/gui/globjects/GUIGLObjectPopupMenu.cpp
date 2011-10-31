@@ -65,11 +65,11 @@ FXIMPLEMENT(GUIGLObjectPopupMenu, FXMenuPane, GUIGLObjectPopupMenuMap, ARRAYNUMB
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent,
-        GUIGlObject &o) throw()
-        : FXMenuPane(&parent), myParent(&parent), myObject(&o),
-        myApplication(&app), myNetworkPosition(parent.getPositionInformation()) {
+GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app,
+        GUISUMOAbstractView& parent,
+        GUIGlObject& o) throw()
+    : FXMenuPane(&parent), myParent(&parent), myObject(&o),
+      myApplication(&app), myNetworkPosition(parent.getPositionInformation()) {
 }
 
 

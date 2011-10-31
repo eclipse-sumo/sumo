@@ -42,14 +42,14 @@
 // method definitions
 // ===========================================================================
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
-    GUISUMOAbstractView &callBack, const Boundary& viewPort) :
-        GUIPerspectiveChanger(callBack, viewPort),
-        myOrigWidth(viewPort.getWidth()),
-        myOrigHeight(viewPort.getHeight()),
-        myRotation(0),
-        myMouseButtonState(MOUSEBTN_NONE),
-        myMoveOnClick(false),
-        myDragDelay(0) {}
+    GUISUMOAbstractView& callBack, const Boundary& viewPort) :
+    GUIPerspectiveChanger(callBack, viewPort),
+    myOrigWidth(viewPort.getWidth()),
+    myOrigHeight(viewPort.getHeight()),
+    myRotation(0),
+    myMouseButtonState(MOUSEBTN_NONE),
+    myMoveOnClick(false),
+    myDragDelay(0) {}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -112,7 +112,7 @@ GUIDanielPerspectiveChanger::getZoom() const {
 
 
 void
-GUIDanielPerspectiveChanger::centerTo(const Position &pos, SUMOReal radius,
+GUIDanielPerspectiveChanger::centerTo(const Position& pos, SUMOReal radius,
                                       bool applyZoom) {
     if (applyZoom) {
         myViewPort = Boundary();
@@ -125,7 +125,7 @@ GUIDanielPerspectiveChanger::centerTo(const Position &pos, SUMOReal radius,
 
 
 void
-GUIDanielPerspectiveChanger::onLeftBtnPress(void*data) {
+GUIDanielPerspectiveChanger::onLeftBtnPress(void* data) {
     myMouseButtonState |= MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
     myMouseXPosition = e->win_x;
@@ -136,7 +136,7 @@ GUIDanielPerspectiveChanger::onLeftBtnPress(void*data) {
 
 
 bool
-GUIDanielPerspectiveChanger::onLeftBtnRelease(void*data) {
+GUIDanielPerspectiveChanger::onLeftBtnRelease(void* data) {
     myMouseButtonState &= !MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
     myMouseXPosition = e->win_x;
@@ -146,7 +146,7 @@ GUIDanielPerspectiveChanger::onLeftBtnRelease(void*data) {
 
 
 void
-GUIDanielPerspectiveChanger::onRightBtnPress(void*data) {
+GUIDanielPerspectiveChanger::onRightBtnPress(void* data) {
     myMouseButtonState |= MOUSEBTN_RIGHT;
     FXEvent* e = (FXEvent*) data;
     myMouseXPosition = e->win_x;
@@ -158,7 +158,7 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void*data) {
 
 
 bool
-GUIDanielPerspectiveChanger::onRightBtnRelease(void*data) {
+GUIDanielPerspectiveChanger::onRightBtnRelease(void* data) {
     myMouseButtonState &= !MOUSEBTN_RIGHT;
     if (data != 0) {
         FXEvent* e = (FXEvent*) data;
@@ -170,7 +170,7 @@ GUIDanielPerspectiveChanger::onRightBtnRelease(void*data) {
 
 
 void
-GUIDanielPerspectiveChanger::onMouseWheel(void*data) {
+GUIDanielPerspectiveChanger::onMouseWheel(void* data) {
     FXEvent* e = (FXEvent*) data;
     SUMOReal diff = 0.1;
     if (e->state&CONTROLMASK) {
@@ -188,7 +188,7 @@ GUIDanielPerspectiveChanger::onMouseWheel(void*data) {
 
 
 void
-GUIDanielPerspectiveChanger::onMouseMove(void*data) {
+GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     FXEvent* e = (FXEvent*) data;
     myCallback.setWindowCursorPosition(e->win_x, e->win_y);
     const int xdiff = myMouseXPosition - e->win_x;

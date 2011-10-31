@@ -63,9 +63,9 @@
 // ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime - methods
 // ---------------------------------------------------------------------------
 void
-ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
+ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
         SUMOReal val, SUMOReal beg, SUMOReal end) const throw() {
-    ROEdge *e = myNet.getEdge(id);
+    ROEdge* e = myNet.getEdge(id);
     if (e!=0) {
         e->addTravelTime(val, beg, end);
     } else {
@@ -80,9 +80,9 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
 // ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight - methods
 // ---------------------------------------------------------------------------
 void
-ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
+ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string& id,
         SUMOReal val, SUMOReal beg, SUMOReal end) const throw() {
-    ROEdge *e = myNet.getEdge(id);
+    ROEdge* e = myNet.getEdge(id);
     if (e!=0) {
         e->addEffort(val, beg, end);
     } else {
@@ -96,8 +96,8 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
-ROLoader::ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw()
-        : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed) {}
+ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) throw()
+    : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed) {}
 
 
 ROLoader::~ROLoader() {
@@ -106,7 +106,7 @@ ROLoader::~ROLoader() {
 
 
 void
-ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
+ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     std::string file = myOptions.getString("net-file");
     if (file=="") {
         throw ProcessError("Missing definition of network to load!");
@@ -141,7 +141,7 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
 
 
 unsigned int
-ROLoader::openRoutes(RONet &net) {
+ROLoader::openRoutes(RONet& net) {
     // build loader
     // load sumo-routes when wished
     bool ok = openTypedRoutes("route-files", net);
@@ -174,7 +174,7 @@ ROLoader::openRoutes(RONet &net) {
 
 void
 ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
+                                RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
     // loop till the end
@@ -201,7 +201,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 
 
 bool
-ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
+ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     RouteLoaderCont::iterator i;
     // go through all handlers
     if (myHandler.size()!= 0) {
@@ -238,7 +238,7 @@ ROLoader::getMinTimeStep() const throw() {
 
 void
 ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
-                           RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
+                           RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
@@ -257,8 +257,8 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 
 
 bool
-ROLoader::openTypedRoutes(const std::string &optionName,
-                          RONet &net) throw() {
+ROLoader::openTypedRoutes(const std::string& optionName,
+                          RONet& net) throw() {
     // check whether the current loader is known
     //  (not all routers import all route formats)
     if (!myOptions.exists(optionName)) {
@@ -274,9 +274,9 @@ ROLoader::openTypedRoutes(const std::string &optionName,
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         // build the instance when everything's all right
         try {
-            ROAbstractRouteDefLoader *instance = buildNamedHandler(optionName, *fileIt, net);
+            ROAbstractRouteDefLoader* instance = buildNamedHandler(optionName, *fileIt, net);
             myHandler.push_back(instance);
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
             std::string reason = e.what();
             if (reason!="Process Error"&&reason!="") {
@@ -293,9 +293,9 @@ ROLoader::openTypedRoutes(const std::string &optionName,
 
 
 ROAbstractRouteDefLoader*
-ROLoader::buildNamedHandler(const std::string &optionName,
-                            const std::string &file,
-                            RONet &net) throw(ProcessError) {
+ROLoader::buildNamedHandler(const std::string& optionName,
+                            const std::string& file,
+                            RONet& net) throw(ProcessError) {
     if (optionName=="route-files" || optionName=="alternative-files") {
         const SUMOReal beta = myOptions.getBool("logit")
                               ? myOptions.getFloat("logit.beta")
@@ -325,8 +325,8 @@ ROLoader::buildNamedHandler(const std::string &optionName,
 
 
 bool
-ROLoader::loadWeights(RONet &net, const std::string &optionName,
-                      const std::string &measure, bool useLanes) {
+ROLoader::loadWeights(RONet& net, const std::string& optionName,
+                      const std::string& measure, bool useLanes) {
     // check whether the file exists
     if (!myOptions.isUsableFileList(optionName)) {
         return false;

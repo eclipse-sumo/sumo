@@ -40,20 +40,20 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
-                             MSLane * const lane, SUMOReal startPos, SUMOReal detLength,
+MSE2Collector::MSE2Collector(const std::string& id, DetectorUsage usage,
+                             MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                              SUMOTime haltingTimeThreshold,
                              SUMOReal haltingSpeedThreshold,
                              SUMOReal jamDistThreshold) throw()
-        : MSMoveReminder(lane), MSDetectorFileOutput(id),
-        myJamHaltingSpeedThreshold(haltingSpeedThreshold),
-        myJamHaltingTimeThreshold(haltingTimeThreshold),
-        myJamDistanceThreshold(jamDistThreshold),
-        myStartPos(startPos), myEndPos(startPos + detLength),
-        myUsage(usage),
-        myCurrentOccupancy(0), myCurrentMeanSpeed(-1), myCurrentJamNo(0),
-        myCurrentMaxJamLengthInMeters(0), myCurrentMaxJamLengthInVehicles(0),
-        myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0)
+    : MSMoveReminder(lane), MSDetectorFileOutput(id),
+      myJamHaltingSpeedThreshold(haltingSpeedThreshold),
+      myJamHaltingTimeThreshold(haltingTimeThreshold),
+      myJamDistanceThreshold(jamDistThreshold),
+      myStartPos(startPos), myEndPos(startPos + detLength),
+      myUsage(usage),
+      myCurrentOccupancy(0), myCurrentMeanSpeed(-1), myCurrentJamNo(0),
+      myCurrentMaxJamLengthInMeters(0), myCurrentMaxJamLengthInVehicles(0),
+      myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0)
 
 {
     assert(myLane != 0);
@@ -147,7 +147,7 @@ MSE2Collector::reset() throw() {
 
 void
 MSE2Collector::detectorUpdate(const SUMOTime step) throw() {
-    JamInfo *currentJam = 0;
+    JamInfo* currentJam = 0;
     std::map<SUMOVehicle*, SUMOTime> haltingVehicles;
     std::map<SUMOVehicle*, SUMOTime> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
@@ -161,7 +161,7 @@ MSE2Collector::detectorUpdate(const SUMOTime step) throw() {
     //  sum up values and prepare the list of jams
     myKnownVehicles.sort(by_vehicle_position_sorter(getLane()));
     for (std::list<SUMOVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
-        MSVehicle *veh = static_cast<MSVehicle*>(*i);
+        MSVehicle* veh = static_cast<MSVehicle*>(*i);
 
         SUMOReal length = veh->getVehicleType().getLengthWithGap();
         if (veh->getLane()==getLane()) {
@@ -317,7 +317,7 @@ MSE2Collector::detectorUpdate(const SUMOTime step) throw() {
 
 
 void
-MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     dev<<"   <interval begin=\""<<time2string(startTime)<<"\" end=\""<< time2string(stopTime)<<"\" "<<"id=\""<<getID()<<"\" ";
 
     const SUMOReal meanSpeed = myVehicleSamples!=0 ? mySpeedSum / (SUMOReal) myVehicleSamples : -1;
@@ -357,31 +357,31 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
     const SUMOTime intervalMeanHaltingDuration = intervalHaltingNo!=0 ? intervalHaltingDurationSum / intervalHaltingNo : 0;
 
     dev << "nSamples=\"" << myVehicleSamples << "\" "
-    << "meanSpeed=\"" << meanSpeed << "\" "
-    << "meanOccupancy=\"" << meanOccupancy << "\" "
-    << "maxOccupancy=\"" << myMaxOccupancy << "\" "
-    << "meanMaxJamLengthInVehicles=\"" << meanJamLengthInVehicles << "\" "
-    << "meanMaxJamLengthInMeters=\"" << meanJamLengthInMeters << "\" "
-    << "maxJamLengthInVehicles=\"" << myMaxJamInVehicles << "\" "
-    << "maxJamLengthInMeters=\"" << myMaxJamInMeters << "\" "
-    << "jamLengthInVehiclesSum=\"" << myJamLengthInVehiclesSum << "\" "
-    << "jamLengthInMetersSum=\"" << myJamLengthInMetersSum << "\" "
-    << "meanHaltingDuration=\"" << STEPS2TIME(meanHaltingDuration) << "\" "
-    << "maxHaltingDuration=\"" << STEPS2TIME(maxHaltingDuration) << "\" "
-    << "haltingDurationSum=\"" << STEPS2TIME(haltingDurationSum) << "\" "
-    << "meanIntervalHaltingDuration=\"" << STEPS2TIME(intervalMeanHaltingDuration) << "\" "
-    << "maxIntervalHaltingDuration=\"" << STEPS2TIME(intervalMaxHaltingDuration) << "\" "
-    << "intervalHaltingDurationSum=\"" << STEPS2TIME(intervalHaltingDurationSum) << "\" "
-    << "startedHalts=\"" << myStartedHalts << "\" "
-    << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
-    << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
-    << "/>\n";
+        << "meanSpeed=\"" << meanSpeed << "\" "
+        << "meanOccupancy=\"" << meanOccupancy << "\" "
+        << "maxOccupancy=\"" << myMaxOccupancy << "\" "
+        << "meanMaxJamLengthInVehicles=\"" << meanJamLengthInVehicles << "\" "
+        << "meanMaxJamLengthInMeters=\"" << meanJamLengthInMeters << "\" "
+        << "maxJamLengthInVehicles=\"" << myMaxJamInVehicles << "\" "
+        << "maxJamLengthInMeters=\"" << myMaxJamInMeters << "\" "
+        << "jamLengthInVehiclesSum=\"" << myJamLengthInVehiclesSum << "\" "
+        << "jamLengthInMetersSum=\"" << myJamLengthInMetersSum << "\" "
+        << "meanHaltingDuration=\"" << STEPS2TIME(meanHaltingDuration) << "\" "
+        << "maxHaltingDuration=\"" << STEPS2TIME(maxHaltingDuration) << "\" "
+        << "haltingDurationSum=\"" << STEPS2TIME(haltingDurationSum) << "\" "
+        << "meanIntervalHaltingDuration=\"" << STEPS2TIME(intervalMeanHaltingDuration) << "\" "
+        << "maxIntervalHaltingDuration=\"" << STEPS2TIME(intervalMaxHaltingDuration) << "\" "
+        << "intervalHaltingDurationSum=\"" << STEPS2TIME(intervalHaltingDurationSum) << "\" "
+        << "startedHalts=\"" << myStartedHalts << "\" "
+        << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
+        << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
+        << "/>\n";
     reset();
 }
 
 
 void
-MSE2Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
     dev.writeXMLHeader("detector");
 }
 

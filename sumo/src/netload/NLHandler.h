@@ -79,10 +79,10 @@ public:
      * @param[in] edgeBuilder The builder of edges to use
      * @param[in] junctionBuilder The builder of junctions to use
      */
-    NLHandler(const std::string &file, MSNet &net,
-              NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-              NLEdgeControlBuilder &edgeBuilder,
-              NLJunctionControlBuilder &junctionBuilder) throw();
+    NLHandler(const std::string& file, MSNet& net,
+              NLDetectorBuilder& detBuilder, NLTriggerBuilder& triggerBuilder,
+              NLEdgeControlBuilder& edgeBuilder,
+              NLJunctionControlBuilder& junctionBuilder) throw();
 
 
     /// @brief Destructor
@@ -102,7 +102,7 @@ protected:
      * @todo Refactor/describe
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -117,37 +117,37 @@ protected:
 
 
 protected:
-    void addParam(const SUMOSAXAttributes &attrs);
+    void addParam(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds an e1 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addE1Detector(const SUMOSAXAttributes &attrs);
+    virtual void addE1Detector(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds an e1 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addInstantE1Detector(const SUMOSAXAttributes &attrs);
+    virtual void addInstantE1Detector(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds an e2 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addE2Detector(const SUMOSAXAttributes &attrs);
+    virtual void addE2Detector(const SUMOSAXAttributes& attrs);
 
     /** @brief Starts building of an e3 detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    void beginE3Detector(const SUMOSAXAttributes &attrs);
+    void beginE3Detector(const SUMOSAXAttributes& attrs);
 
     /** @brief Adds an entry to the currently processed e3 detector
      * @param[in] attrs The attributes that define the entry
      */
-    void addE3Entry(const SUMOSAXAttributes &attrs);
+    void addE3Entry(const SUMOSAXAttributes& attrs);
 
     /** @brief Adds an exit to the currently processed e3 detector
      * @param[in] attrs The attributes that define the exit
      */
-    void addE3Exit(const SUMOSAXAttributes &attrs);
+    void addE3Exit(const SUMOSAXAttributes& attrs);
 
     /// Builds of an e3 detector using collected values
     virtual void endE3Detector();
@@ -155,18 +155,18 @@ protected:
     /** @brief Builds a vtype-detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addVTypeProbeDetector(const SUMOSAXAttributes &attrs);
+    virtual void addVTypeProbeDetector(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds a routeprobe-detector using the given specification
      * @param[in] attrs The attributes that define the detector
      */
-    virtual void addRouteProbeDetector(const SUMOSAXAttributes &attrs);
+    virtual void addRouteProbeDetector(const SUMOSAXAttributes& attrs);
 
     /** @brief Builds edge or lane base mean data collector using the given specification
      * @param[in] attrs The attributes that define the detector
      * @param[in] objecttype The type (lane/edge) of the parsed mean data definition
      */
-    virtual void addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype);
+    virtual void addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype);
 
     /// Closes the process of building an edge
     virtual void closeEdge();
@@ -174,63 +174,63 @@ protected:
 
 protected:
     /// The net to fill (preinitialised)
-    MSNet &myNet;
+    MSNet& myNet;
 
 
 private:
     /// begins the processing of an edge
-    void beginEdgeParsing(const SUMOSAXAttributes &attrs);
+    void beginEdgeParsing(const SUMOSAXAttributes& attrs);
 
     /// adds a lane to the previously opened edge
-    void addLane(const SUMOSAXAttributes &attrs);
+    void addLane(const SUMOSAXAttributes& attrs);
 
     /// adds a polygon
-    void addPOI(const SUMOSAXAttributes &attrs);
+    void addPOI(const SUMOSAXAttributes& attrs);
 
     /// adds a polygon
-    void addPoly(const SUMOSAXAttributes &attrs);
+    void addPoly(const SUMOSAXAttributes& attrs);
 
     /// (deprecated) adds a logic item to the current logic
-    void addLogicItem(const SUMOSAXAttributes &attrs);
+    void addLogicItem(const SUMOSAXAttributes& attrs);
 
     ///  adds a request item to the current junction logic
-    void addRequest(const SUMOSAXAttributes &attrs);
+    void addRequest(const SUMOSAXAttributes& attrs);
 
     /// begins the reading of a junction row logic
-    void initJunctionLogic(const SUMOSAXAttributes &attrs);
+    void initJunctionLogic(const SUMOSAXAttributes& attrs);
 
     /// begins the reading of a traffic lights logic
-    void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
+    void initTrafficLightLogic(const SUMOSAXAttributes& attrs);
 
     /// adds a phase to the traffic lights logic currently build
-    void addPhase(const SUMOSAXAttributes &attrs);
+    void addPhase(const SUMOSAXAttributes& attrs);
 
 
     /// opens a junction for processing
-    virtual void openJunction(const SUMOSAXAttributes &attrs);
+    virtual void openJunction(const SUMOSAXAttributes& attrs);
 
-    void parseLanes(const std::string &junctionID, const std::string &def, std::vector<MSLane*> &into, bool &ok);
+    void parseLanes(const std::string& junctionID, const std::string& def, std::vector<MSLane*> &into, bool& ok);
 
 #ifdef _MESSAGES
     /// adds a message emitter
-    void addMsgEmitter(const SUMOSAXAttributes &attrs);
+    void addMsgEmitter(const SUMOSAXAttributes& attrs);
 #endif
 
     /// opens the container of succeeding lanes for processing (deprecated, see addConnection))
-    void openSucc(const SUMOSAXAttributes &attrs);
+    void openSucc(const SUMOSAXAttributes& attrs);
 
     /// adds a succeeding lane (deprecated, see addConnection)
-    void addSuccLane(const SUMOSAXAttributes &attrs);
+    void addSuccLane(const SUMOSAXAttributes& attrs);
 
     /// adds a connection
-    void addConnection(const SUMOSAXAttributes &attrs);
+    void addConnection(const SUMOSAXAttributes& attrs);
 
-    virtual void openWAUT(const SUMOSAXAttributes &attrs);
-    void addWAUTSwitch(const SUMOSAXAttributes &attrs);
-    void addWAUTJunction(const SUMOSAXAttributes &attrs);
+    virtual void openWAUT(const SUMOSAXAttributes& attrs);
+    void addWAUTSwitch(const SUMOSAXAttributes& attrs);
+    void addWAUTJunction(const SUMOSAXAttributes& attrs);
 
     /// Parses network location description
-    void setLocation(const SUMOSAXAttributes &attrs);
+    void setLocation(const SUMOSAXAttributes& attrs);
 
     /** @begin Parses a district and creates a pseudo edge for it
      *
@@ -241,7 +241,7 @@ private:
      * @param[in] attrs The attributes (of the "district"-element) to parse
      * @exception ProcessError If an edge given in district@edges is not known
      */
-    void addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void addDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @begin Parses a district edge and connects it to the district
@@ -254,7 +254,7 @@ private:
      * @param[in] isSource whether a "dsource or a "dsink" was given
      * @todo No exception?
      */
-    void addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource);
+    void addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource);
 
 
     void closeWAUT();
@@ -269,7 +269,7 @@ private:
     LinkState parseLinkState(const std::string& state);
 
     /// @brief retrieves <fromLane, toLane> based on the edges and an index specifier (i.e. '0:1')
-    std::pair<MSLane*, MSLane*> getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &laneIndices, bool &ok);
+    std::pair<MSLane*, MSLane*> getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& laneIndices, bool& ok);
 
 
 protected:
@@ -281,16 +281,16 @@ protected:
 
 
     /// @brief The detector builder to use
-    NLDetectorBuilder &myDetectorBuilder;
+    NLDetectorBuilder& myDetectorBuilder;
 
     /// @brief The trigger builder to use
-    NLTriggerBuilder &myTriggerBuilder;
+    NLTriggerBuilder& myTriggerBuilder;
 
     /// @brief The edge builder to use
-    NLEdgeControlBuilder &myEdgeControlBuilder;
+    NLEdgeControlBuilder& myEdgeControlBuilder;
 
     /// @brief The junction builder to use
-    NLJunctionControlBuilder &myJunctionControlBuilder;
+    NLJunctionControlBuilder& myJunctionControlBuilder;
 
     /// @brief The lane-to-lane connections builder to use
     NLSucceedingLaneBuilder mySucceedingLaneBuilder;
@@ -315,25 +315,25 @@ protected:
     bool myCurrentIsBroken;
 
     bool myHaveWarnedAboutDeprecatedE1, myHaveWarnedAboutDeprecatedE2,
-    myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
-    myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
+         myHaveWarnedAboutDeprecatedE3, myHaveWarnedAboutDeprecatedDetEntry,
+         myHaveWarnedAboutDeprecatedDetExit, myHaveWarnedAboutDeprecatedTimedEvent;
     bool myHaveWarnedAboutDeprecatedRowLogic, myHaveWarnedAboutDeprecatedTLLogic;
     bool myHaveWarnedAboutDeprecatedTLSTiming;
     bool myHaveWarnedAboutDeprecatedTimeThreshold,
-    myHaveWarnedAboutDeprecatedSpeedThreshold,
-    myHaveWarnedAboutDeprecatedJamDistThreshold;
+         myHaveWarnedAboutDeprecatedSpeedThreshold,
+         myHaveWarnedAboutDeprecatedJamDistThreshold;
     bool myHaveWarnedAboutDeprecatedVTypeProbe, myHaveWarnedAboutDeprecatedRouteProbe,
-    myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
+         myHaveWarnedAboutDeprecatedEdgeMean, myHaveWarnedAboutDeprecatedLaneMean;
     bool myHaveWarnedAboutDeprecatedVTypes, myHaveWarnedAboutDeprecatedLanes;
     bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
 
 
 private:
     /** invalid copy constructor */
-    NLHandler(const NLHandler &s);
+    NLHandler(const NLHandler& s);
 
     /** invalid assignment operator */
-    NLHandler &operator=(const NLHandler &s);
+    NLHandler& operator=(const NLHandler& s);
 
 };
 

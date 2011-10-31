@@ -72,12 +72,12 @@ public:
     ~GUI_E2_ZS_CollectorOverLanes() throw();
 
     // invalid in fact, as collectors do not need a lane
-    virtual GUIDetectorWrapper *buildDetectorGUIRepresentation();
+    virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
 
- 
+
 protected:
-    MSE2Collector *buildCollector(size_t c, size_t r,
-                                  MSLane *l, SUMOReal start, SUMOReal end) throw();
+    MSE2Collector* buildCollector(size_t c, size_t r,
+                                  MSLane* l, SUMOReal start, SUMOReal end) throw();
 
 
 public:
@@ -88,8 +88,8 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
-        MyWrapper(GUI_E2_ZS_CollectorOverLanes &detector,
-                  const LaneDetMap &detectors) throw();
+        MyWrapper(GUI_E2_ZS_CollectorOverLanes& detector,
+                  const LaneDetMap& detectors) throw();
 
         /// Destrutor
         ~MyWrapper() throw();
@@ -105,8 +105,8 @@ public:
          * @return The built parameter window
          * @see GUIGlObject::getParameterWindow
          */
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+        GUIParameterTableWindow* getParameterWindow(
+            GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -121,12 +121,12 @@ public:
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
+        void drawGL(const GUIVisualizationSettings& s) const throw();
         //@}
 
 
         /// Returns the detector itself
-        GUI_E2_ZS_CollectorOverLanes &getLoop();
+        GUI_E2_ZS_CollectorOverLanes& getLoop();
 
     protected:
         /// Builds a view within the parameter table if the according type is available
@@ -137,7 +137,7 @@ public:
 
     private:
         /// The wrapped detector
-        GUI_E2_ZS_CollectorOverLanes &myDetector;
+        GUI_E2_ZS_CollectorOverLanes& myDetector;
 
         /// The detector's boundary
         Boundary myBoundary;

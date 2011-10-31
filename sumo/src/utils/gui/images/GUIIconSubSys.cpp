@@ -110,7 +110,7 @@
 #include "ext.xpm"
 
 
-static const char *empty_xpm[] = {
+static const char* empty_xpm[] = {
     "    1    1        1            1",
     ". c None",
     "."
@@ -125,13 +125,13 @@ static const char *empty_xpm[] = {
 // ===========================================================================
 // static member variable definitions
 // ===========================================================================
-GUIIconSubSys *GUIIconSubSys::myInstance = 0;
+GUIIconSubSys* GUIIconSubSys::myInstance = 0;
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-GUIIconSubSys::GUIIconSubSys(FXApp *a) {
+GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
     myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
@@ -229,13 +229,13 @@ GUIIconSubSys::~GUIIconSubSys() {
 
 
 void
-GUIIconSubSys::init(FXApp *a) {
+GUIIconSubSys::init(FXApp* a) {
     assert(myInstance==0);
     myInstance = new GUIIconSubSys(a);
 }
 
 
-FXIcon *
+FXIcon*
 GUIIconSubSys::getIcon(GUIIcon which) {
     return myInstance->myIcons[which];
 }

@@ -73,7 +73,7 @@ public:
      * @return A proper instance of the named edge
      * @see ROJTREdge
      */
-    ROEdge *buildEdge(const std::string &name, RONode *from, RONode *to) throw();
+    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) throw();
     /// @}
 
 

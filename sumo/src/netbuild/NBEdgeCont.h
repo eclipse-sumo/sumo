@@ -65,7 +65,7 @@ public:
     /** @brief Constructor
      * @param[in] tc The net builded; used to obtain types
      */
-    NBEdgeCont(NBTypeCont &tc) throw();
+    NBEdgeCont(NBTypeCont& tc) throw();
 
 
     /// @brief Destructor
@@ -80,7 +80,7 @@ public:
      * @param[in] oc The options container to read options from
      * @todo Recheck exceptions
      */
-    void applyOptions(OptionsCont &oc);
+    void applyOptions(OptionsCont& oc);
 
 
     /** @brief Deletes all edges */
@@ -105,7 +105,7 @@ public:
      * @param[in] ignorePrunning Whether this edge must not be prunned
      * @return Whether the edge was valid (no edge with the same id is already known)
      */
-    bool insert(NBEdge *edge, bool ignorePrunning=false) throw();
+    bool insert(NBEdge* edge, bool ignorePrunning=false) throw();
 
 
     /** @brief Returns the edge that has the given id
@@ -116,7 +116,7 @@ public:
      * @param[in] bool Whether extracted edges shall be retrieved as well
      * @return The edge with the given id, 0 if no such edge exists
      */
-    NBEdge *retrieve(const std::string &id, bool retrieveExtracted=false) const throw();
+    NBEdge* retrieve(const std::string& id, bool retrieveExtracted=false) const throw();
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -131,8 +131,8 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge *retrievePossiblySplitted(const std::string &id,
-                                     const std::string &hint, bool incoming) const throw();
+    NBEdge* retrievePossiblySplitted(const std::string& id,
+                                     const std::string& hint, bool incoming) const throw();
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -145,7 +145,7 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge *retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw();
+    NBEdge* retrievePossiblySplitted(const std::string& id, SUMOReal pos) const throw();
 
 
     /** @brief Removes the given edge from the container (deleting it)
@@ -154,7 +154,7 @@ public:
      * @param[in] edge The edge to remove
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
-    void erase(NBDistrictCont &dc, NBEdge *edge) throw();
+    void erase(NBDistrictCont& dc, NBEdge* edge) throw();
 
 
     /** @brief Removes the given edge from the container like erase but does not
@@ -165,7 +165,7 @@ public:
      * @param[in] remember Whether to keep this edge for future reference
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
-    void extract(NBDistrictCont &dc, NBEdge *edge, bool remember=false);
+    void extract(NBDistrictCont& dc, NBEdge* edge, bool remember=false);
 
 
     /** @brief Returns the pointer to the begin of the stored edges
@@ -202,7 +202,7 @@ public:
      * @exception ProcessError If connections between the edges can not be built
      * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
      */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError);
+    bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node) throw(ProcessError);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -225,8 +225,8 @@ public:
      * @exception ProcessError If connections between the edges can not be built
      * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
      */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
-                 const std::string &firstEdgeName, const std::string &secondEdgeName,
+    bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
+                 const std::string& firstEdgeName, const std::string& secondEdgeName,
                  unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
 
 
@@ -242,8 +242,8 @@ public:
      * @return Whether the edge could be split
      * @exception ProcessError If connections between the edges can not be built
      */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, SUMOReal edgepos, NBNode *node,
-                 const std::string &firstEdgeName, const std::string &secondEdgeName,
+    bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
+                 const std::string& firstEdgeName, const std::string& secondEdgeName,
                  unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
     /// @}
 
@@ -284,7 +284,7 @@ public:
      * @param[in, opt. changed] dc The district container needed to remove edges
      * @todo Recheck usage; check whether keep-edges.postload is really useful
      */
-    void removeUnwishedEdges(NBDistrictCont &dc);
+    void removeUnwishedEdges(NBDistrictCont& dc);
 
 
     /** @brief Splits edges into multiple if they have a complex geometry
@@ -295,7 +295,7 @@ public:
      * @param[in] nc The node container needed to build (geometry) nodes
      * @see NBEdge::splitGeometry
      */
-    void splitGeometry(NBNodeCont &nc);
+    void splitGeometry(NBNodeCont& nc);
     /// @}
 
 
@@ -408,8 +408,8 @@ public:
      * @param[in] edges The edges to join
      * @todo Recheck and describe usage
      */
-    void joinSameNodeConnectingEdges(NBDistrictCont &dc,
-                                     NBTrafficLightLogicCont &tlc, EdgeVector edges) throw();
+    void joinSameNodeConnectingEdges(NBDistrictCont& dc,
+                                     NBTrafficLightLogicCont& tlc, EdgeVector edges) throw();
 
 
     /** @brief Rechecks whether the lane spread is proper
@@ -457,7 +457,7 @@ private:
      * @return List of all edges which have been built by splitting the original edge
      * @todo Recheck usage
      */
-    EdgeVector getGeneratedFrom(const std::string &id) const throw();
+    EdgeVector getGeneratedFrom(const std::string& id) const throw();
 
 
 private:
@@ -508,15 +508,15 @@ private:
 
 
     /// @brief The network builder; used to obtain type information
-    NBTypeCont &myTypeCont;
+    NBTypeCont& myTypeCont;
 
 
 private:
     /// @brief invalidated copy constructor
-    NBEdgeCont(const NBEdgeCont &s);
+    NBEdgeCont(const NBEdgeCont& s);
 
     /// @brief invalidated assignment operator
-    NBEdgeCont &operator=(const NBEdgeCont &s);
+    NBEdgeCont& operator=(const NBEdgeCont& s);
 
 
 };

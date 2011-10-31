@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Langsamfahrbereichdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Langsamfahrbereichdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Langsamfahrbereichdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Langsamfahrbereichdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

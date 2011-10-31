@@ -52,15 +52,15 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_
 // method definitions
 // ===========================================================================
 RGBColor::RGBColor() throw()
-        : myRed(-1), myGreen(-1), myBlue(-1) {}
+    : myRed(-1), myGreen(-1), myBlue(-1) {}
 
 
 RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue) throw()
-        : myRed(red), myGreen(green), myBlue(blue) {}
+    : myRed(red), myGreen(green), myBlue(blue) {}
 
 
 RGBColor::RGBColor(const RGBColor& col) throw()
-        : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
+    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
 
 
 RGBColor::~RGBColor() throw() {}
@@ -75,25 +75,25 @@ RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) throw() {
 
 
 
-std::ostream &
-operator<<(std::ostream &os, const RGBColor &col) {
+std::ostream&
+operator<<(std::ostream& os, const RGBColor& col) {
     os
-    << col.myRed << ","
-    << col.myGreen << ","
-    << col.myBlue;
+            << col.myRed << ","
+            << col.myGreen << ","
+            << col.myBlue;
     return os;
 }
 
 
 bool
-RGBColor::operator==(const RGBColor &c) const {
+RGBColor::operator==(const RGBColor& c) const {
     return fabs(myRed-c.myRed)<0.1 && fabs(myGreen-c.myGreen)<0.1 && fabs(myBlue-c.myBlue)<0.1;
     //return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
 }
 
 
 bool
-RGBColor::operator!=(const RGBColor &c) const {
+RGBColor::operator!=(const RGBColor& c) const {
     return fabs(myRed-c.myRed)>0.1 || fabs(myGreen-c.myGreen)>0.1 || fabs(myBlue-c.myBlue)>0.1;
     //return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
 }
@@ -109,7 +109,7 @@ RGBColor::changedBrightness(SUMOReal change) {
 }
 
 RGBColor
-RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException) {
+RGBColor::parseColor(const std::string& coldef) throw(EmptyData, NumberFormatException) {
     StringTokenizer st(coldef, ",");
     if (st.size()<3) {
         throw EmptyData();
@@ -123,13 +123,13 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
 
 RGBColor
 RGBColor::parseColorReporting(
-    const std::string &coldef, const std::string &objecttype,
-    const char *objectid, bool report, bool &ok) throw() {
+    const std::string& coldef, const std::string& objecttype,
+    const char* objectid, bool report, bool& ok) throw() {
     UNUSED_PARAMETER(report);
     try {
         return parseColor(coldef);
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     ok = false;
     std::ostringstream oss;
@@ -154,9 +154,13 @@ RGBColor::getDefaultColor() throw() {
 
 
 RGBColor
-RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) throw() {
-    if (weight < 0) weight = 0;
-    if (weight > 1) weight = 1;
+RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) throw() {
+    if (weight < 0) {
+        weight = 0;
+    }
+    if (weight > 1) {
+        weight = 1;
+    }
     SUMOReal r = minColor.myRed + (maxColor.myRed - minColor.myRed) * weight;
     SUMOReal g = minColor.myGreen + (maxColor.myGreen - minColor.myGreen) * weight;
     SUMOReal b = minColor.myBlue + (maxColor.myBlue - minColor.myBlue) * weight;
@@ -175,7 +179,9 @@ RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) throw() {
     //if (h == UNDEFINED) RETURN_RGB(v, v, v);
     i = int(floor(h));
     f = float(h - i);
-    if (!(i&1)) f = 1 - f;   // if i is even
+    if (!(i&1)) {
+        f = 1 - f;    // if i is even
+    }
     m = float(v * (1 - s));
     n = float(v * (1 - s * f));
     switch (i) {

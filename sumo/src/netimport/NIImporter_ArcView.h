@@ -64,7 +64,7 @@ public:
      * @param[in] oc The options to use
      * @param[in] nb The network builder to fill
      */
-    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+    static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 
 protected:
@@ -77,9 +77,9 @@ protected:
      * @param[in] shp_name The name of the according shape file
      * @param[in] speedInKMH Whether the speed shall be assumed to be given in km/h
      */
-    NIImporter_ArcView(const OptionsCont &oc,
-                       NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-                       const std::string &dbf_name, const std::string &shp_name,
+    NIImporter_ArcView(const OptionsCont& oc,
+                       NBNodeCont& nc, NBEdgeCont& ec, NBTypeCont& tc,
+                       const std::string& dbf_name, const std::string& shp_name,
                        bool speedInKMH);
 
     /// @brief Destructor
@@ -97,7 +97,7 @@ private:
      * @param[in] f The entry to read the speed from
      * @param[in] edgeid The id of the edge for error output
      */
-    SUMOReal getSpeed(OGRFeature &f, const std::string &edgeid);
+    SUMOReal getSpeed(OGRFeature& f, const std::string& edgeid);
 
 
     /** @brief Parses the number of lanes of the edge currently processed
@@ -105,14 +105,14 @@ private:
      * @param[in] edgeid The id of the edge for error output
      * @param[in] speed The edge's speed used to help determinig the edge's lane number
      */
-    unsigned int getLaneNo(OGRFeature &f,
-                           const std::string &edgeid, SUMOReal speed);
+    unsigned int getLaneNo(OGRFeature& f,
+                           const std::string& edgeid, SUMOReal speed);
 
     /** @brief Parses the priority of the edge currently processed
      * @param[in] f The entry to read the priority from
      * @param[in] edgeid The id of the edge for error output
      */
-    int getPriority(OGRFeature &f, const std::string &edgeid);
+    int getPriority(OGRFeature& f, const std::string& edgeid);
 
 
     /** @brief Checks whether the lane spread shall be changed
@@ -122,12 +122,12 @@ private:
      *
      * @param[in] e The edge to check
      */
-    void checkSpread(NBEdge *e);
+    void checkSpread(NBEdge* e);
 #endif
 
 private:
     /// @brief The options to use
-    const OptionsCont &myOptions;
+    const OptionsCont& myOptions;
 
     /// @brief The name of the shape file
     std::string mySHPName;
@@ -136,13 +136,13 @@ private:
     int myNameAddition;
 
     /// @brief The container to add nodes to
-    NBNodeCont &myNodeCont;
+    NBNodeCont& myNodeCont;
 
     /// @brief The container to add edges to
-    NBEdgeCont &myEdgeCont;
+    NBEdgeCont& myEdgeCont;
 
     /// @brief The container to get the types from
-    NBTypeCont &myTypeCont;
+    NBTypeCont& myTypeCont;
 
     /// @brief Whether the speed is given in km/h
     bool mySpeedInKMH;

@@ -39,7 +39,7 @@
 
 class NIVissimNodeDef {
 public:
-    NIVissimNodeDef(int id, const std::string &name);
+    NIVissimNodeDef(int id, const std::string& name);
     virtual ~NIVissimNodeDef();
     int buildNodeCluster();
 //    virtual void computeBounding() = 0;
@@ -48,8 +48,8 @@ public:
     virtual SUMOReal getEdgePosition(int edgeid) const = 0;
 
 public:
-    static bool dictionary(int id, NIVissimNodeDef *o);
-    static NIVissimNodeDef *dictionary(int id);
+    static bool dictionary(int id, NIVissimNodeDef* o);
+    static NIVissimNodeDef* dictionary(int id);
 //    static IntVector getWithin(const AbstractPoly &p, SUMOReal off=0.0);
 //    static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();

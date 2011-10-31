@@ -82,7 +82,7 @@ public:
      * @return Whether the vehicle could be added
      * @see NamedObjectCont::add
      */
-    virtual bool add(const std::string &id, ROVehicle *item) throw();
+    virtual bool add(const std::string& id, ROVehicle* item) throw();
 
 
     /** @brief Deletes all vehicles stored; clears the lists
@@ -106,7 +106,7 @@ public:
      * @return Whether the vehicle could be removed
      * @see NamedObjectCont::erase
      */
-    bool erase(const std::string &id) throw();
+    bool erase(const std::string& id) throw();
 
 
 private:
@@ -127,10 +127,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    ROVehicleCont(const ROVehicleCont &src);
+    ROVehicleCont(const ROVehicleCont& src);
 
     /// @brief Invalidated assignment operator
-    ROVehicleCont &operator=(const ROVehicleCont &src);
+    ROVehicleCont& operator=(const ROVehicleCont& src);
 
 };
 

@@ -61,10 +61,10 @@ public:
      * @param[in] predefinedTags Map of attribute ids to their xerces-representation
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
-    SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
+    SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
                                  const std::map<int, XMLCh*> &predefinedTags,
                                  const std::map<int, std::string> &predefinedTagsMML,
-                                 const std::string &objectType) throw();
+                                 const std::string& objectType) throw();
 
 
     /// @brief Destructor
@@ -182,7 +182,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     std::string getStringSecure(int id,
-                                const std::string &def) const throw(EmptyData);
+                                const std::string& def) const throw(EmptyData);
 
 
     /**
@@ -225,7 +225,7 @@ public:
     /**
      * @brief Returns the information whether the named attribute is within the current list
      */
-    bool hasAttribute(const std::string &id) const throw();
+    bool hasAttribute(const std::string& id) const throw();
 
 
     /**
@@ -243,7 +243,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
-    SUMOReal getFloat(const std::string &id) const throw(EmptyData, NumberFormatException);
+    SUMOReal getFloat(const std::string& id) const throw(EmptyData, NumberFormatException);
 
 
     /**
@@ -255,8 +255,8 @@ public:
      * @param[in] def The default value to return if the attribute is not in attributes
      * @return The attribute's value as a string, if it could be read and parsed
      */
-    std::string getStringSecure(const std::string &id,
-                                const std::string &def) const throw();
+    std::string getStringSecure(const std::string& id,
+                                const std::string& def) const throw();
     //}
 
 
@@ -277,17 +277,17 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const XMLCh *getAttributeValueSecure(int id) const throw();
+    const XMLCh* getAttributeValueSecure(int id) const throw();
 
 
 private:
     /// @brief The encapsulated attributes
-    const Attributes &myAttrs;
+    const Attributes& myAttrs;
 
     /// @brief Definition of a map of attribute ids to their xerces-representation
     typedef std::map<int, XMLCh*> AttrMap;
     /// @brief Map of attribute ids to their xerces-representation
-    const AttrMap &myPredefinedTags;
+    const AttrMap& myPredefinedTags;
 
     /// @brief Map of attribute ids to their (readable) string-representation
     const std::map<int, std::string> &myPredefinedTagsMML;
@@ -295,10 +295,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    SUMOSAXAttributesImpl_Xerces(const SUMOSAXAttributesImpl_Xerces &src);
+    SUMOSAXAttributesImpl_Xerces(const SUMOSAXAttributesImpl_Xerces& src);
 
     /// @brief Invalidated assignment operator.
-    SUMOSAXAttributesImpl_Xerces &operator=(const SUMOSAXAttributesImpl_Xerces &src);
+    SUMOSAXAttributesImpl_Xerces& operator=(const SUMOSAXAttributesImpl_Xerces& src);
 
 
 };

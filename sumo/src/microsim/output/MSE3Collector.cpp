@@ -44,9 +44,9 @@
  * MSE3Collector::MSE3EntryReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
-    const MSCrossSection &crossSection, MSE3Collector& collector) throw()
-        : MSMoveReminder(crossSection.myLane),
-        myCollector(collector), myPosition(crossSection.myPosition) {}
+    const MSCrossSection& crossSection, MSE3Collector& collector) throw()
+    : MSMoveReminder(crossSection.myLane),
+      myCollector(collector), myPosition(crossSection.myPosition) {}
 
 
 bool
@@ -82,9 +82,9 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, SUMOReal, MSMove
  * MSE3Collector::MSE3LeaveReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
-    const MSCrossSection &crossSection, MSE3Collector& collector) throw()
-        : MSMoveReminder(crossSection.myLane),
-        myCollector(collector), myPosition(crossSection.myPosition) {}
+    const MSCrossSection& crossSection, MSE3Collector& collector) throw()
+    : MSMoveReminder(crossSection.myLane),
+      myCollector(collector), myPosition(crossSection.myPosition) {}
 
 
 bool
@@ -111,15 +111,15 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 /* -------------------------------------------------------------------------
  * MSE3Collector - definitions
  * ----------------------------------------------------------------------- */
-MSE3Collector::MSE3Collector(const std::string &id,
-                             const CrossSectionVector &entries,
-                             const CrossSectionVector &exits,
+MSE3Collector::MSE3Collector(const std::string& id,
+                             const CrossSectionVector& entries,
+                             const CrossSectionVector& exits,
                              SUMOReal haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold) throw()
-        : MSDetectorFileOutput(id), myEntries(entries), myExits(exits),
-        myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
-        myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0),
-        myLastResetTime(-1) {
+    : MSDetectorFileOutput(id), myEntries(entries), myExits(exits),
+      myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
+      myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0),
+      myLastResetTime(-1) {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
@@ -204,7 +204,7 @@ MSE3Collector::leave(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
 
 
 void
-MSE3Collector::writeXMLOutput(OutputDevice &dev,
+MSE3Collector::writeXMLOutput(OutputDevice& dev,
                               SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     dev<<"   <interval begin=\""<<time2string(startTime)<<"\" end=\""<<time2string(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
     // collect values about vehicles that have left the area
@@ -256,22 +256,22 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
 
     // write values
     dev<<"meanTravelTime=\""<<meanTravelTime
-    <<"\" meanSpeed=\""<<meanSpeed
-    <<"\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle
-    <<"\" vehicleSum=\""<<vehicleSum
-    <<"\" meanSpeedWithin=\""<<meanSpeedWithin
-    <<"\" meanHaltsPerVehicleWithin=\""<<meanHaltsPerVehicleWithin
-    <<"\" meanDurationWithin=\""<<meanDurationWithin
-    <<"\" vehicleSumWithin=\""<<vehicleSumWithin
-    <<"\" meanIntervalSpeedWithin=\""<<meanIntervalSpeedWithin
-    <<"\" meanIntervalHaltsPerVehicleWithin=\""<<meanIntervalHaltsPerVehicleWithin
-    <<"\" meanIntervalDurationWithin=\""<<meanIntervalDurationWithin
-    <<"\"/>\n";
+       <<"\" meanSpeed=\""<<meanSpeed
+       <<"\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle
+       <<"\" vehicleSum=\""<<vehicleSum
+       <<"\" meanSpeedWithin=\""<<meanSpeedWithin
+       <<"\" meanHaltsPerVehicleWithin=\""<<meanHaltsPerVehicleWithin
+       <<"\" meanDurationWithin=\""<<meanDurationWithin
+       <<"\" vehicleSumWithin=\""<<vehicleSumWithin
+       <<"\" meanIntervalSpeedWithin=\""<<meanIntervalSpeedWithin
+       <<"\" meanIntervalHaltsPerVehicleWithin=\""<<meanIntervalHaltsPerVehicleWithin
+       <<"\" meanIntervalDurationWithin=\""<<meanIntervalDurationWithin
+       <<"\"/>\n";
 }
 
 
 void
-MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+MSE3Collector::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
     dev.writeXMLHeader("e3Detector");
 }
 

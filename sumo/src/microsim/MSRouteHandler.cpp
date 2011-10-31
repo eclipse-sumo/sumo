@@ -60,24 +60,24 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteHandler::MSRouteHandler(const std::string &file,
+MSRouteHandler::MSRouteHandler(const std::string& file,
                                bool addVehiclesDirectly) :
-        SUMOSAXHandler(file),
-        myVehicleParameter(0),
-        myLastDepart(0),
-        myActivePlan(0),
-        myAddVehiclesDirectly(addVehiclesDirectly),
-        myCurrentVTypeDistribution(0),
-        myCurrentRouteDistribution(0),
-        myCurrentVType(0),
-        myScale(-1.),
-        myHaveWarnedAboutDeprecatedFriendlyPos(false),
-        myHaveWarnedAboutDeprecatedBusStop(false),
-        myHaveWarnedAboutDeprecatedVType(false),
-        myHaveWarnedAboutDeprecatedVTypeDistribution(false),
-        myHaveWarnedAboutDeprecatedVTypes(false),
-        myHaveWarnedAboutDeprecatedRefID(false) {
-    OptionsCont &oc = OptionsCont::getOptions();
+    SUMOSAXHandler(file),
+    myVehicleParameter(0),
+    myLastDepart(0),
+    myActivePlan(0),
+    myAddVehiclesDirectly(addVehiclesDirectly),
+    myCurrentVTypeDistribution(0),
+    myCurrentRouteDistribution(0),
+    myCurrentVType(0),
+    myScale(-1.),
+    myHaveWarnedAboutDeprecatedFriendlyPos(false),
+    myHaveWarnedAboutDeprecatedBusStop(false),
+    myHaveWarnedAboutDeprecatedVType(false),
+    myHaveWarnedAboutDeprecatedVTypeDistribution(false),
+    myHaveWarnedAboutDeprecatedVTypes(false),
+    myHaveWarnedAboutDeprecatedRefID(false) {
+    OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("incremental-dua-step")) {
         myScale = oc.getInt("incremental-dua-step") / static_cast<SUMOReal>(oc.getInt("incremental-dua-base"));
     }
@@ -113,7 +113,7 @@ MSRouteHandler::checkLastDepart() {
 
 void
 MSRouteHandler::myStartElement(int element,
-                               const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                               const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VEHICLE:
         delete myVehicleParameter;
@@ -127,7 +127,7 @@ MSRouteHandler::myStartElement(int element,
     case SUMO_TAG_RIDE: {
         const std::string pid = myVehicleParameter->id;
         bool ok = true;
-        MSEdge *from = 0;
+        MSEdge* from = 0;
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             const std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, pid.c_str(), ok);
             from = MSEdge::dictionary(fromID);
@@ -142,7 +142,7 @@ MSRouteHandler::myStartElement(int element,
             }
         }
         const std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, pid.c_str(), ok);
-        MSEdge *to = MSEdge::dictionary(toID);
+        MSEdge* to = MSEdge::dictionary(toID);
         if (to==0) {
             throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
         }
@@ -245,7 +245,7 @@ MSRouteHandler::myStartElement(int element,
 
 
 void
-MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
+MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myCurrentVTypeDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (ok) {
@@ -262,7 +262,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
             StringTokenizer st(vTypes);
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
-                MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
+                MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
                 if (type==0) {
                     throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 }
@@ -289,7 +289,7 @@ MSRouteHandler::closeVehicleTypeDistribution() {
 
 
 void
-MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
+MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
     std::string rid;
     if (myCurrentRouteDistribution != 0) {
@@ -367,7 +367,7 @@ MSRouteHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_VTYPE__DEPRECATED:
     case SUMO_TAG_VTYPE: {
         SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
-        MSVehicleType *vehType = MSVehicleType::build(*myCurrentVType);
+        MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
         delete myCurrentVType;
         myCurrentVType = 0;
         if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
@@ -408,7 +408,7 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
     }
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute,
+    MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                  myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1,
                                  myActiveRouteColor, myActiveRouteStops);
     myActiveRoute.clear();
@@ -440,7 +440,7 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
 
 
 void
-MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
+MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
     bool ok = true;
     if (myVehicleParameter!=0) {
@@ -459,7 +459,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
         StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));
         while (st.hasNext()) {
             std::string routeID = st.next();
-            const MSRoute *route = MSRoute::dictionary(routeID);
+            const MSRoute* route = MSRoute::dictionary(routeID);
             if (route==0) {
                 throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
             }
@@ -487,7 +487,7 @@ MSRouteHandler::closeRouteDistribution() {
 void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
     // get nested route
-    const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
+    const MSRoute* route = MSRoute::dictionary("!" + myVehicleParameter->id);
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
@@ -500,7 +500,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
         }
     }
     // get the vehicle's type
-    MSVehicleType *vtype = 0;
+    MSVehicleType* vtype = 0;
     if (myVehicleParameter->vtypeid!="") {
         vtype = vehControl.getVType(myVehicleParameter->vtypeid);
         if (vtype==0) {
@@ -525,7 +525,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     myActiveRouteID = "";
 
     // try to build the vehicle
-    SUMOVehicle *vehicle = 0;
+    SUMOVehicle* vehicle = 0;
     if (vehControl.getVehicle(myVehicleParameter->id)==0) {
         vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
         // maybe we do not want this vehicle to be inserted due to scaling
@@ -572,7 +572,7 @@ MSRouteHandler::closePerson() throw(ProcessError) {
     if (myActivePlan->size()==0) {
         throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
     }
-    MSPerson *person = new MSPerson(myVehicleParameter, myActivePlan);
+    MSPerson* person = new MSPerson(myVehicleParameter, myActivePlan);
     if (checkLastDepart() && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
     } else {
@@ -620,7 +620,7 @@ MSRouteHandler::closeFlow() throw(ProcessError) {
 }
 
 bool
-MSRouteHandler::checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMOReal laneLength,
+MSRouteHandler::checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
                              const SUMOReal minLength, const bool friendlyPos) {
     if (minLength > laneLength) {
         return false;
@@ -658,7 +658,7 @@ MSRouteHandler::checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMORea
 
 
 void
-MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     std::string errorSuffix;
     if (myActiveRouteID != "") {
@@ -681,9 +681,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     }
     if (stop.busstop!="") {
         // ok, we have obviously a bus stop
-        MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
+        MSBusStop* bs = MSNet::getInstance()->getBusStop(stop.busstop);
         if (bs!=0) {
-            const MSLane &l = bs->getLane();
+            const MSLane& l = bs->getLane();
             stop.lane = l.getID();
             stop.endPos = bs->getEndLanePosition();
             stop.startPos = bs->getBeginLanePosition();

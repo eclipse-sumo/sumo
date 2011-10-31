@@ -56,8 +56,8 @@ struct RODFRouteDesc {
     SUMOReal duration_2;
     SUMOReal distance;
     int passedNo;
-    const ROEdge *endDetectorEdge;
-    const ROEdge *lastDetectorEdge;
+    const ROEdge* endDetectorEdge;
+    const ROEdge* lastDetectorEdge;
     SUMOReal distance2Last;
     SUMOTime duration2Last;
 

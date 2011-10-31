@@ -72,7 +72,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const;
+    SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -83,7 +83,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
+    SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -93,7 +93,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap) const;
+    SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -105,7 +105,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const;
+    SUMOReal interactionGap(const MSVehicle* const , SUMOReal vL) const;
 
 
     /** @brief Returns the model's name
@@ -121,7 +121,7 @@ public:
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    MSCFModel *duplicate(const MSVehicleType *vtype) const;
+    MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
     VehicleVariables* createVehicleVariables() const {
@@ -143,7 +143,7 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    SUMOReal _v(const MSVehicle *veh, SUMOReal predSpeed, SUMOReal gap) const;
+    SUMOReal _v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{

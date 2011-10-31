@@ -49,8 +49,8 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processGet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processGet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
 
     /** @brief Processes a set value command (Command 0xc6: Change Route State)
@@ -59,16 +59,16 @@ public:
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
      */
-    static bool processSet(traci::TraCIServer &server, tcpip::Storage &inputStorage,
-                           tcpip::Storage &outputStorage);
+    static bool processSet(traci::TraCIServer& server, tcpip::Storage& inputStorage,
+                           tcpip::Storage& outputStorage);
 
 
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_Route(const TraCIServerAPI_Route &s);
+    TraCIServerAPI_Route(const TraCIServerAPI_Route& s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_Route &operator=(const TraCIServerAPI_Route &s);
+    TraCIServerAPI_Route& operator=(const TraCIServerAPI_Route& s);
 
 
 };

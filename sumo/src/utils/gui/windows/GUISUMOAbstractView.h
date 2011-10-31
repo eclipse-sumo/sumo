@@ -71,15 +71,15 @@ class GUISUMOAbstractView : public FXGLCanvas {
     FXDECLARE(GUISUMOAbstractView)
 public:
     /// constructor
-    GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-                        GUIGlChildWindow *parent, const SUMORTree &grid,
-                        FXGLVisual *glVis, FXGLCanvas *share);
+    GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app,
+                        GUIGlChildWindow* parent, const SUMORTree& grid,
+                        FXGLVisual* glVis, FXGLCanvas* share);
 
     /// destructor
     virtual ~GUISUMOAbstractView();
 
     /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow &) { }
+    virtual void buildViewToolBars(GUIGlChildWindow&) { }
 
     /// recenters the view
     void recenterView();
@@ -115,7 +115,7 @@ public:
     /// returns true, if the edit button was pressed
     bool isInEditMode();
 
-    GUIPerspectiveChanger &getChanger() const {
+    GUIPerspectiveChanger& getChanger() const {
         return *myChanger;
     }
 
@@ -131,8 +131,8 @@ public:
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onMouseLeft(FXObject*,FXSelector,void*);
 
-    long onKeyPress(FXObject *o,FXSelector sel,void *data);
-    long onKeyRelease(FXObject *o,FXSelector sel,void *data);
+    long onKeyPress(FXObject* o,FXSelector sel,void* data);
+    long onKeyRelease(FXObject* o,FXSelector sel,void* data);
 
 
     virtual void openObjectDialog();
@@ -156,7 +156,7 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @return The error message, if an error occcured; "" otherwise
      */
-    std::string makeSnapshot(const std::string &destFile);
+    std::string makeSnapshot(const std::string& destFile);
 
 
     /** @brief Checks whether it is time for a snapshot
@@ -174,15 +174,15 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual bool setColorScheme(const std::string &) {
+    virtual bool setColorScheme(const std::string&) {
         return true;
     }
 
-    void remove(GUIDialog_EditViewport *) {
+    void remove(GUIDialog_EditViewport*) {
         myViewportChooser = 0;
     }
 
-    void remove(GUIDialog_ViewSettings *) {
+    void remove(GUIDialog_ViewSettings*) {
         myVisualizationChanger = 0;
     }
 
@@ -208,7 +208,7 @@ public:
      * @return Always true
      * @see GUIGlObject::drawGLAdditional
      */
-    bool addAdditionalGLVisualisation(GUIGlObject * const which);
+    bool addAdditionalGLVisualisation(GUIGlObject* const which);
 
 
     /** @brief Removes an object from the list of objects that show additional things
@@ -216,7 +216,7 @@ public:
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
-    bool removeAdditionalGLVisualisation(GUIGlObject * const which);
+    bool removeAdditionalGLVisualisation(GUIGlObject* const which);
     /// @}
 
 
@@ -241,9 +241,9 @@ public:
     struct Decal {
         /// @brief Constructor
         Decal()
-                : filename(), centerX(0), centerY(0),
-                width(1000), height(1000), rot(0),
-                initialised(false), glID(-1) { }
+            : filename(), centerX(0), centerY(0),
+              width(1000), height(1000), rot(0),
+              initialised(false), glID(-1) { }
 
         /// @brief The path to the file the image is located at
         std::string filename;
@@ -265,7 +265,7 @@ public:
 
 
 public:
-    FXComboBox &getColoringSchemesCombo();
+    FXComboBox& getColoringSchemesCombo();
 
 
     /** @brief Returns the cursor's x/y position within the network
@@ -332,16 +332,16 @@ protected:
 
 protected:
     /// @brief The application
-    GUIMainWindow *myApp;
+    GUIMainWindow* myApp;
 
     /// @brief The parent window
-    GUIGlChildWindow *myParent;
+    GUIGlChildWindow* myParent;
 
     /// @brief The visualization speed-up
-    SUMORTree *myGrid;
+    SUMORTree* myGrid;
 
     /// @brief The perspective changer
-    GUIPerspectiveChanger *myChanger;
+    GUIPerspectiveChanger* myChanger;
 
     /// @brief Information whether too-tip informations shall be generated
     bool myInEditMode;
@@ -353,9 +353,9 @@ protected:
     int myMouseHotspotX, myMouseHotspotY;
 
     /// @brief The current popup-menu
-    GUIGLObjectPopupMenu *myPopup;
+    GUIGLObjectPopupMenu* myPopup;
 
-    GUIVisualizationSettings *myVisualizationSettings;
+    GUIVisualizationSettings* myVisualizationSettings;
 
     bool myUseToolTips;
 
@@ -363,8 +363,8 @@ protected:
     bool myAmInitialised;
 
 
-    GUIDialog_EditViewport *myViewportChooser;
-    GUIDialog_ViewSettings *myVisualizationChanger;
+    GUIDialog_EditViewport* myViewportChooser;
+    GUIDialog_ViewSettings* myVisualizationChanger;
 
 
     /// @name Optionally shown decals

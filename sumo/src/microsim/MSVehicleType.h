@@ -84,14 +84,14 @@ public:
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
-    MSVehicleType(const std::string &id, SUMOReal lengthWithGap,
+    MSVehicleType(const std::string& id, SUMOReal lengthWithGap,
                   SUMOReal minGap, SUMOReal maxSpeed,
                   SUMOReal prob, SUMOReal speedFactor,
                   SUMOReal speedDev, SUMOVehicleClass vclass,
                   SUMOEmissionClass emissionClass,
                   SUMOReal guiWidth, SUMOVehicleShape shape,
-                  const std::string &lcModel,
-                  const RGBColor &c) throw();
+                  const std::string& lcModel,
+                  const RGBColor& c) throw();
 
 
     /// @brief Destructor
@@ -105,7 +105,7 @@ public:
     /** @brief Returns the name of the vehicle type
      * @return This type's id
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myID;
     }
 
@@ -137,7 +137,7 @@ public:
     /** @brief Returns the vehicle type's car following model definition (const version)
      * @return The vehicle type's car following model definition
      */
-    inline const MSCFModel &getCarFollowModel() const throw() {
+    inline const MSCFModel& getCarFollowModel() const throw() {
         return *myCarFollowModel;
     }
 
@@ -145,7 +145,7 @@ public:
     /** @brief Returns the vehicle type's car following model definition (non-const version)
      * @return The vehicle type's car following model definition
      */
-    inline MSCFModel &getCarFollowModel() throw() {
+    inline MSCFModel& getCarFollowModel() throw() {
         return *myCarFollowModel;
     }
 
@@ -208,7 +208,7 @@ public:
     /** @brief Returns this type's color
      * @return The color of this type
      */
-    const RGBColor &getColor() const throw() {
+    const RGBColor& getColor() const throw() {
         return myColor;
     }
 
@@ -256,7 +256,7 @@ public:
 
 
     /// Saves the states of a vehicle
-    void saveState(std::ostream &os);
+    void saveState(std::ostream& os);
 
 
 
@@ -270,7 +270,7 @@ public:
      *
      * @param[in] length The new length of this type
      */
-    void setLength(const SUMOReal &length) throw();
+    void setLength(const SUMOReal& length) throw();
 
 
     /** @brief Set a new value for this type's minimum gap
@@ -280,7 +280,7 @@ public:
      *
      * @param[in] offset The new minimum gap of this type
      */
-    void setMinGap(const SUMOReal &minGap) throw();
+    void setMinGap(const SUMOReal& minGap) throw();
 
 
     /** @brief Set a new value for this type's maximum speed
@@ -290,7 +290,7 @@ public:
      *
      * @param[in] maxSpeed The new maximum speed of this type
      */
-    void setMaxSpeed(const SUMOReal &maxSpeed) throw();
+    void setMaxSpeed(const SUMOReal& maxSpeed) throw();
 
 
     /** @brief Set a new value for this type's vehicle class
@@ -306,7 +306,7 @@ public:
      *
      * @param[in] prob The new default probability of this type
      */
-    void setDefaultProbability(const SUMOReal &prob) throw();
+    void setDefaultProbability(const SUMOReal& prob) throw();
 
 
     /** @brief Set a new value for this type's speed factor
@@ -316,7 +316,7 @@ public:
      *
      * @param[in] factor The new speed factor of this type
      */
-    void setSpeedFactor(const SUMOReal &factor) throw();
+    void setSpeedFactor(const SUMOReal& factor) throw();
 
 
     /** @brief Set a new value for this type's speed deviation
@@ -326,7 +326,7 @@ public:
      *
      * @param[in] dev The new speed deviation of this type
      */
-    void setSpeedDeviation(const SUMOReal &dev) throw();
+    void setSpeedDeviation(const SUMOReal& dev) throw();
 
 
     /** @brief Set a new value for this type's emission class
@@ -338,7 +338,7 @@ public:
     /** @brief Set a new value for this type's color
      * @param[in] color The new color of this type
      */
-    void setColor(const RGBColor &color) throw();
+    void setColor(const RGBColor& color) throw();
 
 
     /** @brief Set a new value for this type's width
@@ -348,7 +348,7 @@ public:
      *
      * @param[in] width The new width of this type
      */
-    void setWidth(const SUMOReal &width) throw();
+    void setWidth(const SUMOReal& width) throw();
 
 
     /** @brief Set a new value for this type's shape
@@ -367,7 +367,7 @@ public:
      * @return The built vehicle type
      * @exception ProcessError on false values (not et used)
      */
-    static MSVehicleType *build(SUMOVTypeParameter &from) throw(ProcessError);
+    static MSVehicleType* build(SUMOVTypeParameter& from) throw(ProcessError);
 
 
     /** @brief Duplicates the microsim vehicle type giving it a the given id
@@ -375,7 +375,7 @@ public:
      * @param[in] from The vehicle type
      * @return The built vehicle type
      */
-    static MSVehicleType *build(const std::string &id, const MSVehicleType *from) throw();
+    static MSVehicleType* build(const std::string& id, const MSVehicleType* from) throw();
 
 
     /** @brief Returns the named value from the map, or the default if it is ot contained there
@@ -384,7 +384,7 @@ public:
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
      */
-    static SUMOReal get(const SUMOVTypeParameter::CFParams &from, SumoXMLAttr attr, SUMOReal defaultValue);
+    static SUMOReal get(const SUMOVTypeParameter::CFParams& from, SumoXMLAttr attr, SUMOReal defaultValue);
     /// @}
 
 
@@ -446,7 +446,7 @@ private:
 
 
     /// @brief The original type
-    const MSVehicleType *myOriginalType;
+    const MSVehicleType* myOriginalType;
 
 
 private:

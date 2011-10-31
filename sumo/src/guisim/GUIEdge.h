@@ -52,7 +52,7 @@ public:
      * @param[in] numericalID The numerical id (index) of the edge
      * @see MSEdge
      */
-    GUIEdge(const std::string &id, unsigned int numericalID, const std::string &streetName) throw();
+    GUIEdge(const std::string& id, unsigned int numericalID, const std::string& streetName) throw();
 
 
     /// @brief Destructor.
@@ -73,14 +73,14 @@ public:
     Boundary getBoundary() const;
 
     /// returns the enumerated lane (!!! why not private with a friend?)
-    MSLane &getLane(size_t laneNo);
+    MSLane& getLane(size_t laneNo);
 
 
 
     /// returns the enumerated lane's geometry (!!! why not private with a friend?)
-    GUILaneWrapper &getLaneGeometry(size_t laneNo) const;
+    GUILaneWrapper& getLaneGeometry(size_t laneNo) const;
 
-    GUILaneWrapper &getLaneGeometry(const MSLane *lane) const;
+    GUILaneWrapper& getLaneGeometry(const MSLane* lane) const;
 
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
@@ -102,8 +102,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -113,8 +113,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    virtual GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -129,7 +129,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
@@ -141,7 +141,7 @@ public:
     SUMOReal getFlow() const;
 
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings &s) const;
+    void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
     SUMOReal getColorValue(size_t activeScheme) const;
@@ -162,10 +162,10 @@ private:
     class lane_wrapper_finder {
     public:
         /** @brief constructor */
-        explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }
+        explicit lane_wrapper_finder(const MSLane& lane) : myLane(lane) { }
 
         /** @brief the comparing function */
-        bool operator()(const GUILaneWrapper * const wrapper) {
+        bool operator()(const GUILaneWrapper* const wrapper) {
             return wrapper->forLane(myLane);
         }
 
@@ -173,16 +173,16 @@ private:
         lane_wrapper_finder& operator=(const lane_wrapper_finder&); // just to avoid a compiler warning
     private:
         /// @brief The lane to search for
-        const MSLane &myLane;
+        const MSLane& myLane;
 
     };
 
 private:
     /// @brief invalidated copy constructor
-    GUIEdge(const GUIEdge &s);
+    GUIEdge(const GUIEdge& s);
 
     /// @brief invalidated assignment operator
-    GUIEdge &operator=(const GUIEdge &s);
+    GUIEdge& operator=(const GUIEdge& s);
 
 
 };

@@ -53,8 +53,8 @@ public:
      * @param[in] shape The shape of the poslygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    Polygon(const std::string &name, const std::string &type,
-            const RGBColor &color, const PositionVector &shape, bool fill) throw();
+    Polygon(const std::string& name, const std::string& type,
+            const RGBColor& color, const PositionVector& shape, bool fill) throw();
 
 
     /// @brief Destructor
@@ -68,7 +68,7 @@ public:
     /** @brief Returns the name of the polygon
      * @return The polygon's id
      */
-    const std::string &getID() const throw() {
+    const std::string& getID() const throw() {
         return myName;
     }
 
@@ -76,7 +76,7 @@ public:
     /** @brief Returns the (abstract) type of the polygon
      * @return The polygon's (abstract) type
      */
-    const std::string &getType() const throw() {
+    const std::string& getType() const throw() {
         return myType;
     }
 
@@ -84,7 +84,7 @@ public:
     /** @brief Returns the color of the polygon
      * @return The polygon's color
      */
-    const RGBColor &getColor() const throw() {
+    const RGBColor& getColor() const throw() {
         return myColor;
     }
 
@@ -92,7 +92,7 @@ public:
     /** @brief Returns the shape of the polygon
      * @return The polygon's shape
      */
-    const PositionVector &getShape() const throw() {
+    const PositionVector& getShape() const throw() {
         return myShape;
     }
 
@@ -113,7 +113,7 @@ public:
     /** @brief Sets a new type
      * @param[in] type The new type to use
      */
-    void setType(const std::string &type) throw() {
+    void setType(const std::string& type) throw() {
         myType = type;
     }
 
@@ -121,7 +121,7 @@ public:
     /** @brief Sets a new color
      * @param[in] col The new color to use
      */
-    void setColor(const RGBColor &col) throw() {
+    void setColor(const RGBColor& col) throw() {
         myColor = col;
     }
 
@@ -129,7 +129,7 @@ public:
     /** @brief Sets a new shape
      * @param[in] shape The new shape to use
      */
-    void setShape(const PositionVector &shape) throw() {
+    void setShape(const PositionVector& shape) throw() {
         myShape = shape;
     }
 

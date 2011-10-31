@@ -49,14 +49,14 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage() throw()
-        : myAktID(0) {}
+    : myAktID(0) {}
 
 
 GUIGlObjectStorage::~GUIGlObjectStorage() throw() {}
 
 
 GUIGlID
-GUIGlObjectStorage::registerObject(GUIGlObject *object, const std::string &fullName) throw() {
+GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) throw() {
     myLock.lock();
     GUIGlID id = myAktID++;
     myMap[id] = object;
@@ -66,21 +66,21 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object, const std::string &fullN
 }
 
 
-GUIGlObject *
+GUIGlObject*
 GUIGlObjectStorage::getObjectBlocking(GUIGlID id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
         i = myBlocked.find(id);
         if (i!=myBlocked.end()) {
-            GUIGlObject *o = (*i).second;
+            GUIGlObject* o = (*i).second;
             myLock.unlock();
             return o;
         }
         myLock.unlock();
         return 0;
     }
-    GUIGlObject *o = (*i).second;
+    GUIGlObject* o = (*i).second;
     myMap.erase(id);
     myBlocked[id] = o;
     myLock.unlock();
@@ -88,8 +88,8 @@ GUIGlObjectStorage::getObjectBlocking(GUIGlID id) throw() {
 }
 
 
-GUIGlObject *
-GUIGlObjectStorage::getObjectBlocking(const std::string &fullName) throw() {
+GUIGlObject*
+GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) throw() {
     myLock.lock();
     if (myFullNameMap.count(fullName)) {
         GUIGlID id = myFullNameMap[fullName]->getGlID();
@@ -109,7 +109,7 @@ GUIGlObjectStorage::remove(GUIGlID id) throw() {
     if (i==myMap.end()) {
         i = myBlocked.find(id);
         assert(i!=myBlocked.end());
-        GUIGlObject *o = (*i).second;
+        GUIGlObject* o = (*i).second;
         myFullNameMap.erase(o->getFullName());
         myBlocked.erase(id);
         my2Delete[id] = o;
@@ -141,7 +141,7 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) throw() {
         myLock.unlock();
         return;
     }
-    GUIGlObject *o = (*i).second;
+    GUIGlObject* o = (*i).second;
     myBlocked.erase(id);
     myMap[id] = o;
     myLock.unlock();

@@ -38,7 +38,7 @@
 // ===========================================================================
 MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, SUMOReal accel,
                                    SUMOReal decel, SUMOReal headwayTime, SUMOReal k, SUMOReal phi)
-        : MSCFModel(vtype, accel, decel, headwayTime), myK(k), myPhi(phi), myTauDecel(decel*headwayTime) {
+    : MSCFModel(vtype, accel, decel, headwayTime), myK(k), myPhi(phi), myTauDecel(decel* headwayTime) {
 }
 
 
@@ -46,13 +46,13 @@ MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
 
 SUMOReal
-MSCFModel_Kerner::followSpeed(const MSVehicle * const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+MSCFModel_Kerner::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
     return MIN2(_v(speed, maxNextSpeed(speed), gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_Kerner::stopSpeed(const MSVehicle * const veh, SUMOReal gap) const {
+MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
     const SUMOReal speed = veh->getSpeed();
     return MIN2(_v(speed, maxNextSpeed(speed), gap, 0), maxNextSpeed(speed));
 }
@@ -73,7 +73,7 @@ MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal pred
 }
 
 
-MSCFModel *
-MSCFModel_Kerner::duplicate(const MSVehicleType *vtype) const {
+MSCFModel*
+MSCFModel_Kerner::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Kerner(vtype, myAccel, myDecel, myHeadwayTime, myK, myPhi);
 }

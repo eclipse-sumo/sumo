@@ -137,15 +137,15 @@ protected:
     ChangerIt findCandidate();
 
     int change2right(
-        const std::pair<MSVehicle * const, SUMOReal> &leader,
-        const std::pair<MSVehicle * const, SUMOReal> &rLead,
-        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
+        const std::pair<MSVehicle* const, SUMOReal> &leader,
+        const std::pair<MSVehicle* const, SUMOReal> &rLead,
+        const std::pair<MSVehicle* const, SUMOReal> &rFollow,
         const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
     int change2left(
-        const std::pair<MSVehicle * const, SUMOReal> &leader,
-        const std::pair<MSVehicle * const, SUMOReal> &rLead,
-        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
+        const std::pair<MSVehicle* const, SUMOReal> &leader,
+        const std::pair<MSVehicle* const, SUMOReal> &rLead,
+        const std::pair<MSVehicle* const, SUMOReal> &rFollow,
         const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
 
@@ -154,19 +154,19 @@ protected:
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
     bool overlapWithHopped(ChangerIt target) const throw() {
-        MSVehicle *v1 = target->hoppedVeh;
-        MSVehicle *v2 = veh(myCandi);
+        MSVehicle* v1 = target->hoppedVeh;
+        MSVehicle* v2 = veh(myCandi);
         if (v1!=0 && v2!=0) {
             return MSVehicle::overlap(v1, v2);
         }
         return false;
     }
 
-    std::pair<MSVehicle * const, SUMOReal> getRealThisLeader(const ChangerIt &target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const throw();
 
-    std::pair<MSVehicle * const, SUMOReal> getRealFollower(const ChangerIt &target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const throw();
 
-    std::pair<MSVehicle * const, SUMOReal> getRealLeader(const ChangerIt &target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const throw();
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

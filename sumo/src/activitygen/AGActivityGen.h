@@ -53,11 +53,11 @@ public:
      * @param[in] net network of the city
      */
     AGActivityGen(std::string input, std::string output, RONet* net) :
-            inputFile(input),
-            outputFile(output),
-            net(net),
-            //activities(),
-            city(net) {};
+        inputFile(input),
+        outputFile(output),
+        net(net),
+        //activities(),
+        city(net) {};
     /** @brief build the internal city
      *
      * TO CALL 1: First function to be called:
@@ -111,7 +111,7 @@ protected:
      *
      * @param[in] trip on which a random (normally distributed) variation will be tried
      */
-    void varDepTime(AGTrip & trip);
+    void varDepTime(AGTrip& trip);
 };
 
 #endif

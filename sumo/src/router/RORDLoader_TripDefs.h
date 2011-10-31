@@ -50,9 +50,9 @@
 class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
-    RORDLoader_TripDefs(RONet &net, SUMOTime begin, SUMOTime end,
+    RORDLoader_TripDefs(RONet& net, SUMOTime begin, SUMOTime end,
                         bool emptyDestinationsAllowed, bool withTaz,
-                        const std::string &file="") throw(ProcessError);
+                        const std::string& file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_TripDefs() throw();
@@ -83,7 +83,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -121,21 +121,21 @@ protected:
 
 protected:
     /// Parses the vehicle id
-    std::string getVehicleID(const SUMOSAXAttributes &attrs);
+    std::string getVehicleID(const SUMOSAXAttributes& attrs);
 
     /// Parses a named edge frm the attributes
-    ROEdge *getEdge(const SUMOSAXAttributes &attrs, const std::string &purpose,
-                    SumoXMLAttr which, const std::string &id, bool emptyAllowed);
+    ROEdge* getEdge(const SUMOSAXAttributes& attrs, const std::string& purpose,
+                    SumoXMLAttr which, const std::string& id, bool emptyAllowed);
 
 protected:
     /// generates numerical ids
     IDSupplier myIdSupplier;
 
     /// The starting edge
-    ROEdge *myBeginEdge;
+    ROEdge* myBeginEdge;
 
     /// The end edge
-    ROEdge *myEndEdge;
+    ROEdge* myEndEdge;
 
     /** @brief Information whether empty destinations are allowed
         This is a feature used for the handling of explicit routes within the
@@ -149,19 +149,19 @@ protected:
     bool myNextRouteRead;
 
     /// @brief The currently parsed vehicle type
-    SUMOVTypeParameter *myCurrentVehicleType;
+    SUMOVTypeParameter* myCurrentVehicleType;
 
-    SUMOVehicleParameter *myParameter;
+    SUMOVehicleParameter* myParameter;
     SUMOTime myDepartureTime;
 
     bool myHaveWarnedAboutDeprecatedTripDef;
 
 private:
     /// @brief Invalidated copy constructor
-    RORDLoader_TripDefs(const RORDLoader_TripDefs &src);
+    RORDLoader_TripDefs(const RORDLoader_TripDefs& src);
 
     /// @brief Invalidated assignment operator
-    RORDLoader_TripDefs &operator=(const RORDLoader_TripDefs &src);
+    RORDLoader_TripDefs& operator=(const RORDLoader_TripDefs& src);
 
 };
 

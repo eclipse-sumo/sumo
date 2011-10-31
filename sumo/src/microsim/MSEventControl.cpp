@@ -42,7 +42,7 @@
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl()
-        : currentTimeStep(-1), myEvents() {}
+    : currentTimeStep(-1), myEvents() {}
 
 
 MSEventControl::~MSEventControl() {
@@ -75,7 +75,7 @@ MSEventControl::execute(SUMOTime execTime) {
     for (; !myEvents.empty();) {
         Event currEvent = myEvents.top();
         if (currEvent.second == execTime || currEvent.second<execTime+DELTA_T) {
-            Command *command = currEvent.first;
+            Command* command = currEvent.first;
             myEvents.pop();
             SUMOTime time = 0;
             try {

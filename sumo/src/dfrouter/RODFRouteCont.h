@@ -78,7 +78,7 @@ public:
      * @param[in] desc The route description to add
      * @see setID
      */
-    void addRouteDesc(RODFRouteDesc &desc) throw();
+    void addRouteDesc(RODFRouteDesc& desc) throw();
 
 
     /** @brief Removes the given route description from the container
@@ -90,7 +90,7 @@ public:
      * @return Whether the route was removed (a similar was found)
      * @see RODFRouteCont::route_finder
      */
-    bool removeRouteDesc(RODFRouteDesc &desc) throw();
+    bool removeRouteDesc(RODFRouteDesc& desc) throw();
 
 
     /** @brief Saves routes
@@ -102,7 +102,7 @@ public:
      * @exception IOError not yet implemented
      */
     bool save(std::vector<std::string> &saved,
-              const std::string &prependix, OutputDevice& out) throw(IOError);
+              const std::string& prependix, OutputDevice& out) throw(IOError);
 
 
     /** @brief Returns the container of stored routes
@@ -144,7 +144,7 @@ protected:
      *
      * @param[in] desc The route description to add
      */
-    void setID(RODFRouteDesc &desc) const throw();
+    void setID(RODFRouteDesc& desc) const throw();
 
 
     /** @brief A class for sorting route descriptions by their length */
@@ -154,7 +154,7 @@ protected:
         explicit by_distance_sorter() { }
 
         /// @brief Sorting function; compares RODFRouteDesc::distance2Last
-        int operator()(const RODFRouteDesc &p1, const RODFRouteDesc &p2) {
+        int operator()(const RODFRouteDesc& p1, const RODFRouteDesc& p2) {
             return p1.distance2Last<p2.distance2Last;
         }
     };
@@ -166,16 +166,16 @@ protected:
         /** @brief onstructor
          * @param[in] desc The route description to which a same shall be found
          */
-        explicit route_finder(const RODFRouteDesc &desc) : myDesc(desc) { }
+        explicit route_finder(const RODFRouteDesc& desc) : myDesc(desc) { }
 
         /**  @brief The comparing function; compares passed edges */
-        bool operator()(const RODFRouteDesc &desc) {
+        bool operator()(const RODFRouteDesc& desc) {
             return myDesc.edges2Pass==desc.edges2Pass;
         }
 
     private:
         /// @brief The route description for which a same shall be found
-        const RODFRouteDesc &myDesc;
+        const RODFRouteDesc& myDesc;
 
     };
 

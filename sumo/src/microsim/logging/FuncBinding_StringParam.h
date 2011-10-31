@@ -42,14 +42,14 @@ template< class T, typename R  >
 class FuncBinding_StringParam : public ValueSource<R> {
 public:
     /// Type of the function to execute.
-    typedef R(T::* Operation)(const std::string &) const;
+    typedef R(T::* Operation)(const std::string&) const;
 
     FuncBinding_StringParam(T* source, Operation operation,
-                            const std::string &param)
-            :
-            mySource(source),
-            myOperation(operation),
-            myParam(param) {}
+                            const std::string& param)
+        :
+        mySource(source),
+        myOperation(operation),
+        myParam(param) {}
 
     /// Destructor.
     ~FuncBinding_StringParam() {}

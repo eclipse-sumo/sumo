@@ -48,17 +48,17 @@
 // method definitions
 // ===========================================================================
 MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
-    const std::string &id,
-    const Phases &phases,
+    const std::string& id,
+    const Phases& phases,
     size_t step, size_t delay,
     SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
-        : MSSimpleTrafficLightLogic(id, phases, step, delay),
-        myContinue(false),
-        myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
+    : MSSimpleTrafficLightLogic(id, phases, step, delay),
+      myContinue(false),
+      myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
 
 
 void
-MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
+MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder& nb,
         const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         SUMOReal det_offset) {
@@ -71,7 +71,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
     std::vector<MSLane*>::const_iterator i;
     // build the induct loops
     for (i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
+        MSLane* lane = (*i);
         SUMOReal length = lane->length();
         SUMOReal speed = lane->maxSpeed();
         SUMOReal inductLoopPosition = myDetectorGap * speed;
@@ -89,7 +89,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
     }
     // build the lane state-detectors
     for (i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
+        MSLane* lane = (*i);
         SUMOReal length = lane->length();
         // check whether the position is o.k. (not longer than the lane)
         SUMOReal lslen = det_offset;
@@ -221,7 +221,7 @@ MSUnboundActuatedTrafficLightLogic::gapControl() {
 }
 
 
-MSActuatedPhaseDefinition *
+MSActuatedPhaseDefinition*
 MSUnboundActuatedTrafficLightLogic::currentPhaseDef() const {
     assert(myPhases.size()>myStep);
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);

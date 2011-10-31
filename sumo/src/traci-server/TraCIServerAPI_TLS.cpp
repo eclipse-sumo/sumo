@@ -47,8 +47,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) {
+TraCIServerAPI_TLS::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -80,7 +80,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             server.writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known", outputStorage);
             return false;
         }
-        MSTLLogicControl::TLSLogicVariants &vars = MSNet::getInstance()->getTLSControl().get(id);
+        MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(id);
         switch (variable) {
         case ID_LIST:
             break;
@@ -99,7 +99,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             tempContent.writeInt((int) logics.size());
             ++cnt;
             for (unsigned int i=0; i<logics.size(); ++i) {
-                MSTrafficLightLogic *logic = logics[i];
+                MSTrafficLightLogic* logic = logics[i];
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(logic->getProgramID());
                 ++cnt;
@@ -131,7 +131,7 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
-                    const std::string &state = phase.getState();
+                    const std::string& state = phase.getState();
                     //unsigned int linkNo = (unsigned int)(vars.getActive()->getLinks().size());
                     tempContent.writeUnsignedByte(TYPE_STRING);
                     tempContent.writeString(state);
@@ -143,11 +143,11 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         break;
         case TL_CONTROLLED_LANES: {
-            const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
+            const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             std::vector<std::string> laneIDs;
             for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-                const MSTrafficLightLogic::LaneVector &llanes = (*i);
+                const MSTrafficLightLogic::LaneVector& llanes = (*i);
                 for (MSTrafficLightLogic::LaneVector::const_iterator j=llanes.begin(); j!=llanes.end(); ++j) {
                     laneIDs.push_back((*j)->getID());
                 }
@@ -156,8 +156,8 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         break;
         case TL_CONTROLLED_LINKS: {
-            const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
-            const MSTrafficLightLogic::LinkVectorVector &links = vars.getActive()->getLinks();
+            const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
+            const MSTrafficLightLogic::LinkVectorVector& links = vars.getActive()->getLinks();
             //
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             tcpip::Storage tempContent;
@@ -166,15 +166,15 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
             unsigned int no = (unsigned int) lanes.size();
             tempContent.writeInt((int) no);
             for (unsigned int i=0; i<no; ++i) {
-                const MSTrafficLightLogic::LaneVector &llanes = lanes[i];
-                const MSTrafficLightLogic::LinkVector &llinks = links[i];
+                const MSTrafficLightLogic::LaneVector& llanes = lanes[i];
+                const MSTrafficLightLogic::LinkVector& llinks = links[i];
                 // number of links controlled by this signal (signal i)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 unsigned int no2 = (unsigned int) llanes.size();
                 tempContent.writeInt((int) no2);
                 ++cnt;
                 for (unsigned int j=0; j<no2; ++j) {
-                    MSLink *link = llinks[j];
+                    MSLink* link = llinks[j];
                     std::vector<std::string> def;
                     // incoming lane
                     def.push_back(llanes[j]->getID());
@@ -225,8 +225,8 @@ TraCIServerAPI_TLS::processGet(TraCIServer &server, tcpip::Storage &inputStorage
 
 
 bool
-TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                               tcpip::Storage &outputStorage) {
+TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                               tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -240,9 +240,9 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known", outputStorage);
         return false;
     }
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
-    MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(id);
+    MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(id);
     int valueDataType = inputStorage.readUnsignedByte();
     switch (variable) {
     case TL_PHASE_INDEX: {
@@ -267,7 +267,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         std::string subID = inputStorage.readString();
         try {
             vars.switchTo(tlsControl, subID);
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
             return false;
         }
@@ -290,11 +290,11 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
         }
         // build only once...
         std::string state = inputStorage.readString();
-        MSPhaseDefinition *phase = new MSPhaseDefinition(DELTA_T, state);
+        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         if (vars.getLogic("online")==0) {
-            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
+            MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+DELTA_T);
             vars.addLogic("online", logic, true, true);
             vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
             vars.executeOnSwitchActions();
@@ -362,11 +362,11 @@ TraCIServerAPI_TLS::processSet(TraCIServer &server, tcpip::Storage &inputStorage
                 return false;
             }
             std::string state = inputStorage.readString();
-            MSPhaseDefinition *phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
+            MSPhaseDefinition* phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
             phases.push_back(phase);
         }
         if (vars.getLogic(subid)==0) {
-            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
+            MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
             vars.addLogic(subid, logic, true, true);
             vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
             vars.executeOnSwitchActions();

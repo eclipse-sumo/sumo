@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Reisezeitmessungsdefinition::NIVissimSingleTypeParser_Reisezeitmessungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Reisezeitmessungsdefinition::NIVissimSingleTypeParser_Reisezeitmessungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition::~NIVissimSingleTypeParser_Reisezeitmessungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Reisezeitmessungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Reisezeitmessungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
     if (tag=="aggregationsintervall") {
         while (tag!="DATAEND") {

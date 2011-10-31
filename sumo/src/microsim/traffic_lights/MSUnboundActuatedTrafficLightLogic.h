@@ -59,7 +59,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSUnboundActuatedTrafficLightLogic :
-            public MSSimpleTrafficLightLogic {
+    public MSSimpleTrafficLightLogic {
 public:
     /// Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
@@ -69,13 +69,13 @@ public:
 
 public:
     /// constructor
-    MSUnboundActuatedTrafficLightLogic(const std::string &id,
-                                       const MSSimpleTrafficLightLogic::Phases &phases,
+    MSUnboundActuatedTrafficLightLogic(const std::string& id,
+                                       const MSSimpleTrafficLightLogic::Phases& phases,
                                        size_t step, size_t delay,
                                        SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
     /// Initialises the tls with information about incoming lanes
-    void init(NLDetectorBuilder &nb,
+    void init(NLDetectorBuilder& nb,
               const std::vector<MSLane*> &lanes,
               std::map<std::string, std::vector<std::string> > &edgeContinuations,
               SUMOReal det_offset);
@@ -98,7 +98,7 @@ public:
 
 protected:
     /// Returns the definition of the current phase
-    MSActuatedPhaseDefinition * currentPhaseDef() const;
+    MSActuatedPhaseDefinition* currentPhaseDef() const;
 
 protected:
     /// A map from lanes to induct loops lying on them

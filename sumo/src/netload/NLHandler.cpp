@@ -60,37 +60,37 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLHandler::NLHandler(const std::string &file, MSNet &net,
-                     NLDetectorBuilder &detBuilder,
-                     NLTriggerBuilder &triggerBuilder,
-                     NLEdgeControlBuilder &edgeBuilder,
-                     NLJunctionControlBuilder &junctionBuilder) throw()
-        : MSRouteHandler(file, true),
-        myNet(net), myActionBuilder(net),
-        myCurrentIsInternalToSkip(false),
-        myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
-        myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-        mySucceedingLaneBuilder(junctionBuilder),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false),
-        myHaveWarnedAboutDeprecatedE1(false),
-        myHaveWarnedAboutDeprecatedE2(false),
-        myHaveWarnedAboutDeprecatedE3(false),
-        myHaveWarnedAboutDeprecatedDetEntry(false),
-        myHaveWarnedAboutDeprecatedDetExit(false),
-        myHaveWarnedAboutDeprecatedRowLogic(false),
-        myHaveWarnedAboutDeprecatedTLLogic(false),
-        myHaveWarnedAboutDeprecatedTimedEvent(false),
-        myHaveWarnedAboutDeprecatedTLSTiming(false),
-        myHaveWarnedAboutDeprecatedTimeThreshold(false),
-        myHaveWarnedAboutDeprecatedSpeedThreshold(false),
-        myHaveWarnedAboutDeprecatedJamDistThreshold(false),
-        myHaveWarnedAboutDeprecatedVTypeProbe(false),
-        myHaveWarnedAboutDeprecatedRouteProbe(false),
-        myHaveWarnedAboutDeprecatedEdgeMean(false),
-        myHaveWarnedAboutDeprecatedLaneMean(false),
-        myHaveWarnedAboutDeprecatedVTypes(false),
-        myHaveWarnedAboutDeprecatedLanes(false),
-        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
+NLHandler::NLHandler(const std::string& file, MSNet& net,
+                     NLDetectorBuilder& detBuilder,
+                     NLTriggerBuilder& triggerBuilder,
+                     NLEdgeControlBuilder& edgeBuilder,
+                     NLJunctionControlBuilder& junctionBuilder) throw()
+    : MSRouteHandler(file, true),
+      myNet(net), myActionBuilder(net),
+      myCurrentIsInternalToSkip(false),
+      myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
+      myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
+      mySucceedingLaneBuilder(junctionBuilder),
+      myAmInTLLogicMode(false), myCurrentIsBroken(false),
+      myHaveWarnedAboutDeprecatedE1(false),
+      myHaveWarnedAboutDeprecatedE2(false),
+      myHaveWarnedAboutDeprecatedE3(false),
+      myHaveWarnedAboutDeprecatedDetEntry(false),
+      myHaveWarnedAboutDeprecatedDetExit(false),
+      myHaveWarnedAboutDeprecatedRowLogic(false),
+      myHaveWarnedAboutDeprecatedTLLogic(false),
+      myHaveWarnedAboutDeprecatedTimedEvent(false),
+      myHaveWarnedAboutDeprecatedTLSTiming(false),
+      myHaveWarnedAboutDeprecatedTimeThreshold(false),
+      myHaveWarnedAboutDeprecatedSpeedThreshold(false),
+      myHaveWarnedAboutDeprecatedJamDistThreshold(false),
+      myHaveWarnedAboutDeprecatedVTypeProbe(false),
+      myHaveWarnedAboutDeprecatedRouteProbe(false),
+      myHaveWarnedAboutDeprecatedEdgeMean(false),
+      myHaveWarnedAboutDeprecatedLaneMean(false),
+      myHaveWarnedAboutDeprecatedVTypes(false),
+      myHaveWarnedAboutDeprecatedLanes(false),
+      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -98,7 +98,7 @@ NLHandler::~NLHandler() throw() {}
 
 void
 NLHandler::myStartElement(int element,
-                          const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                          const SUMOSAXAttributes& attrs) throw(ProcessError) {
     try {
         switch (element) {
         case SUMO_TAG_EDGE:
@@ -297,7 +297,7 @@ NLHandler::myStartElement(int element,
         default:
             break;
         }
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
     MSRouteHandler::myStartElement(element, attrs);
@@ -318,7 +318,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
             try {
                 myJunctionControlBuilder.closeJunctionLogic();
                 myJunctionControlBuilder.closeJunction();
-            } catch (InvalidArgument &e) {
+            } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
             }
         }
@@ -329,7 +329,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_ROWLOGIC__DEPRECATED:
         try {
             myJunctionControlBuilder.closeJunctionLogic();
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
         break;
@@ -337,7 +337,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
     case SUMO_TAG_TLLOGIC:
         try {
             myJunctionControlBuilder.closeTrafficLightLogic();
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
         myAmInTLLogicMode = false;
@@ -360,7 +360,7 @@ NLHandler::myEndElement(int element) throw(ProcessError) {
 
 // ---- the root/edge - element
 void
-NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
+NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
@@ -392,17 +392,17 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     // interpret the function
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
     switch (func) {
-        case EDGEFUNC_NORMAL:
-            funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
-            break;
-        case EDGEFUNC_CONNECTOR:
-        case EDGEFUNC_SINK:
-        case EDGEFUNC_SOURCE:
-            funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
-            break;
-        case EDGEFUNC_INTERNAL:
-            funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
-            break;
+    case EDGEFUNC_NORMAL:
+        funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
+        break;
+    case EDGEFUNC_CONNECTOR:
+    case EDGEFUNC_SINK:
+    case EDGEFUNC_SOURCE:
+        funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
+        break;
+    case EDGEFUNC_INTERNAL:
+        funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
+        break;
     }
     // get the street name
     std::string streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
@@ -413,7 +413,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     //
     try {
         myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, streetName);
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
@@ -429,7 +429,7 @@ NLHandler::closeEdge() {
     try {
         MSEdge* e = myEdgeControlBuilder.closeEdge();
         MSEdge::dictionary(e->getID(), e);
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -437,7 +437,7 @@ NLHandler::closeEdge() {
 
 //             ---- the root/edge/lanes/lane - element
 void
-NLHandler::addLane(const SUMOSAXAttributes &attrs) {
+NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
@@ -469,14 +469,14 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane *lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, allowedClasses, disallowedClasses);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, allowedClasses, disallowedClasses);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
                 WRITE_ERROR("Another lane with the id '" + id + "' exists.");
                 myCurrentIsBroken = true;
             }
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
     }
@@ -485,7 +485,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
 
 // ---- the root/junction - element
 void
-NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
+NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
     bool ok = true;
     // get the id, report an error if not given or empty...
@@ -518,7 +518,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     } else {
         try {
             myJunctionControlBuilder.openJunction(id, key, type, x, y, shape, incomingLanes, internalLanes);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
         }
@@ -527,12 +527,12 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::parseLanes(const std::string &junctionID,
-                      const std::string &def, std::vector<MSLane*> &into, bool &ok) {
+NLHandler::parseLanes(const std::string& junctionID,
+                      const std::string& def, std::vector<MSLane*> &into, bool& ok) {
     StringTokenizer st(def);
     while (ok&&st.hasNext()) {
         std::string laneID = st.next();
-        MSLane *lane = MSLane::dictionary(laneID);
+        MSLane* lane = MSLane::dictionary(laneID);
         if (!MSGlobals::gUsingInternalLanes&&laneID[0]==':') {
             continue;
         }
@@ -547,7 +547,7 @@ NLHandler::parseLanes(const std::string &junctionID,
 // ----
 
 void
-NLHandler::addParam(const SUMOSAXAttributes &attrs) {
+NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
     std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
@@ -561,7 +561,7 @@ NLHandler::addParam(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
+NLHandler::openWAUT(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
     bool ok = true;
     // get the id, report an error if not given or empty...
@@ -579,7 +579,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
         myCurrentWAUTID = id;
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }
@@ -588,7 +588,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
+NLHandler::addWAUTSwitch(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     SUMOTime t = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, myCurrentWAUTID.c_str(), ok);
     std::string to = attrs.getStringReporting(SUMO_ATTR_TO, myCurrentWAUTID.c_str(), ok);
@@ -598,7 +598,7 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
     if (!myCurrentIsBroken) {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUTSwitch(myCurrentWAUTID, t, to);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }
@@ -607,7 +607,7 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
+NLHandler::addWAUTJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string wautID = attrs.getStringReporting(SUMO_ATTR_WAUT_ID, 0, ok);
     std::string junctionID = attrs.getStringReporting(SUMO_ATTR_JUNCTION_ID, 0, ok);
@@ -620,7 +620,7 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
         if (!myCurrentIsBroken) {
             myJunctionControlBuilder.getTLLogicControlToUse().addWAUTJunction(wautID, junctionID, procedure, synchron);
         }
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
@@ -633,7 +633,7 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
+NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const SUMOReal INVALID_POSITION(-1000000);
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -650,7 +650,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     }
     Position pos(x, y);
     if (x==INVALID_POSITION||y==INVALID_POSITION) {
-        MSLane *lane = MSLane::dictionary(laneID);
+        MSLane* lane = MSLane::dictionary(laneID);
         if (lane==0) {
             WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
             return;
@@ -667,7 +667,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
+NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     // get the id, report an error if not given or empty...
@@ -689,7 +689,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
+NLHandler::addLogicItem(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     int request = attrs.getIntReporting(SUMO_ATTR_REQUEST, 0, ok);
     bool cont = false;
@@ -705,7 +705,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
     if (request>=0 && response.length()>0) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
     }
@@ -713,7 +713,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
+NLHandler::addRequest(const SUMOSAXAttributes& attrs) {
     if (myCurrentIsBroken) {
         return;
     }
@@ -732,7 +732,7 @@ NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
     if (request>=0 && response.length()>0) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
         }
     }
@@ -740,7 +740,7 @@ NLHandler::addRequest(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
+NLHandler::initJunctionLogic(const SUMOSAXAttributes& attrs) {
     if (myCurrentIsBroken) {
         return;
     }
@@ -754,7 +754,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
+NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     myAmInTLLogicMode = true;
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -777,7 +777,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
+NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     // try to get the phase definition
     bool ok = true;
     std::string state = attrs.getStringReporting(SUMO_ATTR_STATE, 0, ok);
@@ -840,7 +840,7 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
 
 
 void
-NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
+NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -867,16 +867,16 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
         myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           OutputDevice::getDevice(file, getFileName()),
                                           friendlyPos, splitByType);
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 void
-NLHandler::addInstantE1Detector(const SUMOSAXAttributes &attrs) {
+NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -899,16 +899,16 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes &attrs) {
     }
     try {
         myDetectorBuilder.buildInstantInductLoop(id, lane, position, OutputDevice::getDevice(file, getFileName()), friendlyPos);
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 void
-NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
+NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -919,16 +919,16 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
     }
     try {
         myDetectorBuilder.buildVTypeProbe(id, type, frequency, OutputDevice::getDevice(file, getFileName()));
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 void
-NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
+NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -941,9 +941,9 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
     try {
         myDetectorBuilder.buildRouteProbe(id, edge, frequency, begin,
                                           OutputDevice::getDevice(file, getFileName()));
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -951,7 +951,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
+NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     // check whether this is a detector connected to a tls an optionally to a link
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -976,19 +976,19 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     }
 
     const SUMOTime haltingTimeThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED)
-        ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
-        : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
+                                          ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
+                                          : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-        ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-        : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
+                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
     const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
-        ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
-        : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
+                                      ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
+                                      : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
     const SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok);
     const bool friendlyPos = attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)
-        ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
-        : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+                             ? attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS__DEPRECATED, id.c_str(), ok, false)
+                             : attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const bool cont = attrs.getOptBoolReporting(SUMO_ATTR_CONT, id.c_str(), ok, false);
     const std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1021,16 +1021,16 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
                                               haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                               friendlyPos);
         }
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 void
-NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
+NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // inform the user about deprecated values
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -1058,16 +1058,16 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
         myDetectorBuilder.beginE3Detector(id,
                                           OutputDevice::getDevice(file, getFileName()),
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold);
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 void
-NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
+NLHandler::addE3Entry(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
@@ -1086,7 +1086,7 @@ NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
+NLHandler::addE3Exit(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
     if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
@@ -1105,7 +1105,7 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
+NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
@@ -1135,9 +1135,9 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
                 type, objecttype==SUMO_TAG_MEANDATA_LANE, !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -1145,7 +1145,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes &attrs, int objecttype) {
 
 
 void
-NLHandler::openSucc(const SUMOSAXAttributes &attrs) {
+NLHandler::openSucc(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
@@ -1158,7 +1158,7 @@ NLHandler::openSucc(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
+NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
     // do not process internal lanes if not wished
     if (myCurrentIsInternalToSkip) {
         return;
@@ -1195,7 +1195,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 #endif
                                                 parseLinkDir(dir), parseLinkState(state));
         }
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -1203,7 +1203,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
+NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
     if (!MSGlobals::gUsingInternalLanes&& fromID[0]==':') {
@@ -1232,12 +1232,12 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         SUMOReal pass = attrs.getOptSUMORealReporting(SUMO_ATTR_PASS, 0, ok, -1);
 #endif
 
-        MSEdge *from = MSEdge::dictionary(fromID);
+        MSEdge* from = MSEdge::dictionary(fromID);
         if (from == 0) {
             WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection");
             return;
         }
-        MSEdge *to = MSEdge::dictionary(toID);
+        MSEdge* to = MSEdge::dictionary(toID);
         if (to == 0) {
             WRITE_ERROR("Unknown to-edge '" + toID + "' in connection");
             return;
@@ -1246,8 +1246,8 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         if (!ok) {
             return;
         }
-        MSLane *fromLane = lanes.first;
-        MSLane *toLane = lanes.second;
+        MSLane* fromLane = lanes.first;
+        MSLane* toLane = lanes.second;
         assert(fromLane);
         assert(toLane);
 
@@ -1257,10 +1257,10 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
                         ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
                         : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
             // make sure that the index is in range
-            MSTrafficLightLogic *logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
+            MSTrafficLightLogic* logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if (tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size()) {
-                WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) + 
-                        "' in connection controlled by '" + tlID + "'");
+                WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
+                            "' in connection controlled by '" + tlID + "'");
                 return;
             }
             if (!ok) {
@@ -1268,11 +1268,11 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
             }
         }
         SUMOReal length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
-        MSLink *link = 0;
+        MSLink* link = 0;
 
         // build the link
 #ifdef HAVE_INTERNAL_LANES
-        MSLane *via = 0;
+        MSLane* via = 0;
         if (viaID!="" && MSGlobals::gUsingInternalLanes) {
             via = MSLane::dictionary(viaID);
             if (via==0) {
@@ -1300,20 +1300,20 @@ NLHandler::addConnection(const SUMOSAXAttributes &attrs) {
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light
         if (tlID!="") {
-            MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlID);
+            MSTLLogicControl::TLSLogicVariants& logics = myJunctionControlBuilder.getTLLogic(tlID);
             logics.addLink(link, fromLane, tlLinkIdx);
         }
         // add the link
         fromLane->addLink(link);
 
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
 }
 
 
 LinkDirection
-NLHandler::parseLinkDir(const std::string &dir) {
+NLHandler::parseLinkDir(const std::string& dir) {
     if (SUMOXMLDefinitions::LinkDirections.hasString(dir)) {
         return SUMOXMLDefinitions::LinkDirections.get(dir);
     } else {
@@ -1323,7 +1323,7 @@ NLHandler::parseLinkDir(const std::string &dir) {
 
 
 LinkState
-NLHandler::parseLinkState(const std::string &state) {
+NLHandler::parseLinkState(const std::string& state) {
     if (SUMOXMLDefinitions::LinkStates.hasString(state)) {
         return SUMOXMLDefinitions::LinkStates.get(state);
     } else {
@@ -1338,7 +1338,7 @@ NLHandler::parseLinkState(const std::string &state) {
 
 
 std::pair<MSLane*, MSLane*>
-NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &laneIndices, bool &ok) {
+NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& laneIndices, bool& ok) {
     std::string error = "Invalid attribute in connection from '" + from->getID() + "' to '" + to->getID() + "' ";
     StringTokenizer st(laneIndices, ':');
     if (st.size()==2) {
@@ -1353,7 +1353,7 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
             } else {
                 error += "(invalid index)";
             }
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             error += "(number format)";
         }
     } else {
@@ -1367,7 +1367,7 @@ NLHandler::getLanesFromIndices(MSEdge *from, MSEdge *to, const std::string &lane
 
 // ----------------------------------
 void
-NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
+NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     PositionVector s = GeomConvHelper::parseShapeReporting(
                            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
@@ -1387,7 +1387,7 @@ NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
 
 
 void
-NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+NLHandler::addDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
@@ -1412,7 +1412,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
             for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
-                MSEdge *edge = MSEdge::dictionary(*i);
+                MSEdge* edge = MSEdge::dictionary(*i);
                 // check whether the edge exists
                 if (edge==0) {
                     throw InvalidArgument("The edge '" + *i + "' within district '" + myCurrentDistrictID + "' is not known.");
@@ -1421,7 +1421,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
                 edge->addFollower(sink);
             }
         }
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
@@ -1429,14 +1429,14 @@ NLHandler::addDistrict(const SUMOSAXAttributes &attrs) throw(ProcessError) {
 
 
 void
-NLHandler::addDistrictEdge(const SUMOSAXAttributes &attrs, bool isSource) {
+NLHandler::addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     if (myCurrentIsBroken) {
         // earlier error
         return;
     }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, myCurrentDistrictID.c_str(), ok);
-    MSEdge *succ = MSEdge::dictionary(id);
+    MSEdge* succ = MSEdge::dictionary(id);
     if (succ!=0) {
         // connect edge
         if (isSource) {
@@ -1461,7 +1461,7 @@ NLHandler::closeSuccLane() {
     }
     try {
         mySucceedingLaneBuilder.closeSuccLane();
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -1471,7 +1471,7 @@ void
 NLHandler::endE3Detector() {
     try {
         myDetectorBuilder.endE3Detector();
-    } catch (InvalidArgument &e) {
+    } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
 }
@@ -1482,7 +1482,7 @@ NLHandler::closeWAUT() {
     if (!myCurrentIsBroken) {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().closeWAUT(myCurrentWAUTID);
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
         }

@@ -59,7 +59,7 @@ public:
      * @param[in] port The port to connect
      * @exception IOError If the connection could not been established
      */
-    OutputDevice_Network(const std::string &host,
+    OutputDevice_Network(const std::string& host,
                          const int port) throw(IOError);
 
 
@@ -79,7 +79,7 @@ protected:
      * @return The used stream
      * @see postWriteHook
      */
-    std::ostream &getOStream() throw();
+    std::ostream& getOStream() throw();
 
 
     /** @brief Sends the data which was written to the string stream over the socket.

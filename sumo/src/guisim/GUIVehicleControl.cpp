@@ -42,7 +42,7 @@
 // member method definitions
 // ===========================================================================
 GUIVehicleControl::GUIVehicleControl() throw()
-        : MSVehicleControl() {}
+    : MSVehicleControl() {}
 
 
 GUIVehicleControl::~GUIVehicleControl() throw() {
@@ -53,18 +53,18 @@ GUIVehicleControl::~GUIVehicleControl() throw() {
 }
 
 
-SUMOVehicle *
+SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
-    MSVehicle *built = new GUIVehicle(defs, route, type, myLoadedVehNo-1);
+    MSVehicle* built = new GUIVehicle(defs, route, type, myLoadedVehNo-1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }
 
 
 bool
-GUIVehicleControl::addVehicle(const std::string &id, SUMOVehicle *v) throw() {
+GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) throw() {
     myLock.lock();
     const bool result = MSVehicleControl::addVehicle(id, v);
     myLock.unlock();
@@ -73,7 +73,7 @@ GUIVehicleControl::addVehicle(const std::string &id, SUMOVehicle *v) throw() {
 
 
 void
-GUIVehicleControl::deleteVehicle(SUMOVehicle *veh) throw() {
+GUIVehicleControl::deleteVehicle(SUMOVehicle* veh) throw() {
     myLock.lock();
     MSVehicleControl::deleteVehicle(veh);
     myLock.unlock();
@@ -85,7 +85,7 @@ GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) throw() {
     myLock.lock();
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
-        SUMOVehicle *veh = (*i).second;
+        SUMOVehicle* veh = (*i).second;
         if (veh->isOnRoad()) {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }

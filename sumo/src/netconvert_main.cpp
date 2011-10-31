@@ -59,7 +59,7 @@
 // ===========================================================================
 void
 fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
 
@@ -96,8 +96,8 @@ checkOptions() {
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
     oc.setApplicationName("netconvert", "SUMO netconvert Version " + (std::string)VERSION_STRING);
@@ -111,7 +111,9 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!checkOptions()) throw ProcessError();
+        if (!checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);
@@ -127,7 +129,7 @@ main(int argc, char **argv) {
         }
         nb.compute(oc);
         NWFrame::writeNetwork(oc, nb);
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

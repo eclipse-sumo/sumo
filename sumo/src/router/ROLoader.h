@@ -67,34 +67,34 @@ public:
      * @param[in] emptyDestinationsAllowed Whether tripdefs may be given without destinations
      * @todo Recheck usage of emptyDestinationsAllowed
      */
-    ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw();
+    ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) throw();
 
 
     /// @brief Destructor
     virtual ~ROLoader();
 
     /// Loads the network
-    virtual void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb);
+    virtual void loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb);
 
     /// Loads the net weights
-    bool loadWeights(RONet &net, const std::string &optionName,
-                     const std::string &measure, bool useLanes);
+    bool loadWeights(RONet& net, const std::string& optionName,
+                     const std::string& measure, bool useLanes);
 
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
-    unsigned int openRoutes(RONet &net);
+    unsigned int openRoutes(RONet& net);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
     virtual void processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                       RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
+                                       RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
     virtual void processAllRoutes(SUMOTime start, SUMOTime end,
-                                  RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
+                                  RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
-    bool makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
+    bool makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
 protected:
     /** @brief Opens route handler of the given type
@@ -118,7 +118,7 @@ protected:
      * @param[in] net The net to assign to the built handlers
      * @return Whether the wished handler(s) could be built
      */
-    bool openTypedRoutes(const std::string &optionName, RONet &net) throw();
+    bool openTypedRoutes(const std::string& optionName, RONet& net) throw();
 
 
     /** @brief Returns the first time step known by the built handlers
@@ -142,7 +142,7 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeWeight(RONet &net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeWeight(RONet& net) throw() : myNet(net) {}
 
         /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeWeight() throw() { }
@@ -155,12 +155,12 @@ protected:
          * @param[in] end The end of the interval the weight is valid for
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
-        void addEdgeWeight(const std::string &id,
+        void addEdgeWeight(const std::string& id,
                            SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
 
     private:
         /// @brief The network edges shall be obtained from
-        RONet &myNet;
+        RONet& myNet;
 
     };
 
@@ -173,7 +173,7 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet &net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet& net) throw() : myNet(net) {}
 
         /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() {}
@@ -186,20 +186,20 @@ protected:
          * @param[in] end The end of the interval the weight is valid for
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
-        void addEdgeWeight(const std::string &id,
+        void addEdgeWeight(const std::string& id,
                            SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
 
     private:
         /// @brief The network edges shall be obtained from
-        RONet &myNet;
+        RONet& myNet;
 
     };
 
 
 
 protected:
-    ROAbstractRouteDefLoader* buildNamedHandler(const std::string &optionName,
-            const std::string &file, RONet &net) throw(ProcessError);
+    ROAbstractRouteDefLoader* buildNamedHandler(const std::string& optionName,
+            const std::string& file, RONet& net) throw(ProcessError);
 
 
     void writeStats(SUMOTime time, SUMOTime start, int absNo) throw();
@@ -211,7 +211,7 @@ protected:
 
 protected:
     /// @brief Options to use
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
     /// @brief Definition of route loader list
     typedef std::vector<ROAbstractRouteDefLoader*> RouteLoaderCont;
@@ -225,10 +225,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    ROLoader(const ROLoader &src);
+    ROLoader(const ROLoader& src);
 
     /// @brief Invalidated assignment operator
-    ROLoader &operator=(const ROLoader &src);
+    ROLoader& operator=(const ROLoader& src);
 
 };
 

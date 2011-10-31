@@ -63,18 +63,18 @@ int NIVissimConnection::myMaxID;
 // method definitions
 // ===========================================================================
 NIVissimConnection::NIVissimConnection(int id,
-                                       const std::string &name, const NIVissimExtendedEdgePoint &from_def,
-                                       const NIVissimExtendedEdgePoint &to_def,
-                                       const PositionVector &geom, Direction direction,
+                                       const std::string& name, const NIVissimExtendedEdgePoint& from_def,
+                                       const NIVissimExtendedEdgePoint& to_def,
+                                       const PositionVector& geom, Direction direction,
                                        SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal /*seglength*/,
-                                       const IntVector &assignedVehicles, const NIVissimClosedLanesVector &clv)
-        : NIVissimAbstractEdge(id, geom),
-        myName(name), myFromDef(from_def), myToDef(to_def),
-        myDirection(direction),
-        myDXNothalt(dxnothalt), myDXEinordnen(dxeinordnen),
-        myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-        myAssignedVehicles(assignedVehicles), myClosedLanes(clv) {}
+                                       const IntVector& assignedVehicles, const NIVissimClosedLanesVector& clv)
+    : NIVissimAbstractEdge(id, geom),
+      myName(name), myFromDef(from_def), myToDef(to_def),
+      myDirection(direction),
+      myDXNothalt(dxnothalt), myDXEinordnen(dxeinordnen),
+      myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
+      myAssignedVehicles(assignedVehicles), myClosedLanes(clv) {}
 
 
 NIVissimConnection::~NIVissimConnection() {
@@ -86,17 +86,17 @@ NIVissimConnection::~NIVissimConnection() {
 
 
 bool
-NIVissimConnection::dictionary(int id, const std::string &name,
-                               const NIVissimExtendedEdgePoint &from_def,
-                               const NIVissimExtendedEdgePoint &to_def,
-                               const PositionVector &geom,
+NIVissimConnection::dictionary(int id, const std::string& name,
+                               const NIVissimExtendedEdgePoint& from_def,
+                               const NIVissimExtendedEdgePoint& to_def,
+                               const PositionVector& geom,
                                Direction direction,
                                SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                SUMOReal zuschlag1, SUMOReal zuschlag2,
                                SUMOReal seglength,
-                               const IntVector &assignedVehicles,
-                               const NIVissimClosedLanesVector &clv) {
-    NIVissimConnection *o = new NIVissimConnection(id, name, from_def, to_def,
+                               const IntVector& assignedVehicles,
+                               const NIVissimClosedLanesVector& clv) {
+    NIVissimConnection* o = new NIVissimConnection(id, name, from_def, to_def,
             geom, direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2,
             seglength, assignedVehicles, clv);
     if (!dictionary(id, o)) {
@@ -112,7 +112,7 @@ NIVissimConnection::dictionary(int id, const std::string &name,
 
 
 bool
-NIVissimConnection::dictionary(int id, NIVissimConnection *o) {
+NIVissimConnection::dictionary(int id, NIVissimConnection* o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -123,7 +123,7 @@ NIVissimConnection::dictionary(int id, NIVissimConnection *o) {
 
 
 
-NIVissimConnection *
+NIVissimConnection*
 NIVissimConnection::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
@@ -136,7 +136,7 @@ NIVissimConnection::dictionary(int id) {
 void
 NIVissimConnection::buildNodeClusters() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimConnection *e = (*i).second;
+        NIVissimConnection* e = (*i).second;
         if (!e->clustered()) {
             assert(e->myBoundary!=0&&e->myBoundary->xmax()>e->myBoundary->xmin());
             IntVector connections =
@@ -152,7 +152,7 @@ NIVissimConnection::buildNodeClusters() {
 
 
 IntVector
-NIVissimConnection::getWithin(const AbstractPoly &poly) {
+NIVissimConnection::getWithin(const AbstractPoly& poly) {
     IntVector ret;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         if ((*i).second->crosses(poly)) {
@@ -165,7 +165,7 @@ NIVissimConnection::getWithin(const AbstractPoly &poly) {
 
 void
 NIVissimConnection::computeBounding() {
-    Boundary *bound = new Boundary();
+    Boundary* bound = new Boundary();
     bound->add(myFromDef.getGeomPosition());
     bound->add(myToDef.getGeomPosition());
     assert(myBoundary==0);
@@ -245,12 +245,12 @@ NIVissimConnection::buildGeom() {
 
 
 unsigned int
-NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
+NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
     unsigned int unsetConnections = 0;
     // try to determine the connected edges
-    NBEdge *fromEdge = 0;
-    NBEdge *toEdge = 0;
-    NIVissimEdge *vissimFrom = NIVissimEdge::dictionary(getFromEdgeID());
+    NBEdge* fromEdge = 0;
+    NBEdge* toEdge = 0;
+    NIVissimEdge* vissimFrom = NIVissimEdge::dictionary(getFromEdgeID());
     if (vissimFrom->wasWithinAJunction()) {
         // this edge was not built, try to get one that approaches it
         vissimFrom = vissimFrom->getBestIncoming();
@@ -261,7 +261,7 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
         // this edge was built, try to get the proper part
         fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
     }
-    NIVissimEdge *vissimTo = NIVissimEdge::dictionary(getToEdgeID());
+    NIVissimEdge* vissimTo = NIVissimEdge::dictionary(getToEdgeID());
     if (vissimTo->wasWithinAJunction()) {
         vissimTo = vissimTo->getBestOutgoing();
         if (vissimTo!=0) {
@@ -281,8 +281,8 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
         return 1; // !!! actually not 1
     }
     recheckLanes(fromEdge, toEdge);
-    const IntVector &fromLanes = getFromLanes();
-    const IntVector &toLanes = getToLanes();
+    const IntVector& fromLanes = getFromLanes();
+    const IntVector& toLanes = getToLanes();
     if (fromLanes.size()!=toLanes.size()) {
         WRITE_WARNING("Lane sizes differ for connection '" + toString(getID()) + "'.");
     } else {
@@ -301,7 +301,7 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
 
 
 void
-NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec) {
+NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont& ec) {
     unsigned int unsetConnections = 0;
     // go through connections
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -313,26 +313,26 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec) {
 }
 
 
-const IntVector &
+const IntVector&
 NIVissimConnection::getFromLanes() const {
     return myFromDef.getLanes();
 }
 
 
-const IntVector &
+const IntVector&
 NIVissimConnection::getToLanes() const {
     return myToDef.getLanes();
 }
 
 
 void
-NIVissimConnection::recheckLanes(const NBEdge * const fromEdge, const NBEdge * const toEdge) throw() {
+NIVissimConnection::recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) throw() {
     myFromDef.recheckLanes(fromEdge);
     myToDef.recheckLanes(toEdge);
 }
 
 
-const Boundary &
+const Boundary&
 NIVissimConnection::getBoundingBox() const {
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return *myBoundary;
@@ -342,7 +342,7 @@ NIVissimConnection::getBoundingBox() const {
 void
 NIVissimConnection::dict_assignToEdges() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimConnection *c = (*i).second;
+        NIVissimConnection* c = (*i).second;
         NIVissimEdge::dictionary(c->getFromEdgeID())->addOutgoingConnection((*i).first);
         NIVissimEdge::dictionary(c->getToEdgeID())->addIncomingConnection((*i).first);
     }

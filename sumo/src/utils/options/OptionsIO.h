@@ -69,7 +69,7 @@ public:
      * @param[in] argc arguments given at the command line
      */
     static void getOptions(bool loadConfig,
-                           int argv, char **argc) throw(ProcessError);
+                           int argv, char** argc) throw(ProcessError);
 
 
     /** @brief Loads and parses the configuration

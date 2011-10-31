@@ -71,8 +71,8 @@ public:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                          PCTypeMap &tm) throw(ProcessError);
+    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                          PCTypeMap& tm) throw(ProcessError);
 
 
 protected:
@@ -86,8 +86,8 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded pois
      * @exception ProcessError if something fails
      */
-    static void loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                             PCTypeMap &tm) throw(ProcessError);
+    static void loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
+                             PCTypeMap& tm) throw(ProcessError);
 
 
     /** @brief Loads polygons assumed to be stored as according DLR-Navteq (Elmar)-files
@@ -100,8 +100,8 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys
      * @exception ProcessError if something fails
      */
-    static void loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                              PCTypeMap &tm) throw(ProcessError);
+    static void loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
+                              PCTypeMap& tm) throw(ProcessError);
 
 
     /** @brief Loads DLR-Navteq (Elmar)-pois from the given file
@@ -111,9 +111,9 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys
      * @exception ProcessError if something fails
      */
-    static void loadPOIFile(const std::string &file,
-                            OptionsCont &oc, PCPolyContainer &toFill,
-                            PCTypeMap &tm) throw(ProcessError);
+    static void loadPOIFile(const std::string& file,
+                            OptionsCont& oc, PCPolyContainer& toFill,
+                            PCTypeMap& tm) throw(ProcessError);
 
 
     /** @brief Loads DLR-Navteq (Elmar)-polygons from the given file
@@ -123,9 +123,9 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys
      * @exception ProcessError if something fails
      */
-    static void loadPolyFile(const std::string &file,
-                             OptionsCont &oc, PCPolyContainer &toFill,
-                             PCTypeMap &tm) throw(ProcessError);
+    static void loadPolyFile(const std::string& file,
+                             OptionsCont& oc, PCPolyContainer& toFill,
+                             PCTypeMap& tm) throw(ProcessError);
 
 
 };

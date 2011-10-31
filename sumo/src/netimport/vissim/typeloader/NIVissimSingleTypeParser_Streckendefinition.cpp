@@ -45,15 +45,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Streckendefinition::~NIVissimSingleTypeParser_Streckendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
     // read in the id
     int id;
     from >> id;
@@ -99,7 +99,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
         try {
             TplConvert<char>::_2SUMOReal(tag.c_str());
             tag = myRead(from);
-        } catch (NumberFormatException &) {}
+        } catch (NumberFormatException&) {}
     }
     geom.push_back_noDoublePos(getPosition(from));
     // Read definitions of closed lanes
@@ -125,13 +125,13 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
                 tag = readEndSecure(from);
             }
             // build and add the definition
-            NIVissimClosedLaneDef *cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
+            NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
             clv.push_back(cld);
         } else {
             tag = readEndSecure(from);
         }
     }
-    NIVissimEdge *e = new NIVissimEdge(id, name, type, noLanes,
+    NIVissimEdge* e = new NIVissimEdge(id, name, type, noLanes,
                                        zuschlag1, zuschlag2, length, geom, clv);
     if (!NIVissimEdge::dictionary(id, e)) {
         return false;

@@ -51,37 +51,38 @@
 // static members
 // ===========================================================================
 const char NBTrafficLightLogic::allowedStatesInitializer[] = {LINKSTATE_TL_GREEN_MAJOR,
-    LINKSTATE_TL_GREEN_MINOR,
-    LINKSTATE_TL_RED,
-    LINKSTATE_TL_YELLOW_MAJOR,
-    LINKSTATE_TL_YELLOW_MINOR,
-    LINKSTATE_TL_OFF_BLINKING,
-    LINKSTATE_TL_OFF_NOSIGNAL};
+        LINKSTATE_TL_GREEN_MINOR,
+        LINKSTATE_TL_RED,
+        LINKSTATE_TL_YELLOW_MAJOR,
+        LINKSTATE_TL_YELLOW_MINOR,
+        LINKSTATE_TL_OFF_BLINKING,
+        LINKSTATE_TL_OFF_NOSIGNAL
+                                                             };
 
 const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer);
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
-        const std::string &subid, unsigned int noLinks) throw() :
-        Named(id), myNumLinks(noLinks), mySubID(subid),
-        myOffset(0) {}
+NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
+        const std::string& subid, unsigned int noLinks) throw() :
+    Named(id), myNumLinks(noLinks), mySubID(subid),
+    myOffset(0) {}
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
-        Named(logic->getID()),
-        myNumLinks(logic->myNumLinks),
-        mySubID(logic->getProgramID()),
-        myOffset(logic->getOffset()),
-        myPhases(logic->myPhases.begin(), logic->myPhases.end()) {}
+    Named(logic->getID()),
+    myNumLinks(logic->myNumLinks),
+    mySubID(logic->getProgramID()),
+    myOffset(logic->getOffset()),
+    myPhases(logic->myPhases.begin(), logic->myPhases.end()) {}
 
 
 NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int index) {
-    // check state size 
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int index) {
+    // check state size
     if (myNumLinks == 0) {
         // initialize
         myNumLinks = (unsigned int)state.size();
@@ -103,17 +104,17 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state, int in
 }
 
 
-void 
+void
 NBTrafficLightLogic::deletePhase(unsigned int index) {
     if (index >= myPhases.size()) {
-        throw InvalidArgument("Index " + toString(index) + " out of range for logic with " 
-                + toString(myPhases.size()) + " phases.");
+        throw InvalidArgument("Index " + toString(index) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
     }
     myPhases.erase(myPhases.begin() + index);
 }
 
 
-void 
+void
 NBTrafficLightLogic::resetPhases() {
     myNumLinks = 0;
     myPhases.clear();
@@ -143,16 +144,16 @@ NBTrafficLightLogic::closeBuilding() throw() {
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseState(unsigned int phaseIndex, int tlIndex, LinkState linkState) {
     assert(phaseIndex < myPhases.size());
-    std::string &phaseState = myPhases[phaseIndex].state;
+    std::string& phaseState = myPhases[phaseIndex].state;
     assert(tlIndex < phaseState.size());
     phaseState[tlIndex] = (char)linkState;
 }
 
 
-void 
+void
 NBTrafficLightLogic::setPhaseDuration(unsigned int phaseIndex, SUMOTime duration) {
     assert(phaseIndex < myPhases.size());
     myPhases[phaseIndex].duration = duration;

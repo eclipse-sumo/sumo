@@ -41,15 +41,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Messungsdefinition::NIVissimSingleTypeParser_Messungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Messungsdefinition::NIVissimSingleTypeParser_Messungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Messungsdefinition::~NIVissimSingleTypeParser_Messungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Messungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Messungsdefinition::parse(std::istream& from) {
     return skipOverreading(from, "strecke");
 }
 

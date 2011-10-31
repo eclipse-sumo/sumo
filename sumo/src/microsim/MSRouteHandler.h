@@ -57,7 +57,7 @@ class MSVehicleType;
 class MSRouteHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    MSRouteHandler(const std::string &file,
+    MSRouteHandler(const std::string& file,
                    bool addVehiclesDirectly);
 
     /// standard destructor
@@ -67,7 +67,7 @@ public:
     SUMOTime getLastDepart() const;
 
     /// check start and end position of a stop
-    bool checkStopPos(SUMOReal &startPos, SUMOReal &endPos, const SUMOReal laneLength,
+    bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
                       const SUMOReal minLength, const bool friendlyPos);
 
 protected:
@@ -82,7 +82,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -96,13 +96,13 @@ protected:
 
 
     /** opens a type distribution for reading */
-    void openVehicleTypeDistribution(const SUMOSAXAttributes &attrs);
+    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
 
     /** closes (ends) the building of a distribution */
     void closeVehicleTypeDistribution();
 
     /** opens a route for reading */
-    void openRoute(const SUMOSAXAttributes &attrs);
+    void openRoute(const SUMOSAXAttributes& attrs);
 
     /** closes (ends) the building of a route.
         Afterwards no edges may be added to it;
@@ -112,7 +112,7 @@ protected:
     void closeRoute() throw(ProcessError);
 
     /** opens a route distribution for reading */
-    void openRouteDistribution(const SUMOSAXAttributes &attrs);
+    void openRouteDistribution(const SUMOSAXAttributes& attrs);
 
     /** closes (ends) the building of a distribution */
     void closeRouteDistribution();
@@ -127,10 +127,10 @@ protected:
     void closeFlow() throw(ProcessError);
 
     /// Processing of a stop
-    void addStop(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void addStop(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 protected:
-    SUMOVehicleParameter *myVehicleParameter;
+    SUMOVehicleParameter* myVehicleParameter;
 
     /// @brief The insertion time of the vehicle read last
     SUMOTime myLastDepart;
@@ -154,7 +154,7 @@ protected:
     std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
 
     /// @brief The plan of the current person
-    MSPerson::MSPersonPlan *myActivePlan;
+    MSPerson::MSPersonPlan* myActivePlan;
 
     /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
     bool myAddVehiclesDirectly;
@@ -175,7 +175,7 @@ protected:
     SUMOReal myScale;
 
     /// @brief The currently parsed vehicle type
-    SUMOVTypeParameter *myCurrentVType;
+    SUMOVTypeParameter* myCurrentVType;
 
     bool myHaveWarnedAboutDeprecatedFriendlyPos, myHaveWarnedAboutDeprecatedBusStop;
     bool myHaveWarnedAboutDeprecatedVType, myHaveWarnedAboutDeprecatedVTypeDistribution;
@@ -186,10 +186,10 @@ private:
     bool checkLastDepart();
 
     /// @brief Invalidated copy constructor
-    MSRouteHandler(const MSRouteHandler &s);
+    MSRouteHandler(const MSRouteHandler& s);
 
     /// @brief Invalidated assignment operator
-    MSRouteHandler &operator=(const MSRouteHandler &s);
+    MSRouteHandler& operator=(const MSRouteHandler& s);
 
 };
 

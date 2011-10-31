@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Gefahrwarnungsdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Gefahrwarnungsdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Gefahrwarnungsdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Gefahrwarnungsdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

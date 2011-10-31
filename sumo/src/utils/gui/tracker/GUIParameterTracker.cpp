@@ -56,7 +56,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
+FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]= {
     FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
     FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
     FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
@@ -72,13 +72,13 @@ FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
-        const std::string &name) throw()
-        : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
-        myApplication(&app) {
+GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
+        const std::string& name) throw()
+    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
+      myApplication(&app) {
     buildToolBar();
     app.addChild(this, true);
-    FXVerticalFrame *glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0,0,0,0,0);
+    FXVerticalFrame* glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle(name.c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TRACKER));
@@ -130,8 +130,8 @@ GUIParameterTracker::buildToolBar() throw() {
 
 
 void
-GUIParameterTracker::addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
-                                TrackerValueDesc *newTracked) throw() {
+GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
+                                TrackerValueDesc* newTracked) throw() {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o, src, newTracked));
@@ -139,14 +139,14 @@ GUIParameterTracker::addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
 
 
 long
-GUIParameterTracker::onConfigure(FXObject *sender, FXSelector sel, void *data) {
+GUIParameterTracker::onConfigure(FXObject* sender, FXSelector sel, void* data) {
     myPanel->onConfigure(sender, sel, data);
     return FXMainWindow::onConfigure(sender, sel, data);
 }
 
 
 long
-GUIParameterTracker::onPaint(FXObject *sender, FXSelector sel, void *data) {
+GUIParameterTracker::onPaint(FXObject* sender, FXSelector sel, void* data) {
     myPanel->onPaint(sender, sel, data);
     return FXMainWindow::onPaint(sender, sel, data);
 }
@@ -200,7 +200,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
         return 1;
     }
     try {
-        OutputDevice &dev = OutputDevice::getDevice(file.text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text());
         // write header
         std::vector<TrackerValueDesc*>::iterator i;
         dev << "# ";
@@ -208,14 +208,14 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
             if (i!=myTracked.begin()) {
                 dev << ';';
             }
-            TrackerValueDesc *tvd = *i;
+            TrackerValueDesc* tvd = *i;
             dev << tvd->getName();
         }
         dev << '\n';
         // count entries
         size_t max = 0;
         for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
-            TrackerValueDesc *tvd = *i;
+            TrackerValueDesc* tvd = *i;
             size_t sizei = tvd->getAggregatedValues().size();
             if (max<sizei) {
                 max = sizei;
@@ -228,14 +228,14 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
                 if (i!=myTracked.begin()) {
                     dev << ';';
                 }
-                TrackerValueDesc *tvd = *i;
+                TrackerValueDesc* tvd = *i;
                 dev << tvd->getAggregatedValues()[j];
                 tvd->unlockValues();
             }
             dev << '\n';
         }
         dev.close();
-    } catch (IOError &e) {
+    } catch (IOError& e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
     return 1;
@@ -245,7 +245,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
 /* -------------------------------------------------------------------------
  * GUIParameterTracker::GUIParameterTrackerPanel-methods
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[]={
+FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[]= {
     FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
     FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
 
@@ -257,10 +257,10 @@ FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel,FXGLCanvas,GUIParamete
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
-    FXComposite *c, GUIMainWindow &app,
-    GUIParameterTracker &parent) throw()
-        : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
-        myParent(&parent), myApplication(&app) {}
+    FXComposite* c, GUIMainWindow& app,
+    GUIParameterTracker& parent) throw()
+    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
+      myParent(&parent), myApplication(&app) {}
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() throw() {}
@@ -278,7 +278,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() throw() {
     glDisable(GL_TEXTURE_2D);
     size_t run = 0;
     for (std::vector<TrackerValueDesc*>::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
-        TrackerValueDesc *desc = *i;
+        TrackerValueDesc* desc = *i;
         drawValue(*desc,
                   (SUMOReal) myWidthInPixels / (SUMOReal) myParent->myTracked.size() *(SUMOReal) run);
         run++;
@@ -287,7 +287,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() throw() {
 
 
 void
-GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
+GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         SUMOReal /*namePos*/) throw() {
     // apply scaling
     glPushMatrix();
@@ -300,7 +300,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glTranslated(-1.0, -desc.getYCenter(), 0);
 
     // set color
-    const RGBColor &col = desc.getColor();
+    const RGBColor& col = desc.getColor();
     SUMOReal red = (SUMOReal) col.red();
     SUMOReal green = (SUMOReal) col.green();
     SUMOReal blue = (SUMOReal) col.blue();

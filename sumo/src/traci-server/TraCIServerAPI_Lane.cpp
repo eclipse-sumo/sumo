@@ -46,8 +46,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) {
+TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                tcpip::Storage& outputStorage) {
     std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -81,7 +81,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSLane *lane = MSLane::dictionary(id);
+        MSLane* lane = MSLane::dictionary(id);
         if (lane==0) {
             server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
             return false;
@@ -108,11 +108,11 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             tcpip::Storage tempContent;
             unsigned int cnt = 0;
             tempContent.writeUnsignedByte(TYPE_INTEGER);
-            const MSLinkCont &links = lane->getLinkCont();
+            const MSLinkCont& links = lane->getLinkCont();
             tempContent.writeInt((int) links.size());
             ++cnt;
             for (MSLinkCont::const_iterator i=links.begin(); i!=links.end(); ++i) {
-                MSLink *link = (*i);
+                MSLink* link = (*i);
                 // approached non-internal lane (if any)
                 tempContent.writeUnsignedByte(TYPE_STRING);
                 tempContent.writeString(link->getLane()!=0 ? link->getLane()->getID() : "");
@@ -155,7 +155,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         }
         break;
         case LANE_ALLOWED: {
-            const SUMOVehicleClasses &allowed = lane->getAllowedClasses();
+            const SUMOVehicleClasses& allowed = lane->getAllowedClasses();
             std::vector<std::string> allowedS;
             for (SUMOVehicleClasses::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
                 allowedS.push_back(toString(*i));
@@ -164,7 +164,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
             tempMsg.writeStringList(allowedS);
         }
         case LANE_DISALLOWED: {
-            const SUMOVehicleClasses &disallowed = lane->getNotAllowedClasses();
+            const SUMOVehicleClasses& disallowed = lane->getNotAllowedClasses();
             std::vector<std::string> disallowedS;
             for (SUMOVehicleClasses::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
                 disallowedS.push_back(toString(*i));
@@ -285,8 +285,8 @@ TraCIServerAPI_Lane::processGet(TraCIServer &server, tcpip::Storage &inputStorag
 
 
 bool
-TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) {
+TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -296,7 +296,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     }
     // id
     std::string id = inputStorage.readString();
-    MSLane *l = MSLane::dictionary(id);
+    MSLane* l = MSLane::dictionary(id);
     if (l==0) {
         server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
         return false;

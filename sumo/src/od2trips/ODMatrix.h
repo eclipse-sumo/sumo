@@ -73,7 +73,7 @@ public:
      *
      * @param[in] dc The district container to obtain referenced distrivts from
      */
-    ODMatrix(const ODDistrictCont &dc) throw();
+    ODMatrix(const ODDistrictCont& dc) throw();
 
 
     /// Destructor
@@ -102,8 +102,8 @@ public:
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      */
     void add(SUMOReal vehicleNumber, SUMOTime begin,
-             SUMOTime end, const std::string &origin, const std::string &destination,
-             const std::string &vehicleType) throw();
+             SUMOTime end, const std::string& origin, const std::string& destination,
+             const std::string& vehicleType) throw();
 
 
     /** @brief Writes the vehicles stored in the matrix assigning the sources and sinks
@@ -130,8 +130,8 @@ public:
      * @param[in] prefix A prefix for the vehicle names
      */
     void write(SUMOTime begin, SUMOTime end,
-               OutputDevice &dev, bool uniform, bool noVtype,
-               const std::string &prefix) throw();
+               OutputDevice& dev, bool uniform, bool noVtype,
+               const std::string& prefix) throw();
 
 
     /** @brief Returns the number of loaded vehicles
@@ -164,7 +164,7 @@ public:
     /** @brief Splits the stored cells dividing them on the given time line
      * @todo Describe
      */
-    void applyCurve(const Distribution_Points &ps) throw();
+    void applyCurve(const Distribution_Points& ps) throw();
 
 
 protected:
@@ -215,9 +215,9 @@ protected:
      * @param[in] prefix A prefix for the vehicle names
      * @return The number of left vehicles to insert
      */
-    SUMOReal computeDeparts(ODCell *cell,
-                            size_t &vehName, std::vector<ODVehicle> &into, bool uniform,
-                            const std::string &prefix) throw();
+    SUMOReal computeDeparts(ODCell* cell,
+                            size_t& vehName, std::vector<ODVehicle> &into, bool uniform,
+                            const std::string& prefix) throw();
 
 
     /** @brief Splits the given cell dividing it on the given time line and
@@ -235,8 +235,8 @@ protected:
      * @param[out] newCells The storage to put generated cells into
      * @todo describe better!!!
      */
-    void applyCurve(const Distribution_Points &ps, ODCell *cell,
-                    CellVector &newCells) throw();
+    void applyCurve(const Distribution_Points& ps, ODCell* cell,
+                    CellVector& newCells) throw();
 
 
 protected:
@@ -244,7 +244,7 @@ protected:
     CellVector myContainer;
 
     /// @brief The districts to retrieve sources/sinks from
-    const ODDistrictCont &myDistricts;
+    const ODDistrictCont& myDistricts;
 
     /// @brief Number of loaded vehicles
     SUMOReal myNoLoaded;
@@ -276,7 +276,7 @@ protected:
          * @param[in] p2 Second cell to compare
          * @return Whether the begin time of the first cell is lower than the one of the second
          */
-        int operator()(ODCell *p1, ODCell *p2) const {
+        int operator()(ODCell* p1, ODCell* p2) const {
             if (p1->begin == p2->begin) {
                 if (p1->origin == p2->origin) {
                     return p1->destination < p2->destination;
@@ -310,7 +310,7 @@ protected:
          * @param[in] p2 Second vehicle to compare
          * @return Whether the departure time of the first vehicle is larger than the one of the second
          */
-        bool operator()(const ODVehicle &p1, const ODVehicle &p2) const {
+        bool operator()(const ODVehicle& p1, const ODVehicle& p2) const {
             if (p1.depart==p2.depart) {
                 return p1.id>p2.id;
             }
@@ -321,10 +321,10 @@ protected:
 
 private:
     /** @brief invalid copy constructor */
-    ODMatrix(const ODMatrix &s);
+    ODMatrix(const ODMatrix& s);
 
     /** @brief invalid assignment operator */
-    ODMatrix &operator=(const ODMatrix &s);
+    ODMatrix& operator=(const ODMatrix& s);
 
 };
 

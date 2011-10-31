@@ -61,8 +61,8 @@ public:
      * @param[in] begin The begin simulation time
      * @param[in] device The output device to write the detector values into
      */
-    Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-                             MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device);
+    Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants& tlls,
+                             MSDetectorFileOutput* dtf, unsigned int begin, OutputDevice& device);
 
 
     /// @brief Destructor
@@ -85,10 +85,10 @@ protected:
     OutputDevice& myDevice;
 
     /// @brief The logic to use
-    const MSTLLogicControl::TLSLogicVariants &myLogics;
+    const MSTLLogicControl::TLSLogicVariants& myLogics;
 
     /// @brief The detector to use
-    MSDetectorFileOutput *myDetector;
+    MSDetectorFileOutput* myDetector;
 
     /// @brief The last time the values were written
     SUMOTime myStartTime;

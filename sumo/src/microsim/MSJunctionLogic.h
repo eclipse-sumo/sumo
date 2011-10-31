@@ -49,7 +49,7 @@ public:
     unsigned int nLinks();
 
     /// Returns the foes of the given link
-    virtual const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
+    virtual const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const throw() {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }

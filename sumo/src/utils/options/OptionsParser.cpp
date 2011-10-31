@@ -44,7 +44,7 @@
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char **argv) {
+OptionsParser::parse(int argc, char** argv) {
     bool ok = true;
     for (int i=1; i<argc;) {
         try {
@@ -56,7 +56,7 @@ OptionsParser::parse(int argc, char **argv) {
                 add = check(argv[i], 0, ok);
             }
             i += add;
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             WRITE_ERROR("On processing option '" + std::string(argv[i]) + "':\n " + e.what());
             i++;
             ok = false;
@@ -67,7 +67,7 @@ OptionsParser::parse(int argc, char **argv) {
 
 
 int
-OptionsParser::check(char *arg1, char *arg2, bool &ok) {
+OptionsParser::check(char* arg1, char* arg2, bool& ok) {
     // the first argument should be an option
     // (only the second may be a free string)
     if (!checkParameter(arg1)) {
@@ -75,7 +75,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) {
         return 1;
     }
 
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
         std::string tmp(arg1+2);
@@ -119,7 +119,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) {
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) {
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, char* arg) {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
@@ -139,7 +139,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) {
 
 
 bool
-OptionsParser::checkParameter(char *arg1) {
+OptionsParser::checkParameter(char* arg1) {
     if (arg1[0]!='-') {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
@@ -149,13 +149,13 @@ OptionsParser::checkParameter(char *arg1) {
 
 
 bool
-OptionsParser::isAbbreviation(char *arg1) {
+OptionsParser::isAbbreviation(char* arg1) {
     return arg1[1]!='-';
 }
 
 
 std::string
-OptionsParser::convert(char *arg) {
+OptionsParser::convert(char* arg) {
     std::string s(arg);
     return s;
 }

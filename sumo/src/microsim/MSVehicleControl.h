@@ -97,7 +97,7 @@ public:
      * @param[in] repOffset The repetition offset
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual SUMOVehicle *buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
+    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
                                       const MSVehicleType* type) throw(ProcessError);
     /// @}
 
@@ -118,7 +118,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    virtual bool addVehicle(const std::string &id, SUMOVehicle *v) throw();
+    virtual bool addVehicle(const std::string& id, SUMOVehicle* v) throw();
 
 
     /** @brief Returns the vehicle with the given id
@@ -129,7 +129,7 @@ public:
      * @param[in] id The id of the vehicle to retrieve
      * @return The vehicle with the given id, 0 if no such vehicle exists
      */
-    SUMOVehicle *getVehicle(const std::string &id) const throw();
+    SUMOVehicle* getVehicle(const std::string& id) const throw();
 
 
     /** @brief Deletes the vehicle
@@ -137,7 +137,7 @@ public:
      * @param[in] v The vehicle to delete
      * @todo Isn't this quite insecure?
      */
-    virtual void deleteVehicle(SUMOVehicle *v) throw();
+    virtual void deleteVehicle(SUMOVehicle* v) throw();
 
 
     /** @brief Removes a vehicle after it has ended
@@ -151,7 +151,7 @@ public:
      *
      * @param[in] veh The vehicle to remove
      */
-    void scheduleVehicleRemoval(SUMOVehicle *veh) throw();
+    void scheduleVehicleRemoval(SUMOVehicle* veh) throw();
 
 
     /** @brief Returns the begin of the internal vehicle map
@@ -180,7 +180,7 @@ public:
      *  vehicle.
      * @param[in] v The inserted vehicle
      */
-    void vehicleDeparted(const SUMOVehicle &v) throw();
+    void vehicleDeparted(const SUMOVehicle& v) throw();
     /// @}
 
 
@@ -292,7 +292,7 @@ public:
      * @param[in] vehTypeDistribution The vehicle type distribution to add
      * @return Whether the vehicle type could be added
      */
-    bool addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw();
+    bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw();
 
 
     /** @brief Asks for a vehicle type distribution
@@ -302,14 +302,14 @@ public:
      * @param[in] id The id of the distribution
      * @return Whether the vehicle type distribution exists
      */
-    bool hasVTypeDistribution(const std::string &id) const throw();
+    bool hasVTypeDistribution(const std::string& id) const throw();
 
 
     /** @brief Returns the named vehicle type or a sample from the named distribution
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or 0 if no such type exists
      */
-    MSVehicleType *getVType(const std::string &id=DEFAULT_VTYPE_ID) throw();
+    MSVehicleType* getVType(const std::string& id=DEFAULT_VTYPE_ID) throw();
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
@@ -318,11 +318,11 @@ public:
     void insertVTypeIDs(std::vector<std::string> &into) const throw();
     /// @}
 
-    void addWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) throw();
+    void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) throw();
 
-    void removeWaiting(const MSEdge* const edge, SUMOVehicle *vehicle) throw();
+    void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) throw();
 
-    SUMOVehicle *getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw();
+    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) throw();
 
     /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
      */
@@ -342,12 +342,12 @@ public:
     /** @brief Loads the state of this control from the given stream
      * @todo Does not work for microsim
      */
-    virtual void saveState(std::ostream &os) throw();
+    virtual void saveState(std::ostream& os) throw();
 
     /** @brief Saves the current state into the given stream
      * @todo Does not work for microsim
      */
-    virtual void loadState(BinaryInputDevice &bis, const SUMOTime offset) throw();
+    virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset) throw();
     /// @}
     //
 
@@ -363,7 +363,7 @@ private:
      * @param[in] id The id of the vehicle type (distribution) to add
      * @return Whether the type (distribution) may be added
      */
-    bool checkVType(const std::string &id) throw();
+    bool checkVType(const std::string& id) throw();
 
 
 protected:
@@ -427,10 +427,10 @@ protected:
 
 private:
     /// @brief invalidated copy constructor
-    MSVehicleControl(const MSVehicleControl &s);
+    MSVehicleControl(const MSVehicleControl& s);
 
     /// @brief invalidated assignment operator
-    MSVehicleControl &operator=(const MSVehicleControl &s);
+    MSVehicleControl& operator=(const MSVehicleControl& s);
 
 
 };

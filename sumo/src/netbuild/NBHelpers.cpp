@@ -65,10 +65,12 @@ NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOR
 SUMOReal
 NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
     angle2 -= angle1;
-    if (angle2>180)
+    if (angle2>180) {
         angle2 = (360 - angle2) * -1;
-    while (angle2<-180)
+    }
+    while (angle2<-180) {
         angle2 = 360 + angle2;
+    }
     return angle2;
 }
 
@@ -76,14 +78,15 @@ NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
 SUMOReal
 NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal rel = relAngle(angle1, angle2);
-    if (rel<-170||rel>170)
+    if (rel<-170||rel>170) {
         rel = -180;
+    }
     return rel;
 }
 
 
 std::string
-NBHelpers::normalIDRepresentation(const std::string &id) {
+NBHelpers::normalIDRepresentation(const std::string& id) {
     std::stringstream strm1(id);
     long numid;
     strm1 >> numid;
@@ -94,7 +97,7 @@ NBHelpers::normalIDRepresentation(const std::string &id) {
 
 
 SUMOReal
-NBHelpers::distance(NBNode *node1, NBNode *node2) {
+NBHelpers::distance(NBNode* node1, NBNode* node2) {
     return node1->getPosition().distanceTo(node2->getPosition());
 }
 

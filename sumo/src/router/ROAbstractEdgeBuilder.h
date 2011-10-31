@@ -76,7 +76,7 @@ public:
      * @param[in] to The node the edge ends at
      * @return A proper instance of the named edge
      */
-    virtual ROEdge *buildEdge(const std::string &name, RONode *from, RONode *to) throw() = 0;
+    virtual ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) throw() = 0;
     /// @}
 
 
@@ -96,10 +96,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    ROAbstractEdgeBuilder(const ROAbstractEdgeBuilder &src);
+    ROAbstractEdgeBuilder(const ROAbstractEdgeBuilder& src);
 
     /// @brief Invalidated assignment operator
-    ROAbstractEdgeBuilder &operator=(const ROAbstractEdgeBuilder &src);
+    ROAbstractEdgeBuilder& operator=(const ROAbstractEdgeBuilder& src);
 
 };
 

@@ -58,7 +58,7 @@ public:
     /** @brief Constructor
      * @param[in] ec The traffic light container into which to load logics
      */
-    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont &tlCont, NBEdgeCont &ec) throw();
+    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec) throw();
 
 
     /// @brief Destructor
@@ -76,7 +76,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+    void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -92,43 +92,43 @@ protected:
 
 private:
     /// @brief The traffic light container to fill
-    NBTrafficLightLogicCont &myTLLCont;
+    NBTrafficLightLogicCont& myTLLCont;
 
     /// @brief The edge container for retrieving edges
-    NBEdgeCont &myEdgeCont;
+    NBEdgeCont& myEdgeCont;
 
     /// @brief The currently parsed traffic light
-    NBLoadedSUMOTLDef *myCurrentTL;
+    NBLoadedSUMOTLDef* myCurrentTL;
 
     /// @brief whether phases of a previously loaded traffic light must be reset
     bool myResetPhases;
-    
+
     /** begins the reading of a traffic lights logic
      * This differs from NIImporter_SUMO::initTrafficLightLogic insofar as
      * partial definitions (diffs) are allowed in an xml file
-     */ 
-    NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes &attrs, NBLoadedSUMOTLDef *currentTL);
+     */
+    NBLoadedSUMOTLDef* initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
     /// @brief reads and adds tl-controlled connection
-    void addTlConnection(const SUMOSAXAttributes &attrs);
+    void addTlConnection(const SUMOSAXAttributes& attrs);
 
     /// @brief reads and removes tl-controlled connection
-    void removeTlConnection(const SUMOSAXAttributes &attrs);
+    void removeTlConnection(const SUMOSAXAttributes& attrs);
 
     /// parses and edge id an returns an existing edge
-    NBEdge* retrieveEdge(const SUMOSAXAttributes &attrs, SumoXMLAttr attr, bool &ok);
+    NBEdge* retrieveEdge(const SUMOSAXAttributes& attrs, SumoXMLAttr attr, bool& ok);
 
     /// parses a lane index and verifies its correctness
-    int retrieveLaneIndex(const SUMOSAXAttributes &attrs, SumoXMLAttr attr, NBEdge *edge, bool &ok);
+    int retrieveLaneIndex(const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok);
 
 
 
 private:
     /// @brief invalidated copy constructor
-    NIXMLTrafficLightsHandler(const NIXMLTrafficLightsHandler &s);
+    NIXMLTrafficLightsHandler(const NIXMLTrafficLightsHandler& s);
 
     /// @brief invalidated assignment operator
-    NIXMLTrafficLightsHandler &operator=(const NIXMLTrafficLightsHandler &s);
+    NIXMLTrafficLightsHandler& operator=(const NIXMLTrafficLightsHandler& s);
 
 
 };

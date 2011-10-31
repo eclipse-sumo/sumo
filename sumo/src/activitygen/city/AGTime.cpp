@@ -51,31 +51,34 @@ AGTime::getSecondsOf(SUMOReal minutes) {
 }
 
 bool
-AGTime::operator==(const AGTime &time) {
-    if (this->sec == time.sec)
+AGTime::operator==(const AGTime& time) {
+    if (this->sec == time.sec) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 bool
-AGTime::operator<(const AGTime &time) {
-    if (this->sec < time.sec)
+AGTime::operator<(const AGTime& time) {
+    if (this->sec < time.sec) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 bool
-AGTime::operator<=(const AGTime &time) {
-    if (this->sec <= time.sec)
+AGTime::operator<=(const AGTime& time) {
+    if (this->sec <= time.sec) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 void
-AGTime::operator+=(const AGTime &time) {
+AGTime::operator+=(const AGTime& time) {
     this->sec += time.sec;
 }
 
@@ -85,12 +88,12 @@ AGTime::operator+=(int seconds) {
 }
 
 void
-AGTime::operator-=(const AGTime &time) {
+AGTime::operator-=(const AGTime& time) {
     this->sec -= time.sec;
 }
 
 AGTime
-AGTime::operator+(const AGTime &time) {
+AGTime::operator+(const AGTime& time) {
     AGTime newtime(time.sec + this->sec);
     return newtime;
 }

@@ -47,10 +47,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont,
-                                     const std::string &file) throw()
-        : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0),
-        myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)  {}
+ODDistrictHandler::ODDistrictHandler(ODDistrictCont& cont,
+                                     const std::string& file) throw()
+    : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0),
+      myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false)  {}
 
 
 ODDistrictHandler::~ODDistrictHandler() throw() {}
@@ -58,7 +58,7 @@ ODDistrictHandler::~ODDistrictHandler() throw() {}
 
 void
 ODDistrictHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_DISTRICT__DEPRECATED:
         if (!myHaveWarnedAboutDeprecatedDistrict) {
@@ -99,7 +99,7 @@ ODDistrictHandler::myEndElement(int element) throw(ProcessError) {
 
 
 void
-ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
+ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) throw() {
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
     bool ok = true;
@@ -112,7 +112,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw() {
 
 
 void
-ODDistrictHandler::addSource(const SUMOSAXAttributes &attrs) throw() {
+ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) throw() {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
     if (vals.second>=0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
@@ -121,7 +121,7 @@ ODDistrictHandler::addSource(const SUMOSAXAttributes &attrs) throw() {
 
 
 void
-ODDistrictHandler::addSink(const SUMOSAXAttributes &attrs) throw() {
+ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) throw() {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
     if (vals.second>=0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
@@ -131,7 +131,7 @@ ODDistrictHandler::addSink(const SUMOSAXAttributes &attrs) throw() {
 
 
 std::pair<std::string, SUMOReal>
-ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs) throw() {
+ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) throw() {
     // check the current district first
     if (myCurrentDistrict==0) {
         return std::pair<std::string, SUMOReal>("", -1);

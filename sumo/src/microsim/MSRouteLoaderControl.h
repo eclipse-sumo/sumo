@@ -59,7 +59,7 @@ public:
 
 public:
     /// constructor
-    MSRouteLoaderControl(MSNet &net, int inAdvanceStepNo,
+    MSRouteLoaderControl(MSNet& net, int inAdvanceStepNo,
                          LoaderVector loader);
 
     /// destructor

@@ -58,12 +58,12 @@ public:
     /** @brief Constructor based on the stored options
      * @param[in] oc The OptionsCont from which to read options
      */
-    GeoConvHelper(OptionsCont &oc); 
+    GeoConvHelper(OptionsCont& oc);
 
-    /** @brief Constructor 
+    /** @brief Constructor
      */
-    GeoConvHelper(const std::string &proj, const Position &offset, 
-        const Boundary &orig, const Boundary &conv, int shift=0, bool inverse=false, bool baseFound=false); 
+    GeoConvHelper(const std::string& proj, const Position& offset,
+                  const Boundary& orig, const Boundary& conv, int shift=0, bool inverse=false, bool baseFound=false);
 
 
     /// @brief Destructor
@@ -75,16 +75,16 @@ public:
      * @param[in] oc The options container to add the options to
      * @todo let the container be retrieved
      */
-    static void addProjectionOptions(OptionsCont &oc);
+    static void addProjectionOptions(OptionsCont& oc);
 
     /// Initialises the default and the output instance using the given options
-    static bool init(OptionsCont &oc);
+    static bool init(OptionsCont& oc);
 
     /// Initialises the default and the output instance using the given proj.4-definition and complete network parameter
-    static void init(const std::string &proj,
-                     const Position &offset,
-                     const Boundary &orig,
-                     const Boundary &conv);
+    static void init(const std::string& proj,
+                     const Position& offset,
+                     const Boundary& orig,
+                     const Boundary& conv);
 
     /** @brief the coordinate transformation to use for input conversion
      * @note instance is modified during use: boundary may adapt to new coordinates
@@ -106,10 +106,10 @@ public:
     }
 
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
-    void cartesian2geo(Position &cartesian);
+    void cartesian2geo(Position& cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    bool x2cartesian(Position &from, bool includeInBoundary=true);
+    bool x2cartesian(Position& from, bool includeInBoundary=true);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
     bool usingGeoProjection() const;
@@ -121,10 +121,10 @@ public:
     void moveConvertedBy(SUMOReal x, SUMOReal y);
 
     /// Returns the original boundary
-    const Boundary &getOrigBoundary() const;
+    const Boundary& getOrigBoundary() const;
 
     /// Returns the converted boundary
-    const Boundary &getConvBoundary() const;
+    const Boundary& getConvBoundary() const;
 
     /// Returns the network offset
     const Position getOffset() const;
@@ -133,7 +133,7 @@ public:
     const Position getOffsetBase() const;
 
     /// Returns the network offset
-    const std::string &getProjString() const;
+    const std::string& getProjString() const;
 
 private:
     enum ProjectionMethod {

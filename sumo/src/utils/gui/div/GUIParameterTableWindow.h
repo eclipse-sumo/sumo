@@ -70,8 +70,8 @@ public:
      * @param[in] o The gl-object this table describes
      * @param[in] noRows Number of rows to allocate
      */
-    GUIParameterTableWindow(GUIMainWindow &app,
-                            GUIGlObject &o, size_t noRows) throw();
+    GUIParameterTableWindow(GUIMainWindow& app,
+                            GUIGlObject& o, size_t noRows) throw();
 
 
     /// @brief Destructor
@@ -93,7 +93,7 @@ public:
     /** @brief Lets this window know the object shown is being deleted
      * @param[in] o The deleted (shown) object
      */
-    void removeObject(GUIGlObject * const o) throw();
+    void removeObject(GUIGlObject* const o) throw();
 
 
 
@@ -106,7 +106,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char *name, bool dynamic, ValueSource<unsigned> *src) throw();
+    void mkItem(const char* name, bool dynamic, ValueSource<unsigned> *src) throw();
 
 
     /** @brief Adds a row which obtains its value from an SUMOReal-ValueSource
@@ -115,7 +115,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char *name, bool dynamic, ValueSource<SUMOReal> *src) throw();
+    void mkItem(const char* name, bool dynamic, ValueSource<SUMOReal> *src) throw();
 
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
@@ -125,7 +125,7 @@ public:
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char *name, bool dynamic, ValueSource<SUMOTime> *src) throw();
+    void mkItem(const char* name, bool dynamic, ValueSource<SUMOTime> *src) throw();
 #endif
 
     /** @brief Adds a row which shows a string-value
@@ -135,7 +135,7 @@ public:
      * @param[in] value The value to show
      * @todo the dynamic-parameter is obsolete(?)
      */
-    void mkItem(const char *name, bool dynamic, std::string value) throw();
+    void mkItem(const char* name, bool dynamic, std::string value) throw();
 
 
     /** @brief Adds a row which shows a unsigned-value
@@ -145,7 +145,7 @@ public:
      * @param[in] value The value to show
      * @todo the dynamic-parameter is obsolete
      */
-    void mkItem(const char *name, bool dynamic, unsigned value) throw();
+    void mkItem(const char* name, bool dynamic, unsigned value) throw();
 
 
     /** @brief Adds a row which shows a SUMOReal-value
@@ -155,7 +155,7 @@ public:
      * @param[in] value The value to show
      * @todo the dynamic-parameter is obsolete
      */
-    void mkItem(const char *name, bool dynamic, SUMOReal value) throw();
+    void mkItem(const char* name, bool dynamic, SUMOReal value) throw();
 
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
@@ -166,7 +166,7 @@ public:
      * @param[in] value The value to show
      * @todo the dynamic-parameter is obsolete
      */
-    void mkItem(const char *name, bool dynamic, SUMOTime value) throw();
+    void mkItem(const char* name, bool dynamic, SUMOTime value) throw();
 #endif
     /// @}
 
@@ -213,13 +213,13 @@ protected:
 
 private:
     /// @brief The object to get the information from
-    GUIGlObject *myObject;
+    GUIGlObject* myObject;
 
     /// @brief The table to display the information in
-    FXTable *myTable;
+    FXTable* myTable;
 
     /// @brief The main application window
-    GUIMainWindow *myApplication;
+    GUIMainWindow* myApplication;
 
     /// @brief The list of table rows
     std::vector<GUIParameterTableItemInterface*> myItems;

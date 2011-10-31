@@ -47,7 +47,7 @@
 /**
  * @class GUIColorer
  * @brief Base class for coloring. Allows changing the used colors and sets
- *  the used color in dependence to a value 
+ *  the used color in dependence to a value
  */
 class GUIColorer {
 public:
@@ -58,7 +58,7 @@ public:
     virtual ~GUIColorer() { }
 
     /// @brief Fills the given combobox with the names of available colorings
-    void fill(FXComboBox &cb) {
+    void fill(FXComboBox& cb) {
         for (std::vector<GUIColorScheme>::iterator i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
             cb.appendItem((*i).getName().c_str());
         }
@@ -92,13 +92,13 @@ public:
         return 0;
     }
 
-    void save(OutputDevice &dev) const {
+    void save(OutputDevice& dev) const {
         for (std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin(); i!=mySchemes.end(); ++i) {
             i->save(dev);
         }
     }
 
-    bool operator==(const GUIColorer &c) const {
+    bool operator==(const GUIColorer& c) const {
         return myActiveScheme == c.myActiveScheme && mySchemes == c.mySchemes;
     }
 

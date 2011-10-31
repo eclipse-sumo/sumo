@@ -48,8 +48,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                    tcpip::Storage &outputStorage) {
+TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                    tcpip::Storage& outputStorage) {
     std::string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -76,7 +76,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer &server, tcpip::Storage &inputSt
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSJunction *j = MSNet::getInstance()->getJunctionControl().get(id);
+        MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
         if (j==0) {
             server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Junction '" + id + "' is not known", outputStorage);
             return false;

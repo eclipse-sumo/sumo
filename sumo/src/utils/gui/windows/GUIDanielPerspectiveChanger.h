@@ -57,17 +57,17 @@ public:
     /* Constructor
      * @param[in] callBack The view to be udpated upon changes
      */
-    GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack, const Boundary& viewPort);
+    GUIDanielPerspectiveChanger(GUISUMOAbstractView& callBack, const Boundary& viewPort);
 
     /// Destructor
     ~GUIDanielPerspectiveChanger();
 
-    void onLeftBtnPress(void *data);
-    bool onLeftBtnRelease(void *data);
-    void onRightBtnPress(void *data);
-    bool onRightBtnRelease(void *data);
-    void onMouseWheel(void *data);
-    void onMouseMove(void *data);
+    void onLeftBtnPress(void* data);
+    bool onLeftBtnRelease(void* data);
+    void onRightBtnPress(void* data);
+    bool onRightBtnRelease(void* data);
+    void onMouseWheel(void* data);
+    void onMouseMove(void* data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual SUMOReal getRotation() const;
@@ -82,7 +82,7 @@ public:
     virtual SUMOReal getZoom() const;
 
     /// Centers the view to the given position, setting it to a size that covers the radius
-    void centerTo(const Position &pos, SUMOReal radius, bool applyZoom=true);
+    void centerTo(const Position& pos, SUMOReal radius, bool applyZoom=true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);

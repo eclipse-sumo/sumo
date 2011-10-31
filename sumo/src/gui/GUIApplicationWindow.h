@@ -70,7 +70,7 @@ class GUIParameterTableWindow;
  * within a separate list.
  */
 class GUIApplicationWindow :
-            public GUIMainWindow, public MFXInterThreadEventClient {
+    public GUIMainWindow, public MFXInterThreadEventClient {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
 public:
@@ -79,7 +79,7 @@ public:
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations
      */
-    GUIApplicationWindow(FXApp* a, const std::string &configPattern);
+    GUIApplicationWindow(FXApp* a, const std::string& configPattern);
 
 
     /// @brief Destructor
@@ -94,22 +94,22 @@ public:
     virtual void detach();
 
 
-    void loadOnStartup(const std::string &config, bool run);
+    void loadOnStartup(const std::string& config, bool run);
 
 
     void dependentBuild(bool game);
 
-    void setStatusBarText(const std::string &);
+    void setStatusBarText(const std::string&);
 
 
     /// @name Inter-thread event handling
     /// @{
 
     virtual void eventOccured();
-    void handleEvent_SimulationLoaded(GUIEvent *e);
-    void handleEvent_SimulationStep(GUIEvent *e);
-    void handleEvent_Message(GUIEvent *e);
-    void handleEvent_SimulationEnded(GUIEvent *e);
+    void handleEvent_SimulationLoaded(GUIEvent* e);
+    void handleEvent_SimulationStep(GUIEvent* e);
+    void handleEvent_Message(GUIEvent* e);
+    void handleEvent_SimulationEnded(GUIEvent* e);
     /// @}
 
 
@@ -153,7 +153,7 @@ public:
     virtual long onUpdStart(FXObject*,FXSelector,void*);
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
-    long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
+    long onUpdEditChosen(FXObject* sender,FXSelector,void* ptr);
     virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
     long onCmdClearMsgWindow(FXObject*,FXSelector,void*);
 
@@ -163,17 +163,17 @@ public:
     long onClipboardRequest(FXObject* sender,FXSelector sel,void* ptr);
     /// @}
 
-    FXGLCanvas *getBuildGLCanvas() const;
+    FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
 
-    FXCursor *getDefaultCursor();
+    FXCursor* getDefaultCursor();
 
 protected:
-    virtual void addToWindowsMenu(FXMenuPane *) { }
+    virtual void addToWindowsMenu(FXMenuPane*) { }
 
 private:
     /** starts to load a simulation */
-    void load(const std::string &file, bool isNet, bool isReload=false);
+    void load(const std::string& file, bool isNet, bool isReload=false);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -197,10 +197,10 @@ protected:
     std::string myName;
 
     /** the thread that loads simulations */
-    GUILoadThread *myLoadThread;
+    GUILoadThread* myLoadThread;
 
     /** the thread that runs simulations */
-    GUIRunThread *myRunThread;
+    GUIRunThread* myRunThread;
 
     /** the information whether the simulation was started before */
     bool myWasStarted;
@@ -212,22 +212,22 @@ protected:
     bool myAmLoading;
 
     /// the submenus
-    FXMenuPane *myFileMenu, *myEditMenu, *mySettingsMenu,
-    *myWindowsMenu, *myHelpMenu;
+    FXMenuPane* myFileMenu, *myEditMenu, *mySettingsMenu,
+                *myWindowsMenu, *myHelpMenu;
 
     /// A window to display messages, warnings and error in
-    GUIMessageWindow *myMessageWindow;
+    GUIMessageWindow* myMessageWindow;
 
     /// The splitter that divides the main window into vies and the log window
-    FXSplitter *myMainSplitter;
+    FXSplitter* myMainSplitter;
 
     /// for some menu detaching fun
-    FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-    *myToolBarDrag4, *myToolBarDrag5,
-    *myMenuBarDrag;
+    FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
+                    *myToolBarDrag4, *myToolBarDrag5,
+                    *myMenuBarDrag;
 
     ///
-    FXRealSpinDial *mySimDelayTarget;
+    FXRealSpinDial* mySimDelayTarget;
 
     /// The simulation delay
     FXdouble mySimDelay;
@@ -236,16 +236,16 @@ protected:
     MFXEventQue myEvents;
 
     /// The menu used for the MDI-windows
-    FXMDIMenu *myMDIMenu;
+    FXMDIMenu* myMDIMenu;
 
     /// The application menu bar
-    FXMenuBar *myMenuBar;
+    FXMenuBar* myMenuBar;
 
     /// The application tool bar
-    FXToolBar *myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
+    FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
     /// the simulation step display
-    FXEX::FXLCDLabel *myLCDLabel;
+    FXEX::FXLCDLabel* myLCDLabel;
 
     /// io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;

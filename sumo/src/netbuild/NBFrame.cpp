@@ -55,7 +55,7 @@
 // ===========================================================================
 void
 NBFrame::fillOptions(bool forNetgen) {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // register building defaults
     oc.doRegister("default.lanenumber", 'L', new Option_Integer(1));
     oc.addSynonyme("default.lanenumber", "lanenumber", true);
@@ -273,7 +273,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
 bool
 NBFrame::checkOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     //
     if (!oc.isDefault("tls-guess.joining")) {
         WRITE_WARNING("'--tls-guess.joining' was joined with '--tls.join'.\n Please use '--tls.join' in future only.");

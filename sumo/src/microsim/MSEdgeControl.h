@@ -178,7 +178,7 @@ public:
      * @param[in] l The activated lane
      * @todo Check for l==0?
      */
-    void gotActive(MSLane *l) throw();
+    void gotActive(MSLane* l) throw();
 
 
 public:
@@ -195,7 +195,7 @@ public:
      */
     struct LaneUsage {
         /// @brief The described lane
-        MSLane *lane;
+        MSLane* lane;
         /// @brief The lane left to the described lane (==lastNeigh if none)
         std::vector<MSLane*>::const_iterator firstNeigh;
         /// @brief The end of this lane's edge's lane container

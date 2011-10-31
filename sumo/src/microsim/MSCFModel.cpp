@@ -39,7 +39,7 @@
 // ===========================================================================
 MSCFModel::MSCFModel(const MSVehicleType* vtype, const SUMOReal accel,
                      const SUMOReal decel, const SUMOReal headwayTime)
-        : myType(vtype), myAccel(accel), myDecel(decel), myHeadwayTime(headwayTime) {
+    : myType(vtype), myAccel(accel), myDecel(decel), myHeadwayTime(headwayTime) {
 }
 
 
@@ -47,7 +47,7 @@ MSCFModel::~MSCFModel() {}
 
 
 SUMOReal
-MSCFModel::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
+MSCFModel::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
     // we need the acceleration for emission computation;
@@ -63,7 +63,7 @@ MSCFModel::moveHelper(MSVehicle * const veh, SUMOReal vPos) const {
 
 
 SUMOReal
-MSCFModel::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
+MSCFModel::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
@@ -78,7 +78,7 @@ MSCFModel::interactionGap(const MSVehicle * const veh, SUMOReal vL) const {
 
 
 void
-MSCFModel::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const {
+MSCFModel::leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const neigh, SUMOReal& vSafe) const {
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLengthWithGap()-ego->getPositionOnLane());
         SUMOReal nVSafe = followSpeed(ego, ego->getSpeed(), mgap, neigh->getSpeed(), neigh->getCarFollowModel().getMaxDecel());
@@ -105,7 +105,7 @@ MSCFModel::brakeGap(SUMOReal speed) const {
 }
 
 
-void MSCFModel::saveState(std::ostream&/*os*/) {}
+void MSCFModel::saveState(std::ostream& /*os*/) {}
 
 
 /****************************************************************************/

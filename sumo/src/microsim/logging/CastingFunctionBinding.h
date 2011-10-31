@@ -45,8 +45,8 @@ public:
     typedef O(T::* Operation)() const;
 
     CastingFunctionBinding(T* source, Operation operation) :
-            mySource(source),
-            myOperation(operation) {}
+        mySource(source),
+        myOperation(operation) {}
 
     /// Destructor.
     ~CastingFunctionBinding() {}

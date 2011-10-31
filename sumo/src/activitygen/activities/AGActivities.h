@@ -44,9 +44,9 @@
 // ===========================================================================
 class AGActivities {
 public:
-    AGActivities(AGCity *city, int days) :
-            myCity(city),
-            nbrDays(days) {};
+    AGActivities(AGCity* city, int days) :
+        myCity(city),
+        nbrDays(days) {};
     void addTrip(AGTrip t, std::list<AGTrip> *tripSet);
     void addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet);
     void generateActivityTrips();
@@ -60,7 +60,7 @@ public:
     std::list<AGTrip> trips;
 
 private:
-    bool generateTrips(AGHousehold &hh);
+    bool generateTrips(AGHousehold& hh);
     bool generateBusTraffic(AGBusLine bl);
     bool generateInOutTraffic();
     bool generateRandomTraffic();
@@ -70,7 +70,7 @@ private:
      */
     std::string generateName(int i, std::string prefix);
 
-    AGCity *myCity;
+    AGCity* myCity;
 
     int nbrDays;
 

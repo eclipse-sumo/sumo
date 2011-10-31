@@ -54,14 +54,14 @@
 // ---------------------------------------------------------------------------
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
+MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length,
         const bool doAdd,
         const std::set<std::string>* const vTypes,
-        const MSMeanData_Net *parent) throw()
-        : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
-        nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
-        nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
+        const MSMeanData_Net* parent) throw()
+    : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
+      nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
+      nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -84,7 +84,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) throw() {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues &val) const throw() {
+MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const throw() {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.nVehDeparted += nVehDeparted;
     v.nVehArrived += nVehArrived;
@@ -160,20 +160,20 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const throw() {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime period,
+MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
             dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
-            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
-            "\" waitingTime=\"" << waitSeconds <<
-            "\" speed=\"" << travelledDistance / sampleSeconds;
+                "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
+                "\" waitingTime=\"" << waitSeconds <<
+                "\" speed=\"" << travelledDistance / sampleSeconds;
         }
         dev<<"\" departed=\""<<nVehDeparted<<
-        "\" arrived=\""<<nVehArrived<<
-        "\" entered=\""<<nVehEntered<<
-        "\" left=\""<<nVehLeft<<
-        "\"/>\n";
+           "\" arrived=\""<<nVehArrived<<
+           "\" entered=\""<<nVehEntered<<
+           "\" left=\""<<nVehLeft<<
+           "\"/>\n";
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
@@ -183,36 +183,36 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOTime pe
         }
         if (numVehicles > 0) {
             dev << "\" traveltime=\"" << sampleSeconds / numVehicles <<
-            "\" waitingTime=\"" << waitSeconds <<
-            "\" speed=\"" << travelledDistance / sampleSeconds;
+                "\" waitingTime=\"" << waitSeconds <<
+                "\" speed=\"" << travelledDistance / sampleSeconds;
         } else {
             dev << "\" traveltime=\"" << traveltime <<
-            "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
-            "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
-            "\" waitingTime=\"" << waitSeconds <<
-            "\" speed=\"" << travelledDistance / sampleSeconds;
+                "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
+                "\" occupancy=\"" << vehLengthSum / STEPS2TIME(period) / myLaneLength / numLanes *(SUMOReal) 100 <<
+                "\" waitingTime=\"" << waitSeconds <<
+                "\" speed=\"" << travelledDistance / sampleSeconds;
         }
     }
     dev<<"\" departed=\""<<nVehDeparted<<
-    "\" arrived=\""<<nVehArrived<<
-    "\" entered=\""<<nVehEntered<<
-    "\" left=\""<<nVehLeft<<
-    "\" laneChangedFrom=\""<<nVehLaneChangeFrom<<
-    "\" laneChangedTo=\""<<nVehLaneChangeTo<<
-    "\"/>\n";
+       "\" arrived=\""<<nVehArrived<<
+       "\" entered=\""<<nVehEntered<<
+       "\" left=\""<<nVehLeft<<
+       "\" laneChangedFrom=\""<<nVehLaneChangeFrom<<
+       "\" laneChangedTo=\""<<nVehLaneChangeTo<<
+       "\"/>\n";
 }
 
 // ---------------------------------------------------------------------------
 // MSMeanData_Net - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSMeanData_Net(const std::string &id,
+MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                                const bool useLanes, const bool withEmpty, const bool withInternal,
                                const bool trackVehicles,
                                const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw()
-        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
-        myHaltSpeed(haltSpeed) {
+    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
+      myHaltSpeed(haltSpeed) {
 }
 
 
@@ -220,7 +220,7 @@ MSMeanData_Net::~MSMeanData_Net() throw() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Net::createValues(MSLane * const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+MSMeanData_Net::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
     return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 

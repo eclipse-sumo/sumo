@@ -65,11 +65,11 @@ bool MSTriggeredRerouter::myHaveWarnedAboutDeprecatedRouteReroute = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
+MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const std::vector<MSEdge*> &edges,
-        SUMOReal prob, const std::string &file, bool off)
-        : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
-        myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
+        SUMOReal prob, const std::string& file, bool off)
+    : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
+      myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // read in the trigger description
     if (!XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
@@ -78,7 +78,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
     for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
             s->addDetector(this);
             continue;
         }
@@ -101,7 +101,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw() {
 // ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(int element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         bool ok = true;
         myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1);
@@ -119,7 +119,7 @@ MSTriggeredRerouter::myStartElement(int element,
         if (dest=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
-        MSEdge *to = MSEdge::dictionary(dest);
+        MSEdge* to = MSEdge::dictionary(dest);
         if (to==0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
         }
@@ -146,7 +146,7 @@ MSTriggeredRerouter::myStartElement(int element,
         if (closed_id=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": closed edge id given.");
         }
-        MSEdge *closed = MSEdge::dictionary(closed_id);
+        MSEdge* closed = MSEdge::dictionary(closed_id);
         if (closed==0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Edge '" + closed_id + "' to close is not known.");
         }
@@ -205,9 +205,9 @@ MSTriggeredRerouter::myEndElement(int element) throw(ProcessError) {
 
 
 bool
-MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const {
+MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
-    const MSRoute &route = veh.getRoute();
+    const MSRoute& route = veh.getRoute();
     while (i!=myIntervals.end()) {
         if ((*i).begin<=time && (*i).end>=time) {
             if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||route.containsAnyOf((*i).closed)) {
@@ -235,10 +235,10 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const {
 }
 
 
-const MSTriggeredRerouter::RerouteInterval &
-MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const {
+const MSTriggeredRerouter::RerouteInterval&
+MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
-    const MSRoute &route = veh.getRoute();
+    const MSRoute& route = veh.getRoute();
     while (i!=myIntervals.end()) {
         if ((*i).begin<=time && (*i).end>=time) {
             if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||route.containsAnyOf((*i).closed)) {
@@ -251,7 +251,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const {
 }
 
 
-const MSTriggeredRerouter::RerouteInterval &
+const MSTriggeredRerouter::RerouteInterval&
 MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while (i!=myIntervals.end()) {
@@ -282,18 +282,18 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
 
     // get vehicle params
-    const MSRoute &route = veh.getRoute();
-    const MSEdge *lastEdge = route.getLastEdge();
+    const MSRoute& route = veh.getRoute();
+    const MSEdge* lastEdge = route.getLastEdge();
     // get rerouting params
-    const MSTriggeredRerouter::RerouteInterval &rerouteDef = getCurrentReroute(time, veh);
-    const MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
+    const MSTriggeredRerouter::RerouteInterval& rerouteDef = getCurrentReroute(time, veh);
+    const MSRoute* newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
         veh.replaceRoute(newRoute);
         return false;
     }
     // ok, try using a new destination
-    const MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
+    const MSEdge* newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : route.getLastEdge();
     if (newEdge==0) {
         newEdge = lastEdge;
     }

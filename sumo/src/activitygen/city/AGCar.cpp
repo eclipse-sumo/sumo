@@ -47,7 +47,7 @@ AGCar::createName(int idHH, int idCar) {
 }
 
 bool
-AGCar::associateTo(AGAdult *pers) {
+AGCar::associateTo(AGAdult* pers) {
     if (currentUser == NULL) {
         currentUser = pers;
         return true;

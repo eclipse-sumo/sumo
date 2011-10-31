@@ -42,13 +42,13 @@
  */
 class NIVissimTrafficDescription {
 public:
-    NIVissimTrafficDescription(int id, const std::string &name,
-                               const NIVissimVehicleClassVector &vehicleTypes);
+    NIVissimTrafficDescription(int id, const std::string& name,
+                               const NIVissimVehicleClassVector& vehicleTypes);
     ~NIVissimTrafficDescription();
-    static bool dictionary(int id, const std::string &name,
-                           const NIVissimVehicleClassVector &vehicleTypes);
-    static bool dictionary(int id, NIVissimTrafficDescription *o);
-    static NIVissimTrafficDescription *dictionary(int id);
+    static bool dictionary(int id, const std::string& name,
+                           const NIVissimVehicleClassVector& vehicleTypes);
+    static bool dictionary(int id, NIVissimTrafficDescription* o);
+    static NIVissimTrafficDescription* dictionary(int id);
     static void clearDict();
     static SUMOReal meanSpeed(int id);
     SUMOReal meanSpeed() const;

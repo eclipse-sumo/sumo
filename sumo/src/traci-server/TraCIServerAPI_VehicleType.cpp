@@ -48,8 +48,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                       tcpip::Storage &outputStorage) {
+TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                       tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -80,7 +80,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSVehicleType *v = MSNet::getInstance()->getVehicleControl().getVType(id);
+        MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
         if (v==0) {
             server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
             return false;
@@ -93,7 +93,7 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer &server, tcpip::Storage &inpu
 }
 
 bool
-TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType &v, tcpip::Storage &tempMsg) {
+TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType& v, tcpip::Storage& tempMsg) {
     switch (variable) {
     case VAR_LENGTH:
         tempMsg.writeUnsignedByte(TYPE_DOUBLE);
@@ -177,7 +177,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     }
     // id
     std::string id = inputStorage.readString();
-    MSVehicleType *v = MSNet::getInstance()->getVehicleControl().getVType(id);
+    MSVehicleType* v = MSNet::getInstance()->getVehicleControl().getVType(id);
     if (v==0) {
         server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
         return false;
@@ -189,7 +189,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
             return true;
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
     }
     return false;
@@ -198,8 +198,8 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
 
 bool
 TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const int valueDataType,
-                                        MSVehicleType &v, traci::TraCIServer &server,
-                                        tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) {
+                                        MSVehicleType& v, traci::TraCIServer& server,
+                                        tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
     case VAR_LENGTH: {
         if (valueDataType!=TYPE_DOUBLE) {

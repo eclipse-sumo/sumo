@@ -44,7 +44,7 @@
 // static member variables
 // ===========================================================================
 std::map<const MSEdge*, SUMOReal> MSDevice_Routing::myEdgeEfforts;
-Command *MSDevice_Routing::myEdgeWeightSettingCommand = 0;
+Command* MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
 SUMOTime MSDevice_Routing::myAdaptationInterval;
 bool MSDevice_Routing::myWithTaz;
@@ -59,7 +59,7 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routi
 // ---------------------------------------------------------------------------
 void
 MSDevice_Routing::insertOptions() throw() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Routing");
 
     oc.doRegister("device.rerouting.probability", new Option_Float(0.));
@@ -100,8 +100,8 @@ MSDevice_Routing::insertOptions() throw() {
 
 
 void
-MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
-    OptionsCont &oc = OptionsCont::getOptions();
+MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
+    OptionsCont& oc = OptionsCont::getOptions();
     bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     if (!needRerouting && oc.getFloat("device.rerouting.probability")==0 && !oc.isSet("device.rerouting.explicit")) {
         // no route computation is modelled
@@ -154,9 +154,9 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &in
 // ---------------------------------------------------------------------------
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
-MSDevice_Routing::MSDevice_Routing(SUMOVehicle &holder, const std::string &id,
+MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
                                    SUMOTime period, SUMOTime preInsertionPeriod) throw()
-        : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
+    : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
     if (myWithTaz) {
         myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preInsertionReroute);
         MSNet::getInstance()->getInsertionEvents().addEvent(
@@ -228,7 +228,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(Proce
 
 
 SUMOReal
-MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal) const {
+MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) const {
     if (myEdgeEfforts.find(e) != myEdgeEfforts.end()) {
         return MAX2(myEdgeEfforts.find(e)->second, e->getLanes()[0]->getLength()/v->getMaxSpeed());
     }

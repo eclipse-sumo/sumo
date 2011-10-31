@@ -43,28 +43,28 @@
 // member method definitions
 // ===========================================================================
 SUMOVehicleParameter::SUMOVehicleParameter() throw()
-        : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
-        depart(-1), departProcedure(DEPART_GIVEN),
-        departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
-        departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
-        departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-        arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
-        arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
-        arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
-        repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
-        line(), fromTaz(), toTaz(), setParameter(0) {
+    : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
+      depart(-1), departProcedure(DEPART_GIVEN),
+      departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
+      departPos(0), departPosProcedure(DEPART_POS_DEFAULT),
+      departSpeed(-1), departSpeedProcedure(DEPART_SPEED_DEFAULT),
+      arrivalLane(0), arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
+      arrivalPos(0), arrivalPosProcedure(ARRIVAL_POS_DEFAULT),
+      arrivalSpeed(-1), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
+      repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
+      line(), fromTaz(), toTaz(), setParameter(0) {
 }
 
 
 bool
-SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont &oc, const std::string &optionName) const throw() {
+SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const throw() {
     return oc.isSet(optionName) && oc.getBool("defaults-override");
 }
 
 
 void
-SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
-                              const OptionsCont &oc) const throw(IOError) {
+SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
+                              const OptionsCont& oc) const throw(IOError) {
     dev.openTag(xmlElem) << " id=\"" << id << "\"";
     if (wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << vtypeid << "\"";
@@ -241,15 +241,15 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
 
 
 bool
-SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
+SUMOVehicleParameter::departlaneValidate(const std::string& val) throw() {
     if (val=="random"||val=="free"||val=="departlane"||val=="allowed"||val=="best") {
         return true;
     }
     try {
         TplConvert<char>::_2int(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", \"allowed\", \"best\", or an int>0)");
     return false;
@@ -257,15 +257,15 @@ SUMOVehicleParameter::departlaneValidate(const std::string &val) throw() {
 
 
 bool
-SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
+SUMOVehicleParameter::departposValidate(const std::string& val) throw() {
     if (val=="random"||val=="free"||val=="random_free"||val=="base"||val=="pwagSimple"||val=="pwagGeneric"||val=="maxSpeedGap") {
         return true;
     }
     try {
         TplConvert<char>::_2SUMOReal(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)");
     return false;
@@ -273,15 +273,15 @@ SUMOVehicleParameter::departposValidate(const std::string &val) throw() {
 
 
 bool
-SUMOVehicleParameter::departspeedValidate(const std::string &val) throw() {
+SUMOVehicleParameter::departspeedValidate(const std::string& val) throw() {
     if (val=="random"||val=="max") {
         return true;
     }
     try {
         TplConvert<char>::_2SUMOReal(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
     return false;
@@ -289,15 +289,15 @@ SUMOVehicleParameter::departspeedValidate(const std::string &val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw() {
+SUMOVehicleParameter::arrivallaneValidate(const std::string& val) throw() {
     if (val=="current") {
         return true;
     }
     try {
         TplConvert<char>::_2int(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
     return false;
@@ -305,15 +305,15 @@ SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw() {
+SUMOVehicleParameter::arrivalposValidate(const std::string& val) throw() {
     if (val=="random"||val=="max") {
         return true;
     }
     try {
         TplConvert<char>::_2SUMOReal(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
     return false;
@@ -321,15 +321,15 @@ SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivalspeedValidate(const std::string &val) throw() {
+SUMOVehicleParameter::arrivalspeedValidate(const std::string& val) throw() {
     if (val=="current") {
         return true;
     }
     try {
         TplConvert<char>::_2SUMOReal(val.c_str());
         return true;
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    } catch (NumberFormatException&) {
+    } catch (EmptyData&) {
     }
     WRITE_ERROR("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
     return false;

@@ -42,8 +42,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw()
-        : ROEdge(id, from, to, index, false) {}
+ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw()
+    : ROEdge(id, from, to, index, false) {}
 
 
 ROJTREdge::~ROJTREdge() throw() {
@@ -54,9 +54,9 @@ ROJTREdge::~ROJTREdge() throw() {
 
 
 void
-ROJTREdge::addFollower(ROEdge *s) throw() {
+ROJTREdge::addFollower(ROEdge* s) throw() {
     ROEdge::addFollower(s);
-    ROJTREdge *js = static_cast<ROJTREdge*>(s);
+    ROJTREdge* js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js)==myFollowingDefs.end()) {
         myFollowingDefs[js] = new ValueTimeLine<SUMOReal>();
     }
@@ -64,7 +64,7 @@ ROJTREdge::addFollower(ROEdge *s) throw() {
 
 
 void
-ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
+ROJTREdge::addFollowerProbability(ROJTREdge* follower, SUMOTime begTime,
                                   SUMOTime endTime, SUMOReal probability) {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if (i==myFollowingDefs.end()) {
@@ -75,8 +75,8 @@ ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
 }
 
 
-ROJTREdge *
-ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const {
+ROJTREdge*
+ROJTREdge::chooseNext(const ROVehicle* const veh, SUMOTime time) const {
     // if no usable follower exist, return 0
     //  their probabilities are not yet regarded
     if (myFollowingEdges.size()==0 || (veh!=0 && allFollowersProhibit(veh))) {

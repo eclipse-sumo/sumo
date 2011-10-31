@@ -43,7 +43,7 @@
 class Distribution : public Named {
 public:
     /// Constructor
-    Distribution(const std::string &id) throw() : Named(id) { }
+    Distribution(const std::string& id) throw() : Named(id) { }
 
     /// Destructor
     virtual ~Distribution() throw() { }

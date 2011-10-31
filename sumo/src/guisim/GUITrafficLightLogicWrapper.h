@@ -52,7 +52,7 @@ class GUIMainWindow;
 class GUITrafficLightLogicWrapper : public GUIGlObject {
 public:
     /// Constructor
-    GUITrafficLightLogicWrapper(MSTLLogicControl &control, MSTrafficLightLogic &tll) throw();
+    GUITrafficLightLogicWrapper(MSTLLogicControl& control, MSTrafficLightLogic& tll) throw();
 
     /// Destructor
     ~GUITrafficLightLogicWrapper() throw();
@@ -69,8 +69,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -80,8 +80,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
+            GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -96,7 +96,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
 
@@ -110,7 +110,7 @@ public:
     void switchTLSLogic(int to);
 
     /// Returns the index of the given link within the according tls
-    int getLinkIndex(const MSLink * const link) const;
+    int getLinkIndex(const MSLink* const link) const;
 
 
 public:
@@ -123,8 +123,8 @@ public:
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
     public:
         /// Constructor
-        GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow &app,
-                                             GUISUMOAbstractView &parent, GUIGlObject &o);
+        GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow& app,
+                                             GUISUMOAbstractView& parent, GUIGlObject& o);
 
         /// Destructor
         ~GUITrafficLightLogicWrapperPopupMenu() throw();
@@ -146,13 +146,13 @@ public:
 
 private:
     /// Reference to the according tls
-    MSTLLogicControl &myTLLogicControl;
+    MSTLLogicControl& myTLLogicControl;
 
     /// The wrapped tl-logic
-    MSTrafficLightLogic &myTLLogic;
+    MSTrafficLightLogic& myTLLogic;
 
     /// The main application
-    GUIMainWindow *myApp;
+    GUIMainWindow* myApp;
 
 };
 

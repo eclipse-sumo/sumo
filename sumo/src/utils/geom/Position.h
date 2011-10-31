@@ -46,11 +46,11 @@ public:
 
     /// parametrised constructor
     Position(SUMOReal x, SUMOReal y)
-            : myX(x), myY(y), myZ(0) { }
+        : myX(x), myY(y), myZ(0) { }
 
     /// parametrised constructor
     Position(SUMOReal x, SUMOReal y, SUMOReal z)
-            : myX(x), myY(y), myZ(z) { }
+        : myX(x), myY(y), myZ(z) { }
 
     /// Destructor
     ~Position() { }
@@ -84,7 +84,7 @@ public:
     }
 
     ///
-    void set(const Position &pos) {
+    void set(const Position& pos) {
         myX = pos.myX;
         myY = pos.myY;
         myZ = pos.myZ;
@@ -112,7 +112,7 @@ public:
     }
 
     /// Adds the given position to this one
-    void add(const Position &pos) {
+    void add(const Position& pos) {
         myX += pos.myX;
         myY += pos.myY;
         myZ += pos.myZ;
@@ -145,7 +145,7 @@ public:
     }
 
     /// Substracts the given position from this one
-    void sub(const Position &pos) {
+    void sub(const Position& pos) {
         myX -= pos.myX;
         myY -= pos.myY;
         myZ -= pos.myZ;
@@ -166,7 +166,7 @@ public:
 
 
     /// Prints to the output
-    friend std::ostream &operator<<(std::ostream &os, const Position &p) {
+    friend std::ostream& operator<<(std::ostream& os, const Position& p) {
         os << p.x() << "," << p.y();
         if (p.z()!=SUMOReal(0.0)) {
             os << "," << p.z();
@@ -174,11 +174,11 @@ public:
         return os;
     }
 
-    Position operator+(const Position &p2) const {
+    Position operator+(const Position& p2) const {
         return Position(myX+p2.myX,  myY+p2.myY, myZ+p2.myZ);
     }
 
-    Position operator-(const Position &p2) const {
+    Position operator-(const Position& p2) const {
         return Position(myX-p2.myX,  myY-p2.myY, myZ-p2.myZ);
     }
 
@@ -186,39 +186,39 @@ public:
         return Position(myX * scalar,myY * scalar, myZ *scalar);
     }
 
-    bool operator==(const Position &p2) const {
+    bool operator==(const Position& p2) const {
         return myX==p2.myX && myY==p2.myY && myZ==p2.myZ;
     }
 
-    bool operator!=(const Position &p2) const {
+    bool operator!=(const Position& p2) const {
         return myX!=p2.myX || myY!=p2.myY || myZ!=p2.myZ;
     }
 
 
-    bool almostSame(const Position &p2, SUMOReal maxDiv=POSITION_EPS) const {
+    bool almostSame(const Position& p2, SUMOReal maxDiv=POSITION_EPS) const {
         return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv && fabs(myZ-p2.myZ)<maxDiv;
     }
 
 
-    inline SUMOReal distanceTo(const Position &p2) const {
+    inline SUMOReal distanceTo(const Position& p2) const {
         return sqrt(distanceSquaredTo(p2));
     }
 
 
-    inline SUMOReal distanceSquaredTo(const Position &p2) const {
+    inline SUMOReal distanceSquaredTo(const Position& p2) const {
         return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY) + (myZ-p2.myZ)*(myZ-p2.myZ);
     }
 
     /// @brief returns the cross product between this point and the second one
-    Position crossProduct(const Position &pos) {
+    Position crossProduct(const Position& pos) {
         return Position(
-                myY * pos.myZ - myZ * pos.myY,
-                myZ * pos.myX - myX * pos.myZ,
-                myX * pos.myY - myY * pos.myX);
+                   myY * pos.myZ - myZ * pos.myY,
+                   myZ * pos.myX - myX * pos.myZ,
+                   myX * pos.myY - myY * pos.myX);
     }
 
     /// @brief returns the dot product (scalar product) between this point and the second one
-    inline SUMOReal dotProduct(const Position &pos) {
+    inline SUMOReal dotProduct(const Position& pos) {
         return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
     }
 

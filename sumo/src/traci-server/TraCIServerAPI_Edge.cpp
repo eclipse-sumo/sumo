@@ -52,8 +52,8 @@ using namespace traci;
 // method definitions
 // ===========================================================================
 bool
-TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) {
+TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -86,7 +86,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
-        MSEdge *e = MSEdge::dictionary(id);
+        MSEdge* e = MSEdge::dictionary(id);
         if (e==0) {
             server.writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
             return false;
@@ -293,8 +293,8 @@ TraCIServerAPI_Edge::processGet(TraCIServer &server, tcpip::Storage &inputStorag
 
 
 bool
-TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) {
+TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
+                                tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
@@ -304,7 +304,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer &server, tcpip::Storage &inputStorag
     }
     // id
     std::string id = inputStorage.readString();
-    MSEdge *e = MSEdge::dictionary(id);
+    MSEdge* e = MSEdge::dictionary(id);
     if (e==0) {
         server.writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_ERR, "Edge '" + id + "' is not known", outputStorage);
         return false;

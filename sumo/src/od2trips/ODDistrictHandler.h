@@ -59,7 +59,7 @@ public:
      * @param[in] cont The container of districts to fill
      * @param[in] file The file that will be processed
      */
-    ODDistrictHandler(ODDistrictCont &cont, const std::string &file) throw();
+    ODDistrictHandler(ODDistrictCont& cont, const std::string& file) throw();
 
 
     /// @brief Destructor
@@ -81,7 +81,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occurs
@@ -104,7 +104,7 @@ private:
      *
      * @param[in] attrs Attributes of the currently opened element
      */
-    void openDistrict(const SUMOSAXAttributes &attrs) throw();
+    void openDistrict(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief Adds a read source to the current district
@@ -118,7 +118,7 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSource(const SUMOSAXAttributes &attrs) throw();
+    void addSource(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief Adds a read sink to the current district
@@ -132,7 +132,7 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSink(const SUMOSAXAttributes &attrs) throw();
+    void addSink(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief Closes the processing of the current district
@@ -157,24 +157,24 @@ private:
      * @param[in] type The type of the currntly processed connection (sink/source)
      * @return The id and the weight of a connection
      */
-    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes &attrs) throw();
+    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes& attrs) throw();
 
 private:
     /// The container to add read districts to
-    ODDistrictCont &myContainer;
+    ODDistrictCont& myContainer;
 
     /// The currently parsed district
-    ODDistrict *myCurrentDistrict;
+    ODDistrict* myCurrentDistrict;
 
     bool myHaveWarnedAboutDeprecatedDistrict, myHaveWarnedAboutDeprecatedDSource, myHaveWarnedAboutDeprecatedDSink;
 
 
 private:
     /// @brief invalidated copy constructor
-    ODDistrictHandler(const ODDistrictHandler &s);
+    ODDistrictHandler(const ODDistrictHandler& s);
 
     /// @brief invalidated assignment operator
-    ODDistrictHandler &operator=(const ODDistrictHandler &s);
+    ODDistrictHandler& operator=(const ODDistrictHandler& s);
 
 
 };

@@ -63,7 +63,7 @@
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_ArcView::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("shapefile-prefix")) {
         return;
     }
@@ -97,18 +97,18 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
-NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
-                                       NBNodeCont &nc,
-                                       NBEdgeCont &ec,
-                                       NBTypeCont &tc,
-                                       const std::string &dbf_name,
-                                       const std::string &shp_name,
+NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
+                                       NBNodeCont& nc,
+                                       NBEdgeCont& ec,
+                                       NBTypeCont& tc,
+                                       const std::string& dbf_name,
+                                       const std::string& shp_name,
                                        bool speedInKMH)
-        : myOptions(oc), mySHPName(shp_name),
-        myNameAddition(0),
-        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
-        mySpeedInKMH(speedInKMH),
-        myRunningNodeID(0) {
+    : myOptions(oc), mySHPName(shp_name),
+      myNameAddition(0),
+      myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
+      mySpeedInKMH(speedInKMH),
+      myRunningNodeID(0) {
     UNUSED_PARAMETER(dbf_name);
 }
 
@@ -121,22 +121,22 @@ NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
     PROGRESS_BEGIN_MESSAGE("Loading data from '" + mySHPName + "'");
     OGRRegisterAll();
-    OGRDataSource *poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
+    OGRDataSource* poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
     if (poDS == NULL) {
         WRITE_ERROR("Could not open shape description '" + mySHPName + "'.");
         return;
     }
 
     // begin file parsing
-    OGRLayer  *poLayer = poDS->GetLayer(0);
+    OGRLayer*  poLayer = poDS->GetLayer(0);
     poLayer->ResetReading();
 
     // build coordinate transformation
-    OGRSpatialReference *origTransf = poLayer->GetSpatialRef();
+    OGRSpatialReference* origTransf = poLayer->GetSpatialRef();
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
-    OGRCoordinateTransformation *poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
+    OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
         if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
@@ -148,7 +148,7 @@ NIImporter_ArcView::load() {
         }
     }
 
-    OGRFeature *poFeature;
+    OGRFeature* poFeature;
     poLayer->ResetReading();
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
@@ -202,10 +202,10 @@ NIImporter_ArcView::load() {
 
 
         // read in the geometry
-        OGRGeometry *poGeometry = poFeature->GetGeometryRef();
+        OGRGeometry* poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         assert(gtype==wkbLineString);
-        OGRLineString *cgeom = (OGRLineString*) poGeometry;
+        OGRLineString* cgeom = (OGRLineString*) poGeometry;
         if (poCT!=0) {
             // try transform to wgs84
             cgeom->transform(poCT);
@@ -221,7 +221,7 @@ NIImporter_ArcView::load() {
         }
 
         // build from-node
-        NBNode *from = myNodeCont.retrieve(from_node);
+        NBNode* from = myNodeCont.retrieve(from_node);
         if (from==0) {
             Position from_pos = shape[0];
             from = myNodeCont.retrieve(from_pos);
@@ -235,7 +235,7 @@ NIImporter_ArcView::load() {
             }
         }
         // build to-node
-        NBNode *to = myNodeCont.retrieve(to_node);
+        NBNode* to = myNodeCont.retrieve(to_node);
         if (to==0) {
             Position to_pos = shape[-1];
             to = myNodeCont.retrieve(to_pos);
@@ -264,7 +264,7 @@ NIImporter_ArcView::load() {
         if (dir=="B"||dir=="F"||dir==""||myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id)==0) {
                 LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, -1, shape, "", spread);
+                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, -1, shape, "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -274,7 +274,7 @@ NIImporter_ArcView::load() {
             id = "-" + id;
             if (myEdgeCont.retrieve(id)==0) {
                 LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes, priority, width, -1, shape.reverse(), "", spread);
+                NBEdge* edge = new NBEdge(id, to, from, type, speed, nolanes, priority, width, -1, shape.reverse(), "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -290,7 +290,7 @@ NIImporter_ArcView::load() {
 
 #ifdef HAVE_GDAL
 SUMOReal
-NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
+NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
     if (myOptions.isSet("shapefile.type-id")) {
         return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
@@ -315,7 +315,7 @@ NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
 
 
 unsigned int
-NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
+NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
                               SUMOReal speed) {
     if (myOptions.isSet("shapefile.type-id")) {
         return (unsigned int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
@@ -344,7 +344,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 
 
 int
-NIImporter_ArcView::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/) {
+NIImporter_ArcView::getPriority(OGRFeature& poFeature, const std::string& /*edgeid*/) {
     if (myOptions.isSet("shapefile.type-id")) {
         return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
@@ -367,8 +367,8 @@ NIImporter_ArcView::getPriority(OGRFeature &poFeature, const std::string &/*edge
 }
 
 void
-NIImporter_ArcView::checkSpread(NBEdge *e) {
-    NBEdge *ret = e->getToNode()->getConnectionTo(e->getFromNode());
+NIImporter_ArcView::checkSpread(NBEdge* e) {
+    NBEdge* ret = e->getToNode()->getConnectionTo(e->getFromNode());
     if (ret!=0) {
         e->setLaneSpreadFunction(LANESPREAD_RIGHT);
         ret->setLaneSpreadFunction(LANESPREAD_RIGHT);

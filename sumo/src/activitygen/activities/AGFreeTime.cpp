@@ -59,33 +59,40 @@ int
 AGFreeTime::decideTypeOfTrip() {
     if (hh->adults.front().decide(freqOut)) {
         int num_poss = 0; //(possibleType % 2) + (possibleType / 4) + ((possibleType / 2) % 2);
-        if (possibleType & DAY)
+        if (possibleType & DAY) {
             ++num_poss;
-        if (possibleType & EVENING)
+        }
+        if (possibleType & EVENING) {
             ++num_poss;
-        if (possibleType & NIGHT)
+        }
+        if (possibleType & NIGHT) {
             ++num_poss;
+        }
 
-        if (num_poss == 0)
+        if (num_poss == 0) {
             return 0;
+        }
         SUMOReal alea = RandHelper::rand(); //(float)(rand() % 1000) / 1000.0;
         int decision = (int)floor(alea * (SUMOReal)num_poss);
 
         if (possibleType & DAY) {
-            if (decision == 0)
+            if (decision == 0) {
                 return DAY;
-            else
+            } else {
                 --decision;
+            }
         }
         if (possibleType & EVENING) {
-            if (decision == 0)
+            if (decision == 0) {
                 return EVENING;
-            else
+            } else {
                 --decision;
+            }
         }
         if (possibleType & NIGHT) {
-            if (decision == 0)
+            if (decision == 0) {
                 return NIGHT;
+            }
         }
     }
     return 0;
@@ -94,23 +101,27 @@ AGFreeTime::decideTypeOfTrip() {
 int
 AGFreeTime::possibleTypeOfTrip() {
     int val = 0;
-    if (hh->adults.front().getAge() >= ds->limitAgeRetirement && tReady == 0)
+    if (hh->adults.front().getAge() >= ds->limitAgeRetirement && tReady == 0) {
         val += DAY+EVENING;
-    else {
-        if (hh->getPeopleNbr() > hh->getAdultNbr())
+    } else {
+        if (hh->getPeopleNbr() > hh->getAdultNbr()) {
             val += NIGHT;
+        }
 
         std::list<AGAdult>::iterator itA;
         bool noBodyWorks = true;
         for (itA=hh->adults.begin() ; itA!=hh->adults.end() ; ++itA) {
-            if (itA->isWorking())
+            if (itA->isWorking()) {
                 noBodyWorks = false;
+            }
         }
-        if (noBodyWorks)
+        if (noBodyWorks) {
             val += DAY;
+        }
 
-        if (tReady < (*(new AGTime(0,22,0))).getTime())
+        if (tReady < (*(new AGTime(0,22,0))).getTime()) {
             val += EVENING;
+        }
     }
     return val;
 }
@@ -118,14 +129,16 @@ AGFreeTime::possibleTypeOfTrip() {
 bool
 AGFreeTime::typeFromHomeDay(int day) {
     int backHome = whenBackHomeThisDay(day);
-    if (hh->cars.empty())
+    if (hh->cars.empty()) {
         return true;
+    }
     AGPosition destination(hh->getTheCity()->getRandomStreet());
     int depTime = randomTimeBetween(MAX2(backHome, TB_DAY), (TB_DAY+TE_DAY)/2);
     int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_DAY);
-    if (depTime < 0 || retTime < 0)
-        return true; // not enough time during the day
+    if (depTime < 0 || retTime < 0) {
+        return true;    // not enough time during the day
+    }
     AGTrip depTrip(hh->getPosition(), destination, hh->cars.front().getName(), depTime, day);
     AGTrip retTrip(destination, hh->getPosition(), hh->cars.front().getName(), retTime, day);
 
@@ -137,14 +150,16 @@ AGFreeTime::typeFromHomeDay(int day) {
 bool
 AGFreeTime::typeFromHomeEvening(int day) {
     int backHome = whenBackHomeThisDay(day);
-    if (hh->cars.empty())
+    if (hh->cars.empty()) {
         return true;
+    }
     AGPosition destination(hh->getTheCity()->getRandomStreet());
     int depTime = randomTimeBetween(MAX2(backHome, TB_EVENING), TE_EVENING);
     int arrTime = this->arrHour(hh->getPosition(), destination, depTime);
     int retTime = randomTimeBetween(arrTime, TE_EVENING);
-    if (depTime < 0 || retTime < 0)
-        return true; // not enough time during the day
+    if (depTime < 0 || retTime < 0) {
+        return true;    // not enough time during the day
+    }
     AGTrip depTrip(hh->getPosition(), destination, hh->cars.front().getName(), depTime, day);
     AGTrip retTrip(destination, hh->getPosition(), hh->cars.front().getName(), retTime, day);
 
@@ -158,8 +173,9 @@ AGFreeTime::typeFromHomeNight(int day) {
     int backHome = whenBackHomeThisDay(day);
     int ActivitiesNextDay = whenBeginActivityNextDay(day); // is equal to 2 days if there is nothing the next day
     int nextDay = 0;
-    if (hh->cars.empty())
+    if (hh->cars.empty()) {
         return true;
+    }
     AGPosition destination(hh->getTheCity()->getRandomStreet());
 
     int depTime = randomTimeBetween(MAX2(backHome, TB_NIGHT), TE_NIGHT);
@@ -167,8 +183,9 @@ AGFreeTime::typeFromHomeNight(int day) {
     //we have to go back home before the beginning of next day activities.
     int lastRetTime = this->depHour(destination, hh->getPosition(), MIN2(TE_NIGHT, ActivitiesNextDay));
     int retTime = randomTimeBetween(arrTime, lastRetTime);
-    if (depTime < 0 || retTime < 0)
-        return true; // not enough time during the day
+    if (depTime < 0 || retTime < 0) {
+        return true;    // not enough time during the day
+    }
 
     AGTime departureTime(depTime);
     nextDay = departureTime.getDay();
@@ -193,17 +210,20 @@ AGFreeTime::generateTrips() {
 
     for (int day=1 ; day <= nbrDays ; ++day) {
         type = decideTypeOfTrip();
-        if (type == 0)
+        if (type == 0) {
             continue;
-        else if (type == DAY) {
-            if (!typeFromHomeDay(day))
+        } else if (type == DAY) {
+            if (!typeFromHomeDay(day)) {
                 return false;
+            }
         } else if (type == EVENING) {
-            if (!typeFromHomeEvening(day))
+            if (!typeFromHomeEvening(day)) {
                 return false;
+            }
         } else if (type == NIGHT) {
-            if (!typeFromHomeNight(day))
+            if (!typeFromHomeNight(day)) {
                 return false;
+            }
         }
     }
     genDone = true;

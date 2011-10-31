@@ -39,13 +39,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-TrackerValueDesc::TrackerValueDesc(const std::string &name,
-                                   const RGBColor &col,
+TrackerValueDesc::TrackerValueDesc(const std::string& name,
+                                   const RGBColor& col,
                                    SUMOTime recordBegin)
-        : myName(name), myActiveCol(col), myInactiveCol(col),
-        myMin(0), myMax(0),
-        myAggregationInterval(TIME2STEPS(1)/DELTA_T), myInvalidValue(-1), myValidNo(0),
-        myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
+    : myName(name), myActiveCol(col), myInactiveCol(col),
+      myMin(0), myMax(0),
+      myAggregationInterval(TIME2STEPS(1)/DELTA_T), myInvalidValue(-1), myValidNo(0),
+      myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
 TrackerValueDesc::~TrackerValueDesc() {
@@ -109,7 +109,7 @@ TrackerValueDesc::getYCenter() const {
 }
 
 
-const RGBColor &
+const RGBColor&
 TrackerValueDesc::getColor() const {
     return myActiveCol;
 }
@@ -129,7 +129,7 @@ TrackerValueDesc::getAggregatedValues() {
 }
 
 
-const std::string &
+const std::string&
 TrackerValueDesc::getName() const {
     return myName;
 }

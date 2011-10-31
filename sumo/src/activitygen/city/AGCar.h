@@ -42,10 +42,10 @@
 class AGCar {
 public:
     AGCar(std::string name) :
-            idName(name) {};
+        idName(name) {};
     AGCar(int idHH, int idCar) :
-            idName(createName(idHH, idCar)) {};
-    bool associateTo(AGAdult *pers);
+        idName(createName(idHH, idCar)) {};
+    bool associateTo(AGAdult* pers);
     bool isAssociated();
     std::string getName();
 

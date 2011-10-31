@@ -124,7 +124,7 @@ public:
      * @param[in] oc The options container to read options from
      * @exception ProcessError If something fails (message is included)
      */
-    void applyOptions(OptionsCont &oc) throw(ProcessError);
+    void applyOptions(OptionsCont& oc) throw(ProcessError);
 
 
     /** @brief Performs the network building steps
@@ -134,9 +134,9 @@ public:
      * @param[in] removeUnwishedNodes Whether to remove orphan nodes (and optionally convert some nodes to geometry)
      * @exception ProcessError (recheck)
      */
-    void compute(OptionsCont &oc, 
-            const std::set<std::string> &explicitTurnarounds=std::set<std::string>(),
-            bool removeUnwishedNodes=true);
+    void compute(OptionsCont& oc,
+                 const std::set<std::string> &explicitTurnarounds=std::set<std::string>(),
+                 bool removeUnwishedNodes=true);
 
 
 
@@ -146,7 +146,7 @@ public:
     /** @brief Returns the edge container
      * @return The edge container (reference)
      */
-    NBEdgeCont &getEdgeCont() throw() {
+    NBEdgeCont& getEdgeCont() throw() {
         return myEdgeCont;
     }
 
@@ -154,7 +154,7 @@ public:
     /** @brief Returns the node container
      * @return The node container (reference)
      */
-    NBNodeCont &getNodeCont() throw() {
+    NBNodeCont& getNodeCont() throw() {
         return myNodeCont;
     }
 
@@ -162,7 +162,7 @@ public:
     /** @brief Returns the type container
      * @return The type container (reference)
      */
-    NBTypeCont &getTypeCont() throw() {
+    NBTypeCont& getTypeCont() throw() {
         return myTypeCont;
     }
 
@@ -170,7 +170,7 @@ public:
     /** @brief Returns the traffic light logics container
      * @return The traffic light logics container (reference)
      */
-    NBTrafficLightLogicCont &getTLLogicCont() throw() {
+    NBTrafficLightLogicCont& getTLLogicCont() throw() {
         return myTLLCont;
     }
 
@@ -178,7 +178,7 @@ public:
     /** @brief Returns the districts container
      * @return The districts container (reference)
      */
-    NBDistrictCont &getDistrictCont() throw() {
+    NBDistrictCont& getDistrictCont() throw() {
         return myDistrictCont;
     }
 
@@ -194,7 +194,7 @@ public:
     /** @brief Returns the joined edges map
      * @return The map of joined edges
      */
-    const NBJoinedEdgesMap &getJoinedEdgesMap() const {
+    const NBJoinedEdgesMap& getJoinedEdgesMap() const {
         return myJoinedEdges;
     }
     /// @}
@@ -210,7 +210,7 @@ protected:
         /// @brief constructor
         explicit by_id_sorter() { }
 
-        int operator()(const NBNode *n1, const NBNode *n2) const {
+        int operator()(const NBNode* n1, const NBNode* n2) const {
             return n1->getID()<n2->getID();
         }
 
@@ -241,10 +241,10 @@ protected:
 
 private:
     /// @brief invalidated copy constructor
-    NBNetBuilder(const NBNetBuilder &s);
+    NBNetBuilder(const NBNetBuilder& s);
 
     /// @brief invalidated assignment operator
-    NBNetBuilder &operator=(const NBNetBuilder &s);
+    NBNetBuilder& operator=(const NBNetBuilder& s);
 
 };
 

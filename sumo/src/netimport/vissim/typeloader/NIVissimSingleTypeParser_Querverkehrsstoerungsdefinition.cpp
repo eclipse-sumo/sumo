@@ -43,15 +43,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::~NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream& from) {
     std::string tag;
     tag = myRead(from);
     if (tag=="nureigenestrecke") {
@@ -67,7 +67,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
 }
 
 bool
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream &from) {
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream& from) {
     std::string tag;
     from >> tag;
     return true;
@@ -75,7 +75,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istre
 
 
 bool
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed(std::istream &from) {
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed(std::istream& from) {
     std::string tag = myRead(from);
     NIVissimExtendedEdgePoint edge = parsePos(from);
 //    from >> tag; // "Durch"
@@ -108,7 +108,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
 
 
 bool
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::istream &from) {
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::istream& from) {
     //
     int id;
     from >> id;
@@ -154,7 +154,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
 
 
 NIVissimExtendedEdgePoint
-NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream &from) {
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream& from) {
     int edgeid;
     from >> edgeid; // type-checking is missing!
     //

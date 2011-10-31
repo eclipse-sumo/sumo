@@ -133,11 +133,11 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
 // member method definitions
 // ===========================================================================
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
-        const std::string &configPattern)
-        : GUIMainWindow(a),
-        myLoadThread(0), myRunThread(0),
-        myAmLoading(false),
-        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets(a, "nets") {
+        const std::string& configPattern)
+    : GUIMainWindow(a),
+      myLoadThread(0), myRunThread(0),
+      myAmLoading(false),
+      mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets(a, "nets") {
     GUIIconSubSys::init(a);
 }
 
@@ -162,9 +162,9 @@ GUIApplicationWindow::dependentBuild(bool game) {
     buildToolBars();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
-    myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
+                                myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     myRunThreadEvent.setTarget(this),
-    myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
+                               myRunThreadEvent.setSelector(ID_RUNTHREAD_EVENT);
 
     // build the status bar
     myStatusbar = new FXStatusBar(this, LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|FRAME_RAISED);
@@ -273,7 +273,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
 
     while (!myEvents.empty()) {
         // get the next event
-        GUIEvent *e = static_cast<GUIEvent*>(myEvents.top());
+        GUIEvent* e = static_cast<GUIEvent*>(myEvents.top());
         myEvents.pop();
         delete e;
     }
@@ -521,7 +521,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*) {
 
 long
 GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*) {
-    GUIDialog_GLChosenEditor *chooser =
+    GUIDialog_GLChosenEditor* chooser =
         new GUIDialog_GLChosenEditor(this, &gSelected);
     chooser->create();
     chooser->show();
@@ -531,7 +531,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*) {
 
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*) {
-    GUIDialog_Breakpoints *chooser =
+    GUIDialog_Breakpoints* chooser =
         new GUIDialog_Breakpoints(this);
     chooser->create();
     chooser->show();
@@ -587,7 +587,7 @@ GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*) {
 
 
 long
-GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data) {
+GUIApplicationWindow::onCmdOpenRecent(FXObject* sender,FXSelector,void* data) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
@@ -606,7 +606,7 @@ GUIApplicationWindow::onCmdClose(FXObject*,FXSelector,void*) {
 
 
 long
-GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdOpen(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -615,7 +615,7 @@ GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdReload(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myAmLoading||myLoadThread->getFileName()==""
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -625,7 +625,7 @@ GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdOpenRecent(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -634,7 +634,7 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdAddMicro(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    myAmLoading||!myRunThread->simulationAvailable()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -692,7 +692,7 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*) {
 
 
 long
-GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdStart(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStartable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -702,7 +702,7 @@ GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdStop(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdStop(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStopable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -712,7 +712,7 @@ GUIApplicationWindow::onUpdStop(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdStep(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStepable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -722,7 +722,7 @@ GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr) {
+GUIApplicationWindow::onUpdEditChosen(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -732,7 +732,7 @@ GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr) {
+GUIApplicationWindow::onUpdEditBreakpoints(FXObject* sender,FXSelector,void* ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -743,7 +743,7 @@ GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr
 
 long
 GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*) {
-    GUIDialog_AppSettings *d = new GUIDialog_AppSettings(this);
+    GUIDialog_AppSettings* d = new GUIDialog_AppSettings(this);
     d->create();
     d->show(PLACEMENT_OWNER);
     return 1;
@@ -776,7 +776,7 @@ GUIApplicationWindow::onCmdNewView(FXObject*,FXSelector,void*) {
 
 long
 GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*) {
-    GUIDialog_AboutSUMO *about =
+    GUIDialog_AboutSUMO* about =
         new GUIDialog_AboutSUMO(this, "About SUMO", 0, 0);
     about->create();
     about->show(PLACEMENT_OWNER);
@@ -785,7 +785,7 @@ GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*) {
 
 
 long GUIApplicationWindow::onClipboardRequest(FXObject* sender,FXSelector sel,void* ptr) {
-    FXEvent *event=(FXEvent*)ptr;
+    FXEvent* event=(FXEvent*)ptr;
     FXString string = GUIUserIO::clipped.c_str();
     setDNDData(FROM_CLIPBOARD, event->target, string);
     return 1;
@@ -810,7 +810,7 @@ void
 GUIApplicationWindow::eventOccured() {
     while (!myEvents.empty()) {
         // get the next event
-        GUIEvent *e = static_cast<GUIEvent*>(myEvents.top());
+        GUIEvent* e = static_cast<GUIEvent*>(myEvents.top());
         myEvents.pop();
         // process
         switch (e->getOwnType()) {
@@ -839,9 +839,9 @@ GUIApplicationWindow::eventOccured() {
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
+GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     myAmLoading = false;
-    GUIEvent_SimulationLoaded *ec = static_cast<GUIEvent_SimulationLoaded*>(e);
+    GUIEvent_SimulationLoaded* ec = static_cast<GUIEvent_SimulationLoaded*>(e);
     if (ec->myNet!=0) {
 #ifndef NO_TRACI
         std::map<int, traci::TraCIServer::CmdExecutor> execs;
@@ -849,7 +849,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         execs[CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         try {
             traci::TraCIServer::openSocket(execs);
-        } catch (ProcessError &e) {
+        } catch (ProcessError& e) {
             myMessageWindow->appendText(EVENT_ERROR_OCCURED, e.what());
             WRITE_ERROR(e.what());
             delete ec->myNet;
@@ -910,7 +910,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
+GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     updateChildren();
     std::string t = time2string(myRunThread->getNet().getCurrentTimeStep());
     if (myAmGaming || fmod(TS, 1.) == 0.) {
@@ -923,15 +923,15 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
 
 
 void
-GUIApplicationWindow::handleEvent_Message(GUIEvent *e) {
-    GUIEvent_Message *ec = static_cast<GUIEvent_Message*>(e);
+GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
+    GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
     myMessageWindow->appendText(ec->getOwnType(), ec->getMsg());
 }
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
-    GUIEvent_SimulationEnded *ec = static_cast<GUIEvent_SimulationEnded*>(e);
+GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
+    GUIEvent_SimulationEnded* ec = static_cast<GUIEvent_SimulationEnded*>(e);
     if (!gQuitOnEnd) {
         // build the text
         std::stringstream text;
@@ -951,7 +951,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
 
 
 void
-GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
+GUIApplicationWindow::load(const std::string& file, bool isNet, bool isReload) {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
@@ -992,12 +992,12 @@ GUIApplicationWindow::openNewView() {
 }
 
 
-FXGLCanvas *
+FXGLCanvas*
 GUIApplicationWindow::getBuildGLCanvas() const {
     if (myMDIClient->numChildren()==0) {
         return 0;
     }
-    GUISUMOViewParent *share_tmp1 =
+    GUISUMOViewParent* share_tmp1 =
         static_cast<GUISUMOViewParent*>(myMDIClient->childAtIndex(0));
     return share_tmp1->getBuildGLCanvas();
 }
@@ -1040,7 +1040,7 @@ GUIApplicationWindow::closeAllWindows() {
 }
 
 
-FXCursor *
+FXCursor*
 GUIApplicationWindow::getDefaultCursor() {
     return getApp()->getDefaultCursor(DEF_ARROW_CURSOR);
 }
@@ -1053,14 +1053,14 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string &config, bool run) {
+GUIApplicationWindow::loadOnStartup(const std::string& config, bool run) {
     myRunAtBegin = run;
     load(config, false);
 }
 
 
 void
-GUIApplicationWindow::setStatusBarText(const std::string &text) {
+GUIApplicationWindow::setStatusBarText(const std::string& text) {
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
 }

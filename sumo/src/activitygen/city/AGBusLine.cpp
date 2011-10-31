@@ -61,10 +61,11 @@ AGBusLine::setBusNames() {
 
     while (it1!= buses.end() && it2!=revBuses.end()) {
         if (it1->getDeparture() > it2->getDeparture()) {
-            if (drivingBuses2.size() == 0)
+            if (drivingBuses2.size() == 0) {
                 drivingBuses2.push_front(make_pair(it2->getDeparture(), createName()));
-            else if (drivingBuses2.front().first > it2->getDeparture())
+            } else if (drivingBuses2.front().first > it2->getDeparture()) {
                 drivingBuses2.push_front(make_pair(it2->getDeparture(), createName()));
+            }
             //here the first in drivingBuses2 is available for the trip
             it2->setName(drivingBuses2.front().second);
             drivingBuses2.pop_front();
@@ -72,10 +73,11 @@ AGBusLine::setBusNames() {
             drivingBuses1.push_back(make_pair(getReady(it2->getDeparture()), it2->getName()));
             it2++;
         } else {
-            if (drivingBuses1.size() == 0)
+            if (drivingBuses1.size() == 0) {
                 drivingBuses1.push_front(make_pair(it1->getDeparture(), createName()));
-            else if (drivingBuses1.front().first > it1->getDeparture())
+            } else if (drivingBuses1.front().first > it1->getDeparture()) {
                 drivingBuses1.push_front(make_pair(it1->getDeparture(), createName()));
+            }
             //here the first in drivingBuses1 is available for the trip
             it1->setName(drivingBuses1.front().second);
             drivingBuses1.pop_front();
@@ -85,22 +87,22 @@ AGBusLine::setBusNames() {
         }
     }
     if (it1 != buses.end()) {
-        if (drivingBuses1.size() == 0)
+        if (drivingBuses1.size() == 0) {
             it1->setName(createName());
-        else if (drivingBuses1.front().first > it1->getDeparture())
+        } else if (drivingBuses1.front().first > it1->getDeparture()) {
             it1->setName(createName());
-        else {
+        } else {
             it1->setName(drivingBuses1.front().second);
             drivingBuses1.pop_front();
         }
         it1++;
     }
     if (it2 != revBuses.end()) {
-        if (drivingBuses2.size() == 0)
+        if (drivingBuses2.size() == 0) {
             it2->setName(createName());
-        else if (drivingBuses2.front().first > it2->getDeparture())
+        } else if (drivingBuses2.front().first > it2->getDeparture()) {
             it2->setName(createName());
-        else {
+        } else {
             it2->setName(drivingBuses2.front().second);
             drivingBuses2.pop_front();
         }
@@ -157,11 +159,13 @@ AGBusLine::printBuses() {
     std::list<AGBus>::iterator it;
     std::cout << "\n ----------- BUS LINE " << lineNumber << " PRINTING -------------\n" << std::endl;
     std::cout << "\n -------------------------- First way ---------------------------\n" << std::endl;
-    for (it=buses.begin() ; it!=buses.end() ; ++it)
+    for (it=buses.begin() ; it!=buses.end() ; ++it) {
         it->print();
+    }
     std::cout << "\n -------------------------- Second way --------------------------\n" << std::endl;
-    for (it=revBuses.begin() ; it!=revBuses.end() ; ++it)
+    for (it=revBuses.begin() ; it!=revBuses.end() ; ++it) {
         it->print();
+    }
     std::cout << "\n ----------------------------------------------------------------\n" << std::endl;
 }
 

@@ -53,13 +53,13 @@ public:
      * @param[in] position The position of this point at the edge
      * @param[in] assignedVehicles Vehicle (type) indices which should be regarded by this point
      */
-    NIVissimExtendedEdgePoint(int edgeid, const IntVector &lanes,
-                              SUMOReal position, const IntVector &assignedVehicles) throw();
+    NIVissimExtendedEdgePoint(int edgeid, const IntVector& lanes,
+                              SUMOReal position, const IntVector& assignedVehicles) throw();
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
     SUMOReal getPosition() const;
     Position getGeomPosition() const;
-    const IntVector &getLanes() const;
+    const IntVector& getLanes() const;
 
 
     /** @brief Resets lane numbers if all lanes shall be used
@@ -69,7 +69,7 @@ public:
      *
      * @param[in] The built edge
      */
-    void recheckLanes(const NBEdge * const edge) throw();
+    void recheckLanes(const NBEdge* const edge) throw();
 
 private:
     int myEdgeID;

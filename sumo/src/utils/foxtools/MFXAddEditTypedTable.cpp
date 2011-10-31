@@ -40,7 +40,7 @@
 
 
 // Map
-FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]={
+FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]= {
     FXMAPFUNC(SEL_CLICKED,0,MFXAddEditTypedTable::onClicked),
     FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXAddEditTypedTable::onDoubleClicked),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,MFXAddEditTypedTable::onLeftBtnRelease),
@@ -50,11 +50,11 @@ FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]={
 FXIMPLEMENT(MFXAddEditTypedTable,FXTable,MFXAddEditTypedTableMap,ARRAYNUMBER(MFXAddEditTypedTableMap))
 
 
-MFXAddEditTypedTable::MFXAddEditTypedTable(FXComposite *p, FXObject* tgt,
+MFXAddEditTypedTable::MFXAddEditTypedTable(FXComposite* p, FXObject* tgt,
         FXSelector sel, FXuint opts,
         FXint x, FXint y, FXint w, FXint h,
         FXint pl,FXint pr,FXint pt,FXint pb)
-        : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {}
+    : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {}
 
 
 MFXAddEditTypedTable::~MFXAddEditTypedTable() {}
@@ -197,20 +197,22 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
 */
 
 
-FXWindow *
+FXWindow*
 MFXAddEditTypedTable::getControlForItem(FXint r,FXint c) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         return 0;
         cells[r*ncols+c]=item=createItem("",NULL,NULL);
-        if (isItemSelected(r,c)) item->setSelected(FALSE);
+        if (isItemSelected(r,c)) {
+            item->setSelected(FALSE);
+        }
     }
     delete editor;
     editor=NULL;
     switch (getCellType(c)) {
     case CT_UNDEFINED:
     case CT_STRING: {
-        register FXTextField *field;
+        register FXTextField* field;
         register FXuint justify=0;
         field=new FXTextField(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
         // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
@@ -231,7 +233,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c) {
     case CT_REAL:
 //        return myNumberEditor;
     case CT_INT: {
-        register FXRealSpinDial *field;
+        register FXRealSpinDial* field;
         //register FXuint justify=0;
         field=new FXRealSpinDial(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
         // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
@@ -257,7 +259,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c) {
             } else {
                 field->setValue(TplConvert<char>::_2int(item->getText().text()));
             }
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             field->setValue(0);
         }
         field->selectAll();
@@ -294,7 +296,7 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
     if (editor) {
         //
         //
-        FXRealSpinDial *dial = dynamic_cast<FXRealSpinDial*>(editor);
+        FXRealSpinDial* dial = dynamic_cast<FXRealSpinDial*>(editor);
         if (dial!=0) {
             if (!dial->getDial().grabbed()) {
                 set = true;
@@ -319,11 +321,13 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
 
 
 void
-MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control) {
+MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow* control) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         cells[r*ncols+c]=item=createItem("",NULL,NULL);
-        if (isItemSelected(r,c)) item->setSelected(FALSE);
+        if (isItemSelected(r,c)) {
+            item->setSelected(FALSE);
+        }
     }
     switch (getCellType(c)) {
     case CT_UNDEFINED:
@@ -372,7 +376,7 @@ MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control) {
 
 
 void
-MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control) {
+MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow* control) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         return;
@@ -420,7 +424,9 @@ long MFXAddEditTypedTable::onLeftBtnRelease(FXObject*,FXSelector,void* ptr) {
         mode=MOUSE_NONE;
         stopAutoScroll();
         setDragCursor(getApp()->getDefaultCursor(DEF_ARROW_CURSOR));
-        if (target && target->tryHandle(this,FXSEL(SEL_LEFTBUTTONRELEASE,message),ptr)) return 1;
+        if (target && target->tryHandle(this,FXSEL(SEL_LEFTBUTTONRELEASE,message),ptr)) {
+            return 1;
+        }
 
         // Scroll to make item visibke
         makePositionVisible(current.row,current.col);
@@ -456,7 +462,9 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr) {
     handle(this,FXSEL(SEL_FOCUS_SELF,0),ptr);
     if (isEnabled()) {
         grab();
-        if (target && target->tryHandle(this,FXSEL(SEL_LEFTBUTTONPRESS,message),ptr)) return 1;
+        if (target && target->tryHandle(this,FXSEL(SEL_LEFTBUTTONPRESS,message),ptr)) {
+            return 1;
+        }
 
         // Cell being clicked on
         tablepos.row=rowAtY(event->win_y);
@@ -519,7 +527,9 @@ MFXAddEditTypedTable::onClicked(FXObject*,FXSelector ,void* ptr) {
         current.row=-1;
         current.col=-1;
     }
-    if (target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) return 1;
+    if (target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) {
+        return 1;
+    }
     handle(this,FXSEL(SEL_COMMAND,ID_START_INPUT),NULL);
     return 1;
 }
@@ -535,7 +545,9 @@ long MFXAddEditTypedTable::onDoubleClicked(FXObject*,FXSelector,void* ptr) {
         input.to.col=-1;
         editor=NULL;
     } else {
-        if (target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) return 1;
+        if (target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) {
+            return 1;
+        }
         handle(this,FXSEL(SEL_COMMAND,ID_START_INPUT),NULL);
     }
     return 1;
@@ -564,7 +576,7 @@ MFXAddEditTypedTable::setNumberCellParams(size_t pos, double min, double max,
         double steps1,
         double steps2,
         double steps3,
-        const std::string &format) {
+        const std::string& format) {
     while (myNumberCellParams.size()<=pos) {
         NumberCellParams np;
         np.format = "undefined";
@@ -606,7 +618,7 @@ MFXAddEditTypedTable::setEnums(size_t pos,
 
 void
 MFXAddEditTypedTable::addEnum(size_t pos,
-                              const std::string &e) {
+                              const std::string& e) {
     while (myEnums.size()<=pos) {
         myEnums.push_back(std::vector<std::string>());
     }

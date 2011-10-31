@@ -48,7 +48,7 @@ template< class T >
 class MsgRetrievingFunction : public OutputDevice {
 public:
     /// @brief Type of the function to execute.
-    typedef void(T::* Operation)(const MsgHandler::MsgType, const std::string &);
+    typedef void(T::* Operation)(const MsgHandler::MsgType, const std::string&);
 
 
     /** @brief Constructor
@@ -57,9 +57,9 @@ public:
      * @param[in] type The type of the message
      */
     MsgRetrievingFunction(T* object, Operation operation, MsgHandler::MsgType type) :
-            myObject(object),
-            myOperation(operation),
-            myMsgType(type) {}
+        myObject(object),
+        myOperation(operation),
+        myMsgType(type) {}
 
 
     /// @brief Destructor
@@ -78,7 +78,7 @@ protected:
      * @return The used stream
      * @see postWriteHook
      */
-    std::ostream &getOStream() throw() {
+    std::ostream& getOStream() throw() {
         return myMessage;
     }
 

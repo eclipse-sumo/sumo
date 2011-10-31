@@ -58,7 +58,7 @@
 /* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-callbacks
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]={
+FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]= {
     FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
     FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
 
@@ -73,10 +73,10 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel,FXGLCanv
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
-    FXComposite *c, GUIMainWindow &app,
-    GUITLLogicPhasesTrackerWindow &parent) throw()
-        : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
-        myParent(&parent), myApplication(&app) {}
+    FXComposite* c, GUIMainWindow& app,
+    GUITLLogicPhasesTrackerWindow& parent) throw()
+    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
+      myParent(&parent), myApplication(&app) {}
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() throw() {}
@@ -140,7 +140,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
 /* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow - FOX callback mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITLLogicPhasesTrackerWindow) GUITLLogicPhasesTrackerWindowMap[]={
+FXDEFMAP(GUITLLogicPhasesTrackerWindow) GUITLLogicPhasesTrackerWindowMap[]= {
     FXMAPFUNC(SEL_CONFIGURE, 0,           GUITLLogicPhasesTrackerWindow::onConfigure),
     FXMAPFUNC(SEL_PAINT,     0,           GUITLLogicPhasesTrackerWindow::onPaint),
     FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUITLLogicPhasesTrackerWindow::onSimStep),
@@ -154,12 +154,12 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow,FXMainWindow,GUITLLogicPhasesTrackerWi
  * GUITLLogicPhasesTrackerWindow-methods
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-    GUIMainWindow &app,
-    MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+    GUIMainWindow& app,
+    MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
     ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src) throw()
-        : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
-                       20,20,300,200),
-        myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
+    : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
+                   20,20,300,200),
+    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
     // build the toolbar
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
@@ -178,7 +178,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
     }
-    FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame* glcanvasFrame =
         new FXVerticalFrame(this,
                             FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                             0,0,0,0,0,0,0,0);
@@ -191,13 +191,13 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-    GUIMainWindow &app,
-    MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &/*wrapper*/,
-    const MSSimpleTrafficLightLogic::Phases &/*phases*/) throw()
-        : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
-                       20,20,300,200),
-        myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
-        myToolBarDrag(0), myBeginOffset(0) {
+    GUIMainWindow& app,
+    MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
+    const MSSimpleTrafficLightLogic::Phases& /*phases*/) throw()
+    : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
+                   20,20,300,200),
+    myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
+    myToolBarDrag(0), myBeginOffset(0) {
     myConnector = 0;
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
@@ -205,7 +205,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
     }
-    FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame* glcanvasFrame =
         new FXVerticalFrame(this,
                             FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                             0,0,0,0,0,0,0,0);
@@ -238,7 +238,7 @@ GUITLLogicPhasesTrackerWindow::create() {
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) throw() {
+GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) throw() {
     // compute what shall be shown (what is visible)
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
@@ -248,7 +248,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         myPhases.clear();
         myDurations.clear();
         // insert phases
-        const MSSimpleTrafficLightLogic::Phases &phases = static_cast<MSSimpleTrafficLightLogic*>(myTLLogic)->getPhases();
+        const MSSimpleTrafficLightLogic::Phases& phases = static_cast<MSSimpleTrafficLightLogic*>(myTLLogic)->getPhases();
         MSSimpleTrafficLightLogic::Phases::const_iterator j;
         myLastTime = 0;
         myBeginTime = 0;
@@ -476,16 +476,16 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
 
 
 long
-GUITLLogicPhasesTrackerWindow::onConfigure(FXObject *sender,
-        FXSelector sel, void *data) {
+GUITLLogicPhasesTrackerWindow::onConfigure(FXObject* sender,
+        FXSelector sel, void* data) {
     myPanel->onConfigure(sender, sel, data);
     return FXMainWindow::onConfigure(sender, sel, data);
 }
 
 
 long
-GUITLLogicPhasesTrackerWindow::onPaint(FXObject *sender,
-                                       FXSelector sel, void *data) {
+GUITLLogicPhasesTrackerWindow::onPaint(FXObject* sender,
+                                       FXSelector sel, void* data) {
     myPanel->onPaint(sender, sel, data);
     return FXMainWindow::onPaint(sender, sel, data);
 }

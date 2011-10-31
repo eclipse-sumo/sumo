@@ -47,16 +47,16 @@
 GUIDetectorWrapper::GUIDetectorWrapper(
     const std::string& prefix,
     const std::string& id) :
-        GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
+    GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
 
 
 GUIDetectorWrapper::~GUIDetectorWrapper() throw() {}
 
 
-GUIGLObjectPopupMenu *
-GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app,
+                                 GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

@@ -129,7 +129,7 @@ getVehicleClassCompoundName(int id) {
 
 
 std::string
-getVehicleClassNames(const SUMOVehicleClasses &ids) {
+getVehicleClassNames(const SUMOVehicleClasses& ids) {
     std::ostringstream oss;
     bool hadOne = false;
     for (SUMOVehicleClasses::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
@@ -144,7 +144,7 @@ getVehicleClassNames(const SUMOVehicleClasses &ids) {
 
 
 SUMOVehicleClass
-getVehicleClassID(const std::string &name) {
+getVehicleClassID(const std::string& name) {
     if (SumoVehicleClassStrings.hasString(name)) {
         return SumoVehicleClassStrings.get(name);
     }
@@ -153,7 +153,7 @@ getVehicleClassID(const std::string &name) {
 
 
 int
-getVehicleClassCompoundID(const std::string &name) {
+getVehicleClassCompoundID(const std::string& name) {
     int ret = SVC_UNKNOWN;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
     for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
@@ -167,8 +167,8 @@ getVehicleClassCompoundID(const std::string &name) {
 
 void
 parseVehicleClasses(
-    const std::string &classNames,
-    SUMOVehicleClasses &container) {
+    const std::string& classNames,
+    SUMOVehicleClasses& container) {
     StringTokenizer sta(classNames, " ");
     while (sta.hasNext()) {
         container.insert(getVehicleClassID(sta.next()));
@@ -177,10 +177,10 @@ parseVehicleClasses(
 
 
 void
-parseVehicleClasses(const std::string &allowedS,
-                    const std::string &disallowedS,
-                    SUMOVehicleClasses &allowed,
-                    SUMOVehicleClasses &disallowed) {
+parseVehicleClasses(const std::string& allowedS,
+                    const std::string& disallowedS,
+                    SUMOVehicleClasses& allowed,
+                    SUMOVehicleClasses& disallowed) {
     parseVehicleClasses(allowedS, allowed);
     parseVehicleClasses(disallowedS, disallowed);
 }
@@ -188,7 +188,7 @@ parseVehicleClasses(const std::string &allowedS,
 
 void
 parseVehicleClasses(const std::vector<std::string> &classesS,
-                    SUMOVehicleClasses &classes) {
+                    SUMOVehicleClasses& classes) {
     for (std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
         classes.insert(getVehicleClassID(*i));
     }
@@ -196,7 +196,7 @@ parseVehicleClasses(const std::vector<std::string> &classesS,
 
 
 SUMOVehicleShape
-getVehicleShapeID(const std::string &name) {
+getVehicleShapeID(const std::string& name) {
     if (SumoVehicleShapeStrings.hasString(name)) {
         return SumoVehicleShapeStrings.get(name);
     } else {
@@ -205,7 +205,7 @@ getVehicleShapeID(const std::string &name) {
 }
 
 
-std::string 
+std::string
 getVehicleShapeName(SUMOVehicleShape id) {
     return SumoVehicleShapeStrings.getString(id);
 }
@@ -213,7 +213,7 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
-getVehicleEmissionTypeID(const std::string &name) throw(ProcessError) {
+getVehicleEmissionTypeID(const std::string& name) throw(ProcessError) {
     try {
         if (name=="") {
             return SVE_UNKNOWN;
@@ -230,7 +230,7 @@ getVehicleEmissionTypeID(const std::string &name) throw(ProcessError) {
         } else if (name.find("P_14_")==0) {
             return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         }
-    } catch (NumberFormatException &) {
+    } catch (NumberFormatException&) {
     }
     throw ProcessError("Unknown emission type '" + name + "'.");
 }

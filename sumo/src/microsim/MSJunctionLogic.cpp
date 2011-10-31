@@ -50,7 +50,7 @@ MSJunctionLogic::nLinks() {
 
 
 MSJunctionLogic::MSJunctionLogic(unsigned int nLinks) :
-        myNLinks(nLinks) {}
+    myNLinks(nLinks) {}
 
 
 MSJunctionLogic::~MSJunctionLogic() {}

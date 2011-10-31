@@ -48,7 +48,7 @@ enum CellType {
 class MFXAddEditTypedTable : public FXTable {
     FXDECLARE(MFXAddEditTypedTable)
 public:
-    MFXAddEditTypedTable(FXComposite *p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_MARGIN,FXint pr=DEFAULT_MARGIN,FXint pt=DEFAULT_MARGIN,FXint pb=DEFAULT_MARGIN);
+    MFXAddEditTypedTable(FXComposite* p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_MARGIN,FXint pr=DEFAULT_MARGIN,FXint pt=DEFAULT_MARGIN,FXint pb=DEFAULT_MARGIN);
     ~MFXAddEditTypedTable();
 
 public:
@@ -63,7 +63,7 @@ public:
     };
 
     struct EditedTableItem {
-        FXTableItem *item;
+        FXTableItem* item;
         int row;
         int col;
         bool updateOnly;
@@ -74,10 +74,10 @@ public:
     void setCellType(size_t pos, CellType t);
     void setNumberCellParams(size_t pos, double min, double max,
                              double steps1, double steps2, double steps3,
-                             const std::string &format);
+                             const std::string& format);
     NumberCellParams getNumberCellParams(size_t pos) const;
     void setEnums(size_t pos, const std::vector<std::string> &params);
-    void addEnum(size_t pos, const std::string &e);
+    void addEnum(size_t pos, const std::string& e);
     const std::vector<std::string> &getEnums(size_t pos) const;
     /*
         class FXTableItem_Int : public FXTableItem {
@@ -145,10 +145,10 @@ public:
     long onLeftBtnPress(FXObject*,FXSelector,void* ptr);
 
 protected:
-    virtual FXWindow *getControlForItem(FXint r,FXint c);
-    virtual void setItemFromControl(FXint r,FXint c,FXWindow *control);
+    virtual FXWindow* getControlForItem(FXint r,FXint c);
+    virtual void setItemFromControl(FXint r,FXint c,FXWindow* control);
     void acceptInput(FXbool notify);
-    void setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control);
+    void setItemFromControl_NoRelease(FXint r,FXint c,FXWindow* control);
 
 protected:
     std::vector<CellType> myCellTypes;

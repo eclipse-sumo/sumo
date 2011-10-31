@@ -50,8 +50,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNet::NGNet(NBNetBuilder &nb) throw()
-        : myNetBuilder(nb) {
+NGNet::NGNet(NBNetBuilder& nb) throw()
+    : myNetBuilder(nb) {
     myLastID = 0;
 }
 
@@ -89,7 +89,7 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
         for (int iy=0; iy<numY; iy++) {
             // create Node
             std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            NGNode *node = new NGNode(nodeID, ix, iy);
+            NGNode* node = new NGNode(nodeID, ix, iy);
             node->setX(ix * spaceX + attachLength);
             node->setY(iy * spaceY + attachLength);
             myNodeList.push_back(node);
@@ -105,8 +105,8 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
     if (attachLength > 0.0) {
         for (int ix=0; ix<numX; ix++) {
             // create nodes
-            NGNode *topNode = new NGNode("top" + toString<int>(ix), ix, numY);
-            NGNode *bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY+1);
+            NGNode* topNode = new NGNode("top" + toString<int>(ix), ix, numY);
+            NGNode* bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY+1);
             topNode->setX(ix * spaceX + attachLength);
             bottomNode->setX(ix * spaceX + attachLength);
             topNode->setY((numY-1) * spaceY + 2 * attachLength);
@@ -119,8 +119,8 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
         }
         for (int iy=0; iy<numY; iy++) {
             // create nodes
-            NGNode *leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
-            NGNode *rightNode = new NGNode("right" + toString<int>(iy), numX+1, iy);
+            NGNode* leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
+            NGNode* rightNode = new NGNode("right" + toString<int>(iy), numX+1, iy);
             leftNode->setX(0);
             rightNode->setX((numX-1) * spaceX + 2 * attachLength);
             leftNode->setY(iy * spaceY + attachLength);
@@ -149,12 +149,16 @@ NGNet::radialToY(SUMOReal radius, SUMOReal phi) throw() {
 
 void
 NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) throw() {
-    if (numRadDiv < 3) numRadDiv = 3;
-    if (numCircles < 1) numCircles = 1;
+    if (numRadDiv < 3) {
+        numRadDiv = 3;
+    }
+    if (numCircles < 1) {
+        numCircles = 1;
+    }
 
     int ir, ic;
     SUMOReal angle = (SUMOReal)(2*PI/numRadDiv);   // angle between radial divisions
-    NGNode *Node;
+    NGNode* Node;
     for (ir=1; ir<numRadDiv+1; ir++) {
         for (ic=1; ic<numCircles+1; ic++) {
             // create Node
@@ -190,11 +194,11 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
 
 
 void
-NGNet::connect(NGNode *node1, NGNode *node2) throw() {
+NGNet::connect(NGNode* node1, NGNode* node2) throw() {
     std::string id1 = node1->getID() + "to" + node2->getID();
     std::string id2 = node2->getID() + "to" + node1->getID();
-    NGEdge *link1 = new NGEdge(id1, node1, node2);
-    NGEdge *link2 = new NGEdge(id2, node2, node1);
+    NGEdge* link1 = new NGEdge(id1, node1, node2);
+    NGEdge* link2 = new NGEdge(id2, node2, node1);
     myEdgeList.push_back(link1);
     myEdgeList.push_back(link2);
 }
@@ -204,22 +208,22 @@ void
 NGNet::toNB() const throw(ProcessError) {
     std::vector<NBNode*> nodes;
     for (NGNodeList::const_iterator i1=myNodeList.begin(); i1!=myNodeList.end(); i1++) {
-        NBNode *node = (*i1)->buildNBNode(myNetBuilder);
+        NBNode* node = (*i1)->buildNBNode(myNetBuilder);
         nodes.push_back(node);
         myNetBuilder.getNodeCont().insert(node);
     }
     for (NGEdgeList::const_iterator i2=myEdgeList.begin(); i2!=myEdgeList.end(); i2++) {
-        NBEdge *edge = (*i2)->buildNBEdge(myNetBuilder);
+        NBEdge* edge = (*i2)->buildNBEdge(myNetBuilder);
         myNetBuilder.getEdgeCont().insert(edge);
     }
     // now, let's append the reverse directions...
     SUMOReal bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
     for (std::vector<NBNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
-        NBNode *node = *i;
+        NBNode* node = *i;
         EdgeVector incoming = node->getIncomingEdges();
         for (EdgeVector::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
             if (node->getConnectionTo((*j)->getFromNode())==0 && RandHelper::rand()<=bidiProb) {
-                NBEdge *back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
+                NBEdge* back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
                                           "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNumLanes(""),
                                           myNetBuilder.getTypeCont().getPriority(""), myNetBuilder.getTypeCont().getWidth(""), -1);
                 myNetBuilder.getEdgeCont().insert(back);
@@ -230,13 +234,13 @@ NGNet::toNB() const throw(ProcessError) {
 
 
 void
-NGNet::add(NGNode *node) throw() {
+NGNet::add(NGNode* node) throw() {
     myNodeList.push_back(node);
 }
 
 
 void
-NGNet::add(NGEdge *edge) throw() {
+NGNet::add(NGEdge* edge) throw() {
     myEdgeList.push_back(edge);
 }
 

@@ -46,7 +46,7 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the node
      */
-    RONode(const std::string &id) throw();
+    RONode(const std::string& id) throw();
 
 
     /// @brief Destructor
@@ -56,13 +56,13 @@ public:
     /** @brief Sets the position of the node
      * @param[in] p The node's position
      */
-    void setPosition(const Position &p) throw();
+    void setPosition(const Position& p) throw();
 
 
     /** @brief Returns the position of the node
      * @return This node's position
      */
-    const Position &getPosition() throw() {
+    const Position& getPosition() throw() {
         return myPosition;
     }
 
@@ -74,10 +74,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    RONode(const RONode &src);
+    RONode(const RONode& src);
 
     /// @brief Invalidated assignment operator
-    RONode &operator=(const RONode &src);
+    RONode& operator=(const RONode& src);
 
 };
 

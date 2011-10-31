@@ -41,21 +41,21 @@ class AGTime {
 public:
     AGTime() {};
     AGTime(int seconds) :
-            sec(seconds) {};
+        sec(seconds) {};
     AGTime(int hour, int minutes) :
-            sec(convert(0, hour, minutes, 0)) {};
+        sec(convert(0, hour, minutes, 0)) {};
     AGTime(int day, int hour, int min) :
-            sec(convert(day, hour, min, 0)) {};
+        sec(convert(day, hour, min, 0)) {};
     AGTime(int day, int hour, int min, int sec) :
-            sec(convert(day, hour, min, sec)) {};
+        sec(convert(day, hour, min, sec)) {};
     AGTime(const AGTime& time);
-    bool operator==(const AGTime &time);
-    bool operator<(const AGTime &time);
-    bool operator<=(const AGTime &time);
-    void operator+=(const AGTime &time);
+    bool operator==(const AGTime& time);
+    bool operator<(const AGTime& time);
+    bool operator<=(const AGTime& time);
+    void operator+=(const AGTime& time);
     void operator+=(int seconds);
-    void operator-=(const AGTime &time);
-    AGTime operator+(const AGTime &time);
+    void operator-=(const AGTime& time);
+    AGTime operator+(const AGTime& time);
 
     /********************
      * In/Out functions *

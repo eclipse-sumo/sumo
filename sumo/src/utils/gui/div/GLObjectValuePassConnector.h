@@ -66,8 +66,8 @@ public:
      * @param[in] source The method for obtaining the value
      * @param[in] retriever The object to pass the value to
      */
-    GLObjectValuePassConnector(GUIGlObject &o, ValueSource<T> *source, ValueRetriever<T> *retriever) throw()
-            : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
+    GLObjectValuePassConnector(GUIGlObject& o, ValueSource<T> *source, ValueRetriever<T> *retriever) throw()
+        : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
         myLock.lock();
         myContainer.push_back(this);
         myLock.unlock();
@@ -115,7 +115,7 @@ public:
      * Used if for example a vehicle leaves the network
      * @param[in] o The object which shall no longer be asked for values
      */
-    static void removeObject(GUIGlObject &o) throw() {
+    static void removeObject(GUIGlObject& o) throw() {
         myLock.lock();
         for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end();) {
             if ((*i)->myObject.getGlID()==o.getGlID()) {
@@ -144,7 +144,7 @@ protected:
 
 protected:
     /// @brief The object to get the values of (the object that must be active)
-    GUIGlObject &myObject;
+    GUIGlObject& myObject;
 
     /// @brief The source for values
     ValueSource<T> *mySource;

@@ -44,12 +44,12 @@
 class DistributionCont {
 public:
     /// Adds a distribution of the given type and name to the container
-    static bool dictionary(const std::string &type, const std::string &id,
-                           Distribution *d);
+    static bool dictionary(const std::string& type, const std::string& id,
+                           Distribution* d);
 
     /// retrieves the distribution described by a type and a name from the container
-    static Distribution *dictionary(const std::string &type,
-                                    const std::string &id);
+    static Distribution* dictionary(const std::string& type,
+                                    const std::string& id);
 
 private:
     /// Definition of a map from distribution ids to distributions

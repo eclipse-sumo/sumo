@@ -140,7 +140,7 @@ private:
      * @param[in] key The name of the option to set
      * @param[in] value The new value for the option
      */
-    void setValue(const std::string &key, std::string &value);
+    void setValue(const std::string& key, std::string& value);
 
 
     /** @brief Tries to set the named option to the given value
@@ -152,16 +152,16 @@ private:
      * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
-    bool setSecure(const std::string &name, const std::string &value) const;
+    bool setSecure(const std::string& name, const std::string& value) const;
 
 
 private:
     /** invalid copy constructor */
-    OptionsLoader(const OptionsLoader &s);
+    OptionsLoader(const OptionsLoader& s);
 
 
     /** invalid assignment operator */
-    OptionsLoader &operator=(const OptionsLoader &s);
+    OptionsLoader& operator=(const OptionsLoader& s);
 
 
 private:
@@ -169,7 +169,7 @@ private:
     bool myError;
 
     /// @brief The options to fill
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
     /// @brief The name of the currently parsed option
     std::string myItem;

@@ -45,8 +45,8 @@ class NBEdgeCont;
 class NIVissimDistrictConnection {
 public:
     /// Contructor
-    NIVissimDistrictConnection(int id, const std::string &name,
-                               const IntVector &districts, const DoubleVector &percentages,
+    NIVissimDistrictConnection(int id, const std::string& name,
+                               const IntVector& districts, const DoubleVector& percentages,
                                int edgeid, SUMOReal position,
                                const std::vector<std::pair<int, int> > &assignedVehicles);
 
@@ -71,28 +71,28 @@ public:
 
 public:
     /// Inserts the connection into the dictionary after building it
-    static bool dictionary(int id, const std::string &name,
-                           const IntVector &districts, const DoubleVector &percentages,
+    static bool dictionary(int id, const std::string& name,
+                           const IntVector& districts, const DoubleVector& percentages,
                            int edgeid, SUMOReal position,
                            const std::vector<std::pair<int, int> > &assignedVehicles);
 
     /// Inserts the build connection to the dictionary
-    static bool dictionary(int id, NIVissimDistrictConnection *o);
+    static bool dictionary(int id, NIVissimDistrictConnection* o);
 
     /// Returns the named dictionary
-    static NIVissimDistrictConnection *dictionary(int id);
+    static NIVissimDistrictConnection* dictionary(int id);
 
     /// Builds the nodes that belong to a district
-    static void dict_BuildDistrictNodes(NBDistrictCont &dc,
-                                        NBNodeCont &nc);
+    static void dict_BuildDistrictNodes(NBDistrictCont& dc,
+                                        NBNodeCont& nc);
 
     /// Builds the districts
-    static void dict_BuildDistricts(NBDistrictCont &dc,
-                                    NBEdgeCont &ec, NBNodeCont &nc/*, NBDistribution &distc*/);
+    static void dict_BuildDistricts(NBDistrictCont& dc,
+                                    NBEdgeCont& ec, NBNodeCont& nc/*, NBDistribution &distc*/);
 
     /** @brief Returns the connection to a district placed at the given node
         Yep, there onyl should be one, there is no need to build a single edge as connection between two parking places */
-    static NIVissimDistrictConnection *dict_findForEdge(int edgeid);
+    static NIVissimDistrictConnection* dict_findForEdge(int edgeid);
 
     /// Clears the dictionary
     static void clearDict();

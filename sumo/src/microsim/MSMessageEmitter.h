@@ -58,13 +58,13 @@ public:
 
     virtual ~MSMessageEmitter();
 
-    void writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
-                              SUMOReal mySpeed, MSLane *newlane, SUMOReal x, SUMOReal y);
+    void writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep, MSLane* oldlane, SUMOReal myPos,
+                              SUMOReal mySpeed, MSLane* newlane, SUMOReal x, SUMOReal y);
 
-    void writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
+    void writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                          SUMOReal speed, SUMOReal x, SUMOReal y);
 
-    void writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+    void writeHeartBeatEvent(const std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                              SUMOReal speed, SUMOReal x, SUMOReal y);
 
     bool getWriteLCEvent();
@@ -79,13 +79,13 @@ private:
     // methods
     std::string trimmed(const std::string& str, const char* sepSet = " \t\n\r");
 
-    void setWriteEvents(std::string &events);
+    void setWriteEvents(std::string& events);
 
     void setFile(const std::string& file);
 
     void initXML();
     // variables
-    OutputDevice &myDev;
+    OutputDevice& myDev;
 
     bool writeLCEvent;
     bool writeBEvent;

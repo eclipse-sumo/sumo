@@ -43,10 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVTypeProbe::MSVTypeProbe(const std::string &id,
-                           const std::string &vType,
-                           OutputDevice &od, SUMOTime frequency)
-        : Named(id), myVType(vType), myOutputDevice(od), myFrequency(frequency) {
+MSVTypeProbe::MSVTypeProbe(const std::string& id,
+                           const std::string& vType,
+                           OutputDevice& od, SUMOTime frequency)
+    : Named(id), myVType(vType), myOutputDevice(od), myFrequency(frequency) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("vehicle-type-probes");
 }
@@ -60,22 +60,22 @@ SUMOTime
 MSVTypeProbe::execute(SUMOTime currentTime) {
     const std::string indent("    ");
     myOutputDevice << indent << "<timestep time=\"" <<time2string(currentTime)<< "\" id=\"" << getID() << "\" vType=\"" << myVType << "\">" << "\n";
-    MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
     for (; it != end; ++it) {
-        const MSVehicle *veh = static_cast<const MSVehicle*>((*it).second);
+        const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
         if (myVType=="" || myVType==veh->getVehicleType().getID()) {
             if (!veh->isOnRoad()) {
                 continue;
             }
             Position pos = veh->getLane()->getShape().positionAtLengthPosition(veh->getPositionOnLane());
             myOutputDevice << indent << indent
-            << "<vehicle id=\"" << veh->getID()
-            << "\" lane=\"" << veh->getLane()->getID()
-            << "\" pos=\"" << veh->getPositionOnLane()
-            << "\" x=\"" << pos.x()
-            << "\" y=\"" << pos.y();
+                           << "<vehicle id=\"" << veh->getID()
+                           << "\" lane=\"" << veh->getLane()->getID()
+                           << "\" pos=\"" << veh->getPositionOnLane()
+                           << "\" x=\"" << pos.x()
+                           << "\" y=\"" << pos.y();
             if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
                 GeoConvHelper::getDefaultInstance().cartesian2geo(pos);
                 myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);

@@ -49,18 +49,18 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
+RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
         SUMOTime begin, SUMOTime end,
         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
         const int maxRouteNumber, const bool tryRepair, const bool withTaz, const bool keepRoutes,
-        const bool skipRouteCalculation, const std::string &file) throw(ProcessError)
-        : ROTypedXMLRoutesLoader(net, begin, end, file),
-        myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
-        myCurrentAlternatives(0),
-        myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
-        mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
-        myHaveWarnedAboutDeprecatedVType(false), myHaveWarnedAboutDeprecatedRoute(false) {
+        const bool skipRouteCalculation, const std::string& file) throw(ProcessError)
+    : ROTypedXMLRoutesLoader(net, begin, end, file),
+      myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
+      myCurrentAlternatives(0),
+      myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myMaxRouteNumber(maxRouteNumber),
+      myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
+      mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
+      myHaveWarnedAboutDeprecatedVType(false), myHaveWarnedAboutDeprecatedRoute(false) {
 }
 
 
@@ -75,7 +75,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw() {
 
 void
 RORDLoader_SUMOBase::myStartElement(int element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         startRoute(attrs);
@@ -120,7 +120,7 @@ RORDLoader_SUMOBase::myStartElement(int element,
 
 
 void
-RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
+RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
     delete myColor;
     myColor = 0;
     if (!myAltIsValid) {
@@ -162,15 +162,15 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
         myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, myCurrentRouteName.c_str(), myCurrentIsOk));
     } else {
         if (!myHaveWarnedAboutDeprecatedRoute) {
-	        WRITE_WARNING("Defining routes as a nested string is deprecated, use the edges attribute instead.");
-	        myHaveWarnedAboutDeprecatedRoute = true;
-	    }
+            WRITE_WARNING("Defining routes as a nested string is deprecated, use the edges attribute instead.");
+            myHaveWarnedAboutDeprecatedRoute = true;
+        }
     }
 }
 
 
 void
-RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
+RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
     // try to get the id
     myCurrentIsOk = true;
     std::string id;
@@ -202,7 +202,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
 
 void
 RORDLoader_SUMOBase::myCharacters(int element,
-                                  const std::string &chars) throw(ProcessError) {
+                                  const std::string& chars) throw(ProcessError) {
     // process routes only, all other elements do
     //  not have embedded characters
     if (element!=SUMO_TAG_ROUTE) {
@@ -223,7 +223,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge *edge = myNet.getEdge(myVehicleParameter->fromTaz+"-source");
+        ROEdge* edge = myNet.getEdge(myVehicleParameter->fromTaz+"-source");
         if (edge!=0) {
             list->push_back(edge);
         } else {
@@ -234,7 +234,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
     StringTokenizer st(chars);
     while (myCurrentIsOk&&st.hasNext()) { // !!! too slow !!!
         const std::string id = st.next();
-        ROEdge *edge = myNet.getEdge(id);
+        ROEdge* edge = myNet.getEdge(id);
         if (edge!=0) {
             list->push_back(edge);
         } else {
@@ -246,7 +246,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
         }
     }
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge *edge = myNet.getEdge(myVehicleParameter->toTaz+"-sink");
+        ROEdge* edge = myNet.getEdge(myVehicleParameter->toTaz+"-sink");
         if (edge!=0) {
             list->push_back(edge);
         } else {
@@ -325,9 +325,9 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
         return false;
     }
     // get vehicle type
-    SUMOVTypeParameter *type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
     // get the route
-    RORouteDef *route = myNet.getRouteDef(myVehicleParameter->routeid);
+    RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route==0) {
         route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
@@ -338,7 +338,7 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        ROVehicle *veh = new ROVehicle(*myVehicleParameter, route, type);
+        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
         return true;
     }

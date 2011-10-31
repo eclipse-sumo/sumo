@@ -55,7 +55,7 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIMessageWindow(FXComposite *parent) throw();
+    GUIMessageWindow(FXComposite* parent) throw();
 
 
     /// @brief Destructor
@@ -74,7 +74,7 @@ public:
      * @param[in] msg The message
      * @see GUIEventType
      */
-    void appendText(GUIEventType eType, const std::string &msg) throw();
+    void appendText(GUIEventType eType, const std::string& msg) throw();
 
 
     /// @brief Clears the window

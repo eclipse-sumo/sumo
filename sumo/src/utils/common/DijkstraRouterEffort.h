@@ -63,7 +63,7 @@ template<class E, class V, class PF>
 class DijkstraRouterEffortBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
-    DijkstraRouterEffortBase(size_t noE, bool unbuildIsWarning) : 
+    DijkstraRouterEffortBase(size_t noE, bool unbuildIsWarning) :
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
@@ -85,10 +85,10 @@ public:
 
         /// Constructor
         EdgeInfo(size_t id)
-                : edge(E::dictionary(id)), effort(0), leaveTime(0), prev(0), visited(false) {}
+            : edge(E::dictionary(id)), effort(0), leaveTime(0), prev(0), visited(false) {}
 
         /// The current edge
-        const E *edge;
+        const E* edge;
 
         /// Effort to reach the edge
         SUMOReal effort;
@@ -97,7 +97,7 @@ public:
         SUMOReal leaveTime;
 
         /// The previous edge
-        EdgeInfo *prev;
+        EdgeInfo* prev;
 
         /// The previous edge
         bool visited;
@@ -111,7 +111,7 @@ public:
     class EdgeInfoByEffortComparator {
     public:
         /// Comparing method
-        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const {
+        bool operator()(EdgeInfo* nod1, EdgeInfo* nod2) const {
             if (nod1->effort == nod2->effort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
@@ -119,13 +119,13 @@ public:
         }
     };
 
-    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) = 0;
-    virtual SUMOReal getTravelTime(const E * const e, const V * const v, SUMOReal t) = 0;
+    virtual SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) = 0;
+    virtual SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) = 0;
 
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
-    virtual void compute(const E *from, const E *to, const V * const vehicle,
+    virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
 
         SUMOReal time = (SUMOReal) msTime / 1000.;
@@ -144,8 +144,8 @@ public:
         // loop
         while (!myFrontierList.empty()) {
             // use the node with the minimal length
-            EdgeInfo * const minimumInfo = myFrontierList.front();
-            const E * const minEdge = minimumInfo->edge;
+            EdgeInfo* const minimumInfo = myFrontierList.front();
+            const E* const minEdge = minimumInfo->edge;
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             // check whether the destination node was already reached
@@ -186,7 +186,7 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V * const v, SUMOTime msTime) throw() {
+    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V* const v, SUMOTime msTime) throw() {
         SUMOReal time = (SUMOReal) msTime / 1000.;
         SUMOReal costs = 0;
         SUMOReal t = (SUMOReal) time;
@@ -202,10 +202,10 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges) {
+    void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*> &edges) {
         std::deque<const E*> tmp;
         while (rbegin!=0) {
-            tmp.push_front((E *) rbegin->edge); // !!!
+            tmp.push_front((E*) rbegin->edge);  // !!!
             rbegin = rbegin->prev;
         }
         std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
@@ -221,7 +221,7 @@ protected:
     EdgeInfoByEffortComparator myComparator;
 
     /// @brief the handler for routing errors
-    MsgHandler * const myErrorMsgHandler;
+    MsgHandler* const myErrorMsgHandler;
 
 };
 
@@ -230,17 +230,17 @@ template<class E, class V, class PF, class EC>
 class DijkstraRouterEffort_ByProxi : public DijkstraRouterEffortBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
+    typedef SUMOReal(EC::* Operation)(const E* const, const V* const, SUMOReal) const;
 
     DijkstraRouterEffort_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation effortOperation, Operation ttOperation)
-            : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
-            myReceiver(receiver), myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
+        : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
+          myReceiver(receiver), myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) {
         return (myReceiver->*myEffortOperation)(e, v, t);
     }
 
-    inline SUMOReal getTravelTime(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) {
         return (myReceiver->*myTTOperation)(e, v, t);
     }
 
@@ -261,17 +261,17 @@ template<class E, class V, class PF>
 class DijkstraRouterEffort_Direct : public DijkstraRouterEffortBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;
+    typedef SUMOReal(E::* Operation)(const V* const, SUMOReal) const;
 
     DijkstraRouterEffort_Direct(size_t noE, bool unbuildIsWarningOnly, Operation effortOperation, Operation ttOperation)
-            : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
-            myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
+        : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
+          myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) {
         return (e->*myEffortOperation)(v, t);
     }
 
-    inline SUMOReal getTravelTime(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) {
         return (e->*myTTOperation)(v, t);
     }
 

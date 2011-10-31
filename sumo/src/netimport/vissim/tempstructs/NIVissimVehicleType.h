@@ -42,15 +42,15 @@
  */
 class NIVissimVehicleType {
 public:
-    NIVissimVehicleType(int id, const std::string &name,
-                        const std::string &category, SUMOReal length, const RGBColor &color,
+    NIVissimVehicleType(int id, const std::string& name,
+                        const std::string& category, SUMOReal length, const RGBColor& color,
                         SUMOReal amax, SUMOReal dmax);
     ~NIVissimVehicleType();
-    static bool dictionary(int id, const std::string &name,
-                           const std::string &category, SUMOReal length, const RGBColor &color,
+    static bool dictionary(int id, const std::string& name,
+                           const std::string& category, SUMOReal length, const RGBColor& color,
                            SUMOReal amax, SUMOReal dmax);
-    static bool dictionary(int id, NIVissimVehicleType *o);
-    static NIVissimVehicleType *dictionary(int id);
+    static bool dictionary(int id, NIVissimVehicleType* o);
+    static NIVissimVehicleType* dictionary(int id);
     static void clearDict();
 
 private:
@@ -61,7 +61,7 @@ private:
     RGBColor myColor;
     SUMOReal myAMax, myDMax;
 private:
-    typedef std::map<int, NIVissimVehicleType *> DictType;
+    typedef std::map<int, NIVissimVehicleType*> DictType;
     static DictType myDict;
 };
 

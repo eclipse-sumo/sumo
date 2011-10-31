@@ -32,7 +32,7 @@
 #include <fx.h>
 
 /// Pointer to the FX-Application
-extern FXApp *gFXApp;
+extern FXApp* gFXApp;
 
 
 #endif

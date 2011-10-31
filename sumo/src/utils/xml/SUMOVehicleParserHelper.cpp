@@ -60,8 +60,8 @@ bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedVClass = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOVehicleParameter *
-SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+SUMOVehicleParameter*
+SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
@@ -85,7 +85,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
                                "' is needed in flow '" + id + "'.");
         }
     }
-    SUMOVehicleParameter *ret = new SUMOVehicleParameter();
+    SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
     parseCommonAttributes(attrs, ret, "flow");
 
@@ -164,8 +164,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
 }
 
 
-SUMOVehicleParameter *
-SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
+SUMOVehicleParameter*
+SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
         bool skipID, bool skipDepart) throw(ProcessError) {
     bool ok = true;
     std::string id, errorMsg;
@@ -177,11 +177,11 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                            "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) +
                            "' have to be given both in the definition of '" + id + "'.");
     }
-    SUMOVehicleParameter *ret = new SUMOVehicleParameter();
+    SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
     try {
         parseCommonAttributes(attrs, ret, "vehicle");
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         delete ret;
         throw;
     }
@@ -222,8 +222,8 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 
 
 void
-SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
-        SUMOVehicleParameter *ret, std::string element) throw(ProcessError) {
+SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
+        SUMOVehicleParameter* ret, std::string element) throw(ProcessError) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     bool ok = true;
     // parse route information
@@ -291,9 +291,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
                 if (ret->departLane < 0) {
                     throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
                 }
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -326,9 +326,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->departPosProcedure = DEPART_POS_GIVEN;
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid departPos definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid departPos definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -351,9 +351,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->departSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->departSpeedProcedure = DEPART_SPEED_GIVEN;
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid departSpeed definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid departSpeed definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -375,9 +375,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());
                 ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid arrivalLane definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid arrivalLane definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -400,9 +400,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid arrivalPos definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid arrivalPos definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -423,9 +423,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
-            } catch (NumberFormatException &) {
+            } catch (NumberFormatException&) {
                 throw ProcessError("Invalid arrivalSpeed definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData &) {
+            } catch (EmptyData&) {
                 throw ProcessError("Invalid arrivalSpeed definition for " + element + " '" + ret->id + "'");
             }
         }
@@ -436,9 +436,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
         ret->setParameter |= VEHPARS_COLOR_SET;
         try {
             ret->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, 0, ok));
-        } catch (NumberFormatException &) {
+        } catch (NumberFormatException&) {
             throw ProcessError("Invalid color definition for " + element + " '" + ret->id + "'");
-        } catch (EmptyData &) {
+        } catch (EmptyData&) {
             throw ProcessError("Invalid color definition for " + element + " '" + ret->id + "'");
         }
     } else {
@@ -447,9 +447,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
 }
 
 
-SUMOVTypeParameter *
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    SUMOVTypeParameter *vtype = new SUMOVTypeParameter();
+SUMOVTypeParameter*
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+    SUMOVTypeParameter* vtype = new SUMOVTypeParameter();
     bool ok = true;
     vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
@@ -519,7 +519,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
     }
     try {
         parseVTypeEmbedded(*vtype, SUMO_TAG_CF_KRAUSS, attrs, true);
-    } catch (ProcessError &) {
+    } catch (ProcessError&) {
         throw;
     }
     if (!ok) {
@@ -531,8 +531,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
 
 
 void
-SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
-        int element, const SUMOSAXAttributes &attrs,
+SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
+        int element, const SUMOSAXAttributes& attrs,
         bool fromVType) throw(ProcessError) {
     const CFAttrMap& allowedAttrs = getAllowedCFModelAttrs();
     CFAttrMap::const_iterator cf_it;
@@ -563,7 +563,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
 }
 
 
-const SUMOVehicleParserHelper::CFAttrMap &
+const SUMOVehicleParserHelper::CFAttrMap&
 SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
     // init on first use
     if (allowedCFModelAttrs.size() == 0) {
@@ -621,8 +621,8 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
 
 SUMOVehicleClass
-SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
-        const std::string &id) {
+SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs,
+        const std::string& id) {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
         bool ok = true;
@@ -641,7 +641,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
 
 
 SUMOEmissionClass
-SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id) {
+SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes& attrs, const std::string& id) {
     SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
         bool ok = true;
@@ -658,7 +658,7 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs, cons
 
 
 SUMOVehicleShape
-SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id) {
+SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id) {
     bool ok = true;
     std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_GUISHAPE, id.c_str(), ok, "");
     if (SumoVehicleShapeStrings.hasString(vclassS)) {

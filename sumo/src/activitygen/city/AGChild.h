@@ -44,10 +44,10 @@
 class AGChild : public AGPerson {
 public:
     AGChild(int age) :
-            AGPerson(age),
-            school(NULL) {};
+        AGPerson(age),
+        school(NULL) {};
     void print();
-    bool setSchool(AGSchool *school);
+    bool setSchool(AGSchool* school);
     /**
      * @param schools: school vector from City object
      * @param housepos: Position of the households habitation
@@ -64,7 +64,7 @@ public:
     int getSchoolClosing();
 
 private:
-    AGSchool *school;
+    AGSchool* school;
 };
 
 #endif

@@ -45,15 +45,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIImporter_Vissim &parent)
-        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIImporter_Vissim& parent)
+    : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Signalgeberdefinition::~NIVissimSingleTypeParser_Signalgeberdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from) {
+NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     //
     int id;
     from >> id;
@@ -108,7 +108,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from) {
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
     //
     NIVissimTL::dictionary(lsaid); // !!! check whether someting is really done here
-    NIVissimTL::NIVissimTLSignal *signal =
+    NIVissimTL::NIVissimTLSignal* signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
                                          laneno, (SUMOReal) position, assignedVehicleTypes);
     if (!NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal)) {

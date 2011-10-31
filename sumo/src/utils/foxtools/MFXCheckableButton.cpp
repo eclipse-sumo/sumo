@@ -34,7 +34,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[]={
+FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[]= {
     FXMAPFUNC(SEL_PAINT,0,MFXCheckableButton::onPaint),
     FXMAPFUNC(SEL_UPDATE,0,MFXCheckableButton::onUpdate),
 };
@@ -49,8 +49,8 @@ MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        FXuint opts,
                                        FXint x,FXint y,FXint w,FXint h,
                                        FXint pl,FXint pr,FXint pt,FXint pb)
-        : FXButton(p, text, ic, tgt, sel, opts, x, y, w,h, pl,pr,pt,pb),
-        myAmChecked(amChecked), myAmInitialised(false) {
+    : FXButton(p, text, ic, tgt, sel, opts, x, y, w,h, pl,pr,pt,pb),
+      myAmChecked(amChecked), myAmInitialised(false) {
     border = 0;
 }
 
@@ -71,7 +71,7 @@ MFXCheckableButton::setChecked(bool val) {
 
 
 long
-MFXCheckableButton::onPaint(FXObject*sender,FXSelector sel,void *data) {
+MFXCheckableButton::onPaint(FXObject* sender,FXSelector sel,void* data) {
     if (!myAmInitialised) {
         buildColors();
     }
@@ -81,7 +81,7 @@ MFXCheckableButton::onPaint(FXObject*sender,FXSelector sel,void *data) {
 
 
 long
-MFXCheckableButton::onUpdate(FXObject *sender,FXSelector sel,void *data) {
+MFXCheckableButton::onUpdate(FXObject* sender,FXSelector sel,void* data) {
     if (!myAmInitialised) {
         buildColors();
     }

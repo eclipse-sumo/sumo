@@ -40,7 +40,7 @@
 // ===========================================================================
 void
 AGHousehold::generatePeople() {
-    AGDataAndStatistics *ds = &(myCity->statData);
+    AGDataAndStatistics* ds = &(myCity->statData);
     //the first adult
     AGAdult pers(ds->getRandomPopDistributed(ds->limitAgeChildren, ds->limitEndAge));
     adults.push_back(pers);
@@ -102,16 +102,18 @@ AGHousehold::getAdultNbr() {
 bool
 AGHousehold::isCloseFromPubTransport(std::list<AGPosition> *pubTransport) {
     SUMOReal distToPT = location.minDistanceTo(*pubTransport);
-    if (distToPT > myCity->statData.maxFootDistance)
+    if (distToPT > myCity->statData.maxFootDistance) {
         return false;
+    }
     return true;
 }
 
 bool
 AGHousehold::isCloseFromPubTransport(std::map<int, AGPosition> *pubTransport) {
     SUMOReal distToPT = location.minDistanceTo(*pubTransport);
-    if (distToPT > myCity->statData.maxFootDistance)
+    if (distToPT > myCity->statData.maxFootDistance) {
         return false;
+    }
     return true;
 }
 
@@ -122,14 +124,17 @@ AGHousehold::regenerate() {
     std::list<AGAdult>::iterator itA;
     for (itC=children.begin() ; itC != children.end() ; ++itC) {
         if (itC->haveASchool()) {
-            if (itC->leaveSchool())
+            if (itC->leaveSchool()) {
                 itC->alocateASchool(&(myCity->schools), getPosition());
-        } else
+            }
+        } else {
             itC->alocateASchool(&(myCity->schools), getPosition());
+        }
     }
     for (itA=adults.begin() ; itA!=adults.end() ; ++itA) {
-        if (itA->isWorking())
+        if (itA->isWorking()) {
             itA->resignFromWorkPosition();
+        }
 
         if (myCity->statData.workPositions > 0) {
             itA->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
@@ -146,8 +151,9 @@ AGHousehold::allocateChildrenSchool() {
     bool oneRemainsAtHome = false;
 
     for (it = children.begin() ; it != children.end() ; ++it) {
-        if (!it->alocateASchool(&(myCity->schools), location))
+        if (!it->alocateASchool(&(myCity->schools), location)) {
             oneRemainsAtHome = true;
+        }
     }
     return !oneRemainsAtHome;
 }

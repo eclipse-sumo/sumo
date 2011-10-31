@@ -44,7 +44,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &into) throw() {
+MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         MSDevice_Tripinfo* device = new MSDevice_Tripinfo(v, "tripinfo_" + v.getID());
         into.push_back(device);
@@ -55,9 +55,9 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle &v, std::vector<MSDevice*> &i
 // ---------------------------------------------------------------------------
 // MSDevice_Tripinfo-methods
 // ---------------------------------------------------------------------------
-MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle &holder, const std::string &id) throw()
-        : MSDevice(holder, id), myDepartLane(""), myDepartPos(-1), myDepartSpeed(-1),
-        myWaitingSteps(0), myArrivalTime(-1), myArrivalLane(""), myArrivalPos(-1), myArrivalSpeed(-1) {
+MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) throw()
+    : MSDevice(holder, id), myDepartLane(""), myDepartPos(-1), myDepartSpeed(-1),
+      myWaitingSteps(0), myArrivalTime(-1), myArrivalLane(""), myArrivalPos(-1), myArrivalSpeed(-1) {
 }
 
 
@@ -115,25 +115,25 @@ void
 MSDevice_Tripinfo::generateOutput() const throw(IOError) {
     SUMOReal routeLength = myHolder.getRoute().getLength();
     // write
-    OutputDevice &os = OutputDevice::getDeviceByOption("tripinfo-output");
+    OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     os.openTag("tripinfo") << " id=\"" << myHolder.getID() << "\" ";
     routeLength -= myDepartPos;
     os << "depart=\"" << time2string(myHolder.getDeparture()) << "\" "
-    << "departLane=\"" << myDepartLane << "\" "
-    << "departPos=\"" << myDepartPos << "\" "
-    << "departSpeed=\"" << myDepartSpeed << "\" "
-    << "departDelay=\"" << time2string(myHolder.getDeparture() - myHolder.getParameter().depart) << "\" ";
+       << "departLane=\"" << myDepartLane << "\" "
+       << "departPos=\"" << myDepartPos << "\" "
+       << "departSpeed=\"" << myDepartSpeed << "\" "
+       << "departDelay=\"" << time2string(myHolder.getDeparture() - myHolder.getParameter().depart) << "\" ";
     if (myArrivalLane != "") {
         routeLength -= MSLane::dictionary(myArrivalLane)->getLength() - myArrivalPos;
     }
     os << "arrival=\"" << time2string(myArrivalTime) << "\" "
-    << "arrivalLane=\"" << myArrivalLane << "\" "
-    << "arrivalPos=\"" << myArrivalPos << "\" "
-    << "arrivalSpeed=\"" << myArrivalSpeed << "\" "
-    << "duration=\"" << time2string(myArrivalTime - myHolder.getDeparture()) << "\" "
-    << "routeLength=\"" << routeLength << "\" "
-    << "waitSteps=\"" << myWaitingSteps << "\" "
-    << "rerouteNo=\"" << myHolder.getNumberReroutes();
+       << "arrivalLane=\"" << myArrivalLane << "\" "
+       << "arrivalPos=\"" << myArrivalPos << "\" "
+       << "arrivalSpeed=\"" << myArrivalSpeed << "\" "
+       << "duration=\"" << time2string(myArrivalTime - myHolder.getDeparture()) << "\" "
+       << "routeLength=\"" << routeLength << "\" "
+       << "waitSteps=\"" << myWaitingSteps << "\" "
+       << "rerouteNo=\"" << myHolder.getNumberReroutes();
     const std::vector<MSDevice*> &devices = myHolder.getDevices();
     std::ostringstream str;
     for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
@@ -143,9 +143,9 @@ MSDevice_Tripinfo::generateOutput() const throw(IOError) {
         str << (*i)->getID();
     }
     os << "\" devices=\"" << str.str()
-    << "\" vType=\"" << myHolder.getVehicleType().getID()
-    << "\" vaporized=\"" << (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0")
-    << "\"";
+       << "\" vType=\"" << myHolder.getVehicleType().getID()
+       << "\" vaporized=\"" << (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0")
+       << "\"";
     if (devices.size() > 1) {
         os << ">\n";
     }

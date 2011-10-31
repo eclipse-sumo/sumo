@@ -74,10 +74,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    ReferencedItem(const ReferencedItem &src);
+    ReferencedItem(const ReferencedItem& src);
 
     /// @brief Invalidated assignment operator
-    ReferencedItem &operator=(const ReferencedItem &src);
+    ReferencedItem& operator=(const ReferencedItem& src);
 
 };
 

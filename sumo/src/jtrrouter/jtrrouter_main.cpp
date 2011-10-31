@@ -76,7 +76,7 @@
  * weights which may be supplied in a separate file
  */
 void
-initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
+initNet(RONet& net, ROLoader& loader, OptionsCont& oc,
         const std::vector<SUMOReal> &turnDefs) {
     // load the net
     ROJTREdgeBuilder builder;
@@ -89,7 +89,7 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
 }
 
 std::vector<SUMOReal>
-getTurningDefaults(OptionsCont &oc) {
+getTurningDefaults(OptionsCont& oc) {
     std::vector<SUMOReal> ret;
     std::vector<std::string> defs = oc.getStringVector("turn-defaults");
     if (defs.size()<2) {
@@ -108,7 +108,7 @@ getTurningDefaults(OptionsCont &oc) {
 
 
 void
-loadJTRDefinitions(RONet &net, OptionsCont &oc) {
+loadJTRDefinitions(RONet& net, OptionsCont& oc) {
     // load the turning definitions (and possible sink definition)
     if (oc.isSet("turn-ratio-files")) {
         ROJTRTurnDefLoader loader(net);
@@ -126,7 +126,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc) {
     if (oc.isSet("sink-edges")) {
         std::vector<std::string> edges = oc.getStringVector("sink-edges");
         for (std::vector<std::string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
+            ROJTREdge* edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge==0) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
             }
@@ -140,15 +140,15 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc) {
  * Computes the routes saving them
  */
 void
-computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
+computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
     net.openOutput(oc.getString("output-file"), false);
     // build the router
     ROJTRRouter router(net, oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
-        (int) (((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
-        oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
+                       (int)(((SUMOReal) net.getEdgeNo()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
+                       oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     if (!oc.getBool("unsorted-input")) {
         // the routes are sorted - process stepwise
         loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, router);
@@ -165,13 +165,13 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv) {
-    OptionsCont &oc = OptionsCont::getOptions();
+main(int argc, char** argv) {
+    OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
     oc.setApplicationName("jtrrouter", "SUMO jtrrouter Version " + (std::string)VERSION_STRING);
     int ret = 0;
-    RONet *net = 0;
+    RONet* net = 0;
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init(false);
@@ -182,7 +182,9 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!ROJTRFrame::checkOptions()) throw ProcessError();
+        if (!ROJTRFrame::checkOptions()) {
+            throw ProcessError();
+        }
         RandHelper::initRandGlobal();
         std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
@@ -194,17 +196,17 @@ main(int argc, char **argv) {
             loadJTRDefinitions(*net, oc);
             // build routes
             computeRoutes(*net, loader, oc);
-        } catch (SAXParseException &e) {
+        } catch (SAXParseException& e) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
-        } catch (SAXException &e) {
+        } catch (SAXException& e) {
             WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-    } catch (ProcessError &e) {
+    } catch (ProcessError& e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             WRITE_ERROR(e.what());
         }

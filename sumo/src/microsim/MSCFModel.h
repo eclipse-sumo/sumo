@@ -76,7 +76,7 @@ public:
      * @param[in] vPos The possible velocity
      * @return The velocity after applying interactions with stops and lane change model influences
      */
-    virtual SUMOReal moveHelper(MSVehicle * const veh, SUMOReal vPos) const;
+    virtual SUMOReal moveHelper(MSVehicle* const veh, SUMOReal vPos) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -88,7 +88,7 @@ public:
      * @param[in] maxSpeed The maximum allowed speed
      * @return EGO's safe speed
      */
-    virtual SUMOReal freeSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
+    virtual SUMOReal freeSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal seen, SUMOReal maxSpeed) const {
         return followSpeed(veh, speed, seen, maxSpeed, 0);
     }
 
@@ -102,7 +102,7 @@ public:
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
-    virtual SUMOReal followSpeed(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const = 0;
+    virtual SUMOReal followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed, SUMOReal predMaxDecel) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -113,7 +113,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal stopSpeed(const MSVehicle * const veh, SUMOReal gap2pred) const = 0;
+    virtual SUMOReal stopSpeed(const MSVehicle* const veh, SUMOReal gap2pred) const = 0;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -124,13 +124,13 @@ public:
      * @return The interaction gap
      * @todo evaluate signature
      */
-    virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const;
+    virtual SUMOReal interactionGap(const MSVehicle* const veh, SUMOReal vL) const;
 
 
     /** @brief Saves the model's definition into the state
      * @param[in] os The output to write the definition into
      */
-    virtual void saveState(std::ostream &os);
+    virtual void saveState(std::ostream& os);
 
 
     /** @brief Returns the model's ID; the XML-Tag number is used
@@ -143,7 +143,7 @@ public:
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
      */
-    virtual MSCFModel *duplicate(const MSVehicleType *vtype) const = 0;
+    virtual MSCFModel* duplicate(const MSVehicleType* vtype) const = 0;
 
 
     /** @brief Returns model specific values which are stored inside a vehicle
@@ -202,7 +202,7 @@ public:
      * @param[in] neigh The neighbor vehicle on the left lane
      * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
      */
-    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const;
+    void leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const neigh, SUMOReal& vSafe) const;
 
 
     /** @brief Returns the maximum speed given the current speed

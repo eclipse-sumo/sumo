@@ -67,8 +67,8 @@ public:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice(SUMOVehicle &holder, const std::string &id) throw()
-            : Named(id), myHolder(holder) {
+    MSDevice(SUMOVehicle& holder, const std::string& id) throw()
+        : Named(id), myHolder(holder) {
     }
 
 
@@ -80,7 +80,7 @@ public:
      *
      * @return The vehicle that holds this device
      */
-    SUMOVehicle &getHolder() const throw() {
+    SUMOVehicle& getHolder() const throw() {
         return myHolder;
     }
 
@@ -103,7 +103,7 @@ public:
 
 protected:
     /// @brief The vehicle that stores the device
-    SUMOVehicle &myHolder;
+    SUMOVehicle& myHolder;
 
 
 private:

@@ -41,8 +41,8 @@
 // ===========================================================================
 class AGWorkAndSchool : public AGActivity {
 public:
-    AGWorkAndSchool(AGHousehold *hh, AGDataAndStatistics *das, std::list<AGTrip>* prevTrips) :
-            AGActivity(hh, das, prevTrips, 1) {};
+    AGWorkAndSchool(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips) :
+        AGActivity(hh, das, prevTrips, 1) {};
 
     /**
      * @Overwrite

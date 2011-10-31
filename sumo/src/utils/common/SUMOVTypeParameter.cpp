@@ -45,20 +45,20 @@
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter() throw()
-        : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH),
-        minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
-        defaultProbability(DEFAULT_VEH_PROB),
-        speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
-        emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
-        vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
-        shape(DEFAULT_VEH_SHAPE),
-        cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
-        setParameter(0), saved(false), onlyReferenced(false) {
+    : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH),
+      minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
+      defaultProbability(DEFAULT_VEH_PROB),
+      speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
+      emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
+      vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
+      shape(DEFAULT_VEH_SHAPE),
+      cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
+      setParameter(0), saved(false), onlyReferenced(false) {
 }
 
 
 void
-SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
+SUMOVTypeParameter::write(OutputDevice& dev) const throw(IOError) {
     if (onlyReferenced) {
         return;
     }

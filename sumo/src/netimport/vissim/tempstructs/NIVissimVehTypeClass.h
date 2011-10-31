@@ -43,13 +43,13 @@
  */
 class NIVissimVehTypeClass {
 public:
-    NIVissimVehTypeClass(int id, const std::string &name,
-                         const RGBColor &color, IntVector &types);
+    NIVissimVehTypeClass(int id, const std::string& name,
+                         const RGBColor& color, IntVector& types);
     ~NIVissimVehTypeClass();
-    static bool dictionary(int id, const std::string &name,
-                           const RGBColor &color, IntVector &types);
-    static bool dictionary(int id, NIVissimVehTypeClass *o);
-    static NIVissimVehTypeClass *dictionary(int name);
+    static bool dictionary(int id, const std::string& name,
+                           const RGBColor& color, IntVector& types);
+    static bool dictionary(int id, NIVissimVehTypeClass* o);
+    static NIVissimVehTypeClass* dictionary(int name);
     static void clearDict();
     SUMOReal meanSpeed() const;
 private:

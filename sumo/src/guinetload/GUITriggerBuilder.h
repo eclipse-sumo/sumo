@@ -77,9 +77,9 @@ protected:
      * @see MSLaneSpeedTrigger
      * @exception ProcessError If the XML definition file is errornous
      */
-    virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
-            const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file) throw(ProcessError);
+    virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
+            const std::string& id, const std::vector<MSLane*> &destLanes,
+            const std::string& file) throw(ProcessError);
 
 
     /** @brief builds an rerouter
@@ -92,9 +92,9 @@ protected:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
      */
-    virtual void buildRerouter(MSNet &net,
-                               const std::string &id, std::vector<MSEdge*> &edges,
-                               SUMOReal prob, const std::string &file, bool off) throw();
+    virtual void buildRerouter(MSNet& net,
+                               const std::string& id, std::vector<MSEdge*> &edges,
+                               SUMOReal prob, const std::string& file, bool off) throw();
 
 
     /** @brief Builds a bus stop
@@ -109,8 +109,8 @@ protected:
      * @param[in] topos End position of the bus stop on the lane
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-    virtual void buildBusStop(MSNet &net, const std::string &id,
-                              const std::vector<std::string> &lines, MSLane *lane,
+    virtual void buildBusStop(MSNet& net, const std::string& id,
+                              const std::vector<std::string> &lines, MSLane* lane,
                               SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
     /// @}
 

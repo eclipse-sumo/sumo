@@ -58,16 +58,16 @@ public:
 
     /** @brief Initialises the map using the list of edge names
      */
-    void init(NBEdgeCont &ec);
+    void init(NBEdgeCont& ec);
 
     /** @brief Informs the map that two edges have been joined
      */
-    void appended(const std::string &to, const std::string &what);
+    void appended(const std::string& to, const std::string& what);
 
     /** @brief Outputs the list of joined edges
      */
-    friend std::ostream &operator<<(std::ostream &os,
-                                    const NBJoinedEdgesMap &map);
+    friend std::ostream& operator<<(std::ostream& os,
+                                    const NBJoinedEdgesMap& map);
 
 private:
     /// @brief def. of a list of edges that make up an edge

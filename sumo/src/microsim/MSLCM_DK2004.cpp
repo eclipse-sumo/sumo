@@ -62,10 +62,10 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
-        : MSAbstractLaneChangeModel(v),
-        myChangeProbability(0),
-        myLeadingBlockerLength(0), myLeftSpace(0) {}
+MSLCM_DK2004::MSLCM_DK2004(MSVehicle& v)
+    : MSAbstractLaneChangeModel(v),
+      myChangeProbability(0),
+      myLeadingBlockerLength(0), myLeftSpace(0) {}
 
 MSLCM_DK2004::~MSLCM_DK2004() {
     changed();
@@ -73,14 +73,14 @@ MSLCM_DK2004::~MSLCM_DK2004() {
 
 
 int
-MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
+MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                  int blocked,
                                  const std::pair<MSVehicle*, SUMOReal> &leader,
                                  const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                  const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-                                 const MSLane &neighLane,
+                                 const MSLane& neighLane,
                                  const std::vector<MSVehicle::LaneQ> &preb,
-                                 MSVehicle **lastBlocked) {
+                                 MSVehicle** lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -290,14 +290,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 
 
 int
-MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
+MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                                 int blocked,
                                 const std::pair<MSVehicle*, SUMOReal> &leader,
                                 const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-                                const MSLane &neighLane,
+                                const MSLane& neighLane,
                                 const std::vector<MSVehicle::LaneQ> &preb,
-                                MSVehicle **lastBlocked) {
+                                MSVehicle** lastBlocked) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -499,7 +499,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel &cfModel) {
+MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max, const MSCFModel& cfModel) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(&myVehicle)->getGlID())) {
         int bla = 0;
@@ -592,9 +592,9 @@ MSLCM_DK2004::patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMORe
 }
 
 
-void *
-MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/) {
-    Info *pinfo = (Info*) info;
+void*
+MSLCM_DK2004::inform(void* info, MSVehicle* /*sender*/) {
+    Info* pinfo = (Info*) info;
     myOwnState &= 0xffffffff;
     myOwnState |= pinfo->second;
     delete pinfo;
@@ -614,14 +614,14 @@ MSLCM_DK2004::changed() {
 
 
 void
-MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
-                            int &blocked,
+MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+                            int& blocked,
                             int dir,
                             const std::pair<MSVehicle*, SUMOReal> &neighLead,
                             const std::pair<MSVehicle*, SUMOReal> &neighFollow) {
     if ((blocked&LCA_BLOCKED_BY_FOLLOWER)!=0) {
         assert(neighFollow.first!=0);
-        MSVehicle *nv = neighFollow.first;
+        MSVehicle* nv = neighFollow.first;
         SUMOReal decelGap =
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0

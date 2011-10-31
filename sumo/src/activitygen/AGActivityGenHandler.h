@@ -53,7 +53,7 @@ public:
      *
      * @param[in] net The City instance to fill
      */
-    AGActivityGenHandler(AGCity &city, RONet *net);
+    AGActivityGenHandler(AGCity& city, RONet* net);
 
 
     /// @brief Destructor
@@ -72,7 +72,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 protected:
@@ -82,7 +82,7 @@ protected:
     /**
      * Parses attributes from an "general"-element in city file.
      */
-    void parseGeneralCityInfo(const SUMOSAXAttributes &attrs);
+    void parseGeneralCityInfo(const SUMOSAXAttributes& attrs);
     /*void parseInhabitants(const SUMOSAXAttributes &attrs);
     void parseHouseholds(const SUMOSAXAttributes &attrs);
     void parseChildrenAgeLimit(const SUMOSAXAttributes &attrs);
@@ -96,42 +96,42 @@ protected:
     /**
      * parse parameters, all are optional, default values are given.
      */
-    void parseParameters(const SUMOSAXAttributes &attrs);
+    void parseParameters(const SUMOSAXAttributes& attrs);
 
     /**
      * streets are extracted: it fills the streets list of the City object
      * an additional computation is needed to normalize the number of inhabitants (and workpositions) in each street
      */
-    void parseStreets(const SUMOSAXAttributes &attrs);
+    void parseStreets(const SUMOSAXAttributes& attrs);
 
     /**
      * parse city entrances: the gates of the city, used for incoming and outgoing traffic
      */
-    void parseCityGates(const SUMOSAXAttributes &attrs);
+    void parseCityGates(const SUMOSAXAttributes& attrs);
 
     /**
      * extraction of work opening and closing hours
      */
     void parseWorkHours();
-    void parseOpeningHour(const SUMOSAXAttributes &attrs);
-    void parseClosingHour(const SUMOSAXAttributes &attrs);
+    void parseOpeningHour(const SUMOSAXAttributes& attrs);
+    void parseClosingHour(const SUMOSAXAttributes& attrs);
 
     /**
      * School extraction
      */
     void parseSchools();
-    void parseSchool(const SUMOSAXAttributes &attrs);
+    void parseSchool(const SUMOSAXAttributes& attrs);
 
     /**
      * Bus stations and Bus extraction
      * an additional computation have to be done to create buses' names and buses in the return way
      */
-    void parseBusStation(const SUMOSAXAttributes &attrs);
-    void parseBusLine(const SUMOSAXAttributes &attrs);
+    void parseBusStation(const SUMOSAXAttributes& attrs);
+    void parseBusLine(const SUMOSAXAttributes& attrs);
     void parseStations();
     void parseRevStations();
-    void parseStation(const SUMOSAXAttributes &attrs);
-    void parseFrequency(const SUMOSAXAttributes &attrs);
+    void parseStation(const SUMOSAXAttributes& attrs);
+    void parseFrequency(const SUMOSAXAttributes& attrs);
 
     /**
      * population and children accompaniment bracket extraction
@@ -139,12 +139,12 @@ protected:
      */
     void parsePopulation();
     //void parseChildrenAccompaniment();
-    void parseBracket(const SUMOSAXAttributes &attrs);
+    void parseBracket(const SUMOSAXAttributes& attrs);
 
 
 protected:
     /// @brief The city to store the information into
-    AGCity &myCity;
+    AGCity& myCity;
 
     /// @brief The name of the object that is currently processed
     std::string myCurrentObject;
@@ -154,7 +154,7 @@ protected:
     bool isRevStation;
 
     /// @brief The loaded network
-    RONet *net;
+    RONet* net;
 
     /** @brief An indicator whether the next edge shall be read (internal edges are not read by now) */
     bool myProcess;
@@ -162,10 +162,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    AGActivityGenHandler(const AGActivityGenHandler &src);
+    AGActivityGenHandler(const AGActivityGenHandler& src);
 
     /// @brief Invalidated assignment operator
-    AGActivityGenHandler &operator=(const AGActivityGenHandler &src);
+    AGActivityGenHandler& operator=(const AGActivityGenHandler& src);
 
 };
 

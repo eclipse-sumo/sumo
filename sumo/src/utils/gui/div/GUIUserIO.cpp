@@ -44,7 +44,7 @@ std::string GUIUserIO::clipped = "";
 // method definitions
 // ===========================================================================
 void
-GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw() {
+GUIUserIO::copyToClipboard(const FXApp& app, const std::string& text) throw() {
     FXDragType types[] = {FXWindow::stringType, FXWindow::textType};
     if (app.getActiveWindow()->acquireClipboard(types,2)) {
         clipped = text;

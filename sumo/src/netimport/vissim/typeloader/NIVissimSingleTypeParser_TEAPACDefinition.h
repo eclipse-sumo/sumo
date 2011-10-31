@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_TEAPACDefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_TEAPACDefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_TEAPACDefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_TEAPACDefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

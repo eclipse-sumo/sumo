@@ -53,7 +53,7 @@ using namespace FX;
 using namespace FXEX;
 namespace FXEX {
 
-FXDEFMAP(FXBaseObject) FXBaseObjectMap[]={
+FXDEFMAP(FXBaseObject) FXBaseObjectMap[]= {
     FXMAPFUNC(SEL_COMMAND,FXWindow::ID_ENABLE,FXBaseObject::onCmdEnable),
     FXMAPFUNC(SEL_COMMAND,FXWindow::ID_DISABLE,FXBaseObject::onCmdDisable),
     FXMAPFUNC(SEL_UPDATE,FXWindow::ID_DISABLE,FXBaseObject::onUpdate),
@@ -61,7 +61,7 @@ FXDEFMAP(FXBaseObject) FXBaseObjectMap[]={
 FXIMPLEMENT(FXBaseObject,FXObject,FXBaseObjectMap,ARRAYNUMBER(FXBaseObjectMap))
 
 // ctor
-FXBaseObject::FXBaseObject(FXObject *tgt,FXSelector sel) : FXObject() {
+FXBaseObject::FXBaseObject(FXObject* tgt,FXSelector sel) : FXObject() {
     data=NULL;
     target=tgt;
     message=sel;
@@ -73,7 +73,7 @@ FXBaseObject::FXBaseObject(FXObject *tgt,FXSelector sel) : FXObject() {
 }
 
 // ctor
-FXBaseObject::FXBaseObject(FXApp *a,FXObject *tgt,FXSelector sel) : FXObject() {
+FXBaseObject::FXBaseObject(FXApp* a,FXObject* tgt,FXSelector sel) : FXObject() {
     data=NULL;
     target=tgt;
     message=sel;
@@ -89,8 +89,9 @@ FXBaseObject::FXBaseObject(FXApp *a,FXObject *tgt,FXSelector sel) : FXObject() {
 
 // free up all resources
 FXBaseObject::~FXBaseObject() {
-    if (data != NULL && data != (void*)-1)
+    if (data != NULL && data != (void*)-1) {
         fxerror("%s::~%s - user data is not NULL prior to destruction\n",getClassName(),getClassName());
+    }
     app=(FXApp*)-1;
     target=(FXObject*)-1;
 }
@@ -121,14 +122,19 @@ void FXBaseObject::load(FXStream& store) {
 
 // this allows FXBaseObject derived classes to be singletons
 FXApp* FXBaseObject::getApp() {
-    if (app) return app;
+    if (app) {
+        return app;
+    }
     return FXApp::instance();
 }
 
 // set the readonly flag
 void FXBaseObject::setReadonly(FXbool mode) {
-    if (mode) flags|=FLAG_READONLY;
-    else flags&=~FLAG_READONLY;
+    if (mode) {
+        flags|=FLAG_READONLY;
+    } else {
+        flags&=~FLAG_READONLY;
+    }
 }
 
 // handle enable event
@@ -144,11 +150,12 @@ long FXBaseObject::onCmdDisable(FXObject*,FXSelector,void*) {
 }
 
 // handle update event
-long FXBaseObject::onUpdate(FXObject *sender,FXSelector,void*) {
-    if (flags&FLAG_ENABLED)
+long FXBaseObject::onUpdate(FXObject* sender,FXSelector,void*) {
+    if (flags&FLAG_ENABLED) {
         sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_ENABLE),NULL);
-    else
+    } else {
         sender->handle(this,FXSEL(SEL_UPDATE,FXWindow::ID_DISABLE),NULL);
+    }
     return 1;
 }
 

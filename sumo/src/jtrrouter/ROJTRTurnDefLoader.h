@@ -62,7 +62,7 @@ public:
      *
      * @param[in] net The net to add loaded turning percentages into
      */
-    ROJTRTurnDefLoader(RONet &net) throw();
+    ROJTRTurnDefLoader(RONet& net) throw();
 
 
     /// @brief Destructor
@@ -81,7 +81,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -92,7 +92,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string &chars) throw(ProcessError);
+                      const std::string& chars) throw(ProcessError);
     //@}
 
 
@@ -107,7 +107,7 @@ private:
      *
      * @param[in] attrs The SAX-attributes to parse incoming edge from
      */
-    void beginFromEdge(const SUMOSAXAttributes &attrs) throw();
+    void beginFromEdge(const SUMOSAXAttributes& attrs) throw();
 
 
     /** @brief Parses the probability to use a certain outgoing edge
@@ -123,18 +123,18 @@ private:
      *
      * @param[in] attrs The SAX-attributes to parse the destination edge and the probability to use it from
      */
-    void addToEdge(const SUMOSAXAttributes &attrs) throw();
+    void addToEdge(const SUMOSAXAttributes& attrs) throw();
 
 
 private:
     /// @brief The network to set the information into
-    RONet &myNet;
+    RONet& myNet;
 
     /// @brief The begin and the end of the current interval
     SUMOTime myIntervalBegin, myIntervalEnd;
 
     /// @brief The current incoming edge the turning probabilities are set into
-    ROJTREdge *myEdge;
+    ROJTREdge* myEdge;
 
     /// @brief Whether the loader has warned about deprecated usage of characters
     bool myHaveWarnedAboutDeprecatedSources, myHaveWarnedAboutDeprecatedSinks;

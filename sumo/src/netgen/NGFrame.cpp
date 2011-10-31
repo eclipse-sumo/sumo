@@ -46,7 +46,7 @@
 // ===========================================================================
 void
 NGFrame::fillOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
     oc.addSynonyme("grid", "grid-net", true);
@@ -187,7 +187,7 @@ NGFrame::fillOptions() {
 
 bool
 NGFrame::checkOptions() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether exactly one type of a network to build was wished
     int no = 0;
@@ -197,7 +197,9 @@ NGFrame::checkOptions() {
     if (oc.getBool("grid")) {
         no++;
     }
-    if (oc.getBool("rand")) no++;
+    if (oc.getBool("rand")) {
+        no++;
+    }
     if (no==0) {
         WRITE_ERROR("You have to specify the type of network to generate.");
         ok = false;

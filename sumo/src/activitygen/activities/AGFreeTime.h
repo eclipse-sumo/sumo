@@ -41,14 +41,14 @@
 // ===========================================================================
 class AGFreeTime : public AGActivity {
 public:
-    AGFreeTime(AGHousehold *hh, AGDataAndStatistics *das, std::list<AGTrip>* prevTrips) :
-            AGActivity(hh, das, prevTrips, 2),
-            freqOut(das->freeTimeActivityRate),
-            nbrDays(1) {};
-    AGFreeTime(AGHousehold *hh, AGDataAndStatistics *das, std::list<AGTrip>* prevTrips, int days) :
-            AGActivity(hh, das, prevTrips, 2),
-            freqOut(das->freeTimeActivityRate),
-            nbrDays(days) {};
+    AGFreeTime(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips) :
+        AGActivity(hh, das, prevTrips, 2),
+        freqOut(das->freeTimeActivityRate),
+        nbrDays(1) {};
+    AGFreeTime(AGHousehold* hh, AGDataAndStatistics* das, std::list<AGTrip>* prevTrips, int days) :
+        AGActivity(hh, das, prevTrips, 2),
+        freqOut(das->freeTimeActivityRate),
+        nbrDays(days) {};
 
     /**
      * @Overwrite

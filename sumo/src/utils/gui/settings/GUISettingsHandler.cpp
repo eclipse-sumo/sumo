@@ -47,13 +47,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) throw()
-        : SUMOSAXHandler(content), myDelay(-1), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
+GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile) throw()
+    : SUMOSAXHandler(content), myDelay(-1), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {
         setFileName("registrySettings");
-        SAX2XMLReader *reader = XMLSubSys::getSAXReader(*this);
+        SAX2XMLReader* reader = XMLSubSys::getSAXReader(*this);
         MemBufInputSource memBufIS((const XMLByte*)content.c_str(),content.size(),"registrySettings");
         reader->parse(memBufIS);
         delete reader;
@@ -67,7 +67,7 @@ GUISettingsHandler::~GUISettingsHandler() throw() {
 
 void
 GUISettingsHandler::myStartElement(int element,
-                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
     case SUMO_TAG_DELAY:
@@ -210,7 +210,7 @@ GUISettingsHandler::myStartElement(int element,
 
 GUIVisualizationTextSettings
 GUISettingsHandler::parseTextSettings(
-    const std::string &prefix, const SUMOSAXAttributes &attrs,
+    const std::string& prefix, const SUMOSAXAttributes& attrs,
     GUIVisualizationTextSettings defaults) {
     bool ok = true;
     return GUIVisualizationTextSettings(
@@ -243,7 +243,7 @@ GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const throw() {
 
 
 void
-GUISettingsHandler::setViewport(SUMOReal &zoom, SUMOReal &xoff, SUMOReal &yoff) const throw() {
+GUISettingsHandler::setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const throw() {
     zoom = myZoom;
     xoff = myXPos;
     yoff = myYPos;

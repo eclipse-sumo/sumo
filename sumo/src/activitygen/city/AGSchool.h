@@ -41,13 +41,13 @@
 class AGSchool {
 public:
     AGSchool(int capacity_, AGPosition pos, int beginAge, int endAge, int open, int close) :
-            beginAge(beginAge),
-            endAge(endAge),
-            capacity(capacity_),
-            initCapacity(capacity_),
-            location(pos),
-            opening(open),
-            closing(close) {};
+        beginAge(beginAge),
+        endAge(endAge),
+        capacity(capacity_),
+        initCapacity(capacity_),
+        location(pos),
+        opening(open),
+        closing(close) {};
     void print();
     int getPlaces();
     bool addNewChild();

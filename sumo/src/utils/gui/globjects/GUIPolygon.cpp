@@ -52,21 +52,21 @@
 // ===========================================================================
 GUIPolygon::GUIPolygon(int layer,
                        const std::string name, const std::string type,
-                       const RGBColor &color,
-                       const PositionVector &Pos,
+                       const RGBColor& color,
+                       const PositionVector& Pos,
                        bool fill) throw()
-        : Polygon(name, type, color, Pos, fill),
-        GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
+    : Polygon(name, type, color, Pos, fill),
+      GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
 
 
 GUIPolygon::~GUIPolygon() throw() {}
 
 
 
-GUIGLObjectPopupMenu *
-GUIPolygon::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUIPolygon::getPopUpMenu(GUIMainWindow& app,
+                         GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
     new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
@@ -79,9 +79,9 @@ GUIPolygon::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUIPolygon::getParameterWindow(GUIMainWindow &,
-                               GUISUMOAbstractView &) throw() {
+GUIParameterTableWindow*
+GUIPolygon::getParameterWindow(GUIMainWindow&,
+                               GUISUMOAbstractView&) throw() {
     return 0;
 }
 
@@ -100,7 +100,7 @@ void APIENTRY beginCallback(GLenum which) {
 }
 
 void APIENTRY errorCallback(GLenum errorCode) {
-    const GLubyte *estring;
+    const GLubyte* estring;
 
     estring = gluErrorString(errorCode);
     fprintf(stderr, "Tessellation Error: %s\n", estring);
@@ -111,21 +111,21 @@ void APIENTRY endCallback(void) {
     glEnd();
 }
 
-void APIENTRY vertexCallback(GLvoid *vertex) {
-    const GLdouble *pointer;
+void APIENTRY vertexCallback(GLvoid* vertex) {
+    const GLdouble* pointer;
 
-    pointer = (GLdouble *) vertex;
-    glVertex3dv((GLdouble *) vertex);
+    pointer = (GLdouble*) vertex;
+    glVertex3dv((GLdouble*) vertex);
 }
 
 void APIENTRY combineCallback(GLdouble coords[3],
-                              GLdouble *vertex_data[4],
-                              GLfloat weight[4], GLdouble **dataOut) {
+                              GLdouble* vertex_data[4],
+                              GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
     UNUSED_PARAMETER(*vertex_data);
-    GLdouble *vertex;
+    GLdouble* vertex;
 
-    vertex = (GLdouble *) malloc(7 * sizeof(GLdouble));
+    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
 
     vertex[0] = coords[0];
     vertex[1] = coords[1];
@@ -135,7 +135,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 
 double glvert[6];
 void
-GUIPolygon::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIPolygon::drawGL(const GUIVisualizationSettings& s) const throw() {
     UNUSED_PARAMETER(s);
     if (fill()) {
         if (myShape.size()<3) {
@@ -152,8 +152,8 @@ GUIPolygon::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(getColor());
     if (fill()) {
-        double *points = new double[myShape.size()*3];
-        GLUtesselator *tobj = gluNewTess();
+        double* points = new double[myShape.size()*3];
+        GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
         gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endCallback);

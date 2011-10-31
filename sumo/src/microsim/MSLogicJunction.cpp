@@ -42,20 +42,20 @@
 /* -------------------------------------------------------------------------
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
-MSLogicJunction::MSLogicJunction(const std::string &id,
-                                 const Position &position,
-                                 const PositionVector &shape,
+MSLogicJunction::MSLogicJunction(const std::string& id,
+                                 const Position& position,
+                                 const PositionVector& shape,
                                  std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
                                  , std::vector<MSLane*> internal
 #endif
                                 ) throw()
-        : MSJunction(id, position, shape),
-        myIncomingLanes(incoming),
+    : MSJunction(id, position, shape),
+      myIncomingLanes(incoming),
 #ifdef HAVE_INTERNAL_LANES
-        myInternalLanes(internal),
+      myInternalLanes(internal),
 #endif
-        myInnerState(false) {}
+      myInnerState(false) {}
 
 
 MSLogicJunction::~MSLogicJunction() {}

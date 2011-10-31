@@ -59,7 +59,7 @@
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_RobocupRescue::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("robocup-dir")) {
         return;
@@ -95,8 +95,8 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
-NIImporter_RobocupRescue::NIImporter_RobocupRescue(NBNodeCont &nc, NBEdgeCont &ec)
-        : myNodeCont(nc), myEdgeCont(ec) {}
+NIImporter_RobocupRescue::NIImporter_RobocupRescue(NBNodeCont& nc, NBEdgeCont& ec)
+    : myNodeCont(nc), myEdgeCont(ec) {}
 
 
 NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw() {
@@ -104,7 +104,7 @@ NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw() {
 
 
 void
-NIImporter_RobocupRescue::loadNodes(const std::string &file) {
+NIImporter_RobocupRescue::loadNodes(const std::string& file) {
     BinaryInputDevice dev(file);
     unsigned int skip;
     dev >> skip; // the number in 19_s
@@ -164,7 +164,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
 
         Position pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
         NILoader::transformCoordinates(pos);
-        NBNode *node = new NBNode(toString(id), pos);
+        NBNode* node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
         --noNodes;
     } while (noNodes!=0);
@@ -172,7 +172,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
 
 
 void
-NIImporter_RobocupRescue::loadEdges(const std::string &file) {
+NIImporter_RobocupRescue::loadEdges(const std::string& file) {
     BinaryInputDevice dev(file);
     unsigned int skip;
     dev >> skip; // the number in 19_s
@@ -185,25 +185,25 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
     do {
         std::cout << "  left " << (noEdges) << std::endl;
         unsigned int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
-        carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
-        linesToHead, linesToTail, widthForWalkers;
+                 carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
+                 linesToHead, linesToTail, widthForWalkers;
         dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead
-        >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
-        >> median >> linesToHead >> linesToTail >> widthForWalkers;
-        NBNode *fromNode = myNodeCont.retrieve(toString(begNode));
-        NBNode *toNode = myNodeCont.retrieve(toString(endNode));
+            >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
+            >> median >> linesToHead >> linesToTail >> widthForWalkers;
+        NBNode* fromNode = myNodeCont.retrieve(toString(begNode));
+        NBNode* toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = (SUMOReal)(50. / 3.6);
         int priority = -1;
         LaneSpreadFunction spread = linesToHead>0&&linesToTail>0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (linesToHead>0) {
-            NBEdge *edge = new NBEdge(toString(id), fromNode, toNode, "",
+            NBEdge* edge = new NBEdge(toString(id), fromNode, toNode, "",
                                       speed, linesToHead, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
                 WRITE_ERROR("Could not insert edge '" + toString(id) + "'");
             }
         }
         if (linesToTail>0) {
-            NBEdge *edge = new NBEdge("-" + toString(id), toNode, fromNode, "",
+            NBEdge* edge = new NBEdge("-" + toString(id), toNode, fromNode, "",
                                       speed, linesToTail, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
                 WRITE_ERROR("Could not insert edge '-" + toString(id) + "'");

@@ -60,7 +60,7 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter *parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Parses a vehicle's attributes
@@ -75,7 +75,7 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter *parseVehicleAttributes(const SUMOSAXAttributes &attrs,
+    static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs,
             bool skipID=false, bool skipDepart=false) throw(ProcessError);
 
 
@@ -86,7 +86,7 @@ public:
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter *beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError);
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs) throw(ProcessError);
 
 
     /** @brief Parses an element embedded in vtype definition
@@ -98,8 +98,8 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      */
-    static void parseVTypeEmbedded(SUMOVTypeParameter &into,
-                                   int element, const SUMOSAXAttributes &attrs,
+    static void parseVTypeEmbedded(SUMOVTypeParameter& into,
+                                   int element, const SUMOSAXAttributes& attrs,
                                    bool fromVType=false) throw(ProcessError);
 
 
@@ -107,7 +107,7 @@ public:
      * @return The resulting vehicle type parameter
      * @see SUMOVTypeParameter
      */
-    static void closeVTypeParsing(SUMOVTypeParameter &vtype) {
+    static void closeVTypeParsing(SUMOVTypeParameter& vtype) {
         UNUSED_PARAMETER(vtype);
     }
 
@@ -126,7 +126,7 @@ public:
      * @see SUMOVehicleClass
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes &attrs, const std::string &id);
+    static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes& attrs, const std::string& id);
 
 
     /** @brief Parses the vehicle emission class
@@ -143,7 +143,7 @@ public:
      * @see SUMOEmissionClass
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOEmissionClass parseEmissionClass(const SUMOSAXAttributes &attrs, const std::string &id);
+    static SUMOEmissionClass parseEmissionClass(const SUMOSAXAttributes& attrs, const std::string& id);
 
 
     /** @brief Parses the vehicle class
@@ -160,7 +160,7 @@ public:
      * @see SUMOVehicleShape
      * @todo Recheck how errors are handled and what happens if they occure
      */
-    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &id);
+    static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes& attrs, const std::string& id);
 
 
 private:
@@ -174,8 +174,8 @@ private:
      * @param[in] element The name of the element (vehicle or flow)
      * @exception ProcessError If an attribute's value is invalid
      */
-    static void parseCommonAttributes(const SUMOSAXAttributes &attrs,
-                                      SUMOVehicleParameter *ret, std::string element) throw(ProcessError);
+    static void parseCommonAttributes(const SUMOSAXAttributes& attrs,
+                                      SUMOVehicleParameter* ret, std::string element) throw(ProcessError);
 
 
     typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;
@@ -188,9 +188,9 @@ private:
 
 
     static bool gHaveWarnedAboutDeprecatedNumber, gHaveWarnedAboutDeprecatedTazs,
-    gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
-    gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
-    gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
+           gHaveWarnedAboutDeprecatedDepartLane, gHaveWarnedAboutDeprecatedDepartPos, gHaveWarnedAboutDeprecatedDepartSpeed,
+           gHaveWarnedAboutDeprecatedArrivalLane, gHaveWarnedAboutDeprecatedArrivalPos, gHaveWarnedAboutDeprecatedArrivalSpeed,
+           gHaveWarnedAboutDeprecatedMaxSpeed, gHaveWarnedAboutDeprecatedVClass;
 };
 
 

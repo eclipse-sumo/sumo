@@ -46,45 +46,45 @@ public:
     	atTime(-1)
     {};*/
     AGTrip(AGPosition from, AGPosition to, int at) : //vehicle not specified
-            from(from),
-            to(to),
-            atTime(at),
-            type("default"),
-            day(0) {};
+        from(from),
+        to(to),
+        atTime(at),
+        type("default"),
+        day(0) {};
     AGTrip(AGPosition from, AGPosition to, AGCar c, int at) :
-            from(from),
-            to(to),
-            atTime(at),
-            vehicle(c.getName()),
-            type("default"),
-            day(0) {};
+        from(from),
+        to(to),
+        atTime(at),
+        vehicle(c.getName()),
+        type("default"),
+        day(0) {};
     AGTrip(AGPosition from, AGPosition to, AGBus b, int at) :
-            from(from),
-            to(to),
-            atTime(at),
-            vehicle(b.getName()),
-            type("bus"),
-            day(0) {};
+        from(from),
+        to(to),
+        atTime(at),
+        vehicle(b.getName()),
+        type("bus"),
+        day(0) {};
     AGTrip(AGPosition from, AGPosition to, std::string v, int at) :
-            from(from),
-            to(to),
-            atTime(at),
-            vehicle(v),
-            type("default"),
-            day(0) {};
+        from(from),
+        to(to),
+        atTime(at),
+        vehicle(v),
+        type("default"),
+        day(0) {};
     AGTrip(AGPosition from, AGPosition to, std::string v, int at, int day) :
-            from(from),
-            to(to),
-            atTime(at),
-            vehicle(v),
-            type("default"),
-            day(day) {};
+        from(from),
+        to(to),
+        atTime(at),
+        vehicle(v),
+        type("default"),
+        day(day) {};
     void print();
-    bool operator<(AGTrip & trip);
+    bool operator<(AGTrip& trip);
 
     void addLayOver(AGPosition by);
-    void addLayOver(AGTrip &trip);
-    void addLayOverWithoutDestination(AGTrip &trip);
+    void addLayOver(AGTrip& trip);
+    void addLayOverWithoutDestination(AGTrip& trip);
 
     AGPosition getDep();
     AGPosition getArr();

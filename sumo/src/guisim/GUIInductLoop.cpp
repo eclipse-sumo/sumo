@@ -57,15 +57,15 @@
 /* -------------------------------------------------------------------------
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
-GUIInductLoop::GUIInductLoop(const std::string &id, MSLane * const lane,
-							 SUMOReal position, bool splitByType) throw()
-        : MSInductLoop(id, lane, position, splitByType) {}
+GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
+                             SUMOReal position, bool splitByType) throw()
+    : MSInductLoop(id, lane, position, splitByType) {}
 
 
 GUIInductLoop::~GUIInductLoop() throw() {}
 
 
-GUIDetectorWrapper *
+GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, static_cast<GUIEdge&>(getLane()->getEdge()).getLaneGeometry(getLane()), myPosition);
 }
@@ -113,11 +113,11 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
 /* -------------------------------------------------------------------------
  * GUIInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
-                                    GUILaneWrapper &wrapper, SUMOReal pos) throw()
-        : GUIDetectorWrapper("induct loop", detector.getID()),
-        myDetector(detector), myPosition(pos) {
-    const PositionVector &v = wrapper.getShape();
+GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector,
+                                    GUILaneWrapper& wrapper, SUMOReal pos) throw()
+    : GUIDetectorWrapper("induct loop", detector.getID()),
+      myDetector(detector), myPosition(pos) {
+    const PositionVector& v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
     Line l(v.getBegin(), v.getEnd());
     SUMOReal sgPos = pos / v.length() * l.length();
@@ -139,10 +139,10 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
 
 
 
-GUIParameterTableWindow *
-GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw() {
-    GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
+GUIParameterTableWindow*
+GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
+        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) throw() {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
@@ -165,7 +165,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 void
-GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
@@ -216,7 +216,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
 }
 
 
-GUIInductLoop &
+GUIInductLoop&
 GUIInductLoop::MyWrapper::getLoop() {
     return myDetector;
 }

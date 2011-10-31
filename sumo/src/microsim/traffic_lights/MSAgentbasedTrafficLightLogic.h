@@ -55,7 +55,7 @@ class NLDetectorBuilder;
  * @brief An agentbased traffic light logic
  */
 class MSAgentbasedTrafficLightLogic :
-            public MSSimpleTrafficLightLogic {
+    public MSSimpleTrafficLightLogic {
 public:
     /// @brief Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MS_E2_ZS_CollectorOverLanes*> E2DetectorMap;
@@ -79,9 +79,9 @@ public:
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameter The parameter to use for tls set-up
      */
-    MSAgentbasedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                                  const std::string &id, const std::string &programID,
-                                  const MSSimpleTrafficLightLogic::Phases &phases,
+    MSAgentbasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
+                                  const std::string& id, const std::string& programID,
+                                  const MSSimpleTrafficLightLogic::Phases& phases,
                                   unsigned int step, SUMOTime delay,
                                   const std::map<std::string, std::string> &parameter);
 
@@ -91,7 +91,7 @@ public:
      * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb);
+    void init(NLDetectorBuilder& nb);
 
 
     /// @brief Destructor

@@ -56,9 +56,9 @@ class AGHousehold;
 class AGCity {
 public:
     AGCity(RONet* net) :
-            statData(AGDataAndStatistics::getDataAndStatistics()),
-            net(net),
-            streetsCompleted(false) {};
+        statData(AGDataAndStatistics::getDataAndStatistics()),
+        net(net),
+        streetsCompleted(false) {};
 
     /**
      * generates streets: complete the "streets" vector using the DataAndStat's map edges.

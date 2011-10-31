@@ -55,13 +55,13 @@ public:
      * @param[in] programID The programID for the computed logic
      * @param[in] offset The offset for the computed logic
      */
-    NBLoadedSUMOTLDef(const std::string &id, const std::string &programID, SUMOTime offset);
+    NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset);
 
     /** @brief Constructor that copies from an existing definition and its computed logic (used by NETEDIT)
      * @param[in] def The definition to copy
      * @param[in] logic The computed logic of the given def
      */
-    NBLoadedSUMOTLDef(NBTrafficLightDefinition *def, NBTrafficLightLogic *logic);
+    NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic);
 
 
     /// @brief Destructor
@@ -70,15 +70,15 @@ public:
     /** @brief Informs edges about being controlled by a tls
      * @param[in] ec The container of edges
      */
-    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
+    void setTLControllingInformation(const NBEdgeCont& ec) const throw();
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      */
-    void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
+    void remapRemoved(NBEdge* removed,
+                      const EdgeVector& incoming, const EdgeVector& outgoing) throw();
 
 
     /** @brief Replaces a removed edge/lane
@@ -87,27 +87,27 @@ public:
      * @param[in] by The edge to insert instead
      * @param[in] byLane This edge's lane to insert instead
      */
-    void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane) throw();
+    void replaceRemoved(NBEdge* removed, int removedLane,
+                        NBEdge* by, int byLane) throw();
 
     /** @brief Adds a phase to the logic
      * the new phase is inserted at the end of the list of already added phases
      * @param[in] duration The duration of the phase to add in SECONDS!
      * @param[in] state The state definition of a tls phase
      */
-    void addPhase(SUMOTime duration, const std::string &state);
+    void addPhase(SUMOTime duration, const std::string& state);
 
 
     /** @brief Adds a connection and immediately informs the edges
      */
-    void addConnection(NBEdge *from, NBEdge *to, int fromLane, int toLane, int linkIndex);
+    void addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex);
 
 
-    /** @brief removes the given connection from the traffic light 
+    /** @brief removes the given connection from the traffic light
      * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
-    void removeConnection(const NBConnection &conn, bool reconstruct=true);
+    void removeConnection(const NBConnection& conn, bool reconstruct=true);
 
     /** @brief Returns the internal logic
      */
@@ -128,7 +128,7 @@ protected:
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @return The computed logic
      */
-    NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
+    NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
                                    unsigned int brakingTime) throw();
 
     bool amInvalid() const;
@@ -136,7 +136,7 @@ protected:
 private:
 
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
-    NBTrafficLightLogic *myTLLogic;
+    NBTrafficLightLogic* myTLLogic;
 
     /// @brief The original nodes for which the loaded logic is valid
     std::set<NBNode*> myOriginalNodes;
@@ -149,17 +149,17 @@ private:
     class connection_equal {
     public:
         /// constructor
-        connection_equal(const NBConnection &c) : myC(c) {}
+        connection_equal(const NBConnection& c) : myC(c) {}
 
-        bool operator()(const NBConnection &c) const {
+        bool operator()(const NBConnection& c) const {
             return c.getFrom() == myC.getFrom() && c.getTo() == myC.getTo() &&
-                c.getFromLane() == myC.getFromLane() && c.getToLane() == myC.getToLane();
+                   c.getFromLane() == myC.getFromLane() && c.getToLane() == myC.getToLane();
         }
     private:
         const NBConnection& myC;
     private:
         /// @brief invalidated assignment operator
-        connection_equal &operator=(const connection_equal &s);
+        connection_equal& operator=(const connection_equal& s);
 
     };
 

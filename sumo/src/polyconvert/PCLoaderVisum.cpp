@@ -59,8 +59,8 @@
 // method definitions
 // ===========================================================================
 void
-PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                         PCTypeMap &tm) throw(ProcessError) {
+PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                         PCTypeMap& tm) throw(ProcessError) {
     if (!oc.isSet("visum-files")) {
         return;
     }
@@ -79,9 +79,9 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
-                    PCTypeMap &tm) throw(ProcessError) {
-    GeoConvHelper &geoConvHelper = GeoConvHelper::getDefaultInstance();
+PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
+                    PCTypeMap& tm) throw(ProcessError) {
+    GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
     std::string what;
     std::map<long, Position> punkte;
     std::map<long, PositionVector> kanten;
@@ -241,7 +241,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {
-                const PCTypeMap::TypeDef &def = tm.get(type);
+                const PCTypeMap::TypeDef& def = tm.get(type);
                 name = def.prefix + name;
                 type = def.id;
                 color = RGBColor::parseColor(def.color);
@@ -253,7 +253,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 color = c;
             }
             if (!discard) {
-                PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+                PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
                 if (!toFill.insert(name, poi, layer)) {
                     WRITE_ERROR("POI '" + name + "' could not been added.");
                     delete poi;
@@ -272,7 +272,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                 int layer = oc.getInt("layer");
                 bool discard = oc.getBool("discard");
                 if (tm.has(polyType)) {
-                    const PCTypeMap::TypeDef &def = tm.get(polyType);
+                    const PCTypeMap::TypeDef& def = tm.get(polyType);
                     id = def.prefix + id;
                     type = def.id;
                     color = RGBColor::parseColor(def.color);
@@ -284,7 +284,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                     color = c;
                 }
                 if (!discard) {
-                    Polygon *poly = new Polygon(id, type, color, vec, false);
+                    Polygon* poly = new Polygon(id, type, color, vec, false);
                     if (!toFill.insert(id, poly, 1)) {
                         WRITE_ERROR("Polygon '" + id + "' could not been added.");
                         delete poly;
@@ -323,7 +323,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {
-                const PCTypeMap::TypeDef &def = tm.get(type);
+                const PCTypeMap::TypeDef& def = tm.get(type);
                 name = def.prefix + name;
                 type = def.id;
                 color = RGBColor::parseColor(def.color);
@@ -336,7 +336,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
             }
             if (!discard) {
                 if (teilflaechen[flaechenelemente[id]].size()>0) {
-                    Polygon *poly = new Polygon(name, type, color, teilflaechen[flaechenelemente[id]], false);
+                    Polygon* poly = new Polygon(name, type, color, teilflaechen[flaechenelemente[id]], false);
                     if (!toFill.insert(name, poly, layer)) {
                         WRITE_ERROR("Polygon '" + name + "' could not been added.");
                         delete poly;
@@ -348,7 +348,7 @@ PCLoaderVisum::load(const std::string &file, OptionsCont &oc, PCPolyContainer &t
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
                     }
-                    PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+                    PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
                     if (!toFill.insert(name, poi, layer)) {
                         WRITE_ERROR("POI '" + name + "' could not been added.");
                         delete poi;

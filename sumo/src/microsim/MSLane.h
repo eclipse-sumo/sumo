@@ -81,7 +81,7 @@ public:
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
     struct VehPosition : public std::binary_function< const MSVehicle*,
-                SUMOReal, bool > {
+            SUMOReal, bool > {
         /// compares vehicle position to the detector position
         bool operator()(const MSVehicle* cmp, SUMOReal pos) const {
             return cmp->getPositionOnLane() >= pos;
@@ -102,10 +102,10 @@ public:
      * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
      * @see SUMOVehicleClass
      */
-    MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
-           unsigned int numericalID, const PositionVector &shape, SUMOReal width,
-           const SUMOVehicleClasses &allowed,
-           const SUMOVehicleClasses &disallowed) throw();
+    MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
+           unsigned int numericalID, const PositionVector& shape, SUMOReal width,
+           const SUMOVehicleClasses& allowed,
+           const SUMOVehicleClasses& disallowed) throw();
 
 
     /// @brief Destructor
@@ -224,7 +224,7 @@ public:
      * @param[in] veh The vehicle to insert
      * @param[in] pos The position at which the vehicle shall be inserted
      */
-    void forceVehicleInsertion(MSVehicle *veh, SUMOReal pos) throw();
+    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) throw();
     /// @}
 
 
@@ -243,19 +243,19 @@ public:
      * @param[in] leftVehicleLength The distance the vehicle laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOccupation(MSVehicle *v, SUMOReal leftVehicleLength) throw();
+    SUMOReal setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) throw();
 
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
      */
-    void resetPartialOccupation(MSVehicle *v) throw();
+    void resetPartialOccupation(MSVehicle* v) throw();
 
 
     /** @brief Returns the vehicle which laps into this lane
      * @return The vehicle which laps into this lane, 0 if there is no such
      */
-    MSVehicle *getPartialOccupator() const throw() {
+    MSVehicle* getPartialOccupator() const throw() {
         return myInlappingVehicle;
     }
 
@@ -325,7 +325,7 @@ public:
     /** @brief Returns this lane's shape
      * @return This lane's shape
      */
-    const PositionVector &getShape() const throw() {
+    const PositionVector& getShape() const throw() {
         return myShape;
     }
 
@@ -349,7 +349,7 @@ public:
     /** @brief Returns vehicle classes explicitly allowed on this lane
      * @return This lane's allowed vehicle classes
      */
-    const SUMOVehicleClasses &getAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getAllowedClasses() const throw() {
         return myAllowedClasses;
     }
 
@@ -357,7 +357,7 @@ public:
     /** @brief Returns vehicle classes explicitly disallowed on this lane
      * @return This lane's disallowed vehicle classes
      */
-    const SUMOVehicleClasses &getNotAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getNotAllowedClasses() const throw() {
         return myNotAllowedClasses;
     }
 
@@ -393,11 +393,11 @@ public:
 
     /** Returns the information whether this lane may be used to continue
         the current route */
-    virtual bool appropriate(const MSVehicle *veh);
+    virtual bool appropriate(const MSVehicle* veh);
 
 
     /// returns the container with all links !!!
-    const MSLinkCont &getLinkCont() const;
+    const MSLinkCont& getLinkCont() const;
 
 
     /// Returns true if there is not a single vehicle on the lane.
@@ -418,7 +418,7 @@ public:
     /** @brief Returns the lane's edge
      * @return This lane's edge
      */
-    MSEdge &getEdge() const throw() {
+    MSEdge& getEdge() const throw() {
         return *myEdge;
     }
 
@@ -455,11 +455,11 @@ public:
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::const_iterator &i) const;
+    bool isLinkEnd(MSLinkCont::const_iterator& i) const;
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::iterator &i);
+    bool isLinkEnd(MSLinkCont::iterator& i);
 
     /// returns the last vehicle
     virtual MSVehicle* getLastVehicle() const;
@@ -469,41 +469,41 @@ public:
 
 
     // valid for gui-version only
-    virtual GUILaneWrapper *buildLaneWrapper(unsigned int index);
+    virtual GUILaneWrapper* buildLaneWrapper(unsigned int index);
 
-    virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
+    virtual MSVehicle* removeVehicle(MSVehicle* remVehicle);
 
     /// The shape of the lane
     PositionVector myShape;
 
 
 
-    void leftByLaneChange(MSVehicle *v);
-    void enteredByLaneChange(MSVehicle *v);
+    void leftByLaneChange(MSVehicle* v);
+    void enteredByLaneChange(MSVehicle* v);
 
 
     MSLane* getLeftLane() const;
     MSLane* getRightLane() const;
 
-    void setAllowedClasses(const SUMOVehicleClasses &classes) throw() {
+    void setAllowedClasses(const SUMOVehicleClasses& classes) throw() {
         myAllowedClasses = classes;
     }
 
 
-    void setNotAllowedClasses(const SUMOVehicleClasses &classes) throw() {
+    void setNotAllowedClasses(const SUMOVehicleClasses& classes) throw() {
         myNotAllowedClasses = classes;
     }
 
 
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
-    void addIncomingLane(MSLane *lane, MSLink *viaLink);
+    void addIncomingLane(MSLane* lane, MSLink* viaLink);
 
 
     struct IncomingLaneInfo {
-        MSLane *lane;
+        MSLane* lane;
         SUMOReal length;
-        MSLink *viaLink;
+        MSLink* viaLink;
     };
 
     const std::vector<IncomingLaneInfo> &getIncomingLanes() const {
@@ -511,13 +511,13 @@ public:
     }
 
 
-    void addApproachingLane(MSLane *lane);
-    bool isApproachedFrom(MSEdge * const edge);
-    bool isApproachedFrom(MSEdge * const edge, MSLane * const lane);
+    void addApproachingLane(MSLane* lane);
+    bool isApproachedFrom(MSEdge* const edge);
+    bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 
 
 
-    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
+    std::pair<MSVehicle* const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, SUMOReal backOffset, SUMOReal predMaxDecel) const;
 
 
@@ -543,8 +543,8 @@ public:
      * @param[in] bestLaneConts The lanes the vehicle will use in future
      * @return
      */
-    std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal speed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
+            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*> &bestLaneConts) const throw();
 
 
     MSLane* getLogicalPredecessorLane() const throw();
@@ -628,8 +628,8 @@ protected:
      * @param[in] at
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      */
-    virtual void incorporateVehicle(MSVehicle *veh, SUMOReal pos, SUMOReal speed,
-                                    const MSLane::VehCont::iterator &at,
+    virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
+                                    const MSLane::VehCont::iterator& at,
                                     MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
 
 
@@ -678,7 +678,7 @@ protected:
     SUMOVehicleClasses myNotAllowedClasses;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
-    mutable MSLane *myLogicalPredecessorLane;
+    mutable MSLane* myLogicalPredecessorLane;
 
 
     /// @brief The current length of all vehicles on this lane
@@ -688,7 +688,7 @@ protected:
     SUMOReal myInlappingVehicleEnd;
 
     /// @brief The vehicle which laps into this lane
-    MSVehicle *myInlappingVehicle;
+    MSVehicle* myInlappingVehicle;
 
 
     /// @brief Not yet seen vehicle lengths
@@ -728,7 +728,7 @@ private:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the first vehicle is further on the lane than the second
          */
-        int operator()(MSVehicle *v1, MSVehicle *v2) const {
+        int operator()(MSVehicle* v1, MSVehicle* v2) const {
             return v1->getPositionOnLane()>v2->getPositionOnLane();
         }
 
@@ -740,11 +740,11 @@ private:
     class by_connections_to_sorter {
     public:
         /// @brief constructor
-        explicit by_connections_to_sorter(const MSEdge *const e)
-                : myEdge(e), myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) { }
+        explicit by_connections_to_sorter(const MSEdge* const e)
+            : myEdge(e), myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) { }
 
         /// @brief comparing operator
-        int operator()(const MSEdge * const e1, const MSEdge * const e2) const {
+        int operator()(const MSEdge* const e1, const MSEdge* const e2) const {
             const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
             const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
             SUMOReal s1 = 0;
@@ -761,7 +761,7 @@ private:
     private:
         by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
     private:
-        const MSEdge *const myEdge;
+        const MSEdge* const myEdge;
         SUMOReal myLaneDir;
     };
 
@@ -770,14 +770,14 @@ private:
      */
     class edge_finder {
     public:
-        edge_finder(MSEdge *e) : myEdge(e) {}
-        bool operator()(const IncomingLaneInfo &ili) const {
+        edge_finder(MSEdge* e) : myEdge(e) {}
+        bool operator()(const IncomingLaneInfo& ili) const {
             return &(ili.lane->getEdge())==myEdge;
         }
     private:
         edge_finder& operator=(const edge_finder&); // just to avoid a compiler warning
     private:
-        const MSEdge * const myEdge;
+        const MSEdge* const myEdge;
     };
 
 private:

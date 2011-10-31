@@ -54,7 +54,7 @@ public:
      * @param[in] oc The options used while loading the type map
      * @param[out] con The container to fill
      */
-    PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw();
+    PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) throw();
 
 
     /// @brief Destructor
@@ -74,24 +74,24 @@ protected:
      * @todo Completely unsecure currently (invalid values may force abortion with no error message)
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 
 protected:
     /// @brief The options (program settings)
-    OptionsCont &myOptions;
+    OptionsCont& myOptions;
 
     /// @brief The type map to fill
-    PCTypeMap &myContainer;
+    PCTypeMap& myContainer;
 
 
 private:
     /// @brief Invalidated copy constructor
-    PCTypeDefHandler(const PCTypeDefHandler &src);
+    PCTypeDefHandler(const PCTypeDefHandler& src);
 
     /// @brief Invalidated assignment operator
-    PCTypeDefHandler &operator=(const PCTypeDefHandler &src);
+    PCTypeDefHandler& operator=(const PCTypeDefHandler& src);
 
 };
 

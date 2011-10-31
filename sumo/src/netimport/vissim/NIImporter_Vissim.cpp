@@ -120,7 +120,7 @@
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_Vissim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_Vissim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("vissim-file")) {
         return;
     }
@@ -133,15 +133,15 @@ NIImporter_Vissim::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 /* -------------------------------------------------------------------------
  * NIImporter_Vissim::VissimSingleTypeParser-methods
  * ----------------------------------------------------------------------- */
-NIImporter_Vissim::VissimSingleTypeParser::VissimSingleTypeParser(NIImporter_Vissim &parent)
-        : myVissimParent(parent) {}
+NIImporter_Vissim::VissimSingleTypeParser::VissimSingleTypeParser(NIImporter_Vissim& parent)
+    : myVissimParent(parent) {}
 
 
 NIImporter_Vissim::VissimSingleTypeParser::~VissimSingleTypeParser() {}
 
 
 std::string
-NIImporter_Vissim::VissimSingleTypeParser::myRead(std::istream &from) {
+NIImporter_Vissim::VissimSingleTypeParser::myRead(std::istream& from) {
     std::string tmp;
     from >> tmp;
     return StringUtils::to_lower_case(tmp);
@@ -150,8 +150,8 @@ NIImporter_Vissim::VissimSingleTypeParser::myRead(std::istream &from) {
 
 
 std::string
-NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
-        const std::string &excl) {
+NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream& from,
+        const std::string& excl) {
     std::string myExcl = StringUtils::to_lower_case(excl);
     std::string tmp = myRead(from);
     if (tmp=="") {
@@ -168,7 +168,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 
 std::string
-NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
+NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream& from,
         const std::vector<std::string> &excl) {
     std::vector<std::string> myExcl;
     std::vector<std::string>::const_iterator i;
@@ -198,8 +198,8 @@ NIImporter_Vissim::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 
 std::string
-NIImporter_Vissim::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from,
-        const std::string &tag) {
+NIImporter_Vissim::VissimSingleTypeParser::overrideOptionalLabel(std::istream& from,
+        const std::string& tag) {
     std::string tmp;
     if (tag=="") {
         tmp = myRead(from);
@@ -219,7 +219,7 @@ NIImporter_Vissim::VissimSingleTypeParser::overrideOptionalLabel(std::istream &f
 
 
 Position
-NIImporter_Vissim::VissimSingleTypeParser::getPosition(std::istream &from) {
+NIImporter_Vissim::VissimSingleTypeParser::getPosition(std::istream& from) {
     SUMOReal x, y;
     from >> x; // type-checking is missing!
     from >> y; // type-checking is missing!
@@ -229,7 +229,7 @@ NIImporter_Vissim::VissimSingleTypeParser::getPosition(std::istream &from) {
 
 IntVector
 NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
-    std::istream &from, const std::string &next) {
+    std::istream& from, const std::string& next) {
     std::string tmp = readEndSecure(from);
     IntVector ret;
     if (tmp=="alle") {
@@ -246,7 +246,7 @@ NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
 
 NIVissimExtendedEdgePoint
 NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
-    std::istream &from) {
+    std::istream& from) {
     std::string tag;
     from >> tag; // "Strecke"
     int edgeid;
@@ -268,7 +268,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
 
 
 std::string
-NIImporter_Vissim::VissimSingleTypeParser::readName(std::istream &from) {
+NIImporter_Vissim::VissimSingleTypeParser::readName(std::istream& from) {
     std::string name;
     from >> name;
     if (name[0]=='"') {
@@ -284,8 +284,8 @@ NIImporter_Vissim::VissimSingleTypeParser::readName(std::istream &from) {
 
 
 void
-NIImporter_Vissim::VissimSingleTypeParser::readUntil(std::istream &from,
-        const std::string &name) {
+NIImporter_Vissim::VissimSingleTypeParser::readUntil(std::istream& from,
+        const std::string& name) {
     std::string tag;
     while (tag!=name) {
         tag = myRead(from);
@@ -293,8 +293,8 @@ NIImporter_Vissim::VissimSingleTypeParser::readUntil(std::istream &from,
 }
 
 bool
-NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream &from,
-        const std::string &name) {
+NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream& from,
+        const std::string& name) {
     std::string tag;
     while (tag!=name) {
         tag = myRead(from);
@@ -310,8 +310,8 @@ NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream &from,
 /* -------------------------------------------------------------------------
  * NIImporter_Vissim-methods
  * ----------------------------------------------------------------------- */
-NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder &nb, const std::string &file)
-        : myNetBuilder(nb) {
+NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder& nb, const std::string& file)
+    : myNetBuilder(nb) {
     UNUSED_PARAMETER(file);
     insertKnownElements();
     buildParsers();
@@ -355,7 +355,7 @@ NIImporter_Vissim::~NIImporter_Vissim() {
 
 
 void
-NIImporter_Vissim::load(const OptionsCont &options) {
+NIImporter_Vissim::load(const OptionsCont& options) {
     // load file contents
     // try to open the file
     std::ifstream strm(options.getString("vissim-file").c_str());
@@ -371,7 +371,7 @@ NIImporter_Vissim::load(const OptionsCont &options) {
 
 
 bool
-NIImporter_Vissim::admitContinue(const std::string &tag) {
+NIImporter_Vissim::admitContinue(const std::string& tag) {
     ToElemIDMap::const_iterator i=myKnownElements.find(tag);
     if (i==myKnownElements.end()) {
         return true;
@@ -382,7 +382,7 @@ NIImporter_Vissim::admitContinue(const std::string &tag) {
 
 
 bool
-NIImporter_Vissim::readContents(std::istream &strm) {
+NIImporter_Vissim::readContents(std::istream& strm) {
     // read contents
     bool ok = true;
     while (strm.good()&&ok) {
@@ -399,7 +399,7 @@ NIImporter_Vissim::readContents(std::istream &strm) {
             if (i!=myKnownElements.end()) {
                 ToParserMap::iterator j=myParsers.find((*i).second);
                 if (j!=myParsers.end()) {
-                    VissimSingleTypeParser *parser = (*j).second;
+                    VissimSingleTypeParser* parser = (*j).second;
                     ok = parser->parse(strm);
                     parsed = true;
                 }

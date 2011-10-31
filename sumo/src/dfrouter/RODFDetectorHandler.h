@@ -45,8 +45,8 @@
 class RODFDetectorHandler : public SUMOSAXHandler {
 public:
     /// Constructor
-    RODFDetectorHandler(RODFNet *optNet, bool ignoreErrors, RODFDetectorCon &con,
-                        const std::string &file);
+    RODFDetectorHandler(RODFNet* optNet, bool ignoreErrors, RODFDetectorCon& con,
+                        const std::string& file);
 
     /// Destructor
     virtual ~RODFDetectorHandler() throw();
@@ -63,28 +63,28 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) throw(ProcessError);
     //@}
 
 private:
     /// the net
-    RODFNet *myNet;
+    RODFNet* myNet;
 
     /// whether to ignore errors on parsing
     bool myIgnoreErrors;
 
     /// the container to put the detectors into
-    RODFDetectorCon &myContainer;
+    RODFDetectorCon& myContainer;
 
     bool myHaveWarnedAboutDeprecatedDetectorDefinition;
 
 
 private:
     /// invalidated copy constructor
-    RODFDetectorHandler(const RODFDetectorHandler &src);
+    RODFDetectorHandler(const RODFDetectorHandler& src);
 
     /// invalidated assignment operator
-    RODFDetectorHandler &operator=(const RODFDetectorHandler &src);
+    RODFDetectorHandler& operator=(const RODFDetectorHandler& src);
 
 };
 

@@ -53,7 +53,7 @@ AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) throw() {
 /****************************************************************************/
 
 AGAdult::AGAdult(int age) throw()
-        : AGPerson(age), work(0) {}
+    : AGPerson(age), work(0) {}
 
 /****************************************************************************/
 
@@ -102,19 +102,22 @@ AGAdult::lostWorkPosition() throw() {
 
 void
 AGAdult::resignFromWorkPosition() throw() {
-    if (work != 0)
+    if (work != 0) {
         work->let();
+    }
 }
 
 /****************************************************************************/
 
 const AGWorkPosition&
 AGAdult::getWorkPosition() const throw(std::runtime_error) {
-    if (work != 0)
+    if (work != 0) {
         return *work;
+    }
 
-    else
+    else {
         throw(std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed."));
+    }
 }
 
 /****************************************************************************/

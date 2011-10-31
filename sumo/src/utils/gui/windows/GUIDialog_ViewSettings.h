@@ -57,15 +57,15 @@ public:
 
     class NamePanel {
     public:
-        NamePanel(FXMatrix *parent, GUIDialog_ViewSettings *target,
-                  const std::string &title,
-                  const GUIVisualizationTextSettings &settings);
+        NamePanel(FXMatrix* parent, GUIDialog_ViewSettings* target,
+                  const std::string& title,
+                  const GUIVisualizationTextSettings& settings);
 
         GUIVisualizationTextSettings getSettings();
-        void update(const GUIVisualizationTextSettings &settings);
+        void update(const GUIVisualizationTextSettings& settings);
 
-        FXCheckButton *myCheck;
-        FXRealSpinDial *mySizeDial;
+        FXCheckButton* myCheck;
+        FXRealSpinDial* mySizeDial;
         FXColorWell* myColorWell;
     };
 
@@ -77,10 +77,10 @@ public:
      * @param[in] decals Decals used
      * @param[in] decalsLock A lock to set if the decals are changed
      */
-    GUIDialog_ViewSettings(GUISUMOAbstractView *parent,
-                           GUIVisualizationSettings *settings,
+    GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
+                           GUIVisualizationSettings* settings,
                            std::vector<GUISUMOAbstractView::Decal> *decals,
-                           MFXMutex *decalsLock) throw();
+                           MFXMutex* decalsLock) throw();
 
 
     /// @brief Destructor
@@ -90,7 +90,7 @@ public:
     /** @brief Sets current settings (called if reopened)
      * @param[in, out] settings The current settings that can be changed
      */
-    void setCurrent(GUIVisualizationSettings *settings) throw();
+    void setCurrent(GUIVisualizationSettings* settings) throw();
 
 
 
@@ -107,35 +107,35 @@ public:
     long onCmdColorChange(FXObject*,FXSelector,void*);
 
     /// @brief Called if the decals-table was changed
-    long onCmdEditTable(FXObject*,FXSelector,void*data);
+    long onCmdEditTable(FXObject*,FXSelector,void* data);
 
     /// @brief Called if the name of the scheme was changed
     long onCmdNameChange(FXObject*,FXSelector,void*);
 
     /// @brief Called if the settings shall be saved into the registry
-    long onCmdSaveSetting(FXObject*,FXSelector,void*data);
+    long onCmdSaveSetting(FXObject*,FXSelector,void* data);
     /// @brief Called when updating the button that allows to save the settings into the registry
-    long onUpdSaveSetting(FXObject*,FXSelector,void*data);
+    long onUpdSaveSetting(FXObject*,FXSelector,void* data);
 
     /// @brief Called if the settings shall be deleted
-    long onCmdDeleteSetting(FXObject*,FXSelector,void*data);
+    long onCmdDeleteSetting(FXObject*,FXSelector,void* data);
     /// @brief Called when updating the button that allows to delete settings
-    long onUpdDeleteSetting(FXObject*,FXSelector,void*data);
+    long onUpdDeleteSetting(FXObject*,FXSelector,void* data);
 
     /// @brief Called if the settings shall be exported into a file
-    long onCmdExportSetting(FXObject*,FXSelector,void*data);
+    long onCmdExportSetting(FXObject*,FXSelector,void* data);
     /// @brief Called when updating the button that allows to export settings into a file
-    long onUpdExportSetting(FXObject*,FXSelector,void*data);
+    long onUpdExportSetting(FXObject*,FXSelector,void* data);
 
     /// @brief Called if the settings shall be read from a file
-    long onCmdImportSetting(FXObject*,FXSelector,void*data);
+    long onCmdImportSetting(FXObject*,FXSelector,void* data);
     /// @brief Called when updating the button that allows to read settings from a file
-    long onUpdImportSetting(FXObject*,FXSelector,void*data);
+    long onUpdImportSetting(FXObject*,FXSelector,void* data);
 
     /// @brief Called if the decals shall be loaded from a file
-    long onCmdLoadDecals(FXObject*,FXSelector,void*data);
+    long onCmdLoadDecals(FXObject*,FXSelector,void* data);
     /// @brief Called if the decals shall be saved to a file
-    long onCmdSaveDecals(FXObject*,FXSelector,void*data);
+    long onCmdSaveDecals(FXObject*,FXSelector,void* data);
     /// @}
 
 
@@ -149,7 +149,7 @@ public:
     /** @brief Sets the named scheme as the current
      * @param[in] The name of the scheme that shall be set as current
      */
-    void setCurrentScheme(const std::string &) throw();
+    void setCurrentScheme(const std::string&) throw();
 
 
     /** @brief Converts a FOX-color into a RGBColor
@@ -163,7 +163,7 @@ public:
      * @param[in] c The color to convert
      * @return The converted color
      */
-    static FXColor convert(const RGBColor &c);
+    static FXColor convert(const RGBColor& c);
 
 protected:
 
@@ -181,27 +181,27 @@ protected:
     /** @brief Loads a scheme from a file
      * @param[in] file The name of the file to read the settings from
      */
-    void loadSettings(const std::string &file) throw();
+    void loadSettings(const std::string& file) throw();
 
 
     /** @brief Writes the currently used decals into a file
      * @param[in] file The name of the file to write the decals into
      */
-    void saveDecals(const std::string &file) const throw();
+    void saveDecals(const std::string& file) const throw();
 
 
     /** @brief Loads decals from a file
      * @param[in] file The name of the file to read the decals from
      */
-    void loadDecals(const std::string &file) throw();
+    void loadDecals(const std::string& file) throw();
 
 
 private:
     /// @brief The parent view (which settings are changed)
-    GUISUMOAbstractView *myParent;
+    GUISUMOAbstractView* myParent;
 
     /// @brief The current settings
-    GUIVisualizationSettings *mySettings;
+    GUIVisualizationSettings* mySettings;
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;
@@ -210,51 +210,51 @@ private:
     std::vector<GUISUMOAbstractView::Decal> *myDecals;
 
     /// @brief Lock used when changing the decals
-    MFXMutex *myDecalsLock;
+    MFXMutex* myDecalsLock;
 
 
     /// @name Dialog elements
     /// @{
-    FXComboBox *mySchemeName;
-    FXCheckButton *myShowGrid;
-    FXRealSpinDial *myGridXSizeDialer, *myGridYSizeDialer;
+    FXComboBox* mySchemeName;
+    FXCheckButton* myShowGrid;
+    FXRealSpinDial* myGridXSizeDialer, *myGridYSizeDialer;
 
-    FXColorWell *myBackgroundColor;
-    FXVerticalFrame *myDecalsFrame;
-    MFXAddEditTypedTable *myDecalsTable;
+    FXColorWell* myBackgroundColor;
+    FXVerticalFrame* myDecalsFrame;
+    MFXAddEditTypedTable* myDecalsTable;
 
-    FXComboBox *myLaneEdgeColorMode;
-    FXVerticalFrame *myLaneColorSettingFrame;
-    std::vector<FXColorWell *> myLaneColors;
-    std::vector<FXRealSpinDial *> myLaneThresholds;
-    std::vector<FXButton *> myLaneButtons;
-    FXCheckButton *myLaneColorInterpolation;
+    FXComboBox* myLaneEdgeColorMode;
+    FXVerticalFrame* myLaneColorSettingFrame;
+    std::vector<FXColorWell*> myLaneColors;
+    std::vector<FXRealSpinDial*> myLaneThresholds;
+    std::vector<FXButton*> myLaneButtons;
+    FXCheckButton* myLaneColorInterpolation;
 
-    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails,
-    *myHideMacroConnectors;
+    FXCheckButton* myShowLaneBorders, *myShowLaneDecals, *myShowRails,
+                   *myHideMacroConnectors;
 
-    FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
-    FXVerticalFrame *myVehicleColorSettingFrame;
-    std::vector<FXColorWell *> myVehicleColors;
-    std::vector<FXRealSpinDial *> myVehicleThresholds;
-    std::vector<FXButton *> myVehicleButtons;
-    FXCheckButton *myVehicleColorInterpolation;
-    FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker; /* *myShowLaneChangePreference,*/
+    FXComboBox* myVehicleColorMode, *myVehicleShapeDetail;
+    FXVerticalFrame* myVehicleColorSettingFrame;
+    std::vector<FXColorWell*> myVehicleColors;
+    std::vector<FXRealSpinDial*> myVehicleThresholds;
+    std::vector<FXButton*> myVehicleButtons;
+    FXCheckButton* myVehicleColorInterpolation;
+    FXRealSpinDial* myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
+    FXCheckButton* myShowBlinker; /* *myShowLaneChangePreference,*/
 
-    FXCheckButton *myShowTLIndex, *myShowJunctionIndex;
+    FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
-    FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
-    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer;
+    FXRealSpinDial* myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
+    FXRealSpinDial* myPOIMinSizeDialer, *myPOIUpscaleDialer;
 
-    FXCheckButton *myShowLane2Lane;
-    FXCheckButton *myAntialiase;
-    FXCheckButton *myDither;
-    FXCheckButton *myShowSizeLegend;
+    FXCheckButton* myShowLane2Lane;
+    FXCheckButton* myAntialiase;
+    FXCheckButton* myDither;
+    FXCheckButton* myShowSizeLegend;
 
-    NamePanel *myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
-    *myJunctionNamePanel, *myInternalJunctionNamePanel,
-    *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
+    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myStreetNamePanel,
+               *myJunctionNamePanel, *myInternalJunctionNamePanel,
+               *myVehicleNamePanel, *myAddNamePanel, *myPoiNamePanel;
     /// @}
 
 
@@ -265,10 +265,10 @@ protected:
 
 private:
     /// @brief invalidated copy constructor
-    GUIDialog_ViewSettings(const GUIDialog_ViewSettings &s);
+    GUIDialog_ViewSettings(const GUIDialog_ViewSettings& s);
 
     /// @brief invalidated assignment operator
-    GUIDialog_ViewSettings &operator=(const GUIDialog_ViewSettings &s);
+    GUIDialog_ViewSettings& operator=(const GUIDialog_ViewSettings& s);
 
 
 };

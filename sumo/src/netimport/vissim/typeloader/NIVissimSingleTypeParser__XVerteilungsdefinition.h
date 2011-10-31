@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser__XVerteilungsdefinition :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser__XVerteilungsdefinition(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser__XVerteilungsdefinition(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser__XVerteilungsdefinition();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

@@ -67,8 +67,8 @@ public:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                          PCTypeMap &tm) throw(ProcessError);
+    static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
+                          PCTypeMap& tm) throw(ProcessError);
 
 
 protected:
@@ -78,8 +78,8 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys/pois
      * @exception ProcessError if something fails
      */
-    static void load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
-                     PCTypeMap &tm) throw(ProcessError);
+    static void load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
+                     PCTypeMap& tm) throw(ProcessError);
 
 
 private:

@@ -45,7 +45,7 @@ public:
      *
      * @param[in] id The id of the object
      */
-    Named(const std::string &id) : myID(id) { }
+    Named(const std::string& id) : myID(id) { }
 
 
     /// @brief Destructor
@@ -56,7 +56,7 @@ public:
      *
      * @return The stored id
      */
-    const std::string &getID() const {
+    const std::string& getID() const {
         return myID;
     }
 
@@ -68,10 +68,8 @@ public:
 
 
     /** Function-object for stable sorting in containers. */
-    struct ComparatorIdLess
-    {
-        bool operator() (Named* const a, Named* const b)
-        {
+    struct ComparatorIdLess {
+        bool operator()(Named* const a, Named* const b) {
             return (a->getID() < b->getID());
         }
     };

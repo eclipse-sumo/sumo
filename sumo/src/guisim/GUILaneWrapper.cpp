@@ -76,11 +76,11 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsigned int index) throw() :
-        GUIGlObject(GLO_LANE, lane.getID()),
-        myLane(lane),
-        myShape(shape),
-        myIndex(index) {
+GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) throw() :
+    GUIGlObject(GLO_LANE, lane.getID()),
+    myLane(lane),
+    myShape(shape),
+    myIndex(index) {
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
@@ -96,8 +96,8 @@ GUILaneWrapper::GUILaneWrapper(MSLane &lane, const PositionVector &shape, unsign
     myShapeLengths.reserve(myShape.size()-1);
     int e = (int) myShape.size() - 1;
     for (int i=0; i<e; ++i) {
-        const Position &f = myShape[i];
-        const Position &s = myShape[i+1];
+        const Position& f = myShape[i];
+        const Position& s = myShape[i+1];
         myShapeLengths.push_back(f.distanceTo(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
@@ -117,7 +117,7 @@ GUILaneWrapper::getOverallMaxSpeed() {
 
 
 bool
-GUILaneWrapper::forLane(const MSLane &lane) const {
+GUILaneWrapper::forLane(const MSLane& lane) const {
     return (&myLane)==(&lane);
 }
 
@@ -133,10 +133,10 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
     SUMOReal x1 = myLane.getWidth() / (SUMOReal) 2.;
     glPushMatrix();
-    const PositionVector &g = getShape();
-    const Position &end = g.getEnd();
-    const Position &f = g[-2];
-    const Position &s = end;
+    const PositionVector& g = getShape();
+    const Position& end = g.getEnd();
+    const Position& f = g[-2];
+    const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -151,7 +151,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
+GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
     if (noLinks==0) {
         return;
@@ -160,10 +160,10 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
     SUMOReal w = myLane.getWidth() / (SUMOReal) noLinks;
     SUMOReal x1 = (SUMOReal)(myLane.getWidth() / 2.);
     glPushMatrix();
-    const PositionVector &g = getShape();
-    const Position &end = g.getEnd();
-    const Position &f = g[-2];
-    const Position &s = end;
+    const PositionVector& g = getShape();
+    const Position& end = g.getEnd();
+    const Position& f = g[-2];
+    const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -182,12 +182,12 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet &net) const {
 
 
 void
-GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet &net) const {
+GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
-    const PositionVector &g = getShape();
-    const Position &end = g.getEnd();
-    const Position &f = g[-2];
-    const Position &s = end;
+    const PositionVector& g = getShape();
+    const Position& end = g.getEnd();
+    const Position& f = g[-2];
+    const Position& s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     if (noLinks==0) {
         glPushName(getGlID());
@@ -286,8 +286,8 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
         return;
     }
     // draw all links
-    const Position &end = getShape().getEnd();
-    const Position &f = getShape()[-2];
+    const Position& end = getShape().getEnd();
+    const Position& f = getShape()[-2];
     SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
     glPushName(0);
@@ -343,7 +343,7 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
     unsigned int noLinks = getLinkNumber();
     for (unsigned int i=0; i<noLinks; ++i) {
         LinkState state = getLane().getLinkCont()[i]->getState();
-        const MSLane *connected = getLane().getLinkCont()[i]->getLane();
+        const MSLane* connected = getLane().getLinkCont()[i]->getLane();
         if (connected==0) {
             continue;
         }
@@ -380,8 +380,8 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
         }
 
         glBegin(GL_LINES);
-        const Position &p1 = getShape()[-1];
-        const Position &p2 = connected->getShape()[0];
+        const Position& p1 = getShape()[-1];
+        const Position& p2 = connected->getShape()[0];
         glVertex2f(p1.x(), p1.y());
         glVertex2f(p2.x(), p2.y());
         glEnd();
@@ -391,7 +391,7 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
 
 
 void
-GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
+GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushMatrix();
     const bool isInternal = getLane().getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
@@ -426,7 +426,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         if (!isInternal) {
             glPushMatrix();
             glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
-            GUINet *net = (GUINet*) MSNet::getInstance();
+            GUINet* net = (GUINet*) MSNet::getInstance();
             glTranslated(0, 0, .2);
             ROWdrawAction_drawLinkRules(*net);
             if (s.showLinkDecals) {
@@ -453,7 +453,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // draw vehicles
     if (s.scale>s.minVehicleSize) {
         // retrieve vehicles from lane; disallow simulation
-        const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
+        const MSLane::VehCont& vehicles = myLane.getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
             static_cast<const GUIVehicle*const>(*v)->drawGL(s);
         }
@@ -464,7 +464,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 
 void
-GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
+GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_EDGE);
@@ -502,10 +502,10 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings &s) const {
 }
 
 
-GUIGLObjectPopupMenu *
-GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
-                             GUISUMOAbstractView &parent) throw() {
-    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+GUIGLObjectPopupMenu*
+GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,
+                             GUISUMOAbstractView& parent) throw() {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
@@ -521,10 +521,10 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow *
-GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
-                                   GUISUMOAbstractView &) throw() {
-    GUIParameterTableWindow *ret =
+GUIParameterTableWindow*
+GUILaneWrapper::getParameterWindow(GUIMainWindow& app,
+                                   GUISUMOAbstractView&) throw() {
+    GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
     ret->mkItem("maxspeed [m/s]", false, myLane.getMaxSpeed());
@@ -547,7 +547,7 @@ GUILaneWrapper::getCenteringBoundary() const throw() {
 
 
 
-const PositionVector &
+const PositionVector&
 GUILaneWrapper::getShape() const {
     return myShape;
 }
@@ -559,13 +559,13 @@ GUILaneWrapper::getLinkNumber() const {
 }
 
 
-const DoubleVector &
+const DoubleVector&
 GUILaneWrapper::getShapeRotations() const {
     return myShapeRotations;
 }
 
 
-const DoubleVector &
+const DoubleVector&
 GUILaneWrapper::getShapeLengths() const {
     return myShapeLengths;
 }
@@ -622,8 +622,8 @@ GUILaneWrapper::getNormedHBEFA_FuelConsumption() const throw() {
 }
 
 
-void 
-GUILaneWrapper::setColor(const GUIVisualizationSettings &s) const {
+void
+GUILaneWrapper::setColor(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive())));
 }
 
@@ -634,8 +634,8 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
     case 1:
         return gSelected.isSelected(getType(), getGlID());
     case 2: {
-        const SUMOVehicleClasses &allowed = getLane().getAllowedClasses();
-        const SUMOVehicleClasses &disallowed = getLane().getNotAllowedClasses();
+        const SUMOVehicleClasses& allowed = getLane().getAllowedClasses();
+        const SUMOVehicleClasses& disallowed = getLane().getNotAllowedClasses();
         if ((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
             return 0;
         } else {
@@ -665,8 +665,8 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
     case 13:
         return getLane().getHarmonoise_NoiseEmissions();
     case 14: {
-        MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge &e = getLane().getEdge();
+        MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+        MSEdge& e = getLane().getEdge();
         if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {
@@ -676,8 +676,8 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
         }
     }
     case 15: {
-        MSEdgeWeightsStorage &ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge &e = getLane().getEdge();
+        MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+        MSEdge& e = getLane().getEdge();
         if (!ews.knowsTravelTime(&e)) {
             return -1;
         } else {

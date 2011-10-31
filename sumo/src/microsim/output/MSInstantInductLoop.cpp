@@ -49,9 +49,9 @@
 // method definitions
 // ===========================================================================
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
-    OutputDevice &od, MSLane * const lane, SUMOReal positionInMeters) throw()
-        : MSMoveReminder(lane), MSDetectorFileOutput(id), myOutputDevice(od),
-        myPosition(positionInMeters), myLastExitTime(-1) {
+        OutputDevice& od, MSLane* const lane, SUMOReal positionInMeters) throw()
+    : MSMoveReminder(lane), MSDetectorFileOutput(id), myOutputDevice(od),
+      myPosition(positionInMeters), myLastExitTime(-1) {
     assert(myPosition >= 0 && myPosition <= myLane->getLength());
     writeXMLDetectorProlog(od);
 }
@@ -63,7 +63,7 @@ MSInstantInductLoop::~MSInstantInductLoop() throw() {
 
 bool
 MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                         SUMOReal newPos, SUMOReal newSpeed) throw() {
+                                SUMOReal newPos, SUMOReal newSpeed) throw() {
     if (newPos < myPosition) {
         // detector not reached yet
         return true;
@@ -75,7 +75,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
                 entryTime += (myPosition - oldPos) / newSpeed;
             }
         }
-        if(myLastExitTime>=0) {
+        if (myLastExitTime>=0) {
             write("enter", entryTime, veh, newSpeed, "gap", entryTime-myLastExitTime);
         } else {
             write("enter", entryTime, veh, newSpeed);
@@ -88,7 +88,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         leaveTime += (myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed;
         std::map<SUMOVehicle*, SUMOReal>::iterator i=myEntryTimes.find(&veh);
-        if(i!=myEntryTimes.end()) {
+        if (i!=myEntryTimes.end()) {
             write("leave", leaveTime, veh, newSpeed, "occupancy", leaveTime-(*i).second);
             myEntryTimes.erase(i);
         } else {
@@ -103,14 +103,14 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 }
 
 
-void 
-MSInstantInductLoop::write(const char *state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char *add, SUMOReal addValue) {
+void
+MSInstantInductLoop::write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char* add, SUMOReal addValue) {
     myOutputDevice.openTag("instantOut").writeAttr(
         "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
-        "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
-        "length", toString(veh.getVehicleType().getLength())).writeAttr(
-        "type", veh.getVehicleType().getID());
-    if(add!=0) {
+            "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
+                "length", toString(veh.getVehicleType().getLength())).writeAttr(
+                    "type", veh.getVehicleType().getID());
+    if (add!=0) {
         myOutputDevice.writeAttr(add, toString(addValue));
     }
     myOutputDevice << ">";
@@ -120,7 +120,7 @@ MSInstantInductLoop::write(const char *state, SUMOReal t, SUMOVehicle& veh, SUMO
 bool
 MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
     std::map<SUMOVehicle*, SUMOReal>::iterator i=myEntryTimes.find(&veh);
-    if(i!=myEntryTimes.end()) {
+    if (i!=myEntryTimes.end()) {
         myEntryTimes.erase(i);
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -143,7 +143,7 @@ MSInstantInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification)
 
 
 void
-MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
+MSInstantInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
     dev.writeXMLHeader("instantE1");
 }
 

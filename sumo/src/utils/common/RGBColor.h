@@ -58,7 +58,7 @@ public:
 
     /** @brief Copy constructor
      */
-    RGBColor(const RGBColor &col) throw();
+    RGBColor(const RGBColor& col) throw();
 
 
     /// @brief Destructor
@@ -103,11 +103,11 @@ public:
      * @param[in] col The color to write
      * @return The stream
      */
-    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
+    friend std::ostream& operator<<(std::ostream& os, const RGBColor& col);
 
 
-    bool operator==(const RGBColor &c) const;
-    bool operator!=(const RGBColor &c) const;
+    bool operator==(const RGBColor& c) const;
+    bool operator!=(const RGBColor& c) const;
 
 
     /** @brief Returns a new color with altered brightness
@@ -126,7 +126,7 @@ public:
      * @exception EmptyData If the definition has less than three entries
      * @exception NumberFormatException If one of the components is not numeric
      */
-    static RGBColor parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException);
+    static RGBColor parseColor(const std::string& coldef) throw(EmptyData, NumberFormatException);
 
 
     /** @brief Parses a color information
@@ -142,8 +142,8 @@ public:
      * @exception EmptyData If the definition has less than three entries
      * @exception NumberFormatException If one of the components is not numeric
      */
-    static RGBColor parseColorReporting(const std::string &coldef, const std::string &objecttype,
-                                        const char *objectid, bool report, bool &ok) throw();
+    static RGBColor parseColorReporting(const std::string& coldef, const std::string& objecttype,
+                                        const char* objectid, bool report, bool& ok) throw();
 
 
     /** @brief Returns the default color by parsing DEFAULT_COLOR_STRING
@@ -162,7 +162,7 @@ public:
      * @param[in] weight The weight of the first color
      * @return The interpolated color
      */
-    static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) throw();
+    static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) throw();
 
 
     /** @brief Converts the given hsv-triplet to rgb

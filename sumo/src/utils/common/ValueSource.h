@@ -42,7 +42,7 @@ public:
     ValueSource() { }
     virtual ~ValueSource() { }
     virtual T getValue() const = 0;
-    virtual ValueSource *copy() const = 0;
+    virtual ValueSource* copy() const = 0;
     virtual ValueSource<SUMOReal> *makeSUMORealReturningCopy() const = 0;
 
 };

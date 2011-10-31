@@ -51,7 +51,7 @@ class ROEdge;
 class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
-    RORouteDef_Alternatives(const std::string &id, unsigned int lastUsed, const SUMOReal beta,
+    RORouteDef_Alternatives(const std::string& id, unsigned int lastUsed, const SUMOReal beta,
                             const SUMOReal gawronA, const SUMOReal logitGamma, const int maxRoutes,
                             const bool keepRoutes, const bool skipRouteCalculation) throw();
 
@@ -60,30 +60,30 @@ public:
 
     /** @brief Adds an alternative loaded from the file
         An alternative may also be generated whicle DUA */
-    virtual void addLoadedAlternative(RORoute *alternative);
+    virtual void addLoadedAlternative(RORoute* alternative);
 
     /// Build the next route
-    RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
-                               const ROVehicle &veh) const;
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
+                               const ROVehicle& veh) const;
 
     /// Adds a build alternative
     void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                        const ROVehicle *const, RORoute *current, SUMOTime begin);
+                        const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
-    RORouteDef *copy(const std::string &id) const;
+    RORouteDef* copy(const std::string& id) const;
 
     void invalidateLast();
 
     void removeLast();
 
-    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-            OutputDevice &dev, const ROVehicle * const veh,
+    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+            OutputDevice& dev, const ROVehicle* const veh,
             bool asAlternatives, bool withExitTimes) const;
 
 private:
     /// Searches for the route within the list of alternatives
-    int findRoute(RORoute *opt) const;
+    int findRoute(RORoute* opt) const;
 
     /** @brief calculate the scaling factor in the logit model */
     SUMOReal getThetaForCLogit() const;
@@ -136,10 +136,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    RORouteDef_Alternatives(const RORouteDef_Alternatives &src);
+    RORouteDef_Alternatives(const RORouteDef_Alternatives& src);
 
     /// @brief Invalidated assignment operator
-    RORouteDef_Alternatives &operator=(const RORouteDef_Alternatives &src);
+    RORouteDef_Alternatives& operator=(const RORouteDef_Alternatives& src);
 
 };
 

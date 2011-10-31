@@ -65,13 +65,15 @@ AGActivities::generateActivityTrips() {
     numbErr = 0;
     std::list<AGBusLine>::iterator itBL;
     for (itBL=myCity->busLines.begin() ; itBL!=myCity->busLines.end() ; ++itBL) {
-        if (! generateBusTraffic(*itBL))
+        if (! generateBusTraffic(*itBL)) {
             ++numbErr;
+        }
     }
-    if (numbErr != 0)
+    if (numbErr != 0) {
         std::cerr << "ERROR: " << numbErr << " bus lines couldn't been completely generated ( " << (float)numbErr*100.0/(float)myCity->busLines.size() << "% )..." << std::endl;
-    else
+    } else {
         std::cout << "no problem during bus line trip generation..." << std::endl;
+    }
 
     std::cout << "after public transportation: " << trips.size() << std::endl;
     /**
@@ -81,45 +83,50 @@ AGActivities::generateActivityTrips() {
     numbErr = 0;
     std::list<AGHousehold>::iterator itHH;
     for (itHH=myCity->households.begin() ; itHH!=myCity->households.end() ; ++itHH) {
-        if (! generateTrips(*itHH))
+        if (! generateTrips(*itHH)) {
             ++numbErr;
+        }
     }
-    if (numbErr != 0)
+    if (numbErr != 0) {
         std::cout << "WARNING: " << numbErr << " ( " << (float)numbErr*100.0/(float)myCity->households.size() << "% ) households' trips haven't been generated: would probably need more iterations for rebuilding..." << std::endl;
-    else
+    } else {
         std::cout << "no problem during households' trips generation..." << std::endl;
+    }
 
     std::cout << "after household activities: " << trips.size() << std::endl;
     /**
      * trips due to incoming and outgoing traffic
      * @WARNING: the outgoing traffic is already done: households in which someone works on a work position that is out of the city.
      */
-    if (! generateInOutTraffic())
+    if (! generateInOutTraffic()) {
         std::cerr << "ERROR while generating in/Out traffic..." << std::endl;
-    else
+    } else {
         std::cout << "no problem during in/out traffic generation..." << std::endl;
+    }
 
     std::cout << "after incoming/outgoing traffic: " << trips.size() << std::endl;
     /**
      * random traffic trips
      * @NOTICE: this includes uniform and proportional random traffic
      */
-    if (! generateRandomTraffic())
+    if (! generateRandomTraffic()) {
         std::cerr << "ERROR while generating random traffic..." << std::endl;
-    else
+    } else {
         std::cout << "no problem during random traffic generation..." << std::endl;
+    }
 
     std::cout << "after random traffic: " << trips.size() << std::endl;
 }
 
 bool
-AGActivities::generateTrips(AGHousehold &hh) {
+AGActivities::generateTrips(AGHousehold& hh) {
     int iteration = 0;
     bool generated = false;
     std::list<AGTrip> temporaTrips;
     while (!generated && iteration < REBUILD_ITERATION_LIMIT) {
-        if (!temporaTrips.empty())
+        if (!temporaTrips.empty()) {
             temporaTrips.clear();
+        }
         // Work and school activities
         AGWorkAndSchool ws(&hh, &(myCity->statData), &temporaTrips);
         generated = ws.generateTrips();
@@ -154,12 +161,14 @@ AGActivities::generateBusTraffic(AGBusLine bl) {
      * Buses in the first direction
      */
     for (itB=bl.buses.begin() ; itB!=bl.buses.end() ; ++itB) {
-        if (bl.stations.size() < 1)
+        if (bl.stations.size() < 1) {
             return false;
+        }
         AGTrip t(bl.stations.front(), bl.stations.back(), *itB, itB->getDeparture());
         for (itS=bl.stations.begin() ; itS!=bl.stations.end() ; ++itS) {
-            if (*itS == t.getDep() || *itS == t.getArr())
+            if (*itS == t.getDep() || *itS == t.getArr()) {
                 continue;
+            }
             t.addLayOver(*itS);
         }
         trips.push_back(t);
@@ -168,15 +177,18 @@ AGActivities::generateBusTraffic(AGBusLine bl) {
      * Buses in the return direction
      */
     //verify that buses return back to the beginning
-    if (bl.revStations.empty())
-        return true; //in this case, no return way: everything is ok.
+    if (bl.revStations.empty()) {
+        return true;    //in this case, no return way: everything is ok.
+    }
     for (itB=bl.revBuses.begin() ; itB!=bl.revBuses.end() ; ++itB) {
-        if (bl.revStations.size() < 1)
+        if (bl.revStations.size() < 1) {
             return false;
+        }
         AGTrip t(bl.revStations.front(), bl.revStations.back(), *itB, itB->getDeparture());
         for (itS=bl.revStations.begin() ; itS!=bl.revStations.end() ; ++itS) {
-            if (*itS == t.getDep() || *itS == t.getArr())
+            if (*itS == t.getDep() || *itS == t.getArr()) {
                 continue;
+            }
             t.addLayOver(*itS);
         }
         trips.push_back(t);
@@ -191,10 +203,12 @@ AGActivities::generateInOutTraffic() {
      * people who work out of the city.
      * Here are people from outside the city coming to work.
      */
-    if (myCity->peopleIncoming.empty())
+    if (myCity->peopleIncoming.empty()) {
         return true;
-    if (myCity->cityGates.empty())
+    }
+    if (myCity->cityGates.empty()) {
         return false;
+    }
     int num = 1;
     std::list<AGAdult>::iterator itA;
 
@@ -225,10 +239,11 @@ AGActivities::generateRandomTraffic() {
     int totalTrips = 0, ttOneDayTrips = 0, ttDailyTrips = 0;
     std::list<AGTrip>::iterator it;
     for (it = trips.begin() ; it != trips.end() ; ++it) {
-        if (it->isDaily())
+        if (it->isDaily()) {
             ++ttDailyTrips;
-        else
+        } else {
             ++ttOneDayTrips;
+        }
     }
     totalTrips = ttOneDayTrips + ttDailyTrips * nbrDays;
     //TESTS

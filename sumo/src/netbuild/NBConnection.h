@@ -48,41 +48,41 @@ class NBNode;
 class NBConnection {
 public:
     /// Constructor
-    NBConnection(NBEdge *from, NBEdge *to);
+    NBConnection(NBEdge* from, NBEdge* to);
 
     /// Constructor
-    NBConnection(NBEdge *from, int fromLane, NBEdge *to, int toLane, int tlIndex = InvalidTlIndex);
+    NBConnection(NBEdge* from, int fromLane, NBEdge* to, int toLane, int tlIndex = InvalidTlIndex);
 
     /// Constructor
-    NBConnection(const std::string &fromID, NBEdge *from,
-                 const std::string &toID, NBEdge *to);
+    NBConnection(const std::string& fromID, NBEdge* from,
+                 const std::string& toID, NBEdge* to);
 
     /// Constructor
-    NBConnection(const NBConnection &c);
+    NBConnection(const NBConnection& c);
 
     /// Destructor
     virtual ~NBConnection();
 
     /// returns the from-edge (start of the connection)
-    NBEdge *getFrom() const;
+    NBEdge* getFrom() const;
 
     /// returns the to-edge (end of the connection)
-    NBEdge *getTo() const;
+    NBEdge* getTo() const;
 
     /// replaces the from-edge by the one given
-    bool replaceFrom(NBEdge *which, NBEdge *by);
+    bool replaceFrom(NBEdge* which, NBEdge* by);
 
     /// replaces the from-edge by the one given
-    bool replaceFrom(NBEdge *which, int whichLane, NBEdge *by, int byLane);
+    bool replaceFrom(NBEdge* which, int whichLane, NBEdge* by, int byLane);
 
     /// replaces the to-edge by the one given
-    bool replaceTo(NBEdge *which, NBEdge *by);
+    bool replaceTo(NBEdge* which, NBEdge* by);
 
     /// replaces the to-edge by the one given
-    bool replaceTo(NBEdge *which, int whichLane, NBEdge *by, int byLane);
+    bool replaceTo(NBEdge* which, int whichLane, NBEdge* by, int byLane);
 
     /// checks whether the edges are still valid
-    bool check(const NBEdgeCont &ec);
+    bool check(const NBEdgeCont& ec);
 
     /// returns the from-lane
     int getFromLane() const;
@@ -105,13 +105,13 @@ public:
     std::string getID() const;
 
     /// Compares both connections in order to allow sorting
-    friend bool operator<(const NBConnection &c1, const NBConnection &c2);
+    friend bool operator<(const NBConnection& c1, const NBConnection& c2);
 
     /// Comparison operator
-    bool operator==(const NBConnection &c) const;
+    bool operator==(const NBConnection& c) const;
 
     /// Comparison operator
-    bool operator!=(const NBConnection &c) const {
+    bool operator!=(const NBConnection& c) const {
         return !(*this == c);
     }
 
@@ -120,14 +120,14 @@ public:
 
 private:
     /// Checks whether the from-edge is still valid
-    NBEdge *checkFrom(const NBEdgeCont &ec);
+    NBEdge* checkFrom(const NBEdgeCont& ec);
 
     /// Checks whether the to-edge is still valid
-    NBEdge *checkTo(const NBEdgeCont &ec);
+    NBEdge* checkTo(const NBEdgeCont& ec);
 
 private:
     /// The from- and the to-edges
-    NBEdge *myFrom, *myTo;
+    NBEdge* myFrom, *myTo;
 
     /// The names of both edges, needed for verification of validity
     std::string myFromID, myToID;

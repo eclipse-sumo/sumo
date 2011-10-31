@@ -63,7 +63,7 @@ public:
      * @param[in, changed] idStorage The storage to retrieve the gl-id from
      * @param[in] junction The represented junction
      */
-    GUIJunctionWrapper(MSJunction &junction) throw();
+    GUIJunctionWrapper(MSJunction& junction) throw();
 
 
     /// @brief Destructor
@@ -81,8 +81,8 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
+                                       GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -92,8 +92,8 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+    GUIParameterTableWindow* getParameterWindow(
+        GUIMainWindow& app, GUISUMOAbstractView& parent) throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -108,7 +108,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const throw();
     //@}
 
     /** @brief Returns the boundary of the junction
@@ -126,7 +126,7 @@ public:
 
 protected:
     /// @brief A reference to the represented junction
-    MSJunction &myJunction;
+    MSJunction& myJunction;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     SUMOReal myMaxSize;

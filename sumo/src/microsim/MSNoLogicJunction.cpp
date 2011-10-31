@@ -49,18 +49,18 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long long) 0xffffffff);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSNoLogicJunction::MSNoLogicJunction(const std::string &id,
-                                     const Position &position,
-                                     const PositionVector &shape,
+MSNoLogicJunction::MSNoLogicJunction(const std::string& id,
+                                     const Position& position,
+                                     const PositionVector& shape,
                                      std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
                                      , std::vector<MSLane*> internal
 #endif
                                     ) throw()
-        : MSJunction(id, position, shape),
-        myIncomingLanes(incoming)
+    : MSJunction(id, position, shape),
+      myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
-        , myInternalLanes(internal)
+      , myInternalLanes(internal)
 #endif
 {
 }
@@ -74,7 +74,7 @@ MSNoLogicJunction::postloadInit() throw(ProcessError) {
     std::vector<MSLane*>::iterator i;
     // inform links where they have to report approaching vehicles to
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
-        const MSLinkCont &links = (*i)->getLinkCont();
+        const MSLinkCont& links = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(0, 0, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
         }

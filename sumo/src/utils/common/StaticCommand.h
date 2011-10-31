@@ -58,7 +58,7 @@ public:
      * @param[in] operation The objects' method that will be called on execute()
      */
     StaticCommand(Operation operation)
-            : myOperation(operation), myAmDescheduledByParent(false) {}
+        : myOperation(operation), myAmDescheduledByParent(false) {}
 
 
     /// @brief Destructor

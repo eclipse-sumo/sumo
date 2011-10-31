@@ -56,7 +56,7 @@ MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
  * methods from MSVehicleContainer::DepartFinder
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::DepartFinder::DepartFinder(SUMOTime time)
-        : myTime(time) {}
+    : myTime(time) {}
 
 
 bool
@@ -71,7 +71,7 @@ MSVehicleContainer::DepartFinder::operator()
  * methods from MSVehicleContainer
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::MSVehicleContainer(size_t capacity)
-        : currentSize(0), array(capacity + 1, VehicleDepartureVector()) {}
+    : currentSize(0), array(capacity + 1, VehicleDepartureVector()) {}
 
 
 MSVehicleContainer::~MSVehicleContainer() {
@@ -80,7 +80,7 @@ MSVehicleContainer::~MSVehicleContainer() {
 
 
 void
-MSVehicleContainer::add(SUMOVehicle *veh) {
+MSVehicleContainer::add(SUMOVehicle* veh) {
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
@@ -98,7 +98,7 @@ MSVehicleContainer::add(SUMOVehicle *veh) {
 
 
 void
-MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont) {
+MSVehicleContainer::add(SUMOTime time, const VehicleVector& cont) {
     VehicleHeap::iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
                 DepartFinder(time));
@@ -107,7 +107,7 @@ MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont) {
                                        VehicleVector(cont));
         addReplacing(newElem);
     } else {
-        VehicleVector &stored = (*j).second;
+        VehicleVector& stored = (*j).second;
         stored.reserve(stored.size() + cont.size());
         copy(cont.begin(), cont.end(), back_inserter(stored));
     }
@@ -116,7 +116,7 @@ MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont) {
 
 
 void
-MSVehicleContainer::addReplacing(const VehicleDepartureVector & x) {
+MSVehicleContainer::addReplacing(const VehicleDepartureVector& x) {
     if (isFull()) {
         std::vector<VehicleDepartureVector> array2((array.size()-1)*2+1, VehicleDepartureVector());
         for (size_t i=array.size(); i-->0;) {
@@ -145,10 +145,11 @@ MSVehicleContainer::anyWaitingFor(SUMOTime time) const {
 }
 
 
-const MSVehicleContainer::VehicleVector &
+const MSVehicleContainer::VehicleVector&
 MSVehicleContainer::top() {
-    if (isEmpty())
-        throw 1;//!!!Underflow( );
+    if (isEmpty()) {
+        throw 1;    //!!!Underflow( );
+    }
     assert(array.size()>1);
     return array[ 1 ].second;
 }
@@ -156,8 +157,9 @@ MSVehicleContainer::top() {
 
 SUMOTime
 MSVehicleContainer::topTime() const {
-    if (isEmpty())
-        throw 1;//!!!Underflow( );
+    if (isEmpty()) {
+        throw 1;    //!!!Underflow( );
+    }
     assert(array.size()>1);
     return array[ 1 ].first;
 }
@@ -167,8 +169,9 @@ void
 MSVehicleContainer::pop()
 
 {
-    if (isEmpty())
-        throw 1;//!!!Underflow( );
+    if (isEmpty()) {
+        throw 1;    //!!!Underflow( );
+    }
 
     assert(array.size()>1);
     array[ 1 ] = array[ currentSize-- ];
@@ -196,13 +199,15 @@ MSVehicleContainer::percolateDown(int hole) {
 
     for (; hole * 2 <= currentSize; hole = child) {
         child = hole * 2;
-        if (child != currentSize && (array[ child + 1 ].first < array[ child ].first))
+        if (child != currentSize && (array[ child + 1 ].first < array[ child ].first)) {
             child++;
+        }
         if ((array[ child ].first < tmp.first)) {
             assert(array.size()>(size_t) hole);
             array[ hole ] = array[ child ];
-        } else
+        } else {
             break;
+        }
     }
     assert(array.size()>(size_t) hole);
     array[ hole ] = tmp;
@@ -227,10 +232,10 @@ MSVehicleContainer::showArray() const {
 }
 
 
-std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont) {
+std::ostream& operator << (std::ostream& strm, MSVehicleContainer& cont) {
     strm << "------------------------------------" << std::endl;
     while (!cont.isEmpty()) {
-        const MSVehicleContainer::VehicleVector &v = cont.top();
+        const MSVehicleContainer::VehicleVector& v = cont.top();
         for (MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); ++i) {
             strm << (*i)->getParameter().depart << std::endl;
         }

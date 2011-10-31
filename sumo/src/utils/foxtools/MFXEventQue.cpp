@@ -34,11 +34,11 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-void *
+void*
 MFXEventQue::top() {
     assert(size()!=0);
     myMutex.lock();
-    void *ret = *(myEvents.begin());
+    void* ret = *(myEvents.begin());
     myMutex.unlock();
     return ret;
 }
@@ -53,7 +53,7 @@ MFXEventQue::pop() {
 
 
 void
-MFXEventQue::add(void *what) {
+MFXEventQue::add(void* what) {
     myMutex.lock();
     myEvents.push_back(what);
     myMutex.unlock();

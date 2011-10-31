@@ -73,7 +73,7 @@ public:
      * @param[in] fullName The full name of the object to register
      * @return the GUIGlObject under which the object has been registered
      */
-    GUIGlID registerObject(GUIGlObject *object, const std::string &fullName) throw();
+    GUIGlID registerObject(GUIGlObject* object, const std::string& fullName) throw();
 
 
     /** @brief Returns the object from the container locking it
@@ -84,7 +84,7 @@ public:
      * @param[in] id The id of the object to return
      * @return The object with the given id or 0 if no such object is known
      */
-    GUIGlObject *getObjectBlocking(GUIGlID id) throw();
+    GUIGlObject* getObjectBlocking(GUIGlID id) throw();
 
 
     /** @brief Returns the object from the container locking it
@@ -95,7 +95,7 @@ public:
      * @param[in] id The id of the object to return
      * @return The object with the given id or 0 if no such object is known
      */
-    GUIGlObject *getObjectBlocking(const std::string &fullName) throw();
+    GUIGlObject* getObjectBlocking(const std::string& fullName) throw();
 
 
     /** @brief Removes the named object from this container
@@ -128,7 +128,7 @@ public:
     /** @brief Sets the given object as the "network" object
      * @param[in] object The object to set as network object
      */
-    void setNetObject(GUIGlObject *object) throw() {
+    void setNetObject(GUIGlObject* object) throw() {
         myNetObject = object;
     }
 
@@ -152,7 +152,7 @@ public:
 
 private:
     /// @brief Definition of a container from numerical ids to objects
-    typedef std::map<GUIGlID, GUIGlObject *> ObjectMap;
+    typedef std::map<GUIGlID, GUIGlObject*> ObjectMap;
 
     /// @brief The known objects which are not accessed currently
     ObjectMap myMap;
@@ -174,15 +174,15 @@ private:
     MFXMutex myLock;
 
     /// @brief The network object
-    GUIGlObject *myNetObject;
+    GUIGlObject* myNetObject;
 
 
 private:
     /// @brief invalidated copy constructor
-    GUIGlObjectStorage(const GUIGlObjectStorage &s);
+    GUIGlObjectStorage(const GUIGlObjectStorage& s);
 
     /// @brief invalidate assignment operator
-    GUIGlObjectStorage &operator=(const GUIGlObjectStorage &s);
+    GUIGlObjectStorage& operator=(const GUIGlObjectStorage& s);
 
 
 };

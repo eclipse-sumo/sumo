@@ -59,7 +59,7 @@ enum MyLCAEnum {
  */
 class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
 public:
-    MSLCM_DK2004(MSVehicle &v);
+    MSLCM_DK2004(MSVehicle& v);
 
     virtual ~MSLCM_DK2004();
 
@@ -67,27 +67,27 @@ public:
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
-        MSAbstractLaneChangeModel::MSLCMessager &msgPass, int blocked,
+        MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-        const MSLane &neighLane,
+        const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        MSVehicle **lastBlocked);
+        MSVehicle** lastBlocked);
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
-        MSAbstractLaneChangeModel::MSLCMessager &msgPass, int blocked,
+        MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-        const MSLane &neighLane,
+        const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ> &preb,
-        MSVehicle **lastBlocked);
+        MSVehicle** lastBlocked);
 
-    virtual void *inform(void *info, MSVehicle *sender);
+    virtual void* inform(void* info, MSVehicle* sender);
 
     /** @brief Called to adapt the speed in order to allow a lane change.
      *
@@ -98,7 +98,7 @@ public:
      * @return the new speed of the vehicle as proposed by the lane changer
      */
     virtual SUMOReal patchSpeed(const SUMOReal min, const SUMOReal wanted, const SUMOReal max,
-                                const MSCFModel &cfModel);
+                                const MSCFModel& cfModel);
 
     virtual void changed();
 
@@ -111,8 +111,8 @@ public:
 
 
 protected:
-    void informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
-                       int &blocked, int dir,
+    void informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
+                       int& blocked, int dir,
                        const std::pair<MSVehicle*, SUMOReal> &neighLead,
                        const std::pair<MSVehicle*, SUMOReal> &neighFollow);
 

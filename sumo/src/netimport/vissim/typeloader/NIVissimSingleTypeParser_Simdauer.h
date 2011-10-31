@@ -41,16 +41,16 @@
  *
  */
 class NIVissimSingleTypeParser_Simdauer :
-            public NIImporter_Vissim::VissimSingleTypeParser {
+    public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim &parent);
+    NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim& parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Simdauer();
 
     /// Parses the data type from the given stream
-    bool parse(std::istream &from);
+    bool parse(std::istream& from);
 
 };
 

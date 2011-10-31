@@ -42,9 +42,9 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id)
-        : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
+MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
+        const std::string& id)
+    : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
     myDefaultCycleTime = TIME2STEPS(120);
 }
 
@@ -57,14 +57,14 @@ MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
 
 
 void
-MSOffTrafficLightLogic::init(NLDetectorBuilder &) {
+MSOffTrafficLightLogic::init(NLDetectorBuilder&) {
     rebuildPhase();
 }
 
 
 // ----------- Handling of controlled links
 void
-MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
+MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
     MSTrafficLightLogic::adaptLinkInformationFrom(logic);
     rebuildPhase();
 }
@@ -93,13 +93,13 @@ MSOffTrafficLightLogic::getPhaseNumber() const {
 }
 
 
-const MSOffTrafficLightLogic::Phases &
+const MSOffTrafficLightLogic::Phases&
 MSOffTrafficLightLogic::getPhases() const {
     return myPhaseDefinition;
 }
 
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSOffTrafficLightLogic::getPhase(unsigned int) const {
     return *myPhaseDefinition[0];
 }
@@ -112,7 +112,7 @@ MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
 }
 
 
-const MSPhaseDefinition &
+const MSPhaseDefinition&
 MSOffTrafficLightLogic::getCurrentPhaseDef() const {
     return *myPhaseDefinition[0];
 }
