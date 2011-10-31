@@ -13,30 +13,51 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
-                     tc.VAR_TYPE:     traci.Storage.readString,
-                     tc.VAR_POSITION: lambda(result): result.read("!dd"),
-                     tc.VAR_COLOR:    lambda(result): result.read("!BBBB")}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:      traci.Storage.readStringList,
+                      tc.VAR_TYPE:     traci.Storage.readString,
+                      tc.VAR_POSITION: lambda(result): result.read("!dd"),
+                      tc.VAR_COLOR:    lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 
 def _getUniversal(varID, poiID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_POI_VARIABLE, varID, poiID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
+    """getIDList() -> list(string)
+    
+    Returns a list of all pois in the network.
+    """
     return _getUniversal(tc.ID_LIST, "")
 
 def getType(poiID):
+    """getType(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_TYPE, poiID)
 
 def getPosition(poiID):
+    """getPosition(string) -> (double, double)
+    
+    .
+    """
     return _getUniversal(tc.VAR_POSITION, poiID)
 
 def getColor(poiID):
+    """getColor(string) -> (integer, integer, integer, integer)
+    
+    .
+    """
     return _getUniversal(tc.VAR_COLOR, poiID)
 
 
 def subscribe(poiID, varIDs=(tc.VAR_POSITION,), begin=0, end=2**31-1):
+    """subscribe(string, list(integer), double, double) -> None
+    
+    Subscribe to one or more poi values for the given interval.
+    A call to this method clears all previous subscription results.
+    """
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_POI_VARIABLE, begin, end, poiID, varIDs)
 
@@ -46,9 +67,18 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(poiID, varID, data):
     if poiID not in subscriptionResults:
         subscriptionResults[poiID] = {}
-    subscriptionResults[poiID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[poiID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(poiID=None):
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
+    
+    Returns the subscription results for the last time step and the given poi.
+    If no poi id is given, all subscription results are returned in a dict.
+    If the poi id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     if poiID == None:
         return subscriptionResults
     return subscriptionResults.get(poiID, None)

@@ -13,30 +13,51 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
-                     tc.VAR_TYPE:  traci.Storage.readString,
-                     tc.VAR_SHAPE: traci.Storage.readShape,
-                     tc.VAR_COLOR: lambda(result): result.read("!BBBB")}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:   traci.Storage.readStringList,
+                      tc.VAR_TYPE:  traci.Storage.readString,
+                      tc.VAR_SHAPE: traci.Storage.readShape,
+                      tc.VAR_COLOR: lambda(result): result.read("!BBBB")}
 subscriptionResults = {}
 
 def _getUniversal(varID, polygonID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_POLYGON_VARIABLE, varID, polygonID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
+    """getIDList() -> list(string)
+    
+    Returns a list of all polygons in the network.
+    """
     return _getUniversal(tc.ID_LIST, "")
 
 def getType(polygonID):
+    """getType(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_TYPE, polygonID)
 
 def getShape(polygonID):
+    """getShape(string) -> list((double, double))
+    
+    .
+    """
     return _getUniversal(tc.VAR_SHAPE, polygonID)
 
 def getColor(polygonID):
+    """getColor(string) -> (integer, integer, integer, integer)
+    
+    .
+    """
     return _getUniversal(tc.VAR_COLOR, polygonID)
 
 
 def subscribe(polygonID, varIDs=(tc.VAR_SHAPE,), begin=0, end=2**31-1):
+    """subscribe(string, list(integer), double, double) -> None
+    
+    Subscribe to one or more polygon values for the given interval.
+    A call to this method clears all previous subscription results.
+    """
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_POLYGON_VARIABLE, begin, end, polygonID, varIDs)
 
@@ -46,9 +67,18 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(polygonID, varID, data):
     if polygonID not in subscriptionResults:
         subscriptionResults[polygonID] = {}
-    subscriptionResults[polygonID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[polygonID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(polygonID=None):
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
+    
+    Returns the subscription results for the last time step and the given poi.
+    If no polygon id is given, all subscription results are returned in a dict.
+    If the polygon id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     if polygonID == None:
         return subscriptionResults
     return subscriptionResults.get(polygonID, None)

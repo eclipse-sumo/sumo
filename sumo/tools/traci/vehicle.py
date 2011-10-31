@@ -33,121 +33,209 @@ def _readBestLanes(result):
     return lanes
 
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
-                     tc.VAR_SPEED:           traci.Storage.readDouble,
-                     tc.VAR_SPEED_WITHOUT_TRACI: traci.Storage.readDouble,
-                     tc.VAR_POSITION:        lambda(result): result.read("!dd"),
-                     tc.VAR_ANGLE:           traci.Storage.readDouble,
-                     tc.VAR_ROAD_ID:         traci.Storage.readString,
-                     tc.VAR_LANE_ID:         traci.Storage.readString,
-                     tc.VAR_LANE_INDEX:      traci.Storage.readInt,
-                     tc.VAR_TYPE:            traci.Storage.readString,
-                     tc.VAR_ROUTE_ID:        traci.Storage.readString,
-                     tc.VAR_COLOR:           lambda(result): result.read("!BBBB"),
-                     tc.VAR_LANEPOSITION:    traci.Storage.readDouble,
-                     tc.VAR_CO2EMISSION:     traci.Storage.readDouble,
-                     tc.VAR_COEMISSION:      traci.Storage.readDouble,
-                     tc.VAR_HCEMISSION:      traci.Storage.readDouble,
-                     tc.VAR_PMXEMISSION:     traci.Storage.readDouble,
-                     tc.VAR_NOXEMISSION:     traci.Storage.readDouble,
-                     tc.VAR_FUELCONSUMPTION: traci.Storage.readDouble,
-                     tc.VAR_NOISEEMISSION:   traci.Storage.readDouble,
-                     tc.VAR_EDGE_TRAVELTIME: traci.Storage.readDouble,
-                     tc.VAR_EDGE_EFFORT:     traci.Storage.readDouble,
-                     tc.VAR_ROUTE_VALID:     lambda(result): bool(result.read("!B")[0]),
-                     tc.VAR_EDGES:           traci.Storage.readStringList,
-                     tc.VAR_SIGNALS:         traci.Storage.readInt,
-                     tc.VAR_LENGTH:          traci.Storage.readDouble,
-                     tc.VAR_MAXSPEED:        traci.Storage.readDouble,
-                     tc.VAR_VEHICLECLASS:    traci.Storage.readString,
-                     tc.VAR_SPEED_FACTOR:    traci.Storage.readDouble,
-                     tc.VAR_SPEED_DEVIATION: traci.Storage.readDouble,
-                     tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
-                     tc.VAR_WIDTH:           traci.Storage.readDouble,
-                     tc.VAR_MINGAP:          traci.Storage.readDouble,
-                     tc.VAR_SHAPECLASS:      traci.Storage.readString,
-                     tc.VAR_ACCEL:           traci.Storage.readDouble,
-                     tc.VAR_DECEL:           traci.Storage.readDouble,
-                     tc.VAR_IMPERFECTION:    traci.Storage.readDouble,
-                     tc.VAR_TAU:             traci.Storage.readDouble,
-                     tc.VAR_BEST_LANES:      _readBestLanes,
-                     tc.DISTANCE_REQUEST:    traci.Storage.readDouble}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:             traci.Storage.readStringList,
+                      tc.VAR_SPEED:           traci.Storage.readDouble,
+                      tc.VAR_SPEED_WITHOUT_TRACI: traci.Storage.readDouble,
+                      tc.VAR_POSITION:        lambda(result): result.read("!dd"),
+                      tc.VAR_ANGLE:           traci.Storage.readDouble,
+                      tc.VAR_ROAD_ID:         traci.Storage.readString,
+                      tc.VAR_LANE_ID:         traci.Storage.readString,
+                      tc.VAR_LANE_INDEX:      traci.Storage.readInt,
+                      tc.VAR_TYPE:            traci.Storage.readString,
+                      tc.VAR_ROUTE_ID:        traci.Storage.readString,
+                      tc.VAR_COLOR:           lambda(result): result.read("!BBBB"),
+                      tc.VAR_LANEPOSITION:    traci.Storage.readDouble,
+                      tc.VAR_CO2EMISSION:     traci.Storage.readDouble,
+                      tc.VAR_COEMISSION:      traci.Storage.readDouble,
+                      tc.VAR_HCEMISSION:      traci.Storage.readDouble,
+                      tc.VAR_PMXEMISSION:     traci.Storage.readDouble,
+                      tc.VAR_NOXEMISSION:     traci.Storage.readDouble,
+                      tc.VAR_FUELCONSUMPTION: traci.Storage.readDouble,
+                      tc.VAR_NOISEEMISSION:   traci.Storage.readDouble,
+                      tc.VAR_EDGE_TRAVELTIME: traci.Storage.readDouble,
+                      tc.VAR_EDGE_EFFORT:     traci.Storage.readDouble,
+                      tc.VAR_ROUTE_VALID:     lambda(result): bool(result.read("!B")[0]),
+                      tc.VAR_EDGES:           traci.Storage.readStringList,
+                      tc.VAR_SIGNALS:         traci.Storage.readInt,
+                      tc.VAR_LENGTH:          traci.Storage.readDouble,
+                      tc.VAR_MAXSPEED:        traci.Storage.readDouble,
+                      tc.VAR_VEHICLECLASS:    traci.Storage.readString,
+                      tc.VAR_SPEED_FACTOR:    traci.Storage.readDouble,
+                      tc.VAR_SPEED_DEVIATION: traci.Storage.readDouble,
+                      tc.VAR_EMISSIONCLASS:   traci.Storage.readString,
+                      tc.VAR_WIDTH:           traci.Storage.readDouble,
+                      tc.VAR_MINGAP:          traci.Storage.readDouble,
+                      tc.VAR_SHAPECLASS:      traci.Storage.readString,
+                      tc.VAR_ACCEL:           traci.Storage.readDouble,
+                      tc.VAR_DECEL:           traci.Storage.readDouble,
+                      tc.VAR_IMPERFECTION:    traci.Storage.readDouble,
+                      tc.VAR_TAU:             traci.Storage.readDouble,
+                      tc.VAR_BEST_LANES:      _readBestLanes,
+                      tc.DISTANCE_REQUEST:    traci.Storage.readDouble}
 subscriptionResults = {}
 
 def _getUniversal(varID, vehID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_VEHICLE_VARIABLE, varID, vehID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
+    """getIDList() -> list(string)
+    
+    Returns a list of all known vehicles.
+    """
     return _getUniversal(tc.ID_LIST, "")
 
 def getSpeed(vehID):
+    """getSpeed(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_SPEED, vehID)
 
 def getSpeedWithoutTraCI(vehID):
+    """getSpeedWithoutTraCI(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_SPEED_WITHOUT_TRACI, vehID)
 
 def getPosition(vehID):
+    """getPosition(string) -> (double, double)
+    
+    .
+    """
     """
     Returns the position of the named vehicle within the last step [m,m]
     """
     return _getUniversal(tc.VAR_POSITION, vehID)
 
 def getAngle(vehID):
+    """getAngle(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_ANGLE, vehID)
 
 def getRoadID(vehID):
+    """getRoadID(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_ROAD_ID, vehID)
 
 def getLaneID(vehID):
+    """getLaneID(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_LANE_ID, vehID)
 
 def getLaneIndex(vehID):
+    """getLaneIndex(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.VAR_LANE_INDEX, vehID)
 
 def getTypeID(vehID):
+    """getTypeID(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_TYPE, vehID)
 
 def getRouteID(vehID):
+    """getRouteID(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_ROUTE_ID, vehID)
 
 def getRoute(vehID):
+    """getRoute(string) -> list(string)
+    
+    .
+    """
     return _getUniversal(tc.VAR_EDGES, vehID)
 
 def getLanePosition(vehID):
+    """getLanePosition(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_LANEPOSITION, vehID)
 
 def getColor(vehID):
+    """getColor(string) -> (integer, integer, integer, integer)
+    
+    .
+    """
     return _getUniversal(tc.VAR_COLOR, vehID)
 
 def getCO2Emission(vehID):
+    """getCO2Emission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_CO2EMISSION, vehID)
 
 def getCOEmission(vehID):
+    """getCOEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_COEMISSION, vehID)
 
 def getHCEmission(vehID):
+    """getHCEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_HCEMISSION, vehID)
 
 def getPMxEmission(vehID):
+    """getPMxEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_PMXEMISSION, vehID)
 
 def getNOxEmission(vehID):
+    """getNOxEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_NOXEMISSION, vehID)
 
 def getFuelConsumption(vehID):
+    """getFuelConsumption(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_FUELCONSUMPTION, vehID)
 
 def getNoiseEmission(vehID):
+    """getNoiseEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_NOISEEMISSION, vehID)
 
 def getAdaptedTraveltime(vehID, time, edgeID):
+    """getAdaptedTraveltime(string, double, string) -> double
+    
+    .
+    """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID, 1+4+1+4+1+4+len(edgeID))
     traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
                                          tc.TYPE_STRING, len(edgeID)) + edgeID
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readDouble()
 
 def getEffort(vehID, time, edgeID):
+    """getEffort(string, double, string) -> double
+    
+    .
+    """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID, 1+4+1+4+1+4+len(edgeID))
     traci._message.string += struct.pack("!BiBiBi", tc.TYPE_COMPOUND, 2, tc.TYPE_INTEGER, time,
                                          tc.TYPE_STRING, len(edgeID)) + edgeID
@@ -157,51 +245,115 @@ def isRouteValid(vehID):
     return _getUniversal(tc.VAR_ROUTE_VALID, vehID)
 
 def getSignals(vehID):
+    """getSignals(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.VAR_SIGNALS, vehID)
 
 def getLength(vehID):
+    """getLength(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_LENGTH, vehID)
 
 def getMaxSpeed(vehID):
+    """getMaxSpeed(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_MAXSPEED, vehID)
 
 def getVehicleClass(vehID):
+    """getVehicleClass(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_VEHICLECLASS, vehID)
 
 def getSpeedFactor(vehID):
+    """getSpeedFactor(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_SPEED_FACTOR, vehID)
 
 def getSpeedDeviation(vehID):
+    """getSpeedDeviation(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_SPEED_DEVIATION, vehID)
 
 def getEmissionClass(vehID):
+    """getEmissionClass(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_EMISSIONCLASS, vehID)
 
 def getWidth(vehID):
+    """getWidth(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_WIDTH, vehID)
 
 def getMinGap(vehID):
+    """getMinGap(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_MINGAP, vehID)
 
 def getShapeClass(vehID):
+    """getShapeClass(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.VAR_SHAPECLASS, vehID)
 
 def getAccel(vehID):
+    """getAccel(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_ACCEL, vehID)
 
 def getDecel(vehID):
+    """getDecel(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_DECEL, vehID)
 
 def getImperfection(vehID):
+    """getImperfection(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_IMPERFECTION, vehID)
 
 def getTau(vehID):
+    """getTau(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_TAU, vehID)
 
 def getBestLanes(vehID):
+    """getBestLanes(string) -> 
+    
+    .
+    """
     return _getUniversal(tc.VAR_BEST_LANES, vehID)
 
 def getDrivingDistance(vehID, edgeID, pos, laneID=0):
+    """getDrivingDistance(string, string, double, integer) -> double
+    
+    .
+    """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+len(edgeID)+4+1+1)
     traci._message.string += struct.pack("!BiBi", tc.TYPE_COMPOUND, 2,
                                          tc.POSITION_ROADMAP, len(edgeID)) + edgeID
@@ -209,6 +361,10 @@ def getDrivingDistance(vehID, edgeID, pos, laneID=0):
     return traci._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
 
 def getDrivingDistance2D(vehID, x, y):
+    """getDrivingDistance2D(string, double, double) -> integer
+    
+    .
+    """
     traci._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1+4+1+4+4+1)
     traci._message.string += struct.pack("!BiBddB", tc.TYPE_COMPOUND, 2,
                                          tc.POSITION_2D, x, y, REQUEST_DRIVINGDIST)
@@ -216,6 +372,11 @@ def getDrivingDistance2D(vehID, x, y):
 
 
 def subscribe(vehID, varIDs=(tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION), begin=0, end=2**31-1):
+    """subscribe(string, list(integer), double, double) -> None
+    
+    Subscribe to one or more vehicle values for the given interval.
+    A call to this method clears all previous subscription results.
+    """
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID, varIDs)
 
@@ -225,9 +386,18 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(vehID, varID, data):
     if vehID not in subscriptionResults:
         subscriptionResults[vehID] = {}
-    subscriptionResults[vehID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[vehID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(vehID=None):
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
+    
+    Returns the subscription results for the last time step and the given vehicle.
+    If no vehicle id is given, all subscription results are returned in a dict.
+    If the vehicle id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     if vehID == None:
         return subscriptionResults
     return subscriptionResults.get(vehID, None)

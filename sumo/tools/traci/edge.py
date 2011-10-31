@@ -13,34 +13,34 @@ All rights reserved
 import struct, traci
 import traci.constants as tc
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
-                     tc.ID_COUNT:                  traci.Storage.readInt,
-                     tc.VAR_EDGE_TRAVELTIME:       traci.Storage.readDouble,
-                     tc.VAR_EDGE_EFFORT:           traci.Storage.readDouble,
-                     tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
-                     tc.VAR_COEMISSION:            traci.Storage.readDouble,
-                     tc.VAR_HCEMISSION:            traci.Storage.readDouble,
-                     tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
-                     tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
-                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
-                     tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
-                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
-                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
-                     tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
-                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
-                     tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
-                     tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
-                     tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
+                      tc.ID_COUNT:                  traci.Storage.readInt,
+                      tc.VAR_EDGE_TRAVELTIME:       traci.Storage.readDouble,
+                      tc.VAR_EDGE_EFFORT:           traci.Storage.readDouble,
+                      tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
+                      tc.VAR_COEMISSION:            traci.Storage.readDouble,
+                      tc.VAR_HCEMISSION:            traci.Storage.readDouble,
+                      tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
+                      tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
+                      tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
+                      tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
+                      tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
+                      tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
+                      tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
+                      tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
+                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
+                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
 subscriptionResults = {}
 
 def _getUniversal(varID, edgeID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_EDGE_VARIABLE, varID, edgeID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
     """getIDList() -> list(string)
     
-    Returns a list of all edge ids in the network.
+    Returns a list of all edges in the network.
     """
     return _getUniversal(tc.ID_LIST, "")
 
@@ -192,13 +192,13 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(edgeID, varID, data):
     if edgeID not in subscriptionResults:
         subscriptionResults[edgeID] = {}
-    subscriptionResults[edgeID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[edgeID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(edgeID=None):
-    """subscribe(string) -> dict(integer: <value_type>)
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
     
     Returns the subscription results for the last time step and the given edge.
-    If no edge id is given all subscription results are returned in a dict.
+    If no edge id is given, all subscription results are returned in a dict.
     If the edge id is unknown or the subscription did for any reason return no data,
     'None' is returned.
     It is not possible to retrieve older subscription results than the ones

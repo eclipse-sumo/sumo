@@ -17,7 +17,7 @@ try:
 except ImportError:
     _embedded = False
 
-RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
+_RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
 def isEmbedded():
     return _embedded
@@ -142,7 +142,7 @@ def _sendExact():
         prefix = result.read("!BBB")
         err = result.readString()
         if prefix[2] or err:
-            print prefix, RESULTS[prefix[2]], err
+            print prefix, _RESULTS[prefix[2]], err
         elif prefix[1] != command:
             print "Error! Received answer %s for command %s." % (prefix[1],
                                                                  command)

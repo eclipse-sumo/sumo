@@ -38,110 +38,211 @@ def _readLinks(result):
     return links
 
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
-                     tc.VAR_LENGTH:                traci.Storage.readDouble,
-                     tc.VAR_MAXSPEED:              traci.Storage.readDouble,
-                     tc.VAR_WIDTH:                 traci.Storage.readDouble,
-                     tc.LANE_ALLOWED:              traci.Storage.readStringList,
-                     tc.LANE_DISALLOWED:           traci.Storage.readStringList,
-                     tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
-                     tc.LANE_LINKS:                _readLinks,
-                     tc.VAR_SHAPE:                 traci.Storage.readShape,
-                     tc.LANE_EDGE_ID:              traci.Storage.readString,
-                     tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
-                     tc.VAR_COEMISSION:            traci.Storage.readDouble,
-                     tc.VAR_HCEMISSION:            traci.Storage.readDouble,
-                     tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
-                     tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
-                     tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
-                     tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
-                     tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
-                     tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
-                     tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
-                     tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
-                     tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
-                     tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
-                     tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:                   traci.Storage.readStringList,
+                      tc.VAR_LENGTH:                traci.Storage.readDouble,
+                      tc.VAR_MAXSPEED:              traci.Storage.readDouble,
+                      tc.VAR_WIDTH:                 traci.Storage.readDouble,
+                      tc.LANE_ALLOWED:              traci.Storage.readStringList,
+                      tc.LANE_DISALLOWED:           traci.Storage.readStringList,
+                      tc.LANE_LINK_NUMBER:          lambda(result): result.read("!B")[0],
+                      tc.LANE_LINKS:                _readLinks,
+                      tc.VAR_SHAPE:                 traci.Storage.readShape,
+                      tc.LANE_EDGE_ID:              traci.Storage.readString,
+                      tc.VAR_CO2EMISSION:           traci.Storage.readDouble,
+                      tc.VAR_COEMISSION:            traci.Storage.readDouble,
+                      tc.VAR_HCEMISSION:            traci.Storage.readDouble,
+                      tc.VAR_PMXEMISSION:           traci.Storage.readDouble,
+                      tc.VAR_NOXEMISSION:           traci.Storage.readDouble,
+                      tc.VAR_FUELCONSUMPTION:       traci.Storage.readDouble,
+                      tc.VAR_NOISEEMISSION:         traci.Storage.readDouble,
+                      tc.LAST_STEP_MEAN_SPEED:      traci.Storage.readDouble,
+                      tc.LAST_STEP_OCCUPANCY:       traci.Storage.readDouble,
+                      tc.LAST_STEP_LENGTH:          traci.Storage.readDouble,
+                      tc.VAR_CURRENT_TRAVELTIME:    traci.Storage.readDouble,
+                      tc.LAST_STEP_VEHICLE_NUMBER:  traci.Storage.readInt,
+                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: traci.Storage.readInt,
+                      tc.LAST_STEP_VEHICLE_ID_LIST: traci.Storage.readStringList}
 subscriptionResults = {}
 
 def _getUniversal(varID, laneID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_LANE_VARIABLE, varID, laneID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
+    """getIDList() -> list(string)
+    
+    Returns a list of all lanes in the network.
+    """
     return _getUniversal(tc.ID_LIST, "")
 
 def getLength(laneID):
+    """getLength(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_LENGTH, laneID)
 
 def getMaxSpeed(laneID):
+    """getMaxSpeed(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_MAXSPEED, laneID)
 
 def getWidth(laneID):
+    """getWidth(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_WIDTH, laneID)
 
 def getAllowed(laneID):
+    """getAllowed(string) -> list(string)
+    
+    .
+    """
     return _getUniversal(tc.LANE_ALLOWED, laneID)
 
 def getDisallowed(laneID):
+    """getDisallowed(string) -> list(string)
+    
+    .
+    """
     return _getUniversal(tc.LANE_DISALLOWED, laneID)
 
 def getLinkNumber(laneID):
+    """getLinkNumber(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
 def getLinks(laneID):
+    """getLinks(string) -> 
+    
+    .
+    """
     return _getUniversal(tc.LANE_LINKS, laneID)
 
 def getShape(laneID):
+    """getShape(string) -> list((double, double))
+    
+    .
+    """
     return _getUniversal(tc.VAR_SHAPE, laneID)
 
 def getEdgeID(laneID):
+    """getEdgeID(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.LANE_EDGE_ID, laneID)
 
 def getCO2Emission(laneID):
+    """getCO2Emission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_CO2EMISSION, laneID)
 
 def getCOEmission(laneID):
+    """getCOEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_COEMISSION, laneID)
 
 def getHCEmission(laneID):
+    """getHCEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_HCEMISSION, laneID)
 
 def getPMxEmission(laneID):
+    """getPMxEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_PMXEMISSION, laneID)
 
 def getNOxEmission(laneID):
+    """getNOxEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_NOXEMISSION, laneID)
 
 def getFuelConsumption(laneID):
+    """getFuelConsumption(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_FUELCONSUMPTION, laneID)
 
 def getNoiseEmission(laneID):
+    """getNoiseEmission(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_NOISEEMISSION, laneID)
 
 def getLastStepMeanSpeed(laneID):
+    """getLastStepMeanSpeed(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_MEAN_SPEED, laneID)
 
 def getLastStepOccupancy(laneID):
+    """getLastStepOccupancy(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, laneID)
 
 def getLastStepLength(laneID):
+    """getLastStepLength(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_LENGTH, laneID)
 
 def getTraveltime(laneID):
+    """getTraveltime(string) -> double
+    
+    .
+    """
     return _getUniversal(tc.VAR_CURRENT_TRAVELTIME, laneID)
 
 def getLastStepVehicleNumber(laneID):
+    """getLastStepVehicleNumber(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, laneID)
 
 def getLastStepHaltingNumber(laneID):
+    """getLastStepHaltingNumber(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, laneID)
 
 def getLastStepVehicleIDs(laneID):
+    """getLastStepVehicleIDs(string) -> list(string)
+    
+    .
+    """
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
 
 
 def subscribe(laneID, varIDs=(tc.LAST_STEP_VEHICLE_NUMBER,), begin=0, end=2**31-1):
+    """subscribe(string, list(integer), double, double) -> None
+    
+    Subscribe to one or more lane values for the given interval.
+    A call to this method clears all previous subscription results.
+    """
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_LANE_VARIABLE, begin, end, laneID, varIDs)
 
@@ -151,9 +252,18 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(laneID, varID, data):
     if laneID not in subscriptionResults:
         subscriptionResults[laneID] = {}
-    subscriptionResults[laneID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[laneID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(laneID=None):
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
+    
+    Returns the subscription results for the last time step and the given lane.
+    If no lane id is given, all subscription results are returned in a dict.
+    If the lane id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     if laneID == None:
         return subscriptionResults
     return subscriptionResults.get(laneID, None)

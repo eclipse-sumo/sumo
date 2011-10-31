@@ -87,46 +87,83 @@ def _readLinks(result):
     return signals
 
 
-RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringList,
-                     tc.TL_RED_YELLOW_GREEN_STATE:   traci.Storage.readString,
-                     tc.TL_COMPLETE_DEFINITION_RYG:  _readLogics,
-                     tc.TL_CONTROLLED_LANES:         traci.Storage.readStringList,
-                     tc.TL_CONTROLLED_LINKS:         _readLinks,
-                     tc.TL_CURRENT_PROGRAM:          traci.Storage.readString,
-                     tc.TL_CURRENT_PHASE:            traci.Storage.readInt,
-                     tc.TL_NEXT_SWITCH:              traci.Storage.readInt}
+_RETURN_VALUE_FUNC = {tc.ID_LIST:                     traci.Storage.readStringList,
+                      tc.TL_RED_YELLOW_GREEN_STATE:   traci.Storage.readString,
+                      tc.TL_COMPLETE_DEFINITION_RYG:  _readLogics,
+                      tc.TL_CONTROLLED_LANES:         traci.Storage.readStringList,
+                      tc.TL_CONTROLLED_LINKS:         _readLinks,
+                      tc.TL_CURRENT_PROGRAM:          traci.Storage.readString,
+                      tc.TL_CURRENT_PHASE:            traci.Storage.readInt,
+                      tc.TL_NEXT_SWITCH:              traci.Storage.readInt}
 subscriptionResults = {}
 
 def _getUniversal(varID, tlsID):
     result = traci._sendReadOneStringCmd(tc.CMD_GET_TL_VARIABLE, varID, tlsID)
-    return RETURN_VALUE_FUNC[varID](result)
+    return _RETURN_VALUE_FUNC[varID](result)
 
 def getIDList():
+    """getIDList() -> list(string)
+    
+    Returns a list of all traffic lights in the network.
+    """
     return _getUniversal(tc.ID_LIST, "")
 
 def getRedYellowGreenState(tlsID):
+    """getRedYellowGreenState(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
 def getCompleteRedYellowGreenDefinition(tlsID):
+    """getCompleteRedYellowGreenDefinition(string) -> 
+    
+    .
+    """
     return _getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
 
 def getControlledLanes(tlsID):
+    """getControlledLanes(string) -> c
+    
+    .
+    """
     return _getUniversal(tc.TL_CONTROLLED_LANES, tlsID)
 
 def getControlledLinks(tlsID):
+    """getControlledLinks(string) -> list(list(list(string)))
+    
+    .
+    """
     return _getUniversal(tc.TL_CONTROLLED_LINKS, tlsID)
 
 def getProgram(tlsID):
+    """getProgram(string) -> string
+    
+    .
+    """
     return _getUniversal(tc.TL_CURRENT_PROGRAM, tlsID)
 
 def getPhase(tlsID):
+    """getPhase(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.TL_CURRENT_PHASE, tlsID)
 
 def getNextSwitch(tlsID):
+    """getNextSwitch(string) -> integer
+    
+    .
+    """
     return _getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
 
 def subscribe(tlsID, varIDs=(tc.TL_CURRENT_PHASE,), begin=0, end=2**31-1):
+    """subscribe(string, list(integer), double, double) -> None
+    
+    Subscribe to one or more traffic light values for the given interval.
+    A call to this method clears all previous subscription results.
+    """
     _resetSubscriptionResults()
     traci._subscribe(tc.CMD_SUBSCRIBE_TL_VARIABLE, begin, end, tlsID, varIDs)
 
@@ -136,9 +173,18 @@ def _resetSubscriptionResults():
 def _addSubscriptionResult(tlsID, varID, data):
     if tlsID not in subscriptionResults:
         subscriptionResults[tlsID] = {}
-    subscriptionResults[tlsID][varID] = RETURN_VALUE_FUNC[varID](data)
+    subscriptionResults[tlsID][varID] = _RETURN_VALUE_FUNC[varID](data)
 
 def getSubscriptionResults(tlsID=None):
+    """getSubscriptionResults(string) -> dict(integer: <value_type>)
+    
+    Returns the subscription results for the last time step and the given traffic light.
+    If no traffic light id is given, all subscription results are returned in a dict.
+    If the traffic light id is unknown or the subscription did for any reason return no data,
+    'None' is returned.
+    It is not possible to retrieve older subscription results than the ones
+    from the last time step.
+    """
     if tlsID == None:
         return subscriptionResults
     return subscriptionResults.get(tlsID, None)
