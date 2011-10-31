@@ -19,6 +19,9 @@ except ImportError:
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
+def isEmbedded():
+    return _embedded
+
 def _STEPS2TIME(step):
     """Conversion from time steps in milliseconds to seconds as float"""
     return step/1000.
