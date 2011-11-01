@@ -64,5 +64,7 @@ for root, dirs, files in os.walk(srcRoot):
 			fd = open(os.path.join(t, name), "w")
 			fd.write(cc)
 			fd.close()
+			if name=="SUMO_User_Documentation.html":
+			    shutil.copy(os.path.join(t, name), os.path.join(t, "index.html"))
 		else:
-			shutil.copy(os.path.join(root, name), os.path.join(t, name))
+		    shutil.copy(os.path.join(root, name), os.path.join(t, name))
