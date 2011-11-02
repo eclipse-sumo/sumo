@@ -8,6 +8,7 @@
 This script executes a config repeatedly and measures the execution time,
  computes the mean values and deviation.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

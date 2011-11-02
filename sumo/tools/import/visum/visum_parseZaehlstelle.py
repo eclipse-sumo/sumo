@@ -10,6 +10,7 @@ This script reads "Zaehlstellen" from a given VISUM-network
  and projects them onto a given SUMO-network.
 The parsed "Zaehlstellen" are written as POIs.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

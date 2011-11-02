@@ -10,6 +10,7 @@ This script is to define the classes and functions for
 - recording vehicular and path information, and 
 - conducting statistic tests.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

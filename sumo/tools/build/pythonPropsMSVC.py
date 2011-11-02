@@ -8,6 +8,7 @@
 This script rebuilds "../../build/msvc/python.props", the file which
 gives information about the python includes and library.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2011-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -6,6 +6,7 @@
 Converts a given CSV-file that contains a list of pois to 
  an XML-file that may be read by POLYCONVERT.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

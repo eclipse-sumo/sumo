@@ -13,6 +13,7 @@ This means, the resulting polygons, written to the output
  specified by --output, are net2's polygons as they would
  be on net1.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -10,6 +10,7 @@ as input to one of the routing applications.
 It reads the routes from a file given as first parameter
 and outputs the trips to stdout.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

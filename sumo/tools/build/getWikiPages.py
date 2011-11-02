@@ -9,6 +9,7 @@ Mirrors the pages by scanning "Special:AllPages" first.
 The downloaded and stripped pages are written into DEST_FOLDER.
 Images are written into DEST_FOLDER/images.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -10,6 +10,7 @@ studio build. The script is also used for the meso build.
 Some paths especially for the temp dir and the compiler are
 hard coded into this script.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

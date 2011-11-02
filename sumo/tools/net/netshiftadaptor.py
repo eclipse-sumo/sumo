@@ -17,6 +17,7 @@ When "reproject" is called, all nodes' position
  of the second network are reprojected so that
  they match positions within the first network.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

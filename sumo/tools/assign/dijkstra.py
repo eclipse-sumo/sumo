@@ -10,6 +10,7 @@ The Dijkstra algorithm is used for searching the respective shortest paths.
 the link information about the shortest paths and the corresponding travel times   
 will be stored in the lists P and D respectively.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

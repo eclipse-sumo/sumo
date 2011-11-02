@@ -8,6 +8,7 @@
 Generates a PoI-file containing a PoI for each tls controlled intersection
  from the given net.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

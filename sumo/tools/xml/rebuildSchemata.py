@@ -7,6 +7,7 @@
 
 Let all SUMO binarie write the schema for their config
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2011-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -9,6 +9,7 @@ Converts the content list stored in wiki-format in "content_user.txt" into
 a HTML-list and writes it into "out.html".
 Has then to be put into "index.html".
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

@@ -7,6 +7,7 @@
 This file contains a content handler for parsing sumo network xml files
 and classes that represent the network.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

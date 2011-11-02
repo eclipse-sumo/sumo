@@ -12,6 +12,7 @@ Removes all roads which type is not within
  types2import, patches lane number information
  for all other using the values stored in types2import.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

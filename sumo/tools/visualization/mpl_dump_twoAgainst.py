@@ -11,6 +11,7 @@ This script reads two dump files and plots one of the values
 
 matplotlib has to be installed for this purpose
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

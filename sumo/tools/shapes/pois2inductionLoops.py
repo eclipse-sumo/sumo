@@ -12,6 +12,7 @@ The detectors are named <POINAME>__l<LANE_INDEX>
 
 Call: pois2inductionLoops.py <NET> <POIS> <OUTPUT>
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

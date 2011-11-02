@@ -9,6 +9,7 @@ Reads all pages in "mirror" and subfolders and embeds their content
 in "index.html". The result is written into "docs" preserving the 
 directory structure.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

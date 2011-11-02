@@ -13,6 +13,7 @@ Reads in a file where junctions controlled by
 todo:
 - make this read XML-files using an XML-API
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """

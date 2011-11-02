@@ -11,6 +11,7 @@ most Elmar (Navteq) imported nets. Optional it can also remove
 U turns at the start and the end of a route and output the 
 modified routes.
 
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
