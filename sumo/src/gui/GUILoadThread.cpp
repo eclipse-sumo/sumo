@@ -156,7 +156,7 @@ GUILoadThread::run() {
             simEndTime = string2time(oc.getString("end"));
         }
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -169,7 +169,7 @@ GUILoadThread::run() {
         net = 0;
 #endif
     }
-    if (net==0) {
+    if (net == 0) {
         MSNet::clearAll();
     }
     delete eb;
@@ -209,7 +209,7 @@ GUILoadThread::initOptions() {
         OptionsIO::getOptions(true, 1, 0);
         return true;
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

@@ -40,7 +40,7 @@
  */
 enum {
     /// Show about - dialog
-    ID_ABOUT=FXMainWindow::ID_LAST,
+    ID_ABOUT = FXMainWindow::ID_LAST,
 
     /// @name application specific
     //@{

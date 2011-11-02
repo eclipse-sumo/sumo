@@ -192,8 +192,8 @@ protected:
          * @param[in] e2 an edge
          */
         int operator()(const NBEdge* const e1, const NBEdge* const e2) const {
-            if (e1->getJunctionPriority(e1->getToNode())!=e2->getJunctionPriority(e2->getToNode())) {
-                return e1->getJunctionPriority(e1->getToNode())> e2->getJunctionPriority(e2->getToNode());
+            if (e1->getJunctionPriority(e1->getToNode()) != e2->getJunctionPriority(e2->getToNode())) {
+                return e1->getJunctionPriority(e1->getToNode()) > e2->getJunctionPriority(e2->getToNode());
             }
             return e1->getID() > e2->getID();
         }

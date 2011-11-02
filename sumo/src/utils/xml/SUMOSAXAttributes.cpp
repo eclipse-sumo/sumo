@@ -122,7 +122,7 @@ SUMOSAXAttributes::getSUMORealReporting(int attr, const char* objectid,
         }
     }
     ok = false;
-    return (SUMOReal) -1;
+    return (SUMOReal) - 1;
 }
 
 
@@ -144,7 +144,7 @@ SUMOSAXAttributes::getOptSUMORealReporting(int attr, const char* objectid,
         }
     }
     ok = false;
-    return (SUMOReal) -1;
+    return (SUMOReal) - 1;
 }
 
 
@@ -208,7 +208,7 @@ SUMOSAXAttributes::getStringReporting(int attr, const char* objectid,
     }
     try {
         std::string ret = getString(attr);
-        if (ret=="") {
+        if (ret == "") {
             throw EmptyData();
         }
         return ret;
@@ -263,7 +263,7 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
         }
     }
     ok = false;
-    return (SUMOTime) -1;
+    return (SUMOTime) - 1;
 #else
     return getIntReporting(attr, objectid, ok, report);
 #endif
@@ -278,7 +278,7 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         return defaultValue;
     }
     try {
-        return (SUMOTime)(getFloat(attr)*1000.);
+        return (SUMOTime)(getFloat(attr) * 1000.);
     } catch (NumberFormatException&) {
         if (report) {
             emitFormatError(getName(attr), "a real number", objectid);
@@ -289,7 +289,7 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         }
     }
     ok = false;
-    return (SUMOTime) -1;
+    return (SUMOTime) - 1;
 #else
     return getOptIntReporting(attr, objectid, ok, defaultValue, report);
 #endif
@@ -303,11 +303,11 @@ void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const throw() {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' is missing in definition of ";
-    if (objectid==0) {
+    if (objectid == 0) {
         oss << "a ";
     }
     oss << myObjectType;
-    if (objectid!=0) {
+    if (objectid != 0) {
         oss << " '" << objectid << "'";
     }
     oss << ".";
@@ -319,11 +319,11 @@ void
 SUMOSAXAttributes::emitEmptyError(const std::string& attrname, const char* objectid) const throw() {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid==0) {
+    if (objectid == 0) {
         oss << "a ";
     }
     oss << myObjectType;
-    if (objectid!=0) {
+    if (objectid != 0) {
         oss << " '" << objectid << "'";
     }
     oss << " is empty.";
@@ -335,11 +335,11 @@ void
 SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const throw() {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid==0) {
+    if (objectid == 0) {
         oss << "a ";
     }
     oss << myObjectType;
-    if (objectid!=0) {
+    if (objectid != 0) {
         oss << " '" << objectid << "'";
     }
     oss << " is not " << type << ".";
@@ -349,7 +349,7 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
 
 void
 SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::string> &into) throw() {
-    if (def.find(';')!=std::string::npos||def.find(',')!=std::string::npos) {
+    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
         if (!myHaveInformedAboutDeprecatedDivider) {
             WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
             myHaveInformedAboutDeprecatedDivider = true;

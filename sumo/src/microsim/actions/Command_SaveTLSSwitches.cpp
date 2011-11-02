@@ -60,22 +60,22 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
     MSTrafficLightLogic* light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector& links = light->getLinks();
     const std::string& state = light->getCurrentPhaseDef().getState();
-    for (unsigned int i=0; i<(unsigned int) links.size(); i++) {
-        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
-            if (myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+    for (unsigned int i = 0; i < (unsigned int) links.size(); i++) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+            if (myPreviousLinkStates.find(i) == myPreviousLinkStates.end()) {
                 // was not saved before
                 myPreviousLinkStates[i] = currentTime;
                 continue;
             }
         } else {
-            if (myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+            if (myPreviousLinkStates.find(i) == myPreviousLinkStates.end()) {
                 // was not yet green
                 continue;
             }
             const MSTrafficLightLogic::LinkVector& currLinks = links[i];
             const MSTrafficLightLogic::LaneVector& currLanes = light->getLanesAt(i);
             SUMOTime lastOn = myPreviousLinkStates[i];
-            for (int j=0; j<(int) currLinks.size(); j++) {
+            for (int j = 0; j < (int) currLinks.size(); j++) {
                 MSLink* link = currLinks[j];
                 myOutputDevice << "   <tlsSwitch id=\"" << light->getID()
                                << "\" programID=\"" << light->getProgramID()
@@ -83,7 +83,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) {
                                << "\" toLane=\"" << link->getLane()->getID()
                                << "\" begin=\"" << time2string(lastOn)
                                << "\" end=\"" << time2string(currentTime)
-                               << "\" duration=\"" << time2string(currentTime-lastOn)
+                               << "\" duration=\"" << time2string(currentTime - lastOn)
                                << "\"/>\n";
             }
             myPreviousLinkStates.erase(myPreviousLinkStates.find(i));

@@ -1,6 +1,6 @@
 """
 @file    CSV2polyconvertXML.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2008-07-17
 
 Converts a given CSV-file that contains a list of pois to 

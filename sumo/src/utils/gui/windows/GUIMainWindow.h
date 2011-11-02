@@ -44,8 +44,8 @@ public:
     GUIMainWindow(FXApp* a);
     virtual ~GUIMainWindow();
     /// Adds a further child window to the list
-    void addChild(FXMDIChild* child, bool updateOnSimStep=true);
-    void addChild(FXMainWindow* child, bool updateOnSimStep=true);
+    void addChild(FXMDIChild* child, bool updateOnSimStep = true);
+    void addChild(FXMainWindow* child, bool updateOnSimStep = true);
 
     /// removes the given child window from the list
     void removeChild(FXMDIChild* child);

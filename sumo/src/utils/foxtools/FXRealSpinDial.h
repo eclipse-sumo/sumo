@@ -57,9 +57,9 @@ enum {
 };
 
 enum {
-    SPINDIAL_INC_NORMAL=0,
-    SPINDIAL_INC_FINE=-1,
-    SPINDIAL_INC_COARSE=1
+    SPINDIAL_INC_NORMAL = 0,
+    SPINDIAL_INC_FINE = -1,
+    SPINDIAL_INC_COARSE = 1
 };
 
 class FXRealSpinDialText;
@@ -85,33 +85,33 @@ private:
     FXRealSpinDial(const FXRealSpinDial&);
     FXRealSpinDial& operator=(const FXRealSpinDial&);
 public:
-    long onUpdDial(FXObject*,FXSelector,void*);
-    long onChgDial(FXObject*,FXSelector,void*);
-    long onCmdDial(FXObject*,FXSelector,void*);
-    long onUpdIncrement(FXObject*,FXSelector,void*);
-    long onCmdIncrement(FXObject*,FXSelector,void*);
-    long onUpdDecrement(FXObject*,FXSelector,void*);
-    long onCmdDecrement(FXObject*,FXSelector,void*);
-    long onMouseWheel(FXObject*,FXSelector,void*);
-    long onUpdEntry(FXObject*,FXSelector,void*);
-    long onCmdEntry(FXObject*,FXSelector,void*);
-    long onChgEntry(FXObject*,FXSelector,void*);
-    long onKeyPress(FXObject*,FXSelector,void*);
-    long onKeyRelease(FXObject*,FXSelector,void*);
-    long onCmdSetValue(FXObject*,FXSelector,void*);
-    long onCmdSetIntValue(FXObject*,FXSelector,void*);
-    long onCmdGetIntValue(FXObject*,FXSelector,void*);
-    long onCmdSetIntRange(FXObject*,FXSelector,void*);
-    long onCmdGetIntRange(FXObject*,FXSelector,void*);
-    long onCmdSetRealValue(FXObject*,FXSelector,void*);
-    long onCmdGetRealValue(FXObject*,FXSelector,void*);
-    long onCmdSetRealRange(FXObject*,FXSelector,void*);
-    long onCmdGetRealRange(FXObject*,FXSelector,void*);
-    long onMotion(FXObject*,FXSelector,void*);
+    long onUpdDial(FXObject*, FXSelector, void*);
+    long onChgDial(FXObject*, FXSelector, void*);
+    long onCmdDial(FXObject*, FXSelector, void*);
+    long onUpdIncrement(FXObject*, FXSelector, void*);
+    long onCmdIncrement(FXObject*, FXSelector, void*);
+    long onUpdDecrement(FXObject*, FXSelector, void*);
+    long onCmdDecrement(FXObject*, FXSelector, void*);
+    long onMouseWheel(FXObject*, FXSelector, void*);
+    long onUpdEntry(FXObject*, FXSelector, void*);
+    long onCmdEntry(FXObject*, FXSelector, void*);
+    long onChgEntry(FXObject*, FXSelector, void*);
+    long onKeyPress(FXObject*, FXSelector, void*);
+    long onKeyRelease(FXObject*, FXSelector, void*);
+    long onCmdSetValue(FXObject*, FXSelector, void*);
+    long onCmdSetIntValue(FXObject*, FXSelector, void*);
+    long onCmdGetIntValue(FXObject*, FXSelector, void*);
+    long onCmdSetIntRange(FXObject*, FXSelector, void*);
+    long onCmdGetIntRange(FXObject*, FXSelector, void*);
+    long onCmdSetRealValue(FXObject*, FXSelector, void*);
+    long onCmdGetRealValue(FXObject*, FXSelector, void*);
+    long onCmdSetRealRange(FXObject*, FXSelector, void*);
+    long onCmdGetRealRange(FXObject*, FXSelector, void*);
+    long onMotion(FXObject*, FXSelector, void*);
     //long onDefault(FXObject*,FXSelector,void*);
 public:
     enum {
-        ID_DIAL=FXPacker::ID_LAST,
+        ID_DIAL = FXPacker::ID_LAST,
         ID_INCREMENT,
         ID_DECREMENT,
         ID_ENTRY,
@@ -120,10 +120,10 @@ public:
 public:
 
     /// Construct a spinner
-    FXRealSpinDial(FXComposite* p,FXint cols,FXObject* tgt=NULL,
-                   FXSelector sel=0,FXuint opts=SPINDIAL_NORMAL,
-                   FXint x=0,FXint y=0,FXint w=0,FXint h=0,
-                   FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD
+    FXRealSpinDial(FXComposite* p, FXint cols, FXObject* tgt = NULL,
+                   FXSelector sel = 0, FXuint opts = SPINDIAL_NORMAL,
+                   FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                   FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD
                   );
 
     /// Create server-side resources
@@ -145,10 +145,10 @@ public:
     virtual FXint getDefaultHeight();
 
     /// Increment spinner
-    void increment(FXint incMode=SPINDIAL_INC_NORMAL);
+    void increment(FXint incMode = SPINDIAL_INC_NORMAL);
 
     /// Decrement spinner
-    void decrement(FXint incMode=SPINDIAL_INC_NORMAL);
+    void decrement(FXint incMode = SPINDIAL_INC_NORMAL);
 
     /// Return TRUE if in cyclic mode
     FXbool isCyclic() const;
@@ -177,12 +177,12 @@ public:
     }
 
     /// Change the spinner's range
-    void setRange(FXdouble lo,FXdouble hi);
+    void setRange(FXdouble lo, FXdouble hi);
 
     /// Get the spinner's current range
-    void getRange(FXdouble& lo,FXdouble& hi) const {
-        lo=range[0];
-        hi=range[1];
+    void getRange(FXdouble& lo, FXdouble& hi) const {
+        lo = range[0];
+        hi = range[1];
     }
 
     /// Change spinner increment
@@ -232,7 +232,7 @@ public:
     FXuint getSpinnerStyle() const;
 
     /// Allow editing of the text field
-    void setEditable(FXbool edit=TRUE);
+    void setEditable(FXbool edit = TRUE);
 
     /// Return TRUE if text field is editable
     FXbool isEditable() const;
@@ -287,7 +287,7 @@ public:
 
     /// Set the precision and exponent display for numbers
     /// Calling this overrides the number format string.
-    void setNumberFormat(FXint prec, FXbool bExp=FALSE);
+    void setNumberFormat(FXint prec, FXbool bExp = FALSE);
 
     /// Return the digits of precision used to display numbers
     FXint getNumberFormatPrecision() const;

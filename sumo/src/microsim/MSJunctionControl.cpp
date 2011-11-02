@@ -50,7 +50,7 @@ MSJunctionControl::~MSJunctionControl() throw() {
 void
 MSJunctionControl::postloadInitContainer() throw(ProcessError) {
     const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for (std::vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+    for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
         (*i)->postloadInit();
     }
 }

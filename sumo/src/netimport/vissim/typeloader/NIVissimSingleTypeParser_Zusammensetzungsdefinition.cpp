@@ -51,7 +51,7 @@ NIVissimSingleTypeParser_Zusammensetzungsdefinition::~NIVissimSingleTypeParser_Z
 bool
 NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
-    while (tag!="fahrzeugtyp") {
+    while (tag != "fahrzeugtyp") {
         tag = readEndSecure(from, "fahrzeugtyp");
     }
     do {
@@ -61,7 +61,7 @@ NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream& from) {
         tag = myRead(from); // "VWunsch"
         tag = myRead(from); // value
         tag = readEndSecure(from, "fahrzeugtyp"); // "fahrzeugtyp"?
-    } while (tag=="fahrzeugtyp");
+    } while (tag == "fahrzeugtyp");
     return true;
 }
 

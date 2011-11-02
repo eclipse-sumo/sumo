@@ -111,7 +111,7 @@ public:
     static NIVissimConnection* dictionary(int id);
     static IntVector getWithin(const AbstractPoly& poly);
     static void buildNodeClusters();
-    static IntVector getForEdge(int edgeid, bool omitNodeAssigned=true);
+    static IntVector getForEdge(int edgeid, bool omitNodeAssigned = true);
     static void dict_buildNBEdgeConnections(NBEdgeCont& ec);
     static void dict_assignToEdges();
     static int getMaxID();

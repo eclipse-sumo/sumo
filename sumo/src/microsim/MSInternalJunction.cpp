@@ -61,25 +61,25 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     myInternalLaneFoes = myInternalLanes;
-    for (std::vector<MSLane*>::const_iterator i=myIncomingLanes.begin()+1; i!=myIncomingLanes.end(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
+        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
             MSLane* via = (*j)->getViaLane();
-            if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via)==myInternalLanes.end()) {
+            if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via) == myInternalLanes.end()) {
                 continue;
             }
             myInternalLinkFoes.push_back(*j);
         }
     }
-    if (myIncomingLanes.size()!=0) {
+    if (myIncomingLanes.size() != 0) {
         // for the first incoming lane
         const MSLinkCont& links = myIncomingLanes[0]->getLinkCont();
         // ... set information for every link
-        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
             (*j)->setRequestInformation(requestPos, requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes);
             requestPos++;
-            for (std::vector<MSLink*>::const_iterator k=myInternalLinkFoes.begin(); k!=myInternalLinkFoes.end(); ++k) {
+            for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
                 (*j)->addBlockedLink(*k);
                 (*k)->addBlockedLink(*j);
             }

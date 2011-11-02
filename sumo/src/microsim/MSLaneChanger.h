@@ -156,7 +156,7 @@ protected:
     bool overlapWithHopped(ChangerIt target) const throw() {
         MSVehicle* v1 = target->hoppedVeh;
         MSVehicle* v2 = veh(myCandi);
-        if (v1!=0 && v2!=0) {
+        if (v1 != 0 && v2 != 0) {
             return MSVehicle::overlap(v1, v2);
         }
         return false;

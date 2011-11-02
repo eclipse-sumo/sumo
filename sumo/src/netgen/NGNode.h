@@ -190,7 +190,7 @@ public:
      * @return Whether the given node is connected
      */
     bool samePos(int xPos, int yPos) const throw() {
-        return xID==xPos && yID==yPos;
+        return xID == xPos && yID == yPos;
     }
 
     // NGRandomNetBuilder needs access to links

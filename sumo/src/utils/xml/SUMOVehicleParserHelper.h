@@ -76,7 +76,7 @@ public:
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-            bool skipID=false, bool skipDepart=false) throw(ProcessError);
+            bool skipID = false, bool skipDepart = false) throw(ProcessError);
 
 
     /** @brief Starts to parse a vehicle type
@@ -100,7 +100,7 @@ public:
      */
     static void parseVTypeEmbedded(SUMOVTypeParameter& into,
                                    int element, const SUMOSAXAttributes& attrs,
-                                   bool fromVType=false) throw(ProcessError);
+                                   bool fromVType = false) throw(ProcessError);
 
 
     /** @brief Closes parsing of the vehicle type

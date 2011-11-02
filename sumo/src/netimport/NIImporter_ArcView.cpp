@@ -143,7 +143,7 @@ NIImporter_ArcView::load() {
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT==0) {
+        if (poCT == 0) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -157,7 +157,7 @@ NIImporter_ArcView::load() {
             ? poFeature->GetFieldAsString((char*)(myOptions.getString("shapefile.street-id").c_str()))
             : poFeature->GetFieldAsString("LINK_ID");
         id = StringUtils::prune(id);
-        if (id=="") {
+        if (id == "") {
             WRITE_ERROR("Could not obtain edge id.");
             return;
         }
@@ -177,7 +177,7 @@ NIImporter_ArcView::load() {
             ? poFeature->GetFieldAsString((char*) myOptions.getString("shapefile.to-id").c_str())
             : poFeature->GetFieldAsString("NREF_IN_ID");
         to_node = StringUtils::prune(to_node);
-        if (from_node==""||to_node=="") {
+        if (from_node == "" || to_node == "") {
             from_node = toString(myRunningNodeID++);
             to_node = toString(myRunningNodeID++);
         }
@@ -186,7 +186,7 @@ NIImporter_ArcView::load() {
         SUMOReal speed = getSpeed(*poFeature, id);
         unsigned int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
-        if (nolanes==0||speed==0) {
+        if (nolanes == 0 || speed == 0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
                 nolanes = myTypeCont.getNumLanes("");
                 speed = myTypeCont.getSpeed("");
@@ -204,15 +204,15 @@ NIImporter_ArcView::load() {
         // read in the geometry
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
-        assert(gtype==wkbLineString);
+        assert(gtype == wkbLineString);
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
-        if (poCT!=0) {
+        if (poCT != 0) {
             // try transform to wgs84
             cgeom->transform(poCT);
         }
 
         PositionVector shape;
-        for (int j=0; j<cgeom->getNumPoints(); j++) {
+        for (int j = 0; j < cgeom->getNumPoints(); j++) {
             Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
             if (!NILoader::transformCoordinates(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
@@ -222,10 +222,10 @@ NIImporter_ArcView::load() {
 
         // build from-node
         NBNode* from = myNodeCont.retrieve(from_node);
-        if (from==0) {
+        if (from == 0) {
             Position from_pos = shape[0];
             from = myNodeCont.retrieve(from_pos);
-            if (from==0) {
+            if (from == 0) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
                     WRITE_ERROR("Node '" + from_node + "' could not be added");
@@ -236,10 +236,10 @@ NIImporter_ArcView::load() {
         }
         // build to-node
         NBNode* to = myNodeCont.retrieve(to_node);
-        if (to==0) {
+        if (to == 0) {
             Position to_pos = shape[-1];
             to = myNodeCont.retrieve(to_pos);
-            if (to==0) {
+            if (to == 0) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
                     WRITE_ERROR("Node '" + to_node + "' could not be added");
@@ -249,7 +249,7 @@ NIImporter_ArcView::load() {
             }
         }
 
-        if (from==to) {
+        if (from == to) {
             WRITE_WARNING("Edge '" + id + "' connects identical nodes, skipping.");
             continue;
         }
@@ -257,23 +257,23 @@ NIImporter_ArcView::load() {
         // retrieve the information whether the street is bi-directional
         std::string dir;
         int index = poFeature->GetDefnRef()->GetFieldIndex("DIR_TRAVEL");
-        if (index>=0&&poFeature->IsFieldSet(index)) {
+        if (index >= 0 && poFeature->IsFieldSet(index)) {
             dir = poFeature->GetFieldAsString(index);
         }
         // add positive direction if wanted
-        if (dir=="B"||dir=="F"||dir==""||myOptions.getBool("shapefile.all-bidirectional")) {
-            if (myEdgeCont.retrieve(id)==0) {
-                LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+        if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
+            if (myEdgeCont.retrieve(id) == 0) {
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, -1, shape, "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
         }
         // add negative direction if wanted
-        if (dir=="B"||dir=="T"||myOptions.getBool("shapefile.all-bidirectional")) {
+        if (dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) {
             id = "-" + id;
-            if (myEdgeCont.retrieve(id)==0) {
-                LaneSpreadFunction spread = dir=="B"||dir=="FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+            if (myEdgeCont.retrieve(id) == 0) {
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
                 NBEdge* edge = new NBEdge(id, to, from, type, speed, nolanes, priority, width, -1, shape.reverse(), "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
@@ -297,16 +297,16 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     int index = poFeature.GetDefnRef()->GetFieldIndex("speed");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return (SUMOReal) poFeature.GetFieldAsDouble(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("SPEED");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return (SUMOReal) poFeature.GetFieldAsDouble(index);
     }
     // try to get the NavTech-information
     index = poFeature.GetDefnRef()->GetFieldIndex("SPEED_CAT");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         std::string def = poFeature.GetFieldAsString(index);
         return NINavTeqHelper::getSpeed(edgeid, def);
     }
@@ -323,19 +323,19 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     int index = poFeature.GetDefnRef()->GetFieldIndex("nolanes");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("NOLANES");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("rnol");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("LANE_CAT");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         std::string def = poFeature.GetFieldAsString(index);
         return NINavTeqHelper::getLaneNumber(edgeid, def, speed);
     }
@@ -351,16 +351,16 @@ NIImporter_ArcView::getPriority(OGRFeature& poFeature, const std::string& /*edge
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     int index = poFeature.GetDefnRef()->GetFieldIndex("priority");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("PRIORITY");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return poFeature.GetFieldAsInteger(index);
     }
     // try to determine priority from NavTechs FUNC_CLASS attribute
     index = poFeature.GetDefnRef()->GetFieldIndex("FUNC_CLASS");
-    if (index>=0&&poFeature.IsFieldSet(index)) {
+    if (index >= 0 && poFeature.IsFieldSet(index)) {
         return poFeature.GetFieldAsInteger(index);
     }
     return 0;
@@ -369,7 +369,7 @@ NIImporter_ArcView::getPriority(OGRFeature& poFeature, const std::string& /*edge
 void
 NIImporter_ArcView::checkSpread(NBEdge* e) {
     NBEdge* ret = e->getToNode()->getConnectionTo(e->getFromNode());
-    if (ret!=0) {
+    if (ret != 0) {
         e->setLaneSpreadFunction(LANESPREAD_RIGHT);
         ret->setLaneSpreadFunction(LANESPREAD_RIGHT);
     }

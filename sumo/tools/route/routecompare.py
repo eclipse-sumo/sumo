@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    routecompare.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-03-25
 @version $Id$
 

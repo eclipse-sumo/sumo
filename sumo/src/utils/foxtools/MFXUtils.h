@@ -78,7 +78,7 @@ public:
      * @return The built title
      */
     static FXString getTitleText(const FXString& appname,
-                                 FXString filename="") throw();
+                                 FXString filename = "") throw();
 
 
     /** @brief Returns the document name

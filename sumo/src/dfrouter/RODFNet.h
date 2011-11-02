@@ -143,7 +143,7 @@ protected:
 
         /// Comparing method
         bool operator()(const RODFRouteDesc& nod1, const RODFRouteDesc& nod2) const {
-            return nod1.duration_2>nod2.duration_2;
+            return nod1.duration_2 > nod2.duration_2;
         }
     };
 

@@ -53,19 +53,19 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
       tSinceLastDecision(0), stepOfLastDecision(0) {
 
     tDecide = 1;
-    if (parameter.find("decision-horizon")!=parameter.end()) {
+    if (parameter.find("decision-horizon") != parameter.end()) {
         tDecide = (unsigned int) TplConvert<char>::_2int(parameter.find("decision-horizon")->second.c_str());
     }
     numberOfValues = 3;
-    if (parameter.find("learn-horizon")!=parameter.end()) {
+    if (parameter.find("learn-horizon") != parameter.end()) {
         numberOfValues = (unsigned int) TplConvert<char>::_2int(parameter.find("learn-horizon")->second.c_str());
     }
     tCycle = 90;
-    if (parameter.find("tcycle")!=parameter.end()) {
+    if (parameter.find("tcycle") != parameter.end()) {
         tCycle = (unsigned int) TplConvert<char>::_2SUMOReal(parameter.find("tcycle")->second.c_str());
     }
     deltaLimit = 1;
-    if (parameter.find("min-diff")!=parameter.end()) {
+    if (parameter.find("min-diff") != parameter.end()) {
         deltaLimit = TplConvert<char>::_2int(parameter.find("min-diff")->second.c_str());
     }
 }
@@ -77,19 +77,19 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the detectors
-    for (i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
+    for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
-        for (i=lanes.begin(); i!=lanes.end(); i++) {
+        for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
             // Build the lane state detetcor and set it into the container
             std::string id = "TL_" + myID + "_" + myProgramID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
-            if (myE2Detectors.find(lane)==myE2Detectors.end()) {
+            if (myE2Detectors.find(lane) == myE2Detectors.end()) {
                 MSDetectorFileOutput* det =
                     nb.buildMultiLaneE2Det(id,
                                            DU_TL_CONTROL, lane, 0, det_offset,
                                            /*haltingTimeThreshold!!!*/ 1,
-                                           /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0/3.6),
+                                           /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0 / 3.6),
                                            /*jamDistThreshold!!!*/ 10);
                 myE2Detectors[lane] = static_cast<MS_E2_ZS_CollectorOverLanes*>(det);
             }
@@ -103,7 +103,7 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     unsigned int tDeltaGreen = 0;         // the difference between the actual cycle time and the required cycle time
 
     /// Calculation of starting values
-    for (unsigned int actStep = 0; actStep!=myPhases.size(); actStep++) {
+    for (unsigned int actStep = 0; actStep != myPhases.size(); actStep++) {
         unsigned int dur = (unsigned int) myPhases[actStep]->duration;
         tCycleIst = tCycleIst + dur;
         if (myPhases[actStep]->isGreenPhase()) {
@@ -133,7 +133,7 @@ MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic() {}
 // ------------ Switching and setting current rows
 SUMOTime
 MSAgentbasedTrafficLightLogic::trySwitch(bool) {
-    assert(getCurrentPhaseDef().minDuration >=0);
+    assert(getCurrentPhaseDef().minDuration >= 0);
     assert(getCurrentPhaseDef().minDuration <= getCurrentPhaseDef().duration);
     if (myPhases[myStep]->isGreenPhase()) {
         // collects the data for the signal control
@@ -146,10 +146,10 @@ MSAgentbasedTrafficLightLogic::trySwitch(bool) {
     // increment the index to the current phase
     nextStep();
     // set the next event
-    while (getCurrentPhaseDef().duration==0) {
+    while (getCurrentPhaseDef().duration == 0) {
         nextStep();
     }
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     return getCurrentPhaseDef().duration;
 }
 
@@ -159,13 +159,13 @@ unsigned int
 MSAgentbasedTrafficLightLogic::nextStep() {
     // increment the index to the current phase
     myStep++;
-    assert(myStep<=myPhases.size());
-    if (myStep==myPhases.size()) {
+    assert(myStep <= myPhases.size());
+    if (myStep == myPhases.size()) {
         myStep = 0;
     }
     // increment the number of cycles since last decision
     if (myStep == stepOfLastDecision) {
-        tSinceLastDecision = tSinceLastDecision +1;
+        tSinceLastDecision = tSinceLastDecision + 1;
     }
     return myStep;
 }
@@ -176,16 +176,16 @@ MSAgentbasedTrafficLightLogic::collectData() {
     const std::string& state = getCurrentPhaseDef().getState();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
-    for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
+    for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
         // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of all lanes that have green
-        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
             SUMOReal maxPerBit = 0;
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-                if ((*j)->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
+                if ((*j)->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
                 /*!!!
@@ -210,7 +210,7 @@ MSAgentbasedTrafficLightLogic::collectData() {
     /* checks whether the number of values that are already in the dataqueue is
        the same number of values taht shall be consideres in the traffic control
        if both numbers are the same, the oldest value is deleted */
-    if (myRawDetectorData[myStep].size()== numberOfValues) {
+    if (myRawDetectorData[myStep].size() == numberOfValues) {
         myRawDetectorData[myStep].pop_back();
     }
     // adds the detectorvalue of the considered phase
@@ -220,7 +220,7 @@ MSAgentbasedTrafficLightLogic::collectData() {
 
 void
 MSAgentbasedTrafficLightLogic::aggregateRawData() {
-    for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i!=myRawDetectorData.end(); i++) {
+    for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i != myRawDetectorData.end(); i++) {
         SUMOReal sum = 0;
         for (ValueType:: const_iterator it = myRawDetectorData[(*i).first].begin(); it != myRawDetectorData[(*i).first].end(); it ++) {
             sum = sum + *it;
@@ -248,8 +248,8 @@ MSAgentbasedTrafficLightLogic::calculateDuration() {
     SUMOReal deltaIst = (myMeanDetectorData[stepOfMaxValue] - myMeanDetectorData[stepOfMinValue])
                         / myMeanDetectorData[stepOfMaxValue];
     if (deltaIst > deltaLimit) {
-        myPhases[stepOfMaxValue]->duration = myPhases[stepOfMaxValue]->duration +1;
-        myPhases[stepOfMinValue]->duration = myPhases[stepOfMinValue]->duration -1;
+        myPhases[stepOfMaxValue]->duration = myPhases[stepOfMaxValue]->duration + 1;
+        myPhases[stepOfMinValue]->duration = myPhases[stepOfMinValue]->duration - 1;
         tSinceLastDecision = 0;
         stepOfLastDecision = myStep;
     }
@@ -268,7 +268,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) {
        duration and maxduration and the myStep of the phases.
        only phases with duration < maxDuration are written in the vector.
        sorts the vector after the difference. */
-    for (unsigned int i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
+    for (unsigned int i_Step = 0; i_Step != myPhases.size(); i_Step++) {
         if (myPhases[i_Step]->isGreenPhase()) {
             unsigned int dur = (unsigned int) myPhases[i_Step]->duration;
             unsigned int maxdur = (unsigned int) myPhases[i_Step]->maxDuration;
@@ -283,7 +283,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) {
     }
     sort(tmp_phases.begin(), tmp_phases.end());
     //lengthens the phases acording to the difference between duration and maxDuration
-    for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
+    for (GreenPhasesVector::iterator i = tmp_phases.begin(); i != tmp_phases.end(); i++) {
         SUMOTime toLengthenPerPhase = 0;
         SUMOReal tmpdb = ((*i).first * toLengthen / SUMOReal(maxLengthen)) + (SUMOReal) 0.5;
         toLengthenPerPhase = static_cast<SUMOTime>(tmpdb);
@@ -307,7 +307,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) {
        duration and minduration and the myStep of the phases.
        only phases with duration > minDuration are written in the vector.
        sorts the vector after the difference. */
-    for (unsigned i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
+    for (unsigned i_Step = 0; i_Step != myPhases.size(); i_Step++) {
         if (myPhases[i_Step]->isGreenPhase()) {
             unsigned int dur = (unsigned int) myPhases[i_Step]->duration;
             unsigned int mindur = (unsigned int) myPhases[i_Step]->minDuration;
@@ -322,7 +322,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) {
     }
     std::sort(tmp_phases.begin(), tmp_phases.end());
     //cuts the phases acording to the difference between duration and minDuration
-    for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
+    for (GreenPhasesVector::iterator i = tmp_phases.begin(); i != tmp_phases.end(); i++) {
         SUMOTime toCutPerPhase = 0;
         SUMOReal tmpdb = ((*i).first * toCut / SUMOReal(maxCut)) + (SUMOReal) 0.5;
         toCutPerPhase = static_cast<SUMOTime>(tmpdb);
@@ -338,7 +338,7 @@ unsigned int
 MSAgentbasedTrafficLightLogic::findStepOfMaxValue() const {
     unsigned int StepOfMaxValue = (unsigned int) myPhases.size();
     SUMOReal MaxValue = -1;
-    for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
+    for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it != myMeanDetectorData.end(); it++) {
         // checks whether the actual duruation is shorter than maxduration
         // otherwise the phase can't be lenghten
         unsigned int maxDur = (unsigned int) myPhases[(*it).first]->maxDuration;
@@ -359,7 +359,7 @@ unsigned int
 MSAgentbasedTrafficLightLogic::findStepOfMinValue() const {
     unsigned int StepOfMinValue = (unsigned int) myPhases.size();
     SUMOReal MinValue = 9999;
-    for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
+    for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it != myMeanDetectorData.end(); it++) {
         // checks whether the actual duruation is longer than minduration
         // otherwise the phase can't be cut
         unsigned int minDur = (unsigned int) myPhases[(*it).first]->minDuration;

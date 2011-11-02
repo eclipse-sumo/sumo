@@ -48,7 +48,7 @@ class GUIGlChildWindow : public FXMDIChild {
 public:
     GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow,
                      FXMDIMenu* mdimenu, const FXString& name,
-                     FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0);
+                     FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     virtual ~GUIGlChildWindow();
 
@@ -59,12 +59,12 @@ public:
         return myView;
     }
 
-    long onCmdRecenterView(FXObject*,FXSelector,void*);
-    long onCmdEditViewport(FXObject*,FXSelector,void*);
-    long onCmdEditViewScheme(FXObject*,FXSelector,void*);
-    long onCmdShowToolTips(FXObject* sender,FXSelector,void*);
-    long onCmdZoomStyle(FXObject* sender,FXSelector,void*);
-    long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
+    long onCmdRecenterView(FXObject*, FXSelector, void*);
+    long onCmdEditViewport(FXObject*, FXSelector, void*);
+    long onCmdEditViewScheme(FXObject*, FXSelector, void*);
+    long onCmdShowToolTips(FXObject* sender, FXSelector, void*);
+    long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
+    long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
 
     virtual void buildNavigationToolBar();
     virtual void buildColoringToolBar();

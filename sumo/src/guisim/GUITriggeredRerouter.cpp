@@ -69,7 +69,7 @@
  * GUITriggeredRerouter::GUITriggeredRerouterPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUITriggeredRerouter::GUITriggeredRerouterPopupMenu)
-GUITriggeredRerouterPopupMenuMap[]= {
+GUITriggeredRerouterPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip),
 
 };
@@ -81,7 +81,7 @@ FXIMPLEMENT(GUITriggeredRerouter::GUITriggeredRerouterPopupMenu, GUIGLObjectPopu
 /* -------------------------------------------------------------------------
  * GUITriggeredRerouter::GUIManip_TriggeredRerouter - mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITriggeredRerouter::GUIManip_TriggeredRerouter) GUIManip_TriggeredRerouterMap[]= {
+FXDEFMAP(GUITriggeredRerouter::GUIManip_TriggeredRerouter) GUIManip_TriggeredRerouterMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_USER_DEF, GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef),
     FXMAPFUNC(SEL_UPDATE,   GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_USER_DEF, GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef),
     FXMAPFUNC(SEL_COMMAND,  GUITriggeredRerouter::GUIManip_TriggeredRerouter::MID_OPTION,   GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption),
@@ -107,48 +107,48 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
       myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
-        new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
+        new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
 
     FXGroupBox* gp = new FXGroupBox(f1, "Change Probability",
-                                    GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,
+                                    GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
                                     0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
     {
         // default
         FXHorizontalFrame* gf1 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
-        new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION+0,
-                          ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
+            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION + 0,
+                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
                           0, 0, 0, 0,   2, 2, 0, 0);
     }
     {
         // free
         FXHorizontalFrame* gf12 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
-        new FXRadioButton(gf12, "User Given: ", &myChosenTarget, FXDataTarget::ID_OPTION+1,
-                          ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
+            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf12, "User Given: ", &myChosenTarget, FXDataTarget::ID_OPTION + 1,
+                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUsageProbabilityDial =
             new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
-                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         myUsageProbabilityDial->setFormatString("%.2f");
-        myUsageProbabilityDial->setIncrements(.1,.1,.1);
-        myUsageProbabilityDial->setRange(0,1);
+        myUsageProbabilityDial->setIncrements(.1, .1, .1);
+        myUsageProbabilityDial->setRange(0, 1);
         myUsageProbabilityDial->setValue(myObject->getUserProbability());
     }
     {
         // off
         FXHorizontalFrame* gf13 =
-            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
-        new FXRadioButton(gf13, "Off", &myChosenTarget, FXDataTarget::ID_OPTION+2,
-                          ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
+            new FXHorizontalFrame(gp, LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 10, 10, 5, 5);
+        new FXRadioButton(gf13, "Off", &myChosenTarget, FXDataTarget::ID_OPTION + 2,
+                          ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP,
                           0, 0, 0, 0,   2, 2, 0, 0);
     }
     myChosenValue = myObject->inUserMode()
-                    ? myObject->getUserProbability()>0
+                    ? myObject->getUserProbability() > 0
                     ? 1 : 2
                     : 0;
-    new FXButton(f1,"Close",NULL,this,MID_CLOSE,
-                 BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    new FXButton(f1, "Close", NULL, this, MID_CLOSE,
+                 BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 }
 
 
@@ -156,14 +156,14 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::~GUIManip_TriggeredRerouter() 
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*,FXSelector,void*) {
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*, FXSelector, void*) {
     destroy();
     return 1;
 }
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelector,void*) {
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*, FXSelector, void*) {
     myUsageProbability = (SUMOReal)(myUsageProbabilityDial->getValue());
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
@@ -173,9 +173,9 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelec
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject* sender,FXSelector,void* ptr) {
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+                   myChosenValue != 1 ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     myParent->updateChildren();
     return 1;
@@ -183,21 +183,21 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject* sender,
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*,FXSelector,void*) {
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*, FXSelector, void*) {
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     switch (myChosenValue) {
-    case 0:
-        static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(false);
-        break;
-    case 1:
-        static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
-        break;
-    case 2:
-        static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(0);
-        static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
-        break;
-    default:
-        throw 1;
+        case 0:
+            static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(false);
+            break;
+        case 1:
+            static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
+            break;
+        case 2:
+            static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(0);
+            static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
+            break;
+        default:
+            throw 1;
     }
     myParent->updateChildren();
     return 1;
@@ -237,17 +237,17 @@ GUITriggeredRerouter::GUITriggeredRerouter(
       GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
     size_t k;
     size_t no = 0;
-    for (k=0; k<edges.size(); k++) {
+    for (k = 0; k < edges.size(); k++) {
         GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
         no += gedge->getLanes().size();
     }
     myFGPositions.reserve(no);
     myFGRotations.reserve(no);
-    for (k=0; k<edges.size(); k++) {
+    for (k = 0; k < edges.size(); k++) {
         GUIEdge* gedge = static_cast<GUIEdge*>(edges[k]);
         const std::vector<MSLane*> &lanes = gedge->getLanes();
         size_t noLanes = lanes.size();
-        for (size_t i=0; i<noLanes; ++i) {
+        for (size_t i = 0; i < noLanes; ++i) {
             const PositionVector& v = gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
@@ -286,7 +286,7 @@ GUITriggeredRerouter::getParameterWindow(GUIMainWindow&,
 void
 GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
-    for (size_t i=0; i<myFGPositions.size(); ++i) {
+    for (size_t i = 0; i < myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
@@ -299,12 +299,12 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
         glBegin(GL_TRIANGLES);
         glColor3d(1, .8f, 0);
         // base
-        glVertex2d(0-1.4, 0);
-        glVertex2d(0-1.4, 6);
-        glVertex2d(0+1.4, 6);
-        glVertex2d(0+1.4, 0);
-        glVertex2d(0-1.4, 0);
-        glVertex2d(0+1.4, 6);
+        glVertex2d(0 - 1.4, 0);
+        glVertex2d(0 - 1.4, 6);
+        glVertex2d(0 + 1.4, 6);
+        glVertex2d(0 + 1.4, 0);
+        glVertex2d(0 - 1.4, 0);
+        glVertex2d(0 + 1.4, 6);
         glEnd();
 
         glTranslated(0, 0, .1);
@@ -313,10 +313,10 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
         pfSetScale(3.f);
         SUMOReal w = pfdkGetStringWidth("U");
         glRotated(180, 0, 1, 0);
-        glTranslated(-w/2., 2, 0);
+        glTranslated(-w / 2., 2, 0);
         pfDrawString("U");
 
-        glTranslated(w/2., -2, 0);
+        glTranslated(w / 2., -2, 0);
         SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
         prob *= 100.;
         prob = (SUMOReal)((int) prob);
@@ -324,19 +324,19 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
         pfSetPosition(0, 0);
         pfSetScale(.7f);
         w = pfdkGetStringWidth(str.c_str());
-        glTranslated(-w/2., 4, 0);
+        glTranslated(-w / 2., 4, 0);
         pfDrawString(str.c_str());
         glPopMatrix();
     }
-    if (hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep())&&getProbability()>0) {
+    if (hasCurrentReroute(MSNet::getInstance()->getCurrentTimeStep()) && getProbability() > 0) {
         const RerouteInterval& ri =
             getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
-        for (std::vector<MSEdge*>::const_iterator i=ri.closed.begin(); i!=ri.closed.end(); ++i) {
+        for (std::vector<MSEdge*>::const_iterator i = ri.closed.begin(); i != ri.closed.end(); ++i) {
             GUIEdge* gedge = static_cast<GUIEdge*>(*i);
             const std::vector<MSLane*> &lanes = gedge->getLanes();
             size_t noLanes = lanes.size();
-            SUMOReal prob = getProbability()*360;
-            for (size_t j=0; j<noLanes; ++j) {
+            SUMOReal prob = getProbability() * 360;
+            for (size_t j = 0; j < noLanes; ++j) {
                 const PositionVector& v = gedge->getLaneGeometry((size_t) j).getShape();
                 SUMOReal d = 3.;
                 Position pos = v.positionAtLengthPosition(d);
@@ -348,9 +348,9 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
                 glTranslated(0, -1.5, 0);
 
                 int noPoints = 9;
-                if (s.scale>25) {
+                if (s.scale > 25) {
                     noPoints = (int)(9.0 + s.scale / 10.0);
-                    if (noPoints>36) {
+                    if (noPoints > 36) {
                         noPoints = 36;
                     }
                 }
@@ -364,12 +364,12 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
                 glColor3d(1, 1, 1);
                 glRotated(-90, 0, 0, 1);
                 glBegin(GL_TRIANGLES);
-                glVertex2d(0-.3, -1.);
-                glVertex2d(0-.3, 1.);
-                glVertex2d(0+.3, 1.);
-                glVertex2d(0+.3, -1.);
-                glVertex2d(0-.3, -1.);
-                glVertex2d(0+.3, 1.);
+                glVertex2d(0 - .3, -1.);
+                glVertex2d(0 - .3, 1.);
+                glVertex2d(0 + .3, 1.);
+                glVertex2d(0 + .3, -1.);
+                glVertex2d(0 - .3, -1.);
+                glVertex2d(0 + .3, 1.);
                 glEnd();
                 glPopMatrix();
             }

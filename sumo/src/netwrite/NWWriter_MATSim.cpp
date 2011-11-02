@@ -61,7 +61,7 @@ NWWriter_MATSim::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write nodes
     device << "   <nodes>\n";
     NBNodeCont& nc = nb.getNodeCont();
-    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         device << "      <node id=\"" << (*i).first
                << "\" x=\"" << (*i).second->getPosition().x()
                << "\" y=\"" << (*i).second->getPosition().y()
@@ -71,12 +71,12 @@ NWWriter_MATSim::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write edges
     device << "   <links capperiod=\"01:00:00\">\n";
     NBEdgeCont& ec = nb.getEdgeCont();
-    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
+    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         device << "      <link id=\"" << (*i).first
                << "\" from=\"" << (*i).second->getFromNode()->getID()
                << "\" to=\"" << (*i).second->getToNode()->getID()
                << "\" length=\"" << (*i).second->getLoadedLength()
-               << "\" capacity=\"" << (oc.getFloat("lanes-from-capacity.norm")*(*i).second->getNumLanes())
+               << "\" capacity=\"" << (oc.getFloat("lanes-from-capacity.norm") * (*i).second->getNumLanes())
                << "\" freespeed=\"" << (*i).second->getSpeed()
                << "\" permlanes=\"" << (*i).second->getNumLanes()
                << "\"/>\n";

@@ -44,7 +44,7 @@
 class IDSupplier {
 public:
     /// Constructor
-    IDSupplier(const std::string& prefix="", long begin=0);
+    IDSupplier(const std::string& prefix = "", long begin = 0);
 
     /** @brief Constructor
      * @param[in] prefix The string to use as ID prefix

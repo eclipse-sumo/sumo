@@ -51,7 +51,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 
 MSInsertionControl::~MSInsertionControl() throw() {
-    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
+    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
         delete(i->pars);
     }
 }
@@ -67,8 +67,8 @@ void
 MSInsertionControl::add(SUMOVehicleParameter* pars) throw() {
     Flow flow;
     flow.pars = pars;
-    flow.isVolatile = pars->departLaneProcedure==DEPART_LANE_RANDOM ||
-                      pars->departPosProcedure==DEPART_POS_RANDOM ||
+    flow.isVolatile = pars->departLaneProcedure == DEPART_LANE_RANDOM ||
+                      pars->departPosProcedure == DEPART_POS_RANDOM ||
                       MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(pars->vtypeid);
     if (!flow.isVolatile) {
         RandomDistributor<const MSRoute*> *dist = MSRoute::distDictionary(pars->routeid);
@@ -96,7 +96,7 @@ unsigned int
 MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
-    if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.empty()&&myRefusedEmits2.empty()&&myFlows.empty()) {
+    if (!myAllVeh.anyWaitingFor(time) && myRefusedEmits1.empty() && myRefusedEmits2.empty() && myFlows.empty()) {
         return 0;
     }
     unsigned int noEmitted = 0;
@@ -104,15 +104,15 @@ MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     //  for this, we have two lists; one contains previously refused emits, the second
     //  will be used to append those vehicles that will not be able to depart in this
     //  time step
-    assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
+    assert(myRefusedEmits1.size() == 0 || myRefusedEmits2.size() == 0);
     MSVehicleContainer::VehicleVector& refusedEmits =
-        myRefusedEmits1.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+        myRefusedEmits1.size() == 0 ? myRefusedEmits1 : myRefusedEmits2;
     MSVehicleContainer::VehicleVector& previousRefused =
-        myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+        myRefusedEmits2.size() == 0 ? myRefusedEmits1 : myRefusedEmits2;
 
     // go through the list of previously refused vehicles, first
     MSVehicleContainer::VehicleVector::const_iterator veh;
-    for (veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
+    for (veh = previousRefused.begin(); veh != previousRefused.end(); veh++) {
         noEmitted += tryInsert(time, *veh, refusedEmits);
     }
     // clear previously refused vehicle container
@@ -126,7 +126,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     while (myAllVeh.anyWaitingFor(time)) {
         const MSVehicleContainer::VehicleVector& next = myAllVeh.top();
         // go through the list and try to emit
-        for (veh=next.begin(); veh!=next.end(); veh++) {
+        for (veh = next.begin(); veh != next.end(); veh++) {
             noEmitted += tryInsert(time, *veh, refusedEmits);
         }
         // let the MSVehicleContainer clear the vehicles
@@ -142,13 +142,13 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
                               MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
-    if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime()!=time) && edge.insertVehicle(*veh, time)) {
+    if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
         // Successful emission.
         checkFlowWait(veh);
         veh->onDepart();
         return 1;
     }
-    if (myMaxDepartDelay>=0 && time - veh->getParameter().depart > myMaxDepartDelay) {
+    if (myMaxDepartDelay >= 0 && time - veh->getParameter().depart > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
         checkFlowWait(veh);
         myVehicleControl.deleteVehicle(veh);
@@ -167,7 +167,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
 
 void
 MSInsertionControl::checkFlowWait(SUMOVehicle* veh) throw() {
-    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
+    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
         if (i->vehicle == veh) {
             i->vehicle = 0;
             break;
@@ -180,8 +180,8 @@ void
 MSInsertionControl::checkPrevious(SUMOTime time) throw() {
     // check to which list append to
     MSVehicleContainer::VehicleVector& previousRefused =
-        myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
-    while (!myAllVeh.isEmpty()&&myAllVeh.topTime()<time) {
+        myRefusedEmits2.size() == 0 ? myRefusedEmits1 : myRefusedEmits2;
+    while (!myAllVeh.isEmpty() && myAllVeh.topTime() < time) {
         const MSVehicleContainer::VehicleVector& top = myAllVeh.top();
         copy(top.begin(), top.end(), back_inserter(previousRefused));
         myAllVeh.pop();
@@ -193,9 +193,9 @@ unsigned int
 MSInsertionControl::checkFlows(SUMOTime time,
                                MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError) {
     unsigned int noEmitted = 0;
-    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end();) {
+    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
-        if (!i->isVolatile && i->vehicle!=0) {
+        if (!i->isVolatile && i->vehicle != 0) {
             ++i;
             continue;
         }
@@ -206,13 +206,13 @@ MSInsertionControl::checkFlows(SUMOTime time,
             newPars->depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             pars->repetitionsDone++;
             // try to build the vehicle
-            if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id)==0) {
+            if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id) == 0) {
                 const MSRoute* route = MSRoute::dictionary(pars->routeid);
                 const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
                 i->vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
                 MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, i->vehicle);
                 noEmitted += tryInsert(time, i->vehicle, refusedEmits);
-                if (!i->isVolatile && i->vehicle!=0) {
+                if (!i->isVolatile && i->vehicle != 0) {
                     break;
                 }
             } else {

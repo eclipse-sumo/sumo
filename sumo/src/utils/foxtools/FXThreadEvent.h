@@ -119,17 +119,17 @@ protected:
 
 public:
     enum {
-        ID_THREAD_EVENT=FXBaseObject::ID_LAST,
+        ID_THREAD_EVENT = FXBaseObject::ID_LAST,
         ID_LAST
     };
 
 public:
-    long onThreadSignal(FXObject*,FXSelector,void*);
-    long onThreadEvent(FXObject*,FXSelector,void*);
+    long onThreadSignal(FXObject*, FXSelector, void*);
+    long onThreadEvent(FXObject*, FXSelector, void*);
 
 public:
     /// Construct an object capable of signaling the main FOX event loop
-    FXThreadEvent(FXObject* tgt=NULL,FXSelector sel=0);
+    FXThreadEvent(FXObject* tgt = NULL, FXSelector sel = 0);
 
     /**
      * Signal the event - using the SEL_THREAD FXSelector type

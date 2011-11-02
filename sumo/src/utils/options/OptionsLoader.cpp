@@ -71,7 +71,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
 
 void OptionsLoader::setValue(const std::string& key,
                              std::string& value) {
-    if (value.length()>0) {
+    if (value.length() > 0) {
         try {
             if (!setSecure(key, value)) {
                 WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
@@ -104,10 +104,10 @@ OptionsLoader::setSecure(const std::string& name,
 
 void
 OptionsLoader::endElement(const XMLCh* const /*name*/) {
-    if (myItem.length()==0 || myValue.length()==0) {
+    if (myItem.length() == 0 || myValue.length() == 0) {
         return;
     }
-    if (myValue.find_first_not_of("\n\t \a")==std::string::npos) {
+    if (myValue.find_first_not_of("\n\t \a") == std::string::npos) {
         return;
     }
     setValue(myItem, myValue);
@@ -120,7 +120,7 @@ void
 OptionsLoader::warning(const SAXParseException& exception) {
     WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
-                  + toString(exception.getLineNumber()+1) + '/' \
+                  + toString(exception.getLineNumber() + 1) + '/' \
                   + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
@@ -132,7 +132,7 @@ OptionsLoader::error(const SAXParseException& exception) {
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
-        + toString(exception.getLineNumber()+1) + '/'
+        + toString(exception.getLineNumber() + 1) + '/'
         + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
@@ -144,7 +144,7 @@ OptionsLoader::fatalError(const SAXParseException& exception) {
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
-        + toString(exception.getLineNumber()+1) + '/'
+        + toString(exception.getLineNumber() + 1) + '/'
         + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }

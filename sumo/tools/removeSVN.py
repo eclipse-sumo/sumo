@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 @file    removeSVN.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    28-08-2008
 @version $Id$
 

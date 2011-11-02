@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    routes_Join.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    11.09.2009
 @version $Id$
 

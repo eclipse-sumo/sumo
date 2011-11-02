@@ -65,8 +65,8 @@ NIVissimVehTypeClass::dictionary(int id, const std::string& name,
 
 bool
 NIVissimVehTypeClass::dictionary(int name, NIVissimVehTypeClass* o) {
-    DictType::iterator i=myDict.find(name);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(name);
+    if (i == myDict.end()) {
         myDict[name] = o;
         return true;
     }
@@ -76,8 +76,8 @@ NIVissimVehTypeClass::dictionary(int name, NIVissimVehTypeClass* o) {
 
 NIVissimVehTypeClass*
 NIVissimVehTypeClass::dictionary(int name) {
-    DictType::iterator i=myDict.find(name);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(name);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -86,7 +86,7 @@ NIVissimVehTypeClass::dictionary(int name) {
 
 void
 NIVissimVehTypeClass::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

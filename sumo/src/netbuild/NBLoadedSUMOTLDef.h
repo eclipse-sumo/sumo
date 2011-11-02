@@ -107,7 +107,7 @@ public:
      * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
-    void removeConnection(const NBConnection& conn, bool reconstruct=true);
+    void removeConnection(const NBConnection& conn, bool reconstruct = true);
 
     /** @brief Returns the internal logic
      */

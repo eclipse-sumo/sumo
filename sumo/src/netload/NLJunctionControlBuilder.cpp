@@ -103,33 +103,33 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
 
 void
 NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError) {
-    if (myJunctions==0) {
+    if (myJunctions == 0) {
         throw ProcessError("Information about the number of nodes was missing.");
     }
     MSJunction* junction = 0;
     switch (myType) {
-    case NODETYPE_NOJUNCTION:
-    case NODETYPE_DEAD_END:
-    case NODETYPE_DEAD_END_DEPRECATED:
-    case NODETYPE_DISTRICT:
-        junction = buildNoLogicJunction();
-        break;
-    case NODETYPE_TRAFFIC_LIGHT:
-    case NODETYPE_RIGHT_BEFORE_LEFT:
-    case NODETYPE_PRIORITY_JUNCTION:
-        junction = buildLogicJunction();
-        break;
-    case NODETYPE_INTERNAL:
+        case NODETYPE_NOJUNCTION:
+        case NODETYPE_DEAD_END:
+        case NODETYPE_DEAD_END_DEPRECATED:
+        case NODETYPE_DISTRICT:
+            junction = buildNoLogicJunction();
+            break;
+        case NODETYPE_TRAFFIC_LIGHT:
+        case NODETYPE_RIGHT_BEFORE_LEFT:
+        case NODETYPE_PRIORITY_JUNCTION:
+            junction = buildLogicJunction();
+            break;
+        case NODETYPE_INTERNAL:
 #ifdef HAVE_INTERNAL_LANES
-        if (MSGlobals::gUsingInternalLanes) {
-            junction = buildInternalJunction();
-        }
+            if (MSGlobals::gUsingInternalLanes) {
+                junction = buildInternalJunction();
+            }
 #endif
-        break;
-    default:
-        throw InvalidArgument("False junction logic type.");
+            break;
+        default:
+            throw InvalidArgument("False junction logic type.");
     }
-    if (junction!=0) {
+    if (junction != 0) {
         if (!myJunctions->add(myActiveID, junction)) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
@@ -180,7 +180,7 @@ NLJunctionControlBuilder::buildInternalJunction() throw() {
 MSJunctionLogic*
 NLJunctionControlBuilder::getJunctionLogicSecure() throw(InvalidArgument) {
     // get and check the junction logic
-    if (myLogics.find(myActiveID)==myLogics.end()) {
+    if (myLogics.find(myActiveID) == myLogics.end()) {
         throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
     }
     return myLogics[myActiveID];
@@ -195,8 +195,8 @@ NLJunctionControlBuilder::getTLLogic(const std::string& id) const throw(InvalidA
 
 void
 NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, ProcessError) {
-    if (myActiveProgram=="off") {
-        if (myAbsDuration>0) {
+    if (myActiveProgram == "off") {
+        if (myAbsDuration > 0) {
             throw InvalidArgument("The off program for TLS '" + myActiveKey + "' has phases.");
         }
         if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram,
@@ -205,7 +205,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         }
         return;
     }
-    if (myAbsDuration==0) {
+    if (myAbsDuration == 0) {
         throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
     }
     // compute the initial step and first switch time of the tls-logic
@@ -213,7 +213,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     SUMOTime firstEventOffset = 0;
     SUMOTime offset = (myNet.getCurrentTimeStep() + myOffset % myAbsDuration) % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    while (offset>=(*i)->duration) {
+    while (offset >= (*i)->duration) {
         step++;
         offset -= (*i)->duration;
         ++i;
@@ -221,35 +221,35 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
     firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
 
     //
-    if (myActiveProgram=="") {
+    if (myActiveProgram == "") {
         myActiveProgram = "default";
     }
     MSTrafficLightLogic* tlLogic = 0;
     // build the tls-logic in dependance to its type
     switch (myLogicType) {
-    case TLTYPE_ACTUATED:
-        tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                myActiveKey, myActiveProgram,
-                myActivePhases, step, firstEventOffset, myAdditionalParameter);
-        break;
-    case TLTYPE_AGENT:
-        tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
-                myActiveKey, myActiveProgram,
-                myActivePhases, step, firstEventOffset, myAdditionalParameter);
-        break;
-    case TLTYPE_STATIC:
-        tlLogic =
-            new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                          myActiveKey, myActiveProgram,
-                                          myActivePhases, step, firstEventOffset);
-        tlLogic->setParameter(myAdditionalParameter);
+        case TLTYPE_ACTUATED:
+            tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+            break;
+        case TLTYPE_AGENT:
+            tlLogic = new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, firstEventOffset, myAdditionalParameter);
+            break;
+        case TLTYPE_STATIC:
+            tlLogic =
+                new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
+                                              myActiveKey, myActiveProgram,
+                                              myActivePhases, step, firstEventOffset);
+            tlLogic->setParameter(myAdditionalParameter);
     }
     TLInitInfo ii;
     ii.logic = tlLogic;
     ii.params = myAdditionalParameter;
     myJunctions2PostLoadInit.push_back(ii);
     myActivePhases.clear();
-    if (tlLogic!=0) {
+    if (tlLogic != 0) {
         try {
             if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, tlLogic)) {
                 throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveProgram + "' exists.");
@@ -286,7 +286,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
         // had an error
         return;
     }
-    if (request>63) {
+    if (request > 63) {
         // bad request
         myCurrentHasError = true;
         throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
@@ -353,7 +353,7 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
         // had an error before...
         return;
     }
-    if (myRequestItemNumber!=myRequestSize) {
+    if (myRequestItemNumber != myRequestSize) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     if (myLogics.count(myActiveKey) > 0) {
@@ -387,7 +387,7 @@ NLJunctionControlBuilder::addParam(const std::string& key,
 
 MSTLLogicControl&
 NLJunctionControlBuilder::getTLLogicControlToUse() const throw() {
-    if (myLogicControl!=0) {
+    if (myLogicControl != 0) {
         return *myLogicControl;
     }
     return myNet.getTLSControl();

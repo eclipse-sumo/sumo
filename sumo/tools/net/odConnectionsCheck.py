@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    odConnectionsCheck.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2007-03-20
 @version $Id$
 

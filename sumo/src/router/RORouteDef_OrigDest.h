@@ -53,25 +53,25 @@ class RORouteDef_OrigDest
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string& id, const RGBColor* const color,
-                        const ROEdge* from, const ROEdge* to, bool removeFirst=false) throw();
+                        const ROEdge* from, const ROEdge* to, bool removeFirst = false) throw();
 
     /// Destructor
     virtual ~RORouteDef_OrigDest() throw();
 
     /// Builds the current route from the given information (perform routing, here)
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                const ROVehicle& veh) const;
 
     /** @brief Adds the build route to the container
     *
      * Here, the currently new route is added */
-    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef* copy(const std::string& id) const;
 
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
 
 protected:

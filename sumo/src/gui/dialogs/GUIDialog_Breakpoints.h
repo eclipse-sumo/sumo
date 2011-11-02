@@ -69,19 +69,19 @@ public:
     /// @{
 
     /// @brief Called when the user presses the Load-button
-    long onCmdLoad(FXObject*,FXSelector,void*);
+    long onCmdLoad(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user presses the Save-button
-    long onCmdSave(FXObject*,FXSelector,void*);
+    long onCmdSave(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user presses the Clear-button
-    long onCmdClear(FXObject*,FXSelector,void*);
+    long onCmdClear(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user presses the Close-button
-    long onCmdClose(FXObject*,FXSelector,void*);
+    long onCmdClose(FXObject*, FXSelector, void*);
 
     /// @brief Called when the table was changed
-    long onCmdEditTable(FXObject*,FXSelector,void*);
+    long onCmdEditTable(FXObject*, FXSelector, void*);
     /// @}
 
 

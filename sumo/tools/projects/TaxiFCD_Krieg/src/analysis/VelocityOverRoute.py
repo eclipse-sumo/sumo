@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    VelocityOverRoute.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-05-26
 
 Shows the velocity of the chosen taxi over the driven route for all available sources.

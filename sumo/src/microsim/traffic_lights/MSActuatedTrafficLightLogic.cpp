@@ -54,15 +54,15 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     : MSSimpleTrafficLightLogic(tlcontrol, id, programID, phases, step, delay),
       myContinue(false) {
     myMaxGap = SUMOReal(3.1);
-    if (parameter.find("max-gap")!=parameter.end()) {
+    if (parameter.find("max-gap") != parameter.end()) {
         myMaxGap = TplConvert<char>::_2SUMOReal(parameter.find("max-gap")->second.c_str());
     }
     myPassingTime = SUMOReal(1.9);
-    if (parameter.find("passing-time")!=parameter.end()) {
+    if (parameter.find("passing-time") != parameter.end()) {
         myPassingTime = TplConvert<char>::_2SUMOReal(parameter.find("passing-time")->second.c_str());
     }
     myDetectorGap = SUMOReal(3.0);
-    if (parameter.find("detector-gap")!=parameter.end()) {
+    if (parameter.find("detector-gap") != parameter.end()) {
         myDetectorGap = TplConvert<char>::_2SUMOReal(parameter.find("detector-gap")->second.c_str());
     }
 }
@@ -76,31 +76,31 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the induct loops
-    for (i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
+    for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
-        for (i=lanes.begin(); i!=lanes.end(); i++) {
+        for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
             SUMOReal length = lane->getLength();
             SUMOReal speed = lane->getMaxSpeed();
             SUMOReal inductLoopPosition = myDetectorGap * speed;
             // check whether the lane is long enough
             SUMOReal ilpos = length - inductLoopPosition;
-            if (ilpos<0) {
+            if (ilpos < 0) {
                 ilpos = 0;
             }
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
-            if (myInductLoops.find(lane)==myInductLoops.end()) {
+            if (myInductLoops.find(lane) == myInductLoops.end()) {
                 myInductLoops[lane] = static_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, false));
             }
         }
         // build the lane state-detectors
-        for (i=lanes.begin(); i!=lanes.end(); i++) {
+        for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
             SUMOReal length = lane->getLength();
             // check whether the position is o.k. (not longer than the lane)
             SUMOReal lslen = det_offset;
-            if (lslen>length) {
+            if (lslen > length) {
                 lslen = length;
             }
         }
@@ -109,7 +109,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
 
 MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
-    for (InductLoopMap::iterator i=myInductLoops.begin(); i!=myInductLoops.end(); ++i) {
+    for (InductLoopMap::iterator i = myInductLoops.begin(); i != myInductLoops.end(); ++i) {
         delete(*i).second;
     }
 }
@@ -125,8 +125,8 @@ MSActuatedTrafficLightLogic::trySwitch(bool) {
     }
     // increment the index to the current phase
     myStep++;
-    assert(myStep<=myPhases.size());
-    if (myStep==myPhases.size()) {
+    assert(myStep <= myPhases.size());
+    if (myStep == myPhases.size()) {
         myStep = 0;
     }
     //stores the time the phase started
@@ -142,20 +142,20 @@ MSActuatedTrafficLightLogic::duration() const {
     if (myContinue) {
         return 1;
     }
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     if (!getCurrentPhaseDef().isGreenPhase()) {
         return getCurrentPhaseDef().duration;
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = (int) getCurrentPhaseDef().minDuration;
     const std::string& state = getCurrentPhaseDef().getState();
-    for (unsigned int i=0; i<(unsigned int) state.size(); i++) {
-        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
+    for (unsigned int i = 0; i < (unsigned int) state.size(); i++) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty()) {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
                 InductLoopMap::const_iterator k = myInductLoops.find(*j);
                 SUMOReal waiting = (SUMOReal)(*k).second->getCurrentPassedNumber();
                 SUMOReal tmpdur =  myPassingTime * waiting;
@@ -176,7 +176,7 @@ MSActuatedTrafficLightLogic::duration() const {
 void
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     if (!getCurrentPhaseDef().isGreenPhase()) {
         myContinue = false;
         return;
@@ -191,14 +191,14 @@ MSActuatedTrafficLightLogic::gapControl() {
 
     // now the gapcontrol starts
     const std::string& state = getCurrentPhaseDef().getState();
-    for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
-        if (state[i]==LINKSTATE_TL_GREEN_MAJOR||state[i]==LINKSTATE_TL_GREEN_MINOR) {
+    for (unsigned int i = 0; i < (unsigned int) state.size(); i++)  {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-                if (myInductLoops.find(*j)==myInductLoops.end()) {
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
+                if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
                 }
                 SUMOReal actualGap =

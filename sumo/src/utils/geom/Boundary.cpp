@@ -101,7 +101,7 @@ Boundary::add(const Boundary& p) {
 
 Position
 Boundary::getCenter() const {
-    return Position((myXmin+myXmax)/(SUMOReal) 2.0, (myYmin+myYmax)/(SUMOReal) 2.0);
+    return Position((myXmin + myXmax) / (SUMOReal) 2.0, (myYmin + myYmax) / (SUMOReal) 2.0);
 }
 
 
@@ -144,8 +144,8 @@ Boundary::getHeight() const {
 bool
 Boundary::around(const Position& p, SUMOReal offset) const {
     return
-        (p.x()<=myXmax+offset && p.x()>=myXmin-offset) &&
-        (p.y()<=myYmax+offset && p.y()>=myYmin-offset);
+        (p.x() <= myXmax + offset && p.x() >= myXmin - offset) &&
+        (p.y() <= myYmax + offset && p.y() >= myYmin - offset);
 }
 
 
@@ -160,13 +160,13 @@ Boundary::overlapsWith(const AbstractPoly& p, SUMOReal offset) const {
     }
     // check whether the bounderies cross
     return
-        p.crosses(Position(myXmax+offset, myYmax+offset), Position(myXmin-offset, myYmax+offset))
+        p.crosses(Position(myXmax + offset, myYmax + offset), Position(myXmin - offset, myYmax + offset))
         ||
-        p.crosses(Position(myXmin-offset, myYmax+offset), Position(myXmin-offset, myYmin-offset))
+        p.crosses(Position(myXmin - offset, myYmax + offset), Position(myXmin - offset, myYmin - offset))
         ||
-        p.crosses(Position(myXmin-offset, myYmin-offset), Position(myXmax+offset, myYmin-offset))
+        p.crosses(Position(myXmin - offset, myYmin - offset), Position(myXmax + offset, myYmin - offset))
         ||
-        p.crosses(Position(myXmax+offset, myYmin-offset), Position(myXmax+offset, myYmax+offset));
+        p.crosses(Position(myXmax + offset, myYmin - offset), Position(myXmax + offset, myYmax + offset));
 }
 
 

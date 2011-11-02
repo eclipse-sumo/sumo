@@ -113,7 +113,7 @@ public:
 
         /// Comparing method
         bool operator()(EdgeInfo* nod1, EdgeInfo* nod2) const {
-            return nod1->effort>nod2->effort;
+            return nod1->effort > nod2->effort;
         }
     };
 
@@ -135,28 +135,28 @@ public:
         UNUSED_PARAMETER(vehicle);
         // get structures to reuse
         std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
-        if (visited==0) {
+        if (visited == 0) {
             visited = new std::vector<bool>(myNoE, false);
         } else {
-            for (size_t i=0; i<myNoE; i++) {
+            for (size_t i = 0; i < myNoE; i++) {
                 (*visited)[i] = false; // too slow? !!!
             }
         }
         EdgeInfoCont* storage = myReusableEdgeInfoLists.getFreeInstance();
-        if (storage==0) {
+        if (storage == 0) {
             storage = new EdgeInfoCont(myNoE);
         }
         storage->reset();
 
         // check the nodes
-        if (from==0||to==0) {
+        if (from == 0 || to == 0) {
             throw std::exception();
         }
 
         // begin computation
-        std::priority_queue<EdgeInfo*,
+        std::priority_queue < EdgeInfo*,
             std::vector<EdgeInfo*>,
-            EdgeInfoByEffortComperator> frontierList;
+            EdgeInfoByEffortComperator > frontierList;
         // add begin node
         const E* actualKnot = from;
         if (from != 0) {
@@ -182,7 +182,7 @@ public:
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             unsigned int length_size = minEdge->getNoFollowing();
-            for (i=0; i<length_size; i++) {
+            for (i = 0; i < length_size; i++) {
                 const E* help = minEdge->getFollower(i);
 
                 if ((!(*visited)[help->getNumericalID()] && effort < storage->getEffort(help))
@@ -202,7 +202,7 @@ public:
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle* const v, SUMOTime time) throw() {
         UNUSED_PARAMETER(v);
         SUMOReal costs = 0;
-        for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+        for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
             costs += getEffort(*i, (SUMOTime)(time + costs));
         }
         return costs;
@@ -213,7 +213,7 @@ public:
     void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*> &edges) {
         std::deque<const E*> tmp;
         EdgeInfo* last = rbegin;
-        while (rbegin!=0) {
+        while (rbegin != 0) {
             tmp.push_front((E*) rbegin->edge);  // !!!
             rbegin = rbegin->prev;
             if (rbegin == last) {
@@ -236,7 +236,7 @@ public:
     public:
         /// Constructor
         EdgeInfoCont(size_t toAlloc)
-            : myEdgeInfos(toAlloc+1, EdgeInfo()) { }
+            : myEdgeInfos(toAlloc + 1, EdgeInfo()) { }
 
         /// Destructor
         ~EdgeInfoCont() { }
@@ -264,7 +264,7 @@ public:
 
         /// Resets all effort-information
         void reset() {
-            for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
+            for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
                 (*i).effort = std::numeric_limits<SUMOReal>::max();
             }
         }

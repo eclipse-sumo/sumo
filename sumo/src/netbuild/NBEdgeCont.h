@@ -105,7 +105,7 @@ public:
      * @param[in] ignorePrunning Whether this edge must not be prunned
      * @return Whether the edge was valid (no edge with the same id is already known)
      */
-    bool insert(NBEdge* edge, bool ignorePrunning=false) throw();
+    bool insert(NBEdge* edge, bool ignorePrunning = false) throw();
 
 
     /** @brief Returns the edge that has the given id
@@ -116,7 +116,7 @@ public:
      * @param[in] bool Whether extracted edges shall be retrieved as well
      * @return The edge with the given id, 0 if no such edge exists
      */
-    NBEdge* retrieve(const std::string& id, bool retrieveExtracted=false) const throw();
+    NBEdge* retrieve(const std::string& id, bool retrieveExtracted = false) const throw();
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -165,7 +165,7 @@ public:
      * @param[in] remember Whether to keep this edge for future reference
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
-    void extract(NBDistrictCont& dc, NBEdge* edge, bool remember=false);
+    void extract(NBDistrictCont& dc, NBEdge* edge, bool remember = false);
 
 
     /** @brief Returns the pointer to the begin of the stored edges

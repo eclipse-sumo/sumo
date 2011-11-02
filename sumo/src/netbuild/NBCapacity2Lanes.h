@@ -65,11 +65,11 @@ public:
      */
     int get(SUMOReal capacity) const throw() {
         capacity /= myDivider;
-        if (capacity>(int) capacity) {
+        if (capacity > (int) capacity) {
             capacity += 1;
         }
         // just assure that the number of lanes is not zero
-        if (capacity==0) {
+        if (capacity == 0) {
             capacity = 1;
         }
         return (int) capacity;

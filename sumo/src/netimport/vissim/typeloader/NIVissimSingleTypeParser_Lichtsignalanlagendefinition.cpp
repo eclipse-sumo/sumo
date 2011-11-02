@@ -57,38 +57,38 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream& from)
     //
     std::string tag, name;
     tag = myRead(from);
-    if (tag=="name") {
+    if (tag == "name") {
         name = readName(from);
         tag = myRead(from);
     }
     // type
     std::string type;
     type = myRead(from);
-    if (type=="festzeit") {
+    if (type == "festzeit") {
         return parseFixedTime(id, name, from);
     }
-    if (type=="vas") {
+    if (type == "vas") {
         return parseVAS(id, name, from);
     }
-    if (type=="vsplus") {
+    if (type == "vsplus") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="trends") {
+    if (type == "trends") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="vap") {
+    if (type == "vap") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="tl") {
+    if (type == "tl") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="pos") {
+    if (type == "pos") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="nema") {
+    if (type == "nema") {
         return parseRestActuated(id, name, from, type);
     }
-    if (type=="extern") {
+    if (type == "extern") {
         return parseRestActuated(id, name, from, type);
     }
     WRITE_ERROR("Unsupported LSA-Type '" + type + "' occured.");
@@ -108,12 +108,12 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if (tag=="versatz") {
+    if (tag == "versatz") {
         from >> offset; // type-checking is missing!
     }
-    if (tag!="szpkonfdatei"&&tag!="DATAEND"&&tag!="progdatei") {
+    if (tag != "szpkonfdatei" && tag != "DATAEND" && tag != "progdatei") {
         tag = readEndSecure(from);
-        if (tag=="szpkonfdatei"||tag=="progdatei") {
+        if (tag == "szpkonfdatei" || tag == "progdatei") {
             type = "festzeit_fake";
         }
     }
@@ -132,7 +132,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if (tag=="versatz") {
+    if (tag == "versatz") {
         from >> offset; // type-checking is missing!
     }
     return NIVissimTL::dictionary(id, "vas", name, (SUMOTime) absdur, (SUMOTime) offset);
@@ -150,10 +150,10 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     //
     tag = readEndSecure(from);
     SUMOReal offset = 0;
-    if (tag=="versatz") {
+    if (tag == "versatz") {
         from >> offset; // type-checking is missing!
     }
-    while (tag!="datei") {
+    while (tag != "datei") {
         tag = myRead(from);
     }
     return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);

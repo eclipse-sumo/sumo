@@ -68,7 +68,7 @@ MSDevice_Tripinfo::~MSDevice_Tripinfo() throw() {
 bool
 MSDevice_Tripinfo::notifyMove(SUMOVehicle& /*veh*/, SUMOReal /*oldPos*/,
                               SUMOReal /*newPos*/, SUMOReal newSpeed) throw() {
-    if (newSpeed<=0.1) {
+    if (newSpeed <= 0.1) {
         myWaitingSteps++;
     }
     return true;
@@ -136,8 +136,8 @@ MSDevice_Tripinfo::generateOutput() const throw(IOError) {
        << "rerouteNo=\"" << myHolder.getNumberReroutes();
     const std::vector<MSDevice*> &devices = myHolder.getDevices();
     std::ostringstream str;
-    for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
-        if (i!=devices.begin()) {
+    for (std::vector<MSDevice*>::const_iterator i = devices.begin(); i != devices.end(); ++i) {
+        if (i != devices.begin()) {
             str << ' ';
         }
         str << (*i)->getID();

@@ -194,7 +194,7 @@ public:
 
 
     void drawName(const Position& pos, const SUMOReal scale,
-                  const GUIVisualizationTextSettings& settings, const SUMOReal angle=0) const;
+                  const GUIVisualizationTextSettings& settings, const SUMOReal angle = 0) const;
 
 
 protected:
@@ -205,35 +205,35 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator=true) throw();
+    void buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator = true) throw();
 
 
     /** @brief Builds an entry which allows to center to the object
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
 
 
     /** @brief Builds entries which allow to copy the name / typed name into the clipboard
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
 
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
 
 
     /** @brief Builds an entry which allows to open the parameter window
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
 
 
     /** @brief Builds an entry which allows to copy the cursor position
@@ -241,14 +241,14 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
 
 
     /** @brief Builds an entry which allows to open the manipulator window
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator=true) throw();
+    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
     //@}
 
 protected:

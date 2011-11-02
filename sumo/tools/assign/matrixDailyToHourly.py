@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    getHourlyMatrix.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2008-08-20
 @version $Id$
 

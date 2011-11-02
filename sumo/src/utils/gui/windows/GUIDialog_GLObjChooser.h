@@ -88,19 +88,19 @@ public:
     /// @{
 
     /// @brief Callback: The selected item shall be centered within the calling view
-    long onCmdCenter(FXObject*,FXSelector,void*);
+    long onCmdCenter(FXObject*, FXSelector, void*);
 
     /// @brief Callback: The dialog shall be closed
-    long onCmdClose(FXObject*,FXSelector,void*);
+    long onCmdClose(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Something has been typed into the the field
-    long onChgText(FXObject*,FXSelector,void*);
+    long onChgText(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Selects to current item if enter is pressed
-    long onCmdText(FXObject*,FXSelector,void*);
+    long onCmdText(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Selects to current item if enter is pressed
-    long onListKeyPress(FXObject*,FXSelector,void*);
+    long onListKeyPress(FXObject*, FXSelector, void*);
     /// @}
 
 

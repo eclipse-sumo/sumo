@@ -108,15 +108,15 @@ public:
             length
         throws an EmptyData - exception if the given string is empty */
     static std::string _2str(const E* const data, unsigned length) {
-        if (data==0) {
+        if (data == 0) {
             throw EmptyData();
         }
-        if (length==0) {
+        if (length == 0) {
             return "";
         }
-        char* buf = new char[length+1];
+        char* buf = new char[length + 1];
         unsigned i = 0;
-        for (i=0; i<length; i++) {
+        for (i = 0; i < length; i++) {
             if ((int) data[i] > 255) {
                 buf[i] = 63; // rudimentary damage control, replace with '?'
             } else {
@@ -136,28 +136,28 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain an integer */
     static int _2int(const E* const data, unsigned length) {
-        if (data==0||length==0||data[0]==0) {
+        if (data == 0 || length == 0 || data[0] == 0) {
             throw EmptyData();
         }
         int sgn = 1;
-        unsigned i=0;
-        if (data[0]=='+') {
+        unsigned i = 0;
+        if (data[0] == '+') {
             i++;
         }
-        if (data[0]=='-') {
+        if (data[0] == '-') {
             i++;
             sgn = -1;
         }
         int val = 0;
-        for (; i<length&&data[i]!=0; i++) {
+        for (; i < length && data[i] != 0; i++) {
             val = val * 10;
             char akt = (char) data[i];
-            if (akt<'0'||akt>'9') {
+            if (akt < '0' || akt > '9') {
                 throw NumberFormatException();
             }
             val = val + akt - 48;
         }
-        if (i==0) {
+        if (i == 0) {
             throw EmptyData();
         }
         return val * sgn;
@@ -170,28 +170,28 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a long */
     static long _2long(const E* const data, unsigned length) {
-        if (data==0||length==0||data[0]==0) {
+        if (data == 0 || length == 0 || data[0] == 0) {
             throw EmptyData();
         }
         long sgn = 1;
-        unsigned i=0;
-        if (data[0]=='+') {
+        unsigned i = 0;
+        if (data[0] == '+') {
             i++;
         }
-        if (data[0]=='-') {
+        if (data[0] == '-') {
             i++;
             sgn = -1;
         }
         long ret = 0;
-        for (; i<length&&data[i]!=0; i++) {
+        for (; i < length && data[i] != 0; i++) {
             ret = ret * 10;
             char akt = (char) data[i];
-            if (akt<'0'||akt>'9') {
+            if (akt < '0' || akt > '9') {
                 throw NumberFormatException();
             }
             ret = ret + akt - 48;
         }
-        if (i==0) {
+        if (i == 0) {
             throw EmptyData();
         }
         return ret * sgn;
@@ -204,40 +204,40 @@ public:
         throws a NumberFormatException - exception when the string does
             not contain a SUMOReal */
     static SUMOReal _2SUMOReal(const E* const data, unsigned length) {
-        if (data==0||length==0||data[0]==0) {
+        if (data == 0 || length == 0 || data[0] == 0) {
             throw EmptyData();
         }
         SUMOReal ret = 0;
         unsigned i = 0;
         SUMOReal sgn = 1;
-        if (data[0]=='+') {
+        if (data[0] == '+') {
             i++;
         }
-        if (data[0]=='-') {
+        if (data[0] == '-') {
             i++;
             sgn = -1;
         }
-        for (; i<length&&data[i]!=0&&data[i]!='.'&&data[i]!=','&&data[i]!='e'&&data[i]!='E'; i++) {
+        for (; i < length && data[i] != 0 && data[i] != '.' && data[i] != ',' && data[i] != 'e' && data[i] != 'E'; i++) {
             ret = ret * 10;
             char akt = (char) data[i];
-            if (akt<'0'||akt>'9') {
+            if (akt < '0' || akt > '9') {
                 throw NumberFormatException();
             }
             ret = ret + akt - 48;
         }
         // check what has happened - end of string, e or decimal point
-        if ((char) data[i]!='.'&&(char) data[i]!=','&&data[i]!='e'&&data[i]!='E') {
-            if (i==0) {
+        if ((char) data[i] != '.' && (char) data[i] != ',' && data[i] != 'e' && data[i] != 'E') {
+            if (i == 0) {
                 throw EmptyData();
             }
             return ret * sgn;
         }
-        if (data[i]=='e'||data[i]=='E') {
+        if (data[i] == 'e' || data[i] == 'E') {
             // no decimal point, just an exponent
             try {
-                int exp = _2int(data+i+1, length-i-1);
+                int exp = _2int(data + i + 1, length - i - 1);
                 SUMOReal exp2 = (SUMOReal) pow(10.0, exp);
-                return ret*sgn*exp2;
+                return ret * sgn * exp2;
             } catch (EmptyData&) {
                 // the exponent was empty
                 throw NumberFormatException();
@@ -247,23 +247,23 @@ public:
         // skip the dot
         i++;
         // parse values behin decimal point
-        for (; i<length&&data[i]!=0&&data[i]!='e'&&data[i]!='E'; i++) {
+        for (; i < length && data[i] != 0 && data[i] != 'e' && data[i] != 'E'; i++) {
             char akt = (char) data[i];
-            if (akt<'0'||akt>'9') {
+            if (akt < '0' || akt > '9') {
                 throw NumberFormatException();
             }
             ret = ret + ((SUMOReal)(akt - 48)) / div;
             div = div * 10;
         }
-        if (data[i]!='e'&&data[i]!='E') {
+        if (data[i] != 'e' && data[i] != 'E') {
             // no exponent
             return ret * sgn;
         }
         // eponent and decimal dot
         try {
-            int exp = _2int(data+i+1, length-i-1);
+            int exp = _2int(data + i + 1, length - i - 1);
             SUMOReal exp2 = (SUMOReal) pow(10.0, exp);
-            return ret*sgn*exp2;
+            return ret * sgn * exp2;
         } catch (EmptyData&) {
             // the exponent was empty
             throw NumberFormatException();
@@ -277,14 +277,14 @@ public:
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E* const data, unsigned length) {
-        if (data==0||length==0||data[0]==0) {
+        if (data == 0 || length == 0 || data[0] == 0) {
             throw EmptyData();
         }
         char akt = (char) data[0];
-        if (akt=='1' || akt=='x' || akt=='t' || akt=='T') {
+        if (akt == '1' || akt == 'x' || akt == 't' || akt == 'T') {
             return true;
         }
-        if (akt=='0' || akt=='-' || akt=='f' || akt=='F') {
+        if (akt == '0' || akt == '-' || akt == 'f' || akt == 'F') {
             return false;
         }
         throw BoolFormatException();
@@ -295,12 +295,12 @@ public:
             c-char-string considering the given length
         throws an EmptyData - exception if the given string is empty */
     static char* _2charp(const E* const data, int length) {
-        if (length==0||data==0) {
+        if (length == 0 || data == 0) {
             throw EmptyData();
         }
-        char* ret = new char[length+1];
+        char* ret = new char[length + 1];
         unsigned i = 0;
-        for (; i<length; i++) {
+        for (; i < length; i++) {
             ret[i] = (char) data[i];
         }
         ret[i] = 0;
@@ -310,11 +310,11 @@ public:
 
     /** returns the length of the string (the position of the 0-character) */
     static unsigned getLength(const E* const data) {
-        if (data==0) {
+        if (data == 0) {
             return 0;
         }
         unsigned i = 0;
-        while (data[i]!=0) {
+        while (data[i] != 0) {
             i++;
         }
         return i;

@@ -78,19 +78,19 @@ MSCFModel_Krauss::dawdle(SUMOReal speed) const {
 /** Returns the SK-vsafe. */
 SUMOReal
 MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel) const {
-    if (predSpeed==0) {
+    if (predSpeed == 0) {
         if (gap < 0.01) {
             return 0;
         }
-        return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + 2. * myDecel * gap));
+        return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + 2. * myDecel * gap));
     }
     if (predMaxDecel == 0) {
         return predSpeed;
     }
     const SUMOReal speedReduction = ACCEL2SPEED(predMaxDecel);
     const int predSteps = int(predSpeed / speedReduction);
-    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
-    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel*myTauDecel + leaderContrib));
+    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
+    return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + leaderContrib));
 }
 
 

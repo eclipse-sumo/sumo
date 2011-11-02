@@ -46,12 +46,12 @@
 bool
 OptionsParser::parse(int argc, char** argv) {
     bool ok = true;
-    for (int i=1; i<argc;) {
+    for (int i = 1; i < argc;) {
         try {
             int add;
             // try to set the current option
-            if (i<argc-1) {
-                add = check(argv[i], argv[i+1], ok);
+            if (i < argc - 1) {
+                add = check(argv[i], argv[i + 1], ok);
             } else {
                 add = check(argv[i], 0, ok);
             }
@@ -78,23 +78,23 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
     OptionsCont& oc = OptionsCont::getOptions();
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
-        std::string tmp(arg1+2);
+        std::string tmp(arg1 + 2);
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
-        if (idx1!=std::string::npos) {
-            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
+        if (idx1 != std::string::npos) {
+            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));
         } else {
-            if (arg2==0||oc.isBool(convert(arg1+2))) {
-                ok &= oc.set(convert(arg1+2), "true");
+            if (arg2 == 0 || oc.isBool(convert(arg1 + 2))) {
+                ok &= oc.set(convert(arg1 + 2), "true");
             } else {
-                ok &= oc.set(convert(arg1+2), convert(arg2));
+                ok &= oc.set(convert(arg1 + 2), convert(arg2));
                 return 2;
             }
         }
         return 1;
     }
     // go through the abbreviated switches
-    for (int i=1; arg1[i]!=0; i++) {
+    for (int i = 1; arg1[i] != 0; i++) {
         // set boolean switches
         if (oc.isBool(convert(arg1[i]))) {
             ok &= oc.set(convert(arg1[i]), "true");
@@ -102,8 +102,8 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
         } else {
             // check whether the parameter comes directly after the switch
             //  and process if so
-            if (arg2==0||arg1[i+1]!=0) {
-                ok &= processNonBooleanSingleSwitch(oc, arg1+i);
+            if (arg2 == 0 || arg1[i + 1] != 0) {
+                ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
                 return 1;
                 // process parameter following after a space
             } else {
@@ -120,19 +120,19 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
 
 bool
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, char* arg) {
-    if (arg[1]=='=') {
-        if (strlen(arg)<3) {
+    if (arg[1] == '=') {
+        if (strlen(arg) < 3) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg+2));
+            return oc.set(convert(arg[0]), std::string(arg + 2));
         }
     } else {
-        if (strlen(arg)<2) {
+        if (strlen(arg) < 2) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), std::string(arg+1));
+            return oc.set(convert(arg[0]), std::string(arg + 1));
         }
     }
 }
@@ -140,7 +140,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, char* arg) {
 
 bool
 OptionsParser::checkParameter(char* arg1) {
-    if (arg1[0]!='-') {
+    if (arg1[0] != '-') {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
@@ -150,7 +150,7 @@ OptionsParser::checkParameter(char* arg1) {
 
 bool
 OptionsParser::isAbbreviation(char* arg1) {
-    return arg1[1]!='-';
+    return arg1[1] != '-';
 }
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    addTaz.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2009-05-20
 @version $Id$
 

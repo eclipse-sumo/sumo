@@ -50,7 +50,7 @@ ROVehicleCont::~ROVehicleCont() throw() {}
 
 const ROVehicle*
 ROVehicleCont::getTopVehicle() const throw() {
-    if (size()==0) {
+    if (size() == 0) {
         return 0;
     }
     return mySorted.top();
@@ -77,7 +77,7 @@ ROVehicleCont::clear() throw() {
 bool
 ROVehicleCont::erase(const std::string& id) throw() {
     const ROVehicle* const topVeh = getTopVehicle();
-    bool wasTop = topVeh!=0&&topVeh->getID()==id;
+    bool wasTop = topVeh != 0 && topVeh->getID() == id;
     if (!NamedObjectCont<ROVehicle*>::erase(id)) {
         return false;
     }
@@ -95,7 +95,7 @@ ROVehicleCont::rebuildSorted() throw() {
     mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     std::map<std::string, ROVehicle*>::const_iterator i;
     const std::map<std::string, ROVehicle*> &mmap = getMyMap();
-    for (i=mmap.begin(); i!=mmap.end(); ++i) {
+    for (i = mmap.begin(); i != mmap.end(); ++i) {
         mySorted.push((*i).second);
     }
 }

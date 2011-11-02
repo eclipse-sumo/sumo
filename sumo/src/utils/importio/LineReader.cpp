@@ -59,13 +59,13 @@ LineReader::~LineReader() throw() {}
 
 bool
 LineReader::hasMore() const throw() {
-    return myRread<myAvailable;
+    return myRread < myAvailable;
 }
 
 
 void
 LineReader::readAll(LineHandler& lh) throw(ProcessError) {
-    while (myRread<myAvailable) {
+    while (myRread < myAvailable) {
         if (!readLine(lh)) {
             return;
         }
@@ -77,21 +77,21 @@ bool
 LineReader::readLine(LineHandler& lh) throw(ProcessError) {
     std::string toReport;
     bool moreAvailable = true;
-    while (toReport.length()==0) {
+    while (toReport.length() == 0) {
         size_t idx = myStrBuffer.find('\n');
-        if (idx==0) {
+        if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
             return lh.report("");
         }
-        if (idx!=std::string::npos) {
+        if (idx != std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
-            myStrBuffer = myStrBuffer.substr(idx+1);
-            myRread += (unsigned int)idx+1;
+            myStrBuffer = myStrBuffer.substr(idx + 1);
+            myRread += (unsigned int)idx + 1;
         } else {
-            if (myRead<myAvailable) {
+            if (myRead < myAvailable) {
                 myStrm.read(myBuffer,
-                            myAvailable - myRead<1024
+                            myAvailable - myRead < 1024
                             ? myAvailable - myRead
                             : 1024);
                 size_t noBytes = myAvailable - myRead;
@@ -101,19 +101,19 @@ LineReader::readLine(LineHandler& lh) throw(ProcessError) {
             } else {
                 toReport = myStrBuffer;
                 moreAvailable = false;
-                if (toReport=="") {
+                if (toReport == "") {
                     return lh.report(toReport);
                 }
             }
         }
     }
     // remove trailing blanks
-    int idx = (int)toReport.length()-1;
-    while (idx>=0&&toReport[idx]<32) {
+    int idx = (int)toReport.length() - 1;
+    while (idx >= 0 && toReport[idx] < 32) {
         idx--;
     }
-    if (idx>=0) {
-        toReport = toReport.substr(0, idx+1);
+    if (idx >= 0) {
+        toReport = toReport.substr(0, idx + 1);
     } else {
         toReport = "";
     }
@@ -129,21 +129,21 @@ std::string
 LineReader::readLine() throw() {
     std::string toReport;
     bool moreAvailable = true;
-    while (toReport.length()==0&&myStrm.good()) {
+    while (toReport.length() == 0 && myStrm.good()) {
         size_t idx = myStrBuffer.find('\n');
-        if (idx==0) {
+        if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
             return "";
         }
-        if (idx!=std::string::npos) {
+        if (idx != std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
-            myStrBuffer = myStrBuffer.substr(idx+1);
-            myRread += (unsigned int) idx+1;
+            myStrBuffer = myStrBuffer.substr(idx + 1);
+            myRread += (unsigned int) idx + 1;
         } else {
-            if (myRead<myAvailable) {
+            if (myRead < myAvailable) {
                 myStrm.read(myBuffer,
-                            myAvailable - myRead<1024
+                            myAvailable - myRead < 1024
                             ? myAvailable - myRead
                             : 1024);
                 size_t noBytes = myAvailable - myRead;
@@ -154,7 +154,7 @@ LineReader::readLine() throw() {
                 toReport = myStrBuffer;
                 myRread += 1024;
                 moreAvailable = false;
-                if (toReport=="") {
+                if (toReport == "") {
                     return toReport;
                 }
             }
@@ -164,12 +164,12 @@ LineReader::readLine() throw() {
         return "";
     }
     // remove trailing blanks
-    int idx = (int)toReport.length()-1;
-    while (idx>=0&&toReport[idx]<32) {
+    int idx = (int)toReport.length() - 1;
+    while (idx >= 0 && toReport[idx] < 32) {
         idx--;
     }
-    if (idx>=0) {
-        toReport = toReport.substr(0, idx+1);
+    if (idx >= 0) {
+        toReport = toReport.substr(0, idx + 1);
     } else {
         toReport = "";
     }

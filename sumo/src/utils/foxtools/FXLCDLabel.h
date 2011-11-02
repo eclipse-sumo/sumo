@@ -42,7 +42,7 @@ namespace FXEX {
 
 /// LCD Label styles
 enum {
-    LCDLABEL_NORMAL        = FRAME_SUNKEN|FRAME_THICK,
+    LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
     LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
 };
 
@@ -66,26 +66,26 @@ protected:
 
 public:
     enum {
-        ID_SEVENSEGMENT=FXHorizontalFrame::ID_LAST,
+        ID_SEVENSEGMENT = FXHorizontalFrame::ID_LAST,
         ID_LAST
     };
 
 public:
     long onPaint(FXObject*, FXSelector, void*);
-    long onCmdSetValue(FXObject*,FXSelector,void* ptr);
-    long onCmdSetIntValue(FXObject*,FXSelector,void* ptr);
-    long onCmdSetRealValue(FXObject*,FXSelector,void* ptr);
-    long onCmdSetStringValue(FXObject*,FXSelector,void* ptr);
-    long onCmdGetIntValue(FXObject*,FXSelector,void* ptr);
-    long onCmdGetRealValue(FXObject*,FXSelector,void* ptr);
-    long onCmdGetStringValue(FXObject*,FXSelector,void* ptr);
-    long onRedirectEvent(FXObject*,FXSelector,void* ptr);
-    long onQueryTip(FXObject*,FXSelector,void* ptr);
-    long onQueryHelp(FXObject*,FXSelector,void* ptr);
+    long onCmdSetValue(FXObject*, FXSelector, void* ptr);
+    long onCmdSetIntValue(FXObject*, FXSelector, void* ptr);
+    long onCmdSetRealValue(FXObject*, FXSelector, void* ptr);
+    long onCmdSetStringValue(FXObject*, FXSelector, void* ptr);
+    long onCmdGetIntValue(FXObject*, FXSelector, void* ptr);
+    long onCmdGetRealValue(FXObject*, FXSelector, void* ptr);
+    long onCmdGetStringValue(FXObject*, FXSelector, void* ptr);
+    long onRedirectEvent(FXObject*, FXSelector, void* ptr);
+    long onQueryTip(FXObject*, FXSelector, void* ptr);
+    long onQueryHelp(FXObject*, FXSelector, void* ptr);
 
 public:
     /// make me a label
-    FXLCDLabel(FXComposite* p,FXuint nfig=1,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=LCDLABEL_NORMAL,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD,FXint hs=DEFAULT_PAD);
+    FXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
 
     /// create resrouces
     virtual void create();

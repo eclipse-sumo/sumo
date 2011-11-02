@@ -56,10 +56,10 @@ AGCity::completeStreets() {
     }
 
     NrStreets = 0;
-    int pop=0, work=0;
+    int pop = 0, work = 0;
     std::vector<AGStreet>::iterator it;
 
-    for (it = streets.begin() ; it!=streets.end() ; ++it) {
+    for (it = streets.begin() ; it != streets.end() ; ++it) {
         pop += (int)(it->getPopulation());
         work += (int)(it->getWorkplaceNumber());
         ++NrStreets;
@@ -75,7 +75,7 @@ AGCity::completeStreets() {
     statData.workPositions = (int)neededWorkPositionsInCity;
     statData.factorWorkPositions = neededWorkPositionsInCity / (float) work;
 
-    for (it = streets.begin() ; it!=streets.end() ; ++it) {
+    for (it = streets.begin() ; it != streets.end() ; ++it) {
         it->setPopulation((int)(it->getPopulation() * statData.factorInhabitants));
         it->setWorkplaceNumber((int)(it->getWorkplaceNumber() * statData.factorWorkPositions));
         //it->print();
@@ -106,7 +106,7 @@ AGCity::generateWorkPositions() {
     try {
         for (it = streets.begin() ; it != streets.end() ; ++it) {
             //std::cout << "number of work positions in street: " << it->getWorkplaceNumber() << std::endl;
-            for (int i=0 ; i<it->getWorkplaceNumber() ; ++i) {
+            for (int i = 0 ; i < it->getWorkplaceNumber() ; ++i) {
                 workPositions.push_back(AGWorkPosition(*it, &statData));
                 ++workPositionCounter;
             }
@@ -136,13 +136,13 @@ AGCity::generateOutgoingWP() {
     /**
      * N_out = N_in * (ProportionOut / (1 - ProportionOut)) = N_out = N_in * (Noutworkers / (Nworkers - Noutworkers))
      */
-    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic))/(nbrWorkers - static_cast<float>(statData.outgoingTraffic)));
+    int nbrOutWorkPositions = static_cast<int>(workPositions.size() * (static_cast<float>(statData.outgoingTraffic)) / (nbrWorkers - static_cast<float>(statData.outgoingTraffic)));
 
     if (cityGates.empty()) {
         return;
     }
 
-    for (int i=0 ; i<nbrOutWorkPositions ; ++i) {
+    for (int i = 0 ; i < nbrOutWorkPositions ; ++i) {
         int posi = statData.getRandomCityGateByOutgoing();
         workPositions.push_back(AGWorkPosition(cityGates[posi].getStreet(), cityGates[posi].getPosition(), &statData));
     }
@@ -156,7 +156,7 @@ AGCity::generateOutgoingWP() {
 void
 AGCity::completeBusLines() {
     std::list<AGBusLine>::iterator it;
-    for (it=busLines.begin() ; it!=busLines.end() ; ++it) {
+    for (it = busLines.begin() ; it != busLines.end() ; ++it) {
         //it->generateOpositDirection();
         it->setBusNames();
     }
@@ -169,7 +169,7 @@ AGCity::generatePopulation() {
     nbrCars = 0;
     int idHouseholds = 0;
 
-    for (it=streets.begin() ; it!=streets.end() ; ++it) {
+    for (it = streets.begin() ; it != streets.end() ; ++it) {
         people = it->getPopulation();
         while (people > 0) {
             ++idHouseholds;
@@ -190,7 +190,7 @@ AGCity::generatePopulation() {
     int nbrHH = 0;
     int workingP = 0;
     std::list<AGHousehold>::iterator itt;
-    for (itt=households.begin() ; itt != households.end() ; ++itt) {
+    for (itt = households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
             nbrSingle++;
             if (itt->adults.front().isWorking()) {
@@ -232,7 +232,7 @@ AGCity::generatePopulation() {
 
 void
 AGCity::generateIncomingPopulation() {
-    for (int i=0 ; i<statData.incomingTraffic ; ++i) {
+    for (int i = 0 ; i < statData.incomingTraffic ; ++i) {
         AGAdult ad(statData.getRandomPopDistributed(statData.limitAgeChildren, statData.limitAgeRetirement));
         peopleIncoming.push_back(ad);
     }
@@ -284,7 +284,7 @@ AGCity::workAllocation() {
      * people from outside
      */
     std::list<AGAdult>::iterator itA;
-    for (itA=peopleIncoming.begin() ; itA!=peopleIncoming.end() ; ++itA) {
+    for (itA = peopleIncoming.begin() ; itA != peopleIncoming.end() ; ++itA) {
         if (statData.workPositions > 0) {
             itA->tryToWork(1, &workPositions);
         } else {
@@ -296,7 +296,7 @@ AGCity::workAllocation() {
     //BEGIN TESTS
     int workingP = 0;
     std::list<AGHousehold>::iterator itt;
-    for (itt=households.begin() ; itt != households.end() ; ++itt) {
+    for (itt = households.begin() ; itt != households.end() ; ++itt) {
         if (itt->getAdultNbr() == 1) {
             if (itt->adults.front().isWorking()) {
                 workingP++;
@@ -322,7 +322,7 @@ AGCity::carAllocation() {
     statData.hhFarFromPT = 0;
     nbrCars = 0;
     std::list<AGHousehold>::iterator it;
-    for (it=households.begin() ; it!=households.end() ; ++it) {
+    for (it = households.begin() ; it != households.end() ; ++it) {
         if (!it->isCloseFromPubTransport(&(statData.busStations))) {
             statData.hhFarFromPT++;
             nbrCars++;
@@ -340,7 +340,7 @@ AGCity::carAllocation() {
 
     nbrCars = 0;
     int nbrAdults = 0;
-    for (it=households.begin() ; it!=households.end() ; ++it) {
+    for (it = households.begin() ; it != households.end() ; ++it) {
         it->generateCars(newRate);
         nbrCars += it->getCarNbr();
         nbrAdults += it->getAdultNbr();

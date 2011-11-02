@@ -87,14 +87,14 @@ operator<<(std::ostream& os, const RGBColor& col) {
 
 bool
 RGBColor::operator==(const RGBColor& c) const {
-    return fabs(myRed-c.myRed)<0.1 && fabs(myGreen-c.myGreen)<0.1 && fabs(myBlue-c.myBlue)<0.1;
+    return fabs(myRed - c.myRed) < 0.1 && fabs(myGreen - c.myGreen) < 0.1 && fabs(myBlue - c.myBlue) < 0.1;
     //return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
 }
 
 
 bool
 RGBColor::operator!=(const RGBColor& c) const {
-    return fabs(myRed-c.myRed)>0.1 || fabs(myGreen-c.myGreen)>0.1 || fabs(myBlue-c.myBlue)>0.1;
+    return fabs(myRed - c.myRed) > 0.1 || fabs(myGreen - c.myGreen) > 0.1 || fabs(myBlue - c.myBlue) > 0.1;
     //return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
 }
 
@@ -111,7 +111,7 @@ RGBColor::changedBrightness(SUMOReal change) {
 RGBColor
 RGBColor::parseColor(const std::string& coldef) throw(EmptyData, NumberFormatException) {
     StringTokenizer st(coldef, ",");
-    if (st.size()<3) {
+    if (st.size() < 3) {
         throw EmptyData();
     }
     SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
@@ -134,11 +134,11 @@ RGBColor::parseColorReporting(
     ok = false;
     std::ostringstream oss;
     oss << "Attribute 'color' in definition of ";
-    if (objectid==0) {
+    if (objectid == 0) {
         oss << "a ";
     }
     oss << objecttype;
-    if (objectid!=0) {
+    if (objectid != 0) {
         oss << " '" << objectid << "'";
     }
     oss << " is not a valid color.";
@@ -179,25 +179,25 @@ RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) throw() {
     //if (h == UNDEFINED) RETURN_RGB(v, v, v);
     i = int(floor(h));
     f = float(h - i);
-    if (!(i&1)) {
+    if (!(i & 1)) {
         f = 1 - f;    // if i is even
     }
     m = float(v * (1 - s));
     n = float(v * (1 - s * f));
     switch (i) {
-    case 6:
-    case 0:
-        return RGBColor(v, n, m);
-    case 1:
-        return RGBColor(n, v, m);
-    case 2:
-        return RGBColor(m, v, n);
-    case 3:
-        return RGBColor(m, n, v);
-    case 4:
-        return RGBColor(n, m, v);
-    case 5:
-        return RGBColor(v, m, n);
+        case 6:
+        case 0:
+            return RGBColor(v, n, m);
+        case 1:
+            return RGBColor(n, v, m);
+        case 2:
+            return RGBColor(m, v, n);
+        case 3:
+            return RGBColor(m, n, v);
+        case 4:
+            return RGBColor(n, m, v);
+        case 5:
+            return RGBColor(v, m, n);
     }
     return RGBColor(1, 1, 1);
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    mpl_dump_onNet.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2007-10-25
 @version $Id$
 

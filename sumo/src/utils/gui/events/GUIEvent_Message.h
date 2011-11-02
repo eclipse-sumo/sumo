@@ -48,17 +48,17 @@ public:
     GUIEvent_Message(MsgHandler::MsgType type, const std::string& msg)
         : GUIEvent(EVENT_MESSAGE_OCCURED), myMsg(msg) {
         switch (type) {
-        case MsgHandler::MT_MESSAGE:
-            myType = EVENT_MESSAGE_OCCURED;
-            break;
-        case MsgHandler::MT_WARNING:
-            myType = EVENT_WARNING_OCCURED;
-            break;
-        case MsgHandler::MT_ERROR:
-            myType = EVENT_ERROR_OCCURED;
-            break;
-        default:
-            throw 1;
+            case MsgHandler::MT_MESSAGE:
+                myType = EVENT_MESSAGE_OCCURED;
+                break;
+            case MsgHandler::MT_WARNING:
+                myType = EVENT_WARNING_OCCURED;
+                break;
+            case MsgHandler::MT_ERROR:
+                myType = EVENT_ERROR_OCCURED;
+                break;
+            default:
+                throw 1;
         }
     }
 

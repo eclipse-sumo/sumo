@@ -47,7 +47,7 @@ NBDistrictCont::NBDistrictCont() throw() {}
 
 
 NBDistrictCont::~NBDistrictCont() throw() {
-    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
+    for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
         delete((*i).second);
     }
     myDistricts.clear();
@@ -57,7 +57,7 @@ NBDistrictCont::~NBDistrictCont() throw() {
 bool
 NBDistrictCont::insert(NBDistrict* const district) throw() {
     DistrictCont::const_iterator i = myDistricts.find(district->getID());
-    if (i!=myDistricts.end()) {
+    if (i != myDistricts.end()) {
         return false;
     }
     myDistricts.insert(DistrictCont::value_type(district->getID(), district));
@@ -68,7 +68,7 @@ NBDistrictCont::insert(NBDistrict* const district) throw() {
 NBDistrict*
 NBDistrictCont::retrieve(const std::string& id) const throw() {
     DistrictCont::const_iterator i = myDistricts.find(id);
-    if (i==myDistricts.end()) {
+    if (i == myDistricts.end()) {
         return 0;
     }
     return (*i).second;
@@ -85,7 +85,7 @@ bool
 NBDistrictCont::addSource(const std::string& dist, NBEdge* const source,
                           SUMOReal weight) throw() {
     NBDistrict* o = retrieve(dist);
-    if (o==0) {
+    if (o == 0) {
         return false;
     }
     return o->addSource(source, weight);
@@ -96,7 +96,7 @@ bool
 NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
                         SUMOReal weight) throw() {
     NBDistrict* o = retrieve(dist);
-    if (o==0) {
+    if (o == 0) {
         return false;
     }
     return o->addSink(destination, weight);
@@ -105,7 +105,7 @@ NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
 
 void
 NBDistrictCont::removeFromSinksAndSources(NBEdge* const e) throw() {
-    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
+    for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
         (*i).second->removeFromSinksAndSources(e);
     }
 }

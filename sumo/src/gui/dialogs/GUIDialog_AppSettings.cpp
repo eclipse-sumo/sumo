@@ -41,7 +41,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[]= {
+FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
     FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
@@ -59,16 +59,16 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent) throw()
       myAppQuitOnEnd(gQuitOnEnd),
       myAllowTextures(gAllowTextures) {
     FXCheckButton* b = 0;
-    FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
-    b = new FXCheckButton(f1, "Quit on Simulation End", this ,MID_QUITONSIMEND);
+    FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
+    b = new FXCheckButton(f1, "Quit on Simulation End", this , MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
-    new FXHorizontalSeparator(f1,SEPARATOR_GROOVE|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X);
-    b = new FXCheckButton(f1, "Allow Textures", this ,MID_ALLOWTEXTURES);
+    new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
+    b = new FXCheckButton(f1, "Allow Textures", this , MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
     b->disable();
-    FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
-    FXButton* initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
-    new FXButton(f2,"&Cancel",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
+    FXButton* initial = new FXButton(f2, "&OK", NULL, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    new FXButton(f2, "&Cancel", NULL, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     initial->setFocus();
     setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
 }
@@ -78,7 +78,7 @@ GUIDialog_AppSettings::~GUIDialog_AppSettings() throw() {}
 
 
 long
-GUIDialog_AppSettings::onCmdOk(FXObject*,FXSelector,void*) {
+GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     gQuitOnEnd = myAppQuitOnEnd;
     gAllowTextures = myAllowTextures;
     destroy();
@@ -87,21 +87,21 @@ GUIDialog_AppSettings::onCmdOk(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_AppSettings::onCmdCancel(FXObject*,FXSelector,void*) {
+GUIDialog_AppSettings::onCmdCancel(FXObject*, FXSelector, void*) {
     destroy();
     return 1;
 }
 
 
 long
-GUIDialog_AppSettings::onCmdQuitOnEnd(FXObject*,FXSelector,void*) {
+GUIDialog_AppSettings::onCmdQuitOnEnd(FXObject*, FXSelector, void*) {
     myAppQuitOnEnd = !myAppQuitOnEnd;
     return 1;
 }
 
 
 long
-GUIDialog_AppSettings::onCmdAllowTextures(FXObject*,FXSelector,void*) {
+GUIDialog_AppSettings::onCmdAllowTextures(FXObject*, FXSelector, void*) {
     myAllowTextures = !myAllowTextures;
     return 1;
 }

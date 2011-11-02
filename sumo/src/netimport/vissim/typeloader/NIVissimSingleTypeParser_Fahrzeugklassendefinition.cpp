@@ -65,8 +65,8 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
     from >> tag;
     std::string colorName = myRead(from);
     RGBColor color;
-    NIImporter_Vissim::ColorMap::iterator i=myColorMap.find(colorName);
-    if (i!=myColorMap.end()) {
+    NIImporter_Vissim::ColorMap::iterator i = myColorMap.find(colorName);
+    if (i != myColorMap.end()) {
         color = (*i).second;
     } else {
         int r, g, b;
@@ -80,7 +80,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
     }
     // types
     from >> tag;
-    if (tag=="ANM_ID") {
+    if (tag == "ANM_ID") {
         readName(from);
         from >> tag;
     }
@@ -89,7 +89,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
     do {
         types.push_back(TplConvert<char>::_2int(tag.c_str()));
         tag = readEndSecure(from);
-    } while (tag!="DATAEND");
+    } while (tag != "DATAEND");
     return NIVissimVehTypeClass::dictionary(id, name, color, types);
 }
 

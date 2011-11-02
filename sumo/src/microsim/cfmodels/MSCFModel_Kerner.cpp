@@ -60,15 +60,15 @@ MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
 
 SUMOReal
 MSCFModel_Kerner::_v(SUMOReal speed, SUMOReal vfree, SUMOReal gap, SUMOReal predSpeed) const {
-    if (predSpeed==0&&gap<0.01) {
+    if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
     // !!! in the following, the prior step is not considered!!!
-    SUMOReal G = MAX2((SUMOReal) 0, (SUMOReal)(SPEED2DIST(myK*speed)+myPhi/myAccel*speed*(speed-predSpeed)));
-    SUMOReal vcond = gap>G ? speed+ACCEL2SPEED(myAccel) : speed+MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed-speed));
-    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel*myTauDecel + (predSpeed*predSpeed) + (2. * myDecel * gap)));
+    SUMOReal G = MAX2((SUMOReal) 0, (SUMOReal)(SPEED2DIST(myK * speed) + myPhi / myAccel * speed * (speed - predSpeed)));
+    SUMOReal vcond = gap > G ? speed + ACCEL2SPEED(myAccel) : speed + MAX2(ACCEL2SPEED(-myDecel), MIN2(ACCEL2SPEED(myAccel), predSpeed - speed));
+    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel + sqrt(myTauDecel * myTauDecel + (predSpeed * predSpeed) + (2. * myDecel * gap)));
     SUMOReal va = MAX2((SUMOReal) 0, MIN3(vfree, vsafe, vcond)) + RandHelper::rand();
-    SUMOReal v = MAX2((SUMOReal) 0, MIN4(vfree, va, speed+ACCEL2SPEED(myAccel), vsafe));
+    SUMOReal v = MAX2((SUMOReal) 0, MIN4(vfree, va, speed + ACCEL2SPEED(myAccel), vsafe));
     return v;
 }
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    gui.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2011-03-09
 @version $Id$
 

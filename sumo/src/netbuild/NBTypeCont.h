@@ -80,7 +80,7 @@ public:
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                SUMOReal width, SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false) throw();
+                SUMOReal width, SUMOVehicleClass vClasses = SVC_UNKNOWN, bool oneWayIsDefault = false) throw();
 
     /** @brief Adds a type into the list
      * @param[in] id The id of the type

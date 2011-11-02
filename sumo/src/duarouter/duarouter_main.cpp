@@ -105,7 +105,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     std::string measure = oc.getString("weight-attribute");
-    if (measure=="traveltime") {
+    if (measure == "traveltime") {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
@@ -115,19 +115,19 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         }
     } else {
         DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
-        if (measure=="CO") {
+        if (measure == "CO") {
             op = &ROEdge::getCOEffort;
-        } else if (measure=="CO2") {
+        } else if (measure == "CO2") {
             op = &ROEdge::getCO2Effort;
-        } else if (measure=="PMx") {
+        } else if (measure == "PMx") {
             op = &ROEdge::getPMxEffort;
-        } else if (measure=="HC") {
+        } else if (measure == "HC") {
             op = &ROEdge::getHCEffort;
-        } else if (measure=="NOx") {
+        } else if (measure == "NOx") {
             op = &ROEdge::getNOxEffort;
-        } else if (measure=="fuel") {
+        } else if (measure == "fuel") {
             op = &ROEdge::getFuelEffort;
-        } else if (measure=="noise") {
+        } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         }
         if (net.hasRestrictions()) {
@@ -197,11 +197,11 @@ main(int argc, char** argv) {
             WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
-        if (MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
+        if (MsgHandler::getErrorInstance()->wasInformed() || ret != 0) {
             throw ProcessError();
         }
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -215,7 +215,7 @@ main(int argc, char** argv) {
     delete net;
     OutputDevice::closeAll();
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

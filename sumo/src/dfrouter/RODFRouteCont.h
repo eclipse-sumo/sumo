@@ -155,7 +155,7 @@ protected:
 
         /// @brief Sorting function; compares RODFRouteDesc::distance2Last
         int operator()(const RODFRouteDesc& p1, const RODFRouteDesc& p2) {
-            return p1.distance2Last<p2.distance2Last;
+            return p1.distance2Last < p2.distance2Last;
         }
     };
 
@@ -170,7 +170,7 @@ protected:
 
         /**  @brief The comparing function; compares passed edges */
         bool operator()(const RODFRouteDesc& desc) {
-            return myDesc.edges2Pass==desc.edges2Pass;
+            return myDesc.edges2Pass == desc.edges2Pass;
         }
 
     private:

@@ -114,7 +114,7 @@ int main(int argc, char* argv[]) {
 
         std::string statFile = oc.getString("stat-file");
         std::string routeFile = oc.getString("output-file");
-        AGTime duration(1,0,0);
+        AGTime duration(1, 0, 0);
         AGTime begin(0);
         AGTime end(0);
         if (oc.isSet("duration-d")) {
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
         }
         ret = 0;
     } catch (ProcessError& pe) {
-        if (std::string(pe.what())!=std::string("Process Error") && std::string(pe.what())!=std::string("")) {
+        if (std::string(pe.what()) != std::string("Process Error") && std::string(pe.what()) != std::string("")) {
             WRITE_ERROR(pe.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
     }
     OutputDevice::closeAll();
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

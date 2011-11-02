@@ -86,7 +86,7 @@ public:
     void release() const;
 
     /// output the edge ids up to but not including the id of the given edge
-    void writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo=0) const;
+    void writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
 
     bool contains(const MSEdge* const edge) const throw() {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();

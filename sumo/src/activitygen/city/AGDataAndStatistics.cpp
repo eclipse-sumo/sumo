@@ -48,7 +48,7 @@ AGDataAndStatistics::getDataAndStatistics() throw() {
 
 int
 AGDataAndStatistics::getRandom(int n, int m) {
-    if (m<n) {
+    if (m < n) {
         return 0;
     }
     int num = RandHelper::rand(m - n);
@@ -58,11 +58,11 @@ AGDataAndStatistics::getRandom(int n, int m) {
 
 int
 AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
-    if (m<n || n>= limitEndAge) {
+    if (m < n || n >= limitEndAge) {
         return -1;
     }
-    if (m>limitEndAge) {
-        m=limitEndAge;
+    if (m > limitEndAge) {
+        m = limitEndAge;
     }
     SUMOReal alea = RandHelper::rand();
     SUMOReal beginProp = getPropYoungerThan(n);
@@ -75,8 +75,8 @@ AGDataAndStatistics::getRandomPopDistributed(int n, int m) {
      * than: alea < (getPropYoungerThan(a+1)-beginProp)/total
      */
     alea = alea * total + beginProp;
-    for (int a=n ; a<m ; ++a) {
-        if (alea < getPropYoungerThan(a+1)) {
+    for (int a = n ; a < m ; ++a) {
+        if (alea < getPropYoungerThan(a + 1)) {
             return a;
         }
     }
@@ -107,7 +107,7 @@ AGDataAndStatistics::poisson(SUMOReal mean, int occ) {
 int
 AGDataAndStatistics::factorial(int fact) {
     if (fact > 0) {
-        return fact * factorial(fact-1);
+        return fact * factorial(fact - 1);
     }
     return 1;
 }
@@ -181,11 +181,11 @@ AGDataAndStatistics::getInverseExpRandomValue(SUMOReal mean, SUMOReal maxVar) {
     }
     SUMOReal p = RandHelper::rand(static_cast<SUMOReal>(0.0001), static_cast<SUMOReal>(1));
     //we have to scale the distribution because maxVar is different from INF
-    SUMOReal scale = exp((-1)*maxVar);
+    SUMOReal scale = exp((-1) * maxVar);
     //new p: scaled
-    p = p * (1-scale) + scale; // p = [scale ; 1) ==> (1-p) = (0 ; 1-scale]
+    p = p * (1 - scale) + scale; // p = [scale ; 1) ==> (1-p) = (0 ; 1-scale]
 
-    SUMOReal variation = (-1)*log(p);
+    SUMOReal variation = (-1) * log(p);
     //decide the side of the mean value
     if (RandHelper::rand(1000) < 500) {
         return mean + variation;

@@ -62,7 +62,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myProjectionMethod(NONE),
     myOrigBoundary(orig),
     myConvBoundary(conv),
-    myGeoScale(pow(10, (double)-shift)),
+    myGeoScale(pow(10, (double) - shift)),
     myUseInverseProjection(inverse),
     myBaseFound(baseFound),
     myBaseX(0),
@@ -185,7 +185,7 @@ GeoConvHelper::initProjection(double x, double y) {
             WRITE_WARNING("Attempt to initialize DHDN-projection on invalid longitude " + toString(x));
             return;
         }
-        myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
+        myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
                        " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
                        " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
         myProjection = pj_init_plus(myProjString.c_str());
@@ -270,10 +270,10 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
             return false;
         }
 #ifdef HAVE_PROJ
-        if (myProjection==0) {
+        if (myProjection == 0) {
             initProjection(x, y);
         }
-        if (myProjection!=0) {
+        if (myProjection != 0) {
             projUV p;
             p.u = x * DEG_TO_RAD;
             p.v = y * DEG_TO_RAD;
@@ -292,7 +292,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
             }
             x -= myBaseX;
             y -= myBaseY;
-            x *= 111320. * cos(ys*PI/180.0);
+            x *= 111320. * cos(ys * PI / 180.0);
             y *= 111136.;
             from.set((SUMOReal)x, (SUMOReal)y);
             //!!! recheck whether the axes are mirrored
@@ -348,7 +348,7 @@ GeoConvHelper::getOffset() const {
 
 const Position
 GeoConvHelper::getOffsetBase() const {
-    return Position(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
+    return Position(myOffset.x() - myBaseX, myOffset.y() - myBaseY);
 }
 
 

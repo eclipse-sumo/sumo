@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    createRoundaboutConnections.py
-@author  Laura.Bieker@dlr.de
+@author  Laura Bieker
 @date    2007-02-21
 @version $Id$
 

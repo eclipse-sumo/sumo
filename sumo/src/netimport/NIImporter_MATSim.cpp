@@ -100,7 +100,7 @@ NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     std::vector<std::string> files = oc.getStringVector("matsim-files");
     // load nodes, first
     NodesHandler nodesHandler(nb.getNodeCont());
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
             WRITE_ERROR("Could not open matsim-file '" + *file + "'.");
@@ -116,7 +116,7 @@ NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load edges, then
     EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
                               oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")));
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         edgesHandler.setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing edges from matsim-file '" + *file + "'");
@@ -187,19 +187,19 @@ void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
-    if (element==MATSIM_TAG_NETWORK) {
+    if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
             int capDivider = attrs.getIntReporting(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
-                myCapacityNorm = (SUMOReal)(capDivider*3600);
+                myCapacityNorm = (SUMOReal)(capDivider * 3600);
             }
         }
     }
-    if (element==MATSIM_TAG_LINKS) {
+    if (element == MATSIM_TAG_LINKS) {
         bool ok = true;
         std::string capperiod = attrs.getStringReporting(MATSIM_ATTR_CAPPERIOD, "links", ok);
         StringTokenizer st(capperiod, ":");
-        if (st.size()!=3) {
+        if (st.size() != 3) {
             WRITE_ERROR("Bogus capacity period format; requires 'hh:mm:ss'.");
             return;
         }
@@ -207,7 +207,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             int hours = TplConvert<char>::_2int(st.next().c_str());
             int minutes = TplConvert<char>::_2int(st.next().c_str());
             int seconds = TplConvert<char>::_2int(st.next().c_str());
-            myCapacityNorm = (SUMOReal)(hours*3600+minutes*60+seconds);
+            myCapacityNorm = (SUMOReal)(hours * 3600 + minutes * 60 + seconds);
         } catch (NumberFormatException&) {
         } catch (EmptyData&) {
         }
@@ -215,7 +215,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     }
 
     // parse "link" elements
-    if (element!=MATSIM_TAG_LINK) {
+    if (element != MATSIM_TAG_LINK) {
         return;
     }
     std::string id = attrs.getStringReporting(MATSIM_ATTR_ID, 0, ok);
@@ -230,13 +230,13 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     std::string origid = attrs.getOptStringReporting(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode* toNode = myNodeCont.retrieve(toNodeID);
-    if (fromNode==0) {
+    if (fromNode == 0) {
         WRITE_ERROR("Could not find from-node for edge '" + id + "'.");
     }
-    if (toNode==0) {
+    if (toNode == 0) {
         WRITE_ERROR("Could not find to-node for edge '" + id + "'.");
     }
-    if (fromNode==0||toNode==0) {
+    if (fromNode == 0 || toNode == 0) {
         return;
     }
     if (myLanesFromCapacity) {

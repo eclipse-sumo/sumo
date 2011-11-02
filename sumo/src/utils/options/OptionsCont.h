@@ -211,7 +211,7 @@ public:
      * @param[in] os The stream to write the header into
      * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      */
-    void writeXMLHeader(std::ostream& os, const std::string xmlParams="");
+    void writeXMLHeader(std::ostream& os, const std::string xmlParams = "");
     /// @}
 
 
@@ -256,7 +256,7 @@ public:
      * @param[in] isDeprecated whether the synonyme is considered deprecated
      * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
      */
-    void addSynonyme(const std::string& name1, const std::string& name2, bool isDeprecated=false);
+    void addSynonyme(const std::string& name1, const std::string& name2, bool isDeprecated = false);
 
 
     /** @brief Adds a description for an option
@@ -303,7 +303,7 @@ public:
      * @return true if the option has a valid value, false otherwise
      * @exception InvalidArgument If the named option is not known
      */
-    bool isSet(const std::string& name, bool failOnNonExistant=true) const;
+    bool isSet(const std::string& name, bool failOnNonExistant = true) const;
 
 
     /** @brief Returns the information whether the named option has still the default value
@@ -700,7 +700,7 @@ private:
          * @return Whether the length of the option name is 1
          */
         bool operator()(const std::string& s) {
-            return s.length()==1;
+            return s.length() == 1;
         }
     };
 

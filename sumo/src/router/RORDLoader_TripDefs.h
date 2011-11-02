@@ -52,7 +52,7 @@ public:
     /// Constructor
     RORDLoader_TripDefs(RONet& net, SUMOTime begin, SUMOTime end,
                         bool emptyDestinationsAllowed, bool withTaz,
-                        const std::string& file="") throw(ProcessError);
+                        const std::string& file = "") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_TripDefs() throw();

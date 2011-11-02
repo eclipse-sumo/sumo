@@ -74,15 +74,15 @@ public:
          * @param[in] length The length of the object for which the data gets collected
          */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::set<std::string>* const vTypes=0,
-                             const MSMeanData_Net* parent=0) throw();
+                             const std::set<std::string>* const vTypes = 0,
+                             const MSMeanData_Net* parent = 0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite=false) throw();
+        void reset(bool afterWrite = false) throw();
 
         /** @brief Add the values of this to the given one and store them there
          *
@@ -131,7 +131,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const int numVehicles=-1) const throw(IOError);
+                   const SUMOReal numLanes, const int numVehicles = -1) const throw(IOError);
 
     protected:
         /** @brief Internal notification about the vehicle moves

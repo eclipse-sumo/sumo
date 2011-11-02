@@ -33,11 +33,11 @@ public:
     };
 
 public:
-    long onThreadSignal(FXObject*,FXSelector,void*);
-    long onThreadEvent(FXObject*,FXSelector,void*);
+    long onThreadSignal(FXObject*, FXSelector, void*);
+    long onThreadEvent(FXObject*, FXSelector, void*);
 
 public:
-    FXSingleEventThread(FXApp* a,MFXInterThreadEventClient* client);
+    FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client);
 
     void signal();
 

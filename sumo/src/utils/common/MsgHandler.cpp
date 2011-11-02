@@ -65,7 +65,7 @@ AbstractMutex* MsgHandler::myLock = 0;
 // ===========================================================================
 MsgHandler*
 MsgHandler::getMessageInstance() {
-    if (myMessageInstance==0) {
+    if (myMessageInstance == 0) {
         myMessageInstance = new MsgHandler(MT_MESSAGE);
     }
     return myMessageInstance;
@@ -74,7 +74,7 @@ MsgHandler::getMessageInstance() {
 
 MsgHandler*
 MsgHandler::getWarningInstance() {
-    if (myWarningInstance==0) {
+    if (myWarningInstance == 0) {
         myWarningInstance = new MsgHandler(MT_WARNING);
     }
     return myWarningInstance;
@@ -83,7 +83,7 @@ MsgHandler::getWarningInstance() {
 
 MsgHandler*
 MsgHandler::getErrorInstance() {
-    if (myErrorInstance==0) {
+    if (myErrorInstance == 0) {
         myErrorInstance = new MsgHandler(MT_ERROR);
     }
     return myErrorInstance;
@@ -92,7 +92,7 @@ MsgHandler::getErrorInstance() {
 
 void
 MsgHandler::inform(std::string msg, bool addType) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     // beautify progress output
@@ -109,13 +109,13 @@ MsgHandler::inform(std::string msg, bool addType) {
         std::cerr << msg << std::endl;
     }
     // inform all other receivers
-    for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg);
     }
     // set the information that something occured
     myWasInformed = true;
     myAmProcessingProcess = false;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -123,7 +123,7 @@ MsgHandler::inform(std::string msg, bool addType) {
 
 void
 MsgHandler::progressMsg(std::string msg, bool addType) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     // beautify progress output
@@ -140,13 +140,13 @@ MsgHandler::progressMsg(std::string msg, bool addType) {
         std::cerr << msg << '\r';
     }
     // inform all other receivers
-    for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg);
     }
     // set the information that something occured
     myWasInformed = true;
     myAmProcessingProcess = false;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -154,7 +154,7 @@ MsgHandler::progressMsg(std::string msg, bool addType) {
 
 void
 MsgHandler::beginProcessMsg(std::string msg, bool addType) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     msg = build(msg, addType);
@@ -171,13 +171,13 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
         myAmProcessingProcess = true;
     }
     // inform all other receivers
-    for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg + " ");
         myAmProcessingProcess = true;
     }
     // set the information that something occured
     myWasInformed = true;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -185,7 +185,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
 
 void
 MsgHandler::endProcessMsg(std::string msg) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     // report to std::cout if wished
@@ -197,13 +197,13 @@ MsgHandler::endProcessMsg(std::string msg) {
         std::cerr << msg << std::endl;
     }
     // inform all other receivers
-    for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg);
     }
     // set the information that something occured
     myWasInformed = true;
     myAmProcessingProcess = false;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -211,11 +211,11 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 void
 MsgHandler::clear() {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     myWasInformed = false;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -223,23 +223,23 @@ MsgHandler::clear() {
 
 void
 MsgHandler::addRetriever(OutputDevice* retriever) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
-    if (i==myRetrievers.end()) {
+    if (i == myRetrievers.end()) {
         myRetrievers.push_back(retriever);
     }
     // check whether the message shall be generated
-    if (myType==MT_WARNING) {
+    if (myType == MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
                             ? OptionsCont::getOptions().getBool("no-warnings")
                             : false;
-    } else if (myType==MT_MESSAGE) {
+    } else if (myType == MT_MESSAGE) {
         gSuppressMessages = false;
     }
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -247,23 +247,23 @@ MsgHandler::addRetriever(OutputDevice* retriever) {
 
 void
 MsgHandler::removeRetriever(OutputDevice* retriever) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
-    if (i!=myRetrievers.end()) {
+    if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
     }
     // check whether the message shall be generated
-    if (myType==MT_WARNING) {
+    if (myType == MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
                             ? OptionsCont::getOptions().getBool("no-warnings")
-                            : myRetrievers.size()==0;
-    } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
+                            : myRetrievers.size() == 0;
+    } else if (myType == MT_MESSAGE) {
+        gSuppressMessages = !(myRetrievers.size() == 0 || myReport2COUT);
     }
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -271,19 +271,19 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
 
 void
 MsgHandler::report2cout(bool value) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     myReport2COUT = value;
-    if (myType==MT_WARNING) {
+    if (myType == MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
                             ? OptionsCont::getOptions().getBool("no-warnings")
                             : !myReport2COUT;
-    } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
+    } else if (myType == MT_MESSAGE) {
+        gSuppressMessages = myRetrievers.size() == 0 && !myReport2COUT;
     }
     std::cout.setf(std::ios::fixed, std::ios::floatfield);
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -291,19 +291,19 @@ MsgHandler::report2cout(bool value) {
 
 void
 MsgHandler::report2cerr(bool value) {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     myReport2CERR = value;
-    if (myType==MT_WARNING) {
+    if (myType == MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("no-warnings")
                             ? OptionsCont::getOptions().getBool("no-warnings")
                             : !myReport2CERR;
-    } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
+    } else if (myType == MT_MESSAGE) {
+        gSuppressMessages = myRetrievers.size() == 0 && !myReport2COUT;
     }
     std::cerr.setf(std::ios::fixed, std::ios::floatfield);
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
@@ -347,7 +347,7 @@ MsgHandler::initOutputOptions(bool gui) {
 
 void
 MsgHandler::cleanupOnEnd() {
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->lock();
     }
     delete myMessageInstance;
@@ -356,15 +356,15 @@ MsgHandler::cleanupOnEnd() {
     myWarningInstance = 0;
     delete myErrorInstance;
     myErrorInstance = 0;
-    if (myLock!=0) {
+    if (myLock != 0) {
         myLock->unlock();
     }
 }
 
 
 MsgHandler::MsgHandler(MsgType type)
-    : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
-      myReport2CERR(type!=MT_MESSAGE) {}
+    : myType(type), myWasInformed(false), myReport2COUT(type == MT_MESSAGE),
+      myReport2CERR(type != MT_MESSAGE) {}
 
 
 MsgHandler::~MsgHandler() {
@@ -379,7 +379,7 @@ MsgHandler::wasInformed() const {
 
 void
 MsgHandler::assignLock(AbstractMutex* lock) {
-    assert(myLock==0);
+    assert(myLock == 0);
     myLock = lock ;
 }
 

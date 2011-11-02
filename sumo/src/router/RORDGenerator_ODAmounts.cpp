@@ -67,11 +67,11 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle* vehicle,
     : myVehicle(vehicle), myVehicleType(type), myRoute(route),
       myIntervalBegin(intBegin), myIntervalEnd(intEnd),
       myVehicle2InsertNumber(vehicles2insert), myInserted(0), myRandom(randomize) {
-    assert(myIntervalBegin<myIntervalEnd);
+    assert(myIntervalBegin < myIntervalEnd);
     if (myRandom) {
         SUMOTime period = myIntervalEnd - myIntervalBegin;
         myDepartures.reserve(myVehicle2InsertNumber);
-        for (size_t i=0; i<myVehicle2InsertNumber; ++i) {
+        for (size_t i = 0; i < myVehicle2InsertNumber; ++i) {
             SUMOTime departure = myIntervalBegin + ((int)(RandHelper::rand(period) / DELTA_T)) * DELTA_T;
             myDepartures.push_back(departure);
         }
@@ -88,25 +88,25 @@ RORDGenerator_ODAmounts::FlowDef::~FlowDef() {
 
 bool
 RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const {
-    return myIntervalBegin<=t&&myIntervalEnd>t;
+    return myIntervalBegin <= t && myIntervalEnd > t;
 }
 
 
 void
 RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet& net, SUMOTime t) {
-    assert(myIntervalBegin<=t&&myIntervalEnd>=t);
+    assert(myIntervalBegin <= t && myIntervalEnd >= t);
     if (!myRandom) {
-        unsigned int absPerEachStep = myVehicle2InsertNumber / ((myIntervalEnd-myIntervalBegin) / DELTA_T);
-        for (unsigned int i=0; i<absPerEachStep; i++) {
+        unsigned int absPerEachStep = myVehicle2InsertNumber / ((myIntervalEnd - myIntervalBegin) / DELTA_T);
+        for (unsigned int i = 0; i < absPerEachStep; i++) {
             addSingleRoute(net, t);
         }
         // fraction
-        SUMOReal toInsert = (SUMOReal) myVehicle2InsertNumber / (SUMOReal)(myIntervalEnd-myIntervalBegin) * (SUMOReal)(t-myIntervalBegin+(SUMOReal)DELTA_T/2.);
-        if (toInsert>myInserted) {
+        SUMOReal toInsert = (SUMOReal) myVehicle2InsertNumber / (SUMOReal)(myIntervalEnd - myIntervalBegin) * (SUMOReal)(t - myIntervalBegin + (SUMOReal)DELTA_T / 2.);
+        if (toInsert > myInserted) {
             addSingleRoute(net, t);
         }
     } else {
-        while (myDepartures.size() > 0 && myDepartures.back() < t+DELTA_T) {
+        while (myDepartures.size() > 0 && myDepartures.back() < t + DELTA_T) {
             addSingleRoute(net, myDepartures.back());
             myDepartures.pop_back();
         }
@@ -151,7 +151,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet& net,
 
 
 RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw() {
-    for (FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
+    for (FlowDefV::const_iterator i = myFlows.begin(); i != myFlows.end(); i++) {
         delete(*i);
     }
 }
@@ -161,7 +161,7 @@ bool
 RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError) {
     UNUSED_PARAMETER(skipping);
     // skip routes before begin
-    if (until<myBegin) {
+    if (until < myBegin) {
         myDepartureTime = until;
         return true;
     }
@@ -174,7 +174,7 @@ RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) t
 void
 RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw() {
     SUMOTime t;
-    for (t=myDepartureTime; t<until+1; t+=DELTA_T) {
+    for (t = myDepartureTime; t < until + 1; t += DELTA_T) {
         buildForTimeStep(t);
     }
     myDepartureTime = t;
@@ -183,18 +183,18 @@ RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw() {
 
 void
 RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw() {
-    if (time<myBegin||time>=myEnd) {
+    if (time < myBegin || time >= myEnd) {
         return;
     }
     myEnded = true;
-    for (FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
+    for (FlowDefV::const_iterator i = myFlows.begin(); i != myFlows.end(); i++) {
         FlowDef* fd = *i;
         // skip flow definitions not valid for the current time
         if (fd->applicableForTime(time)) {
             fd->addRoutes(myNet, time);
         }
         // check whether any further exists
-        if (fd->getIntervalEnd()>time) {
+        if (fd->getIntervalEnd() > time) {
             myEnded = false;
         }
     }
@@ -218,7 +218,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes& attrs) thro
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
     std::string id = getVehicleID(attrs);
-    if (myKnownIDs.find(id)!=myKnownIDs.end()) {
+    if (myKnownIDs.find(id) != myKnownIDs.end()) {
         throw ProcessError("The id '" + id + "' appears twice within the flow descriptions.'");
     }
     myKnownIDs.insert(id); // !!! a local storage is not save
@@ -248,7 +248,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes& attrs) thro
     if (!ok) {
         throw ProcessError();
     }
-    if (myIntervalEnd<=myIntervalBegin) {
+    if (myIntervalEnd <= myIntervalBegin) {
         throw ProcessError("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
     }
 }
@@ -284,7 +284,7 @@ void
 RORDGenerator_ODAmounts::myEndFlowAmountDef() {
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
 
-        if (myIntervalEnd<myBegin) {
+        if (myIntervalEnd < myBegin) {
             return;
         }
         // add the vehicle type, the vehicle and the route to the net

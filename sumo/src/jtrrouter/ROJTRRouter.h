@@ -47,7 +47,7 @@ class ROJTREdge;
  * @class ROJTRRouter
  * @brief Computes routes using junction turning percentages
  */
-class ROJTRRouter : public SUMOAbstractRouter<ROEdge,ROVehicle> {
+class ROJTRRouter : public SUMOAbstractRouter<ROEdge, ROVehicle> {
 public:
     /** @brief Constructor
      * @param[in] net The net used for routing

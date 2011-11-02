@@ -85,7 +85,7 @@ MSBusStop::getLastFreePos() const throw() {
 
 void
 MSBusStop::leaveFrom(void* what) throw() {
-    assert(myEndPositions.find(what)!=myEndPositions.end());
+    assert(myEndPositions.find(what) != myEndPositions.end());
     myEndPositions.erase(myEndPositions.find(what));
     computeLastFreePos();
 }
@@ -95,8 +95,8 @@ void
 MSBusStop::computeLastFreePos() throw() {
     myLastFreePos = myEndPos;
     std::map<void*, std::pair<SUMOReal, SUMOReal> >::iterator i;
-    for (i=myEndPositions.begin(); i!=myEndPositions.end(); i++) {
-        if (myLastFreePos>(*i).second.second) {
+    for (i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
+        if (myLastFreePos > (*i).second.second) {
             myLastFreePos = (*i).second.second;
         }
     }

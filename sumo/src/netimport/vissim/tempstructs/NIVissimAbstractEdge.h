@@ -48,7 +48,7 @@ public:
     void splitAssigning();
     bool crossesEdge(NIVissimAbstractEdge* c) const;
     Position crossesEdgeAtPoint(NIVissimAbstractEdge* c) const;
-    bool overlapsWith(const AbstractPoly& p, SUMOReal offset=0.0) const;
+    bool overlapsWith(const AbstractPoly& p, SUMOReal offset = 0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
     SUMOReal crossesAtPoint(const Position& p1,
@@ -66,7 +66,7 @@ public:
     static bool dictionary(int id, NIVissimAbstractEdge* e);
     static NIVissimAbstractEdge* dictionary(int id);
     static void splitAndAssignToNodes();
-    static IntVector getWithin(const AbstractPoly& p, SUMOReal offset=0.0);
+    static IntVector getWithin(const AbstractPoly& p, SUMOReal offset = 0.0);
     static void clearDict();
 
 

@@ -75,7 +75,7 @@ void
 PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
                                 PCTypeMap& tm) throw(ProcessError) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
         }
@@ -90,7 +90,7 @@ void
 PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
                                  PCTypeMap& tm) throw(ProcessError) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
         }
@@ -114,10 +114,10 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         std::string line = lr.readLine();
         ++l;
         // skip invalid/empty lines
-        if (line.length()==0||line.find("#") != std::string::npos) {
+        if (line.length() == 0 || line.find("#") != std::string::npos) {
             continue;
         }
-        if (StringUtils::prune(line)=="") {
+        if (StringUtils::prune(line) == "") {
             continue;
         }
         // parse the poi
@@ -129,7 +129,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         std::getline(stream, type, '\t');
         std::getline(stream, desc, '\t');
         if (stream.fail()) {
-            throw ProcessError("Invalid dlr-navteq-poi in line " + toString(l) +":\n" + line);
+            throw ProcessError("Invalid dlr-navteq-poi in line " + toString(l) + ":\n" + line);
         }
         double x, y;
         stream >> x;
@@ -142,7 +142,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         }
         Position pos(x, y);
         // check the poi
-        if (name=="") {
+        if (name == "") {
             throw ProcessError("The name of a POI is missing.");
         }
         if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos, true)) {
@@ -194,16 +194,16 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         std::string line = lr.readLine();
         ++l;
         // skip invalid/empty lines
-        if (line.length()==0||line.find("#") != std::string::npos) {
+        if (line.length() == 0 || line.find("#") != std::string::npos) {
             continue;
         }
-        if (StringUtils::prune(line)=="") {
+        if (StringUtils::prune(line) == "") {
             continue;
         }
         // parse the poi
         StringTokenizer st(line, "\t");
         std::vector<std::string> values = st.getVector();
-        if (values.size()<6||values.size()%2!=0) {
+        if (values.size() < 6 || values.size() % 2 != 0) {
             throw ProcessError("Invalid dlr-navteq-polygon - line: '" + line + "'.");
         }
         std::string id = values[0];
@@ -213,9 +213,9 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         PositionVector vec;
         size_t index = 4;
         // now collect the positions
-        while (values.size()>index) {
+        while (values.size() > index) {
             std::string xpos = values[index];
-            std::string ypos = values[index+1];
+            std::string ypos = values[index + 1];
             index += 2;
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
@@ -227,22 +227,22 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         }
 
         name = StringUtils::convertUmlaute(name);
-        if (name=="noname"||toFill.containsPolygon(name)) {
+        if (name == "noname" || toFill.containsPolygon(name)) {
             name = name + "#" + toString(toFill.getEnumIDFor(name));
         }
 
         // check the polygon
-        if (vec.size()==0) {
+        if (vec.size() == 0) {
             WRITE_WARNING("The polygon '" + id + "' is empty.");
             continue;
         }
-        if (id=="") {
+        if (id == "") {
             WRITE_WARNING("The name of a polygon is missing; it will be discarded.");
             continue;
         }
 
         // patch the values
-        bool fill = vec.getBegin()==vec.getEnd();
+        bool fill = vec.getBegin() == vec.getEnd();
         bool discard = oc.getBool("discard");
         int layer = oc.getInt("layer");
         RGBColor color;

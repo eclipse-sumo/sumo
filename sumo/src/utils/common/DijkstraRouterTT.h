@@ -110,7 +110,7 @@ public:
             if (nod1->traveltime == nod2->traveltime) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
-            return nod1->traveltime>nod2->traveltime;
+            return nod1->traveltime > nod2->traveltime;
         }
     };
 
@@ -123,11 +123,11 @@ public:
                          SUMOTime msTime, std::vector<const E*> &into) {
 
         SUMOReal time = (SUMOReal) msTime / 1000.;
-        for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
+        for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
             (*i).traveltime = std::numeric_limits<SUMOReal>::max();
             (*i).visited = false;
         }
-        assert(from!=0&&to!=0);
+        assert(from != 0 && to != 0);
         myFrontierList.clear();
         // add begin node
         EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
@@ -151,7 +151,7 @@ public:
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             const unsigned int length_size = minEdge->getNoFollowing();
-            for (i=0; i<length_size; i++) {
+            for (i = 0; i < length_size; i++) {
                 const E* const follower = minEdge->getFollower(i);
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
                 // check whether it can be used
@@ -180,7 +180,7 @@ public:
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V* const v, SUMOTime msTime) throw() {
         SUMOReal time = (SUMOReal) msTime / 1000.;
         SUMOReal costs = 0;
-        for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;
             }
@@ -193,7 +193,7 @@ public:
     /// Builds the path from marked edges
     void buildPathFrom(EdgeInfo* rbegin, std::vector<const E*> &edges) {
         std::deque<const E*> tmp;
-        while (rbegin!=0) {
+        while (rbegin != 0) {
             tmp.push_front((E*) rbegin->edge);  // !!!
             rbegin = rbegin->prev;
         }

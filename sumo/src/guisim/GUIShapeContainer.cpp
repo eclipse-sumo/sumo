@@ -83,13 +83,13 @@ GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::str
 bool
 GUIShapeContainer::removePoI(int layer, const std::string& id) throw() {
     myLock.lock();
-    if (myPOILayers.find(layer)==myPOILayers.end()) {
+    if (myPOILayers.find(layer) == myPOILayers.end()) {
         myLock.unlock();
         return false;
     }
     NamedObjectCont<PointOfInterest*> &c = myPOILayers.find(layer)->second;
     PointOfInterest* p = c.get(id);
-    if (p==0) {
+    if (p == 0) {
         myLock.unlock();
         return false;
     }
@@ -103,12 +103,12 @@ GUIShapeContainer::removePoI(int layer, const std::string& id) throw() {
 bool
 GUIShapeContainer::removePolygon(int layer, const std::string& id) throw() {
     myLock.lock();
-    if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+    if (myPolygonLayers.find(layer) == myPolygonLayers.end()) {
         myLock.unlock();
         return false;
     }
     GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
-    if (p==0) {
+    if (p == 0) {
         myLock.unlock();
         return false;
     }
@@ -123,9 +123,9 @@ GUIShapeContainer::removePolygon(int layer, const std::string& id) throw() {
 void
 GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) throw() {
     myLock.lock();
-    if (myPOILayers.find(layer)!=myPOILayers.end()) {
+    if (myPOILayers.find(layer) != myPOILayers.end()) {
         PointOfInterest* p = myPOILayers.find(layer)->second.get(id);
-        if (p!=0) {
+        if (p != 0) {
             myVis.removeAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
             static_cast<Position*>(p)->set(pos);
             myVis.addAdditionalGLObject(static_cast<GUIPointOfInterest*>(p));
@@ -138,9 +138,9 @@ GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos
 void
 GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) throw() {
     myLock.lock();
-    if (myPolygonLayers.find(layer)!=myPolygonLayers.end()) {
+    if (myPolygonLayers.find(layer) != myPolygonLayers.end()) {
         GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));
-        if (p!=0) {
+        if (p != 0) {
             myVis.removeAdditionalGLObject(p);
             p->setShape(shape);
             myVis.addAdditionalGLObject(p);
@@ -153,13 +153,13 @@ GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const Positi
 std::vector<GUIGlID>
 GUIShapeContainer::getShapeIDs() const {
     std::vector<GUIGlID> ret;
-    for (int j=myMinLayer; j<=myMaxLayer; ++j) {
+    for (int j = myMinLayer; j <= myMaxLayer; ++j) {
         const PolyMap& pol = getPolygonCont(j).getMyMap();
-        for (PolyMap::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+        for (PolyMap::const_iterator i = pol.begin(); i != pol.end(); ++i) {
             ret.push_back(static_cast<GUIPolygon*>((*i).second)->getGlID());
         }
         const std::map<std::string, PointOfInterest*> &poi = getPOICont(j).getMyMap();
-        for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {
+        for (std::map<std::string, PointOfInterest*>::const_iterator i = poi.begin(); i != poi.end(); ++i) {
             ret.push_back(static_cast<GUIPointOfInterest*>((*i).second)->getGlID());
         }
     }

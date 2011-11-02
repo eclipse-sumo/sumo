@@ -101,7 +101,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin=-1) throw(ProcessError);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin = -1) throw(ProcessError);
 
 
 
@@ -145,7 +145,7 @@ public:
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
                                 OutputDevice* device,
-                                SUMOTime interval, SUMOTime begin=-1) throw();
+                                SUMOTime interval, SUMOTime begin = -1) throw();
 
 
 

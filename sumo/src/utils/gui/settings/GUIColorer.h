@@ -59,7 +59,7 @@ public:
 
     /// @brief Fills the given combobox with the names of available colorings
     void fill(FXComboBox& cb) {
-        for (std::vector<GUIColorScheme>::iterator i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             cb.appendItem((*i).getName().c_str());
         }
         cb.setCurrentItem((FXint)myActiveScheme);
@@ -84,7 +84,7 @@ public:
     }
 
     GUIColorScheme* getSchemeByName(std::string name) {
-        for (std::vector<GUIColorScheme>::iterator i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             if ((*i).getName() == name) {
                 return &(*i);
             }
@@ -93,7 +93,7 @@ public:
     }
 
     void save(OutputDevice& dev) const {
-        for (std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin(); i!=mySchemes.end(); ++i) {
+        for (std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             i->save(dev);
         }
     }

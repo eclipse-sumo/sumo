@@ -74,20 +74,20 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &li
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
-    myFGShapeRotations.reserve(myFGShape.size()-1);
-    myFGShapeLengths.reserve(myFGShape.size()-1);
+    myFGShapeRotations.reserve(myFGShape.size() - 1);
+    myFGShapeLengths.reserve(myFGShape.size() - 1);
     int e = (int) myFGShape.size() - 1;
-    for (int i=0; i<e; ++i) {
+    for (int i = 0; i < e; ++i) {
         const Position& f = myFGShape[i];
-        const Position& s = myFGShape[i+1];
+        const Position& s = myFGShape[i + 1];
         myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
+        myFGShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
     }
     PositionVector tmp = myFGShape;
     tmp.move2side(1.5);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
-    if (tmp.length()!=0) {
+    if (tmp.length() != 0) {
         myFGSignRot = myFGShape.rotationDegreeAtLengthPosition(SUMOReal((myFGShape.length() / 2.)));
         myFGSignRot -= 90;
     }
@@ -121,17 +121,17 @@ void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor green(76./255., 170./255., 50./255.);
-    RGBColor yellow(255./255., 235./255., 0./255.);
+    RGBColor green(76. / 255., 170. / 255., 50. / 255.);
+    RGBColor yellow(255. / 255., 235. / 255., 0. / 255.);
     // draw the area
     size_t i;
     glTranslated(0, 0, getType());
     GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
-    if (s.scale* s.addExaggeration>=10) {
+    if (s.scale* s.addExaggeration >= 10) {
         // draw the lines
-        for (i=0; i!=myLines.size(); ++i) {
+        for (i = 0; i != myLines.size(); ++i) {
             glPushMatrix();
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(180, 1, 0, 0);
@@ -147,15 +147,15 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const throw() {
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
-        if (s.scale*s.addExaggeration>25) {
-            noPoints = MIN2((int)(9.0 + (s.scale*s.addExaggeration) / 10.0), 36);
+        if (s.scale * s.addExaggeration > 25) {
+            noPoints = MIN2((int)(9.0 + (s.scale * s.addExaggeration) / 10.0), 36);
         }
         glScaled(s.addExaggeration, s.addExaggeration, 1);
         GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
         glTranslated(0, 0, .1);
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-        if (s.scale* s.addExaggeration>=4.5) {
+        if (s.scale* s.addExaggeration >= 4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6 * s.addExaggeration, green, myFGSignRot);
         }
     }

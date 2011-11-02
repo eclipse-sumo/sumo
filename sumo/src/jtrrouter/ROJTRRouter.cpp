@@ -57,19 +57,19 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
                      SUMOTime time, std::vector<const ROEdge*> &into) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
     // route until a sinks has been found
-    while (current!=0
+    while (current != 0
             &&
-            current->getType()!=ROEdge::ET_SINK
+            current->getType() != ROEdge::ET_SINK
             &&
-            (int) into.size()<myMaxEdges) {
+            (int) into.size() < myMaxEdges) {
 
         into.push_back(current);
         time += (SUMOTime) current->getTravelTime(vehicle, time);
         current = current->chooseNext(myIgnoreClasses ? 0 : vehicle, time);
-        assert(myIgnoreClasses||current==0||!current->prohibits(vehicle));
+        assert(myIgnoreClasses || current == 0 || !current->prohibits(vehicle));
     }
     // check whether no valid ending edge was found
-    if ((int) into.size()>=myMaxEdges) {
+    if ((int) into.size() >= myMaxEdges) {
         if (myAcceptAllDestination) {
             return;
         } else {
@@ -83,7 +83,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
         }
     }
     // append the sink
-    if (current!=0) {
+    if (current != 0) {
         into.push_back(current);
     }
 }
@@ -92,7 +92,7 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* /*to*/,
 SUMOReal
 ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle* const v, SUMOTime time) throw() {
     SUMOReal costs = 0;
-    for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+    for (std::vector<const ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
         /*
         if (PF::operator()(*i, v)) {
             return -1;

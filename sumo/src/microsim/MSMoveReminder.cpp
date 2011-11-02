@@ -37,7 +37,7 @@
 // ===========================================================================
 MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd) throw()
     : myLane(lane) {
-    if (myLane!=0 && doAdd) {
+    if (myLane != 0 && doAdd) {
         // add reminder to lane
         myLane->addMoveReminder(this);
     }
@@ -48,8 +48,8 @@ MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd) throw()
 void
 MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
                                SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) throw() {
-    std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j=myLastVehicleUpdateValues.find(&veh);
-    if (j!=myLastVehicleUpdateValues.end()) {
+    std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j = myLastVehicleUpdateValues.find(&veh);
+    if (j != myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
         entryTime = (*j).second.first;
         entryPos = (*j).second.second;
@@ -57,7 +57,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal lea
     }
     const SUMOReal timeOnLane = STEPS2TIME(currentTime - entryTime);
     const SUMOReal speed = (leavePos - entryPos) / STEPS2TIME(leaveTime - entryTime);
-    myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, SUMOReal>(currentTime, entryPos+speed*timeOnLane);
+    myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, SUMOReal>(currentTime, entryPos + speed * timeOnLane);
     notifyMoveInternal(veh, timeOnLane, speed);
 }
 #endif

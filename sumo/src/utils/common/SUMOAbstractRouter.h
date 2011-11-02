@@ -89,7 +89,7 @@ template<class E, class V>
 struct prohibited_withRestrictions {
 public:
     inline bool operator()(const E* edge, const V* vehicle) {
-        if (std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
+        if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
             return true;
         }
         return edge->prohibits(vehicle);

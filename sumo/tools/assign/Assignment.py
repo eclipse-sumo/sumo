@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    Assignment.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2008-03-28
 @version $Id$
 

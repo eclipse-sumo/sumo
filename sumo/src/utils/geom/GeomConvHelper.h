@@ -55,7 +55,7 @@ public:
      * @return The parsed position vector
      */
     static PositionVector parseShapeReporting(const std::string& shpdef, const std::string& objecttype,
-            const char* objectid, bool& ok, bool allowEmpty, bool report=true) throw();
+            const char* objectid, bool& ok, bool allowEmpty, bool report = true) throw();
 
 
     /** @brief Builds a boundary from its string representation, reporting occured errors
@@ -69,7 +69,7 @@ public:
      * @return The parsed boundary
      */
     static Boundary parseBoundaryReporting(const std::string& def, const std::string& objecttype,
-                                           const char* objectid, bool& ok, bool report=true) throw();
+                                           const char* objectid, bool& ok, bool report = true) throw();
 
 
 private:

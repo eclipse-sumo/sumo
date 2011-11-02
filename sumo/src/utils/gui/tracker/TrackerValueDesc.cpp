@@ -44,7 +44,7 @@ TrackerValueDesc::TrackerValueDesc(const std::string& name,
                                    SUMOTime recordBegin)
     : myName(name), myActiveCol(col), myInactiveCol(col),
       myMin(0), myMax(0),
-      myAggregationInterval(TIME2STEPS(1)/DELTA_T), myInvalidValue(-1), myValidNo(0),
+      myAggregationInterval(TIME2STEPS(1) / DELTA_T), myInvalidValue(-1), myValidNo(0),
       myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
@@ -58,7 +58,7 @@ TrackerValueDesc::~TrackerValueDesc() {
 
 void
 TrackerValueDesc::addValue(SUMOReal value) {
-    if (myValues.size()==0) {
+    if (myValues.size() == 0) {
         myMin = value;
         myMax = value;
     } else {
@@ -67,17 +67,17 @@ TrackerValueDesc::addValue(SUMOReal value) {
     }
     myLock.lock();
     myValues.push_back(value);
-    if (value!=myInvalidValue) {
+    if (value != myInvalidValue) {
         myTmpLastAggValue += value;
         myValidNo++;
     }
-    const SUMOReal avg = myValidNo==0 ? static_cast<SUMOReal>(0) : myTmpLastAggValue / static_cast<SUMOReal>(myValidNo);
-    if (myAggregationInterval==1 || myValues.size()%myAggregationInterval==1) {
+    const SUMOReal avg = myValidNo == 0 ? static_cast<SUMOReal>(0) : myTmpLastAggValue / static_cast<SUMOReal>(myValidNo);
+    if (myAggregationInterval == 1 || myValues.size() % myAggregationInterval == 1) {
         myAggregatedValues.push_back(avg);
     } else {
         myAggregatedValues.back() = avg;
     }
-    if (myValues.size()%myAggregationInterval==0) {
+    if (myValues.size() % myAggregationInterval == 0) {
         myTmpLastAggValue = 0;
         myValidNo = 0;
     }
@@ -143,22 +143,22 @@ TrackerValueDesc::unlockValues() {
 void
 TrackerValueDesc::setAggregationSpan(SUMOTime as) {
     myLock.lock();
-    if (myAggregationInterval != as/DELTA_T) {
-        myAggregationInterval = as/DELTA_T;
+    if (myAggregationInterval != as / DELTA_T) {
+        myAggregationInterval = as / DELTA_T;
         // ok, the aggregation has changed,
         //  let's recompute the list of aggregated values
         myAggregatedValues.clear();
-        std::vector<SUMOReal>::const_iterator i=myValues.begin();
-        while (i!=myValues.end()) {
+        std::vector<SUMOReal>::const_iterator i = myValues.begin();
+        while (i != myValues.end()) {
             myTmpLastAggValue = 0;
             myValidNo = 0;
-            for (int j=0; j<myAggregationInterval&&i!=myValues.end(); j++, ++i) {
-                if ((*i)!=myInvalidValue) {
+            for (int j = 0; j < myAggregationInterval && i != myValues.end(); j++, ++i) {
+                if ((*i) != myInvalidValue) {
                     myTmpLastAggValue += (*i);
                     myValidNo++;
                 }
             }
-            if (myValidNo==0) {
+            if (myValidNo == 0) {
                 myAggregatedValues.push_back(0);
             } else {
                 myAggregatedValues.push_back(myTmpLastAggValue / static_cast<SUMOReal>(myValidNo));

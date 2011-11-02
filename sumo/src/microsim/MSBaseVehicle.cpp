@@ -67,7 +67,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
     MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
-    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }
     myRoute->addReference();
@@ -77,7 +77,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
 MSBaseVehicle::~MSBaseVehicle() throw() {
     myRoute->release();
     delete myParameter;
-    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete(*dev);
     }
 }
@@ -150,8 +150,8 @@ void
 MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz) throw() {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
-    if (withTaz && MSEdge::dictionary(myParameter->fromTaz+"-source") && MSEdge::dictionary(myParameter->toTaz+"-sink")) {
-        router.compute(MSEdge::dictionary(myParameter->fromTaz+"-source"), MSEdge::dictionary(myParameter->toTaz+"-sink"), this, t, edges);
+    if (withTaz && MSEdge::dictionary(myParameter->fromTaz + "-source") && MSEdge::dictionary(myParameter->toTaz + "-sink")) {
+        router.compute(MSEdge::dictionary(myParameter->fromTaz + "-source"), MSEdge::dictionary(myParameter->toTaz + "-sink"), this, t, edges);
         if (edges.size() >= 2) {
             edges.erase(edges.begin());
             edges.pop_back();
@@ -171,11 +171,11 @@ bool
 MSBaseVehicle::replaceRouteEdges(const MSEdgeVector& edges, bool onInit) throw() {
     // build a new id, first
     std::string id = getID();
-    if (id[0]!='!') {
+    if (id[0] != '!') {
         id = "!" + id;
     }
-    if (myRoute->getID().find("!var#")!=std::string::npos) {
-        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(getNumberReroutes() + 1);
+    if (myRoute->getID().find("!var#") != std::string::npos) {
+        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#") + 4) + toString(getNumberReroutes() + 1);
     } else {
         id = id + "!var#1";
     }
@@ -232,15 +232,15 @@ bool
 MSBaseVehicle::hasValidRoute(std::string& msg) const throw() {
     MSRouteIterator last = myRoute->end() - 1;
     // check connectivity, first
-    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
-        if ((*e)->allowedLanes(**(e+1), myType->getVehicleClass())==0) {
-            msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e+1))->getID() + "'.";
+    for (MSRouteIterator e = myCurrEdge; e != last; ++e) {
+        if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == 0) {
+            msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e + 1))->getID() + "'.";
             return false;
         }
     }
     last = myRoute->end();
     // check usable lanes, then
-    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
+    for (MSRouteIterator e = myCurrEdge; e != last; ++e) {
         if ((*e)->prohibits(this)) {
             msg = "Edge '" + (*e)->getID() + "' prohibits.";
             return false;
@@ -258,7 +258,7 @@ MSBaseVehicle::addReminder(MSMoveReminder* rem) throw() {
 
 void
 MSBaseVehicle::removeReminder(MSMoveReminder* rem) throw() {
-    for (MoveReminderCont::iterator r=myMoveReminders.begin(); r!=myMoveReminders.end(); ++r) {
+    for (MoveReminderCont::iterator r = myMoveReminders.begin(); r != myMoveReminders.end(); ++r) {
         if (r->first == rem) {
             myMoveReminders.erase(r);
             return;
@@ -269,7 +269,7 @@ MSBaseVehicle::removeReminder(MSMoveReminder* rem) throw() {
 
 void
 MSBaseVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
-    for (MoveReminderCont::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (rem->first->notifyEnter(*this, reason)) {
             ++rem;
         } else {
@@ -283,20 +283,20 @@ void
 MSBaseVehicle::calculateArrivalPos() throw() {
     const SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
-    case ARRIVAL_POS_DEFAULT:
-    case ARRIVAL_POS_GIVEN:
-        // Maybe we should warn the user about invalid inputs!
-        myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
-        if (myArrivalPos < 0) {
-            myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
-        }
-        break;
-    case ARRIVAL_POS_RANDOM:
-        myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
-        break;
-    case ARRIVAL_POS_MAX:
-        myArrivalPos = lastLaneLength;
-        break;
+        case ARRIVAL_POS_DEFAULT:
+        case ARRIVAL_POS_GIVEN:
+            // Maybe we should warn the user about invalid inputs!
+            myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
+            if (myArrivalPos < 0) {
+                myArrivalPos = MAX2(myArrivalPos + lastLaneLength, static_cast<SUMOReal>(0));
+            }
+            break;
+        case ARRIVAL_POS_RANDOM:
+            myArrivalPos = RandHelper::rand(static_cast<SUMOReal>(0), lastLaneLength);
+            break;
+        case ARRIVAL_POS_MAX:
+            myArrivalPos = lastLaneLength;
+            break;
     }
 }
 

@@ -50,12 +50,12 @@ RODFDetectorFlows::~RODFDetectorFlows() {}
 
 void
 RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd) {
-    if (myFastAccessFlows.find(id)==myFastAccessFlows.end()) {
-        size_t noItems = (size_t)((myEndTime-myBeginTime)/myStepOffset);
+    if (myFastAccessFlows.find(id) == myFastAccessFlows.end()) {
+        size_t noItems = (size_t)((myEndTime - myBeginTime) / myStepOffset);
         myFastAccessFlows[id] = std::vector<FlowDef>(noItems);
         std::vector<FlowDef> &cflows = myFastAccessFlows[id];
         // initialise
-        for (std::vector<FlowDef>::iterator i=cflows.begin(); i<cflows.end(); ++i) {
+        for (std::vector<FlowDef>::iterator i = cflows.begin(); i < cflows.end(); ++i) {
             (*i).qPKW = 0;
             (*i).qLKW = 0;
             (*i).vPKW = 0;
@@ -65,8 +65,8 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
             (*i).firstSet = true;
         }
     }
-    assert((t-myBeginTime)/myStepOffset<(int) myFastAccessFlows[id].size());
-    FlowDef& ofd = myFastAccessFlows[id][(t-myBeginTime)/myStepOffset];
+    assert((t - myBeginTime) / myStepOffset < (int) myFastAccessFlows[id].size());
+    FlowDef& ofd = myFastAccessFlows[id][(t - myBeginTime) / myStepOffset];
     if (ofd.firstSet) {
         ofd = fd;
         ofd.firstSet = false;
@@ -76,9 +76,9 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
         ofd.vLKW = ofd.vLKW + fd.vLKW; //!!! mean value?
         ofd.vPKW = ofd.vPKW + fd.vPKW; //!!! mean value?
     }
-    if (ofd.qLKW!=0 && ofd.qPKW!=0) {
+    if (ofd.qLKW != 0 && ofd.qPKW != 0) {
         ofd.fLKW = ofd.qLKW / ofd.qPKW ;
-    } else if (ofd.qPKW!=0) {
+    } else if (ofd.qPKW != 0) {
         ofd.fLKW = 0;
     } else {
         ofd.fLKW = 1;
@@ -92,9 +92,9 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
 void
 RODFDetectorFlows::setFlows(const std::string& detector_id,
                             std::vector<FlowDef> &flows) {
-    for (std::vector<FlowDef>::iterator i=flows.begin(); i<flows.end(); ++i) {
+    for (std::vector<FlowDef>::iterator i = flows.begin(); i < flows.end(); ++i) {
         FlowDef& ofd = *i;
-        if (ofd.qLKW!=0 && ofd.qPKW!=0) {
+        if (ofd.qLKW != 0 && ofd.qPKW != 0) {
             ofd.fLKW = ofd.qLKW / ofd.qPKW ;
         } else {
             ofd.fLKW = 0;
@@ -112,14 +112,14 @@ RODFDetectorFlows::removeFlow(const std::string& detector_id) {
 
 bool
 RODFDetectorFlows::knows(const std::string& det_id) const {
-    return myFastAccessFlows.find(det_id)!=myFastAccessFlows.end();
+    return myFastAccessFlows.find(det_id) != myFastAccessFlows.end();
 }
 
 
 const std::vector<FlowDef> &
 RODFDetectorFlows::getFlowDefs(const std::string& id) const {
-    assert(myFastAccessFlows.find(id)!=myFastAccessFlows.end());
-    assert(myFastAccessFlows.find(id)->second.size()!=0);
+    assert(myFastAccessFlows.find(id) != myFastAccessFlows.end());
+    assert(myFastAccessFlows.find(id)->second.size() != 0);
     return myFastAccessFlows.find(id)->second;
 }
 
@@ -129,7 +129,7 @@ RODFDetectorFlows::getFlowSumSecure(const std::string& id) const {
     SUMOReal ret = 0;
     if (knows(id)) {
         const std::vector<FlowDef> &flows = getFlowDefs(id);
-        for (std::vector<FlowDef>::const_iterator i=flows.begin(); i!=flows.end(); ++i) {
+        for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
             ret += (*i).qPKW;
             ret += (*i).qLKW;
         }
@@ -140,17 +140,17 @@ RODFDetectorFlows::getFlowSumSecure(const std::string& id) const {
 
 SUMOReal
 RODFDetectorFlows::getMaxDetectorFlow() const {
-    if (myMaxDetectorFlow<0) {
+    if (myMaxDetectorFlow < 0) {
         SUMOReal max = 0;
         std::map<std::string, std::vector<FlowDef> >::const_iterator j;
-        for (j=myFastAccessFlows.begin(); j!=myFastAccessFlows.end(); ++j) {
+        for (j = myFastAccessFlows.begin(); j != myFastAccessFlows.end(); ++j) {
             SUMOReal curr = 0;
             const std::vector<FlowDef> &flows = (*j).second;
-            for (std::vector<FlowDef>::const_iterator i=flows.begin(); i!=flows.end(); ++i) {
+            for (std::vector<FlowDef>::const_iterator i = flows.begin(); i != flows.end(); ++i) {
                 curr += (*i).qPKW;
                 curr += (*i).qLKW;
             }
-            if (max<curr) {
+            if (max < curr) {
                 max = curr;
             }
         }
@@ -163,13 +163,13 @@ RODFDetectorFlows::getMaxDetectorFlow() const {
 void
 RODFDetectorFlows::mesoJoin(const std::string& nid,
                             const std::vector<std::string> &oldids) {
-    for (std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i = oldids.begin(); i != oldids.end(); ++i) {
         if (!knows(*i)) {
             continue;
         }
         std::vector<FlowDef> &flows = myFastAccessFlows[*i];
         size_t index = 0;
-        for (SUMOTime t=myBeginTime; t!=myEndTime; t+=myStepOffset) {
+        for (SUMOTime t = myBeginTime; t != myEndTime; t += myStepOffset) {
             addFlow(nid, t, flows[index++]); // !!!
         }
         myFastAccessFlows.erase(*i);
@@ -179,12 +179,12 @@ RODFDetectorFlows::mesoJoin(const std::string& nid,
 
 void
 RODFDetectorFlows::printAbsolute() const {
-    for (std::map<std::string, std::vector<FlowDef> >::const_iterator i=myFastAccessFlows.begin(); i!=myFastAccessFlows.end(); ++i) {
+    for (std::map<std::string, std::vector<FlowDef> >::const_iterator i = myFastAccessFlows.begin(); i != myFastAccessFlows.end(); ++i) {
         std::cout << (*i).first << ":";
         const std::vector<FlowDef> &flows = (*i).second;
         SUMOReal qPKW = 0;
         SUMOReal qLKW = 0;
-        for (std::vector<FlowDef>::const_iterator j=flows.begin(); j!=flows.end(); ++j) {
+        for (std::vector<FlowDef>::const_iterator j = flows.begin(); j != flows.end(); ++j) {
             qPKW += (*j).qPKW;
             qLKW += (*j).qLKW;
         }

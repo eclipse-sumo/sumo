@@ -60,14 +60,14 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime b
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-        while (seg!=0) {
+        while (seg != 0) {
             seg->addDetector(this);
             seg = seg->getNextSegment();
         }
         return;
     }
 #endif
-    for (std::vector<MSLane*>::const_iterator it = edge->getLanes().begin(); it!=edge->getLanes().end(); ++it) {
+    for (std::vector<MSLane*>::const_iterator it = edge->getLanes().begin(); it != edge->getLanes().end(); ++it) {
         (*it)->addMoveReminder(this);
     }
 }
@@ -94,10 +94,10 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
-        for (unsigned int j=0; j<routes.size(); ++j) {
+        for (unsigned int j = 0; j < routes.size(); ++j) {
             const MSRoute* r = routes[j];
             dev.openTag("route") << " id=\"" << r->getID() + "_" + time2string(startTime) << "\" edges=\"";
-            for (MSRouteIterator i = r->begin(); i!=r->end(); ++i) {
+            for (MSRouteIterator i = r->begin(); i != r->end(); ++i) {
                 if (i != r->begin()) {
                     dev << " ";
                 }

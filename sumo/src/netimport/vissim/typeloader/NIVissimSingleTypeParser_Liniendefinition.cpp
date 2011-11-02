@@ -55,7 +55,7 @@ NIVissimSingleTypeParser_Liniendefinition::parse(std::istream& from) {
     //cout << tag << endl;
     do {
         getline(from, tag);
-    } while (tag.length()>0&&tag[0]==' ');
+    } while (tag.length() > 0 && tag[0] == ' ');
     return true;
 }
 

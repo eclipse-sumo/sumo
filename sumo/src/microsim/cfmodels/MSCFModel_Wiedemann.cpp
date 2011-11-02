@@ -117,7 +117,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, SUMOReal predSpeed, SUMOReal gap) 
     const SUMOReal sdv_root = (dx - myAX) / myCX;
     const SUMOReal sdv = sdv_root * sdv_root;
     const SUMOReal cldv = sdv * ex * ex;
-    const SUMOReal opdv = cldv * (-1 - 2* RandHelper::randNorm(0.5, 0.15));
+    const SUMOReal opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15));
     // select the regime, get new acceleration, compute new speed based
     SUMOReal accel;
     if (dx <= bx) {
@@ -148,7 +148,7 @@ SUMOReal
 MSCFModel_Wiedemann::fullspeed(SUMOReal v, SUMOReal vpref, SUMOReal dx, SUMOReal bx) const {
     SUMOReal bmax = 0.2 + 0.8 * myAccel * (7 - sqrt(v));
     // if veh just drifted out of a 'following' process the acceleration is reduced
-    SUMOReal accel = dx<=2*bx ? MIN2(myMinAccel, bmax * (dx-bx) / bx) : bmax;
+    SUMOReal accel = dx <= 2 * bx ? MIN2(myMinAccel, bmax * (dx - bx) / bx) : bmax;
     if (v > vpref) {
         accel = - accel;
     }
@@ -192,12 +192,12 @@ MSCFModel_Wiedemann::emergency(SUMOReal dv, SUMOReal dx) const {
 
 SUMOReal
 MSCFModel_Wiedemann::krauss_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
-    if (predSpeed==0&&gap<0.01) {
+    if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
     const SUMOReal tauDecel = myDecel * myHeadwayTime;
     const SUMOReal speedReduction = ACCEL2SPEED(myDecel);
     const int predSteps = int(predSpeed / speedReduction);
-    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps+1) / 2));
-    return (SUMOReal)(-tauDecel + sqrt(tauDecel*tauDecel + leaderContrib));
+    const SUMOReal leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
+    return (SUMOReal)(-tauDecel + sqrt(tauDecel * tauDecel + leaderContrib));
 }

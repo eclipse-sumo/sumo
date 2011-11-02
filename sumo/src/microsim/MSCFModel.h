@@ -233,7 +233,7 @@ public:
       */
     SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeed, const SUMOReal leaderMaxDecel) const {
         const int leaderSteps = int(leaderSpeed / ACCEL2SPEED(leaderMaxDecel));
-        const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps+1) / 2);
+        const SUMOReal leaderBreak = SPEED2DIST(leaderSteps * leaderSpeed - ACCEL2SPEED(leaderMaxDecel) * leaderSteps * (leaderSteps + 1) / 2);
         return MAX2((SUMOReal) 0, brakeGap(speed) - leaderBreak);
     }
 

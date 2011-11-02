@@ -70,20 +70,20 @@ void
 NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_NODE:
-        addNode(attrs);
-        break;
-    case SUMO_TAG_JOIN:
-        addJoinCluster(attrs);
-        break;
-    case SUMO_TAG_JOINEXCLUDE:
-        addJoinExclusion(attrs);
-        break;
-    case SUMO_TAG_RESET:
-        deleteNode(attrs);
-        break;
-    default:
-        break;
+        case SUMO_TAG_NODE:
+            addNode(attrs);
+            break;
+        case SUMO_TAG_JOIN:
+            addJoinCluster(attrs);
+            break;
+        case SUMO_TAG_JOINEXCLUDE:
+            addJoinExclusion(attrs);
+            break;
+        case SUMO_TAG_RESET:
+            deleteNode(attrs);
+            break;
+        default:
+            break;
     }
 }
 
@@ -101,7 +101,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     bool xOk = false;
     bool yOk = false;
     bool needConversion = true;
-    if (node!=0) {
+    if (node != 0) {
         myPosition = node->getPosition();
         xOk = yOk = true;
         needConversion = false;
@@ -119,21 +119,21 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
         myPosition.set(myPosition.x(), myPosition.y(), attrs.getSUMORealReporting(SUMO_ATTR_Z, myID.c_str(), ok));
     }
-    if (xOk&&yOk) {
-        if (needConversion&&!NILoader::transformCoordinates(myPosition)) {
+    if (xOk && yOk) {
+        if (needConversion && !NILoader::transformCoordinates(myPosition)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {
         WRITE_ERROR("Missing position (at node ID='" + myID + "').");
     }
-    bool updateEdgeGeometries = node!=0 && myPosition != node->getPosition();
+    bool updateEdgeGeometries = node != 0 && myPosition != node->getPosition();
     // check whether the y-axis shall be flipped
     if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
     }
     // get the type
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
-    if (node!=0) {
+    if (node != 0) {
         type = node->getType();
     }
     std::string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, myID.c_str(), ok, "");
@@ -142,7 +142,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     }
 
     // check whether a prior node shall be modified
-    if (node==0) {
+    if (node == 0) {
         node = new NBNode(myID, myPosition, type);
         if (!myNodeCont.insert(node)) {
             throw ProcessError("Could not insert node though checked this before (id='" + myID + "').");
@@ -151,8 +151,8 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         // remove previously set tls if this node is not controlled by a tls
         std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
         node->removeTrafficLights();
-        for (std::set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
-            if ((*i)->getNodes().size()==0) {
+        for (std::set<NBTrafficLightDefinition*>::iterator i = tls.begin(); i != tls.end(); ++i) {
+            if ((*i)->getNodes().size() == 0) {
                 myTLLogicCont.removeFully((*i)->getID());
             }
         }
@@ -160,7 +160,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         node->reinit(myPosition, type, updateEdgeGeometries);
     }
     // process traffic light definition
-    if (type==NODETYPE_TRAFFIC_LIGHT) {
+    if (type == NODETYPE_TRAFFIC_LIGHT) {
         processTrafficLightDefinitions(attrs, node);
     }
 }
@@ -217,11 +217,11 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     std::set<NBTrafficLightDefinition*> tlDefs;
     bool ok = true;
     std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
-    if (tlID!="" && myTLLogicCont.getPrograms(tlID).size() > 0) {
+    if (tlID != "" && myTLLogicCont.getPrograms(tlID).size() > 0) {
         // we already have definitions for this tlID
         const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLogicCont.getPrograms(tlID);
         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-        for (it = programs.begin(); it!= programs.end(); it++) {
+        for (it = programs.begin(); it != programs.end(); it++) {
             tlDefs.insert(it->second);
             it->second->addNode(currentNode);
         }
@@ -243,8 +243,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     } else {
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_CONTROLLED_INNER, 0, ok, ""), controlledInner);
     }
-    if (controlledInner.size()!=0) {
-        for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it!= tlDefs.end(); it++) {
+    if (controlledInner.size() != 0) {
+        for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it != tlDefs.end(); it++) {
             (*it)->addControlledInnerEdges(controlledInner);
         }
     }

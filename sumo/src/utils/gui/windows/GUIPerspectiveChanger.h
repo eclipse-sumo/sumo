@@ -91,7 +91,7 @@ public:
     /** @brief Centers the view to the given position,
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
-    virtual void centerTo(const Position& pos, SUMOReal radius, bool applyZoom=true) = 0;
+    virtual void centerTo(const Position& pos, SUMOReal radius, bool applyZoom = true) = 0;
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */
@@ -112,7 +112,7 @@ public:
     virtual void changeCanvassLeft(int change) = 0;
 
 
-    Boundary getViewport(bool fixRatio=true) {
+    Boundary getViewport(bool fixRatio = true) {
         if (fixRatio) {
             return patchedViewPort();
         } else {

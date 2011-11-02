@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    extractTest.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2009-07-08
 @version $Id$
 

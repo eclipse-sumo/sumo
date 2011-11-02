@@ -70,8 +70,8 @@
 template std::vector< GLObjectValuePassConnector<SUMOReal>* > GLObjectValuePassConnector<SUMOReal>::myContainer;
 template MFXMutex GLObjectValuePassConnector<SUMOReal>::myLock;
 
-template std::vector< GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myContainer;
-template MFXMutex GLObjectValuePassConnector<std::pair<int,class MSPhaseDefinition> >::myLock;
+template std::vector< GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myContainer;
+template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
 
 
 // ===========================================================================
@@ -90,17 +90,17 @@ GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 GUINet::~GUINet() throw() {
     // delete allocated wrappers
     //  of junctions
-    for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
+    for (std::vector<GUIJunctionWrapper*>::iterator i1 = myJunctionWrapper.begin(); i1 != myJunctionWrapper.end(); i1++) {
         delete(*i1);
     }
     //  of additional structures
     GUIGlObject_AbstractAdd::clearDictionary();
     //  of tl-logics
-    for (Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
+    for (Logics2WrapperMap::iterator i3 = myLogics2Wrapper.begin(); i3 != myLogics2Wrapper.end(); i3++) {
         delete(*i3).second;
     }
     //  of detectors
-    for (std::vector<GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
+    for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorDict.begin(); i != myDetectorDict.end(); ++i) {
         delete *i;
     }
 }
@@ -120,7 +120,7 @@ GUINet::initTLMap() {
     // allocate storage for the wrappers
     myTLLogicWrappers.reserve(logics.size());
     // go through the logics
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
+    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         createTLWrapper(*i);
     }
 }
@@ -133,7 +133,7 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     }
     // get the links
     const MSTrafficLightLogic::LinkVectorVector& links = tll->getLinks();
-    if (links.size()==0) { // @legacy this should never happen in 0.13.0+ networks
+    if (links.size() == 0) { // @legacy this should never happen in 0.13.0+ networks
         return 0;
     }
     // build the wrapper
@@ -141,9 +141,9 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
         new GUITrafficLightLogicWrapper(*myLogics, *tll);
     // build the association link->wrapper
     MSTrafficLightLogic::LinkVectorVector::const_iterator j;
-    for (j=links.begin(); j!=links.end(); j++) {
+    for (j = links.begin(); j != links.end(); j++) {
         MSTrafficLightLogic::LinkVector::const_iterator j2;
-        for (j2=(*j).begin(); j2!=(*j).end(); j2++) {
+        for (j2 = (*j).begin(); j2 != (*j).end(); j2++) {
             myLinks2Logic[*j2] = tll->getID();
         }
     }
@@ -162,7 +162,7 @@ GUINet::getJunctionPosition(const std::string& name) const {
 
 bool
 GUINet::vehicleExists(const std::string& name) const {
-    return myVehicleControl->getVehicle(name)!=0;
+    return myVehicleControl->getVehicle(name) != 0;
 }
 
 
@@ -191,10 +191,10 @@ GUINet::getLinkTLID(MSLink* link) const {
 int
 GUINet::getLinkTLIndex(MSLink* link) const {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
-    if (i==myLinks2Logic.end()) {
+    if (i == myLinks2Logic.end()) {
         return -1;
     }
-    if (myLogics2Wrapper.find(myLogics->getActive((*i).second))==myLogics2Wrapper.end()) {
+    if (myLogics2Wrapper.find(myLogics->getActive((*i).second)) == myLogics2Wrapper.end()) {
         return -1;
     }
     return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getLinkIndex(link);
@@ -211,7 +211,7 @@ GUINet::guiSimulationStep() {
 std::vector<GUIGlID>
 GUINet::getJunctionIDs(bool includeInternal) const {
     std::vector<GUIGlID> ret;
-    for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
+    for (std::vector<GUIJunctionWrapper*>::const_iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
         if (!(*i)->isInner() || includeInternal) {
             ret.push_back((*i)->getGlID());
         }
@@ -224,9 +224,9 @@ std::vector<GUIGlID>
 GUINet::getTLSIDs() const {
     std::vector<GUIGlID> ret;
     std::vector<std::string> ids;
-    for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
+    for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i = myLogics2Wrapper.begin(); i != myLogics2Wrapper.end(); ++i) {
         std::string sid = (*i).second->getMicrosimID();
-        if (find(ids.begin(), ids.end(), sid)==ids.end()) {
+        if (find(ids.begin(), ids.end(), sid) == ids.end()) {
             ret.push_back((*i).second->getGlID());
             ids.push_back(sid);
         }
@@ -238,9 +238,9 @@ GUINet::getTLSIDs() const {
 void
 GUINet::initGUIStructures() {
     // initialise detector storage for gui
-    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i=myDetectorControl->myDetectors.begin(); i!=myDetectorControl->myDetectors.end(); ++i) {
+    for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectorControl->myDetectors.begin(); i != myDetectorControl->myDetectors.end(); ++i) {
         const std::map<std::string, MSDetectorFileOutput*> &dets = myDetectorControl->getTypedDetectors((*i).first).getMyMap();
-        for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
+        for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             GUIDetectorWrapper* wrapper = (*j).second->buildDetectorGUIRepresentation();
             if (wrapper != 0) {
                 myDetectorDict.push_back(wrapper);
@@ -256,17 +256,17 @@ GUINet::initGUIStructures() {
     size_t size = myJunctions->size();
     myJunctionWrapper.reserve(size);
     const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
-    for (std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+    for (std::map<std::string, MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
         myJunctionWrapper.push_back(new GUIJunctionWrapper(*(*i).second));
     }
     // build the visualization tree
     float* cmin = new float[2];
     float* cmax = new float[2];
-    for (std::vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
+    for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
         GUIEdge* edge = *i;
         Boundary b;
         const std::vector<MSLane*> &lanes = edge->getLanes();
-        for (std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+        for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             b.add((*j)->getShape().getBoxBoundary());
         }
         b.grow(2.);
@@ -280,7 +280,7 @@ GUINet::initGUIStructures() {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
         }
     }
-    for (std::vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
+    for (std::vector<GUIJunctionWrapper*>::iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper* junction = *i;
         Boundary b = junction->getBoundary();
         b.grow(2.);
@@ -299,7 +299,7 @@ GUINet::initGUIStructures() {
 
 unsigned int
 GUINet::getWholeDuration() const throw() {
-    return myLastSimDuration+/*myLastVisDuration+*/myLastIdleDuration;
+    return myLastSimDuration +/*myLastVisDuration+*/myLastIdleDuration;
 }
 
 
@@ -319,7 +319,7 @@ GUINet::getVisDuration() const
 
 SUMOReal
 GUINet::getRTFactor() const {
-    if (myLastSimDuration==0) {
+    if (myLastSimDuration == 0) {
         return -1;
     }
     return (SUMOReal) 1000. / (SUMOReal) myLastSimDuration;
@@ -328,28 +328,28 @@ GUINet::getRTFactor() const {
 
 SUMOReal
 GUINet::getUPS() const {
-    if (myLastSimDuration==0) {
+    if (myLastSimDuration == 0) {
         return -1;
     }
-    return (SUMOReal) myLastVehicleMovementCount / (SUMOReal) myLastSimDuration *(SUMOReal) 1000.;
+    return (SUMOReal) myLastVehicleMovementCount / (SUMOReal) myLastSimDuration * (SUMOReal) 1000.;
 }
 
 
 SUMOReal
 GUINet::getMeanRTFactor(int duration) const {
-    if (myOverallSimDuration==0) {
+    if (myOverallSimDuration == 0) {
         return -1;
     }
-    return ((SUMOReal)(duration)*(SUMOReal) 1000./(SUMOReal)myOverallSimDuration);
+    return ((SUMOReal)(duration) * (SUMOReal) 1000. / (SUMOReal)myOverallSimDuration);
 }
 
 
 SUMOReal
 GUINet::getMeanUPS() const {
-    if (myOverallSimDuration==0) {
+    if (myOverallSimDuration == 0) {
         return -1;
     }
-    return ((SUMOReal)myVehiclesMoved / (SUMOReal)myOverallSimDuration *(SUMOReal) 1000.);
+    return ((SUMOReal)myVehiclesMoved / (SUMOReal)myOverallSimDuration * (SUMOReal) 1000.);
 }
 
 

@@ -1,6 +1,6 @@
 """
 @file    netshiftadaptor.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2008-09-01
 @version $Id$
 

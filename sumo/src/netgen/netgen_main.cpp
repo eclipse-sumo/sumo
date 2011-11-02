@@ -140,29 +140,29 @@ buildNetwork(NBNetBuilder& nb) {
         SUMOReal xLength = oc.getFloat("grid.x-length");
         SUMOReal yLength = oc.getFloat("grid.y-length");
         SUMOReal attachLength = oc.getFloat("grid.attach-length");
-        if (oc.isDefault("grid.x-number")&&!oc.isDefault("grid.number")) {
+        if (oc.isDefault("grid.x-number") && !oc.isDefault("grid.number")) {
             xNo = oc.getInt("grid.number");
         }
-        if (oc.isDefault("grid.y-number")&&!oc.isDefault("grid.number")) {
+        if (oc.isDefault("grid.y-number") && !oc.isDefault("grid.number")) {
             yNo = oc.getInt("grid.number");
         }
-        if (oc.isDefault("grid.x-length")&&!oc.isDefault("grid.length")) {
+        if (oc.isDefault("grid.x-length") && !oc.isDefault("grid.length")) {
             xLength = oc.getFloat("grid.length");
         }
-        if (oc.isDefault("grid.y-length")&&!oc.isDefault("grid.length")) {
+        if (oc.isDefault("grid.y-length") && !oc.isDefault("grid.length")) {
             yLength = oc.getFloat("grid.length");
         }
         // check values
         bool hadError = false;
-        if (xNo<2 || yNo<2) {
+        if (xNo < 2 || yNo < 2) {
             WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
             hadError = true;
         }
-        if (xLength<10. || yLength<10.) {
+        if (xLength < 10. || yLength < 10.) {
             WRITE_ERROR("The distance between nodes must be at least 10m in both directions.");
             hadError = true;
         }
-        if (attachLength != 0.0 && attachLength<10.) {
+        if (attachLength != 0.0 && attachLength < 10.) {
             WRITE_ERROR("The length of attached streets must be at least 10m.");
             hadError = true;
         }
@@ -233,7 +233,7 @@ main(int argc, char** argv) {
         nb.compute(oc);
         NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -246,7 +246,7 @@ main(int argc, char** argv) {
     }
     OutputDevice::closeAll();
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

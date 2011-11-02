@@ -83,7 +83,7 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc,
     loader.loadNet(net, builder);
     // set the turn defaults
     const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
-    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
 }
@@ -92,10 +92,10 @@ std::vector<SUMOReal>
 getTurningDefaults(OptionsCont& oc) {
     std::vector<SUMOReal> ret;
     std::vector<std::string> defs = oc.getStringVector("turn-defaults");
-    if (defs.size()<2) {
+    if (defs.size() < 2) {
         throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
     }
-    for (std::vector<std::string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
             SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
             ret.push_back(val);
@@ -113,7 +113,7 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
     if (oc.isSet("turn-ratio-files")) {
         ROJTRTurnDefLoader loader(net);
         std::vector<std::string> ratio_files = oc.getStringVector("turn-ratio-files");
-        for (std::vector<std::string>::const_iterator i=ratio_files.begin(); i!=ratio_files.end(); ++i) {
+        for (std::vector<std::string>::const_iterator i = ratio_files.begin(); i != ratio_files.end(); ++i) {
             if (!XMLSubSys::runParser(loader, *i)) {
                 throw ProcessError();
             }
@@ -125,9 +125,9 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
     // parse sink edges specified at the input/within the configuration
     if (oc.isSet("sink-edges")) {
         std::vector<std::string> edges = oc.getStringVector("sink-edges");
-        for (std::vector<std::string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (std::vector<std::string>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             ROJTREdge* edge = static_cast<ROJTREdge*>(net.getEdge(*i));
-            if (edge==0) {
+            if (edge == 0) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
             }
             edge->setType(ROEdge::ET_SINK);
@@ -207,7 +207,7 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -221,7 +221,7 @@ main(int argc, char** argv) {
     delete net;
     OutputDevice::closeAll();
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

@@ -64,8 +64,8 @@ NIVissimClosures::dictionary(const std::string& id,
 
 bool
 NIVissimClosures::dictionary(const std::string& name, NIVissimClosures* o) {
-    DictType::iterator i=myDict.find(name);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(name);
+    if (i == myDict.end()) {
         myDict[name] = o;
         return true;
     }
@@ -75,8 +75,8 @@ NIVissimClosures::dictionary(const std::string& name, NIVissimClosures* o) {
 
 NIVissimClosures*
 NIVissimClosures::dictionary(const std::string& name) {
-    DictType::iterator i=myDict.find(name);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(name);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -86,7 +86,7 @@ NIVissimClosures::dictionary(const std::string& name) {
 
 void
 NIVissimClosures::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

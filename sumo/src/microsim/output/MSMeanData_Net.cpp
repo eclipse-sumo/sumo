@@ -169,11 +169,11 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 "\" waitingTime=\"" << waitSeconds <<
                 "\" speed=\"" << travelledDistance / sampleSeconds;
         }
-        dev<<"\" departed=\""<<nVehDeparted<<
-           "\" arrived=\""<<nVehArrived<<
-           "\" entered=\""<<nVehEntered<<
-           "\" left=\""<<nVehLeft<<
-           "\"/>\n";
+        dev << "\" departed=\"" << nVehDeparted <<
+            "\" arrived=\"" << nVehArrived <<
+            "\" entered=\"" << nVehEntered <<
+            "\" left=\"" << nVehLeft <<
+            "\"/>\n";
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
@@ -193,13 +193,13 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 "\" speed=\"" << travelledDistance / sampleSeconds;
         }
     }
-    dev<<"\" departed=\""<<nVehDeparted<<
-       "\" arrived=\""<<nVehArrived<<
-       "\" entered=\""<<nVehEntered<<
-       "\" left=\""<<nVehLeft<<
-       "\" laneChangedFrom=\""<<nVehLaneChangeFrom<<
-       "\" laneChangedTo=\""<<nVehLaneChangeTo<<
-       "\"/>\n";
+    dev << "\" departed=\"" << nVehDeparted <<
+        "\" arrived=\"" << nVehArrived <<
+        "\" entered=\"" << nVehEntered <<
+        "\" left=\"" << nVehLeft <<
+        "\" laneChangedFrom=\"" << nVehLaneChangeFrom <<
+        "\" laneChangedTo=\"" << nVehLaneChangeTo <<
+        "\"/>\n";
 }
 
 // ---------------------------------------------------------------------------

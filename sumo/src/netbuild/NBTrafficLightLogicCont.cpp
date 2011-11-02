@@ -169,17 +169,17 @@ NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont& ec, OptionsCont& oc, NBT
     const std::string& programID = def->getProgramID();
     // build program
     NBTrafficLightLogic* built = def->compute(ec, oc);
-    if (built==0) {
+    if (built == 0) {
         WRITE_WARNING("Could not build program '" + programID + "' for traffic light '" + id + "'");
         return false;
     }
     // compute offset
     SUMOTime T = built->getDuration();
     if (myHalfOffsetTLS.count(id)) {
-        built->setOffset((SUMOTime)(T/2.));
+        built->setOffset((SUMOTime)(T / 2.));
     }
     if (myQuarterOffsetTLS.count(id)) {
-        built->setOffset((SUMOTime)(T/4.));
+        built->setOffset((SUMOTime)(T / 4.));
     }
     // and insert the result after computation
     // make sure we don't leak memory if computeSingleLogic is called externally
@@ -232,8 +232,8 @@ NBTrafficLightLogicCont::replaceRemoved(NBEdge* removed, int removedLane,
 
 NBTrafficLightDefinition*
 NBTrafficLightLogicCont::getDefinition(const std::string& id, const std::string& programID) const {
-    Id2Defs::const_iterator i=myDefinitions.find(id);
-    if (i!=myDefinitions.end()) {
+    Id2Defs::const_iterator i = myDefinitions.find(id);
+    if (i != myDefinitions.end()) {
         Program2Def programs = i->second;
         Program2Def::const_iterator i2 = programs.find(programID);
         if (i2 != programs.end()) {
@@ -256,8 +256,8 @@ NBTrafficLightLogicCont::getPrograms(const std::string& id) const {
 
 NBTrafficLightLogic*
 NBTrafficLightLogicCont::getLogic(const std::string& id, const std::string& programID) const {
-    Id2Logics::const_iterator i=myComputed.find(id);
-    if (i!=myComputed.end()) {
+    Id2Logics::const_iterator i = myComputed.find(id);
+    if (i != myComputed.end()) {
         Program2Logic programs = i->second;
         Program2Logic::const_iterator i2 = programs.find(programID);
         if (i2 != programs.end()) {

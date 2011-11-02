@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    Path.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-17
 
 Contains paths which are needed frequently

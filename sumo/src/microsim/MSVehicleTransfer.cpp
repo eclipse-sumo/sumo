@@ -72,7 +72,7 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) throw() {
 void
 MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
     // go through vehicles
-    for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
+    for (VehicleInfVector::iterator i = myVehicles.begin(); i != myVehicles.end();) {
         // get the vehicle information
         VehicleInformation& desc = *i;
 
@@ -109,7 +109,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
                 i = myVehicles.erase(i);
             } else {
                 // could not insert. maybe we should proceed in virtual space
-                if (desc.myProceedTime<time) {
+                if (desc.myProceedTime < time) {
                     // get the lanes of the next edge (the one the vehicle wiil be
                     //  virtually on after all these computations)
                     desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT);
@@ -117,8 +117,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
                     // !!! only move reminders are called but the edge is not advanced
                     const MSEdge* nextEdge = desc.myVeh->succEdge(1);
                     // let the vehicle move to the next edge
-                    if (nextEdge==0) {
-                        WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
+                    if (nextEdge == 0) {
+                        WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on end edge '" + e->getID() + "'.");
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = myVehicles.erase(i);
                         continue;
@@ -141,7 +141,7 @@ MSVehicleTransfer::hasPending() const throw() {
 
 MSVehicleTransfer*
 MSVehicleTransfer::getInstance() throw() {
-    if (myInstance==0) {
+    if (myInstance == 0) {
         myInstance = new MSVehicleTransfer();
     }
     return myInstance;

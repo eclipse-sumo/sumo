@@ -53,7 +53,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXHandler(const std::string& file="");
+    SUMOSAXHandler(const std::string& file = "");
 
 
     /// Destructor

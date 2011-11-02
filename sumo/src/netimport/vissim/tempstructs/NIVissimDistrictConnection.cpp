@@ -73,9 +73,9 @@ NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
     : myID(id), myName(name), myDistricts(districts),
       myEdgeID(edgeid), myPosition(position),
       myAssignedVehicles(assignedVehicles) {
-    IntVector::iterator i=myDistricts.begin();
-    DoubleVector::const_iterator j=percentages.begin();
-    while (i!=myDistricts.end()) {
+    IntVector::iterator i = myDistricts.begin();
+    DoubleVector::const_iterator j = percentages.begin();
+    while (i != myDistricts.end()) {
         myPercentages[*i] = *j;
         i++;
         j++;
@@ -105,8 +105,8 @@ NIVissimDistrictConnection::dictionary(int id, const std::string& name,
 
 bool
 NIVissimDistrictConnection::dictionary(int id, NIVissimDistrictConnection* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         return true;
     }
@@ -116,8 +116,8 @@ NIVissimDistrictConnection::dictionary(int id, NIVissimDistrictConnection* o) {
 
 NIVissimDistrictConnection*
 NIVissimDistrictConnection::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -126,10 +126,10 @@ NIVissimDistrictConnection::dictionary(int id) {
 void
 NIVissimDistrictConnection::dict_BuildDistrictConnections() {
     //  pre-assign connections to districts
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimDistrictConnection* c = (*i).second;
         const IntVector& districts = c->myDistricts;
-        for (IntVector::const_iterator j=districts.begin(); j!=districts.end(); j++) {
+        for (IntVector::const_iterator j = districts.begin(); j != districts.end(); j++) {
             // assign connection to district
             myDistrictsConnections[*j].push_back((*i).first);
         }
@@ -139,9 +139,9 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections() {
 
 void
 NIVissimDistrictConnection::dict_CheckEdgeEnds() {
-    for (std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
+    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
         const IntVector& connections = (*k).second;
-        for (IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
+        for (IntVector::const_iterator j = connections.begin(); j != connections.end(); j++) {
             NIVissimDistrictConnection* c = dictionary(*j);
             c->checkEdgeEnd();
         }
@@ -152,7 +152,7 @@ NIVissimDistrictConnection::dict_CheckEdgeEnds() {
 void
 NIVissimDistrictConnection::checkEdgeEnd() {
     NIVissimEdge* edge = NIVissimEdge::dictionary(myEdgeID);
-    assert(edge!=0);
+    assert(edge != 0);
     edge->checkDistrictConnectionExistanceAt(myPosition);
 }
 
@@ -160,7 +160,7 @@ NIVissimDistrictConnection::checkEdgeEnd() {
 void
 NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
         NBNodeCont& nc) {
-    for (std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
+    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
         // get the connections
         const IntVector& connections = (*k).second;
         // retrieve the current district
@@ -169,12 +169,12 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
         dc.insert(district);
         // compute the middle of the district
         PositionVector pos;
-        for (IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
+        for (IntVector::const_iterator j = connections.begin(); j != connections.end(); j++) {
             NIVissimDistrictConnection* c = dictionary(*j);
             pos.push_back(c->geomPosition());
         }
         Position distCenter = pos.getPolygonCenter();
-        if (connections.size()==1) { // !!! ok, ok, maybe not the best way just to add an offset
+        if (connections.size() == 1) { // !!! ok, ok, maybe not the best way just to add an offset
             distCenter.add(10, 10);
         }
         district->setCenter(distCenter);
@@ -197,31 +197,31 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
     //  their normalised probability is computed within NBDistrict
     //   to avoid SUMOReal code writing and more securty within the converter
     //  go through the district table
-    for (std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
+    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
         // get the connections
         const IntVector& connections = (*k).second;
         // retrieve the current district
         NBDistrict* district =
             dc.retrieve(toString<int>((*k).first));
         NBNode* districtNode = nc.retrieve("District" + district->getID());
-        assert(district!=0&&districtNode!=0);
+        assert(district != 0 && districtNode != 0);
 
-        for (IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
+        for (IntVector::const_iterator l = connections.begin(); l != connections.end(); l++) {
             NIVissimDistrictConnection* c = dictionary(*l);
             // get the edge to connect the parking place to
             NBEdge* e = ec.retrieve(toString<int>(c->myEdgeID));
-            if (e==0) {
+            if (e == 0) {
                 e = ec.retrievePossiblySplitted(toString<int>(c->myEdgeID), c->myPosition);
             }
-            if (e==0) {
+            if (e == 0) {
                 WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }
             std::string id = "ParkingPlace" + toString<int>(*l);
             NBNode* parkingPlace = nc.retrieve(id);
-            if (parkingPlace==0) {
+            if (parkingPlace == 0) {
                 SUMOReal pos = c->getPosition();
-                if (pos<e->getLength()-pos) {
+                if (pos < e->getLength() - pos) {
                     parkingPlace = e->getFromNode();
                     parkingPlace->invalidateIncomingConnections();
                 } else {
@@ -230,16 +230,16 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 }
             }
             assert(
-                e->getToNode()==parkingPlace
+                e->getToNode() == parkingPlace
                 ||
-                e->getFromNode()==parkingPlace);
+                e->getFromNode() == parkingPlace);
 
             // build the connection to the source
-            if (e->getFromNode()==parkingPlace) {
+            if (e->getFromNode() == parkingPlace) {
                 id = "VissimFromParkingplace" + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* source =
                     new NBEdge(id, districtNode, parkingPlace,
-                               "Connection", c->getMeanSpeed(/*distc*/)/(SUMOReal) 3.6, 3, -1, -1, LANESPREAD_RIGHT);
+                               "Connection", c->getMeanSpeed(/*distc*/) / (SUMOReal) 3.6, 3, -1, -1, LANESPREAD_RIGHT);
                 if (!ec.insert(source)) { // !!! in den Konstruktor
                     throw 1; // !!!
                 }
@@ -251,11 +251,11 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
             }
 
             // build the connection to the destination
-            if (e->getToNode()==parkingPlace) {
+            if (e->getToNode() == parkingPlace) {
                 id = "VissimToParkingplace"  + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* destination =
                     new NBEdge(id, parkingPlace, districtNode,
-                               "Connection", (SUMOReal) 100/(SUMOReal) 3.6, 2, -1, -1, LANESPREAD_RIGHT);
+                               "Connection", (SUMOReal) 100 / (SUMOReal) 3.6, 2, -1, -1, LANESPREAD_RIGHT);
                 if (!ec.insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!
                 }
@@ -345,8 +345,8 @@ NIVissimDistrictConnection::geomPosition() const {
 
 NIVissimDistrictConnection*
 NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if ((*i).second->myEdgeID==edgeid) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
+        if ((*i).second->myEdgeID == edgeid) {
             return (*i).second;
         }
     }
@@ -356,7 +356,7 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
 
 void
 NIVissimDistrictConnection::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();
@@ -366,13 +366,13 @@ NIVissimDistrictConnection::clearDict() {
 SUMOReal
 NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
     //assert(myAssignedVehicles.size()!=0);
-    if (myAssignedVehicles.size()==0) {
+    if (myAssignedVehicles.size() == 0) {
         WRITE_WARNING("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
-        return (SUMOReal) 200/(SUMOReal) 3.6;
+        return (SUMOReal) 200 / (SUMOReal) 3.6;
     }
     SUMOReal speed = 0;
     std::vector<std::pair<int, int> >::const_iterator i;
-    for (i=myAssignedVehicles.begin(); i!=myAssignedVehicles.end(); i++) {
+    for (i = myAssignedVehicles.begin(); i != myAssignedVehicles.end(); i++) {
         speed += getRealSpeed(/*dc, */(*i).second);
     }
     return speed / (SUMOReal) myAssignedVehicles.size();
@@ -383,14 +383,14 @@ SUMOReal
 NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) const {
     std::string id = toString<int>(distNo);
     Distribution* dist = NBDistribution::dictionary("speed", id);
-    if (dist==0) {
+    if (dist == 0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         WRITE_WARNING(". Using default.");
         return OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
-    assert(dist!=0);
+    assert(dist != 0);
     SUMOReal speed = dist->getMax();
-    if (speed<0||speed>1000) {
+    if (speed < 0 || speed > 1000) {
         WRITE_WARNING(" False speed at district '" + id);
         WRITE_WARNING(". Using default.");
         speed = OptionsCont::getOptions().getFloat("vissim.default-speed");

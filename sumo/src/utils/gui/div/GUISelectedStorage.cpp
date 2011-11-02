@@ -101,12 +101,12 @@ GUISelectedStorage::~GUISelectedStorage() {}
 bool
 GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
     switch (type) {
-    case GLO_NETWORK:
-        return false;
-    case GLO_ADDITIONAL:
-        return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
-    default:
-        return mySelections[type].isSelected(id);
+        case GLO_NETWORK:
+            return false;
+        case GLO_ADDITIONAL:
+            return isSelected(GLO_TRIGGER, id) || isSelected(GLO_DETECTOR, id);
+        default:
+            return mySelections[type].isSelected(id);
     }
 }
 
@@ -198,7 +198,7 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
     while (strm.good()) {
         std::string line;
         strm >> line;
-        if (line.length()==0) {
+        if (line.length() == 0) {
             continue;
         }
 
@@ -261,9 +261,9 @@ GUISelectedStorage::remove2Update() {
 void
 GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& ids) {
     OutputDevice& dev = OutputDevice::getDevice(filename);
-    for (std::set<GUIGlID>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::set<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
-        if (object!=0) {
+        if (object != 0) {
             std::string name = object->getFullName();
             dev << name << "\n";
             GUIGlObjectStorage::gIDStorage.unblockObject(*i);

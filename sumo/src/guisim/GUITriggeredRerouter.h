@@ -122,7 +122,7 @@ public:
         ~GUITriggeredRerouterPopupMenu() throw();
 
         /** @brief Called if the object's manipulator shall be shown */
-        long onCmdOpenManip(FXObject*,FXSelector,void*);
+        long onCmdOpenManip(FXObject*, FXSelector, void*);
 
     protected:
         GUITriggeredRerouterPopupMenu() { }
@@ -148,11 +148,11 @@ public:
         /// Destructor
         virtual ~GUIManip_TriggeredRerouter();
 
-        long onCmdOverride(FXObject*,FXSelector,void*);
-        long onCmdClose(FXObject*,FXSelector,void*);
-        long onCmdUserDef(FXObject*,FXSelector,void*);
-        long onUpdUserDef(FXObject*,FXSelector,void*);
-        long onCmdChangeOption(FXObject*,FXSelector,void*);
+        long onCmdOverride(FXObject*, FXSelector, void*);
+        long onCmdClose(FXObject*, FXSelector, void*);
+        long onCmdUserDef(FXObject*, FXSelector, void*);
+        long onUpdUserDef(FXObject*, FXSelector, void*);
+        long onCmdChangeOption(FXObject*, FXSelector, void*);
 
     private:
         GUIMainWindow* myParent;

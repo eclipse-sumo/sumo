@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 @file    routecheck.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2007-03-09
 @version $Id$
 

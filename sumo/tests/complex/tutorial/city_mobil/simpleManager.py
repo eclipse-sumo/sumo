@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    simpleManager.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-10-09
 @version $Id$
 

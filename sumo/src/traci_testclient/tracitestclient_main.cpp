@@ -55,19 +55,19 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    for (int i=1; i < argc; i++) {
+    for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
         if (arg.compare("-def") == 0) {
-            defFile = argv[i+1];
+            defFile = argv[i + 1];
             i++;
         } else if (arg.compare("-o") == 0) {
-            outFileName = argv[i+1];
+            outFileName = argv[i + 1];
             i++;
         } else if (arg.compare("-p") == 0) {
-            port = atoi(argv[i+1]);
+            port = atoi(argv[i + 1]);
             i++;
         } else if (arg.compare("-h") == 0) {
-            host = argv[i+1];
+            host = argv[i + 1];
             i++;
         } else {
             std::cout << "unknown parameter: " << argv[i] << std::endl;

@@ -67,7 +67,7 @@ public:
                         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
                         const int maxRouteNumber, const bool tryRepair, const bool withTaz,
                         const bool keepRoutes, const bool skipRouteCalculation,
-                        const std::string& file="") throw(ProcessError);
+                        const std::string& file = "") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_SUMOBase() throw();

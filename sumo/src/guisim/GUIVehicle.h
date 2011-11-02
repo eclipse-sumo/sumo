@@ -196,21 +196,21 @@ public:
         ~GUIVehiclePopupMenu() throw();
 
         /// @brief Called if all routes of the vehicle shall be shown
-        long onCmdShowAllRoutes(FXObject*,FXSelector,void*);
+        long onCmdShowAllRoutes(FXObject*, FXSelector, void*);
         /// @brief Called if all routes of the vehicle shall be hidden
-        long onCmdHideAllRoutes(FXObject*,FXSelector,void*);
+        long onCmdHideAllRoutes(FXObject*, FXSelector, void*);
         /// @brief Called if the current route of the vehicle shall be shown
-        long onCmdShowCurrentRoute(FXObject*,FXSelector,void*);
+        long onCmdShowCurrentRoute(FXObject*, FXSelector, void*);
         /// @brief Called if the current route of the vehicle shall be hidden
-        long onCmdHideCurrentRoute(FXObject*,FXSelector,void*);
+        long onCmdHideCurrentRoute(FXObject*, FXSelector, void*);
         /// @brief Called if the vehicle's best lanes shall be shown
-        long onCmdShowBestLanes(FXObject*,FXSelector,void*);
+        long onCmdShowBestLanes(FXObject*, FXSelector, void*);
         /// @brief Called if the vehicle's best lanes shall be hidden
-        long onCmdHideBestLanes(FXObject*,FXSelector,void*);
+        long onCmdHideBestLanes(FXObject*, FXSelector, void*);
         /// @brief Called if the vehicle shall be tracked
-        long onCmdStartTrack(FXObject*,FXSelector,void*);
+        long onCmdStartTrack(FXObject*, FXSelector, void*);
         /// @brief Called if the current shall not be tracked any longer
-        long onCmdStopTrack(FXObject*,FXSelector,void*);
+        long onCmdStopTrack(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)

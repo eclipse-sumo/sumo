@@ -136,7 +136,7 @@ public:
 
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
     bool isBlockingAnyone() const throw() {
-        return myApproachingVehicles.size()!=0;
+        return myApproachingVehicles.size() != 0;
     }
 
     bool willHaveBlockedFoe() const throw();
@@ -193,7 +193,7 @@ public:
      * @return Whether the link has a large priority
      */
     bool havePriority() const throw() {
-        return myState>='A'&&myState<='Z';
+        return myState >= 'A' && myState <= 'Z';
     }
 
 

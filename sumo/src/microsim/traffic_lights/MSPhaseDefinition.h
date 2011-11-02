@@ -85,8 +85,8 @@ public:
         : duration(durationArg),
           myLastSwitch(0), state(stateArg) {
         myLastSwitch = string2time(OptionsCont::getOptions().getString("begin"));
-        minDuration = minDurationArg<0 ? durationArg : minDurationArg;
-        maxDuration = maxDurationArg<0 ? durationArg : maxDurationArg;
+        minDuration = minDurationArg < 0 ? durationArg : minDurationArg;
+        maxDuration = maxDurationArg < 0 ? durationArg : maxDurationArg;
     }
 
 
@@ -110,10 +110,10 @@ public:
      * @return Whether this phase is a "pure green" phase
      */
     bool isGreenPhase() const {
-        if (state.find_first_of("gG")==std::string::npos) {
+        if (state.find_first_of("gG") == std::string::npos) {
             return false;
         }
-        if (state.find_first_of("yY")!=std::string::npos) {
+        if (state.find_first_of("yY") != std::string::npos) {
             return false;
         }
         return true;
@@ -136,7 +136,7 @@ public:
      * @return Whether the given phase definition differs
      */
     bool operator!=(const MSPhaseDefinition& pd) {
-        return state!=pd.state;
+        return state != pd.state;
     }
 
 

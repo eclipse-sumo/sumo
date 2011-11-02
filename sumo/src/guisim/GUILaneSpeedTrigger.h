@@ -123,7 +123,7 @@ public:
         ~GUILaneSpeedTriggerPopupMenu() throw();
 
         /** @brief Called if the object's manipulator shall be shown */
-        long onCmdOpenManip(FXObject*,FXSelector,void*);
+        long onCmdOpenManip(FXObject*, FXSelector, void*);
 
     protected:
         GUILaneSpeedTriggerPopupMenu() { }
@@ -148,13 +148,13 @@ public:
         /// Destructor
         virtual ~GUIManip_LaneSpeedTrigger();
 
-        long onCmdOverride(FXObject*,FXSelector,void*);
-        long onCmdClose(FXObject*,FXSelector,void*);
-        long onCmdUserDef(FXObject*,FXSelector,void*);
-        long onUpdUserDef(FXObject*,FXSelector,void*);
-        long onCmdPreDef(FXObject*,FXSelector,void*);
-        long onUpdPreDef(FXObject*,FXSelector,void*);
-        long onCmdChangeOption(FXObject*,FXSelector,void*);
+        long onCmdOverride(FXObject*, FXSelector, void*);
+        long onCmdClose(FXObject*, FXSelector, void*);
+        long onCmdUserDef(FXObject*, FXSelector, void*);
+        long onUpdUserDef(FXObject*, FXSelector, void*);
+        long onCmdPreDef(FXObject*, FXSelector, void*);
+        long onUpdPreDef(FXObject*, FXSelector, void*);
+        long onCmdChangeOption(FXObject*, FXSelector, void*);
 
     private:
         GUIMainWindow* myParent;

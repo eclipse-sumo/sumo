@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    VelocityCurve.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-05-13
 
 Shows a velocity time-variation curve for a given Taxi or for the hole day all average values.

@@ -62,8 +62,8 @@ StringUtils::prune(std::string str) {
 
 std::string
 StringUtils::to_lower_case(std::string str) {
-    for (size_t i=0; i<str.length(); i++) {
-        if (str[i]>='A'&&str[i]<='Z') {
+    for (size_t i = 0; i < str.length(); i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = str[i] + 'a' - 'A';
         }
     }
@@ -115,12 +115,12 @@ StringUtils::toTimeString(int time) {
         time = -time;
     }
     char buffer[10];
-    sprintf(buffer, "%02i:",(time/3600));
+    sprintf(buffer, "%02i:", (time / 3600));
     oss << buffer;
-    time=time%3600;
-    sprintf(buffer, "%02i:",(time/60));
+    time = time % 3600;
+    sprintf(buffer, "%02i:", (time / 60));
     oss << buffer;
-    time=time%60;
+    time = time % 60;
     sprintf(buffer, "%02i", time);
     oss << buffer;
     return oss.str();

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    vehicleControl.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-07-21
 @version $Id$
 

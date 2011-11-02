@@ -44,7 +44,7 @@
 // method definitions
 // ===========================================================================
 BinaryInputDevice::BinaryInputDevice(const std::string& name) throw()
-    : myStream(name.c_str(), std::fstream::in|std::fstream::binary) {}
+    : myStream(name.c_str(), std::fstream::in | std::fstream::binary) {}
 
 
 BinaryInputDevice::~BinaryInputDevice() throw() {}
@@ -89,7 +89,7 @@ BinaryInputDevice&
 operator>>(BinaryInputDevice& os, std::string& s) throw() {
     unsigned int size;
     os >> size;
-    if (size<BUF_MAX) {
+    if (size < BUF_MAX) {
         os.myStream.read((char*) &os.myBuffer, sizeof(char)*size);
         os.myBuffer[size] = 0;
         s = std::string(os.myBuffer);

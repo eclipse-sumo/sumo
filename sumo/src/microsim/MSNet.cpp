@@ -150,7 +150,7 @@ MSNet::getInstance(void) throw(ProcessError) {
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
              ShapeContainer* shapeCont) throw(ProcessError) {
-    if (myInstance!=0) {
+    if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
     OptionsCont& oc = OptionsCont::getOptions();
@@ -167,7 +167,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myLogics = 0;
     myPersonControl = 0;
     myEdgeWeights = 0;
-    myShapeContainer = shapeCont==0 ? new ShapeContainer() : shapeCont;
+    myShapeContainer = shapeCont == 0 ? new ShapeContainer() : shapeCont;
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
@@ -218,7 +218,7 @@ MSNet::~MSNet() throw() {
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
-    if (myPersonControl!=0) {
+    if (myPersonControl != 0) {
         delete myPersonControl;
     }
     delete myShapeContainer;
@@ -255,7 +255,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     }
 #endif
 #endif
-    while (state==SIMSTATE_RUNNING) {
+    while (state == SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
         }
@@ -265,8 +265,8 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         }
         state = simulationState(stop);
 #ifndef NO_TRACI
-        if (state!=SIMSTATE_RUNNING) {
-            if (OptionsCont::getOptions().getInt("remote-port")!=0&&!traci::TraCIServer::wasClosed()) {
+        if (state != SIMSTATE_RUNNING) {
+            if (OptionsCont::getOptions().getInt("remote-port") != 0 && !traci::TraCIServer::wasClosed()) {
                 state = SIMSTATE_RUNNING;
             }
         }
@@ -285,8 +285,8 @@ MSNet::closeSimulation(SUMOTime start) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         std::ostringstream msg;
         msg << "Performance: " << "\n" << " Duration: " << duration << " ms" << "\n";
-        if (duration!=0) {
-            msg << " Real time factor: " << ((SUMOReal)(myStep-start)*1000./(SUMOReal)duration) << "\n";
+        if (duration != 0) {
+            msg << " Real time factor: " << ((SUMOReal)(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
@@ -316,9 +316,9 @@ MSNet::simulationStep() {
 #ifdef HAVE_MESOSIM
     // netstate output
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
-    if (timeIt!=myStateDumpTimes.end()) {
+    if (timeIt != myStateDumpTimes.end()) {
         const int dist = distance(myStateDumpTimes.begin(), timeIt);
-        std::ofstream strm(myStateDumpFiles[dist].c_str(), std::fstream::out|std::fstream::binary);
+        std::ofstream strm(myStateDumpFiles[dist].c_str(), std::fstream::out | std::fstream::binary);
         saveState(strm);
     }
 #endif
@@ -365,7 +365,7 @@ MSNet::simulationStep() {
     myRouteLoaders->loadNext(myStep);
 
     // persons
-    if (myPersonControl!=0) {
+    if (myPersonControl != 0) {
         myPersonControl->checkArrivedPersons(this, myStep);
     }
     // emit Vehicles
@@ -393,7 +393,7 @@ MSNet::simulationStep() {
 
 MSNet::SimulationState
 MSNet::simulationState(SUMOTime stopTime) const throw() {
-    if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
+    if (myTooManyVehicles > 0 && (int) myVehicleControl->getRunningVehicleNo() > myTooManyVehicles) {
         return SIMSTATE_TOO_MANY_VEHICLES;
     }
 #ifndef NO_TRACI
@@ -425,20 +425,20 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 std::string
 MSNet::getStateMessage(MSNet::SimulationState state) throw() {
     switch (state) {
-    case MSNet::SIMSTATE_RUNNING:
-        return "";
-    case MSNet::SIMSTATE_END_STEP_REACHED:
-        return "The final simulation step has been reached.";
-    case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-        return "All vehicles have left the simulation.";
-    case MSNet::SIMSTATE_CONNECTION_CLOSED:
-        return "TraCI requested termination.";
-    case MSNet::SIMSTATE_ERROR_IN_SIM:
-        return "An error occured (see log).";
-    case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
-        return "Too many vehicles.";
-    default:
-        return "Unknown reason.";
+        case MSNet::SIMSTATE_RUNNING:
+            return "";
+        case MSNet::SIMSTATE_END_STEP_REACHED:
+            return "The final simulation step has been reached.";
+        case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
+            return "All vehicles have left the simulation.";
+        case MSNet::SIMSTATE_CONNECTION_CLOSED:
+            return "TraCI requested termination.";
+        case MSNet::SIMSTATE_ERROR_IN_SIM:
+            return "An error occured (see log).";
+        case MSNet::SIMSTATE_TOO_MANY_VEHICLES:
+            return "Too many vehicles.";
+        default:
+            return "Unknown reason.";
     }
 }
 
@@ -523,7 +523,7 @@ MSNet::loadState(BinaryInputDevice& bis) throw() {
     bis >> numEdges;
     bis >> step;
     if (version != VERSION_STRING) {
-        WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING +")!");
+        WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
     }
     if (sizeT != sizeof(size_t)) {
         WRITE_WARNING("State was written on a different platform (32bit vs. 64bit)!");
@@ -547,7 +547,7 @@ MSNet::loadState(BinaryInputDevice& bis) throw() {
 
 MSPersonControl&
 MSNet::getPersonControl() throw() {
-    if (myPersonControl==0) {
+    if (myPersonControl == 0) {
         myPersonControl = new MSPersonControl();
     }
     return *myPersonControl;
@@ -556,7 +556,7 @@ MSNet::getPersonControl() throw() {
 
 MSEdgeWeightsStorage&
 MSNet::getWeightsStorage() throw() {
-    if (myEdgeWeights==0) {
+    if (myEdgeWeights == 0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
     return *myEdgeWeights;
@@ -578,10 +578,10 @@ MSNet::postSimStepOutput() const throw() {
         oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(OUTPUT_ACCURACY);
-        if (mySimStepDuration!=0) {
+        if (mySimStepDuration != 0) {
             oss << " (" << mySimStepDuration << "ms ~= "
-                << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
-                << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+                << (1000. / (SUMOReal) mySimStepDuration) << "*RT, ~"
+                << ((SUMOReal) myVehicleControl->getRunningVehicleNo() / (SUMOReal) mySimStepDuration * 1000.);
         } else {
             oss << " (0ms ?*RT. ?";
         }
@@ -590,7 +590,7 @@ MSNet::postSimStepOutput() const throw() {
             << " ACT " << myVehicleControl->getRunningVehicleNo()
             << ")                                              ";
         msg = oss.str();
-        std::string prev = "Step #" + time2string(myStep-DELTA_T);
+        std::string prev = "Step #" + time2string(myStep - DELTA_T);
         msg = msg.substr(0, 78 - prev.length());
         std::cout << msg;
     }
@@ -600,7 +600,7 @@ MSNet::postSimStepOutput() const throw() {
 
 void
 MSNet::addVehicleStateListener(VehicleStateListener* listener) throw() {
-    if (find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener)==myVehicleStateListeners.end()) {
+    if (find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener) == myVehicleStateListeners.end()) {
         myVehicleStateListeners.push_back(listener);
     }
 }
@@ -608,8 +608,8 @@ MSNet::addVehicleStateListener(VehicleStateListener* listener) throw() {
 
 void
 MSNet::removeVehicleStateListener(VehicleStateListener* listener) throw() {
-    std::vector<VehicleStateListener*>::iterator i= find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
-    if (i!=myVehicleStateListeners.end()) {
+    std::vector<VehicleStateListener*>::iterator i = find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
+    if (i != myVehicleStateListeners.end()) {
         myVehicleStateListeners.erase(i);
     }
 }
@@ -617,7 +617,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) throw() {
 
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) throw() {
-    for (std::vector<VehicleStateListener*>::iterator i=myVehicleStateListeners.begin(); i!=myVehicleStateListeners.end(); ++i) {
+    for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
         (*i)->vehicleStateChanged(vehicle, to);
     }
 }

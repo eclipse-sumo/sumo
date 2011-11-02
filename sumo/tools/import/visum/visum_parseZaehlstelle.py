@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    visum_parseZaehlstelle.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2008-11-30
 @version $Id$
 

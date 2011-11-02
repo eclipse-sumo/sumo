@@ -77,7 +77,7 @@ MSE2Collector*
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
         SUMOReal start, SUMOReal end) throw() {
     std::string id = makeID(myID, c, r);
-    if (start+end<l->getLength()) {
+    if (start + end < l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
     }
     return new GUI_E2_ZS_Collector(id, myUsage,
@@ -94,7 +94,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     const LaneDetMap& detectors) throw()
     : GUIDetectorWrapper("E2OverLanes detector", detector.getID()),
       myDetector(detector) {
-    for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
+    for (LaneDetMap::const_iterator i = detectors.begin(); i != detectors.end(); ++i) {
         MSLane* l = (*i).first;
         GUIEdge& edge = static_cast<GUIEdge&>(l->getEdge());
         GUILaneWrapper& w = edge.getLaneGeometry(l);
@@ -107,7 +107,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
 
 
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper() throw() {
-    for (std::vector<GUIDetectorWrapper*>::iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
+    for (std::vector<GUIDetectorWrapper*>::iterator i = mySubWrappers.begin(); i != mySubWrappers.end(); ++i) {
         delete(*i);
     }
 }
@@ -168,7 +168,7 @@ ret.mkItem(name.c_str(), true, binding);
 
 void
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
-    for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
+    for (std::vector<GUIDetectorWrapper*>::const_iterator i = mySubWrappers.begin(); i != mySubWrappers.end(); ++i) {
         (*i)->drawGL(s);
     }
 }

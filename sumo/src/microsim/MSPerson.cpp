@@ -196,7 +196,7 @@ MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan)
 
 
 MSPerson::~MSPerson() {
-    for (MSPersonPlan::const_iterator i=myPlan->begin(); i!=myPlan->end(); ++i) {
+    for (MSPersonPlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         delete *i;
     }
     delete myPlan;
@@ -243,7 +243,7 @@ MSPerson::getDestination() const {
 
 void
 MSPerson::tripInfoOutput(OutputDevice& os) const throw(IOError) {
-    for (MSPersonPlan::const_iterator i=myPlan->begin(); i!=myPlan->end(); ++i) {
+    for (MSPersonPlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
         (*i)->tripInfoOutput(os);
     }
 }

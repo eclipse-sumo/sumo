@@ -69,9 +69,9 @@ NIVissimSingleTypeParser_Kantensperrung::parse(std::istream& from) {
     from >> tag;
     from >> tag;
     IntVector edges;
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from);
-        if (tag!="DATAEND") {
+        if (tag != "DATAEND") {
             edges.push_back(TplConvert<char>::_2int(tag.c_str()));
         }
     }

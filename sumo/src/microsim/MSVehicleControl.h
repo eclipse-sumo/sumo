@@ -225,9 +225,9 @@ public:
      */
     bool isInQuota(const SUMOReal frac) const throw() {
         if (MSGlobals::gFractions.find(frac) == MSGlobals::gFractions.end()) {
-            return (myLoadedVehNo-1) % 1000 < (unsigned int)(frac*1000.);
+            return (myLoadedVehNo - 1) % 1000 < (unsigned int)(frac * 1000.);
         }
-        return (myLoadedVehNo-1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
+        return (myLoadedVehNo - 1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
     }
 
 
@@ -309,7 +309,7 @@ public:
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or 0 if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id=DEFAULT_VTYPE_ID) throw();
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID) throw();
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector

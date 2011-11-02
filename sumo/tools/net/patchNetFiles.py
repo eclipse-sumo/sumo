@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    patchNetFiles.py
-@author  Daniel.Krajzewicz@dlr.de 
+@author  Daniel Krajzewicz 
 @date    2008-08-13
 @version $Id$
 

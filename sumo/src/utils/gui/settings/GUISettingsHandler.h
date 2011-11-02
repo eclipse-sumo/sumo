@@ -45,7 +45,7 @@ public:
     /** @brief Constructor
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(const std::string& content, bool isFile=true) throw();
+    GUISettingsHandler(const std::string& content, bool isFile = true) throw();
 
 
     /// @brief Destructor
@@ -70,7 +70,7 @@ public:
     /** @brief Adds the parsed settings to the global list of settings
      * @return the name of the parsed settings
      */
-    std::string addSettings(GUISUMOAbstractView* view=0) const throw();
+    std::string addSettings(GUISUMOAbstractView* view = 0) const throw();
 
 
     /** @brief Sets the viewport which has been parsed

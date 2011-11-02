@@ -50,21 +50,21 @@ NIVissimEdgePosMap::add(int edgeid, SUMOReal pos) {
 
 void
 NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to) {
-    if (from>to) {
+    if (from > to) {
         SUMOReal tmp = from;
         from = to;
         to = tmp;
     }
-    ContType::iterator i=myCont.find(edgeid);
-    if (i==myCont.end()) {
+    ContType::iterator i = myCont.find(edgeid);
+    if (i == myCont.end()) {
         myCont[edgeid] = Range(from, to);
     } else {
         SUMOReal pfrom = (*i).second.first;
         SUMOReal pto = (*i).second.second;
-        if (pfrom<from) {
+        if (pfrom < from) {
             from = pfrom;
         }
-        if (pto>to) {
+        if (pto > to) {
             to = pto;
         }
         myCont[edgeid] = Range(from, to);
@@ -74,7 +74,7 @@ NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to) {
 
 void
 NIVissimEdgePosMap::join(NIVissimEdgePosMap& with) {
-    for (ContType::iterator i=with.myCont.begin(); i!=with.myCont.end(); i++) {
+    for (ContType::iterator i = with.myCont.begin(); i != with.myCont.end(); i++) {
         add((*i).first, (*i).second.first, (*i).second.second);
     }
 }

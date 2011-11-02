@@ -51,7 +51,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     // convert/publicate geometry
     std::deque<Position>::const_iterator i;
     const std::deque<Position> &geomC = geom.getCont();
-    for (i=geomC.begin(); i!=geomC.end(); ++i) {
+    for (i = geomC.begin(); i != geomC.end(); ++i) {
         Position p = *i;
         if (!NILoader::transformCoordinates(p)) {
             WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
@@ -68,8 +68,8 @@ NIVissimAbstractEdge::~NIVissimAbstractEdge() {}
 
 bool
 NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge* e) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = e;
         return true;
     }
@@ -79,8 +79,8 @@ NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge* e) {
 
 NIVissimAbstractEdge*
 NIVissimAbstractEdge::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -90,14 +90,14 @@ NIVissimAbstractEdge::dictionary(int id) {
 
 Position
 NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
-    if (myGeom.length()>pos) {
+    if (myGeom.length() > pos) {
         return myGeom.positionAtLengthPosition(pos);
-    } else if (myGeom.length()==pos) {
+    } else if (myGeom.length() == pos) {
         return myGeom[-1];
     } else {
         PositionVector g(myGeom);
         SUMOReal amount = pos - myGeom.length();
-        Position ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount*2);
+        Position ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount * 2);
         g.pop_back();
         g.push_back(ne);
         return g.positionAtLengthPosition(pos);
@@ -107,7 +107,7 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
 
 void
 NIVissimAbstractEdge::splitAndAssignToNodes() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimAbstractEdge* e = (*i).second;
         e->splitAssigning();
     }
@@ -147,7 +147,7 @@ NIVissimAbstractEdge::crossesAtPoint(const Position& p1,
 IntVector
 NIVissimAbstractEdge::getWithin(const AbstractPoly& p, SUMOReal offset) {
     IntVector ret;
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimAbstractEdge* e = (*i).second;
         if (e->overlapsWith(p, offset)) {
             ret.push_back(e->myID);
@@ -165,7 +165,7 @@ NIVissimAbstractEdge::overlapsWith(const AbstractPoly& p, SUMOReal offset) const
 
 bool
 NIVissimAbstractEdge::hasNodeCluster() const {
-    return myNode!=-1;
+    return myNode != -1;
 }
 
 
@@ -176,7 +176,7 @@ NIVissimAbstractEdge::getID() const {
 
 void
 NIVissimAbstractEdge::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

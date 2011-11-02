@@ -98,15 +98,15 @@ SUMOVTypeParameter::write(OutputDevice& dev) const throw(IOError) {
         dev.writeAttr(SUMO_ATTR_COLOR, color);
     }
 
-    if (cfParameter.size()!=0) {
+    if (cfParameter.size() != 0) {
         dev << ">\n";
         dev.openTag(cfModel);
         std::vector<SumoXMLAttr> attrs;
-        for (CFParams::const_iterator i=cfParameter.begin(); i!=cfParameter.end(); ++i) {
+        for (CFParams::const_iterator i = cfParameter.begin(); i != cfParameter.end(); ++i) {
             attrs.push_back(i->first);
         }
         std::sort(attrs.begin(), attrs.end());
-        for (std::vector<SumoXMLAttr>::const_iterator i=attrs.begin(); i!=attrs.end(); ++i) {
+        for (std::vector<SumoXMLAttr>::const_iterator i = attrs.begin(); i != attrs.end(); ++i) {
             dev.writeAttr(*i, cfParameter.find(*i)->second);
         }
         dev.closeTag(true);

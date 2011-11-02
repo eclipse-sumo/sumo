@@ -99,14 +99,14 @@ public:
 
         /// as myRead, but returns "DATAEND" when the current field has ended
         std::string readEndSecure(std::istream& from,
-                                  const std::string& excl="");
+                                  const std::string& excl = "");
 
         std::string readEndSecure(std::istream& from,
                                   const std::vector<std::string> &excl);
 
         /// overrides the optional label definition; returns the next tag as done by readEndSecure
         std::string overrideOptionalLabel(std::istream& from,
-                                          const std::string& tag="");
+                                          const std::string& tag = "");
 
         /// returns the 2d-position saved as next within the stream
         Position getPosition(std::istream& from);
@@ -125,7 +125,7 @@ public:
 
         /** @brief Overreads the named parameter (if) given and skips the rest until "DATAEND"
          */
-        bool skipOverreading(std::istream& from, const std::string& name="");
+        bool skipOverreading(std::istream& from, const std::string& name = "");
 
         /// Reads from the stream until the keywor occurs
         void readUntil(std::istream& from, const std::string& name);

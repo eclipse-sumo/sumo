@@ -62,9 +62,9 @@
 GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction) throw()
     : GUIGlObject(GLO_JUNCTION, junction.getID()),
       myJunction(junction) {
-    if (myJunction.getShape().size()==0) {
+    if (myJunction.getShape().size() == 0) {
         Position pos = myJunction.getPosition();
-        myBoundary = Boundary(pos.x()-1., pos.y()-1., pos.x()+1., pos.y()+1.);
+        myBoundary = Boundary(pos.x() - 1., pos.y() - 1., pos.x() + 1., pos.y() + 1.);
     } else {
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
@@ -111,7 +111,7 @@ GUIJunctionWrapper::getCenteringBoundary() const throw() {
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     // check whether it is not too small
-    if (s.scale*myMaxSize<1.) {
+    if (s.scale * myMaxSize < 1.) {
         return;
     }
     if (!myIsInner) {

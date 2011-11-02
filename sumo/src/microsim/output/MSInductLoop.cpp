@@ -84,8 +84,8 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
     if (newPos >= myPosition && oldPos < myPosition) {
         // entered the detector by move
         SUMOReal entryTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-        if (newSpeed!=0) {
-            if (myPosition>oldPos) {
+        if (newSpeed != 0) {
+            if (myPosition > oldPos) {
                 entryTime += (myPosition - oldPos) / newSpeed;
             }
         }
@@ -127,8 +127,8 @@ MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw(
 
 SUMOReal
 MSInductLoop::getCurrentSpeed() const throw() {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
-    return d.size()!=0
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
+    return d.size() != 0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) d.size()
            : -1;
 }
@@ -136,8 +136,8 @@ MSInductLoop::getCurrentSpeed() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentLength() const throw() {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
-    return d.size()!=0
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
+    return d.size() != 0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) d.size()
            : -1;
 }
@@ -145,33 +145,33 @@ MSInductLoop::getCurrentLength() const throw() {
 
 SUMOReal
 MSInductLoop::getCurrentOccupancy() const throw() {
-    SUMOTime tbeg = MSNet::getInstance()->getCurrentTimeStep()-DELTA_T;
+    SUMOTime tbeg = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
     std::vector<VehicleData> d = collectVehiclesOnDet(tbeg);
-    if (d.size()==0) {
+    if (d.size() == 0) {
         return -1;
     }
     SUMOReal occupancy = 0;
-    for (std::vector< VehicleData >::const_iterator i=d.begin(); i!=d.end(); ++i) {
+    for (std::vector< VehicleData >::const_iterator i = d.begin(); i != d.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(tbeg), (*i).entryTimeM);
         timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, TS);
         occupancy += timeOnDetDuringInterval;
     }
-    return occupancy / TS *(SUMOReal) 100.;
+    return occupancy / TS * (SUMOReal) 100.;
 }
 
 
 unsigned int
 MSInductLoop::getCurrentPassedNumber() const throw() {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return (unsigned int) d.size();
 }
 
 
 std::vector<std::string>
 MSInductLoop::getCurrentVehicleIDs() const throw() {
-    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     std::vector<std::string> ret;
-    for (std::vector<VehicleData>::iterator i=d.begin(); i!=d.end(); ++i) {
+    for (std::vector<VehicleData>::iterator i = d.begin(); i != d.end(); ++i) {
         ret.push_back((*i).idM);
     }
     return ret;
@@ -202,21 +202,21 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
         dev << ">\n";
         std::map<std::string, std::pair<VehicleDataCont, VehicleMap> > types;
         // collect / divide
-        for (std::deque< VehicleData >::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
-            if (types.find((*i).typeIDM)==types.end()) {
+        for (std::deque< VehicleData >::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
+            if (types.find((*i).typeIDM) == types.end()) {
                 types[(*i).typeIDM] = make_pair(VehicleDataCont(), VehicleMap());
             }
             types[(*i).typeIDM].first.push_back(*i);
         }
-        for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+        for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
             const std::string& type = (*i).first->getVehicleType().getID();
-            if (types.find(type)==types.end()) {
+            if (types.find(type) == types.end()) {
                 types[type] = make_pair(VehicleDataCont(), VehicleMap());
             }
             types[type].second[(*i).first] = (*i).second;
         }
         // write
-        for (std::map<std::string, std::pair<VehicleDataCont, VehicleMap> >::const_iterator i=types.begin(); i!=types.end(); ++i) {
+        for (std::map<std::string, std::pair<VehicleDataCont, VehicleMap> >::const_iterator i = types.begin(); i != types.end(); ++i) {
             writeTypedXMLOutput(dev, startTime, stopTime, (*i).first, (*i).second.first, (*i).second.second);
             dev << "/>\n";
         }
@@ -230,40 +230,40 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 void
 MSInductLoop::writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime,
                                   const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) throw(IOError) {
-    SUMOReal t(STEPS2TIME(stopTime-startTime));
+    SUMOReal t(STEPS2TIME(stopTime - startTime));
     unsigned nVehCrossed = (unsigned) vdc.size();
-    if (type=="") {
+    if (type == "") {
         nVehCrossed += myDismissedVehicleNumber;
     }
     SUMOReal flow = ((SUMOReal) vdc.size() / (SUMOReal) t) * (SUMOReal) 3600.0;
     SUMOReal occupancy = 0;
-    for (std::deque< VehicleData >::const_iterator i=vdc.begin(); i!=vdc.end(); ++i) {
+    for (std::deque< VehicleData >::const_iterator i = vdc.begin(); i != vdc.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = (*i).leaveTimeM - MAX2(STEPS2TIME(startTime), (*i).entryTimeM);
         timeOnDetDuringInterval = MIN2(timeOnDetDuringInterval, t);
         occupancy += timeOnDetDuringInterval;
     }
-    for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i=vm.begin(); i!=vm.end(); ++i) {
+    for (std::map< SUMOVehicle*, SUMOReal >::const_iterator i = vm.begin(); i != vm.end(); ++i) {
         SUMOReal timeOnDetDuringInterval = STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), (*i).second);
         occupancy += timeOnDetDuringInterval;
     }
     occupancy = occupancy / t * (SUMOReal) 100.;
-    SUMOReal meanSpeed = vdc.size()!=0
+    SUMOReal meanSpeed = vdc.size() != 0
                          ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) vdc.size()
                          : -1;
-    SUMOReal meanLength = vdc.size()!=0
+    SUMOReal meanLength = vdc.size() != 0
                           ? accumulate(vdc.begin(), vdc.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) vdc.size()
                           : -1;
-    if (type!="") {
+    if (type != "") {
         dev << "      <typedInterval type=\"" + type + "\" ";
     } else {
         dev << "   <interval ";
     }
-    dev<<"begin=\""<<time2string(startTime)<<"\" end=\""<<
-       time2string(stopTime)<<"\" "<<"id=\""<<StringUtils::escapeXML(getID())<<"\" ";
-    dev<<"nVehContrib=\""<<vdc.size()<<"\" flow=\""<<flow<<
-       "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
-       "\" length=\""<<meanLength<<
-       "\" nVehEntered=\""<<nVehCrossed<<"\"";
+    dev << "begin=\"" << time2string(startTime) << "\" end=\"" <<
+        time2string(stopTime) << "\" " << "id=\"" << StringUtils::escapeXML(getID()) << "\" ";
+    dev << "nVehContrib=\"" << vdc.size() << "\" flow=\"" << flow <<
+        "\" occupancy=\"" << occupancy << "\" speed=\"" << meanSpeed <<
+        "\" length=\"" << meanLength <<
+        "\" nVehEntered=\"" << nVehCrossed << "\"";
 }
 
 
@@ -278,7 +278,7 @@ void
 MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
                                   SUMOReal leaveTimestep) throw() {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
-    if (it!=myVehiclesOnDet.end()) {
+    if (it != myVehiclesOnDet.end()) {
         SUMOReal entryTimestep = it->second;
         myVehiclesOnDet.erase(it);
         assert(entryTimestep < leaveTimestep);
@@ -301,18 +301,18 @@ std::vector<MSInductLoop::VehicleData>
 MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
     SUMOReal t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
-    for (VehicleDataCont::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
-        if ((*i).leaveTimeM>=t) {
+    for (VehicleDataCont::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
+        if ((*i).leaveTimeM >= t) {
             ret.push_back(*i);
         }
     }
-    for (VehicleDataCont::const_iterator i=myLastVehicleDataCont.begin(); i!=myLastVehicleDataCont.end(); ++i) {
-        if ((*i).leaveTimeM>=t) {
+    for (VehicleDataCont::const_iterator i = myLastVehicleDataCont.begin(); i != myLastVehicleDataCont.end(); ++i) {
+        if ((*i).leaveTimeM >= t) {
             ret.push_back(*i);
         }
     }
     SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
-    for (VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+    for (VehicleMap::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
         SUMOVehicle* v = (*i).first;
         VehicleData d(v->getID(), v->getVehicleType().getLengthWithGap(), (*i).second, STEPS2TIME(ct), v->getVehicleType().getID());
         d.speedM = v->getSpeed();

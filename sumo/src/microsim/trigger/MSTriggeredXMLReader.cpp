@@ -63,7 +63,7 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader() {}
 
 bool
 MSTriggeredXMLReader::readNextTriggered() {
-    while (myHaveMore&&myParser->parseNext(myToken)) {
+    while (myHaveMore && myParser->parseNext(myToken)) {
         if (nextRead()) {
             return true;
         }
@@ -90,7 +90,7 @@ MSTriggeredXMLReader::myInit() {
     }
 
     if (readNextTriggered()) {
-        if (myOffset<MSNet::getInstance()->getCurrentTimeStep()) {
+        if (myOffset < MSNet::getInstance()->getCurrentTimeStep()) {
             myOffset = MSNet::getInstance()->getCurrentTimeStep() + 1;
             // !!! Warning?
         }

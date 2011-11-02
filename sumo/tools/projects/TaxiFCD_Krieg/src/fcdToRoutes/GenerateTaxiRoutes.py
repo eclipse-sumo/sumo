@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateTaxiRoutes.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-07
 
 Creates an Route-File, which contains for each Taxi the route, from an FCD-File.

@@ -106,7 +106,7 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
 
 
 MSDevice_Vehroutes::~MSDevice_Vehroutes() throw() {
-    for (std::vector<RouteReplaceInfo>::iterator i=myReplacedRoutes.begin(); i!=myReplacedRoutes.end(); ++i) {
+    for (std::vector<RouteReplaceInfo>::iterator i = myReplacedRoutes.begin(); i != myReplacedRoutes.end(); ++i) {
         (*i).route->release();
     }
     myCurrentRoute->release();
@@ -141,8 +141,8 @@ void
 MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     // check if a previous route shall be written
     os.openTag("route");
-    if (index>=0) {
-        assert((int) myReplacedRoutes.size()>index);
+    if (index >= 0) {
+        assert((int) myReplacedRoutes.size() > index);
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"";
         if (myReplacedRoutes[index].edge) {
@@ -152,11 +152,11 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         os << "\" replacedAtTime=\"" << time2string(myReplacedRoutes[index].time) << "\" probability=\"0\" edges=\"";
         // get the route
         int i = index;
-        while (i > 0 && myReplacedRoutes[i-1].edge) {
+        while (i > 0 && myReplacedRoutes[i - 1].edge) {
             i--;
         }
         const MSEdge* lastEdge = 0;
-        for (; i<index; ++i) {
+        for (; i < index; ++i) {
             myReplacedRoutes[i].route->writeEdgeIDs(os, lastEdge, myReplacedRoutes[i].edge);
             lastEdge = myReplacedRoutes[i].edge;
         }
@@ -165,9 +165,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         os << " edges=\"";
         const MSEdge* lastEdge = 0;
         if (myHolder.getNumberReroutes() > 0) {
-            assert(myReplacedRoutes.size()<=myHolder.getNumberReroutes());
+            assert(myReplacedRoutes.size() <= myHolder.getNumberReroutes());
             unsigned int i = static_cast<unsigned int>(myReplacedRoutes.size());
-            while (i > 0 && myReplacedRoutes[i-1].edge) {
+            while (i > 0 && myReplacedRoutes[i - 1].edge) {
                 i--;
             }
             for (; i < myReplacedRoutes.size(); ++i) {
@@ -205,7 +205,7 @@ MSDevice_Vehroutes::generateOutput() const throw(IOError) {
     od << ">\n";
     if (myReplacedRoutes.size() > 0) {
         od.openTag("routeDistribution") << ">\n";
-        for (unsigned int i=0; i<myReplacedRoutes.size(); ++i) {
+        for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
             writeXMLRoute(od, i);
         }
     }

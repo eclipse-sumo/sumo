@@ -56,7 +56,7 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() {
 SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) {
     const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
-    if (state!=myPreviousState||myLogics.getActive()->getProgramID()!=myPreviousProgramID) {
+    if (state != myPreviousState || myLogics.getActive()->getProgramID() != myPreviousProgramID) {
         myOutputDevice << "    <tlsstate time=\"" << time2string(currentTime)
                        << "\" id=\"" << myLogics.getActive()->getID()
                        << "\" programID=\"" << myLogics.getActive()->getProgramID()

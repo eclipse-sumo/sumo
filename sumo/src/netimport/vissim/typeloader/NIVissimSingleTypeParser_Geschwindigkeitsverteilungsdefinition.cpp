@@ -62,17 +62,17 @@ NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istre
     std::string tag;
     do {
         tag = readEndSecure(from);
-        if (tag=="name") {
+        if (tag == "name") {
             readName(from);
             tag = readEndSecure(from);
         }
-        if (tag!="DATAEND") {
+        if (tag != "DATAEND") {
             SUMOReal p1 = TplConvert<char>::_2SUMOReal(tag.c_str());
             from >> tag;
             SUMOReal p2 = TplConvert<char>::_2SUMOReal(tag.c_str());
             points.push_back(Position(p1, p2));
         }
-    } while (tag!="DATAEND");
+    } while (tag != "DATAEND");
     NBDistribution::dictionary("speed",
                                id, new Distribution_Points(id, points));
     return true;

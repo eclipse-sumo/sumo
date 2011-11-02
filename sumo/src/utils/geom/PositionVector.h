@@ -92,11 +92,11 @@ public:
 
     /** @brief Returns the information whether the position vector describes a polygon lying around the given point
         The optional offset is added to the polygon's bounderies */
-    bool around(const Position& p, SUMOReal offset=0) const;
+    bool around(const Position& p, SUMOReal offset = 0) const;
 
     /** @brief Returns the information whether the given polygon overlaps with this
         Again a boundary may be specified */
-    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset=0) const;
+    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
     /** Returns the information whether this list of points interesects the given line */
     bool intersects(const Position& p1, const Position& p2) const;
@@ -167,7 +167,7 @@ public:
     SUMOReal area() const;
 
     /// Returns the information whether this polygon lies partially within the given polygon
-    bool partialWithin(const AbstractPoly& poly, SUMOReal offset=0) const;
+    bool partialWithin(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
     /// Returns the first position
     const Position& getBegin() const;
@@ -257,7 +257,7 @@ public:
 
     void eraseAt(int i);
 
-    SUMOReal nearest_position_on_line_to_point(const Position& p, bool perpendicular=true) const;
+    SUMOReal nearest_position_on_line_to_point(const Position& p, bool perpendicular = true) const;
 
     /* @brief index of the closest position to p
      * @note: may only be called for a non-empty vector */

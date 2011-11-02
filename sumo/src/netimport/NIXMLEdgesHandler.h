@@ -263,7 +263,7 @@ private:
 
         /// @brief Comparing operator
         bool operator()(const Split& e) {
-            return e.pos==myPosition;
+            return e.pos == myPosition;
         }
 
     private:

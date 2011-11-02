@@ -88,13 +88,13 @@ Line::p2() const {
 Position
 Line::getPositionAtDistance(SUMOReal offset) const {
     SUMOReal length = myP1.distanceTo(myP2);
-    if (length==0) {
-        if (offset!=0) {
+    if (length == 0) {
+        if (offset != 0) {
             throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
         }
         return myP1;
     }
-    return myP1 + ((myP2 - myP1) * (offset/length));
+    return myP1 + ((myP2 - myP1) * (offset / length));
 }
 
 
@@ -110,7 +110,7 @@ DoubleVector
 Line::intersectsAtLengths(const PositionVector& v) {
     PositionVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
-    for (size_t i=0; i<p.size(); i++) {
+    for (size_t i = 0; i < p.size(); i++) {
         ret.push_back(myP1.distanceTo(p[int(i)]));
     }
     return ret;
@@ -119,20 +119,20 @@ Line::intersectsAtLengths(const PositionVector& v) {
 
 SUMOReal
 Line::atan2Angle() const {
-    return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y());
+    return atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y());
 }
 
 
 SUMOReal
 Line::atan2DegreeAngle() const {
-    return (SUMOReal) atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) *(SUMOReal) 180.0 / (SUMOReal) PI;
+    return (SUMOReal) atan2(myP1.x() - myP2.x(), myP1.y() - myP2.y()) * (SUMOReal) 180.0 / (SUMOReal) PI;
 }
 
 
 SUMOReal
 Line::atan2PositiveAngle() const {
     SUMOReal angle = atan2Angle();
-    if (angle<0) {
+    if (angle < 0) {
         angle = (SUMOReal) PI * (SUMOReal) 2.0 + angle;
     }
     return angle;
@@ -153,9 +153,9 @@ Line::intersects(const Line& l) const {
 SUMOReal
 Line::length() const {
     return sqrt(
-               (myP1.x()-myP2.x())*(myP1.x()-myP2.x())
+               (myP1.x() - myP2.x()) * (myP1.x() - myP2.x())
                +
-               (myP1.y()-myP2.y())*(myP1.y()-myP2.y()));
+               (myP1.y() - myP2.y()) * (myP1.y() - myP2.y()));
 }
 
 

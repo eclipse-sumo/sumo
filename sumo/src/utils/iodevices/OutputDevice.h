@@ -82,7 +82,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static OutputDevice& getDevice(const std::string& name,
-                                   const std::string& base="") throw(IOError);
+                                   const std::string& base = "") throw(IOError);
 
 
     /** @brief Creates the device using the output definition stored in the named option
@@ -102,7 +102,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static bool createDeviceByOption(const std::string& optionName,
-                                     const std::string& rootElement="") throw(IOError);
+                                     const std::string& rootElement = "") throw(IOError);
 
 
     /** @brief Returns the device described by the option
@@ -129,7 +129,7 @@ public:
     /** @brief Abstract output operator
      * @return The OutputDevice for further processing
      */
-    static std::string realString(const SUMOReal v, const int precision=OUTPUT_ACCURACY);
+    static std::string realString(const SUMOReal v, const int precision = OUTPUT_ACCURACY);
 
 
 
@@ -138,7 +138,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const unsigned int defaultIndentation=0) throw(IOError);
+    OutputDevice(const unsigned int defaultIndentation = 0) throw(IOError);
 
 
     /// @brief Destructor
@@ -159,7 +159,7 @@ public:
     /** @brief Sets the precison or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
-    void setPrecision(unsigned int precision=OUTPUT_ACCURACY) throw();
+    void setPrecision(unsigned int precision = OUTPUT_ACCURACY) throw();
 
 
     /** @brief Writes an XML header with optional configuration
@@ -175,9 +175,9 @@ public:
      * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string& rootElement,
-                        const std::string xmlParams="",
-                        const std::string& attrs="",
-                        const std::string& comment="") throw();
+                        const std::string xmlParams = "",
+                        const std::string& attrs = "",
+                        const std::string& comment = "") throw();
 
 
     /** @brief Adds indentation
@@ -221,7 +221,7 @@ public:
      * @returns Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(bool abbreviated=false) throw();
+    bool closeTag(bool abbreviated = false) throw();
 
     /** @brief writes an arbitrary attribute
      *

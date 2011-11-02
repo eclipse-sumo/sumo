@@ -3,7 +3,7 @@
 
 """
 @file    network_statistics.py
-@author  Ronald.Nippold@dlr.de
+@author  Ronald Nippold
 @date    20089-10-06
 @version
 @usage   "python network_statistics.py network-file-to-be-analyzed.net.xml"

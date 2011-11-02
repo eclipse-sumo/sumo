@@ -67,11 +67,11 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream& from) {
     // color (optional) and length
     RGBColor color;
     tag = myRead(from);
-    while (tag!="laenge") {
-        if (tag=="farbe") {
+    while (tag != "laenge") {
+        if (tag == "farbe") {
             std::string colorName = myRead(from);
-            NIImporter_Vissim::ColorMap::iterator i=myColorMap.find(colorName);
-            if (i!=myColorMap.end()) {
+            NIImporter_Vissim::ColorMap::iterator i = myColorMap.find(colorName);
+            if (i != myColorMap.end()) {
                 color = (*i).second;
             } else {
                 int r, g, b;
@@ -89,21 +89,21 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream& from) {
     SUMOReal length;
     from >> length;
     // overread until "Maxbeschleunigung"
-    while (tag!="maxbeschleunigung") {
+    while (tag != "maxbeschleunigung") {
         tag = myRead(from);
     }
     SUMOReal amax;
     from >> amax; // type-checking is missing!
     // overread until "Maxverzoegerung"
-    while (tag!="maxverzoegerung") {
+    while (tag != "maxverzoegerung") {
         tag = myRead(from);
     }
     SUMOReal dmax;
     from >> dmax; // type-checking is missing!
-    while (tag!="besetzungsgrad") {
+    while (tag != "besetzungsgrad") {
         tag = myRead(from);
     }
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from, "verlustzeit");
     }
     return NIVissimVehicleType::dictionary(id, name,

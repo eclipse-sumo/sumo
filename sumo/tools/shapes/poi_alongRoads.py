@@ -3,7 +3,7 @@
 
 """
 @file    poi_alongRoads.py
-@author  Ronald.Nippold@dlr.de
+@author  Ronald Nippold
 @date    2009-20-10
 @version
 @usage   poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>

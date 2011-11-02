@@ -166,7 +166,7 @@ namespace FXEX {
 
 // New selector types
 enum {
-    SEL_DATA=FX::SEL_LAST,      // form of data as an event
+    SEL_DATA = FX::SEL_LAST,    // form of data as an event
     SEL_THREAD,                 // thread/runnable events
     SEL_WAITABLE_WAIT,          // waitable event such as a Condition variable, semaphore, etc
     SEL_WAITABLE_ACTIVATE,      // waitable event such as a Condition variable, semaphore, etc
@@ -192,10 +192,10 @@ enum {
 /// IO status definitions
 typedef FXint FXIOStatus;
 enum {
-    FXIOStatusUnknown=-2,
-    FXIOStatusError=-1,
-    FXIOStatusOk=0,
-    FXIOStatusOK=0,
+    FXIOStatusUnknown = -2,
+    FXIOStatusError = -1,
+    FXIOStatusOk = 0,
+    FXIOStatusOK = 0,
     FXIOStatusLast
 };
 #ifndef INVALID_HANDLE
@@ -214,13 +214,13 @@ enum {
 /// IO state definitions
 typedef FXint FXIOState;
 enum {
-    FXIOStateUnknown=-1,
-    FXIOStateNone=-1,
-    FXIOStateOk=0,
-    FXIOStateOK=0,
+    FXIOStateUnknown = -1,
+    FXIOStateNone = -1,
+    FXIOStateOk = 0,
+    FXIOStateOK = 0,
     FXIOStateUnconnected,
     FXIOStateConnected,
-    FXIOStateOpen=FXIOStateConnected,
+    FXIOStateOpen = FXIOStateConnected,
     FXIOStateListener,
     FXIOStateAccepted,
     FXIOStateDuplicated,
@@ -233,22 +233,22 @@ enum {
  */
 /// Socket types
 enum FXSocketType {
-    FXSocketTypeNone=0,                    // unknown socket type
+    FXSocketTypeNone = 0,                  // unknown socket type
     FXSocketTypeStream,                    // TCP socket
-    FXSocketTypeTCP=FXSocketTypeStream,    // TCP socket
+    FXSocketTypeTCP = FXSocketTypeStream,  // TCP socket
     FXSocketTypeDatagram,                  // UDP socket
-    FXSocketTypeUDP=FXSocketTypeDatagram   // UDP socket
+    FXSocketTypeUDP = FXSocketTypeDatagram // UDP socket
 };
 
 /// Socket families
 enum FXSocketFamily {
-    FXSocketFamilyNone=0,    // unknown socket family
+    FXSocketFamilyNone = 0,  // unknown socket family
     FXSocketFamilyLocal,     // Local domain socket (on nearly every system, same as Unix domain)
     FXSocketFamilyInet,      // Internet domain socket, version 4 (ie the default internet family)
     FXSocketFamilyInet6,     // Internet domain socket, version 6
     FXSocketFamilyAutomatic, // automatically choose UNIX domain (local) socket, when connecting
     // to localhost, internet domain for internet sockets
-    FXSocketFamilyUnix=FXSocketFamilyLocal
+    FXSocketFamilyUnix = FXSocketFamilyLocal
 };
 
 
@@ -289,9 +289,9 @@ enum FXFilePermission {
     FILEPERM_SET_UID      = 0x00001000,   // set the UID permission
     FILEPERM_SET_GID      = 0x00002000,   // set the GID permisssion
     FILEPERM_STICKY       = 0x00004000,   // set the STICKY permission
-    FILEPERM_SECURE_IO    = FILEPERM_USER_READ|FILEPERM_USER_WRITE, // permissions suitable for single user IO access
-    FILEPERM_DEFAULT_IO   = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE,  // permissions suitable for group IO access
-    FILEPERM_DEFAULT_EXEC = FILEPERM_READ|FILEPERM_USER_WRITE|FILEPERM_GROUP_WRITE|FILEPERM_EXEC  // permissions suitable for all users to execute a file
+    FILEPERM_SECURE_IO    = FILEPERM_USER_READ | FILEPERM_USER_WRITE, // permissions suitable for single user IO access
+    FILEPERM_DEFAULT_IO   = FILEPERM_READ | FILEPERM_USER_WRITE | FILEPERM_GROUP_WRITE, // permissions suitable for group IO access
+    FILEPERM_DEFAULT_EXEC = FILEPERM_READ | FILEPERM_USER_WRITE | FILEPERM_GROUP_WRITE | FILEPERM_EXEC // permissions suitable for all users to execute a file
 };
 
 
@@ -337,10 +337,10 @@ extern FXAPI const FXuchar fxexversion[3];
 /// time conversion routines
 #ifdef WIN32
 static void get_time_now(unsigned long* abs_sec, unsigned long* abs_nsec);
-static DWORD get_timeout(unsigned long secs, unsigned long nsecs,DWORD default_to);
+static DWORD get_timeout(unsigned long secs, unsigned long nsecs, DWORD default_to);
 #else
-void convert_timeval(struct timeval* tv,FXuint ms);
-void convert_timespec(struct timespec* ts,FXuint ms);
+void convert_timeval(struct timeval* tv, FXuint ms);
+void convert_timespec(struct timespec* ts, FXuint ms);
 #endif
 
 } // namespace FXUtils

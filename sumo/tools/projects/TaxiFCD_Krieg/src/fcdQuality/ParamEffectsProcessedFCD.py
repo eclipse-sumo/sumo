@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-07-26
 
 Creates files with a comparison of speeds for each edge between the taxis and the average speed from the current edge.

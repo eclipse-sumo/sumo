@@ -70,36 +70,36 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder& nb,
 
     std::vector<MSLane*>::const_iterator i;
     // build the induct loops
-    for (i=lanes.begin(); i!=lanes.end(); i++) {
+    for (i = lanes.begin(); i != lanes.end(); i++) {
         MSLane* lane = (*i);
         SUMOReal length = lane->length();
         SUMOReal speed = lane->maxSpeed();
         SUMOReal inductLoopPosition = myDetectorGap * speed;
         // check whether the lane is long enough
         SUMOReal ilpos = length - inductLoopPosition;
-        if (ilpos<0) {
+        if (ilpos < 0) {
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
         std::string id = "TLS" + myId + "_InductLoopOn_" + lane->getID();
-        if (myInductLoops.find(lane)==myInductLoops.end()) {
+        if (myInductLoops.find(lane) == myInductLoops.end()) {
             myInductLoops[lane] =
                 nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
         }
     }
     // build the lane state-detectors
-    for (i=lanes.begin(); i!=lanes.end(); i++) {
+    for (i = lanes.begin(); i != lanes.end(); i++) {
         MSLane* lane = (*i);
         SUMOReal length = lane->length();
         // check whether the position is o.k. (not longer than the lane)
         SUMOReal lslen = det_offset;
-        if (lslen>length) {
+        if (lslen > length) {
             lslen = length;
         }
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TLS" + myId + "_LaneStateOff_" + lane->getID();
-        if (myLaneStates.find(lane)==myLaneStates.end()) {
+        if (myLaneStates.find(lane) == myLaneStates.end()) {
             MSLaneState* loop =
                 new MSLaneState(id, lane, lspos, lslen,
                                 laneStateDetectorInterval);
@@ -118,20 +118,20 @@ MSUnboundActuatedTrafficLightLogic::duration() const {
     if (myContinue) {
         return 1;
     }
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     if (!isGreenPhase()) {
         return currentPhaseDef()->duration;
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = currentPhaseDef()->minDuration;
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (size_t i=0; i<isgreen.size(); i++)  {
+    for (size_t i = 0; i < isgreen.size(); i++)  {
         if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
                 LaneStateMap::const_iterator k = myLaneStates.find(*j);
                 SUMOReal waiting = (*k).second->getCurrentNumberOfWaiting();
                 SUMOReal tmpdur =  myPassingTime * waiting;
@@ -158,8 +158,8 @@ MSUnboundActuatedTrafficLightLogic::trySwitch(bool) {
     }
     // increment the index to the current phase
     myStep++;
-    assert(myStep<=myPhases.size());
-    if (myStep==myPhases.size()) {
+    assert(myStep <= myPhases.size());
+    if (myStep == myPhases.size()) {
         myStep = 0;
     }
     //stores the time the phase started
@@ -185,7 +185,7 @@ MSUnboundActuatedTrafficLightLogic::isGreenPhase() const {
 bool
 MSUnboundActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     if (!isGreenPhase()) {
         return myContinue = false;
     }
@@ -199,14 +199,14 @@ MSUnboundActuatedTrafficLightLogic::gapControl() {
 
     // now the gapcontrol starts
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (size_t i=0; i<isgreen.size(); i++)  {
+    for (size_t i = 0; i < isgreen.size(); i++)  {
         if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-                if (myInductLoops.find(*j)==myInductLoops.end()) {
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
+                if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
                 }
                 SUMOReal actualGap =
@@ -223,7 +223,7 @@ MSUnboundActuatedTrafficLightLogic::gapControl() {
 
 MSActuatedPhaseDefinition*
 MSUnboundActuatedTrafficLightLogic::currentPhaseDef() const {
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 

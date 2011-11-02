@@ -62,33 +62,33 @@ protected:
     FXSevenSegment() {}
 
     // Draws the individual segment types
-    void drawTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawLeftTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawRightTopSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawMiddleSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawLeftBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawRightBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
-    void drawBottomSegment(FXDCWindow& dc,FXshort x,FXshort y);
+    void drawTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawLeftTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawRightTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawMiddleSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawLeftBottomSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawRightBottomSegment(FXDCWindow& dc, FXshort x, FXshort y);
+    void drawBottomSegment(FXDCWindow& dc, FXshort x, FXshort y);
 
     // Draw a seven-segment unit (each segment can be set indepentantly)
-    void drawSegments(FXDCWindow& dc,FXbool s1,FXbool s2,FXbool s3,FXbool s4,FXbool s5,FXbool s6,FXbool s7);
+    void drawSegments(FXDCWindow& dc, FXbool s1, FXbool s2, FXbool s3, FXbool s4, FXbool s5, FXbool s6, FXbool s7);
 
     // Draw an alphanumeric figure (consisting of seven segments)
     virtual void drawFigure(FXDCWindow& dc, FXchar figure);
 
 public:
-    long onPaint(FXObject*,FXSelector,void*);
-    long onCmdSetValue(FXObject*,FXSelector,void*);
-    long onCmdSetIntValue(FXObject*,FXSelector,void*);
-    long onCmdGetIntValue(FXObject*,FXSelector,void*);
-    long onCmdSetStringValue(FXObject*,FXSelector,void*);
-    long onCmdGetStringValue(FXObject*,FXSelector,void*);
-    long onQueryTip(FXObject*,FXSelector,void*);
-    long onQueryHelp(FXObject*,FXSelector,void*);
+    long onPaint(FXObject*, FXSelector, void*);
+    long onCmdSetValue(FXObject*, FXSelector, void*);
+    long onCmdSetIntValue(FXObject*, FXSelector, void*);
+    long onCmdGetIntValue(FXObject*, FXSelector, void*);
+    long onCmdSetStringValue(FXObject*, FXSelector, void*);
+    long onCmdGetStringValue(FXObject*, FXSelector, void*);
+    long onQueryTip(FXObject*, FXSelector, void*);
+    long onQueryHelp(FXObject*, FXSelector, void*);
 
 public:
     /// create a seven segment display
-    FXSevenSegment(FXComposite* p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=FRAME_NONE,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    FXSevenSegment(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = FRAME_NONE, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// set the text on the display
     void setText(const FXchar val);

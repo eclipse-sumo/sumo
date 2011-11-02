@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    netextract_subPart.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2007-02-21
 @version $Id$
 

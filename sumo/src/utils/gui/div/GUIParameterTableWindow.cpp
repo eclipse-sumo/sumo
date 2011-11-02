@@ -46,7 +46,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[]= {
+FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,          MID_SIMSTEP,    GUIParameterTableWindow::onSimStep),
     FXMAPFUNC(SEL_SELECTED,         MID_TABLE,      GUIParameterTableWindow::onTableSelected),
     FXMAPFUNC(SEL_DESELECTED,       MID_TABLE,      GUIParameterTableWindow::onTableDeselected),
@@ -62,14 +62,14 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
         GUIGlObject& o, size_t noRows) throw()
     : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
-                   NULL,NULL,DECOR_ALL,20,20,300,(FXint)(noRows*20+60)),
+                   NULL, NULL, DECOR_ALL, 20, 20, 300, (FXint)(noRows * 20 + 60)),
     myObject(&o),
     myApplication(&app), myCurrentPos(0) {
-    myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE|TABLE_ROW_SIZABLE|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-    myTable->setVisibleRows((FXint)(noRows+1));
+    myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE | TABLE_ROW_SIZABLE | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    myTable->setVisibleRows((FXint)(noRows + 1));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(noRows+1), 3);
-    myTable->setBackColor(FXRGB(255,255,255));
+    myTable->setTableSize((FXint)(noRows + 1), 3);
+    myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Name");
     myTable->setColumnText(1, "Value");
     myTable->setColumnText(2, "Dynamic");
@@ -91,10 +91,10 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
 GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
     myApplication->removeChild(this);
     myLock.lock();
-    for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
+    for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
         delete(*i);
     }
-    if (myObject!=0) {
+    if (myObject != 0) {
         myObject->removeParameterTable(this);
     }
     myLock.unlock();
@@ -110,7 +110,7 @@ GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) throw() {
 
 
 long
-GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*) {
+GUIParameterTableWindow::onSimStep(FXObject*, FXSelector, void*) {
     updateTable();
     update();
     return 1;
@@ -118,13 +118,13 @@ GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*) {
 
 
 long
-GUIParameterTableWindow::onTableSelected(FXObject*,FXSelector,void*) {
+GUIParameterTableWindow::onTableSelected(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
 long
-GUIParameterTableWindow::onTableDeselected(FXObject*,FXSelector,void*) {
+GUIParameterTableWindow::onTableDeselected(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -136,7 +136,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender,
     // check which value entry was pressed
     myTable->onLeftBtnPress(sender, sel, data);
     int row = myTable->getCurrentRow();
-    if (row==-1||row>= (int)(myItems.size())) {
+    if (row == -1 || row >= (int)(myItems.size())) {
         return 1;
     }
     GUIParameterTableItemInterface* i = myItems[row];
@@ -220,11 +220,11 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 void
 GUIParameterTableWindow::updateTable() throw() {
     myLock.lock();
-    if (myObject==0) {
+    if (myObject == 0) {
         myLock.unlock();
         return;
     }
-    for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); i++) {
+    for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); i++) {
         (*i)->update();
     }
     myLock.unlock();

@@ -72,7 +72,7 @@ public:
      * @return The read value if given and correct; -1 if an error occured
      */
     int getIntReporting(int attr, const char* objectid, bool& ok,
-                        bool report=true) const throw();
+                        bool report = true) const throw();
 
 
     /** @brief Tries to read given attribute assuming it is an int
@@ -91,7 +91,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
     int getOptIntReporting(int attr, const char* objectid, bool& ok,
-                           int defaultValue, bool report=true) const throw();
+                           int defaultValue, bool report = true) const throw();
 
 
 
@@ -109,7 +109,7 @@ public:
      * @return The read value if given and correct; -1 if an error occured
      */
     SUMOReal getSUMORealReporting(int attr, const char* objectid, bool& ok,
-                                  bool report=true) const throw();
+                                  bool report = true) const throw();
 
 
 
@@ -129,7 +129,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
     SUMOReal getOptSUMORealReporting(int attr, const char* objectid, bool& ok,
-                                     SUMOReal defaultValue, bool report=true) const throw();
+                                     SUMOReal defaultValue, bool report = true) const throw();
 
 
 
@@ -147,7 +147,7 @@ public:
      * @return The read value if given and correct; false if an error occured
      */
     bool getBoolReporting(int attr,  const char* objectid, bool& ok,
-                          bool report=true) const throw();
+                          bool report = true) const throw();
 
 
 
@@ -167,7 +167,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist; false if an error occured
      */
     bool getOptBoolReporting(int attr, const char* objectid, bool& ok,
-                             bool defaultValue, bool report=true) const throw();
+                             bool defaultValue, bool report = true) const throw();
 
 
 
@@ -185,7 +185,7 @@ public:
      * @return The read value if given and not empty; "" if an error occured
      */
     std::string getStringReporting(int attr, const char* objectid, bool& ok,
-                                   bool report=true) const throw();
+                                   bool report = true) const throw();
 
 
 
@@ -205,7 +205,7 @@ public:
      * @return The read value if given and not empty; the default value if the attribute does not exist; "" if an error occured
      */
     std::string getOptStringReporting(int attr, const char* objectid, bool& ok,
-                                      const std::string& defaultValue, bool report=true) const throw();
+                                      const std::string& defaultValue, bool report = true) const throw();
 
 
 
@@ -226,7 +226,7 @@ public:
      * @return The read value if given and correct; -1 if an error occured
      */
     SUMOTime getSUMOTimeReporting(int attr, const char* objectid, bool& ok,
-                                  bool report=true) const throw();
+                                  bool report = true) const throw();
 
 
 
@@ -249,7 +249,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
      */
     SUMOTime getOptSUMOTimeReporting(int attr, const char* objectid, bool& ok,
-                                     SUMOTime defaultValue, bool report=true) const throw();
+                                     SUMOTime defaultValue, bool report = true) const throw();
 
 
 

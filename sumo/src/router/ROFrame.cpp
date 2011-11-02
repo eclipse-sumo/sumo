@@ -159,7 +159,7 @@ ROFrame::checkOptions(OptionsCont& oc) {
         return false;
     }
     //
-    if (oc.getInt("max-alternatives")<2) {
+    if (oc.getInt("max-alternatives") < 2) {
         WRITE_ERROR("At least two alternatives should be enabled");
         return false;
     }

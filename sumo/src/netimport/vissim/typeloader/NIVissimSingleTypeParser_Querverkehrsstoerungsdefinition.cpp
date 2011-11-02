@@ -54,11 +54,11 @@ bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream& from) {
     std::string tag;
     tag = myRead(from);
-    if (tag=="nureigenestrecke") {
+    if (tag == "nureigenestrecke") {
         return parseOnlyMe(from);
-    } else if (tag=="ort") {
+    } else if (tag == "ort") {
         return parsePositionDescribed(from);
-    } else if (tag=="nummer") {
+    } else if (tag == "nummer") {
         return parseNumbered(from);
     }
     WRITE_ERROR(
@@ -93,15 +93,15 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
 
         SUMOReal vmax = -1;
         tag = readEndSecure(from);
-        if (tag=="vmax") {
+        if (tag == "vmax") {
             from >> vmax;
         }
         ok = NIVissimDisturbance::dictionary(-1, "", edge, by,
                                              timegap, waygap, vmax);
-        if (tag!="DATAEND") {
+        if (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
-    } while (tag!="DATAEND"&&ok);
+    } while (tag != "DATAEND" && ok);
     return ok;
 }
 
@@ -117,7 +117,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
     from >> tag;
     std::string name = readName(from);
     // skip optional "Beschriftung"
-    while (tag!="ort") {
+    while (tag != "ort") {
         tag = myRead(from);
     }
     //
@@ -138,16 +138,16 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
 
         SUMOReal vmax = -1;
         tag = readEndSecure(from);
-        if (tag=="vmax") {
+        if (tag == "vmax") {
             from >> vmax;
         }
 
         ok = NIVissimDisturbance::dictionary(id, name, edge, by,
                                              timegap, waygap, vmax);
-        if (tag!="DATAEND") {
+        if (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
-    } while (tag!="DATAEND"&&ok);
+    } while (tag != "DATAEND" && ok);
     return ok;
 }
 
@@ -162,7 +162,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     from >> tag;
     from >> tag;
     IntVector lanes;
-    if (tag=="ALLE") {
+    if (tag == "ALLE") {
         //lanes.push_back(1); // !!!
     } else {
         lanes.push_back(TplConvert<char>::_2int(tag.c_str()));
@@ -174,14 +174,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     // assigned vehicle types
     IntVector types;
     from >> tag;
-    while (tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND"&&tag!="alle") {
+    while (tag != "zeitluecke" && tag != "durch" && tag != "DATAEND" && tag != "alle") {
         tag = readEndSecure(from);
-        if (tag!="DATAEND") {
-            if (tag=="alle") {
+        if (tag != "DATAEND") {
+            if (tag == "alle") {
                 types.push_back(-1);
                 from >> tag;
                 tag = "alle";
-            } else if (tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND") {
+            } else if (tag != "zeitluecke" && tag != "durch" && tag != "DATAEND") {
                 int tmp = TplConvert<char>::_2int(tag.c_str());
                 types.push_back(tmp);
             }

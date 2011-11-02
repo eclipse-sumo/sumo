@@ -69,28 +69,28 @@ public:
 
 public:
     /// Called if the assigned objects shall be centered
-    long onCmdCenter(FXObject*,FXSelector,void*);
+    long onCmdCenter(FXObject*, FXSelector, void*);
 
     /// Called if the name shall be copied to clipboard
-    long onCmdCopyName(FXObject*,FXSelector,void*);
+    long onCmdCopyName(FXObject*, FXSelector, void*);
 
     /// Called if the typed name shall be copied to clipboard
-    long onCmdCopyTypedName(FXObject*,FXSelector,void*);
+    long onCmdCopyTypedName(FXObject*, FXSelector, void*);
 
     /// Called if the cursor position shall be copied to clipboard
-    long onCmdCopyCursorPosition(FXObject*,FXSelector,void*);
+    long onCmdCopyCursorPosition(FXObject*, FXSelector, void*);
 
     /// Called if the cursor geo-position shall be copied to clipboard
-    long onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*);
+    long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
 
     /// Called if the parameter of this object shall be shown
-    long onCmdShowPars(FXObject*,FXSelector,void*);
+    long onCmdShowPars(FXObject*, FXSelector, void*);
 
     /// Called if the object shall be added to the list of selected objects
-    long onCmdAddSelected(FXObject*,FXSelector,void*);
+    long onCmdAddSelected(FXObject*, FXSelector, void*);
 
     /// Called if the object shall be removed from the list of selected objects
-    long onCmdRemoveSelected(FXObject*,FXSelector,void*);
+    long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
     /// @brief return the real owner of this popup
     inline GUISUMOAbstractView* getParentView() {

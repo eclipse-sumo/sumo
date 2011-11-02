@@ -97,7 +97,7 @@ GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const 
 
 
 GUIGlObject::~GUIGlObject() throw() {
-    for (std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.begin(); i!=myParamWindows.end(); ++i) {
+    for (std::set<GUIParameterTableWindow*>::iterator i = myParamWindows.begin(); i != myParamWindows.end(); ++i) {
         (*i)->removeObject(this);
     }
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
@@ -191,8 +191,8 @@ GUIGlObject::addParameterTable(GUIParameterTableWindow* t) throw() {
 
 void
 GUIGlObject::removeParameterTable(GUIParameterTableWindow* t) throw() {
-    std::set<GUIParameterTableWindow*>::iterator i=myParamWindows.find(t);
-    if (i!=myParamWindows.end()) {
+    std::set<GUIParameterTableWindow*>::iterator i = myParamWindows.find(t);
+    if (i != myParamWindows.end()) {
         myParamWindows.erase(i);
     }
 }

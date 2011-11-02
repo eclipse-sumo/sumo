@@ -82,19 +82,19 @@ public:
     /// @{
 
     /// Called when the user changes the viewport
-    long onCmdChanged(FXObject*,FXSelector,void*);
+    long onCmdChanged(FXObject*, FXSelector, void*);
 
     /// Called when the user wants to keep the viewport
-    long onCmdOk(FXObject*,FXSelector,void*);
+    long onCmdOk(FXObject*, FXSelector, void*);
 
     /// Called when the user wants to restore the viewport
-    long onCmdCancel(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// Called when the user wants to load a viewport
-    long onCmdLoad(FXObject*,FXSelector,void*);
+    long onCmdLoad(FXObject*, FXSelector, void*);
 
     /// Called when the user wants to save a viewport
-    long onCmdSave(FXObject*,FXSelector,void*);
+    long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
 
 

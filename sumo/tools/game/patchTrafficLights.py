@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    patchTrafficLights.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2010-03-11
 @version $Id$
 

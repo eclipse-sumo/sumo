@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    TaxisPerEdge.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-08
 
 Counts for every edge in the given FCD-file the number of Taxis which used this edge.

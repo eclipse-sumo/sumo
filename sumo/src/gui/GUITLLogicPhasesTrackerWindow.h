@@ -158,10 +158,10 @@ public:
         /// {
 
         /// @brief called on size change
-        long onConfigure(FXObject*,FXSelector,void*);
+        long onConfigure(FXObject*, FXSelector, void*);
 
         /// @brief called if the widget shall be repainted
-        long onPaint(FXObject*,FXSelector,void*);
+        long onPaint(FXObject*, FXSelector, void*);
         /// }
 
 

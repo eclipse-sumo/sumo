@@ -1,6 +1,6 @@
 """
 @file    dijkstra.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2007-10-25
 @version $Id$
 

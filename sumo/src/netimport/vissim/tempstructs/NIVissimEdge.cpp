@@ -78,12 +78,12 @@ NIVissimEdge::connection_position_sorter::operator()(int c1id,
     NIVissimConnection* c1 = NIVissimConnection::dictionary(c1id);
     NIVissimConnection* c2 = NIVissimConnection::dictionary(c2id);
     SUMOReal pos1 =
-        c1->getFromEdgeID()==myEdgeID
+        c1->getFromEdgeID() == myEdgeID
         ? c1->getFromPosition() : c1->getToPosition();
     SUMOReal pos2 =
-        c2->getFromEdgeID()==myEdgeID
+        c2->getFromEdgeID() == myEdgeID
         ? c2->getFromPosition() : c2->getToPosition();
-    return pos1<pos2;
+    return pos1 < pos2;
 }
 
 
@@ -103,12 +103,12 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
     NIVissimConnectionCluster* cc2) const {
     SUMOReal pos1 = cc1->getPositionForEdge(myEdgeID);
     SUMOReal pos2 = cc2->getPositionForEdge(myEdgeID);
-    if (pos2<0||pos1<0) {
+    if (pos2 < 0 || pos1 < 0) {
         cc1->getPositionForEdge(myEdgeID);
         cc2->getPositionForEdge(myEdgeID);
     }
-    assert(pos1>=0&&pos2>=0);
-    return pos1<pos2;
+    assert(pos1 >= 0 && pos2 >= 0);
+    return pos1 < pos2;
 }
 
 
@@ -123,18 +123,18 @@ NIVissimEdge::NIVissimEdge(int id, const std::string& name,
       myName(name), myType(type), myNoLanes(noLanes),
       myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
       myClosedLanes(clv), myAmWithinJunction(false) { //, mySpeed(-1)
-    assert(noLanes>=0);
-    if (myMaxID<myID) {
+    assert(noLanes >= 0);
+    if (myMaxID < myID) {
         myMaxID = myID;
     }
-    for (int i=0; i<noLanes; i++) {
+    for (int i = 0; i < noLanes; i++) {
         myLaneSpeeds.push_back(-1);
     }
 }
 
 
 NIVissimEdge::~NIVissimEdge() {
-    for (NIVissimClosedLanesVector::iterator i=myClosedLanes.begin(); i!=myClosedLanes.end(); i++) {
+    for (NIVissimClosedLanesVector::iterator i = myClosedLanes.begin(); i != myClosedLanes.end(); i++) {
         delete(*i);
     }
     myClosedLanes.clear();
@@ -160,8 +160,8 @@ NIVissimEdge::dictionary(int id, const std::string& name,
 
 bool
 NIVissimEdge::dictionary(int id, NIVissimEdge* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         return true;
     }
@@ -172,8 +172,8 @@ NIVissimEdge::dictionary(int id, NIVissimEdge* o) {
 
 NIVissimEdge*
 NIVissimEdge::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -185,57 +185,57 @@ NIVissimEdge::buildConnectionClusters() throw() {
     const SUMOReal MAX_CLUSTER_DISTANCE = 10;
     // build clusters for all edges made up from not previously assigne
     //  connections
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         int edgeid = (*i).first;
         NIVissimEdge* edge = (*i).second;
         // get all connectors using this edge
         IntVector connectors = edge->myIncomingConnections;
         copy(edge->myOutgoingConnections.begin(), edge->myOutgoingConnections.end(), back_inserter(connectors));
-        if (connectors.size()==0) {
+        if (connectors.size() == 0) {
             continue;
         }
         // sort the connectors by the place on the edge
         sort(connectors.begin(), connectors.end(), connection_position_sorter(edgeid));
         // try to cluster the connections participating within the current edge
         IntVector currentCluster;
-        IntVector::iterator j=connectors.begin();
-        bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID()==(*i).first;
+        IntVector::iterator j = connectors.begin();
+        bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID() == (*i).first;
         SUMOReal position = outgoing
                             ? NIVissimConnection::dictionary(*j)->getFromPosition()
                             : NIVissimConnection::dictionary(*j)->getToPosition();
 
         // skip connections already in a cluster
         // !!! (?)
-        while (j!=connectors.end()&&NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
+        while (j != connectors.end() && NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
             ++j;
         }
-        if (j==connectors.end()) {
+        if (j == connectors.end()) {
             continue;
         }
         currentCluster.push_back(*j);
         do {
-            if (j+1!=connectors.end()&&!NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
-                bool n_outgoing = NIVissimConnection::dictionary(*(j+1))->getFromEdgeID()==edgeid;
+            if (j + 1 != connectors.end() && !NIVissimConnection::dictionary(*j)->hasNodeCluster()) {
+                bool n_outgoing = NIVissimConnection::dictionary(*(j + 1))->getFromEdgeID() == edgeid;
                 SUMOReal n_position = n_outgoing
-                                      ? NIVissimConnection::dictionary(*(j+1))->getFromPosition()
-                                      : NIVissimConnection::dictionary(*(j+1))->getToPosition();
-                if (n_outgoing==outgoing && fabs(n_position-position)<MAX_CLUSTER_DISTANCE) {
+                                      ? NIVissimConnection::dictionary(*(j + 1))->getFromPosition()
+                                      : NIVissimConnection::dictionary(*(j + 1))->getToPosition();
+                if (n_outgoing == outgoing && fabs(n_position - position) < MAX_CLUSTER_DISTANCE) {
                     // ok, in same cluster as prior
-                    currentCluster.push_back(*(j+1));
+                    currentCluster.push_back(*(j + 1));
                 } else {
                     // start new cluster
                     VectorHelper<int>::removeDouble(currentCluster);
                     edge->myConnectionClusters.push_back(new NIVissimConnectionCluster(currentCluster, -1, edgeid));
                     currentCluster.clear();
-                    currentCluster.push_back(*(j+1));
+                    currentCluster.push_back(*(j + 1));
                 }
                 outgoing = n_outgoing;
                 position = n_position;
             }
             j++;
-        } while (j!=connectors.end());
+        } while (j != connectors.end());
         // add last connection
-        if (currentCluster.size()>0) {
+        if (currentCluster.size() > 0) {
             VectorHelper<int>::removeDouble(currentCluster);
             edge->myConnectionClusters.push_back(new NIVissimConnectionCluster(currentCluster, -1, edgeid));
         }
@@ -246,7 +246,7 @@ NIVissimEdge::buildConnectionClusters() throw() {
 void
 NIVissimEdge::dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
                                 NBEdgeCont& ec, SUMOReal offset) {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
         edge->buildNBEdge(dc, nc, ec, offset);
     }
@@ -256,20 +256,20 @@ NIVissimEdge::dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
 void
 NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */) {
     DictType::iterator i;
-    for (i=myDict.begin(); i!=myDict.end(); i++) {
+    for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
         edge->setDistrictSpeed(/* dc */);
     }
-    for (i=myDict.begin(); i!=myDict.end(); i++) {
+    for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
         edge->propagateSpeed(/* dc */ -1, IntVector());
     }
-    for (int j=0; j<3; j++) {
-        for (i=myDict.begin(); i!=myDict.end(); i++) {
+    for (int j = 0; j < 3; j++) {
+        for (i = myDict.begin(); i != myDict.end(); i++) {
             NIVissimEdge* edge = (*i).second;
             edge->propagateOwn(/* dc */);
         }
-        for (i=myDict.begin(); i!=myDict.end(); i++) {
+        for (i = myDict.begin(); i != myDict.end(); i++) {
             NIVissimEdge* edge = (*i).second;
             edge->checkUnconnectedLaneSpeeds(/* dc */);
         }
@@ -279,31 +279,31 @@ NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */) {
 
 void
 NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
-    for (int i=0; i<(int) myLaneSpeeds.size(); i++) {
-        if (myLaneSpeeds[i]==-1) {
+    for (int i = 0; i < (int) myLaneSpeeds.size(); i++) {
+        if (myLaneSpeeds[i] == -1) {
             SUMOReal speed = -1;
             int j1 = i - 1; // !!! recheck - j1 may become negative?
             int j2 = i;
-            while (j2!=(int) myLaneSpeeds.size()&&myLaneSpeeds[j2]==-1) {
+            while (j2 != (int) myLaneSpeeds.size() && myLaneSpeeds[j2] == -1) {
                 j2++;
             }
-            if (j1<0) {
-                if (j2<(int) myLaneSpeeds.size()) {
+            if (j1 < 0) {
+                if (j2 < (int) myLaneSpeeds.size()) {
                     speed = myLaneSpeeds[j2];
                 }
             } else {
-                if (j2>=(int) myLaneSpeeds.size()) {
+                if (j2 >= (int) myLaneSpeeds.size()) {
                     speed = myLaneSpeeds[j1];
                 } else {
                     speed = (myLaneSpeeds[j1] + myLaneSpeeds[j2]) / (SUMOReal) 2.0;
                 }
             }
-            if (speed==-1) {
+            if (speed == -1) {
                 continue;
             }
             myLaneSpeeds[i] = speed;
             std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
-            for (std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+            for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
                 NIVissimConnection* c = *j;
                 NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
                 // propagate
@@ -316,12 +316,12 @@ NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
 
 void
 NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
-    for (int i=0; i<(int) myLaneSpeeds.size(); i++) {
-        if (myLaneSpeeds[i]==-1) {
+    for (int i = 0; i < (int) myLaneSpeeds.size(); i++) {
+        if (myLaneSpeeds[i] == -1) {
             continue;
         }
         std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
-        for (std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+        for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
             NIVissimConnection* c = *j;
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
             // propagate
@@ -334,26 +334,26 @@ NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
 void
 NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector forLanes) {
     // if no lane is given, all set be set
-    if (forLanes.size()==0) {
-        for (size_t i=0; i<myNoLanes; i++) {
+    if (forLanes.size() == 0) {
+        for (size_t i = 0; i < myNoLanes; i++) {
             forLanes.push_back((int) i);
         }
     }
     // for the case of a first call
     // go through the lanes
-    for (IntVector::const_iterator i=forLanes.begin(); i<forLanes.end(); i++) {
+    for (IntVector::const_iterator i = forLanes.begin(); i < forLanes.end(); i++) {
         // check whether a speed was set before
-        if (myLaneSpeeds[*i]!=-1) {
+        if (myLaneSpeeds[*i] != -1) {
             // do not reset it from incoming
             continue;
         }
         // check whether the lane has a new speed to set
-        if ((int) myPatchedSpeeds.size()>*i&&myPatchedSpeeds[*i]!=-1) {
+        if ((int) myPatchedSpeeds.size() > *i && myPatchedSpeeds[*i] != -1) {
             // use it
             speed = getRealSpeed(/*dc, */myPatchedSpeeds[*i]);
         }
         // check whether a speed is given
-        if (speed==-1) {
+        if (speed == -1) {
             // do nothing if not
             continue;
         }
@@ -363,7 +363,7 @@ NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector 
         // get the list of connected edges
         std::vector<NIVissimConnection*> connected = getOutgoingConnected(*i);
         // go throught the list
-        for (std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+        for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
             NIVissimConnection* c = *j;
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
             // propagate
@@ -376,23 +376,23 @@ NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector 
 
 void
 NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
-    if (myDistrictConnections.size()>0) {
+    if (myDistrictConnections.size() > 0) {
         SUMOReal pos = *(myDistrictConnections.begin());
-        if (pos<getLength()-pos) {
+        if (pos < getLength() - pos) {
             NIVissimDistrictConnection* d =
                 NIVissimDistrictConnection::dict_findForEdge(myID);
-            if (d!=0) {
+            if (d != 0) {
                 SUMOReal speed = d->getMeanSpeed(/*dc*/);
-                if (speed==-1) {
+                if (speed == -1) {
                     return;
                 }
-                for (unsigned int i=0; i<myNoLanes; i++) {
+                for (unsigned int i = 0; i < myNoLanes; i++) {
                     myLaneSpeeds[i] = speed;
                     // propagate the speed further
                     // get the list of connected edges
                     std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
                     // go throught the list
-                    for (std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+                    for (std::vector<NIVissimConnection*>::iterator j = connected.begin(); j != connected.end(); j++) {
                         NIVissimConnection* c = *j;
                         NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
                         // propagate
@@ -408,12 +408,12 @@ NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
 std::vector<NIVissimConnection*>
 NIVissimEdge::getOutgoingConnected(int lane) const {
     std::vector<NIVissimConnection*> ret;
-    for (IntVector::const_iterator i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); i++) {
+    for (IntVector::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         const IntVector& lanes = c->getFromLanes();
-        if (find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+        if (find(lanes.begin(), lanes.end(), lane) != lanes.end()) {
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
-            if (e!=0) {
+            if (e != 0) {
                 ret.push_back(c);
             }
         }
@@ -432,7 +432,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     sort(myConnectionClusters.begin(), myConnectionClusters.end(), connection_cluster_position_sorter(myID));
     sort(myDistrictConnections.begin(), myDistrictConnections.end());
     ConnectionClusters tmpClusters = myConnectionClusters;
-    if (tmpClusters.size()!=0) {
+    if (tmpClusters.size() != 0) {
         sort(tmpClusters.begin(), tmpClusters.end(), connection_cluster_position_sorter(myID));
         // get or build the from-node
         //  A node may have to be build when the edge starts or ends at
@@ -443,19 +443,19 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
         //if(tmpClusters.size()>0) {
         toInf = getToNode(nc, tmpClusters);
         toNode = toInf.second;
-        if (fromInf.first!=0&&toNode!=0&&fromInf.first->around(toNode->getPosition())) {
+        if (fromInf.first != 0 && toNode != 0 && fromInf.first->around(toNode->getPosition())) {
             WRITE_WARNING("Will not build edge '" + toString(myID) + "'.");
             myAmWithinJunction = true;
             return;
         }
         //}
         // if both nodes are the same, resolve the problem otherwise
-        if (fromNode==toNode) {
+        if (fromNode == toNode) {
             std::pair<NBNode*, NBNode*> tmp = resolveSameNode(nc, sameNodesOffset, fromNode, toNode);
-            if (fromNode!=tmp.first) {
+            if (fromNode != tmp.first) {
                 fromInf.first = 0;
             }
-            if (toNode!=tmp.second) {
+            if (toNode != tmp.second) {
                 toInf.first = 0;
             }
             fromNode = tmp.first;
@@ -464,7 +464,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     }
 
     //
-    if (fromNode==0) {
+    if (fromNode == 0) {
         fromInf.first = 0;
         Position pos = myGeom[0];
         fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NODETYPE_NOJUNCTION);
@@ -472,7 +472,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
             throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
         }
     }
-    if (toNode==0) {
+    if (toNode == 0) {
         toInf.first = 0;
         Position pos = myGeom[-1];
         toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NODETYPE_NOJUNCTION);
@@ -484,8 +484,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     // build the edge
     SUMOReal avgSpeed = 0;
     int i;
-    for (i=0; i<(int) myNoLanes; i++) {
-        if (myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
+    for (i = 0; i < (int) myNoLanes; i++) {
+        if (myLaneSpeeds.size() <= (size_t) i || myLaneSpeeds[i] == -1) {
             myLanesWithMissingSpeeds.push_back(toString(myID) + "_" + toString(i));
             avgSpeed += OptionsCont::getOptions().getFloat("vissim.default-speed");
         } else {
@@ -495,25 +495,25 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     avgSpeed /= (SUMOReal) myLaneSpeeds.size();
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
-    if (fromNode==toNode) {
+    if (fromNode == toNode) {
         WRITE_WARNING("Could not build edge '" + toString(myID) + "'; would connect same node.");
         return;
     }
 
     NBEdge* buildEdge = new NBEdge(toString<int>(myID), fromNode, toNode, myType,
-                                   avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, -1, -1, myGeom, myName, LANESPREAD_CENTER, true);
-    for (i=0; i<(int) myNoLanes; i++) {
-        if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
-            buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed")/(SUMOReal) 3.6);
+                                   avgSpeed / (SUMOReal) 3.6, myNoLanes, -1, -1, -1, myGeom, myName, LANESPREAD_CENTER, true);
+    for (i = 0; i < (int) myNoLanes; i++) {
+        if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
+            buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (SUMOReal) 3.6);
         } else {
-            buildEdge->setLaneSpeed(i, myLaneSpeeds[i]/(SUMOReal) 3.6);
+            buildEdge->setLaneSpeed(i, myLaneSpeeds[i] / (SUMOReal) 3.6);
         }
     }
     ec.insert(buildEdge);
     // check whether the edge contains any other clusters
-    if (tmpClusters.size()>0) {
+    if (tmpClusters.size() > 0) {
         bool cont = true;
-        for (ConnectionClusters::iterator j = tmpClusters.begin(); cont && j!=tmpClusters.end(); ++j) {
+        for (ConnectionClusters::iterator j = tmpClusters.begin(); cont && j != tmpClusters.end(); ++j) {
             // split the edge at the previously build node
             std::string nextID = buildEdge->getID() + "[1]";
             cont = ec.splitAt(dc, buildEdge, (*j)->getNBNode());
@@ -528,13 +528,13 @@ SUMOReal
 NIVissimEdge::getRealSpeed(/* NBDistribution &dc */ int distNo) {
     std::string id = toString<int>(distNo);
     Distribution* dist = NBDistribution::dictionary("speed", id);
-    if (dist==0) {
+    if (dist == 0) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
         return -1;
     }
-    assert(dist!=0);
+    assert(dist != 0);
     SUMOReal speed = dist->getMax();
-    if (speed<0||speed>1000) {
+    if (speed < 0 || speed > 1000) {
         WRITE_WARNING("What about distribution '" + toString<int>(distNo) + "' ");
     }
     return speed;
@@ -581,7 +581,7 @@ NIVissimEdge::recheckSpeedPatches()
 std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     const SUMOReal MAX_DISTANCE = 10.;
-    assert(clusters.size()>=1);
+    assert(clusters.size() >= 1);
     const Position& beg = myGeom.getBegin();
     NIVissimConnectionCluster* c = *(clusters.begin());
     // check whether the edge starts within a already build node
@@ -591,14 +591,14 @@ NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
                (c, c->getNBNode());
     }
     // check for a parking place at the begin
-    if (myDistrictConnections.size()>0) {
+    if (myDistrictConnections.size() > 0) {
         SUMOReal pos = *(myDistrictConnections.begin());
-        if (pos<10) {
+        if (pos < 10) {
             NBNode* node = new NBNode(toString<int>(myID) + "-begin", beg, NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
-            while (myDistrictConnections.size()>0&&*(myDistrictConnections.begin())<10) {
+            while (myDistrictConnections.size() > 0 && *(myDistrictConnections.begin()) < 10) {
                 myDistrictConnections.erase(myDistrictConnections.begin());
             }
             return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), node);
@@ -616,26 +616,26 @@ NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
 std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getToNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     const Position& end = myGeom.getEnd();
-    if (clusters.size()>0) {
+    if (clusters.size() > 0) {
         const SUMOReal MAX_DISTANCE = 10.;
-        assert(clusters.size()>=1);
-        NIVissimConnectionCluster* c = *(clusters.end()-1);
+        assert(clusters.size() >= 1);
+        NIVissimConnectionCluster* c = *(clusters.end() - 1);
         // check whether the edge ends within a already build node
         if (c->around(end, MAX_DISTANCE)) {
-            clusters.erase(clusters.end()-1);
+            clusters.erase(clusters.end() - 1);
             return std::pair<NIVissimConnectionCluster*, NBNode*>(c, c->getNBNode());
         }
     }
     // check for a parking place at the end
-    if (myDistrictConnections.size()>0) {
-        SUMOReal pos = *(myDistrictConnections.end()-1);
-        if (pos>myGeom.length()-10) {
+    if (myDistrictConnections.size() > 0) {
+        SUMOReal pos = *(myDistrictConnections.end() - 1);
+        if (pos > myGeom.length() - 10) {
             NBNode* node = new NBNode(toString<int>(myID) + "-end", end, NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
-            while (myDistrictConnections.size()>0&&*(myDistrictConnections.end()-1)<myGeom.length()-10) {
-                myDistrictConnections.erase(myDistrictConnections.end()-1);
+            while (myDistrictConnections.size() > 0 && *(myDistrictConnections.end() - 1) < myGeom.length() - 10) {
+                myDistrictConnections.erase(myDistrictConnections.end() - 1);
             }
             return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), node);
         }
@@ -694,14 +694,14 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
     //  use it if so
     NIVissimDistrictConnection* d =
         NIVissimDistrictConnection::dict_findForEdge(myID);
-    if (d!=0) {
+    if (d != 0) {
         Position pos = d->geomPosition();
         SUMOReal position = d->getPosition();
         // the district is at the begin of the edge
-        if (myGeom.length()-position>position) {
+        if (myGeom.length() - position > position) {
             std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode* node = nc.retrieve(nid);
-            if (node==0) {
+            if (node == 0) {
                 node = new NBNode(nid,
                                   pos, NODETYPE_NOJUNCTION);
                 if (!nc.insert(node)) {
@@ -714,21 +714,21 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
         else {
             std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode* node = nc.retrieve(nid);
-            if (node==0) {
+            if (node == 0) {
                 node = new NBNode(nid,
                                   pos, NODETYPE_NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
             }
-            assert(node!=0);
+            assert(node != 0);
             return std::pair<NBNode*, NBNode*>(prevFrom, node);
         }
     }
     // otherwise, check whether the edge is some kind of
     //  a dead end...
     // check which end is nearer to the node centre
-    if (myConnectionClusters.size()==1) {
+    if (myConnectionClusters.size() == 1) {
         NBNode* node = prevFrom; // it is the same as getToNode()
 
         NIVissimConnectionCluster* c = *(myConnectionClusters.begin());
@@ -796,13 +796,13 @@ NIVissimEdge::addOutgoingConnection(int id) {
 void
 NIVissimEdge::mergedInto(NIVissimConnectionCluster* old,
                          NIVissimConnectionCluster* act) {
-    ConnectionClusters::iterator i=
+    ConnectionClusters::iterator i =
         find(myConnectionClusters.begin(), myConnectionClusters.end(), old);
-    if (i!=myConnectionClusters.end()) {
+    if (i != myConnectionClusters.end()) {
         myConnectionClusters.erase(i);
     }
     i = find(myConnectionClusters.begin(), myConnectionClusters.end(), act);
-    if (i==myConnectionClusters.end()) {
+    if (i == myConnectionClusters.end()) {
         myConnectionClusters.push_back(act);
     }
 }
@@ -811,18 +811,18 @@ NIVissimEdge::mergedInto(NIVissimConnectionCluster* old,
 
 void
 NIVissimEdge::removeFromConnectionCluster(NIVissimConnectionCluster* c) {
-    ConnectionClusters::iterator i=
+    ConnectionClusters::iterator i =
         find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
-    assert(i!=myConnectionClusters.end());
+    assert(i != myConnectionClusters.end());
     myConnectionClusters.erase(i);
 }
 
 
 void
 NIVissimEdge::addToConnectionCluster(NIVissimConnectionCluster* c) {
-    ConnectionClusters::iterator i=
+    ConnectionClusters::iterator i =
         find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
-    if (i==myConnectionClusters.end()) {
+    if (i == myConnectionClusters.end()) {
         myConnectionClusters.push_back(c);
     }
 }
@@ -848,7 +848,7 @@ NIVissimEdge::getLength() const {
 
 void
 NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos) {
-    if (find(myDistrictConnections.begin(), myDistrictConnections.end(), pos)==myDistrictConnections.end()) {
+    if (find(myDistrictConnections.begin(), myDistrictConnections.end(), pos) == myDistrictConnections.end()) {
         myDistrictConnections.push_back(pos);
         /*        int id = NIVissimConnection::getMaxID() + 1;
                 IntVector currentCluster;
@@ -861,7 +861,7 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos) {
 
 void
 NIVissimEdge::setSpeed(size_t lane, int speedDist) {
-    while (myPatchedSpeeds.size()<=lane) {
+    while (myPatchedSpeeds.size() <= lane) {
         myPatchedSpeeds.push_back(-1);
     }
     myPatchedSpeeds[lane] = speedDist;
@@ -871,27 +871,27 @@ NIVissimEdge::setSpeed(size_t lane, int speedDist) {
 void
 NIVissimEdge::dict_checkEdges2Join() {
     // go through the edges
-    for (DictType::iterator i1=myDict.begin(); i1!=myDict.end(); i1++) {
+    for (DictType::iterator i1 = myDict.begin(); i1 != myDict.end(); i1++) {
         // retrieve needed values from the first edge
         NIVissimEdge* e1 = (*i1).second;
         const PositionVector& g1 = e1->getGeometry();
         // check all other edges
-        DictType::iterator i2=i1;
+        DictType::iterator i2 = i1;
         i2++;
-        for (; i2!=myDict.end(); i2++) {
+        for (; i2 != myDict.end(); i2++) {
             // retrieve needed values from the second edge
             NIVissimEdge* e2 = (*i2).second;
             const PositionVector& g2 = e2->getGeometry();
             // get the connection description
             NIVissimConnection* c = e1->getConnectionTo(e2);
-            if (c==0) {
+            if (c == 0) {
                 c = e2->getConnectionTo(e1);
             }
             // the edge must not be a direct contiuation of the other
-            if (c!=0) {
-                if ((c->getFromEdgeID()==e1->getID()&&fabs(c->getFromPosition()-e1->getGeometry().length())<5)
+            if (c != 0) {
+                if ((c->getFromEdgeID() == e1->getID() && fabs(c->getFromPosition() - e1->getGeometry().length()) < 5)
                         ||
-                        (c->getFromEdgeID()==e2->getID()&&fabs(c->getFromPosition()-e2->getGeometry().length())<5)) {
+                        (c->getFromEdgeID() == e2->getID() && fabs(c->getFromPosition() - e2->getGeometry().length()) < 5)) {
 
                     continue;
                 }
@@ -903,7 +903,7 @@ NIVissimEdge::dict_checkEdges2Join() {
             Line l2 = Line(g2.getBegin(), g2.getEnd());
             // check for parallelity
             //  !!! the usage of an explicit value is not very fine
-            if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())>2.0) {
+            if (fabs(l1.atan2DegreeAngle() - l2.atan2DegreeAngle()) > 2.0) {
                 // continue if the lines are not parallel
                 continue;
             }
@@ -911,7 +911,7 @@ NIVissimEdge::dict_checkEdges2Join() {
             // check whether the same node is approached
             //  (the distance between the ends should not be too large)
             //  !!! the usage of an explicit value is not very fine
-            if (l1.p2().distanceTo(l2.p2())>10) {
+            if (l1.p2().distanceTo(l2.p2()) > 10) {
                 // continue if the lines do not end at the same length
                 continue;
             }
@@ -926,11 +926,11 @@ NIVissimEdge::dict_checkEdges2Join() {
 
 bool
 NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
-    if (e==this) {
+    if (e == this) {
         return false;
     }
     // check whether this edge already knows about the other
-    if (find(myToTreatAsSame.begin(), myToTreatAsSame.end(), e)==myToTreatAsSame.end()) {
+    if (find(myToTreatAsSame.begin(), myToTreatAsSame.end(), e) == myToTreatAsSame.end()) {
         myToTreatAsSame.push_back(e);
         return true;
     } else {
@@ -942,10 +942,10 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
     bool changed = true;
     while (changed) {
         changed = false;
-        for (i=myToTreatAsSame.begin(); !changed&&i!=myToTreatAsSame.end(); i++) {
+        for (i = myToTreatAsSame.begin(); !changed && i != myToTreatAsSame.end(); i++) {
             changed |= (*i)->addToTreatAsSame(e);
         }
-        for (i=myToTreatAsSame.begin(); !changed&&i!=myToTreatAsSame.end(); i++) {
+        for (i = myToTreatAsSame.begin(); !changed && i != myToTreatAsSame.end(); i++) {
             changed |= e->addToTreatAsSame(*i);
         }
     }
@@ -954,15 +954,15 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
 NIVissimConnection*
 NIVissimEdge::getConnectionTo(NIVissimEdge* e) {
     IntVector::iterator i;
-    for (i=myIncomingConnections.begin(); i!=myIncomingConnections.end(); i++) {
+    for (i = myIncomingConnections.begin(); i != myIncomingConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
-        if (c->getFromEdgeID()==e->getID()) {
+        if (c->getFromEdgeID() == e->getID()) {
             return c;
         }
     }
-    for (i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); i++) {
+    for (i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
-        if (c->getToEdgeID()==e->getID()) {
+        if (c->getToEdgeID() == e->getID()) {
             return c;
         }
     }
@@ -978,13 +978,13 @@ NIVissimEdge::getToTreatAsSame() const {
 
 void
 NIVissimEdge::reportUnsetSpeeds() throw() {
-    if (myLanesWithMissingSpeeds.size()==0) {
+    if (myLanesWithMissingSpeeds.size() == 0) {
         return;
     }
     std::ostringstream str;
     str << "The following lanes have no explicit speed information:\n  ";
-    for (std::vector<std::string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
-        if (i!=myLanesWithMissingSpeeds.begin()) {
+    for (std::vector<std::string>::iterator i = myLanesWithMissingSpeeds.begin(); i != myLanesWithMissingSpeeds.end(); ++i) {
+        if (i != myLanesWithMissingSpeeds.begin()) {
             str << ", ";
         }
         str << *i;
@@ -995,7 +995,7 @@ NIVissimEdge::reportUnsetSpeeds() throw() {
 
 NIVissimEdge*
 NIVissimEdge::getBestIncoming() const throw() {
-    for (IntVector::const_iterator i=myIncomingConnections.begin(); i!=myIncomingConnections.end(); ++i) {
+    for (IntVector::const_iterator i = myIncomingConnections.begin(); i != myIncomingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getFromEdgeID());
     }
@@ -1005,7 +1005,7 @@ NIVissimEdge::getBestIncoming() const throw() {
 
 NIVissimEdge*
 NIVissimEdge::getBestOutgoing() const throw() {
-    for (IntVector::const_iterator i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); ++i) {
+    for (IntVector::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getToEdgeID());
     }

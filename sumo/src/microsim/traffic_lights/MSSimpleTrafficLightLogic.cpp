@@ -49,14 +49,14 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
         unsigned int step, SUMOTime delay)
     : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
       myStep(step) {
-    for (size_t i=0; i<myPhases.size(); i++) {
+    for (size_t i = 0; i < myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;
     }
 }
 
 
 MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
-    for (size_t i=0; i<myPhases.size(); i++) {
+    for (size_t i = 0; i < myPhases.size(); i++) {
         delete myPhases[i];
     }
 }
@@ -66,7 +66,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
 SUMOTime
 MSSimpleTrafficLightLogic::trySwitch(bool) {
     // check whether the current duration shall be increased
-    if (myCurrentDurationIncrement>0) {
+    if (myCurrentDurationIncrement > 0) {
         SUMOTime delay = myCurrentDurationIncrement;
         myCurrentDurationIncrement = 0;
         return delay;
@@ -75,15 +75,15 @@ MSSimpleTrafficLightLogic::trySwitch(bool) {
     // increment the index
     myStep++;
     // if the last phase was reached ...
-    if (myStep==myPhases.size()) {
+    if (myStep == myPhases.size()) {
         // ... set the index to the first phase
         myStep = 0;
     }
-    assert(myPhases.size()>myStep);
+    assert(myPhases.size() > myStep);
     //stores the time the phase started
     myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
     // check whether the next duration was overridden
-    if (myOverridingTimes.size()>0) {
+    if (myOverridingTimes.size() > 0) {
         SUMOTime nextDuration = myOverridingTimes[0];
         myOverridingTimes.erase(myOverridingTimes.begin());
         return nextDuration;
@@ -114,7 +114,7 @@ MSSimpleTrafficLightLogic::getPhases() {
 
 const MSPhaseDefinition&
 MSSimpleTrafficLightLogic::getPhase(unsigned int givenStep) const {
-    assert(myPhases.size()>givenStep);
+    assert(myPhases.size() > givenStep);
     return *myPhases[givenStep];
 }
 
@@ -137,7 +137,7 @@ SUMOTime
 MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const {
     SUMOTime position = 0;
     if (myStep > 0)	{
-        for (unsigned int i=0; i < myStep; i++) {
+        for (unsigned int i = 0; i < myStep; i++) {
             position = position + getPhase(i).duration;
         }
     }
@@ -155,7 +155,7 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const {
         return 0;
     }
     unsigned int pos = 0;
-    for (unsigned int i=0; i < index; i++)	{
+    for (unsigned int i = 0; i < index; i++)	{
         pos += getPhase(i).duration;
     }
     return pos;
@@ -169,14 +169,14 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
         return 0;
     }
     SUMOTime testPos = 0;
-    for (unsigned int i=0; i < myPhases.size(); i++)	{
+    for (unsigned int i = 0; i < myPhases.size(); i++)	{
         testPos = testPos + getPhase(i).duration;
         if (testPos > offset) {
             return i;
         }
         if (testPos == offset) {
-            assert(myPhases.size() > (i+1));
-            return (i+1);
+            assert(myPhases.size() > (i + 1));
+            return (i + 1);
         }
     }
     return 0;
@@ -188,10 +188,10 @@ void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
         SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
-    mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration+simStep);
+    mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration + simStep);
     myStep = step;
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        mySwitchCommand, stepDuration+simStep,
+        mySwitchCommand, stepDuration + simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 

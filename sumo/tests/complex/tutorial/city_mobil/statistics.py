@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    statistics.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-10-17
 @version $Id$
 

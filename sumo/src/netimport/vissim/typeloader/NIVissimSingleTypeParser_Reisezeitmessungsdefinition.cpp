@@ -51,21 +51,21 @@ NIVissimSingleTypeParser_Reisezeitmessungsdefinition::~NIVissimSingleTypeParser_
 bool
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
-    if (tag=="aggregationsintervall") {
-        while (tag!="DATAEND") {
+    if (tag == "aggregationsintervall") {
+        while (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
         return true;
     }
 
-    while (tag!="strecke") {
+    while (tag != "strecke") {
         tag = myRead(from);
     }
     tag = myRead(from);
-    while (tag!="strecke") {
+    while (tag != "strecke") {
         tag = myRead(from);
     }
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from);
     }
     return true;

@@ -146,7 +146,7 @@ public:
      *    connected edges shall be updated
      */
     void reinit(const Position& position, SumoXMLNodeType type,
-                bool updateEdgeGeometries=false);
+                bool updateEdgeGeometries = false);
 
 
     /// @name Atomar getter methods
@@ -215,7 +215,7 @@ public:
      * @return Whether a traffic light was assigned to this node
      */
     bool isTLControlled() const throw() {
-        return myTrafficLights.size()!=0;
+        return myTrafficLights.size() != 0;
     }
 
 
@@ -328,7 +328,7 @@ public:
 
     /** @brief Removes edge from this node and optionally removes connections as well
      */
-    void removeEdge(NBEdge* edge, bool removeFromConnections=true);
+    void removeEdge(NBEdge* edge, bool removeFromConnections = true);
 
     /** @brief Computes whether the given connection is a left mover across the junction
      *
@@ -412,7 +412,7 @@ public:
      * @return The shape of the internal lane
      */
     PositionVector computeInternalLaneShape(
-        NBEdge* fromE, int fromL, NBEdge* toE, int toL, int numPoints=5) const;
+        NBEdge* fromE, int fromL, NBEdge* toE, int toL, int numPoints = 5) const;
 
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
@@ -449,7 +449,7 @@ public:
         /** @brief Comparing operator
          */
         int operator()(NBNode* n1, NBNode* n2) const {
-            return n1->getID()<n2->getID();
+            return n1->getID() < n2->getID();
         }
 
     };

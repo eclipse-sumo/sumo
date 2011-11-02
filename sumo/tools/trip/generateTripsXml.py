@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    generateTripsXml.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2009-02-09
 @version $Id$
 

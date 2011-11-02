@@ -80,7 +80,7 @@ readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
     }
     // read definitions stored in XML-format
     std::vector<std::string> files = oc.getStringVector("detector-files");
-    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("Could not open detector file '" + *fileIt + "'");
         }
@@ -104,7 +104,7 @@ readDetectorFlows(RODFDetectorFlows& flows, OptionsCont& oc, RODFDetectorCon& dc
     }
     // check whether the file exists
     std::vector<std::string> files = oc.getStringVector("measure-files");
-    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("The measure-file '" + *fileIt + "' can not be opened.");
         }
@@ -125,7 +125,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     }
 
     // if a network was loaded... (mode1)
-    if (optNet!=0) {
+    if (optNet != 0) {
         if (oc.getBool("remove-empty-detectors")) {
             PROGRESS_BEGIN_MESSAGE("Removing empty detectors");
             optNet->removeEmptyDetectors(detectors, flows);
@@ -136,11 +136,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
             PROGRESS_DONE_MESSAGE();
         }
         // compute the detector types (optionally)
-        if (!detectors.detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {
+        if (!detectors.detectorsHaveCompleteTypes() || oc.getBool("revalidate-detectors")) {
             optNet->computeTypes(detectors, oc.getBool("strict-sources"));
         }
         // compute routes between the detectors (optionally)
-        if (!detectors.detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
+        if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
             PROGRESS_BEGIN_MESSAGE("Computing routes");
             optNet->buildRoutes(detectors,
                                 oc.getBool("all-end-follower"), oc.getBool("keep-unfinished-routes"),
@@ -170,7 +170,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     }
 
     // save the routes file if it was changed or it's wished
-    if (detectors.detectorsHaveRoutes()&&oc.isSet("routes-output")) {
+    if (detectors.detectorsHaveRoutes() && oc.isSet("routes-output")) {
         detectors.saveRoutes(oc.getString("routes-output"));
     }
 
@@ -185,7 +185,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     const SUMOTime step = string2time(oc.getString("time-step"));
 
     // save emitters if wished
-    if (oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
+    if (oc.isSet("emitters-output") || oc.isSet("emitters-poi-output")) {
         optNet->buildEdgeFlowMap(flows, detectors, begin, end, step); // !!!
         if (oc.getBool("revalidate-flows")) {
             PROGRESS_BEGIN_MESSAGE("Rechecking loaded flows");
@@ -283,7 +283,7 @@ main(int argc, char** argv) {
         // build routes
         startComputation(net, *flows, *detectors, oc);
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -299,7 +299,7 @@ main(int argc, char** argv) {
     delete detectors;
     OutputDevice::closeAll();
     SystemFrame::close();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

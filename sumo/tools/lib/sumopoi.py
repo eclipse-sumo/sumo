@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    sumopoi.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2010-02-18
 @version $Id$
 

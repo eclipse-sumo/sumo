@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 @file    0103to0110.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2007
 @version $Id$
 

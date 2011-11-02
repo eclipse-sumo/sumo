@@ -76,24 +76,24 @@ void
 NIXMLTrafficLightsHandler::myStartElement(
     int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_TLLOGIC:
-        myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
-        break;
-    case SUMO_TAG_PHASE:
-        if (myResetPhases) {
-            myCurrentTL->getLogic()->resetPhases();
-            myResetPhases = false;
-        }
-        NIImporter_SUMO::addPhase(attrs, myCurrentTL);
-        break;
-    case SUMO_TAG_CONNECTION:
-        addTlConnection(attrs);
-        break;
-    case SUMO_TAG_RESET:
-        removeTlConnection(attrs);
-        break;
-    default:
-        break;
+        case SUMO_TAG_TLLOGIC:
+            myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
+            break;
+        case SUMO_TAG_PHASE:
+            if (myResetPhases) {
+                myCurrentTL->getLogic()->resetPhases();
+                myResetPhases = false;
+            }
+            NIImporter_SUMO::addPhase(attrs, myCurrentTL);
+            break;
+        case SUMO_TAG_CONNECTION:
+            addTlConnection(attrs);
+            break;
+        case SUMO_TAG_RESET:
+            removeTlConnection(attrs);
+            break;
+        default:
+            break;
     }
 }
 
@@ -101,19 +101,19 @@ NIXMLTrafficLightsHandler::myStartElement(
 void
 NIXMLTrafficLightsHandler::myEndElement(int element) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_TLLOGIC:
-        if (!myCurrentTL) {
-            WRITE_ERROR("Unmatched closing tag for tl-logic.");
-        } else {
-            if (!myTLLCont.insert(myCurrentTL)) {
-                WRITE_MESSAGE("Updating program '" + myCurrentTL->getProgramID() +
-                              "' for traffic light '" + myCurrentTL->getID() + "'");
+        case SUMO_TAG_TLLOGIC:
+            if (!myCurrentTL) {
+                WRITE_ERROR("Unmatched closing tag for tl-logic.");
+            } else {
+                if (!myTLLCont.insert(myCurrentTL)) {
+                    WRITE_MESSAGE("Updating program '" + myCurrentTL->getProgramID() +
+                                  "' for traffic light '" + myCurrentTL->getID() + "'");
+                }
+                myCurrentTL = 0;
             }
-            myCurrentTL = 0;
-        }
-        break;
-    default:
-        break;
+            break;
+        default:
+            break;
     }
 }
 
@@ -141,7 +141,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         assert(newDef != 0);
         loadedDef = new NBLoadedSUMOTLDef(id, programID, 0);
         std::vector<NBNode*> nodes = newDef->getControlledNodes();
-        for (std::vector<NBNode*>::iterator it=nodes.begin(); it != nodes.end(); it++) {
+        for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
             (*it)->removeTrafficLight(newDef);
             (*it)->addTrafficLight(loadedDef);
         }
@@ -209,7 +209,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(tlID);
     if (programs.size() > 0) {
         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-        for (it = programs.begin(); it!= programs.end(); it++) {
+        for (it = programs.begin(); it != programs.end(); it++) {
             NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
             if (tlDef) {
                 tlDef->addConnection(from, c.toEdge, c.fromLane, c.toLane, tlIndex);
@@ -247,7 +247,7 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
         NBConnection conn(from, fromLane, to, toLane, tlIndex);
         // remove the connection from all definitions
         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-        for (it = programs.begin(); it!= programs.end(); it++) {
+        for (it = programs.begin(); it != programs.end(); it++) {
             NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(it->second);
             if (tlDef) {
                 tlDef->removeConnection(conn, false);
@@ -277,7 +277,7 @@ int
 NIXMLTrafficLightsHandler::retrieveLaneIndex(
     const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok) {
     int laneIndex = attrs.getIntReporting(attr, 0, ok);
-    if (edge->getNumLanes()<=(size_t) laneIndex) {
+    if (edge->getNumLanes() <= (size_t) laneIndex) {
         WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
         ok = false;
     }

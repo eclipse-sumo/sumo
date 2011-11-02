@@ -177,7 +177,7 @@ public:
      * @param[in] width The width of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawFilledCircle(SUMOReal width, int steps=8) throw();
+    static void drawFilledCircle(SUMOReal width, int steps = 8) throw();
 
 
     /** @brief Draws a filled circle around (0,0)
@@ -202,7 +202,7 @@ public:
      * @param[in] steps The number of steps to divide the circle into
      */
     static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
-                                  int steps=8) throw();
+                                  int steps = 8) throw();
 
 
     /** @brief Draws an unfilled circle around (0,0)
@@ -237,15 +237,15 @@ public:
     /// @brief draw Text with given parameters
     static void drawText(const std::string& text, const Position& pos,
                          const SUMOReal layer, const SUMOReal size,
-                         const RGBColor& col=RGBColor(0,0,0), const SUMOReal angle=0);
+                         const RGBColor& col = RGBColor(0, 0, 0), const SUMOReal angle = 0);
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,
                             const SUMOReal layer, const SUMOReal size,
-                            const RGBColor& txtColor=RGBColor(0,0,0),
-                            const RGBColor& bgColor=RGBColor(1,1,1),
-                            const RGBColor& borderColor=RGBColor(0,0,0),
-                            const SUMOReal angle=0);
+                            const RGBColor& txtColor = RGBColor(0, 0, 0),
+                            const RGBColor& bgColor = RGBColor(1, 1, 1),
+                            const RGBColor& borderColor = RGBColor(0, 0, 0),
+                            const SUMOReal angle = 0);
 
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle

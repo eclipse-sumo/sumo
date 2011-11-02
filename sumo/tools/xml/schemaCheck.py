@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    schemaCheck.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    03.12.2009
 @version $Id$
 

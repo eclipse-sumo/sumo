@@ -66,56 +66,56 @@ ROJTRTurnDefLoader::myStartElement(int element,
                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
-    case SUMO_TAG_INTERVAL:
-        myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
-        myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
-        break;
-    case SUMO_TAG_FROMEDGE__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedFromEdge) {
-            myHaveWarnedAboutDeprecatedFromEdge = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
-        }
-    case SUMO_TAG_FROMEDGE:
-        beginFromEdge(attrs);
-        break;
-    case SUMO_TAG_TOEDGE__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedToEdge) {
-            myHaveWarnedAboutDeprecatedToEdge = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
-        }
-    case SUMO_TAG_TOEDGE:
-        addToEdge(attrs);
-        break;
-    case SUMO_TAG_SINK:
-        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
-            StringTokenizer st(edges, StringTokenizer::WHITECHARS);
-            while (st.hasNext()) {
-                std::string id = st.next();
-                ROEdge* edge = myNet.getEdge(id);
-                if (edge==0) {
-                    throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
-                }
-                edge->setType(ROEdge::ET_SINK);
+        case SUMO_TAG_INTERVAL:
+            myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
+            myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
+            break;
+        case SUMO_TAG_FROMEDGE__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedFromEdge) {
+                myHaveWarnedAboutDeprecatedFromEdge = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_FROMEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_FROMEDGE) + "'.");
             }
-        }
-        break;
-    case SUMO_TAG_SOURCE:
-        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
-            StringTokenizer st(edges, StringTokenizer::WHITECHARS);
-            while (st.hasNext()) {
-                std::string id = st.next();
-                ROEdge* edge = myNet.getEdge(id);
-                if (edge==0) {
-                    throw ProcessError("The edge '" + id + "' declared as a source is not known.");
-                }
-                edge->setType(ROEdge::ET_SOURCE);
+        case SUMO_TAG_FROMEDGE:
+            beginFromEdge(attrs);
+            break;
+        case SUMO_TAG_TOEDGE__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedToEdge) {
+                myHaveWarnedAboutDeprecatedToEdge = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_TOEDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TOEDGE) + "'.");
             }
-        }
-        break;
-    default:
-        break;
+        case SUMO_TAG_TOEDGE:
+            addToEdge(attrs);
+            break;
+        case SUMO_TAG_SINK:
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
+                StringTokenizer st(edges, StringTokenizer::WHITECHARS);
+                while (st.hasNext()) {
+                    std::string id = st.next();
+                    ROEdge* edge = myNet.getEdge(id);
+                    if (edge == 0) {
+                        throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
+                    }
+                    edge->setType(ROEdge::ET_SINK);
+                }
+            }
+            break;
+        case SUMO_TAG_SOURCE:
+            if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+                std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, 0, ok);
+                StringTokenizer st(edges, StringTokenizer::WHITECHARS);
+                while (st.hasNext()) {
+                    std::string id = st.next();
+                    ROEdge* edge = myNet.getEdge(id);
+                    if (edge == 0) {
+                        throw ProcessError("The edge '" + id + "' declared as a source is not known.");
+                    }
+                    edge->setType(ROEdge::ET_SOURCE);
+                }
+            }
+            break;
+        default:
+            break;
     }
 }
 
@@ -124,32 +124,32 @@ void
 ROJTRTurnDefLoader::myCharacters(int element,
                                  const std::string& chars) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_SINK: {
-        ROEdge* edge = myNet.getEdge(chars);
-        if (edge==0) {
-            throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
+        case SUMO_TAG_SINK: {
+            ROEdge* edge = myNet.getEdge(chars);
+            if (edge == 0) {
+                throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
+            }
+            if (!myHaveWarnedAboutDeprecatedSinks) {
+                myHaveWarnedAboutDeprecatedSinks = true;
+                WRITE_WARNING("Using characters for sinks is deprecated; use attribute 'edges' instead.");
+            }
+            edge->setType(ROEdge::ET_SINK);
         }
-        if (!myHaveWarnedAboutDeprecatedSinks) {
-            myHaveWarnedAboutDeprecatedSinks = true;
-            WRITE_WARNING("Using characters for sinks is deprecated; use attribute 'edges' instead.");
-        }
-        edge->setType(ROEdge::ET_SINK);
-    }
-    break;
-    case SUMO_TAG_SOURCE: {
-        ROEdge* edge = myNet.getEdge(chars);
-        if (edge==0) {
-            throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
-        }
-        if (!myHaveWarnedAboutDeprecatedSources) {
-            myHaveWarnedAboutDeprecatedSources = true;
-            WRITE_WARNING("Using characters for sources is deprecated; use attribute 'edges' instead.");
-        }
-        edge->setType(ROEdge::ET_SOURCE);
-    }
-    break;
-    default:
         break;
+        case SUMO_TAG_SOURCE: {
+            ROEdge* edge = myNet.getEdge(chars);
+            if (edge == 0) {
+                throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
+            }
+            if (!myHaveWarnedAboutDeprecatedSources) {
+                myHaveWarnedAboutDeprecatedSources = true;
+                WRITE_WARNING("Using characters for sources is deprecated; use attribute 'edges' instead.");
+            }
+            edge->setType(ROEdge::ET_SOURCE);
+        }
+        break;
+        default:
+            break;
     }
 }
 
@@ -165,7 +165,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) throw() {
     }
     //
     myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
-    if (myEdge==0) {
+    if (myEdge == 0) {
         WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
         return;
     }
@@ -174,7 +174,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) throw() {
 
 void
 ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) throw() {
-    if (myEdge==0) {
+    if (myEdge == 0) {
         return;
     }
     bool ok = true;
@@ -185,13 +185,13 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) throw() {
     }
     //
     ROJTREdge* edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
-    if (edge==0) {
+    if (edge == 0) {
         WRITE_ERROR("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
     SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, id.c_str(), ok);
     if (ok) {
-        if (probability<0) {
+        if (probability < 0) {
             WRITE_ERROR("'probability' must be positive (in definition of to-edge '" + id + "').");
         } else {
             myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);

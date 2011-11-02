@@ -51,12 +51,12 @@ NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream& from) {
     std::string tmp;
     from >> tmp;
     // in the both next cases, we do not have to overread anything
-    if (tmp=="BEHALT_ALTE_PARA" || tmp=="ANZ_VM") {
+    if (tmp == "BEHALT_ALTE_PARA" || tmp == "ANZ_VM") {
         return true;
     }
     //
     from >> tmp;
-    if (tmp=="NAME") {
+    if (tmp == "NAME") {
         readUntil(from, "gelbverhalten");
     }
     return true;

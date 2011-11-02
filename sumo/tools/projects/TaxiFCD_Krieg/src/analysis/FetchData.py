@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    FetchData.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-15
 
 Fetches Information of the simulated Data and the FCD.

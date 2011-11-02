@@ -98,44 +98,44 @@ public:
     /// @{
 
     /// @brief Called if the OK-button was pressed
-    long onCmdOk(FXObject*,FXSelector,void*);
+    long onCmdOk(FXObject*, FXSelector, void*);
 
     /// @brief Called if the Cancel-button was pressed
-    long onCmdCancel(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief Called if something (color, width, etc.) has been changed
-    long onCmdColorChange(FXObject*,FXSelector,void*);
+    long onCmdColorChange(FXObject*, FXSelector, void*);
 
     /// @brief Called if the decals-table was changed
-    long onCmdEditTable(FXObject*,FXSelector,void* data);
+    long onCmdEditTable(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the name of the scheme was changed
-    long onCmdNameChange(FXObject*,FXSelector,void*);
+    long onCmdNameChange(FXObject*, FXSelector, void*);
 
     /// @brief Called if the settings shall be saved into the registry
-    long onCmdSaveSetting(FXObject*,FXSelector,void* data);
+    long onCmdSaveSetting(FXObject*, FXSelector, void* data);
     /// @brief Called when updating the button that allows to save the settings into the registry
-    long onUpdSaveSetting(FXObject*,FXSelector,void* data);
+    long onUpdSaveSetting(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the settings shall be deleted
-    long onCmdDeleteSetting(FXObject*,FXSelector,void* data);
+    long onCmdDeleteSetting(FXObject*, FXSelector, void* data);
     /// @brief Called when updating the button that allows to delete settings
-    long onUpdDeleteSetting(FXObject*,FXSelector,void* data);
+    long onUpdDeleteSetting(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the settings shall be exported into a file
-    long onCmdExportSetting(FXObject*,FXSelector,void* data);
+    long onCmdExportSetting(FXObject*, FXSelector, void* data);
     /// @brief Called when updating the button that allows to export settings into a file
-    long onUpdExportSetting(FXObject*,FXSelector,void* data);
+    long onUpdExportSetting(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the settings shall be read from a file
-    long onCmdImportSetting(FXObject*,FXSelector,void* data);
+    long onCmdImportSetting(FXObject*, FXSelector, void* data);
     /// @brief Called when updating the button that allows to read settings from a file
-    long onUpdImportSetting(FXObject*,FXSelector,void* data);
+    long onUpdImportSetting(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the decals shall be loaded from a file
-    long onCmdLoadDecals(FXObject*,FXSelector,void* data);
+    long onCmdLoadDecals(FXObject*, FXSelector, void* data);
     /// @brief Called if the decals shall be saved to a file
-    long onCmdSaveDecals(FXObject*,FXSelector,void* data);
+    long onCmdSaveDecals(FXObject*, FXSelector, void* data);
     /// @}
 
 
@@ -171,7 +171,7 @@ protected:
     /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
      * @param[in] doCreate Whether "create" shall be called (only if built the first time)
      */
-    void rebuildColorMatrices(bool doCreate=false) throw();
+    void rebuildColorMatrices(bool doCreate = false) throw();
 
 
     /** @brief Rebuilds the decals table */

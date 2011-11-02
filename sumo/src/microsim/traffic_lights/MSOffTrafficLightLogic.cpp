@@ -50,7 +50,7 @@ MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
 
 
 MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
-    for (MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+    for (MSTrafficLightLogic::Phases::const_iterator i = myPhaseDefinition.begin(); i != myPhaseDefinition.end(); ++i) {
         delete *i;
     }
 }
@@ -74,11 +74,11 @@ void
 MSOffTrafficLightLogic::rebuildPhase() {
     size_t no = getLinks().size();
     std::string state;
-    for (unsigned int i=0; i<no; ++i) {
+    for (unsigned int i = 0; i < no; ++i) {
         // !!! no brake mask!
         state += 'o';
     }
-    for (MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+    for (MSTrafficLightLogic::Phases::const_iterator i = myPhaseDefinition.begin(); i != myPhaseDefinition.end(); ++i) {
         delete *i;
     }
     myPhaseDefinition.clear();

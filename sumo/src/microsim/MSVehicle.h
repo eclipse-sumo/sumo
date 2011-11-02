@@ -178,7 +178,7 @@ public:
      * @param[in] route The new route to pass
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit=false) throw();
+    bool replaceRoute(const MSRoute* route, bool onInit = false) throw();
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -226,7 +226,7 @@ public:
      */
     SUMOReal gap2pred(const MSVehicle& pred) const throw() {
         SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLengthWithGap() - getPositionOnLane();
-        if (gap<0&&gap>-1.0e-12) {
+        if (gap < 0 && gap > -1.0e-12) {
             gap = 0;
         }
         return gap;
@@ -421,7 +421,7 @@ public:
      * @param[in] onTeleporting Whether the lane was entered while being teleported
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
-    bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting=false);
+    bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting = false);
 
 
 
@@ -495,7 +495,7 @@ public:
      * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false, MSLane* startLane=0) const throw();
+    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const throw();
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
@@ -580,7 +580,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset=0) throw();
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) throw();
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
@@ -743,7 +743,7 @@ public:
      * @return Whether the given signal is on
      */
     bool signalSet(int which) const throw() {
-        return (mySignals&which)!=0;
+        return (mySignals & which) != 0;
     }
     /// @}
 

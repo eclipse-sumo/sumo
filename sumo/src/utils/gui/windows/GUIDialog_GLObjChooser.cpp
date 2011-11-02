@@ -55,7 +55,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]= {
+FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
@@ -76,35 +76,35 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     GUIGlObjectType type,
     const std::vector<GUIGlID> &ids,
     GUIGlObjectStorage& glStorage):
-    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
+    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
     myObjectType(type),
     myParent(parent) {
-    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
-    FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
-    myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
-    FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
-    myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
-    for (std::vector<GUIGlID>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+    FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
+    myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X | FRAME_THICK | FRAME_SUNKEN);
+    FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN, 0, 0, 0, 0, 0, 0, 0, 0);
+    myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK);
+    for (std::vector<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
         GUIGlObject* o = glStorage.getObjectBlocking(*i);
-        if (o==0) {
+        if (o == 0) {
             continue;
         }
         const std::string& name = o->getMicrosimID();
         bool selected = myParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myIDs.insert(o->getGlID());
-        myList->appendItem(name.c_str(), icon, (void*) &(*myIDs.find(o->getGlID())));
+        myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
         glStorage.unblockObject(*i);
     }
     // build the buttons
-    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
-                 this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
-    new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+    new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     new FXButton(layout, "Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
-                 this, MID_CANCEL, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+                 this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
 
     myParent->getParent()->addChild(this);
@@ -118,9 +118,9 @@ GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() throw() {
 
 
 long
-GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*) {
+GUIDialog_GLObjChooser::onCmdCenter(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
-    if (selected>=0) {
+    if (selected >= 0) {
         myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
     }
     return 1;
@@ -128,16 +128,16 @@ GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_GLObjChooser::onCmdClose(FXObject*,FXSelector,void*) {
+GUIDialog_GLObjChooser::onCmdClose(FXObject*, FXSelector, void*) {
     close(true);
     return 1;
 }
 
 
 long
-GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*) {
+GUIDialog_GLObjChooser::onChgText(FXObject*, FXSelector, void*) {
     int id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
-    if (id<0) {
+    if (id < 0) {
         return 1;
     }
     myList->deselectItem(myList->getCurrentItem());
@@ -149,9 +149,9 @@ GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
+GUIDialog_GLObjChooser::onCmdText(FXObject*, FXSelector, void*) {
     int current = myList->getCurrentItem();
-    if (current>=0 && myList->isItemSelected(current)) {
+    if (current >= 0 && myList->isItemSelected(current)) {
         myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
     }
     return 1;
@@ -160,14 +160,14 @@ GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
+GUIDialog_GLObjChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
     switch (event->code) {
-    case KEY_Return:
-        onCmdText(0,0,0);
-        break;
-    default:
-        break;
+        case KEY_Return:
+            onCmdText(0, 0, 0);
+            break;
+        default:
+            break;
     }
     return 1;
 }

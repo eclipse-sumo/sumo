@@ -78,7 +78,7 @@ public:
      * EXAMPLE: if days=1, endTime=0, beginTime=0: The duration
      * will be 24 hours from 12am to 12amof the next day
      */
-    void makeActivityTrips(int days=1, int beginTime=0, int endTime=0);
+    void makeActivityTrips(int days = 1, int beginTime = 0, int endTime = 0);
 
 protected:
     // @brief xml files: statistics on the city and generated routes

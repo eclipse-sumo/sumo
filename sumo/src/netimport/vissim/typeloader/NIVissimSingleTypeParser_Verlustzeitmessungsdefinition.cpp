@@ -51,17 +51,17 @@ NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::~NIVissimSingleTypeParse
 bool
 NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
-    if (tag=="von") {
-        while (tag!="DATAEND") {
+    if (tag == "von") {
+        while (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
         return true;
     }
 
-    while (tag!="fahrzeugklassen") {
+    while (tag != "fahrzeugklassen") {
         tag = myRead(from);
     }
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from);
     }
     return true;

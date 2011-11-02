@@ -54,7 +54,7 @@ MSCFModel_KraussOrig1::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
-    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
+    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe - oldV));
     const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
     const SUMOReal vMax = MIN3(veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
 #ifdef _DEBUG
@@ -86,13 +86,13 @@ MSCFModel_KraussOrig1::dawdle(SUMOReal speed) const {
 
 /** Returns the SK-vsafe. */
 SUMOReal MSCFModel_KraussOrig1::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
-    if (predSpeed==0&&gap<0.01) {
+    if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
     SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
                                 + sqrt(
-                                    myTauDecel*myTauDecel
-                                    + (predSpeed*predSpeed)
+                                    myTauDecel * myTauDecel
+                                    + (predSpeed * predSpeed)
                                     + (2. * myDecel * gap)
                                 ));
     assert(vsafe >= 0);

@@ -76,16 +76,16 @@ NamedColumnsParser::parseLine(const std::string& line) throw() {
 std::string
 NamedColumnsParser::get(const std::string& name, bool prune) const throw(UnknownElement, OutOfBoundsException) {
     PosMap::const_iterator i = myDefinitionsMap.find(name);
-    if (i==myDefinitionsMap.end()) {
+    if (i == myDefinitionsMap.end()) {
         if (myAmCaseInsensitive) {
             i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
         }
-        if (i==myDefinitionsMap.end()) {
+        if (i == myDefinitionsMap.end()) {
             throw UnknownElement(name);
         }
     }
     size_t pos = (*i).second;
-    if (myLineParser.size()<=pos) {
+    if (myLineParser.size() <= pos) {
         throw OutOfBoundsException();
     }
     std::string ret = myLineParser.get(pos);
@@ -97,16 +97,16 @@ NamedColumnsParser::get(const std::string& name, bool prune) const throw(Unknown
 bool
 NamedColumnsParser::know(const std::string& name) const throw() {
     PosMap::const_iterator i = myDefinitionsMap.find(name);
-    if (i==myDefinitionsMap.end()) {
+    if (i == myDefinitionsMap.end()) {
         if (myAmCaseInsensitive) {
             i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
         }
     }
-    if (i==myDefinitionsMap.end()) {
+    if (i == myDefinitionsMap.end()) {
         return false;
     }
     size_t pos = (*i).second;
-    return myLineParser.size()>pos;
+    return myLineParser.size() > pos;
 }
 
 
@@ -140,12 +140,12 @@ NamedColumnsParser::checkPrune(std::string& str, bool prune) const throw() {
         return;
     }
     size_t idx = str.find_first_not_of(" ");
-    if (idx!=std::string::npos) {
+    if (idx != std::string::npos) {
         str = str.substr(idx);
     }
     idx = str.find_last_not_of(" ");
-    if (idx!=std::string::npos&&idx!=str.length()-1) {
-        str = str.substr(0, idx+1);
+    if (idx != std::string::npos && idx != str.length() - 1) {
+        str = str.substr(0, idx + 1);
     }
 }
 

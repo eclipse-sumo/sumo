@@ -61,17 +61,17 @@ MSVehicleControl::MSVehicleControl() throw() :
 
 MSVehicleControl::~MSVehicleControl() throw() {
     // delete vehicles
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
+    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         delete(*i).second;
     }
     myVehicleDict.clear();
     // delete vehicle type distributions
-    for (VTypeDistDictType::iterator i=myVTypeDistDict.begin(); i!=myVTypeDistDict.end(); ++i) {
+    for (VTypeDistDictType::iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
         delete(*i).second;
     }
     myVTypeDistDict.clear();
     // delete vehicle types
-    for (VTypeDictType::iterator i=myVTypeDict.begin(); i!=myVTypeDict.end(); ++i) {
+    for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
         delete(*i).second;
     }
     myVTypeDict.clear();
@@ -83,7 +83,7 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
                                const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
-    MSVehicle* built = new MSVehicle(defs, route, type, myLoadedVehNo-1);
+    MSVehicle* built = new MSVehicle(defs, route, type, myLoadedVehNo - 1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }
@@ -91,12 +91,12 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 void
 MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) throw() {
-    assert(myRunningVehNo>0);
-    for (std::vector<MSDevice*>::const_iterator i=veh->getDevices().begin(); i!=veh->getDevices().end(); ++i) {
+    assert(myRunningVehNo > 0);
+    for (std::vector<MSDevice*>::const_iterator i = veh->getDevices().begin(); i != veh->getDevices().end(); ++i) {
         (*i)->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        OutputDevice::getDeviceByOption("tripinfo-output").closeTag(veh->getDevices().size()==1);
+        OutputDevice::getDeviceByOption("tripinfo-output").closeTag(veh->getDevices().size() == 1);
     }
     myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
     myRunningVehNo--;
@@ -107,7 +107,7 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) throw() {
 
 void
 MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const throw() {
-    if (getDepartedVehicleNo()==0) {
+    if (getDepartedVehicleNo() == 0) {
         od << -1.;
     } else {
         od << (myTotalDepartureDelay / (SUMOReal) getDepartedVehicleNo());
@@ -117,7 +117,7 @@ MSVehicleControl::printMeanWaitingTime(OutputDevice& od) const throw() {
 
 void
 MSVehicleControl::printMeanTravelTime(OutputDevice& od) const throw() {
-    if (myEndedVehNo==0) {
+    if (myEndedVehNo == 0) {
         od << -1.;
     } else {
         od << (myTotalTravelTime / (SUMOReal) myEndedVehNo);
@@ -248,11 +248,11 @@ MSVehicleControl::getVType(const std::string& id) throw() {
 
 void
 MSVehicleControl::insertVTypeIDs(std::vector<std::string> &into) const throw() {
-    into.reserve(into.size()+myVTypeDict.size()+myVTypeDistDict.size());
-    for (VTypeDictType::const_iterator i=myVTypeDict.begin(); i!=myVTypeDict.end(); ++i) {
+    into.reserve(into.size() + myVTypeDict.size() + myVTypeDistDict.size());
+    for (VTypeDictType::const_iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
         into.push_back((*i).first);
     }
-    for (VTypeDistDictType::const_iterator i=myVTypeDistDict.begin(); i!=myVTypeDistDict.end(); ++i) {
+    for (VTypeDistDictType::const_iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
         into.push_back((*i).first);
     }
 }
@@ -294,7 +294,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
 
 void
 MSVehicleControl::abortWaiting() throw() {
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
+    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         WRITE_WARNING("Vehicle " + i->first + " aborted waiting for a person that will never come.");
     }
 }

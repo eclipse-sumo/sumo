@@ -60,15 +60,15 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=VAR_TIME_STEP
-            &&variable!=VAR_LOADED_VEHICLES_NUMBER&&variable!=VAR_LOADED_VEHICLES_IDS
-            &&variable!=VAR_DEPARTED_VEHICLES_NUMBER&&variable!=VAR_DEPARTED_VEHICLES_IDS
-            &&variable!=VAR_TELEPORT_STARTING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_STARTING_VEHICLES_IDS
-            &&variable!=VAR_TELEPORT_ENDING_VEHICLES_NUMBER&&variable!=VAR_TELEPORT_ENDING_VEHICLES_IDS
-            &&variable!=VAR_ARRIVED_VEHICLES_NUMBER&&variable!=VAR_ARRIVED_VEHICLES_IDS
-            &&variable!=VAR_DELTA_T&&variable!=VAR_NET_BOUNDING_BOX
-            &&variable!=VAR_MIN_EXPECTED_VEHICLES
-            &&variable!=POSITION_CONVERSION&&variable!=DISTANCE_REQUEST
+    if (variable != VAR_TIME_STEP
+            && variable != VAR_LOADED_VEHICLES_NUMBER && variable != VAR_LOADED_VEHICLES_IDS
+            && variable != VAR_DEPARTED_VEHICLES_NUMBER && variable != VAR_DEPARTED_VEHICLES_IDS
+            && variable != VAR_TELEPORT_STARTING_VEHICLES_NUMBER && variable != VAR_TELEPORT_STARTING_VEHICLES_IDS
+            && variable != VAR_TELEPORT_ENDING_VEHICLES_NUMBER && variable != VAR_TELEPORT_ENDING_VEHICLES_IDS
+            && variable != VAR_ARRIVED_VEHICLES_NUMBER && variable != VAR_ARRIVED_VEHICLES_IDS
+            && variable != VAR_DELTA_T && variable != VAR_NET_BOUNDING_BOX
+            && variable != VAR_MIN_EXPECTED_VEHICLES
+            && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
        ) {
         server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
         return false;
@@ -81,118 +81,118 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
     tempMsg.writeString(id);
     // process request
     switch (variable) {
-    case VAR_TIME_STEP:
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
-        break;
-    case VAR_LOADED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    }
-    break;
-    case VAR_LOADED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    }
-    break;
-    case VAR_DEPARTED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    }
-    break;
-    case VAR_DEPARTED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    }
-    break;
-    case VAR_TELEPORT_STARTING_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    }
-    break;
-    case VAR_TELEPORT_STARTING_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    }
-    break;
-    case VAR_TELEPORT_ENDING_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    }
-    break;
-    case VAR_TELEPORT_ENDING_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    }
-    break;
-    case VAR_ARRIVED_VEHICLES_NUMBER: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    }
-    break;
-    case VAR_ARRIVED_VEHICLES_IDS: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    }
-    break;
-    case VAR_DELTA_T:
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt(DELTA_T);
-        break;
-    case VAR_NET_BOUNDING_BOX: {
-        tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
-        Boundary b = GeoConvHelper::getDefaultInstance().getConvBoundary();
-        tempMsg.writeDouble(b.xmin());
-        tempMsg.writeDouble(b.ymin());
-        tempMsg.writeDouble(b.xmax());
-        tempMsg.writeDouble(b.ymax());
-        break;
-    }
-    break;
-    case VAR_MIN_EXPECTED_VEHICLES: {
-        const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount());
-    }
-    break;
-    case POSITION_CONVERSION:
-        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a compound object.", outputStorage);
-            return false;
-        }
-        if (inputStorage.readInt()!=2) {
-            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a source position and a position type as parameter.", outputStorage);
-            return false;
-        }
-        if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
-            return false;
+        case VAR_TIME_STEP:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(MSNet::getInstance()->getCurrentTimeStep());
+            break;
+        case VAR_LOADED_VEHICLES_NUMBER: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
         }
         break;
-    case DISTANCE_REQUEST:
-        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
-            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
-            return false;
-        }
-        if (inputStorage.readInt()!=3) {
-            server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
-            return false;
-        }
-        if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
-            return false;
+        case VAR_LOADED_VEHICLES_IDS: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_BUILT)->second;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
         }
         break;
-    default:
+        case VAR_DEPARTED_VEHICLES_NUMBER: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
         break;
+        case VAR_DEPARTED_VEHICLES_IDS: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_DEPARTED)->second;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        }
+        break;
+        case VAR_TELEPORT_STARTING_VEHICLES_NUMBER: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
+        break;
+        case VAR_TELEPORT_STARTING_VEHICLES_IDS: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_STARTING_TELEPORT)->second;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        }
+        break;
+        case VAR_TELEPORT_ENDING_VEHICLES_NUMBER: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
+        break;
+        case VAR_TELEPORT_ENDING_VEHICLES_IDS: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ENDING_TELEPORT)->second;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        }
+        break;
+        case VAR_ARRIVED_VEHICLES_NUMBER: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) ids.size());
+        }
+        break;
+        case VAR_ARRIVED_VEHICLES_IDS: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(ids);
+        }
+        break;
+        case VAR_DELTA_T:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(DELTA_T);
+            break;
+        case VAR_NET_BOUNDING_BOX: {
+            tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
+            Boundary b = GeoConvHelper::getDefaultInstance().getConvBoundary();
+            tempMsg.writeDouble(b.xmin());
+            tempMsg.writeDouble(b.ymin());
+            tempMsg.writeDouble(b.xmax());
+            tempMsg.writeDouble(b.ymax());
+            break;
+        }
+        break;
+        case VAR_MIN_EXPECTED_VEHICLES: {
+            const std::vector<std::string> &ids = server.getVehicleStateChanges().find(MSNet::VEHICLE_STATE_ARRIVED)->second;
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount());
+        }
+        break;
+        case POSITION_CONVERSION:
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a compound object.", outputStorage);
+                return false;
+            }
+            if (inputStorage.readInt() != 2) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Position conversion requires a source position and a position type as parameter.", outputStorage);
+                return false;
+            }
+            if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
+                return false;
+            }
+            break;
+        case DISTANCE_REQUEST:
+            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires a compound object.", outputStorage);
+                return false;
+            }
+            if (inputStorage.readInt() != 3) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
+                return false;
+            }
+            if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
+                return false;
+            }
+            break;
+        default:
+            break;
     }
     server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, warning, outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
@@ -232,7 +232,7 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
         throw TraCIException("Invalid lane index for " + roadID);
     }
     const MSLane* lane = edge->getLanes()[laneIndex];
-    if (pos < 0 ||pos > lane->getLength()) {
+    if (pos < 0 || pos > lane->getLength()) {
         throw TraCIException("Position on lane invalid");
     }
     return lane;
@@ -252,92 +252,92 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
     int srcPosType = inputStorage.readUnsignedByte();
 
     switch (srcPosType) {
-    case POSITION_2D:
-    case POSITION_3D:
-    case POSITION_LAT_LON:
-    case POSITION_LAT_LON_ALT: {
-        SUMOReal x = inputStorage.readDouble();
-        SUMOReal y = inputStorage.readDouble();
-        if (srcPosType != POSITION_2D && srcPosType != POSITION_LAT_LON) {
-            z = inputStorage.readDouble();
+        case POSITION_2D:
+        case POSITION_3D:
+        case POSITION_LAT_LON:
+        case POSITION_LAT_LON_ALT: {
+            SUMOReal x = inputStorage.readDouble();
+            SUMOReal y = inputStorage.readDouble();
+            if (srcPosType != POSITION_2D && srcPosType != POSITION_LAT_LON) {
+                z = inputStorage.readDouble();
+            }
+            geoPos.set(x, y);
+            cartesianPos.set(x, y);
+            if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+                GeoConvHelper::getDefaultInstance().x2cartesian(cartesianPos);
+            } else {
+                GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
+            }
         }
-        geoPos.set(x, y);
-        cartesianPos.set(x, y);
-        if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
-            GeoConvHelper::getDefaultInstance().x2cartesian(cartesianPos);
-        } else {
-            GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
+        break;
+        case POSITION_ROADMAP: {
+            std::string roadID = inputStorage.readString();
+            SUMOReal pos = inputStorage.readDouble();
+            int laneIdx = inputStorage.readUnsignedByte();
+            try {
+                cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
+                GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
+            } catch (TraCIException& e) {
+                server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
+                return false;
+            }
         }
-    }
-    break;
-    case POSITION_ROADMAP: {
-        std::string roadID = inputStorage.readString();
-        SUMOReal pos = inputStorage.readDouble();
-        int laneIdx = inputStorage.readUnsignedByte();
-        try {
-            cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
-            GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
-        } catch (TraCIException& e) {
-            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
+        break;
+        default:
+            server.writeStatusCmd(commandId, RTYPE_ERR,
+                                  "Source position type not supported");
             return false;
-        }
-    }
-    break;
-    default:
-        server.writeStatusCmd(commandId, RTYPE_ERR,
-                              "Source position type not supported");
-        return false;
     }
 
     int destPosType = inputStorage.readUnsignedByte();
 
     switch (destPosType) {
-    case POSITION_ROADMAP: {
-        if (commandId != CMD_POSITIONCONVERSION) {
-            // skip empty values
-            inputStorage.readString();
-            inputStorage.readDouble();
-            inputStorage.readUnsignedByte();
-        }
-        // convert road map to 3D position
-        roadPos = convertCartesianToRoadMap(cartesianPos);
-
-        // write result that is added to response msg
-        tmpResult.writeUnsignedByte(POSITION_ROADMAP);
-        tmpResult.writeString(roadPos.first->getEdge().getID());
-        tmpResult.writeDouble(roadPos.second);
-        const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-        tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
-    }
-    break;
-    case POSITION_2D:
-    case POSITION_3D:
-    case POSITION_LAT_LON:
-    case POSITION_LAT_LON_ALT:
-        if (commandId != CMD_POSITIONCONVERSION) {
-            // skip empty values
-            inputStorage.readDouble();
-            inputStorage.readDouble();
-            if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+        case POSITION_ROADMAP: {
+            if (commandId != CMD_POSITIONCONVERSION) {
+                // skip empty values
+                inputStorage.readString();
                 inputStorage.readDouble();
+                inputStorage.readUnsignedByte();
             }
-        }
-        tmpResult.writeUnsignedByte(destPosType);
-        if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
-            tmpResult.writeDouble(geoPos.x());
-            tmpResult.writeDouble(geoPos.y());
-        } else {
-            tmpResult.writeDouble(cartesianPos.x());
-            tmpResult.writeDouble(cartesianPos.y());
-        }
-        if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
-            tmpResult.writeDouble(z);
+            // convert road map to 3D position
+            roadPos = convertCartesianToRoadMap(cartesianPos);
+
+            // write result that is added to response msg
+            tmpResult.writeUnsignedByte(POSITION_ROADMAP);
+            tmpResult.writeString(roadPos.first->getEdge().getID());
+            tmpResult.writeDouble(roadPos.second);
+            const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
+            tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
         }
         break;
-    default:
-        server.writeStatusCmd(commandId, RTYPE_ERR,
-                              "Destination position type not supported");
-        return false;
+        case POSITION_2D:
+        case POSITION_3D:
+        case POSITION_LAT_LON:
+        case POSITION_LAT_LON_ALT:
+            if (commandId != CMD_POSITIONCONVERSION) {
+                // skip empty values
+                inputStorage.readDouble();
+                inputStorage.readDouble();
+                if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+                    inputStorage.readDouble();
+                }
+            }
+            tmpResult.writeUnsignedByte(destPosType);
+            if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
+                tmpResult.writeDouble(geoPos.x());
+                tmpResult.writeDouble(geoPos.y());
+            } else {
+                tmpResult.writeDouble(cartesianPos.x());
+                tmpResult.writeDouble(cartesianPos.y());
+            }
+            if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
+                tmpResult.writeDouble(z);
+            }
+            break;
+        default:
+            server.writeStatusCmd(commandId, RTYPE_ERR,
+                                  "Destination position type not supported");
+            return false;
     }
     if (commandId == CMD_POSITIONCONVERSION) {
         // add converted Position to response
@@ -364,61 +364,61 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
     // read position 1
     int posType = inputStorage.readUnsignedByte();
     switch (posType) {
-    case POSITION_ROADMAP:
-        try {
-            std::string roadID = inputStorage.readString();
-            roadPos1.second = inputStorage.readDouble();
-            roadPos1.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
-            pos1 = roadPos1.first->getShape().positionAtLengthPosition(roadPos1.second);
-        } catch (TraCIException& e) {
-            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
-            return false;
+        case POSITION_ROADMAP:
+            try {
+                std::string roadID = inputStorage.readString();
+                roadPos1.second = inputStorage.readDouble();
+                roadPos1.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos1.second);
+                pos1 = roadPos1.first->getShape().positionAtLengthPosition(roadPos1.second);
+            } catch (TraCIException& e) {
+                server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
+                return false;
+            }
+            break;
+        case POSITION_2D:
+        case POSITION_3D: {
+            SUMOReal p1x = inputStorage.readDouble();
+            SUMOReal p1y = inputStorage.readDouble();
+            pos1.set(p1x, p1y);
         }
+        if (posType == POSITION_3D) {
+            inputStorage.readDouble();		// z value is ignored
+        }
+        roadPos1 = convertCartesianToRoadMap(pos1);
         break;
-    case POSITION_2D:
-    case POSITION_3D: {
-        SUMOReal p1x = inputStorage.readDouble();
-        SUMOReal p1y = inputStorage.readDouble();
-        pos1.set(p1x, p1y);
-    }
-    if (posType == POSITION_3D) {
-        inputStorage.readDouble();		// z value is ignored
-    }
-    roadPos1 = convertCartesianToRoadMap(pos1);
-    break;
-    default:
-        server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
-        return false;
+        default:
+            server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
+            return false;
     }
 
     // read position 2
     posType = inputStorage.readUnsignedByte();
     switch (posType) {
-    case POSITION_ROADMAP:
-        try {
-            std::string roadID = inputStorage.readString();
-            roadPos2.second = inputStorage.readDouble();
-            roadPos2.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
-            pos2 = roadPos2.first->getShape().positionAtLengthPosition(roadPos2.second);
-        } catch (TraCIException& e) {
-            server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
-            return false;
+        case POSITION_ROADMAP:
+            try {
+                std::string roadID = inputStorage.readString();
+                roadPos2.second = inputStorage.readDouble();
+                roadPos2.first = getLaneChecking(roadID, inputStorage.readUnsignedByte(), roadPos2.second);
+                pos2 = roadPos2.first->getShape().positionAtLengthPosition(roadPos2.second);
+            } catch (TraCIException& e) {
+                server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
+                return false;
+            }
+            break;
+        case POSITION_2D:
+        case POSITION_3D: {
+            SUMOReal p2x = inputStorage.readDouble();
+            SUMOReal p2y = inputStorage.readDouble();
+            pos2.set(p2x, p2y);
         }
+        if (posType == POSITION_3D) {
+            inputStorage.readDouble();		// z value is ignored
+        }
+        roadPos2 = convertCartesianToRoadMap(pos2);
         break;
-    case POSITION_2D:
-    case POSITION_3D: {
-        SUMOReal p2x = inputStorage.readDouble();
-        SUMOReal p2y = inputStorage.readDouble();
-        pos2.set(p2x, p2y);
-    }
-    if (posType == POSITION_3D) {
-        inputStorage.readDouble();		// z value is ignored
-    }
-    roadPos2 = convertCartesianToRoadMap(pos2);
-    break;
-    default:
-        server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
-        return false;
+        default:
+            server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
+            return false;
     }
 
     // read distance type

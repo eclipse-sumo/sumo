@@ -113,7 +113,7 @@ public:
      * @param[in] remember Whether to keep the node for future reference
      * @return Whether the node could be removed (existed)
      */
-    bool extract(NBNode* node, bool remember=false) throw();
+    bool extract(NBNode* node, bool remember = false) throw();
 
     /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
@@ -127,7 +127,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode* retrieve(const Position& position, SUMOReal offset=0.) const throw();
+    NBNode* retrieve(const Position& position, SUMOReal offset = 0.) const throw();
 
 
     /** @brief Returns the pointer to the begin of the stored nodes
@@ -156,7 +156,7 @@ public:
      * @param[in] check Whether to check if these nodes are known
      * @note checking is off by default because all nodes may not have been loaded yet
      */
-    void addJoinExclusion(const std::vector<std::string> &ids, bool check=false);
+    void addJoinExclusion(const std::vector<std::string> &ids, bool check = false);
 
 
     /** @brief add ids of nodes which shall be joined into a single node
@@ -253,7 +253,7 @@ public:
      * @param[in] id The id of the tls to add
      * @todo Recheck exception handling
      */
-    void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::string id="");
+    void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::string id = "");
     /// @}
 
 

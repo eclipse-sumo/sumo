@@ -52,7 +52,7 @@ ODMatrix::ODMatrix(const ODDistrictCont& dc) throw()
 
 
 ODMatrix::~ODMatrix() throw() {
-    for (CellVector::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
+    for (CellVector::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         delete *i;
     }
     myContainer.clear();
@@ -64,19 +64,19 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
               const std::string& vehicleType) throw() {
     myNoLoaded += vehicleNumber;
-    if (myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
+    if (myDistricts.get(origin) == 0 && myDistricts.get(destination) == 0) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
-    } else if (myDistricts.get(origin)==0&&vehicleNumber>0) {
+    } else if (myDistricts.get(origin) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
-    } else if (myDistricts.get(destination)==0&&vehicleNumber>0) {
+    } else if (myDistricts.get(destination) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
     } else {
-        if (myDistricts.get(origin)->sourceNumber()==0) {
+        if (myDistricts.get(origin)->sourceNumber() == 0) {
             WRITE_ERROR("District '" + origin + "' has no source.");
             myNoDiscarded += vehicleNumber;
-        } else if (myDistricts.get(destination)->sinkNumber()==0) {
+        } else if (myDistricts.get(destination)->sinkNumber() == 0) {
             WRITE_ERROR("District '" + destination + "' has no sink.");
             myNoDiscarded += vehicleNumber;
         } else {
@@ -101,12 +101,12 @@ ODMatrix::computeDeparts(ODCell* cell,
     // compute whether the fraction forces an additional vehicle insertion
     SUMOReal mrand = RandHelper::rand();
     SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2insert;
-    if (mrand<mprob) {
+    if (mrand < mprob) {
         vehicles2insert++;
     }
 
     SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
-    for (int i=0; i<vehicles2insert; ++i) {
+    for (int i = 0; i < vehicles2insert; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 
@@ -129,7 +129,7 @@ void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
                 OutputDevice& dev, bool uniform, bool noVtype,
                 const std::string& prefix) throw() {
-    if (myContainer.size()==0) {
+    if (myContainer.size() == 0) {
         return;
     }
     OptionsCont& oc = OptionsCont::getOptions();
@@ -142,14 +142,14 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     CellVector::iterator next = myContainer.begin();
     std::vector<ODVehicle> vehicles;
     // go through the time steps
-    for (SUMOTime t=begin; t!=end; t++) {
+    for (SUMOTime t = begin; t != end; t++) {
         MsgHandler::getMessageInstance()->progressMsg("Parsing time " + toString(t));
         // recheck whether a new cell got valid
         bool changed = false;
-        while (next!=myContainer.end()&&(*next)->begin<=t&&(*next)->end>t) {
+        while (next != myContainer.end() && (*next)->begin <= t && (*next)->end > t) {
             std::pair<std::string, std::string> odID = std::make_pair((*next)->origin, (*next)->destination);
             // check whether the current cell must be extended by the last fraction
-            if (fractionLeft.find(odID)!=fractionLeft.end()) {
+            if (fractionLeft.find(odID) != fractionLeft.end()) {
                 (*next)->vehicleNumber += fractionLeft[odID];
                 fractionLeft[odID] = 0;
             }
@@ -157,13 +157,13 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             std::vector<ODVehicle> tmp;
             SUMOReal fraction = computeDeparts(*next, vehName, tmp, uniform, prefix);
             // copy new departures if any
-            if (tmp.size()!=0) {
+            if (tmp.size() != 0) {
                 copy(tmp.begin(), tmp.end(), back_inserter(vehicles));
                 changed = true;
             }
             // save the fraction
-            if (fraction!=0) {
-                if (fractionLeft.find(odID)==fractionLeft.end()) {
+            if (fraction != 0) {
+                if (fractionLeft.find(odID) == fractionLeft.end()) {
                     fractionLeft[odID] = fraction;
                 } else {
                     fractionLeft[odID] += fraction;
@@ -176,23 +176,23 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
         std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin();
-        for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
+        for (; i != vehicles.rend() && (*i).depart == t; ++i) {
             myNoWritten++;
             dev.openTag("trip") << " id=\"" << (*i).id << "\" depart=\"" << t << ".00\" "
                                 << "from=\"" << (*i).from << "\" "
                                 << "to=\"" << (*i).to << "\"";
-            if (!noVtype&&(*i).cell->vehicleType.length()!=0) {
+            if (!noVtype && (*i).cell->vehicleType.length() != 0) {
                 dev << " type=\"" << (*i).cell->vehicleType << "\"";
             }
             dev << " fromTaz=\"" << (*i).cell->origin << "\"";
             dev << " toTaz=\"" << (*i).cell->destination << "\"";
-            if (oc.isSet("departlane") && oc.getString("departlane")!="default") {
+            if (oc.isSet("departlane") && oc.getString("departlane") != "default") {
                 dev << " departLane=\"" << oc.getString("departlane") << "\"";
             }
             if (oc.isSet("departpos")) {
                 dev << " departPos=\"" << oc.getString("departpos") << "\"";
             }
-            if (oc.isSet("departspeed") && oc.getString("departspeed")!="default") {
+            if (oc.isSet("departspeed") && oc.getString("departspeed") != "default") {
                 dev << " departSpeed=\"" << oc.getString("departspeed") << "\"";
             }
             if (oc.isSet("arrivallane")) {
@@ -206,7 +206,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             }
             dev.closeTag(true);
         }
-        while (vehicles.size()!=0&&(*vehicles.rbegin()).depart==t) {
+        while (vehicles.size() != 0 && (*vehicles.rbegin()).depart == t) {
             vehicles.pop_back();
         }
     }
@@ -233,7 +233,7 @@ ODMatrix::getNoDiscarded() const throw() {
 
 void
 ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& newCells) throw() {
-    for (size_t i=0; i<ps.getAreaNo(); ++i) {
+    for (size_t i = 0; i < ps.getAreaNo(); ++i) {
         ODCell* ncell = new ODCell();
         ncell->begin = (SUMOTime) ps.getAreaBegin(i);
         ncell->end = (SUMOTime) ps.getAreaEnd(i);
@@ -250,7 +250,7 @@ void
 ODMatrix::applyCurve(const Distribution_Points& ps) throw() {
     CellVector oldCells = myContainer;
     myContainer.clear();
-    for (CellVector::iterator i=oldCells.begin(); i!=oldCells.end(); ++i) {
+    for (CellVector::iterator i = oldCells.begin(); i != oldCells.end(); ++i) {
         CellVector newCells;
         applyCurve(ps, *i, newCells);
         copy(newCells.begin(), newCells.end(), back_inserter(myContainer));

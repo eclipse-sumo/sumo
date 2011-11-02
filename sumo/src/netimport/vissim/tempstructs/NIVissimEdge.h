@@ -81,7 +81,7 @@ public:
 
     /** @brief Returns the node at the given position
         As this may be ambigous, a second node not to return may be supplied */
-    NBNode* getNodeAt(const Position& p, NBNode* other=0);
+    NBNode* getNodeAt(const Position& p, NBNode* other = 0);
 
     /** Returns the begin position of the edge */
     Position getBegin2D() const;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    one-shot.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2008-03-10
 @version $Id$
 

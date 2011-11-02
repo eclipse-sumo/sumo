@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    mpl_tripinfos_twoAgainst.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2007-10-25
 @version $Id$
 

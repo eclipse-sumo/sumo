@@ -85,19 +85,19 @@ public:
     /// @{
 
     /// @brief Called on window resizing
-    long onConfigure(FXObject*,FXSelector,void*);
+    long onConfigure(FXObject*, FXSelector, void*);
 
     /// @brief Called if the window shall be repainted
-    long onPaint(FXObject*,FXSelector,void*);
+    long onPaint(FXObject*, FXSelector, void*);
 
     /// @brief Called on a simulation step
-    long onSimStep(FXObject*,FXSelector,void*);
+    long onSimStep(FXObject*, FXSelector, void*);
 
     /// @brief Called when the aggregation interval (combo) has been changed
-    long onCmdChangeAggregation(FXObject*,FXSelector,void*);
+    long onCmdChangeAggregation(FXObject*, FXSelector, void*);
 
     /// @brief Called when the data shall be saved
-    long onCmdSave(FXObject*,FXSelector,void*);
+    long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
 
 
@@ -130,13 +130,13 @@ public:
         /// @{
 
         /// Called on window resizing
-        long onConfigure(FXObject*,FXSelector,void*);
+        long onConfigure(FXObject*, FXSelector, void*);
 
         /// Called if the window shall be repainted
-        long onPaint(FXObject*,FXSelector,void*);
+        long onPaint(FXObject*, FXSelector, void*);
 
         /// Called on a simulation step
-        long onSimStep(FXObject* sender,FXSelector,void*);
+        long onSimStep(FXObject* sender, FXSelector, void*);
         /// @}
 
 

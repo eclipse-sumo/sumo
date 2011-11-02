@@ -66,20 +66,20 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream& from) {
     //
     tag = overrideOptionalLabel(from);
     //
-    while (tag!="netzausschnitt") {
+    while (tag != "netzausschnitt") {
         tag = myRead(from);
     }
     //
     tag = myRead(from);
-    if (tag=="strecke") {
+    if (tag == "strecke") {
         NIVissimNodeParticipatingEdgeVector edges;
-        while (tag=="strecke") {
+        while (tag == "strecke") {
             int edgeid;
             SUMOReal from_pos, to_pos;
             from_pos = to_pos = -1.0;
             from >> edgeid;
             tag = readEndSecure(from, "strecke");
-            if (tag=="von") {
+            if (tag == "von") {
                 from >> from_pos; // type-checking is missing!
                 from >> tag;
                 from >> to_pos; // type-checking is missing!
@@ -91,7 +91,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream& from) {
     } else {
         int no = TplConvert<char>::_2int(tag.c_str());
         PositionVector poly;
-        for (int i=0; i<no; i++) {
+        for (int i = 0; i < no; i++) {
             poly.push_back(getPosition(from));
         }
         poly.closePolygon();

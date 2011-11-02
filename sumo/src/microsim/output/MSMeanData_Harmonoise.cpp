@@ -71,14 +71,14 @@ void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const throw() {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
-    v.meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(meanNTemp)/10.);
+    v.meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(meanNTemp) / 10.);
     v.travelledDistance += travelledDistance;
 }
 
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::update() throw() {
-    meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(currentTimeN)/10.);
+    meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(currentTimeN) / 10.);
     currentTimeN = 0;
 }
 
@@ -87,7 +87,7 @@ void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
     const SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
                         (double) speed, veh.getPreDawdleAcceleration());
-    currentTimeN += (SUMOReal) pow(10., (sn/10.));
+    currentTimeN += (SUMOReal) pow(10., (sn / 10.));
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
 }
@@ -102,7 +102,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMov
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
-    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp*TS/STEPS2TIME(period))) : (SUMOReal) 0.);
+    dev << "\" noise=\"" << (meanNTemp != 0 ? (SUMOReal)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
@@ -140,9 +140,9 @@ MSMeanData_Harmonoise::createValues(MSLane* const lane, const SUMOReal length, c
 void
 MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) throw() {
     MSMeanData::detectorUpdate(step);
-    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
         const std::vector<MeanDataValues*> &lm = *i;
-        for (std::vector<MeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {
+        for (std::vector<MeanDataValues*>::const_iterator j = lm.begin(); j != lm.end(); ++j) {
             (*j)->update();
         }
     }

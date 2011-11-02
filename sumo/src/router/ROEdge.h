@@ -86,7 +86,7 @@ public:
      * @todo useBoundariesOnOverride and interpolate should not be members of the edge
      */
     ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index,
-           bool useBoundariesOnOverride, bool interpolate=false) throw();
+           bool useBoundariesOnOverride, bool interpolate = false) throw();
 
 
     /// Destructor
@@ -210,7 +210,7 @@ public:
      * @return Whether the given edge is a direct successor to this one
      */
     bool isConnectedTo(const ROEdge* const e) const throw() {
-        return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
+        return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e) != myFollowingEdges.end();
     }
 
 

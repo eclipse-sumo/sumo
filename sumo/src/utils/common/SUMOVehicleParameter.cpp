@@ -76,24 +76,24 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_DEPARTLANE_SET) && !defaultOptionOverrides(oc, "departlane")) {
         std::string val;
         switch (departLaneProcedure) {
-        case DEPART_LANE_GIVEN:
-            val = toString(departLane);
-            break;
-        case DEPART_LANE_RANDOM:
-            val = "random";
-            break;
-        case DEPART_LANE_FREE:
-            val = "free";
-            break;
-        case DEPART_LANE_ALLOWED_FREE:
-            val = "allowed";
-            break;
-        case DEPART_LANE_BEST_FREE:
-            val = "best";
-            break;
-        case DEPART_LANE_DEFAULT:
-        default:
-            break;
+            case DEPART_LANE_GIVEN:
+                val = toString(departLane);
+                break;
+            case DEPART_LANE_RANDOM:
+                val = "random";
+                break;
+            case DEPART_LANE_FREE:
+                val = "free";
+                break;
+            case DEPART_LANE_ALLOWED_FREE:
+                val = "allowed";
+                break;
+            case DEPART_LANE_BEST_FREE:
+                val = "best";
+                break;
+            case DEPART_LANE_DEFAULT:
+            default:
+                break;
         }
         dev << " departLane=\"" << val << "\"";
     } else if (oc.isSet("departlane")) {
@@ -103,33 +103,33 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_DEPARTPOS_SET) && !defaultOptionOverrides(oc, "departpos")) {
         std::string val;
         switch (departPosProcedure) {
-        case DEPART_POS_GIVEN:
-            val = toString(departPos);
-            break;
-        case DEPART_POS_RANDOM:
-            val = "random";
-            break;
-        case DEPART_POS_RANDOM_FREE:
-            val = "random_free";
-            break;
-        case DEPART_POS_FREE:
-            val = "free";
-            break;
-        case DEPART_POS_PWAG_SIMPLE:
-            val = "pwagSimple";
-            break;
-        case DEPART_POS_PWAG_GENERIC:
-            val = "pwagGeneric";
-            break;
-        case DEPART_POS_MAX_SPEED_GAP:
-            val = "maxSpeedGap";
-            break;
-        case DEPART_POS_BASE:
-            val = "base";
-            break;
-        case DEPART_POS_DEFAULT:
-        default:
-            break;
+            case DEPART_POS_GIVEN:
+                val = toString(departPos);
+                break;
+            case DEPART_POS_RANDOM:
+                val = "random";
+                break;
+            case DEPART_POS_RANDOM_FREE:
+                val = "random_free";
+                break;
+            case DEPART_POS_FREE:
+                val = "free";
+                break;
+            case DEPART_POS_PWAG_SIMPLE:
+                val = "pwagSimple";
+                break;
+            case DEPART_POS_PWAG_GENERIC:
+                val = "pwagGeneric";
+                break;
+            case DEPART_POS_MAX_SPEED_GAP:
+                val = "maxSpeedGap";
+                break;
+            case DEPART_POS_BASE:
+                val = "base";
+                break;
+            case DEPART_POS_DEFAULT:
+            default:
+                break;
         }
         dev << " departPos=\"" << val << "\"";
     } else if (oc.isSet("departpos")) {
@@ -139,18 +139,18 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_DEPARTSPEED_SET) && !defaultOptionOverrides(oc, "departspeed")) {
         std::string val;
         switch (departSpeedProcedure) {
-        case DEPART_SPEED_GIVEN:
-            val = toString(departSpeed);
-            break;
-        case DEPART_SPEED_RANDOM:
-            val = "random";
-            break;
-        case DEPART_SPEED_MAX:
-            val = "max";
-            break;
-        case DEPART_SPEED_DEFAULT:
-        default:
-            break;
+            case DEPART_SPEED_GIVEN:
+                val = toString(departSpeed);
+                break;
+            case DEPART_SPEED_RANDOM:
+                val = "random";
+                break;
+            case DEPART_SPEED_MAX:
+                val = "max";
+                break;
+            case DEPART_SPEED_DEFAULT:
+            default:
+                break;
         }
         dev << " departSpeed=\"" << val << "\"";
     } else if (oc.isSet("departspeed")) {
@@ -161,15 +161,15 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_ARRIVALLANE_SET) && !defaultOptionOverrides(oc, "arrivallane")) {
         std::string val;
         switch (arrivalLaneProcedure) {
-        case ARRIVAL_LANE_GIVEN:
-            val = toString(arrivalLane);
-            break;
-        case ARRIVAL_LANE_CURRENT:
-            val = "current";
-            break;
-        case ARRIVAL_LANE_DEFAULT:
-        default:
-            break;
+            case ARRIVAL_LANE_GIVEN:
+                val = toString(arrivalLane);
+                break;
+            case ARRIVAL_LANE_CURRENT:
+                val = "current";
+                break;
+            case ARRIVAL_LANE_DEFAULT:
+            default:
+                break;
         }
         dev << " arrivalLane=\"" << val << "\"";
     } else if (oc.isSet("arrivallane")) {
@@ -179,18 +179,18 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_ARRIVALPOS_SET) && !defaultOptionOverrides(oc, "arrivalpos")) {
         std::string val;
         switch (arrivalPosProcedure) {
-        case ARRIVAL_POS_GIVEN:
-            val = toString(arrivalPos);
-            break;
-        case ARRIVAL_POS_RANDOM:
-            val = "random";
-            break;
-        case ARRIVAL_POS_MAX:
-            val = "max";
-            break;
-        case ARRIVAL_POS_DEFAULT:
-        default:
-            break;
+            case ARRIVAL_POS_GIVEN:
+                val = toString(arrivalPos);
+                break;
+            case ARRIVAL_POS_RANDOM:
+                val = "random";
+                break;
+            case ARRIVAL_POS_MAX:
+                val = "max";
+                break;
+            case ARRIVAL_POS_DEFAULT:
+            default:
+                break;
         }
         dev << " arrivalPos=\"" << val << "\"";
     } else if (oc.isSet("arrivalpos")) {
@@ -200,15 +200,15 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
     if (wasSet(VEHPARS_ARRIVALSPEED_SET) && !defaultOptionOverrides(oc, "arrivalspeed")) {
         std::string val;
         switch (arrivalSpeedProcedure) {
-        case ARRIVAL_SPEED_GIVEN:
-            val = toString(arrivalSpeed);
-            break;
-        case ARRIVAL_SPEED_CURRENT:
-            val = "current";
-            break;
-        case ARRIVAL_SPEED_DEFAULT:
-        default:
-            break;
+            case ARRIVAL_SPEED_GIVEN:
+                val = toString(arrivalSpeed);
+                break;
+            case ARRIVAL_SPEED_CURRENT:
+                val = "current";
+                break;
+            case ARRIVAL_SPEED_DEFAULT:
+            default:
+                break;
         }
         dev << " arrivalSpeed=\"" << val << "\"";
     } else if (oc.isSet("arrivalspeed")) {
@@ -242,7 +242,7 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
 
 bool
 SUMOVehicleParameter::departlaneValidate(const std::string& val) throw() {
-    if (val=="random"||val=="free"||val=="departlane"||val=="allowed"||val=="best") {
+    if (val == "random" || val == "free" || val == "departlane" || val == "allowed" || val == "best") {
         return true;
     }
     try {
@@ -258,7 +258,7 @@ SUMOVehicleParameter::departlaneValidate(const std::string& val) throw() {
 
 bool
 SUMOVehicleParameter::departposValidate(const std::string& val) throw() {
-    if (val=="random"||val=="free"||val=="random_free"||val=="base"||val=="pwagSimple"||val=="pwagGeneric"||val=="maxSpeedGap") {
+    if (val == "random" || val == "free" || val == "random_free" || val == "base" || val == "pwagSimple" || val == "pwagGeneric" || val == "maxSpeedGap") {
         return true;
     }
     try {
@@ -274,7 +274,7 @@ SUMOVehicleParameter::departposValidate(const std::string& val) throw() {
 
 bool
 SUMOVehicleParameter::departspeedValidate(const std::string& val) throw() {
-    if (val=="random"||val=="max") {
+    if (val == "random" || val == "max") {
         return true;
     }
     try {
@@ -290,7 +290,7 @@ SUMOVehicleParameter::departspeedValidate(const std::string& val) throw() {
 
 bool
 SUMOVehicleParameter::arrivallaneValidate(const std::string& val) throw() {
-    if (val=="current") {
+    if (val == "current") {
         return true;
     }
     try {
@@ -306,7 +306,7 @@ SUMOVehicleParameter::arrivallaneValidate(const std::string& val) throw() {
 
 bool
 SUMOVehicleParameter::arrivalposValidate(const std::string& val) throw() {
-    if (val=="random"||val=="max") {
+    if (val == "random" || val == "max") {
         return true;
     }
     try {
@@ -322,7 +322,7 @@ SUMOVehicleParameter::arrivalposValidate(const std::string& val) throw() {
 
 bool
 SUMOVehicleParameter::arrivalspeedValidate(const std::string& val) throw() {
-    if (val=="current") {
+    if (val == "current") {
         return true;
     }
     try {

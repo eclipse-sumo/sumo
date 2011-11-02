@@ -56,9 +56,9 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     std::string tag;
     // Read optional value "Name", skip optional value "Beschriftung"
     std::string name;
-    while (tag!="von") {
+    while (tag != "von") {
         tag = overrideOptionalLabel(from);
-        if (tag=="name") {
+        if (tag == "name") {
             name = readName(from);
         }
     }
@@ -66,10 +66,10 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     NIVissimExtendedEdgePoint from_def = readExtEdgePointDef(from);
     PositionVector geom;
     tag = myRead(from); // "ueber"
-    while (tag!="nach") {
+    while (tag != "nach") {
         std::string x = myRead(from);
         std::string y = myRead(from);
-        if (y!="nach") {
+        if (y != "nach") {
             geom.push_back_noDoublePos(
                 Position(
                     TplConvert<char>::_2SUMOReal(x.c_str()),
@@ -93,25 +93,25 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     SUMOReal seglength = 0;
     tag = myRead(from);
     NIVissimConnection::Direction direction = NIVissimConnection::NIVC_DIR_ALL;
-    while (tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="auswertung"&&tag!="DATAEND") {
-        if (tag=="rechts") {
+    while (tag != "fahrzeugklassen" && tag != "sperrung" && tag != "auswertung" && tag != "DATAEND") {
+        if (tag == "rechts") {
             direction = NIVissimConnection::NIVC_DIR_RIGHT;
-        } else if (tag=="links") {
+        } else if (tag == "links") {
             direction = NIVissimConnection::NIVC_DIR_LEFT;
-        } else if (tag=="alle") {
+        } else if (tag == "alle") {
             direction = NIVissimConnection::NIVC_DIR_ALL;
-        } else if (tag=="dxnothalt") {
+        } else if (tag == "dxnothalt") {
             from >> dxnothalt; // type-checking is missing!
-        } else if (tag=="dxeinordnen") {
+        } else if (tag == "dxeinordnen") {
             from >> dxeinordnen; // type-checking is missing!
-        } else if (tag=="segment") {
+        } else if (tag == "segment") {
             from >> tag;
             from >> seglength;
         }
-        if (tag=="zuschlag") {
+        if (tag == "zuschlag") {
             from >> zuschlag1; // type-checking is missing!
             tag = readEndSecure(from);
-            if (tag=="zuschlag") {
+            if (tag == "zuschlag") {
                 from >> zuschlag2; // type-checking is missing!
                 tag = readEndSecure(from, "auswertung");
             }
@@ -121,9 +121,9 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     }
     // read in allowed vehicle classes
     IntVector assignedVehicles;
-    if (tag=="fahrzeugklassen") {
+    if (tag == "fahrzeugklassen") {
         tag = readEndSecure(from);
-        while (tag!="DATAEND"&&tag!="sperrung"&&tag!="auswertung") {
+        while (tag != "DATAEND" && tag != "sperrung" && tag != "auswertung") {
             int classes = TplConvert<char>::_2int(tag.c_str());
             assignedVehicles.push_back(classes);
             tag = readEndSecure(from, "auswertung");
@@ -131,15 +131,15 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     }
     // Read definitions of closed lanes
     NIVissimClosedLanesVector clv;
-    if (tag!="DATAEND") {
+    if (tag != "DATAEND") {
         do {
             // check whether a next close lane definition can be found
             tag = readEndSecure(from);
-            if (tag=="keinspurwechsel") {
-                while (tag!="DATAEND") {
+            if (tag == "keinspurwechsel") {
+                while (tag != "DATAEND") {
                     tag = readEndSecure(from);
                 }
-            } else if (tag=="spur") {
+            } else if (tag == "spur") {
                 // get the lane number
 //                from >> tag;
                 int laneNo;
@@ -147,10 +147,10 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
                 // get the list of assigned car classes
                 IntVector assignedVehicles;
                 tag = myRead(from);
-                if (tag=="fahrzeugklassen") {
+                if (tag == "fahrzeugklassen") {
                     tag = myRead(from);
                 }
-                while (tag!="DATAEND"&&tag!="spur"&&tag!="keinspurwechsel") {
+                while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {
                     int classes = TplConvert<char>::_2int(tag.c_str());
                     assignedVehicles.push_back(classes);
                     tag = readEndSecure(from);
@@ -159,7 +159,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
                 NIVissimClosedLaneDef* cld = new NIVissimClosedLaneDef(laneNo, assignedVehicles);
                 clv.push_back(cld);
             }
-        } while (tag!="DATAEND");
+        } while (tag != "DATAEND");
     }
     NIVissimConnection* c = new NIVissimConnection(id, name, from_def, to_def, geom,
             direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2, seglength,

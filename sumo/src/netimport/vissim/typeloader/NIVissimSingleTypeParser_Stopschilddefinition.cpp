@@ -57,13 +57,13 @@ NIVissimSingleTypeParser_Stopschilddefinition::parse(std::istream& from) {
     from >> tag; // "bei"
     from >> tag; // pos
     from >> tag;
-    if (tag=="RTOR") {
+    if (tag == "RTOR") {
         from >> tag; // "lsa"
         from >> tag; // lsa id
         from >> tag; // "gruppe"
         from >> tag; // gruppe id
     } else {
-        while (tag=="fahrzeugklasse") {
+        while (tag == "fahrzeugklasse") {
             from >> tag; // class no
             from >> tag; // "zeiten"
             from >> tag; // times no

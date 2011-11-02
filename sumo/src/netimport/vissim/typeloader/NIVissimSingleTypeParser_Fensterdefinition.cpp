@@ -53,11 +53,11 @@ NIVissimSingleTypeParser_Fensterdefinition::parse(std::istream& from) {
     std::string id;
     from >> id; // "typ"
     std::string type = myRead(from);
-    if (type=="fzinfo") {
+    if (type == "fzinfo") {
         std::string tmp;
         from >> tmp;
         from >> tmp;
-    } else if (type=="ldp"||type=="szp") {
+    } else if (type == "ldp" || type == "szp") {
         std::string tmp;
         readUntil(from, "lsa");
     }

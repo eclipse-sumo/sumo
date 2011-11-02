@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    dua_iterate.py
-@author  Daniel.Krajzewicz@dlr.de,Michael.Behrisch@dlr.de
+@author  Daniel Krajzewicz,Michael.Behrisch@dlr.de
 @date    2008-02-13
 @version $Id$
 

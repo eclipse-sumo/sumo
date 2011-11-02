@@ -47,8 +47,8 @@
 // ===========================================================================
 SUMOReal
 NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal angle = (SUMOReal) atan2(x1-x2, y1-y2) * (SUMOReal) 180.0 / (SUMOReal) PI;
-    if (angle<0) {
+    SUMOReal angle = (SUMOReal) atan2(x1 - x2, y1 - y2) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    if (angle < 0) {
         angle = 360 + angle;
     }
     return angle;
@@ -65,10 +65,10 @@ NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOR
 SUMOReal
 NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
     angle2 -= angle1;
-    if (angle2>180) {
+    if (angle2 > 180) {
         angle2 = (360 - angle2) * -1;
     }
-    while (angle2<-180) {
+    while (angle2 < -180) {
         angle2 = 360 + angle2;
     }
     return angle2;
@@ -78,7 +78,7 @@ NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
 SUMOReal
 NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal rel = relAngle(angle1, angle2);
-    if (rel<-170||rel>170) {
+    if (rel < -170 || rel > 170) {
         rel = -180;
     }
     return rel;

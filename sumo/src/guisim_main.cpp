@@ -138,7 +138,7 @@ main(int argc, char** argv) {
         FXApp application("SUMO GUISimulation", "DLR");
         gFXApp = &application;
         // Open display
-        application.init(argc,argv);
+        application.init(argc, argv);
         int minor, major;
         if (!FXGLVisual::supported(&application, major, minor)) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
@@ -153,7 +153,7 @@ main(int argc, char** argv) {
         window->dependentBuild(oc.getBool("game"));
         gSchemeStorage.init(&application);
         // Create app
-        application.addSignal(SIGINT,window, MID_QUIT);
+        application.addSignal(SIGINT, window, MID_QUIT);
         application.create();
         // Load configuration given on command line
         if (oc.isSet("configuration-file")) {

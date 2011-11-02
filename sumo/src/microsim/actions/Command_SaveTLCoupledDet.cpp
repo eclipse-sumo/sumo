@@ -60,7 +60,7 @@ Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() {
 void
 Command_SaveTLCoupledDet::execute() {
     SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
-    if (myStartTime!=end) {
+    if (myStartTime != end) {
         myDetector->writeXMLOutput(myDevice, myStartTime, end);
         myStartTime = end;
     }

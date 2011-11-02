@@ -54,12 +54,12 @@ MSCFModel_PWag2009::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     // model should re-use acceleration from previous time-step:
     SUMOReal apref = vars->aOld;
-    const SUMOReal asafe = SPEED2ACCEL(vNext-speed);
-    if (apref <= asafe && RandHelper::rand() > myActionPointProbability*TS) {
+    const SUMOReal asafe = SPEED2ACCEL(vNext - speed);
+    if (apref <= asafe && RandHelper::rand() > myActionPointProbability * TS) {
         std::pair<MSVehicle* const, SUMOReal> l = veh->getLane()->getLeaderOnConsecutive(100., 0., speed, *veh, veh->getBestLanesContinuation(veh->getLane()));
         if (l.first) {
-            apref = myDecelDivTau * (l.second+(l.first->getSpeed()-speed)*myHeadwayTime-speed*myHeadwayTime) / (speed+myTauDecel);
-            apref += myDawdle*RandHelper::rand((SUMOReal)-1., (SUMOReal)1.);
+            apref = myDecelDivTau * (l.second + (l.first->getSpeed() - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
+            apref += myDawdle * RandHelper::rand((SUMOReal) - 1., (SUMOReal)1.);
         }
     }
     if (apref > asafe) {
@@ -93,7 +93,7 @@ MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
 // seen so far in data ...
 SUMOReal
 MSCFModel_PWag2009::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
-    if (predSpeed==0&&gap<0.01) {
+    if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
     const SUMOReal vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
@@ -103,5 +103,5 @@ MSCFModel_PWag2009::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap,
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myHeadwayTime, myTauLastDecel/myDecel, myActionPointProbability);
+    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myDawdle, myHeadwayTime, myTauLastDecel / myDecel, myActionPointProbability);
 }

@@ -81,8 +81,8 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
     SUMOReal choice = RandHelper::rand();
     SUMOReal cumul = 0;
 
-    for (std::map<int,SUMOReal>::const_iterator it=ds.beginWorkHours.begin();
-            it!=ds.beginWorkHours.end(); ++it) {
+    for (std::map<int, SUMOReal>::const_iterator it = ds.beginWorkHours.begin();
+            it != ds.beginWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice) {
             return it->first;
@@ -98,8 +98,8 @@ int
 AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) throw() {
     SUMOReal choice = RandHelper::rand();
     SUMOReal cumul = 0;
-    for (std::map<int,SUMOReal>::const_iterator it=ds.endWorkHours.begin();
-            it!=ds.endWorkHours.end(); ++it) {
+    for (std::map<int, SUMOReal>::const_iterator it = ds.endWorkHours.begin();
+            it != ds.endWorkHours.end(); ++it) {
         cumul += it->second;
         if (cumul >= choice) {
             return it->first;

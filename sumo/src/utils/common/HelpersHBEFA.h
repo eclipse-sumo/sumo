@@ -132,12 +132,12 @@ private:
      * @param[in] a The vehicle's current acceleration
      */
     static inline double computeUsing(double* f, double v, double a) throw() {
-        if (a<0) {
+        if (a < 0) {
             return 0.;
         }
         v = v * 3.6;
-        double alpha = asin(a/9.81)*180./PI;
-        return MAX2(((f[0] + f[1]*alpha*v + f[2]*alpha*alpha*v + f[3]*v + f[4]*v*v + f[5]*v*v*v) / 3600.), 0.);
+        double alpha = asin(a / 9.81) * 180. / PI;
+        return MAX2(((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3600.), 0.);
     }
 
 

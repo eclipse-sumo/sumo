@@ -90,11 +90,11 @@ protected:
 
 public:
     enum {
-        ID_NONE=0,
-        ID_DELETE=6,
+        ID_NONE = 0,
+        ID_DELETE = 6,
         ID_DISABLE,
         ID_ENABLE,
-        ID_SETVALUE=17,
+        ID_SETVALUE = 17,
         ID_SETINTVALUE,
         ID_SETREALVALUE,
         ID_SETSTRINGVALUE,
@@ -113,16 +113,16 @@ public:
     };
 
 public:
-    long onCmdEnable(FXObject*,FXSelector,void*);
-    long onCmdDisable(FXObject*,FXSelector,void*);
-    long onUpdate(FXObject*,FXSelector,void*);
+    long onCmdEnable(FXObject*, FXSelector, void*);
+    long onCmdDisable(FXObject*, FXSelector, void*);
+    long onUpdate(FXObject*, FXSelector, void*);
 
 public:
     /// Just supply the target and selector (de-serialisation too)
-    FXBaseObject(FXObject* tgt=NULL,FXSelector sel=0);
+    FXBaseObject(FXObject* tgt = NULL, FXSelector sel = 0);
 
     /// Alternnatively, supply the app object as well
-    FXBaseObject(FXApp* a,FXObject* tgt=NULL,FXSelector sel=0);
+    FXBaseObject(FXApp* a, FXObject* tgt = NULL, FXSelector sel = 0);
 
     /// application pointer
     FXApp* getApp();
@@ -134,7 +134,7 @@ public:
 
     /// set the target
     void setTarget(FXObject* tgt) {
-        target=tgt;
+        target = tgt;
     }
 
     /// get the message
@@ -144,7 +144,7 @@ public:
 
     /// set the selector
     void setSelector(FXSelector sel) {
-        message=sel;
+        message = sel;
     }
 
     /// get user data
@@ -154,7 +154,7 @@ public:
 
     /// set user data
     void setUserData(void* d) {
-        data=d;
+        data = d;
     }
 
     /// get user daat length
@@ -164,31 +164,31 @@ public:
 
     /// set the user data length
     void setUserDataLen(FXuint len) {
-        datalen=len;
+        datalen = len;
     }
 
     /// are we enabled?
     FXbool isEnabled() {
-        return (flags&FLAG_ENABLED)!=0;
+        return (flags & FLAG_ENABLED) != 0;
     }
 
     /// enable us
     virtual void enable() {
-        flags|=FLAG_ENABLED;
+        flags |= FLAG_ENABLED;
     }
 
     /// disable us
     virtual void disable() {
-        flags&=~FLAG_ENABLED;
+        flags &= ~FLAG_ENABLED;
     }
 
     /// are we modifiable
     virtual FXbool isReadonly() {
-        return (flags&FLAG_READONLY)!=0;
+        return (flags & FLAG_READONLY) != 0;
     }
 
     /// set modifiable mode
-    virtual void setReadonly(FXbool mode=TRUE);
+    virtual void setReadonly(FXbool mode = TRUE);
 
     /// create resource
     virtual void create() {}

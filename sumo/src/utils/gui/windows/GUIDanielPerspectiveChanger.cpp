@@ -64,7 +64,7 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
 
 void
 GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
-    if (myCallback.getApp()->reg().readIntEntry("gui","zoomAtCenter", 1)) {
+    if (myCallback.getApp()->reg().readIntEntry("gui", "zoomAtCenter", 1)) {
         myZoomBase = myViewPort.getCenter();
     }
     if (factor > 0) {
@@ -173,9 +173,9 @@ void
 GUIDanielPerspectiveChanger::onMouseWheel(void* data) {
     FXEvent* e = (FXEvent*) data;
     SUMOReal diff = 0.1;
-    if (e->state&CONTROLMASK) {
+    if (e->state & CONTROLMASK) {
         diff /= 2;
-    } else if (e->state&SHIFTMASK) {
+    } else if (e->state & SHIFTMASK) {
         diff *= 2;
     }
     if (e->code < 0) {
@@ -193,31 +193,31 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     myCallback.setWindowCursorPosition(e->win_x, e->win_y);
     const int xdiff = myMouseXPosition - e->win_x;
     const int ydiff = myMouseYPosition - e->win_y;
-    const bool moved = xdiff!=0 || ydiff!=0;
+    const bool moved = xdiff != 0 || ydiff != 0;
     const bool pastDelay = FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
-    case MOUSEBTN_LEFT:
-        if (pastDelay) {
-            move(xdiff, ydiff);
-            if (moved) {
-                myMoveOnClick = true;
+        case MOUSEBTN_LEFT:
+            if (pastDelay) {
+                move(xdiff, ydiff);
+                if (moved) {
+                    myMoveOnClick = true;
+                }
             }
-        }
-        break;
-    case MOUSEBTN_RIGHT:
-        if (pastDelay) {
-            zoom(1 + 10.0 * ydiff / myCallback.getWidth());
-            rotate(xdiff);
-            if (moved) {
-                myMoveOnClick = true;
+            break;
+        case MOUSEBTN_RIGHT:
+            if (pastDelay) {
+                zoom(1 + 10.0 * ydiff / myCallback.getWidth());
+                rotate(xdiff);
+                if (moved) {
+                    myMoveOnClick = true;
+                }
             }
-        }
-        break;
-    default:
-        if (moved) {
-            myCallback.updateToolTip();
-        }
-        break;
+            break;
+        default:
+            if (moved) {
+                myCallback.updateToolTip();
+            }
+            break;
     }
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;

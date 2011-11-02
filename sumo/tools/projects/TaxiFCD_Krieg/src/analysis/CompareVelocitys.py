@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    CompareVelocitys.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-29
 
 Creates a file with a comparison of velocities between Taxi-FCD and vtypeprobe.

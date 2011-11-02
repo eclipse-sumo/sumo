@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    routes2OD.py
-@author  Julia.Ringel@dlr.de
+@author  Julia Ringel
 @date    2009-04-15
 @version $Id$
 

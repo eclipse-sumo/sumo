@@ -38,7 +38,7 @@
 // method definitions
 // ===========================================================================
 void AGBus::setName(std::string name) {
-    this->name= name;
+    this->name = name;
 }
 
 int

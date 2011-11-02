@@ -47,7 +47,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
+FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CENTER,                  GUIGLObjectPopupMenu::onCmdCenter),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,               GUIGLObjectPopupMenu::onCmdCopyName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME,         GUIGLObjectPopupMenu::onCmdCopyTypedName),
@@ -77,7 +77,7 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw() {}
 
 
 long
-GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdCenter(FXObject*, FXSelector, void*) {
     // we already know where the object is since we clicked on it -> zoom on Boundary
     myParent->centerTo(myObject->getGlID(), true, -1);
     return 1;
@@ -85,28 +85,28 @@ GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*) {
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdCopyName(FXObject*, FXSelector, void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getMicrosimID());
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*, FXSelector, void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*, FXSelector, void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), toString(myNetworkPosition));
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
     Position pos = myNetworkPosition;
     GeoConvHelper::getDefaultInstance().cartesian2geo(pos);
     // formated for pasting into google maps
@@ -117,14 +117,14 @@ GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*,FXSelector,void*) {
 
 
 long
-GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
     myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameterWindow would be more appropriate
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
     gSelected.select(myObject->getGlID());
     myParent->update();
     return 1;
@@ -132,7 +132,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*) {
 
 
 long
-GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*) {
+GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
     gSelected.deselect(myObject->getGlID());
     myParent->update();
     return 1;

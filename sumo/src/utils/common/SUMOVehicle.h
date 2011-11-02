@@ -104,10 +104,10 @@ public:
     virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
 
     /// Replaces the current route by the given edges
-    virtual bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit=false) = 0;
+    virtual bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, bool onInit=false) = 0;
+    virtual bool replaceRoute(const MSRoute* route, bool onInit = false) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -118,7 +118,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw() = 0;
+    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) throw() = 0;
 
     /** @brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling

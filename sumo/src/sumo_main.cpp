@@ -130,7 +130,7 @@ main(int argc, char** argv) {
         RandHelper::initRandGlobal();
         // load the net
         net = load(oc);
-        if (net!=0) {
+        if (net != 0) {
             SUMOTime begin = string2time(oc.getString("begin"));
             SUMOTime end = string2time(oc.getString("end"));
             // report the begin when wished
@@ -141,7 +141,7 @@ main(int argc, char** argv) {
             WRITE_MESSAGE("Simulation ended at time: " + time2string(net->getCurrentTimeStep()));
         }
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

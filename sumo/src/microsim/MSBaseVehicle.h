@@ -130,7 +130,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz=false) throw();
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) throw();
 
 
     /** @brief Replaces the current route by the given edges
@@ -143,7 +143,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit=false) throw();
+    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false) throw();
 
 
     /** @brief Returns the vehicle's acceleration before dawdling

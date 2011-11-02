@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    deleteUnusedDetektors.py
-@author  Laura.Bieker@dlr.de
+@author  Laura Bieker
 @date    2010-03-03
 
 This script reads a network as first parameter and a file with the positions

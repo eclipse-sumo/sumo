@@ -57,9 +57,9 @@ using namespace testclient;
 // ===========================================================================
 
 TraCITestClient::TraCITestClient(std::string outputFileName)
-    :socket(NULL),
-     outputFileName(outputFileName),
-     answerLog("") {
+    : socket(NULL),
+      outputFileName(outputFileName),
+      answerLog("") {
     answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
     answerLog.setf(std::ios::showpoint); // print decimal point
     answerLog << std::setprecision(2);
@@ -166,7 +166,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             // read parameter for command simulation step and trigger command
             std::string time;
             defFile >> time;
-            for (int i=0; i < repNo; i++) {
+            for (int i = 0; i < repNo; i++) {
                 commandSimulationStep2(string2time(time));
             }
         } else if (lineCommand.compare("posconversion2d") == 0) {
@@ -319,19 +319,19 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool igno
         return false;
     }
     switch (resultType) {
-    case RTYPE_ERR:
-        answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
-        return false;
-    case RTYPE_NOTIMPLEMENTED:
-        answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
-        return false;
-    case RTYPE_OK:
-        answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
-        break;
-    default:
-        answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId
-                  << "), [description: " << msg << "]" << std::endl;
-        return false;
+        case RTYPE_ERR:
+            answerLog << ".. Answered with error to command (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            return false;
+        case RTYPE_NOTIMPLEMENTED:
+            answerLog << ".. Sent command is not implemented (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            return false;
+        case RTYPE_OK:
+            answerLog << ".. Command acknowledged (" << cmdId << "), [description: " << msg << "]" << std::endl;
+            break;
+        default:
+            answerLog << ".. Answered with unknown result code(" << resultType << ") to command(" << cmdId
+                      << "), [description: " << msg << "]" << std::endl;
+            return false;
     }
     if ((cmdStart + cmdLength) != inMsg.position()) {
         answerLog << "#Error: command at position " << cmdStart << " has wrong length" << std::endl;
@@ -694,13 +694,13 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if (length==0) {
+        if (length == 0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if (cmdId != (domID+0x10)) {
+        if (cmdId != (domID + 0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
-                      << "but expected: " << (int)(domID+0x10) << std::endl;
+                      << "but expected: " << (int)(domID + 0x10) << std::endl;
             return;
         }
         answerLog << "  CommandID=" << cmdId;
@@ -728,7 +728,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string&
     tcpip::Storage outMsg, inMsg, tmp;
     const int dataLength = setValueTypeDependant(tmp, defFile, msg);
     std::string msgS = msg.str();
-    if (msgS!="") {
+    if (msgS != "") {
         errorMsg(msg);
     }
     // command length (domID, varID, objID, dataType, data)
@@ -768,13 +768,13 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string&
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if (length==0) {
+        if (length == 0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if (cmdId != (domID+0x10)) {
+        if (cmdId != (domID + 0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
-                      << "but expected: " << (int)(domID+0x10) << std::endl;
+                      << "but expected: " << (int)(domID + 0x10) << std::endl;
             return;
         }
         answerLog << "  CommandID=" << cmdId;
@@ -801,7 +801,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string& objID, i
     }
     tcpip::Storage outMsg, inMsg, tmp;
     std::string msgS = msg.str();
-    if (msgS!="") {
+    if (msgS != "") {
         errorMsg(msg);
     }
     // command length (domID, beginTime, endTime, objID, varNo, <vars>)
@@ -816,7 +816,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string& objID, i
     outMsg.writeString(objID);
     // command id
     outMsg.writeUnsignedByte(varNo);
-    for (int i=0; i<varNo; ++i) {
+    for (int i = 0; i < varNo; ++i) {
         int var;
         defFile >> var;
         // variable id
@@ -860,43 +860,43 @@ int
 TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defFile, std::stringstream& msg) {
     std::string dataTypeS, valueS;
     defFile >> dataTypeS;
-    if (dataTypeS=="<airDist>") {
+    if (dataTypeS == "<airDist>") {
         into.writeUnsignedByte(REQUEST_AIRDIST);
         return 1;
-    } else if (dataTypeS=="<drivingDist>") {
+    } else if (dataTypeS == "<drivingDist>") {
         into.writeUnsignedByte(REQUEST_DRIVINGDIST);
         return 1;
     }
     defFile >> valueS;
-    if (dataTypeS=="<int>") {
+    if (dataTypeS == "<int>") {
         into.writeUnsignedByte(TYPE_INTEGER);
         into.writeInt(atoi(valueS.c_str()));
         return 4 + 1;
-    } else if (dataTypeS=="<byte>") {
+    } else if (dataTypeS == "<byte>") {
         into.writeUnsignedByte(TYPE_BYTE);
         into.writeByte(atoi(valueS.c_str()));
         return 1 + 1;
-    }  else if (dataTypeS=="<ubyte>") {
+    }  else if (dataTypeS == "<ubyte>") {
         into.writeUnsignedByte(TYPE_UBYTE);
         into.writeByte(atoi(valueS.c_str()));
         return 1 + 1;
-    } else if (dataTypeS=="<float>") {
+    } else if (dataTypeS == "<float>") {
         into.writeUnsignedByte(TYPE_FLOAT);
         into.writeFloat(float(atof(valueS.c_str())));
         return 4 + 1;
-    } else if (dataTypeS=="<double>") {
+    } else if (dataTypeS == "<double>") {
         into.writeUnsignedByte(TYPE_DOUBLE);
         into.writeDouble(atof(valueS.c_str()));
         return 8 + 1;
-    } else if (dataTypeS=="<string>") {
+    } else if (dataTypeS == "<string>") {
         into.writeUnsignedByte(TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();
-    } else if (dataTypeS=="<string*>") {
+    } else if (dataTypeS == "<string*>") {
         std::vector<std::string> slValue;
         int number = atoi(valueS.c_str());
         int length = 1 + 4;
-        for (int i=0; i<number; ++i) {
+        for (int i = 0; i < number; ++i) {
             std::string tmp;
             defFile >> tmp;
             slValue.push_back(tmp);
@@ -905,30 +905,30 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeUnsignedByte(TYPE_STRINGLIST);
         into.writeStringList(slValue);
         return length;
-    } else if (dataTypeS=="<compound>") {
+    } else if (dataTypeS == "<compound>") {
         into.writeUnsignedByte(TYPE_COMPOUND);
         int number = atoi(valueS.c_str());
         into.writeInt(number);
         int length = 1 + 4;
-        for (int i=0; i<number; ++i) {
+        for (int i = 0; i < number; ++i) {
             length += setValueTypeDependant(into, defFile, msg);
         }
         return length;
-    } else if (dataTypeS=="<color>") {
+    } else if (dataTypeS == "<color>") {
         into.writeUnsignedByte(TYPE_COLOR);
         into.writeUnsignedByte(atoi(valueS.c_str()));
-        for (int i=0; i<3; ++i) {
+        for (int i = 0; i < 3; ++i) {
             defFile >> valueS;
             into.writeUnsignedByte(atoi(valueS.c_str()));
         }
         return 1 + 4;
-    } else if (dataTypeS=="<position2D>") {
+    } else if (dataTypeS == "<position2D>") {
         into.writeUnsignedByte(POSITION_2D);
         into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
         into.writeDouble(atof(valueS.c_str()));
         return 1 + 8 + 8;
-    } else if (dataTypeS=="<position3D>") {
+    } else if (dataTypeS == "<position3D>") {
         into.writeUnsignedByte(POSITION_3D);
         into.writeDouble(atof(valueS.c_str()));
         defFile >> valueS;
@@ -936,7 +936,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         defFile >> valueS;
         into.writeDouble(atof(valueS.c_str()));
         return 1 + 8 + 8 + 8;
-    } else if (dataTypeS=="<positionRoadmap>") {
+    } else if (dataTypeS == "<positionRoadmap>") {
         into.writeUnsignedByte(POSITION_ROADMAP);
         into.writeString(valueS);
         int length = 1 + 8 + (int) valueS.length();
@@ -945,12 +945,12 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         defFile >> valueS;
         into.writeUnsignedByte(atoi(valueS.c_str()));
         return length + 4 + 1;
-    } else if (dataTypeS=="<shape>") {
+    } else if (dataTypeS == "<shape>") {
         into.writeUnsignedByte(TYPE_POLYGON);
         int number = atoi(valueS.c_str());
         into.writeUnsignedByte(number);
         int length = 1 + 1;
-        for (int i=0; i<number; ++i) {
+        for (int i = 0; i < number; ++i) {
             std::string x, y;
             defFile >> x >> y;
             into.writeDouble(atof(x.c_str()));
@@ -974,7 +974,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
     tcpip::Storage outMsg, inMsg, tmp;
     int dataLength = setValueTypeDependant(tmp, defFile, msg);
     std::string msgS = msg.str();
-    if (msgS!="") {
+    if (msgS != "") {
         errorMsg(msg);
     }
     // command length (domID, varID, objID, dataType, data)
@@ -1063,7 +1063,7 @@ bool
 TraCITestClient::validateSimulationStep2(tcpip::Storage& inMsg) {
     try {
         int noSubscriptions = inMsg.readInt();
-        for (int s=0; s<noSubscriptions; ++s) {
+        for (int s = 0; s < noSubscriptions; ++s) {
             /*
             if (!reportResultState(inMsg, CMD_SIMSTEP2, true)) {
             	return false;
@@ -1086,11 +1086,11 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
     try {
         int respStart = inMsg.position();
         int length = inMsg.readUnsignedByte();
-        if (length==0) {
+        if (length == 0) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if (cmdId<0xe0||cmdId>0xef) {
+        if (cmdId < 0xe0 || cmdId > 0xef) {
             answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << std::endl;
             return false;
         }
@@ -1098,9 +1098,9 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
         answerLog << "  ObjectID=" << inMsg.readString();
         unsigned int varNo = inMsg.readUnsignedByte();
         answerLog << "  #variables=" << varNo << std::endl;
-        for (unsigned int i=0; i<varNo; ++i) {
+        for (unsigned int i = 0; i < varNo; ++i) {
             answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-            bool ok = inMsg.readUnsignedByte()==RTYPE_OK;
+            bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
             answerLog << "      ok=" << ok;
             int valueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << valueDataType;
@@ -1139,28 +1139,28 @@ TraCITestClient::validatePositionConversion(tcpip::Storage& inMsg) {
         // read converted position
         posType = inMsg.readUnsignedByte();
         switch (posType) {
-        case POSITION_2D:
-            pos2D.x = inMsg.readDouble();
-            pos2D.y = inMsg.readDouble();
-            answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
-            break;
-        case POSITION_3D:
-            answerLog << "3D-Position: ";
-            pos3D.x = inMsg.readDouble();
-            pos3D.y = inMsg.readDouble();
-            pos3D.z = inMsg.readDouble();
-            answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << std::endl;
-            break;
-        case POSITION_ROADMAP:
-            roadPos.roadId = inMsg.readString();
-            roadPos.pos = inMsg.readDouble();
-            roadPos.laneId = inMsg.readUnsignedByte();
-            answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
-                      << " laneId=" << (int)roadPos.laneId << std::endl;
-            break;
-        default:
-            answerLog << "#Error: received unknown position format" << std::endl;
-            return false;
+            case POSITION_2D:
+                pos2D.x = inMsg.readDouble();
+                pos2D.y = inMsg.readDouble();
+                answerLog << "2D-Position: x=" << pos2D.x << " y=" << pos2D.y << std::endl;
+                break;
+            case POSITION_3D:
+                answerLog << "3D-Position: ";
+                pos3D.x = inMsg.readDouble();
+                pos3D.y = inMsg.readDouble();
+                pos3D.z = inMsg.readDouble();
+                answerLog << "x=" << pos3D.x << " y=" << pos3D.y << " z=" << pos3D.z << std::endl;
+                break;
+            case POSITION_ROADMAP:
+                roadPos.roadId = inMsg.readString();
+                roadPos.pos = inMsg.readDouble();
+                roadPos.laneId = inMsg.readUnsignedByte();
+                answerLog << "RoadMap-Position: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
+                          << " laneId=" << (int)roadPos.laneId << std::endl;
+                break;
+            default:
+                answerLog << "#Error: received unknown position format" << std::endl;
+                return false;
         }
         // read requested position type
         reqPosType = inMsg.readUnsignedByte();
@@ -1263,7 +1263,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " Int value: " << integer << std::endl;
     } else if (valueDataType == TYPE_FLOAT) {
         float floatv = inMsg.readFloat();
-        if (floatv<0.1&&floatv>0) {
+        if (floatv < 0.1 && floatv > 0) {
             answerLog.setf(std::ios::scientific, std::ios::floatfield);
         }
         answerLog << " float value: " << floatv << std::endl;
@@ -1279,13 +1279,13 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         box.lowerLeft.y = inMsg.readDouble();
         box.upperRight.x = inMsg.readDouble();
         box.upperRight.y = inMsg.readDouble();
-        answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
+        answerLog << " BoundaryBoxValue: lowerLeft x=" << box.lowerLeft.x
                   << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
                   << " y=" << box.upperRight.y << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
-        for (int i=0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             SUMOReal x = inMsg.readDouble();
             SUMOReal y = inMsg.readDouble();
             answerLog << "(" << x << "," << y << ") ";
@@ -1308,25 +1308,25 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     } else if (valueDataType == TYPE_TLPHASELIST) {
         int length = inMsg.readUnsignedByte();
         answerLog << " TLPhaseListValue: length=" << length << std::endl;
-        for (int i=0; i< length; i++) {
+        for (int i = 0; i < length; i++) {
             std::string pred = inMsg.readString();
             std::string succ = inMsg.readString();
             int phase = inMsg.readUnsignedByte();
             answerLog << " precRoad=" << pred << " succRoad=" << succ
                       << " phase=";
             switch (phase) {
-            case TLPHASE_RED:
-                answerLog << "red" << std::endl;
-                break;
-            case TLPHASE_YELLOW:
-                answerLog << "yellow" << std::endl;
-                break;
-            case TLPHASE_GREEN:
-                answerLog << "green" << std::endl;
-                break;
-            default:
-                answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
-                return false;
+                case TLPHASE_RED:
+                    answerLog << "red" << std::endl;
+                    break;
+                case TLPHASE_YELLOW:
+                    answerLog << "yellow" << std::endl;
+                    break;
+                case TLPHASE_GREEN:
+                    answerLog << "green" << std::endl;
+                    break;
+                default:
+                    answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
+                    return false;
             }
         }
     } else if (valueDataType == TYPE_STRING) {
@@ -1335,8 +1335,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     } else if (valueDataType == TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
         answerLog << " string list value: [ " << std::endl;
-        for (std::vector<std::string>::iterator i=s.begin(); i!=s.end(); ++i) {
-            if (i!=s.begin()) {
+        for (std::vector<std::string>::iterator i = s.begin(); i != s.end(); ++i) {
+            if (i != s.begin()) {
                 answerLog << ", ";
             }
             answerLog << '"' << *i << '"';
@@ -1345,7 +1345,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     } else if (valueDataType == TYPE_COMPOUND) {
         int no = inMsg.readInt();
         answerLog << " compound value with " << no << " members: [ " << std::endl;
-        for (int i=0; i<no; ++i) {
+        for (int i = 0; i < no; ++i) {
             int currentValueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << currentValueDataType;
             readAndReportTypeDependent(inMsg, currentValueDataType);

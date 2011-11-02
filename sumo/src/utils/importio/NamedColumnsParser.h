@@ -74,9 +74,9 @@ public:
      * @param[in] chomp Whether the lines shall be trimmed (white spaces shall be removed)
      * @param[in] ignoreCase Whether the case shall be ignored when parsing the definitions
      */
-    NamedColumnsParser(const std::string& def, const std::string& defDelim=";",
-                       const std::string& lineDelim=";", bool chomp=false,
-                       bool ignoreCase=true) throw();
+    NamedColumnsParser(const std::string& def, const std::string& defDelim = ";",
+                       const std::string& lineDelim = ";", bool chomp = false,
+                       bool ignoreCase = true) throw();
 
 
     /// @brief Destructor
@@ -94,9 +94,9 @@ public:
      * @param[in] chomp Whether the lines shall be trimmed (white spaces shall be removed)
      * @param[in] ignoreCase Whether the case shall be ignored when parsing the definitions
      */
-    void reinit(const std::string& def, const std::string& defDelim=";",
-                const std::string& lineDelim=";", bool chomp=false,
-                bool ignoreCase=true) throw();
+    void reinit(const std::string& def, const std::string& defDelim = ";",
+                const std::string& lineDelim = ";", bool chomp = false,
+                bool ignoreCase = true) throw();
 
 
     /** @brief Parses the contents of the line
@@ -125,7 +125,7 @@ public:
      * @exception UnknownElement when the element was not named during the initialisation
      * @exception OutOfBoundsException when the line was too short and did not contain the item */
     std::string get(const std::string& name,
-                    bool prune=false) const throw(UnknownElement, OutOfBoundsException);
+                    bool prune = false) const throw(UnknownElement, OutOfBoundsException);
 
 
     /** @brief Returns the information whether the named column is known
@@ -156,8 +156,8 @@ private:
      * @param[in] delim The delimiter string
      * @param[in] chomp Whether the tokens shall be prunned
      */
-    void reinitMap(std::string def, const std::string& delim=";",
-                   bool chomp=false) throw();
+    void reinitMap(std::string def, const std::string& delim = ";",
+                   bool chomp = false) throw();
 
 
     /** @brief Prunes the given string if it shall be done

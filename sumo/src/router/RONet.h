@@ -212,7 +212,7 @@ public:
      * @return The last seen departure time>=time
      */
     SUMOTime saveAndRemoveRoutesUntil(OptionsCont& options,
-                                      SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
+                                      SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime time);
 
 
     /// Returns the information whether further vehicles are stored
@@ -290,7 +290,7 @@ public:
 
 protected:
     bool computeRoute(OptionsCont& options,
-                      SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle* const veh);
+                      SUMOAbstractRouter<ROEdge, ROVehicle> &router, const ROVehicle* const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations() const;

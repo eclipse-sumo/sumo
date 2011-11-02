@@ -152,13 +152,13 @@ public:
     }
 
     void norm2d() {
-        SUMOReal val = sqrt(myX*myX + myY*myY);
+        SUMOReal val = sqrt(myX * myX + myY * myY);
         myX = myX / val;
         myY = myY / val;
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-        SUMOReal x = myX * cos(rot) -myY * sin(rot) + xoff;
+        SUMOReal x = myX * cos(rot) - myY * sin(rot) + xoff;
         SUMOReal y = myX * sin(rot) + yoff + myY * cos(rot);
         myX = x;
         myY = y;
@@ -168,35 +168,35 @@ public:
     /// Prints to the output
     friend std::ostream& operator<<(std::ostream& os, const Position& p) {
         os << p.x() << "," << p.y();
-        if (p.z()!=SUMOReal(0.0)) {
+        if (p.z() != SUMOReal(0.0)) {
             os << "," << p.z();
         }
         return os;
     }
 
     Position operator+(const Position& p2) const {
-        return Position(myX+p2.myX,  myY+p2.myY, myZ+p2.myZ);
+        return Position(myX + p2.myX,  myY + p2.myY, myZ + p2.myZ);
     }
 
     Position operator-(const Position& p2) const {
-        return Position(myX-p2.myX,  myY-p2.myY, myZ-p2.myZ);
+        return Position(myX - p2.myX,  myY - p2.myY, myZ - p2.myZ);
     }
 
     Position operator*(SUMOReal scalar) const {
-        return Position(myX * scalar,myY * scalar, myZ *scalar);
+        return Position(myX * scalar, myY * scalar, myZ * scalar);
     }
 
     bool operator==(const Position& p2) const {
-        return myX==p2.myX && myY==p2.myY && myZ==p2.myZ;
+        return myX == p2.myX && myY == p2.myY && myZ == p2.myZ;
     }
 
     bool operator!=(const Position& p2) const {
-        return myX!=p2.myX || myY!=p2.myY || myZ!=p2.myZ;
+        return myX != p2.myX || myY != p2.myY || myZ != p2.myZ;
     }
 
 
-    bool almostSame(const Position& p2, SUMOReal maxDiv=POSITION_EPS) const {
-        return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv && fabs(myZ-p2.myZ)<maxDiv;
+    bool almostSame(const Position& p2, SUMOReal maxDiv = POSITION_EPS) const {
+        return fabs(myX - p2.myX) < maxDiv && fabs(myY - p2.myY) < maxDiv && fabs(myZ - p2.myZ) < maxDiv;
     }
 
 
@@ -206,7 +206,7 @@ public:
 
 
     inline SUMOReal distanceSquaredTo(const Position& p2) const {
-        return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY) + (myZ-p2.myZ)*(myZ-p2.myZ);
+        return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY) + (myZ - p2.myZ) * (myZ - p2.myZ);
     }
 
     /// @brief returns the cross product between this point and the second one

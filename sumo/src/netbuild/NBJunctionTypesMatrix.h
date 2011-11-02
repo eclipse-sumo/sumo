@@ -71,7 +71,7 @@ private:
 
         /** the comparing function */
         bool operator()(const std::pair<SUMOReal, SUMOReal> &range) {
-            return mySpeed>=range.first && mySpeed<range.second;
+            return mySpeed >= range.first && mySpeed < range.second;
         }
 
     private:

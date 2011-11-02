@@ -91,7 +91,7 @@ public:
      *
      * @todo Recheck loading/saving of selections
      */
-    long onCmdLoad(FXObject*,FXSelector,void*);
+    long onCmdLoad(FXObject*, FXSelector, void*);
 
 
     /** @brief Called when the user presses the Save-button
@@ -103,28 +103,28 @@ public:
      *
      * @todo Recheck loading/saving of selections
      */
-    long onCmdSave(FXObject*,FXSelector,void*);
+    long onCmdSave(FXObject*, FXSelector, void*);
 
     /** @brief Called when the user presses the Deselect-button
      *
      * Determines which items were chosen and calls GUISelectedStorage::deselect
      *  for each.
      */
-    long onCmdDeselect(FXObject*,FXSelector,void*);
+    long onCmdDeselect(FXObject*, FXSelector, void*);
 
     /** @brief Called when the user presses the Clear-button
      *
      * Clear the internal list and calls GUISelectedStorage::clear.
      * Repaints itself
      */
-    long onCmdClear(FXObject*,FXSelector,void*);
+    long onCmdClear(FXObject*, FXSelector, void*);
 
 
     /** @brief Called when the user presses the Close-button
      *
      * Closes itself.
      */
-    long onCmdClose(FXObject*,FXSelector,void*);
+    long onCmdClose(FXObject*, FXSelector, void*);
     /// @}
 
 

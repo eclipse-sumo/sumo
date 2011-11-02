@@ -80,7 +80,7 @@ public:
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
-    struct VehPosition : public std::binary_function< const MSVehicle*,
+    struct VehPosition : public std::binary_function < const MSVehicle*,
             SUMOReal, bool > {
         /// compares vehicle position to the detector position
         bool operator()(const MSVehicle* cmp, SUMOReal pos) const {
@@ -402,7 +402,7 @@ public:
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
-        assert(myVehBuffer.size()==0);
+        assert(myVehBuffer.size() == 0);
         return myVehicles.empty();
     }
 
@@ -729,7 +729,7 @@ private:
          * @return Whether the first vehicle is further on the lane than the second
          */
         int operator()(MSVehicle* v1, MSVehicle* v2) const {
-            return v1->getPositionOnLane()>v2->getPositionOnLane();
+            return v1->getPositionOnLane() > v2->getPositionOnLane();
         }
 
     };
@@ -748,14 +748,14 @@ private:
             const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
             const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
             SUMOReal s1 = 0;
-            if (ae1!=0&&ae1->size()!=0) {
+            if (ae1 != 0 && ae1->size() != 0) {
                 s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
             }
             SUMOReal s2 = 0;
-            if (ae2!=0&&ae2->size()!=0) {
+            if (ae2 != 0 && ae2->size() != 0) {
                 s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
             }
-            return s1<s2;
+            return s1 < s2;
         }
 
     private:
@@ -772,7 +772,7 @@ private:
     public:
         edge_finder(MSEdge* e) : myEdge(e) {}
         bool operator()(const IncomingLaneInfo& ili) const {
-            return &(ili.lane->getEdge())==myEdge;
+            return &(ili.lane->getEdge()) == myEdge;
         }
     private:
         edge_finder& operator=(const edge_finder&); // just to avoid a compiler warning

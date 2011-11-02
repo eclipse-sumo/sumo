@@ -224,8 +224,8 @@ protected:
         unsigned int getLaneNumber(OpenDriveXMLTag dir) const throw() {
             unsigned int laneNum = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            for (std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
-                if ((*i).type=="driving") {
+            for (std::vector<OpenDriveLane>::const_iterator i = dirLanes.begin(); i != dirLanes.end(); ++i) {
+                if ((*i).type == "driving") {
                     ++laneNum;
                 }
             }
@@ -236,15 +236,15 @@ protected:
             std::map<int, int> ret;
             unsigned int sumoLane = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            if (dir==OPENDRIVE_TAG_RIGHT) {
-                for (std::vector<OpenDriveLane>::const_reverse_iterator i=dirLanes.rbegin(); i!=dirLanes.rend(); ++i) {
-                    if ((*i).type=="driving") {
+            if (dir == OPENDRIVE_TAG_RIGHT) {
+                for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanes.rbegin(); i != dirLanes.rend(); ++i) {
+                    if ((*i).type == "driving") {
                         ret[(*i).id] = sumoLane++;
                     }
                 }
             } else {
-                for (std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
-                    if ((*i).type=="driving") {
+                for (std::vector<OpenDriveLane>::const_iterator i = dirLanes.begin(); i != dirLanes.end(); ++i) {
+                    if ((*i).type == "driving") {
                         ret[(*i).id] = sumoLane++;
                     }
                 }
@@ -268,7 +268,7 @@ protected:
 
         unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const throw() {
             unsigned int maxLaneNum = 0;
-            for (std::vector<OpenDriveLaneSection>::const_iterator i=laneSections.begin(); i!=laneSections.end(); ++i) {
+            for (std::vector<OpenDriveLaneSection>::const_iterator i = laneSections.begin(); i != laneSections.end(); ++i) {
                 maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
             }
             return maxLaneNum;
@@ -392,7 +392,7 @@ protected:
                                  SUMOReal ad_r, SUMOReal ad_length) throw();
     static NBEdge* getOutgoingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
             const std::string& edgeID, const std::string& nodeID) throw();
-    static NBEdge* getIncomingDirectionalEdge(const NBEdgeCont& ec,const NBNodeCont& nc,
+    static NBEdge* getIncomingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
             const std::string& edgeID, const std::string& nodeID) throw();
 
     static void computeShapes(std::vector<OpenDriveEdge> &edges) throw();
@@ -422,7 +422,7 @@ protected:
             : myEdgeID(id) { }
 
         bool operator()(const OpenDriveEdge& e) {
-            return e.id==myEdgeID;
+            return e.id == myEdgeID;
         }
 
     private:

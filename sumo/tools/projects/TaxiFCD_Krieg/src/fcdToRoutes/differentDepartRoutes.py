@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateTaxiRoutesMain.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-08-30
 
 Reads taxi routes and create several new routeFile with different depart times for each route.

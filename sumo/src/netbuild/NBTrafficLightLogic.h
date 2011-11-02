@@ -113,7 +113,7 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state, int index=-1);
+    void addStep(SUMOTime duration, const std::string& state, int index = -1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)

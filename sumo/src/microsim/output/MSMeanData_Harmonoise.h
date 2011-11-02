@@ -69,8 +69,8 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-                             const std::set<std::string>* const vTypes=0,
-                             const MSMeanData_Harmonoise* parent=0) throw();
+                             const std::set<std::string>* const vTypes = 0,
+                             const MSMeanData_Harmonoise* parent = 0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -78,7 +78,7 @@ public:
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite=false) throw();
+        void reset(bool afterWrite = false) throw();
 
         /** @brief Add the values to this meanData
          */
@@ -121,7 +121,7 @@ public:
          */
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
-                   const int numVehicles=-1) const throw(IOError);
+                   const int numVehicles = -1) const throw(IOError);
 
 
     protected:

@@ -1,6 +1,6 @@
 """
 @file    net.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2008-03-27
 @version $Id$
 

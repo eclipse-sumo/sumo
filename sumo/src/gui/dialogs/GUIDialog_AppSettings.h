@@ -59,16 +59,16 @@ public:
     /// @{
 
     /// @brief Called on OK-button pressure
-    long onCmdOk(FXObject*,FXSelector,void*);
+    long onCmdOk(FXObject*, FXSelector, void*);
 
     /// @brief Called on Cancel-button pressure
-    long onCmdCancel(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief Called on "Quit on end"-button change
-    long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
+    long onCmdQuitOnEnd(FXObject*, FXSelector, void*);
 
     /// @brief Called on "Allow textures"-button change
-    long onCmdAllowTextures(FXObject*,FXSelector,void*);
+    long onCmdAllowTextures(FXObject*, FXSelector, void*);
     /// @}
 
 

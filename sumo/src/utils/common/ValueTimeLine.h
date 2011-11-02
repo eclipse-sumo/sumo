@@ -64,8 +64,8 @@ public:
      * @param[in] value the value to store
      */
     void add(SUMOReal begin, SUMOReal end, T value) {
-        assert(begin>=0);
-        assert(begin<end);
+        assert(begin >= 0);
+        assert(begin < end);
         // inserting strictly before the first or after the last interval (includes empty case)
         if (myValues.upper_bound(begin) == myValues.end() ||
                 myValues.upper_bound(end) == myValues.begin()) {
@@ -98,7 +98,7 @@ public:
      * @return the value for the time
      */
     T getValue(SUMOReal time) const {
-        assert(myValues.size()!=0);
+        assert(myValues.size() != 0);
         typename TimedValueMap::const_iterator it = myValues.upper_bound(time);
         assert(it != myValues.begin());
         --it;
@@ -149,7 +149,7 @@ public:
      * @param[in] value the value to store
      * @param[in] extendOverBoundaries whether the first/last value should be valid for later / earlier times as well
      */
-    void fillGaps(T value, bool extendOverBoundaries=false) {
+    void fillGaps(T value, bool extendOverBoundaries = false) {
         for (typename TimedValueMap::iterator it = myValues.begin(); it != myValues.end(); ++it) {
             if (!it->second.first) {
                 it->second.second = value;

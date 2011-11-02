@@ -60,7 +60,7 @@ public:
 
 public:
     /// Constructor
-    MSVehicleContainer(size_t capacity=10);
+    MSVehicleContainer(size_t capacity = 10);
 
     /// Destructor
     ~MSVehicleContainer();

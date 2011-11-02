@@ -56,8 +56,8 @@ NIVissimNodeDef::~NIVissimNodeDef() {}
 
 bool
 NIVissimNodeDef::dictionary(int id, NIVissimNodeDef* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         myMaxID = myMaxID > id
                   ? myMaxID
@@ -71,8 +71,8 @@ NIVissimNodeDef::dictionary(int id, NIVissimNodeDef* o) {
 
 NIVissimNodeDef*
 NIVissimNodeDef::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -114,7 +114,7 @@ NIVissimNodeDef::partialWithin(const AbstractPoly &p, SUMOReal off) const
 
 void
 NIVissimNodeDef::dict_assignConnectionsToNodes() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         (*i).second->searchAndSetConnections();
     }
 }
@@ -129,7 +129,7 @@ NIVissimNodeDef::dictSize() {
 
 void
 NIVissimNodeDef::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

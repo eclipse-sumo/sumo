@@ -61,7 +61,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
 void
 NIXMLTypesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
-    if (element!=SUMO_TAG_TYPE) {
+    if (element != SUMO_TAG_TYPE) {
         return;
     }
     bool ok = true;
@@ -82,7 +82,7 @@ NIXMLTypesHandler::myStartElement(int element,
     std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
     bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) -1);
+    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) - 1);
     if (!ok) {
         return;
     }

@@ -75,7 +75,7 @@ void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string& id,
         SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
     MSEdge* edge = MSEdge::dictionary(id);
-    if (edge!=0) {
+    if (edge != 0) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
         WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
@@ -90,7 +90,7 @@ void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
         SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
     MSEdge* edge = MSEdge::dictionary(id);
-    if (edge!=0) {
+    if (edge != 0) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
         WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
@@ -142,7 +142,7 @@ NLBuilder::build() throw(ProcessError) {
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
         }
-        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
+        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
     }
 #endif
     // load weights if wished
@@ -158,8 +158,8 @@ NLBuilder::build() throw(ProcessError) {
         //  the measure to use, then
         EdgeFloatTimeLineRetriever_EdgeEffort eRetriever(myNet);
         std::string measure = myOptions.getString("weight-attribute");
-        if (measure!="traveltime") {
-            if (measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
+        if (measure != "traveltime") {
+            if (measure == "CO" || measure == "CO2" || measure == "HC" || measure == "PMx" || measure == "NOx" || measure == "fuel") {
                 measure += "_perVeh";
             }
             retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(measure, true, eRetriever));
@@ -168,7 +168,7 @@ NLBuilder::build() throw(ProcessError) {
         SAXWeightsHandler handler(retrieverDefs, "");
         // start parsing; for each file in the list
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
-        for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
+        for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
             // report about loading when wished
             WRITE_MESSAGE("Loading weights from '" + *i + "'...");
             // parse the file
@@ -178,7 +178,7 @@ NLBuilder::build() throw(ProcessError) {
         }
     }
     // load routes
-    if (myOptions.isSet("route-files")&&myOptions.getInt("route-steps")<=0) {
+    if (myOptions.isSet("route-files") && myOptions.getInt("route-steps") <= 0) {
         if (!load("route-files")) {
             return false;
         }
@@ -245,7 +245,7 @@ NLBuilder::load(const std::string& mmlWhat) {
         return false;
     }
     std::vector<std::string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
-    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!gSuppressMessages) {
             PROGRESS_BEGIN_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         }
@@ -255,7 +255,7 @@ NLBuilder::load(const std::string& mmlWhat) {
             return false;
         }
         if (!gSuppressMessages) {
-            MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
+            MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
         }
     }
     return true;
@@ -267,15 +267,15 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) throw(ProcessError) {
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
-    if (oc.isSet("route-files")&&oc.getInt("route-steps")>0) {
+    if (oc.isSet("route-files") && oc.getInt("route-steps") > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
-        for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 throw ProcessError("The route file '" + *fileIt + "' does not exist.");
             }
         }
         // open files for reading
-        for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             loaders.push_back(new MSRouteLoader(myNet, new MSRouteHandler(*fileIt, false)));
         }
     }

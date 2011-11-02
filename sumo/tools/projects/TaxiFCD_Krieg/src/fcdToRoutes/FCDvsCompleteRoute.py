@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    FCDvsCompleteRoute.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-08
 
 Compares the FCD-route of an taxi with the generated route which is used in the simulation.

@@ -53,7 +53,7 @@ public:
     /// Constructor
     RORDGenerator_ODAmounts(RONet& net,
                             SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-                            bool randomize, const std::string& file="") throw(ProcessError);
+                            bool randomize, const std::string& file = "") throw(ProcessError);
 
     /// Destructor
     ~RORDGenerator_ODAmounts() throw();

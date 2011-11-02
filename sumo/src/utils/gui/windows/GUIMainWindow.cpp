@@ -43,8 +43,8 @@
 // member method definitions
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a)
-    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
-      myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
+    : FXMainWindow(a, "SUMO-gui main window", NULL, NULL, DECOR_ALL, 20, 20, 600, 400),
+      myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER | VISUAL_STEREO)),
       myRunAtBegin(false), myAmGaming(false), myListInternal(false) {
 
     FXFontDesc fdesc;
@@ -52,10 +52,10 @@ GUIMainWindow::GUIMainWindow(FXApp* a)
     fdesc.weight = FXFont::Bold;
     myBoldFont = new FXFont(getApp(), fdesc);
 
-    myTopDock=new FXDockSite(this,LAYOUT_SIDE_TOP|LAYOUT_FILL_X);
-    myBottomDock=new FXDockSite(this,LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X);
-    myLeftDock=new FXDockSite(this,LAYOUT_SIDE_LEFT|LAYOUT_FILL_Y);
-    myRightDock=new FXDockSite(this,LAYOUT_SIDE_RIGHT|LAYOUT_FILL_Y);
+    myTopDock = new FXDockSite(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X);
+    myBottomDock = new FXDockSite(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
+    myLeftDock = new FXDockSite(this, LAYOUT_SIDE_LEFT | LAYOUT_FILL_Y);
+    myRightDock = new FXDockSite(this, LAYOUT_SIDE_RIGHT | LAYOUT_FILL_Y);
 }
 
 
@@ -78,7 +78,7 @@ GUIMainWindow::addChild(FXMDIChild* child, bool /*updateOnSimStep !!!*/) {
 void
 GUIMainWindow::removeChild(FXMDIChild* child) {
     std::vector<FXMDIChild*>::iterator i = std::find(mySubWindows.begin(), mySubWindows.end(), child);
-    if (i!=mySubWindows.end()) {
+    if (i != mySubWindows.end()) {
         mySubWindows.erase(i);
     }
 }
@@ -104,7 +104,7 @@ GUIMainWindow::removeChild(FXMainWindow* child) {
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const throw() {
     std::vector<std::string> ret;
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
+    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
         ret.push_back((*i)->getTitle().text());
     }
     return ret;
@@ -113,8 +113,8 @@ GUIMainWindow::getViewIDs() const throw() {
 
 FXMDIChild*
 GUIMainWindow::getViewByID(const std::string& id) const throw() {
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i!=mySubWindows.end(); ++i) {
-        if (std::string((*i)->getTitle().text())==id) {
+    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
+        if (std::string((*i)->getTitle().text()) == id) {
             return *i;
         }
     }
@@ -134,8 +134,8 @@ GUIMainWindow::updateChildren() {
     myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     // inform other windows
     myTrackerLock.lock();
-    for (size_t i=0; i<myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this,FXSEL(SEL_COMMAND,MID_SIMSTEP), 0);
+    for (size_t i = 0; i < myTrackerWindows.size(); i++) {
+        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     }
     myTrackerLock.unlock();
 }

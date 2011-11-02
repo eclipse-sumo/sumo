@@ -73,15 +73,15 @@ void
 MSNoLogicJunction::postloadInit() throw(ProcessError) {
     std::vector<MSLane*>::iterator i;
     // inform links where they have to report approaching vehicles to
-    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
+    for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
         const MSLinkCont& links = (*i)->getLinkCont();
-        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+        for (MSLinkCont::const_iterator j = links.begin(); j != links.end(); j++) {
             (*j)->setRequestInformation(0, 0, false, false, std::vector<MSLink*>(), std::vector<MSLane*>());
         }
     }
 #ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
-    for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
+    for (i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         // ... set information about participation
         static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(&myDump, 0);
     }

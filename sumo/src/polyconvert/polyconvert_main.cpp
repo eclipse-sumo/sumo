@@ -243,10 +243,10 @@ main(int argc, char** argv) {
             // !!! no proper error handling
             Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", 0, ok);
             pruningBoundary = Boundary(
-                                  pruningBoundary.xmin()+offsets.xmin(),
-                                  pruningBoundary.ymin()+offsets.ymin(),
-                                  pruningBoundary.xmax()+offsets.xmax(),
-                                  pruningBoundary.ymax()+offsets.ymax());
+                                  pruningBoundary.xmin() + offsets.xmin(),
+                                  pruningBoundary.ymin() + offsets.ymin(),
+                                  pruningBoundary.xmax() + offsets.xmax(),
+                                  pruningBoundary.ymax() + offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {
@@ -282,7 +282,7 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -295,7 +295,7 @@ main(int argc, char** argv) {
     }
     SystemFrame::close();
     // report about ending
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

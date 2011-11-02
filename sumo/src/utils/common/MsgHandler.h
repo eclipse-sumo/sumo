@@ -79,13 +79,13 @@ public:
     /// Returns the instance to add errors to
     static MsgHandler* getErrorInstance();
 
-    static void initOutputOptions(bool gui=false);
+    static void initOutputOptions(bool gui = false);
 
     /// Removes pending handler
     static void cleanupOnEnd();
 
     /// adds a new error to the list
-    void inform(std::string msg, bool addType=true);
+    void inform(std::string msg, bool addType = true);
 
     /** @brief Begins a process information
      *
@@ -94,7 +94,7 @@ public:
      *  a process message has been begun. If an error occurs, a newline will be printed.
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
-    void beginProcessMsg(std::string msg, bool addType=true);
+    void beginProcessMsg(std::string msg, bool addType = true);
 
     /// Ends a process information
     void endProcessMsg(std::string msg);
@@ -103,7 +103,7 @@ public:
      *
      * Writes the message and closes it with a (char) 13
      */
-    void progressMsg(std::string msg, bool addType=true);
+    void progressMsg(std::string msg, bool addType = true);
 
     /// Clears information whether an error occured previously
     void clear();
@@ -140,7 +140,7 @@ public:
             std::cerr << t;
         }
         // inform all other receivers
-        for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+        for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
             (*(*i)) << t;
         }
         return *this;
@@ -151,16 +151,16 @@ protected:
     inline std::string build(const std::string& msg, bool addType) {
         if (addType) {
             switch (myType) {
-            case MT_MESSAGE:
-                break;
-            case MT_WARNING:
-                return "Warning: " + msg;
-                break;
-            case MT_ERROR:
-                return "Error: " + msg;
-                break;
-            default:
-                break;
+                case MT_MESSAGE:
+                    break;
+                case MT_WARNING:
+                    return "Warning: " + msg;
+                    break;
+                case MT_ERROR:
+                    return "Error: " + msg;
+                    break;
+                default:
+                    break;
             }
         }
         return msg;

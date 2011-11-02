@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    rebuildConstants.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2009-07-24
 @version $Id$
 

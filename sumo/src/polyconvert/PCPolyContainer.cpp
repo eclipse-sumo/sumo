@@ -62,7 +62,7 @@ PCPolyContainer::insert(const std::string& id, Polygon* poly,
                         int layer, bool ignorePrunning) throw() {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne&&!ignorePrunning) {
+    if (myDoPrunne && !ignorePrunning) {
         Boundary b = poly->getShape().getBoxBoundary();
         if (!b.partialWithin(myPrunningBoundary)) {
             delete poly;
@@ -70,13 +70,13 @@ PCPolyContainer::insert(const std::string& id, Polygon* poly,
         }
     }
     // check whether the polygon was named to be a removed one
-    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id)!=myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
         delete poly;
         return true;
     }
     //
-    PolyCont::iterator i=myPolyCont.find(id);
-    if (i!=myPolyCont.end()) {
+    PolyCont::iterator i = myPolyCont.find(id);
+    if (i != myPolyCont.end()) {
         return false;
     }
     myPolyCont[id] = poly;
@@ -90,20 +90,20 @@ PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
                         int layer, bool ignorePrunning) throw() {
     // check whether the poi lies within the wished area
     //  - if such an area was given
-    if (myDoPrunne&&!ignorePrunning) {
+    if (myDoPrunne && !ignorePrunning) {
         if (!myPrunningBoundary.around(*poi)) {
             delete poi;
             return true;
         }
     }
     // check whether the polygon was named to be a removed one
-    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id)!=myRemoveByNames.end()) {
+    if (find(myRemoveByNames.begin(), myRemoveByNames.end(), id) != myRemoveByNames.end()) {
         delete poi;
         return true;
     }
     //
-    POICont::iterator i=myPOICont.find(id);
-    if (i!=myPOICont.end()) {
+    POICont::iterator i = myPOICont.find(id);
+    if (i != myPOICont.end()) {
         return false;
     }
     myPOICont[id] = poi;
@@ -114,20 +114,20 @@ PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
 
 bool
 PCPolyContainer::containsPolygon(const std::string& id) throw() {
-    return myPolyCont.find(id)!=myPolyCont.end();
+    return myPolyCont.find(id) != myPolyCont.end();
 }
 
 
 void
 PCPolyContainer::clear() throw() {
     // polys
-    for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); i++) {
+    for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); i++) {
         delete(*i).second;
     }
     myPolyCont.clear();
     myPolyLayerMap.clear();
     // pois
-    for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); i++) {
+    for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); i++) {
         delete(*i).second;
     }
     myPOICont.clear();
@@ -147,7 +147,7 @@ PCPolyContainer::save(const std::string& file) throw(IOError) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("shapes", " encoding=\"iso-8859-1\"");
     // write polygons
-    for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
+    for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
         out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
                             << "\" type=\"" << (*i).second->getType()
                             << "\" color=\"" << (*i).second->getColor()
@@ -157,7 +157,7 @@ PCPolyContainer::save(const std::string& file) throw(IOError) {
         out.closeTag(true);
     }
     // write pois
-    for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
+    for (POICont::iterator i = myPOICont.begin(); i != myPOICont.end(); ++i) {
         out.openTag("poi") << " id=\"" << StringUtils::escapeXML((*i).second->getID())
                            << "\" type=\"" << StringUtils::escapeXML((*i).second->getType())
                            << "\" color=\"" << *static_cast<RGBColor*>((*i).second)
@@ -172,7 +172,7 @@ PCPolyContainer::save(const std::string& file) throw(IOError) {
 
 int
 PCPolyContainer::getEnumIDFor(const std::string& key) throw() {
-    if (myIDEnums.find(key)==myIDEnums.end()) {
+    if (myIDEnums.find(key) == myIDEnums.end()) {
         myIDEnums[key] = 0;
         return 0;
     } else {

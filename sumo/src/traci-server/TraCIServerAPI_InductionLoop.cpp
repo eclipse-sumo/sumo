@@ -54,11 +54,11 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
-            &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
-            &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION
-            &&variable!=LAST_STEP_VEHICLE_DATA&&variable!=ID_COUNT
-            &&variable!=VAR_POSITION&&variable!=VAR_LANE_ID) {
+    if (variable != ID_LIST && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED
+            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY
+            && variable != LAST_STEP_LENGTH && variable != LAST_STEP_TIME_SINCE_DETECTION
+            && variable != LAST_STEP_VEHICLE_DATA && variable != ID_COUNT
+            && variable != VAR_POSITION && variable != VAR_LANE_ID) {
         server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Get Induction Loop Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -69,92 +69,92 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable==ID_LIST) {
+    if (variable == ID_LIST) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
-    } else if (variable==ID_COUNT) {
+    } else if (variable == ID_COUNT) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
         MSInductLoop* il = static_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-        if (il==0) {
+        if (il == 0) {
             server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
-        case ID_LIST:
-            break;
-        case LAST_STEP_VEHICLE_NUMBER:
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)(il->getCurrentPassedNumber()));
-            break;
-        case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(il->getCurrentSpeed());
-            break;
-        case LAST_STEP_VEHICLE_ID_LIST: {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            std::vector<std::string> ids = il->getCurrentVehicleIDs();
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        case LAST_STEP_OCCUPANCY:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(il->getCurrentOccupancy());
-            break;
-        case LAST_STEP_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(il->getCurrentLength());
-            break;
-        case LAST_STEP_TIME_SINCE_DETECTION:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(il->getTimestepsSinceLastDetection());
-            break;
-        case LAST_STEP_VEHICLE_DATA: {
-            std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
-            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            tcpip::Storage tempContent;
-            unsigned int cnt = 0;
-            tempContent.writeUnsignedByte(TYPE_INTEGER);
-            tempContent.writeInt((int) vd.size());
-            ++cnt;
-            for (unsigned int i=0; i<vd.size(); ++i) {
-                MSInductLoop::VehicleData& svd = vd[i];
-                tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(svd.idM);
-                ++cnt;
-                tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                tempContent.writeDouble(svd.lengthM);
-                ++cnt;
-                tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                tempContent.writeDouble(svd.entryTimeM);
-                ++cnt;
-                tempContent.writeUnsignedByte(TYPE_DOUBLE);
-                tempContent.writeDouble(svd.leaveTimeM);
-                ++cnt;
-                tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(svd.typeIDM);
-                ++cnt;
+            case ID_LIST:
+                break;
+            case LAST_STEP_VEHICLE_NUMBER:
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt((int)(il->getCurrentPassedNumber()));
+                break;
+            case LAST_STEP_MEAN_SPEED:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(il->getCurrentSpeed());
+                break;
+            case LAST_STEP_VEHICLE_ID_LIST: {
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                std::vector<std::string> ids = il->getCurrentVehicleIDs();
+                tempMsg.writeStringList(ids);
             }
+            break;
+            case LAST_STEP_OCCUPANCY:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(il->getCurrentOccupancy());
+                break;
+            case LAST_STEP_LENGTH:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(il->getCurrentLength());
+                break;
+            case LAST_STEP_TIME_SINCE_DETECTION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(il->getTimestepsSinceLastDetection());
+                break;
+            case LAST_STEP_VEHICLE_DATA: {
+                std::vector<MSInductLoop::VehicleData> vd = il->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
+                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                tcpip::Storage tempContent;
+                unsigned int cnt = 0;
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int) vd.size());
+                ++cnt;
+                for (unsigned int i = 0; i < vd.size(); ++i) {
+                    MSInductLoop::VehicleData& svd = vd[i];
+                    tempContent.writeUnsignedByte(TYPE_STRING);
+                    tempContent.writeString(svd.idM);
+                    ++cnt;
+                    tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                    tempContent.writeDouble(svd.lengthM);
+                    ++cnt;
+                    tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                    tempContent.writeDouble(svd.entryTimeM);
+                    ++cnt;
+                    tempContent.writeUnsignedByte(TYPE_DOUBLE);
+                    tempContent.writeDouble(svd.leaveTimeM);
+                    ++cnt;
+                    tempContent.writeUnsignedByte(TYPE_STRING);
+                    tempContent.writeString(svd.typeIDM);
+                    ++cnt;
+                }
 
-            tempMsg.writeInt((int) cnt);
-            tempMsg.writeStorage(tempContent);
-            break;
-        }
-        case VAR_POSITION:
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(il->getPosition());
-            break;
-        case VAR_LANE_ID:
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(il->getLane()->getID());
-            break;
-        default:
-            break;
+                tempMsg.writeInt((int) cnt);
+                tempMsg.writeStorage(tempContent);
+                break;
+            }
+            case VAR_POSITION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(il->getPosition());
+                break;
+            case VAR_LANE_ID:
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(il->getLane()->getID());
+                break;
+            default:
+                break;
         }
     }
     server.writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning, outputStorage);

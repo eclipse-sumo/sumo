@@ -58,12 +58,12 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) throw()
     const CrossSectionVector& entries = detector.getEntries();
     const CrossSectionVector& exits = detector.getExits();
     CrossSectionVectorConstIt i;
-    for (i=entries.begin(); i!=entries.end(); ++i) {
+    for (i = entries.begin(); i != entries.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i);
         myBoundary.add(def.myFGPosition);
         myEntryDefinitions.push_back(def);
     }
-    for (i=exits.begin(); i!=exits.end(); ++i) {
+    for (i = exits.begin(); i != exits.end(); ++i) {
         SingleCrossingDefinition def = buildDefinition(*i);
         myBoundary.add(def.myFGPosition);
         myExitDefinitions.push_back(def);
@@ -114,11 +114,11 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
-    for (i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); ++i) {
+    for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
     glColor3d(.8, 0, 0);
-    for (i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); ++i) {
+    for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
     glPopMatrix();

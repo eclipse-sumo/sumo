@@ -120,7 +120,7 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     std::vector<std::string> files = oc.getStringVector("itsumo-files");
     // load nodes, first
     Handler Handler(nb);
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
             WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
@@ -150,14 +150,14 @@ NIImporter_ITSUMO::Handler::~Handler() throw() {}
 void
 NIImporter_ITSUMO::Handler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case ITSUMO_TAG_NODE:
-        myParameter.clear();
-        break;
-    case ITSUMO_TAG_LANESET:
-        myParameter.clear();
-        break;
-    default:
-        break;
+        case ITSUMO_TAG_NODE:
+            myParameter.clear();
+            break;
+        case ITSUMO_TAG_LANESET:
+            myParameter.clear();
+            break;
+        default:
+            break;
     }
 }
 
@@ -166,48 +166,48 @@ void
 NIImporter_ITSUMO::Handler::myCharacters(int element, const std::string& chars) {
     std::string mc = StringUtils::prune(chars);
     switch (element) {
-        // node parsing
-    case ITSUMO_TAG_NODE_ID:
-        myParameter["id"] = mc;
-        break;
-    case ITSUMO_TAG_NODE_NAME:
-        myParameter["name"] = mc;
-        break;
-    case ITSUMO_TAG_X_COORD:
-        myParameter["x"] = mc;
-        break;
-    case ITSUMO_TAG_Y_COORD:
-        myParameter["y"] = mc;
-        break;
-        // section parsing
-    case ITSUMO_TAG_SECTION_ID:
-        myParameter["sectionID"] = mc;
-        break;
-        // laneset parsing
-    case ITSUMO_TAG_LANESET_ID:
-        myParameter["lanesetID"] = mc;
-        break;
-    case ITSUMO_TAG_LANESET_POSITION:
-        myParameter["pos"] = mc;
-        break;
-    case ITSUMO_TAG_START_NODE:
-        myParameter["from"] = mc;
-        break;
-    case ITSUMO_TAG_END_NODE:
-        myParameter["to"] = mc;
-        break;
-        // lane parsing
-    case ITSUMO_TAG_LANE_ID:
-        myParameter["laneID"] = mc;
-        break;
-    case ITSUMO_TAG_LANE_POSITION:
-        myParameter["i"] = mc;
-        break;
-    case ITSUMO_TAG_MAXIMUM_SPEED:
-        myParameter["v"] = mc;
-        break;
-    default:
-        break;
+            // node parsing
+        case ITSUMO_TAG_NODE_ID:
+            myParameter["id"] = mc;
+            break;
+        case ITSUMO_TAG_NODE_NAME:
+            myParameter["name"] = mc;
+            break;
+        case ITSUMO_TAG_X_COORD:
+            myParameter["x"] = mc;
+            break;
+        case ITSUMO_TAG_Y_COORD:
+            myParameter["y"] = mc;
+            break;
+            // section parsing
+        case ITSUMO_TAG_SECTION_ID:
+            myParameter["sectionID"] = mc;
+            break;
+            // laneset parsing
+        case ITSUMO_TAG_LANESET_ID:
+            myParameter["lanesetID"] = mc;
+            break;
+        case ITSUMO_TAG_LANESET_POSITION:
+            myParameter["pos"] = mc;
+            break;
+        case ITSUMO_TAG_START_NODE:
+            myParameter["from"] = mc;
+            break;
+        case ITSUMO_TAG_END_NODE:
+            myParameter["to"] = mc;
+            break;
+            // lane parsing
+        case ITSUMO_TAG_LANE_ID:
+            myParameter["laneID"] = mc;
+            break;
+        case ITSUMO_TAG_LANE_POSITION:
+            myParameter["i"] = mc;
+            break;
+        case ITSUMO_TAG_MAXIMUM_SPEED:
+            myParameter["v"] = mc;
+            break;
+        default:
+            break;
     }
 }
 
@@ -215,95 +215,95 @@ NIImporter_ITSUMO::Handler::myCharacters(int element, const std::string& chars) 
 void
 NIImporter_ITSUMO::Handler::myEndElement(int element) {
     switch (element) {
-    case ITSUMO_TAG_SIMULATION: {
-        for (std::vector<Section*>::iterator i=mySections.begin(); i!=mySections.end(); ++i) {
-            for (std::vector<LaneSet*>::iterator j=(*i)->myLaneSets.begin(); j!=(*i)->myLaneSets.end(); ++j) {
-                LaneSet* ls = (*j);
-                NBEdge* edge = new NBEdge(ls->myID, ls->myFrom, ls->myTo, "", ls->myV, (unsigned int)ls->myLanes.size(), -1, -1, -1);
-                if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                    delete edge;
-                    WRITE_ERROR("Could not add edge '" + ls->myID + "'. Probably declared twice.");
-                }
-                delete ls;
-            }
-            delete *i;
-        }
-    }
-    break;
-    case ITSUMO_TAG_NODE: {
-        try {
-            std::string id = myParameter["id"];
-            SUMOReal x = TplConvert<char>::_2SUMOReal(myParameter["x"].c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(myParameter["y"].c_str());
-            Position pos(x, y);
-            if (!NILoader::transformCoordinates(pos)) {
-                WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
-            }
-            NBNode* node = new NBNode(id, pos);
-            if (!myNetBuilder.getNodeCont().insert(node)) {
-                delete node;
-                WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
-            }
-        } catch (NumberFormatException&) {
-            WRITE_ERROR("Not numeric position information for node '" + myParameter["id"] + "'.");
-        } catch (EmptyData&) {
-            WRITE_ERROR("Missing data in node '" + myParameter["id"] + "'.");
-        }
-    }
-    break;
-    case ITSUMO_TAG_SECTION: {
-        mySections.push_back(new Section(myParameter["sectionID"], myCurrentLaneSets));
-        myCurrentLaneSets.clear();
-    }
-    break;
-    case ITSUMO_TAG_LANESET: {
-        try {
-            std::string id = myParameter["lanesetID"];
-            int i = TplConvert<char>::_2int(myParameter["i"].c_str());
-            std::string fromID = myParameter["from"];
-            std::string toID = myParameter["to"];
-            NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
-            NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
-            if (from==0||to==0) {
-                WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
-            } else {
-                if (myLaneSets.find(id)!=myLaneSets.end()) {
-                    WRITE_ERROR("Fond laneset-id '" + id + "' twice.");
-                } else {
-                    SUMOReal vSum = 0;
-                    for (std::vector<Lane>::iterator j=myCurrentLanes.begin(); j!=myCurrentLanes.end(); ++j) {
-                        vSum += (*j).myV;
+        case ITSUMO_TAG_SIMULATION: {
+            for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
+                for (std::vector<LaneSet*>::iterator j = (*i)->myLaneSets.begin(); j != (*i)->myLaneSets.end(); ++j) {
+                    LaneSet* ls = (*j);
+                    NBEdge* edge = new NBEdge(ls->myID, ls->myFrom, ls->myTo, "", ls->myV, (unsigned int)ls->myLanes.size(), -1, -1, -1);
+                    if (!myNetBuilder.getEdgeCont().insert(edge)) {
+                        delete edge;
+                        WRITE_ERROR("Could not add edge '" + ls->myID + "'. Probably declared twice.");
                     }
-                    vSum /= (SUMOReal) myCurrentLanes.size();
-                    LaneSet* ls = new LaneSet(id, myCurrentLanes, vSum, i, from, to);
-                    myLaneSets[id] = ls;
-                    myCurrentLaneSets.push_back(ls);
-                    myCurrentLanes.clear();
+                    delete ls;
                 }
+                delete *i;
             }
-        } catch (NumberFormatException&) {
-            WRITE_ERROR("Not numeric value in laneset '" + myParameter["lanesetID"] + "'.");
-        } catch (EmptyData&) {
-            WRITE_ERROR("Missing data in laneset '" + myParameter["lanesetID"] + "'.");
         }
-    }
-    break;
-    case ITSUMO_TAG_LANE: {
-        try {
-            std::string id = myParameter["laneID"];
-            int pos = TplConvert<char>::_2int(myParameter["pos"].c_str());
-            int i = TplConvert<char>::_2int(myParameter["i"].c_str());
-            SUMOReal v = TplConvert<char>::_2SUMOReal(myParameter["v"].c_str());
-            myCurrentLanes.push_back(Lane(id, (unsigned int) i, v));
-        } catch (NumberFormatException&) {
-            WRITE_ERROR("Not numeric value in lane '" + myParameter["laneID"] + "'.");
-        } catch (EmptyData&) {
-            WRITE_ERROR("Missing data in lane '" + myParameter["laneID"] + "'.");
-        }
-    }
-    break;
-    default:
         break;
+        case ITSUMO_TAG_NODE: {
+            try {
+                std::string id = myParameter["id"];
+                SUMOReal x = TplConvert<char>::_2SUMOReal(myParameter["x"].c_str());
+                SUMOReal y = TplConvert<char>::_2SUMOReal(myParameter["y"].c_str());
+                Position pos(x, y);
+                if (!NILoader::transformCoordinates(pos)) {
+                    WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
+                }
+                NBNode* node = new NBNode(id, pos);
+                if (!myNetBuilder.getNodeCont().insert(node)) {
+                    delete node;
+                    WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
+                }
+            } catch (NumberFormatException&) {
+                WRITE_ERROR("Not numeric position information for node '" + myParameter["id"] + "'.");
+            } catch (EmptyData&) {
+                WRITE_ERROR("Missing data in node '" + myParameter["id"] + "'.");
+            }
+        }
+        break;
+        case ITSUMO_TAG_SECTION: {
+            mySections.push_back(new Section(myParameter["sectionID"], myCurrentLaneSets));
+            myCurrentLaneSets.clear();
+        }
+        break;
+        case ITSUMO_TAG_LANESET: {
+            try {
+                std::string id = myParameter["lanesetID"];
+                int i = TplConvert<char>::_2int(myParameter["i"].c_str());
+                std::string fromID = myParameter["from"];
+                std::string toID = myParameter["to"];
+                NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
+                NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
+                if (from == 0 || to == 0) {
+                    WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
+                } else {
+                    if (myLaneSets.find(id) != myLaneSets.end()) {
+                        WRITE_ERROR("Fond laneset-id '" + id + "' twice.");
+                    } else {
+                        SUMOReal vSum = 0;
+                        for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {
+                            vSum += (*j).myV;
+                        }
+                        vSum /= (SUMOReal) myCurrentLanes.size();
+                        LaneSet* ls = new LaneSet(id, myCurrentLanes, vSum, i, from, to);
+                        myLaneSets[id] = ls;
+                        myCurrentLaneSets.push_back(ls);
+                        myCurrentLanes.clear();
+                    }
+                }
+            } catch (NumberFormatException&) {
+                WRITE_ERROR("Not numeric value in laneset '" + myParameter["lanesetID"] + "'.");
+            } catch (EmptyData&) {
+                WRITE_ERROR("Missing data in laneset '" + myParameter["lanesetID"] + "'.");
+            }
+        }
+        break;
+        case ITSUMO_TAG_LANE: {
+            try {
+                std::string id = myParameter["laneID"];
+                int pos = TplConvert<char>::_2int(myParameter["pos"].c_str());
+                int i = TplConvert<char>::_2int(myParameter["i"].c_str());
+                SUMOReal v = TplConvert<char>::_2SUMOReal(myParameter["v"].c_str());
+                myCurrentLanes.push_back(Lane(id, (unsigned int) i, v));
+            } catch (NumberFormatException&) {
+                WRITE_ERROR("Not numeric value in lane '" + myParameter["laneID"] + "'.");
+            } catch (EmptyData&) {
+                WRITE_ERROR("Missing data in lane '" + myParameter["laneID"] + "'.");
+            }
+        }
+        break;
+        default:
+            break;
     }
 }
 

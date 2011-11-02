@@ -88,13 +88,13 @@ public:
     SUMOReal getHeight() const;
 
     /// Returns whether the boundary contains the given coordinate
-    bool around(const Position& p, SUMOReal offset=0) const;
+    bool around(const Position& p, SUMOReal offset = 0) const;
 
     /// Returns whether the boundary overlaps with the given polygon
-    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset=0) const;
+    bool overlapsWith(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
     /// Returns whether the boundary is partially within the given polygon
-    bool partialWithin(const AbstractPoly& poly, SUMOReal offset=0) const;
+    bool partialWithin(const AbstractPoly& poly, SUMOReal offset = 0) const;
 
     /// Returns whether the boundary crosses the given line
     bool crosses(const Position& p1, const Position& p2) const;
@@ -123,7 +123,7 @@ public:
 
 private:
     /// The boundaries
-    SUMOReal myXmin,myXmax, myYmin, myYmax;
+    SUMOReal myXmin, myXmax, myYmin, myYmax;
 
     /// Information whether the boundary was initialised
     bool myWasInitialised;

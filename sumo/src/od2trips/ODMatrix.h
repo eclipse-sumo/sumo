@@ -283,7 +283,7 @@ protected:
                 }
                 return p1->origin < p2->origin;
             }
-            return p1->begin<p2->begin;
+            return p1->begin < p2->begin;
         }
 
     };
@@ -311,10 +311,10 @@ protected:
          * @return Whether the departure time of the first vehicle is larger than the one of the second
          */
         bool operator()(const ODVehicle& p1, const ODVehicle& p2) const {
-            if (p1.depart==p2.depart) {
-                return p1.id>p2.id;
+            if (p1.depart == p2.depart) {
+                return p1.id > p2.id;
             }
-            return p1.depart>p2.depart;
+            return p1.depart > p2.depart;
         }
 
     };

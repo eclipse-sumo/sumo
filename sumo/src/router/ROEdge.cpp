@@ -62,7 +62,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int ind
       myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
       myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
       myFromNode(from), myToNode(to), myInterpolate(interpolate) {
-    while (myEdges.size()<=index) {
+    while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }
     myEdges[index] = this;
@@ -70,7 +70,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int ind
 
 
 ROEdge::~ROEdge() throw() {
-    for (std::vector<ROLane*>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+    for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         delete(*i);
     }
 }
@@ -79,7 +79,7 @@ ROEdge::~ROEdge() throw() {
 void
 ROEdge::addLane(ROLane* lane) throw() {
     SUMOReal length = lane->getLength();
-    assert(myLength==-1||length==myLength);
+    assert(myLength == -1 || length == myLength);
     myLength = length;
     SUMOReal speed = lane->getSpeed();
     mySpeed = speed > mySpeed ? speed : mySpeed;
@@ -104,7 +104,7 @@ ROEdge::addLane(ROLane* lane) throw() {
 
 void
 ROEdge::addFollower(ROEdge* s) throw() {
-    if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s)==myFollowingEdges.end()) {
+    if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
     }
 }
@@ -139,14 +139,14 @@ SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const throw() {
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
-            WRITE_WARNING("No interval matches passed time "+ toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+            WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveTTWarned = true;
         }
         if (myInterpolate) {
             SUMOReal inTT = myTravelTimes.getValue(time);
             SUMOReal split = (SUMOReal)(myTravelTimes.getSplitTime(time, time + (SUMOTime)inTT) - time);
             if (split >= 0) {
-                return myTravelTimes.getValue(time + (SUMOTime)inTT) *((SUMOReal)1. - split / inTT) + split;
+                return myTravelTimes.getValue(time + (SUMOTime)inTT) * ((SUMOReal)1. - split / inTT) + split;
             }
         }
         return myTravelTimes.getValue(time);
@@ -162,7 +162,7 @@ ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -178,7 +178,7 @@ ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -194,7 +194,7 @@ ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -210,7 +210,7 @@ ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -226,7 +226,7 @@ ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -242,7 +242,7 @@ ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -258,7 +258,7 @@ ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const throw() 
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
         SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType()!=0) {
+        if (veh->getType() != 0) {
             v = MIN2(veh->getType()->maxSpeed, mySpeed);
             c = veh->getType()->emissionClass;
         }
@@ -273,7 +273,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const throw() {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
                 myHaveEWarned = true;
             }
             return false;
@@ -282,7 +282,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const throw() {
             SUMOReal inTT = myTravelTimes.getValue(time);
             SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
             if (ratio >= 0) {
-                ret = ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
+                ret = ratio * myEfforts.getValue(time) + (1 - ratio) * myEfforts.getValue(time + (SUMOTime)inTT);
                 return true;
             }
         }
@@ -295,7 +295,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const throw() {
 
 unsigned int
 ROEdge::getNoFollowing() const throw() {
-    if (getType()==ET_SINK) {
+    if (getType() == ET_SINK) {
         return 0;
     }
     return (unsigned int) myFollowingEdges.size();
@@ -310,21 +310,21 @@ ROEdge::setType(ROEdge::EdgeType type) throw() {
 
 bool
 ROEdge::prohibits(const ROVehicle* const vehicle) const throw() {
-    if (myAllowedClasses.size()==0&&myNotAllowedClasses.size()==0) {
+    if (myAllowedClasses.size() == 0 && myNotAllowedClasses.size() == 0) {
         return false;
     }
     // ok, vehicles with an unknown class may be only prohibited
     //  if the edge is limited to a set of classes
-    SUMOVehicleClass vclass = vehicle->getType()!=0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
-    if (vclass==SVC_UNKNOWN) {
+    SUMOVehicleClass vclass = vehicle->getType() != 0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
+    if (vclass == SVC_UNKNOWN) {
         return false;
     }
     // check whether it is explicitly disallowed
-    if (find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass)!=myNotAllowedClasses.end()) {
+    if (find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass) != myNotAllowedClasses.end()) {
         return true;
     }
     // check whether it is within the allowed classes
-    if (myAllowedClasses.size()==0||find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass)!=myAllowedClasses.end()) {
+    if (myAllowedClasses.size() == 0 || find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass) != myAllowedClasses.end()) {
         return false;
     }
     // ok, we have a set of allowed vehicle classes, but this vehicle's class
@@ -337,22 +337,22 @@ void
 ROEdge::buildTimeLines(const std::string& measure) throw() {
     if (myUsingETimeLine) {
         SUMOReal value = (SUMOReal)(myLength / mySpeed);
-        if (measure=="CO") {
+        if (measure == "CO") {
             value = HelpersHBEFA::computeCO(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if (measure=="CO2") {
+        if (measure == "CO2") {
             value = HelpersHBEFA::computeCO2(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if (measure=="HC") {
+        if (measure == "HC") {
             value = HelpersHBEFA::computeHC(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if (measure=="PMx") {
+        if (measure == "PMx") {
             value = HelpersHBEFA::computePMx(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if (measure=="NOx") {
+        if (measure == "NOx") {
             value = HelpersHBEFA::computeNOx(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if (measure=="fuel") {
+        if (measure == "fuel") {
             value = HelpersHBEFA::computeFuel(SVE_UNKNOWN, mySpeed, 0) * value;
         }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
@@ -366,7 +366,7 @@ ROEdge::buildTimeLines(const std::string& measure) throw() {
 
 bool
 ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const throw() {
-    for (std::vector<ROEdge*>::const_iterator i=myFollowingEdges.begin(); i!=myFollowingEdges.end(); ++i) {
+    for (std::vector<ROEdge*>::const_iterator i = myFollowingEdges.begin(); i != myFollowingEdges.end(); ++i) {
         if (!(*i)->prohibits(vehicle)) {
             return false;
         }
@@ -377,7 +377,7 @@ ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const throw() {
 
 ROEdge*
 ROEdge::dictionary(size_t id) throw() {
-    assert(myEdges.size()>id);
+    assert(myEdges.size() > id);
     return myEdges[id];
 }
 

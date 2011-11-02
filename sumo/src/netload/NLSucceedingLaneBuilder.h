@@ -94,7 +94,7 @@ public:
                      const std::string& viaID, SUMOReal pass,
 #endif
                      LinkDirection dir, LinkState state,
-                     const std::string& tlid="", unsigned int linkNo=0) throw(InvalidArgument);
+                     const std::string& tlid = "", unsigned int linkNo = 0) throw(InvalidArgument);
 
 
     /** @brief Ends the computation of a container holding the succeeding lanes of a lane

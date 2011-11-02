@@ -60,39 +60,39 @@ void
 ODDistrictHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_DISTRICT__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDistrict) {
-            myHaveWarnedAboutDeprecatedDistrict = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-        }
-    case SUMO_TAG_TAZ:
-        openDistrict(attrs);
-        break;
-    case SUMO_TAG_DSOURCE__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDSource) {
-            myHaveWarnedAboutDeprecatedDSource = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-        }
-    case SUMO_TAG_TAZSOURCE:
-        addSource(attrs);
-        break;
-    case SUMO_TAG_DSINK__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDSink) {
-            myHaveWarnedAboutDeprecatedDSink = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-        }
-    case SUMO_TAG_TAZSINK:
-        addSink(attrs);
-        break;
-    default:
-        break;
+        case SUMO_TAG_DISTRICT__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDistrict) {
+                myHaveWarnedAboutDeprecatedDistrict = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            }
+        case SUMO_TAG_TAZ:
+            openDistrict(attrs);
+            break;
+        case SUMO_TAG_DSOURCE__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDSource) {
+                myHaveWarnedAboutDeprecatedDSource = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            }
+        case SUMO_TAG_TAZSOURCE:
+            addSource(attrs);
+            break;
+        case SUMO_TAG_DSINK__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDSink) {
+                myHaveWarnedAboutDeprecatedDSink = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            }
+        case SUMO_TAG_TAZSINK:
+            addSink(attrs);
+            break;
+        default:
+            break;
     }
 }
 
 
 void
 ODDistrictHandler::myEndElement(int element) throw(ProcessError) {
-    if (element==SUMO_TAG_DISTRICT__DEPRECATED||element==SUMO_TAG_TAZ) {
+    if (element == SUMO_TAG_DISTRICT__DEPRECATED || element == SUMO_TAG_TAZ) {
         closeDistrict();
     }
 }
@@ -114,7 +114,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) throw() {
 void
 ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) throw() {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
-    if (vals.second>=0) {
+    if (vals.second >= 0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
     }
 }
@@ -123,7 +123,7 @@ ODDistrictHandler::addSource(const SUMOSAXAttributes& attrs) throw() {
 void
 ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) throw() {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs);
-    if (vals.second>=0) {
+    if (vals.second >= 0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
     }
 }
@@ -133,7 +133,7 @@ ODDistrictHandler::addSink(const SUMOSAXAttributes& attrs) throw() {
 std::pair<std::string, SUMOReal>
 ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) throw() {
     // check the current district first
-    if (myCurrentDistrict==0) {
+    if (myCurrentDistrict == 0) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id, report an error if not given or empty...
@@ -145,7 +145,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) throw() {
     // get the weight
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
-        if (weight<0) {
+        if (weight < 0) {
             WRITE_ERROR("'probability' must be positive (in definition of " +
                         attrs.getObjectType() + " '" + id + "').");
         } else {
@@ -158,7 +158,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes& attrs) throw() {
 
 void
 ODDistrictHandler::closeDistrict() throw() {
-    if (myCurrentDistrict!=0) {
+    if (myCurrentDistrict != 0) {
         myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
     }
 }

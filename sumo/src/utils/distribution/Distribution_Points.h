@@ -47,7 +47,7 @@ class Distribution_Points :
 public:
     /// Constructor
     Distribution_Points(const std::string& id,
-                        const PositionVector& points, bool interpolating=false) throw();
+                        const PositionVector& points, bool interpolating = false) throw();
 
     /// Destructor
     virtual ~Distribution_Points() throw();

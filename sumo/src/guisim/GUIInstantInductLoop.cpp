@@ -82,8 +82,8 @@ GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector,
     myFGPosition = v.positionAtLengthPosition(pos);
     Line l(v.getBegin(), v.getEnd());
     SUMOReal sgPos = pos / v.length() * l.length();
-    myBoundary.add(myFGPosition.x()+(SUMOReal) 5.5, myFGPosition.y()+(SUMOReal) 5.5);
-    myBoundary.add(myFGPosition.x()-(SUMOReal) 5.5, myFGPosition.y()-(SUMOReal) 5.5);
+    myBoundary.add(myFGPosition.x() + (SUMOReal) 5.5, myFGPosition.y() + (SUMOReal) 5.5);
+    myBoundary.add(myFGPosition.x() - (SUMOReal) 5.5, myFGPosition.y() - (SUMOReal) 5.5);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
 }
 
@@ -128,23 +128,23 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(s.addExaggeration, s.addExaggeration, 1);
     glBegin(GL_QUADS);
-    glVertex2d(0-1.0, 2);
+    glVertex2d(0 - 1.0, 2);
     glVertex2d(-1.0, -2);
     glVertex2d(1.0, -2);
     glVertex2d(1.0, 2);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
-    glVertex2d(0, 2-.1);
-    glVertex2d(0, -2+.1);
+    glVertex2d(0, 2 - .1);
+    glVertex2d(0, -2 + .1);
     glEnd();
 
     // outline
-    if (width*s.addExaggeration>1) {
+    if (width * s.addExaggeration > 1) {
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0-1.0, 2);
+        glVertex2f(0 - 1.0, 2);
         glVertex2f(-1.0, -2);
         glVertex2f(1.0, -2);
         glVertex2f(1.0, 2);
@@ -153,7 +153,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     }
 
     // position indicator
-    if (width*s.addExaggeration>1) {
+    if (width * s.addExaggeration > 1) {
         glRotated(90, 0, 0, -1);
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);

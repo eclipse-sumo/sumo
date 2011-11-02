@@ -54,9 +54,9 @@ NIVissimNodeParticipatingEdge::getID() const {
 bool
 NIVissimNodeParticipatingEdge::positionLiesWithin(SUMOReal pos) const {
     return
-        (myFromPos<myToPos && myFromPos>=pos && myToPos<=pos)
+        (myFromPos < myToPos && myFromPos >= pos && myToPos <= pos)
         ||
-        (myFromPos>myToPos && myFromPos<=pos && myToPos>=pos);
+        (myFromPos > myToPos && myFromPos <= pos && myToPos >= pos);
 }
 
 SUMOReal

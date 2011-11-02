@@ -122,7 +122,7 @@ AGHousehold::regenerate() {
     //only allocation of work or school to people will change
     std::list<AGChild>::iterator itC;
     std::list<AGAdult>::iterator itA;
-    for (itC=children.begin() ; itC != children.end() ; ++itC) {
+    for (itC = children.begin() ; itC != children.end() ; ++itC) {
         if (itC->haveASchool()) {
             if (itC->leaveSchool()) {
                 itC->alocateASchool(&(myCity->schools), getPosition());
@@ -131,13 +131,13 @@ AGHousehold::regenerate() {
             itC->alocateASchool(&(myCity->schools), getPosition());
         }
     }
-    for (itA=adults.begin() ; itA!=adults.end() ; ++itA) {
+    for (itA = adults.begin() ; itA != adults.end() ; ++itA) {
         if (itA->isWorking()) {
             itA->resignFromWorkPosition();
         }
 
         if (myCity->statData.workPositions > 0) {
-            itA->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
+            itA->tryToWork(1 - myCity->statData.unemployement, &(myCity->workPositions));
 
         } else {
             std::cout << "Not enough work positions in AGHousehold::regenerate. Should not happen!" << std::endl;
@@ -161,13 +161,13 @@ AGHousehold::allocateChildrenSchool() {
 bool
 AGHousehold::allocateAdultsWork() {
     std::list<AGAdult>::iterator it;
-    for (it=adults.begin() ; it!=adults.end() ; ++it) {
+    for (it = adults.begin() ; it != adults.end() ; ++it) {
         if (myCity->statData.workPositions <= 0) {
             std::cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << std::endl;
             return false;
 
         } else {
-            it->tryToWork(1-myCity->statData.unemployement, &(myCity->workPositions));
+            it->tryToWork(1 - myCity->statData.unemployement, &(myCity->workPositions));
         }
     }
     return true;
@@ -175,7 +175,7 @@ AGHousehold::allocateAdultsWork() {
 
 bool
 AGHousehold::decisionProba(SUMOReal p) {
-    return (RandHelper::rand()<p);
+    return (RandHelper::rand() < p);
 }
 
 AGPosition

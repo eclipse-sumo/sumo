@@ -69,7 +69,7 @@ public:
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
     ROTypedXMLRoutesLoader(RONet& net,
-                           SUMOTime begin, SUMOTime end, const std::string& file="") throw(ProcessError);
+                           SUMOTime begin, SUMOTime end, const std::string& file = "") throw(ProcessError);
 
 
     /// @brief Destructor

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    10to11.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2009-06-09
 @version $Id$
 

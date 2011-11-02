@@ -102,18 +102,18 @@ void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
     const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / myLaneLength);
-    dev << "\" CO_abs=\""<<OutputDevice::realString(CO*1000., 6) <<
-        "\" CO2_abs=\""<<OutputDevice::realString(CO2*1000., 6) <<
-        "\" HC_abs=\""<<OutputDevice::realString(HC*1000., 6) <<
-        "\" PMx_abs=\""<<OutputDevice::realString(PMx*1000., 6) <<
-        "\" NOx_abs=\""<<OutputDevice::realString(NOx*1000., 6) <<
-        "\" fuel_abs=\""<<OutputDevice::realString(fuel*1000., 6) <<
-        "\"\n            CO_normed=\""<<OutputDevice::realString(normFactor * CO, 6) <<
-        "\" CO2_normed=\""<<OutputDevice::realString(normFactor * CO2, 6)<<
-        "\" HC_normed=\""<<OutputDevice::realString(normFactor * HC, 6) <<
-        "\" PMx_normed=\""<<OutputDevice::realString(normFactor * PMx, 6) <<
-        "\" NOx_normed=\""<<OutputDevice::realString(normFactor * NOx, 6) <<
-        "\" fuel_normed=\""<<OutputDevice::realString(normFactor * fuel, 6);
+    dev << "\" CO_abs=\"" << OutputDevice::realString(CO * 1000., 6) <<
+        "\" CO2_abs=\"" << OutputDevice::realString(CO2 * 1000., 6) <<
+        "\" HC_abs=\"" << OutputDevice::realString(HC * 1000., 6) <<
+        "\" PMx_abs=\"" << OutputDevice::realString(PMx * 1000., 6) <<
+        "\" NOx_abs=\"" << OutputDevice::realString(NOx * 1000., 6) <<
+        "\" fuel_abs=\"" << OutputDevice::realString(fuel * 1000., 6) <<
+        "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * CO, 6) <<
+        "\" CO2_normed=\"" << OutputDevice::realString(normFactor * CO2, 6) <<
+        "\" HC_normed=\"" << OutputDevice::realString(normFactor * HC, 6) <<
+        "\" PMx_normed=\"" << OutputDevice::realString(normFactor * PMx, 6) <<
+        "\" NOx_normed=\"" << OutputDevice::realString(normFactor * NOx, 6) <<
+        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * fuel, 6);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -121,15 +121,15 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
-        dev<<"\"\n            traveltime=\"" << OutputDevice::realString(traveltime)<<
-           "\" CO_perVeh=\""<<OutputDevice::realString(CO*vehFactor, 6)<<
-           "\" CO2_perVeh=\""<<OutputDevice::realString(CO2*vehFactor, 6)<<
-           "\" HC_perVeh=\""<<OutputDevice::realString(HC*vehFactor, 6)<<
-           "\" PMx_perVeh=\""<<OutputDevice::realString(PMx*vehFactor, 6)<<
-           "\" NOx_perVeh=\""<<OutputDevice::realString(NOx*vehFactor, 6)<<
-           "\" fuel_perVeh=\""<<OutputDevice::realString(fuel*vehFactor, 6);
+        dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
+            "\" CO_perVeh=\"" << OutputDevice::realString(CO * vehFactor, 6) <<
+            "\" CO2_perVeh=\"" << OutputDevice::realString(CO2 * vehFactor, 6) <<
+            "\" HC_perVeh=\"" << OutputDevice::realString(HC * vehFactor, 6) <<
+            "\" PMx_perVeh=\"" << OutputDevice::realString(PMx * vehFactor, 6) <<
+            "\" NOx_perVeh=\"" << OutputDevice::realString(NOx * vehFactor, 6) <<
+            "\" fuel_perVeh=\"" << OutputDevice::realString(fuel * vehFactor, 6);
     }
-    dev<<"\"/>\n";
+    dev << "\"/>\n";
 }
 
 

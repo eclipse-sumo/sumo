@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    osmGet.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2009-08-01
 @version $Id$
 

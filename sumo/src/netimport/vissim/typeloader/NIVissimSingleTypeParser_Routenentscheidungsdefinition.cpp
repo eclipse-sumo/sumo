@@ -50,13 +50,13 @@ NIVissimSingleTypeParser_Routenentscheidungsdefinition::~NIVissimSingleTypeParse
 bool
 NIVissimSingleTypeParser_Routenentscheidungsdefinition::parse(std::istream& from) {
     std::string tag;
-    while (tag!="fahrzeugklassen") {
+    while (tag != "fahrzeugklassen") {
         tag = myRead(from);
     }
     do {
-        while (tag!="DATAEND"||tag=="route") {
-            if (tag=="route") {
-                while (tag!="strecke") {
+        while (tag != "DATAEND" || tag == "route") {
+            if (tag == "route") {
+                while (tag != "strecke") {
                     tag = myRead(from);
                 }
                 tag = readEndSecure(from);
@@ -64,10 +64,10 @@ NIVissimSingleTypeParser_Routenentscheidungsdefinition::parse(std::istream& from
                 tag = readEndSecure(from);
             }
         }
-        if (tag!="DATAEND") {
+        if (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
-    } while (tag!="DATAEND");
+    } while (tag != "DATAEND");
     return true;
 }
 

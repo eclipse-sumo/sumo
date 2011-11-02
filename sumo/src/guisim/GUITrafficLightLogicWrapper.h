@@ -130,13 +130,13 @@ public:
         ~GUITrafficLightLogicWrapperPopupMenu() throw();
 
         /// Called if the phases shall be shown
-        long onCmdShowPhases(FXObject*,FXSelector,void*);
+        long onCmdShowPhases(FXObject*, FXSelector, void*);
 
         /// Called if the phases shall be begun to track
-        long onCmdBegin2TrackPhases(FXObject*,FXSelector,void*);
+        long onCmdBegin2TrackPhases(FXObject*, FXSelector, void*);
 
-        long onCmdSwitchTLS2Off(FXObject*,FXSelector,void*);
-        long onCmdSwitchTLSLogic(FXObject*,FXSelector,void*);
+        long onCmdSwitchTLS2Off(FXObject*, FXSelector, void*);
+        long onCmdSwitchTLSLogic(FXObject*, FXSelector, void*);
 
     protected:
         /// protected constructor for FOX

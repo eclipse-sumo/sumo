@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    poi_atTLS.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2010-02-20
 @version $Id$
 

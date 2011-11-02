@@ -66,7 +66,7 @@ XMLSubSys::init(bool enableValidation) throw(ProcessError) {
 
 void
 XMLSubSys::close() throw() {
-    for (std::vector<SAX2XMLReader*>::iterator i=myReaders.begin(); i!=myReaders.end(); ++i) {
+    for (std::vector<SAX2XMLReader*>::iterator i = myReaders.begin(); i != myReaders.end(); ++i) {
         delete *i;
     }
     myReaders.clear();
@@ -77,7 +77,7 @@ XMLSubSys::close() throw() {
 SAX2XMLReader*
 XMLSubSys::getSAXReader(SUMOSAXHandler& handler) throw() {
     SAX2XMLReader* reader = getSAXReader();
-    if (reader==0) {
+    if (reader == 0) {
         return 0;
     }
     reader->setContentHandler(&handler);
@@ -88,8 +88,8 @@ XMLSubSys::getSAXReader(SUMOSAXHandler& handler) throw() {
 
 void
 XMLSubSys::setHandler(GenericSAXHandler& handler) {
-    myReaders[myNextFreeReader-1]->setContentHandler(&handler);
-    myReaders[myNextFreeReader-1]->setErrorHandler(&handler);
+    myReaders[myNextFreeReader - 1]->setContentHandler(&handler);
+    myReaders[myNextFreeReader - 1]->setErrorHandler(&handler);
 }
 
 
@@ -104,11 +104,11 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
         setHandler(handler);
         std::string prevFile = handler.getFileName();
         handler.setFileName(file);
-        myReaders[myNextFreeReader-1]->parse(file.c_str());
+        myReaders[myNextFreeReader - 1]->parse(file.c_str());
         handler.setFileName(prevFile);
         myNextFreeReader--;
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         return false;
@@ -123,7 +123,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
 SAX2XMLReader*
 XMLSubSys::getSAXReader() throw() {
     SAX2XMLReader* reader = XMLReaderFactory::createXMLReader();
-    if (reader==0) {
+    if (reader == 0) {
         WRITE_ERROR("The XML-parser could not be build");
         return 0;
     }

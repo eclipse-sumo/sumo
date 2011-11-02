@@ -72,12 +72,12 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream& from) {
     IntVector districts;
     DoubleVector percentages;
     readUntil(from, "bezirke"); // "Bezirke"
-    while (tag!="ort") {
+    while (tag != "ort") {
         SUMOReal perc = -1;
         int districtid;
         from >> districtid;
         tag = myRead(from);
-        if (tag=="anteil") {
+        if (tag == "anteil") {
             from >> perc;
         }
         districts.push_back(districtid);
@@ -101,13 +101,13 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream& from) {
     from >> tag; // "Kapazität"-value
 
     tag = myRead(from);
-    if (tag=="belegung") {
+    if (tag == "belegung") {
         from >> tag;
         tag = myRead(from); // "fahrzeugklasse"
     }
 
     std::vector<std::pair<int, int> > assignedVehicles;
-    while (tag!="default") {
+    while (tag != "default") {
         int vclass;
         from >> vclass;
         from >> tag; // "vwunsch"

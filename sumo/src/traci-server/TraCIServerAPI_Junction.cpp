@@ -55,7 +55,7 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=VAR_POSITION&&variable!=ID_COUNT) {
+    if (variable != ID_LIST && variable != VAR_POSITION && variable != ID_COUNT) {
         server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Get Junction Variable: unsupported variable specified", outputStorage);
         return false;
     }
@@ -65,32 +65,32 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     tempMsg.writeUnsignedByte(RESPONSE_GET_JUNCTION_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if (variable==ID_LIST) {
+    if (variable == ID_LIST) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getJunctionControl().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
-    } else if (variable==ID_COUNT) {
+    } else if (variable == ID_COUNT) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getJunctionControl().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_INTEGER);
         tempMsg.writeInt((int) ids.size());
     } else {
         MSJunction* j = MSNet::getInstance()->getJunctionControl().get(id);
-        if (j==0) {
+        if (j == 0) {
             server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Junction '" + id + "' is not known", outputStorage);
             return false;
         }
         switch (variable) {
-        case ID_LIST:
-            break;
-        case VAR_POSITION:
-            tempMsg.writeUnsignedByte(POSITION_2D);
-            tempMsg.writeDouble(j->getPosition().x());
-            tempMsg.writeDouble(j->getPosition().y());
-            break;
-        default:
-            break;
+            case ID_LIST:
+                break;
+            case VAR_POSITION:
+                tempMsg.writeUnsignedByte(POSITION_2D);
+                tempMsg.writeDouble(j->getPosition().x());
+                tempMsg.writeDouble(j->getPosition().y());
+                break;
+            default:
+                break;
         }
     }
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);

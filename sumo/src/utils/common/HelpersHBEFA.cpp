@@ -159,90 +159,90 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 SUMOReal
 HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+CO_OFFSET,v,a);
+    return (SUMOReal) computeUsing(getParameterForClass(c) + CO_OFFSET, v, a);
 }
 
 
 SUMOReal
 HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+CO2_OFFSET,v,a);
+    return (SUMOReal) computeUsing(getParameterForClass(c) + CO2_OFFSET, v, a);
 }
 
 
 SUMOReal
 HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+HC_OFFSET,v,a);
+    return (SUMOReal) computeUsing(getParameterForClass(c) + HC_OFFSET, v, a);
 }
 
 
 SUMOReal
 HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+NOx_OFFSET,v,a);
+    return (SUMOReal) computeUsing(getParameterForClass(c) + NOx_OFFSET, v, a);
 }
 
 
 SUMOReal
 HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+PMx_OFFSET,v,a);
+    return (SUMOReal) computeUsing(getParameterForClass(c) + PMx_OFFSET, v, a);
 }
 
 
 SUMOReal
 HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw() {
     switch (c) {
-    case SVE_ZERO_EMISSIONS:
-        return 0;
-    case SVE_UNKNOWN:
-        c = SVE_P_LDV_7_7;
-        break;
-    default:
-        break;
+        case SVE_ZERO_EMISSIONS:
+            return 0;
+        case SVE_UNKNOWN:
+            c = SVE_P_LDV_7_7;
+            break;
+        default:
+            break;
     }
-    return (SUMOReal)(computeUsing(getParameterForClass(c)+FUEL_OFFSET,v,a) / 790.);
+    return (SUMOReal)(computeUsing(getParameterForClass(c) + FUEL_OFFSET, v, a) / 790.);
 }
 
 

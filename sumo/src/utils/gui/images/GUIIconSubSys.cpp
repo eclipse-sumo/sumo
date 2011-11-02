@@ -213,8 +213,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
 
     // ... and create them
-    for (int i=0; i<ICON_MAX; i++) {
-        if (myIcons[i]!=0) {
+    for (int i = 0; i < ICON_MAX; i++) {
+        if (myIcons[i] != 0) {
             myIcons[i]->create();
         }
     }
@@ -222,7 +222,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
 
 GUIIconSubSys::~GUIIconSubSys() {
-    for (int i=0; i<ICON_MAX; i++) {
+    for (int i = 0; i < ICON_MAX; i++) {
         delete myIcons[i];
     }
 }
@@ -230,7 +230,7 @@ GUIIconSubSys::~GUIIconSubSys() {
 
 void
 GUIIconSubSys::init(FXApp* a) {
-    assert(myInstance==0);
+    assert(myInstance == 0);
     myInstance = new GUIIconSubSys(a);
 }
 

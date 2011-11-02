@@ -101,7 +101,7 @@ public:
      * @param[in] numericalID The numerical id (index) of the edge
      * @param[in] streetName The street name for that edge
      */
-    MSEdge(const std::string& id, unsigned int numericalID, const std::string& streetName="") throw();
+    MSEdge(const std::string& id, unsigned int numericalID, const std::string& streetName = "") throw();
 
 
     /// @brief Destructor.
@@ -160,7 +160,7 @@ public:
      * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
      */
     const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
-            SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
+            SUMOVehicleClass vclass = SVC_UNKNOWN) const throw();
 
 
     /** @brief Get the allowed lanes for the given vehicle class.
@@ -170,7 +170,7 @@ public:
      * @param[in] vclass The vehicle class for which this information shall be returned
      * @return The lanes that may be used by the given vclass
      */
-    const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
+    const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass = SVC_UNKNOWN) const throw();
     /// @}
 
 
@@ -256,7 +256,7 @@ public:
      * @return Whether no vehicle shall be on this edge
      */
     bool isVaporizing() const throw() {
-        return myVaporizationRequests>0;
+        return myVaporizationRequests > 0;
     }
 
 
@@ -438,7 +438,7 @@ protected:
 
         /// @brief comparing operator
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const {
-            return e1->getID()<e2->getID();
+            return e1->getID() < e2->getID();
         }
 
     };
@@ -453,7 +453,7 @@ protected:
      * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
      */
     const std::vector<MSLane*>* allowedLanes(const MSEdge* destination,
-            SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
+            SUMOVehicleClass vclass = SVC_UNKNOWN) const throw();
 
 protected:
     /// @brief Unique ID.

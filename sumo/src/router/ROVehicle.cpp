@@ -58,13 +58,13 @@ ROVehicle::~ROVehicle() throw() {}
 
 
 void
-ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevice& os,
+ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDevice& os,
                         OutputDevice* const altos, bool withExitTimes) const throw(IOError) {
     // check whether the vehicle's type was saved before
-    if (myType!=0&&!myType->saved) {
+    if (myType != 0 && !myType->saved) {
         // ... save if not
         myType->write(os);
-        if (altos!=0) {
+        if (altos != 0) {
             myType->write(*altos);
         }
         myType->saved = true;
@@ -72,19 +72,19 @@ ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevi
 
     // write the vehicle (new style, with included routes)
     myParameter.writeAs("vehicle", os, OptionsCont::getOptions());
-    if (altos!=0) {
+    if (altos != 0) {
         myParameter.writeAs("vehicle", *altos, OptionsCont::getOptions());
     }
 
     // check whether the route shall be saved
     if (!myRoute->isSaved()) {
         myRoute->writeXMLDefinition(router, os, this, false, withExitTimes);
-        if (altos!=0) {
+        if (altos != 0) {
             myRoute->writeXMLDefinition(router, *altos, this, true, withExitTimes);
         }
     }
     os.closeTag();
-    if (altos!=0) {
+    if (altos != 0) {
         altos->closeTag();
     }
 }

@@ -67,14 +67,14 @@ bool
 MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw() {
     if (myStopped) {
         if (!veh.isStopped()) {
-            for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+            for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
                 (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             }
             myStopped = false;
         }
     } else {
         if (veh.isStopped()) {
-            for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end();) {
+            for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end();) {
                 if (&(*i)->getDestination() == veh.getEdge()) {
                     (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
                     i = myPersons.erase(i);
@@ -92,7 +92,7 @@ MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*ne
 bool
 MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+        for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
         }
     }
@@ -104,7 +104,7 @@ bool
 MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                              MSMoveReminder::Notification reason) throw() {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        for (std::vector<MSPerson*>::iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+        for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             if (&(*i)->getDestination() != veh.getEdge()) {
                 WRITE_WARNING("Teleporting person '" + (*i)->getID() +
                               "' from vehicle destination '" + veh.getEdge()->getID() +

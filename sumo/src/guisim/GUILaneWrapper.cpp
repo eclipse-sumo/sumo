@@ -86,20 +86,20 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
     SUMOReal x2 = shape[-1].x();
     SUMOReal y2 = shape[-1].y();
     // also the virtual length is set in here
-    myVisLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    myVisLength = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     // check maximum speed
-    if (myAllMaxSpeed<lane.getMaxSpeed()) {
+    if (myAllMaxSpeed < lane.getMaxSpeed()) {
         myAllMaxSpeed = lane.getMaxSpeed();
     }
     //
-    myShapeRotations.reserve(myShape.size()-1);
-    myShapeLengths.reserve(myShape.size()-1);
+    myShapeRotations.reserve(myShape.size() - 1);
+    myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
-    for (int i=0; i<e; ++i) {
+    for (int i = 0; i < e; ++i) {
         const Position& f = myShape[i];
-        const Position& s = myShape[i+1];
+        const Position& s = myShape[i + 1];
         myShapeLengths.push_back(f.distanceTo(s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
     }
     //
     myHalfLaneWidth = (SUMOReal)(myLane.getWidth() / 2.);
@@ -118,7 +118,7 @@ GUILaneWrapper::getOverallMaxSpeed() {
 
 bool
 GUILaneWrapper::forLane(const MSLane& lane) const {
-    return (&myLane)==(&lane);
+    return (&myLane) == (&lane);
 }
 
 
@@ -126,7 +126,7 @@ GUILaneWrapper::forLane(const MSLane& lane) const {
 void
 GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     unsigned int noLinks = getLinkNumber();
-    if (noLinks==0) {
+    if (noLinks == 0) {
         return;
     }
     // draw all links
@@ -137,13 +137,13 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     const Position& end = g.getEnd();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
+    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i=0; i<noLinks; ++i) {
-        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
+    for (unsigned int i = 0; i < noLinks; ++i) {
+        SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
-                           Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
+                           Position(x2, .1), 0, 1, RGBColor(.5, .5, 1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -153,7 +153,7 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
 void
 GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
     unsigned int noLinks = getLinkNumber();
-    if (noLinks==0) {
+    if (noLinks == 0) {
         return;
     }
     // draw all links
@@ -164,17 +164,17 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
     const Position& end = g.getEnd();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
+    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i=0; i<noLinks; ++i) {
-        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
+    for (unsigned int i = 0; i < noLinks; ++i) {
+        SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         int linkNo = net.getLinkTLIndex(getLane().getLinkCont()[i]);
-        if (linkNo<0) {
+        if (linkNo < 0) {
             continue;
         }
         GLHelper::drawText(toString(linkNo),
-                           Position(x2, .1), 0, 1, RGBColor(.5,.5,1), 180);
+                           Position(x2, .1), 0, 1, RGBColor(.5, .5, 1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -188,8 +188,8 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
     const Position& end = g.getEnd();
     const Position& f = g[-2];
     const Position& s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
-    if (noLinks==0) {
+    SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    if (noLinks == 0) {
         glPushName(getGlID());
         // draw a grey bar if no links are on the street
         glColor3d(0.5, 0.5, 0.5);
@@ -212,64 +212,64 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i=0; i<noLinks; ++i) {
+    for (unsigned int i = 0; i < noLinks; ++i) {
         SUMOReal x2 = x1 + w;
         MSLink* link = getLane().getLinkCont()[i];
         // select glID
         switch (link->getState()) {
-        case LINKSTATE_TL_GREEN_MAJOR:
-        case LINKSTATE_TL_GREEN_MINOR:
-        case LINKSTATE_TL_RED:
-        case LINKSTATE_TL_YELLOW_MAJOR:
-        case LINKSTATE_TL_YELLOW_MINOR:
-        case LINKSTATE_TL_OFF_BLINKING:
-            glPushName(net.getLinkTLID(link));
-            break;
-        case LINKSTATE_MAJOR:
-        case LINKSTATE_MINOR:
-        case LINKSTATE_EQUAL:
-        case LINKSTATE_TL_OFF_NOSIGNAL:
-        default:
-            glPushName(getGlID());
-            break;
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
+            case LINKSTATE_TL_RED:
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
+            case LINKSTATE_TL_OFF_BLINKING:
+                glPushName(net.getLinkTLID(link));
+                break;
+            case LINKSTATE_MAJOR:
+            case LINKSTATE_MINOR:
+            case LINKSTATE_EQUAL:
+            case LINKSTATE_TL_OFF_NOSIGNAL:
+            default:
+                glPushName(getGlID());
+                break;
         }
         // select color
         switch (link->getState()) {
-        case LINKSTATE_TL_GREEN_MAJOR:
-        case LINKSTATE_TL_GREEN_MINOR:
-            glColor3d(0, 1, 0);
-            break;
-        case LINKSTATE_TL_RED:
-            glColor3d(1, 0, 0);
-            break;
-        case LINKSTATE_TL_YELLOW_MAJOR:
-        case LINKSTATE_TL_YELLOW_MINOR:
-            glColor3d(1, 1, 0);
-            break;
-        case LINKSTATE_TL_OFF_BLINKING:
-            glColor3d(.7, .7, 0);
-            break;
-        case LINKSTATE_TL_OFF_NOSIGNAL:
-            glColor3d(0, 1, 1);
-            break;
-        case LINKSTATE_MAJOR:
-            glColor3d(1, 1, 1);
-            break;
-        case LINKSTATE_MINOR:
-            glColor3d(.2, .2, .2);
-            break;
-        case LINKSTATE_EQUAL:
-            glColor3d(.5, .5, .5);
-            break;
-        case LINKSTATE_DEADEND:
-            glColor3d(0, 0, 0);
-            break;
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
+                glColor3d(0, 1, 0);
+                break;
+            case LINKSTATE_TL_RED:
+                glColor3d(1, 0, 0);
+                break;
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
+                glColor3d(1, 1, 0);
+                break;
+            case LINKSTATE_TL_OFF_BLINKING:
+                glColor3d(.7, .7, 0);
+                break;
+            case LINKSTATE_TL_OFF_NOSIGNAL:
+                glColor3d(0, 1, 1);
+                break;
+            case LINKSTATE_MAJOR:
+                glColor3d(1, 1, 1);
+                break;
+            case LINKSTATE_MINOR:
+                glColor3d(.2, .2, .2);
+                break;
+            case LINKSTATE_EQUAL:
+                glColor3d(.5, .5, .5);
+                break;
+            case LINKSTATE_DEADEND:
+                glColor3d(0, 0, 0);
+                break;
         }
         glBegin(GL_QUADS);
-        glVertex2d(x1-myHalfLaneWidth, 0.0);
-        glVertex2d(x1-myHalfLaneWidth, 0.5);
-        glVertex2d(x2-myHalfLaneWidth, 0.5);
-        glVertex2d(x2-myHalfLaneWidth,0.0);
+        glVertex2d(x1 - myHalfLaneWidth, 0.0);
+        glVertex2d(x1 - myHalfLaneWidth, 0.5);
+        glVertex2d(x2 - myHalfLaneWidth, 0.5);
+        glVertex2d(x2 - myHalfLaneWidth, 0.0);
         glEnd();
         glPopName();
         x1 = x2;
@@ -282,55 +282,55 @@ GUILaneWrapper::ROWdrawAction_drawLinkRules(const GUINet& net) const {
 void
 GUILaneWrapper::ROWdrawAction_drawArrows() const {
     unsigned int noLinks = getLinkNumber();
-    if (noLinks==0) {
+    if (noLinks == 0) {
         return;
     }
     // draw all links
     const Position& end = getShape().getEnd();
     const Position& f = getShape()[-2];
-    SUMOReal rot = (SUMOReal) atan2((end.x()-f.x()), (f.y()-end.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
+    SUMOReal rot = (SUMOReal) atan2((end.x() - f.x()), (f.y() - end.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glPushMatrix();
     glPushName(0);
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i=0; i<noLinks; ++i) {
+    for (unsigned int i = 0; i < noLinks; ++i) {
         LinkDirection dir = getLane().getLinkCont()[i]->getDirection();
         LinkState state = getLane().getLinkCont()[i]->getState();
-        if (state==LINKSTATE_TL_OFF_NOSIGNAL||dir==LINKDIR_NODIR) {
+        if (state == LINKSTATE_TL_OFF_NOSIGNAL || dir == LINKDIR_NODIR) {
             continue;
         }
         switch (dir) {
-        case LINKDIR_STRAIGHT:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
-        case LINKDIR_TURN:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
-            GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
-        case LINKDIR_LEFT:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
-        case LINKDIR_RIGHT:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
-        case LINKDIR_PARTLEFT:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
-        case LINKDIR_PARTRIGHT:
-            GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
-            GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
-            GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
-            break;
+            case LINKDIR_STRAIGHT:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0, 4), Position(0, 1)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
+            case LINKDIR_TURN:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
+                GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0.5, 2.5), Position(0.5, 4)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
+            case LINKDIR_LEFT:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
+            case LINKDIR_RIGHT:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.5, 2.5)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
+            case LINKDIR_PARTLEFT:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
+            case LINKDIR_PARTRIGHT:
+                GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
+                GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
+                GLHelper::drawTriangleAtEnd(Line(Position(0, 2.5), Position(-1.2, 1.3)), (SUMOReal) 1, (SUMOReal) .25);
+                break;
         }
     }
     glPopMatrix();
@@ -341,42 +341,42 @@ GUILaneWrapper::ROWdrawAction_drawArrows() const {
 void
 GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
     unsigned int noLinks = getLinkNumber();
-    for (unsigned int i=0; i<noLinks; ++i) {
+    for (unsigned int i = 0; i < noLinks; ++i) {
         LinkState state = getLane().getLinkCont()[i]->getState();
         const MSLane* connected = getLane().getLinkCont()[i]->getLane();
-        if (connected==0) {
+        if (connected == 0) {
             continue;
         }
         switch (state) {
-        case LINKSTATE_TL_GREEN_MAJOR:
-        case LINKSTATE_TL_GREEN_MINOR:
-            glColor3d(0, 1, 0);
-            break;
-        case LINKSTATE_TL_RED:
-            glColor3d(1, 0, 0);
-            break;
-        case LINKSTATE_TL_YELLOW_MAJOR:
-        case LINKSTATE_TL_YELLOW_MINOR:
-            glColor3d(1, 1, 0);
-            break;
-        case LINKSTATE_TL_OFF_BLINKING:
-            glColor3d(1, 1, 0);
-            break;
-        case LINKSTATE_TL_OFF_NOSIGNAL:
-            glColor3d(0, 1, 1);
-            break;
-        case LINKSTATE_MAJOR:
-            glColor3d(1, 1, 1);
-            break;
-        case LINKSTATE_MINOR:
-            glColor3d(.2, .2, .2);
-            break;
-        case LINKSTATE_EQUAL:
-            glColor3d(.5, .5, .5);
-            break;
-        case LINKSTATE_DEADEND:
-            glColor3d(0, 0, 0);
-            break;
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
+                glColor3d(0, 1, 0);
+                break;
+            case LINKSTATE_TL_RED:
+                glColor3d(1, 0, 0);
+                break;
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
+                glColor3d(1, 1, 0);
+                break;
+            case LINKSTATE_TL_OFF_BLINKING:
+                glColor3d(1, 1, 0);
+                break;
+            case LINKSTATE_TL_OFF_NOSIGNAL:
+                glColor3d(0, 1, 1);
+                break;
+            case LINKSTATE_MAJOR:
+                glColor3d(1, 1, 1);
+                break;
+            case LINKSTATE_MINOR:
+                glColor3d(.2, .2, .2);
+                break;
+            case LINKSTATE_EQUAL:
+                glColor3d(.5, .5, .5);
+                break;
+            case LINKSTATE_DEADEND:
+                glColor3d(0, 0, 0);
+                break;
         }
 
         glBegin(GL_LINES);
@@ -393,7 +393,7 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
 void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushMatrix();
-    const bool isInternal = getLane().getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
+    const bool isInternal = getLane().getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
     if (isInternal) {
         // draw internal lanes on top of junctions
@@ -409,7 +409,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPushName(getGlID());
     // draw lane
     // check whether it is not too small
-    if (s.scale<1.) {
+    if (s.scale < 1.) {
         GLHelper::drawLine(myShape);
         glPopName();
         glPopMatrix();
@@ -451,11 +451,11 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
         drawMarkings(s);
     }
     // draw vehicles
-    if (s.scale>s.minVehicleSize) {
+    if (s.scale > s.minVehicleSize) {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = myLane.getVehiclesSecure();
-        for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
-            static_cast<const GUIVehicle*const>(*v)->drawGL(s);
+        for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
+            static_cast<const GUIVehicle * const>(*v)->drawGL(s);
         }
         // allow lane simulation
         myLane.releaseVehicles();
@@ -475,15 +475,15 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
     // optionally draw inverse markings
     if (myIndex > 0) {
         int e = (int) getShape().size() - 1;
-        for (int i=0; i<e; i++) {
+        for (int i = 0; i < e; i++) {
             glPushMatrix();
             glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
             glRotated(myShapeRotations[i], 0, 0, 1);
-            for (SUMOReal t=0; t<myShapeLengths[i]; t+=6) {
+            for (SUMOReal t = 0; t < myShapeLengths[i]; t += 6) {
                 glBegin(GL_QUADS);
                 glVertex2d(-1.8, -t);
-                glVertex2d(-1.8, -t-3.);
-                glVertex2d(1.0, -t-3.);
+                glVertex2d(-1.8, -t - 3.);
+                glVertex2d(1.0, -t - 3.);
                 glVertex2d(1.0, -t);
                 glEnd();
             }
@@ -491,7 +491,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
         }
     }
     // draw white boundings and white markings
-    glColor3d(1,1,1);
+    glColor3d(1, 1, 1);
     GLHelper::drawBoxLines(
         getShape(),
         getShapeRotations(),
@@ -573,9 +573,9 @@ GUILaneWrapper::getShapeLengths() const {
 
 SUMOReal
 GUILaneWrapper::firstWaitingTime() const {
-    return myLane.myVehicles.size()==0
+    return myLane.myVehicles.size() == 0
            ? 0
-           : (*(myLane.myVehicles.end()-1))->getWaitingSeconds();
+           : (*(myLane.myVehicles.end() - 1))->getWaitingSeconds();
 }
 
 
@@ -631,61 +631,61 @@ GUILaneWrapper::setColor(const GUIVisualizationSettings& s) const {
 SUMOReal
 GUILaneWrapper::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
-    case 1:
-        return gSelected.isSelected(getType(), getGlID());
-    case 2: {
-        const SUMOVehicleClasses& allowed = getLane().getAllowedClasses();
-        const SUMOVehicleClasses& disallowed = getLane().getNotAllowedClasses();
-        if ((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
-            return 0;
-        } else {
-            return 1;
+        case 1:
+            return gSelected.isSelected(getType(), getGlID());
+        case 2: {
+            const SUMOVehicleClasses& allowed = getLane().getAllowedClasses();
+            const SUMOVehicleClasses& disallowed = getLane().getNotAllowedClasses();
+            if ((allowed.size() == 0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER) != allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER) == disallowed.end()) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
-    }
-    case 3:
-        return getLane().getMaxSpeed();
-    case 4:
-        return getLane().getOccupancy();
-    case 5:
-        return firstWaitingTime();
-    case 6:
-        return getEdgeLaneNumber();
-    case 7:
-        return getNormedHBEFA_CO2Emissions();
-    case 8:
-        return getNormedHBEFA_COEmissions();
-    case 9:
-        return getNormedHBEFA_PMxEmissions();
-    case 10:
-        return getNormedHBEFA_NOxEmissions();
-    case 11:
-        return getNormedHBEFA_HCEmissions();
-    case 12:
-        return getNormedHBEFA_FuelConsumption();
-    case 13:
-        return getLane().getHarmonoise_NoiseEmissions();
-    case 14: {
-        MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge& e = getLane().getEdge();
-        if (!ews.knowsTravelTime(&e)) {
-            return -1;
-        } else {
-            SUMOReal value(0);
-            ews.retrieveExistingTravelTime(&e, 0, 0, value);
-            return value;
+        case 3:
+            return getLane().getMaxSpeed();
+        case 4:
+            return getLane().getOccupancy();
+        case 5:
+            return firstWaitingTime();
+        case 6:
+            return getEdgeLaneNumber();
+        case 7:
+            return getNormedHBEFA_CO2Emissions();
+        case 8:
+            return getNormedHBEFA_COEmissions();
+        case 9:
+            return getNormedHBEFA_PMxEmissions();
+        case 10:
+            return getNormedHBEFA_NOxEmissions();
+        case 11:
+            return getNormedHBEFA_HCEmissions();
+        case 12:
+            return getNormedHBEFA_FuelConsumption();
+        case 13:
+            return getLane().getHarmonoise_NoiseEmissions();
+        case 14: {
+            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+            MSEdge& e = getLane().getEdge();
+            if (!ews.knowsTravelTime(&e)) {
+                return -1;
+            } else {
+                SUMOReal value(0);
+                ews.retrieveExistingTravelTime(&e, 0, 0, value);
+                return value;
+            }
         }
-    }
-    case 15: {
-        MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
-        MSEdge& e = getLane().getEdge();
-        if (!ews.knowsTravelTime(&e)) {
-            return -1;
-        } else {
-            SUMOReal value(0);
-            ews.retrieveExistingTravelTime(&e, 0, 0, value);
-            return (getLane().getLength() / getLane().getMaxSpeed()) / (getLane().getMaxSpeed() / value);
+        case 15: {
+            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+            MSEdge& e = getLane().getEdge();
+            if (!ews.knowsTravelTime(&e)) {
+                return -1;
+            } else {
+                SUMOReal value(0);
+                ews.retrieveExistingTravelTime(&e, 0, 0, value);
+                return (getLane().getLength() / getLane().getMaxSpeed()) / (getLane().getMaxSpeed() / value);
+            }
         }
-    }
     }
     return 0;
 }

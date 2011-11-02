@@ -101,207 +101,207 @@ NLHandler::myStartElement(int element,
                           const SUMOSAXAttributes& attrs) throw(ProcessError) {
     try {
         switch (element) {
-        case SUMO_TAG_EDGE:
-            beginEdgeParsing(attrs);
-            break;
-        case SUMO_TAG_LANE:
-            addLane(attrs);
-            break;
-        case SUMO_TAG_POLY:
-            addPoly(attrs);
-            break;
-        case SUMO_TAG_POI:
-            addPOI(attrs);
-            break;
-        case SUMO_TAG_JUNCTION:
-            openJunction(attrs);
-            initJunctionLogic(attrs);
-            break;
-        case SUMO_TAG_PHASE:
-            addPhase(attrs);
-            break;
-        case SUMO_TAG_SUCC:
-            openSucc(attrs);
-            break;
-        case SUMO_TAG_SUCCLANE:
-            addSuccLane(attrs);
-            break;
-        case SUMO_TAG_CONNECTION:
-            addConnection(attrs);
-            break;
-        case SUMO_TAG_ROWLOGIC__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedRowLogic) {
-                myHaveWarnedAboutDeprecatedRowLogic = true;
-                WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
-            }
-            initJunctionLogic(attrs);
-            break;
-        case SUMO_TAG_TLLOGIC__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedTLLogic) {
-                myHaveWarnedAboutDeprecatedTLLogic = true;
-                WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
-            }
-        case SUMO_TAG_TLLOGIC:
-            initTrafficLightLogic(attrs);
-            break;
-        case SUMO_TAG_LOGICITEM: // deprecated
-            addLogicItem(attrs);
-            break;
-        case SUMO_TAG_REQUEST:
-            addRequest(attrs);
-            break;
-        case SUMO_TAG_WAUT:
-            openWAUT(attrs);
-            break;
-        case SUMO_TAG_WAUT_SWITCH:
-            addWAUTSwitch(attrs);
-            break;
-        case SUMO_TAG_WAUT_JUNCTION:
-            addWAUTJunction(attrs);
-            break;
+            case SUMO_TAG_EDGE:
+                beginEdgeParsing(attrs);
+                break;
+            case SUMO_TAG_LANE:
+                addLane(attrs);
+                break;
+            case SUMO_TAG_POLY:
+                addPoly(attrs);
+                break;
+            case SUMO_TAG_POI:
+                addPOI(attrs);
+                break;
+            case SUMO_TAG_JUNCTION:
+                openJunction(attrs);
+                initJunctionLogic(attrs);
+                break;
+            case SUMO_TAG_PHASE:
+                addPhase(attrs);
+                break;
+            case SUMO_TAG_SUCC:
+                openSucc(attrs);
+                break;
+            case SUMO_TAG_SUCCLANE:
+                addSuccLane(attrs);
+                break;
+            case SUMO_TAG_CONNECTION:
+                addConnection(attrs);
+                break;
+            case SUMO_TAG_ROWLOGIC__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedRowLogic) {
+                    myHaveWarnedAboutDeprecatedRowLogic = true;
+                    WRITE_WARNING("Your network uses deprecated tags; please rebuild.");
+                }
+                initJunctionLogic(attrs);
+                break;
+            case SUMO_TAG_TLLOGIC__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedTLLogic) {
+                    myHaveWarnedAboutDeprecatedTLLogic = true;
+                    WRITE_WARNING("Deprecated tl-logic name; please rebuild.");
+                }
+            case SUMO_TAG_TLLOGIC:
+                initTrafficLightLogic(attrs);
+                break;
+            case SUMO_TAG_LOGICITEM: // deprecated
+                addLogicItem(attrs);
+                break;
+            case SUMO_TAG_REQUEST:
+                addRequest(attrs);
+                break;
+            case SUMO_TAG_WAUT:
+                openWAUT(attrs);
+                break;
+            case SUMO_TAG_WAUT_SWITCH:
+                addWAUTSwitch(attrs);
+                break;
+            case SUMO_TAG_WAUT_JUNCTION:
+                addWAUTJunction(attrs);
+                break;
 #ifdef _MESSAGES
-        case SUMO_TAG_MSG_EMITTER:
-            addMsgEmitter(attrs);
-            break;
+            case SUMO_TAG_MSG_EMITTER:
+                addMsgEmitter(attrs);
+                break;
 #endif
-        case SUMO_TAG_E1DETECTOR__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedE1) {
-                myHaveWarnedAboutDeprecatedE1 = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
-            }
-        case SUMO_TAG_E1DETECTOR:
-        case SUMO_TAG_INDUCTION_LOOP:
-            addE1Detector(attrs);
-            break;
-        case SUMO_TAG_E2DETECTOR__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedE2) {
-                myHaveWarnedAboutDeprecatedE2 = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
-            }
-        case SUMO_TAG_E2DETECTOR:
-        case SUMO_TAG_LANE_AREA_DETECTOR:
-            addE2Detector(attrs);
-            break;
-        case SUMO_TAG_E3DETECTOR__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedE3) {
-                myHaveWarnedAboutDeprecatedE3 = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
-            }
-        case SUMO_TAG_E3DETECTOR:
-        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-            beginE3Detector(attrs);
-            break;
-        case SUMO_TAG_DET_ENTRY__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDetEntry) {
-                myHaveWarnedAboutDeprecatedDetEntry = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
-            }
-        case SUMO_TAG_DET_ENTRY:
-            addE3Entry(attrs);
-            break;
-        case SUMO_TAG_DET_EXIT__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDetExit) {
-                myHaveWarnedAboutDeprecatedDetExit = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
-            }
-        case SUMO_TAG_DET_EXIT:
-            addE3Exit(attrs);
-            break;
-        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            addInstantE1Detector(attrs);
-            break;
-        case SUMO_TAG_VSS:
-            myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
-            break;
+            case SUMO_TAG_E1DETECTOR__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedE1) {
+                    myHaveWarnedAboutDeprecatedE1 = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_E1DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E1DETECTOR) + "'.");
+                }
+            case SUMO_TAG_E1DETECTOR:
+            case SUMO_TAG_INDUCTION_LOOP:
+                addE1Detector(attrs);
+                break;
+            case SUMO_TAG_E2DETECTOR__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedE2) {
+                    myHaveWarnedAboutDeprecatedE2 = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_E2DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E2DETECTOR) + "'.");
+                }
+            case SUMO_TAG_E2DETECTOR:
+            case SUMO_TAG_LANE_AREA_DETECTOR:
+                addE2Detector(attrs);
+                break;
+            case SUMO_TAG_E3DETECTOR__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedE3) {
+                    myHaveWarnedAboutDeprecatedE3 = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_E3DETECTOR__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_E3DETECTOR) + "'.");
+                }
+            case SUMO_TAG_E3DETECTOR:
+            case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+                beginE3Detector(attrs);
+                break;
+            case SUMO_TAG_DET_ENTRY__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedDetEntry) {
+                    myHaveWarnedAboutDeprecatedDetEntry = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_DET_ENTRY__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_ENTRY) + "'.");
+                }
+            case SUMO_TAG_DET_ENTRY:
+                addE3Entry(attrs);
+                break;
+            case SUMO_TAG_DET_EXIT__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedDetExit) {
+                    myHaveWarnedAboutDeprecatedDetExit = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_DET_EXIT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_DET_EXIT) + "'.");
+                }
+            case SUMO_TAG_DET_EXIT:
+                addE3Exit(attrs);
+                break;
+            case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+                addInstantE1Detector(attrs);
+                break;
+            case SUMO_TAG_VSS:
+                myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
+                break;
 #ifdef HAVE_MESOSIM
-        case SUMO_TAG_CALIBRATOR:
-            myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
-            break;
+            case SUMO_TAG_CALIBRATOR:
+                myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
+                break;
 #endif
-        case SUMO_TAG_REROUTER:
-            myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
-            break;
-        case SUMO_TAG_BUS_STOP:
-            myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
-            break;
-        case SUMO_TAG_VTYPEPROBE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedVTypeProbe) {
-                myHaveWarnedAboutDeprecatedVTypeProbe = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
-            }
-        case SUMO_TAG_VTYPEPROBE:
-            addVTypeProbeDetector(attrs);
-            break;
-        case SUMO_TAG_ROUTEPROBE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedRouteProbe) {
-                myHaveWarnedAboutDeprecatedRouteProbe = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
-            }
-        case SUMO_TAG_ROUTEPROBE:
-            addRouteProbeDetector(attrs);
-            break;
-        case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedEdgeMean) {
-                myHaveWarnedAboutDeprecatedEdgeMean = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
-            }
-        case SUMO_TAG_MEANDATA_EDGE:
-            addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
-            break;
-        case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedLaneMean) {
-                myHaveWarnedAboutDeprecatedLaneMean = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
-            }
-        case SUMO_TAG_MEANDATA_LANE:
-            addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
-            break;
-        case SUMO_TAG_TIMEDEVENT__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedTimedEvent) {
-                myHaveWarnedAboutDeprecatedTimedEvent = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
-            }
-        case SUMO_TAG_TIMEDEVENT:
-            myActionBuilder.addAction(attrs, getFileName());
-            break;
-        case SUMO_TAG_VAPORIZER:
-            myTriggerBuilder.buildVaporizer(attrs);
-            break;
-        case SUMO_TAG_LOCATION:
-            setLocation(attrs);
-            break;
-        case SUMO_TAG_DISTRICT__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDistrict) {
-                myHaveWarnedAboutDeprecatedDistrict = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-            }
-        case SUMO_TAG_TAZ:
-            addDistrict(attrs);
-            break;
-        case SUMO_TAG_DSOURCE__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSource) {
-                myHaveWarnedAboutDeprecatedDSource = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-            }
-        case SUMO_TAG_TAZSOURCE:
-            addDistrictEdge(attrs, true);
-            break;
-        case SUMO_TAG_DSINK__DEPRECATED:
-            if (!myHaveWarnedAboutDeprecatedDSink) {
-                myHaveWarnedAboutDeprecatedDSink = true;
-                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-            }
-        case SUMO_TAG_TAZSINK:
-            addDistrictEdge(attrs, false);
-            break;
-        default:
-            break;
+            case SUMO_TAG_REROUTER:
+                myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
+                break;
+            case SUMO_TAG_BUS_STOP:
+                myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
+                break;
+            case SUMO_TAG_VTYPEPROBE__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedVTypeProbe) {
+                    myHaveWarnedAboutDeprecatedVTypeProbe = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_VTYPEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPEPROBE) + "'.");
+                }
+            case SUMO_TAG_VTYPEPROBE:
+                addVTypeProbeDetector(attrs);
+                break;
+            case SUMO_TAG_ROUTEPROBE__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedRouteProbe) {
+                    myHaveWarnedAboutDeprecatedRouteProbe = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_ROUTEPROBE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_ROUTEPROBE) + "'.");
+                }
+            case SUMO_TAG_ROUTEPROBE:
+                addRouteProbeDetector(attrs);
+                break;
+            case SUMO_TAG_MEANDATA_EDGE__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedEdgeMean) {
+                    myHaveWarnedAboutDeprecatedEdgeMean = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_EDGE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_EDGE) + "'.");
+                }
+            case SUMO_TAG_MEANDATA_EDGE:
+                addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_EDGE);
+                break;
+            case SUMO_TAG_MEANDATA_LANE__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedLaneMean) {
+                    myHaveWarnedAboutDeprecatedLaneMean = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_MEANDATA_LANE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_MEANDATA_LANE) + "'.");
+                }
+            case SUMO_TAG_MEANDATA_LANE:
+                addEdgeLaneMeanData(attrs, SUMO_TAG_MEANDATA_LANE);
+                break;
+            case SUMO_TAG_TIMEDEVENT__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedTimedEvent) {
+                    myHaveWarnedAboutDeprecatedTimedEvent = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_TIMEDEVENT__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TIMEDEVENT) + "'.");
+                }
+            case SUMO_TAG_TIMEDEVENT:
+                myActionBuilder.addAction(attrs, getFileName());
+                break;
+            case SUMO_TAG_VAPORIZER:
+                myTriggerBuilder.buildVaporizer(attrs);
+                break;
+            case SUMO_TAG_LOCATION:
+                setLocation(attrs);
+                break;
+            case SUMO_TAG_DISTRICT__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedDistrict) {
+                    myHaveWarnedAboutDeprecatedDistrict = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+                }
+            case SUMO_TAG_TAZ:
+                addDistrict(attrs);
+                break;
+            case SUMO_TAG_DSOURCE__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedDSource) {
+                    myHaveWarnedAboutDeprecatedDSource = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+                }
+            case SUMO_TAG_TAZSOURCE:
+                addDistrictEdge(attrs, true);
+                break;
+            case SUMO_TAG_DSINK__DEPRECATED:
+                if (!myHaveWarnedAboutDeprecatedDSink) {
+                    myHaveWarnedAboutDeprecatedDSink = true;
+                    WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+                }
+            case SUMO_TAG_TAZSINK:
+                addDistrictEdge(attrs, false);
+                break;
+            default:
+                break;
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
     MSRouteHandler::myStartElement(element, attrs);
-    if (element==SUMO_TAG_PARAM) {
+    if (element == SUMO_TAG_PARAM) {
         addParam(attrs);
     }
 }
@@ -310,48 +310,48 @@ NLHandler::myStartElement(int element,
 void
 NLHandler::myEndElement(int element) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_EDGE:
-        closeEdge();
-        break;
-    case SUMO_TAG_JUNCTION:
-        if (!myCurrentIsBroken) {
+        case SUMO_TAG_EDGE:
+            closeEdge();
+            break;
+        case SUMO_TAG_JUNCTION:
+            if (!myCurrentIsBroken) {
+                try {
+                    myJunctionControlBuilder.closeJunctionLogic();
+                    myJunctionControlBuilder.closeJunction();
+                } catch (InvalidArgument& e) {
+                    WRITE_ERROR(e.what());
+                }
+            }
+            break;
+        case SUMO_TAG_SUCC:
+            closeSuccLane();
+            break;
+        case SUMO_TAG_ROWLOGIC__DEPRECATED:
             try {
                 myJunctionControlBuilder.closeJunctionLogic();
-                myJunctionControlBuilder.closeJunction();
             } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
             }
-        }
-        break;
-    case SUMO_TAG_SUCC:
-        closeSuccLane();
-        break;
-    case SUMO_TAG_ROWLOGIC__DEPRECATED:
-        try {
-            myJunctionControlBuilder.closeJunctionLogic();
-        } catch (InvalidArgument& e) {
-            WRITE_ERROR(e.what());
-        }
-        break;
-    case SUMO_TAG_TLLOGIC__DEPRECATED:
-    case SUMO_TAG_TLLOGIC:
-        try {
-            myJunctionControlBuilder.closeTrafficLightLogic();
-        } catch (InvalidArgument& e) {
-            WRITE_ERROR(e.what());
-        }
-        myAmInTLLogicMode = false;
-        break;
-    case SUMO_TAG_WAUT:
-        closeWAUT();
-        break;
-    case SUMO_TAG_E3DETECTOR__DEPRECATED:
-    case SUMO_TAG_E3DETECTOR:
-    case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-        endE3Detector();
-        break;
-    default:
-        break;
+            break;
+        case SUMO_TAG_TLLOGIC__DEPRECATED:
+        case SUMO_TAG_TLLOGIC:
+            try {
+                myJunctionControlBuilder.closeTrafficLightLogic();
+            } catch (InvalidArgument& e) {
+                WRITE_ERROR(e.what());
+            }
+            myAmInTLLogicMode = false;
+            break;
+        case SUMO_TAG_WAUT:
+            closeWAUT();
+            break;
+        case SUMO_TAG_E3DETECTOR__DEPRECATED:
+        case SUMO_TAG_E3DETECTOR:
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            endE3Detector();
+            break;
+        default:
+            break;
     }
     MSRouteHandler::myEndElement(element);
 }
@@ -370,7 +370,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         return;
     }
     // omit internal edges if not wished
-    if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+    if (!MSGlobals::gUsingInternalLanes && id[0] == ':') {
         myCurrentIsInternalToSkip = true;
         return;
     }
@@ -392,17 +392,17 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     // interpret the function
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
     switch (func) {
-    case EDGEFUNC_NORMAL:
-        funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
-        break;
-    case EDGEFUNC_CONNECTOR:
-    case EDGEFUNC_SINK:
-    case EDGEFUNC_SOURCE:
-        funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
-        break;
-    case EDGEFUNC_INTERNAL:
-        funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
-        break;
+        case EDGEFUNC_NORMAL:
+            funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
+            break;
+        case EDGEFUNC_CONNECTOR:
+        case EDGEFUNC_SINK:
+        case EDGEFUNC_SOURCE:
+            funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
+            break;
+        case EDGEFUNC_INTERNAL:
+            funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
+            break;
     }
     // get the street name
     std::string streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
@@ -423,7 +423,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::closeEdge() {
     // omit internal edges if not wished and broken edges
-    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+    if (myCurrentIsInternalToSkip || myCurrentIsBroken) {
         return;
     }
     try {
@@ -439,7 +439,7 @@ NLHandler::closeEdge() {
 void
 NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     // omit internal edges if not wished and broken edges
-    if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
+    if (myCurrentIsInternalToSkip || myCurrentIsBroken) {
         return;
     }
     bool ok = true;
@@ -458,7 +458,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, SUMO_const_laneWidth);
     int index = attrs.getOptIntReporting(SUMO_ATTR_INDEX, id.c_str(), ok, -1);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), "lane", id.c_str(), ok, false);
-    if (shape.size()<2) {
+    if (shape.size() < 2) {
         WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
         return;
@@ -530,13 +530,13 @@ void
 NLHandler::parseLanes(const std::string& junctionID,
                       const std::string& def, std::vector<MSLane*> &into, bool& ok) {
     StringTokenizer st(def);
-    while (ok&&st.hasNext()) {
+    while (ok && st.hasNext()) {
         std::string laneID = st.next();
         MSLane* lane = MSLane::dictionary(laneID);
-        if (!MSGlobals::gUsingInternalLanes&&laneID[0]==':') {
+        if (!MSGlobals::gUsingInternalLanes && laneID[0] == ':') {
             continue;
         }
-        if (lane==0) {
+        if (lane == 0) {
             WRITE_ERROR("An unknown lane ('" + laneID + "') was tried to be set as incoming to junction '" + junctionID + "'.");
             ok = false;
             continue;
@@ -552,9 +552,9 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     std::string key = attrs.getStringReporting(SUMO_ATTR_KEY, 0, ok);
     std::string val = attrs.getStringReporting(SUMO_ATTR_VALUE, 0, ok);
     // set
-    if (ok&&myAmInTLLogicMode) {
-        assert(key!="");
-        assert(val!="");
+    if (ok && myAmInTLLogicMode) {
+        assert(key != "");
+        assert(val != "");
         myJunctionControlBuilder.addParam(key, val);
     }
 }
@@ -649,13 +649,13 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
         return;
     }
     Position pos(x, y);
-    if (x==INVALID_POSITION||y==INVALID_POSITION) {
+    if (x == INVALID_POSITION || y == INVALID_POSITION) {
         MSLane* lane = MSLane::dictionary(laneID);
-        if (lane==0) {
+        if (lane == 0) {
             WRITE_ERROR("Lane '" + laneID + "' to place a poi '" + id + "'on is not known.");
             return;
         }
-        if (lanePos<0) {
+        if (lanePos < 0) {
             lanePos = lane->getLength() + lanePos;
         }
         pos = lane->getShape().positionAtLengthPosition(lanePos);
@@ -680,7 +680,7 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
     RGBColor color = RGBColor::parseColorReporting(colorStr, attrs.getObjectType(), id.c_str(), true, ok);
     PositionVector shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok), attrs.getObjectType(), id.c_str(), ok, false);
-    if (shape.size()!=0) {
+    if (shape.size() != 0) {
         if (!myNet.getShapeContainer().addPolygon(id, layer, type, color, fill, shape)) {
             WRITE_ERROR("Polygon '" + id + "' already exists.");
         }
@@ -702,7 +702,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes& attrs) {
         return;
     }
     // store received information
-    if (request>=0 && response.length()>0) {
+    if (request >= 0 && response.length() > 0) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
         } catch (InvalidArgument& e) {
@@ -729,7 +729,7 @@ NLHandler::addRequest(const SUMOSAXAttributes& attrs) {
         return;
     }
     // store received information
-    if (request>=0 && response.length()>0) {
+    if (request >= 0 && response.length() > 0) {
         try {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
         } catch (InvalidArgument& e) {
@@ -786,7 +786,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // try to get the phase duration
     SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
-    if (duration==0) {
+    if (duration == 0) {
         WRITE_ERROR("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
@@ -823,7 +823,7 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     std::string file = attrs.getOptStringReporting(SUMO_ATTR_FILE, 0, ok, "");
     // if no file given, use stdout
-    if (file=="") {
+    if (file == "") {
         file = "-";
     }
     SUMOTime step = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STEP, id.c_str(), ok, 1);
@@ -850,7 +850,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     // inform the user about deprecated values
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) && !myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
     }
@@ -885,7 +885,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     }
     // inform the user about deprecated values
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok);
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) && !myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
     }
@@ -970,7 +970,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         myHaveWarnedAboutDeprecatedJamDistThreshold = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_JAM_DIST_THRESHOLD) + "'.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) && !myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "'.");
     }
@@ -979,8 +979,8 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
                                           ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
                                           : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f / 3.6f)
+                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const SUMOReal jamDistThreshold = attrs.hasAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED)
                                       ? attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD__DEPRECATED, id.c_str(), ok, 10.0f)
                                       : attrs.getOptSUMORealReporting(SUMO_ATTR_JAM_DIST_THRESHOLD, id.c_str(), ok, 10.0f);
@@ -996,8 +996,8 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        if (lsaid!="<invalid>") {
-            if (toLane=="<invalid>") {
+        if (lsaid != "<invalid>") {
+            if (toLane == "<invalid>") {
                 myDetectorBuilder.buildE2Detector(id, lane, position, length, cont,
                                                   myJunctionControlBuilder.getTLLogic(lsaid),
                                                   OutputDevice::getDevice(file, getFileName()),
@@ -1048,8 +1048,8 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
                                           ? attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD__DEPRECATED, id.c_str(), ok, TIME2STEPS(1))
                                           : attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const SUMOReal haltingSpeedThreshold = attrs.hasAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED)
-                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f/3.6f)
-                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f/3.6f);
+                                           ? attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD__DEPRECATED, id.c_str(), ok, 5.0f / 3.6f)
+                                           : attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
     if (!ok) {
         return;
@@ -1069,7 +1069,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::addE3Entry(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) && !myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
     }
@@ -1089,7 +1089,7 @@ void
 NLHandler::addE3Exit(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, myDetectorBuilder.getCurrentE3ID().c_str(), ok);
-    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED)&&!myHaveWarnedAboutDeprecatedFriendlyPos) {
+    if (attrs.hasAttribute(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) && !myHaveWarnedAboutDeprecatedFriendlyPos) {
         myHaveWarnedAboutDeprecatedFriendlyPos = true;
         WRITE_WARNING("'" + toString(SUMO_ATTR_FRIENDLY_POS__DEPRECATED) + "' is deprecated, use '" + toString(SUMO_ATTR_FRIENDLY_POS) + "' instead.");
     }
@@ -1132,7 +1132,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, objecttype==SUMO_TAG_MEANDATA_LANE, !excludeEmpty, withInternal, trackVehicles,
+                type, objecttype == SUMO_TAG_MEANDATA_LANE, !excludeEmpty, withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument& e) {
@@ -1148,7 +1148,7 @@ void
 NLHandler::openSucc(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, 0, ok);
-    if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+    if (!MSGlobals::gUsingInternalLanes && id[0] == ':') {
         myCurrentIsInternalToSkip = true;
         return;
     }
@@ -1176,7 +1176,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
-        if (tlID!="") {
+        if (tlID != "") {
             int linkNumber = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
                              ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
                              : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
@@ -1206,7 +1206,7 @@ void
 NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
-    if (!MSGlobals::gUsingInternalLanes&& fromID[0]==':') {
+    if (!MSGlobals::gUsingInternalLanes && fromID[0] == ':') {
         return;
     }
 
@@ -1252,7 +1252,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         assert(toLane);
 
         int tlLinkIdx;
-        if (tlID!="") {
+        if (tlID != "") {
             tlLinkIdx = attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)
                         ? attrs.getIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok)
                         : attrs.getIntReporting(SUMO_ATTR_TLLINKNO__DEPRECATED, 0, ok);
@@ -1273,20 +1273,20 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         // build the link
 #ifdef HAVE_INTERNAL_LANES
         MSLane* via = 0;
-        if (viaID!="" && MSGlobals::gUsingInternalLanes) {
+        if (viaID != "" && MSGlobals::gUsingInternalLanes) {
             via = MSLane::dictionary(viaID);
-            if (via==0) {
+            if (via == 0) {
                 WRITE_ERROR("An unknown lane ('" + viaID +
                             "') should be set as a via-lane for lane '" + toLane->getID() + "'.");
                 return;
             }
             length = via->getLength();
         }
-        if (pass>=0) {
+        if (pass >= 0) {
             static_cast<MSInternalLane*>(toLane)->setPassPosition(pass);
         }
         link = new MSLink(toLane, via, dir, state, length);
-        if (via!=0) {
+        if (via != 0) {
             via->addIncomingLane(fromLane, link);
         } else {
             toLane->addIncomingLane(fromLane, link);
@@ -1299,7 +1299,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light
-        if (tlID!="") {
+        if (tlID != "") {
             MSTLLogicControl::TLSLogicVariants& logics = myJunctionControlBuilder.getTLLogic(tlID);
             logics.addLink(link, fromLane, tlLinkIdx);
         }
@@ -1341,15 +1341,15 @@ std::pair<MSLane*, MSLane*>
 NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& laneIndices, bool& ok) {
     std::string error = "Invalid attribute in connection from '" + from->getID() + "' to '" + to->getID() + "' ";
     StringTokenizer st(laneIndices, ':');
-    if (st.size()==2) {
+    if (st.size() == 2) {
         int fromLaneIdx;
         int toLaneIdx;
         try {
             fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (fromLaneIdx>=0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
-                    toLaneIdx>=0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
-                return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx],to->getLanes()[toLaneIdx]);
+            if (fromLaneIdx >= 0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
+                    toLaneIdx >= 0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
+                return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx], to->getLanes()[toLaneIdx]);
             } else {
                 error += "(invalid index)";
             }
@@ -1411,10 +1411,10 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) {
         source->initialize(0, MSEdge::EDGEFUNCTION_DISTRICT);
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
-            for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+            for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
                 MSEdge* edge = MSEdge::dictionary(*i);
                 // check whether the edge exists
-                if (edge==0) {
+                if (edge == 0) {
                     throw InvalidArgument("The edge '" + *i + "' within district '" + myCurrentDistrictID + "' is not known.");
                 }
                 source->addFollower(edge);
@@ -1437,7 +1437,7 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, myCurrentDistrictID.c_str(), ok);
     MSEdge* succ = MSEdge::dictionary(id);
-    if (succ!=0) {
+    if (succ != 0) {
         // connect edge
         if (isSource) {
             MSEdge::dictionary(myCurrentDistrictID + "-source")->addFollower(succ);

@@ -100,16 +100,16 @@ GUIPointOfInterest::getCenteringBoundary() const throw() {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const throw() {
-    if (s.scale*(1.3/3.0)<s.minPOISize) {
+    if (s.scale * (1.3 / 3.0) < s.minPOISize) {
         return;
     }
     glPushName(getGlID());
     glPushMatrix();
-    glColor3d(red(),green(),blue());
+    glColor3d(red(), green(), blue());
     glTranslated(x(), y(), getLayer());
-    GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
+    GLHelper::drawFilledCircle((SUMOReal) 1.3 * s.poiExaggeration, 16);
     glPopMatrix();
-    drawName(Position(x() + 1.32*s.poiExaggeration, y() + 1.32*s.poiExaggeration),
+    drawName(Position(x() + 1.32 * s.poiExaggeration, y() + 1.32 * s.poiExaggeration),
              s.scale, s.poiName);
     glPopName();
 }

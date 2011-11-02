@@ -68,7 +68,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(MSLane* const lane=0, const bool doAdd=true) throw();
+    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true) throw();
 
 
     /** @brief Destructor

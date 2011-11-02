@@ -66,8 +66,8 @@ NIVissimSource::dictionary(const std::string& id, const std::string& name,
 
 bool
 NIVissimSource::dictionary(const std::string& id, NIVissimSource* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         return true;
     }
@@ -77,8 +77,8 @@ NIVissimSource::dictionary(const std::string& id, NIVissimSource* o) {
 
 NIVissimSource*
 NIVissimSource::dictionary(const std::string& id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -87,7 +87,7 @@ NIVissimSource::dictionary(const std::string& id) {
 
 void
 NIVissimSource::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

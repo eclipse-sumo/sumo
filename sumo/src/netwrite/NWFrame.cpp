@@ -80,7 +80,7 @@ NWFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
-    if (!oc.isSet("output-file")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")) {
+    if (!oc.isSet("output-file") && !oc.isSet("plain-output-prefix") && !oc.isSet("matsim-output")) {
         oc.set("output-file", "net.net.xml");
     }
     return ok;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    rebuildSchemata.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2011-07-11
 @version $Id$
 

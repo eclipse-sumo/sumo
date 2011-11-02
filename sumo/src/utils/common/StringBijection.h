@@ -107,7 +107,7 @@ public:
     std::vector<std::string> getStrings() const {
         std::vector<std::string> result;
         typename std::map<std::string, T>::const_iterator it; // learn something new every day
-        for (it = myString2T.begin(); it!=myString2T.end(); it++) {
+        for (it = myString2T.begin(); it != myString2T.end(); it++) {
             result.push_back(it->first);
         }
         return result;

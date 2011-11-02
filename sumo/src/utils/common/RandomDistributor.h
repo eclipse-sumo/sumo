@@ -67,12 +67,12 @@ public:
      * @param[in] prob The probability assigned to the value
      * @param[in] val The value to add to the distribution
      */
-    void add(SUMOReal prob, T val, bool checkDuplicates=true) {
-        assert(prob>=0);
+    void add(SUMOReal prob, T val, bool checkDuplicates = true) {
+        assert(prob >= 0);
         myProb += prob;
         if (checkDuplicates) {
-            for (size_t i=0; i<myVals.size(); i++) {
-                if (val==myVals[i]) {
+            for (size_t i = 0; i < myVals.size(); i++) {
+                if (val == myVals[i]) {
                     myProbs[i] += prob;
                     return;
                 }
@@ -89,12 +89,12 @@ public:
      * @return the drawn member
      */
     T get() const {
-        if (myProb==0) {
+        if (myProb == 0) {
             throw OutOfBoundsException();
         }
         SUMOReal prob = RandHelper::rand(myProb);
-        for (size_t i=0; i<myVals.size(); i++) {
-            if (prob<myProbs[i]) {
+        for (size_t i = 0; i < myVals.size(); i++) {
+            if (prob < myProbs[i]) {
                 return myVals[i];
             }
             prob -= myProbs[i];

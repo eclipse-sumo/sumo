@@ -99,8 +99,8 @@ MSVehicleType::saveState(std::ostream& os) {
 // ------------ Setter methods
 void
 MSVehicleType::setLength(const SUMOReal& length) throw() {
-    assert(myOriginalType!=0);
-    if (length<0) {
+    assert(myOriginalType != 0);
+    if (length < 0) {
         myLength = myOriginalType->myLength;
     } else {
         myLength = length;
@@ -110,8 +110,8 @@ MSVehicleType::setLength(const SUMOReal& length) throw() {
 
 void
 MSVehicleType::setMinGap(const SUMOReal& minGap) throw() {
-    assert(myOriginalType!=0);
-    if (minGap<0) {
+    assert(myOriginalType != 0);
+    if (minGap < 0) {
         myMinGap = myOriginalType->myMinGap;
     } else {
         myMinGap = minGap;
@@ -121,8 +121,8 @@ MSVehicleType::setMinGap(const SUMOReal& minGap) throw() {
 
 void
 MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) throw() {
-    assert(myOriginalType!=0);
-    if (maxSpeed<0) {
+    assert(myOriginalType != 0);
+    if (maxSpeed < 0) {
         myMaxSpeed = myOriginalType->myMaxSpeed;
     } else {
         myMaxSpeed = maxSpeed;
@@ -138,8 +138,8 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) throw() {
 
 void
 MSVehicleType::setDefaultProbability(const SUMOReal& prob) throw() {
-    assert(myOriginalType!=0);
-    if (prob<0) {
+    assert(myOriginalType != 0);
+    if (prob < 0) {
         myDefaultProbability = myOriginalType->myDefaultProbability;
     } else {
         myDefaultProbability = prob;
@@ -149,8 +149,8 @@ MSVehicleType::setDefaultProbability(const SUMOReal& prob) throw() {
 
 void
 MSVehicleType::setSpeedFactor(const SUMOReal& factor) throw() {
-    assert(myOriginalType!=0);
-    if (factor<0) {
+    assert(myOriginalType != 0);
+    if (factor < 0) {
         mySpeedFactor = myOriginalType->mySpeedFactor;
     } else {
         mySpeedFactor = factor;
@@ -160,8 +160,8 @@ MSVehicleType::setSpeedFactor(const SUMOReal& factor) throw() {
 
 void
 MSVehicleType::setSpeedDeviation(const SUMOReal& dev) throw() {
-    assert(myOriginalType!=0);
-    if (dev<0) {
+    assert(myOriginalType != 0);
+    if (dev < 0) {
         mySpeedDev = myOriginalType->mySpeedDev;
     } else {
         mySpeedDev = dev;
@@ -183,8 +183,8 @@ MSVehicleType::setColor(const RGBColor& color) throw() {
 
 void
 MSVehicleType::setWidth(const SUMOReal& width) throw() {
-    assert(myOriginalType!=0);
-    if (width<0) {
+    assert(myOriginalType != 0);
+    if (width < 0) {
         myWidth = myOriginalType->myWidth;
     } else {
         myWidth = width;
@@ -218,62 +218,62 @@ MSVehicleType::build(SUMOVTypeParameter& from) throw(ProcessError) {
         from.width, from.shape, from.lcModel, from.color);
     MSCFModel* model = 0;
     switch (from.cfModel) {
-    case SUMO_TAG_CF_IDM:
-        model = new MSCFModel_IDM(vtype,
-                                  get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                  get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                  get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_DELTA, 4.),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
-        break;
-    case SUMO_TAG_CF_IDMM:
-        model = new MSCFModel_IDM(vtype,
-                                  get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                  get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                  get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.),
-                                  get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
-        break;
-    case SUMO_TAG_CF_BKERNER:
-        model = new MSCFModel_Kerner(vtype,
-                                     get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                     get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                     get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                     get(from.cfParameter, SUMO_ATTR_K, .5),
-                                     get(from.cfParameter, SUMO_ATTR_CF_KERNER_PHI, 5.));
-        break;
-    case SUMO_TAG_CF_KRAUSS_ORIG1:
-        model = new MSCFModel_KraussOrig1(vtype,
-                                          get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                          get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                          get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                          get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
-        break;
-    case SUMO_TAG_CF_PWAGNER2009:
-        model = new MSCFModel_PWag2009(vtype,
-                                       get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                       get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                       get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                       get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                       get(from.cfParameter, SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3),
-                                       get(from.cfParameter, SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5));
-        break;
-    case SUMO_TAG_CF_WIEDEMANN:
-        model = new MSCFModel_Wiedemann(vtype,
-                                        get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                        get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                        get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
-                                        get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
-        break;
-    case SUMO_TAG_CF_KRAUSS:
-    default:
-        model = new MSCFModel_Krauss(vtype,
-                                     get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
-                                     get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
-                                     get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                     get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
-        break;
+        case SUMO_TAG_CF_IDM:
+            model = new MSCFModel_IDM(vtype,
+                                      get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                      get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                      get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                      get(from.cfParameter, SUMO_ATTR_CF_IDM_DELTA, 4.),
+                                      get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
+            break;
+        case SUMO_TAG_CF_IDMM:
+            model = new MSCFModel_IDM(vtype,
+                                      get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                      get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                      get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                      get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8),
+                                      get(from.cfParameter, SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.),
+                                      get(from.cfParameter, SUMO_ATTR_CF_IDM_STEPPING, .25));
+            break;
+        case SUMO_TAG_CF_BKERNER:
+            model = new MSCFModel_Kerner(vtype,
+                                         get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                         get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                         get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                         get(from.cfParameter, SUMO_ATTR_K, .5),
+                                         get(from.cfParameter, SUMO_ATTR_CF_KERNER_PHI, 5.));
+            break;
+        case SUMO_TAG_CF_KRAUSS_ORIG1:
+            model = new MSCFModel_KraussOrig1(vtype,
+                                              get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                              get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                              get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                              get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
+            break;
+        case SUMO_TAG_CF_PWAGNER2009:
+            model = new MSCFModel_PWag2009(vtype,
+                                           get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                           get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                           get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                           get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                           get(from.cfParameter, SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3),
+                                           get(from.cfParameter, SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5));
+            break;
+        case SUMO_TAG_CF_WIEDEMANN:
+            model = new MSCFModel_Wiedemann(vtype,
+                                            get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                            get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                            get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
+                                            get(from.cfParameter, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
+            break;
+        case SUMO_TAG_CF_KRAUSS:
+        default:
+            model = new MSCFModel_Krauss(vtype,
+                                         get(from.cfParameter, SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                         get(from.cfParameter, SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                         get(from.cfParameter, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                         get(from.cfParameter, SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
+            break;
     }
     vtype->myCarFollowModel = model;
     return vtype;
@@ -287,7 +287,7 @@ MSVehicleType::build(const std::string& id, const MSVehicleType* from) throw() {
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
         from->myWidth, from->myShape, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
-    vtype->myOriginalType = from->myOriginalType!=0 ? from->myOriginalType : from;
+    vtype->myOriginalType = from->myOriginalType != 0 ? from->myOriginalType : from;
     return vtype;
 }
 

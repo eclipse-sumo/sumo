@@ -166,20 +166,20 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
     PositionVector points;
     SUMOReal prob = 0;
     if (timelineDayInHours) {
-        if (def.size()!=24) {
+        if (def.size() != 24) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
-        for (int chour=0; chour<24; ++chour) {
+        for (int chour = 0; chour < 24; ++chour) {
             prob = TplConvert<char>::_2SUMOReal(def[chour].c_str());
-            points.push_back(Position((SUMOReal)(chour*3600), prob));
+            points.push_back(Position((SUMOReal)(chour * 3600), prob));
         }
         points.push_back(Position((SUMOReal)(24 * 3600), prob));
     } else {
         size_t i = 0;
-        while (i<def.size()) {
+        while (i < def.size()) {
             StringTokenizer st2(def[i++], ":");
-            if (st2.size()!=2) {
-                throw ProcessError("Broken time line definition: missing a value in '" + def[i-1] + "'.");
+            if (st2.size() != 2) {
+                throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
             }
             int time = TplConvert<char>::_2int(st2.next().c_str());
             prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
@@ -245,21 +245,21 @@ getNextNonCommentLine(LineReader& lr) {
     std::string line;
     do {
         line = lr.readLine();
-        if (line[0]!='*') {
+        if (line[0] != '*') {
             return StringUtils::prune(line);
         }
-    } while (lr.good()&&lr.hasMore());
+    } while (lr.good() && lr.hasMore());
     throw ProcessError();
 }
 
 
 SUMOTime
 parseSingleTime(const std::string& time) {
-    if (time.find('.')==std::string::npos) {
+    if (time.find('.') == std::string::npos) {
         throw OutOfBoundsException();
     }
     std::string hours = time.substr(0, time.find('.'));
-    std::string minutes = time.substr(time.find('.')+1);
+    std::string minutes = time.substr(time.find('.') + 1);
     return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60;
 }
 
@@ -271,7 +271,7 @@ readTime(LineReader& lr) {
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
         SUMOTime begin = parseSingleTime(st.next());
         SUMOTime end = parseSingleTime(st.next());
-        if (begin>=end) {
+        if (begin >= end) {
             throw ProcessError("Begin time is larger than end time.");
         }
         return std::make_pair(begin, end);
@@ -305,7 +305,7 @@ readV(LineReader& lr, ODMatrix& into, SUMOReal scale,
     std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        if (vehType=="") {
+        if (vehType == "") {
             vehType = StringUtils::prune(line);
         }
     }
@@ -329,26 +329,26 @@ readV(LineReader& lr, ODMatrix& into, SUMOReal scale,
         while (st2.hasNext()) {
             names.push_back(st2.next());
         }
-    } while ((int) names.size()!=districtNo);
+    } while ((int) names.size() != districtNo);
 
     // parse the cells
-    for (std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
+    for (std::vector<std::string>::iterator si = names.begin(); si != names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
         //
         do {
             line = getNextNonCommentLine(lr);
-            if (line.length()==0) {
+            if (line.length() == 0) {
                 continue;
             }
             try {
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
-                    assert(di!=names.end());
+                    assert(di != names.end());
                     SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-                    if (vehNumber!=0) {
+                    if (vehNumber != 0) {
                         into.add(vehNumber, begin, end, *si, *di, vehType);
                     }
-                    if (di==names.end()) {
+                    if (di == names.end()) {
                         throw ProcessError("More entries than districts found.");
                     }
                     ++di;
@@ -359,7 +359,7 @@ readV(LineReader& lr, ODMatrix& into, SUMOReal scale,
             if (!lr.hasMore()) {
                 break;
             }
-        } while (di!=names.end());
+        } while (di != names.end());
     }
     PROGRESS_DONE_MESSAGE();
 }
@@ -374,7 +374,7 @@ readO(LineReader& lr, ODMatrix& into, SUMOReal scale,
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
         int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
-        if (vehType=="") {
+        if (vehType == "") {
             vehType = toString(type);
         }
     }
@@ -390,18 +390,18 @@ readO(LineReader& lr, ODMatrix& into, SUMOReal scale,
     // parse the cells
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
-        if (line.length()==0) {
+        if (line.length() == 0) {
             continue;
         }
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-        if (st2.size()==0) {
+        if (st2.size() == 0) {
             continue;
         }
         try {
             std::string sourceD = st2.next();
             std::string destD = st2.next();
             SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-            if (vehNumber!=0) {
+            if (vehNumber != 0) {
                 into.add(vehNumber, begin, end, sourceD, destD, vehType);
             }
         } catch (OutOfBoundsException&) {
@@ -418,33 +418,33 @@ void
 loadMatrix(OptionsCont& oc, ODMatrix& into) {
     std::vector<std::string> files = oc.getStringVector("od-files");
     //  check
-    if (files.size()==0) {
+    if (files.size() == 0) {
         throw ProcessError("No files to parse are given.");
     }
     //  parse
-    for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
+    for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
         LineReader lr(*i);
         if (!lr.good()) {
             throw ProcessError("Could not open '" + (*i) + "'.");
         }
         std::string type = lr.readLine();
         // get the type only
-        if (type.find(';')!=std::string::npos) {
+        if (type.find(';') != std::string::npos) {
             type = type.substr(0, type.find(';'));
         }
         // parse type-dependant
-        if (type.length()>1 && type[1]=='V') {
+        if (type.length() > 1 && type[1] == 'V') {
             // process ptv's 'V'-matrices
-            if (type.find('N')!=std::string::npos) {
+            if (type.find('N') != std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=std::string::npos);
-        } else if (type.length()>1 && type[1]=='O') {
+            readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
+        } else if (type.length() > 1 && type[1] == 'O') {
             // process ptv's 'O'-matrices
-            if (type.find('N')!=std::string::npos) {
+            if (type.find('N') != std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=std::string::npos);
+            readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
         } else {
             throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
         }
@@ -479,16 +479,16 @@ main(int argc, char** argv) {
         // load the districts
         ODDistrictCont districts;
         loadDistricts(districts, oc);
-        if (districts.size()==0) {
+        if (districts.size() == 0) {
             throw ProcessError("No districts loaded...");
         }
         // load the matrix
         ODMatrix matrix(districts);
         loadMatrix(oc, matrix);
-        if (matrix.getNoLoaded()==0) {
+        if (matrix.getNoLoaded() == 0) {
             throw ProcessError("No vehicles loaded...");
         }
-        if (MsgHandler::getErrorInstance()->wasInformed()&&!oc.getBool("dismiss-loading-errors")) {
+        if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("dismiss-loading-errors")) {
             throw ProcessError("Loading failed...");
         }
         WRITE_MESSAGE(toString(matrix.getNoLoaded()) + " vehicles loaded.");
@@ -501,12 +501,12 @@ main(int argc, char** argv) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");
-        matrix.write(SUMOTime(string2time(oc.getString("begin"))/1000.), SUMOTime(string2time(oc.getString("end"))/1000.),
+        matrix.write(SUMOTime(string2time(oc.getString("begin")) / 1000.), SUMOTime(string2time(oc.getString("end")) / 1000.),
                      dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"), oc.getString("prefix"));
         WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -519,7 +519,7 @@ main(int argc, char** argv) {
     }
     SystemFrame::close();
     OutputDevice::closeAll();
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

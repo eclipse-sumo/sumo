@@ -165,7 +165,7 @@ protected:
      * @param[in] add An optional attribute to report
      * @param[in] addValue The value of the optional attribute
      */
-    void write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char* add=0, SUMOReal addValue=-1);
+    void write(const char* state, SUMOReal t, SUMOVehicle& veh, SUMOReal speed, const char* add = 0, SUMOReal addValue = -1);
 
 
 protected:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    inductionloop.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2011-03-16
 @version $Id$
 

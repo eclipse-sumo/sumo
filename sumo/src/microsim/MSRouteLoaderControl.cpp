@@ -46,20 +46,20 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet&,
       myInAdvanceStepNo(inAdvanceStepNo),
       myRouteLoaders(loader),
       myAllLoaded(false) {
-    myLoadAll = myInAdvanceStepNo<=0;
+    myLoadAll = myInAdvanceStepNo <= 0;
     myAllLoaded = false;
     myLastLoadTime = -1 * (int) myInAdvanceStepNo;
     // initialize all used loaders
-    for (LoaderVector::iterator i=myRouteLoaders.begin();
-            i!=myRouteLoaders.end(); ++i) {
+    for (LoaderVector::iterator i = myRouteLoaders.begin();
+            i != myRouteLoaders.end(); ++i) {
         (*i)->init();
     }
 }
 
 
 MSRouteLoaderControl::~MSRouteLoaderControl() {
-    for (LoaderVector::iterator i=myRouteLoaders.begin();
-            i!=myRouteLoaders.end(); ++i) {
+    for (LoaderVector::iterator i = myRouteLoaders.begin();
+            i != myRouteLoaders.end(); ++i) {
         delete(*i);
     }
 }
@@ -69,7 +69,7 @@ void
 MSRouteLoaderControl::loadNext(SUMOTime step) {
     // check whether new vehicles shall be loaded
     //  return if not
-    if ((myLoadAll&&myAllLoaded) || (myLastLoadTime>=0&&myLastLoadTime/*+myInAdvanceStepNo*/>=step)) {
+    if ((myLoadAll && myAllLoaded) || (myLastLoadTime >= 0 && myLastLoadTime/*+myInAdvanceStepNo*/ >= step)) {
         return;
     }
     // load all routes for the specified time period
@@ -77,11 +77,11 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
     bool furtherAvailable = true;
     for (;
             furtherAvailable &&
-            (myLoadAll||run<=step+(SUMOTime) myInAdvanceStepNo);
+            (myLoadAll || run <= step + (SUMOTime) myInAdvanceStepNo);
             run++) {
         furtherAvailable = false;
-        for (LoaderVector::iterator i=myRouteLoaders.begin();
-                i!=myRouteLoaders.end(); ++i) {
+        for (LoaderVector::iterator i = myRouteLoaders.begin();
+                i != myRouteLoaders.end(); ++i) {
             if ((*i)->moreAvailable()) {
                 (*i)->loadUntil(run);
             }
@@ -89,7 +89,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
         }
     }
     // no further loading when all was loaded
-    if (myLoadAll||!furtherAvailable) {
+    if (myLoadAll || !furtherAvailable) {
         myAllLoaded = true;
     }
     // set the step information

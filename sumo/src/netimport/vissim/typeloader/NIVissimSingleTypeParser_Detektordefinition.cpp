@@ -51,10 +51,10 @@ NIVissimSingleTypeParser_Detektordefinition::~NIVissimSingleTypeParser_Detektord
 bool
 NIVissimSingleTypeParser_Detektordefinition::parse(std::istream& from) {
     std::string tag;
-    while (tag!="strecke") {
+    while (tag != "strecke") {
         tag = myRead(from);
     }
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from);
     }
     return true;

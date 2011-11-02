@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    Traveltime.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-21
 
 Compares the travel time of vtypeprobe and FCD. (avg=False)

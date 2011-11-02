@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    route2trips.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-03-19
 @version $Id$
 

@@ -111,7 +111,7 @@ PCNetProjectionLoader::~PCNetProjectionLoader() throw() {}
 void
 PCNetProjectionLoader::myStartElement(int element,
                                       const SUMOSAXAttributes& attrs) throw(ProcessError) {
-    if (element!=SUMO_TAG_LOCATION) {
+    if (element != SUMO_TAG_LOCATION) {
         return;
     }
     bool ok = true;
@@ -142,7 +142,7 @@ PCNetProjectionLoader::myCharacters(int element,
 
 bool
 PCNetProjectionLoader::hasReadAll() const throw() {
-    return myFoundOffset&&myFoundOrigNetBoundary&&myFoundConvNetBoundary&&myFoundProj;
+    return myFoundOffset && myFoundOrigNetBoundary && myFoundConvNetBoundary && myFoundProj;
 }
 
 

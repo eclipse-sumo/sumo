@@ -130,7 +130,7 @@ main(int argc, char** argv) {
         nb.compute(oc);
         NWFrame::writeNetwork(oc, nb);
     } catch (ProcessError& e) {
-        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -145,7 +145,7 @@ main(int argc, char** argv) {
     OutputDevice::closeAll();
     SystemFrame::close();
     // report about ending
-    if (ret==0) {
+    if (ret == 0) {
         std::cout << "Success." << std::endl;
     }
     return ret;

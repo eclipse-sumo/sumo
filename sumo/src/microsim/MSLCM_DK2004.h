@@ -117,22 +117,22 @@ protected:
                        const std::pair<MSVehicle*, SUMOReal> &neighFollow);
 
     inline bool amBlockingLeader() {
-        return (myOwnState&LCA_AMBLOCKINGLEADER)!=0;
+        return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
     }
     inline bool amBlockingFollower() {
-        return (myOwnState&LCA_AMBLOCKINGFOLLOWER)!=0;
+        return (myOwnState & LCA_AMBLOCKINGFOLLOWER) != 0;
     }
     inline bool amBlockingFollowerNB() {
-        return (myOwnState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0;
+        return (myOwnState & LCA_AMBLOCKINGFOLLOWER_DONTBRAKE) != 0;
     }
     inline bool amBlockingFollowerPlusNB() {
-        return (myOwnState&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0;
+        return (myOwnState & (LCA_AMBLOCKINGFOLLOWER | LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)) != 0;
     }
     inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
-        return dist/(abs(laneOffset))<lookForwardDist;
+        return dist / (abs(laneOffset)) < lookForwardDist;
     }
     inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
-        return dist/abs(laneOffset)>lookForwardDist;
+        return dist / abs(laneOffset) > lookForwardDist;
     }
 
     typedef std::pair<SUMOReal, int> Info;

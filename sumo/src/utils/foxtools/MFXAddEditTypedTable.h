@@ -48,7 +48,7 @@ enum CellType {
 class MFXAddEditTypedTable : public FXTable {
     FXDECLARE(MFXAddEditTypedTable)
 public:
-    MFXAddEditTypedTable(FXComposite* p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_MARGIN,FXint pr=DEFAULT_MARGIN,FXint pt=DEFAULT_MARGIN,FXint pb=DEFAULT_MARGIN);
+    MFXAddEditTypedTable(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_MARGIN, FXint pr = DEFAULT_MARGIN, FXint pt = DEFAULT_MARGIN, FXint pb = DEFAULT_MARGIN);
     ~MFXAddEditTypedTable();
 
 public:
@@ -139,16 +139,16 @@ public:
     };
 
     void cancelInput();
-    long onClicked(FXObject*,FXSelector,void* ptr);
-    long onDoubleClicked(FXObject*,FXSelector,void* ptr);
-    long onLeftBtnRelease(FXObject*,FXSelector,void* ptr);
-    long onLeftBtnPress(FXObject*,FXSelector,void* ptr);
+    long onClicked(FXObject*, FXSelector, void* ptr);
+    long onDoubleClicked(FXObject*, FXSelector, void* ptr);
+    long onLeftBtnRelease(FXObject*, FXSelector, void* ptr);
+    long onLeftBtnPress(FXObject*, FXSelector, void* ptr);
 
 protected:
-    virtual FXWindow* getControlForItem(FXint r,FXint c);
-    virtual void setItemFromControl(FXint r,FXint c,FXWindow* control);
+    virtual FXWindow* getControlForItem(FXint r, FXint c);
+    virtual void setItemFromControl(FXint r, FXint c, FXWindow* control);
     void acceptInput(FXbool notify);
-    void setItemFromControl_NoRelease(FXint r,FXint c,FXWindow* control);
+    void setItemFromControl_NoRelease(FXint r, FXint c, FXWindow* control);
 
 protected:
     std::vector<CellType> myCellTypes;

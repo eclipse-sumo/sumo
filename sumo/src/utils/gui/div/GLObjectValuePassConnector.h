@@ -78,7 +78,7 @@ public:
     virtual ~GLObjectValuePassConnector() throw() {
         myLock.lock();
         typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
-        if (i!=myContainer.end()) {
+        if (i != myContainer.end()) {
             myContainer.erase(i);
         }
         myLock.unlock();
@@ -117,8 +117,8 @@ public:
      */
     static void removeObject(GUIGlObject& o) throw() {
         myLock.lock();
-        for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i=myContainer.begin(); i!=myContainer.end();) {
-            if ((*i)->myObject.getGlID()==o.getGlID()) {
+        for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = myContainer.begin(); i != myContainer.end();) {
+            if ((*i)->myObject.getGlID() == o.getGlID()) {
                 i = myContainer.erase(i);
             } else {
                 ++i;

@@ -69,7 +69,7 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
                    const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
                    SUMOReal width, bool oneWayIsDefault) throw() {
     TypesCont::iterator i = myTypes.find(id);
-    if (i!=myTypes.end()) {
+    if (i != myTypes.end()) {
         return false;
     }
     NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio, width);
@@ -83,7 +83,7 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
 
 bool
 NBTypeCont::knows(const std::string& type) const throw() {
-    return myTypes.find(type)!=myTypes.end();
+    return myTypes.find(type) != myTypes.end();
 }
 
 
@@ -96,7 +96,7 @@ NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
 bool
 NBTypeCont::markAsToDiscard(const std::string& id) throw() {
     TypesCont::iterator i = myTypes.find(id);
-    if (i==myTypes.end()) {
+    if (i == myTypes.end()) {
         return false;
     }
     (*i).second.discard = true;
@@ -156,7 +156,7 @@ NBTypeCont::getWidth(const std::string& type) const throw() {
 const NBTypeCont::TypeDefinition&
 NBTypeCont::getType(const std::string& name) const {
     TypesCont::const_iterator i = myTypes.find(name);
-    if (i==myTypes.end()) {
+    if (i == myTypes.end()) {
         return myDefaultType;
     }
     return (*i).second;

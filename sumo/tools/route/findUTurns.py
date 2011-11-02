@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    findUTurns.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-04-16
 @version $Id$
 

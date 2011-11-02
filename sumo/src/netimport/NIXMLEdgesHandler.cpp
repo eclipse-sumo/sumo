@@ -84,20 +84,20 @@ void
 NIXMLEdgesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_EDGE:
-        addEdge(attrs);
-        break;
-    case SUMO_TAG_LANE:
-        addLane(attrs);
-        break;
-    case SUMO_TAG_SPLIT:
-        addSplit(attrs);
-        break;
-    case SUMO_TAG_RESET:
-        deleteEdge(attrs);
-        break;
-    default:
-        break;
+        case SUMO_TAG_EDGE:
+            addEdge(attrs);
+            break;
+        case SUMO_TAG_LANE:
+            addLane(attrs);
+            break;
+        case SUMO_TAG_SPLIT:
+            addSplit(attrs);
+            break;
+        case SUMO_TAG_RESET:
+            deleteEdge(attrs);
+            break;
+        default:
+            break;
     }
 }
 
@@ -145,7 +145,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentWidth = myTypeCont.getWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
-    if (myCurrentEdge!=0) {
+    if (myCurrentEdge != 0) {
         myIsUpdate = true;
         if (!myHaveReportedAboutOverwriting) {
             WRITE_MESSAGE("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
@@ -231,14 +231,14 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     // check whether a previously defined edge shall be overwritten
-    if (myCurrentEdge!=0) {
+    if (myCurrentEdge != 0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
                               myCurrentWidth, myCurrentOffset, myLanesSpread,
                               OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
     } else {
         // the edge must be allocated in dependence to whether a shape is given
-        if (myShape.size()==0) {
+        if (myShape.size() == 0) {
             myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentOffset,
                                        myCurrentStreetName, myLanesSpread);
@@ -256,7 +256,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
 
 void
 NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge==0) {
+    if (myCurrentEdge == 0) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
             WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
         }
@@ -281,18 +281,18 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     // check whether this lane exists
-    if (lane>=(int) myCurrentEdge->getNumLanes()) {
+    if (lane >= (int) myCurrentEdge->getNumLanes()) {
         WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
         return;
     }
     // set information about allowed / disallowed vehicle classes
-    for (std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+    for (std::vector<std::string>::iterator i = disallowed.begin(); i != disallowed.end(); ++i) {
         myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
     }
-    for (std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+    for (std::vector<std::string>::iterator i = allowed.begin(); i != allowed.end(); ++i) {
         myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
     }
-    for (std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
+    for (std::vector<std::string>::iterator i = preferred.begin(); i != preferred.end(); ++i) {
         myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
     }
     // try to get the width
@@ -319,28 +319,28 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     Split e;
     e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, 0, ok);
     if (ok) {
-        if (fabs(e.pos)>myCurrentEdge->getGeometry().length()) {
+        if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
             return;
         }
         std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
-        if (i!=mySplits.end()) {
+        if (i != mySplits.end()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
         }
         e.nameid = (int)e.pos;
-        if (myCurrentEdge==0) {
+        if (myCurrentEdge == 0) {
             if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
                 WRITE_ERROR("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
             return;
         }
-        if (e.pos<0) {
+        if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
         std::vector<std::string> lanes;
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
-        for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
             try {
                 int lane = TplConvert<char>::_2int((*i).c_str());
                 e.lanes.push_back(lane);
@@ -393,7 +393,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) throw() {
     SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
     SUMOReal endNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
     SUMOReal endNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
-    if (begNodeXPos!=SUMOXML_INVALID_POSITION&&begNodeYPos!=SUMOXML_INVALID_POSITION) {
+    if (begNodeXPos != SUMOXML_INVALID_POSITION && begNodeYPos != SUMOXML_INVALID_POSITION) {
         Position pos(begNodeXPos, begNodeYPos);
         NILoader::transformCoordinates(pos);
         begNodeXPos = pos.x();
@@ -403,7 +403,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) throw() {
             myHaveWarnedAboutDeprecatedFromTo = true;
         }
     }
-    if (endNodeXPos!=SUMOXML_INVALID_POSITION&&endNodeYPos!=SUMOXML_INVALID_POSITION) {
+    if (endNodeXPos != SUMOXML_INVALID_POSITION && endNodeYPos != SUMOXML_INVALID_POSITION) {
         Position pos(endNodeXPos, endNodeYPos);
         NILoader::transformCoordinates(pos);
         endNodeXPos = pos.x();
@@ -416,12 +416,12 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) throw() {
     // check the obtained values for nodes
     myFromNode = insertNodeChecking(Position(begNodeXPos, begNodeYPos), begNodeID, "from");
     myToNode = insertNodeChecking(Position(endNodeXPos, endNodeYPos), endNodeID, "to");
-    if (myFromNode!=0&&myToNode!=0) {
-        if (myIsUpdate&&(myFromNode->getID()!=oldBegID||myToNode->getID()!=oldEndID)) {
+    if (myFromNode != 0 && myToNode != 0) {
+        if (myIsUpdate && (myFromNode->getID() != oldBegID || myToNode->getID() != oldEndID)) {
             myShape = PositionVector();
         }
     }
-    return myFromNode!=0&&myToNode!=0;
+    return myFromNode != 0 && myToNode != 0;
 }
 
 
@@ -438,12 +438,12 @@ NBNode*
 NIXMLEdgesHandler::insertNodeChecking(const Position& pos,
                                       const std::string& name, const std::string& dir) {
     NBNode* ret = 0;
-    if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
+    if (name == "" && (pos.x() == SUMOXML_INVALID_POSITION || pos.y() == SUMOXML_INVALID_POSITION)) {
         WRITE_ERROR("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
         return ret;
     }
-    if (name!="") {
-        if (pos.x()!=SUMOXML_INVALID_POSITION && pos.y()!=SUMOXML_INVALID_POSITION) {
+    if (name != "") {
+        if (pos.x() != SUMOXML_INVALID_POSITION && pos.y() != SUMOXML_INVALID_POSITION) {
             // the node is named and it has a position given
             if (!myNodeCont.insert(name, pos)) {
                 WRITE_ERROR("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
@@ -452,12 +452,12 @@ NIXMLEdgesHandler::insertNodeChecking(const Position& pos,
         }
         // the node is given by its name
         ret = myNodeCont.retrieve(name);
-        if (ret==0) {
+        if (ret == 0) {
             WRITE_ERROR("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
         }
     } else {
         ret = myNodeCont.retrieve(pos);
-        if (ret==0) {
+        if (ret == 0) {
             ret = new NBNode(myNodeCont.getFreeID(), pos);
             if (!myNodeCont.insert(ret)) {
                 WRITE_ERROR("Could not insert " + dir + "-node at position " + toString(pos) + ".");
@@ -478,7 +478,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) throw() {
     // try to build shape
     bool ok = true;
     std::string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, 0, ok, "");
-    if (shpdef=="") {
+    if (shpdef == "") {
         return PositionVector();
     }
     PositionVector shape = GeomConvHelper::parseShapeReporting(shpdef, attrs.getObjectType(), 0, ok, true);
@@ -531,7 +531,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 
 void
 NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
-    if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
+    if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
@@ -545,36 +545,36 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                 WRITE_ERROR("An important information is missing in edge '" + myCurrentID + "'.");
             }
         }
-        if (mySplits.size()!=0) {
+        if (mySplits.size() != 0) {
             std::vector<Split>::iterator i;
             NBEdge* e = myCurrentEdge;
             SUMOReal length = e->getLength();
             sort(mySplits.begin(), mySplits.end(), split_sorter());
             unsigned int noLanesMax = e->getNumLanes();
             // compute the node positions and sort the lanes
-            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
+            for (i = mySplits.begin(); i != mySplits.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }
             // split the edge
             std::vector<int> currLanes;
-            for (unsigned int l=0; l<e->getNumLanes(); ++l) {
+            for (unsigned int l = 0; l < e->getNumLanes(); ++l) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();
             SUMOReal seen = 0;
-            for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
+            for (i = mySplits.begin(); i != mySplits.end(); ++i) {
                 const Split& exp = *i;
-                assert(exp.lanes.size()!=0);
-                if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos && exp.pos>seen) {
+                assert(exp.lanes.size() != 0);
+                if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
                     std::string nid = edgeid + "." +  toString(exp.nameid);
                     NBNode* rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
                         std::string nid = myCurrentID + "." +  toString(exp.nameid);
                         std::string pid = e->getID();
-                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos-seen, rn,
+                        myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, rn,
                                            pid, nid, e->getNumLanes(), (unsigned int) exp.lanes.size());
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
@@ -585,24 +585,24 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                         //  new on right
                         unsigned int rightMostP = currLanes[0];
                         unsigned int rightMostN = newLanes[0];
-                        for (int l=0; l<(int) rightMostP-(int) rightMostN; ++l) {
+                        for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
                             pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  new on left
                         unsigned int leftMostP = currLanes.back();
                         unsigned int leftMostN = newLanes.back();
-                        for (int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
-                            pe->addLane2LaneConnection(pe->getNumLanes()-1, ne, leftMostN-l-rightMostN, NBEdge::L2L_VALIDATED, true);
+                        for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
+                            pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
                         }
                         //  all other connected
-                        for (unsigned int l=0; l<noLanesMax; ++l) {
-                            if (find(currLanes.begin(), currLanes.end(), l)==currLanes.end()) {
+                        for (unsigned int l = 0; l < noLanesMax; ++l) {
+                            if (find(currLanes.begin(), currLanes.end(), l) == currLanes.end()) {
                                 continue;
                             }
-                            if (find(newLanes.begin(), newLanes.end(), l)==newLanes.end()) {
+                            if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
                                 continue;
                             }
-                            pe->addLane2LaneConnection(l-rightMostP, ne, l-rightMostN, NBEdge::L2L_VALIDATED, true);
+                            pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
                         }
                         // move to next
                         e = ne;
@@ -610,7 +610,7 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
                     } else {
                         WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
-                }  else if (exp.pos==0) {
+                }  else if (exp.pos == 0) {
                     if (e->getNumLanes() < exp.lanes.size()) {
                         e->incLaneNo((int) exp.lanes.size() - e->getNumLanes());
                     } else {
@@ -624,17 +624,17 @@ NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
             // patch lane offsets
             e = myEdgeCont.retrieve(edgeid);
             i = mySplits.begin();
-            if ((*i).pos!=0) {
+            if ((*i).pos != 0) {
                 e = e->getToNode()->getOutgoingEdges()[0];
             }
-            for (; i!=mySplits.end(); ++i) {
+            for (; i != mySplits.end(); ++i) {
                 unsigned int maxLeft = (*i).lanes.back();
-                if (maxLeft<noLanesMax) {
+                if (maxLeft < noLanesMax) {
                     PositionVector g = e->getGeometry();
-                    g.move2side(SUMO_const_laneWidthAndOffset*(noLanesMax-1-maxLeft));
+                    g.move2side(SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft));
                     e->setGeometry(g);
                 }
-                if (e->getToNode()->getOutgoingEdges().size()!=0) {
+                if (e->getToNode()->getOutgoingEdges().size() != 0) {
                     e = e->getToNode()->getOutgoingEdges()[0];
                 }
             }

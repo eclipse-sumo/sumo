@@ -244,7 +244,7 @@ protected:
      */
     std::string getFileName(const SUMOSAXAttributes& attrs,
                             const std::string& base,
-                            const bool allowEmpty=false) throw(InvalidArgument);
+                            const bool allowEmpty = false) throw(InvalidArgument);
 
 
     /** @brief Returns the lane defined by attribute "lane"

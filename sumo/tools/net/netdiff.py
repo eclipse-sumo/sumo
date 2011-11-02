@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    netdiff.py
-@author  Jakob.Erdmann@dlr.de
+@author  Jakob Erdmann
 @date    2011-10-04
 @version $Id$
 
@@ -283,7 +283,7 @@ class AttributeStore:
 #######################################################################################3
 # [http://code.activestate.com/recipes/576694/]
 # (c) Raymond Hettinger, MIT-License
-# added operators by Jakob.Erdmann@dlr.de
+# added operators by Jakob Erdmann
 
 import collections
 KEY, PREV, NEXT = range(3)

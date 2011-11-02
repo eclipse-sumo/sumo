@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    QuantityOverDay.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-01
 
 Counts for an given interval all unique taxis in an FCD file and draws the result as a bar chart. 

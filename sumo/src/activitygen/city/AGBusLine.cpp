@@ -59,7 +59,7 @@ AGBusLine::setBusNames() {
 
     std::list<std::pair<int, std::string> > drivingBuses1, drivingBuses2;	//buses on the road or in the parking of the corresponding end: int: the time of availability
 
-    while (it1!= buses.end() && it2!=revBuses.end()) {
+    while (it1 != buses.end() && it2 != revBuses.end()) {
         if (it1->getDeparture() > it2->getDeparture()) {
             if (drivingBuses2.size() == 0) {
                 drivingBuses2.push_front(make_pair(it2->getDeparture(), createName()));
@@ -159,11 +159,11 @@ AGBusLine::printBuses() {
     std::list<AGBus>::iterator it;
     std::cout << "\n ----------- BUS LINE " << lineNumber << " PRINTING -------------\n" << std::endl;
     std::cout << "\n -------------------------- First way ---------------------------\n" << std::endl;
-    for (it=buses.begin() ; it!=buses.end() ; ++it) {
+    for (it = buses.begin() ; it != buses.end() ; ++it) {
         it->print();
     }
     std::cout << "\n -------------------------- Second way --------------------------\n" << std::endl;
-    for (it=revBuses.begin() ; it!=revBuses.end() ; ++it) {
+    for (it = revBuses.begin() ; it != revBuses.end() ; ++it) {
         it->print();
     }
     std::cout << "\n ----------------------------------------------------------------\n" << std::endl;

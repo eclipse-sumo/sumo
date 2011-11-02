@@ -123,8 +123,8 @@ NGNode::removeLink(NGEdge* link) throw() {
 
 bool
 NGNode::connected(NGNode* node) const throw() {
-    for (NGEdgeList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
-        if (find(node->LinkList.begin(), node->LinkList.end(), *i)!=node->LinkList.end()) {
+    for (NGEdgeList::const_iterator i = LinkList.begin(); i != LinkList.end(); i++) {
+        if (find(node->LinkList.begin(), node->LinkList.end(), *i) != node->LinkList.end()) {
             return true;
         }
     }

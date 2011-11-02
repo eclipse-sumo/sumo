@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    randomTrips.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2010-03-06
 @version $Id$
 

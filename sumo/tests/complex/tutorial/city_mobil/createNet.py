@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    createNet.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2008-07-04
 @version $Id$
 

@@ -66,7 +66,7 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     PCLoaderXML handler(toFill, tm, oc);
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("xml");
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
@@ -95,10 +95,10 @@ PCLoaderXML::~PCLoaderXML() throw() {}
 void
 PCLoaderXML::myStartElement(int element,
                             const SUMOSAXAttributes& attrs) throw(ProcessError) {
-    if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
+    if (element != SUMO_TAG_POI && element != SUMO_TAG_POLY) {
         return;
     }
-    if (element==SUMO_TAG_POI) {
+    if (element == SUMO_TAG_POI) {
         bool ok = true;
         // get the id, report an error if not given or empty...
         std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -140,7 +140,7 @@ PCLoaderXML::myStartElement(int element,
             }
         }
     }
-    if (element==SUMO_TAG_POLY) {
+    if (element == SUMO_TAG_POLY) {
         bool discard = myOptions.getBool("discard");
         int layer = myOptions.getInt("layer");
         bool ok = true;
@@ -184,7 +184,7 @@ PCLoaderXML::myStartElement(int element,
 void
 PCLoaderXML::myCharacters(int element,
                           const std::string& chars) throw(ProcessError) {
-    if (element==SUMO_TAG_POLY) {
+    if (element == SUMO_TAG_POLY) {
         bool ok = true;
         PositionVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
         if (!ok) {
@@ -192,7 +192,7 @@ PCLoaderXML::myCharacters(int element,
         }
         const PositionVector::ContType& cont = pshape.getCont();
         PositionVector shape;
-        for (PositionVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
+        for (PositionVector::ContType::const_iterator i = cont.begin(); i != cont.end(); ++i) {
             Position pos((*i));
             if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + myCurrentID + "'.");

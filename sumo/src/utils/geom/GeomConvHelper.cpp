@@ -46,7 +46,7 @@
 PositionVector
 GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string& objecttype,
                                     const char* objectid, bool& ok, bool allowEmpty, bool report) throw() {
-    if (shpdef=="") {
+    if (shpdef == "") {
         if (!allowEmpty) {
             emitError(report, "Shape", objecttype, objectid, "the shape is empty");
             ok = false;
@@ -57,7 +57,7 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
     PositionVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
-        if (pos.size()!=2 && pos.size()!=3) {
+        if (pos.size() != 2 && pos.size() != 3) {
             emitError(report, "Shape", objecttype, objectid, "the position is neither x,y nor x,y,z");
             ok = false;
             return PositionVector();
@@ -65,7 +65,7 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-            if (pos.size()==2) {
+            if (pos.size() == 2) {
                 shape.push_back(Position(x, y));
             } else {
                 SUMOReal z = TplConvert<char>::_2SUMOReal(pos.next().c_str());
@@ -89,7 +89,7 @@ Boundary
 GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string& objecttype,
                                        const char* objectid, bool& ok, bool report) throw() {
     StringTokenizer st(def, ",");
-    if (st.size()!=4) {
+    if (st.size() != 4) {
         emitError(report, "Bounding box", objecttype, objectid, "mismatching entry number");
         ok = false;
         return Boundary();
@@ -118,11 +118,11 @@ GeomConvHelper::emitError(bool report, const std::string& what, const std::strin
     }
     std::ostringstream oss;
     oss << what << " of ";
-    if (objectid==0) {
+    if (objectid == 0) {
         oss << "a(n) ";
     }
     oss << objecttype;
-    if (objectid!=0) {
+    if (objectid != 0) {
         oss << " '" << objectid << "'";
     }
     oss << " is broken: " << desc << ".";

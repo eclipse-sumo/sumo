@@ -123,7 +123,7 @@ public:
          * @return Something!?
          */
         void* informLeader(void* info, MSVehicle* sender) throw() {
-            assert(myLeader!=0);
+            assert(myLeader != 0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
 
@@ -134,7 +134,7 @@ public:
          * @return Something!?
          */
         void* informNeighLeader(void* info, MSVehicle* sender) throw() {
-            assert(myNeighLeader!=0);
+            assert(myNeighLeader != 0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
 
@@ -145,7 +145,7 @@ public:
          * @return Something!?
          */
         void* informNeighFollower(void* info, MSVehicle* sender) throw() {
-            assert(myNeighFollower!=0);
+            assert(myNeighFollower != 0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
 
@@ -257,7 +257,7 @@ public:
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader) {
-        if (neighLeader==0) {
+        if (neighLeader == 0) {
             return false;
         }
         // Congested situation are relevant only on highways (maxSpeed > 70km/h)
@@ -274,11 +274,11 @@ protected:
     }
 
     virtual bool predInteraction(const MSVehicle* const leader) {
-        if (leader==0) {
+        if (leader == 0) {
             return false;
         }
         // let's check it on highways only
-        if (leader->getSpeed()<(80.0/3.6)) {
+        if (leader->getSpeed() < (80.0 / 3.6)) {
             return false;
         }
         SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLengthWithGap() - myVehicle.getPositionOnLane();

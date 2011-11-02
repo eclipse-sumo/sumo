@@ -57,7 +57,7 @@ SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
-    MSVehicle* built = new GUIVehicle(defs, route, type, myLoadedVehNo-1);
+    MSVehicle* built = new GUIVehicle(defs, route, type, myLoadedVehNo - 1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }
@@ -84,7 +84,7 @@ void
 GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) throw() {
     myLock.lock();
     into.reserve(myVehicleDict.size());
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
+    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         SUMOVehicle* veh = (*i).second;
         if (veh->isOnRoad()) {
             into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());

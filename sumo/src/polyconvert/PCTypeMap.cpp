@@ -72,7 +72,7 @@ PCTypeMap::get(const std::string& id) throw() {
 
 bool
 PCTypeMap::has(const std::string& id) throw() {
-    return myTypes.find(id)!=myTypes.end();
+    return myTypes.find(id) != myTypes.end();
 }
 
 

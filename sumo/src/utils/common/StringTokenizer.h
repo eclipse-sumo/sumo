@@ -91,7 +91,7 @@ public:
         If the optional third parameter is true, the string will be split whenever
         a char from the second string occurs. If the string between two split
         positions is empty, it will nevertheless be returned. */
-    StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars=false);
+    StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars = false);
 
     /** @brief constructor
         When StringTokenizer.NEWLINE is used as second parameter, the string

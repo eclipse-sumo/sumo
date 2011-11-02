@@ -256,7 +256,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.max-ramp-speed", "ramp-guess.max-ramp-speed", true);
         oc.addDescription("ramps.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
 
-        oc.doRegister("ramps.min-highway-speed", new Option_Float((SUMOReal)(79/3.6)));
+        oc.doRegister("ramps.min-highway-speed", new Option_Float((SUMOReal)(79 / 3.6)));
         oc.addSynonyme("ramps.min-highway-speed", "ramp-guess.min-highway-speed", true);
         oc.addDescription("ramps.min-highway-speed", "Ramp Guessing", "Treat edges with speed < FLOAT as no highways");
 

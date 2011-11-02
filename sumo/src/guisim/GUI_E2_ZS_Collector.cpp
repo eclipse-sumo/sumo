@@ -86,14 +86,14 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector) throw()
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getEndPos());
     //
-    myShapeRotations.reserve(myFullGeometry.size()-1);
-    myShapeLengths.reserve(myFullGeometry.size()-1);
+    myShapeRotations.reserve(myFullGeometry.size() - 1);
+    myShapeLengths.reserve(myFullGeometry.size() - 1);
     int e = (int) myFullGeometry.size() - 1;
-    for (int i=0; i<e; ++i) {
+    for (int i = 0; i < e; ++i) {
         const Position& f = myFullGeometry[i];
-        const Position& s = myFullGeometry[i+1];
+        const Position& s = myFullGeometry[i + 1];
         myShapeLengths.push_back(f.distanceTo(s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();
@@ -118,7 +118,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     // parameter
-    ret->mkItem("length [m]", false, myDetector.getEndPos()-myDetector.getStartPos());
+    ret->mkItem("length [m]", false, myDetector.getEndPos() - myDetector.getStartPos());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
@@ -154,19 +154,19 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const 
     glPushMatrix();
     glTranslated(0, 0, getType());
     SUMOReal dwidth = 1;
-    if (myDetector.getUsageType()==DU_TL_CONTROL) {
+    if (myDetector.getUsageType() == DU_TL_CONTROL) {
         dwidth = (SUMOReal) 0.3;
         glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
     } else {
         glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
-    SUMOReal width=2; // !!!
-    if (width*s.addExaggeration>1.0) {
+    SUMOReal width = 2; // !!!
+    if (width * s.addExaggeration > 1.0) {
         glScaled(s.addExaggeration, s.addExaggeration, 1);
         GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth);
     } else {
         int e = (int) myFullGeometry.size() - 1;
-        for (int i=0; i<e; ++i) {
+        for (int i = 0; i < e; ++i) {
             GLHelper::drawLine(myFullGeometry[i], myShapeRotations[i], myShapeLengths[i]);
         }
     }

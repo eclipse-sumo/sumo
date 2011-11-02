@@ -82,8 +82,8 @@ MSRoute::size() const {
 
 const MSEdge*
 MSRoute::getLastEdge() const {
-    assert(myEdges.size()>0);
-    return myEdges[myEdges.size()-1];
+    assert(myEdges.size() > 0);
+    return myEdges[myEdges.size() - 1];
 }
 
 
@@ -149,11 +149,11 @@ MSRoute::distDictionary(const std::string& id) {
 
 void
 MSRoute::clear() {
-    for (RouteDistDict::iterator i=myDistDict.begin(); i!=myDistDict.end(); ++i) {
+    for (RouteDistDict::iterator i = myDistDict.begin(); i != myDistDict.end(); ++i) {
         delete i->second;
     }
     myDistDict.clear();
-    for (RouteDict::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+    for (RouteDict::iterator i = myDict.begin(); i != myDict.end(); ++i) {
         delete i->second;
     }
     myDict.clear();
@@ -162,11 +162,11 @@ MSRoute::clear() {
 
 void
 MSRoute::insertIDs(std::vector<std::string> &into) {
-    into.reserve(myDict.size()+myDistDict.size()+into.size());
-    for (RouteDict::const_iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+    into.reserve(myDict.size() + myDistDict.size() + into.size());
+    for (RouteDict::const_iterator i = myDict.begin(); i != myDict.end(); ++i) {
         into.push_back((*i).first);
     }
-    for (RouteDistDict::const_iterator i=myDistDict.begin(); i!=myDistDict.end(); ++i) {
+    for (RouteDistDict::const_iterator i = myDistDict.begin(); i != myDistDict.end(); ++i) {
         into.push_back((*i).first);
     }
 }
@@ -183,7 +183,7 @@ MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* 
             return;
         }
         os << (*i)->getID();
-        if (upTo || i!=myEdges.end()-1) {
+        if (upTo || i != myEdges.end() - 1) {
             os << ' ';
         }
     }
@@ -193,7 +193,7 @@ MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* 
 bool
 MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const {
     std::vector<MSEdge*>::const_iterator i = edgelist.begin();
-    for (; i!=edgelist.end(); ++i) {
+    for (; i != edgelist.end(); ++i) {
         if (contains(*i)) {
             return true;
         }
@@ -212,7 +212,7 @@ MSRoute::operator[](unsigned index) const {
 void
 MSRoute::dict_saveState(std::ostream& os) throw() {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
-    for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+    for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
         const MSEdgeVector& edges = (*it).second->myEdges;
         FileHelpers::writeUInt(os, (unsigned int)edges.size());
@@ -220,7 +220,7 @@ MSRoute::dict_saveState(std::ostream& os) throw() {
         std::vector<unsigned int> follow;
         unsigned int maxFollow = 0;
         const MSEdge* prev = edges.front();
-        for (MSEdgeVector::const_iterator i = edges.begin()+1; i != edges.end(); ++i) {
+        for (MSEdgeVector::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
             unsigned int idx = 0;
             for (; idx < prev->getNoFollowing(); ++idx) {
                 if (idx > 15) {
@@ -263,12 +263,12 @@ MSRoute::dict_saveState(std::ostream& os) throw() {
                 }
             }
             if (field > 0) {
-                FileHelpers::writeUInt(os, data << ((numFields-field-1) * bits));
+                FileHelpers::writeUInt(os, data << ((numFields - field - 1) * bits));
             }
         }
     }
     FileHelpers::writeUInt(os, (unsigned int) myDistDict.size());
-    for (RouteDistDict::iterator it = myDistDict.begin(); it!=myDistDict.end(); ++it) {
+    for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).first);
         const unsigned int size = (unsigned int)(*it).second->getVals().size();
         FileHelpers::writeUInt(os, size);
@@ -284,7 +284,7 @@ void
 MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
     unsigned int numRoutes;
     bis >> numRoutes;
-    for (; numRoutes>0; numRoutes--) {
+    for (; numRoutes > 0; numRoutes--) {
         std::string id;
         bis >> id;
         unsigned int numEdges;
@@ -296,14 +296,14 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
         if (first < 0) {
             const unsigned int bits = -first;
             const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
-            if (dictionary(id)==0) {
+            if (dictionary(id) == 0) {
                 const unsigned int mask = (1 << bits) - 1;
                 MSEdgeVector edges;
                 edges.reserve(numEdges);
                 unsigned int edgeID;
                 bis >> edgeID;
                 const MSEdge* prev = MSEdge::dictionary(edgeID);
-                assert(prev!=0);
+                assert(prev != 0);
                 edges.push_back(prev);
                 numEdges--;
                 unsigned int data;
@@ -329,15 +329,15 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
                 }
             }
         } else {
-            if (dictionary(id)==0) {
+            if (dictionary(id) == 0) {
                 MSEdgeVector edges;
                 edges.reserve(numEdges);
                 edges.push_back(MSEdge::dictionary(first));
                 numEdges--;
-                for (; numEdges>0; numEdges--) {
+                for (; numEdges > 0; numEdges--) {
                     unsigned int edgeID;
                     bis >> edgeID;
-                    assert(MSEdge::dictionary(edgeID)!=0);
+                    assert(MSEdge::dictionary(edgeID) != 0);
                     edges.push_back(MSEdge::dictionary(edgeID));
                 }
                 MSRoute* r = new MSRoute(id, edges, references,
@@ -345,7 +345,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
                 dictionary(id, r);
             } else {
                 numEdges--;
-                for (; numEdges>0; numEdges--) {
+                for (; numEdges > 0; numEdges--) {
                     unsigned int edgeID;
                     bis >> edgeID;
                 }
@@ -354,25 +354,25 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
     }
     unsigned int numRouteDists;
     bis >> numRouteDists;
-    for (; numRouteDists>0; numRouteDists--) {
+    for (; numRouteDists > 0; numRouteDists--) {
         std::string id;
         bis >> id;
         unsigned int no;
         bis >> no;
-        if (dictionary(id)==0) {
+        if (dictionary(id) == 0) {
             RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>();
-            for (; no>0; no--) {
+            for (; no > 0; no--) {
                 std::string routeID;
                 bis >> routeID;
                 const MSRoute* r = dictionary(routeID);
-                assert(r!=0);
+                assert(r != 0);
                 SUMOReal prob;
                 bis >> prob;
                 dist->add(prob, r, false);
             }
             dictionary(id, dist);
         } else {
-            for (; no>0; no--) {
+            for (; no > 0; no--) {
                 std::string routeID;
                 bis >> routeID;
                 SUMOReal prob;
@@ -387,7 +387,7 @@ MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
 SUMOReal
 MSRoute::getLength() const {
     SUMOReal ret = 0;
-    for (MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         ret += (*i)->getLanes()[0]->getLength();
     }
     return ret;
@@ -408,7 +408,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
         // destination position is on start edge
         return (toPos - fromPos);
     }
-    for (; it!=end(); ++it) {
+    for (; it != end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
             distance += toPos;
             break;
@@ -420,10 +420,10 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
                 for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
-                    if ((*linkIt)==0||(*linkIt)->getLane()==0) {
+                    if ((*linkIt) == 0 || (*linkIt)->getLane() == 0) {
                         continue;
                     }
-                    std::string succLaneId = (*(it+1))->getLanes()[0]->getID();
+                    std::string succLaneId = (*(it + 1))->getLanes()[0]->getID();
                     if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
                         distance += (*linkIt)->getLength();
                     }

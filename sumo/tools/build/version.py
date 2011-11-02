@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    version.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2007
 @version $Id$
 

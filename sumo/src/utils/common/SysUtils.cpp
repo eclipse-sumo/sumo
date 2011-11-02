@@ -53,7 +53,7 @@ SysUtils::getCurrentMillis() {
     LARGE_INTEGER val, val2;
     BOOL check = QueryPerformanceCounter(&val);
     check = QueryPerformanceFrequency(&val2);
-    return (long)(val.QuadPart*1000/val2.QuadPart);
+    return (long)(val.QuadPart * 1000 / val2.QuadPart);
 #endif
 }
 

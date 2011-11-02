@@ -63,8 +63,8 @@ NIVissimVehicleType::dictionary(int id,
 
 bool
 NIVissimVehicleType::dictionary(int id, NIVissimVehicleType* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         return true;
     }
@@ -74,8 +74,8 @@ NIVissimVehicleType::dictionary(int id, NIVissimVehicleType* o) {
 
 NIVissimVehicleType*
 NIVissimVehicleType::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -83,7 +83,7 @@ NIVissimVehicleType::dictionary(int id) {
 
 void
 NIVissimVehicleType::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();

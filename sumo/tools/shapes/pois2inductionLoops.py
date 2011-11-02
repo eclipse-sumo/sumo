@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    pois2inductionLoops.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2010-02-18
 @version $Id$
 

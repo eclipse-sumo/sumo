@@ -98,25 +98,25 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) throw()
     // build the styled message
     FXint style = 1;
     switch (eType) {
-    case EVENT_ERROR_OCCURED:
-        // color: red
-        style = 2;
-        break;
-    case EVENT_WARNING_OCCURED:
-        // color: yellow
-        style = 3;
-        break;
-    case EVENT_MESSAGE_OCCURED:
-        // color: green
-        style = 1;
-        break;
-    default:
-        assert(false);
+        case EVENT_ERROR_OCCURED:
+            // color: red
+            style = 2;
+            break;
+        case EVENT_WARNING_OCCURED:
+            // color: yellow
+            style = 3;
+            break;
+        case EVENT_MESSAGE_OCCURED:
+            // color: green
+            style = 1;
+            break;
+        default:
+            assert(false);
     }
     // insert message to buffer
-    FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), style+1, true);
-    FXText::setCursorPos(getLength()-1);
-    FXText::setBottomLine(getLength()-1);
+    FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), style + 1, true);
+    FXText::setCursorPos(getLength() - 1);
+    FXText::setBottomLine(getLength() - 1);
     if (isEnabled()) {
         layout();
         update();
@@ -128,8 +128,8 @@ void
 GUIMessageWindow::addSeparator() throw() {
     std::string msg = "----------------------------------------------------------------------------------------\n";
     FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
-    FXText::setCursorPos(getLength()-1);
-    FXText::setBottomLine(getLength()-1);
+    FXText::setCursorPos(getLength() - 1);
+    FXText::setBottomLine(getLength() - 1);
     if (isEnabled()) {
         layout();
         update();
@@ -139,10 +139,10 @@ GUIMessageWindow::addSeparator() throw() {
 
 void
 GUIMessageWindow::clear() throw() {
-    if (getLength()==0) {
+    if (getLength() == 0) {
         return;
     }
-    FXText::removeText(0, getLength()-1, true);
+    FXText::removeText(0, getLength() - 1, true);
     if (isEnabled()) {
         layout();
         update();

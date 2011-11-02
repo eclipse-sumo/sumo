@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    __init__.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2011-06-23
 @version $Id$
 

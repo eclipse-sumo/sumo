@@ -80,7 +80,7 @@ public:
      * @return Whether the given parameter was set
      */
     bool wasSet(int what) const throw() {
-        return (setParameter&what)!=0;
+        return (setParameter & what) != 0;
     }
 
 

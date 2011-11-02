@@ -65,7 +65,7 @@ MSDevice_HBEFA::insertOptions() throw() {
 void
 MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getFloat("device.hbefa.probability")==0 && !oc.isSet("device.hbefa.explicit")) {
+    if (oc.getFloat("device.hbefa.probability") == 0 && !oc.isSet("device.hbefa.explicit")) {
         // no route computation is modelled
         return;
     }
@@ -74,10 +74,10 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into
     if (oc.getBool("device.hbefa.deterministic")) {
         haveByNumber = MSNet::getInstance()->getVehicleControl().isInQuota(oc.getFloat("device.hbefa.probability"));
     } else {
-        haveByNumber = RandHelper::rand()<=oc.getFloat("device.hbefa.probability");
+        haveByNumber = RandHelper::rand() <= oc.getFloat("device.hbefa.probability");
     }
     bool haveByName = oc.isSet("device.hbefa.explicit") && OptionsCont::getOptions().isInStringVector("device.hbefa.explicit", v.getID());
-    if (haveByNumber||haveByName) {
+    if (haveByNumber || haveByName) {
         // build the device
         MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "hbefa_" + v.getID());
         into.push_back(device);
@@ -119,9 +119,9 @@ MSDevice_HBEFA::generateOutput() const throw(IOError) {
      " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
      "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
      "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
-     "\" PMx_abs=\""<< OutputDevice::realString(myPMx, 6) <<
-     "\" NOx_abs=\""<< OutputDevice::realString(myNOx, 6) <<
-     "\" fuel_abs=\""<< OutputDevice::realString(myFuel, 6) <<
+     "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
+     "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
+     "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
      "\"").closeTag(true);
 }
 

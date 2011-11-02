@@ -65,7 +65,7 @@ MSTriggeredReader::wrappedExecute(SUMOTime current) {
     }
     SUMOTime next = current;
     // loop until the next action lies in the future
-    while (current==next) {
+    while (current == next) {
         // run the next action
         //  if it could be accomplished...
         if (processNextEntryReaderTriggered()) {
@@ -83,7 +83,7 @@ MSTriggeredReader::wrappedExecute(SUMOTime current) {
         }
     }
     // come back if the next action shall be executed
-    if (myOffset - current<=0) {
+    if (myOffset - current <= 0) {
         // current is delayed;
         return DELTA_T;
     }

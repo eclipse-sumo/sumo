@@ -1,6 +1,6 @@
 """
 @file    assign.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2007-11-25
 @version $Id$
 

@@ -130,12 +130,12 @@ NIVisumTL::NIVisumTL(const std::string& Name, SUMOTime CycleTime,
       myPhaseDefined(PhaseDefined) {}
 
 NIVisumTL::~NIVisumTL() {
-    for (NIVisumTL::PhaseMap::iterator i=myPhases.begin();
-            i!=myPhases.end(); i++) {
+    for (NIVisumTL::PhaseMap::iterator i = myPhases.begin();
+            i != myPhases.end(); i++) {
         delete(i->second);
     }
-    for (NIVisumTL::SignalGroupMap::iterator k=mySignalGroups.begin();
-            k!=mySignalGroups.end(); k++) {
+    for (NIVisumTL::SignalGroupMap::iterator k = mySignalGroups.begin();
+            k != mySignalGroups.end(); k++) {
         delete(k->second);
     }
 }
@@ -210,7 +210,7 @@ NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
             def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
             // phases
             if (myPhaseDefined) {
-                for (PhaseMap::iterator pi = SG.GetPhases()->begin(); pi!= SG.GetPhases()->end(); pi++) {
+                for (PhaseMap::iterator pi = SG.GetPhases()->begin(); pi != SG.GetPhases()->end(); pi++) {
                     NIVisumTL::Phase& PH = *(*pi).second;
                     def->addSignalGroupPhaseBegin(GroupName, PH.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(GroupName, PH.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);

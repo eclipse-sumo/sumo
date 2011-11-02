@@ -47,18 +47,18 @@ using namespace FX;
 // MFXMutex constructor
 MFXMutex::MFXMutex() : lock_(0) {
 #ifndef WIN32
-    FXint status=0;
+    FXint status = 0;
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
-    status=pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_RECURSIVE);
-    FXASSERT(status==0);
-    FXMALLOC(&mutexHandle,pthread_mutex_t,1);
-    status=pthread_mutex_init((pthread_mutex_t*)mutexHandle,&attr);
-    FXASSERT(status==0);
+    status = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+    FXASSERT(status == 0);
+    FXMALLOC(&mutexHandle, pthread_mutex_t, 1);
+    status = pthread_mutex_init((pthread_mutex_t*)mutexHandle, &attr);
+    FXASSERT(status == 0);
     pthread_mutexattr_destroy(&attr);
 #else
-    mutexHandle=CreateMutex(NULL,FALSE,NULL);
-    FXASSERT(mutexHandle!=NULL);
+    mutexHandle = CreateMutex(NULL, FALSE, NULL);
+    FXASSERT(mutexHandle != NULL);
 #endif
 }
 
@@ -84,7 +84,7 @@ void MFXMutex::lock() {
 #if !defined(WIN32)
     pthread_mutex_lock((pthread_mutex_t*)mutexHandle);
 #else
-    WaitForSingleObject(mutexHandle,INFINITE);
+    WaitForSingleObject(mutexHandle, INFINITE);
 #endif
     lock_++;
 }

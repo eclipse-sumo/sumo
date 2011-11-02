@@ -116,51 +116,51 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    long onCmdOpenConfiguration(FXObject*,FXSelector,void*);
-    long onCmdOpenNetwork(FXObject*,FXSelector,void*);
-    long onCmdReload(FXObject*,FXSelector,void*);
-    long onCmdOpenRecent(FXObject*,FXSelector,void*);
+    long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
+    long onCmdOpenNetwork(FXObject*, FXSelector, void*);
+    long onCmdReload(FXObject*, FXSelector, void*);
+    long onCmdOpenRecent(FXObject*, FXSelector, void*);
 
-    long onCmdClose(FXObject*,FXSelector,void*);
+    long onCmdClose(FXObject*, FXSelector, void*);
 
     /** @brief Called by FOX if the application shall be closed
         Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
-    long onCmdQuit(FXObject*,FXSelector,void*);
+    long onCmdQuit(FXObject*, FXSelector, void*);
 
-    long onCmdEditChosen(FXObject*,FXSelector,void*);
-    long onCmdEditBreakpoints(FXObject*,FXSelector,void*);
+    long onCmdEditChosen(FXObject*, FXSelector, void*);
+    long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
     /// Opens the application settings menu
-    long onCmdAppSettings(FXObject*,FXSelector,void*);
+    long onCmdAppSettings(FXObject*, FXSelector, void*);
     /// Toggle gaming mode
-    long onCmdGaming(FXObject*,FXSelector,void*);
+    long onCmdGaming(FXObject*, FXSelector, void*);
     /// Toggle listing of internal structures
-    long onCmdListInternal(FXObject*,FXSelector,void*);
+    long onCmdListInternal(FXObject*, FXSelector, void*);
 
     /// Shows the about dialog
-    long onCmdAbout(FXObject*,FXSelector,void*);
+    long onCmdAbout(FXObject*, FXSelector, void*);
 
-    long onCmdStart(FXObject*,FXSelector,void*);
-    long onCmdStop(FXObject*,FXSelector,void*);
-    long onCmdStep(FXObject*,FXSelector,void*);
+    long onCmdStart(FXObject*, FXSelector, void*);
+    long onCmdStop(FXObject*, FXSelector, void*);
+    long onCmdStep(FXObject*, FXSelector, void*);
 
-    long onCmdNewView(FXObject*,FXSelector,void*);
+    long onCmdNewView(FXObject*, FXSelector, void*);
 
-    long onUpdOpen(FXObject*,FXSelector,void*);
-    long onUpdReload(FXObject*,FXSelector,void*);
-    long onUpdOpenRecent(FXObject*,FXSelector,void*);
-    long onUpdAddMicro(FXObject*,FXSelector,void*);
-    virtual long onUpdStart(FXObject*,FXSelector,void*);
-    long onUpdStop(FXObject*,FXSelector,void*);
-    long onUpdStep(FXObject*,FXSelector,void*);
-    long onUpdEditChosen(FXObject* sender,FXSelector,void* ptr);
-    virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
-    long onCmdClearMsgWindow(FXObject*,FXSelector,void*);
+    long onUpdOpen(FXObject*, FXSelector, void*);
+    long onUpdReload(FXObject*, FXSelector, void*);
+    long onUpdOpenRecent(FXObject*, FXSelector, void*);
+    long onUpdAddMicro(FXObject*, FXSelector, void*);
+    virtual long onUpdStart(FXObject*, FXSelector, void*);
+    long onUpdStop(FXObject*, FXSelector, void*);
+    long onUpdStep(FXObject*, FXSelector, void*);
+    long onUpdEditChosen(FXObject* sender, FXSelector, void* ptr);
+    virtual long onUpdEditBreakpoints(FXObject*, FXSelector, void*);
+    long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
     /// Somebody wants our clipped text
-    long onClipboardRequest(FXObject* sender,FXSelector sel,void* ptr);
+    long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
     /// @}
 
     FXGLCanvas* getBuildGLCanvas() const;
@@ -173,7 +173,7 @@ protected:
 
 private:
     /** starts to load a simulation */
-    void load(const std::string& file, bool isNet, bool isReload=false);
+    void load(const std::string& file, bool isNet, bool isReload = false);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();

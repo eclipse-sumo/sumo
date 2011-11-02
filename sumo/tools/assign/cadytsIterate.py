@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    cadytsIterate.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2010-09-15
 @version $Id$
 

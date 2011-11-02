@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @file    vehicle.py
-@author  Michael.Behrisch@dlr.de, Lena Kalleske
+@author  Michael Behrisch, Lena Kalleske
 @date    2011-03-09
 @version $Id$
 

@@ -74,7 +74,7 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes=0) throw();
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0) throw();
 
         /** @brief Destructor */
         virtual ~MeanDataValues() throw();
@@ -82,7 +82,7 @@ public:
 
         /** @brief Resets values so they may be used for the next interval
          */
-        virtual void reset(bool afterWrite=false) throw() = 0;
+        virtual void reset(bool afterWrite = false) throw() = 0;
 
         /** @brief Add the values of this to the given one and store them there
          *
@@ -159,7 +159,7 @@ public:
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
                            const SUMOReal numLanes,
-                           const int numVehicles=-1) const throw(IOError) = 0;
+                           const int numVehicles = -1) const throw(IOError) = 0;
 
         /** @brief Returns the number of collected sample seconds.
          * @return the number of collected sample seconds
@@ -194,8 +194,8 @@ public:
     public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
-                             const std::set<std::string>* const vTypes=0,
-                             const MSMeanData* const parent=0) throw();
+                             const std::set<std::string>* const vTypes = 0,
+                             const MSMeanData* const parent = 0) throw();
 
         /** @brief Destructor */
         virtual ~MeanDataValueTracker() throw();
@@ -263,7 +263,7 @@ public:
          */
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
-                   const int numVehicles=-1) const throw(IOError);
+                   const int numVehicles = -1) const throw(IOError);
 
         size_t getNumReady() const throw();
 

@@ -64,7 +64,7 @@ public:
     virtual ~MFXMutex();
 
     inline FXbool locked() {
-        return lock_?TRUE:FALSE;
+        return lock_ ? TRUE : FALSE;
     }
 
 protected:

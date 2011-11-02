@@ -65,55 +65,55 @@ void
 RONetHandler::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_EDGE:
-        // in the first step, we do need the name to allocate the edge
-        // in the second, we need it to know to which edge we have to add
-        //  the following edges to
-        parseEdge(attrs);
-        break;
-    case SUMO_TAG_LANE:
-        if (myProcess) {
-            parseLane(attrs);
-        }
-        break;
-    case SUMO_TAG_JUNCTION:
-        parseJunction(attrs);
-        break;
-    case SUMO_TAG_SUCC:
-        parseConnectingEdge(attrs);
-        break;
-    case SUMO_TAG_SUCCLANE:
-        parseConnectedEdge(attrs);
-        break;
-    case SUMO_TAG_CONNECTION:
-        parseConnection(attrs);
-        break;
-    case SUMO_TAG_DISTRICT__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDistrict) {
-            myHaveWarnedAboutDeprecatedDistrict = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
-        }
-    case SUMO_TAG_TAZ:
-        parseDistrict(attrs);
-        break;
-    case SUMO_TAG_DSOURCE__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDSource) {
-            myHaveWarnedAboutDeprecatedDSource = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
-        }
-    case SUMO_TAG_TAZSOURCE:
-        parseDistrictEdge(attrs, true);
-        break;
-    case SUMO_TAG_DSINK__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedDSink) {
-            myHaveWarnedAboutDeprecatedDSink = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
-        }
-    case SUMO_TAG_TAZSINK:
-        parseDistrictEdge(attrs, false);
-        break;
-    default:
-        break;
+        case SUMO_TAG_EDGE:
+            // in the first step, we do need the name to allocate the edge
+            // in the second, we need it to know to which edge we have to add
+            //  the following edges to
+            parseEdge(attrs);
+            break;
+        case SUMO_TAG_LANE:
+            if (myProcess) {
+                parseLane(attrs);
+            }
+            break;
+        case SUMO_TAG_JUNCTION:
+            parseJunction(attrs);
+            break;
+        case SUMO_TAG_SUCC:
+            parseConnectingEdge(attrs);
+            break;
+        case SUMO_TAG_SUCCLANE:
+            parseConnectedEdge(attrs);
+            break;
+        case SUMO_TAG_CONNECTION:
+            parseConnection(attrs);
+            break;
+        case SUMO_TAG_DISTRICT__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDistrict) {
+                myHaveWarnedAboutDeprecatedDistrict = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DISTRICT__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZ) + "'.");
+            }
+        case SUMO_TAG_TAZ:
+            parseDistrict(attrs);
+            break;
+        case SUMO_TAG_DSOURCE__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDSource) {
+                myHaveWarnedAboutDeprecatedDSource = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSOURCE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSOURCE) + "'.");
+            }
+        case SUMO_TAG_TAZSOURCE:
+            parseDistrictEdge(attrs, true);
+            break;
+        case SUMO_TAG_DSINK__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedDSink) {
+                myHaveWarnedAboutDeprecatedDSink = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_DSINK__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_TAG_TAZSINK) + "'.");
+            }
+        case SUMO_TAG_TAZSINK:
+            parseDistrictEdge(attrs, false);
+            break;
+        default:
+            break;
     }
 }
 
@@ -128,7 +128,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     }
     // get the edge
     myCurrentEdge = 0;
-    if (myCurrentName[0]==':') {
+    if (myCurrentName[0] == ':') {
         // this is an internal edge - we will not use it
         //  !!! recheck this; internal edges may be of importance during the dua
         return;
@@ -140,12 +140,12 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     RONode* fromNode = myNet.getNode(from);
-    if (fromNode==0) {
+    if (fromNode == 0) {
         fromNode = new RONode(from);
         myNet.addNode(fromNode);
     }
     RONode* toNode = myNet.getNode(to);
-    if (toNode==0) {
+    if (toNode == 0) {
         toNode = new RONode(to);
         myNet.addNode(toNode);
     }
@@ -154,13 +154,13 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         // get the type of the edge
         myProcess = true;
-        if (type==""||type=="normal"||type=="connector") {
+        if (type == "" || type == "normal" || type == "connector") {
             myCurrentEdge->setType(ROEdge::ET_NORMAL);
-        } else if (type=="source") {
+        } else if (type == "source") {
             myCurrentEdge->setType(ROEdge::ET_SOURCE);
-        } else if (type=="sink") {
+        } else if (type == "sink") {
             myCurrentEdge->setType(ROEdge::ET_SINK);
-        } else if (type=="internal") {
+        } else if (type == "internal") {
             myProcess = false;
         } else {
             WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
@@ -174,7 +174,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
 
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge==0) {
+    if (myCurrentEdge == 0) {
         // was an internal edge to skip or an error occured
         return;
     }
@@ -198,11 +198,11 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     // get the length
     // get the vehicle classes
     parseVehicleClasses(allow, disallow, allowed, disallowed);
-    if (allowed.size()!=0 || disallowed.size() != 0) {
+    if (allowed.size() != 0 || disallowed.size() != 0) {
         myNet.setRestrictionFound();
     }
     // add when both values are valid
-    if (maxSpeed>0&&length>0&&id.length()>0) {
+    if (maxSpeed > 0 && length > 0 && id.length() > 0) {
         myCurrentEdge->addLane(new ROLane(id, length, maxSpeed, allowed, disallowed));
     }
 }
@@ -221,7 +221,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok);
     if (ok) {
         RONode* n = myNet.getNode(id);
-        if (n==0) {
+        if (n == 0) {
             n = new RONode(id);
             myNet.addNode(n);
         }
@@ -235,13 +235,13 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
 void
 RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) throw(ProcessError) {
     bool ok = true;
-    std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE,0, ok);
-    if (id[0]==':') {
+    std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
+    if (id[0] == ':') {
         myCurrentEdge = 0;
         return;
     }
     myCurrentEdge = myNet.getEdge(id);
-    if (myCurrentEdge==0) {
+    if (myCurrentEdge == 0) {
         throw ProcessError("An unknown edge occured (id='" + id + "').");
     }
 }
@@ -249,17 +249,17 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) throw(ProcessE
 
 void
 RONetHandler::parseConnectedEdge(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge==0) {
+    if (myCurrentEdge == 0) {
         // earlier error or internal link
         return;
     }
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_LANE, myCurrentName.c_str(), ok);
-    if (id=="SUMO_NO_DESTINATION") {
+    if (id == "SUMO_NO_DESTINATION") {
         return;
     }
     ROEdge* succ = myNet.getEdge(id.substr(0, id.rfind('_')));
-    if (succ!=0) {
+    if (succ != 0) {
         // connect edge
         myCurrentEdge->addFollower(succ);
     } else {
@@ -273,7 +273,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
     std::string toID = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
-    if (fromID[0]==':') { // skip inner lane connections
+    if (fromID[0] == ':') { // skip inner lane connections
         return;
     }
     ROEdge* from = myNet.getEdge(fromID);
@@ -304,10 +304,10 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) 
     myNet.addEdge(source);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = StringTokenizer(attrs.getString(SUMO_ATTR_EDGES)).getVector();
-        for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+        for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
             ROEdge* edge = myNet.getEdge(*i);
             // check whether the edge exists
-            if (edge==0) {
+            if (edge == 0) {
                 throw ProcessError("The edge '" + *i + "' within district '" + myCurrentName + "' is not known.");
             }
             source->addFollower(edge);
@@ -322,12 +322,12 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, myCurrentName.c_str(), ok);
     ROEdge* succ = myNet.getEdge(id);
-    if (succ!=0) {
+    if (succ != 0) {
         // connect edge
         if (isSource) {
-            myNet.getEdge(myCurrentName+"-source")->addFollower(succ);
+            myNet.getEdge(myCurrentName + "-source")->addFollower(succ);
         } else {
-            succ->addFollower(myNet.getEdge(myCurrentName+"-sink"));
+            succ->addFollower(myNet.getEdge(myCurrentName + "-sink"));
         }
     } else {
         WRITE_ERROR("At district '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");

@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 """
 @file    runner.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2010-01-30
 @version $Id$
 

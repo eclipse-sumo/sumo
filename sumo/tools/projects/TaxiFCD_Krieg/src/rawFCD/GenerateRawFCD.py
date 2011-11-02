@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    GenerateRawFCD.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-01
 
 Converts the vtypeProbe XML-File to the raw FCD-Format which can afterwards used to process FCD. 

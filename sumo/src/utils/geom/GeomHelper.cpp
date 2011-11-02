@@ -62,7 +62,7 @@ GeomHelper::intersects(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
      */
     if (r3 != 0 &&
             r4 != 0 &&
-            ((r3<0&&r4<0)||(r3>0&&r4>0))) {
+            ((r3 < 0 && r4 < 0) || (r3 > 0 && r4 > 0))) {
         return (false);
     }
 
@@ -81,7 +81,7 @@ GeomHelper::intersects(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
      */
     if (r1 != 0 &&
             r2 != 0 &&
-            ((r1<0&&r2<0)||(r1>0&&r2>0))) {
+            ((r1 < 0 && r2 < 0) || (r1 > 0 && r2 > 0))) {
         return (false);
     }
 
@@ -123,21 +123,21 @@ GeomHelper::intersection_position(const Position& p11,
     //applies the math, but we don't need speed since this is a
     //pre-processing step
 
-    double a1,b1,c1, // constants of linear equations
-           a2,b2,c2,
+    double a1, b1, c1, // constants of linear equations
+           a2, b2, c2,
            det_inv, m1, m2;  // the inverse of the determinant of the coefficient
 
     // compute slopes, note the cludge for infinity, however, this will
     // be close enough
 
-    if ((p12.x()-p11.x())!=0) {
-        m1 = (p12.y()-p11.y())/(p12.x()-p11.x());
+    if ((p12.x() - p11.x()) != 0) {
+        m1 = (p12.y() - p11.y()) / (p12.x() - p11.x());
     } else {
         m1 = (SUMOReal)1e+10;    // close enough to infinity
     }
 
-    if ((p22.x()-p21.x())!=0) {
-        m2 = (p22.y()-p21.y())/(p22.x()-p21.x());
+    if ((p22.x() - p21.x()) != 0) {
+        m2 = (p22.y() - p21.y()) / (p22.x() - p21.x());
     } else {
         m2 = (SUMOReal)1e+10;    // close enough to infinity
     }
@@ -150,16 +150,16 @@ GeomHelper::intersection_position(const Position& p11,
     b1 = -1;
     b2 = -1;
 
-    c1 = (p11.y()-m1*p11.x());
-    c2 = (p21.y()-m2*p21.x());
+    c1 = (p11.y() - m1 * p11.x());
+    c2 = (p21.y() - m2 * p21.x());
 
     // compute the inverse of the determinate
-    det_inv = 1/(a1*b2 - a2*b1);
+    det_inv = 1 / (a1 * b2 - a2 * b1);
 
     // use Kramers rule to compute xi and yi
     return Position(
-               ((b1*c2 - b2*c1)*det_inv),
-               ((a2*c1 - a1*c2)*det_inv));
+               ((b1 * c2 - b2 * c1) * det_inv),
+               ((a2 * c1 - a1 * c2) * det_inv));
 }
 
 
@@ -171,12 +171,12 @@ GeomHelper::intersection_position(const Position& p11,
 */
 SUMOReal
 GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal dtheta = atan2(y2,x2) - atan2(y1,x1);
+    SUMOReal dtheta = atan2(y2, x2) - atan2(y1, x1);
     while (dtheta > (SUMOReal) PI) {
-        dtheta -= (SUMOReal)(2.0*PI);
+        dtheta -= (SUMOReal)(2.0 * PI);
     }
-    while (dtheta < (SUMOReal) -PI) {
-        dtheta += (SUMOReal)(2.0*PI);
+    while (dtheta < (SUMOReal) - PI) {
+        dtheta += (SUMOReal)(2.0 * PI);
     }
     return dtheta;
 }
@@ -243,8 +243,8 @@ GeomHelper::distancePointLine(const Position& point,
         return -1;    // closest point does not fall within the line segment
     }
     Position intersection(
-        lineStart.x() + u *(lineEnd.x() - lineStart.x()),
-        lineStart.y() + u *(lineEnd.y() - lineStart.y()));
+        lineStart.x() + u * (lineEnd.x() - lineStart.x()),
+        lineStart.y() + u * (lineEnd.y() - lineStart.y()));
     return point.distanceTo(intersection);
 }
 
@@ -255,7 +255,7 @@ GeomHelper::closestDistancePointLine(const Position& point,
                                      const Position& lineStart,
                                      const Position& lineEnd,
                                      Position& outIntersection) {
-    Position directVec(lineEnd.x()-lineStart.x(), lineEnd.y()-lineStart.y());
+    Position directVec(lineEnd.x() - lineStart.x(), lineEnd.y() - lineStart.y());
     SUMOReal u = (((point.x() - lineStart.x()) * directVec.x()) +
                   ((point.y() - lineStart.y()) * directVec.y())) /
                  (directVec.x() * directVec.x() +
@@ -288,9 +288,9 @@ GeomHelper::transfer_to_side(Position& p,
                              SUMOReal amount) {
     const SUMOReal dx = lineBeg.x() - lineEnd.x();
     const SUMOReal dy = lineBeg.y() - lineEnd.y();
-    const SUMOReal length = sqrt(dx*dx + dy*dy);
+    const SUMOReal length = sqrt(dx * dx + dy * dy);
     if (length > 0) {
-        p.add(dy*amount/length, -dx*amount/length);
+        p.add(dy * amount / length, -dx * amount / length);
     }
     return p;
 }
@@ -326,7 +326,7 @@ std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position& beg,
                             const Position& end,
                             SUMOReal wanted_offset) {
-    const SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
+    const SUMOReal length = sqrt((beg.x() - end.x()) * (beg.x() - end.x()) + (beg.y() - end.y()) * (beg.y() - end.y()));
     return getNormal90D_CW(beg, end, length, wanted_offset);
 }
 
@@ -339,14 +339,14 @@ GeomHelper::getNormal90D_CW(const Position& beg,
         throw InvalidArgument("same points at " + toString(beg));
     }
     return std::pair<SUMOReal, SUMOReal>
-           ((beg.y()-end.y())*wanted_offset/length, (end.x()-beg.x())*wanted_offset/length);
+           ((beg.y() - end.y()) * wanted_offset / length, (end.x() - beg.x()) * wanted_offset / length);
 }
 
 
 SUMOReal
 GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
     SUMOReal v = angle2 - angle1;
-    if (v<0) {
+    if (v < 0) {
         v = 360 + v;
     }
     return v;
@@ -356,7 +356,7 @@ GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
 SUMOReal
 GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
     SUMOReal v = angle1 - angle2;
-    if (v<0) {
+    if (v < 0) {
         v = 360 + v;
     }
     return v;

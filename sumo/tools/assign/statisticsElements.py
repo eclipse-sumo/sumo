@@ -1,6 +1,6 @@
 """
 @file    statisticsElements.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2008-07-10
 @version $Id$
 

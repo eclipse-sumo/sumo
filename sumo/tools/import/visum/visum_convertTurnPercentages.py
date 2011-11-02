@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    visum_convertTurnPercentages.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2009-06-12
 @version $Id$
 

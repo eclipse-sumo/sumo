@@ -127,7 +127,7 @@ private:
                                 int flag);
 
     // validation of received command responses
-    bool reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId=false);
+    bool reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId = false);
 
     bool validateSimulationStep2(tcpip::Storage& inMsg);
     bool validateSubscription(tcpip::Storage& inMsg);

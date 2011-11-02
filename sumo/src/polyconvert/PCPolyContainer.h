@@ -76,7 +76,7 @@ public:
      * @return Whether the polygon could been added (no one with the same id was added before)
      */
     bool insert(const std::string& id, Polygon* poly, int layer,
-                bool ignorePrunning=false) throw();
+                bool ignorePrunning = false) throw();
 
 
     /** @brief Adds a poi to the storage
@@ -95,7 +95,7 @@ public:
      * @return Whether the poi could been added (no one with the same id was added before)
      */
     bool insert(const std::string& id, PointOfInterest* poi, int layer,
-                bool ignorePrunning=false) throw();
+                bool ignorePrunning = false) throw();
 
 
     /** @brief Returns the number of stored polygons

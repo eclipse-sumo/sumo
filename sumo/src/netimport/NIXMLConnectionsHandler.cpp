@@ -69,7 +69,7 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
 void
 NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) throw(ProcessError) {
-    if (element==SUMO_TAG_RESET) {
+    if (element == SUMO_TAG_RESET) {
         bool ok = true;
         std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
         std::string to = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);
@@ -82,11 +82,11 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         NBEdge* fromEdge = myEdgeCont.retrieve(from);
         NBEdge* toEdge = myEdgeCont.retrieve(to);
-        if (fromEdge==0) {
+        if (fromEdge == 0) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' to reset is not known.");
             return;
         }
-        if (toEdge==0) {
+        if (toEdge == 0) {
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' to reset is not known.");
             return;
         }
@@ -111,7 +111,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
         fromEdge->removeFromConnections(toEdge, fromLane, toLane);
     }
 
-    if (element==SUMO_TAG_CONNECTION) {
+    if (element == SUMO_TAG_CONNECTION) {
         bool ok = true;
         std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "connection", ok);
         std::string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", ok, "");
@@ -120,24 +120,24 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         // extract edges
         NBEdge* fromEdge = myEdgeCont.retrieve(from);
-        NBEdge* toEdge = to.length()!=0 ? myEdgeCont.retrieve(to) : 0;
+        NBEdge* toEdge = to.length() != 0 ? myEdgeCont.retrieve(to) : 0;
         // check whether they are valid
-        if (fromEdge==0) {
+        if (fromEdge == 0) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' is not known.");
             return;
         }
-        if (toEdge==0 && to.length()!=0) {
+        if (toEdge == 0 && to.length() != 0) {
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
         // parse optional lane information
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)||attrs.hasAttribute(SUMO_ATTR_FROM_LANE)||attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
+        if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             parseLaneBound(attrs, fromEdge, toEdge);
         } else {
             fromEdge->addEdge2EdgeConnection(toEdge);
         }
     }
-    if (element==SUMO_TAG_PROHIBITION) {
+    if (element == SUMO_TAG_PROHIBITION) {
         bool ok = true;
         std::string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, 0, ok, "");
         std::string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, 0, ok, "");
@@ -146,7 +146,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
         NBConnection prohibitedC = parseConnection("prohibited", prohibited);
-        if (prohibitorC.getFrom()==0||prohibitedC.getFrom()==0) {
+        if (prohibitorC.getFrom() == 0 || prohibitedC.getFrom() == 0) {
             // something failed
             return;
         }
@@ -160,30 +160,30 @@ NBConnection
 NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) throw() {
     // split from/to
     size_t div = def.find("->");
-    if (div==std::string::npos) {
+    if (div == std::string::npos) {
         myErrorMsgHandler->inform("Missing connection divider in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
     std::string fromDef = def.substr(0, div);
-    std::string toDef = def.substr(div+2);
+    std::string toDef = def.substr(div + 2);
 
     // retrieve the edges
     // check whether the definition includes a lane information (do not process it)
-    if (fromDef.find('_')!=std::string::npos) {
+    if (fromDef.find('_') != std::string::npos) {
         fromDef = fromDef.substr(0, fromDef.find('_'));
     }
-    if (toDef.find('_')!=std::string::npos) {
+    if (toDef.find('_') != std::string::npos) {
         toDef = toDef.substr(0, toDef.find('_'));
     }
     // retrieve them now
     NBEdge* fromE = myEdgeCont.retrieve(fromDef);
     NBEdge* toE = myEdgeCont.retrieve(toDef);
     // check
-    if (fromE==0) {
+    if (fromE == 0) {
         myErrorMsgHandler->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
-    if (toE==0) {
+    if (toE == 0) {
         myErrorMsgHandler->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
         return NBConnection(0, 0);
     }
@@ -193,7 +193,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
 
 void
 NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) throw() {
-    if (to==0) {
+    if (to == 0) {
         // do nothing if it's a dead end
         return;
     }
@@ -219,12 +219,12 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             NBEdge* nFrom = from;
             bool toNext = true;
             do {
-                if (nFrom->getToNode()->getOutgoingEdges().size()!=1) {
+                if (nFrom->getToNode()->getOutgoingEdges().size() != 1) {
                     toNext = false;
                     break;
                 }
                 NBEdge* t = nFrom->getToNode()->getOutgoingEdges()[0];
-                if (t->getID().substr(0, t->getID().find('/'))!=nFrom->getID().substr(0, nFrom->getID().find('/'))) {
+                if (t->getID().substr(0, t->getID().find('/')) != nFrom->getID().substr(0, nFrom->getID().find('/'))) {
                     toNext = false;
                     break;
                 }
@@ -232,7 +232,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
                     nFrom = t;
                 }
             } while (toNext);
-            if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
+            if (nFrom == 0 || !nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
                 WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) +
                               "' to '" + to->getLaneID(toLane) + "'.");
             } else {
@@ -274,7 +274,7 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
 
     std::string laneConn = attributes.getStringReporting(SUMO_ATTR_LANE, 0, ok);
     StringTokenizer st(laneConn, ':');
-    if (!ok || st.size()!=2) {
+    if (!ok || st.size() != 2) {
         myErrorMsgHandler->inform("Invalid lane to lane connection from '" +
                                   from->getID() + "' to '" + to->getID() + "'.");
         return false; // There was an error.
@@ -300,15 +300,15 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
 
 bool
 NIXMLConnectionsHandler::validateLaneInfo(bool canLanesBeNegative, NBEdge* fromEdge, NBEdge* toEdge, int fromLane, int toLane) {
-    if ((!canLanesBeNegative && fromLane<0) ||
-            static_cast<unsigned int>(fromLane)>=fromEdge->getNumLanes()) {
+    if ((!canLanesBeNegative && fromLane < 0) ||
+            static_cast<unsigned int>(fromLane) >= fromEdge->getNumLanes()) {
         myErrorMsgHandler->inform("Invalid value '" + toString(fromLane) +
                                   "' for " + toString(SUMO_ATTR_FROM_LANE) + " in connection from '" +
                                   fromEdge->getID() + "' to '" + toEdge->getID() + "'.");
         return false;
     }
-    if ((!canLanesBeNegative && toLane<0) ||
-            static_cast<unsigned int>(toLane)>=toEdge->getNumLanes()) {
+    if ((!canLanesBeNegative && toLane < 0) ||
+            static_cast<unsigned int>(toLane) >= toEdge->getNumLanes()) {
         myErrorMsgHandler->inform("Invalid value '" + toString(toLane) +
                                   "' for " + toString(SUMO_ATTR_TO_LANE) + " in connection from '" +
                                   fromEdge->getID() + "' to '" + toEdge->getID() + "'.");

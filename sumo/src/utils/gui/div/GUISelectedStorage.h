@@ -123,7 +123,7 @@ public:
      * @see SingleTypeSelections::select
      * @see GUIDialog_GLChosenEditor
      */
-    void select(GUIGlID id, bool update=true);
+    void select(GUIGlID id, bool update = true);
 
 
     /** @brief Deselects the object with the given id

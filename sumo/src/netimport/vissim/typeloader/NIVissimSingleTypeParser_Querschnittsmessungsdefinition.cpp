@@ -51,19 +51,19 @@ NIVissimSingleTypeParser_Querschnittsmessungsdefinition::~NIVissimSingleTypePars
 bool
 NIVissimSingleTypeParser_Querschnittsmessungsdefinition::parse(std::istream& from) {
     std::string tag = myRead(from);
-    if (tag=="von") {
-        while (tag!="fahrzeugklassen"&&tag!="konfdatei") {
+    if (tag == "von") {
+        while (tag != "fahrzeugklassen" && tag != "konfdatei") {
             tag = myRead(from);
         }
         tag = myRead(from);
-        while (tag!="DATAEND") {
+        while (tag != "DATAEND") {
             tag = readEndSecure(from);
         }
         return true;
     }
     tag = myRead(from);
     tag = myRead(from);
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from);
     }
     return true;

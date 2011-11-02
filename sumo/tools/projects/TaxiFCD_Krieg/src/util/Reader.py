@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    Reader.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-04-18
 
 Contains reader modules which are needed frequently

@@ -31,11 +31,11 @@
 using namespace FXEX;
 
 // Message map
-FXDEFMAP(FXSingleEventThread) FXSingleEventThreadMap[]= {
-    FXMAPFUNC(SEL_IO_READ,FXSingleEventThread::ID_THREAD_EVENT,FXSingleEventThread::onThreadSignal),
-    FXMAPFUNC(SEL_THREAD,0,FXSingleEventThread::onThreadEvent),
+FXDEFMAP(FXSingleEventThread) FXSingleEventThreadMap[] = {
+    FXMAPFUNC(SEL_IO_READ, FXSingleEventThread::ID_THREAD_EVENT, FXSingleEventThread::onThreadSignal),
+    FXMAPFUNC(SEL_THREAD, 0, FXSingleEventThread::onThreadEvent),
 };
-FXIMPLEMENT(FXSingleEventThread,FXObject,FXSingleEventThreadMap,ARRAYNUMBER(FXSingleEventThreadMap))
+FXIMPLEMENT(FXSingleEventThread, FXObject, FXSingleEventThreadMap, ARRAYNUMBER(FXSingleEventThreadMap))
 
 
 
@@ -43,26 +43,26 @@ FXSingleEventThread::FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* cl
     : FXObject(), myClient(client) {
     myApp = (a);
 #ifndef WIN32
-    FXMALLOC(&event,FXThreadEventHandle,2);
+    FXMALLOC(&event, FXThreadEventHandle, 2);
     FXint res = pipe(event);
     FXASSERT(res == 0);
-    myApp->addInput(event[PIPE_READ],INPUT_READ,this,ID_THREAD_EVENT);
+    myApp->addInput(event[PIPE_READ], INPUT_READ, this, ID_THREAD_EVENT);
 #else
-    event=CreateEvent(NULL,FALSE,FALSE,NULL);
+    event = CreateEvent(NULL, FALSE, FALSE, NULL);
     FXASSERT(event != NULL);
-    myApp->addInput(event,INPUT_READ,this,ID_THREAD_EVENT);
+    myApp->addInput(event, INPUT_READ, this, ID_THREAD_EVENT);
 #endif
 }
 
 
 FXSingleEventThread::~FXSingleEventThread() {
 #ifndef WIN32
-    myApp->removeInput(event[PIPE_READ],INPUT_READ);
+    myApp->removeInput(event[PIPE_READ], INPUT_READ);
     ::close(event[PIPE_READ]);
     ::close(event[PIPE_WRITE]);
     FXFREE(&event);
 #else
-    myApp->removeInput(event,INPUT_READ);
+    myApp->removeInput(event, INPUT_READ);
     ::CloseHandle(event);
 #endif
 }
@@ -70,9 +70,9 @@ FXSingleEventThread::~FXSingleEventThread() {
 
 void
 FXSingleEventThread::signal() {
-    FXuint seltype=SEL_THREAD;
+    FXuint seltype = SEL_THREAD;
 #ifndef WIN32
-    ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
+    ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
 #else
     ::SetEvent(event);
 #endif
@@ -83,7 +83,7 @@ void
 FXSingleEventThread::signal(FXuint seltype) {
     UNUSED_PARAMETER(seltype);
 #ifndef WIN32
-    ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
+    ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
 #else
     ::SetEvent(event);
 #endif
@@ -92,20 +92,20 @@ FXSingleEventThread::signal(FXuint seltype) {
 
 long
 FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
-    FXuint seltype=SEL_THREAD;
+    FXuint seltype = SEL_THREAD;
 #ifndef WIN32
-    ::read(event[PIPE_READ],&seltype,sizeof(seltype));
+    ::read(event[PIPE_READ], &seltype, sizeof(seltype));
 #else
     //FIXME need win32 support
 #endif
-    FXSelector sel = FXSEL(SEL_THREAD,0);
-    handle(this,sel,0);
+    FXSelector sel = FXSEL(SEL_THREAD, 0);
+    handle(this, sel, 0);
     return 0;
 }
 
 
 long
-FXSingleEventThread::onThreadEvent(FXObject*,FXSelector ,void*) {
+FXSingleEventThread::onThreadEvent(FXObject*, FXSelector , void*) {
     myClient->eventOccured();
     /*
     FXuint seltype1 = FXSELTYPE(SEL_THREAD);

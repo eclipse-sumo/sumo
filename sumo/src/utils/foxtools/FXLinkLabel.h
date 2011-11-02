@@ -24,7 +24,7 @@ protected:
     FXLinkLabel() {}
 public:
     /// Constructor.
-    FXLinkLabel(FXComposite* p,const FXString& text,FXIcon* ic=0,FXuint opts=LABEL_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    FXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic = 0, FXuint opts = LABEL_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// Destructor.
     virtual ~FXLinkLabel();
@@ -38,8 +38,8 @@ public:
     };
 
     // FOX messages
-    long onLeftBtnPress(FXObject*,FXSelector,void*);
-    long onTimer(FXObject*,FXSelector,void*);
+    long onLeftBtnPress(FXObject*, FXSelector, void*);
+    long onTimer(FXObject*, FXSelector, void*);
 };
 
 

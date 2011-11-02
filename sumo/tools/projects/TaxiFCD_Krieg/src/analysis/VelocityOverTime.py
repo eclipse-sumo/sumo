@@ -1,7 +1,7 @@
 # -*- coding: Latin-1 -*-
 """
 @file    VelocityOverTime.py
-@author  Sascha.Krieg@dlr.de
+@author  Sascha Krieg
 @date    2008-05-29
 
 Shows the velocityCurve of the chosen taxi for all available sources, thereby the time duration per Edge is apparent.

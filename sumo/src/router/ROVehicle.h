@@ -124,7 +124,7 @@ public:
      * @exception IOError If something fails (not yet implemented)
      * @todo What is the given route definition?
      */
-    void saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+    void saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                       OutputDevice& os, OutputDevice* const altos, bool withExitTimes) const throw(IOError);
 
 

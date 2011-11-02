@@ -53,7 +53,7 @@ NIVissimSingleTypeParser_Langsamfahrbereichdefinition::parse(std::istream& from)
     from >> id;
     readUntil(from, "fahrzeugklasse");
     std::string tag = "fahrzeugklasse";
-    while (tag=="fahrzeugklasse") {
+    while (tag == "fahrzeugklasse") {
         readUntil(from, "maxverzoegerung");
         tag = myRead(from);
         tag = myRead(from);

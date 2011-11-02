@@ -135,8 +135,8 @@ public:
      * @exception ProcessError (recheck)
      */
     void compute(OptionsCont& oc,
-                 const std::set<std::string> &explicitTurnarounds=std::set<std::string>(),
-                 bool removeUnwishedNodes=true);
+                 const std::set<std::string> &explicitTurnarounds = std::set<std::string>(),
+                 bool removeUnwishedNodes = true);
 
 
 
@@ -211,7 +211,7 @@ protected:
         explicit by_id_sorter() { }
 
         int operator()(const NBNode* n1, const NBNode* n2) const {
-            return n1->getID()<n2->getID();
+            return n1->getID() < n2->getID();
         }
 
     };

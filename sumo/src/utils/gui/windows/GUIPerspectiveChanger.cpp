@@ -101,9 +101,9 @@ GUIPerspectiveChanger::patchedViewPort() {
     SUMOReal canvasRatio = (SUMOReal)myCallback.getWidth() / myCallback.getHeight();
     SUMOReal ratio = result.getWidth() / result.getHeight();
     if (ratio < canvasRatio) {
-        result.growWidth(result.getWidth() *(canvasRatio / ratio - 1) / 2);
+        result.growWidth(result.getWidth() * (canvasRatio / ratio - 1) / 2);
     } else {
-        result.growHeight(result.getHeight() *(ratio / canvasRatio - 1) / 2);
+        result.growHeight(result.getHeight() * (ratio / canvasRatio - 1) / 2);
     }
     return result;
 }

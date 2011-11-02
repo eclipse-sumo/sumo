@@ -91,7 +91,7 @@ public:
      */
     SUMOTime trySwitch(bool isActive) {
         UNUSED_PARAMETER(isActive);
-        return 120*DELTA_T;
+        return 120 * DELTA_T;
     }
 
     /// @}

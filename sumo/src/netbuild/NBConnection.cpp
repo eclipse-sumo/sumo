@@ -75,7 +75,7 @@ NBConnection::NBConnection(NBEdge* from, int fromLane,
     assert(myToLane<0||to->getNumLanes()>(size_t) myToLane);
     */
     myFromID = from->getID();
-    myToID = to!=0 ? to->getID() : "";
+    myToID = to != 0 ? to->getID() : "";
 }
 
 
@@ -104,7 +104,7 @@ NBConnection::getTo() const {
 
 bool
 NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
-    if (myFrom==which) {
+    if (myFrom == which) {
         myFrom = by;
         myFromID = myFrom->getID();
         return true;
@@ -116,7 +116,7 @@ NBConnection::replaceFrom(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceFrom(NBEdge* which, int whichLane,
                           NBEdge* by, int byLane) {
-    if (myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
+    if (myFrom == which && (myFromLane == (int) whichLane || myFromLane < 0)) {
         myFrom = by;
         myFromID = myFrom->getID();
         myFromLane = byLane;
@@ -128,7 +128,7 @@ NBConnection::replaceFrom(NBEdge* which, int whichLane,
 
 bool
 NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
-    if (myTo==which) {
+    if (myTo == which) {
         myTo = by;
         myToID = myTo->getID();
         return true;
@@ -140,7 +140,7 @@ NBConnection::replaceTo(NBEdge* which, NBEdge* by) {
 bool
 NBConnection::replaceTo(NBEdge* which, int whichLane,
                         NBEdge* by, int byLane) {
-    if (myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
+    if (myTo == which && (myToLane == (int) whichLane || myFromLane < 0)) {
         myTo = by;
         myToID = myTo->getID();
         myToLane = byLane;
@@ -167,10 +167,10 @@ operator<(const NBConnection& c1, const NBConnection& c2) {
 
 bool
 NBConnection::operator==(const NBConnection& c) const {
-    return (myFrom    ==c.myFrom     && myTo    ==c.myTo &&
-            myFromID  ==c.myFromID   && myToID  ==c.myToID &&
-            myFromLane==c.myFromLane && myToLane==c.myToLane &&
-            myTlIndex ==c.myTlIndex);
+    return (myFrom    == c.myFrom     && myTo    == c.myTo &&
+            myFromID  == c.myFromID   && myToID  == c.myToID &&
+            myFromLane == c.myFromLane && myToLane == c.myToLane &&
+            myTlIndex == c.myTlIndex);
 }
 
 
@@ -178,7 +178,7 @@ bool
 NBConnection::check(const NBEdgeCont& ec) {
     myFrom = checkFrom(ec);
     myTo = checkTo(ec);
-    return myFrom!=0 && myTo!=0;
+    return myFrom != 0 && myTo != 0;
 }
 
 
@@ -186,7 +186,7 @@ NBEdge*
 NBConnection::checkFrom(const NBEdgeCont& ec) {
     NBEdge* e = ec.retrieve(myFromID);
     // ok, the edge was not changed
-    if (e==myFrom) {
+    if (e == myFrom) {
         return myFrom;
     }
     // try to get the edge
@@ -198,7 +198,7 @@ NBEdge*
 NBConnection::checkTo(const NBEdgeCont& ec) {
     NBEdge* e = ec.retrieve(myToID);
     // ok, the edge was not changed
-    if (e==myTo) {
+    if (e == myTo) {
         return myTo;
     }
     // try to get the edge

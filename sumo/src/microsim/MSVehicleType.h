@@ -174,8 +174,8 @@ public:
     SUMOReal getMaxSpeedWithDeviation(SUMOReal referenceSpeed) const throw() {
         SUMOReal meanSpeed = mySpeedFactor * referenceSpeed;
         SUMOReal speedDev = mySpeedDev * meanSpeed;
-        SUMOReal speed = MIN3(RandHelper::randNorm(meanSpeed, speedDev), meanSpeed + 2*speedDev, myMaxSpeed);
-        return MAX3((SUMOReal)0.0, speed, meanSpeed - 2*speedDev);
+        SUMOReal speed = MIN3(RandHelper::randNorm(meanSpeed, speedDev), meanSpeed + 2 * speedDev, myMaxSpeed);
+        return MAX3((SUMOReal)0.0, speed, meanSpeed - 2 * speedDev);
     }
 
 
@@ -392,7 +392,7 @@ public:
      * @return Whether this vehicle type is based on a differen one, and belongs to one vehicle only
      */
     bool amVehicleSpecific() const throw() {
-        return myOriginalType!=0;
+        return myOriginalType != 0;
     }
 
 

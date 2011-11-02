@@ -55,7 +55,7 @@ public:
     ~InstancePool() {
         typedef typename std::vector<T*>::iterator It;
         if (myDeleteOnQuit) {
-            for (It i=myFreeInstances.begin(); i!=myFreeInstances.end(); i++) {
+            for (It i = myFreeInstances.begin(); i != myFreeInstances.end(); i++) {
                 delete *i;
             }
         }
@@ -70,7 +70,7 @@ public:
      * @return A free instance or 0 if no such exists
      */
     T* getFreeInstance() {
-        if (myFreeInstances.size()==0) {
+        if (myFreeInstances.size() == 0) {
             return 0;
         } else {
             T* instance = myFreeInstances.back();

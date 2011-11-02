@@ -77,39 +77,39 @@ void
 RORDLoader_SUMOBase::myStartElement(int element,
                                     const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_ROUTE:
-        startRoute(attrs);
-        break;
-    case SUMO_TAG_VEHICLE:
-        // try to parse the vehicle definition
-        delete myVehicleParameter;
-        myVehicleParameter = 0;
-        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
-        if (myVehicleParameter!=0) {
-            myCurrentDepart = myVehicleParameter->depart;
-        }
-        myCurrentIsOk = myVehicleParameter!=0;
-        break;
-    case SUMO_TAG_VTYPE__DEPRECATED:
-        if (!myHaveWarnedAboutDeprecatedVType) {
-            myHaveWarnedAboutDeprecatedVType = true;
-            WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
-        }
-    case SUMO_TAG_VTYPE:
-        myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
-        break;
-    case SUMO_TAG_ROUTE_DISTRIBUTION:
-        myAltIsValid = true;
-        startAlternative(attrs);
-        if (!myCurrentIsOk) {
-            myAltIsValid = false;
-        }
-        break;
-    default:
-        break;
+        case SUMO_TAG_ROUTE:
+            startRoute(attrs);
+            break;
+        case SUMO_TAG_VEHICLE:
+            // try to parse the vehicle definition
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            if (myVehicleParameter != 0) {
+                myCurrentDepart = myVehicleParameter->depart;
+            }
+            myCurrentIsOk = myVehicleParameter != 0;
+            break;
+        case SUMO_TAG_VTYPE__DEPRECATED:
+            if (!myHaveWarnedAboutDeprecatedVType) {
+                myHaveWarnedAboutDeprecatedVType = true;
+                WRITE_WARNING("'" + toString(SUMO_TAG_VTYPE__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_VTYPE) + "'.");
+            }
+        case SUMO_TAG_VTYPE:
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+            break;
+        case SUMO_TAG_ROUTE_DISTRIBUTION:
+            myAltIsValid = true;
+            startAlternative(attrs);
+            if (!myCurrentIsOk) {
+                myAltIsValid = false;
+            }
+            break;
+        default:
+            break;
     }
     // parse embedded vtype information
-    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE&&element!=SUMO_TAG_VTYPE__DEPRECATED) {
+    if (myCurrentVType != 0 && element != SUMO_TAG_VTYPE && element != SUMO_TAG_VTYPE__DEPRECATED) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }
@@ -126,9 +126,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
     if (!myAltIsValid) {
         return;
     }
-    if (myCurrentAlternatives==0) {
+    if (myCurrentAlternatives == 0) {
         myCurrentIsOk = true;
-        if (myVehicleParameter!=0) {
+        if (myVehicleParameter != 0) {
             if (attrs.hasAttribute(SUMO_ATTR_ID)) {
                 WRITE_ERROR("Internal routes do not have an id (vehicle '" + myVehicleParameter->id + "').");
                 myCurrentIsOk = false;
@@ -142,12 +142,12 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
         // parse route alternative...
         myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
         myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-        if (myCurrentIsOk&&myCost<0) {
+        if (myCurrentIsOk && myCost < 0) {
             WRITE_ERROR("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
             myCurrentIsOk = false;
             return;
         }
-        if (myCurrentIsOk&&myProbability<0) {
+        if (myCurrentIsOk && myProbability < 0) {
             WRITE_ERROR("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
             myCurrentIsOk = false;
             return;
@@ -174,9 +174,9 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
     // try to get the id
     myCurrentIsOk = true;
     std::string id;
-    if (myVehicleParameter!=0) {
+    if (myVehicleParameter != 0) {
         id = myVehicleParameter->id;
-        if (id=="") {
+        if (id == "") {
             WRITE_ERROR("Missing 'id' of a routeDistribution.");
             myCurrentIsOk = false;
             return;
@@ -190,7 +190,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
     }
     // try to get the index of the last element
     int index = attrs.getIntReporting(SUMO_ATTR_LAST, id.c_str(), myCurrentIsOk);
-    if (myCurrentIsOk&&index<0) {
+    if (myCurrentIsOk && index < 0) {
         WRITE_ERROR("Negative index of a route alternative (id='" + id + "').");
         myCurrentIsOk = false;
         return;
@@ -205,26 +205,26 @@ RORDLoader_SUMOBase::myCharacters(int element,
                                   const std::string& chars) throw(ProcessError) {
     // process routes only, all other elements do
     //  not have embedded characters
-    if (element!=SUMO_TAG_ROUTE) {
+    if (element != SUMO_TAG_ROUTE) {
         return;
     }
     if (!myAltIsValid) {
         return;
     }
-    if (myCurrentRoute!=0) {
+    if (myCurrentRoute != 0) {
         return;
     }
     // check whether the costs and the probability are valid
-    if (myCurrentAlternatives!=0) {
-        if (myCost<0||myProbability<0||!myCurrentIsOk) {
+    if (myCurrentAlternatives != 0) {
+        if (myCost < 0 || myProbability < 0 || !myCurrentIsOk) {
             return;
         }
     }
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge* edge = myNet.getEdge(myVehicleParameter->fromTaz+"-source");
-        if (edge!=0) {
+        ROEdge* edge = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
+        if (edge != 0) {
             list->push_back(edge);
         } else {
             WRITE_ERROR("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->fromTaz + "'.");
@@ -232,22 +232,22 @@ RORDLoader_SUMOBase::myCharacters(int element,
         }
     }
     StringTokenizer st(chars);
-    while (myCurrentIsOk&&st.hasNext()) { // !!! too slow !!!
+    while (myCurrentIsOk && st.hasNext()) { // !!! too slow !!!
         const std::string id = st.next();
         ROEdge* edge = myNet.getEdge(id);
-        if (edge!=0) {
+        if (edge != 0) {
             list->push_back(edge);
         } else {
             if (!myTryRepair) {
-                std::string rid = myCurrentAlternatives!=0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
+                std::string rid = myCurrentAlternatives != 0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
                 WRITE_ERROR("The route '" + rid + "' contains the unknown edge '" + id + "'.");
                 myCurrentIsOk = false;
             }
         }
     }
     if (myWithTaz && myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-        ROEdge* edge = myNet.getEdge(myVehicleParameter->toTaz+"-sink");
-        if (edge!=0) {
+        ROEdge* edge = myNet.getEdge(myVehicleParameter->toTaz + "-sink");
+        if (edge != 0) {
             list->push_back(edge);
         } else {
             WRITE_ERROR("The vehicle '" + myVehicleParameter->id + "' contains the unknown zone '" + myVehicleParameter->toTaz + "'.");
@@ -255,7 +255,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
         }
     }
     if (myCurrentIsOk) {
-        if (myCurrentAlternatives!=0) {
+        if (myCurrentAlternatives != 0) {
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
@@ -270,46 +270,46 @@ RORDLoader_SUMOBase::myCharacters(int element,
 void
 RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_ROUTE:
-        if (!myAltIsValid) {
-            return;
-        }
-        if (myCurrentRoute!=0&&myCurrentIsOk) {
-            if (myCurrentAlternatives==0) {
-                myNet.addRouteDef(myCurrentRoute);
+        case SUMO_TAG_ROUTE:
+            if (!myAltIsValid) {
+                return;
+            }
+            if (myCurrentRoute != 0 && myCurrentIsOk) {
+                if (myCurrentAlternatives == 0) {
+                    myNet.addRouteDef(myCurrentRoute);
+                    myCurrentRoute = 0;
+                }
+                if (myVehicleParameter == 0) {
+                    myHaveNextRoute = true;
+                }
                 myCurrentRoute = 0;
             }
-            if (myVehicleParameter==0) {
+            break;
+        case SUMO_TAG_ROUTE_DISTRIBUTION:
+            if (!myCurrentIsOk) {
+                return;
+            }
+            if (myVehicleParameter == 0) {
                 myHaveNextRoute = true;
             }
+            myNet.addRouteDef(myCurrentAlternatives);
             myCurrentRoute = 0;
-        }
-        break;
-    case SUMO_TAG_ROUTE_DISTRIBUTION:
-        if (!myCurrentIsOk) {
-            return;
-        }
-        if (myVehicleParameter==0) {
+            myCurrentAlternatives = 0;
+            break;
+        case SUMO_TAG_VEHICLE:
+            closeVehicle();
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
             myHaveNextRoute = true;
+            break;
+        case SUMO_TAG_VTYPE__DEPRECATED:
+        case SUMO_TAG_VTYPE: {
+            SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
+            myNet.addVehicleType(myCurrentVType);
+            myCurrentVType = 0;
         }
-        myNet.addRouteDef(myCurrentAlternatives);
-        myCurrentRoute = 0;
-        myCurrentAlternatives = 0;
-        break;
-    case SUMO_TAG_VEHICLE:
-        closeVehicle();
-        delete myVehicleParameter;
-        myVehicleParameter = 0;
-        myHaveNextRoute = true;
-        break;
-    case SUMO_TAG_VTYPE__DEPRECATED:
-    case SUMO_TAG_VTYPE: {
-        SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
-        myNet.addVehicleType(myCurrentVType);
-        myCurrentVType = 0;
-    }
-    default:
-        break;
+        default:
+            break;
     }
     if (!myCurrentIsOk) {
         throw ProcessError();
@@ -320,7 +320,7 @@ RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
 bool
 RORDLoader_SUMOBase::closeVehicle() throw() {
     // get the vehicle id
-    if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
+    if (myVehicleParameter->depart < myBegin || myVehicleParameter->depart >= myEnd) {
         myCurrentIsOk = false;
         return false;
     }
@@ -328,10 +328,10 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
     SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
     // get the route
     RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
-    if (route==0) {
+    if (route == 0) {
         route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
-    if (route==0) {
+    if (route == 0) {
         WRITE_ERROR("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
         myCurrentIsOk = false;
         return false;

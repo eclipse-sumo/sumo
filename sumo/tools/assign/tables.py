@@ -1,6 +1,6 @@
 """
 @file    tables.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2008-03-18
 @version $Id: calStatistics.py 2008-03-18$
 

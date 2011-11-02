@@ -55,7 +55,7 @@ NIVissimSingleTypeParser_DynUml::parse(std::istream& from) {
     tmp.push_back("kante");
     readUntil(from, "kirchhoffexponent");
     std::string tag = readEndSecure(from, tmp);
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         tag = readEndSecure(from, tmp);
     }
     return true;

@@ -40,7 +40,7 @@
 // ===========================================================================
 void
 MFXUtils::deleteChildren(FXWindow* w) throw() {
-    while (w->numChildren()!=0) {
+    while (w->numChildren() != 0) {
         FXWindow* child = w->childAtIndex(0);
         delete child;
     }
@@ -55,7 +55,7 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow* const parent,
     }
     int answer =
         FXMessageBox::question(parent, MBOX_YES_NO, "File Exists", "Overwrite '%s'?", file.text());
-    if (answer==MBOX_CLICKED_NO) {
+    if (answer == MBOX_CLICKED_NO) {
         return FALSE;
     }
     return TRUE;
@@ -70,7 +70,7 @@ MFXUtils::getDocumentName(const FXString& filename) throw() {
 
 FXString
 MFXUtils::getTitleText(const FXString& appname, FXString filename) throw() {
-    if (filename.length()==0) {
+    if (filename.length() == 0) {
         return appname;
     }
     return getDocumentName(filename) + " - " + appname;
@@ -80,8 +80,8 @@ MFXUtils::getTitleText(const FXString& appname, FXString filename) throw() {
 FXString
 MFXUtils::assureExtension(const FXString& filename, const FXString& defaultExtension) throw() {
     FXString ext = FXPath::extension(filename);
-    if (ext=="") {
-        if (filename.rfind('.')==filename.length()-1) {
+    if (ext == "") {
+        if (filename.rfind('.') == filename.length() - 1) {
             return filename + defaultExtension;
         }
         return filename + "." + defaultExtension;
@@ -99,7 +99,7 @@ MFXUtils::getFilename2Write(FXWindow* parent,
     opendialog.setIcon(icon);
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*" + extension);
-    if (currentFolder.length()!=0) {
+    if (currentFolder.length() != 0) {
         opendialog.setDirectory(currentFolder);
     }
     if (!opendialog.execute()) {

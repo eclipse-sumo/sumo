@@ -40,7 +40,7 @@ const SUMOReal SUMO_const_halfLaneWidth = (SUMOReal) 1.6;
 const SUMOReal SUMO_const_quarterLaneWidth = (SUMOReal) 0.8;
 const SUMOReal SUMO_const_laneOffset = (SUMOReal) .1;
 const SUMOReal SUMO_const_laneWidthAndOffset = (SUMOReal) 3.3;
-const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2/2.+.1);
+const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2 / 2. + .1);
 
 
 /* -------------------------------------------------------------------------
@@ -49,41 +49,41 @@ const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2/2.+.1);
 template<typename T>
 inline T
 MIN2(T a, T b) {
-    return a<b?a:b;
+    return a < b ? a : b;
 }
 
 template<typename T>
 inline T
 MAX2(T a, T b) {
-    return a>b?a:b;
+    return a > b ? a : b;
 }
 
 
 template<typename T>
 inline T
 MIN3(T a, T b, T c) {
-    return MIN2(c, a<b?a:b);
+    return MIN2(c, a < b ? a : b);
 }
 
 
 template<typename T>
 inline T
 MAX3(T a, T b, T c) {
-    return MAX2(c, a>b?a:b);
+    return MAX2(c, a > b ? a : b);
 }
 
 
 template<typename T>
 inline T
 MIN4(T a, T b, T c, T d) {
-    return MIN2(MIN2(a,b),MIN2(c,d));
+    return MIN2(MIN2(a, b), MIN2(c, d));
 }
 
 
 template<typename T>
 inline T
 MAX4(T a, T b, T c, T d) {
-    return MAX2(MAX2(a,b),MAX2(c,d));
+    return MAX2(MAX2(a, b), MAX2(c, d));
 }
 
 

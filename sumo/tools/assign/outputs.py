@@ -1,6 +1,6 @@
 """
 @file    outputs.py
-@author  Yun-Pang.Wang@dlr.de
+@author  Yun-Pang Wang
 @date    2007-12-25
 @version $Id$
 

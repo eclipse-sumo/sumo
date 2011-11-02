@@ -61,11 +61,11 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
-GUITrafficLightLogicWrapperPopupMenuMap[]= {
+GUITrafficLightLogicWrapperPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
     FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
     FXMAPFUNC(SEL_COMMAND,  MID_SWITCH_OFF,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off),
-    FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH+20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
+    FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH + 20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
 };
 
 // Object implementation
@@ -90,8 +90,8 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLi
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases(
-    FXObject*,FXSelector,void*) {
-    assert(myObject->getType()==GLO_TLLOGIC);
+    FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->begin2TrackPhases();
     return 1;
 }
@@ -99,8 +99,8 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2Tr
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases(
-    FXObject*,FXSelector,void*) {
-    assert(myObject->getType()==GLO_TLLOGIC);
+    FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->showPhases();
     return 1;
 }
@@ -108,8 +108,8 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off(
-    FXObject*,FXSelector /*sel*/,void*) {
-    assert(myObject->getType()==GLO_TLLOGIC);
+    FXObject*, FXSelector /*sel*/, void*) {
+    assert(myObject->getType() == GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(-1);
     return 1;
 }
@@ -117,9 +117,9 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic(
-    FXObject*,FXSelector sel,void*) {
-    assert(myObject->getType()==GLO_TLLOGIC);
-    static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel)-MID_SWITCH);
+    FXObject*, FXSelector sel, void*) {
+    assert(myObject->getType() == GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel) - MID_SWITCH);
     return 1;
 }
 
@@ -147,13 +147,13 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     //
     const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());
     std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-    if (logics.size()>1) {
+    if (logics.size() > 1) {
         std::vector<MSTrafficLightLogic*>::const_iterator i;
         size_t index = 0;
-        for (i=logics.begin(); i!=logics.end(); ++i, ++index) {
+        for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
-                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH+index));
+                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
         }
         new FXMenuSeparator(ret);
@@ -203,9 +203,9 @@ Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const throw() {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLanes();
-    for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+    for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
         const MSTrafficLightLogic::LaneVector& lanes2 = (*i);
-        for (MSTrafficLightLogic::LaneVector::const_iterator j=lanes2.begin(); j!=lanes2.end(); ++j) {
+        for (MSTrafficLightLogic::LaneVector::const_iterator j = lanes2.begin(); j != lanes2.end(); ++j) {
             ret.add((*j)->getShape()[-1]);
         }
     }
@@ -216,7 +216,7 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const throw() {
 
 void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
-    if (to==-1) {
+    if (to == -1) {
         myTLLogicControl.switchTo(myTLLogic.getID(), "off");
         MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
         GUINet::getGUIInstance()->createTLWrapper(tll);
@@ -265,7 +265,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const thr
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
-                    glColor3d(0,1,0);
+                    glColor3d(0, 1, 0);
                     Position pos = (*it_lane)->getShape().getEnd();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2.);

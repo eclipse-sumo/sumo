@@ -51,19 +51,19 @@ NIVissimSingleTypeParser_Haltestellendefinition::~NIVissimSingleTypeParser_Halte
 bool
 NIVissimSingleTypeParser_Haltestellendefinition::parse(std::istream& from) {
     std::string tag;
-    while (tag!="strecke") {
+    while (tag != "strecke") {
         tag = myRead(from);
     }
-    while (tag!="laenge") {
+    while (tag != "laenge") {
         tag = myRead(from);
     }
     from >> tag;
     tag = readEndSecure(from);
-    while (tag=="einsteiger"&&tag!="DATAEND") {
-        while (tag!="linie") {
+    while (tag == "einsteiger" && tag != "DATAEND") {
+        while (tag != "linie") {
             tag = myRead(from);
         }
-        while (tag!="einsteiger"&&tag!="DATAEND") {
+        while (tag != "einsteiger" && tag != "DATAEND") {
             tag = readEndSecure(from);
         }
     }

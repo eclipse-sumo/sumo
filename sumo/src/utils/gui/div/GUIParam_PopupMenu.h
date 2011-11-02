@@ -80,7 +80,7 @@ public:
      * Builds a new GUIParameterTracker adding the stored value to it.
      * Initialises this tracker, then.
      */
-    long onCmdOpenTracker(FXObject*,FXSelector,void*);
+    long onCmdOpenTracker(FXObject*, FXSelector, void*);
     /// @}
 
 

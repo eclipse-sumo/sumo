@@ -89,7 +89,7 @@ public:
      * @param[in] applyZoom Whether to zoom in
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      */
-    void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist=20);
+    void centerTo(GUIGlID id, bool applyZoom, SUMOReal zoomDist = 20);
 
     /// centers to the chosen artifact
     void centerTo(const Boundary& bound);
@@ -121,18 +121,18 @@ public:
 
     Boundary getVisibleBoundary() const;
 
-    long onConfigure(FXObject*,FXSelector,void*);
-    long onPaint(FXObject*,FXSelector,void*);
-    virtual long onLeftBtnPress(FXObject*,FXSelector,void*);
-    virtual long onLeftBtnRelease(FXObject*,FXSelector,void*);
-    virtual long onRightBtnPress(FXObject*,FXSelector,void*);
-    virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
-    virtual long onMouseWheel(FXObject*,FXSelector,void*);
-    virtual long onMouseMove(FXObject*,FXSelector,void*);
-    virtual long onMouseLeft(FXObject*,FXSelector,void*);
+    long onConfigure(FXObject*, FXSelector, void*);
+    long onPaint(FXObject*, FXSelector, void*);
+    virtual long onLeftBtnPress(FXObject*, FXSelector, void*);
+    virtual long onLeftBtnRelease(FXObject*, FXSelector, void*);
+    virtual long onRightBtnPress(FXObject*, FXSelector, void*);
+    virtual long onRightBtnRelease(FXObject*, FXSelector, void*);
+    virtual long onMouseWheel(FXObject*, FXSelector, void*);
+    virtual long onMouseMove(FXObject*, FXSelector, void*);
+    virtual long onMouseLeft(FXObject*, FXSelector, void*);
 
-    long onKeyPress(FXObject* o,FXSelector sel,void* data);
-    long onKeyRelease(FXObject* o,FXSelector sel,void* data);
+    long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
 
     virtual void openObjectDialog();
@@ -328,7 +328,7 @@ protected:
     // the canvas. If fixRatio is true, this boundary will be enlarged to
     // prevent anisotropic stretching. (this should be set to false when doing
     // selections)
-    void applyGLTransform(bool fixRatio=true);
+    void applyGLTransform(bool fixRatio = true);
 
 protected:
     /// @brief The application

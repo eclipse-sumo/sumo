@@ -54,11 +54,11 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
     from >> id; // type-checking is missing!
     std::string tag, name;
     // override some optional values till q
-    while (tag!="q") {
+    while (tag != "q") {
         tag = overrideOptionalLabel(from);
-        if (tag=="name") {
+        if (tag == "name") {
             name = readName(from);
-        } else if (tag=="strecke") {
+        } else if (tag == "strecke") {
             from >> edgeid; // type-checking is missing!
         }
     }
@@ -66,7 +66,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
     bool exact = false;
     SUMOReal q;
     tag = myRead(from);
-    if (tag=="exakt") {
+    if (tag == "exakt") {
         exact = true;
         tag = myRead(from);
     }
@@ -80,7 +80,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
     SUMOReal beg, end;
     beg = -1;
     end = -1;
-    if (tag=="zeit") {
+    if (tag == "zeit") {
         from >> tag;
         from >> beg;
         from >> tag;

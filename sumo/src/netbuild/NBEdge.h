@@ -213,8 +213,8 @@ public:
            NBNode* from, NBNode* to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset,
-           const std::string& streetName="",
-           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+           const std::string& streetName = "",
+           LaneSpreadFunction spread = LANESPREAD_RIGHT) throw(ProcessError);
 
 
     /** @brief Constructor
@@ -242,9 +242,9 @@ public:
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset,
            PositionVector geom,
-           const std::string& streetName="",
-           LaneSpreadFunction spread=LANESPREAD_RIGHT,
-           bool tryIgnoreNodePositions=false) throw(ProcessError);
+           const std::string& streetName = "",
+           LaneSpreadFunction spread = LANESPREAD_RIGHT,
+           bool tryIgnoreNodePositions = false) throw(ProcessError);
 
     /** @brief Constructor
      *
@@ -282,8 +282,8 @@ public:
     void reinit(NBNode* from, NBNode* to, const std::string& type,
                 SUMOReal speed, unsigned int nolanes, int priority,
                 PositionVector geom, SUMOReal width, SUMOReal offset,
-                LaneSpreadFunction spread=LANESPREAD_RIGHT,
-                bool tryIgnoreNodePositions=false) throw(ProcessError);
+                LaneSpreadFunction spread = LANESPREAD_RIGHT,
+                bool tryIgnoreNodePositions = false) throw(ProcessError);
 
 
 
@@ -366,7 +366,7 @@ public:
      * @return The edge's specified length
      */
     SUMOReal getLoadedLength() const throw() {
-        return myLoadedLength>0 ? myLoadedLength : myLength;
+        return myLoadedLength > 0 ? myLoadedLength : myLength;
     }
 
 
@@ -374,7 +374,7 @@ public:
      * @return Wether the edge's length was specified
      */
     bool hasLoadedLength() const throw() {
-        return myLoadedLength>0;
+        return myLoadedLength > 0;
     }
 
 
@@ -480,7 +480,7 @@ public:
      * @todo Recheck usage, disallow access
      * @see computeLaneShapes
      */
-    void setGeometry(const PositionVector& g, bool inner=false) throw();
+    void setGeometry(const PositionVector& g, bool inner = false) throw();
 
 
     /** @brief Adds a further geometry point
@@ -579,8 +579,8 @@ public:
      */
     bool addLane2LaneConnection(unsigned int fromLane, NBEdge* dest,
                                 unsigned int toLane, Lane2LaneInfoType type,
-                                bool mayUseSameDestination=false,
-                                bool mayDefinitelyPass=false) throw();
+                                bool mayUseSameDestination = false,
+                                bool mayDefinitelyPass = false) throw();
 
 
     /** @brief Builds no connections starting at the given lanes
@@ -602,8 +602,8 @@ public:
      */
     bool addLane2LaneConnections(unsigned int fromLane,
                                  NBEdge* dest, unsigned int toLane, unsigned int no,
-                                 Lane2LaneInfoType type, bool invalidatePrevious=false,
-                                 bool mayDefinitelyPass=false) throw();
+                                 Lane2LaneInfoType type, bool invalidatePrevious = false,
+                                 bool mayDefinitelyPass = false) throw();
 
 
     /** @brief Adds a connection to a certain lane of a certain edge
@@ -619,8 +619,8 @@ public:
     void setConnection(unsigned int lane, NBEdge* destEdge,
                        unsigned int destLane,
                        Lane2LaneInfoType type,
-                       bool mayUseSameDestination=false,
-                       bool mayDefinitelyPass=false) throw();
+                       bool mayUseSameDestination = false,
+                       bool mayDefinitelyPass = false) throw();
 
 
     /** @brief Returns connections from a given lane
@@ -770,7 +770,7 @@ public:
     /** @brief Returns the node at the given edges length (using an epsilon)
         When no node is existing at the given position, 0 is returned
         The epsilon is a static member of NBEdge, should be setable via program options */
-    NBNode* tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance=5.0) const;
+    NBNode* tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance = 5.0) const;
 
     void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
 
@@ -806,9 +806,9 @@ public:
      * @param[in] toLane   The lane to which connections shall be removed
      *                     (-1) means remove all
      */
-    void removeFromConnections(NBEdge* toEdge, int fromLane=-1, int toLane=-1);
+    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1);
 
-    void invalidateConnections(bool reallowSetting=false);
+    void invalidateConnections(bool reallowSetting = false);
 
     bool lanesWereAssigned() const;
 
@@ -854,14 +854,14 @@ public:
 
     void incLaneNo(unsigned int by);
 
-    void decLaneNo(unsigned int by, int dir=0);
+    void decLaneNo(unsigned int by, int dir = 0);
 
     void copyConnectionsFrom(NBEdge* src);
 
     void markAsInLane2LaneState();
 
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
-    void setVehicleClasses(const SUMOVehicleClasses& allowed, const SUMOVehicleClasses& disallowed, int lane=-1);
+    void setVehicleClasses(const SUMOVehicleClasses& allowed, const SUMOVehicleClasses& disallowed, int lane = -1);
 
     /// @brief set allowed class for the given lane or for all lanes if -1 is given
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
@@ -1158,13 +1158,13 @@ public:
         tls_disable_finder(const TLSDisabledConnection& tpl) : myDefinition(tpl) { }
 
         bool operator()(const TLSDisabledConnection& e) const {
-            if (e.to!=myDefinition.to) {
+            if (e.to != myDefinition.to) {
                 return false;
             }
-            if (e.fromLane!=myDefinition.fromLane) {
+            if (e.fromLane != myDefinition.fromLane) {
                 return false;
             }
-            if (e.toLane!=myDefinition.toLane) {
+            if (e.toLane != myDefinition.toLane) {
                 return false;
             }
             return true;
@@ -1234,7 +1234,7 @@ public:
         connections_finder(int fromLane, NBEdge* const edge2find, int lane2find) : myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find) { }
 
         bool operator()(const Connection& c) const {
-            return c.fromLane==myFromLane && c.toEdge == myEdge2Find && c.toLane == myLane2Find;
+            return c.fromLane == myFromLane && c.toEdge == myEdge2Find && c.toLane == myLane2Find;
         }
 
     private:
@@ -1273,13 +1273,13 @@ public:
      * connections_sorter
      */
     static bool connections_sorter(const Connection& c1, const Connection& c2) {
-        if (c1.fromLane!=c2.fromLane) {
-            return c1.fromLane<c2.fromLane;
+        if (c1.fromLane != c2.fromLane) {
+            return c1.fromLane < c2.fromLane;
         }
         if (c1.toEdge != c2.toEdge) {
             return c1.toEdge->getID().compare(c1.toEdge->getID()) < 0;
         }
-        return c1.toLane<c2.toLane;
+        return c1.toLane < c2.toLane;
     }
 
     /**
@@ -1295,14 +1295,14 @@ public:
     public:
         /// comparing operation
         int operator()(const Connection& c1, const Connection& c2) const {
-            if (c1.toEdge!=c2.toEdge) {
+            if (c1.toEdge != c2.toEdge) {
                 SUMOReal relAngle1 = NBHelpers::normRelAngle(
                                          myEdge->getAngle(), c1.toEdge->getAngle());
                 SUMOReal relAngle2 = NBHelpers::normRelAngle(
                                          myEdge->getAngle(), c2.toEdge->getAngle());
                 return relAngle1 > relAngle2;
             }
-            return c1.toLane<c2.toLane;
+            return c1.toLane < c2.toLane;
         }
 
     private:

@@ -41,7 +41,7 @@ AGTime::AGTime(const AGTime& time) {
 
 int
 AGTime::convert(int days, int hours, int minutes, int seconds) {
-    sec = seconds +60*(minutes + 60*(hours + 24*(days)));
+    sec = seconds + 60 * (minutes + 60 * (hours + 24 * (days)));
     return sec;
 }
 

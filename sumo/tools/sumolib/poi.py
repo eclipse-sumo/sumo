@@ -1,6 +1,6 @@
 """
 @file    poi.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    2010-02-18
 @version $Id$
 

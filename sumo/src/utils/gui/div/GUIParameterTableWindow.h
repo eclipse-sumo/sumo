@@ -176,17 +176,17 @@ public:
     /// @{
 
     /** @brief Updates the table due to a simulation step */
-    long onSimStep(FXObject*,FXSelector,void*);
+    long onSimStep(FXObject*, FXSelector, void*);
 
     /** @brief Does nothing
      * @todo Recheck whether this is needed (to override FXTable-behaviour?)
      */
-    long onTableSelected(FXObject*,FXSelector,void*);
+    long onTableSelected(FXObject*, FXSelector, void*);
 
     /** @brief Does nothing
      * @todo Recheck whether this is needed (to override FXTable-behaviour?)
      */
-    long onTableDeselected(FXObject*,FXSelector,void*);
+    long onTableDeselected(FXObject*, FXSelector, void*);
 
     /** @brief Shows a popup
      *
@@ -197,7 +197,7 @@ public:
      * @see GUIParameterTableItemInterface
      * @see GUIParam_PopupMenuInterface
      */
-    long onRightButtonPress(FXObject*,FXSelector,void*);
+    long onRightButtonPress(FXObject*, FXSelector, void*);
     /// @}
 
 

@@ -54,7 +54,7 @@ NIVissimTrafficDescription::NIVissimTrafficDescription(
 
 
 NIVissimTrafficDescription::~NIVissimTrafficDescription() {
-    for (NIVissimVehicleClassVector::iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
+    for (NIVissimVehicleClassVector::iterator i = myVehicleTypes.begin(); i != myVehicleTypes.end(); i++) {
         delete *i;
     }
     myVehicleTypes.clear();
@@ -76,8 +76,8 @@ NIVissimTrafficDescription::dictionary(int id,
 
 bool
 NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription* o) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         myDict[id] = o;
         return true;
     }
@@ -87,8 +87,8 @@ NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription* o) {
 
 NIVissimTrafficDescription*
 NIVissimTrafficDescription::dictionary(int id) {
-    DictType::iterator i=myDict.find(id);
-    if (i==myDict.end()) {
+    DictType::iterator i = myDict.find(id);
+    if (i == myDict.end()) {
         return 0;
     }
     return (*i).second;
@@ -97,7 +97,7 @@ NIVissimTrafficDescription::dictionary(int id) {
 
 void
 NIVissimTrafficDescription::clearDict() {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         delete(*i).second;
     }
     myDict.clear();
@@ -109,7 +109,7 @@ NIVissimTrafficDescription::clearDict() {
 SUMOReal
 NIVissimTrafficDescription::meanSpeed(int id) {
     NIVissimTrafficDescription* i = dictionary(id);
-    assert(i!=0);
+    assert(i != 0);
     return i->meanSpeed();
 }
 
@@ -117,7 +117,7 @@ NIVissimTrafficDescription::meanSpeed(int id) {
 SUMOReal
 NIVissimTrafficDescription::meanSpeed() const {
     SUMOReal speed = 0;
-    for (NIVissimVehicleClassVector::const_iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
+    for (NIVissimVehicleClassVector::const_iterator i = myVehicleTypes.begin(); i != myVehicleTypes.end(); i++) {
         speed += (*i)->getSpeed();
     }
     return speed / (SUMOReal) myVehicleTypes.size();

@@ -121,7 +121,7 @@ public:
 private:
 
     // Constructor
-    TraCIServer(int port=0);
+    TraCIServer(int port = 0);
 
     // Destructor
     // final cleanup

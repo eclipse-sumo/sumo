@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    testUtil.py
-@author  Michael.Behrisch@dlr.de
+@author  Michael Behrisch
 @date    2010-10-26
 @version $Id$
 

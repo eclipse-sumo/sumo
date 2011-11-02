@@ -105,7 +105,7 @@ public:
          * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
          */
         bool addLogic(const std::string& programID, MSTrafficLightLogic* logic, bool netWasLoaded,
-                      bool isNewDefault=true);
+                      bool isNewDefault = true);
 
 
 
@@ -250,7 +250,7 @@ public:
      * @return true if the tls program could be added, false otherwise
      */
     bool add(const std::string& id, const std::string& programID,
-             MSTrafficLightLogic* logic, bool newDefault=true);
+             MSTrafficLightLogic* logic, bool newDefault = true);
 
 
 

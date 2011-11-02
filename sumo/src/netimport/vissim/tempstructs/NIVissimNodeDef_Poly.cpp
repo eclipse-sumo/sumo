@@ -98,22 +98,22 @@ NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
     IntVector connections;
     IntVector edges;
     Boundary boundary(myPoly.getBoxBoundary());
-    for (IntVector::const_iterator i=within.begin(); i!=within.end(); i++) {
+    for (IntVector::const_iterator i = within.begin(); i != within.end(); i++) {
         NIVissimConnection* c =
             NIVissimConnection::dictionary(*i);
         NIVissimEdge* e =
             NIVissimEdge::dictionary(*i);
-        if (c!=0) {
+        if (c != 0) {
             connections.push_back(*i);
             c->setNodeCluster(myID);
         }
-        if (e!=0) {
+        if (e != 0) {
             edges.push_back(*i);
         }
     }
     NIVissimConnectionCluster* c =
         new NIVissimConnectionCluster(connections, boundary, myID, edges);
-    for (IntVector::iterator j=edges.begin(); j!=edges.end(); j++) {
+    for (IntVector::iterator j = edges.begin(); j != edges.end(); j++) {
         NIVissimEdge* edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
     }

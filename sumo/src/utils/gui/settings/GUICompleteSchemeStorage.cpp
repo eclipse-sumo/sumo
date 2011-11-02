@@ -59,7 +59,7 @@ GUICompleteSchemeStorage::~GUICompleteSchemeStorage() throw() { }
 void
 GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) throw() {
     std::string name = scheme.name;
-    if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
+    if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name) == mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
     }
     mySettings[name] = scheme;
@@ -80,7 +80,7 @@ GUICompleteSchemeStorage::getDefault() throw() {
 
 bool
 GUICompleteSchemeStorage::contains(const std::string& name) const throw() {
-    return mySettings.find(name)!=mySettings.end();
+    return mySettings.find(name) != mySettings.end();
 }
 
 
@@ -151,21 +151,21 @@ GUICompleteSchemeStorage::init(FXApp* app) throw() {
     myNumInitialSettings = (unsigned int) mySortedSchemeNames.size();
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
-    for (int i=0; i<noSaved; ++i) {
+    for (int i = 0; i < noSaved; ++i) {
         std::string name = "visset#" + toString(i);
-        std::string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
-        if (setting!="") {
+        std::string setting = app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
+        if (setting != "") {
             GUIVisualizationSettings vs;
 
             vs.name = setting;
-            app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
+            app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
 
             // add saved xml setting
             int xmlSize = app->reg().readIntEntry(name.c_str(), "xmlSize", 0);
             std::string content = "";
             int index = 0;
             while (xmlSize > 0) {
-                std::string part = app->reg().readStringEntry(name.c_str(), ("xml"+toString(index)).c_str(), "");
+                std::string part = app->reg().readStringEntry(name.c_str(), ("xml" + toString(index)).c_str(), "");
                 if (part == "") {
                     break;
                 }
@@ -189,9 +189,9 @@ GUICompleteSchemeStorage::init(FXApp* app) throw() {
 void
 GUICompleteSchemeStorage::writeSettings(FXApp* app) throw() {
     const std::vector<std::string> &names = getNames();
-    app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
+    app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
     size_t gidx = 0;
-    for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
+    for (std::vector<std::string>::const_iterator i = names.begin() + myNumInitialSettings; i != names.end(); ++i, ++gidx) {
         const GUIVisualizationSettings& item = mySettings.find(*i)->second;
         std::string sname = "visset#" + toString(gidx);
 
@@ -201,9 +201,9 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) throw() {
         std::string content = dev.getString();
         app->reg().writeIntEntry(sname.c_str(), "xmlSize", (FXint)(content.size()));
         const unsigned maxSize = 1500; // this is a fox limitation for registry entries
-        for (unsigned int i = 0; i < content.size(); i+=maxSize) {
+        for (unsigned int i = 0; i < content.size(); i += maxSize) {
             const std::string b = content.substr(i, maxSize);
-            app->reg().writeStringEntry(sname.c_str(), ("xml" + toString(i/maxSize)).c_str(), b.c_str());
+            app->reg().writeStringEntry(sname.c_str(), ("xml" + toString(i / maxSize)).c_str(), b.c_str());
         }
     }
 }

@@ -56,7 +56,7 @@ public:
 
     ///@brief  Destructor
     virtual ~NamedObjectCont() throw() {
-        for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
+        for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
             delete(*i).second;
         }
     }
@@ -72,7 +72,7 @@ public:
      * @return If the item could been added (no item with the same id was within the container before)
      */
     virtual bool add(const std::string& id, T item) throw() {
-        if (myMap.find(id)!=myMap.end()) {
+        if (myMap.find(id) != myMap.end()) {
             return false;
         }
         myMap.insert(std::make_pair(id, item));
@@ -86,7 +86,7 @@ public:
      * @return If the item could been removed (an item with the id was within the container before)
      */
     virtual bool remove(const std::string& id) throw() {
-        if (myMap.find(id)==myMap.end()) {
+        if (myMap.find(id) == myMap.end()) {
             return false;
         }
         typename std::map<std::string, T>::iterator i = myMap.find(id);
@@ -106,7 +106,7 @@ public:
      */
     T get(const std::string& id) const throw() {
         typename std::map<std::string, T>::const_iterator i = myMap.find(id);
-        if (i==myMap.end()) {
+        if (i == myMap.end()) {
             return 0;
         }
         return (*i).second;
@@ -115,7 +115,7 @@ public:
 
     /** @brief Removes all items from the container (deletes them, too) */
     void clear() throw() {
-        for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
+        for (typename IDMap::iterator i = myMap.begin(); i != myMap.end(); i++) {
             delete(*i).second;
         }
         myMap.clear();
@@ -143,8 +143,8 @@ public:
      * @return Whether the object could be deleted (was within the map)
      */
     bool erase(const std::string& id) throw() {
-        typename IDMap::iterator i=myMap.find(id);
-        if (i==myMap.end()) {
+        typename IDMap::iterator i = myMap.find(id);
+        if (i == myMap.end()) {
             return false;
         }
         T o = (*i).second;
@@ -153,7 +153,7 @@ public:
         typename ObjectVector::iterator i2 =
             find(myVector.begin(), myVector.end(), o);
         myHaveChanged = true;
-        if (i2!=myVector.end()) {
+        if (i2 != myVector.end()) {
             myVector.erase(i2);
         }
         delete o;
@@ -174,7 +174,7 @@ public:
         if (myHaveChanged) {
             myVector.clear();
             typename IDMap::const_iterator i;
-            for (i=myMap.begin(); i!=myMap.end(); ++i) {
+            for (i = myMap.begin(); i != myMap.end(); ++i) {
                 myVector.push_back((*i).second);
             }
             myHaveChanged = false;
@@ -193,7 +193,7 @@ public:
     std::vector<T> getTempVector() const throw() {
         std::vector<T> ret;
         typename IDMap::const_iterator i;
-        for (i=myMap.begin(); i!=myMap.end(); ++i) {
+        for (i = myMap.begin(); i != myMap.end(); ++i) {
             ret.push_back((*i).second);
         }
         return ret;
@@ -205,7 +205,7 @@ public:
      */
     void insertIDs(std::vector<std::string> &into) const throw() {
         typename IDMap::const_iterator i;
-        for (i=myMap.begin(); i!=myMap.end(); ++i) {
+        for (i = myMap.begin(); i != myMap.end(); ++i) {
             into.push_back((*i).first);
         }
     }

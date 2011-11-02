@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @file    route_departOffset.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
 @date    11.09.2009
 @version $Id$
 

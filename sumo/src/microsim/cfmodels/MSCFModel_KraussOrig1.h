@@ -112,7 +112,7 @@ public:
      */
     void setMaxDecel(SUMOReal decel) {
         myDecel = decel;
-        myTauDecel = myDecel*myHeadwayTime;
+        myTauDecel = myDecel * myHeadwayTime;
     }
 
 
@@ -129,7 +129,7 @@ public:
      */
     void setHeadwayTime(SUMOReal headwayTime) {
         myHeadwayTime = headwayTime;
-        myTauDecel = myDecel*headwayTime;
+        myTauDecel = myDecel * headwayTime;
     }
     /// @}
 

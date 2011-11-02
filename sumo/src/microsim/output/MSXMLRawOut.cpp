@@ -53,7 +53,7 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep) throw(IOError) {
     of.openTag("timestep") << " time=\"" << time2string(timestep) << "\">\n";
     const std::vector<MSEdge*> &edges = ec.getEdges();
-    for (std::vector<MSEdge*>::const_iterator e=edges.begin(); e!=edges.end(); ++e) {
+    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         writeEdge(of, **e);
     }
     of.closeTag();
@@ -69,7 +69,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError) {
         if (MSGlobals::gUseMesoSim) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
             while (seg != 0) {
-                if (seg->getCarNumber()!=0) {
+                if (seg->getCarNumber() != 0) {
                     dump = true;
                     break;
                 }
@@ -78,8 +78,8 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError) {
         } else {
 #endif
             const std::vector<MSLane*> &lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=lanes.end(); ++lane) {
-                if (((**lane).getVehicleNumber()!=0)) {
+            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+                if (((**lane).getVehicleNumber() != 0)) {
                     dump = true;
                     break;
                 }
@@ -101,7 +101,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError) {
         } else {
 #endif
             const std::vector<MSLane*> &lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=lanes.end(); ++lane) {
+            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 writeLane(of, **lane);
             }
 #ifdef HAVE_MESOSIM
@@ -115,7 +115,7 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError) {
 void
 MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) throw(IOError) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
-    if (lane.getVehicleNumber()!=0) {
+    if (lane.getVehicleNumber() != 0) {
         of << ">\n";
         for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
                 veh != lane.myVehBuffer.end(); ++veh) {
@@ -126,7 +126,7 @@ MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) throw(IOError) {
             writeVehicle(of, **veh);
         }
     }
-    of.closeTag(lane.getVehicleNumber()==0);
+    of.closeTag(lane.getVehicleNumber() == 0);
 }
 
 

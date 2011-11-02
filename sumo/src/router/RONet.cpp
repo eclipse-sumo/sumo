@@ -105,9 +105,9 @@ RONet::openOutput(const std::string& filename, bool useAlternatives) throw(IOErr
     if (useAlternatives) {
         size_t len = filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
-            myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len-4)+".alt.xml");
+            myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len - 4) + ".alt.xml");
         } else {
-            myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
+            myRouteAlternativesOutput = &OutputDevice::getDevice(filename + ".alt");
         }
         myRouteAlternativesOutput->writeXMLHeader("route-alternatives", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     }
@@ -117,11 +117,11 @@ RONet::openOutput(const std::string& filename, bool useAlternatives) throw(IOErr
 void
 RONet::closeOutput() throw() {
     // end writing
-    if (myRoutesOutput!= 0) {
+    if (myRoutesOutput != 0) {
         myRoutesOutput->close();
     }
     // only if opened
-    if (myRouteAlternativesOutput!=0) {
+    if (myRouteAlternativesOutput != 0) {
         myRouteAlternativesOutput->close();
     }
 }
@@ -132,10 +132,10 @@ SUMOVTypeParameter*
 RONet::getVehicleTypeSecure(const std::string& id) throw() {
     // check whether the type was already known
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
-    if (type!=0) {
+    if (type != 0) {
         return type;
     }
-    if (id=="") {
+    if (id == "") {
         // ok, no vehicle type was given within the user input
         //  return the default type
         return 0;
@@ -163,7 +163,7 @@ RONet::addVehicleType(SUMOVTypeParameter* type) throw() {
 
 bool
 RONet::addVehicle(const std::string& id, ROVehicle* veh) throw() {
-    if (myVehIDs.find(id)==myVehIDs.end()&&myVehicles.add(id, veh)) {
+    if (myVehIDs.find(id) == myVehIDs.end() && myVehicles.add(id, veh)) {
         myVehIDs.insert(id);
         myReadRouteNo++;
         return true;
@@ -174,7 +174,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) throw() {
 
 
 bool
-RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                     const ROVehicle* const veh) {
     MsgHandler* mh = MsgHandler::getErrorInstance();
     std::string noRouteMsg = "The vehicle '" + veh->getID() + "' has no valid route.";
@@ -183,7 +183,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     }
     RORouteDef* const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
-    if (routeDef==0) {
+    if (routeDef == 0) {
         mh->inform(noRouteMsg);
         return false;
     }
@@ -193,7 +193,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     }
     //
     RORoute* current = routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
-    if (current==0||current->size()==0) {
+    if (current == 0 || current->size() == 0) {
         delete current;
         mh->inform(noRouteMsg);
         return false;
@@ -203,7 +203,7 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &
         current->recheckForLoops();
     }
     // check whether the route is still valid
-    if (current->size()==0) {
+    if (current->size() == 0) {
         delete current;
         mh->inform(noRouteMsg + " (after removing loops)");
         return false;
@@ -215,23 +215,23 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &
 
 
 SUMOTime
-RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                 SUMOTime time) {
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
-    while (myVehicles.size()!=0) {
+    while (myVehicles.size() != 0) {
         // get the next vehicle
         const ROVehicle* const veh = myVehicles.getTopVehicle();
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
-        if (currentTime>time) {
+        if (currentTime > time) {
             lastTime = currentTime;
             break;
         }
         // check whether to print the output
-        if (lastTime!=currentTime&&lastTime!=-1) {
+        if (lastTime != currentTime && lastTime != -1) {
             // report writing progress
-            if (options.getInt("stats-period")>=0 && ((int) currentTime%options.getInt("stats-period"))==0) {
+            if (options.getInt("stats-period") >= 0 && ((int) currentTime % options.getInt("stats-period")) == 0) {
                 WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
             }
         }
@@ -260,7 +260,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, SUMOAbstractRouter<ROEdge,
 
 bool
 RONet::furtherStored() {
-    return myVehicles.size()>0;
+    return myVehicles.size() > 0;
 }
 
 
@@ -268,7 +268,7 @@ ROEdge*
 RONet::getRandomSource() throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if (mySourceEdges.size()==0) {
+    if (mySourceEdges.size() == 0) {
         return 0;
     }
     // choose a random edge
@@ -280,7 +280,7 @@ const ROEdge*
 RONet::getRandomSource() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if (mySourceEdges.size()==0) {
+    if (mySourceEdges.size() == 0) {
         return 0;
     }
     // choose a random edge
@@ -293,7 +293,7 @@ ROEdge*
 RONet::getRandomDestination() throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if (myDestinationEdges.size()==0) {
+    if (myDestinationEdges.size() == 0) {
         return 0;
     }
     // choose a random edge
@@ -305,7 +305,7 @@ const ROEdge*
 RONet::getRandomDestination() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
-    if (myDestinationEdges.size()==0) {
+    if (myDestinationEdges.size() == 0) {
         return 0;
     }
     // choose a random edge
@@ -315,18 +315,18 @@ RONet::getRandomDestination() const throw() {
 
 void
 RONet::checkSourceAndDestinations() const {
-    if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
+    if (myDestinationEdges.size() != 0 || mySourceEdges.size() != 0) {
         return;
     }
     const std::map<std::string, ROEdge*> &edges = myEdges.getMyMap();
-    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (std::map<std::string, ROEdge*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         ROEdge* e = (*i).second;
         ROEdge::EdgeType type = e->getType();
         // !!! add something like "classified edges only" for using only sources or sinks
-        if (type!=ROEdge::ET_SOURCE) {
+        if (type != ROEdge::ET_SOURCE) {
             myDestinationEdges.push_back(e);
         }
-        if (type!=ROEdge::ET_SINK) {
+        if (type != ROEdge::ET_SINK) {
             mySourceEdges.push_back(e);
         }
     }

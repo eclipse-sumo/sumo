@@ -118,7 +118,7 @@ NIImporter_DlrNavteq::NodesHandler::~NodesHandler() throw() {}
 
 bool
 NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(ProcessError) {
-    if (result[0]=='#') {
+    if (result[0] == '#') {
         return true;
     }
     std::string id;
@@ -146,7 +146,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(Proc
     }
     // geometrical information
     PositionVector geoms;
-    for (int i=0; i<no_geoms; i++) {
+    for (int i = 0; i < no_geoms; i++) {
         stream >> x;
         if (stream.fail()) {
             throw ProcessError("Non-numerical value for x-position in node " + id + ".");
@@ -162,7 +162,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(Proc
         geoms.push_back(pos);
     }
 
-    if (intermediate==0) {
+    if (intermediate == 0) {
         NBNode* n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
@@ -180,8 +180,8 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(Proc
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
         const std::string& file,
-        std::map<std::string,
-        PositionVector> &geoms) throw()
+        std::map < std::string,
+        PositionVector > &geoms) throw()
     : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
@@ -200,7 +200,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) throw(Proc
 //  extended_number_of_lanes  isRamp    (these two only exist in networks extracted since 05/2009)
 //  connection (this may be omitted)
 
-    if (result[0]=='#') {
+    if (result[0] == '#') {
         return true;
     }
     std::string id, fromID, toID, interID;
@@ -251,15 +251,15 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) throw(Proc
     // try to get the nodes
     NBNode* from = myNodeCont.retrieve(fromID);
     NBNode* to = myNodeCont.retrieve(toID);
-    if (from==0) {
+    if (from == 0) {
         throw ProcessError("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
     }
-    if (to==0) {
+    if (to == 0) {
         throw ProcessError("The to-node '" + toID + "' of edge '" + id + "' could not be found");
     }
     // build the edge
     NBEdge* e = 0;
-    if (interID=="-1") {
+    if (interID == "-1") {
         e = new NBEdge(id, from, to, "", speed, nolanes, priority, -1, -1);
     } else {
         PositionVector geoms = myGeoms[interID];
@@ -303,13 +303,13 @@ bool
 NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) throw(ProcessError) {
 // #ID     POICOL-TYPE     DESCRIPTION     LONGITUDE       LATITUDE        NAVTEQ_LINK_ID  NODEID
 
-    if (result[0]=='#') {
+    if (result[0] == '#') {
         return true;
     }
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     std::string nodeID = st.getVector().back();
     NBNode* node = myNodeCont.retrieve(nodeID);
-    if (node==0) {
+    if (node == 0) {
         WRITE_WARNING("The traffic light node '" + nodeID + "' could not be found");
     } else {
         if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {

@@ -138,7 +138,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (removeUnwishedNodes) {
         unsigned int no = 0;
-        if (oc.exists("geometry.remove")&&oc.getBool("geometry.remove")) {
+        if (oc.exists("geometry.remove") && oc.getBool("geometry.remove")) {
             PROGRESS_BEGIN_MESSAGE("Removing empty nodes and geometry nodes");
             no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
         } else {
@@ -162,13 +162,13 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_BEGIN_MESSAGE("Moving network to origin");
         const SUMOReal x = -geoConvHelper.getConvBoundary().xmin();
         const SUMOReal y = -geoConvHelper.getConvBoundary().ymin();
-        for (std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             (*i).second->reshiftPosition(x, y);
         }
-        for (std::map<std::string, NBEdge*>::const_iterator i=myEdgeCont.begin(); i!=myEdgeCont.end(); ++i) {
+        for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
             (*i).second->reshiftPosition(x, y);
         }
-        for (std::map<std::string, NBDistrict*>::const_iterator i=myDistrictCont.begin(); i!=myDistrictCont.end(); ++i) {
+        for (std::map<std::string, NBDistrict*>::const_iterator i = myDistrictCont.begin(); i != myDistrictCont.end(); ++i) {
             (*i).second->reshiftPosition(x, y);
         }
         geoConvHelper.moveConvertedBy(x, y);
@@ -180,7 +180,7 @@ NBNetBuilder::compute(OptionsCont& oc,
 
 
     // GUESS RAMPS
-    if ((oc.exists("ramps.guess")&&oc.getBool("ramps.guess"))||(oc.exists("ramps.set")&&oc.isSet("ramps.set"))) {
+    if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
         PROGRESS_DONE_MESSAGE();
@@ -191,9 +191,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
     if (oc.isSet("tls.set")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
-        for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
+        for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
             NBNode* node = myNodeCont.retrieve(*i);
-            if (node==0) {
+            if (node == 0) {
                 WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");
             } else {
                 myNodeCont.setAsTLControlled(node, myTLLCont);
@@ -284,10 +284,10 @@ NBNetBuilder::compute(OptionsCont& oc,
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
     if (!oc.getBool("no-internal-links")) {
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
-        for (std::map<std::string, NBEdge*>::const_iterator i=myEdgeCont.begin(); i!=myEdgeCont.end(); ++i) {
+        for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
             (*i).second->sortOutgoingConnectionsByIndex();
         }
-        for (std::map<std::string, NBNode*>::const_iterator i=myNodeCont.begin(); i!=myNodeCont.end(); ++i) {
+        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             (*i).second->buildInnerEdges();
         }
         PROGRESS_DONE_MESSAGE();

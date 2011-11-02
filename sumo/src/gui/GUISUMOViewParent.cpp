@@ -63,7 +63,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[]= {
+FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
     //        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocate),
@@ -111,7 +111,7 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 
 
 long
-GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
+GUISUMOViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -123,16 +123,16 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
                               "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
                               "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
                               "All Files (*)");
-    if (gCurrentFolder.length()!=0) {
+    if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
-    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
     gCurrentFolder = opendialog.getDirectory();
     std::string file = opendialog.getFilename().text();
     std::string error = myView->makeSnapshot(file);
-    if (error!="") {
+    if (error != "") {
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", error.c_str());
     }
     return 1;
@@ -140,50 +140,50 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
 
 
 long
-GUISUMOViewParent::onCmdLocate(FXObject*,FXSelector sel,void*) {
+GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     GUIGlObjectType type;
     std::vector<GUIGlID> ids;
     GUIIcon icon;
     std::string title;
     switch (FXSELID(sel)) {
-    case MID_LOCATEJUNCTION:
-        type = GLO_JUNCTION;
-        ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-        icon = ICON_LOCATEJUNCTION;
-        title = "Junction Chooser";
-        break;
-    case MID_LOCATEEDGE:
-        type = GLO_EDGE;
-        ids = GUIEdge::getIDs(myParent->listInternal());
-        icon = ICON_LOCATEEDGE;
-        title = "Edge Chooser";
-        break;
-    case MID_LOCATEVEHICLE:
-        type = GLO_VEHICLE;
-        static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
-        icon = ICON_LOCATEVEHICLE;
-        title = "Vehicle Chooser";
-        break;
-    case MID_LOCATETLS:
-        type = GLO_TLLOGIC;
-        ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-        icon = ICON_LOCATETLS;
-        title = "Traffic Lights Chooser";
-        break;
-    case MID_LOCATEADD:
-        type = GLO_ADDITIONAL;
-        ids = GUIGlObject_AbstractAdd::getIDList();
-        icon = ICON_LOCATEADD;
-        title = "Additional Objects Chooser";
-        break;
-    case MID_LOCATESHAPE:
-        type = GLO_SHAPE;
-        ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
-        icon = ICON_LOCATESHAPE;
-        title = "Shape Chooser";
-        break;
-    default:
-        throw ProcessError("Unknown Message ID in onCmdLocate");
+        case MID_LOCATEJUNCTION:
+            type = GLO_JUNCTION;
+            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
+            icon = ICON_LOCATEJUNCTION;
+            title = "Junction Chooser";
+            break;
+        case MID_LOCATEEDGE:
+            type = GLO_EDGE;
+            ids = GUIEdge::getIDs(myParent->listInternal());
+            icon = ICON_LOCATEEDGE;
+            title = "Edge Chooser";
+            break;
+        case MID_LOCATEVEHICLE:
+            type = GLO_VEHICLE;
+            static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
+            icon = ICON_LOCATEVEHICLE;
+            title = "Vehicle Chooser";
+            break;
+        case MID_LOCATETLS:
+            type = GLO_TLLOGIC;
+            ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
+            icon = ICON_LOCATETLS;
+            title = "Traffic Lights Chooser";
+            break;
+        case MID_LOCATEADD:
+            type = GLO_ADDITIONAL;
+            ids = GUIGlObject_AbstractAdd::getIDList();
+            icon = ICON_LOCATEADD;
+            title = "Additional Objects Chooser";
+            break;
+        case MID_LOCATESHAPE:
+            type = GLO_SHAPE;
+            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getShapeIDs();
+            icon = ICON_LOCATESHAPE;
+            title = "Shape Chooser";
+            break;
+        default:
+            throw ProcessError("Unknown Message ID in onCmdLocate");
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
@@ -197,7 +197,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*,FXSelector sel,void*) {
 
 
 long
-GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
+GUISUMOViewParent::onSimStep(FXObject*, FXSelector, void*) {
     myView->update();
     myView->checkSnapshots();
     return 1;
@@ -213,7 +213,7 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
         GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
         assert(edge);
         size_t noLanes = edge->getLanes().size();
-        for (size_t j=0; j<noLanes; ++j) {
+        for (size_t j = 0; j < noLanes; ++j) {
             const GUILaneWrapper& l = edge->getLaneGeometry(j);
             if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
                 return true;

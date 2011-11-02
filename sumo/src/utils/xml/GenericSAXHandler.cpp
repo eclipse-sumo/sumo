@@ -57,7 +57,7 @@ GenericSAXHandler::GenericSAXHandler(
     }
     i = 0;
     while (attrs[i].key != terminatorAttr) {
-        assert(myPredefinedTags.find(attrs[i].key)==myPredefinedTags.end());
+        assert(myPredefinedTags.find(attrs[i].key) == myPredefinedTags.end());
         myPredefinedTags[attrs[i].key] = convert(attrs[i].str);
         myPredefinedTagsMML[attrs[i].key] = attrs[i].str;
         i++;
@@ -66,7 +66,7 @@ GenericSAXHandler::GenericSAXHandler(
 
 
 GenericSAXHandler::~GenericSAXHandler() {
-    for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
+    for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
         delete[](*i1).second;
     }
 }
@@ -87,9 +87,9 @@ GenericSAXHandler::getFileName() const throw() {
 XMLCh*
 GenericSAXHandler::convert(const std::string& name) const throw() {
     size_t len = name.length();
-    XMLCh* ret = new XMLCh[len+1];
-    size_t i=0;
-    for (; i<len; i++) {
+    XMLCh* ret = new XMLCh[len + 1];
+    size_t i = 0;
+    for (; i < len; i++) {
         ret[i] = (XMLCh) name[i];
     }
     ret[i] = 0;
@@ -125,16 +125,16 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     std::string name = TplConvert<XMLCh>::_2str(qname);
     int element = convertTag(name);
     // collect characters
-    if (myCharactersVector.size()!=0) {
+    if (myCharactersVector.size() != 0) {
         size_t len = 0;
         unsigned i;
-        for (i=0; i<myCharactersVector.size(); ++i) {
+        for (i = 0; i < myCharactersVector.size(); ++i) {
             len += myCharactersVector[i].length();
         }
-        char* buf = new char[len+1];
+        char* buf = new char[len + 1];
         size_t pos = 0;
-        for (i=0; i<myCharactersVector.size(); ++i) {
-            memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
+        for (i = 0; i < myCharactersVector.size(); ++i) {
+            memcpy((unsigned char*) buf + pos, (unsigned char*) myCharactersVector[i].c_str(),
                    sizeof(char)*myCharactersVector[i].length());
             pos += myCharactersVector[i].length();
         }
@@ -177,8 +177,8 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 
 int
 GenericSAXHandler::convertTag(const std::string& tag) const throw() {
-    TagMap::const_iterator i=myTagMap.find(tag);
-    if (i==myTagMap.end()) {
+    TagMap::const_iterator i = myTagMap.find(tag);
+    if (i == myTagMap.end()) {
         return SUMO_TAG_NOTHING;
     }
     return (*i).second;
@@ -191,7 +191,7 @@ GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
     char* pMsg = XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
     buf << " In file '" << getFileName() << "'" << std::endl;
-    buf << " At line/column " << exception.getLineNumber()+1
+    buf << " At line/column " << exception.getLineNumber() + 1
         << '/' << exception.getColumnNumber() << "." << std::endl;
     XMLString::release(&pMsg);
     return buf.str();

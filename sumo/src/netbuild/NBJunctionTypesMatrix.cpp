@@ -48,12 +48,12 @@ NBJunctionTypesMatrix::NBJunctionTypesMatrix() {
     myMap['x'] = NODETYPE_NOJUNCTION;
     myMap['p'] = NODETYPE_PRIORITY_JUNCTION;
     myMap['r'] = NODETYPE_RIGHT_BEFORE_LEFT;
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(0./3.6), (SUMOReal)(10./3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(10./3.6), (SUMOReal)(30./3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(30./3.6), (SUMOReal)(50./3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(50./3.6), (SUMOReal)(70./3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(70./3.6), (SUMOReal)(100./3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(100./3.6), (SUMOReal)(999999./3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(0. / 3.6), (SUMOReal)(10. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(10. / 3.6), (SUMOReal)(30. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(30. / 3.6), (SUMOReal)(50. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(50. / 3.6), (SUMOReal)(70. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(70. / 3.6), (SUMOReal)(100. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(100. / 3.6), (SUMOReal)(999999. / 3.6)));
     //                 00001x
     //                 13570x
     //                 00000x
@@ -81,7 +81,7 @@ NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const {
 char
 NBJunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const {
     std::string str = myValues[pos1];
-    if (str[pos2]==' ') {
+    if (str[pos2] == ' ') {
         return getNameAt(pos2, pos1);
     }
     return str[pos2];

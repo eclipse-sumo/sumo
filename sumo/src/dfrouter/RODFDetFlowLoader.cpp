@@ -67,7 +67,7 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
     // parse values
     while (lr.hasMore()) {
         std::string line = lr.readLine();
-        if (line.find(';')==std::string::npos) {
+        if (line.find(';') == std::string::npos) {
             continue;
         }
         myLineHandler.parseLine(line);
@@ -77,7 +77,7 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
                 continue;
             }
             const SUMOTime time = TplConvert<char>::_2int((myLineHandler.get("time").c_str())) * myTimeScale - myTimeOffset;
-            if (time<myStartTime||time>myEndTime) {
+            if (time < myStartTime || time > myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
                     WRITE_WARNING("At least one value lies beyond given time boundaries.");
@@ -96,10 +96,10 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
             if (myLineHandler.know("vLKW")) {
                 fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vlkw").c_str());
             }
-            if (fd.qLKW<0) {
+            if (fd.qLKW < 0) {
                 fd.qLKW = 0;
             }
-            if (fd.qPKW<0) {
+            if (fd.qPKW < 0) {
                 fd.qPKW = 0;
             }
             myStorage.addFlow(detName, time, fd);

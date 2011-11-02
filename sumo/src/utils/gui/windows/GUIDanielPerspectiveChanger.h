@@ -82,7 +82,7 @@ public:
     virtual SUMOReal getZoom() const;
 
     /// Centers the view to the given position, setting it to a size that covers the radius
-    void centerTo(const Position& pos, SUMOReal radius, bool applyZoom=true);
+    void centerTo(const Position& pos, SUMOReal radius, bool applyZoom = true);
 
     /** @brief Sets the viewport */
     void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);

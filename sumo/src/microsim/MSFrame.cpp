@@ -305,7 +305,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gUsingInternalLanes = false;
 #endif
     // set the grid lock time
-    MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport"))<0 ? 0 : string2time(oc.getString("time-to-teleport"));
+    MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport")) < 0 ? 0 : string2time(oc.getString("time-to-teleport"));
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
 #ifdef HAVE_MESOSIM
@@ -323,7 +323,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
             num /= 5;
             den /= 5;
         }
-        MSGlobals::gFractions[SUMOReal(i)/1000.] = std::make_pair(num, den);
+        MSGlobals::gFractions[SUMOReal(i) / 1000.] = std::make_pair(num, den);
     }
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS

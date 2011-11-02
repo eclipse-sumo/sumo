@@ -80,9 +80,9 @@ MSMessageEmitter::initXML() {
 std::string
 MSMessageEmitter::trimmed(const std::string& str, const char* sepSet) {
     std::string::size_type const first = str.find_first_not_of(sepSet);
-    return (first==std::string::npos) ?
+    return (first == std::string::npos) ?
            std::string() :
-           str.substr(first, str.find_last_not_of(sepSet)-first+1);
+           str.substr(first, str.find_last_not_of(sepSet) - first + 1);
 }
 
 

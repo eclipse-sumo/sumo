@@ -259,7 +259,7 @@ protected:
      *
      * @param[in] set A default value was supplied
      */
-    Option(bool set=false);
+    Option(bool set = false);
 
 
     /** @brief Copy constructor */
@@ -388,7 +388,7 @@ public:
      *
      * @param[in] value This option's default value
      */
-    Option_String(const std::string& value, std::string typeName="STR");
+    Option_String(const std::string& value, std::string typeName = "STR");
 
 
     /** @brief Copy constructor */

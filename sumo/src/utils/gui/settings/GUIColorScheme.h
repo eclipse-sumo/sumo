@@ -46,7 +46,7 @@ class GUIColorScheme {
 public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
-                   const std::string& colName="", const bool isFixed=false)
+                   const std::string& colName = "", const bool isFixed = false)
         : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
         addColor(baseColor, 0, colName);
     }
@@ -71,7 +71,7 @@ public:
         return false;
     }
 
-    unsigned int addColor(const RGBColor& color, const SUMOReal threshold, const std::string& name="") {
+    unsigned int addColor(const RGBColor& color, const SUMOReal threshold, const std::string& name = "") {
         std::vector<RGBColor>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
         std::vector<std::string>::iterator nameIt = myNames.begin();
@@ -90,9 +90,9 @@ public:
 
     void removeColor(const size_t pos) {
         assert(pos < myColors.size());
-        myColors.erase(myColors.begin()+pos);
-        myThresholds.erase(myThresholds.begin()+pos);
-        myNames.erase(myNames.begin()+pos);
+        myColors.erase(myColors.begin() + pos);
+        myThresholds.erase(myThresholds.begin() + pos);
+        myNames.erase(myNames.begin() + pos);
     }
 
     void clear() {
@@ -105,8 +105,8 @@ public:
         if (myColors.size() == 1 || value < myThresholds.front()) {
             return myColors.front();
         }
-        std::vector<RGBColor>::const_iterator colIt = myColors.begin()+1;
-        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin()+1;
+        std::vector<RGBColor>::const_iterator colIt = myColors.begin() + 1;
+        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin() + 1;
         while (threshIt != myThresholds.end() && (*threshIt) <= value) {
             ++threshIt;
             ++colIt;
@@ -115,13 +115,13 @@ public:
             return myColors.back();
         }
         if (!myIsInterpolated) {
-            return *(colIt-1);
+            return *(colIt - 1);
         }
-        SUMOReal lowVal = *(threshIt-1);
-        return RGBColor::interpolate(*(colIt-1), *colIt, (value-lowVal)/((*threshIt)-lowVal));
+        SUMOReal lowVal = *(threshIt - 1);
+        return RGBColor::interpolate(*(colIt - 1), *colIt, (value - lowVal) / ((*threshIt) - lowVal));
     }
 
-    void setInterpolated(const bool interpolate, SUMOReal interpolationStart=0.f) {
+    void setInterpolated(const bool interpolate, SUMOReal interpolationStart = 0.f) {
         myIsInterpolated = interpolate;
         if (interpolate) {
             myThresholds[0] = interpolationStart;

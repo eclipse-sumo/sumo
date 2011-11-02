@@ -57,7 +57,7 @@ AGActivityTripWriter::vtypes() {
 void
 AGActivityTripWriter::addTrip(AGTrip trip) {
     std::list<AGPosition>::iterator it;
-    int time = (trip.getDay()-1)*86400 + trip.getTime();
+    int time = (trip.getDay() - 1) * 86400 + trip.getTime();
 
     //the vehicle:
     routes << "    <vehicle"
@@ -73,7 +73,7 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
 
     //the route
     routes << "        <route edges=\"" << trip.getDep().getStreet().getName();
-    for (it=trip.getPassed()->begin() ; it!=trip.getPassed()->end() ; ++it) {
+    for (it = trip.getPassed()->begin() ; it != trip.getPassed()->end() ; ++it) {
         routes << " " << it->getStreet().getName();
     }
     routes << " " << trip.getArr().getStreet().getName();

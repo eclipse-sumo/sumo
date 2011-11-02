@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 @file    sort_routes.py
-@author  Jakob.Erdmann@dlr.de
+@author  Jakob Erdmann
 @date    2011-07-14
 @version $Id$
 

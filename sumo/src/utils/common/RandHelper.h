@@ -71,12 +71,12 @@ public:
 
     /// Returns a random integer in [0, maxV-1]
     static inline size_t rand(size_t maxV) {
-        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV-1));
+        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
     }
 
     /// Returns a random integer in [0, maxV-1]
     static inline int rand(int maxV) {
-        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV-1));
+        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
     }
 
     /// Returns a random integer in [minV, maxV-1]

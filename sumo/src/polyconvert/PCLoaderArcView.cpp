@@ -58,7 +58,7 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("shapefile-prefixes");
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
         load(*file, oc, toFill, tm);
         PROGRESS_DONE_MESSAGE();
@@ -102,7 +102,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT==0) {
+        if (poCT == 0) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -113,127 +113,127 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         // read in edge attributes
         std::string id = poFeature->GetFieldAsString(idField.c_str());
         id = StringUtils::prune(id);
-        if (id=="") {
+        if (id == "") {
             throw ProcessError("Missing id under '" + idField + "'");
         }
         id = prefix + id;
         // read in the geometry
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
-        if (poGeometry!=0) {
+        if (poGeometry != 0) {
             // try transform to wgs84
             poGeometry->transform(poCT);
         }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
-        case wkbPoint: {
-            OGRPoint* cgeom = (OGRPoint*) poGeometry;
-            Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
-            if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
-            }
-            PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
-            if (!toFill.insert(id, poi, layer)) {
-                WRITE_ERROR("POI '" + id + "' could not been added.");
-                delete poi;
-            }
-        }
-        break;
-        case wkbLineString: {
-            OGRLineString* cgeom = (OGRLineString*) poGeometry;
-            PositionVector shape;
-            for (int j=0; j<cgeom->getNumPoints(); j++) {
-                Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+            case wkbPoint: {
+                OGRPoint* cgeom = (OGRPoint*) poGeometry;
+                Position pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
+                    WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
                 }
-                shape.push_back_noDoublePos(pos);
-            }
-            Polygon* poly = new Polygon(id, type, color, shape, false);
-            if (!toFill.insert(id, poly, layer)) {
-                WRITE_ERROR("Polygon '" + id + "' could not been added.");
-                delete poly;
-            }
-        }
-        break;
-        case wkbPolygon: {
-            OGRLinearRing* cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
-            PositionVector shape;
-            for (int j=0; j<cgeom->getNumPoints(); j++) {
-                Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                if (!geoConvHelper.x2cartesian(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
-                }
-                shape.push_back_noDoublePos(pos);
-            }
-            Polygon* poly = new Polygon(id, type, color, shape, true);
-            if (!toFill.insert(id, poly, layer)) {
-                WRITE_ERROR("Polygon '" + id + "' could not been added.");
-                delete poly;
-            }
-        }
-        break;
-        case wkbMultiPoint: {
-            OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
-            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
-                OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
-                Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
-                std::string tid = id + "#" + toString(i);
-                if (!geoConvHelper.x2cartesian(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
-                }
-                PointOfInterest* poi = new PointOfInterest(tid, type, pos, color);
-                if (!toFill.insert(tid, poi, layer)) {
-                    WRITE_ERROR("POI '" + tid + "' could not been added.");
+                PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
+                if (!toFill.insert(id, poi, layer)) {
+                    WRITE_ERROR("POI '" + id + "' could not been added.");
                     delete poi;
                 }
             }
-        }
-        break;
-        case wkbMultiLineString: {
-            OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
-            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
-                OGRLineString* cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
-                PositionVector shape;
-                std::string tid = id + "#" + toString(i);
-                for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                    Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
-                    }
-                    shape.push_back_noDoublePos(pos);
-                }
-                Polygon* poly = new Polygon(tid, type, color, shape, false);
-                if (!toFill.insert(tid, poly, layer)) {
-                    WRITE_ERROR("Polygon '" + tid + "' could not been added.");
-                    delete poly;
-                }
-            }
-        }
-        break;
-        case wkbMultiPolygon: {
-            OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
-            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
-                OGRLinearRing* cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
-                PositionVector shape;
-                std::string tid = id + "#" + toString(i);
-                for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                    Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
-                    }
-                    shape.push_back_noDoublePos(pos);
-                }
-                Polygon* poly = new Polygon(tid, type, color, shape, true);
-                if (!toFill.insert(tid, poly, layer)) {
-                    WRITE_ERROR("Polygon '" + tid + "' could not been added.");
-                    delete poly;
-                }
-            }
-        }
-        break;
-        default:
-            WRITE_WARNING("Unsupported shape type occured (id='" + id + "').");
             break;
+            case wkbLineString: {
+                OGRLineString* cgeom = (OGRLineString*) poGeometry;
+                PositionVector shape;
+                for (int j = 0; j < cgeom->getNumPoints(); j++) {
+                    Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                    if (!geoConvHelper.x2cartesian(pos)) {
+                        WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
+                    }
+                    shape.push_back_noDoublePos(pos);
+                }
+                Polygon* poly = new Polygon(id, type, color, shape, false);
+                if (!toFill.insert(id, poly, layer)) {
+                    WRITE_ERROR("Polygon '" + id + "' could not been added.");
+                    delete poly;
+                }
+            }
+            break;
+            case wkbPolygon: {
+                OGRLinearRing* cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
+                PositionVector shape;
+                for (int j = 0; j < cgeom->getNumPoints(); j++) {
+                    Position pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                    if (!geoConvHelper.x2cartesian(pos)) {
+                        WRITE_ERROR("Unable to project coordinates for polygon '" + id + "'.");
+                    }
+                    shape.push_back_noDoublePos(pos);
+                }
+                Polygon* poly = new Polygon(id, type, color, shape, true);
+                if (!toFill.insert(id, poly, layer)) {
+                    WRITE_ERROR("Polygon '" + id + "' could not been added.");
+                    delete poly;
+                }
+            }
+            break;
+            case wkbMultiPoint: {
+                OGRMultiPoint* cgeom = (OGRMultiPoint*) poGeometry;
+                for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
+                    OGRPoint* cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
+                    Position pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
+                    std::string tid = id + "#" + toString(i);
+                    if (!geoConvHelper.x2cartesian(pos)) {
+                        WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
+                    }
+                    PointOfInterest* poi = new PointOfInterest(tid, type, pos, color);
+                    if (!toFill.insert(tid, poi, layer)) {
+                        WRITE_ERROR("POI '" + tid + "' could not been added.");
+                        delete poi;
+                    }
+                }
+            }
+            break;
+            case wkbMultiLineString: {
+                OGRMultiLineString* cgeom = (OGRMultiLineString*) poGeometry;
+                for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
+                    OGRLineString* cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
+                    PositionVector shape;
+                    std::string tid = id + "#" + toString(i);
+                    for (int j = 0; j < cgeom2->getNumPoints(); j++) {
+                        Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                        if (!geoConvHelper.x2cartesian(pos)) {
+                            WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
+                        }
+                        shape.push_back_noDoublePos(pos);
+                    }
+                    Polygon* poly = new Polygon(tid, type, color, shape, false);
+                    if (!toFill.insert(tid, poly, layer)) {
+                        WRITE_ERROR("Polygon '" + tid + "' could not been added.");
+                        delete poly;
+                    }
+                }
+            }
+            break;
+            case wkbMultiPolygon: {
+                OGRMultiPolygon* cgeom = (OGRMultiPolygon*) poGeometry;
+                for (int i = 0; i < cgeom->getNumGeometries(); ++i) {
+                    OGRLinearRing* cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
+                    PositionVector shape;
+                    std::string tid = id + "#" + toString(i);
+                    for (int j = 0; j < cgeom2->getNumPoints(); j++) {
+                        Position pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
+                        if (!geoConvHelper.x2cartesian(pos)) {
+                            WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
+                        }
+                        shape.push_back_noDoublePos(pos);
+                    }
+                    Polygon* poly = new Polygon(tid, type, color, shape, true);
+                    if (!toFill.insert(tid, poly, layer)) {
+                        WRITE_ERROR("Polygon '" + tid + "' could not been added.");
+                        delete poly;
+                    }
+                }
+            }
+            break;
+            default:
+                WRITE_WARNING("Unsupported shape type occured (id='" + id + "').");
+                break;
         }
         OGRFeature::DestroyFeature(poFeature);
     }

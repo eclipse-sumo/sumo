@@ -198,7 +198,7 @@ public:
         } else {
             myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_NO));
         }
-        myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
+        myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     }
 
 
@@ -229,11 +229,11 @@ public:
      *  according table cell.
      */
     void update() throw() {
-        if (!dynamic()||mySource==0) {
+        if (!dynamic() || mySource == 0) {
             return;
         }
         T value = mySource->getValue();
-        if (value!=myValue) {
+        if (value != myValue) {
             myValue = value;
             myTable->setItemText(myTablePosition, 1, toString<T>(myValue).c_str());
         }
@@ -245,7 +245,7 @@ public:
      * @return A copy of the value source
      */
     ValueSource<T> *getSourceCopy() const throw() {
-        if (mySource==0) {
+        if (mySource == 0) {
             return 0;
         }
         return mySource->copy();
@@ -257,7 +257,7 @@ public:
      * @return A SUMOReal-typed copy of the value source
      */
     ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw() {
-        if (mySource==0) {
+        if (mySource == 0) {
             return 0;
         }
         return mySource->makeSUMORealReturningCopy();

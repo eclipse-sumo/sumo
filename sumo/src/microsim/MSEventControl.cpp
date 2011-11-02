@@ -74,7 +74,7 @@ MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
     for (; !myEvents.empty();) {
         Event currEvent = myEvents.top();
-        if (currEvent.second == execTime || currEvent.second<execTime+DELTA_T) {
+        if (currEvent.second == execTime || currEvent.second < execTime + DELTA_T) {
             Command* command = currEvent.first;
             myEvents.pop();
             SUMOTime time = 0;
@@ -88,7 +88,7 @@ MSEventControl::execute(SUMOTime execTime) {
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.
             if (time <= 0) {
-                if (time<0) {
+                if (time < 0) {
                     WRITE_WARNING("Command returned negative repeat number; will be deleted.");
                 }
                 delete currEvent.first;

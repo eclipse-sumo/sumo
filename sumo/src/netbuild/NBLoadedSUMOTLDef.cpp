@@ -141,14 +141,14 @@ NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state) {
 
 bool
 NBLoadedSUMOTLDef::amInvalid() const {
-    if (myControlledLinks.size()==0) {
+    if (myControlledLinks.size() == 0) {
         return true;
     }
     // make sure that myControlledNodes are the original nodes
     if (myControlledNodes.size() != myOriginalNodes.size()) {
         return true;
     }
-    for (std::vector<NBNode*>::const_iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
+    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         if (myOriginalNodes.count(*i) != 1) {
             return true;
         }

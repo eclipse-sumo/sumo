@@ -68,7 +68,7 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_RobocupRescue handler(nb.getNodeCont(), nb.getEdgeCont());
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("robocup-dir");
-    for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         std::string nodesName = (*file) + "/node.bin";
         if (!FileHelpers::exists(nodesName)) {
@@ -125,7 +125,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         dev >> numEdges;
 
         std::vector<int> edges;
-        for (unsigned int j=0; j<numEdges; ++j) {
+        for (unsigned int j = 0; j < numEdges; ++j) {
             unsigned int edge;
             dev >> edge;
             edges.push_back(edge);
@@ -135,14 +135,14 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         dev >> signal;
 
         std::vector<int> turns;
-        for (unsigned int j=0; j<numEdges; ++j) {
+        for (unsigned int j = 0; j < numEdges; ++j) {
             unsigned int turn;
             dev >> turn;
             turns.push_back(turn);
         }
 
         std::vector<std::pair<int, int> > conns;
-        for (unsigned int j=0; j<numEdges; ++j) {
+        for (unsigned int j = 0; j < numEdges; ++j) {
             unsigned int connF, connT;
             dev >> connF;
             dev >> connT;
@@ -150,7 +150,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         }
 
         std::vector<std::vector<int> > times;
-        for (unsigned int j=0; j<numEdges; ++j) {
+        for (unsigned int j = 0; j < numEdges; ++j) {
             unsigned int t1, t2, t3;
             dev >> t1;
             dev >> t2;
@@ -167,7 +167,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string& file) {
         NBNode* node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
         --noNodes;
-    } while (noNodes!=0);
+    } while (noNodes != 0);
 }
 
 
@@ -194,15 +194,15 @@ NIImporter_RobocupRescue::loadEdges(const std::string& file) {
         NBNode* toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = (SUMOReal)(50. / 3.6);
         int priority = -1;
-        LaneSpreadFunction spread = linesToHead>0&&linesToTail>0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-        if (linesToHead>0) {
+        LaneSpreadFunction spread = linesToHead > 0 && linesToTail > 0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+        if (linesToHead > 0) {
             NBEdge* edge = new NBEdge(toString(id), fromNode, toNode, "",
                                       speed, linesToHead, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
                 WRITE_ERROR("Could not insert edge '" + toString(id) + "'");
             }
         }
-        if (linesToTail>0) {
+        if (linesToTail > 0) {
             NBEdge* edge = new NBEdge("-" + toString(id), toNode, fromNode, "",
                                       speed, linesToTail, priority, -1, -1, "", spread);
             if (!myEdgeCont.insert(edge)) {
@@ -210,7 +210,7 @@ NIImporter_RobocupRescue::loadEdges(const std::string& file) {
             }
         }
         --noEdges;
-    } while (noEdges!=0);
+    } while (noEdges != 0);
 }
 
 

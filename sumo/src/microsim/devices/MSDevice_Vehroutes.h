@@ -69,7 +69,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes=INT_MAX) throw();
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes = INT_MAX) throw();
 
 
 public:
@@ -137,7 +137,7 @@ private:
      * @param[in] os the device to write into
      * @param[in] index The index of the route to write (-1 writes the current route)
      */
-    void writeXMLRoute(OutputDevice& os, int index=-1) const;
+    void writeXMLRoute(OutputDevice& os, int index = -1) const;
 
 
     /** @brief Called on route change

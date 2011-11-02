@@ -87,7 +87,7 @@ public:
      * @param[in] renameProgram If true, rename the program to make insertion succeed
      * @return Whether the logic was valid (no logic with the same id and programID is already known)
      */
-    bool insert(NBTrafficLightDefinition* logic, bool forceInsert=false) throw();
+    bool insert(NBTrafficLightDefinition* logic, bool forceInsert = false) throw();
 
 
     /** @brief Removes a logic definition (and all programs) from the dictionary
@@ -111,7 +111,7 @@ public:
      * @param[in] del Whether the definition shall be deleted
      * @return Whether the program was within the dictionary
      */
-    bool removeProgram(const std::string id, const std::string programID, bool del=true);
+    bool removeProgram(const std::string id, const std::string programID, bool del = true);
 
 
     /** @brief Extracts a traffic light definition from myDefinitions

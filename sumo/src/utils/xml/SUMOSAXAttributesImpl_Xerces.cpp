@@ -59,11 +59,11 @@ SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() throw() {
 
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const throw() {
-    AttrMap::const_iterator i=myPredefinedTags.find(id);
-    if (i==myPredefinedTags.end()) {
+    AttrMap::const_iterator i = myPredefinedTags.find(id);
+    if (i == myPredefinedTags.end()) {
         return false;
     }
-    return myAttrs.getIndex((*i).second)>=0;
+    return myAttrs.getIndex((*i).second) >= 0;
 }
 
 
@@ -120,8 +120,8 @@ SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
 
 const XMLCh*
 SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const throw() {
-    AttrMap::const_iterator i=myPredefinedTags.find(id);
-    assert(i!=myPredefinedTags.end());
+    AttrMap::const_iterator i = myPredefinedTags.find(id);
+    assert(i != myPredefinedTags.end());
     return myAttrs.getValue((*i).second);
 }
 
@@ -138,7 +138,7 @@ SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const throw(EmptyD
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const throw() {
     XMLCh* t = XMLString::transcode(id.c_str());
-    bool result = myAttrs.getIndex(t)>=0;
+    bool result = myAttrs.getIndex(t) >= 0;
     XMLString::release(&t);
     return result;
 }
@@ -156,7 +156,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const throw() {
-    if (myPredefinedTagsMML.find(attr)==myPredefinedTagsMML.end()) {
+    if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
         return "?";
     }
     return myPredefinedTagsMML.find(attr)->second;

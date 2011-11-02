@@ -61,7 +61,7 @@ GUIGlObject_AbstractAdd::~GUIGlObject_AbstractAdd() throw() {}
 void
 GUIGlObject_AbstractAdd::clearDictionary() {
     std::map<std::string, GUIGlObject_AbstractAdd*>::iterator i;
-    for (i=myObjects.begin(); i!=myObjects.end(); i++) {
+    for (i = myObjects.begin(); i != myObjects.end(); i++) {
 //!!!        delete (*i).second;
     }
     myObjects.clear();
@@ -72,7 +72,7 @@ GUIGlObject_AbstractAdd::clearDictionary() {
 GUIGlObject_AbstractAdd*
 GUIGlObject_AbstractAdd::get(const std::string& name) {
     std::map<std::string, GUIGlObject_AbstractAdd*>::iterator i = myObjects.find(name);
-    if (i==myObjects.end()) {
+    if (i == myObjects.end()) {
         return 0;
     }
     return (*i).second;
@@ -88,7 +88,7 @@ GUIGlObject_AbstractAdd::getObjectList() {
 std::vector<GUIGlID>
 GUIGlObject_AbstractAdd::getIDList() {
     std::vector<GUIGlID> ret;
-    for (std::vector<GUIGlObject_AbstractAdd*>::iterator i=myObjectList.begin(); i!=myObjectList.end(); ++i) {
+    for (std::vector<GUIGlObject_AbstractAdd*>::iterator i = myObjectList.begin(); i != myObjectList.end(); ++i) {
         ret.push_back((*i)->getGlID());
     }
     return ret;

@@ -60,7 +60,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     //
     std::string tag, name;
     tag = myRead(from);
-    if (tag=="name") {
+    if (tag == "name") {
         name = readName(from);
         tag = myRead(from);
     }
@@ -69,7 +69,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     //
     int lsaid;
     IntVector groupids;
-    if (tag=="lsa") {
+    if (tag == "lsa") {
         int groupid;
         from >> lsaid; // type-checking is missing!
         from >> tag; // "Gruppe"
@@ -77,14 +77,14 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
             from >> groupid;
             groupids.push_back(groupid);
             tag = myRead(from);
-        } while (tag=="oder");
+        } while (tag == "oder");
         //
     } else {
         from >> tag; // strecke
         WRITE_WARNING("Omitting unknown traffic light.");
         return true;
     }
-    if (tag=="typ") {
+    if (tag == "typ") {
         from >> tag; // typ-value
         from >> tag; // "ort"
     }
@@ -102,7 +102,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     int position;
     from >> position;
     //
-    while (tag!="fahrzeugklassen") {
+    while (tag != "fahrzeugklassen") {
         tag = myRead(from);
     }
     IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");

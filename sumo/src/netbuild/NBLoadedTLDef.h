@@ -183,7 +183,7 @@ public:
              * @param[in] p2 a phase definition
              */
             int operator()(const PhaseDef& p1, const PhaseDef& p2) {
-                return p1.myTime<p2.myTime;
+                return p1.myTime < p2.myTime;
             }
         };
 

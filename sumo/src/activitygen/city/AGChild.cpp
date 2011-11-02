@@ -65,8 +65,8 @@ AGChild::alocateASchool(std::list<AGSchool> *schools, AGPosition housePos) {
     }
     std::list<AGSchool>::iterator it;
 
-    for (it = schools->begin() ; it!=schools->end() ; ++it) {
-        if (it->acceptThisAge(age) && it->getPlaces()>0 && housePos.distanceTo(it->getPosition()) < minDist) {
+    for (it = schools->begin() ; it != schools->end() ; ++it) {
+        if (it->acceptThisAge(age) && it->getPlaces() > 0 && housePos.distanceTo(it->getPosition()) < minDist) {
             minDist = housePos.distanceTo(it->getPosition());
             sch = &(*it);
         }

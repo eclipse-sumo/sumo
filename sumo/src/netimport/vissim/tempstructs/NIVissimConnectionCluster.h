@@ -70,13 +70,13 @@ public:
     ~NIVissimConnectionCluster();
 
     /// Returns the information whether the given cluster overlaps the current
-    bool overlapsWith(NIVissimConnectionCluster* c, SUMOReal offset=0) const;
+    bool overlapsWith(NIVissimConnectionCluster* c, SUMOReal offset = 0) const;
 
     bool hasNodeCluster() const;
 
     NBNode* getNBNode() const;
 
-    bool around(const Position& p, SUMOReal offset=0) const;
+    bool around(const Position& p, SUMOReal offset = 0) const;
 
     SUMOReal getPositionForEdge(int edgeid) const;
 
@@ -120,7 +120,7 @@ private:
         void add(NIVissimConnection* c);
         void add(const NodeSubCluster& c);
         size_t size() const;
-        bool overlapsWith(const NodeSubCluster& c, SUMOReal offset=0);
+        bool overlapsWith(const NodeSubCluster& c, SUMOReal offset = 0);
         IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
@@ -142,9 +142,9 @@ private:
         /// comparing operation
         int operator()(NIVissimConnection* c1, NIVissimConnection* c2) const {
             return
-                fabs(c1->getGeometry().beginEndAngle()-myAngle)
+                fabs(c1->getGeometry().beginEndAngle() - myAngle)
                 <
-                fabs(c2->getGeometry().beginEndAngle()-myAngle);
+                fabs(c2->getGeometry().beginEndAngle() - myAngle);
         }
     };
 

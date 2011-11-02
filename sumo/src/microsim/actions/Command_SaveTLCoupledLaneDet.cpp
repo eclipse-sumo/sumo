@@ -60,17 +60,17 @@ Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() {
 
 void
 Command_SaveTLCoupledLaneDet::execute() {
-    if (myLink->getState()==myLastState&&myHadOne) {
+    if (myLink->getState() == myLastState && myHadOne) {
         return;
     }
     myHadOne = true;
-    if (myLastState==LINKSTATE_TL_RED&&myLink->getState()!=LINKSTATE_TL_RED) {
+    if (myLastState == LINKSTATE_TL_RED && myLink->getState() != LINKSTATE_TL_RED) {
         SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
-        if (myStartTime!=end) {
+        if (myStartTime != end) {
             myDetector->writeXMLOutput(myDevice, myStartTime, end);
             myStartTime = end;
         }
-    } else if (myLink->getState()==LINKSTATE_TL_RED) {
+    } else if (myLink->getState() == LINKSTATE_TL_RED) {
         myDetector->reset();
         myStartTime = MSNet::getInstance()->getCurrentTimeStep();
     }

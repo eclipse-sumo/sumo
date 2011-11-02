@@ -62,20 +62,20 @@ public:
     virtual ~RORouteDef_Complete() throw();
 
     /// Builds the route
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                const ROVehicle& veh) const;
 
     /** @brief Adds an route alternative (see further comments)
     *
      * Here, as in most cases, the alternative is the route that was build
      * as last and will stay the only route known */
-    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef* copy(const std::string& id) const;
 
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
 
 protected:

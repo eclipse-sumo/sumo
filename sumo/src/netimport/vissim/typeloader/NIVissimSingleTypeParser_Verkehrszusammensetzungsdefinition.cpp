@@ -61,12 +61,12 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream&
     std::string name = readName(from);
     // assigned vehicle classes
     tag = myRead(from);
-    if (tag=="temperatur") {
+    if (tag == "temperatur") {
         tag = myRead(from);
         tag = myRead(from);
     }
     NIVissimVehicleClassVector assignedTypes;
-    while (tag!="DATAEND") {
+    while (tag != "DATAEND") {
         int type;
         from >> type;
         SUMOReal percentage;

@@ -138,11 +138,11 @@ void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const throw() {
     UNUSED_PARAMETER(s);
     if (fill()) {
-        if (myShape.size()<3) {
+        if (myShape.size() < 3) {
             return;
         }
     } else {
-        if (myShape.size()<2) {
+        if (myShape.size() < 2) {
             return;
         }
     }
@@ -152,7 +152,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const throw() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     GLHelper::setColor(getColor());
     if (fill()) {
-        double* points = new double[myShape.size()*3];
+        double* points = new double[myShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
@@ -162,17 +162,17 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const throw() {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, NULL);
         gluTessBeginContour(tobj);
-        for (size_t i=0; i!=myShape.size(); ++i) {
-            points[3*i]  = myShape[(int) i].x();
-            points[3*i+1]  = myShape[(int) i].y();
-            points[3*i+2]  = 0;
+        for (size_t i = 0; i != myShape.size(); ++i) {
+            points[3 * i]  = myShape[(int) i].x();
+            points[3 * i + 1]  = myShape[(int) i].y();
+            points[3 * i + 2]  = 0;
             glvert[0] = myShape[(int) i].x();
             glvert[1] = myShape[(int) i].y();
             glvert[2] = 0;
             glvert[3] = 1;
             glvert[4] = 1;
             glvert[5] = 1;
-            gluTessVertex(tobj, points+3*i, points+3*i) ;
+            gluTessVertex(tobj, points + 3 * i, points + 3 * i) ;
         }
         gluTessEndContour(tobj);
 

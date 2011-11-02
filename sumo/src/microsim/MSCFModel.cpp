@@ -54,10 +54,10 @@ MSCFModel::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
-    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
+    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe - oldV));
     const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
     const SUMOReal vMax = MIN3(veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
-    assert(vMin<=vMax);
+    assert(vMin <= vMax);
     return veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
 }
 
@@ -79,10 +79,10 @@ MSCFModel::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
 
 void
 MSCFModel::leftVehicleVsafe(const MSVehicle* const ego, const MSVehicle* const neigh, SUMOReal& vSafe) const {
-    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLengthWithGap()-ego->getPositionOnLane());
+    if (neigh != 0 && neigh->getSpeed() > 60. / 3.6) {
+        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane() - neigh->getVehicleType().getLengthWithGap() - ego->getPositionOnLane());
         SUMOReal nVSafe = followSpeed(ego, ego->getSpeed(), mgap, neigh->getSpeed(), neigh->getCarFollowModel().getMaxDecel());
-        if (mgap-neigh->getSpeed()>=0) {
+        if (mgap - neigh->getSpeed() >= 0) {
             vSafe = MIN2(vSafe, nVSafe);
         }
     }
@@ -101,7 +101,7 @@ MSCFModel::brakeGap(SUMOReal speed) const {
        for small values of steps (up to 10 maybe) and store them in an array */
     const SUMOReal speedReduction = ACCEL2SPEED(getMaxDecel());
     const int steps = int(speed / speedReduction);
-    return SPEED2DIST(steps * speed - speedReduction * steps *(steps+1) / 2) + speed * myHeadwayTime;
+    return SPEED2DIST(steps * speed - speedReduction * steps * (steps + 1) / 2) + speed * myHeadwayTime;
 }
 
 

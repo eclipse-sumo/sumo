@@ -53,7 +53,7 @@ Distribution_Points::~Distribution_Points() throw() {}
 
 SUMOReal
 Distribution_Points::getMax() const {
-    assert(myPoints.size()>0);
+    assert(myPoints.size() > 0);
     const Position& p = myPoints[-1];
     return p.x();
 }
@@ -61,7 +61,7 @@ Distribution_Points::getMax() const {
 
 size_t
 Distribution_Points::getAreaNo() const {
-    return myPoints.size()-1;
+    return myPoints.size() - 1;
 }
 
 
@@ -73,7 +73,7 @@ Distribution_Points::getAreaBegin(size_t index) const {
 
 SUMOReal
 Distribution_Points::getAreaEnd(size_t index) const {
-    return myPoints[(int) index+1].x();
+    return myPoints[(int) index + 1].x();
 }
 
 
@@ -83,27 +83,27 @@ Distribution_Points::getAreaPerc(size_t index) const {
         SUMOReal sum = 0;
         size_t i;
         if (myInterpolateDist) {
-            for (i=0; i<myPoints.size()-1; i++) {
+            for (i = 0; i < myPoints.size() - 1; i++) {
                 SUMOReal width = getAreaEnd(i) - getAreaBegin(i);
                 SUMOReal minval = MIN2(myPoints[(int) i].y(), myPoints[(int) i].y());
                 SUMOReal maxval = MAX2(myPoints[(int) i].y(), myPoints[(int) i].y());
-                SUMOReal amount = minval * width + (maxval-minval) * width / (SUMOReal) 2.;
+                SUMOReal amount = minval * width + (maxval - minval) * width / (SUMOReal) 2.;
                 myProbabilities.push_back(amount);
                 sum += amount;
             }
         } else {
-            for (i=0; i<myPoints.size()-1; i++) {
+            for (i = 0; i < myPoints.size() - 1; i++) {
                 myProbabilities.push_back(myPoints[(int) i].y());
                 sum += myPoints[(int) i].y();
             }
         }
         // normalize
         if (myInterpolateDist) {
-            for (i=0; i<myPoints.size()-1; i++) {
+            for (i = 0; i < myPoints.size() - 1; i++) {
                 myProbabilities[i] = myProbabilities[i] / sum;
             }
         } else {
-            for (i=0; i<myPoints.size()-1; i++) {
+            for (i = 0; i < myPoints.size() - 1; i++) {
                 myProbabilities[i] = myProbabilities[i] / sum;
             }
         }

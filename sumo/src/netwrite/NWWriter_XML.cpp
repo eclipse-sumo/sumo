@@ -70,7 +70,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
     // write nodes
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     device.writeXMLHeader("nodes", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
-    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
@@ -85,7 +85,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
             // set may contain multiple programs for the same id.
             // make sure ids are unique and sorted
             std::set<std::string> tlsIDs;
-            for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl =tlss.begin(); it_tl!=tlss.end(); it_tl++) {
+            for (std::set<NBTrafficLightDefinition*>::const_iterator it_tl = tlss.begin(); it_tl != tlss.end(); it_tl++) {
                 tlsIDs.insert((*it_tl)->getID());
             }
             std::vector<std::string> sortedIDs(tlsIDs.begin(), tlsIDs.end());
@@ -105,7 +105,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", " encoding=\"iso-8859-1\"", "version=\"0.13\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/connections_file.xsd\"");
     bool noNames = !oc.getBool("output.street-names");
-    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
+    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge* e = (*i).second;
         edevice.openTag(SUMO_TAG_EDGE);
@@ -133,7 +133,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.setPrecision();
         }
         // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction()!=LANESPREAD_RIGHT) {
+        if (e->getLaneSpreadFunction() != LANESPREAD_RIGHT) {
             edevice.writeAttr(SUMO_ATTR_SPREADTYPE, toString(e->getLaneSpreadFunction()));
         }
         // write the length if it was specified
@@ -151,18 +151,18 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.closeTag(true);
         } else {
             edevice << ">\n";
-            for (unsigned int i=0; i<e->getLanes().size(); ++i) {
+            for (unsigned int i = 0; i < e->getLanes().size(); ++i) {
                 const NBEdge::Lane& lane = e->getLanes()[i];
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
-                if (lane.allowed.size()!=0) {
+                if (lane.allowed.size() != 0) {
                     edevice.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(lane.allowed));
                 }
-                if (lane.notAllowed.size()!=0) {
+                if (lane.notAllowed.size() != 0) {
                     edevice.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(lane.notAllowed));
                 }
-                if (lane.preferred.size()!=0) {
+                if (lane.preferred.size() != 0) {
                     edevice.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(lane.preferred));
                 }
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
@@ -182,7 +182,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         unsigned int noLanes = e->getNumLanes();
         e->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = e->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {
+        for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
             NWWriter_SUMO::writeConnection(cdevice, *e, *c, false, NWWriter_SUMO::PLAIN);
         }
         if (connections.size() > 0) {
@@ -191,7 +191,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     }
 
     // write loaded prohibitions to the connections-file
-    for (std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NWWriter_SUMO::writeProhibitions(cdevice, i->second->getProhibitions());
     }
     edevice.close();
@@ -206,11 +206,11 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections
     // since the information in con.xml is insufficient
-    for (std::map<std::string, NBEdge*>::const_iterator i=ec.begin(); i!=ec.end(); ++i) {
+    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
         // write this edge's tl-controlled connections
         const std::vector<NBEdge::Connection> connections = e->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator c=connections.begin(); c!=connections.end(); ++c) {
+        for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
             if (c->tlID != "") {
                 NWWriter_SUMO::writeConnection(device, *e, *c, false, NWWriter_SUMO::TLL);
             }

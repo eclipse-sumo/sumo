@@ -69,129 +69,129 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
       gaming(false),
       selectionScale(1) {
     /// add lane coloring schemes
-    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor(0,0,0), "", true);
+    GUIColorScheme scheme = GUIColorScheme("uniform", RGBColor(0, 0, 0), "", true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true);
     scheme.addColor(RGBColor(0, .4f, .8f), 1, "selected");
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by vclass", RGBColor(0,0,0), "all", true);
+    scheme = GUIColorScheme("by vclass", RGBColor(0, 0, 0), "all", true);
     scheme.addColor(RGBColor(0, .1f, .5f), 1, "public");
     laneColorer.addScheme(scheme);
     // ... traffic states ...
-    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    scheme = GUIColorScheme("by allowed speed (lanewise)", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0 / 3.6));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by current occupancy (lanewise)", RGBColor(0,0,1));
+    scheme = GUIColorScheme("by current occupancy (lanewise)", RGBColor(0, 0, 1));
     scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)200);
+    scheme = GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)200);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0,0,1), (SUMOReal)5);
+    scheme = GUIColorScheme("by lane number (streetwise)", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)5);
     laneColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(10./7.5/5.));
+    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(10. / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(0.05/7.5/2.));
+    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(0.05 / 7.5 / 2.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5/5.));
+    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(.005 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.125/7.5/5.));
+    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(.125 / 7.5 / 5.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.02/7.5/4.));
+    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(.02 / 7.5 / 4.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5*100.));
+    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(.005 / 7.5 * 100.));
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100);
+    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)100);
     laneColorer.addScheme(scheme);
     // ... weights (experimental) ...
-    scheme = GUIColorScheme("by global travel time", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100);
+    scheme = GUIColorScheme("by global travel time", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by global speed percentage", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(1,1,0), (SUMOReal)50);
-    scheme.addColor(RGBColor(0,1,0), (SUMOReal)100);
+    scheme = GUIColorScheme("by global speed percentage", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(1, 1, 0), (SUMOReal)50);
+    scheme.addColor(RGBColor(0, 1, 0), (SUMOReal)100);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
-    vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("given/assigned vehicle color", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("given/assigned route color", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("depart position as HSV", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("arrival position as HSV", RGBColor(1,1,0), "", true));
-    vehicleColorer.addScheme(GUIColorScheme("direction/distance as HSV", RGBColor(1,1,0), "", true));
-    scheme = GUIColorScheme("by speed", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned vehicle color", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned type color", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("given/assigned route color", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("depart position as HSV", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("arrival position as HSV", RGBColor(1, 1, 0), "", true));
+    vehicleColorer.addScheme(GUIColorScheme("direction/distance as HSV", RGBColor(1, 1, 0), "", true));
+    scheme = GUIColorScheme("by speed", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0 / 3.6));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by waiting time", RGBColor(0,0,1));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)(5*60));
+    scheme = GUIColorScheme("by waiting time", RGBColor(0, 0, 1));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)(5 * 60));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by time since last lanechange", RGBColor(1,1,1));
-    scheme.addColor(RGBColor(.5,.5,.5), (SUMOReal)(5*60));
+    scheme = GUIColorScheme("by time since last lanechange", RGBColor(1, 1, 1));
+    scheme.addColor(RGBColor(.5, .5, .5), (SUMOReal)(5 * 60));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by max speed", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    scheme = GUIColorScheme("by max speed", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0 / 3.6));
     vehicleColorer.addScheme(scheme);
     // ... emissions ...
-    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)5.);
+    scheme = GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)5.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)0.05);
+    scheme = GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)0.05);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal).005);
+    scheme = GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal).005);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal).125);
+    scheme = GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal).125);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal).02);
+    scheme = GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal).02);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal).005);
+    scheme = GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal).005);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0));
-    scheme.addColor(RGBColor(1,0,0), (SUMOReal)100.);
+    scheme = GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0, 1, 0));
+    scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)100.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by reroute number", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(1,1,0), (SUMOReal)1.);
-    scheme.addColor(RGBColor(1,1,1), (SUMOReal)10.);
+    scheme = GUIColorScheme("by reroute number", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(1, 1, 0), (SUMOReal)1.);
+    scheme.addColor(RGBColor(1, 1, 1), (SUMOReal)10.);
     vehicleColorer.addScheme(scheme);
 
 
 #ifdef HAVE_MESOSIM
     /// add edge coloring schemes
-    edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor(0,0,0), "", true));
+    edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor(0, 0, 0), "", true));
     scheme = GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true);
     scheme.addColor(RGBColor(0, .4f, .8f), 1, "selected");
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0), "normal", true);
+    scheme = GUIColorScheme("by purpose (streetwise)", RGBColor(0, 0, 0), "normal", true);
     scheme.addColor(RGBColor(.5, 0, .5), 1, "connector"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_CONNECTOR
     scheme.addColor(RGBColor(0, 0, 1), 2, "internal"); // see MSEdge::EdgeBasicFunction::EDGEFUNCTION_INTERNAL
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    scheme = GUIColorScheme("by allowed speed (streetwise)", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0 / 3.6));
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by current occupancy (streetwise)", RGBColor(0,0,1));
+    scheme = GUIColorScheme("by current occupancy (streetwise)", RGBColor(0, 0, 1));
     scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by current speed (streetwise)", RGBColor(1,0,0));
-    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    scheme = GUIColorScheme("by current speed (streetwise)", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0 / 3.6));
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by current flow (streetwise)", RGBColor(0,0,1));
+    scheme = GUIColorScheme("by current flow (streetwise)", RGBColor(0, 0, 1));
     scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)5000);
     edgeColorer.addScheme(scheme);
 #endif
@@ -278,123 +278,123 @@ GUIVisualizationSettings::save(OutputDevice& dev) const throw(IOError) {
 
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
-    if (antialiase!=v2.antialiase) {
+    if (antialiase != v2.antialiase) {
         return false;
     }
-    if (dither!=v2.dither) {
+    if (dither != v2.dither) {
         return false;
     }
-    if (backgroundColor!=v2.backgroundColor) {
+    if (backgroundColor != v2.backgroundColor) {
         return false;
     }
-    if (showBackgroundDecals!=v2.showBackgroundDecals) {
+    if (showBackgroundDecals != v2.showBackgroundDecals) {
         return false;
     }
-    if (showGrid!=v2.showGrid) {
+    if (showGrid != v2.showGrid) {
         return false;
     }
-    if (gridXSize!=v2.gridXSize) {
+    if (gridXSize != v2.gridXSize) {
         return false;
     }
-    if (gridYSize!=v2.gridYSize) {
+    if (gridYSize != v2.gridYSize) {
         return false;
     }
 
 #ifdef HAVE_MESOSIM
-    if (!(edgeColorer==v2.edgeColorer)) {
+    if (!(edgeColorer == v2.edgeColorer)) {
         return false;
     }
 #endif
-    if (!(laneColorer==v2.laneColorer)) {
+    if (!(laneColorer == v2.laneColorer)) {
         return false;
     }
-    if (laneShowBorders!=v2.laneShowBorders) {
+    if (laneShowBorders != v2.laneShowBorders) {
         return false;
     }
-    if (showLinkDecals!=v2.showLinkDecals) {
+    if (showLinkDecals != v2.showLinkDecals) {
         return false;
     }
-    if (showRails!=v2.showRails) {
+    if (showRails != v2.showRails) {
         return false;
     }
-    if (edgeName!=v2.edgeName) {
+    if (edgeName != v2.edgeName) {
         return false;
     }
-    if (internalEdgeName!=v2.internalEdgeName) {
+    if (internalEdgeName != v2.internalEdgeName) {
         return false;
     }
-    if (streetName!=v2.streetName) {
+    if (streetName != v2.streetName) {
         return false;
     }
-    if (hideConnectors!=v2.hideConnectors) {
-        return false;
-    }
-
-    if (!(vehicleColorer==v2.vehicleColorer)) {
-        return false;
-    }
-    if (vehicleQuality!=v2.vehicleQuality) {
-        return false;
-    }
-    if (minVehicleSize!=v2.minVehicleSize) {
-        return false;
-    }
-    if (vehicleExaggeration!=v2.vehicleExaggeration) {
-        return false;
-    }
-    if (showBlinker!=v2.showBlinker) {
-        return false;
-    }
-    if (drawLaneChangePreference!=v2.drawLaneChangePreference) {
-        return false;
-    }
-    if (vehicleName!=v2.vehicleName) {
-        return false;
-    }
-    if (junctionMode!=v2.junctionMode) {
-        return false;
-    }
-    if (drawLinkTLIndex!=v2.drawLinkTLIndex) {
-        return false;
-    }
-    if (drawLinkJunctionIndex!=v2.drawLinkJunctionIndex) {
-        return false;
-    }
-    if (junctionName!=v2.junctionName) {
-        return false;
-    }
-    if (internalJunctionName!=v2.internalJunctionName) {
+    if (hideConnectors != v2.hideConnectors) {
         return false;
     }
 
-    if (showLane2Lane!=v2.showLane2Lane) {
+    if (!(vehicleColorer == v2.vehicleColorer)) {
+        return false;
+    }
+    if (vehicleQuality != v2.vehicleQuality) {
+        return false;
+    }
+    if (minVehicleSize != v2.minVehicleSize) {
+        return false;
+    }
+    if (vehicleExaggeration != v2.vehicleExaggeration) {
+        return false;
+    }
+    if (showBlinker != v2.showBlinker) {
+        return false;
+    }
+    if (drawLaneChangePreference != v2.drawLaneChangePreference) {
+        return false;
+    }
+    if (vehicleName != v2.vehicleName) {
+        return false;
+    }
+    if (junctionMode != v2.junctionMode) {
+        return false;
+    }
+    if (drawLinkTLIndex != v2.drawLinkTLIndex) {
+        return false;
+    }
+    if (drawLinkJunctionIndex != v2.drawLinkJunctionIndex) {
+        return false;
+    }
+    if (junctionName != v2.junctionName) {
+        return false;
+    }
+    if (internalJunctionName != v2.internalJunctionName) {
         return false;
     }
 
-    if (addMode!=v2.addMode) {
-        return false;
-    }
-    if (minAddSize!=v2.minAddSize) {
-        return false;
-    }
-    if (addExaggeration!=v2.addExaggeration) {
-        return false;
-    }
-    if (addName!=v2.addName) {
+    if (showLane2Lane != v2.showLane2Lane) {
         return false;
     }
 
-    if (minPOISize!=v2.minPOISize) {
+    if (addMode != v2.addMode) {
         return false;
     }
-    if (poiExaggeration!=v2.poiExaggeration) {
+    if (minAddSize != v2.minAddSize) {
         return false;
     }
-    if (poiName!=v2.poiName) {
+    if (addExaggeration != v2.addExaggeration) {
+        return false;
+    }
+    if (addName != v2.addName) {
         return false;
     }
 
-    if (showSizeLegend!=v2.showSizeLegend) {
+    if (minPOISize != v2.minPOISize) {
+        return false;
+    }
+    if (poiExaggeration != v2.poiExaggeration) {
+        return false;
+    }
+    if (poiName != v2.poiName) {
+        return false;
+    }
+
+    if (showSizeLegend != v2.showSizeLegend) {
         return false;
     }
 

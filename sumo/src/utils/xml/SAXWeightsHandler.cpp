@@ -76,7 +76,7 @@ SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition* def,
 
 SAXWeightsHandler::~SAXWeightsHandler() throw() {
     std::vector<ToRetrieveDefinition*>::iterator i;
-    for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+    for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
         delete *i;
     }
 }
@@ -85,24 +85,24 @@ SAXWeightsHandler::~SAXWeightsHandler() throw() {
 void SAXWeightsHandler::myStartElement(int element,
                                        const SUMOSAXAttributes& attrs) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_INTERVAL: {
-        bool ok = true;
-        myCurrentTimeBeg = attrs.getSUMORealReporting(SUMO_ATTR_BEGIN, 0, ok);
-        myCurrentTimeEnd = attrs.getSUMORealReporting(SUMO_ATTR_END, 0, ok);
-    }
-    break;
-    case SUMO_TAG_EDGE: {
-        bool ok = true;
-        myCurrentEdgeID = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, ok, "");
-        tryParse(attrs, true);
-    }
-    break;
-    case SUMO_TAG_LANE: {
-        tryParse(attrs, false);
-    }
-    break;
-    default:
+        case SUMO_TAG_INTERVAL: {
+            bool ok = true;
+            myCurrentTimeBeg = attrs.getSUMORealReporting(SUMO_ATTR_BEGIN, 0, ok);
+            myCurrentTimeEnd = attrs.getSUMORealReporting(SUMO_ATTR_END, 0, ok);
+        }
         break;
+        case SUMO_TAG_EDGE: {
+            bool ok = true;
+            myCurrentEdgeID = attrs.getOptStringReporting(SUMO_ATTR_ID, 0, ok, "");
+            tryParse(attrs, true);
+        }
+        break;
+        case SUMO_TAG_LANE: {
+            tryParse(attrs, false);
+        }
+        break;
+        default:
+            break;
     }
 }
 
@@ -113,7 +113,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
     std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
         // process all that want values directly from the edge
-        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
             if ((*i)->myAmEdgeBased) {
                 if (attrs.hasAttribute((*i)->myAttributeName)) {
                     (*i)->myAggValue = attrs.getFloat((*i)->myAttributeName);
@@ -129,7 +129,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
         }
     } else {
         // process the current lane values
-        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
             if (!(*i)->myAmEdgeBased) {
                 try {
                     (*i)->myAggValue += attrs.getFloat((*i)->myAttributeName);
@@ -148,12 +148,12 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
 
 void
 SAXWeightsHandler::myEndElement(int element) throw() {
-    if (element==SUMO_TAG_EDGE) {
+    if (element == SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;
-        for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
+        for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
             if ((*i)->myHadAttribute) {
                 (*i)->myDestination.addEdgeWeight(myCurrentEdgeID,
-                                                  (*i)->myAggValue/(SUMOReal)(*i)->myNoLanes,
+                                                  (*i)->myAggValue / (SUMOReal)(*i)->myNoLanes,
                                                   myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
