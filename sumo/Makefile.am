@@ -41,6 +41,7 @@ dist-doc: doc
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
+	zip -r $(PACKAGE)-doc-$(VERSION).zip $(distdir)
 	$(am__remove_distdir)
 
 dist-tests:
