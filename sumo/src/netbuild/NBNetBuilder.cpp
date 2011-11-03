@@ -97,8 +97,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
 
 
-    // Modifying the sets of nodes and edges 
-    //
+    // MODIFYING THE SETS OF NODES AND EDGES
     // join junctions
 
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
@@ -157,9 +156,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         myEdgeCont.splitGeometry(myNodeCont);
         PROGRESS_DONE_MESSAGE();
     }
-
-
-    // GUESS RAMPS
+    // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
@@ -168,7 +165,6 @@ NBNetBuilder::compute(OptionsCont& oc,
 
 
     // MOVE TO ORIGIN
-    //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         PROGRESS_BEGIN_MESSAGE("Moving network to origin");
         const SUMOReal x = -geoConvHelper.getConvBoundary().xmin();
@@ -213,6 +209,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 
 
+    // CONNECTIONS COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
     myEdgeCont.computeTurningDirections();
@@ -260,6 +257,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Rechecking of lane endings");
     myEdgeCont.recheckLanes();
     PROGRESS_DONE_MESSAGE();
+
+
+    // GEOMETRY COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing node shapes");
     myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
@@ -268,6 +268,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
     myEdgeCont.computeEdgeShapes();
     PROGRESS_DONE_MESSAGE();
+
+
+    // COMPUTING RIGHT-OF-WAY AND TRAFFIC LIGHT PROGRAMS
     //
     PROGRESS_BEGIN_MESSAGE("Computing traffic light control information");
     myTLLCont.setTLControllingInformation(myEdgeCont);
@@ -285,6 +288,9 @@ NBNetBuilder::compute(OptionsCont& oc,
         progCount = "(" + toString(numbers.second) + " programs) ";
     }
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
+
+
+    // BUILDING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
         for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
@@ -295,6 +301,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         }
         PROGRESS_DONE_MESSAGE();
     }
+
 
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
