@@ -63,8 +63,8 @@ class OutputDevice;
  * @addtogroup netbuild
  * @{
  *
- * -# Removing dummy edges
- *  \n Removes edges which end at the node they start at using NBNodeCont::removeDummyEdges().
+ * -# Removing self loops
+ *  \n Removes edges which end at the node they start at using NBNodeCont::removeSelfLoops().
  * -# Joining double connections
  *  \n Joins edges between same nodes using NBNodeCont::recheckEdges().
  * -# Finding isolated roads (optional)

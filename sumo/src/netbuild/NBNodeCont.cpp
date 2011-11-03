@@ -170,14 +170,13 @@ NBNodeCont::extract(NBNode* node, bool remember) throw() {
 
 // ----------- Adapting the input
 void
-NBNodeCont::removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec,
-                             NBTrafficLightLogicCont& tc) {
+NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
     unsigned int no = 0;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        no += (*i).second->removeDummyEdges(dc, ec, tc);
+        no += (*i).second->removeSelfLoops(dc, ec, tc);
     }
     if (no != 0) {
-        WRITE_WARNING(toString(no) + " dummy edge(s) removed.");
+        WRITE_WARNING(toString(no) + " self-looping edge(s) removed.");
     }
 }
 
@@ -290,7 +289,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLig
             for (EdgeVector::const_iterator itOfIncomings = incomingEdgesOfToNode.begin(); itOfIncomings != incomingEdgesOfToNode.end(); ++itOfIncomings) {
                 adjacentNodes.insert((*itOfIncomings)->getFromNode());
             }
-            adjacentNodes.erase(to);  // Omit loops / dummy edges
+            adjacentNodes.erase(to);  // Omit loops
             if (adjacentNodes.size() > 2) {
                 hasJunction = true;
             }

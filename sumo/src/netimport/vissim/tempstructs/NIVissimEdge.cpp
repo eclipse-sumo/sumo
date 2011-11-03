@@ -653,7 +653,7 @@ NIVissimEdge::getToNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     clusters.erase(clusters.end()-1);
     return std::pair<NIVissimConnectionCluster*, NBNode*>(c, c->getNBNode());
     } else {
-    // !!! dummy edge?!
+    // !!! self-loop edge?!
     return std::pair<NIVissimConnectionCluster*, NBNode*>(static_cast<NIVissimConnectionCluster*>(0), (*(myConnectionClusters.begin()))->getNBNode());
     }
     */
@@ -715,8 +715,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
             std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode* node = nc.retrieve(nid);
             if (node == 0) {
-                node = new NBNode(nid,
-                                  pos, NODETYPE_NOJUNCTION);
+                node = new NBNode(nid, pos, NODETYPE_NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
@@ -757,13 +756,13 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, SUMOReal offset,
             return std::pair<NBNode*, NBNode*>(beg, node);
         }
 
-        // "dummy edge" - both points lie within the same cluster
+        // self-loop edge - both points lie within the same cluster
         if (c->around(myGeom.getBegin()) && c->around(myGeom.getEnd())) {
             return std::pair<NBNode*, NBNode*>(node, node);
         }
     }
     // what to do in other cases?
-    //  It simply is a dummy edge....
+    //  It simply is a self-looping edge....
     return std::pair<NBNode*, NBNode*>(prevFrom, prevTo);
 }
 

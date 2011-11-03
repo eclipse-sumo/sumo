@@ -179,13 +179,13 @@ public:
     /// @name Adapting the input
     /// @{
 
-    /** @brief Removes dummy edges (edges lying completely within a node)
+    /** @brief Removes self-loop edges (edges where the source and the destination node are the same)
      * @param[in, opt. changed] dc The districts container to update
      * @param[in, opt. changed] ec The edge container to remove the edges from
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post Each edge is a uni-directional connection between two different nodes
      */
-    void removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
+    void removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
 
 
     /** @brief Joins edges connecting the same nodes

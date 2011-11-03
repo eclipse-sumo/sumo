@@ -115,8 +115,8 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 
     // Removes edges that are connecting the same node
-    PROGRESS_BEGIN_MESSAGE("Removing dummy edges");
-    myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
+    PROGRESS_BEGIN_MESSAGE("Removing self-loops");
+    myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Joining double connections");
@@ -290,7 +290,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     WRITE_MESSAGE(" " + toString(numbers.first) + " traffic light(s) " + progCount + "computed.");
 
 
-    // BUILDING INNER EDGES
+    // FINISHING INNER EDGES
     if (!oc.getBool("no-internal-links")) {
         PROGRESS_BEGIN_MESSAGE("Building inner edges");
         for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {

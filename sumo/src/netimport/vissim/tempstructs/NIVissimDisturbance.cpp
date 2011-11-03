@@ -213,7 +213,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         if (e->getFromNode() == e->getToNode()) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Disturbance connects same node.");
             refusedProhibits++;
-            // What to do with dummy edges?
+            // What to do with self-looping edges?
             return false;
         }
         // get the begin of the prohibited connection
@@ -269,7 +269,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         if (e->getFromNode() == e->getToNode()) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'.");
             refusedProhibits++;
-            // What to do with dummy edges?
+            // What to do with self-looping edges?
             return false;
         }
         // get the begin of the prohibiting connection

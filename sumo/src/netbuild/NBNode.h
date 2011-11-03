@@ -247,7 +247,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @return The number of removed edges
      */
-    unsigned int removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
+    unsigned int removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
     /// @}
 
 

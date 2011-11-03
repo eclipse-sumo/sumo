@@ -1594,7 +1594,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
         // find the specified connection
         std::vector<Connection>::iterator i =
             find_if(myConnections.begin(), myConnections.end(), connections_finder(fromLane, toEdge, toLane));
-        // ok, we have to test this as on the removal of dummy edges some connections
+        // ok, we have to test this as on the removal of self-loop edges some connections
         //  will be reassigned
         if (i != myConnections.end()) {
             // get the connection

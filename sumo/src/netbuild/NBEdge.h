@@ -700,7 +700,7 @@ public:
 
     /** @brief Remaps the connection in a way that allows the removal of it
      *
-     * This edge (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges
+     * This edge (which is a self loop edge, in fact) connections are spread over the valid incoming edges
      * @todo recheck!
      */
     void remapConnections(const EdgeVector& incoming);

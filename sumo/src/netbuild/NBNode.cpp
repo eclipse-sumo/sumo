@@ -287,7 +287,7 @@ NBNode::isJoinedTLSControlled() const throw() {
 
 // ----------- Prunning the input
 unsigned int
-NBNode::removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
+NBNode::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
     unsigned int ret = 0;
     unsigned int pos = 0;
     EdgeVector::const_iterator j = myIncomingEdges.begin();
@@ -301,25 +301,25 @@ NBNode::removeDummyEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogic
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge* dummy = *j;
-        WRITE_WARNING(" Removing dummy edge '" + dummy->getID() + "'");
-        // get the list of incoming edges connected to the dummy
+        WRITE_WARNING(" Removing self-looping edge '" + dummy->getID() + "'");
+        // get the list of incoming edges connected to the self-loop
         EdgeVector incomingConnected;
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             if ((*i)->isConnectedTo(dummy) && *i != dummy) {
                 incomingConnected.push_back(*i);
             }
         }
-        // get the list of outgoing edges connected to the dummy
+        // get the list of outgoing edges connected to the self-loop
         EdgeVector outgoingConnected;
         for (EdgeVector::const_iterator i = myOutgoingEdges.begin(); i != myOutgoingEdges.end(); i++) {
             if (dummy->isConnectedTo(*i) && *i != dummy) {
                 outgoingConnected.push_back(*i);
             }
         }
-        // let the dummy remap its connections
+        // let the self-loop remap its connections
         dummy->remapConnections(incomingConnected);
         remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
-        // delete the dummy
+        // delete the self-loop
         ec.erase(dc, dummy);
         j = myIncomingEdges.begin() + pos;
         ++ret;
