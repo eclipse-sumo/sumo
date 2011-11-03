@@ -156,6 +156,14 @@ NBNetBuilder::compute(OptionsCont& oc,
     }
 
 
+    // GUESS RAMPS
+    if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
+        PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+        myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
+        PROGRESS_DONE_MESSAGE();
+    }
+
+
     // MOVE TO ORIGIN
     //
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
@@ -177,14 +185,6 @@ NBNetBuilder::compute(OptionsCont& oc,
 
     // @todo Why?
     myEdgeCont.recomputeLaneShapes();
-
-
-    // GUESS RAMPS
-    if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
-        PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-        myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
-        PROGRESS_DONE_MESSAGE();
-    }
 
 
     // GUESS TLS POSITIONS
