@@ -488,7 +488,7 @@ NBEdge::splitGeometry(NBEdgeCont& ec, NBNodeCont& nc) {
 
 // ----------- Setting and getting connections
 bool
-NBEdge::addEdge2EdgeConnection(NBEdge* dest) throw() {
+NBEdge::addEdge2EdgeConnection(NBEdge* dest) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -515,7 +515,7 @@ bool
 NBEdge::addLane2LaneConnection(unsigned int from, NBEdge* dest,
                                unsigned int toLane, Lane2LaneInfoType type,
                                bool mayUseSameDestination,
-                               bool mayDefinitelyPass) throw() {
+                               bool mayDefinitelyPass) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -538,7 +538,7 @@ NBEdge::addLane2LaneConnections(unsigned int fromLane,
                                 NBEdge* dest, unsigned int toLane,
                                 unsigned int no, Lane2LaneInfoType type,
                                 bool invalidatePrevious,
-                                bool mayDefinitelyPass) throw() {
+                                bool mayDefinitelyPass) {
     if (invalidatePrevious) {
         invalidateConnections(true);
     }
@@ -554,7 +554,7 @@ void
 NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
                       unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
-                      bool mayDefinitelyPass) throw() {
+                      bool mayDefinitelyPass) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return;
     }
@@ -606,7 +606,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge* destEdge,
 
 
 std::vector<NBEdge::Connection>
-NBEdge::getConnectionsFromLane(unsigned int lane) const throw() {
+NBEdge::getConnectionsFromLane(unsigned int lane) const {
     std::vector<NBEdge::Connection> ret;
     for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if ((*i).fromLane == static_cast<int>(lane)) {
@@ -618,9 +618,214 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const throw() {
 
 
 bool
-NBEdge::hasConnectionTo(NBEdge* destEdge, unsigned int destLane) const throw() {
+NBEdge::hasConnectionTo(NBEdge* destEdge, unsigned int destLane) const {
     return destEdge != 0 && find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(destEdge, destLane)) != myConnections.end();
 }
+
+
+bool
+NBEdge::isConnectedTo(NBEdge* e) {
+    if (e == myTurnDestination) {
+        return true;
+    }
+    return
+        find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(e))
+        !=
+        myConnections.end();
+
+}
+
+
+const EdgeVector*
+NBEdge::getConnectedSorted() {
+    // check whether connections exist and if not, use edges from the node
+    EdgeVector outgoing;
+    if (myConnections.size() == 0) {
+        outgoing = myTo->getOutgoingEdges();
+    } else {
+        for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            if (find(outgoing.begin(), outgoing.end(), (*i).toEdge) == outgoing.end()) {
+                outgoing.push_back((*i).toEdge);
+            }
+        }
+    }
+    // allocate the sorted container
+    unsigned int size = (unsigned int) outgoing.size();
+    EdgeVector* edges = new EdgeVector();
+    edges->reserve(size);
+    for (EdgeVector::const_iterator i = outgoing.begin(); i != outgoing.end(); i++) {
+        NBEdge* outedge = *i;
+        if (outedge != 0 && outedge != myTurnDestination) {
+            edges->push_back(outedge);
+        }
+    }
+    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this, myTo));
+    return edges;
+}
+
+
+EdgeVector
+NBEdge::getConnectedEdges() const {
+    EdgeVector ret;
+    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if (find(ret.begin(), ret.end(), (*i).toEdge) == ret.end()) {
+            ret.push_back((*i).toEdge);
+        }
+    }
+    return ret;
+}
+
+
+std::vector<int>
+NBEdge::getConnectionLanes(NBEdge* currentOutgoing) const {
+    std::vector<int> ret;
+    if (currentOutgoing != myTurnDestination) {
+        for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            if ((*i).toEdge == currentOutgoing) {
+                ret.push_back((*i).fromLane);
+            }
+        }
+    }
+    return ret;
+}
+
+
+void
+NBEdge::sortOutgoingConnectionsByAngle() {
+    sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this, myTo));
+}
+
+
+void
+NBEdge::sortOutgoingConnectionsByIndex() {
+    sort(myConnections.begin(), myConnections.end(), connections_sorter);
+}
+
+
+void
+NBEdge::remapConnections(const EdgeVector& incoming) {
+    EdgeVector connected = getConnectedEdges();
+    for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
+        NBEdge* inc = *i;
+        // We have to do this
+        inc->myStep = EDGE2EDGES;
+        // add all connections
+        for (EdgeVector::iterator j = connected.begin(); j != connected.end(); j++) {
+            inc->addEdge2EdgeConnection(*j);
+        }
+        inc->removeFromConnections(this);
+    }
+}
+
+
+void
+NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane) {
+    // remove from "myConnections"
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
+        Connection& c = *i;
+        if (c.toEdge == toEdge
+                && (fromLane < 0 || c.fromLane == fromLane)
+                && (toLane < 0 || c.toLane == toLane)) {
+            i = myConnections.erase(i);
+        } else {
+            ++i;
+        }
+    }
+    // check whether it was the turn destination
+    if (myTurnDestination == toEdge && fromLane < 0) {
+        myTurnDestination = 0;
+    }
+}
+
+
+void
+NBEdge::invalidateConnections(bool reallowSetting) {
+    myTurnDestination = 0;
+    myConnections.clear();
+    if (reallowSetting) {
+        myStep = INIT;
+    } else {
+        myStep = INIT_REJECT_CONNECTIONS;
+    }
+}
+
+
+void
+NBEdge::replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff) {
+    UNUSED_PARAMETER(laneOff);
+    // replace in "_connectedEdges"
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if ((*i).toEdge == which) {
+            (*i).toEdge = by;
+        }
+    }
+    // check whether it was the turn destination
+    if (myTurnDestination == which) {
+        myTurnDestination = by;
+    }
+}
+
+
+void
+NBEdge::copyConnectionsFrom(NBEdge* src) {
+    myStep = src->myStep;
+    myConnections = src->myConnections;
+}
+
+
+void
+NBEdge::moveConnectionToLeft(unsigned int lane) {
+    unsigned int index = 0;
+    if (myAmLeftHand) {
+        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
+            if (myConnections[i].fromLane == static_cast<int>(lane) && getTurnDestination() != myConnections[i].toEdge) {
+                index = i;
+            }
+        }
+    } else {
+        for (unsigned int i = 0; i < myConnections.size(); ++i) {
+            if (myConnections[i].fromLane == static_cast<int>(lane)) {
+                index = i;
+            }
+        }
+    }
+    std::vector<Connection>::iterator i = myConnections.begin() + index;
+    Connection c = *i;
+    myConnections.erase(i);
+    setConnection(lane + 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+}
+
+
+void
+NBEdge::moveConnectionToRight(unsigned int lane) {
+    if (myAmLeftHand) {
+        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
+            if (myConnections[i].fromLane == static_cast<int>(lane) && getTurnDestination() != myConnections[i].toEdge) {
+                Connection c = myConnections[i];
+                myConnections.erase(myConnections.begin() + i);
+                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+                return;
+            }
+        }
+    } else {
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            if ((*i).fromLane == static_cast<int>(lane)) {
+                Connection c = *i;
+                i = myConnections.erase(i);
+                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+                return;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
 
 
 void
@@ -743,8 +948,6 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
 }
 
 // -----------
-
-
 int
 NBEdge::getJunctionPriority(const NBNode* const node) const {
     if (node == myFrom) {
@@ -1107,95 +1310,6 @@ NBEdge::recheckLanes() {
 
 
 void
-NBEdge::moveConnectionToLeft(unsigned int lane) {
-    unsigned int index = 0;
-    if (myAmLeftHand) {
-        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == static_cast<int>(lane) && getTurnDestination() != myConnections[i].toEdge) {
-                index = i;
-            }
-        }
-    } else {
-        for (unsigned int i = 0; i < myConnections.size(); ++i) {
-            if (myConnections[i].fromLane == static_cast<int>(lane)) {
-                index = i;
-            }
-        }
-    }
-    std::vector<Connection>::iterator i = myConnections.begin() + index;
-    Connection c = *i;
-    myConnections.erase(i);
-    setConnection(lane + 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-}
-
-
-void
-NBEdge::moveConnectionToRight(unsigned int lane) {
-    if (myAmLeftHand) {
-        for (int i = (int) myConnections.size() - 1; i >= 0; --i) {
-            if (myConnections[i].fromLane == static_cast<int>(lane) && getTurnDestination() != myConnections[i].toEdge) {
-                Connection c = myConnections[i];
-                myConnections.erase(myConnections.begin() + i);
-                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-                return;
-            }
-        }
-    } else {
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).fromLane == static_cast<int>(lane)) {
-                Connection c = *i;
-                i = myConnections.erase(i);
-                setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-                return;
-            }
-        }
-    }
-}
-
-
-std::vector<int>
-NBEdge::getConnectionLanes(NBEdge* currentOutgoing) const {
-    std::vector<int> ret;
-    if (currentOutgoing != myTurnDestination) {
-        for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).toEdge == currentOutgoing) {
-                ret.push_back((*i).fromLane);
-            }
-        }
-    }
-    return ret;
-}
-
-
-const EdgeVector*
-NBEdge::getConnectedSorted() {
-    // check whether connections exist and if not, use edges from the node
-    EdgeVector outgoing;
-    if (myConnections.size() == 0) {
-        outgoing = myTo->getOutgoingEdges();
-    } else {
-        for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if (find(outgoing.begin(), outgoing.end(), (*i).toEdge) == outgoing.end()) {
-                outgoing.push_back((*i).toEdge);
-            }
-        }
-    }
-    // allocate the sorted container
-    unsigned int size = (unsigned int) outgoing.size();
-    EdgeVector* edges = new EdgeVector();
-    edges->reserve(size);
-    for (EdgeVector::const_iterator i = outgoing.begin(); i != outgoing.end(); i++) {
-        NBEdge* outedge = *i;
-        if (outedge != 0 && outedge != myTurnDestination) {
-            edges->push_back(outedge);
-        }
-    }
-    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this, myTo));
-    return edges;
-}
-
-
-void
 NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     if (outgoing->size() == 0) {
         // we have to do this, because the turnaround may have been added before
@@ -1340,18 +1454,6 @@ NBEdge::appendTurnaround(bool noTLSControlled) throw() {
 }
 
 
-void
-NBEdge::sortOutgoingConnectionsByAngle() {
-    sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this, myTo));
-}
-
-
-void
-NBEdge::sortOutgoingConnectionsByIndex() {
-    sort(myConnections.begin(), myConnections.end(), connections_sorter);
-}
-
-
 bool
 NBEdge::isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const throw() {
     // maybe it was already set as the turning direction
@@ -1395,22 +1497,6 @@ NBEdge::tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance) const {
 
 
 void
-NBEdge::replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff) {
-    UNUSED_PARAMETER(laneOff);
-    // replace in "_connectedEdges"
-    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).toEdge == which) {
-            (*i).toEdge = by;
-        }
-    }
-    // check whether it was the turn destination
-    if (myTurnDestination == which) {
-        myTurnDestination = by;
-    }
-}
-
-
-void
 NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff) {
     unsigned int lanes = e->getNumLanes();
     for (unsigned int i = 0; i < lanes; i++) {
@@ -1421,79 +1507,6 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff) {
             bool ok = addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
             assert(ok);
         }
-    }
-}
-
-
-bool
-NBEdge::isConnectedTo(NBEdge* e) {
-    if (e == myTurnDestination) {
-        return true;
-    }
-    return
-        find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(e))
-        !=
-        myConnections.end();
-
-}
-
-
-EdgeVector
-NBEdge::getConnectedEdges() const throw() {
-    EdgeVector ret;
-    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if (find(ret.begin(), ret.end(), (*i).toEdge) == ret.end()) {
-            ret.push_back((*i).toEdge);
-        }
-    }
-    return ret;
-}
-
-
-void
-NBEdge::remapConnections(const EdgeVector& incoming) {
-    EdgeVector connected = getConnectedEdges();
-    for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
-        NBEdge* inc = *i;
-        // We have to do this
-        inc->myStep = EDGE2EDGES;
-        // add all connections
-        for (EdgeVector::iterator j = connected.begin(); j != connected.end(); j++) {
-            inc->addEdge2EdgeConnection(*j);
-        }
-        inc->removeFromConnections(this);
-    }
-}
-
-
-void
-NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane) {
-    // remove from "myConnections"
-    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
-        Connection& c = *i;
-        if (c.toEdge == toEdge
-                && (fromLane < 0 || c.fromLane == fromLane)
-                && (toLane < 0 || c.toLane == toLane)) {
-            i = myConnections.erase(i);
-        } else {
-            ++i;
-        }
-    }
-    // check whether it was the turn destination
-    if (myTurnDestination == toEdge && fromLane < 0) {
-        myTurnDestination = 0;
-    }
-}
-
-
-void
-NBEdge::invalidateConnections(bool reallowSetting) {
-    myTurnDestination = 0;
-    myConnections.clear();
-    if (reallowSetting) {
-        myStep = INIT;
-    } else {
-        myStep = INIT_REJECT_CONNECTIONS;
     }
 }
 
@@ -1861,13 +1874,6 @@ NBEdge::decLaneNo(unsigned int by, int dir) {
 
 
 void
-NBEdge::copyConnectionsFrom(NBEdge* src) {
-    myStep = src->myStep;
-    myConnections = src->myConnections;
-}
-
-
-void
 NBEdge::markAsInLane2LaneState() {
     assert(myTo->getOutgoingEdges().size() == 0);
     myStep = LANES2LANES_DONE;
@@ -2023,30 +2029,6 @@ SUMOVehicleClasses
 NBEdge::getDisallowedVehicleClasses(unsigned int lane) const {
     assert(lane < myLanes.size());
     return myLanes[lane].notAllowed;
-}
-
-
-int
-NBEdge::getMinConnectedLane(NBEdge* of) const {
-    int ret = -1;
-    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).toEdge == of && (ret == -1 || (*i).toLane < ret)) {
-            ret = (*i).toLane;
-        }
-    }
-    return ret;
-}
-
-
-int
-NBEdge::getMaxConnectedLane(NBEdge* of) const {
-    int ret = -1;
-    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).toEdge == of && (*i).toLane > ret) {
-            ret = (*i).toLane;
-        }
-    }
-    return ret;
 }
 
 

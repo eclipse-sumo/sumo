@@ -554,7 +554,7 @@ public:
      * @param[in] dest The connection's destination edge
      * @return Whether the connection was valid
      */
-    bool addEdge2EdgeConnection(NBEdge* dest) throw();
+    bool addEdge2EdgeConnection(NBEdge* dest);
 
 
     /** @brief Adds a connection between the specified this edge's lane and an approached one
@@ -580,7 +580,7 @@ public:
     bool addLane2LaneConnection(unsigned int fromLane, NBEdge* dest,
                                 unsigned int toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination = false,
-                                bool mayDefinitelyPass = false) throw();
+                                bool mayDefinitelyPass = false);
 
 
     /** @brief Builds no connections starting at the given lanes
@@ -603,7 +603,7 @@ public:
     bool addLane2LaneConnections(unsigned int fromLane,
                                  NBEdge* dest, unsigned int toLane, unsigned int no,
                                  Lane2LaneInfoType type, bool invalidatePrevious = false,
-                                 bool mayDefinitelyPass = false) throw();
+                                 bool mayDefinitelyPass = false);
 
 
     /** @brief Adds a connection to a certain lane of a certain edge
@@ -620,26 +620,115 @@ public:
                        unsigned int destLane,
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,
-                       bool mayDefinitelyPass = false) throw();
+                       bool mayDefinitelyPass = false);
+
 
 
     /** @brief Returns connections from a given lane
      *
+     * This method goes through "myConnections" and copies those which are
+     *  starting at the given lane.
      * @param[in] lane The lane which connections shall be returned
      * @return The connections from the given lane
      * @see NBEdge::Connection
      */
-    std::vector<Connection> getConnectionsFromLane(unsigned int lane) const throw();
+    std::vector<Connection> getConnectionsFromLane(unsigned int lane) const;
 
 
     /** @brief Retrieves info about a connection to a certain lane of a certain edge
      *
+     * Turnaround edge is ignored!
      * @param[in] destEdge The connection's destination edge
      * @param[in] destLane The connection's destination lane
      * @return whether a connection to the specified lane exists
      */
-    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane) const throw();
+    bool hasConnectionTo(NBEdge* destEdge, unsigned int destLane) const;
+
+
+    /** @brief Returns the information whethe a connection to the given edge has been added (or computed)
+     *
+     * Turnaround edge is not ignored!
+     * @param[in] e The destination edge
+     * @return Whether a connection to the specified edge exists
+     */
+    bool isConnectedTo(NBEdge* e);
+
+
+    /** @brief Returns the connections
+     * @return This edge's connections to following edges
+     */
+    const std::vector<Connection> &getConnections() const {
+        return myConnections;
+    }
+
+
+    /** @brief Returns the connections
+     * @return This edge's connections to following edges
+     */
+    std::vector<Connection> &getConnections() {
+        return myConnections;
+    }
+
+
+    /** @brief Returns the list of outgoing edges without the turnaround sorted in clockwise direction 
+     * @return Connected edges, sorted clockwise
+     */
+    const EdgeVector* getConnectedSorted();
+
+
+    /** @brief Returns the list of outgoing edges unsorted 
+     * @return Connected edges
+     */
+    EdgeVector getConnectedEdges() const;
+
+
+    /** @brief Returns the list of lanes that may be used to reach the given edge
+     * @return Lanes approaching the given edge
+     */
+    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing) const;
+
+
+    /** @brief sorts the outgoing connections by their angle relative to their junction
+     */
+    void sortOutgoingConnectionsByAngle();
+
+
+    /** @brief sorts the outgoing connections by their from-lane-index and their to-lane-index
+     */
+    void sortOutgoingConnectionsByIndex();
+
+
+    /** @brief Remaps the connection in a way that allows the removal of it
+     *
+     * This edge (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges
+     * @todo recheck!
+     */
+    void remapConnections(const EdgeVector& incoming);
+
+
+    /** @brief Removes the specified connection(s)
+     * @param[in] toEdge The destination edge
+     * @param[in] fromLane The lane from which connections shall be removed; -1 means remove all
+     * @param[in] toLane   The lane to which connections shall be removed; -1 means remove all
+     */
+    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1);
+
+    void invalidateConnections(bool reallowSetting = false);
+
+    void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
+    void copyConnectionsFrom(NBEdge* src);
     /// @}
+
+
+
+    /** @brief Returns whether the given edge is the opposite direction to this edge
+     * @param[in] n The node at which this may be turnaround direction
+     * @param[in] edge The edge which may be the turnaround direction
+     * @return Whether the given edge is this edge's turnaround direction
+     */
+    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const throw();
+    void setTurningDestination(NBEdge* e);
+
 
 
     /// @name Setting/getting special types
@@ -674,6 +763,8 @@ public:
         return myAmInnerEdge;
     }
     /// @}
+
+
 
 
     /// computes which edge shall be the turn-around one, if any
@@ -734,12 +825,6 @@ public:
     /// computes the edge, step2: computation of which lanes approach the edges)
     bool computeLanes2Edges();
 
-    /// sorts the outgoing connections by their angle relative to their junction
-    void sortOutgoingConnectionsByAngle();
-
-    /// sorts the outgoing connections by their from-lane-index and their to-lane-index
-    void sortOutgoingConnectionsByIndex();
-
     /** recheck whether all lanes within the edge are all right and
         optimises the connections once again */
     bool recheckLanes();
@@ -754,17 +839,6 @@ public:
      */
     void appendTurnaround(bool noTLSControlled) throw();
 
-    /// returns the list of lanes that may be used to reach the given edge
-    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing) const;
-
-
-    /** @brief Returns whether the given edge is the opposite direction to this edge
-     * @param[in] n The node at which this may be turnaround direction
-     * @param[in] edge The edge which may be the turnaround direction
-     * @return Whether the given edge is this edge's turnaround direction
-     */
-    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const throw();
-
 
 
     /** @brief Returns the node at the given edges length (using an epsilon)
@@ -772,43 +846,12 @@ public:
         The epsilon is a static member of NBEdge, should be setable via program options */
     NBNode* tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance = 5.0) const;
 
-    void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
 
     SUMOReal getMaxLaneOffset();
 
     Position getMinLaneOffsetPositionAt(NBNode* node, SUMOReal width) const;
     Position getMaxLaneOffsetPositionAt(NBNode* node, SUMOReal width) const;
-    const std::vector<Connection> &getConnections() const {
-        return myConnections;
-    }
-    std::vector<Connection> &getConnections() {
-        return myConnections;
-    }
 
-    /// Returns the information whethe a connection to the given edge has been added (or computed)
-    bool isConnectedTo(NBEdge* e);
-
-    /** returns the list of outgoing edges without the turnaround
-        sorted in clockwise direction */
-    const EdgeVector* getConnectedSorted();
-
-    /** returns the list of outgoing edges unsorted */
-    EdgeVector getConnectedEdges() const throw();
-
-    /** @brief Remaps the connection in a way tha allows the removal of it
-        This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
-    void remapConnections(const EdgeVector& incoming);
-
-    /** @brief Removes the specified connection(s)
-     * @param[in] toEdge The destination edge
-     * @param[in] fromLane The lane from which connections shall be removed
-     *                     (-1) means remove all
-     * @param[in] toLane   The lane to which connections shall be removed
-     *                     (-1) means remove all
-     */
-    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1);
-
-    void invalidateConnections(bool reallowSetting = false);
 
     bool lanesWereAssigned() const;
 
@@ -856,8 +899,6 @@ public:
 
     void decLaneNo(unsigned int by, int dir = 0);
 
-    void copyConnectionsFrom(NBEdge* src);
-
     void markAsInLane2LaneState();
 
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
@@ -894,11 +935,6 @@ public:
 
     void disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane);
 
-
-    int getMinConnectedLane(NBEdge* of) const;
-    int getMaxConnectedLane(NBEdge* of) const;
-
-    void setTurningDestination(NBEdge* e);
 
     // returns a reference to the internal structure for the convenience of NETEDIT
     Lane& getLaneStruct(unsigned int lane) {
@@ -1042,6 +1078,10 @@ private:
     /** computes the sum of the given list's entries (sic!) */
     unsigned int computePrioritySum(std::vector<unsigned int> *priorities);
 
+
+    /// @name Setting and getting connections
+    /// @{
+
     /** moves a connection one place to the left;
         Attention! no checking for field validity */
     void moveConnectionToLeft(unsigned int lane);
@@ -1049,8 +1089,7 @@ private:
     /** moves a connection one place to the right;
         Attention! no checking for field validity */
     void moveConnectionToRight(unsigned int lane);
-
-
+    /// @}
 
 
 
