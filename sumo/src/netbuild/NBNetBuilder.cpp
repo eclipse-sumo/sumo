@@ -95,7 +95,12 @@ NBNetBuilder::compute(OptionsCont& oc,
                       const std::set<std::string> &explicitTurnarounds,
                       bool removeUnwishedNodes) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
+
+
+    // Modifying the sets of nodes and edges 
+    //
     // join junctions
+
     if (oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
         myNodeCont.addJoinExclusion(oc.getStringVector("junctions.join-exclude"));
     }
@@ -110,8 +115,6 @@ NBNetBuilder::compute(OptionsCont& oc,
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
     }
 
-
-    // ADAPTING THE INPUT
     // Removes edges that are connecting the same node
     PROGRESS_BEGIN_MESSAGE("Removing dummy edges");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
