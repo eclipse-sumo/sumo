@@ -2,7 +2,7 @@ Parsing opendrive from 'opendrive.xodr'... done.
  Import done:
    5 nodes loaded.
    12 edges loaded.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.

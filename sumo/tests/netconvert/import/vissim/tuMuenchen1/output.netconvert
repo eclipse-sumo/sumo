@@ -22,7 +22,7 @@ Checked(3): 7/7
  Import done:
    11 nodes loaded.
    10 edges loaded.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.

@@ -1,5 +1,5 @@
-Warning:  Removing dummy edge '27078879#0'
-Warning:  Removing dummy edge '-27078879#0'
-Warning:  Removing dummy edge '29108112#0'
-Warning:  Removing dummy edge '-29108112#0'
-Warning: 4 dummy edge(s) removed.
+Warning:  Removing self-looping edge '27078879#0'
+Warning:  Removing self-looping edge '-27078879#0'
+Warning:  Removing self-looping edge '29108112#0'
+Warning:  Removing self-looping edge '-29108112#0'
+Warning: 4 self-looping edge(s) removed.

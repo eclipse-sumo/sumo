@@ -1,7 +1,7 @@
  Generation done;
    200 nodes generated.
    560 edges generated.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.

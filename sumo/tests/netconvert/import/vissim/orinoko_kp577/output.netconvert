@@ -203,7 +203,7 @@ Checked(3): 67/67
    67 nodes loaded.
    120 edges loaded.
 The split of edges was performed 4 times.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.

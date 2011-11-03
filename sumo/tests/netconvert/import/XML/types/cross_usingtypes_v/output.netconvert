@@ -5,7 +5,7 @@ Parsing edges from 'input_edges.edg.xml'... done.
    9 nodes loaded.
    4 types loaded.
    12 edges loaded.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.
