@@ -7,7 +7,7 @@ Parsing connections from 'data/quickstart.con.xml'... done.
    14 nodes loaded.
    3 types loaded.
    26 edges loaded.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.

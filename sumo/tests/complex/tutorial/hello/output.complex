@@ -4,7 +4,7 @@ Parsing edges from 'data/hello.edg.xml'... done.
  Import done:
    3 nodes loaded.
    2 edges loaded.
-Removing dummy edges... done.
+Removing self-loops... done.
 Joining double connections... done.
 Removing empty nodes... done.
    0 nodes removed.
