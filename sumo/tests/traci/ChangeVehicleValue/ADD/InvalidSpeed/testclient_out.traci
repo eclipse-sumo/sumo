@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Oct 25 12:33:21 2011
+TraCITestClient output file. Date: Thu Nov 03 14:15:32 2011
 
 
 -> Command sent: <SimulationStep2>:
@@ -39,31 +39,51 @@ TraCITestClient output file. Date: Tue Oct 25 12:33:21 2011
 
 -> Command sent: <SetValue>:
   domID=196 varID=128 objID=veh1
-----
-Error while receiving command: tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
-----
-Error while sending command: send failed: Socket reset by peer
+.. Answered with error to command (196), [description: Departure speed for vehicle 'veh1' is too high for the departure lane 'e_m0_0'.]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=0 objID=xxx
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"veh0" ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=64 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=82 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=79 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=83 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

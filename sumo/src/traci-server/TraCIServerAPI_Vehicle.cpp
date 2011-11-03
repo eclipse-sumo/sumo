@@ -887,7 +887,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             vehicleParams->depart = inputStorage.readInt();
             if (vehicleParams->depart < 0) {
-                vehicleParams->departProcedure = (DepartDefinition)(int) - vehicleParams->depart;
+                const int proc = static_cast<int>(-vehicleParams->depart);
+                if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
+                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure time.", outputStorage);
+                    return false;
+                }
+                vehicleParams->departProcedure = (DepartDefinition)proc;
             }
 
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
@@ -896,7 +901,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             vehicleParams->departPos = inputStorage.readDouble();
             if (vehicleParams->departPos < 0) {
-                vehicleParams->departPosProcedure = (DepartPosDefinition)(int) - vehicleParams->departPos;
+                const int proc = static_cast<int>(-vehicleParams->departPos);
+                if (proc >= static_cast<int>(DEPART_POS_DEF_MAX)) {
+                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure position.", outputStorage);
+                    return false;
+                }
+                vehicleParams->departPosProcedure = (DepartPosDefinition)proc;
             } else {
                 vehicleParams->departPosProcedure = DEPART_POS_GIVEN;
             }
@@ -907,7 +917,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             vehicleParams->departSpeed = inputStorage.readDouble();
             if (vehicleParams->departSpeed < 0) {
-                vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)(int) - vehicleParams->departSpeed;
+                const int proc = static_cast<int>(-vehicleParams->departSpeed);
+                if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
+                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure speed.", outputStorage);
+                    return false;
+                }
+                vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)proc;
             } else {
                 vehicleParams->departSpeedProcedure = DEPART_SPEED_GIVEN;
             }
@@ -915,16 +930,26 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             if (inputStorage.readUnsignedByte() != TYPE_BYTE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);
                 return false;
-            } else {
-                vehicleParams->departLaneProcedure = DEPART_LANE_GIVEN;
             }
             vehicleParams->departLane = inputStorage.readByte();
             if (vehicleParams->departLane < 0) {
-                vehicleParams->departLaneProcedure = (DepartLaneDefinition)vehicleParams->departLane;
+                const int proc = static_cast<int>(-vehicleParams->departLane);
+                if (proc >= static_cast<int>(DEPART_LANE_DEF_MAX)) {
+                    server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure lane.", outputStorage);
+                    return false;
+                }
+                vehicleParams->departLaneProcedure = (DepartLaneDefinition)proc;
+            } else {
+                vehicleParams->departLaneProcedure = DEPART_LANE_GIVEN;
             }
-            SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
-            MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams->id, vehicle);
-            MSNet::getInstance()->getInsertionControl().add(vehicle);
+            try {
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
+                MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams->id, vehicle);
+                MSNet::getInstance()->getInsertionControl().add(vehicle);
+            } catch (ProcessError& e) {
+                server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
+                return false;
+            }
         }
         break;
         case REMOVE: {

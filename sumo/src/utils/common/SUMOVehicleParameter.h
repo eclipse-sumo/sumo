@@ -69,7 +69,6 @@ const int STOP_INDEX_FIT = -2;
 /**
  * @enum DepartDefinition
  * @brief Possible ways to depart
- * @todo Recheck usage!!!
  */
 enum DepartDefinition {
     /// @brief The time is given
@@ -77,14 +76,15 @@ enum DepartDefinition {
     /// @brief The departure is person triggered
     DEPART_TRIGGERED,
     /// @brief The vehicle is discarded if emission fails
-    DEPART_NOW
+    DEPART_NOW,
+    /// @brief Tag for the last element in the enum for safe int casting
+    DEPART_DEF_MAX
 };
 
 
 /**
  * @enum DepartLaneDefinition
  * @brief Possible ways to choose a lane on depart
- * @todo Recheck usage!!!
  */
 enum DepartLaneDefinition {
     /// @brief No information given; use default
@@ -98,7 +98,9 @@ enum DepartLaneDefinition {
     /// @brief The least occupied lane from lanes which allow the continuation
     DEPART_LANE_ALLOWED_FREE,
     /// @brief The least occupied lane from best lanes
-    DEPART_LANE_BEST_FREE
+    DEPART_LANE_BEST_FREE,
+    /// @brief Tag for the last element in the enum for safe int casting
+    DEPART_LANE_DEF_MAX
 };
 
 
@@ -124,14 +126,15 @@ enum DepartPosDefinition {
     /// @brief A gap is chosen where the maximum speed may be achieved
     DEPART_POS_MAX_SPEED_GAP,
     /// @brief If a fixed number of random choices fails, a free position is chosen
-    DEPART_POS_RANDOM_FREE
+    DEPART_POS_RANDOM_FREE,
+    /// @brief Tag for the last element in the enum for safe int casting
+    DEPART_POS_DEF_MAX
 };
 
 
 /**
  * @enum DepartSpeedDefinition
  * @brief Possible ways to choose the departure speed
- * @todo Recheck usage!!!
  */
 enum DepartSpeedDefinition {
     /// @brief No information given; use default
@@ -141,14 +144,15 @@ enum DepartSpeedDefinition {
     /// @brief The speed is chosen randomly
     DEPART_SPEED_RANDOM,
     /// @brief The maximum speed is used
-    DEPART_SPEED_MAX
+    DEPART_SPEED_MAX,
+    /// @brief Tag for the last element in the enum for safe int casting
+    DEPART_SPEED_DEF_MAX
 };
 
 
 /**
  * @enum ArrivalLaneDefinition
  * @brief Possible ways to choose the arrival lane
- * @todo Recheck usage!!!
  */
 enum ArrivalLaneDefinition {
     /// @brief No information given; use default
@@ -156,14 +160,15 @@ enum ArrivalLaneDefinition {
     /// @brief The arrival lane is given
     ARRIVAL_LANE_GIVEN,
     /// @brief The current lane shall be used
-    ARRIVAL_LANE_CURRENT
+    ARRIVAL_LANE_CURRENT,
+    /// @brief Tag for the last element in the enum for safe int casting
+    ARRIVAL_LANE_DEF_MAX
 };
 
 
 /**
  * @enum ArrivalPosDefinition
  * @brief Possible ways to choose the arrival position
- * @todo Recheck usage!!!
  */
 enum ArrivalPosDefinition {
     /// @brief No information given; use default
@@ -173,14 +178,15 @@ enum ArrivalPosDefinition {
     /// @brief The arrival position is chosen randomly
     ARRIVAL_POS_RANDOM,
     /// @brief The maximum arrival position is used
-    ARRIVAL_POS_MAX
+    ARRIVAL_POS_MAX,
+    /// @brief Tag for the last element in the enum for safe int casting
+    ARRIVAL_POS_DEF_MAX
 };
 
 
 /**
  * @enum ArrivalSpeedDefinition
  * @brief Possible ways to choose the arrival speed
- * @todo Recheck usage!!!
  */
 enum ArrivalSpeedDefinition {
     /// @brief No information given; use default
@@ -188,7 +194,9 @@ enum ArrivalSpeedDefinition {
     /// @brief The speed is given
     ARRIVAL_SPEED_GIVEN,
     /// @brief The current speed is used
-    ARRIVAL_SPEED_CURRENT
+    ARRIVAL_SPEED_CURRENT,
+    /// @brief Tag for the last element in the enum for safe int casting
+    ARRIVAL_SPEED_DEF_MAX
 };
 
 

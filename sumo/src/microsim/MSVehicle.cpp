@@ -291,6 +291,10 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         throw ProcessError("Departure speed for vehicle '" + pars->id +
                            "' is too high for the departure lane '" + depLane->getID() + "'.");
     }
+    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
+        throw ProcessError("Departure speed for vehicle '" + pars->id +
+                           "' is too high for the vehicle type '" + type->getID() + "'.");
+    }
 #ifdef _MESSAGES
     myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
     myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
