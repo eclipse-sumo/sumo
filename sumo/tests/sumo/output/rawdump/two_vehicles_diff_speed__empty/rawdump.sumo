@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/18/10 13:37:33 by SUMO sumo Version dev-SVN-r8460
-<configuration>
+<!-- generated on 11/04/11 14:35:28 by SUMO sumo Version dev-SVN-r11456
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -10,7 +12,7 @@
 
     <output>
         <netstate-dump value="rawdump.xml"/>
-        <dump-empty-edges value="true"/>
+        <netstate-dump.empty-edges value="true"/>
     </output>
 
     <time>
@@ -827,7 +829,7 @@
         </edge>
         <edge id="4/1to3/1">
             <lane id="4/1to3/1_0">
-                <vehicle id="1" pos="100.00" speed="10.00"/>
+                <vehicle id="1" pos="100.00" speed="9.00"/>
                 <vehicle id="0" pos="150.00" speed="10.00"/>
             </lane>
         </edge>
