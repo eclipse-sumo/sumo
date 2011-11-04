@@ -55,7 +55,7 @@ public:
     virtual FXGLCanvas* getBuildGLCanvas() const;
     virtual void create();
 
-    GUISUMOAbstractView* getView() const throw() {
+    GUISUMOAbstractView* getView() const {
         return myView;
     }
 
@@ -84,7 +84,7 @@ public:
     /** @brief Returns the main window
      * @return This view's parent
      */
-    GUIMainWindow* getParent() throw() {
+    GUIMainWindow* getParent() {
         return myParent;
     }
 

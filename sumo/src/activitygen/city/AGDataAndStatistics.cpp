@@ -41,7 +41,7 @@
 // method definitions
 // ===========================================================================
 AGDataAndStatistics&
-AGDataAndStatistics::getDataAndStatistics() throw() {
+AGDataAndStatistics::getDataAndStatistics() {
     static AGDataAndStatistics ds;
     return ds;
 }

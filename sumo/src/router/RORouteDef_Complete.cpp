@@ -52,12 +52,12 @@
 RORouteDef_Complete::RORouteDef_Complete(const std::string& id,
         const RGBColor* const color,
         const std::vector<const ROEdge*> &edges,
-        bool tryRepair) throw()
+        bool tryRepair)
     : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair) {
 }
 
 
-RORouteDef_Complete::~RORouteDef_Complete() throw() {}
+RORouteDef_Complete::~RORouteDef_Complete() {}
 
 
 RORoute*

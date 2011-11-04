@@ -42,11 +42,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw()
+ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
     : ROEdge(id, from, to, index, false) {}
 
 
-ROJTREdge::~ROJTREdge() throw() {
+ROJTREdge::~ROJTREdge() {
     for (FollowerUsageCont::iterator i = myFollowingDefs.begin(); i != myFollowingDefs.end(); i++) {
         delete(*i).second;
     }
@@ -54,7 +54,7 @@ ROJTREdge::~ROJTREdge() throw() {
 
 
 void
-ROJTREdge::addFollower(ROEdge* s) throw() {
+ROJTREdge::addFollower(ROEdge* s) {
     ROEdge::addFollower(s);
     ROJTREdge* js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js) == myFollowingDefs.end()) {

@@ -58,7 +58,7 @@ std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routi
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Routing::insertOptions() throw() {
+MSDevice_Routing::insertOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Routing");
 
@@ -100,7 +100,7 @@ MSDevice_Routing::insertOptions() throw() {
 
 
 void
-MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
+MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
     OptionsCont& oc = OptionsCont::getOptions();
     bool needRerouting = v.getParameter().wasSet(VEHPARS_FORCE_REROUTE);
     if (!needRerouting && oc.getFloat("device.rerouting.probability") == 0 && !oc.isSet("device.rerouting.explicit")) {
@@ -155,7 +155,7 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &in
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
-                                   SUMOTime period, SUMOTime preInsertionPeriod) throw()
+                                   SUMOTime period, SUMOTime preInsertionPeriod)
     : MSDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myRerouteCommand(0) {
     if (myWithTaz) {
         myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::preInsertionReroute);
@@ -166,7 +166,7 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
 }
 
 
-MSDevice_Routing::~MSDevice_Routing() throw() {
+MSDevice_Routing::~MSDevice_Routing() {
     // make the rerouting command invalid if there is one
     if (myRerouteCommand != 0) {
         myRerouteCommand->deschedule();
@@ -175,7 +175,7 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
+MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         if (myRerouteCommand != 0) { // clean up pre depart rerouting
             if (myPreInsertionPeriod > 0) {
@@ -199,7 +199,7 @@ MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification
 
 
 SUMOTime
-MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) throw(ProcessError) {
+MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
     const MSEdge* source = MSEdge::dictionary(myHolder.getParameter().fromTaz + "-source");
     const MSEdge* dest = MSEdge::dictionary(myHolder.getParameter().toTaz + "-sink");
     if (source && dest) {
@@ -219,7 +219,7 @@ MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) throw(ProcessError) 
 
 
 SUMOTime
-MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError) {
+MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
     DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
@@ -237,7 +237,7 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, S
 
 
 SUMOTime
-MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) throw(ProcessError) {
+MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) {
     std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
     for (; it != myCachedRoutes.end(); ++it) {
         it->second->release();

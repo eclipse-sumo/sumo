@@ -74,21 +74,21 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0) throw();
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0) ;
 
         /** @brief Destructor */
-        virtual ~MeanDataValues() throw();
+        virtual ~MeanDataValues() ;
 
 
         /** @brief Resets values so they may be used for the next interval
          */
-        virtual void reset(bool afterWrite = false) throw() = 0;
+        virtual void reset(bool afterWrite = false) = 0;
 
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
-        virtual void addTo(MeanDataValues& val) const throw() = 0;
+        virtual void addTo(MeanDataValues& val) const = 0;
 
 
         /** @brief Called if the vehicle enters the reminder's lane
@@ -99,7 +99,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
 
 
         /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -116,7 +116,7 @@ public:
          * @return True if vehicle hasn't passed the reminder completely.
          */
         bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                        SUMOReal newPos, SUMOReal newSpeed) throw();
+                        SUMOReal newPos, SUMOReal newSpeed) ;
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -128,7 +128,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                                 MSMoveReminder::Notification reason) throw();
+                                 MSMoveReminder::Notification reason) ;
 
 
         /** @brief Tests whether the vehicles type is to be regarded
@@ -136,19 +136,19 @@ public:
          * @param[in] veh The regarded vehicle
          * @return whether the type of the vehicle is in the set of regarded types
          */
-        bool vehicleApplies(const SUMOVehicle& veh) const throw();
+        bool vehicleApplies(const SUMOVehicle& veh) const ;
 
 
         /** @brief Returns whether any data was collected.
          *
          * @return whether no data was collected
          */
-        virtual bool isEmpty() const throw();
+        virtual bool isEmpty() const ;
 
 
         /** @brief Called if a per timestep update is needed. Default does nothing.
          */
-        virtual void update() throw();
+        virtual void update() ;
 
         /** @brief Writes output values into the given stream
          *
@@ -159,12 +159,12 @@ public:
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
                            const SUMOReal numLanes,
-                           const int numVehicles = -1) const throw(IOError) = 0;
+                           const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
          * @return the number of collected sample seconds
          */
-        virtual SUMOReal getSamples() const throw();
+        virtual SUMOReal getSamples() const ;
 
     protected:
         /// @brief The length of the lane / edge the data collector is on
@@ -195,20 +195,20 @@ public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData* const parent = 0) throw();
+                             const MSMeanData* const parent = 0) ;
 
         /** @brief Destructor */
-        virtual ~MeanDataValueTracker() throw();
+        virtual ~MeanDataValueTracker() ;
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite) throw();
+        void reset(bool afterWrite) ;
 
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
-        void addTo(MSMeanData::MeanDataValues& val) const throw();
+        void addTo(MSMeanData::MeanDataValues& val) const ;
 
         /// @name Methods inherited from MSMoveReminder
         /// @{
@@ -223,7 +223,7 @@ public:
          * @param[in] timeOnLane time the vehicle spent on the lane.
          * @param[in] speed Moving speed.
          */
-        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw();
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) ;
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -235,7 +235,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
 
 
         /** @brief Computes current values and adds them to their sums
@@ -249,10 +249,10 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
         //@}
 
-        bool isEmpty() const throw();
+        bool isEmpty() const ;
 
         /** @brief Writes output values into the given stream
          *
@@ -263,19 +263,19 @@ public:
          */
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
-                   const int numVehicles = -1) const throw(IOError);
+                   const int numVehicles = -1) const;
 
-        size_t getNumReady() const throw();
+        size_t getNumReady() const ;
 
-        void clearFirst() throw();
+        void clearFirst() ;
 
-        SUMOReal getSamples() const throw();
+        SUMOReal getSamples() const ;
 
     private:
         class TrackerEntry {
         public:
             /** @brief Constructor */
-            TrackerEntry(MeanDataValues* const values) throw()
+            TrackerEntry(MeanDataValues* const values)
                 : myNumVehicleEntered(0), myNumVehicleLeft(0), myValues(values) {}
 
             /// @brief The number of vehicles which entered in the current interval
@@ -319,15 +319,15 @@ public:
                const bool useLanes, const bool withEmpty, const bool withInternal,
                const bool trackVehicles,
                const SUMOReal minSamples, const SUMOReal maxTravelTime,
-               const std::set<std::string> vTypes) throw();
+               const std::set<std::string> vTypes) ;
 
 
     /// @brief Destructor
-    virtual ~MSMeanData() throw();
+    virtual ~MSMeanData() ;
 
     /** @brief Adds the value collectors to all relevant edges.
      */
-    void init() throw();
+    void init() ;
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -346,7 +346,7 @@ public:
      * @see write
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
 
     /** @brief Opens the XML-output using "netstats" as root element
      *
@@ -354,12 +354,12 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
     /** @brief Updates the detector
      */
-    virtual void detectorUpdate(const SUMOTime step) throw();
+    virtual void detectorUpdate(const SUMOTime step) ;
 
 
 protected:
@@ -368,14 +368,14 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) = 0;
+    virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
      * @param [in] edge The last time step that is reported
      */
-    void resetOnly(SUMOTime stopTime) throw();
+    void resetOnly(SUMOTime stopTime) ;
 
     /** @brief Writes edge values into the given stream
      *
@@ -392,7 +392,7 @@ protected:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*> &edgeValues,
-                   MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+                   MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
 
     /** @brief Checks for emptiness and writes prefix into the given stream
      *
@@ -403,7 +403,7 @@ protected:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
-                     const std::string prefix) const throw(IOError);
+                     const std::string prefix) const;
 
 protected:
     /// @brief the minimum sample seconds

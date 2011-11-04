@@ -49,26 +49,26 @@ public:
     unsigned int nLinks();
 
     /// Returns the foes of the given link
-    virtual const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const throw() {
+    virtual const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
 
-    virtual const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const throw() {
+    virtual const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return myDummyFoes;
     }
-    virtual bool getIsCont(unsigned int linkIndex) const throw() {
+    virtual bool getIsCont(unsigned int linkIndex) const {
         UNUSED_PARAMETER(linkIndex);
         return false;
     }
 
 
-    unsigned int getLogicSize() const throw() {
+    unsigned int getLogicSize() const {
         return myNLinks;
     }
 
-    virtual bool isCrossing() const throw() {
+    virtual bool isCrossing() const {
         return false;
     }
 

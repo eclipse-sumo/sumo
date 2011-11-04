@@ -43,10 +43,10 @@
 class Distribution : public Named {
 public:
     /// Constructor
-    Distribution(const std::string& id) throw() : Named(id) { }
+    Distribution(const std::string& id) : Named(id) { }
 
     /// Destructor
-    virtual ~Distribution() throw() { }
+    virtual ~Distribution() { }
 
     /// Returns the maximum value of this distribution
     virtual SUMOReal getMax() const = 0;

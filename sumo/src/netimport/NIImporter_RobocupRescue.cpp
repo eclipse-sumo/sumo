@@ -99,7 +99,7 @@ NIImporter_RobocupRescue::NIImporter_RobocupRescue(NBNodeCont& nc, NBEdgeCont& e
     : myNodeCont(nc), myEdgeCont(ec) {}
 
 
-NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw() {
+NIImporter_RobocupRescue::~NIImporter_RobocupRescue() {
 }
 
 

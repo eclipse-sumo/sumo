@@ -161,7 +161,7 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n) throw()
+        explicit edge_opposite_direction_sorter(const NBEdge* const e, const NBNode* const n)
             : myNode(n) {
             myAngle = getEdgeAngleAt(e, n);
         }
@@ -171,7 +171,7 @@ public:
          * @param[in] e2 The second edge to compare
          * @return Which edge is more opposite to the related one
          */
-        int operator()(NBEdge* e1, NBEdge* e2) const throw() {
+        int operator()(NBEdge* e1, NBEdge* e2) const {
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 > d2;
@@ -182,7 +182,7 @@ public:
          * @param[in] e The edge to compare the angle difference of
          * @return The angle difference
          */
-        SUMOReal getDiff(const NBEdge* const e) const throw() {
+        SUMOReal getDiff(const NBEdge* const e) const {
             SUMOReal d = getEdgeAngleAt(e, myNode);
             return GeomHelper::getMinAngleDiff(d, myAngle);
         }
@@ -193,7 +193,7 @@ public:
          * @param[in] e The edge to which the sorting relates
          * @param[in] n The node to consider
          */
-        SUMOReal getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const throw() {
+        SUMOReal getEdgeAngleAt(const NBEdge* const e, const NBNode* const n) const {
             if (e->getFromNode() == n) {
                 return e->getGeometry().getBegLine().atan2DegreeAngle();
             } else {

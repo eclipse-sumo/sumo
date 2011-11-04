@@ -56,14 +56,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONet::RONet() throw()
+RONet::RONet()
     : myVehicleTypes(),
       myRoutesOutput(0), myRouteAlternativesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHaveRestrictions(false) {}
 
 
-RONet::~RONet() throw() {
+RONet::~RONet() {
     myNodes.clear();
     myEdges.clear();
     myVehicleTypes.clear();
@@ -73,7 +73,7 @@ RONet::~RONet() throw() {
 
 
 bool
-RONet::addEdge(ROEdge* edge) throw() {
+RONet::addEdge(ROEdge* edge) {
     if (!myEdges.add(edge->getID(), edge)) {
         WRITE_ERROR("The edge '" + edge->getID() + "' occurs at least twice.");
         delete edge;
@@ -84,7 +84,7 @@ RONet::addEdge(ROEdge* edge) throw() {
 
 
 void
-RONet::addNode(RONode* node) throw() {
+RONet::addNode(RONode* node) {
     if (!myNodes.add(node->getID(), node)) {
         WRITE_ERROR("The node '" + node->getID() + "' occurs at least twice.");
         delete node;
@@ -93,13 +93,13 @@ RONet::addNode(RONode* node) throw() {
 
 
 bool
-RONet::addRouteDef(RORouteDef* def) throw() {
+RONet::addRouteDef(RORouteDef* def) {
     return myRoutes.add(def->getID(), def);
 }
 
 
 void
-RONet::openOutput(const std::string& filename, bool useAlternatives) throw(IOError) {
+RONet::openOutput(const std::string& filename, bool useAlternatives) {
     myRoutesOutput = &OutputDevice::getDevice(filename);
     myRoutesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     if (useAlternatives) {
@@ -115,7 +115,7 @@ RONet::openOutput(const std::string& filename, bool useAlternatives) throw(IOErr
 
 
 void
-RONet::closeOutput() throw() {
+RONet::closeOutput() {
     // end writing
     if (myRoutesOutput != 0) {
         myRoutesOutput->close();
@@ -129,7 +129,7 @@ RONet::closeOutput() throw() {
 
 
 SUMOVTypeParameter*
-RONet::getVehicleTypeSecure(const std::string& id) throw() {
+RONet::getVehicleTypeSecure(const std::string& id) {
     // check whether the type was already known
     SUMOVTypeParameter* type = myVehicleTypes.get(id);
     if (type != 0) {
@@ -151,7 +151,7 @@ RONet::getVehicleTypeSecure(const std::string& id) throw() {
 
 
 bool
-RONet::addVehicleType(SUMOVTypeParameter* type) throw() {
+RONet::addVehicleType(SUMOVTypeParameter* type) {
     if (!myVehicleTypes.add(type->id, type)) {
         WRITE_ERROR("The vehicle type '" + type->id + "' occurs at least twice.");
         delete type;
@@ -162,7 +162,7 @@ RONet::addVehicleType(SUMOVTypeParameter* type) throw() {
 
 
 bool
-RONet::addVehicle(const std::string& id, ROVehicle* veh) throw() {
+RONet::addVehicle(const std::string& id, ROVehicle* veh) {
     if (myVehIDs.find(id) == myVehIDs.end() && myVehicles.add(id, veh)) {
         myVehIDs.insert(id);
         myReadRouteNo++;
@@ -265,7 +265,7 @@ RONet::furtherStored() {
 
 
 ROEdge*
-RONet::getRandomSource() throw() {
+RONet::getRandomSource() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (mySourceEdges.size() == 0) {
@@ -277,7 +277,7 @@ RONet::getRandomSource() throw() {
 
 
 const ROEdge*
-RONet::getRandomSource() const throw() {
+RONet::getRandomSource() const {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (mySourceEdges.size() == 0) {
@@ -290,7 +290,7 @@ RONet::getRandomSource() const throw() {
 
 
 ROEdge*
-RONet::getRandomDestination() throw() {
+RONet::getRandomDestination() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (myDestinationEdges.size() == 0) {
@@ -302,7 +302,7 @@ RONet::getRandomDestination() throw() {
 
 
 const ROEdge*
-RONet::getRandomDestination() const throw() {
+RONet::getRandomDestination() const {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (myDestinationEdges.size() == 0) {

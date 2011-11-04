@@ -48,14 +48,14 @@ SUMOTime MSLink::myLookaheadTime = TIME2STEPS(3);
 #ifndef HAVE_INTERNAL_LANES
 MSLink::MSLink(MSLane* succLane,
                LinkDirection dir, LinkState state,
-               SUMOReal length) throw()
+               SUMOReal length)
     :
     myLane(succLane),
     myRequestIdx(0), myRespondIdx(0),
     myState(state), myDirection(dir),  myLength(length) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane* via,
-               LinkDirection dir, LinkState state, SUMOReal length) throw()
+               LinkDirection dir, LinkState state, SUMOReal length)
     :
     myLane(succLane),
     myRequestIdx(0), myRespondIdx(0),
@@ -64,13 +64,13 @@ MSLink::MSLink(MSLane* succLane, MSLane* via,
 #endif
 
 
-MSLink::~MSLink() throw() {}
+MSLink::~MSLink() {}
 
 
 void
 MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
                               const std::vector<MSLink*> &foeLinks,
-                              const std::vector<MSLane*> &foeLanes) throw() {
+                              const std::vector<MSLane*> &foeLanes) {
     myRequestIdx = requestIdx;
     myRespondIdx = respondIdx;
     myIsCrossing = isCrossing;
@@ -81,7 +81,7 @@ MSLink::setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, 
 
 
 void
-MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw() {
+MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) {
     LinkApproachingVehicles::iterator i = find_if(myApproachingVehicles.begin(), myApproachingVehicles.end(), vehicle_in_request_finder(approaching));
     if (i != myApproachingVehicles.end()) {
         myApproachingVehicles.erase(i);
@@ -93,14 +93,14 @@ MSLink::setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal 
 
 
 void
-MSLink::addBlockedLink(MSLink* link) throw() {
+MSLink::addBlockedLink(MSLink* link) {
     myBlockedFoeLinks.insert(link);
 }
 
 
 
 bool
-MSLink::willHaveBlockedFoe() const throw() {
+MSLink::willHaveBlockedFoe() const {
     for (std::set<MSLink*>::const_iterator i = myBlockedFoeLinks.begin(); i != myBlockedFoeLinks.end(); ++i) {
         if ((*i)->isBlockingAnyone()) {
             return true;
@@ -120,7 +120,7 @@ MSLink::removeApproaching(SUMOVehicle* veh) {
 
 
 bool
-MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const throw() {
+MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const {
     if (myState == LINKSTATE_TL_RED) {
         return false;
     }
@@ -155,7 +155,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
 
 
 bool
-MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
+MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const {
     for (LinkApproachingVehicles::const_iterator i = myApproachingVehicles.begin(); i != myApproachingVehicles.end(); ++i) {
         if (!(*i).willPass) {
             continue;
@@ -169,7 +169,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
 
 
 bool
-MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw() {
+MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const {
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
         if ((*i)->blockedAtTime(arrivalTime, leaveTime)) {
             return true;
@@ -185,33 +185,33 @@ MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw(
 
 
 LinkDirection
-MSLink::getDirection() const throw() {
+MSLink::getDirection() const {
     return myDirection;
 }
 
 
 void
-MSLink::setTLState(LinkState state, SUMOTime /*t*/) throw() {
+MSLink::setTLState(LinkState state, SUMOTime /*t*/) {
     myState = state;
 }
 
 
 MSLane*
-MSLink::getLane() const throw() {
+MSLink::getLane() const {
     return myLane;
 }
 
 
 #ifdef HAVE_INTERNAL_LANES
 MSLane*
-MSLink::getViaLane() const throw() {
+MSLink::getViaLane() const {
     return myJunctionInlane;
 }
 #endif
 
 
 unsigned int
-MSLink::getRespondIndex() const throw() {
+MSLink::getRespondIndex() const {
     return myRespondIdx;
 }
 

@@ -91,7 +91,7 @@ public:
      * @return Whether the first flow prohibits the second one
      */
     bool mustBrake(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
-                   const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo) const throw();
+                   const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo) const ;
 
 
     /** @brief Returns the information whether the described flow must let any other flow pass
@@ -99,7 +99,7 @@ public:
      * @param[in] to The connection's end edge
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const throw();   // !!!
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const ;   // !!!
 
     /** @brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream
@@ -109,7 +109,7 @@ public:
      * @return Whether both stream are foes (cross)
      */
     bool foes(const NBEdge* const from1, const NBEdge* const to1,
-              const NBEdge* const from2, const NBEdge* const to2) const throw();
+              const NBEdge* const from2, const NBEdge* const to2) const ;
 
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -122,7 +122,7 @@ public:
      */
     bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const throw();
+                 bool regardNonSignalisedLowerPriority) const ;
 
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
@@ -164,7 +164,7 @@ private:
      * @exception IOError not yet implemented
      */
     void writeResponse(OutputDevice& od, const NBEdge* const from, const NBEdge* const to,
-                       int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError);
+                       int fromLane, int toLane, bool mayDefinitelyPass) const;
 
 
     /** writes which participating links are foes to the given */
@@ -180,7 +180,7 @@ private:
      * @param[in] to The destination edge (outgoing from this logic)
      * @return The index within the internal container
      */
-    int getIndex(const NBEdge* const from, const NBEdge* const to) const throw();
+    int getIndex(const NBEdge* const from, const NBEdge* const to) const ;
 
 
     /** returns the distance between the incoming (from) and the outgoing (to)

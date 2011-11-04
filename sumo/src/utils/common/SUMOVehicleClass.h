@@ -338,7 +338,7 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id);
  * @param[in] name The name of the emission class
  * @return The internal representation of this class
  */
-extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name) throw(ProcessError);
+extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string& name) ;
 
 
 // ---------------------------------------------------------------------------

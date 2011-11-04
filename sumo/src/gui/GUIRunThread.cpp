@@ -150,7 +150,7 @@ GUIRunThread::run() {
 
 
 void
-GUIRunThread::makeStep() throw() {
+GUIRunThread::makeStep() {
     GUIEvent* e = 0;
     // simulation is being perfomed
     mySimulationInProgress = true;

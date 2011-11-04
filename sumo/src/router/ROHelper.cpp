@@ -42,7 +42,7 @@ namespace ROHelper {
 SUMOReal
 recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                const std::vector<const ROEdge*> &edges,
-               const ROVehicle * const v, SUMOTime time) throw() {
+               const ROVehicle * const v, SUMOTime time) {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         costs += router.getEffort(v, time + costs, *i);
@@ -55,7 +55,7 @@ recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
 */
 
 void
-recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
+recheckForLoops(std::vector<const ROEdge*> &edges) {
     // remove loops at the route's begin
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     RONode* start = edges[0]->getFromNode();

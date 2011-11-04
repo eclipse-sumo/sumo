@@ -72,11 +72,11 @@ public:
      */
     MSRouteProbe(const std::string& id,
                  const MSEdge* edge,
-                 SUMOTime begin) throw();
+                 SUMOTime begin) ;
 
 
     /// @brief Destructor
-    virtual ~MSRouteProbe() throw();
+    virtual ~MSRouteProbe() ;
 
 
     /// @name Methods inherited from MSMoveReminder
@@ -93,7 +93,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
     /// @}
 
 
@@ -114,7 +114,7 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice& dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+                        SUMOTime startTime, SUMOTime stopTime);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -124,7 +124,7 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
 private:

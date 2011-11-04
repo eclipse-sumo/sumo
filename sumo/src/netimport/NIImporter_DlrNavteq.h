@@ -88,11 +88,11 @@ protected:
          * @param[in, geoms] geoms Storage for read edge geometries
          */
         NodesHandler(NBNodeCont& nc, const std::string& file,
-                     std::map<std::string, PositionVector> &geoms) throw();
+                     std::map<std::string, PositionVector> &geoms) ;
 
 
         /// @brief Destructor
-        ~NodesHandler() throw();
+        ~NodesHandler() ;
 
 
         /** @brief Parsing method
@@ -106,7 +106,7 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string& result) throw(ProcessError);
+        bool report(const std::string& result) ;
 
 
     protected:
@@ -144,11 +144,11 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-                     const std::string& file, std::map<std::string, PositionVector> &geoms) throw();
+                     const std::string& file, std::map<std::string, PositionVector> &geoms) ;
 
 
         /// @brief Destructor
-        ~EdgesHandler() throw();
+        ~EdgesHandler() ;
 
 
         /** @brief Parsing method
@@ -160,7 +160,7 @@ protected:
              * @exception ProcessError if something fails
              * @see LineHandler::report
          */
-        bool report(const std::string& result) throw(ProcessError);
+        bool report(const std::string& result) ;
 
 
     protected:
@@ -203,11 +203,11 @@ protected:
          * @param[in] file The name of the parsed file
          */
         TrafficlightsHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
-                             const std::string& file) throw();
+                             const std::string& file) ;
 
 
         /// @brief Destructor
-        ~TrafficlightsHandler() throw();
+        ~TrafficlightsHandler() ;
 
 
         /** @brief Parsing method
@@ -219,7 +219,7 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string& result) throw(ProcessError);
+        bool report(const std::string& result) ;
 
 
     protected:

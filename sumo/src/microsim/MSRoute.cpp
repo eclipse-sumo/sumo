@@ -56,13 +56,13 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 MSRoute::MSRoute(const std::string& id,
                  const MSEdgeVector& edges,
                  unsigned int references, const RGBColor& c,
-                 const std::vector<SUMOVehicleParameter::Stop> &stops) throw()
+                 const std::vector<SUMOVehicleParameter::Stop> &stops)
     : Named(id), myEdges(edges),
       myReferenceCounter(references),
       myColor(c), myStops(stops) {}
 
 
-MSRoute::~MSRoute() throw() {}
+MSRoute::~MSRoute() {}
 
 MSRouteIterator
 MSRoute::begin() const {
@@ -210,7 +210,7 @@ MSRoute::operator[](unsigned index) const {
 
 #ifdef HAVE_MESOSIM
 void
-MSRoute::dict_saveState(std::ostream& os) throw() {
+MSRoute::dict_saveState(std::ostream& os) {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it != myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
@@ -281,7 +281,7 @@ MSRoute::dict_saveState(std::ostream& os) throw() {
 
 
 void
-MSRoute::dict_loadState(BinaryInputDevice& bis) throw() {
+MSRoute::dict_loadState(BinaryInputDevice& bis) {
     unsigned int numRoutes;
     bis >> numRoutes;
     for (; numRoutes > 0; numRoutes--) {

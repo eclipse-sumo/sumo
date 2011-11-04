@@ -139,7 +139,7 @@ MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge* const e,
 // MSNet - methods
 // ---------------------------------------------------------------------------
 MSNet*
-MSNet::getInstance(void) throw(ProcessError) {
+MSNet::getInstance(void) {
     if (myInstance != 0) {
         return myInstance;
     }
@@ -149,7 +149,7 @@ MSNet::getInstance(void) throw(ProcessError) {
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
-             ShapeContainer* shapeCont) throw(ProcessError) {
+             ShapeContainer* shapeCont) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -189,7 +189,7 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
                      MSRouteLoaderControl* routeLoaders,
                      MSTLLogicControl* tlc,
                      std::vector<SUMOTime> stateDumpTimes,
-                     std::vector<std::string> stateDumpFiles) throw() {
+                     std::vector<std::string> stateDumpFiles) {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -208,7 +208,7 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
 }
 
 
-MSNet::~MSNet() throw() {
+MSNet::~MSNet() {
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -392,7 +392,7 @@ MSNet::simulationStep() {
 
 
 MSNet::SimulationState
-MSNet::simulationState(SUMOTime stopTime) const throw() {
+MSNet::simulationState(SUMOTime stopTime) const {
     if (myTooManyVehicles > 0 && (int) myVehicleControl->getRunningVehicleNo() > myTooManyVehicles) {
         return SIMSTATE_TOO_MANY_VEHICLES;
     }
@@ -423,7 +423,7 @@ MSNet::simulationState(SUMOTime stopTime) const throw() {
 
 
 std::string
-MSNet::getStateMessage(MSNet::SimulationState state) throw() {
+MSNet::getStateMessage(MSNet::SimulationState state) {
     switch (state) {
         case MSNet::SIMSTATE_RUNNING:
             return "";
@@ -492,14 +492,14 @@ MSNet::writeOutput() {
 
 
 bool
-MSNet::logSimulationDuration() const throw() {
+MSNet::logSimulationDuration() const {
     return myLogExecutionTime;
 }
 
 
 #ifdef HAVE_MESOSIM
 void
-MSNet::saveState(std::ostream& os) throw() {
+MSNet::saveState(std::ostream& os) {
     FileHelpers::writeString(os, VERSION_STRING);
     FileHelpers::writeUInt(os, sizeof(size_t));
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
@@ -514,7 +514,7 @@ MSNet::saveState(std::ostream& os) throw() {
 
 
 unsigned int
-MSNet::loadState(BinaryInputDevice& bis) throw() {
+MSNet::loadState(BinaryInputDevice& bis) {
     std::string version;
     unsigned int sizeT, fpSize, numEdges, step;
     bis >> version;
@@ -546,7 +546,7 @@ MSNet::loadState(BinaryInputDevice& bis) throw() {
 
 
 MSPersonControl&
-MSNet::getPersonControl() throw() {
+MSNet::getPersonControl() {
     if (myPersonControl == 0) {
         myPersonControl = new MSPersonControl();
     }
@@ -555,7 +555,7 @@ MSNet::getPersonControl() throw() {
 
 
 MSEdgeWeightsStorage&
-MSNet::getWeightsStorage() throw() {
+MSNet::getWeightsStorage() {
     if (myEdgeWeights == 0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
@@ -564,14 +564,14 @@ MSNet::getWeightsStorage() throw() {
 
 
 void
-MSNet::preSimStepOutput() const throw() {
+MSNet::preSimStepOutput() const {
     std::cout << std::setprecision(OUTPUT_ACCURACY);
     std::cout << "Step #" << time2string(myStep);
 }
 
 
 void
-MSNet::postSimStepOutput() const throw() {
+MSNet::postSimStepOutput() const {
     if (myLogExecutionTime) {
         std::string msg;
         std::ostringstream oss;
@@ -599,7 +599,7 @@ MSNet::postSimStepOutput() const throw() {
 
 
 void
-MSNet::addVehicleStateListener(VehicleStateListener* listener) throw() {
+MSNet::addVehicleStateListener(VehicleStateListener* listener) {
     if (find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener) == myVehicleStateListeners.end()) {
         myVehicleStateListeners.push_back(listener);
     }
@@ -607,7 +607,7 @@ MSNet::addVehicleStateListener(VehicleStateListener* listener) throw() {
 
 
 void
-MSNet::removeVehicleStateListener(VehicleStateListener* listener) throw() {
+MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
     std::vector<VehicleStateListener*>::iterator i = find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
     if (i != myVehicleStateListeners.end()) {
         myVehicleStateListeners.erase(i);
@@ -616,7 +616,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) throw() {
 
 
 void
-MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) throw() {
+MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) {
     for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
         (*i)->vehicleStateChanged(vehicle, to);
     }

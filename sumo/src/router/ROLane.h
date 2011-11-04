@@ -58,20 +58,20 @@ public:
      */
     ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed,
            const SUMOVehicleClasses& allowed,
-           const SUMOVehicleClasses& disallowed) throw()
+           const SUMOVehicleClasses& disallowed)
         : Named(id), myLength(length), myMaxSpeed(maxSpeed),
           myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
     }
 
 
     /// @brief Destructor
-    ~ROLane() throw() { }
+    ~ROLane() { }
 
 
     /** @brief Returns the length of the lane
      * @return The length of this lane
      */
-    SUMOReal getLength() const throw() {
+    SUMOReal getLength() const {
         return myLength;
     }
 
@@ -79,7 +79,7 @@ public:
     /** @brief Returns the maximum speed allowed on this lane
      * @return The maximum speed allowed on this lane
      */
-    SUMOReal getSpeed() const throw() {
+    SUMOReal getSpeed() const {
         return myMaxSpeed;
     }
 
@@ -87,7 +87,7 @@ public:
     /** @brief Returns the list of allowed vehicle classes
      * @return The list of vehicle classes allowed on this lane
      */
-    const SUMOVehicleClasses& getAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getAllowedClasses() const {
         return myAllowedClasses;
     }
 
@@ -95,7 +95,7 @@ public:
     /** @brief Returns the list of not allowed vehicle classes
      * @return The list of vehicle classes not allowed on this lane
      */
-    const SUMOVehicleClasses& getNotAllowedClasses() const throw() {
+    const SUMOVehicleClasses& getNotAllowedClasses() const {
         return myNotAllowedClasses;
     }
 

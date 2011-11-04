@@ -64,11 +64,11 @@ public:
     SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
                                  const std::map<int, XMLCh*> &predefinedTags,
                                  const std::map<int, std::string> &predefinedTagsMML,
-                                 const std::string& objectType) throw();
+                                 const std::string& objectType) ;
 
 
     /// @brief Destructor
-    virtual ~SUMOSAXAttributesImpl_Xerces() throw();
+    virtual ~SUMOSAXAttributesImpl_Xerces() ;
 
 
 
@@ -81,7 +81,7 @@ public:
      * @param[in] id The id of the searched attribute
      * @return Whether the attribute is within the attributes
      */
-    bool hasAttribute(int id) const throw();
+    bool hasAttribute(int id) const ;
 
 
     /**
@@ -225,7 +225,7 @@ public:
     /**
      * @brief Returns the information whether the named attribute is within the current list
      */
-    bool hasAttribute(const std::string& id) const throw();
+    bool hasAttribute(const std::string& id) const ;
 
 
     /**
@@ -256,7 +256,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      */
     std::string getStringSecure(const std::string& id,
-                                const std::string& def) const throw();
+                                const std::string& def) const ;
     //}
 
 
@@ -267,7 +267,7 @@ public:
      * @param[in] attr The id of the attribute to return the name of
      * @return The name of the described attribute
      */
-    std::string getName(int attr) const throw();
+    std::string getName(int attr) const ;
 
 
 private:
@@ -277,7 +277,7 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const XMLCh* getAttributeValueSecure(int id) const throw();
+    const XMLCh* getAttributeValueSecure(int id) const ;
 
 
 private:

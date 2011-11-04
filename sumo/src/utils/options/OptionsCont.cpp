@@ -507,7 +507,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
 
 
 bool
-OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
+OptionsCont::processMetaOptions(bool missingOptions) {
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;

@@ -66,7 +66,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
                                      NBEdgeCont& ec,
                                      NBTypeCont& tc,
                                      NBDistrictCont& dc,
-                                     OptionsCont& options) throw()
+                                     OptionsCont& options)
     : SUMOSAXHandler("xml-edges - file"),
       myOptions(options),
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
@@ -77,12 +77,12 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
       myHaveWarnedAboutDeprecatedLaneId(false) {}
 
 
-NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
+NIXMLEdgesHandler::~NIXMLEdgesHandler() {}
 
 
 void
 NIXMLEdgesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_EDGE:
             addEdge(attrs);
@@ -361,7 +361,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
 
 
 bool
-NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) throw() {
+NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
     bool ok = true;
@@ -471,7 +471,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position& pos,
 
 
 PositionVector
-NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) throw() {
+NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         return myShape;
     }
@@ -530,7 +530,7 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 
 
 void
-NIXMLEdgesHandler::myEndElement(int element) throw(ProcessError) {
+NIXMLEdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE && myCurrentEdge != 0) {
         if (!myIsUpdate) {
             try {

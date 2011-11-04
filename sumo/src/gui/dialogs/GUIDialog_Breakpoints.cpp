@@ -81,7 +81,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent) throw()
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent)
     : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
       myParent(parent) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -119,13 +119,13 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent) throw()
 }
 
 
-GUIDialog_Breakpoints::~GUIDialog_Breakpoints() throw() {
+GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_Breakpoints::rebuildList() throw() {
+GUIDialog_Breakpoints::rebuildList() {
     myTable->clearItems();
     sort(gBreakpoints.begin(), gBreakpoints.end());
     // set table attributes
@@ -199,7 +199,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
 
 
 std::string
-GUIDialog_Breakpoints::encode2TXT() throw() {
+GUIDialog_Breakpoints::encode2TXT() {
     std::ostringstream strm;
     std::sort(gBreakpoints.begin(), gBreakpoints.end());
     for (std::vector<int>::iterator j = gBreakpoints.begin(); j != gBreakpoints.end(); ++j) {

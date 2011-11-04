@@ -46,11 +46,11 @@
 class PCTypeMap {
 public:
     /// @brief Constructor
-    PCTypeMap() throw();
+    PCTypeMap() ;
 
 
     /// @brief Destructor
-    ~PCTypeMap() throw();
+    ~PCTypeMap() ;
 
 
     /**
@@ -86,7 +86,7 @@ public:
      * @return Whether the type could been added (was not known before)
      */
     bool add(const std::string& id, const std::string& newid, const std::string& color,
-             const std::string& prefix, int layer, bool discard, bool allowFill) throw();
+             const std::string& prefix, int layer, bool discard, bool allowFill) ;
 
 
     /** @brief Returns a type definition
@@ -96,14 +96,14 @@ public:
      * @param[in] id The id of the type to get the definitions of
      * @return Definition of the named type
      */
-    const TypeDef& get(const std::string& id) throw();
+    const TypeDef& get(const std::string& id) ;
 
 
     /** @brief Returns the information whether the named type is known
      * @param[in] id The id of the type
      * @return Whether a definition of the named type was added before
      */
-    bool has(const std::string& id) throw();
+    bool has(const std::string& id) ;
 
 
 protected:

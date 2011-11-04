@@ -59,7 +59,7 @@ public:
      *
      * Does nothing, a later call to reinit is necessary
      */
-    NamedColumnsParser() throw();
+    NamedColumnsParser() ;
 
 
     /** @brief Constructor
@@ -76,11 +76,11 @@ public:
      */
     NamedColumnsParser(const std::string& def, const std::string& defDelim = ";",
                        const std::string& lineDelim = ";", bool chomp = false,
-                       bool ignoreCase = true) throw();
+                       bool ignoreCase = true) ;
 
 
     /// @brief Destructor
-    ~NamedColumnsParser() throw();
+    ~NamedColumnsParser() ;
 
 
     /** @brief Reinitialises the parser
@@ -96,7 +96,7 @@ public:
      */
     void reinit(const std::string& def, const std::string& defDelim = ";",
                 const std::string& lineDelim = ";", bool chomp = false,
-                bool ignoreCase = true) throw();
+                bool ignoreCase = true) ;
 
 
     /** @brief Parses the contents of the line
@@ -107,7 +107,7 @@ public:
      *
      * @param[in] line The line to parse
      */
-    void parseLine(const std::string& line) throw();
+    void parseLine(const std::string& line) ;
 
 
     /** @brief Returns the named information
@@ -133,14 +133,14 @@ public:
      * @param[in] name The name of the value to check
      * @return Whether the named value is stored in the parsed line
      */
-    bool know(const std::string& name) const throw();
+    bool know(const std::string& name) const ;
 
 
     /** @brief Returns whether the number of named columns matches the actual number
      *
      * @return Whether the number of named columns matches the actual number
      */
-    bool hasFullDefinition() const throw();
+    bool hasFullDefinition() const ;
 
 
 private:
@@ -157,7 +157,7 @@ private:
      * @param[in] chomp Whether the tokens shall be prunned
      */
     void reinitMap(std::string def, const std::string& delim = ";",
-                   bool chomp = false) throw();
+                   bool chomp = false) ;
 
 
     /** @brief Prunes the given string if it shall be done
@@ -168,7 +168,7 @@ private:
      * @param[in, out] str The string to prune (optionally)
      * @param[in] prune Whether the string shall be prunned
      */
-    void checkPrune(std::string& str, bool prune) const throw();
+    void checkPrune(std::string& str, bool prune) const ;
 
 
 private:

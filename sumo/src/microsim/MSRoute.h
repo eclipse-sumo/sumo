@@ -62,10 +62,10 @@ public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
             unsigned int references, const RGBColor& c,
-            const std::vector<SUMOVehicleParameter::Stop> &stops) throw();
+            const std::vector<SUMOVehicleParameter::Stop> &stops) ;
 
     /// Destructor
-    virtual ~MSRoute() throw();
+    virtual ~MSRoute() ;
 
     /// Returns the begin of the list of edges to pass
     MSRouteIterator begin() const;
@@ -88,7 +88,7 @@ public:
     /// output the edge ids up to but not including the id of the given edge
     void writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
 
-    bool contains(const MSEdge* const edge) const throw() {
+    bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
     }
 
@@ -104,14 +104,14 @@ public:
      *
      * @param[in] os The stream to write the routes into (binary)
      */
-    static void dict_saveState(std::ostream& os) throw();
+    static void dict_saveState(std::ostream& os) ;
 
 
     /** @brief Loads routes from the state.
      *
      * @param[in] bis The input to read the routes from (binary)
      */
-    static void dict_loadState(BinaryInputDevice& bis) throw();
+    static void dict_loadState(BinaryInputDevice& bis) ;
     /// @}
 #endif
 

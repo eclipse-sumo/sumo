@@ -42,10 +42,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrictCont::ODDistrictCont() throw() {}
+ODDistrictCont::ODDistrictCont() {}
 
 
-ODDistrictCont::~ODDistrictCont() throw() {}
+ODDistrictCont::~ODDistrictCont() {}
 
 
 std::string

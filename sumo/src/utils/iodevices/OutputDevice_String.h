@@ -48,17 +48,17 @@ public:
     /** @brief Constructor
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_String(const unsigned int defaultIndentation = 0) throw(IOError);
+    OutputDevice_String(const unsigned int defaultIndentation = 0);
 
 
     /// @brief Destructor
-    ~OutputDevice_String() throw();
+    ~OutputDevice_String() ;
 
 
     /** @brief Returns the current content as a string
      * @return The content as string
      */
-    std::string getString() throw();
+    std::string getString() ;
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods
@@ -67,7 +67,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream() throw();
+    std::ostream& getOStream() ;
     /// @}
 
 

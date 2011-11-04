@@ -43,21 +43,21 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrict::ODDistrict(const std::string& id) throw()
+ODDistrict::ODDistrict(const std::string& id)
     : Named(id) {}
 
 
-ODDistrict::~ODDistrict() throw() {}
+ODDistrict::~ODDistrict() {}
 
 
 void
-ODDistrict::addSource(const std::string& id, SUMOReal weight) throw() {
+ODDistrict::addSource(const std::string& id, SUMOReal weight) {
     mySources.add(weight, id);
 }
 
 
 void
-ODDistrict::addSink(const std::string& id, SUMOReal weight) throw() {
+ODDistrict::addSink(const std::string& id, SUMOReal weight) {
     mySinks.add(weight, id);
 }
 

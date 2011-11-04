@@ -109,12 +109,12 @@ public:
     /** @brief Returns whether this edge was found to be within a junction
      * @return Whether this node is assumed to be within a junction
      */
-    bool wasWithinAJunction() const throw() {
+    bool wasWithinAJunction() const {
         return myAmWithinJunction;
     }
 
-    NIVissimEdge* getBestIncoming() const throw();
-    NIVissimEdge* getBestOutgoing() const throw();
+    NIVissimEdge* getBestIncoming() const ;
+    NIVissimEdge* getBestOutgoing() const ;
 
     friend class NIVissimNodeDef_Edges;
     friend class NIVissimNodeDef_Poly;
@@ -142,7 +142,7 @@ public:
      *
      * @todo Probably the distance (MAX_CLUSTER_DISTANCE=10m) should be made variable
      */
-    static void buildConnectionClusters() throw();
+    static void buildConnectionClusters() ;
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
@@ -161,7 +161,7 @@ public:
      * If the option "vissim.report-unset-speeds" is set, all lane ids stored within
      *  this container are written.
      */
-    static void reportUnsetSpeeds() throw();
+    static void reportUnsetSpeeds() ;
 
 
 private:
@@ -178,7 +178,7 @@ private:
      * @exception ProcessError If one of the built nodes or edges could not be added to the according container
      */
     void buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc,
-                     NBEdgeCont& ec, SUMOReal sameNodesOffset) throw(ProcessError);
+                     NBEdgeCont& ec, SUMOReal sameNodesOffset) ;
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>

@@ -52,7 +52,7 @@ bool XMLSubSys::myEnableValidation;
 // method definitions
 // ===========================================================================
 void
-XMLSubSys::init(bool enableValidation) throw(ProcessError) {
+XMLSubSys::init(bool enableValidation) {
     myEnableValidation = enableValidation;
     try {
         XMLPlatformUtils::Initialize();
@@ -65,7 +65,7 @@ XMLSubSys::init(bool enableValidation) throw(ProcessError) {
 
 
 void
-XMLSubSys::close() throw() {
+XMLSubSys::close() {
     for (std::vector<SAX2XMLReader*>::iterator i = myReaders.begin(); i != myReaders.end(); ++i) {
         delete *i;
     }
@@ -75,7 +75,7 @@ XMLSubSys::close() throw() {
 
 
 SAX2XMLReader*
-XMLSubSys::getSAXReader(SUMOSAXHandler& handler) throw() {
+XMLSubSys::getSAXReader(SUMOSAXHandler& handler) {
     SAX2XMLReader* reader = getSAXReader();
     if (reader == 0) {
         return 0;
@@ -95,7 +95,7 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 
 bool
 XMLSubSys::runParser(GenericSAXHandler& handler,
-                     const std::string& file) throw() {
+                     const std::string& file) {
     try {
         if (myNextFreeReader == myReaders.size()) {
             myReaders.push_back(getSAXReader());
@@ -121,7 +121,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
 
 
 SAX2XMLReader*
-XMLSubSys::getSAXReader() throw() {
+XMLSubSys::getSAXReader() {
     SAX2XMLReader* reader = XMLReaderFactory::createXMLReader();
     if (reader == 0) {
         WRITE_ERROR("The XML-parser could not be build");
@@ -141,7 +141,7 @@ XMLSubSys::getSAXReader() throw() {
 
 void
 XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
-                      const std::string& feature, bool value) throw() {
+                      const std::string& feature, bool value) {
     XMLCh* xmlFeature = XMLString::transcode(feature.c_str());
     reader.setFeature(xmlFeature, value);
     XMLString::release(&xmlFeature);

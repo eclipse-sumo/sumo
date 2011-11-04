@@ -49,18 +49,18 @@ public:
      * @param[in] reason The reason the simulation has ended
      * @param[in] step The time step the simulation has ended at
      */
-    GUIEvent_SimulationEnded(MSNet::SimulationState reason, SUMOTime step) throw()
+    GUIEvent_SimulationEnded(MSNet::SimulationState reason, SUMOTime step)
         : GUIEvent(EVENT_SIMULATION_ENDED), myReason(reason), myStep(step) {}
 
 
     /// @brief Destructor
-    ~GUIEvent_SimulationEnded() throw() { }
+    ~GUIEvent_SimulationEnded() { }
 
 
     /** @brief Returns the time step the simulation has ended at
      * @return The time step the simulation has ended at
      */
-    SUMOTime getTimeStep() const throw() {
+    SUMOTime getTimeStep() const {
         return myStep;
     }
 

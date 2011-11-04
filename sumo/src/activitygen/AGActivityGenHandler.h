@@ -57,7 +57,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~AGActivityGenHandler() throw();
+    virtual ~AGActivityGenHandler() ;
 
 
 protected:
@@ -72,7 +72,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) ;
     //@}
 
 protected:

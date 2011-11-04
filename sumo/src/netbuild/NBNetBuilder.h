@@ -110,10 +110,10 @@ class NBNetBuilder {
 
 public:
     /// @brief Constructor
-    NBNetBuilder() throw();
+    NBNetBuilder() ;
 
     /// @brief Destructor
-    ~NBNetBuilder() throw();
+    ~NBNetBuilder() ;
 
 
     /** @brief Initialises the storage by applying given options
@@ -124,7 +124,7 @@ public:
      * @param[in] oc The options container to read options from
      * @exception ProcessError If something fails (message is included)
      */
-    void applyOptions(OptionsCont& oc) throw(ProcessError);
+    void applyOptions(OptionsCont& oc) ;
 
 
     /** @brief Performs the network building steps
@@ -146,7 +146,7 @@ public:
     /** @brief Returns the edge container
      * @return The edge container (reference)
      */
-    NBEdgeCont& getEdgeCont() throw() {
+    NBEdgeCont& getEdgeCont() {
         return myEdgeCont;
     }
 
@@ -154,7 +154,7 @@ public:
     /** @brief Returns the node container
      * @return The node container (reference)
      */
-    NBNodeCont& getNodeCont() throw() {
+    NBNodeCont& getNodeCont() {
         return myNodeCont;
     }
 
@@ -162,7 +162,7 @@ public:
     /** @brief Returns the type container
      * @return The type container (reference)
      */
-    NBTypeCont& getTypeCont() throw() {
+    NBTypeCont& getTypeCont() {
         return myTypeCont;
     }
 
@@ -170,7 +170,7 @@ public:
     /** @brief Returns the traffic light logics container
      * @return The traffic light logics container (reference)
      */
-    NBTrafficLightLogicCont& getTLLogicCont() throw() {
+    NBTrafficLightLogicCont& getTLLogicCont() {
         return myTLLCont;
     }
 
@@ -178,7 +178,7 @@ public:
     /** @brief Returns the districts container
      * @return The districts container (reference)
      */
-    NBDistrictCont& getDistrictCont() throw() {
+    NBDistrictCont& getDistrictCont() {
         return myDistrictCont;
     }
 

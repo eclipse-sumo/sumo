@@ -68,7 +68,7 @@ private:
     static bool commandDistanceRequest(traci::TraCIServer& server, tcpip::Storage& inputStorage,
                                        tcpip::Storage& outputStorage, const MSVehicle* v);
 
-    static MSVehicleType& getSingularType(SUMOVehicle* const veh) throw();
+    static MSVehicleType& getSingularType(SUMOVehicle* const veh) ;
 
 
 private:

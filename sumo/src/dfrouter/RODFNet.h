@@ -50,11 +50,11 @@ public:
     /** @brief Constructor
      * @param[in] amInHighwayMode Whether search for following edges shall stop at slow edges
      */
-    RODFNet(bool amInHighwayMode) throw();
+    RODFNet(bool amInHighwayMode) ;
 
 
     /// @brief Destructor
-    ~RODFNet() throw();
+    ~RODFNet() ;
 
 
     void buildApproachList();

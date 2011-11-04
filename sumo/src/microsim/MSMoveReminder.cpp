@@ -35,7 +35,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd) throw()
+MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd)
     : myLane(lane) {
     if (myLane != 0 && doAdd) {
         // add reminder to lane
@@ -47,7 +47,7 @@ MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd) throw()
 #ifdef HAVE_MESOSIM
 void
 MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
-                               SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) throw() {
+                               SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) {
     std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> >::iterator j = myLastVehicleUpdateValues.find(&veh);
     if (j != myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these

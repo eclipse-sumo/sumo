@@ -68,19 +68,19 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true) throw();
+    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true) ;
 
 
     /** @brief Destructor
      */
-    virtual ~MSMoveReminder() throw() {}
+    virtual ~MSMoveReminder() {}
 
 
     /** @brief Returns the lane the reminder works on.
      *
      * @return The lane the reminder works on.
      */
-    const MSLane* getLane() const throw() {
+    const MSLane* getLane() const {
         return myLane;
     }
 
@@ -121,7 +121,7 @@ public:
      * @return True if vehicle enters the reminder.
      * @see Notification
      */
-    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason) throw() {
+    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(&veh);
         return true;
@@ -144,7 +144,7 @@ public:
     virtual bool notifyMove(SUMOVehicle& veh,
                             SUMOReal oldPos,
                             SUMOReal newPos,
-                            SUMOReal newSpeed) throw() {
+                            SUMOReal newSpeed) {
         UNUSED_PARAMETER(oldPos);
         UNUSED_PARAMETER(newPos);
         UNUSED_PARAMETER(newSpeed);
@@ -167,7 +167,7 @@ public:
      * @return True if the reminder wants to receive further info.
      */
     virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                             Notification reason) throw() {
+                             Notification reason) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(&veh);
@@ -177,7 +177,7 @@ public:
 
 #ifdef HAVE_MESOSIM
     void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
-                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) throw();
+                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) ;
 #endif
 
     /// @}
@@ -195,7 +195,7 @@ public:
      */
     virtual void notifyMoveInternal(SUMOVehicle& veh,
                                     SUMOReal timeOnLane,
-                                    SUMOReal speed) throw() {
+                                    SUMOReal speed) {
         UNUSED_PARAMETER(speed);
         UNUSED_PARAMETER(timeOnLane);
         UNUSED_PARAMETER(&veh);

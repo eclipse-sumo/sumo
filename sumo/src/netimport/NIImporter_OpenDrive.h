@@ -221,7 +221,7 @@ protected:
             lanesByDir[OPENDRIVE_TAG_CENTER] = std::vector<OpenDriveLane>();
         }
 
-        unsigned int getLaneNumber(OpenDriveXMLTag dir) const throw() {
+        unsigned int getLaneNumber(OpenDriveXMLTag dir) const {
             unsigned int laneNum = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
             for (std::vector<OpenDriveLane>::const_iterator i = dirLanes.begin(); i != dirLanes.end(); ++i) {
@@ -266,7 +266,7 @@ protected:
             : id(idArg), junction(junctionArg), length(lengthArg),
               from(0), to(0) { }
 
-        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const throw() {
+        unsigned int getMaxLaneNumber(OpenDriveXMLTag dir) const {
             unsigned int maxLaneNum = 0;
             for (std::vector<OpenDriveLaneSection>::const_iterator i = laneSections.begin(); i != laneSections.end(); ++i) {
                 maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
@@ -308,7 +308,7 @@ protected:
 
 
     /// @brief Destructor
-    ~NIImporter_OpenDrive() throw();
+    ~NIImporter_OpenDrive() ;
 
 
 
@@ -326,7 +326,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when characters occure
@@ -337,7 +337,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) throw(ProcessError);
+                      const std::string& chars) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -346,16 +346,16 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) throw(ProcessError);
+    void myEndElement(int element) ;
     //@}
 
 
 
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
-                 const std::string& contactPoint) throw(ProcessError);
+                 const std::string& contactPoint) ;
 
-    void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) throw(ProcessError);
+    void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) ;
 
     OpenDriveEdge myCurrentEdge;
 
@@ -379,25 +379,25 @@ protected:
      * @return The retrieved/built node
      * @exception ProcessError If the node could not be built/retrieved
      */
-    static NBNode* getOrBuildNode(const std::string& id, Position& pos, NBNodeCont& nc) throw(ProcessError);
+    static NBNode* getOrBuildNode(const std::string& id, Position& pos, NBNodeCont& nc) ;
 
 
-    static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw();
-    static std::vector<Position> geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw();
-    static std::vector<Position> geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw();
-    static std::vector<Position> geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw();
-    static Position calculateStraightEndPoint(double hdg, double length, const Position& start) throw();
-    static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
+    static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
+    static std::vector<Position> geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
+    static std::vector<Position> geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
+    static std::vector<Position> geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
+    static Position calculateStraightEndPoint(double hdg, double length, const Position& start) ;
+    static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) ;
     static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
-                                 SUMOReal ad_r, SUMOReal ad_length) throw();
+                                 SUMOReal ad_r, SUMOReal ad_length) ;
     static NBEdge* getOutgoingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
-            const std::string& edgeID, const std::string& nodeID) throw();
+            const std::string& edgeID, const std::string& nodeID) ;
     static NBEdge* getIncomingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
-            const std::string& edgeID, const std::string& nodeID) throw();
+            const std::string& edgeID, const std::string& nodeID) ;
 
-    static void computeShapes(std::vector<OpenDriveEdge> &edges) throw();
+    static void computeShapes(std::vector<OpenDriveEdge> &edges) ;
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
+                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) ;
 
     static void addE2EConnectionsSecure(const NBEdgeCont& ec, const NBNode* const node,
                                         const OpenDriveEdge& from, const OpenDriveEdge& to,

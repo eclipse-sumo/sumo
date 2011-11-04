@@ -60,7 +60,7 @@
 // method definitions
 // ===========================================================================
 NIXMLTrafficLightsHandler::NIXMLTrafficLightsHandler(
-    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec) throw() :
+    NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec) :
     SUMOSAXHandler("xml-tllogics"),
     myTLLCont(tlCont),
     myEdgeCont(ec),
@@ -69,12 +69,12 @@ NIXMLTrafficLightsHandler::NIXMLTrafficLightsHandler(
 {}
 
 
-NIXMLTrafficLightsHandler::~NIXMLTrafficLightsHandler() throw() {}
+NIXMLTrafficLightsHandler::~NIXMLTrafficLightsHandler() {}
 
 
 void
 NIXMLTrafficLightsHandler::myStartElement(
-    int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+    int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
             myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
@@ -99,7 +99,7 @@ NIXMLTrafficLightsHandler::myStartElement(
 
 
 void
-NIXMLTrafficLightsHandler::myEndElement(int element) throw(ProcessError) {
+NIXMLTrafficLightsHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentTL) {

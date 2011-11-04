@@ -49,7 +49,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime begin) throw()
+MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime begin)
     : MSDetectorFileOutput(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
     myCurrentRouteDistribution = MSRoute::distDictionary(distID);
@@ -73,12 +73,12 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime b
 }
 
 
-MSRouteProbe::~MSRouteProbe() throw() {
+MSRouteProbe::~MSRouteProbe() {
 }
 
 
 bool
-MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (myCurrentRouteDistribution != 0 && reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         veh.getRoute().addReference();
         myCurrentRouteDistribution->add(1., &veh.getRoute());
@@ -89,7 +89,7 @@ MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason)
 
 void
 MSRouteProbe::writeXMLOutput(OutputDevice& dev,
-                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+                             SUMOTime startTime, SUMOTime stopTime) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         dev.openTag("routeDistribution") << " id=\"" << getID() + "_" + time2string(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
@@ -114,6 +114,6 @@ MSRouteProbe::writeXMLOutput(OutputDevice& dev,
 
 
 void
-MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
+MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("route-probes");
 }

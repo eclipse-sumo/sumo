@@ -64,7 +64,7 @@
 // ===========================================================================
 
 /// Loads the network
-void loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) throw(ProcessError) {
+void loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     OptionsCont& oc = OptionsCont::getOptions();
     std::string file = oc.getString("net-file");
     if (file == "") {

@@ -50,12 +50,12 @@ GUIDetectorWrapper::GUIDetectorWrapper(
     GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
 
 
-GUIDetectorWrapper::~GUIDetectorWrapper() throw() {}
+GUIDetectorWrapper::~GUIDetectorWrapper() {}
 
 
 GUIGLObjectPopupMenu*
 GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app,
-                                 GUISUMOAbstractView& parent) throw() {
+                                 GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);

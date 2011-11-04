@@ -41,7 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) throw() :
+AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) :
     location(inStreet),
     openingTime(generateOpeningTime(*ds)),
     closingTime(generateClosingTime(*ds)),
@@ -52,7 +52,7 @@ AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds
 
 /****************************************************************************/
 
-AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) throw() :
+AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) :
     location(inStreet, pos),
     openingTime(generateOpeningTime(*ds)),
     closingTime(generateClosingTime(*ds)),
@@ -61,14 +61,14 @@ AGWorkPosition::AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAnd
     ds->workPositions++;
 }
 
-AGWorkPosition::~AGWorkPosition() throw() {
+AGWorkPosition::~AGWorkPosition() {
 //    let();
 }
 
 /****************************************************************************/
 
 void
-AGWorkPosition::print() const throw() {
+AGWorkPosition::print() const {
     std::cout << "- AGWorkPosition: open=" << openingTime << " closingTime=" << closingTime << " taken=" << isTaken() << std::endl;
     std::cout << "\t";
     location.print();
@@ -77,7 +77,7 @@ AGWorkPosition::print() const throw() {
 /****************************************************************************/
 
 int
-AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
+AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) {
     SUMOReal choice = RandHelper::rand();
     SUMOReal cumul = 0;
 
@@ -95,7 +95,7 @@ AGWorkPosition::generateOpeningTime(const AGDataAndStatistics& ds) throw() {
 /****************************************************************************/
 
 int
-AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) throw() {
+AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
     SUMOReal choice = RandHelper::rand();
     SUMOReal cumul = 0;
     for (std::map<int, SUMOReal>::const_iterator it = ds.endWorkHours.begin();
@@ -112,14 +112,14 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) throw() {
 /****************************************************************************/
 
 bool
-AGWorkPosition::isTaken() const throw() {
+AGWorkPosition::isTaken() const {
     return (adult != 0);
 }
 
 /****************************************************************************/
 
 void
-AGWorkPosition::let() throw() {
+AGWorkPosition::let() {
     if (adult != 0) {
         ds->workPositions++;
         adult->lostWorkPosition();
@@ -142,21 +142,21 @@ AGWorkPosition::take(AGAdult* worker) throw(std::runtime_error) {
 /****************************************************************************/
 
 AGPosition
-AGWorkPosition::getPosition() const throw() {
+AGWorkPosition::getPosition() const {
     return location;
 }
 
 /****************************************************************************/
 
 int
-AGWorkPosition::getClosing() const throw() {
+AGWorkPosition::getClosing() const {
     return closingTime;
 }
 
 /****************************************************************************/
 
 int
-AGWorkPosition::getOpening() const throw() {
+AGWorkPosition::getOpening() const {
     return openingTime;
 }
 

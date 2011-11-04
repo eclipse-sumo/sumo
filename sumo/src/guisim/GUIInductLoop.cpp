@@ -58,11 +58,11 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             SUMOReal position, bool splitByType) throw()
+                             SUMOReal position, bool splitByType)
     : MSInductLoop(id, lane, position, splitByType) {}
 
 
-GUIInductLoop::~GUIInductLoop() throw() {}
+GUIInductLoop::~GUIInductLoop() {}
 
 
 GUIDetectorWrapper*
@@ -72,7 +72,7 @@ GUIInductLoop::buildDetectorGUIRepresentation() {
 
 
 void
-GUIInductLoop::reset() throw() {
+GUIInductLoop::reset() {
     myLock.lock();
     MSInductLoop::reset();
     myLock.unlock();
@@ -80,21 +80,21 @@ GUIInductLoop::reset() throw() {
 
 
 void
-GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) throw() {
+GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) {
     myLock.lock();
     MSInductLoop::enterDetectorByMove(veh, entryTimestep);
     myLock.unlock();
 }
 
 void
-GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) throw() {
+GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) {
     myLock.lock();
     MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
     myLock.unlock();
 }
 
 void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
+GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) {
     myLock.lock();
     MSInductLoop::leaveDetectorByLaneChange(veh);
     myLock.unlock();
@@ -102,7 +102,7 @@ GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
 
 
 std::vector<MSInductLoop::VehicleData>
-GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
+GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const {
     myLock.lock();
     std::vector<VehicleData> ret = MSInductLoop::collectVehiclesOnDet(t);
     myLock.unlock();
@@ -114,7 +114,7 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t) const throw() {
  * GUIInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector,
-                                    GUILaneWrapper& wrapper, SUMOReal pos) throw()
+                                    GUILaneWrapper& wrapper, SUMOReal pos)
     : GUIDetectorWrapper("induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
     const PositionVector& v = wrapper.getShape();
@@ -127,11 +127,11 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector,
 }
 
 
-GUIInductLoop::MyWrapper::~MyWrapper() throw() {}
+GUIInductLoop::MyWrapper::~MyWrapper() {}
 
 
 Boundary
-GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
+GUIInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -141,7 +141,7 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
 
 GUIParameterTableWindow*
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
-        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) throw() {
+        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     // parameter
@@ -165,7 +165,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);

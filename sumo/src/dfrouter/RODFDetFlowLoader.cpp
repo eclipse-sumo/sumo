@@ -49,14 +49,14 @@
 RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon& dets,
                                      RODFDetectorFlows& into,
                                      SUMOTime startTime, SUMOTime endTime,
-                                     SUMOTime timeOffset, SUMOTime timeScale) throw()
+                                     SUMOTime timeOffset, SUMOTime timeScale)
     : myStorage(into), myTimeOffset(timeOffset), myTimeScale(timeScale),
       myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets),
       myHaveWarnedAboutOverridingBoundaries(false), myHaveWarnedAboutPartialDefs(false) {}
 
 
 
-RODFDetFlowLoader::~RODFDetFlowLoader() throw() {}
+RODFDetFlowLoader::~RODFDetFlowLoader() {}
 
 
 void

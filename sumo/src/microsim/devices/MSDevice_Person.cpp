@@ -44,7 +44,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 MSDevice_Person*
-MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
+MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
     MSDevice_Person* device = new MSDevice_Person(v, "person_" + v.getID());
     into.push_back(device);
     return device;
@@ -54,17 +54,17 @@ MSDevice_Person::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &int
 // ---------------------------------------------------------------------------
 // MSDevice_Person-methods
 // ---------------------------------------------------------------------------
-MSDevice_Person::MSDevice_Person(SUMOVehicle& holder, const std::string& id) throw()
+MSDevice_Person::MSDevice_Person(SUMOVehicle& holder, const std::string& id)
     : MSDevice(holder, id), myPersons(), myStopped(holder.isStopped()) {
 }
 
 
-MSDevice_Person::~MSDevice_Person() throw() {
+MSDevice_Person::~MSDevice_Person() {
 }
 
 
 bool
-MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw() {
+MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) {
     if (myStopped) {
         if (!veh.isStopped()) {
             for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
@@ -90,7 +90,7 @@ MSDevice_Person::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*ne
 
 
 bool
-MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) throw() {
+MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
@@ -102,7 +102,7 @@ MSDevice_Person::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification 
 
 bool
 MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
-                             MSMoveReminder::Notification reason) throw() {
+                             MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSPerson*>::iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             if (&(*i)->getDestination() != veh.getEdge()) {
@@ -118,7 +118,7 @@ MSDevice_Person::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
 
 
 void
-MSDevice_Person::addPerson(MSPerson* person) throw() {
+MSDevice_Person::addPerson(MSPerson* person) {
     myPersons.push_back(person);
 }
 

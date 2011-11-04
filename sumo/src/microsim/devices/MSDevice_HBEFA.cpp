@@ -46,7 +46,7 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_HBEFA::insertOptions() throw() {
+MSDevice_HBEFA::insertOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Emissions");
 
@@ -63,7 +63,7 @@ MSDevice_HBEFA::insertOptions() throw() {
 
 
 void
-MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw() {
+MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getFloat("device.hbefa.probability") == 0 && !oc.isSet("device.hbefa.explicit")) {
         // no route computation is modelled
@@ -88,18 +88,18 @@ MSDevice_HBEFA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into
 // ---------------------------------------------------------------------------
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
-MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id) throw()
+MSDevice_HBEFA::MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id)
     : MSDevice(holder, id),
       myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 
 
-MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
+MSDevice_HBEFA::~MSDevice_HBEFA() {
 }
 
 
 bool
-MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal newSpeed) throw() {
+MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal newSpeed) {
     SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     SUMOReal a = veh.getPreDawdleAcceleration();
     myCO2 += HelpersHBEFA::computeCO2(c, newSpeed, a);
@@ -113,7 +113,7 @@ MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*new
 
 
 void
-MSDevice_HBEFA::generateOutput() const throw(IOError) {
+MSDevice_HBEFA::generateOutput() const {
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     (os.openTag("emissions") <<
      " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<

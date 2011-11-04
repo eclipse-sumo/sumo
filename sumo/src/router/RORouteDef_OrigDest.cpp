@@ -52,12 +52,12 @@ RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string& id,
         const RGBColor* const color,
         const ROEdge* from,
         const ROEdge* to,
-        bool removeFirst) throw()
+        bool removeFirst)
     : RORouteDef(id, color), myFrom(from), myTo(to), myCurrent(0),
       myRemoveFirst(removeFirst) {}
 
 
-RORouteDef_OrigDest::~RORouteDef_OrigDest() throw() {
+RORouteDef_OrigDest::~RORouteDef_OrigDest() {
     delete myCurrent;
 }
 

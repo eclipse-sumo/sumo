@@ -83,11 +83,11 @@ private:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
          */
-        NodesHandler(NBNodeCont& toFill) throw();
+        NodesHandler(NBNodeCont& toFill) ;
 
 
         /// @brief Destructor
-        ~NodesHandler() throw();
+        ~NodesHandler() ;
 
 
     protected:
@@ -101,7 +101,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
         //@}
 
 
@@ -137,11 +137,11 @@ private:
          */
         EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
                      bool keepEdgeLengths, bool lanesFromCapacity,
-                     NBCapacity2Lanes capacity2Lanes) throw();
+                     NBCapacity2Lanes capacity2Lanes) ;
 
 
         /// @brief Destructor
-        ~EdgesHandler() throw();
+        ~EdgesHandler() ;
 
 
     protected:
@@ -155,7 +155,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
         //@}
 
 

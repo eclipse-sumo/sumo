@@ -76,7 +76,7 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) throw() :
+GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) :
     GUIGlObject(GLO_LANE, lane.getID()),
     myLane(lane),
     myShape(shape),
@@ -107,7 +107,7 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
 }
 
 
-GUILaneWrapper::~GUILaneWrapper() throw() {}
+GUILaneWrapper::~GUILaneWrapper() {}
 
 
 SUMOReal
@@ -391,7 +391,7 @@ GUILaneWrapper::ROWdrawAction_drawLane2LaneConnections() const {
 
 
 void
-GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     const bool isInternal = getLane().getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL;
     bool mustDrawMarkings = false;
@@ -504,7 +504,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
 
 GUIGLObjectPopupMenu*
 GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,
-                             GUISUMOAbstractView& parent) throw() {
+                             GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -523,7 +523,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUILaneWrapper::getParameterWindow(GUIMainWindow& app,
-                                   GUISUMOAbstractView&) throw() {
+                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
@@ -536,7 +536,7 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow& app,
 
 
 Boundary
-GUILaneWrapper::getCenteringBoundary() const throw() {
+GUILaneWrapper::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape[0]);
     b.add(myShape[-1]);
@@ -587,37 +587,37 @@ GUILaneWrapper::getEdgeLaneNumber() const {
 
 // ------------ Current state retrieval
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_CO2Emissions() const throw() {
+GUILaneWrapper::getNormedHBEFA_CO2Emissions() const {
     return myLane.getHBEFA_CO2Emissions() / myLane.getLength();
 }
 
 
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_COEmissions() const throw() {
+GUILaneWrapper::getNormedHBEFA_COEmissions() const {
     return myLane.getHBEFA_COEmissions() / myLane.getLength();
 }
 
 
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_PMxEmissions() const throw() {
+GUILaneWrapper::getNormedHBEFA_PMxEmissions() const {
     return myLane.getHBEFA_PMxEmissions() / myLane.getLength();
 }
 
 
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_NOxEmissions() const throw() {
+GUILaneWrapper::getNormedHBEFA_NOxEmissions() const {
     return myLane.getHBEFA_NOxEmissions() / myLane.getLength();
 }
 
 
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_HCEmissions() const throw() {
+GUILaneWrapper::getNormedHBEFA_HCEmissions() const {
     return myLane.getHBEFA_HCEmissions() / myLane.getLength();
 }
 
 
 SUMOReal
-GUILaneWrapper::getNormedHBEFA_FuelConsumption() const throw() {
+GUILaneWrapper::getNormedHBEFA_FuelConsumption() const {
     return myLane.getHBEFA_FuelConsumption() / myLane.getLength();
 }
 

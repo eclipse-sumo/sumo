@@ -44,7 +44,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter() throw()
+SUMOVTypeParameter::SUMOVTypeParameter()
     : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH),
       minGap(DEFAULT_VEH_MINGAP), maxSpeed(DEFAULT_VEH_MAXSPEED),
       defaultProbability(DEFAULT_VEH_PROB),
@@ -58,7 +58,7 @@ SUMOVTypeParameter::SUMOVTypeParameter() throw()
 
 
 void
-SUMOVTypeParameter::write(OutputDevice& dev) const throw(IOError) {
+SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (onlyReferenced) {
         return;
     }

@@ -73,7 +73,7 @@
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string& id,
-        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
+        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const {
     MSEdge* edge = MSEdge::dictionary(id);
     if (edge != 0) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
@@ -88,7 +88,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
-        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const throw() {
+        SUMOReal value, SUMOReal begTime, SUMOReal endTime) const {
     MSEdge* edge = MSEdge::dictionary(id);
     if (edge != 0) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
@@ -106,17 +106,17 @@ NLBuilder::NLBuilder(OptionsCont& oc,
                      NLEdgeControlBuilder& eb,
                      NLJunctionControlBuilder& jb,
                      NLDetectorBuilder& db,
-                     NLHandler& xmlHandler) throw()
+                     NLHandler& xmlHandler)
     : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
       myDetectorBuilder(db),
       myNet(net), myXMLHandler(xmlHandler) {}
 
 
-NLBuilder::~NLBuilder() throw() {}
+NLBuilder::~NLBuilder() {}
 
 
 bool
-NLBuilder::build() throw(ProcessError) {
+NLBuilder::build() {
     // try to build the net
     if (!load("net-file")) {
         return false;
@@ -195,7 +195,7 @@ NLBuilder::build() throw(ProcessError) {
 
 
 void
-NLBuilder::buildNet() throw(ProcessError) {
+NLBuilder::buildNet() {
     MSEdgeControl* edges = 0;
     MSJunctionControl* junctions = 0;
     MSRouteLoaderControl* routeLoaders = 0;
@@ -263,7 +263,7 @@ NLBuilder::load(const std::string& mmlWhat) {
 
 
 MSRouteLoaderControl*
-NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) throw(ProcessError) {
+NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing

@@ -55,7 +55,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec) throw() :
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec) :
     SUMOSAXHandler("xml-connection-description"),
     myEdgeCont(ec),
     myHaveWarnedAboutDeprecatedLanes(false),
@@ -63,12 +63,12 @@ NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec) throw() :
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {}
 
 
-NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
+NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {}
 
 
 void
 NIXMLConnectionsHandler::myStartElement(int element,
-                                        const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                        const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_RESET) {
         bool ok = true;
         std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
@@ -157,7 +157,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
 
 
 NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) throw() {
+NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) {
     // split from/to
     size_t div = def.find("->");
     if (div == std::string::npos) {
@@ -192,7 +192,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
 
 
 void
-NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) throw() {
+NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) {
     if (to == 0) {
         // do nothing if it's a dead end
         return;

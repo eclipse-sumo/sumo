@@ -69,32 +69,32 @@ public:
      */
     MSBusStop(const std::string& id,
               const std::vector<std::string> &lines, MSLane& lane,
-              SUMOReal begPos, SUMOReal endPos) throw();
+              SUMOReal begPos, SUMOReal endPos) ;
 
 
     /// @brief Destructor
-    virtual ~MSBusStop() throw();
+    virtual ~MSBusStop() ;
 
 
     /** @brief Returns the lane this bus stop is located at
      *
      * @return Reference to the lane the bus stop is located at
      */
-    const MSLane& getLane() const throw();
+    const MSLane& getLane() const ;
 
 
     /** @brief Returns the begin position of this bus stop
      *
      * @return The position the bus stop begins at
      */
-    SUMOReal getBeginLanePosition() const throw();
+    SUMOReal getBeginLanePosition() const ;
 
 
     /** @brief Returns the end position of this bus stop
      *
      * @return The position the bus stop ends at
      */
-    SUMOReal getEndLanePosition() const throw();
+    SUMOReal getEndLanePosition() const ;
 
 
     /** @brief Called if a vehicle enters this stop
@@ -108,7 +108,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(void* what, SUMOReal beg, SUMOReal end) throw();
+    void enter(void* what, SUMOReal beg, SUMOReal end) ;
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -120,14 +120,14 @@ public:
      * @param[in] what The vehicle that leaves the bus stop
      * @see computeLastFreePos
      */
-    void leaveFrom(void* what) throw();
+    void leaveFrom(void* what) ;
 
 
     /** @brief Returns the last free position on this stop
      *
      * @return The last free position of this bus stop
      */
-    SUMOReal getLastFreePos() const throw();
+    SUMOReal getLastFreePos() const ;
 
 
 protected:
@@ -137,7 +137,7 @@ protected:
      * It is stored in myLastFreePos. If no vehicle halts, the last free
      *  position gets the value of myEndPos.
      */
-    void computeLastFreePos() throw();
+    void computeLastFreePos() ;
 
 
 protected:

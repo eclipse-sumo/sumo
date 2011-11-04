@@ -53,15 +53,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNetBuilder::NBNetBuilder() throw()
+NBNetBuilder::NBNetBuilder()
     : myEdgeCont(myTypeCont) {}
 
 
-NBNetBuilder::~NBNetBuilder() throw() {}
+NBNetBuilder::~NBNetBuilder() {}
 
 
 void
-NBNetBuilder::applyOptions(OptionsCont& oc) throw(ProcessError) {
+NBNetBuilder::applyOptions(OptionsCont& oc) {
     // we possibly have to load the edges to keep
     if (oc.isSet("keep-edges.input-file")) {
         std::ifstream strm(oc.getString("keep-edges.input-file").c_str());

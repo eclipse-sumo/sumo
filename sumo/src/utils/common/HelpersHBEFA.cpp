@@ -157,7 +157,7 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // method definitions
 // ===========================================================================
 SUMOReal
-HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;
@@ -172,7 +172,7 @@ HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw() {
 
 
 SUMOReal
-HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;
@@ -187,7 +187,7 @@ HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw() {
 
 
 SUMOReal
-HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;
@@ -202,7 +202,7 @@ HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw() {
 
 
 SUMOReal
-HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;
@@ -217,7 +217,7 @@ HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw() {
 
 
 SUMOReal
-HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;
@@ -232,7 +232,7 @@ HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw() {
 
 
 SUMOReal
-HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw() {
+HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) {
     switch (c) {
         case SVE_ZERO_EMISSIONS:
             return 0;

@@ -295,7 +295,7 @@ MSLaneChanger::change() {
 
 
 std::pair<MSVehicle* const, SUMOReal>
-MSLaneChanger::getRealThisLeader(const ChangerIt& target) const throw() {
+MSLaneChanger::getRealThisLeader(const ChangerIt& target) const {
     // get the leading vehicle on the lane to change to
     MSVehicle* leader = target->lead;
     if (leader == 0) {
@@ -331,7 +331,7 @@ MSLaneChanger::getRealThisLeader(const ChangerIt& target) const throw() {
 
 
 std::pair<MSVehicle* const, SUMOReal>
-MSLaneChanger::getRealLeader(const ChangerIt& target) const throw() {
+MSLaneChanger::getRealLeader(const ChangerIt& target) const {
     // get the leading vehicle on the lane to change to
     MSVehicle* neighLead = target->lead;
     // check whether the hopped vehicle got the leader
@@ -363,7 +363,7 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const throw() {
 
 
 std::pair<MSVehicle* const, SUMOReal>
-MSLaneChanger::getRealFollower(const ChangerIt& target) const throw() {
+MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     MSVehicle* neighFollow = veh(target);
     // check whether the hopped vehicle got the follower
     if (target->hoppedVeh != 0) {
@@ -464,7 +464,7 @@ int
 MSLaneChanger::change2right(const std::pair<MSVehicle* const, SUMOReal> &leader,
                             const std::pair<MSVehicle* const, SUMOReal> &rLead,
                             const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-                            const std::vector<MSVehicle::LaneQ> &preb) const throw() {
+                            const std::vector<MSVehicle::LaneQ> &preb) const {
     ChangerIt target = myCandi - 1;
     int blocked = overlapWithHopped(target)
                   ? target->hoppedVeh->getPositionOnLane() < veh(myCandi)->getPositionOnLane()
@@ -504,7 +504,7 @@ int
 MSLaneChanger::change2left(const std::pair<MSVehicle* const, SUMOReal> &leader,
                            const std::pair<MSVehicle* const, SUMOReal> &rLead,
                            const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-                           const std::vector<MSVehicle::LaneQ> &preb) const throw() {
+                           const std::vector<MSVehicle::LaneQ> &preb) const {
     ChangerIt target = myCandi + 1;
     int blocked = overlapWithHopped(target)
                   ? target->hoppedVeh->getPositionOnLane() < veh(myCandi)->getPositionOnLane()

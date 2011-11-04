@@ -53,11 +53,11 @@
 // method definitions
 // ===========================================================================
 RODFDetector::RODFDetector(const std::string& id, const std::string& laneID,
-                           SUMOReal pos, const RODFDetectorType type) throw()
+                           SUMOReal pos, const RODFDetectorType type)
     : myID(id), myLaneID(laneID), myPosition(pos), myType(type), myRoutes(0) {}
 
 
-RODFDetector::RODFDetector(const std::string& id, const RODFDetector& f) throw()
+RODFDetector::RODFDetector(const std::string& id, const RODFDetector& f)
     : myID(id), myLaneID(f.myLaneID), myPosition(f.myPosition),
       myType(f.myType), myRoutes(0) {
     if (f.myRoutes != 0) {
@@ -66,7 +66,7 @@ RODFDetector::RODFDetector(const std::string& id, const RODFDetector& f) throw()
 }
 
 
-RODFDetector::~RODFDetector() throw() {
+RODFDetector::~RODFDetector() {
     delete myRoutes;
 }
 
@@ -831,7 +831,7 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 
 
 void
-RODFDetectorCon::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw() {
+RODFDetectorCon::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const {
     for (std::map<size_t, RandomDistributor<size_t>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
         delete(*i).second;
     }

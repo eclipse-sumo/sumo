@@ -59,7 +59,7 @@
 // ---------------------------------------------------------------------------
 void
 PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                       PCTypeMap& tm) throw(ProcessError) {
+                       PCTypeMap& tm) {
     if (!oc.isSet("xml-files")) {
         return;
     }
@@ -84,17 +84,17 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // handler methods
 // ---------------------------------------------------------------------------
 PCLoaderXML::PCLoaderXML(PCPolyContainer& toFill,
-                         PCTypeMap& tm, OptionsCont& oc) throw()
+                         PCTypeMap& tm, OptionsCont& oc)
     : SUMOSAXHandler("xml-poi-definition"),
       myCont(toFill), myTypeMap(tm), myOptions(oc) {}
 
 
-PCLoaderXML::~PCLoaderXML() throw() {}
+PCLoaderXML::~PCLoaderXML() {}
 
 
 void
 PCLoaderXML::myStartElement(int element,
-                            const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                            const SUMOSAXAttributes& attrs) {
     if (element != SUMO_TAG_POI && element != SUMO_TAG_POLY) {
         return;
     }
@@ -183,7 +183,7 @@ PCLoaderXML::myStartElement(int element,
 
 void
 PCLoaderXML::myCharacters(int element,
-                          const std::string& chars) throw(ProcessError) {
+                          const std::string& chars) {
     if (element == SUMO_TAG_POLY) {
         bool ok = true;
         PositionVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);

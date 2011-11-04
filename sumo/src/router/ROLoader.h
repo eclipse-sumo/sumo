@@ -67,7 +67,7 @@ public:
      * @param[in] emptyDestinationsAllowed Whether tripdefs may be given without destinations
      * @todo Recheck usage of emptyDestinationsAllowed
      */
-    ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) throw();
+    ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) ;
 
 
     /// @brief Destructor
@@ -118,7 +118,7 @@ protected:
      * @param[in] net The net to assign to the built handlers
      * @return Whether the wished handler(s) could be built
      */
-    bool openTypedRoutes(const std::string& optionName, RONet& net) throw();
+    bool openTypedRoutes(const std::string& optionName, RONet& net) ;
 
 
     /** @brief Returns the first time step known by the built handlers
@@ -130,7 +130,7 @@ protected:
      * @return The first time step of loaded routes
      * @see ROAbstractRouteDefLoader::getLastReadTimeStep
      */
-    SUMOTime getMinTimeStep() const throw();
+    SUMOTime getMinTimeStep() const ;
 
 
 
@@ -142,10 +142,10 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeWeight(RONet& net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeWeight(RONet& net) : myNet(net) {}
 
         /// @brief Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeWeight() throw() { }
+        ~EdgeFloatTimeLineRetriever_EdgeWeight() { }
 
         /** @brief Adds an effort for a given edge and time period
          *
@@ -156,7 +156,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
 
     private:
         /// @brief The network edges shall be obtained from
@@ -173,10 +173,10 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet& net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet& net) : myNet(net) {}
 
         /// @brief Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() {}
+        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() {}
 
         /** @brief Adds a travel time for a given edge and time period
          *
@@ -187,7 +187,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
 
     private:
         /// @brief The network edges shall be obtained from
@@ -199,14 +199,14 @@ protected:
 
 protected:
     ROAbstractRouteDefLoader* buildNamedHandler(const std::string& optionName,
-            const std::string& file, RONet& net) throw(ProcessError);
+            const std::string& file, RONet& net) ;
 
 
-    void writeStats(SUMOTime time, SUMOTime start, int absNo) throw();
+    void writeStats(SUMOTime time, SUMOTime start, int absNo) ;
 
 
     /** @brief Deletes all handlers and clears their container ("myHandler") */
-    void destroyHandlers() throw();
+    void destroyHandlers() ;
 
 
 protected:

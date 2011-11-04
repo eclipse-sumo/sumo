@@ -84,7 +84,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLig
     : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() throw() {}
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() {}
 
 
 
@@ -129,17 +129,17 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-    MSTLLogicControl& control, MSTrafficLightLogic& tll) throw() :
+    MSTLLogicControl& control, MSTrafficLightLogic& tll) :
     GUIGlObject(GLO_TLLOGIC, tll.getID()),
     myTLLogicControl(control), myTLLogic(tll) {}
 
 
-GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw() {}
+GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() {}
 
 
 GUIGLObjectPopupMenu*
 GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
-        GUISUMOAbstractView& parent) throw() {
+        GUISUMOAbstractView& parent) {
     myApp = &app;
     GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -194,13 +194,13 @@ GUITrafficLightLogicWrapper::showPhases() {
 
 GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow&,
-        GUISUMOAbstractView&) throw() {
+        GUISUMOAbstractView&) {
     return 0;
 }
 
 
 Boundary
-GUITrafficLightLogicWrapper::getCenteringBoundary() const throw() {
+GUITrafficLightLogicWrapper::getCenteringBoundary() const {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector& lanes = myTLLogic.getLanes();
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -235,7 +235,7 @@ GUITrafficLightLogicWrapper::getLinkIndex(const MSLink* const link) const {
 
 
 void
-GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (s.gaming) {
         if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic)) {
             return;

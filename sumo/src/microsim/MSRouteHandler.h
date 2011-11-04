@@ -61,7 +61,7 @@ public:
                    bool addVehiclesDirectly);
 
     /// standard destructor
-    virtual ~MSRouteHandler() throw();
+    virtual ~MSRouteHandler() ;
 
     /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;
@@ -82,7 +82,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -91,7 +91,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(int element) throw(ProcessError);
+    virtual void myEndElement(int element) ;
     //@}
 
 
@@ -109,7 +109,7 @@ protected:
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    void closeRoute() throw(ProcessError);
+    void closeRoute() ;
 
     /** opens a route distribution for reading */
     void openRouteDistribution(const SUMOSAXAttributes& attrs);
@@ -118,16 +118,16 @@ protected:
     void closeRouteDistribution();
 
     /// Ends the processing of a vehicle
-    void closeVehicle() throw(ProcessError);
+    void closeVehicle() ;
 
     /// Ends the processing of a person
-    void closePerson() throw(ProcessError);
+    void closePerson() ;
 
     /// Ends the processing of a flow
-    void closeFlow() throw(ProcessError);
+    void closeFlow() ;
 
     /// Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs) throw(ProcessError);
+    void addStop(const SUMOSAXAttributes& attrs) ;
 
 protected:
     SUMOVehicleParameter* myVehicleParameter;

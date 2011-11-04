@@ -78,7 +78,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinit
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-               MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents) throw(ProcessError) :
+               MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents) :
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
     GUIGlObject(GLO_NETWORK, ""),
     myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
@@ -87,7 +87,7 @@ GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 }
 
 
-GUINet::~GUINet() throw() {
+GUINet::~GUINet() {
     // delete allocated wrappers
     //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1 = myJunctionWrapper.begin(); i1 != myJunctionWrapper.end(); i1++) {
@@ -298,13 +298,13 @@ GUINet::initGUIStructures() {
 
 
 unsigned int
-GUINet::getWholeDuration() const throw() {
+GUINet::getWholeDuration() const {
     return myLastSimDuration +/*myLastVisDuration+*/myLastIdleDuration;
 }
 
 
 unsigned int
-GUINet::getSimDuration() const throw() {
+GUINet::getSimDuration() const {
     return myLastSimDuration;
 }
 
@@ -354,7 +354,7 @@ GUINet::getMeanUPS() const {
 
 
 unsigned int
-GUINet::getIdleDuration() const throw() {
+GUINet::getIdleDuration() const {
     return myLastIdleDuration;
 }
 
@@ -383,7 +383,7 @@ GUINet::setIdleDuration(int val) {
 
 GUIGLObjectPopupMenu*
 GUINet::getPopUpMenu(GUIMainWindow& app,
-                     GUISUMOAbstractView& parent) throw() {
+                     GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -395,7 +395,7 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
-                           GUISUMOAbstractView&) throw() {
+                           GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
@@ -437,11 +437,11 @@ GUINet::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUINet::drawGL(const GUIVisualizationSettings& /*s*/) const throw() {
+GUINet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 Boundary
-GUINet::getCenteringBoundary() const throw() {
+GUINet::getCenteringBoundary() const {
     return getBoundary();
 }
 

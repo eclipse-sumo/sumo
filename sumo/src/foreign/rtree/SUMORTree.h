@@ -63,7 +63,7 @@ public:
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
      */
-    void addAdditionalGLObject(GUIGlObject *o) throw() {
+    void addAdditionalGLObject(GUIGlObject *o) {
         Boundary b = o->getCenteringBoundary();
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
@@ -73,7 +73,7 @@ public:
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
-    void removeAdditionalGLObject(GUIGlObject *o) throw() {
+    void removeAdditionalGLObject(GUIGlObject *o) {
         Boundary b = o->getCenteringBoundary();
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};

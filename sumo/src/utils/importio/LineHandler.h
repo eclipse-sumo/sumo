@@ -50,11 +50,11 @@
 class LineHandler {
 public:
     /// @brief constructor
-    LineHandler() throw() { }
+    LineHandler() { }
 
 
     /// @brief (virtual) destructor
-    virtual ~LineHandler() throw() { }
+    virtual ~LineHandler() { }
 
 
     /** @brief Method that obatins a line read by the LineReader
@@ -64,7 +64,7 @@ public:
      * @param[in] result The read line
      * @return Whether the caller shall continue with reading
      */
-    virtual bool report(const std::string& result) throw(ProcessError) = 0;
+    virtual bool report(const std::string& result) = 0;
 
 };
 

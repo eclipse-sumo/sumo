@@ -43,16 +43,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITriggerBuilder::GUITriggerBuilder() throw() {}
+GUITriggerBuilder::GUITriggerBuilder() {}
 
 
-GUITriggerBuilder::~GUITriggerBuilder() throw() {}
+GUITriggerBuilder::~GUITriggerBuilder() {}
 
 
 MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
         const std::string& id, const std::vector<MSLane*> &destLanes,
-        const std::string& file) throw(ProcessError) {
+        const std::string& file) {
     GUILaneSpeedTrigger* lst = new GUILaneSpeedTrigger(id, destLanes, file);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
     return lst;
@@ -62,7 +62,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 void
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  std::vector<MSEdge*> &edges,
-                                 SUMOReal prob, const std::string& file, bool off) throw() {
+                                 SUMOReal prob, const std::string& file, bool off) {
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUITriggeredRerouter(id, edges, prob, file, off));
 }
 

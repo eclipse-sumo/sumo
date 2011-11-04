@@ -51,7 +51,7 @@ MSVehicleTransfer* MSVehicleTransfer::myInstance = 0;
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) throw() {
+MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) {
     // get the current edge of the vehicle
     const MSEdge* e = veh->getEdge();
     if (veh->isParking()) {
@@ -70,7 +70,7 @@ MSVehicleTransfer::addVeh(const SUMOTime t, MSVehicle* veh) throw() {
 
 
 void
-MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
+MSVehicleTransfer::checkInsertions(SUMOTime time) {
     // go through vehicles
     for (VehicleInfVector::iterator i = myVehicles.begin(); i != myVehicles.end();) {
         // get the vehicle information
@@ -134,13 +134,13 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) throw() {
 
 
 bool
-MSVehicleTransfer::hasPending() const throw() {
+MSVehicleTransfer::hasPending() const {
     return !myVehicles.empty();
 }
 
 
 MSVehicleTransfer*
-MSVehicleTransfer::getInstance() throw() {
+MSVehicleTransfer::getInstance() {
     if (myInstance == 0) {
         myInstance = new MSVehicleTransfer();
     }
@@ -148,10 +148,10 @@ MSVehicleTransfer::getInstance() throw() {
 }
 
 
-MSVehicleTransfer::MSVehicleTransfer() throw() {}
+MSVehicleTransfer::MSVehicleTransfer() {}
 
 
-MSVehicleTransfer::~MSVehicleTransfer() throw() {
+MSVehicleTransfer::~MSVehicleTransfer() {
     myInstance = 0;
 }
 

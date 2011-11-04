@@ -53,10 +53,10 @@ public:
     /// Constructor
     RORDGenerator_ODAmounts(RONet& net,
                             SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-                            bool randomize, const std::string& file = "") throw(ProcessError);
+                            bool randomize, const std::string& file = "") ;
 
     /// Destructor
-    ~RORDGenerator_ODAmounts() throw();
+    ~RORDGenerator_ODAmounts() ;
 
 
     /// @name inherited from ROAbstractRouteDefLoader
@@ -70,7 +70,7 @@ public:
      * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError);
+    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) ;
     /// @}
 
 
@@ -86,7 +86,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -95,14 +95,14 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) throw(ProcessError);
+    void myEndElement(int element) ;
     //@}
 
     /// Parses the interval information
     void parseInterval(const SUMOSAXAttributes& attrs);
 
     /// Parses the trip amount definition
-    void parseFlowAmountDef(const SUMOSAXAttributes& attrs) throw(ProcessError);
+    void parseFlowAmountDef(const SUMOSAXAttributes& attrs) ;
 
     /// Closes the current embedding interval
     void myEndInterval();
@@ -168,10 +168,10 @@ protected:
 
 private:
     /// Builds the routes between the current time step and the one given
-    void buildRoutes(SUMOTime until) throw();
+    void buildRoutes(SUMOTime until) ;
 
     /// Builds the routes for the given time step
-    void buildForTimeStep(SUMOTime time) throw();
+    void buildForTimeStep(SUMOTime time) ;
 
 private:
     /// The begin of the interval current read

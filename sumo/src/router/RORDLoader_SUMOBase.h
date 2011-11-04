@@ -67,10 +67,10 @@ public:
                         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
                         const int maxRouteNumber, const bool tryRepair, const bool withTaz,
                         const bool keepRoutes, const bool skipRouteCalculation,
-                        const std::string& file = "") throw(ProcessError);
+                        const std::string& file = "") ;
 
     /// Destructor
-    ~RORDLoader_SUMOBase() throw();
+    ~RORDLoader_SUMOBase() ;
 
 
     /// @name inherited from ROAbstractRouteDefLoader
@@ -80,7 +80,7 @@ public:
      *
      * @return The least time step that was read by this reader
      */
-    SUMOTime getLastReadTimeStep() const throw() {
+    SUMOTime getLastReadTimeStep() const {
         return myCurrentDepart;
     }
     /// @}
@@ -98,7 +98,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) throw(ProcessError);
+                                const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when characters occure
@@ -109,7 +109,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) throw(ProcessError);
+                      const std::string& chars) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -118,7 +118,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(int element) throw(ProcessError);
+    virtual void myEndElement(int element) ;
     //@}
 
     /// Begins the parsing of the next route alternative in the file
@@ -127,7 +127,7 @@ protected:
     /// Begins the parsing of a route alternative of the opened route
     void startRoute(const SUMOSAXAttributes& attrs);
 
-    bool closeVehicle() throw();
+    bool closeVehicle() ;
 
 
 
@@ -139,7 +139,7 @@ protected:
      * @return Whether a further route was read
      * @see ROTypedXMLRoutesLoader::nextRouteRead
      */
-    bool nextRouteRead() throw() {
+    bool nextRouteRead() {
         return myHaveNextRoute;
     }
 
@@ -149,7 +149,7 @@ protected:
      * @todo recheck/refactor
      * @see ROTypedXMLRoutesLoader::beginNextRoute
      */
-    void beginNextRoute() throw();
+    void beginNextRoute() ;
     //@}
 
 

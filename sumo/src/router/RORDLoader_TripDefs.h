@@ -52,10 +52,10 @@ public:
     /// Constructor
     RORDLoader_TripDefs(RONet& net, SUMOTime begin, SUMOTime end,
                         bool emptyDestinationsAllowed, bool withTaz,
-                        const std::string& file = "") throw(ProcessError);
+                        const std::string& file = "") ;
 
     /// Destructor
-    ~RORDLoader_TripDefs() throw();
+    ~RORDLoader_TripDefs() ;
 
 
     /// @name inherited from ROAbstractRouteDefLoader
@@ -65,7 +65,7 @@ public:
      *
      * @return The least time step that was read by this reader
      */
-    SUMOTime getLastReadTimeStep() const throw() {
+    SUMOTime getLastReadTimeStep() const {
         return myDepartureTime;
     }
     /// @}
@@ -83,7 +83,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -92,7 +92,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) throw(ProcessError);
+    void myEndElement(int element) ;
     //@}
 
 
@@ -105,7 +105,7 @@ protected:
      * @return Whether a further route was read
      * @see ROTypedXMLRoutesLoader::nextRouteRead
      */
-    bool nextRouteRead() throw() {
+    bool nextRouteRead() {
         return myNextRouteRead;
     }
 
@@ -115,7 +115,7 @@ protected:
      * @todo recheck/refactor
      * @see ROTypedXMLRoutesLoader::beginNextRoute
      */
-    void beginNextRoute() throw();
+    void beginNextRoute() ;
     //@}
 
 

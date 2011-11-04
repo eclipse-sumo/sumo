@@ -65,18 +65,18 @@ public:
      * @todo Are costs/prob really mandatory?
      */
     RORoute(const std::string& id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route, const RGBColor* const color) throw();
+            const std::vector<const ROEdge*> &route, const RGBColor* const color) ;
 
 
     /** @brief Copy constructor
      *
      * @param[in] src The route to copy
      */
-    RORoute(const RORoute& src) throw();
+    RORoute(const RORoute& src) ;
 
 
     /// @brief Destructor
-    ~RORoute() throw();
+    ~RORoute() ;
 
 
     /** @brief Adds an edge to the end of the route
@@ -84,14 +84,14 @@ public:
      * @param[in] edge The edge to add
      * @todo What for? Isn't the route already complete?
      */
-    void add(ROEdge* edge) throw();
+    void add(ROEdge* edge) ;
 
 
     /** @brief Returns the first edge in the route
      *
      * @return The route's first edge
      */
-    const ROEdge* getFirst() const throw() {
+    const ROEdge* getFirst() const {
         return myRoute[0];
     }
 
@@ -100,7 +100,7 @@ public:
      *
      * @return The route's last edge
      */
-    const ROEdge* getLast() const throw() {
+    const ROEdge* getLast() const {
         return myRoute.back();
     }
 
@@ -110,7 +110,7 @@ public:
      * @return The route's costs (normally the time needed to pass it)
      * @todo Recheck why the costs are stored in a route
      */
-    SUMOReal getCosts() const throw() {
+    SUMOReal getCosts() const {
         return myCosts;
     }
 
@@ -120,7 +120,7 @@ public:
      * @return The probability to choose the route
      * @todo Recheck why the probability is stored in a route
      */
-    SUMOReal getProbability() const throw() {
+    SUMOReal getProbability() const {
         return myProbability;
     }
 
@@ -129,21 +129,21 @@ public:
      *
      * @todo Recheck why the costs are stored in a route
      */
-    void setCosts(SUMOReal costs) throw();
+    void setCosts(SUMOReal costs) ;
 
 
     /** @brief Sets the probability of the route
      *
      * @todo Recheck why the probability is stored in a route
      */
-    void setProbability(SUMOReal prob) throw();
+    void setProbability(SUMOReal prob) ;
 
 
     /** @brief Returns the number of edges in this route
      *
      * @return The number of edges the route is made of
      */
-    unsigned int size() const throw() {
+    unsigned int size() const {
         return (unsigned int) myRoute.size();
     }
 
@@ -152,7 +152,7 @@ public:
      *
      * @return The edges this route consists of
      */
-    const std::vector<const ROEdge*> &getEdgeVector() const throw() {
+    const std::vector<const ROEdge*> &getEdgeVector() const {
         return myRoute;
     }
 
@@ -160,14 +160,14 @@ public:
      *
      * @return This route's color
      */
-    const RGBColor* getColor() const throw() {
+    const RGBColor* getColor() const {
         return myColor;
     }
 
 
     /** @brief Checks whether this route contains loops and removes such
      */
-    void recheckForLoops() throw();
+    void recheckForLoops() ;
 
     OutputDevice&
     writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;

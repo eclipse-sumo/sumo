@@ -45,11 +45,11 @@
 // method definitions
 // ===========================================================================
 ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(RONet& net, SUMOTime begin,
-        SUMOTime end) throw()
+        SUMOTime end)
     : myNet(net), myBegin(begin), myEnd(end) {}
 
 
-ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader() throw() {}
+ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader() {}
 
 
 /****************************************************************************/

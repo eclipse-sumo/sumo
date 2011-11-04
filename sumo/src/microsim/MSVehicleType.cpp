@@ -56,7 +56,7 @@ MSVehicleType::MSVehicleType(const std::string& id, SUMOReal length,
                              SUMOEmissionClass emissionClass,
                              SUMOReal guiWidth, SUMOVehicleShape shape,
                              const std::string& lcModel,
-                             const RGBColor& c) throw()
+                             const RGBColor& c)
     : myID(id), myLength(length),
       myMinGap(minGap), myMaxSpeed(maxSpeed),
       myDefaultProbability(prob), mySpeedFactor(speedFactor),
@@ -69,7 +69,7 @@ MSVehicleType::MSVehicleType(const std::string& id, SUMOReal length,
 }
 
 
-MSVehicleType::~MSVehicleType() throw() {
+MSVehicleType::~MSVehicleType() {
     delete myCarFollowModel;
 }
 
@@ -98,7 +98,7 @@ MSVehicleType::saveState(std::ostream& os) {
 
 // ------------ Setter methods
 void
-MSVehicleType::setLength(const SUMOReal& length) throw() {
+MSVehicleType::setLength(const SUMOReal& length) {
     assert(myOriginalType != 0);
     if (length < 0) {
         myLength = myOriginalType->myLength;
@@ -109,7 +109,7 @@ MSVehicleType::setLength(const SUMOReal& length) throw() {
 
 
 void
-MSVehicleType::setMinGap(const SUMOReal& minGap) throw() {
+MSVehicleType::setMinGap(const SUMOReal& minGap) {
     assert(myOriginalType != 0);
     if (minGap < 0) {
         myMinGap = myOriginalType->myMinGap;
@@ -120,7 +120,7 @@ MSVehicleType::setMinGap(const SUMOReal& minGap) throw() {
 
 
 void
-MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) throw() {
+MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) {
     assert(myOriginalType != 0);
     if (maxSpeed < 0) {
         myMaxSpeed = myOriginalType->myMaxSpeed;
@@ -131,13 +131,13 @@ MSVehicleType::setMaxSpeed(const SUMOReal& maxSpeed) throw() {
 
 
 void
-MSVehicleType::setVClass(SUMOVehicleClass vclass) throw() {
+MSVehicleType::setVClass(SUMOVehicleClass vclass) {
     myVehicleClass = vclass;
 }
 
 
 void
-MSVehicleType::setDefaultProbability(const SUMOReal& prob) throw() {
+MSVehicleType::setDefaultProbability(const SUMOReal& prob) {
     assert(myOriginalType != 0);
     if (prob < 0) {
         myDefaultProbability = myOriginalType->myDefaultProbability;
@@ -148,7 +148,7 @@ MSVehicleType::setDefaultProbability(const SUMOReal& prob) throw() {
 
 
 void
-MSVehicleType::setSpeedFactor(const SUMOReal& factor) throw() {
+MSVehicleType::setSpeedFactor(const SUMOReal& factor) {
     assert(myOriginalType != 0);
     if (factor < 0) {
         mySpeedFactor = myOriginalType->mySpeedFactor;
@@ -159,7 +159,7 @@ MSVehicleType::setSpeedFactor(const SUMOReal& factor) throw() {
 
 
 void
-MSVehicleType::setSpeedDeviation(const SUMOReal& dev) throw() {
+MSVehicleType::setSpeedDeviation(const SUMOReal& dev) {
     assert(myOriginalType != 0);
     if (dev < 0) {
         mySpeedDev = myOriginalType->mySpeedDev;
@@ -170,19 +170,19 @@ MSVehicleType::setSpeedDeviation(const SUMOReal& dev) throw() {
 
 
 void
-MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) throw() {
+MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
     myEmissionClass = eclass;
 }
 
 
 void
-MSVehicleType::setColor(const RGBColor& color) throw() {
+MSVehicleType::setColor(const RGBColor& color) {
     myColor = color;
 }
 
 
 void
-MSVehicleType::setWidth(const SUMOReal& width) throw() {
+MSVehicleType::setWidth(const SUMOReal& width) {
     assert(myOriginalType != 0);
     if (width < 0) {
         myWidth = myOriginalType->myWidth;
@@ -193,7 +193,7 @@ MSVehicleType::setWidth(const SUMOReal& width) throw() {
 
 
 void
-MSVehicleType::setShape(SUMOVehicleShape shape) throw() {
+MSVehicleType::setShape(SUMOVehicleShape shape) {
     myShape = shape;
 }
 
@@ -211,7 +211,7 @@ MSVehicleType::get(const SUMOVTypeParameter::CFParams& from, SumoXMLAttr attr, S
 
 
 MSVehicleType*
-MSVehicleType::build(SUMOVTypeParameter& from) throw(ProcessError) {
+MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(
         from.id, from.length, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
@@ -281,7 +281,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) throw(ProcessError) {
 
 
 MSVehicleType*
-MSVehicleType::build(const std::string& id, const MSVehicleType* from) throw() {
+MSVehicleType::build(const std::string& id, const MSVehicleType* from) {
     MSVehicleType* vtype = new MSVehicleType(
         id, from->myLength, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,

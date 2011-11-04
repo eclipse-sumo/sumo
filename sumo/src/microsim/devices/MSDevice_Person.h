@@ -60,7 +60,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw();
+    static MSDevice_Person* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) ;
 
 
 public:
@@ -77,7 +77,7 @@ public:
      * @see MSMoveReminder::notifyMove
      * @see HelpersHBEFA
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) ;
 
 
     /** @brief Adds passengers on vehicle insertion
@@ -88,7 +88,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
 
 
     /** @brief Passengers leaving on arrival
@@ -101,7 +101,7 @@ public:
      * @return True if it did not leave the net.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                     MSMoveReminder::Notification reason) throw();
+                     MSMoveReminder::Notification reason) ;
     /// @}
 
 
@@ -109,11 +109,11 @@ public:
      *
      * @param[in] person The passenger to add.
      */
-    void addPerson(MSPerson* person) throw();
+    void addPerson(MSPerson* person) ;
 
 
     /// @brief Destructor.
-    ~MSDevice_Person() throw();
+    ~MSDevice_Person() ;
 
 private:
     /** @brief Constructor
@@ -121,7 +121,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Person(SUMOVehicle& holder, const std::string& id) throw();
+    MSDevice_Person(SUMOVehicle& holder, const std::string& id) ;
 
 
 private:

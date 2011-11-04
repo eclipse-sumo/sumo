@@ -172,11 +172,11 @@ private:
          * @param[in, out] toFill The nodes container to fill
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<int, NIOSMNode*> &toFill) throw();
+        NodesHandler(std::map<int, NIOSMNode*> &toFill) ;
 
 
         /// @brief Destructor
-        ~NodesHandler() throw();
+        ~NodesHandler() ;
 
 
     protected:
@@ -190,7 +190,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
 
 
         /** @brief Called when a closing tag occurs
@@ -199,7 +199,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) throw(ProcessError);
+        void myEndElement(int element) ;
         //@}
 
 
@@ -240,11 +240,11 @@ private:
          * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<int, NIOSMNode*> &osmNodes,
-                     std::map<std::string, Edge*> &toFill) throw();
+                     std::map<std::string, Edge*> &toFill) ;
 
 
         /// @brief Destructor
-        ~EdgesHandler() throw();
+        ~EdgesHandler() ;
 
 
     protected:
@@ -258,7 +258,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
 
 
         /** @brief Called when a closing tag occurs
@@ -267,7 +267,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) throw(ProcessError);
+        void myEndElement(int element) ;
         //@}
 
 

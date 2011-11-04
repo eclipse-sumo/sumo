@@ -51,19 +51,19 @@ public:
      * @param[in] c The color of the poi
      */
     PointOfInterest(const std::string& id, const std::string& type,
-                    const Position& p, const RGBColor& c) throw()
+                    const Position& p, const RGBColor& c)
         : RGBColor(c), Position(p), Named(id), myType(type) { }
 
 
     /// @brief Destructor
-    virtual ~PointOfInterest() throw() { }
+    virtual ~PointOfInterest() { }
 
 
 
     /** @brief Returns the (abstract) type of the poi
      * @return The polygon's (abstract) type
      */
-    const std::string& getType() const throw() {
+    const std::string& getType() const {
         return myType;
     }
 
@@ -71,7 +71,7 @@ public:
     /** @brief Sets a new type
      * @param[in] type The new type to use
      */
-    void setType(const std::string& type) throw() {
+    void setType(const std::string& type) {
         myType = type;
     }
 

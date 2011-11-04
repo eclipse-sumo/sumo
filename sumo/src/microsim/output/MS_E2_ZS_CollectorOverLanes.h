@@ -80,7 +80,7 @@ public:
     MS_E2_ZS_CollectorOverLanes(const std::string& id,
                                 DetectorUsage usage, MSLane* lane, SUMOReal startPos,
                                 SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                                SUMOReal jamDistThreshold) throw();
+                                SUMOReal jamDistThreshold) ;
 
 
     /** @brief Builds the consecutive E2 detectors
@@ -91,24 +91,24 @@ public:
      * @param[in] lane The lane the detector starts at
      * @param[in] startPos Begin position of the detector
      */
-    void init(MSLane* lane, SUMOReal detLength) throw();
+    void init(MSLane* lane, SUMOReal detLength) ;
 
 
     /// @brief Destructor
-    virtual ~MS_E2_ZS_CollectorOverLanes() throw();
+    virtual ~MS_E2_ZS_CollectorOverLanes() ;
 
 
     /** @brief Returns this detector's id
      * @return The id of this detector
      */
-    const std::string& getID() const throw();
+    const std::string& getID() const ;
 
 
     /** @brief Returns the id of the lane this detector starts at
      * @return The id of the lane this detector starts at
      * @todo Check whether this is needed
      */
-    const std::string& getStartLaneID() const throw();
+    const std::string& getStartLaneID() const ;
 
 
 
@@ -124,7 +124,7 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice& dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+                        SUMOTime startTime, SUMOTime stopTime);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -134,7 +134,7 @@ public:
      * @todo What happens with the additional information if several detectors use the same output?
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
 
@@ -142,7 +142,7 @@ public:
     /** @brief Returns this detector's length [m]
      * @return This detector's length in meters
      */
-    SUMOReal getLength() const  throw() {
+    SUMOReal getLength() const  {
         return myLength;
     }
 
@@ -153,7 +153,7 @@ protected:
      * @param[in] length !!!
      * @todo Describe length's usage
      */
-    void extendTo(SUMOReal length) throw();
+    void extendTo(SUMOReal length) ;
 
 
     /** @brief Builds an id for one of the E2 collectors this detector uses
@@ -164,7 +164,7 @@ protected:
      * @todo Describe!
      */
     std::string  makeID(const std::string& baseID,
-                        size_t c, size_t r) const throw();
+                        size_t c, size_t r) const ;
 
 
     /** @brief Builds a single collector
@@ -176,7 +176,7 @@ protected:
      * @todo Describe!
      */
     virtual MSE2Collector* buildCollector(size_t c, size_t r,
-                                          MSLane* l, SUMOReal start, SUMOReal end) throw();
+                                          MSLane* l, SUMOReal start, SUMOReal end) ;
 
 
     /** @brief Returns the list of lanes predecessing the given one
@@ -184,7 +184,7 @@ protected:
      * @param[in] l The lane to return predecessors of
      * @return List of lanes predecessing the given one
      */
-    std::vector<MSLane*> getLanePredeccessorLanes(MSLane* l) throw();
+    std::vector<MSLane*> getLanePredeccessorLanes(MSLane* l) ;
 
 protected:
     /// @brief The position the collector starts at

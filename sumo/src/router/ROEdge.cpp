@@ -56,7 +56,7 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // method definitions
 // ===========================================================================
 ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index,
-               bool useBoundariesOnOverride, bool interpolate) throw()
+               bool useBoundariesOnOverride, bool interpolate)
     : myID(id), mySpeed(-1),
       myIndex(index), myLength(-1),
       myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
@@ -69,7 +69,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int ind
 }
 
 
-ROEdge::~ROEdge() throw() {
+ROEdge::~ROEdge() {
     for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         delete(*i);
     }
@@ -77,7 +77,7 @@ ROEdge::~ROEdge() throw() {
 
 
 void
-ROEdge::addLane(ROLane* lane) throw() {
+ROEdge::addLane(ROLane* lane) {
     SUMOReal length = lane->getLength();
     assert(myLength == -1 || length == myLength);
     myLength = length;
@@ -103,7 +103,7 @@ ROEdge::addLane(ROLane* lane) throw() {
 
 
 void
-ROEdge::addFollower(ROEdge* s) throw() {
+ROEdge::addFollower(ROEdge* s) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
     }
@@ -111,21 +111,21 @@ ROEdge::addFollower(ROEdge* s) throw() {
 
 
 void
-ROEdge::addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw() {
+ROEdge::addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
     myEfforts.add(timeBegin, timeEnd, value);
     myUsingETimeLine = true;
 }
 
 
 void
-ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) throw() {
+ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
     myTravelTimes.add(timeBegin, timeEnd, value);
     myUsingTTTimeLine = true;
 }
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
     UNUSED_PARAMETER(veh);
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
@@ -136,7 +136,7 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const throw() {
+ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const {
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
@@ -157,7 +157,7 @@ ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -173,7 +173,7 @@ ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -189,7 +189,7 @@ ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -205,7 +205,7 @@ ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -221,7 +221,7 @@ ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -237,7 +237,7 @@ ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -253,7 +253,7 @@ ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
 
 
 SUMOReal
-ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const throw() {
+ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
         SUMOReal v = mySpeed;
@@ -269,7 +269,7 @@ ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const throw() 
 
 
 bool
-ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const throw() {
+ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
@@ -294,7 +294,7 @@ ROEdge::getStoredEffort(SUMOReal time, SUMOReal& ret) const throw() {
 
 
 unsigned int
-ROEdge::getNoFollowing() const throw() {
+ROEdge::getNoFollowing() const {
     if (getType() == ET_SINK) {
         return 0;
     }
@@ -303,13 +303,13 @@ ROEdge::getNoFollowing() const throw() {
 
 
 void
-ROEdge::setType(ROEdge::EdgeType type) throw() {
+ROEdge::setType(ROEdge::EdgeType type) {
     myType = type;
 }
 
 
 bool
-ROEdge::prohibits(const ROVehicle* const vehicle) const throw() {
+ROEdge::prohibits(const ROVehicle* const vehicle) const {
     if (myAllowedClasses.size() == 0 && myNotAllowedClasses.size() == 0) {
         return false;
     }
@@ -334,7 +334,7 @@ ROEdge::prohibits(const ROVehicle* const vehicle) const throw() {
 
 
 void
-ROEdge::buildTimeLines(const std::string& measure) throw() {
+ROEdge::buildTimeLines(const std::string& measure) {
     if (myUsingETimeLine) {
         SUMOReal value = (SUMOReal)(myLength / mySpeed);
         if (measure == "CO") {
@@ -365,7 +365,7 @@ ROEdge::buildTimeLines(const std::string& measure) throw() {
 
 
 bool
-ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const throw() {
+ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {
     for (std::vector<ROEdge*>::const_iterator i = myFollowingEdges.begin(); i != myFollowingEdges.end(); ++i) {
         if (!(*i)->prohibits(vehicle)) {
             return false;
@@ -376,7 +376,7 @@ ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const throw() {
 
 
 ROEdge*
-ROEdge::dictionary(size_t id) throw() {
+ROEdge::dictionary(size_t id) {
     assert(myEdges.size() > id);
     return myEdges[id];
 }

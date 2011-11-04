@@ -128,7 +128,7 @@ StringUtils::toTimeString(int time) {
 
 
 std::string
-StringUtils::escapeXML(const std::string& orig) throw() {
+StringUtils::escapeXML(const std::string& orig) {
     std::string result = replace(orig, "&", "&amp;");
     result = replace(result, ">", "&gt;");
     result = replace(result, "<", "&lt;");

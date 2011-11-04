@@ -46,7 +46,7 @@ bool GUIVisualizationSettings::UseMesoSim = false;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIVisualizationSettings::GUIVisualizationSettings() throw()
+GUIVisualizationSettings::GUIVisualizationSettings()
     : name(""), antialiase(false), dither(false),
       backgroundColor(RGBColor(1, 1, 1)),
       showGrid(false), gridXSize(100), gridYSize(100),
@@ -221,7 +221,7 @@ GUIVisualizationSettings::getLaneEdgeScheme() {
 
 
 void
-GUIVisualizationSettings::save(OutputDevice& dev) const throw(IOError) {
+GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "<viewsettings>\n";
     dev << "    <scheme name=\"" << name << "\">\n";
     dev << "        <opengl antialiase=\"" << antialiase << "\" dither=\"" << dither << "\"/>\n";

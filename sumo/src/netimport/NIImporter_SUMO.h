@@ -86,7 +86,7 @@ protected:
 
 
     /// @brief Destructor
-    ~NIImporter_SUMO() throw();
+    ~NIImporter_SUMO() ;
 
 
 
@@ -104,7 +104,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when characters occure
@@ -115,7 +115,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) throw(ProcessError);
+                      const std::string& chars) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -124,7 +124,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) throw(ProcessError);
+    void myEndElement(int element) ;
     //@}
 
 

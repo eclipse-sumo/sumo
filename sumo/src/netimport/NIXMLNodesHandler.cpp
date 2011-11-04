@@ -63,12 +63,12 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
       myNodeCont(nc), myTLLogicCont(tlc) {}
 
 
-NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
+NIXMLNodesHandler::~NIXMLNodesHandler() {}
 
 
 void
 NIXMLNodesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_NODE:
             addNode(attrs);

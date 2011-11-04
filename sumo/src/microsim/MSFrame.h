@@ -63,7 +63,7 @@ public:
 
 
     /** @brief Builds the streams used possibly by the simulation */
-    static void buildStreams() throw(IOError);
+    static void buildStreams();
 
 
     /** @brief Checks the set options.

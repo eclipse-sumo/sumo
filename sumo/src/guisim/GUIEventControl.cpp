@@ -39,17 +39,17 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-GUIEventControl::GUIEventControl() throw() {}
+GUIEventControl::GUIEventControl() {}
 
 
-GUIEventControl::~GUIEventControl() throw() {
+GUIEventControl::~GUIEventControl() {
 }
 
 
 SUMOTime
 GUIEventControl::addEvent(Command* operation,
                           SUMOTime execTimeStep,
-                          AdaptType type) throw() {
+                          AdaptType type) {
     myLock.lock();
     SUMOTime ret = MSEventControl::addEvent(operation, execTimeStep, type);
     myLock.unlock();
@@ -58,7 +58,7 @@ GUIEventControl::addEvent(Command* operation,
 
 
 void
-GUIEventControl::execute(SUMOTime execTime) throw(ProcessError) {
+GUIEventControl::execute(SUMOTime execTime) {
     myLock.lock();
     try {
         MSEventControl::execute(execTime);

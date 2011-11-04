@@ -72,7 +72,7 @@ NIImporter_VISUM::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
                                    const std::string& file,
                                    NBCapacity2Lanes capacity2Lanes,
-                                   bool useVisumPrio) throw()
+                                   bool useVisumPrio)
     : myNetBuilder(nb), myFileName(file),
       myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
     // the order of process is important!
@@ -129,7 +129,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
 }
 
 
-NIImporter_VISUM::~NIImporter_VISUM() throw() {
+NIImporter_VISUM::~NIImporter_VISUM() {
     for (NIVisumTL_Map::iterator j = myNIVisumTLs.begin(); j != myNIVisumTLs.end(); j++) {
         delete j->second;
     }
@@ -137,7 +137,7 @@ NIImporter_VISUM::~NIImporter_VISUM() throw() {
 
 
 void
-NIImporter_VISUM::addParser(const std::string& name, ParsingFunction function) throw() {
+NIImporter_VISUM::addParser(const std::string& name, ParsingFunction function) {
     TypeParser p;
     p.name = name;
     p.function = function;
@@ -147,7 +147,7 @@ NIImporter_VISUM::addParser(const std::string& name, ParsingFunction function) t
 
 
 void
-NIImporter_VISUM::load() throw(ProcessError) {
+NIImporter_VISUM::load() {
     // open the file
     if (!myLineReader.setFile(myFileName)) {
         throw ProcessError("Can not open visum-file '" + myFileName + "'.");
@@ -1046,7 +1046,7 @@ void NIImporter_VISUM::parse_LanesConnections() {
 
 
 SUMOReal
-NIImporter_VISUM::getWeightedFloat(const std::string& name) throw() {
+NIImporter_VISUM::getWeightedFloat(const std::string& name) {
     try {
         return TplConvert<char>::_2SUMOReal(myLineParser.get(name).c_str());
     } catch (...) {}
@@ -1058,7 +1058,7 @@ NIImporter_VISUM::getWeightedFloat(const std::string& name) throw() {
 
 
 bool
-NIImporter_VISUM::getWeightedBool(const std::string& name) throw() {
+NIImporter_VISUM::getWeightedBool(const std::string& name) {
     try {
         return TplConvert<char>::_2bool(myLineParser.get(name).c_str());
     } catch (...) {}
@@ -1113,7 +1113,7 @@ NIImporter_VISUM::getNamedEdge(const std::string& fieldName1, const std::string&
 
 
 NBEdge*
-NIImporter_VISUM::getReversedContinuating(NBEdge* edge, NBNode* node) throw() {
+NIImporter_VISUM::getReversedContinuating(NBEdge* edge, NBNode* node) {
     std::string sid;
     if (edge->getID()[0] == '-') {
         sid = edge->getID().substr(1);
@@ -1128,7 +1128,7 @@ NIImporter_VISUM::getReversedContinuating(NBEdge* edge, NBNode* node) throw() {
 
 
 NBEdge*
-NIImporter_VISUM::getNamedEdgeContinuating(NBEdge* begin, NBNode* node) throw() {
+NIImporter_VISUM::getNamedEdgeContinuating(NBEdge* begin, NBNode* node) {
     if (begin == 0) {
         return 0;
     }
@@ -1211,7 +1211,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName1, const 
 
 
 NBEdge*
-NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) throw() {
+NIImporter_VISUM::getEdge(NBNode* FromNode, NBNode* ToNode) {
     EdgeVector::const_iterator i;
     for (i = FromNode->getOutgoingEdges().begin(); i != FromNode->getOutgoingEdges().end(); i++) {
         if (ToNode == (*i)->getToNode()) {
@@ -1231,7 +1231,7 @@ NIImporter_VISUM::getNamedFloat(const std::string& fieldName) throw(OutOfBoundsE
 
 
 SUMOReal
-NIImporter_VISUM::getNamedFloat(const std::string& fieldName, SUMOReal defaultValue) throw() {
+NIImporter_VISUM::getNamedFloat(const std::string& fieldName, SUMOReal defaultValue) {
     try {
         std::string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
         return TplConvert<char>::_2SUMOReal(valS.c_str());
@@ -1253,7 +1253,7 @@ NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string
 
 SUMOReal
 NIImporter_VISUM::getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
-                                SUMOReal defaultValue) throw() {
+                                SUMOReal defaultValue) {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1, defaultValue);
     } else {
@@ -1285,7 +1285,7 @@ NIImporter_VISUM::getNamedString(const std::string& fieldName1,
 
 NBNode*
 NIImporter_VISUM::buildDistrictNode(const std::string& id, NBNode* dest,
-                                    bool isSource) throw() {
+                                    bool isSource) {
     // get the district
     NBDistrict* dist = myNetBuilder.getDistrictCont().retrieve(id);
     if (dist == 0) {
@@ -1307,7 +1307,7 @@ NIImporter_VISUM::buildDistrictNode(const std::string& id, NBNode* dest,
 
 
 bool
-NIImporter_VISUM::checkNodes(NBNode* from, NBNode* to)  throw() {
+NIImporter_VISUM::checkNodes(NBNode* from, NBNode* to)  {
     if (from == 0) {
         WRITE_ERROR(" The from-node was not found within the net");
     }

@@ -57,7 +57,7 @@ public:
      * @param[in] app The application to use
      * @param[in] text The text to copy
      */
-    static void copyToClipboard(const FXApp& app, const std::string& text) throw();
+    static void copyToClipboard(const FXApp& app, const std::string& text) ;
 
     static std::string clipped;
 

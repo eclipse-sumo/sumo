@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 void
-OptionsIO::getOptions(bool loadConfig, int argc, char** argv) throw(ProcessError) {
+OptionsIO::getOptions(bool loadConfig, int argc, char** argv) {
     // preparse the options
     //  (maybe another configuration file was chosen)
     if (!OptionsParser::parse(argc, argv)) {
@@ -74,7 +74,7 @@ OptionsIO::getOptions(bool loadConfig, int argc, char** argv) throw(ProcessError
 
 
 void
-OptionsIO::loadConfiguration() throw(ProcessError) {
+OptionsIO::loadConfiguration() {
     OptionsCont& oc = OptionsCont::getOptions();
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;

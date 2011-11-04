@@ -47,10 +47,10 @@ class Distribution_Points :
 public:
     /// Constructor
     Distribution_Points(const std::string& id,
-                        const PositionVector& points, bool interpolating = false) throw();
+                        const PositionVector& points, bool interpolating = false) ;
 
     /// Destructor
-    virtual ~Distribution_Points() throw();
+    virtual ~Distribution_Points() ;
 
     /// Returns the maximum value of this distribution
     SUMOReal getMax() const;

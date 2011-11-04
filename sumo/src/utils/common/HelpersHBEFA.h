@@ -64,7 +64,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of CO emitted by the given vehicle class when moving with the given velocity and acceleration [g/s]
      */
-    static SUMOReal computeCO(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeCO(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Returns the amount of emitted CO2 given the vehicle type and state (in g/s)
@@ -73,7 +73,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of CO2 emitted by the given vehicle class when moving with the given velocity and acceleration [g/s]
      */
-    static SUMOReal computeCO2(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeCO2(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Returns the amount of emitted HC given the vehicle type and state (in g/s)
@@ -82,7 +82,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of HC emitted by the given vehicle class when moving with the given velocity and acceleration [g/s]
      */
-    static SUMOReal computeHC(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeHC(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Returns the amount of emitted NOx given the vehicle type and state (in g/s)
@@ -91,7 +91,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of NOx emitted by the given vehicle class when moving with the given velocity and acceleration [g/s]
      */
-    static SUMOReal computeNOx(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeNOx(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Returns the amount of emitted PMx given the vehicle type and state (in g/s)
@@ -100,7 +100,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of PMx emitted by the given vehicle class when moving with the given velocity and acceleration [g/s]
      */
-    static SUMOReal computePMx(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computePMx(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Returns the amount of consumed fuel given the vehicle type and state (in l/s)
@@ -109,7 +109,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The amount of fuel consumed by the given vehicle class when moving with the given velocity and acceleration [l/s]
      */
-    static SUMOReal computeFuel(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeFuel(SUMOEmissionClass c, double v, double a) ;
 
 
 private:
@@ -117,7 +117,7 @@ private:
      * @param[in] c The vehicle emission class
      * @return The function parameter (for all pollutants)
      */
-    static inline double* getParameterForClass(SUMOEmissionClass c) throw() {
+    static inline double* getParameterForClass(SUMOEmissionClass c) {
         return myFunctionParameter[c];
     }
 
@@ -131,7 +131,7 @@ private:
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
      */
-    static inline double computeUsing(double* f, double v, double a) throw() {
+    static inline double computeUsing(double* f, double v, double a) {
         if (a < 0) {
             return 0.;
         }

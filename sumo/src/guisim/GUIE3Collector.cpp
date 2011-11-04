@@ -52,7 +52,7 @@
 /* -------------------------------------------------------------------------
  * GUIE3Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) throw()
+GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector)
     : GUIDetectorWrapper("E3 detector", detector.getID()),
       myDetector(detector) {
     const CrossSectionVector& entries = detector.getEntries();
@@ -71,7 +71,7 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) throw()
 }
 
 
-GUIE3Collector::MyWrapper::~MyWrapper() throw() {}
+GUIE3Collector::MyWrapper::~MyWrapper() {}
 
 
 GUIE3Collector::MyWrapper::SingleCrossingDefinition
@@ -89,7 +89,7 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection& section) {
 
 GUIParameterTableWindow*
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
-        GUISUMOAbstractView&) throw() {
+        GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
@@ -107,7 +107,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
@@ -157,7 +157,7 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
 
 
 Boundary
-GUIE3Collector::MyWrapper::getCenteringBoundary() const throw() {
+GUIE3Collector::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -176,11 +176,11 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                SUMOReal haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold) throw()
+                               SUMOTime haltingTimeThreshold)
     : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold) {}
 
 
-GUIE3Collector::~GUIE3Collector() throw() {}
+GUIE3Collector::~GUIE3Collector() {}
 
 
 const CrossSectionVector&

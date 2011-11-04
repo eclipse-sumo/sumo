@@ -53,48 +53,48 @@ class AGPosition;
  */
 class AGStreet {
 public:
-    AGStreet(const ROEdge* edge, SUMOReal popD = 0, SUMOReal workD = 0) throw();
+    AGStreet(const ROEdge* edge, SUMOReal popD = 0, SUMOReal workD = 0) ;
 
     /** @brief Provides the length of this edge.
      *
      * @return the length of this edge
      */
-    SUMOReal getLength() const throw();
+    SUMOReal getLength() const ;
 
     /** @brief Provides the id of this edge.
      *
      * @return the id of this edge
      */
-    const std::string& getName() const throw();
+    const std::string& getName() const ;
 
     /** @brief Provides the number of persons living in this street.
      *
      * @return the number of inhabitants
      */
-    int getPopulation() const throw();
+    int getPopulation() const ;
 
     /** @brief Modifies the number of persons living in this street.
      *
      * @param[in] pop the new number of inhabitants
      */
-    void setPopulation(const int& pop) throw();
+    void setPopulation(const int& pop) ;
 
     /** @brief Provides the number of work places in this street.
      *
      * @return the number of work places
      */
-    int getWorkplaceNumber() const throw();
+    int getWorkplaceNumber() const ;
 
     /** @brief Modifies the number of work places in this street.
      *
      * @param[in] work the new number of work places
      */
-    void setWorkplaceNumber(const int& work) throw();
+    void setWorkplaceNumber(const int& work) ;
 
     /** @brief Prints a summary of the properties of this street to standard
      * output.
      */
-    void print() const throw();
+    void print() const ;
 
 private:
     friend class AGPosition;

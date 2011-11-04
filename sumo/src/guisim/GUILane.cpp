@@ -52,11 +52,11 @@ GUILane::GUILane(const std::string& id, SUMOReal maxSpeed, SUMOReal length,
                  MSEdge* const edge, unsigned int numericalID,
                  const PositionVector& shape, SUMOReal width,
                  const SUMOVehicleClasses& allowed,
-                 const SUMOVehicleClasses& disallowed) throw()
+                 const SUMOVehicleClasses& disallowed)
     : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
 
 
-GUILane::~GUILane() throw() {
+GUILane::~GUILane() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -68,7 +68,7 @@ GUILane::~GUILane() throw() {
 void
 GUILane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                             const MSLane::VehCont::iterator& at,
-                            MSMoveReminder::Notification notification) throw(ProcessError) {
+                            MSMoveReminder::Notification notification) {
     myLock.lock();
     try {
         MSLane::incorporateVehicle(veh, pos, speed, at, notification);
@@ -82,14 +82,14 @@ GUILane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
 
 // ------ Access to vehicles ------
 const MSLane::VehCont&
-GUILane::getVehiclesSecure() const throw() {
+GUILane::getVehiclesSecure() const {
     myLock.lock();
     return myVehicles;
 }
 
 
 void
-GUILane::releaseVehicles() const throw() {
+GUILane::releaseVehicles() const {
     myLock.unlock();
 }
 

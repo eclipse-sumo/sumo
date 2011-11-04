@@ -99,11 +99,11 @@ protected:
      * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
     NIImporter_VISUM(NBNetBuilder& nb, const std::string& file,
-                     NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
+                     NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) ;
 
 
     /// @brief destructor
-    ~NIImporter_VISUM() throw();
+    ~NIImporter_VISUM() ;
 
 
     /** @brief Parses the VISUM-network file storing the parsed structures within myNetBuilder
@@ -116,7 +116,7 @@ protected:
      *
      * @exception ProcessError If the file could not be opened
      */
-    void load() throw(ProcessError);
+    void load() ;
 
 private:
     /** @brief Returns the value from the named column as a float
@@ -147,7 +147,7 @@ private:
      * @param[in] defaultValue The default to return in the case of an error
      * @return The parsed real or the default value if an error while parsing occured
      */
-    SUMOReal getNamedFloat(const std::string& fieldName, SUMOReal defaultValue) throw();
+    SUMOReal getNamedFloat(const std::string& fieldName, SUMOReal defaultValue) ;
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -157,7 +157,7 @@ private:
      * @return The parsed real or the default value if an error while parsing occured
      */
     SUMOReal getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
-                           SUMOReal defaultValue) throw();
+                           SUMOReal defaultValue) ;
 
 
     /** @brief Returns the value from the named column as a normalised string
@@ -193,7 +193,7 @@ private:
      * @param[in] name Name of the column to extract the real from
      * @return The real stored under the named column, or if not found the one from "(IV)"+name, or if not found -1
      */
-    SUMOReal getWeightedFloat(const std::string& name) throw();
+    SUMOReal getWeightedFloat(const std::string& name) ;
 
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality
@@ -205,7 +205,7 @@ private:
      * @param[in] name Name of the column to extract the bool from
      * @return The bool stored under the named column, or if not found the one from "(IV)"+name, or if not found false
      */
-    bool getWeightedBool(const std::string& name) throw();
+    bool getWeightedBool(const std::string& name) ;
 
 
     /** @brief Tries to get the node which name is stored in the given field
@@ -295,7 +295,7 @@ private:
      * @param[in] node The node the consecutive edge must end at in order to be returned
      * @return The edge's continuation up to the given node, 0 if not found
      */
-    NBEdge* getNamedEdgeContinuating(NBEdge* begin, NBNode* node) throw();
+    NBEdge* getNamedEdgeContinuating(NBEdge* begin, NBNode* node) ;
 
 
     /** @brief Returns the edge that connects both nodes
@@ -304,7 +304,7 @@ private:
      * @param[in] ToNode Name of the node the edge shall end at
      * @return The edge connecting both nodes, 0 if no such edge exists
      */
-    NBEdge* getEdge(NBNode* FromNode, NBNode* ToNode) throw();
+    NBEdge* getEdge(NBNode* FromNode, NBNode* ToNode) ;
 
 
     /** @brief Returns the opposite direction of the given edge
@@ -317,7 +317,7 @@ private:
      * @param[in] node Name of the node the opposite edge's continuation must end at
      * @return The found opposite edge's continuation, 0 if not found
      */
-    NBEdge* getReversedContinuating(NBEdge* edge, NBNode* node) throw();
+    NBEdge* getReversedContinuating(NBEdge* edge, NBNode* node) ;
 
 
     /** @brief Builds a node for the given district and returns it
@@ -332,7 +332,7 @@ private:
      * @param[in] isSource Information whether this node will be used as a source
      * @return The built node, zero if an error occured
      */
-    NBNode* buildDistrictNode(const std::string& id, NBNode* dest, bool isSource) throw();
+    NBNode* buildDistrictNode(const std::string& id, NBNode* dest, bool isSource) ;
 
 
     /** @brief Returns whether both nodes are a valid combination of from/to-nodes
@@ -343,7 +343,7 @@ private:
      * @param[in] from The to-node
      * @return Whether the nodes may be used
      */
-    bool checkNodes(NBNode* from, NBNode* to) throw();
+    bool checkNodes(NBNode* from, NBNode* to) ;
 
 
 private:
@@ -452,7 +452,7 @@ private:
      * @param[in] name db name to assign the parser to
      * @param[in] function The function to use for parsing the named db
      */
-    void addParser(const std::string& name, ParsingFunction function) throw();
+    void addParser(const std::string& name, ParsingFunction function) ;
 
 
 private:

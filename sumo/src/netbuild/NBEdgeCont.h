@@ -65,11 +65,11 @@ public:
     /** @brief Constructor
      * @param[in] tc The net builded; used to obtain types
      */
-    NBEdgeCont(NBTypeCont& tc) throw();
+    NBEdgeCont(NBTypeCont& tc) ;
 
 
     /// @brief Destructor
-    ~NBEdgeCont() throw();
+    ~NBEdgeCont() ;
 
 
     /** @brief Initialises the storage by applying given options
@@ -84,7 +84,7 @@ public:
 
 
     /** @brief Deletes all edges */
-    void clear() throw();
+    void clear() ;
 
 
 
@@ -105,7 +105,7 @@ public:
      * @param[in] ignorePrunning Whether this edge must not be prunned
      * @return Whether the edge was valid (no edge with the same id is already known)
      */
-    bool insert(NBEdge* edge, bool ignorePrunning = false) throw();
+    bool insert(NBEdge* edge, bool ignorePrunning = false) ;
 
 
     /** @brief Returns the edge that has the given id
@@ -116,7 +116,7 @@ public:
      * @param[in] bool Whether extracted edges shall be retrieved as well
      * @return The edge with the given id, 0 if no such edge exists
      */
-    NBEdge* retrieve(const std::string& id, bool retrieveExtracted = false) const throw();
+    NBEdge* retrieve(const std::string& id, bool retrieveExtracted = false) const ;
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -132,7 +132,7 @@ public:
      * @todo Recheck usage
      */
     NBEdge* retrievePossiblySplitted(const std::string& id,
-                                     const std::string& hint, bool incoming) const throw();
+                                     const std::string& hint, bool incoming) const ;
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -145,7 +145,7 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge* retrievePossiblySplitted(const std::string& id, SUMOReal pos) const throw();
+    NBEdge* retrievePossiblySplitted(const std::string& id, SUMOReal pos) const ;
 
 
     /** @brief Removes the given edge from the container (deleting it)
@@ -154,7 +154,7 @@ public:
      * @param[in] edge The edge to remove
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
-    void erase(NBDistrictCont& dc, NBEdge* edge) throw();
+    void erase(NBDistrictCont& dc, NBEdge* edge) ;
 
 
     /** @brief Removes the given edge from the container like erase but does not
@@ -202,7 +202,7 @@ public:
      * @exception ProcessError If connections between the edges can not be built
      * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
      */
-    bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node) throw(ProcessError);
+    bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node) ;
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -227,7 +227,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) ;
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -244,7 +244,7 @@ public:
      */
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, SUMOReal edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
-                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) ;
     /// @}
 
 
@@ -255,7 +255,7 @@ public:
     /** @brief Returns the number of edges
      * @return The number of edges stored in this container
      */
-    unsigned int size() const throw() {
+    unsigned int size() const {
         return (unsigned int) myEdges.size();
     }
 
@@ -264,13 +264,13 @@ public:
      * @return All ids of known edges
      * @todo Recheck usage, probably, filling a given vector would be better...
      */
-    std::vector<std::string> getAllNames() const throw();
+    std::vector<std::string> getAllNames() const ;
 
 
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
-    unsigned int getNoEdgeSplits() const throw() {
+    unsigned int getNoEdgeSplits() const {
         return myEdgesSplit;
     }
     /// @}
@@ -310,7 +310,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeTurningDirections
      */
-    void computeTurningDirections() throw();
+    void computeTurningDirections() ;
 
 
     /** @brief Sorts all lanes of all edges within the container by their direction
@@ -320,7 +320,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::sortOutgoingLanesConnections
      */
-    void sortOutgoingLanesConnections() throw();
+    void sortOutgoingLanesConnections() ;
 
 
     /** @brief Computes for each edge the approached edges
@@ -331,7 +331,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeEdge2Edges
      */
-    void computeEdge2Edges(bool noLeftMovers) throw();
+    void computeEdge2Edges(bool noLeftMovers) ;
 
 
     /** @brief Computes for each edge which lanes approach the next edges
@@ -341,7 +341,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeLanes2Edges
      */
-    void computeLanes2Edges() throw();
+    void computeLanes2Edges() ;
 
 
     /** @brief Rechecks whether all lanes have a successor for each of the stored edges
@@ -351,7 +351,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::recheckLanes
      */
-    void recheckLanes() throw();
+    void recheckLanes() ;
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -362,7 +362,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled) throw();
+    void appendTurnarounds(bool noTLSControlled) ;
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -382,7 +382,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeEdgeShape
      */
-    void computeEdgeShapes() throw();
+    void computeEdgeShapes() ;
 
 
     /** @brief Computes the shapes of all lanes of all edges stored in the container
@@ -393,7 +393,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeLaneShapes
      */
-    void recomputeLaneShapes() throw();
+    void recomputeLaneShapes() ;
 
 
     /** @brief Clears information about controlling traffic lights for all connenections of all edges
@@ -409,14 +409,14 @@ public:
      * @todo Recheck and describe usage
      */
     void joinSameNodeConnectingEdges(NBDistrictCont& dc,
-                                     NBTrafficLightLogicCont& tlc, EdgeVector edges) throw();
+                                     NBTrafficLightLogicCont& tlc, EdgeVector edges) ;
 
 
     /** @brief Rechecks whether the lane spread is proper
      *
      * @todo Recheck usage; check whether this is really needed and whether it works at all
      */
-    void recheckLaneSpread() throw();
+    void recheckLaneSpread() ;
     /// @}
 
 
@@ -424,13 +424,13 @@ public:
     /** @brief Determines which edges belong to roundabouts and increases their priority
      * @param[out] marked Edges which belong to a roundabout are stored here
      */
-    void guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw();
+    void guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) ;
 
 
     /** @brief Returns whether the built edges are left-handed
      * @return Whether this edge container is left-handed
      */
-    bool isLeftHanded() const throw() {
+    bool isLeftHanded() const {
         return myAmLeftHanded;
     }
 
@@ -438,14 +438,14 @@ public:
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing
      */
-    bool wasIgnored(std::string id) const throw() {
+    bool wasIgnored(std::string id) const {
         return myIgnoredEdges.count(id) != 0;
     }
 
 
     /** @brief Returns whether the edge with the id was deleted explicitly
      */
-    bool wasRemoved(std::string id) const throw() {
+    bool wasRemoved(std::string id) const {
         return myExtractedEdges.count(id) != 0;
     }
 
@@ -457,7 +457,7 @@ private:
      * @return List of all edges which have been built by splitting the original edge
      * @todo Recheck usage
      */
-    EdgeVector getGeneratedFrom(const std::string& id) const throw();
+    EdgeVector getGeneratedFrom(const std::string& id) const ;
 
 
 private:

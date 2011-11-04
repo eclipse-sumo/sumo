@@ -199,7 +199,7 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle* const v, SUMOTime time) throw() {
+    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle* const v, SUMOTime time) {
         UNUSED_PARAMETER(v);
         SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); i++) {

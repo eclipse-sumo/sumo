@@ -71,7 +71,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // method definitions
 // ===========================================================================
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
-        GUISelectedStorage* str) throw()
+        GUISelectedStorage* str)
     : FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
       myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
@@ -116,14 +116,14 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
 }
 
 
-GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw() {
+GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() {
     myStorage->remove2Update();
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_GLChosenEditor::rebuildList() throw() {
+GUIDialog_GLChosenEditor::rebuildList() {
     myList->clearItems();
     const std::set<GUIGlID> &chosen = gSelected.getSelected();
     for (std::set<GUIGlID>::const_iterator i = chosen.begin(); i != chosen.end(); ++i) {

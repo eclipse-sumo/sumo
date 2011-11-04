@@ -56,7 +56,7 @@ MSNoLogicJunction::MSNoLogicJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
                                      , std::vector<MSLane*> internal
 #endif
-                                    ) throw()
+                                    )
     : MSJunction(id, position, shape),
       myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
@@ -70,7 +70,7 @@ MSNoLogicJunction::~MSNoLogicJunction() {}
 
 
 void
-MSNoLogicJunction::postloadInit() throw(ProcessError) {
+MSNoLogicJunction::postloadInit() {
     std::vector<MSLane*>::iterator i;
     // inform links where they have to report approaching vehicles to
     for (i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {

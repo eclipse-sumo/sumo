@@ -61,11 +61,11 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id) throw() : Named(id) { }
+    MSDetectorFileOutput(const std::string& id) : Named(id) { }
 
 
     /// @brief (virtual) destructor
-    virtual ~MSDetectorFileOutput() throw() { }
+    virtual ~MSDetectorFileOutput() { }
 
 
     /// @name Virtual methods to implement by derived classes
@@ -78,7 +78,7 @@ public:
      * @exception IOError If an error on writing occurs
      */
     virtual void writeXMLOutput(OutputDevice& dev,
-                                SUMOTime startTime, SUMOTime stopTime) throw(IOError) = 0;
+                                SUMOTime startTime, SUMOTime stopTime) = 0;
 
 
     /** @brief Open the XML-output
@@ -89,7 +89,7 @@ public:
      * @param[in] dev The output device to write the root into
      * @exception IOError If an error on writing occurs
      */
-    virtual void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) = 0;
+    virtual void writeXMLDetectorProlog(OutputDevice& dev) const = 0;
 
 
     /** @brief Resets collected values
@@ -99,14 +99,14 @@ public:
      * @see Command_SaveTLCoupledLaneDet
      * @todo Reckeck/refactor
      */
-    virtual void reset() throw() { }
+    virtual void reset() { }
 
 
     /** @brief Updates the detector (computes values)
      *
      * @param[in] step The current time step
      */
-    virtual void detectorUpdate(const SUMOTime step) throw() { }
+    virtual void detectorUpdate(const SUMOTime step) { }
 
 
     /** @brief Builds the graphical representation

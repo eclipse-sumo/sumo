@@ -85,7 +85,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     GUISUMOAbstractView* parent,
     GUIVisualizationSettings* settings,
     std::vector<GUISUMOAbstractView::Decal> *decals,
-    MFXMutex* decalsLock) throw()
+    MFXMutex* decalsLock)
     : FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
       myParent(parent), mySettings(settings),
       myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0) {
@@ -427,7 +427,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
 }
 
 
-GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw() {
+GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     myParent->remove(this);
     delete myEdgeNamePanel;
     delete myInternalEdgeNamePanel;
@@ -441,7 +441,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw() {
 
 
 void
-GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) throw() {
+GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
     mySettings = settings;
     myBackup = (*settings);
     onCmdNameChange(0, 0, 0);
@@ -730,7 +730,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
 
 void
-GUIDialog_ViewSettings::loadSettings(const std::string& file) throw() {
+GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     GUISettingsHandler handler(file);
     std::string settingsName = handler.addSettings(myParent);
     if (settingsName != "") {
@@ -742,7 +742,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) throw() {
 
 
 void
-GUIDialog_ViewSettings::saveDecals(const std::string& file) const throw() {
+GUIDialog_ViewSettings::saveDecals(const std::string& file) const {
     try {
         OutputDevice& dev = OutputDevice::getDevice(file);
         dev << "<decals>\n";
@@ -766,7 +766,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string& file) const throw() {
 
 
 void
-GUIDialog_ViewSettings::loadDecals(const std::string& file) throw() {
+GUIDialog_ViewSettings::loadDecals(const std::string& file) {
     myDecalsLock->lock();
     GUISettingsHandler handler(file);
     if (handler.hasDecals()) {
@@ -972,7 +972,7 @@ GUIDialog_ViewSettings::convert(const RGBColor& c) {
 
 
 void
-GUIDialog_ViewSettings::rebuildList() throw() {
+GUIDialog_ViewSettings::rebuildList() {
     myDecalsTable->clearItems();
     // set table attributes
     myDecalsTable->setTableSize(10, 6);
@@ -1011,7 +1011,7 @@ GUIDialog_ViewSettings::rebuildList() throw() {
 
 
 void
-GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
+GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     // decals
     delete myDecalsTable;
     myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
@@ -1239,13 +1239,13 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
 
 
 std::string
-GUIDialog_ViewSettings::getCurrentScheme() const throw() {
+GUIDialog_ViewSettings::getCurrentScheme() const {
     return mySchemeName->getItem(mySchemeName->getCurrentItem()).text();
 }
 
 
 void
-GUIDialog_ViewSettings::setCurrentScheme(const std::string& name) throw() {
+GUIDialog_ViewSettings::setCurrentScheme(const std::string& name) {
     if (name.c_str() == mySchemeName->getItemText(mySchemeName->getCurrentItem())) {
         return;
     }

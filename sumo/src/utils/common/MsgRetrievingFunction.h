@@ -63,7 +63,7 @@ public:
 
 
     /// @brief Destructor
-    ~MsgRetrievingFunction() throw() {}
+    ~MsgRetrievingFunction() {}
 
 
 protected:
@@ -78,14 +78,14 @@ protected:
      * @return The used stream
      * @see postWriteHook
      */
-    std::ostream& getOStream() throw() {
+    std::ostream& getOStream() {
         return myMessage;
     }
 
 
     /** @brief Sends the data which was written to the string stream via the retrieving function.
      */
-    virtual void postWriteHook() throw() {
+    virtual void postWriteHook() {
         (myObject->*myOperation)(myMsgType, myMessage.str());
         myMessage.str("");
     }

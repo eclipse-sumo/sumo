@@ -44,25 +44,25 @@
 class ReferencedItem {
 public:
     /// @brief Constructor
-    ReferencedItem() throw() : myWasSaved(false) { }
+    ReferencedItem() : myWasSaved(false) { }
 
 
     /// @brief Destructor
-    virtual ~ReferencedItem() throw()  { }
+    virtual ~ReferencedItem()  { }
 
 
     /** @brief Returns the information whether this item was already saved
      *
      * @return Whether this item was saved
      */
-    bool isSaved() const throw()  {
+    bool isSaved() const  {
         return myWasSaved;
     }
 
 
     /** @brief Marks the item as saved
      */
-    void markSaved() throw()  {
+    void markSaved()  {
         myWasSaved = true;
     }
 

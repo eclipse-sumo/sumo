@@ -76,18 +76,18 @@
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    EdgeVector* approaching, NBEdge* currentOutgoing) throw() :
+    EdgeVector* approaching, NBEdge* currentOutgoing) :
     myApproaching(approaching), myCurrentOutgoing(currentOutgoing) {
     // check whether origin lanes have been given
     assert(myApproaching != 0);
 }
 
 
-NBNode::ApproachingDivider::~ApproachingDivider() throw() {}
+NBNode::ApproachingDivider::~ApproachingDivider() {}
 
 
 void
-NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int dest) throw() {
+NBNode::ApproachingDivider::execute(const unsigned int src, const unsigned int dest) {
     assert(myApproaching->size() > src);
     // get the origin edge
     NBEdge* incomingEdge = (*myApproaching)[src];
@@ -187,7 +187,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const std::string& id, const Position& position) throw() :
+NBNode::NBNode(const std::string& id, const Position& position) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
     myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0)
@@ -195,21 +195,21 @@ NBNode::NBNode(const std::string& id, const Position& position) throw() :
 
 
 NBNode::NBNode(const std::string& id, const Position& position,
-               SumoXMLNodeType type) throw() :
+               SumoXMLNodeType type) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
     myType(type), myDistrict(0), myRequest(0)
 { }
 
 
-NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) throw() :
+NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
     Named(StringUtils::convertUmlaute(id)),
     myPosition(position),
     myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0)
 { }
 
 
-NBNode::~NBNode() throw() {
+NBNode::~NBNode() {
     delete myRequest;
 }
 
@@ -249,21 +249,21 @@ NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff) {
 
 // -----------  Methods for dealing with assigned traffic lights
 void
-NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) throw() {
+NBNode::addTrafficLight(NBTrafficLightDefinition* tlDef) {
     myTrafficLights.insert(tlDef);
     myType = NODETYPE_TRAFFIC_LIGHT;
 }
 
 
 void
-NBNode::removeTrafficLight(NBTrafficLightDefinition* tlDef) throw() {
+NBNode::removeTrafficLight(NBTrafficLightDefinition* tlDef) {
     tlDef->removeNode(this);
     myTrafficLights.erase(tlDef);
 }
 
 
 void
-NBNode::removeTrafficLights() throw() {
+NBNode::removeTrafficLights() {
     std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
     for (std::set<NBTrafficLightDefinition*>::const_iterator i = trafficLights.begin(); i != trafficLights.end(); ++i) {
         removeTrafficLight(*i);
@@ -272,7 +272,7 @@ NBNode::removeTrafficLights() throw() {
 
 
 bool
-NBNode::isJoinedTLSControlled() const throw() {
+NBNode::isJoinedTLSControlled() const {
     if (!isTLControlled()) {
         return false;
     }
@@ -1066,13 +1066,13 @@ NBNode::removeDoubleEdges() {
 
 
 bool
-NBNode::hasIncoming(const NBEdge* const e) const throw() {
+NBNode::hasIncoming(const NBEdge* const e) const {
     return find(myIncomingEdges.begin(), myIncomingEdges.end(), e) != myIncomingEdges.end();
 }
 
 
 bool
-NBNode::hasOutgoing(const NBEdge* const e) const throw() {
+NBNode::hasOutgoing(const NBEdge* const e) const {
     return find(myOutgoingEdges.begin(), myOutgoingEdges.end(), e) != myOutgoingEdges.end();
 }
 
@@ -1206,7 +1206,7 @@ NBNode::invalidateOutgoingConnections() {
 
 
 bool
-NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const throw() {
+NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const {
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
@@ -1250,7 +1250,7 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) 
 
 
 bool
-NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const throw() {
+NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     // when the junction has only one incoming edge, there are no
     //  problems caused by left blockings
     if (myIncomingEdges.size() == 1 || myOutgoingEdges.size() == 1) {
@@ -1271,7 +1271,7 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const thro
 bool
 NBNode::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                 const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                bool regardNonSignalisedLowerPriority) const throw() {
+                bool regardNonSignalisedLowerPriority) const {
     return myRequest != 0 && myRequest->forbids(possProhibitorFrom, possProhibitorTo,
             possProhibitedFrom, possProhibitedTo,
             regardNonSignalisedLowerPriority);
@@ -1280,7 +1280,7 @@ NBNode::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const poss
 
 bool
 NBNode::foes(const NBEdge* const from1, const NBEdge* const to1,
-             const NBEdge* const from2, const NBEdge* const to2) const throw() {
+             const NBEdge* const from2, const NBEdge* const to2) const {
     return myRequest != 0 && myRequest->foes(from1, to1, from2, to2);
 }
 
@@ -1367,7 +1367,7 @@ NBNode::remapRemoved(NBTrafficLightLogicCont& tc,
 
 
 LinkDirection
-NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const throw() {
+NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const {
     // ok, no connection at all -> dead end
     if (outgoing == 0) {
         return LINKDIR_NODIR;
@@ -1413,7 +1413,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
 
 
 std::string
-NBNode::stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool mayDefinitelyPass) const throw() {
+NBNode::stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool mayDefinitelyPass) const {
     if (outgoing == 0) { // always off
         return toString(LINKSTATE_TL_OFF_NOSIGNAL);
     }

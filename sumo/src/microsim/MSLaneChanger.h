@@ -99,7 +99,7 @@ protected:
 
     /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */
-    bool vehInChanger() const throw() {
+    bool vehInChanger() const {
         // If there is at least one valid vehicle under the veh's in myChanger
         // return true.
         for (ConstChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
@@ -112,7 +112,7 @@ protected:
 
     /** Returns a pointer to the changer-element-iterator vehicle, or 0 if
         there is none. */
-    MSVehicle* veh(ConstChangerIt ce) const throw() {
+    MSVehicle* veh(ConstChangerIt ce) const {
         // If ce has a valid vehicle, return it. Otherwise return 0.
         if (ce->veh != ce->lane->myVehicles.rend()) {
             return *(ce->veh);
@@ -140,20 +140,20 @@ protected:
         const std::pair<MSVehicle* const, SUMOReal> &leader,
         const std::pair<MSVehicle* const, SUMOReal> &rLead,
         const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const throw();
+        const std::vector<MSVehicle::LaneQ> &preb) const ;
 
     int change2left(
         const std::pair<MSVehicle* const, SUMOReal> &leader,
         const std::pair<MSVehicle* const, SUMOReal> &rLead,
         const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const throw();
+        const std::vector<MSVehicle::LaneQ> &preb) const ;
 
 
 
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
-    bool overlapWithHopped(ChangerIt target) const throw() {
+    bool overlapWithHopped(ChangerIt target) const {
         MSVehicle* v1 = target->hoppedVeh;
         MSVehicle* v2 = veh(myCandi);
         if (v1 != 0 && v2 != 0) {
@@ -162,11 +162,11 @@ protected:
         return false;
     }
 
-    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const ;
 
-    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const ;
 
-    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const throw();
+    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const ;
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

@@ -55,7 +55,7 @@ string2time(const std::string& r) throw(EmptyData, NumberFormatException, Proces
 
 
 std::string
-time2string(SUMOTime t) throw() {
+time2string(SUMOTime t) {
     // 123456 -> "12.34"
     std::ostringstream oss;
     oss.setf(oss.fixed);

@@ -61,11 +61,11 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw();
+    ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index) ;
 
 
     /// @brief Destructor
-    ~ROJTREdge() throw();
+    ~ROJTREdge() ;
 
 
     /** @brief Adds information about a connected edge
@@ -78,7 +78,7 @@ public:
      * @param[in] s The following edge
      * @see ROEdge::addFollower
      */
-    void addFollower(ROEdge* s) throw();
+    void addFollower(ROEdge* s) ;
 
 
     /** @brief adds the information about the percentage of using a certain follower

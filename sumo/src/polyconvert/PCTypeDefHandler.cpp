@@ -46,17 +46,17 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) throw()
+PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con)
     : SUMOSAXHandler("Detector-Defintion"),
       myOptions(oc),  myContainer(con) {}
 
 
-PCTypeDefHandler::~PCTypeDefHandler() throw() {}
+PCTypeDefHandler::~PCTypeDefHandler() {}
 
 
 void
 PCTypeDefHandler::myStartElement(int element,
-                                 const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                 const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_POLYTYPE || element == SUMO_TAG_POLYTYPE__DEPRECATED) {
         bool ok = true;
         // get the id, report an error if not given or empty...

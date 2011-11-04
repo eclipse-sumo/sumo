@@ -46,11 +46,11 @@
 class ODDistrictCont : public NamedObjectCont<ODDistrict*> {
 public:
     /// Constructor
-    ODDistrictCont() throw();
+    ODDistrictCont() ;
 
 
     /// Destructor
-    ~ODDistrictCont() throw();
+    ~ODDistrictCont() ;
 
 
     /** @brief Returns the id of a random source from the named district

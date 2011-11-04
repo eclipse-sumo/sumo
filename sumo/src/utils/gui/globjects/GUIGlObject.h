@@ -84,7 +84,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~GUIGlObject() throw();
+    virtual ~GUIGlObject() ;
 
     /// @brief associates object types with strings
     static StringBijection<GUIGlObjectType> TypeNames;
@@ -103,7 +103,7 @@ public:
     /** @brief Returns the numerical id of the object
      * @return This object's gl-id
      */
-    GUIGlID getGlID() const throw() {
+    GUIGlID getGlID() const {
         return myGlID;
     }
     /// @}
@@ -118,7 +118,7 @@ public:
      * @param[in] parent The parent window needed to build the popup-menu
      * @return The built popup-menu
      */
-    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) throw() = 0;
+    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
 
     /** @brief Returns an own parameter window
@@ -127,7 +127,7 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) throw() = 0;
+    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
 
     /** @brief Returns the id of the object as known to microsim
@@ -156,13 +156,13 @@ public:
      *
      * @return The boundary the object is within
      */
-    virtual Boundary getCenteringBoundary() const throw() = 0;
+    virtual Boundary getCenteringBoundary() const = 0;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGL(const GUIVisualizationSettings& s) const throw() = 0;
+    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
     //@}
 
 
@@ -170,7 +170,7 @@ public:
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const throw() {
+    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
         UNUSED_PARAMETER(&s);
         UNUSED_PARAMETER(parent);
     };
@@ -183,13 +183,13 @@ public:
     /** @brief Lets this object know a parameter window showing the object's values was opened
      * @param[in] w The opened parameter window
      */
-    void addParameterTable(GUIParameterTableWindow* w) throw();
+    void addParameterTable(GUIParameterTableWindow* w) ;
 
 
     /** @brief Lets this object know a parameter window showing the object's values was closed
      * @param[in] w The closed parameter window
      */
-    void removeParameterTable(GUIParameterTableWindow* w) throw();
+    void removeParameterTable(GUIParameterTableWindow* w) ;
     /// @}
 
 
@@ -205,35 +205,35 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator = true) throw();
+    void buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator = true) ;
 
 
     /** @brief Builds an entry which allows to center to the object
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
 
 
     /** @brief Builds entries which allow to copy the name / typed name into the clipboard
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
 
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
 
 
     /** @brief Builds an entry which allows to open the parameter window
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
 
 
     /** @brief Builds an entry which allows to copy the cursor position
@@ -241,14 +241,14 @@ protected:
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
 
 
     /** @brief Builds an entry which allows to open the manipulator window
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */
-    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) throw();
+    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true) ;
     //@}
 
 protected:

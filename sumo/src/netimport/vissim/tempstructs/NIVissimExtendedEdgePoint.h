@@ -54,7 +54,7 @@ public:
      * @param[in] assignedVehicles Vehicle (type) indices which should be regarded by this point
      */
     NIVissimExtendedEdgePoint(int edgeid, const IntVector& lanes,
-                              SUMOReal position, const IntVector& assignedVehicles) throw();
+                              SUMOReal position, const IntVector& assignedVehicles) ;
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
     SUMOReal getPosition() const;
@@ -69,7 +69,7 @@ public:
      *
      * @param[in] The built edge
      */
-    void recheckLanes(const NBEdge* const edge) throw();
+    void recheckLanes(const NBEdge* const edge) ;
 
 private:
     int myEdgeID;

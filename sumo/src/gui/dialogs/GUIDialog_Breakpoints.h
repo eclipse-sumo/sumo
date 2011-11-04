@@ -58,10 +58,10 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow* parent) throw();
+    GUIDialog_Breakpoints(GUIMainWindow* parent) ;
 
     /// @brief Destructor
-    ~GUIDialog_Breakpoints() throw();
+    ~GUIDialog_Breakpoints() ;
 
 
 
@@ -87,12 +87,12 @@ public:
 
 private:
     /// @brief Rebuilds the entire list
-    void rebuildList() throw();
+    void rebuildList() ;
 
     /** @brief Builds a text representation of the items in the list
      * @return Breakpoints encoded as a string
      */
-    std::string encode2TXT() throw();
+    std::string encode2TXT() ;
 
 
 private:

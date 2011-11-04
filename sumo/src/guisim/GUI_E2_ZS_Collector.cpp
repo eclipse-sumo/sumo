@@ -58,13 +58,13 @@
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string& id, DetectorUsage usage,
         MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw()
+        SUMOReal jamDistThreshold)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
                     haltingSpeedThreshold, jamDistThreshold) {}
 
 
 
-GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw() {}
+GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() {}
 
 
 GUIDetectorWrapper*
@@ -77,7 +77,7 @@ GUI_E2_ZS_Collector::buildDetectorGUIRepresentation() {
 /* -------------------------------------------------------------------------
  * GUI_E2_ZS_Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
-GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector) throw()
+GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector)
     : GUIDetectorWrapper("E2 detector", detector.getID()),
       myDetector(detector) {
     GUILaneWrapper& lw = static_cast<GUIEdge&>(detector.getLane()->getEdge()).getLaneGeometry(detector.getLane());
@@ -100,11 +100,11 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector& detector) throw()
 }
 
 
-GUI_E2_ZS_Collector::MyWrapper::~MyWrapper() throw() {}
+GUI_E2_ZS_Collector::MyWrapper::~MyWrapper() {}
 
 
 Boundary
-GUI_E2_ZS_Collector::MyWrapper::getCenteringBoundary() const throw() {
+GUI_E2_ZS_Collector::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -113,7 +113,7 @@ GUI_E2_ZS_Collector::MyWrapper::getCenteringBoundary() const throw() {
 
 GUIParameterTableWindow*
 GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
-        GUISUMOAbstractView&) throw() {
+        GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
@@ -149,7 +149,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());

@@ -94,7 +94,7 @@ public:
      * @see RODFDetectorType
      */
     RODFDetector(const std::string& id, const std::string& laneID,
-                 SUMOReal pos, const RODFDetectorType type) throw();
+                 SUMOReal pos, const RODFDetectorType type) ;
 
 
     /** @brief Constructor
@@ -104,11 +104,11 @@ public:
      * @param[in] id The id of the detector
      * @param[in] f A detector from which routes shall be copied
      */
-    RODFDetector(const std::string& id, const RODFDetector& f) throw();
+    RODFDetector(const std::string& id, const RODFDetector& f) ;
 
 
     /// @brief Destructor
-    ~RODFDetector() throw();
+    ~RODFDetector() ;
 
 
 
@@ -118,7 +118,7 @@ public:
     /** @brief Returns the ID of this detector
      * @return The id of this detector
      */
-    const std::string& getID() const throw() {
+    const std::string& getID() const {
         return myID;
     };
 
@@ -126,7 +126,7 @@ public:
     /** @brief Returns the id of the lane this detector is placed on
      * @return The id of the lane this detector is placed on
      */
-    const std::string& getLaneID() const throw() {
+    const std::string& getLaneID() const {
         return myLaneID;
     };
 
@@ -134,7 +134,7 @@ public:
     /** @brief Returns the id of the edge this detector is placed on
      * @return The id of the edge this detector is placed on
      */
-    std::string getEdgeID() const throw() {
+    std::string getEdgeID() const {
         return myLaneID.substr(0, myLaneID.rfind('_'));
     }
 
@@ -142,7 +142,7 @@ public:
     /** @brief Returns the position at which the detector lies
      * @return The position of the detector at the lane
      */
-    SUMOReal getPos() const throw() {
+    SUMOReal getPos() const {
         return myPosition;
     };
 
@@ -151,7 +151,7 @@ public:
      * @return This detector's type
      * @see RODFDetectorType
      */
-    RODFDetectorType getType() const throw() {
+    RODFDetectorType getType() const {
         return myType;
     };
     /// @}
@@ -279,7 +279,7 @@ protected:
     /** @brief Clears the given distributions map, deleting the timed distributions
      * @param[in] dists The distribution map to clear
      */
-    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw();
+    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const ;
 
 
 protected:

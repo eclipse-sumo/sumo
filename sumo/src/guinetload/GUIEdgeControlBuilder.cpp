@@ -48,11 +48,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIEdgeControlBuilder::GUIEdgeControlBuilder() throw()
+GUIEdgeControlBuilder::GUIEdgeControlBuilder()
     : NLEdgeControlBuilder() {}
 
 
-GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
+GUIEdgeControlBuilder::~GUIEdgeControlBuilder() {}
 
 
 MSEdge*
@@ -91,7 +91,7 @@ GUIEdgeControlBuilder::addLane(const std::string& id,
 
 
 MSEdge*
-GUIEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) throw() {
+GUIEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) {
     return new GUIEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 

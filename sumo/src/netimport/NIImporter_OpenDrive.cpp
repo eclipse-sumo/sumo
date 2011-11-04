@@ -581,7 +581,7 @@ NIImporter_OpenDrive::setLaneConnections(NIImporter_OpenDrive::Connection& c,
 
 NBNode*
 NIImporter_OpenDrive::getOrBuildNode(const std::string& id, Position& pos,
-                                     NBNodeCont& nc) throw(ProcessError) {
+                                     NBNodeCont& nc) {
     if (nc.retrieve(id) == 0) {
         // not yet built; build now
         if (!nc.insert(id, pos)) {
@@ -595,7 +595,7 @@ NIImporter_OpenDrive::getOrBuildNode(const std::string& id, Position& pos,
 
 void
 NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                                    const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError) {
+                                    const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) {
     NBNode* n = nc.retrieve(nodeID);
     if (n == 0) {
         throw ProcessError("Could not find node '" + nodeID + "'.");
@@ -621,7 +621,7 @@ NBEdge*
 NIImporter_OpenDrive::getOutgoingDirectionalEdge(const NBEdgeCont& ec,
         const NBNodeCont& nc,
         const std::string& edgeID,
-        const std::string& nodeID) throw() {
+        const std::string& nodeID) {
     NBNode* node = nc.retrieve(nodeID);
     NBEdge* e = ec.retrieve(edgeID);
     if (e != 0 && node->hasOutgoing(e)) {
@@ -639,7 +639,7 @@ NBEdge*
 NIImporter_OpenDrive::getIncomingDirectionalEdge(const NBEdgeCont& ec,
         const NBNodeCont& nc,
         const std::string& edgeID,
-        const std::string& nodeID) throw() {
+        const std::string& nodeID) {
     NBNode* node = nc.retrieve(nodeID);
     NBEdge* e = ec.retrieve(edgeID);
     if (e != 0 && node->hasIncoming(e)) {
@@ -654,7 +654,7 @@ NIImporter_OpenDrive::getIncomingDirectionalEdge(const NBEdgeCont& ec,
 
 
 void
-NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
+NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) {
     for (std::vector<OpenDriveEdge>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *i;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
@@ -691,7 +691,7 @@ NIImporter_OpenDrive::computeShapes(std::vector<OpenDriveEdge> &edges) throw() {
 }
 
 std::vector<Position>
-NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw() {
+NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
     ret.push_back(Position(g.x, g.y));
@@ -701,7 +701,7 @@ NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeomet
 
 
 std::vector<Position>
-NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw() {
+NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
     SUMOReal curveStart = g.params[0];
@@ -718,7 +718,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
 
 
 std::vector<Position>
-NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw() {
+NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
     SUMOReal dist = 0.0;
@@ -771,7 +771,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometr
 
 
 std::vector<Position>
-NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) throw() {
+NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
     UNUSED_PARAMETER(g);
     UNUSED_PARAMETER(e);
     std::vector<Position> ret;
@@ -780,7 +780,7 @@ NIImporter_OpenDrive::geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeomet
 
 
 Position
-NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const Position& start) throw() {
+NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const Position& start) {
     double normx = 1.0f;
     double normy = 0.0f;
     double x2 = normx * cos(hdg) - normy * sin(hdg);
@@ -792,7 +792,7 @@ NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const
 
 
 void
-NIImporter_OpenDrive::calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw() {
+NIImporter_OpenDrive::calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) {
     SUMOReal normX = 1.0;
     SUMOReal normY = 0.0;
     SUMOReal tmpX;
@@ -821,7 +821,7 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOR
 
 void
 NIImporter_OpenDrive::calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
-                                       SUMOReal ad_r, SUMOReal ad_length) throw() {
+                                       SUMOReal ad_r, SUMOReal ad_length) {
     double rotAngle = ad_length / fabs(ad_r);
     double vx = *ad_x - ad_centerX;
     double vy = *ad_y - ad_centerY;
@@ -851,13 +851,13 @@ NIImporter_OpenDrive::NIImporter_OpenDrive(
 }
 
 
-NIImporter_OpenDrive::~NIImporter_OpenDrive() throw() {
+NIImporter_OpenDrive::~NIImporter_OpenDrive() {
 }
 
 
 void
 NIImporter_OpenDrive::myStartElement(int element,
-                                     const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                     const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
         case OPENDRIVE_TAG_HEADER: {
@@ -976,7 +976,7 @@ NIImporter_OpenDrive::myStartElement(int element,
 
 void
 NIImporter_OpenDrive::myCharacters(int element,
-                                   const std::string& chars) throw(ProcessError) {
+                                   const std::string& chars) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
 }
@@ -984,7 +984,7 @@ NIImporter_OpenDrive::myCharacters(int element,
 
 
 void
-NIImporter_OpenDrive::myEndElement(int element) throw(ProcessError) {
+NIImporter_OpenDrive::myEndElement(int element) {
     myElementStack.pop_back();
     switch (element) {
         case OPENDRIVE_TAG_ROAD:
@@ -1004,7 +1004,7 @@ NIImporter_OpenDrive::myEndElement(int element) throw(ProcessError) {
 void
 NIImporter_OpenDrive::addLink(LinkType lt, const std::string& elementType,
                               const std::string& elementID,
-                              const std::string& contactPoint) throw(ProcessError) {
+                              const std::string& contactPoint) {
     OpenDriveLink l(lt, elementID);
     // elementType
     if (elementType == "road") {
@@ -1024,7 +1024,7 @@ NIImporter_OpenDrive::addLink(LinkType lt, const std::string& elementType,
 
 
 void
-NIImporter_OpenDrive::addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) throw(ProcessError) {
+NIImporter_OpenDrive::addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) {
     // checks
     if (myCurrentEdge.geometries.size() == 0) {
         throw ProcessError("Mismatching paranthesis in geometry definition for road '" + myCurrentEdge.id + "'");

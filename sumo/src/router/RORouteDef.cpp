@@ -49,18 +49,18 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color) throw()
+RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color)
     : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
       myColor(color) {}
 
 
-RORouteDef::~RORouteDef() throw() {
+RORouteDef::~RORouteDef() {
     delete myColor;
 }
 
 
 const RGBColor*
-RORouteDef::copyColorIfGiven() const throw() {
+RORouteDef::copyColorIfGiven() const {
     if (myColor == 0) {
         return 0;
     }

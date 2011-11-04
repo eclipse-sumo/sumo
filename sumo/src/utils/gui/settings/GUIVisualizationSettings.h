@@ -82,7 +82,7 @@ class GUIVisualizationSettings {
 public:
 
     /// @brief constructor
-    GUIVisualizationSettings() throw();
+    GUIVisualizationSettings() ;
 
     /// @brief The name of this setting
     std::string name;
@@ -212,7 +212,7 @@ public:
     /** @brief Writes the settings into an output device
      * @param[in] dev The device to write the settings into
      */
-    void save(OutputDevice& dev) const throw(IOError);
+    void save(OutputDevice& dev) const;
 
     /** @brief Returns the number of the active lane (edge) coloring schme
      * @return number of the active scheme

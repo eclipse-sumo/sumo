@@ -57,11 +57,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeCont::NBNodeCont() throw()
+NBNodeCont::NBNodeCont()
     : myInternalID(1) {}
 
 
-NBNodeCont::~NBNodeCont() throw() {
+NBNodeCont::~NBNodeCont() {
     clear();
 }
 
@@ -69,7 +69,7 @@ NBNodeCont::~NBNodeCont() throw() {
 // ----------- Insertion/removal/retrieval of nodes
 bool
 NBNodeCont::insert(const std::string& id, const Position& position,
-                   NBDistrict* district) throw() {
+                   NBDistrict* district) {
     NodeCont::iterator i = myNodes.find(id);
     if (i != myNodes.end()) {
         return false;
@@ -81,7 +81,7 @@ NBNodeCont::insert(const std::string& id, const Position& position,
 
 
 bool
-NBNodeCont::insert(const std::string& id, const Position& position) throw() {
+NBNodeCont::insert(const std::string& id, const Position& position) {
     NodeCont::iterator i = myNodes.find(id);
     if (i != myNodes.end()) {
         return false;
@@ -93,7 +93,7 @@ NBNodeCont::insert(const std::string& id, const Position& position) throw() {
 
 
 Position
-NBNodeCont::insert(const std::string& id) throw() {
+NBNodeCont::insert(const std::string& id) {
     std::pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i != myNodes.end()) {
@@ -107,7 +107,7 @@ NBNodeCont::insert(const std::string& id) throw() {
 
 
 bool
-NBNodeCont::insert(NBNode* node) throw() {
+NBNodeCont::insert(NBNode* node) {
     std::string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i != myNodes.end()) {
@@ -119,7 +119,7 @@ NBNodeCont::insert(NBNode* node) throw() {
 
 
 NBNode*
-NBNodeCont::retrieve(const std::string& id) const throw() {
+NBNodeCont::retrieve(const std::string& id) const {
     NodeCont::const_iterator i = myNodes.find(id);
     if (i == myNodes.end()) {
         return 0;
@@ -129,7 +129,7 @@ NBNodeCont::retrieve(const std::string& id) const throw() {
 
 
 NBNode*
-NBNodeCont::retrieve(const Position& position, SUMOReal offset) const throw() {
+NBNodeCont::retrieve(const Position& position, SUMOReal offset) const {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         NBNode* node = (*i).second;
         if (fabs(node->getPosition().x() - position.x()) < offset
@@ -143,7 +143,7 @@ NBNodeCont::retrieve(const Position& position, SUMOReal offset) const throw() {
 
 
 bool
-NBNodeCont::erase(NBNode* node) throw() {
+NBNodeCont::erase(NBNode* node) {
     if (extract(node)) {
         delete node;
         return true;
@@ -154,7 +154,7 @@ NBNodeCont::erase(NBNode* node) throw() {
 
 
 bool
-NBNodeCont::extract(NBNode* node, bool remember) throw() {
+NBNodeCont::extract(NBNode* node, bool remember) {
     NodeCont::iterator i = myNodes.find(node->getID());
     if (i == myNodes.end()) {
         return false;
@@ -1233,7 +1233,7 @@ NBNodeCont::guessRamps(OptionsCont& oc, NBEdgeCont& ec,
 
 
 void
-NBNodeCont::printBuiltNodesStatistics() const throw() {
+NBNodeCont::printBuiltNodesStatistics() const {
     int numUnregulatedJunctions = 0;
     int numDeadEndJunctions = 0;
     int numPriorityJunctions = 0;
@@ -1273,7 +1273,7 @@ NBNodeCont::printBuiltNodesStatistics() const throw() {
 
 
 std::vector<std::string>
-NBNodeCont::getAllNames() const throw() {
+NBNodeCont::getAllNames() const {
     std::vector<std::string> ret;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         ret.push_back((*i).first);

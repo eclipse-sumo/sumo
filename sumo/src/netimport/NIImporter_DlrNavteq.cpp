@@ -107,17 +107,17 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont& nc,
         const std::string& file,
-        std::map<std::string, PositionVector> &geoms) throw()
+        std::map<std::string, PositionVector> &geoms)
     : myNodeCont(nc), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
 
 
-NIImporter_DlrNavteq::NodesHandler::~NodesHandler() throw() {}
+NIImporter_DlrNavteq::NodesHandler::~NodesHandler() {}
 
 
 bool
-NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(ProcessError) {
+NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
     if (result[0] == '#') {
         return true;
     }
@@ -181,17 +181,17 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) throw(Proc
 NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
         const std::string& file,
         std::map < std::string,
-        PositionVector > &geoms) throw()
+        PositionVector > &geoms)
     : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {
     UNUSED_PARAMETER(file);
 }
 
 
-NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() throw() {}
+NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() {}
 
 
 bool
-NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) throw(ProcessError) {
+NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed
@@ -290,17 +290,17 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) throw(Proc
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont& nc,
         NBTrafficLightLogicCont& tlc,
-        const std::string& file) throw()
+        const std::string& file)
     : myNodeCont(nc), myTLLogicCont(tlc) {
     UNUSED_PARAMETER(file);
 }
 
 
-NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() throw() {}
+NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() {}
 
 
 bool
-NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) throw(ProcessError) {
+NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
 // #ID     POICOL-TYPE     DESCRIPTION     LONGITUDE       LATITUDE        NAVTEQ_LINK_ID  NODEID
 
     if (result[0] == '#') {

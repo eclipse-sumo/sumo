@@ -65,14 +65,14 @@ public:
 
     /** @brief Constructor
      */
-    MSDetectorControl() throw();
+    MSDetectorControl() ;
 
 
     /** @brief Destructor
      *
      * Deletes all stored detectors.
      */
-    ~MSDetectorControl() throw();
+    ~MSDetectorControl() ;
 
 
     /** @brief Closes the detector outputs
@@ -101,7 +101,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin = -1) throw(ProcessError);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin = -1) ;
 
 
 
@@ -117,7 +117,7 @@ public:
      * @param[in] d The detector to add
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d) throw(ProcessError);
+    void add(SumoXMLTag type, MSDetectorFileOutput* d) ;
 
 
     /** @brief Adds a mean data object
@@ -132,7 +132,7 @@ public:
      * @param[in] begin The begin of the first interval
      */
     void add(MSMeanData* mn, OutputDevice& device,
-             SUMOTime frequency, SUMOTime begin) throw();
+             SUMOTime frequency, SUMOTime begin) ;
 
 
 
@@ -145,7 +145,7 @@ public:
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
                                 OutputDevice* device,
-                                SUMOTime interval, SUMOTime begin = -1) throw();
+                                SUMOTime interval, SUMOTime begin = -1) ;
 
 
 
@@ -154,7 +154,7 @@ public:
      * @param[in] type The type of detectors to be retrieved
      * @return The container of detectors
      */
-    const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const throw();
+    const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const ;
 
 
 
@@ -166,7 +166,7 @@ public:
      *  the values.
      * @param[in] step The current time step
      */
-    void updateDetectors(const SUMOTime step) throw();
+    void updateDetectors(const SUMOTime step) ;
 
 
     /** @brief Writes the output to be generated within the given time step
@@ -180,7 +180,7 @@ public:
      * @param[in] closing Whether the device is closed
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeOutput(SUMOTime step, bool closing) throw(IOError);
+    void writeOutput(SUMOTime step, bool closing);
 
 
 protected:
@@ -213,7 +213,7 @@ protected:
      */
     struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
         /** @brief Returns true if detectors are equal. */
-        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const throw() {
+        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const {
             return pair.first == det;
         }
     };

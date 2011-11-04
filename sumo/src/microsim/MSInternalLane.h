@@ -91,11 +91,11 @@ public:
     MSInternalLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
                    unsigned int numericalID, const PositionVector& shape, SUMOReal width,
                    const SUMOVehicleClasses& allowed,
-                   const SUMOVehicleClasses& disallowed) throw();
+                   const SUMOVehicleClasses& disallowed) ;
 
 
     /// @brief Destructor
-    virtual ~MSInternalLane() throw();
+    virtual ~MSInternalLane() ;
 
 
     /// @name Additional initialisation
@@ -111,13 +111,13 @@ public:
      * @param[in] foesIdx This lane's index within this state
      */
     void setParentJunctionInformation(MSLogicJunction::InnerState* const foescont,
-                                      unsigned int foesIdx) throw();
+                                      unsigned int foesIdx) ;
 
 
     /** @brief Sets the position that must be free so that vehicles can pass
      * @todo !!! incomplete usage; check
      */
-    void setPassPosition(SUMOReal passPos) throw();
+    void setPassPosition(SUMOReal passPos) ;
     /// @}
 
 

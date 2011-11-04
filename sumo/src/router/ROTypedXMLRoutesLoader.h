@@ -69,11 +69,11 @@ public:
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
     ROTypedXMLRoutesLoader(RONet& net,
-                           SUMOTime begin, SUMOTime end, const std::string& file = "") throw(ProcessError);
+                           SUMOTime begin, SUMOTime end, const std::string& file = "") ;
 
 
     /// @brief Destructor
-    virtual ~ROTypedXMLRoutesLoader() throw();
+    virtual ~ROTypedXMLRoutesLoader() ;
 
 
     /// @name inherited from ROAbstractRouteDefLoader
@@ -87,14 +87,14 @@ public:
      * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError);
+    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) ;
 
 
     /** @brief Returns the information whether no routes are available from this loader anymore
      *
      * @return Whether the whole input has been processed
      */
-    bool ended() const throw() {
+    bool ended() const {
         return myEnded;
     }
     /// @}
@@ -117,14 +117,14 @@ protected:
      * @return Whether a further route was read
      * @todo recheck/refactor
      */
-    virtual bool nextRouteRead() throw() = 0;
+    virtual bool nextRouteRead() = 0;
 
 
     /** @brief Returns Initialises the reading of a further route
      *
      * @todo recheck/refactor
      */
-    virtual void beginNextRoute() throw() = 0;
+    virtual void beginNextRoute() = 0;
     /// @}
 
 

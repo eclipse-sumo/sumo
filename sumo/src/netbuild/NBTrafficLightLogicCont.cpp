@@ -51,16 +51,16 @@ const NBTrafficLightLogicCont::Program2Def NBTrafficLightLogicCont::EmptyDefinit
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBTrafficLightLogicCont::NBTrafficLightLogicCont() throw() {}
+NBTrafficLightLogicCont::NBTrafficLightLogicCont() {}
 
 
-NBTrafficLightLogicCont::~NBTrafficLightLogicCont() throw() {
+NBTrafficLightLogicCont::~NBTrafficLightLogicCont() {
     clear();
 }
 
 
 void
-NBTrafficLightLogicCont::applyOptions(OptionsCont& oc) throw() {
+NBTrafficLightLogicCont::applyOptions(OptionsCont& oc) {
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
     if (oc.isSet("tls.half-offset")) {
@@ -77,7 +77,7 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont& oc) throw() {
 
 
 bool
-NBTrafficLightLogicCont::insert(NBTrafficLightDefinition* logic, bool forceInsert) throw() {
+NBTrafficLightLogicCont::insert(NBTrafficLightDefinition* logic, bool forceInsert) {
     myExtracted.erase(logic);
     if (myDefinitions.count(logic->getID())) {
         if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
@@ -192,7 +192,7 @@ NBTrafficLightLogicCont::computeSingleLogic(NBEdgeCont& ec, OptionsCont& oc, NBT
 
 
 void
-NBTrafficLightLogicCont::clear() throw() {
+NBTrafficLightLogicCont::clear() {
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         delete *it;
@@ -212,7 +212,7 @@ NBTrafficLightLogicCont::clear() throw() {
 
 void
 NBTrafficLightLogicCont::remapRemoved(NBEdge* removed, const EdgeVector& incoming,
-                                      const EdgeVector& outgoing) throw() {
+                                      const EdgeVector& outgoing) {
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->remapRemoved(removed, incoming, outgoing);
@@ -222,7 +222,7 @@ NBTrafficLightLogicCont::remapRemoved(NBEdge* removed, const EdgeVector& incomin
 
 void
 NBTrafficLightLogicCont::replaceRemoved(NBEdge* removed, int removedLane,
-                                        NBEdge* by, int byLane) throw() {
+                                        NBEdge* by, int byLane) {
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->replaceRemoved(removed, removedLane, by, byLane);
@@ -269,7 +269,7 @@ NBTrafficLightLogicCont::getLogic(const std::string& id, const std::string& prog
 
 
 void
-NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec) throw() {
+NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec) {
     Definitions definitions = getDefinitions();
     // set the information about all participants, first
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {

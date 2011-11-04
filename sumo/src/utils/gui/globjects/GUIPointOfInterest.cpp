@@ -56,18 +56,18 @@ GUIPointOfInterest::GUIPointOfInterest(int layer,
                                        const std::string& id,
                                        const std::string& type,
                                        const Position& p,
-                                       const RGBColor& c) throw() :
+                                       const RGBColor& c) :
     PointOfInterest(id, type, p, c),
     GUIGlObject_AbstractAdd("poi", GLO_SHAPE, id),
     myLayer(layer) {}
 
 
-GUIPointOfInterest::~GUIPointOfInterest() throw() {}
+GUIPointOfInterest::~GUIPointOfInterest() {}
 
 
 GUIGLObjectPopupMenu*
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
-                                 GUISUMOAbstractView& parent) throw() {
+                                 GUISUMOAbstractView& parent) {
 
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
@@ -84,13 +84,13 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIPointOfInterest::getParameterWindow(GUIMainWindow&,
-                                       GUISUMOAbstractView&) throw() {
+                                       GUISUMOAbstractView&) {
     return 0;
 }
 
 
 Boundary
-GUIPointOfInterest::getCenteringBoundary() const throw() {
+GUIPointOfInterest::getCenteringBoundary() const {
     Boundary b;
     b.add(x(), y());
     b.grow(10);
@@ -99,7 +99,7 @@ GUIPointOfInterest::getCenteringBoundary() const throw() {
 
 
 void
-GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * (1.3 / 3.0) < s.minPOISize) {
         return;
     }

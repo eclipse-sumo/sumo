@@ -60,12 +60,12 @@ AGActivityGenHandler::AGActivityGenHandler(AGCity& city, RONet* net)
       myCity(city) {}
 
 
-AGActivityGenHandler::~AGActivityGenHandler() throw() {}
+AGActivityGenHandler::~AGActivityGenHandler() {}
 
 
 void
 AGActivityGenHandler::myStartElement(int element, const SUMOSAXAttributes& attrs)
-throw(ProcessError) {
+{
     try {
         switch (element) {
             case AGEN_TAG_GENERAL:

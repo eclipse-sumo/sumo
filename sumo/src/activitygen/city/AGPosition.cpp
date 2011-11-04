@@ -40,36 +40,36 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) throw() :
+AGPosition::AGPosition(const AGStreet& str, SUMOReal pos) :
     street(&str), position(pos), pos2d(compute2dPosition()) {
 }
 
 
-AGPosition::AGPosition(const AGStreet& str) throw() :
+AGPosition::AGPosition(const AGStreet& str) :
     street(&str), position(randomPositionInStreet(str)), pos2d(compute2dPosition()) {
 }
 
 
 void
-AGPosition::print() const throw() {
+AGPosition::print() const {
     std::cout << "- AGPosition: *Street=" << street << " position=" << position << "/" << street->getLength() << std::endl;
 }
 
 
 bool
-AGPosition::operator==(const AGPosition& pos) const throw() {
+AGPosition::operator==(const AGPosition& pos) const {
     return pos2d.almostSame(pos.pos2d);
 }
 
 
 SUMOReal
-AGPosition::distanceTo(const AGPosition& otherPos) const throw() {
+AGPosition::distanceTo(const AGPosition& otherPos) const {
     return pos2d.distanceTo(otherPos.pos2d);
 }
 
 
 SUMOReal
-AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const throw() {
+AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     SUMOReal tempDist;
     std::list<AGPosition>::const_iterator itt;
@@ -85,7 +85,7 @@ AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const throw() 
 
 
 SUMOReal
-AGPosition::minDistanceTo(const std::map<int, AGPosition>& positions) const throw() {
+AGPosition::minDistanceTo(const std::map<int, AGPosition>& positions) const {
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     SUMOReal tempDist;
     std::map<int, AGPosition>::const_iterator itt;
@@ -101,25 +101,25 @@ AGPosition::minDistanceTo(const std::map<int, AGPosition>& positions) const thro
 
 
 const AGStreet&
-AGPosition::getStreet() const throw() {
+AGPosition::getStreet() const {
     return *street;
 }
 
 
 SUMOReal
-AGPosition::getPosition() const throw() {
+AGPosition::getPosition() const {
     return position;
 }
 
 
 SUMOReal
-AGPosition::randomPositionInStreet(const AGStreet& s) throw() {
+AGPosition::randomPositionInStreet(const AGStreet& s) {
     return RandHelper::rand(0.0, s.getLength());
 }
 
 
 Position
-AGPosition::compute2dPosition() const throw() {
+AGPosition::compute2dPosition() const {
     // P = From + pos*(To - From) = pos*To + (1-pos)*From
     Position From = street->edge->getFromNode()->getPosition();
     Position To = street->edge->getToNode()->getPosition();

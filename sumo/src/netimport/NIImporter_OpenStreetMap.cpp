@@ -507,16 +507,16 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
+NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill)
     : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {
 }
 
 
-NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
+NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
@@ -586,7 +586,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_NODE && myHierarchyLevel == 2) {
         myLastNodeID = -1;
         myIsInValidNodeTag = false;
@@ -600,7 +600,7 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) throw(ProcessE
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
-    std::map<std::string, Edge*> &toFill) throw()
+    std::map<std::string, Edge*> &toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
     mySpeedMap["none"] = 300.;
@@ -612,13 +612,13 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
 }
 
 
-NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
+NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() {
 }
 
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
-        const SUMOSAXAttributes& attrs) throw(ProcessError) {
+        const SUMOSAXAttributes& attrs) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
@@ -704,7 +704,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) throw(ProcessError) {
+NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_WAY) {
         if (myCurrentEdge != 0 && myCurrentEdge->myCurrentIsRoad) {

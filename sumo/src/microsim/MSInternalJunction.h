@@ -65,20 +65,20 @@ public:
      */
     MSInternalJunction(const std::string& id, const Position& position,
                        const PositionVector& shape,
-                       std::vector<MSLane*> incoming, std::vector<MSLane*> internal) throw();
+                       std::vector<MSLane*> incoming, std::vector<MSLane*> internal) ;
 
     /// Destructor.
     virtual ~MSInternalJunction();
 
 
-    void postloadInit() throw(ProcessError);
+    void postloadInit() ;
 
-    const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const throw() {
+    const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const {
         UNUSED_PARAMETER(srcLink);
         return myInternalLinkFoes;
     }
 
-    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const srcLink) const throw() {
+    const std::vector<MSLane*> &getFoeInternalLanes(const MSLink* const srcLink) const {
         UNUSED_PARAMETER(srcLink);
         return myInternalLaneFoes;
     }

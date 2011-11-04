@@ -40,11 +40,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFEdge::RODFEdge(const std::string& id, RONode* from, RONode* to, unsigned int index) throw()
+RODFEdge::RODFEdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
     : ROEdge(id, from, to, index, false) {}
 
 
-RODFEdge::~RODFEdge() throw() {}
+RODFEdge::~RODFEdge() {}
 
 
 void

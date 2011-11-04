@@ -87,7 +87,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError) = 0;
+        virtual void tripInfoOutput(OutputDevice& os) const = 0;
 
 
     protected:
@@ -130,7 +130,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const;
 
     private:
         /// the time the person is walking
@@ -169,7 +169,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const;
 
     private:
         /// the lines  to choose from
@@ -203,7 +203,7 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os) const throw(IOError);
+        virtual void tripInfoOutput(OutputDevice& os) const;
 
     private:
         /// the time the person is waiting
@@ -243,13 +243,13 @@ public:
     ~MSPerson();
 
     /// returns the person id
-    const std::string& getID() const throw();
+    const std::string& getID() const ;
 
     /// proceeds to the next step of the route
     void proceed(MSNet* net, SUMOTime time);
 
     /// Returns the desired departure time.
-    SUMOTime getDesiredDepart() const throw();
+    SUMOTime getDesiredDepart() const ;
 
     /// logs end of the step
     void setDeparted(SUMOTime now);
@@ -262,7 +262,7 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    void tripInfoOutput(OutputDevice& os) const throw(IOError);
+    void tripInfoOutput(OutputDevice& os) const;
 
     /// Whether the person waits for a vehicle of the line specified.
     bool isWaitingFor(const std::string& line) const;

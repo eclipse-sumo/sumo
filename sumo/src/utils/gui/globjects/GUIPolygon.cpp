@@ -54,18 +54,18 @@ GUIPolygon::GUIPolygon(int layer,
                        const std::string name, const std::string type,
                        const RGBColor& color,
                        const PositionVector& Pos,
-                       bool fill) throw()
+                       bool fill)
     : Polygon(name, type, color, Pos, fill),
       GUIGlObject_AbstractAdd("poly", GLO_SHAPE, name), myLayer(layer) {}
 
 
-GUIPolygon::~GUIPolygon() throw() {}
+GUIPolygon::~GUIPolygon() {}
 
 
 
 GUIGLObjectPopupMenu*
 GUIPolygon::getPopUpMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent) throw() {
+                         GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
@@ -81,13 +81,13 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIPolygon::getParameterWindow(GUIMainWindow&,
-                               GUISUMOAbstractView&) throw() {
+                               GUISUMOAbstractView&) {
     return 0;
 }
 
 
 Boundary
-GUIPolygon::getCenteringBoundary() const throw() {
+GUIPolygon::getCenteringBoundary() const {
     Boundary b;
     b.add(myShape.getBoxBoundary());
     b.grow(10);
@@ -135,7 +135,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 
 double glvert[6];
 void
-GUIPolygon::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     UNUSED_PARAMETER(s);
     if (fill()) {
         if (myShape.size() < 3) {

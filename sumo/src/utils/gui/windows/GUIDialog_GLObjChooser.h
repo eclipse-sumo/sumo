@@ -72,13 +72,13 @@ public:
 
 
     /// @brief Destructor
-    ~GUIDialog_GLObjChooser() throw();
+    ~GUIDialog_GLObjChooser() ;
 
 
     /** @brief Returns the chosen (selected) object
      * @return The selected object
      */
-    GUIGlObject* getObject() const throw() {
+    GUIGlObject* getObject() const {
         return static_cast<GUIGlObject*>(mySelected);
     }
 

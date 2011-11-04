@@ -44,11 +44,11 @@ public:
     /** @brief Constructor
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_COUT() throw(IOError);
+    OutputDevice_COUT();
 
 
     /// @brief Destructor
-    ~OutputDevice_COUT() throw();
+    ~OutputDevice_COUT() ;
 
 
 protected:
@@ -58,7 +58,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return cout
      */
-    std::ostream& getOStream() throw();
+    std::ostream& getOStream() ;
     /// @}
 
 };

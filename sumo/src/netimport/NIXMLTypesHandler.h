@@ -58,7 +58,7 @@ public:
 
 
     /// @brief Destructor
-    ~NIXMLTypesHandler() throw();
+    ~NIXMLTypesHandler() ;
 
 
 protected:
@@ -77,7 +77,7 @@ protected:
      * @note policy is to throw no exception in order to allow further processing
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
     //@}
 
 

@@ -70,24 +70,24 @@
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string& id,
         OutputDevice& device, SUMOReal haltingSpeedThreshold,
-        SUMOTime haltingTimeThreshold, int splInterval) throw()
+        SUMOTime haltingTimeThreshold, int splInterval)
     : myID(id), myDevice(device),
       myHaltingSpeedThreshold(haltingSpeedThreshold),
       myHaltingTimeThreshold(haltingTimeThreshold),
       mySampleInterval(splInterval) {}
 
 
-NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() throw() {}
+NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() {}
 
 
 /* -------------------------------------------------------------------------
  * NLDetectorBuilder-methods
  * ----------------------------------------------------------------------- */
-NLDetectorBuilder::NLDetectorBuilder(MSNet& net) throw()
+NLDetectorBuilder::NLDetectorBuilder(MSNet& net)
     : myNet(net), myE3Definition(0) {}
 
 
-NLDetectorBuilder::~NLDetectorBuilder() throw() {}
+NLDetectorBuilder::~NLDetectorBuilder() {}
 
 
 void
@@ -319,7 +319,7 @@ NLDetectorBuilder::addE3Exit(const std::string& lane,
 
 
 std::string
-NLDetectorBuilder::getCurrentE3ID() const throw() {
+NLDetectorBuilder::getCurrentE3ID() const {
     if (myE3Definition == 0) {
         return "<unknown>";
     }
@@ -371,7 +371,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string& id,
                                         MSLane* lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold,
                                         SUMOReal haltingSpeedThreshold,
-                                        SUMOReal jamDistThreshold) throw() {
+                                        SUMOReal jamDistThreshold) {
     return createSingleLaneE2Detector(id, usage, lane, pos,
                                       length, haltingTimeThreshold, haltingSpeedThreshold,
                                       jamDistThreshold);
@@ -383,7 +383,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usag
                                        MSLane* lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
                                        SUMOReal haltingSpeedThreshold,
-                                       SUMOReal jamDistThreshold) throw() {
+                                       SUMOReal jamDistThreshold) {
     MSDetectorFileOutput* ret = createMultiLaneE2Detector(id, usage,
                                 lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
                                 jamDistThreshold);
@@ -394,14 +394,14 @@ NLDetectorBuilder::buildMultiLaneE2Det(const std::string& id, DetectorUsage usag
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createInductLoop(const std::string& id,
-                                    MSLane* lane, SUMOReal pos, bool splitByType) throw() {
+                                    MSLane* lane, SUMOReal pos, bool splitByType) {
     return new MSInductLoop(id, lane, pos, splitByType);
 }
 
 
 MSDetectorFileOutput*
 NLDetectorBuilder::createInstantInductLoop(const std::string& id,
-        MSLane* lane, SUMOReal pos, OutputDevice& od) throw() {
+        MSLane* lane, SUMOReal pos, OutputDevice& od) {
     return new MSInstantInductLoop(id, od, lane, pos);
 }
 
@@ -409,7 +409,7 @@ NLDetectorBuilder::createInstantInductLoop(const std::string& id,
 #ifdef HAVE_MESOSIM
 MEInductLoop*
 NLDetectorBuilder::createMEInductLoop(const std::string& id,
-                                      MESegment* s, SUMOReal pos) throw() {
+                                      MESegment* s, SUMOReal pos) {
     return new MEInductLoop(id, s, pos);
 }
 #endif
@@ -418,7 +418,7 @@ NLDetectorBuilder::createMEInductLoop(const std::string& id,
 MSDetectorFileOutput*
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) {
     return new MSE2Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
@@ -426,7 +426,7 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
 MSDetectorFileOutput*
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) throw() {
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold, SUMOReal jamDistThreshold) {
     return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
@@ -436,7 +436,7 @@ NLDetectorBuilder::createE3Detector(const std::string& id,
                                     const CrossSectionVector& entries,
                                     const CrossSectionVector& exits,
                                     SUMOReal haltingSpeedThreshold,
-                                    SUMOTime haltingTimeThreshold) throw() {
+                                    SUMOTime haltingTimeThreshold) {
     return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }
 

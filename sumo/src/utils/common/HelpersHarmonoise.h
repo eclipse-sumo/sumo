@@ -56,7 +56,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The noise produced by the vehicle of the given class running with v and a
      */
-    static SUMOReal computeNoise(SUMOEmissionClass c, double v, double a) throw();
+    static SUMOReal computeNoise(SUMOEmissionClass c, double v, double a) ;
 
 
     /** @brief Computes the resulting noise
@@ -64,7 +64,7 @@ public:
      * @param[in] val The sum of converted vehicle noises ( pow(10., (<NOISE>/10.)) )
      * @return The resulting sum
      */
-    inline static SUMOReal sum(SUMOReal val) throw() {
+    inline static SUMOReal sum(SUMOReal val) {
         return SUMOReal(10. * log10(val));
     }
 

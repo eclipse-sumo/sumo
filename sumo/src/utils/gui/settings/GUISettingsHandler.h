@@ -45,11 +45,11 @@ public:
     /** @brief Constructor
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(const std::string& content, bool isFile = true) throw();
+    GUISettingsHandler(const std::string& content, bool isFile = true) ;
 
 
     /// @brief Destructor
-    ~GUISettingsHandler() throw();
+    ~GUISettingsHandler() ;
 
 
 
@@ -62,7 +62,7 @@ public:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError);
+    void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
     //@}
 
 
@@ -70,13 +70,13 @@ public:
     /** @brief Adds the parsed settings to the global list of settings
      * @return the name of the parsed settings
      */
-    std::string addSettings(GUISUMOAbstractView* view = 0) const throw();
+    std::string addSettings(GUISUMOAbstractView* view = 0) const ;
 
 
     /** @brief Sets the viewport which has been parsed
      * @param[in] parent the view for which the viewport has to be set
      */
-    void setViewport(GUISUMOAbstractView* view) const throw();
+    void setViewport(GUISUMOAbstractView* view) const ;
 
 
     /** @brief Sets the viewport which has been parsed
@@ -84,32 +84,32 @@ public:
      * @param[out] xoff Variable to store the loaded x-offset into
      * @param[out] yoff Variable to store the loaded y-offset into
      */
-    void setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const throw();
+    void setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const ;
 
 
     /** @brief Makes a snapshot if it has been parsed
      * @param[in] parent the view which needs to be shot
      * @todo Please describe why the snapshots are only set if no other existed before (see code)
      */
-    void setSnapshots(GUISUMOAbstractView* view) const throw();
+    void setSnapshots(GUISUMOAbstractView* view) const ;
 
 
     /** @brief Returns whether any decals have been parsed
      * @return whether decals have been parsed
      */
-    bool hasDecals() const throw();
+    bool hasDecals() const ;
 
 
     /** @brief Returns the parsed decals
      * @return the parsed decals
      */
-    const std::vector<GUISUMOAbstractView::Decal>& getDecals() const throw();
+    const std::vector<GUISUMOAbstractView::Decal>& getDecals() const ;
 
 
     /** @brief Returns the parsed delay
      * @return the parsed delay
      */
-    SUMOReal getDelay() const throw();
+    SUMOReal getDelay() const ;
 
 
 private:

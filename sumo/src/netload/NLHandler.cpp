@@ -64,7 +64,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
                      NLDetectorBuilder& detBuilder,
                      NLTriggerBuilder& triggerBuilder,
                      NLEdgeControlBuilder& edgeBuilder,
-                     NLJunctionControlBuilder& junctionBuilder) throw()
+                     NLJunctionControlBuilder& junctionBuilder)
     : MSRouteHandler(file, true),
       myNet(net), myActionBuilder(net),
       myCurrentIsInternalToSkip(false),
@@ -93,12 +93,12 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
       myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
-NLHandler::~NLHandler() throw() {}
+NLHandler::~NLHandler() {}
 
 
 void
 NLHandler::myStartElement(int element,
-                          const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                          const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case SUMO_TAG_EDGE:
@@ -308,7 +308,7 @@ NLHandler::myStartElement(int element,
 
 
 void
-NLHandler::myEndElement(int element) throw(ProcessError) {
+NLHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:
             closeEdge();
@@ -1387,7 +1387,7 @@ NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
 
 
 void
-NLHandler::addDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...

@@ -52,26 +52,26 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PositionVector::PositionVector() throw() {}
+PositionVector::PositionVector() {}
 
 
-PositionVector::PositionVector(const std::vector<Position> &v) throw() {
+PositionVector::PositionVector(const std::vector<Position> &v) {
     std::copy(v.begin(), v.end(), std::back_inserter(myCont));
 }
 
 
-PositionVector::~PositionVector() throw() {}
+PositionVector::~PositionVector() {}
 
 
 // ------------ Adding items to the container
 void
-PositionVector::push_back(const Position& p) throw() {
+PositionVector::push_back(const Position& p) {
     myCont.push_back(p);
 }
 
 
 void
-PositionVector::push_back(const PositionVector& p) throw() {
+PositionVector::push_back(const PositionVector& p) {
     copy(p.myCont.begin(), p.myCont.end(), back_inserter(myCont));
 }
 

@@ -116,7 +116,7 @@ MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
 
 
 void
-MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) throw() {
+MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
     if (myWaiting.find(edge) == myWaiting.end()) {
         myWaiting[edge] = std::vector<MSPerson*>();
     }
@@ -125,7 +125,7 @@ MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) throw() 
 
 
 bool
-MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) throw() {
+MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) {
     bool ret = false;
     if (myWaiting.find(edge) != myWaiting.end()) {
         PersonVector& waitPersons = myWaiting[edge];
@@ -145,19 +145,19 @@ MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) t
 
 
 bool
-MSPersonControl::hasPersons() const throw() {
+MSPersonControl::hasPersons() const {
     return !myPersons.empty();
 }
 
 
 bool
-MSPersonControl::hasPedestrians() const throw() {
+MSPersonControl::hasPedestrians() const {
     return !myArrivals.empty();
 }
 
 
 void
-MSPersonControl::abortWaiting() throw() {
+MSPersonControl::abortWaiting() {
     while (!myPersons.empty()) {
         std::map<std::string, MSPerson*>::iterator i = myPersons.begin();
         WRITE_WARNING("Person " + i->first + " aborted waiting for a ride that will never come.");

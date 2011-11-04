@@ -62,7 +62,7 @@ class MSDevice_HBEFA : public MSDevice {
 public:
     /** @brief Inserts MSDevice_HBEFA-options
      */
-    static void insertOptions() throw();
+    static void insertOptions() ;
 
 
     /** @brief Build devices for the given vehicle, if needed
@@ -77,7 +77,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw();
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) ;
 
 
 public:
@@ -98,7 +98,7 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see HelpersHBEFA
         */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) ;
     /// @}
 
 
@@ -108,11 +108,11 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    void generateOutput() const throw(IOError);
+    void generateOutput() const;
 
 
     /// @brief Destructor.
-    ~MSDevice_HBEFA() throw();
+    ~MSDevice_HBEFA() ;
 
 
 private:
@@ -121,7 +121,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id) throw();
+    MSDevice_HBEFA(SUMOVehicle& holder, const std::string& id) ;
 
 
 private:

@@ -230,7 +230,7 @@ MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
 /* -------------------------------------------------------------------------
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
-MSVehicle::~MSVehicle() throw() {
+MSVehicle::~MSVehicle() {
     delete myLaneChangeModel;
     // other
     delete myEdgeWeights;
@@ -253,7 +253,7 @@ MSVehicle::~MSVehicle() throw() {
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
-                     int /*vehicleIndex*/) throw(ProcessError) :
+                     int /*vehicleIndex*/) :
     MSBaseVehicle(pars, route, type),
     myLastLaneChangeOffset(0),
     myWaitingTime(0),
@@ -306,7 +306,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 
 
 void
-MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) throw() {
+MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     workOnMoveReminders(myState.myPos - SPEED2DIST(myState.mySpeed), myState.myPos, myState.mySpeed);
     for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         if ((*i).myLink != 0) {
@@ -319,13 +319,13 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) throw() {
 
 // ------------ interaction with the route
 bool
-MSVehicle::ends() const throw() {
+MSVehicle::ends() const {
     return myCurrEdge == myRoute->end() - 1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
+MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) {
     const MSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -363,13 +363,13 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit) throw() {
 
 
 bool
-MSVehicle::willPass(const MSEdge* const edge) const throw() {
+MSVehicle::willPass(const MSEdge* const edge) const {
     return find(myCurrEdge, myRoute->end(), edge) != myRoute->end();
 }
 
 
 MSEdgeWeightsStorage&
-MSVehicle::getWeightsStorage() throw() {
+MSVehicle::getWeightsStorage() {
     if (myEdgeWeights == 0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
@@ -379,7 +379,7 @@ MSVehicle::getWeightsStorage() throw() {
 
 // ------------ Interaction with move reminders
 void
-MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
@@ -393,7 +393,7 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
 
 
 void
-MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) throw() {
+MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
     // save the old work reminders, patching the position information
     //  add the information about the new offset to the old lane reminders
     const SUMOReal oldLaneLength = myLane->getLength();
@@ -408,7 +408,7 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) throw() {
 
 // ------------ Other getter methods
 Position
-MSVehicle::getPosition() const throw() {
+MSVehicle::getPosition() const {
     if (myLane == 0) {
         return Position(-1000, -1000);
     }
@@ -417,7 +417,7 @@ MSVehicle::getPosition() const throw() {
 
 
 SUMOReal
-MSVehicle::getAngle() const throw() {
+MSVehicle::getAngle() const {
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     Position p2 = myFurtherLanes.size() > 0
                   ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
@@ -432,7 +432,7 @@ MSVehicle::getAngle() const throw() {
 
 // ------------
 bool
-MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset) throw() {
+MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset) {
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
@@ -504,7 +504,7 @@ MSVehicle::isParking() const {
 
 
 SUMOReal
-MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
+MSVehicle::processNextStop(SUMOReal currentVelocity) {
     if (myStops.empty()) {
         // no stops; pass
         return currentVelocity;
@@ -590,7 +590,7 @@ bool
 MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
                                  const MSVehicle* const pred,
                                  const MSVehicle* const neigh,
-                                 SUMOReal lengthsInFront) throw() {
+                                 SUMOReal lengthsInFront) {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
         if (isOnRoad()) {
@@ -858,7 +858,7 @@ MSVehicle::moveChecked() {
 
 
 SUMOReal
-MSVehicle::getSpaceTillLastStanding(MSLane* l, bool& foundStopped) throw() {
+MSVehicle::getSpaceTillLastStanding(MSLane* l, bool& foundStopped) {
     SUMOReal lengths = 0;
     const MSLane::VehCont& vehs = l->getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
@@ -876,7 +876,7 @@ MSVehicle::getSpaceTillLastStanding(MSLane* l, bool& foundStopped) throw() {
 
 
 void
-MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
+MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
@@ -1197,7 +1197,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
 
 void
-MSVehicle::activateReminders(const MSMoveReminder::Notification reason) throw() {
+MSVehicle::activateReminders(const MSMoveReminder::Notification reason) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (rem->first->getLane() != 0 && rem->first->getLane() != getLane()) {
             ++rem;
@@ -1298,7 +1298,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 
 
 void
-MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed, MSMoveReminder::Notification notification) throw(ProcessError) {
+MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed, MSMoveReminder::Notification notification) {
     myState = State(pos, speed);
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
@@ -1362,7 +1362,7 @@ MSVehicle::getLaneChangeModel() const {
 
 
 const std::vector<MSVehicle::LaneQ> &
-MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const throw() {
+MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const {
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
     if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
         int bla = 0;
@@ -1582,7 +1582,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane* startLane) const throw() {
 
 
 const std::vector<MSLane*> &
-MSVehicle::getBestLanesContinuation() const throw() {
+MSVehicle::getBestLanesContinuation() const {
     if (myBestLanes.empty() || myBestLanes[0].empty() || myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL) {
         return myEmptyLaneVector;
     }
@@ -1591,7 +1591,7 @@ MSVehicle::getBestLanesContinuation() const throw() {
 
 
 const std::vector<MSLane*> &
-MSVehicle::getBestLanesContinuation(const MSLane* const l) const throw() {
+MSVehicle::getBestLanesContinuation(const MSLane* const l) const {
     for (std::vector<std::vector<LaneQ> >::const_iterator i = myBestLanes.begin(); i != myBestLanes.end(); ++i) {
         if ((*i).size() != 0 && (*i)[0].lane == l) {
             return (*i)[0].bestContinuations;
@@ -1624,49 +1624,49 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
 
 
 SUMOReal
-MSVehicle::getHBEFA_CO2Emissions() const throw() {
+MSVehicle::getHBEFA_CO2Emissions() const {
     return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_COEmissions() const throw() {
+MSVehicle::getHBEFA_COEmissions() const {
     return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_HCEmissions() const throw() {
+MSVehicle::getHBEFA_HCEmissions() const {
     return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_NOxEmissions() const throw() {
+MSVehicle::getHBEFA_NOxEmissions() const {
     return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_PMxEmissions() const throw() {
+MSVehicle::getHBEFA_PMxEmissions() const {
     return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHBEFA_FuelConsumption() const throw() {
+MSVehicle::getHBEFA_FuelConsumption() const {
     return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-MSVehicle::getHarmonoise_NoiseEmissions() const throw() {
+MSVehicle::getHarmonoise_NoiseEmissions() const {
     return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 void
-MSVehicle::addPerson(MSPerson* person) throw() {
+MSVehicle::addPerson(MSPerson* person) {
     if (myPersonDevice == 0) {
         myPersonDevice = MSDevice_Person::buildVehicleDevices(*this, myDevices);
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
@@ -1679,7 +1679,7 @@ MSVehicle::addPerson(MSPerson* person) throw() {
 
 
 void
-MSVehicle::setBlinkerInformation() throw() {
+MSVehicle::setBlinkerInformation() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT | VEH_SIGNAL_BLINKER_LEFT);
     int state = getLaneChangeModel().getOwnState();
     if ((state & LCA_LEFT) != 0) {
@@ -1710,7 +1710,7 @@ MSVehicle::setBlinkerInformation() throw() {
 
 
 void
-MSVehicle::replaceVehicleType(MSVehicleType* type) throw() {
+MSVehicle::replaceVehicleType(MSVehicleType* type) {
     if (myType->amVehicleSpecific()) {
         delete myType;
     }

@@ -49,11 +49,11 @@ public:
      * @param[in] strm The output stream to used
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(const std::string& fullName) throw(IOError);
+    OutputDevice_File(const std::string& fullName);
 
 
     /// @brief Destructor
-    ~OutputDevice_File() throw();
+    ~OutputDevice_File() ;
 
 
 protected:
@@ -63,7 +63,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream() throw();
+    std::ostream& getOStream() ;
     /// @}
 
 

@@ -59,7 +59,7 @@
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string& id,
         unsigned int lastUsed,
         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
-        const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation) throw()
+        const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation)
     : RORouteDef(id, 0), myLastUsed((int) lastUsed),
       myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma),
       myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes),
@@ -67,7 +67,7 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string& id,
 }
 
 
-RORouteDef_Alternatives::~RORouteDef_Alternatives() throw() {
+RORouteDef_Alternatives::~RORouteDef_Alternatives() {
     for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         delete *i;
     }

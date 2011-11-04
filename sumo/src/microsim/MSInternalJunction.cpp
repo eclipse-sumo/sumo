@@ -48,7 +48,7 @@ MSInternalJunction::MSInternalJunction(const std::string& id,
                                        const Position& position,
                                        const PositionVector& shape,
                                        std::vector<MSLane*> incoming,
-                                       std::vector<MSLane*> internal) throw()
+                                       std::vector<MSLane*> internal)
     : MSLogicJunction(id, position, shape, incoming, internal) {}
 
 
@@ -57,7 +57,7 @@ MSInternalJunction::~MSInternalJunction() {}
 
 
 void
-MSInternalJunction::postloadInit() throw(ProcessError) {
+MSInternalJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     myInternalLaneFoes = myInternalLanes;

@@ -139,10 +139,10 @@ public:
 
     /// Use this constructor only.
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
+              const MSVehicleType* type, int vehicleIndex) ;
 
     /// @brief Destructor.
-    virtual ~MSVehicle() throw();
+    virtual ~MSVehicle() ;
 
 
 
@@ -156,7 +156,7 @@ public:
      *
      * @param[in] reason why the vehicle leaves (reached its destination, parking, teleport)
      */
-    void onRemovalFromNet(const MSMoveReminder::Notification reason) throw();
+    void onRemovalFromNet(const MSMoveReminder::Notification reason) ;
     //@}
 
 
@@ -167,7 +167,7 @@ public:
     /** @brief Returns the information whether the vehicle should end now
      * @return Whether the route ends
      */
-    bool ends() const throw();
+    bool ends() const ;
 
 
     /** @brief Replaces the current route by the given one
@@ -178,7 +178,7 @@ public:
      * @param[in] route The new route to pass
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false) throw();
+    bool replaceRoute(const MSRoute* route, bool onInit = false) ;
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -186,7 +186,7 @@ public:
      * @return Whether the given edge will be passed by the vehicle
      * @todo Move to MSRoute?
      */
-    bool willPass(const MSEdge* const edge) const throw();
+    bool willPass(const MSEdge* const edge) const ;
 
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
@@ -194,7 +194,7 @@ public:
      * If the vehicle does not have such a container, it is built.
      * @return The vehicle's knowledge about edge weights
      */
-    MSEdgeWeightsStorage& getWeightsStorage() throw();
+    MSEdgeWeightsStorage& getWeightsStorage() ;
     //@}
 
 
@@ -224,7 +224,7 @@ public:
      * @param[in] pred The leader
      * @return The gap between this vehicle and the leader (may be <0)
      */
-    SUMOReal gap2pred(const MSVehicle& pred) const throw() {
+    SUMOReal gap2pred(const MSVehicle& pred) const {
         SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLengthWithGap() - getPositionOnLane();
         if (gap < 0 && gap > -1.0e-12) {
             gap = 0;
@@ -240,7 +240,7 @@ public:
      * @param[in] pos Position of the follower
      * @return The gap between the leader and the follower
      */
-    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) throw() {
+    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) {
         return predPos - predLength - pos;
     }
 
@@ -266,7 +266,7 @@ public:
      * @param[in] newSpeed The vehicle's speed within this move
      * @see MSMoveReminder
      */
-    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) ;
     //@}
 
 
@@ -280,7 +280,7 @@ public:
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
     bool moveRegardingCritical(SUMOTime t, const MSLane* const lane, const MSVehicle* const pred,
-                               const MSVehicle* const neigh, SUMOReal lengthsInFront) throw();
+                               const MSVehicle* const neigh, SUMOReal lengthsInFront) ;
 
 
 
@@ -290,7 +290,7 @@ public:
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
-    SUMOReal getPositionOnLane() const throw() {
+    SUMOReal getPositionOnLane() const {
         return myState.myPos;
     }
 
@@ -298,7 +298,7 @@ public:
     /** @brief Returns the vehicle's current speed
      * @return The vehicle's speed
      */
-    SUMOReal getSpeed() const throw() {
+    SUMOReal getSpeed() const {
         return myState.mySpeed;
     }
 
@@ -306,7 +306,7 @@ public:
     /** @brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling
      */
-    SUMOReal getPreDawdleAcceleration() const throw() {
+    SUMOReal getPreDawdleAcceleration() const {
         return myPreDawdleAcceleration;
     }
     //@}
@@ -323,13 +323,13 @@ public:
      * @return The current position (in cartesian coordinates)
      * @see myLane
      */
-    Position getPosition() const throw();
+    Position getPosition() const ;
 
 
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */
-    MSLane* getLane() const throw() {
+    MSLane* getLane() const {
         return myLane;
     }
 
@@ -337,7 +337,7 @@ public:
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
      */
-    inline bool isOnRoad() const throw() {
+    inline bool isOnRoad() const {
         return myAmOnNet;
     }
 
@@ -348,7 +348,7 @@ public:
      * Intentional stopping does not count towards this time.
      * @return The time the vehicle is standing
      */
-    SUMOTime getWaitingTime() const throw() {
+    SUMOTime getWaitingTime() const {
         return myWaitingTime;
     }
 
@@ -359,7 +359,7 @@ public:
      * Intentional stopping does not count towards this time.
      * @return The time the vehicle is standing
      */
-    SUMOReal getWaitingSeconds() const throw() {
+    SUMOReal getWaitingSeconds() const {
         return STEPS2TIME(myWaitingTime);
     }
 
@@ -367,7 +367,7 @@ public:
     /** @brief Returns the vehicle's direction in degrees
      * @return The vehicle's current angle
      */
-    SUMOReal getAngle() const throw();
+    SUMOReal getAngle() const ;
     //@}
 
 
@@ -413,7 +413,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    void activateReminders(const MSMoveReminder::Notification reason) throw();
+    void activateReminders(const MSMoveReminder::Notification reason) ;
 
     /** @brief Update when the vehicle enters a new lane in the move step.
      *
@@ -433,7 +433,7 @@ public:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking)
      */
     void enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal speed,
-                              MSMoveReminder::Notification notification) throw(ProcessError);
+                              MSMoveReminder::Notification notification) ;
 
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.
@@ -495,20 +495,20 @@ public:
      * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const throw();
+    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild = false, MSLane* startLane = 0) const ;
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
      * @return The best lane information for the vehicle's current lane
      * @todo Describe better
      */
-    const std::vector<MSLane*> &getBestLanesContinuation() const throw();
+    const std::vector<MSLane*> &getBestLanesContinuation() const ;
 
     /** @brief Returns the subpart of best lanes that describes the given lane and their successors
      * @return The best lane information for the given lane
      * @todo Describe better
      */
-    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane* const l) const throw();
+    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane* const l) const ;
     /// @}
 
 
@@ -520,7 +520,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSVehicle::myType
      */
-    void replaceVehicleType(MSVehicleType* type) throw();
+    void replaceVehicleType(MSVehicleType* type) ;
 
 
     /** @brief Returns the vehicle's car following model definition
@@ -530,7 +530,7 @@ public:
      *
      * @return The vehicle's car following model definition
      */
-    inline const MSCFModel& getCarFollowModel() const throw() {
+    inline const MSCFModel& getCarFollowModel() const {
         return myType->getCarFollowModel();
     }
 
@@ -539,7 +539,7 @@ public:
      *
      * @return The vehicle's car following model variables
      */
-    inline MSCFModel::VehicleVariables* getCarFollowVariables() const throw() {
+    inline MSCFModel::VehicleVariables* getCarFollowVariables() const {
         return myCFVariables;
     }
 
@@ -580,7 +580,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) throw();
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset = 0) ;
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
@@ -622,7 +622,7 @@ public:
      * @see Stop
      * @see MSBusStop
      */
-    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
+    SUMOReal processNextStop(SUMOReal currentVelocity) ;
 
 
     /// @name Emission retrieval
@@ -631,46 +631,46 @@ public:
     /** @brief Returns CO2 emission of the current state
      * @return The current CO2 emission
      */
-    SUMOReal getHBEFA_CO2Emissions() const throw();
+    SUMOReal getHBEFA_CO2Emissions() const ;
 
 
     /** @brief Returns CO emission of the current state
      * @return The current CO emission
      */
-    SUMOReal getHBEFA_COEmissions() const throw();
+    SUMOReal getHBEFA_COEmissions() const ;
 
 
     /** @brief Returns HC emission of the current state
      * @return The current HC emission
      */
-    SUMOReal getHBEFA_HCEmissions() const throw();
+    SUMOReal getHBEFA_HCEmissions() const ;
 
 
     /** @brief Returns NOx emission of the current state
      * @return The current NOx emission
      */
-    SUMOReal getHBEFA_NOxEmissions() const throw();
+    SUMOReal getHBEFA_NOxEmissions() const ;
 
 
     /** @brief Returns PMx emission of the current state
      * @return The current PMx emission
      */
-    SUMOReal getHBEFA_PMxEmissions() const throw();
+    SUMOReal getHBEFA_PMxEmissions() const ;
 
 
     /** @brief Returns fuel consumption of the current state
      * @return The current fuel consumption
      */
-    SUMOReal getHBEFA_FuelConsumption() const throw();
+    SUMOReal getHBEFA_FuelConsumption() const ;
 
 
     /** @brief Returns noise emissions of the current state
      * @return The noise produced
      */
-    SUMOReal getHarmonoise_NoiseEmissions() const throw();
+    SUMOReal getHarmonoise_NoiseEmissions() const ;
     //@}
 
-    void addPerson(MSPerson* person) throw();
+    void addPerson(MSPerson* person) ;
 
 
 
@@ -717,7 +717,7 @@ public:
     /** @brief Switches the given signal on
      * @param[in] signal The signal to mark as being switched on
      */
-    void switchOnSignal(int signal) throw() {
+    void switchOnSignal(int signal) {
         mySignals |= signal;
     }
 
@@ -725,7 +725,7 @@ public:
     /** @brief Switches the given signal off
      * @param[in] signal The signal to mark as being switched off
      */
-    void switchOffSignal(int signal) throw() {
+    void switchOffSignal(int signal) {
         mySignals &= ~signal;
     }
 
@@ -733,7 +733,7 @@ public:
     /** @brief Returns the signals
      * @return The signals' states
      */
-    int getSignals() const throw() {
+    int getSignals() const {
         return mySignals;
     }
 
@@ -742,7 +742,7 @@ public:
      * @param[in] signal The signal to return the value of
      * @return Whether the given signal is on
      */
-    bool signalSet(int which) const throw() {
+    bool signalSet(int which) const {
         return (mySignals & which) != 0;
     }
     /// @}
@@ -883,8 +883,8 @@ public:
 
 protected:
 
-    void checkRewindLinkLanes(SUMOReal lengthsInFront) throw();
-    SUMOReal getSpaceTillLastStanding(MSLane* l, bool& foundStopped) throw();
+    void checkRewindLinkLanes(SUMOReal lengthsInFront) ;
+    SUMOReal getSpaceTillLastStanding(MSLane* l, bool& foundStopped) ;
 
     /// @name Interaction with move reminders
     ///@{
@@ -904,12 +904,12 @@ protected:
      * @see MSMoveReminder
      * @see MSLane::getMoveReminder
      */
-    void adaptLaneEntering2MoveReminder(const MSLane& enteredLane) throw();
+    void adaptLaneEntering2MoveReminder(const MSLane& enteredLane) ;
     ///@}
 
 
 
-    void setBlinkerInformation() throw();
+    void setBlinkerInformation() ;
 
 
     /// @brief information how long ago the vehicle has performed a lane-change

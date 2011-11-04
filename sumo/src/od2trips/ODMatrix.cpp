@@ -47,11 +47,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODMatrix::ODMatrix(const ODDistrictCont& dc) throw()
+ODMatrix::ODMatrix(const ODDistrictCont& dc)
     : myDistricts(dc), myNoLoaded(0), myNoWritten(0), myNoDiscarded(0) {}
 
 
-ODMatrix::~ODMatrix() throw() {
+ODMatrix::~ODMatrix() {
     for (CellVector::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         delete *i;
     }
@@ -62,7 +62,7 @@ ODMatrix::~ODMatrix() throw() {
 void
 ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
-              const std::string& vehicleType) throw() {
+              const std::string& vehicleType) {
     myNoLoaded += vehicleNumber;
     if (myDistricts.get(origin) == 0 && myDistricts.get(destination) == 0) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
@@ -96,7 +96,7 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
 SUMOReal
 ODMatrix::computeDeparts(ODCell* cell,
                          size_t& vehName, std::vector<ODVehicle> &into,
-                         bool uniform, const std::string& prefix) throw() {
+                         bool uniform, const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
     SUMOReal mrand = RandHelper::rand();
@@ -128,7 +128,7 @@ ODMatrix::computeDeparts(ODCell* cell,
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
                 OutputDevice& dev, bool uniform, bool noVtype,
-                const std::string& prefix) throw() {
+                const std::string& prefix) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -214,25 +214,25 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
 
 
 SUMOReal
-ODMatrix::getNoLoaded() const throw() {
+ODMatrix::getNoLoaded() const {
     return myNoLoaded;
 }
 
 
 SUMOReal
-ODMatrix::getNoWritten() const throw() {
+ODMatrix::getNoWritten() const {
     return myNoWritten;
 }
 
 
 SUMOReal
-ODMatrix::getNoDiscarded() const throw() {
+ODMatrix::getNoDiscarded() const {
     return myNoDiscarded;
 }
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& newCells) throw() {
+ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& newCells) {
     for (size_t i = 0; i < ps.getAreaNo(); ++i) {
         ODCell* ncell = new ODCell();
         ncell->begin = (SUMOTime) ps.getAreaBegin(i);
@@ -247,7 +247,7 @@ ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& ne
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points& ps) throw() {
+ODMatrix::applyCurve(const Distribution_Points& ps) {
     CellVector oldCells = myContainer;
     myContainer.clear();
     for (CellVector::iterator i = oldCells.begin(); i != oldCells.end(); ++i) {

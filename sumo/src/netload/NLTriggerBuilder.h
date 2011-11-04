@@ -64,18 +64,18 @@ class METriggeredCalibrator;
 class NLTriggerBuilder {
 public:
     /// @brief Constructor
-    NLTriggerBuilder() throw();
+    NLTriggerBuilder() ;
 
 
     /// @brief Destructor
-    virtual ~NLTriggerBuilder() throw();
+    virtual ~NLTriggerBuilder() ;
 
 
     /** @brief Sets the parent handler to use for nested parsing
      *
      * @param[in] handler The netload handler to set
      */
-    void setHandler(NLHandler* handler) throw();
+    void setHandler(NLHandler* handler) ;
 
 
     /** @brief Builds a vaporization
@@ -87,7 +87,7 @@ public:
      * @param[in] attrs SAX-attributes which define the vaporizer
      * @note recheck throwing the exception
      */
-    void buildVaporizer(const SUMOSAXAttributes& attrs) throw();
+    void buildVaporizer(const SUMOSAXAttributes& attrs) ;
 
 
     /// @name parsing methods
@@ -172,7 +172,7 @@ protected:
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
             const std::string& id, const std::vector<MSLane*> &destLanes,
-            const std::string& file) throw(ProcessError);
+            const std::string& file) ;
 
 
     /** @brief Builds a bus stop
@@ -207,7 +207,7 @@ protected:
     METriggeredCalibrator* buildCalibrator(MSNet& net,
                                            const std::string& id, const MSEdge* edge, SUMOReal pos,
                                            const std::string& file, const std::string& outfile,
-                                           const SUMOTime freq) throw();
+                                           const SUMOTime freq) ;
 #endif
 
 
@@ -223,7 +223,7 @@ protected:
      */
     virtual void buildRerouter(MSNet& net,
                                const std::string& id, std::vector<MSEdge*> &edges,
-                               SUMOReal prob, const std::string& file, bool off) throw();
+                               SUMOReal prob, const std::string& file, bool off) ;
     //@}
 
 

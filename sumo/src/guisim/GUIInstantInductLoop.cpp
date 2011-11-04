@@ -58,11 +58,11 @@
  * GUIInstantInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
-        MSLane* const lane, SUMOReal positionInMeters) throw()
+        MSLane* const lane, SUMOReal positionInMeters)
     : MSInstantInductLoop(id, od, lane, positionInMeters) {}
 
 
-GUIInstantInductLoop::~GUIInstantInductLoop() throw() {}
+GUIInstantInductLoop::~GUIInstantInductLoop() {}
 
 
 GUIDetectorWrapper*
@@ -75,7 +75,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
  * GUIInstantInductLoop::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector,
-        GUILaneWrapper& wrapper, SUMOReal pos) throw()
+        GUILaneWrapper& wrapper, SUMOReal pos)
     : GUIDetectorWrapper("instant induct loop", detector.getID()),
       myDetector(detector), myPosition(pos) {
     const PositionVector& v = wrapper.getShape();
@@ -88,11 +88,11 @@ GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector,
 }
 
 
-GUIInstantInductLoop::MyWrapper::~MyWrapper() throw() {}
+GUIInstantInductLoop::MyWrapper::~MyWrapper() {}
 
 
 Boundary
-GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const throw() {
+GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -102,7 +102,7 @@ GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const throw() {
 
 GUIParameterTableWindow*
 GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
-        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) throw() {
+        GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     // parameter
@@ -116,7 +116,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);

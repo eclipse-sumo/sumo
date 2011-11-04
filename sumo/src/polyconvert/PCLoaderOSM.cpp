@@ -59,7 +59,7 @@
 // ---------------------------------------------------------------------------
 void
 PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                       PCTypeMap& tm) throw(ProcessError) {
+                       PCTypeMap& tm) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -214,15 +214,15 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::NodesHandler::NodesHandler(std::map<int, PCOSMNode*> &toFill) throw()
+PCLoaderOSM::NodesHandler::NodesHandler(std::map<int, PCOSMNode*> &toFill)
     : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
-PCLoaderOSM::NodesHandler::~NodesHandler() throw() {}
+PCLoaderOSM::NodesHandler::~NodesHandler() {}
 
 
 void
-PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     myParentElements.push_back(element);
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
@@ -271,7 +271,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
 
 
 void
-PCLoaderOSM::NodesHandler::myEndElement(int element) throw(ProcessError) {
+PCLoaderOSM::NodesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_NODE) {
         myLastNodeID = -1;
     }
@@ -284,18 +284,18 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) throw(ProcessError) {
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(
     const std::map<int, PCOSMNode*> &osmNodes,
-    std::map<std::string, PCOSMEdge*> &toFill) throw()
+    std::map<std::string, PCOSMEdge*> &toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
 
-PCLoaderOSM::EdgesHandler::~EdgesHandler() throw() {
+PCLoaderOSM::EdgesHandler::~EdgesHandler() {
 }
 
 
 void
-PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
@@ -343,7 +343,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
 
 
 void
-PCLoaderOSM::EdgesHandler::myEndElement(int element) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_WAY) {
         if (myCurrentEdge->myIsAdditional) {

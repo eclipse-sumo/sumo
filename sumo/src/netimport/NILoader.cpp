@@ -72,11 +72,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NILoader::NILoader(NBNetBuilder& nb) throw()
+NILoader::NILoader(NBNetBuilder& nb)
     : myNetBuilder(nb) {}
 
 
-NILoader::~NILoader() throw() {}
+NILoader::~NILoader() {}
 
 
 void

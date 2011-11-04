@@ -213,7 +213,7 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::GUITriggeredRerouterPopupMe
     : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() throw() {}
+GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() {}
 
 
 long
@@ -259,12 +259,12 @@ GUITriggeredRerouter::GUITriggeredRerouter(
 }
 
 
-GUITriggeredRerouter::~GUITriggeredRerouter() throw() {}
+GUITriggeredRerouter::~GUITriggeredRerouter() {}
 
 
 GUIGLObjectPopupMenu*
 GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
-                                   GUISUMOAbstractView& parent) throw() {
+                                   GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -278,13 +278,13 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow&,
-        GUISUMOAbstractView&) throw() {
+        GUISUMOAbstractView&) {
     return 0;
 }
 
 
 void
-GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     for (size_t i = 0; i < myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
@@ -380,7 +380,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings& s) const throw() {
 
 
 Boundary
-GUITriggeredRerouter::getCenteringBoundary() const throw() {
+GUITriggeredRerouter::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;

@@ -47,12 +47,12 @@
 // ===========================================================================
 RORoute::RORoute(const std::string& id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route,
-                 const RGBColor* const color) throw()
+                 const RGBColor* const color)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
       myProbability(prop), myRoute(route), myColor(color) {}
 
 
-RORoute::RORoute(const RORoute& src) throw()
+RORoute::RORoute(const RORoute& src)
     : Named(src.myID), myCosts(src.myCosts),
       myProbability(src.myProbability), myRoute(src.myRoute), myColor(0) {
     if (src.myColor != 0) {
@@ -61,31 +61,31 @@ RORoute::RORoute(const RORoute& src) throw()
 }
 
 
-RORoute::~RORoute() throw() {
+RORoute::~RORoute() {
     delete myColor;
 }
 
 
 void
-RORoute::add(ROEdge* edge) throw() {
+RORoute::add(ROEdge* edge) {
     myRoute.push_back(edge);
 }
 
 
 void
-RORoute::setCosts(SUMOReal costs) throw() {
+RORoute::setCosts(SUMOReal costs) {
     myCosts = costs;
 }
 
 
 void
-RORoute::setProbability(SUMOReal prob) throw() {
+RORoute::setProbability(SUMOReal prob) {
     myProbability = prob;
 }
 
 
 void
-RORoute::recheckForLoops() throw() {
+RORoute::recheckForLoops() {
     ROHelper::recheckForLoops(myRoute);
 }
 

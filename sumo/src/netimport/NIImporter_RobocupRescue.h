@@ -74,7 +74,7 @@ protected:
 
 
     /// @brief Destructor
-    ~NIImporter_RobocupRescue() throw();
+    ~NIImporter_RobocupRescue() ;
 
 
     /** @brief Loads nodes from the given file

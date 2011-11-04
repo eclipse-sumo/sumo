@@ -60,11 +60,11 @@ public:
      * @exception IOError If the connection could not been established
      */
     OutputDevice_Network(const std::string& host,
-                         const int port) throw(IOError);
+                         const int port);
 
 
     /// @brief Destructor
-    ~OutputDevice_Network() throw();
+    ~OutputDevice_Network() ;
 
 
 protected:
@@ -79,7 +79,7 @@ protected:
      * @return The used stream
      * @see postWriteHook
      */
-    std::ostream& getOStream() throw();
+    std::ostream& getOStream() ;
 
 
     /** @brief Sends the data which was written to the string stream over the socket.
@@ -87,7 +87,7 @@ protected:
      * Converts the stored message into a vector of chars and sends them via to
      *  the socket implementation. Resets the message, afterwards.
      */
-    virtual void postWriteHook() throw();
+    virtual void postWriteHook() ;
     /// @}
 
 private:

@@ -78,19 +78,19 @@ public:
 
 
     /// Returns the foes of the given link
-    const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const throw() {
+    const MSLogicJunction::LinkFoes& getFoesFor(unsigned int linkIndex) const {
         return (*myLogic)[linkIndex];
     }
 
-    const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const throw() {
+    const std::bitset<64> &getInternalFoesFor(unsigned int linkIndex) const {
         return (*myInternalLinksFoes)[linkIndex];
     }
 
-    bool getIsCont(unsigned int linkIndex) const throw() {
+    bool getIsCont(unsigned int linkIndex) const {
         return myConts.test(linkIndex);
     }
 
-    virtual bool isCrossing() const throw() {
+    virtual bool isCrossing() const {
         for (typename Logic::const_iterator i = myLogic->begin(); i != myLogic->end(); ++i) {
             if ((*i).any()) {
                 return true;

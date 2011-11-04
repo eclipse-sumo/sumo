@@ -49,17 +49,17 @@
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
-        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise* parent) throw()
+        const std::set<std::string>* const vTypes, const MSMeanData_Harmonoise* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes),
       currentTimeN(0), meanNTemp(0), myParent(parent) {}
 
 
-MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() {
 }
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0;
     currentTimeN = 0;
     meanNTemp = 0;
@@ -68,7 +68,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) throw() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.sampleSeconds += sampleSeconds;
     v.meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(meanNTemp) / 10.);
@@ -77,14 +77,14 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& v
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::update() throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
     meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(currentTimeN) / 10.);
     currentTimeN = 0;
 }
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
     const SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
                         (double) speed, veh.getPreDawdleAcceleration());
     currentTimeN += (SUMOReal) pow(10., (sn / 10.));
@@ -94,14 +94,14 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/) {
     return vehicleApplies(veh);
 }
 
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const throw(IOError) {
+        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const {
     dev << "\" noise=\"" << (meanNTemp != 0 ? (SUMOReal)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -123,22 +123,22 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const bool useLanes, const bool withEmpty, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
-        const std::set<std::string> vTypes) throw()
+        const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 
-MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
+MSMeanData_Harmonoise::~MSMeanData_Harmonoise() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Harmonoise::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+MSMeanData_Harmonoise::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 
 
 void
-MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) throw() {
+MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) {
     MSMeanData::detectorUpdate(step);
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
         const std::vector<MeanDataValues*> &lm = *i;

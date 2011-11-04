@@ -54,21 +54,21 @@
 // ---------------------------------------------------------------------------
 // NGEdge-definitions
 // ---------------------------------------------------------------------------
-NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode) throw()
+NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode)
     : myID(id), myStartNode(startNode), myEndNode(endNode) {
     myStartNode->addLink(this);
     myEndNode->addLink(this);
 }
 
 
-NGEdge::~NGEdge() throw() {
+NGEdge::~NGEdge() {
     myStartNode->removeLink(this);
     myEndNode->removeLink(this);
 }
 
 
 NBEdge*
-NGEdge::buildNBEdge(NBNetBuilder& nb) const throw(ProcessError) {
+NGEdge::buildNBEdge(NBNetBuilder& nb) const {
     return new NBEdge(
                myID,
                nb.getNodeCont().retrieve(myStartNode->getID()), // from

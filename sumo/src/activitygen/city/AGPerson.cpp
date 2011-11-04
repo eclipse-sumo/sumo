@@ -43,30 +43,30 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGPerson::AGPerson(int age) throw() : age(age) {}
+AGPerson::AGPerson(int age) : age(age) {}
 
 /****************************************************************************/
 
-AGPerson::~AGPerson() throw() {}
+AGPerson::~AGPerson() {}
 
 /****************************************************************************/
 
 void
-AGPerson::print() const throw() {
+AGPerson::print() const {
     cout << "- Person: Age=" << age << endl;
 }
 
 /****************************************************************************/
 
 int
-AGPerson::getAge() const throw() {
+AGPerson::getAge() const {
     return age;
 }
 
 /****************************************************************************/
 
 bool
-AGPerson::decide(SUMOReal proba) const throw() {
+AGPerson::decide(SUMOReal proba) const {
     return (RandHelper::rand(1000) < static_cast<int>(1000.0f * proba));
 }
 

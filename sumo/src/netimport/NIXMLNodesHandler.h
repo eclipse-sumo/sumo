@@ -69,7 +69,7 @@ public:
 
 
     /// @brief Destructor
-    ~NIXMLNodesHandler() throw();
+    ~NIXMLNodesHandler() ;
 
 
 protected:
@@ -87,7 +87,7 @@ protected:
      * @todo ProcessErrors are thrown when parsing traffic lights!?
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
     //@}
 
 

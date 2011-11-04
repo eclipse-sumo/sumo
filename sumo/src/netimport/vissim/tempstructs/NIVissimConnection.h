@@ -91,7 +91,7 @@ public:
      * @param[in] The built from-edge
      * @param[in] The built to-edge
      */
-    void recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) throw();
+    void recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) ;
 
 public:
     const IntVector& getFromLanes() const;

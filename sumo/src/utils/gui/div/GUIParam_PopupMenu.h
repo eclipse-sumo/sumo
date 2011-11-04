@@ -65,11 +65,11 @@ public:
     GUIParam_PopupMenuInterface(GUIMainWindow& app,
                                 GUIParameterTableWindow& parentWindow,
                                 GUIGlObject& o, const std::string& varName,
-                                ValueSource<SUMOReal> *src) throw();
+                                ValueSource<SUMOReal> *src) ;
 
 
     /// @brief Destructor
-    ~GUIParam_PopupMenuInterface() throw();
+    ~GUIParam_PopupMenuInterface() ;
 
 
     /// @name FOX-callbacks

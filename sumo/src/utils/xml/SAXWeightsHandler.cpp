@@ -74,7 +74,7 @@ SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition* def,
 }
 
 
-SAXWeightsHandler::~SAXWeightsHandler() throw() {
+SAXWeightsHandler::~SAXWeightsHandler() {
     std::vector<ToRetrieveDefinition*>::iterator i;
     for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {
         delete *i;
@@ -83,7 +83,7 @@ SAXWeightsHandler::~SAXWeightsHandler() throw() {
 
 
 void SAXWeightsHandler::myStartElement(int element,
-                                       const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                       const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
@@ -147,7 +147,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
 
 
 void
-SAXWeightsHandler::myEndElement(int element) throw() {
+SAXWeightsHandler::myEndElement(int element) {
     if (element == SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;
         for (i = myDefinitions.begin(); i != myDefinitions.end(); ++i) {

@@ -67,20 +67,20 @@ public:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice(SUMOVehicle& holder, const std::string& id) throw()
+    MSDevice(SUMOVehicle& holder, const std::string& id)
         : Named(id), myHolder(holder) {
     }
 
 
     /// @brief Destructor
-    virtual ~MSDevice() throw() { }
+    virtual ~MSDevice() { }
 
 
     /** @brief Returns the vehicle that holds this device
      *
      * @return The vehicle that holds this device
      */
-    SUMOVehicle& getHolder() const throw() {
+    SUMOVehicle& getHolder() const {
         return myHolder;
     }
 
@@ -97,7 +97,7 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void generateOutput() const throw(IOError) {
+    virtual void generateOutput() const {
     }
 
 

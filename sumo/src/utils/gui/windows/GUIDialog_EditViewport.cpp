@@ -62,7 +62,7 @@ FXIMPLEMENT(GUIDialog_EditViewport, FXDialogBox, GUIDialog_EditViewportMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
-        const char* name, SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y) throw()
+        const char* name, SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y)
     : FXDialogBox(parent, name, DECOR_TITLE | DECOR_BORDER, x, y, 0, 0),
       myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff) {
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 1, 1);
@@ -113,7 +113,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
 }
 
 
-GUIDialog_EditViewport::~GUIDialog_EditViewport() throw() {}
+GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 
 
 long
@@ -188,7 +188,7 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
 
 
 void
-GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) throw() {
+GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
@@ -196,7 +196,7 @@ GUIDialog_EditViewport::setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) t
 
 
 void
-GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) throw() {
+GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
@@ -207,7 +207,7 @@ GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff
 
 
 bool
-GUIDialog_EditViewport::haveGrabbed() const throw() {
+GUIDialog_EditViewport::haveGrabbed() const {
     return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
 }
 

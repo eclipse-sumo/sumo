@@ -83,7 +83,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myHaveWarnedAboutDeprecatedMaxSpeed(false) {}
 
 
-NIImporter_SUMO::~NIImporter_SUMO() throw() {
+NIImporter_SUMO::~NIImporter_SUMO() {
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         for (std::vector<LaneAttrs*>::const_iterator j = ed->lanes.begin(); j != ed->lanes.end(); ++j) {
@@ -234,7 +234,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
 
 void
 NIImporter_SUMO::myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                const SUMOSAXAttributes& attrs) {
     /* our goal is to reproduce the input net faithfully
      * there are different types of objects in the netfile:
      * 1) those which must be loaded into NBNetBuilder-Containers for processing
@@ -289,14 +289,14 @@ NIImporter_SUMO::myStartElement(int element,
 
 void
 NIImporter_SUMO::myCharacters(int element,
-                              const std::string& chars) throw(ProcessError) {
+                              const std::string& chars) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
 }
 
 
 void
-NIImporter_SUMO::myEndElement(int element) throw(ProcessError) {
+NIImporter_SUMO::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:
             if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {

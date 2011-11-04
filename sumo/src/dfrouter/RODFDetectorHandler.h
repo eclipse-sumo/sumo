@@ -49,7 +49,7 @@ public:
                         const std::string& file);
 
     /// Destructor
-    virtual ~RODFDetectorHandler() throw();
+    virtual ~RODFDetectorHandler() ;
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -63,7 +63,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
     //@}
 
 private:

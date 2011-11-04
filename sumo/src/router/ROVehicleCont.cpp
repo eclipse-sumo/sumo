@@ -42,14 +42,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicleCont::ROVehicleCont() throw() {}
+ROVehicleCont::ROVehicleCont() {}
 
 
-ROVehicleCont::~ROVehicleCont() throw() {}
+ROVehicleCont::~ROVehicleCont() {}
 
 
 const ROVehicle*
-ROVehicleCont::getTopVehicle() const throw() {
+ROVehicleCont::getTopVehicle() const {
     if (size() == 0) {
         return 0;
     }
@@ -58,7 +58,7 @@ ROVehicleCont::getTopVehicle() const throw() {
 
 
 bool
-ROVehicleCont::add(const std::string& id, ROVehicle* item) throw() {
+ROVehicleCont::add(const std::string& id, ROVehicle* item) {
     if (NamedObjectCont<ROVehicle*>::add(id, item)) {
         mySorted.push(item);
         return true;
@@ -68,14 +68,14 @@ ROVehicleCont::add(const std::string& id, ROVehicle* item) throw() {
 
 
 void
-ROVehicleCont::clear() throw() {
+ROVehicleCont::clear() {
     mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     NamedObjectCont<ROVehicle*>::clear();
 }
 
 
 bool
-ROVehicleCont::erase(const std::string& id) throw() {
+ROVehicleCont::erase(const std::string& id) {
     const ROVehicle* const topVeh = getTopVehicle();
     bool wasTop = topVeh != 0 && topVeh->getID() == id;
     if (!NamedObjectCont<ROVehicle*>::erase(id)) {
@@ -91,7 +91,7 @@ ROVehicleCont::erase(const std::string& id) throw() {
 
 
 void
-ROVehicleCont::rebuildSorted() throw() {
+ROVehicleCont::rebuildSorted() {
     mySorted = std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     std::map<std::string, ROVehicle*>::const_iterator i;
     const std::map<std::string, ROVehicle*> &mmap = getMyMap();

@@ -53,11 +53,11 @@ class MSJunction;
 class MSJunctionControl : public NamedObjectCont<MSJunction*> {
 public:
     /// @brief Constructor
-    MSJunctionControl() throw();
+    MSJunctionControl() ;
 
 
     /// @brief Destructor
-    ~MSJunctionControl() throw();
+    ~MSJunctionControl() ;
 
 
     /** @brief Closes building of junctions
@@ -66,7 +66,7 @@ public:
      * @exception ProcessError From the called "postloadInit"
      * @see MSJunction::postloadInit
      */
-    void postloadInitContainer() throw(ProcessError);
+    void postloadInitContainer() ;
 
 
 private:

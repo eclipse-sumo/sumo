@@ -48,10 +48,10 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIDialog_AppSettings(FXMainWindow* parent) throw();
+    GUIDialog_AppSettings(FXMainWindow* parent) ;
 
     /// @brief Destructor
-    ~GUIDialog_AppSettings() throw();
+    ~GUIDialog_AppSettings() ;
 
 
 

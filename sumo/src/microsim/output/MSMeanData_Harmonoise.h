@@ -70,19 +70,19 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_Harmonoise* parent = 0) throw();
+                             const MSMeanData_Harmonoise* parent = 0) ;
 
         /** @brief Destructor */
-        virtual ~MSLaneMeanDataValues() throw();
+        virtual ~MSLaneMeanDataValues() ;
 
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite = false) throw();
+        void reset(bool afterWrite = false) ;
 
         /** @brief Add the values to this meanData
          */
-        void addTo(MSMeanData::MeanDataValues& val) const throw();
+        void addTo(MSMeanData::MeanDataValues& val) const ;
 
 
         /// @name Methods inherited from MSMoveReminder.
@@ -100,7 +100,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
         //@}
 
 
@@ -109,7 +109,7 @@ public:
          * The sum of noises collected so far (in the last seen step)
          *  is built, and added to meanNTemp; currentTimeN is resetted.
          */
-        void update() throw();
+        void update() ;
 
         /** @brief Writes output values into the given stream
          *
@@ -121,7 +121,7 @@ public:
          */
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
-                   const int numVehicles = -1) const throw(IOError);
+                   const int numVehicles = -1) const;
 
 
     protected:
@@ -136,7 +136,7 @@ public:
          * @param[in] speed Moving speed.
          */
         void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed) throw();
+                                SUMOReal speed) ;
 
     private:
         /// @name Collected values
@@ -174,15 +174,15 @@ public:
                           const bool useLanes, const bool withEmpty, const bool withInternal,
                           const bool trackVehicles,
                           const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                          const std::set<std::string> vTypes) throw();
+                          const std::set<std::string> vTypes) ;
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_Harmonoise() throw();
+    virtual ~MSMeanData_Harmonoise() ;
 
     /** @brief Updates the detector
      */
-    virtual void detectorUpdate(const SUMOTime step) throw();
+    virtual void detectorUpdate(const SUMOTime step) ;
 
 
 protected:
@@ -191,7 +191,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -107,7 +107,7 @@ public:
     //households far from public transports
     int hhFarFromPT;
 
-    static AGDataAndStatistics& getDataAndStatistics() throw();
+    static AGDataAndStatistics& getDataAndStatistics() ;
 
     /**
      * function returning a random number between the two given numbers: [n;m[ (m cannot occur)

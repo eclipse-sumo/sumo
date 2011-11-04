@@ -58,18 +58,18 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const SUMOReal length,
         const bool doAdd,
         const std::set<std::string>* const vTypes,
-        const MSMeanData_Net* parent) throw()
+        const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
       nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
 
 
-MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
+MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() {
 }
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::reset(bool) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     nVehDeparted = 0;
     nVehArrived = 0;
     nVehEntered = 0;
@@ -84,7 +84,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) throw() {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const throw() {
+MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) const {
     MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
     v.nVehDeparted += nVehDeparted;
     v.nVehArrived += nVehArrived;
@@ -100,7 +100,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
     vehLengthSum += veh.getVehicleType().getLengthWithGap() * timeOnLane;
@@ -111,7 +111,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOR
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
     if (vehicleApplies(veh) && (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
@@ -136,7 +136,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (vehicleApplies(veh)) {
         if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
@@ -154,14 +154,14 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveRemind
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const throw() {
+MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
     return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0 && nVehLeft == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal numLanes, const int numVehicles) const throw(IOError) {
+        const SUMOReal numLanes, const int numVehicles) const {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
             dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
@@ -210,17 +210,17 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const bool useLanes, const bool withEmpty, const bool withInternal,
                                const bool trackVehicles,
                                const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                               const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw()
+                               const SUMOReal haltSpeed, const std::set<std::string> vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
       myHaltSpeed(haltSpeed) {
 }
 
 
-MSMeanData_Net::~MSMeanData_Net() throw() {}
+MSMeanData_Net::~MSMeanData_Net() {}
 
 
 MSMeanData::MeanDataValues*
-MSMeanData_Net::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError) {
+MSMeanData_Net::createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, &myVehicleTypes, this);
 }
 

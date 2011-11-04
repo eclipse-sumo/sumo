@@ -40,16 +40,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIShapeContainer::GUIShapeContainer(SUMORTree& vis) throw()
+GUIShapeContainer::GUIShapeContainer(SUMORTree& vis)
     : myVis(vis) {}
 
 
-GUIShapeContainer::~GUIShapeContainer() throw() {}
+GUIShapeContainer::~GUIShapeContainer() {}
 
 
 bool
 GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string& type, const RGBColor& c,
-                          const Position& pos) throw() {
+                          const Position& pos) {
     GUIPointOfInterest* p = new GUIPointOfInterest(layer, name, type, pos, c);
     myLock.lock();
     const bool ret = add(layer, p);
@@ -65,7 +65,7 @@ GUIShapeContainer::addPoI(const std::string& name, int layer, const std::string&
 
 bool
 GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::string& type, const RGBColor& c,
-                              bool filled, const PositionVector& shape) throw() {
+                              bool filled, const PositionVector& shape) {
     GUIPolygon* p = new GUIPolygon(layer, name, type, c, shape, filled);
     myLock.lock();
     const bool ret = add(layer, p);
@@ -81,7 +81,7 @@ GUIShapeContainer::addPolygon(const std::string& name, int layer, const std::str
 
 
 bool
-GUIShapeContainer::removePoI(int layer, const std::string& id) throw() {
+GUIShapeContainer::removePoI(int layer, const std::string& id) {
     myLock.lock();
     if (myPOILayers.find(layer) == myPOILayers.end()) {
         myLock.unlock();
@@ -101,7 +101,7 @@ GUIShapeContainer::removePoI(int layer, const std::string& id) throw() {
 
 
 bool
-GUIShapeContainer::removePolygon(int layer, const std::string& id) throw() {
+GUIShapeContainer::removePolygon(int layer, const std::string& id) {
     myLock.lock();
     if (myPolygonLayers.find(layer) == myPolygonLayers.end()) {
         myLock.unlock();
@@ -121,7 +121,7 @@ GUIShapeContainer::removePolygon(int layer, const std::string& id) throw() {
 
 
 void
-GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) throw() {
+GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos) {
     myLock.lock();
     if (myPOILayers.find(layer) != myPOILayers.end()) {
         PointOfInterest* p = myPOILayers.find(layer)->second.get(id);
@@ -136,7 +136,7 @@ GUIShapeContainer::movePoI(int layer, const std::string& id, const Position& pos
 
 
 void
-GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) throw() {
+GUIShapeContainer::reshapePolygon(int layer, const std::string& id, const PositionVector& shape) {
     myLock.lock();
     if (myPolygonLayers.find(layer) != myPolygonLayers.end()) {
         GUIPolygon* p = static_cast<GUIPolygon*>(myPolygonLayers.find(layer)->second.get(id));

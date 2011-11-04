@@ -56,11 +56,11 @@ class MFXMutex;
 class GUIVehicleControl : public MSVehicleControl {
 public:
     /// @brief Constructor
-    GUIVehicleControl() throw();
+    GUIVehicleControl() ;
 
 
     /// @brief Destructor
-    ~GUIVehicleControl() throw();
+    ~GUIVehicleControl() ;
 
 
     /// @name Vehicle creation
@@ -80,7 +80,7 @@ public:
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
-                              const MSRoute* route, const MSVehicleType* type) throw(ProcessError);
+                              const MSRoute* route, const MSVehicleType* type) ;
     /// @}
 
 
@@ -92,7 +92,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    bool addVehicle(const std::string& id, SUMOVehicle* v) throw();
+    bool addVehicle(const std::string& id, SUMOVehicle* v) ;
 
 
     /** @brief Deletes the vehicle
@@ -102,14 +102,14 @@ public:
      * @param[in] v The vehicle to delete
      * @todo Isn't this quite insecure?
      */
-    void deleteVehicle(SUMOVehicle* v) throw();
+    void deleteVehicle(SUMOVehicle* v) ;
 
 
     /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
-    void insertVehicleIDs(std::vector<GUIGlID> &into) throw();
+    void insertVehicleIDs(std::vector<GUIGlID> &into) ;
 
 
 private:

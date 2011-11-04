@@ -48,15 +48,15 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage() throw()
+GUIGlObjectStorage::GUIGlObjectStorage()
     : myAktID(0) {}
 
 
-GUIGlObjectStorage::~GUIGlObjectStorage() throw() {}
+GUIGlObjectStorage::~GUIGlObjectStorage() {}
 
 
 GUIGlID
-GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) throw() {
+GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) {
     myLock.lock();
     GUIGlID id = myAktID++;
     myMap[id] = object;
@@ -67,7 +67,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullN
 
 
 GUIGlObject*
-GUIGlObjectStorage::getObjectBlocking(GUIGlID id) throw() {
+GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
     myLock.lock();
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
@@ -89,7 +89,7 @@ GUIGlObjectStorage::getObjectBlocking(GUIGlID id) throw() {
 
 
 GUIGlObject*
-GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) throw() {
+GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
     myLock.lock();
     if (myFullNameMap.count(fullName)) {
         GUIGlID id = myFullNameMap[fullName]->getGlID();
@@ -103,7 +103,7 @@ GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) throw() {
 
 
 bool
-GUIGlObjectStorage::remove(GUIGlID id) throw() {
+GUIGlObjectStorage::remove(GUIGlID id) {
     myLock.lock();
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
@@ -125,7 +125,7 @@ GUIGlObjectStorage::remove(GUIGlID id) throw() {
 
 
 void
-GUIGlObjectStorage::clear() throw() {
+GUIGlObjectStorage::clear() {
     myLock.lock();
     myMap.clear();
     myAktID = 0;
@@ -134,7 +134,7 @@ GUIGlObjectStorage::clear() throw() {
 
 
 void
-GUIGlObjectStorage::unblockObject(GUIGlID id) throw() {
+GUIGlObjectStorage::unblockObject(GUIGlID id) {
     myLock.lock();
     ObjectMap::iterator i = myBlocked.find(id);
     if (i == myBlocked.end()) {

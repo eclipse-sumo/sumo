@@ -52,11 +52,11 @@ class Position;
 class GUIShapeContainer : public ShapeContainer {
 public:
     /// @brief Constructor
-    GUIShapeContainer(SUMORTree& vis) throw();
+    GUIShapeContainer(SUMORTree& vis) ;
 
 
     /// @brief Destructor
-    virtual ~GUIShapeContainer() throw();
+    virtual ~GUIShapeContainer() ;
 
 
 
@@ -70,7 +70,7 @@ public:
      * @see ShapeContainer::addPoI
      */
     virtual bool addPoI(const std::string& name, int layer, const std::string& type,
-                        const RGBColor& c, const Position& pos) throw();
+                        const RGBColor& c, const Position& pos) ;
 
 
     /** @brief Builds a polygon using the given values and adds it to the according layer
@@ -83,7 +83,7 @@ public:
      * @see ShapeContainer::addPolygon
      */
     virtual bool addPolygon(const std::string& name, int layer,
-                            const std::string& type, const RGBColor& c, bool filled, const PositionVector& shape) throw();
+                            const std::string& type, const RGBColor& c, bool filled, const PositionVector& shape) ;
 
 
 
@@ -93,7 +93,7 @@ public:
      * @return Whether the polygon could be removed
      * @see ShapeContainer::removePolygon
      */
-    bool removePolygon(int layer, const std::string& id) throw();
+    bool removePolygon(int layer, const std::string& id) ;
 
 
     /** @brief Removes a PoI from the container
@@ -102,7 +102,7 @@ public:
      * @return Whether the poi could be removed
      * @see ShapeContainer::removePoI
      */
-    bool removePoI(int layer, const std::string& id) throw();
+    bool removePoI(int layer, const std::string& id) ;
 
 
 
@@ -112,7 +112,7 @@ public:
      * @param[in] pos The PoI's new position
      * @see ShapeContainer::movePoI
      */
-    void movePoI(int layer, const std::string& id, const Position& pos) throw();
+    void movePoI(int layer, const std::string& id, const Position& pos) ;
 
 
     /** @brief Assigns a shape to the named polygon
@@ -120,7 +120,7 @@ public:
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
-    void reshapePolygon(int layer, const std::string& id, const PositionVector& shape) throw();
+    void reshapePolygon(int layer, const std::string& id, const PositionVector& shape) ;
 
 
     /// Returns the gl-ids of all shapes

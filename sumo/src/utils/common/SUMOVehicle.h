@@ -58,17 +58,17 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
 class SUMOVehicle {
 public:
     /// @brief Destructor
-    virtual ~SUMOVehicle() throw() {}
+    virtual ~SUMOVehicle() {}
 
     /** @brief Get the vehicle's ID
      * @return The the ID of the vehicle
      */
-    virtual const std::string& getID() const throw() = 0;
+    virtual const std::string& getID() const = 0;
 
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
-    virtual SUMOReal getPositionOnLane() const throw() = 0;
+    virtual SUMOReal getPositionOnLane() const = 0;
 
     /** @brief Returns the vehicle's maximum speed
      * @return The vehicle's maximum speed
@@ -78,7 +78,7 @@ public:
     /** @brief Returns the vehicle's current speed
      * @return The vehicle's speed
      */
-    virtual SUMOReal getSpeed() const throw() = 0;
+    virtual SUMOReal getSpeed() const = 0;
 
     /** @brief Returns the vehicle's type
      * @return The vehicle's type
@@ -95,7 +95,7 @@ public:
      * @param[in] nSuccs The number of edge to look forward
      * @return The nSuccs'th following edge in the vehicle's route
      */
-    virtual const MSEdge* succEdge(unsigned int nSuccs) const throw() = 0;
+    virtual const MSEdge* succEdge(unsigned int nSuccs) const = 0;
 
     /** @brief Adapt the vehicle's maximum speed depending on the reference speed
      * @param[in] the maximum speed on the edge
@@ -118,12 +118,12 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) throw() = 0;
+    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) = 0;
 
     /** @brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling
      */
-    virtual SUMOReal getPreDawdleAcceleration() const throw() = 0;
+    virtual SUMOReal getPreDawdleAcceleration() const = 0;
 
     /** @brief Returns the edge the vehicle is currently at
      *
@@ -135,29 +135,29 @@ public:
      *
      * @return The vehicle's parameter
      */
-    virtual const SUMOVehicleParameter& getParameter() const throw() = 0;
+    virtual const SUMOVehicleParameter& getParameter() const = 0;
 
     /** @brief Called when the vehicle is inserted into the network
      *
      * Sets optional information about departure time, informs the vehicle
      *  control about a further running vehicle.
      */
-    virtual void onDepart() throw() = 0;
+    virtual void onDepart() = 0;
 
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
      */
-    virtual bool isOnRoad() const throw() = 0;
+    virtual bool isOnRoad() const = 0;
 
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */
-    virtual SUMOTime getDeparture() const throw() = 0;
+    virtual SUMOTime getDeparture() const = 0;
 
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
-    virtual unsigned int getNumberReroutes() const throw() = 0;
+    virtual unsigned int getNumberReroutes() const = 0;
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -170,7 +170,7 @@ public:
      *
      * @param[in] person The person to add
      */
-    virtual void addPerson(MSPerson* person) throw() = 0;
+    virtual void addPerson(MSPerson* person) = 0;
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped

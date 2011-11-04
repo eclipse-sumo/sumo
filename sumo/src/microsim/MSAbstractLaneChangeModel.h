@@ -108,7 +108,7 @@ public:
          * @param[in] neighLead The leader on the lane the vehicle want to change to
          * @param[in] neighFollow The follower on the lane the vehicle want to change to
          */
-        MSLCMessager(MSVehicle* leader,  MSVehicle* neighLead, MSVehicle* neighFollow) throw()
+        MSLCMessager(MSVehicle* leader,  MSVehicle* neighLead, MSVehicle* neighFollow)
             : myLeader(leader), myNeighLeader(neighLead),
               myNeighFollower(neighFollow) { }
 
@@ -122,7 +122,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void* informLeader(void* info, MSVehicle* sender) throw() {
+        void* informLeader(void* info, MSVehicle* sender) {
             assert(myLeader != 0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
@@ -133,7 +133,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void* informNeighLeader(void* info, MSVehicle* sender) throw() {
+        void* informNeighLeader(void* info, MSVehicle* sender) {
             assert(myNeighLeader != 0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
@@ -144,7 +144,7 @@ public:
          * @param[in] sender The sending vehicle (the lane changing vehicle)
          * @return Something!?
          */
-        void* informNeighFollower(void* info, MSVehicle* sender) throw() {
+        void* informNeighFollower(void* info, MSVehicle* sender) {
             assert(myNeighFollower != 0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
@@ -165,7 +165,7 @@ public:
     /** @brief Constructor
      * @param[in] v The vehicle this lane-changer belongs to
      */
-    MSAbstractLaneChangeModel(MSVehicle& v) throw()
+    MSAbstractLaneChangeModel(MSVehicle& v)
         : myVehicle(v), myOwnState(0),
 #ifndef NO_TRACI
           myChangeRequest(MSVehicle::REQUEST_NONE),

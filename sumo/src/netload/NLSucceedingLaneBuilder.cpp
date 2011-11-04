@@ -52,20 +52,20 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder& jb) throw()
+NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder& jb)
     : myJunctionControlBuilder(jb) {
     mySuccLanes = new MSLinkCont();
     mySuccLanes->reserve(10);
 }
 
 
-NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() throw() {
+NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() {
     delete mySuccLanes;
 }
 
 
 void
-NLSucceedingLaneBuilder::openSuccLane(const std::string& laneId) throw() {
+NLSucceedingLaneBuilder::openSuccLane(const std::string& laneId) {
     myCurrentLane = laneId;
 }
 
@@ -178,7 +178,7 @@ NLSucceedingLaneBuilder::closeSuccLane() throw(InvalidArgument) {
 
 
 const std::string&
-NLSucceedingLaneBuilder::getCurrentLaneName() const throw() {
+NLSucceedingLaneBuilder::getCurrentLaneName() const {
     return myCurrentLane;
 }
 

@@ -105,7 +105,7 @@ public:
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
 protected:
-    void makeStep() throw();
+    void makeStep() ;
 
 protected:
     /// the loaded simulation network

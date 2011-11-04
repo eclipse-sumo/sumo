@@ -413,7 +413,7 @@ NBRequest::getSizes() const {
 
 bool
 NBRequest::foes(const NBEdge* const from1, const NBEdge* const to1,
-                const NBEdge* const from2, const NBEdge* const to2) const throw() {
+                const NBEdge* const from2, const NBEdge* const to2) const {
     // unconnected edges do not forbid other edges
     if (to1 == 0 || to2 == 0) {
         return false;
@@ -433,7 +433,7 @@ NBRequest::foes(const NBEdge* const from1, const NBEdge* const to1,
 bool
 NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                    const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                   bool regardNonSignalisedLowerPriority) const throw() {
+                   bool regardNonSignalisedLowerPriority) const {
     // unconnected edges do not forbid other edges
     if (possProhibitorTo == 0 || possProhibitedTo == 0) {
         return false;
@@ -489,7 +489,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 
 void
 NBRequest::writeResponse(OutputDevice& od, const NBEdge* const from, const NBEdge* const to,
-                         int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError) {
+                         int fromLane, int toLane, bool mayDefinitelyPass) const {
     UNUSED_PARAMETER(toLane);
     int idx = 0;
     if (to != 0) {
@@ -563,7 +563,7 @@ NBRequest::writeAreFoes(OutputDevice& od, NBEdge* from, NBEdge* to, bool isInner
 
 
 int
-NBRequest::getIndex(const NBEdge* const from, const NBEdge* const to) const throw() {
+NBRequest::getIndex(const NBEdge* const from, const NBEdge* const to) const {
     EdgeVector::const_iterator fp = find(myIncoming.begin(), myIncoming.end(), from);
     EdgeVector::const_iterator tp = find(myOutgoing.begin(), myOutgoing.end(), to);
     if (fp == myIncoming.end() || tp == myOutgoing.end()) {
@@ -594,7 +594,7 @@ operator<<(std::ostream& os, const NBRequest& r) {
 
 
 bool
-NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const throw() {
+NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const {
     // vehicles which do not have a following lane must always decelerate to the end
     if (to == 0) {
         return true;
@@ -619,7 +619,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to) const thr
 
 bool
 NBRequest::mustBrake(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
-                     const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo) const throw() {
+                     const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo) const {
     // get the indices
     int idx1 = getIndex(possProhibitorFrom, possProhibitorTo);
     int idx2 = getIndex(possProhibitedFrom, possProhibitedTo);

@@ -42,7 +42,7 @@
 // ===========================================================================
 NIVissimExtendedEdgePoint::NIVissimExtendedEdgePoint(
     int edgeid, const IntVector& lanes, SUMOReal position,
-    const IntVector& assignedVehicles) throw()
+    const IntVector& assignedVehicles)
     : myEdgeID(edgeid), myLanes(lanes), myPosition(position),
       myAssignedVehicles(assignedVehicles) {}
 
@@ -76,7 +76,7 @@ NIVissimExtendedEdgePoint::getLanes() const {
 
 
 void
-NIVissimExtendedEdgePoint::recheckLanes(const NBEdge* const edge) throw() {
+NIVissimExtendedEdgePoint::recheckLanes(const NBEdge* const edge) {
     // check whether an "all" indicator is there
     bool hadAll = false;
     for (IntVector::const_iterator i = myLanes.begin(); !hadAll && i != myLanes.end(); ++i) {

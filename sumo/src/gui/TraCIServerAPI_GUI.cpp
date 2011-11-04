@@ -222,7 +222,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 
 
 GUIMainWindow*
-TraCIServerAPI_GUI::getMainWindow() throw() {
+TraCIServerAPI_GUI::getMainWindow() {
     FXWindow* w = FXApp::instance()->getRootWindow()->getFirst();
     while (w != 0 && dynamic_cast<GUIMainWindow*>(w) == 0) {
         w = w->getNext();
@@ -236,7 +236,7 @@ TraCIServerAPI_GUI::getMainWindow() throw() {
 
 
 GUISUMOAbstractView* const
-TraCIServerAPI_GUI::getNamedView(const std::string& id) throw() {
+TraCIServerAPI_GUI::getNamedView(const std::string& id) {
     GUIMainWindow* mw = static_cast<GUIMainWindow*>(getMainWindow());
     if (mw == 0) {
         return 0;

@@ -53,7 +53,7 @@ MSRightOfWayJunction::MSRightOfWayJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
         std::vector<MSLane*> internal,
 #endif
-        MSJunctionLogic* logic) throw()
+        MSJunctionLogic* logic)
     : MSLogicJunction(id, position, shape, incoming
 #ifdef HAVE_INTERNAL_LANES
                       , internal),
@@ -69,7 +69,7 @@ MSRightOfWayJunction::~MSRightOfWayJunction() {
 
 
 void
-MSRightOfWayJunction::postloadInit() throw(ProcessError) {
+MSRightOfWayJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     std::vector<MSLane*>::iterator i;

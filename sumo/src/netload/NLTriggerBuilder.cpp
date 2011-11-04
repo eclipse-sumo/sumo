@@ -55,20 +55,20 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLTriggerBuilder::NLTriggerBuilder() throw()
+NLTriggerBuilder::NLTriggerBuilder()
     : myHandler(0), myHaveWarnedAboutDeprecatedFriendlyPos(false) {}
 
 
-NLTriggerBuilder::~NLTriggerBuilder() throw() {}
+NLTriggerBuilder::~NLTriggerBuilder() {}
 
 void
-NLTriggerBuilder::setHandler(NLHandler* handler) throw() {
+NLTriggerBuilder::setHandler(NLHandler* handler) {
     myHandler = handler;
 }
 
 
 void
-NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) throw() {
+NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -249,7 +249,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
 MSLaneSpeedTrigger*
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
                                         const std::vector<MSLane*> &destLanes,
-                                        const std::string& file) throw(ProcessError) {
+                                        const std::string& file) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
 }
 
@@ -260,7 +260,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
                                   const MSEdge* edge, SUMOReal pos,
                                   const std::string& file,
                                   const std::string& outfile,
-                                  const SUMOTime freq) throw() {
+                                  const SUMOTime freq) {
     return new METriggeredCalibrator(id, edge, pos, file, outfile, freq);
 }
 #endif
@@ -269,7 +269,7 @@ NLTriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
 void
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
                                 std::vector<MSEdge*> &edges,
-                                SUMOReal prob, const std::string& file, bool off) throw() {
+                                SUMOReal prob, const std::string& file, bool off) {
     new MSTriggeredRerouter(id, edges, prob, file, off);
 }
 

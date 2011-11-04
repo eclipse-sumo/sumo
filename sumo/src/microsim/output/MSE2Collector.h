@@ -87,11 +87,11 @@ public:
     MSE2Collector(const std::string& id, DetectorUsage usage,
                   MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                   SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                  SUMOReal jamDistThreshold) throw();
+                  SUMOReal jamDistThreshold) ;
 
 
     /// @brief Destructor
-    virtual ~MSE2Collector() throw();
+    virtual ~MSE2Collector() ;
 
 
     /** @brief Returns the detector's usage type
@@ -99,7 +99,7 @@ public:
      * @see DetectorUsage
      * @return How the detector is used.
      */
-    virtual DetectorUsage getUsageType() const throw() {
+    virtual DetectorUsage getUsageType() const {
         return myUsage;
     }
 
@@ -124,7 +124,7 @@ public:
      * @see MSMoveReminder::notifyMove
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                    SUMOReal newSpeed) throw();
+                    SUMOReal newSpeed) ;
 
 
     /** @brief Removes a known vehicle due to its lane-change
@@ -138,7 +138,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw();
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -153,7 +153,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
     /// @}
 
 
@@ -166,7 +166,7 @@ public:
      *
      * @param[in] currentTime The current simulation time
      */
-    void detectorUpdate(const SUMOTime step) throw();
+    void detectorUpdate(const SUMOTime step) ;
 
 
 
@@ -181,7 +181,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLOutput
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -190,7 +190,7 @@ public:
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError);
+    void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
 
@@ -198,7 +198,7 @@ public:
      *
      * @return The detector's begin position
      */
-    SUMOReal getStartPos() const throw() {
+    SUMOReal getStartPos() const {
         return myStartPos;
     }
 
@@ -207,7 +207,7 @@ public:
      *
      * @return The detector's end position
      */
-    SUMOReal getEndPos() const throw() {
+    SUMOReal getEndPos() const {
         return myEndPos;
     }
 
@@ -218,41 +218,41 @@ public:
      *  were written. Values for the next interval may be collected, then.
      * The list of known vehicles stays untouched.
      */
-    void reset() throw();
+    void reset() ;
 
 
     /// @name Methods returning current values
     /// @{
 
     /** @brief Returns the number of vehicles currently on the detector */
-    unsigned getCurrentVehicleNumber() const throw();
+    unsigned getCurrentVehicleNumber() const ;
 
     /** @brief Returns the curent detector occupancy */
-    SUMOReal getCurrentOccupancy() const throw();
+    SUMOReal getCurrentOccupancy() const ;
 
     /** @brief Returns the mean vehicle speed of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanSpeed() const throw();
+    SUMOReal getCurrentMeanSpeed() const ;
 
     /** @brief Returns the mean vehicle length of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanLength() const throw();
+    SUMOReal getCurrentMeanLength() const ;
 
     /** @brief Returns the current number of jams */
-    unsigned getCurrentJamNumber() const throw();
+    unsigned getCurrentJamNumber() const ;
 
     /** @brief Returns the length in vehicles of the currently largest jam */
-    unsigned getCurrentMaxJamLengthInVehicles() const throw();
+    unsigned getCurrentMaxJamLengthInVehicles() const ;
 
     /** @brief Returns the length in meters of the currently largest jam */
-    SUMOReal getCurrentMaxJamLengthInMeters() const throw();
+    SUMOReal getCurrentMaxJamLengthInMeters() const ;
 
     /** @brief Returns the length of all jams in vehicles */
-    unsigned getCurrentJamLengthInVehicles() const throw();
+    unsigned getCurrentJamLengthInVehicles() const ;
 
     /** @brief Returns the length of all jams in meters */
-    SUMOReal getCurrentJamLengthInMeters() const throw();
+    SUMOReal getCurrentJamLengthInMeters() const ;
 
     /** @brief Returns the length of all jams in meters */
-    unsigned getCurrentStartedHalts() const throw();
+    unsigned getCurrentStartedHalts() const ;
     /// @}
 
 
@@ -287,7 +287,7 @@ protected:
          *
          * @param[in] lane The lane the detector is placed at
          */
-        by_vehicle_position_sorter(const MSLane* const lane) throw()
+        by_vehicle_position_sorter(const MSLane* const lane)
             : myLane(lane) { }
 
 
@@ -295,7 +295,7 @@ protected:
          *
          * @param[in] s The instance to copy
          */
-        by_vehicle_position_sorter(const by_vehicle_position_sorter& s) throw()
+        by_vehicle_position_sorter(const by_vehicle_position_sorter& s)
             : myLane(s.myLane) { }
 
 
@@ -305,7 +305,7 @@ protected:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
-        int operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) throw() {
+        int operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) {
             const MSVehicle* const occ = myLane->getPartialOccupator();
             if (v1 == occ) {
                 return true;

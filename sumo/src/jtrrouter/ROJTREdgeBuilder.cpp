@@ -38,14 +38,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdgeBuilder::ROJTREdgeBuilder() throw() {}
+ROJTREdgeBuilder::ROJTREdgeBuilder() {}
 
 
-ROJTREdgeBuilder::~ROJTREdgeBuilder() throw() {}
+ROJTREdgeBuilder::~ROJTREdgeBuilder() {}
 
 
 ROEdge*
-ROJTREdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to) throw() {
+ROJTREdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to) {
     return new ROJTREdge(name, from, to, getNextIndex());
 }
 

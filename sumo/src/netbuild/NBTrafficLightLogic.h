@@ -70,17 +70,17 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg) throw()
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg)
             : duration(durationArg), state(stateArg) { }
 
         /// @brief Destructor
-        ~PhaseDefinition() throw() { }
+        ~PhaseDefinition() { }
 
         /** @brief Comparison operator
          * @param[in] pd A second phase
          * @return Whether this and the given phases are same
          */
-        bool operator!=(const PhaseDefinition& pd) const throw() {
+        bool operator!=(const PhaseDefinition& pd) const {
             return pd.duration != duration || pd.state != state;
         }
 
@@ -92,7 +92,7 @@ public:
      * @param[in] subid The id of the program
      * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
      */
-    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks) throw();
+    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks) ;
 
 
     /** @brief Copy Constructor
@@ -102,7 +102,7 @@ public:
 
 
     /// @brief Destructor
-    ~NBTrafficLightLogic() throw();
+    ~NBTrafficLightLogic() ;
 
 
     /** @brief Adds a phase to the logic
@@ -142,19 +142,19 @@ public:
      *
      * Joins equal steps.
      */
-    void closeBuilding() throw();
+    void closeBuilding() ;
 
 
     /** @brief Returns the duration of the complete cycle
      * @return The duration of this logic's cycle
      */
-    SUMOTime getDuration() const throw();
+    SUMOTime getDuration() const ;
 
 
     /** @brief Sets the offset of this tls
      * @param[in] offset The offset of this cycle
      */
-    void setOffset(SUMOTime offset) throw() {
+    void setOffset(SUMOTime offset) {
         myOffset = offset;
     }
 

@@ -37,7 +37,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) throw() :
+AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity) :
     edge(edge) {
     pop = static_cast<int>(popDensity * edge->getLength());
     work = static_cast<int>(workDensity * edge->getLength());
@@ -46,49 +46,49 @@ AGStreet::AGStreet(const ROEdge* edge, SUMOReal popDensity, SUMOReal workDensity
 /****************************************************************************/
 
 void
-AGStreet::print() const throw() {
+AGStreet::print() const {
     std::cout << "- AGStreet: Name=" << edge->getID() << " Length=" << edge->getLength() << " pop=" << pop << " work=" << work << std::endl;
 }
 
 /****************************************************************************/
 
 SUMOReal
-AGStreet::getLength() const throw() {
+AGStreet::getLength() const {
     return edge->getLength();
 }
 
 /****************************************************************************/
 
 const std::string&
-AGStreet::getName() const throw() {
+AGStreet::getName() const {
     return edge->getID();
 }
 
 /****************************************************************************/
 
 int
-AGStreet::getPopulation() const throw() {
+AGStreet::getPopulation() const {
     return pop;
 }
 
 /****************************************************************************/
 
 void
-AGStreet::setPopulation(const int& population) throw() {
+AGStreet::setPopulation(const int& population) {
     pop = population;
 }
 
 /****************************************************************************/
 
 int
-AGStreet::getWorkplaceNumber() const throw() {
+AGStreet::getWorkplaceNumber() const {
     return work;
 }
 
 /****************************************************************************/
 
 void
-AGStreet::setWorkplaceNumber(const int& workPositions) throw() {
+AGStreet::setWorkplaceNumber(const int& workPositions) {
     work = workPositions;
 }
 

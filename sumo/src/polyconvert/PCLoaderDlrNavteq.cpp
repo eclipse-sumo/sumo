@@ -61,7 +61,7 @@
 // ===========================================================================
 void
 PCLoaderDlrNavteq::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                             PCTypeMap& tm) throw(ProcessError) {
+                             PCTypeMap& tm) {
     if (oc.isSet("dlr-navteq-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
     }
@@ -73,7 +73,7 @@ PCLoaderDlrNavteq::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 void
 PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
-                                PCTypeMap& tm) throw(ProcessError) {
+                                PCTypeMap& tm) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -88,7 +88,7 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
 
 void
 PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
-                                 PCTypeMap& tm) throw(ProcessError) {
+                                 PCTypeMap& tm) {
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -104,7 +104,7 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
 void
 PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
                                OptionsCont& oc, PCPolyContainer& toFill,
-                               PCTypeMap& tm) throw(ProcessError) {
+                               PCTypeMap& tm) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // parse
@@ -183,7 +183,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
 void
 PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
                                 OptionsCont& oc, PCPolyContainer& toFill,
-                                PCTypeMap& tm) throw(ProcessError) {
+                                PCTypeMap& tm) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poly

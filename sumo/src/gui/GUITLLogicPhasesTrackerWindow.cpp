@@ -74,12 +74,12 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel, FXGLCan
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
     FXComposite* c, GUIMainWindow& app,
-    GUITLLogicPhasesTrackerWindow& parent) throw()
+    GUITLLogicPhasesTrackerWindow& parent)
     : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
       myParent(&parent), myApplication(&app) {}
 
 
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() throw() {}
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() {}
 
 
 long
@@ -156,7 +156,7 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow, FXMainWindow, GUITLLogicPhasesTracker
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src) throw()
+    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src)
     : FXMainWindow(app.getApp(), "TLS-Tracker", NULL, NULL, DECOR_ALL,
                    20, 20, 300, 200),
     myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
@@ -193,7 +193,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
-    const MSSimpleTrafficLightLogic::Phases& /*phases*/) throw()
+    const MSSimpleTrafficLightLogic::Phases& /*phases*/)
     : FXMainWindow(app.getApp(), "TLS-Tracker", NULL, NULL, DECOR_ALL,
                    20, 20, 300, 200),
     myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
@@ -217,7 +217,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 }
 
 
-GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() throw() {
+GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
     myApplication->removeChild(this);
     delete myConnector;
     // just to quit cleanly on a failure
@@ -238,7 +238,7 @@ GUITLLogicPhasesTrackerWindow::create() {
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) throw() {
+GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) {
     // compute what shall be shown (what is visible)
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
@@ -454,7 +454,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
 
 void
-GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> def) throw() {
+GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> def) {
     // do not draw while adding
     myLock.lock();
     // set the first time if not set before
@@ -500,7 +500,7 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
 
 
 void
-GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) throw() {
+GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) {
     myBeginTime = time;
 }
 

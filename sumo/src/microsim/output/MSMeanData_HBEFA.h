@@ -71,21 +71,21 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_HBEFA* parent = 0) throw();
+                             const MSMeanData_HBEFA* parent = 0) ;
 
         /** @brief Destructor */
-        virtual ~MSLaneMeanDataValues() throw();
+        virtual ~MSLaneMeanDataValues() ;
 
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite = false) throw();
+        void reset(bool afterWrite = false) ;
 
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
-        void addTo(MSMeanData::MeanDataValues& val) const throw();
+        void addTo(MSMeanData::MeanDataValues& val) const ;
 
         /** @brief Writes output values into the given stream
          *
@@ -97,7 +97,7 @@ public:
          */
         void write(OutputDevice& dev, const SUMOTime period,
                    const SUMOReal numLanes,
-                   const int numVehicles = -1) const throw(IOError);
+                   const int numVehicles = -1) const;
 
     protected:
         /** @brief Internal notification about the vehicle moves
@@ -111,7 +111,7 @@ public:
          * @param[in] speed Moving speed.
          */
         void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed) throw();
+                                SUMOReal speed) ;
 
     private:
         /// @name Collected values
@@ -154,11 +154,11 @@ public:
                      const bool useLanes, const bool withEmpty, const bool withInternal,
                      const bool trackVehicles,
                      const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                     const std::set<std::string> vTypes) throw();
+                     const std::set<std::string> vTypes) ;
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_HBEFA() throw();
+    virtual ~MSMeanData_HBEFA() ;
 
 protected:
     /** @brief Create an instance of MeanDataValues
@@ -166,7 +166,7 @@ protected:
      * @param[in] lane The lane to create for
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
-    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const throw(IOError);
+    MSMeanData::MeanDataValues* createValues(MSLane* const lane, const SUMOReal length, const bool doAdd) const;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -82,7 +82,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static OutputDevice& getDevice(const std::string& name,
-                                   const std::string& base = "") throw(IOError);
+                                   const std::string& base = "");
 
 
     /** @brief Creates the device using the output definition stored in the named option
@@ -102,7 +102,7 @@ public:
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static bool createDeviceByOption(const std::string& optionName,
-                                     const std::string& rootElement = "") throw(IOError);
+                                     const std::string& rootElement = "");
 
 
     /** @brief Returns the device described by the option
@@ -122,7 +122,7 @@ public:
 
     /**  Closes all registered devices
      */
-    static void closeAll() throw();
+    static void closeAll() ;
     /// @}
 
 
@@ -138,28 +138,28 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const unsigned int defaultIndentation = 0) throw(IOError);
+    OutputDevice(const unsigned int defaultIndentation = 0);
 
 
     /// @brief Destructor
-    virtual ~OutputDevice() throw() { }
+    virtual ~OutputDevice() { }
 
 
     /** @brief returns the information whether one can write into the device
      * @return Whether the device can be used (stream is good)
      */
-    virtual bool ok() throw();
+    virtual bool ok() ;
 
 
     /** @brief Closes the device and removes it from the dictionary
      */
-    void close() throw();
+    void close() ;
 
 
     /** @brief Sets the precison or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
-    void setPrecision(unsigned int precision = OUTPUT_ACCURACY) throw();
+    void setPrecision(unsigned int precision = OUTPUT_ACCURACY) ;
 
 
     /** @brief Writes an XML header with optional configuration
@@ -177,7 +177,7 @@ public:
     bool writeXMLHeader(const std::string& rootElement,
                         const std::string xmlParams = "",
                         const std::string& attrs = "",
-                        const std::string& comment = "") throw();
+                        const std::string& comment = "") ;
 
 
     /** @brief Adds indentation
@@ -186,7 +186,7 @@ public:
      *
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& indent() throw();
+    OutputDevice& indent() ;
 
 
     /** @brief Opens an XML tag
@@ -198,7 +198,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const std::string& xmlElement) throw();
+    OutputDevice& openTag(const std::string& xmlElement) ;
 
 
     /** @brief Opens an XML tag
@@ -208,7 +208,7 @@ public:
      * @param[in] xmlElement Id of the element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const SumoXMLTag& xmlElement) throw();
+    OutputDevice& openTag(const SumoXMLTag& xmlElement) ;
 
 
     /** @brief Closes the most recently opened tag
@@ -221,7 +221,7 @@ public:
      * @returns Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(bool abbreviated = false) throw();
+    bool closeTag(bool abbreviated = false) ;
 
     /** @brief writes an arbitrary attribute
      *
@@ -265,14 +265,14 @@ public:
 
 protected:
     /// @brief Returns the associated ostream
-    virtual std::ostream& getOStream() throw() = 0;
+    virtual std::ostream& getOStream() = 0;
 
 
     /** @brief Called after every write access.
      *
      * Default implementation does nothing.
      */
-    virtual void postWriteHook() throw();
+    virtual void postWriteHook() ;
 
 
 private:

@@ -112,7 +112,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
 }
 
 
-GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() throw() {
+GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() {
     myParent->getParent()->removeChild(this);
 }
 

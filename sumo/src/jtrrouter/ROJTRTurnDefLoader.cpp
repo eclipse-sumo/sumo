@@ -49,7 +49,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net) throw()
+ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net)
     : SUMOSAXHandler("turn-ratio-file"), myNet(net),
       myIntervalBegin(0), myIntervalEnd(SUMOTime_MAX), myEdge(0),
       myHaveWarnedAboutDeprecatedSources(false),
@@ -58,12 +58,12 @@ ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet& net) throw()
       myHaveWarnedAboutDeprecatedToEdge(false) {}
 
 
-ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
+ROJTRTurnDefLoader::~ROJTRTurnDefLoader() {}
 
 
 void
 ROJTRTurnDefLoader::myStartElement(int element,
-                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
         case SUMO_TAG_INTERVAL:
@@ -122,7 +122,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
 
 void
 ROJTRTurnDefLoader::myCharacters(int element,
-                                 const std::string& chars) throw(ProcessError) {
+                                 const std::string& chars) {
     switch (element) {
         case SUMO_TAG_SINK: {
             ROEdge* edge = myNet.getEdge(chars);
@@ -155,7 +155,7 @@ ROJTRTurnDefLoader::myCharacters(int element,
 
 
 void
-ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) throw() {
+ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) {
     myEdge = 0;
     bool ok = true;
     // get the id, report an error if not given or empty...
@@ -173,7 +173,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes& attrs) throw() {
 
 
 void
-ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) throw() {
+ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes& attrs) {
     if (myEdge == 0) {
         return;
     }

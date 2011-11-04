@@ -55,12 +55,12 @@ NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont& tc)
       myTypeCont(tc), myHaveWarnedAboutDeprecatedNoLanes(false) {}
 
 
-NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
+NIXMLTypesHandler::~NIXMLTypesHandler() {}
 
 
 void
 NIXMLTypesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                  const SUMOSAXAttributes& attrs) {
     if (element != SUMO_TAG_TYPE) {
         return;
     }

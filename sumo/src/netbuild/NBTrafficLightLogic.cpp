@@ -65,7 +65,7 @@ const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allow
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string& id,
-        const std::string& subid, unsigned int noLinks) throw() :
+        const std::string& subid, unsigned int noLinks) :
     Named(id), myNumLinks(noLinks), mySubID(subid),
     myOffset(0) {}
 
@@ -77,7 +77,7 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
     myPhases(logic->myPhases.begin(), logic->myPhases.end()) {}
 
 
-NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
+NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
 
 void
@@ -122,7 +122,7 @@ NBTrafficLightLogic::resetPhases() {
 
 
 SUMOTime
-NBTrafficLightLogic::getDuration() const throw() {
+NBTrafficLightLogic::getDuration() const {
     SUMOTime duration = 0;
     for (PhaseDefinitionVector::const_iterator i = myPhases.begin(); i != myPhases.end(); ++i) {
         duration += (*i).duration;
@@ -132,7 +132,7 @@ NBTrafficLightLogic::getDuration() const throw() {
 
 
 void
-NBTrafficLightLogic::closeBuilding() throw() {
+NBTrafficLightLogic::closeBuilding() {
     for (unsigned int i = 0; i < myPhases.size() - 1;) {
         if (myPhases[i].state != myPhases[i + 1].state) {
             ++i;

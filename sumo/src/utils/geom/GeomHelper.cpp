@@ -344,7 +344,7 @@ GeomHelper::getNormal90D_CW(const Position& beg,
 
 
 SUMOReal
-GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal v = angle2 - angle1;
     if (v < 0) {
         v = 360 + v;
@@ -354,7 +354,7 @@ GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
 
 
 SUMOReal
-GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal v = angle1 - angle2;
     if (v < 0) {
         v = 360 + v;
@@ -364,13 +364,13 @@ GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
 
 
 SUMOReal
-GeomHelper::getMinAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+GeomHelper::getMinAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     return MIN2(getCWAngleDiff(angle1, angle2), getCCWAngleDiff(angle1, angle2));
 }
 
 
 SUMOReal
-GeomHelper::getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+GeomHelper::getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     return MAX2(getCWAngleDiff(angle1, angle2), getCCWAngleDiff(angle1, angle2));
 }
 

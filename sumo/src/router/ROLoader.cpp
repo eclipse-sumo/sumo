@@ -64,7 +64,7 @@
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
-        SUMOReal val, SUMOReal beg, SUMOReal end) const throw() {
+        SUMOReal val, SUMOReal beg, SUMOReal end) const {
     ROEdge* e = myNet.getEdge(id);
     if (e != 0) {
         e->addTravelTime(val, beg, end);
@@ -81,7 +81,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string& id,
-        SUMOReal val, SUMOReal beg, SUMOReal end) const throw() {
+        SUMOReal val, SUMOReal beg, SUMOReal end) const {
     ROEdge* e = myNet.getEdge(id);
     if (e != 0) {
         e->addEffort(val, beg, end);
@@ -96,7 +96,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
-ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) throw()
+ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed)
     : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed) {}
 
 
@@ -222,7 +222,7 @@ ROLoader::makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, RO
 
 
 SUMOTime
-ROLoader::getMinTimeStep() const throw() {
+ROLoader::getMinTimeStep() const {
     RouteLoaderCont::const_iterator i = myHandler.begin();
     SUMOTime ret = (*i)->getLastReadTimeStep();
     ++i;
@@ -258,7 +258,7 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 
 bool
 ROLoader::openTypedRoutes(const std::string& optionName,
-                          RONet& net) throw() {
+                          RONet& net) {
     // check whether the current loader is known
     //  (not all routers import all route formats)
     if (!myOptions.exists(optionName)) {
@@ -295,7 +295,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
 ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string& optionName,
                             const std::string& file,
-                            RONet& net) throw(ProcessError) {
+                            RONet& net) {
     if (optionName == "route-files" || optionName == "alternative-files") {
         const SUMOReal beta = myOptions.getBool("logit")
                               ? myOptions.getFloat("logit.beta")
@@ -368,7 +368,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
 
 
 void
-ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
+ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
     if (myOptions.getBool("verbose")) {
         SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
         std::cout.setf(std::ios::fixed, std::ios::floatfield); // use decimal format
@@ -380,7 +380,7 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
 
 
 void
-ROLoader::destroyHandlers() throw() {
+ROLoader::destroyHandlers() {
     for (RouteLoaderCont::const_iterator i = myHandler.begin(); i != myHandler.end(); ++i) {
         delete *i;
     }

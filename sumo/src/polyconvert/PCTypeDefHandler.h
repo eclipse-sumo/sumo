@@ -54,11 +54,11 @@ public:
      * @param[in] oc The options used while loading the type map
      * @param[out] con The container to fill
      */
-    PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) throw();
+    PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) ;
 
 
     /// @brief Destructor
-    virtual ~PCTypeDefHandler() throw();
+    virtual ~PCTypeDefHandler() ;
 
 
 protected:
@@ -74,7 +74,7 @@ protected:
      * @todo Completely unsecure currently (invalid values may force abortion with no error message)
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
     //@}
 
 

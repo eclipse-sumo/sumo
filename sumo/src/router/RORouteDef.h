@@ -66,11 +66,11 @@ public:
      * @param[in] id The id of the route
      * @param[in] color The color of the route
      */
-    RORouteDef(const std::string& id, const RGBColor* const color) throw();
+    RORouteDef(const std::string& id, const RGBColor* const color) ;
 
 
     /// @brief Destructor
-    virtual ~RORouteDef() throw();
+    virtual ~RORouteDef() ;
 
 
     /** @brief Builds the complete route
@@ -107,7 +107,7 @@ public:
             bool asAlternatives, bool withExitTimes) const = 0;
 
 protected:
-    const RGBColor* copyColorIfGiven() const throw();
+    const RGBColor* copyColorIfGiven() const ;
 
 protected:
     /// The color the route shall have

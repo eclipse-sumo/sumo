@@ -52,7 +52,7 @@
 RORDLoader_TripDefs::RORDLoader_TripDefs(RONet& net,
         SUMOTime begin, SUMOTime end,
         bool emptyDestinationsAllowed, bool withTaz,
-        const std::string& fileName) throw(ProcessError)
+        const std::string& fileName)
     : ROTypedXMLRoutesLoader(net, begin, end, fileName),
       myEmptyDestinationsAllowed(emptyDestinationsAllowed),
       myWithTaz(withTaz),
@@ -60,12 +60,12 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(RONet& net,
       myParameter(0), myHaveWarnedAboutDeprecatedTripDef(false) {}
 
 
-RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
+RORDLoader_TripDefs::~RORDLoader_TripDefs() {}
 
 
 void
 RORDLoader_TripDefs::myStartElement(int element,
-                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_TRIP__DEPRECATED && !myHaveWarnedAboutDeprecatedTripDef) {
         myHaveWarnedAboutDeprecatedTripDef = true;
         WRITE_WARNING("'" + toString(SUMO_TAG_TRIP__DEPRECATED) + "' is deprecated; please use '" + toString(SUMO_TAG_TRIP) + "'.");
@@ -141,7 +141,7 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes& attrs,
 
 
 void
-RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
+RORDLoader_TripDefs::myEndElement(int element) {
     if ((element == SUMO_TAG_TRIP || element == SUMO_TAG_TRIP__DEPRECATED) &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
@@ -177,7 +177,7 @@ RORDLoader_TripDefs::myEndElement(int element) throw(ProcessError) {
 
 
 void
-RORDLoader_TripDefs::beginNextRoute() throw() {
+RORDLoader_TripDefs::beginNextRoute() {
     myNextRouteRead = false;
 }
 

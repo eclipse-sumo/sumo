@@ -45,7 +45,7 @@
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes& attrs,
         const std::map<int, XMLCh*> &predefinedTags,
         const std::map<int, std::string> &predefinedTagsMML,
-        const std::string& objectType) throw() :
+        const std::string& objectType) :
     SUMOSAXAttributes(objectType),
     myAttrs(attrs),
     myPredefinedTags(predefinedTags),
@@ -53,12 +53,12 @@ SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes& att
 
 
 
-SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() throw() {
+SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() {
 }
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const throw() {
+SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
     AttrMap::const_iterator i = myPredefinedTags.find(id);
     if (i == myPredefinedTags.end()) {
         return false;
@@ -119,7 +119,7 @@ SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
 
 
 const XMLCh*
-SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const throw() {
+SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
     AttrMap::const_iterator i = myPredefinedTags.find(id);
     assert(i != myPredefinedTags.end());
     return myAttrs.getValue((*i).second);
@@ -136,7 +136,7 @@ SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const throw(EmptyD
 
 
 bool
-SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const throw() {
+SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const {
     XMLCh* t = XMLString::transcode(id.c_str());
     bool result = myAttrs.getIndex(t) >= 0;
     XMLString::release(&t);
@@ -146,7 +146,7 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string& id) const throw() 
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
-        const std::string& str) const throw() {
+        const std::string& str) const {
     XMLCh* t = XMLString::transcode(id.c_str());
     std::string result = TplConvertSec<XMLCh>::_2strSec(myAttrs.getValue(t), str);
     XMLString::release(&t);
@@ -155,7 +155,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getName(int attr) const throw() {
+SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
         return "?";
     }

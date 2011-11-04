@@ -39,23 +39,23 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_String::OutputDevice_String(const unsigned int defaultIndentation) throw(IOError)
+OutputDevice_String::OutputDevice_String(const unsigned int defaultIndentation)
     : OutputDevice(defaultIndentation) {
 }
 
 
-OutputDevice_String::~OutputDevice_String() throw() {
+OutputDevice_String::~OutputDevice_String() {
 }
 
 
 std::string
-OutputDevice_String::getString() throw() {
+OutputDevice_String::getString() {
     return myStream.str();
 }
 
 
 std::ostream&
-OutputDevice_String::getOStream() throw() {
+OutputDevice_String::getOStream() {
     return myStream;
 }
 

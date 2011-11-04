@@ -56,7 +56,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const SUMOReal length, const bool doAdd,
-    const std::set<std::string>* const vTypes) throw() :
+    const std::set<std::string>* const vTypes) :
     MSMoveReminder(lane, doAdd),
     myLaneLength(length),
     sampleSeconds(0),
@@ -64,19 +64,19 @@ MSMeanData::MeanDataValues::MeanDataValues(
     myVehicleTypes(vTypes) {}
 
 
-MSMeanData::MeanDataValues::~MeanDataValues() throw() {
+MSMeanData::MeanDataValues::~MeanDataValues() {
 }
 
 
 bool
-MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     UNUSED_PARAMETER(reason);
     return vehicleApplies(veh);
 }
 
 
 bool
-MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) {
     SUMOReal timeOnLane = TS;
     bool ret = true;
     if (oldPos < 0 && newSpeed != 0) {
@@ -102,31 +102,31 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
+MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
 }
 
 
 bool
-MSMeanData::MeanDataValues::vehicleApplies(const SUMOVehicle& veh) const throw() {
+MSMeanData::MeanDataValues::vehicleApplies(const SUMOVehicle& veh) const {
     return myVehicleTypes == 0 || myVehicleTypes->empty() ||
            myVehicleTypes->find(veh.getVehicleType().getID()) != myVehicleTypes->end();
 }
 
 
 bool
-MSMeanData::MeanDataValues::isEmpty() const throw() {
+MSMeanData::MeanDataValues::isEmpty() const {
     return sampleSeconds == 0;
 }
 
 
 void
-MSMeanData::MeanDataValues::update() throw() {
+MSMeanData::MeanDataValues::update() {
 }
 
 
 SUMOReal
-MSMeanData::MeanDataValues::getSamples() const throw() {
+MSMeanData::MeanDataValues::getSamples() const {
     return sampleSeconds;
 }
 
@@ -137,18 +137,18 @@ MSMeanData::MeanDataValues::getSamples() const throw() {
 MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
         const SUMOReal length,
         const std::set<std::string>* const vTypes,
-        const MSMeanData* const parent) throw()
+        const MSMeanData* const parent)
     : MSMeanData::MeanDataValues(lane, length, true, vTypes), myParent(parent) {
     myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, length, false)));
 }
 
 
-MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() throw() {
+MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {
 }
 
 
 void
-MSMeanData::MeanDataValueTracker::reset(bool afterWrite) throw() {
+MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
         myCurrentData.pop_front();
     } else {
@@ -158,19 +158,19 @@ MSMeanData::MeanDataValueTracker::reset(bool afterWrite) throw() {
 
 
 void
-MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const throw() {
+MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
     myCurrentData.front()->myValues->addTo(val);
 }
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) throw() {
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
     myTrackedData[&veh]->myValues->notifyMoveInternal(veh, timeOnLane, speed);
 }
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) throw() {
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
     if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }
@@ -179,7 +179,7 @@ MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_SEGMENT) {
         return true;
     }
@@ -198,20 +198,20 @@ MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::
 
 
 bool
-MSMeanData::MeanDataValueTracker::isEmpty() const throw() {
+MSMeanData::MeanDataValueTracker::isEmpty() const {
     return myCurrentData.front()->myValues->isEmpty();
 }
 
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice& dev, const SUMOTime period,
-                                        const SUMOReal numLanes, const int /*numVehicles*/) const throw(IOError) {
+                                        const SUMOReal numLanes, const int /*numVehicles*/) const {
     myCurrentData.front()->myValues->write(dev, period, numLanes, myCurrentData.front()->myNumVehicleEntered);
 }
 
 
 size_t
-MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
+MSMeanData::MeanDataValueTracker::getNumReady() const {
     size_t result = 0;
     for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
         if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
@@ -225,7 +225,7 @@ MSMeanData::MeanDataValueTracker::getNumReady() const throw() {
 
 
 SUMOReal
-MSMeanData::MeanDataValueTracker::getSamples() const throw() {
+MSMeanData::MeanDataValueTracker::getSamples() const {
     return myCurrentData.front()->myValues->getSamples();
 }
 
@@ -238,7 +238,7 @@ MSMeanData::MSMeanData(const std::string& id,
                        const bool useLanes, const bool withEmpty, const bool withInternal,
                        const bool trackVehicles,
                        const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                       const std::set<std::string> vTypes) throw() :
+                       const std::set<std::string> vTypes) :
     MSDetectorFileOutput(id),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
@@ -253,7 +253,7 @@ MSMeanData::MSMeanData(const std::string& id,
 
 
 void
-MSMeanData::init() throw() {
+MSMeanData::init() {
     const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         if (myDumpInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -299,7 +299,7 @@ MSMeanData::init() throw() {
 }
 
 
-MSMeanData::~MSMeanData() throw() {
+MSMeanData::~MSMeanData() {
     for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
         for (std::vector<MeanDataValues*>::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
             delete *j;
@@ -309,7 +309,7 @@ MSMeanData::~MSMeanData() throw() {
 
 
 void
-MSMeanData::resetOnly(SUMOTime stopTime) throw() {
+MSMeanData::resetOnly(SUMOTime stopTime) {
     UNUSED_PARAMETER(stopTime);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -337,7 +337,7 @@ MSMeanData::resetOnly(SUMOTime stopTime) throw() {
 void
 MSMeanData::writeEdge(OutputDevice& dev,
                       const std::vector<MeanDataValues*> &edgeValues,
-                      MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+                      MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
@@ -402,7 +402,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
 
 
 bool
-MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const std::string prefix) const throw(IOError) {
+MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const std::string prefix) const {
     if (myDumpEmpty || !values.isEmpty()) {
         dev.indent() << prefix << "\" sampledSeconds=\"" << values.getSamples();
         return true;
@@ -413,7 +413,7 @@ MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const s
 
 void
 MSMeanData::writeXMLOutput(OutputDevice& dev,
-                           SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+                           SUMOTime startTime, SUMOTime stopTime) {
     // check whether this dump shall be written for the current time
     size_t numReady = myDumpBegin < stopTime && myDumpEnd - DELTA_T >= startTime;
     if (myTrackVehicles && myDumpBegin < stopTime) {
@@ -452,13 +452,13 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
 
 
 void
-MSMeanData::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
+MSMeanData::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("netstats");
 }
 
 
 void
-MSMeanData::detectorUpdate(const SUMOTime step) throw() {
+MSMeanData::detectorUpdate(const SUMOTime step) {
     if (step + DELTA_T == myDumpBegin) {
         init();
     }

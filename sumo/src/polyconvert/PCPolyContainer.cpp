@@ -47,19 +47,19 @@
 // ===========================================================================
 PCPolyContainer::PCPolyContainer(bool prune,
                                  const Boundary& prunningBoundary,
-                                 const std::vector<std::string> &removeByNames) throw()
+                                 const std::vector<std::string> &removeByNames)
     : myPrunningBoundary(prunningBoundary), myDoPrunne(prune),
       myRemoveByNames(removeByNames) {}
 
 
-PCPolyContainer::~PCPolyContainer() throw() {
+PCPolyContainer::~PCPolyContainer() {
     clear();
 }
 
 
 bool
 PCPolyContainer::insert(const std::string& id, Polygon* poly,
-                        int layer, bool ignorePrunning) throw() {
+                        int layer, bool ignorePrunning) {
     // check whether the polygon lies within the wished area
     //  - if such an area was given
     if (myDoPrunne && !ignorePrunning) {
@@ -87,7 +87,7 @@ PCPolyContainer::insert(const std::string& id, Polygon* poly,
 
 bool
 PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
-                        int layer, bool ignorePrunning) throw() {
+                        int layer, bool ignorePrunning) {
     // check whether the poi lies within the wished area
     //  - if such an area was given
     if (myDoPrunne && !ignorePrunning) {
@@ -113,13 +113,13 @@ PCPolyContainer::insert(const std::string& id, PointOfInterest* poi,
 
 
 bool
-PCPolyContainer::containsPolygon(const std::string& id) throw() {
+PCPolyContainer::containsPolygon(const std::string& id) {
     return myPolyCont.find(id) != myPolyCont.end();
 }
 
 
 void
-PCPolyContainer::clear() throw() {
+PCPolyContainer::clear() {
     // polys
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); i++) {
         delete(*i).second;
@@ -136,14 +136,14 @@ PCPolyContainer::clear() throw() {
 
 
 void
-PCPolyContainer::report() throw() {
+PCPolyContainer::report() {
     WRITE_MESSAGE("   " + toString(getNoPolygons()) + " polygons loaded.");
     WRITE_MESSAGE("   " + toString(getNoPOIs()) + " pois loaded.");
 }
 
 
 void
-PCPolyContainer::save(const std::string& file) throw(IOError) {
+PCPolyContainer::save(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("shapes", " encoding=\"iso-8859-1\"");
     // write polygons
@@ -171,7 +171,7 @@ PCPolyContainer::save(const std::string& file) throw(IOError) {
 
 
 int
-PCPolyContainer::getEnumIDFor(const std::string& key) throw() {
+PCPolyContainer::getEnumIDFor(const std::string& key) {
     if (myIDEnums.find(key) == myIDEnums.end()) {
         myIDEnums[key] = 0;
         return 0;

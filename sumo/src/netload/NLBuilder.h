@@ -78,11 +78,11 @@ public:
     NLBuilder(OptionsCont& oc, MSNet& net,
               NLEdgeControlBuilder& eb, NLJunctionControlBuilder& jb,
               NLDetectorBuilder& db,
-              NLHandler& xmlHandler) throw();
+              NLHandler& xmlHandler) ;
 
 
     /// @brief Destructor
-    virtual ~NLBuilder() throw();
+    virtual ~NLBuilder() ;
 
 
     /** @brief Builds and initialises the simulation
@@ -96,7 +96,7 @@ public:
      * @exception ProcessError If something fails on network building
      * @todo Again, both returning a bool and throwing an exception; quite inconsistent
      */
-    virtual bool build() throw(ProcessError);
+    virtual bool build() ;
 
 
 protected:
@@ -118,7 +118,7 @@ protected:
      * If an error occurs, all built structures are deleted and a ProcessError is thrown.
      * @exception ProcessError If the loaded structures could not be built
      */
-    void buildNet() throw(ProcessError);
+    void buildNet() ;
 
 
     /** @brief Builds the route loader control
@@ -129,7 +129,7 @@ protected:
      * @return The built route loader control
      * @exception ProcessError If an error occured
      */
-    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc) throw(ProcessError);
+    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc) ;
 
 
 
@@ -142,10 +142,10 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeEffort : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeEffort(MSNet& net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeEffort(MSNet& net) : myNet(net) {}
 
         /// @brief Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeEffort() throw() { }
+        ~EdgeFloatTimeLineRetriever_EdgeEffort() { }
 
         /** @brief Adds an effort for a given edge and time period
          *
@@ -156,7 +156,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
 
     private:
         /// @brief The network edges shall be obtained from
@@ -173,10 +173,10 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeTravelTime(MSNet& net) throw() : myNet(net) {}
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(MSNet& net) : myNet(net) {}
 
         /// @brief Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() { }
+        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() { }
 
         /** @brief Adds a travel time for a given edge and time period
          *
@@ -187,7 +187,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const throw();
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
 
     private:
         /// @brief The network edges shall be obtained from

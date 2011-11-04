@@ -65,11 +65,11 @@ public:
      * @todo Why is the vehicle builder given?
      */
     ROVehicle(const SUMOVehicleParameter& pars,
-              RORouteDef* route, SUMOVTypeParameter* type) throw();
+              RORouteDef* route, SUMOVTypeParameter* type) ;
 
 
     /// @brief Destructor
-    virtual ~ROVehicle() throw();
+    virtual ~ROVehicle() ;
 
 
     /** @brief Returns the definition of the route the vehicle takes
@@ -78,7 +78,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    RORouteDef* getRouteDefinition() const throw() {
+    RORouteDef* getRouteDefinition() const {
         return myRoute;
     }
 
@@ -89,7 +89,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    const SUMOVTypeParameter* getType() const throw() {
+    const SUMOVTypeParameter* getType() const {
         return myType;
     }
 
@@ -98,7 +98,7 @@ public:
      *
      * @return The id of the vehicle
      */
-    const std::string& getID() const throw() {
+    const std::string& getID() const {
         return myParameter.id;
     }
 
@@ -107,7 +107,7 @@ public:
      *
      * @return The vehicle's depart time
      */
-    SUMOTime getDepartureTime() const throw() {
+    SUMOTime getDepartureTime() const {
         return myParameter.depart;
     }
 
@@ -125,7 +125,7 @@ public:
      * @todo What is the given route definition?
      */
     void saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                      OutputDevice& os, OutputDevice* const altos, bool withExitTimes) const throw(IOError);
+                      OutputDevice& os, OutputDevice* const altos, bool withExitTimes) const;
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route
@@ -137,7 +137,7 @@ public:
      *
      * @todo Is this used? What for if everything is replaced?
      */
-    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) throw();
+    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) ;
 
 
 protected:

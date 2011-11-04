@@ -326,7 +326,7 @@ NIVissimConnection::getToLanes() const {
 
 
 void
-NIVissimConnection::recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) throw() {
+NIVissimConnection::recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) {
     myFromDef.recheckLanes(fromEdge);
     myToDef.recheckLanes(toEdge);
 }

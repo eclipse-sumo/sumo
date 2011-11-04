@@ -59,7 +59,7 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // ===========================================================================
 OutputDevice&
 OutputDevice::getDevice(const std::string& name,
-                        const std::string& base) throw(IOError) {
+                        const std::string& base) {
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name) != myOutputDevices.end()) {
         return *myOutputDevices[name];
@@ -90,7 +90,7 @@ OutputDevice::getDevice(const std::string& name,
 
 bool
 OutputDevice::createDeviceByOption(const std::string& optionName,
-                                   const std::string& rootElement) throw(IOError) {
+                                   const std::string& rootElement) {
     if (!OptionsCont::getOptions().isSet(optionName)) {
         return false;
     }
@@ -113,7 +113,7 @@ OutputDevice::getDeviceByOption(const std::string& optionName) throw(IOError, In
 
 
 void
-OutputDevice::closeAll() throw() {
+OutputDevice::closeAll() {
     while (myOutputDevices.size() != 0) {
         myOutputDevices.begin()->second->close();
     }
@@ -142,19 +142,19 @@ OutputDevice::realString(const SUMOReal v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const unsigned int defaultIndentation) throw(IOError)
+OutputDevice::OutputDevice(const unsigned int defaultIndentation)
     : myDefaultIndentation(defaultIndentation) {
 }
 
 
 bool
-OutputDevice::ok() throw() {
+OutputDevice::ok() {
     return getOStream().good();
 }
 
 
 void
-OutputDevice::close() throw() {
+OutputDevice::close() {
     while (closeTag()) {}
     for (DeviceMap::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
         if (i->second == this) {
@@ -167,14 +167,14 @@ OutputDevice::close() throw() {
 
 
 void
-OutputDevice::setPrecision(unsigned int precision) throw() {
+OutputDevice::setPrecision(unsigned int precision) {
     getOStream() << std::setprecision(precision);
 }
 
 
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string xmlParams,
-                             const std::string& attrs, const std::string& comment) throw() {
+                             const std::string& attrs, const std::string& comment) {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), xmlParams);
         if (comment != "") {
@@ -192,7 +192,7 @@ OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string x
 
 
 OutputDevice&
-OutputDevice::indent() throw() {
+OutputDevice::indent() {
     getOStream() << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ');
     postWriteHook();
     return *this;
@@ -200,7 +200,7 @@ OutputDevice::indent() throw() {
 
 
 OutputDevice&
-OutputDevice::openTag(const std::string& xmlElement) throw() {
+OutputDevice::openTag(const std::string& xmlElement) {
     getOStream() << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
     postWriteHook();
     myXMLStack.push_back(xmlElement);
@@ -209,13 +209,13 @@ OutputDevice::openTag(const std::string& xmlElement) throw() {
 
 
 OutputDevice&
-OutputDevice::openTag(const SumoXMLTag& xmlElement) throw() {
+OutputDevice::openTag(const SumoXMLTag& xmlElement) {
     return openTag(toString(xmlElement));
 }
 
 
 bool
-OutputDevice::closeTag(bool abbreviated) throw() {
+OutputDevice::closeTag(bool abbreviated) {
     if (!myXMLStack.empty()) {
         if (abbreviated) {
             getOStream() << "/>" << std::endl;
@@ -232,7 +232,7 @@ OutputDevice::closeTag(bool abbreviated) throw() {
 
 
 void
-OutputDevice::postWriteHook() throw() {}
+OutputDevice::postWriteHook() {}
 
 
 void

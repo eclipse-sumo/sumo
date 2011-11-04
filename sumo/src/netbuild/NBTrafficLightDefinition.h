@@ -96,7 +96,7 @@ public:
      */
     NBTrafficLightDefinition(const std::string& id,
                              const std::vector<NBNode*> &junctions,
-                             const std::string& programID) throw();
+                             const std::string& programID) ;
 
 
     /** @brief Constructor
@@ -105,17 +105,17 @@ public:
      */
     NBTrafficLightDefinition(const std::string& id,
                              NBNode* junction,
-                             const std::string& programID) throw();
+                             const std::string& programID) ;
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      */
-    NBTrafficLightDefinition(const std::string& id, const std::string& programID) throw();
+    NBTrafficLightDefinition(const std::string& id, const std::string& programID) ;
 
 
     /// @brief Destructor
-    virtual ~NBTrafficLightDefinition() throw();
+    virtual ~NBTrafficLightDefinition() ;
 
 
     /** @brief Computes the traffic light logic
@@ -127,7 +127,7 @@ public:
      * @param[in] oc The options container holding options needed during the building
      * @return The built logic (may be 0)
      */
-    NBTrafficLightLogic* compute(const NBEdgeCont& ec, OptionsCont& oc) throw();
+    NBTrafficLightLogic* compute(const NBEdgeCont& ec, OptionsCont& oc) ;
 
 
 
@@ -149,7 +149,7 @@ public:
     /** @brief Returns the list of controlled nodes
      * @return Controlled nodes
      */
-    const std::vector<NBNode*> &getNodes() const throw() {
+    const std::vector<NBNode*> &getNodes() const {
         return myControlledNodes;
     }
     /// @}
@@ -165,7 +165,7 @@ public:
      * @param[in] to The connection's end edge
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const throw();
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to) const ;
 
 
     /** @brief Returns the information whether the described flow must let the other flow pass
@@ -177,7 +177,7 @@ public:
      */
     bool mustBrake(const NBConnection& possProhibited,
                    const NBConnection& possProhibitor,
-                   bool regardNonSignalisedLowerPriority) const throw();
+                   bool regardNonSignalisedLowerPriority) const ;
 
     /** @brief Returns the information whether the described flow must let any other flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -190,7 +190,7 @@ public:
      */
     bool mustBrake(const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                    const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
-                   bool regardNonSignalisedLowerPriority) const throw();
+                   bool regardNonSignalisedLowerPriority) const ;
 
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -204,7 +204,7 @@ public:
      */
     bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const throw();
+                 bool regardNonSignalisedLowerPriority) const ;
 
 
     /** @brief Returns the information whether the given flows cross
@@ -215,24 +215,24 @@ public:
      * @return Whether both stream are foes (cross)
      */
     bool foes(const NBEdge* const from1, const NBEdge* const to1,
-              const NBEdge* const from2, const NBEdge* const to2) const throw();
+              const NBEdge* const from2, const NBEdge* const to2) const ;
 
 
     /** @brief Informs edges about being controlled by a tls
      * @param[in] ec The container of edges
      */
-    virtual void setTLControllingInformation(const NBEdgeCont& ec) const throw() = 0;
+    virtual void setTLControllingInformation(const NBEdgeCont& ec) const = 0;
 
 
     /** @brief Builds the list of participating nodes/edges/links
      */
-    virtual void setParticipantsInformation() throw();
+    virtual void setParticipantsInformation() ;
 
 
     /** @brief Adds the given ids into the list of edges not controlled by the tls
      * @param[in] edges The list of edge ids to add the inner edges to
      */
-    void addControlledInnerEdges(const std::vector<std::string> &edges) throw();
+    void addControlledInnerEdges(const std::vector<std::string> &edges) ;
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -241,7 +241,7 @@ public:
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
      */
     virtual void remapRemoved(NBEdge* removed,
-                              const EdgeVector& incoming, const EdgeVector& outgoing) throw() = 0;
+                              const EdgeVector& incoming, const EdgeVector& outgoing) = 0;
 
 
     /** @brief Replaces a removed edge/lane
@@ -251,7 +251,7 @@ public:
      * @param[in] byLane This edge's lane to insert instead
      */
     virtual void replaceRemoved(NBEdge* removed, int removedLane,
-                                NBEdge* by, int byLane) throw() = 0;
+                                NBEdge* by, int byLane) = 0;
 
 
     /** @brief returns the information whether the given link is a left-mover
@@ -259,13 +259,13 @@ public:
      * @param[in] to The connection's end edge
      * @return Whether the connection is a left-mover
      */
-    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const throw();
+    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const ;
 
 
     /** @brief Returns the list of incoming edges (must be build first)
      * @return The edges which are incoming into the tls
      */
-    const EdgeVector& getIncomingEdges() const throw();
+    const EdgeVector& getIncomingEdges() const ;
 
 
     /// @brief returns the controlled links (depends on previous call to collectLinks)
@@ -300,7 +300,7 @@ protected:
      * @return The computed logic
      */
     virtual NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                           unsigned int brakingTime) throw() = 0;
+                                           unsigned int brakingTime) = 0;
 
 
     /** @brief Collects the links participating in this traffic light
@@ -311,7 +311,7 @@ protected:
 
     /** @brief Build the list of participating edges
      */
-    void collectEdges() throw();
+    void collectEdges() ;
 
 
     /** @brief Computes the time vehicles may need to brake
@@ -319,7 +319,7 @@ protected:
      * This time depends on the maximum speed allowed on incoming junctions.
      * It is computed as max_speed_allowed / minimum_vehicle_decleration
      */
-    unsigned int computeBrakingTime(SUMOReal minDecel) const throw();
+    unsigned int computeBrakingTime(SUMOReal minDecel) const ;
 
 
     // @return whether this traffic light is invalid and should be computed

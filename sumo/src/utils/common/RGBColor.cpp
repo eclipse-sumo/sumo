@@ -51,23 +51,23 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RGBColor::RGBColor() throw()
+RGBColor::RGBColor()
     : myRed(-1), myGreen(-1), myBlue(-1) {}
 
 
-RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue) throw()
+RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
     : myRed(red), myGreen(green), myBlue(blue) {}
 
 
-RGBColor::RGBColor(const RGBColor& col) throw()
+RGBColor::RGBColor(const RGBColor& col)
     : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
 
 
-RGBColor::~RGBColor() throw() {}
+RGBColor::~RGBColor() {}
 
 
 void
-RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) throw() {
+RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) {
     myRed = r;
     myGreen = g;
     myBlue = b;
@@ -124,7 +124,7 @@ RGBColor::parseColor(const std::string& coldef) throw(EmptyData, NumberFormatExc
 RGBColor
 RGBColor::parseColorReporting(
     const std::string& coldef, const std::string& objecttype,
-    const char* objectid, bool report, bool& ok) throw() {
+    const char* objectid, bool report, bool& ok) {
     UNUSED_PARAMETER(report);
     try {
         return parseColor(coldef);
@@ -148,13 +148,13 @@ RGBColor::parseColorReporting(
 
 
 RGBColor
-RGBColor::getDefaultColor() throw() {
+RGBColor::getDefaultColor() {
     return parseColor(RGBColor::DEFAULT_COLOR_STRING);
 }
 
 
 RGBColor
-RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) throw() {
+RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMOReal weight) {
     if (weight < 0) {
         weight = 0;
     }
@@ -169,7 +169,7 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, SUMORe
 
 
 RGBColor
-RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) throw() {
+RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) {
     // H is given on [0, 6] or UNDEFINED. S and V are given on [0, 1].
     // RGB are each returned on [0, 1].
     //float h = HSV.H, s = HSV.S, v = HSV.V,

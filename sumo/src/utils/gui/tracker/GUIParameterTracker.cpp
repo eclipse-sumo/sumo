@@ -73,7 +73,7 @@ FXIMPLEMENT(GUIParameterTracker, FXMainWindow, GUIParameterTrackerMap, ARRAYNUMB
 // method definitions
 // ===========================================================================
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
-        const std::string& name) throw()
+        const std::string& name)
     : FXMainWindow(app.getApp(), "Tracker", NULL, NULL, DECOR_ALL, 20, 20, 300, 200),
       myApplication(&app) {
     buildToolBar();
@@ -85,7 +85,7 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
 }
 
 
-GUIParameterTracker::~GUIParameterTracker() throw() {
+GUIParameterTracker::~GUIParameterTracker() {
     myApplication->removeChild(this);
     for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
         delete(*i1);
@@ -107,7 +107,7 @@ GUIParameterTracker::create() {
 
 
 void
-GUIParameterTracker::buildToolBar() throw() {
+GUIParameterTracker::buildToolBar() {
     myToolBarDrag = new FXToolBarShell(this, FRAME_NORMAL);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
@@ -131,7 +131,7 @@ GUIParameterTracker::buildToolBar() throw() {
 
 void
 GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
-                                TrackerValueDesc* newTracked) throw() {
+                                TrackerValueDesc* newTracked) {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o, src, newTracked));
@@ -258,16 +258,16 @@ FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel, FXGLCanvas, GUIParame
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
     FXComposite* c, GUIMainWindow& app,
-    GUIParameterTracker& parent) throw()
+    GUIParameterTracker& parent)
     : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 300, 200),
       myParent(&parent), myApplication(&app) {}
 
 
-GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() throw() {}
+GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
 
 
 void
-GUIParameterTracker::GUIParameterTrackerPanel::drawValues() throw() {
+GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     pfSetScale((SUMOReal) 0.1);
     pfSetScaleXY((SUMOReal)(.1 * 300. / myWidthInPixels), (SUMOReal)(.1 * 300. / (SUMOReal) myHeightInPixels));
     //
@@ -288,7 +288,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() throw() {
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
-        SUMOReal /*namePos*/) throw() {
+        SUMOReal /*namePos*/) {
     // apply scaling
     glPushMatrix();
 

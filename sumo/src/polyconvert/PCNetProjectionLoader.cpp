@@ -61,7 +61,7 @@ void
 PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
                                  Position& netOffset, Boundary& origNetBoundary,
                                  Boundary& convNetBoundary,
-                                 std::string& projParameter) throw(ProcessError) {
+                                 std::string& projParameter) {
     if (!oc.isSet("net")) {
         return;
     }
@@ -97,7 +97,7 @@ PCNetProjectionLoader::loadIfSet(OptionsCont& oc,
 // ---------------------------------------------------------------------------
 PCNetProjectionLoader::PCNetProjectionLoader(Position& netOffset,
         Boundary& origNetBoundary, Boundary& convNetBoundary,
-        std::string& projParameter) throw()
+        std::string& projParameter)
     : SUMOSAXHandler("sumo-network"), myNetOffset(netOffset),
       myOrigNetBoundary(origNetBoundary), myConvNetBoundary(convNetBoundary),
       myProjParameter(projParameter),
@@ -105,12 +105,12 @@ PCNetProjectionLoader::PCNetProjectionLoader(Position& netOffset,
       myFoundConvNetBoundary(false), myFoundProj(false) {}
 
 
-PCNetProjectionLoader::~PCNetProjectionLoader() throw() {}
+PCNetProjectionLoader::~PCNetProjectionLoader() {}
 
 
 void
 PCNetProjectionLoader::myStartElement(int element,
-                                      const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                      const SUMOSAXAttributes& attrs) {
     if (element != SUMO_TAG_LOCATION) {
         return;
     }
@@ -134,14 +134,14 @@ PCNetProjectionLoader::myStartElement(int element,
 
 void
 PCNetProjectionLoader::myCharacters(int element,
-                                    const std::string& chars) throw(ProcessError) {
+                                    const std::string& chars) {
     UNUSED_PARAMETER(element);
     UNUSED_PARAMETER(chars);
 }
 
 
 bool
-PCNetProjectionLoader::hasReadAll() const throw() {
+PCNetProjectionLoader::hasReadAll() const {
     return myFoundOffset && myFoundOrigNetBoundary && myFoundConvNetBoundary && myFoundProj;
 }
 

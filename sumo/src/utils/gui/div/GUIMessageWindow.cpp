@@ -38,7 +38,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite* parent) throw()
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent)
     : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
       myStyles(0) {
     setStyled(true);
@@ -85,13 +85,13 @@ GUIMessageWindow::GUIMessageWindow(FXComposite* parent) throw()
 }
 
 
-GUIMessageWindow::~GUIMessageWindow() throw() {
+GUIMessageWindow::~GUIMessageWindow() {
     delete[] myStyles;
 }
 
 
 void
-GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) throw() {
+GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) {
     if (!isEnabled()) {
         show();
     }
@@ -125,7 +125,7 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string& msg) throw()
 
 
 void
-GUIMessageWindow::addSeparator() throw() {
+GUIMessageWindow::addSeparator() {
     std::string msg = "----------------------------------------------------------------------------------------\n";
     FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
     FXText::setCursorPos(getLength() - 1);
@@ -138,7 +138,7 @@ GUIMessageWindow::addSeparator() throw() {
 
 
 void
-GUIMessageWindow::clear() throw() {
+GUIMessageWindow::clear() {
     if (getLength() == 0) {
         return;
     }

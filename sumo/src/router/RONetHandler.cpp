@@ -58,12 +58,12 @@ RONetHandler::RONetHandler(RONet& net,
       myHaveWarnedAboutDeprecatedDistrict(false), myHaveWarnedAboutDeprecatedDSource(false), myHaveWarnedAboutDeprecatedDSink(false) {}
 
 
-RONetHandler::~RONetHandler() throw() {}
+RONetHandler::~RONetHandler() {}
 
 
 void
 RONetHandler::myStartElement(int element,
-                             const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                             const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_EDGE:
             // in the first step, we do need the name to allocate the edge
@@ -233,7 +233,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
 
 
 void
-RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+RONetHandler::parseConnectingEdge(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0, ok);
     if (id[0] == ':') {
@@ -289,7 +289,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
 
 
 void
-RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = 0;
     bool ok = true;
     myCurrentName = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);

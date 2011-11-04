@@ -61,12 +61,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-GUIEdge::GUIEdge(const std::string& id, unsigned int numericalID, const std::string& streetName) throw()
+GUIEdge::GUIEdge(const std::string& id, unsigned int numericalID, const std::string& streetName)
     : MSEdge(id, numericalID, streetName),
       GUIGlObject(GLO_EDGE, id) {}
 
 
-GUIEdge::~GUIEdge() throw() {
+GUIEdge::~GUIEdge() {
     for (LaneWrapperVector::iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
         delete(*i);
     }
@@ -74,7 +74,7 @@ GUIEdge::~GUIEdge() throw() {
 
 
 void
-GUIEdge::initGeometry() throw() {
+GUIEdge::initGeometry() {
     // don't do this twice
     if (myLaneGeoms.size() > 0) {
         return;
@@ -153,7 +153,7 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers) {
 
 
 GUIGLObjectPopupMenu*
-GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) throw() {
+GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -171,7 +171,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) throw() {
 
 GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
-                            GUISUMOAbstractView&) throw() {
+                            GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = 0;
 #ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
@@ -195,7 +195,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 
 
 Boundary
-GUIEdge::getCenteringBoundary() const throw() {
+GUIEdge::getCenteringBoundary() const {
     Boundary b = getBoundary();
     b.grow(20);
     return b;
@@ -203,7 +203,7 @@ GUIEdge::getCenteringBoundary() const throw() {
 
 
 void
-GUIEdge::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (s.hideConnectors && myFunction == MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }

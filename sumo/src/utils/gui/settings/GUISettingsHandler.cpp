@@ -47,7 +47,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile) throw()
+GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile)
     : SUMOSAXHandler(content), myDelay(-1), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
@@ -61,13 +61,13 @@ GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile) 
 }
 
 
-GUISettingsHandler::~GUISettingsHandler() throw() {
+GUISettingsHandler::~GUISettingsHandler() {
 }
 
 
 void
 GUISettingsHandler::myStartElement(int element,
-                                   const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
         case SUMO_TAG_DELAY:
@@ -221,7 +221,7 @@ GUISettingsHandler::parseTextSettings(
 
 
 std::string
-GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const throw() {
+GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
     if (mySettings.name != "") {
         gSchemeStorage.add(mySettings);
         if (view) {
@@ -235,7 +235,7 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const throw() {
 
 
 void
-GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const throw() {
+GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const {
     if (myZoom > 0) {
         view->setViewport(myZoom, myXPos, myYPos);
     }
@@ -243,7 +243,7 @@ GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const throw() {
 
 
 void
-GUISettingsHandler::setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const throw() {
+GUISettingsHandler::setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) const {
     zoom = myZoom;
     xoff = myXPos;
     yoff = myYPos;
@@ -251,7 +251,7 @@ GUISettingsHandler::setViewport(SUMOReal& zoom, SUMOReal& xoff, SUMOReal& yoff) 
 
 
 void
-GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) const throw() {
+GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) const {
     if (!mySnapshots.empty()) {
         view->setSnapshots(mySnapshots);
     }
@@ -259,19 +259,19 @@ GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) const throw() {
 
 
 bool
-GUISettingsHandler::hasDecals() const throw() {
+GUISettingsHandler::hasDecals() const {
     return !myDecals.empty();
 }
 
 
 const std::vector<GUISUMOAbstractView::Decal>&
-GUISettingsHandler::getDecals() const throw() {
+GUISettingsHandler::getDecals() const {
     return myDecals;
 }
 
 
 SUMOReal
-GUISettingsHandler::getDelay() const throw() {
+GUISettingsHandler::getDelay() const {
     return myDelay;
 }
 

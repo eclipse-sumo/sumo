@@ -1068,7 +1068,7 @@ TraCIServerAPI_Vehicle::commandDistanceRequest(traci::TraCIServer& server, tcpip
 
 // ------ helper functions ------
 MSVehicleType&
-TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) throw() {
+TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
     const MSVehicleType& oType = veh->getVehicleType();
     std::string newID = oType.getID().find('@') == std::string::npos ? oType.getID() + "@" + veh->getID() : oType.getID();
     MSVehicleType* type = MSVehicleType::build(newID, &oType);

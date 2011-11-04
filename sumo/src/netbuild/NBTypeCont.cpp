@@ -46,7 +46,7 @@
 void
 NBTypeCont::setDefaults(int defaultNoLanes,
                         SUMOReal defaultSpeed,
-                        int defaultPriority) throw() {
+                        int defaultPriority) {
     myDefaultType.noLanes = defaultNoLanes;
     myDefaultType.speed = defaultSpeed;
     myDefaultType.priority = defaultPriority;
@@ -55,7 +55,7 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault) throw() {
+                   SUMOReal width, SUMOVehicleClass vClass, bool oneWayIsDefault) {
     SUMOVehicleClasses allow;
     if (vClass != SVC_UNKNOWN) {
         allow.insert(vClass);
@@ -67,7 +67,7 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
 bool
 NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
                    const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
-                   SUMOReal width, bool oneWayIsDefault) throw() {
+                   SUMOReal width, bool oneWayIsDefault) {
     TypesCont::iterator i = myTypes.find(id);
     if (i != myTypes.end()) {
         return false;
@@ -82,19 +82,19 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
 
 
 bool
-NBTypeCont::knows(const std::string& type) const throw() {
+NBTypeCont::knows(const std::string& type) const {
     return myTypes.find(type) != myTypes.end();
 }
 
 
 SumoXMLNodeType
-NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
+NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const {
     return myJunctionTypes.getType(speed1, speed2);
 }
 
 
 bool
-NBTypeCont::markAsToDiscard(const std::string& id) throw() {
+NBTypeCont::markAsToDiscard(const std::string& id) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
         return false;
@@ -106,49 +106,49 @@ NBTypeCont::markAsToDiscard(const std::string& id) throw() {
 
 // ------------ Type-dependant Retrieval methods
 int
-NBTypeCont::getNumLanes(const std::string& type) const throw() {
+NBTypeCont::getNumLanes(const std::string& type) const {
     return getType(type).noLanes;
 }
 
 
 SUMOReal
-NBTypeCont::getSpeed(const std::string& type) const throw() {
+NBTypeCont::getSpeed(const std::string& type) const {
     return getType(type).speed;
 }
 
 
 int
-NBTypeCont::getPriority(const std::string& type) const throw() {
+NBTypeCont::getPriority(const std::string& type) const {
     return getType(type).priority;
 }
 
 
 bool
-NBTypeCont::getIsOneWay(const std::string& type) const throw() {
+NBTypeCont::getIsOneWay(const std::string& type) const {
     return getType(type).oneWay;
 }
 
 
 bool
-NBTypeCont::getShallBeDiscarded(const std::string& type) const throw() {
+NBTypeCont::getShallBeDiscarded(const std::string& type) const {
     return getType(type).discard;
 }
 
 
 const SUMOVehicleClasses&
-NBTypeCont::getAllowedClasses(const std::string& type) const throw() {
+NBTypeCont::getAllowedClasses(const std::string& type) const {
     return getType(type).allowed;
 }
 
 
 const SUMOVehicleClasses&
-NBTypeCont::getDisallowedClasses(const std::string& type) const throw() {
+NBTypeCont::getDisallowedClasses(const std::string& type) const {
     return getType(type).notAllowed;
 }
 
 
 SUMOReal
-NBTypeCont::getWidth(const std::string& type) const throw() {
+NBTypeCont::getWidth(const std::string& type) const {
     return getType(type).width;
 }
 

@@ -45,7 +45,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string& id,
         SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw()
+        SUMOReal jamDistThreshold)
     : MSDetectorFileOutput(id),
       startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
       haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),
@@ -53,7 +53,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string& id,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::init(MSLane* lane, SUMOReal detLength) throw() {
+MS_E2_ZS_CollectorOverLanes::init(MSLane* lane, SUMOReal detLength) {
     myLength = detLength;
     if (startPosM == 0) {
         startPosM = (SUMOReal) 0.1;
@@ -75,11 +75,11 @@ MS_E2_ZS_CollectorOverLanes::init(MSLane* lane, SUMOReal detLength) throw() {
 }
 
 
-MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes() throw() {}
+MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes() {}
 
 
 void
-MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) throw() {
+MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) {
     bool done = false;
     while (!done) {
         done = true;
@@ -162,7 +162,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) throw() {
 
 
 std::vector<MSLane*>
-MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) throw() {
+MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) {
     std::string eid = l->getEdge().getID();
     // get predecessing edges
     const std::vector<MSEdge*> &predEdges = l->getEdge().getIncomingEdges();
@@ -193,7 +193,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane* l) throw() {
 
 MSE2Collector*
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
-        SUMOReal start, SUMOReal end) throw() {
+        SUMOReal start, SUMOReal end) {
     std::string id = makeID(l->getID(), c, r);
     if (start + end < l->getLength()) {
         start = l->getLength() - end - (SUMOReal) 0.1;
@@ -206,7 +206,7 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane* l,
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice& /*&dev*/,
-        SUMOTime /*startTime*/, SUMOTime /*stopTime*/) throw(IOError) {
+        SUMOTime /*startTime*/, SUMOTime /*stopTime*/) {
     /*
     dev<<"<interval begin=\""<<time2string(startTime)<<"\" end=\""<<
     time2string(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
@@ -223,7 +223,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice& /*&dev*/,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
+MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("detector");
 }
 
@@ -232,7 +232,7 @@ size_t bla = 0;
 
 std::string
 MS_E2_ZS_CollectorOverLanes::makeID(const std::string& baseID ,
-                                    size_t /*col*/, size_t /*row*/) const throw() {
+                                    size_t /*col*/, size_t /*row*/) const {
     std::string add;
     switch (myUsage) {
         case DU_USER_DEFINED:
@@ -253,13 +253,13 @@ MS_E2_ZS_CollectorOverLanes::makeID(const std::string& baseID ,
 
 
 const std::string&
-MS_E2_ZS_CollectorOverLanes::getID() const throw() {
+MS_E2_ZS_CollectorOverLanes::getID() const {
     return myID;
 }
 
 
 const std::string&
-MS_E2_ZS_CollectorOverLanes::getStartLaneID() const throw() {
+MS_E2_ZS_CollectorOverLanes::getStartLaneID() const {
     return myStartLaneID;
 }
 

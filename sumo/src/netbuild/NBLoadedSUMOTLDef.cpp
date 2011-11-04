@@ -63,13 +63,13 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
 }
 
 
-NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() throw() {
+NBLoadedSUMOTLDef::~NBLoadedSUMOTLDef() {
     delete myTLLogic;
 }
 
 
 NBTrafficLightLogic*
-NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) throw() {
+NBLoadedSUMOTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
     // @todo what to do with those parameters?
     UNUSED_PARAMETER(ec);
     UNUSED_PARAMETER(brakingTime);
@@ -102,7 +102,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
 
 
 void
-NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont&) const throw() {
+NBLoadedSUMOTLDef::setTLControllingInformation(const NBEdgeCont&) const {
     setTLControllingInformation();
 }
 
@@ -126,11 +126,11 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
 
 
 void
-NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) throw() {}
+NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) {}
 
 
 void
-NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) throw() {}
+NBLoadedSUMOTLDef::replaceRemoved(NBEdge*, int, NBEdge*, int) {}
 
 
 void

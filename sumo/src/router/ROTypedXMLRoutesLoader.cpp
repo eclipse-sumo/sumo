@@ -49,7 +49,7 @@
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
         SUMOTime begin,
         SUMOTime end,
-        const std::string& file) throw(ProcessError)
+        const std::string& file)
     : ROAbstractRouteDefLoader(net, begin, end),
       SUMOSAXHandler(file),
       myParser(0), myToken(), myEnded(false) {
@@ -62,13 +62,13 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
 }
 
 
-ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() throw() {
+ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() {
     delete myParser;
 }
 
 
 bool
-ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError) {
+ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) {
     UNUSED_PARAMETER(skipping);
     while (getLastReadTimeStep() < time && !ended()) {
         beginNextRoute();

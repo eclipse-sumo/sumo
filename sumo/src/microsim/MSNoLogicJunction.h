@@ -67,10 +67,10 @@ public:
 #ifdef HAVE_INTERNAL_LANES
                       , std::vector<MSLane*> internal
 #endif
-                     ) throw();
+                     ) ;
 
     /** Initialises the junction after the net was completely loaded */
-    void postloadInit() throw(ProcessError);
+    void postloadInit() ;
 
 private:
     /** Lanes incoming to the junction */

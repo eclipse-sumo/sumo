@@ -45,12 +45,12 @@
 // ===========================================================================
 MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
                                        SUMOTime maxDepartDelay,
-                                       bool checkEdgesOnce) throw()
+                                       bool checkEdgesOnce)
     : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay),
       myCheckEdgesOnce(checkEdgesOnce) {}
 
 
-MSInsertionControl::~MSInsertionControl() throw() {
+MSInsertionControl::~MSInsertionControl() {
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
         delete(i->pars);
     }
@@ -58,13 +58,13 @@ MSInsertionControl::~MSInsertionControl() throw() {
 
 
 void
-MSInsertionControl::add(SUMOVehicle* veh) throw() {
+MSInsertionControl::add(SUMOVehicle* veh) {
     myAllVeh.add(veh);
 }
 
 
 void
-MSInsertionControl::add(SUMOVehicleParameter* pars) throw() {
+MSInsertionControl::add(SUMOVehicleParameter* pars) {
     Flow flow;
     flow.pars = pars;
     flow.isVolatile = pars->departLaneProcedure == DEPART_LANE_RANDOM ||
@@ -93,7 +93,7 @@ MSInsertionControl::add(SUMOVehicleParameter* pars) throw() {
 
 
 unsigned int
-MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
+MSInsertionControl::emitVehicles(SUMOTime time) {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
     if (!myAllVeh.anyWaitingFor(time) && myRefusedEmits1.empty() && myRefusedEmits2.empty() && myFlows.empty()) {
@@ -139,7 +139,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) throw(ProcessError) {
 
 unsigned int
 MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
-                              MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError) {
+                              MSVehicleContainer::VehicleVector& refusedEmits) {
     assert(veh->getParameter().depart < time + DELTA_T);
     const MSEdge& edge = *veh->getEdge();
     if ((!myCheckEdgesOnce || edge.getLastFailedInsertionTime() != time) && edge.insertVehicle(*veh, time)) {
@@ -166,7 +166,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
 
 
 void
-MSInsertionControl::checkFlowWait(SUMOVehicle* veh) throw() {
+MSInsertionControl::checkFlowWait(SUMOVehicle* veh) {
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
         if (i->vehicle == veh) {
             i->vehicle = 0;
@@ -177,7 +177,7 @@ MSInsertionControl::checkFlowWait(SUMOVehicle* veh) throw() {
 
 
 void
-MSInsertionControl::checkPrevious(SUMOTime time) throw() {
+MSInsertionControl::checkPrevious(SUMOTime time) {
     // check to which list append to
     MSVehicleContainer::VehicleVector& previousRefused =
         myRefusedEmits2.size() == 0 ? myRefusedEmits1 : myRefusedEmits2;
@@ -191,7 +191,7 @@ MSInsertionControl::checkPrevious(SUMOTime time) throw() {
 
 unsigned int
 MSInsertionControl::checkFlows(SUMOTime time,
-                               MSVehicleContainer::VehicleVector& refusedEmits) throw(ProcessError) {
+                               MSVehicleContainer::VehicleVector& refusedEmits) {
     unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
@@ -237,13 +237,13 @@ MSInsertionControl::checkFlows(SUMOTime time,
 
 
 unsigned int
-MSInsertionControl::getWaitingVehicleNo() const throw() {
+MSInsertionControl::getWaitingVehicleNo() const {
     return (unsigned int)(myRefusedEmits1.size() + myRefusedEmits2.size());
 }
 
 
 int
-MSInsertionControl::getPendingFlowCount() const throw() {
+MSInsertionControl::getPendingFlowCount() const {
     return (int)myFlows.size();
 }
 

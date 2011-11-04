@@ -66,7 +66,7 @@ public:
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void write(OutputDevice& of, const MSEdgeControl& ec,
-                      SUMOTime timestep) throw(IOError);
+                      SUMOTime timestep);
 
 
     /** @brief Writes the dump of the given vehicle into the given device
@@ -75,7 +75,7 @@ public:
      * @param[in] veh The vehicle to dump
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) throw(IOError);
+    static void writeVehicle(OutputDevice& of, const MSBaseVehicle& veh);
 
 
 private:
@@ -89,7 +89,7 @@ private:
      * @todo MSGlobals::gOmitEmptyEdgesOnDump should not be used; rather the according option read in write
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void writeEdge(OutputDevice& of, const MSEdge& edge) throw(IOError);
+    static void writeEdge(OutputDevice& of, const MSEdge& edge);
 
 
     /** @brief Writes the dump of the given lane into the given device
@@ -101,7 +101,7 @@ private:
      * @param[in] lane The lane to dump
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void writeLane(OutputDevice& of, const MSLane& lane) throw(IOError);
+    static void writeLane(OutputDevice& of, const MSLane& lane);
 
 
 private:

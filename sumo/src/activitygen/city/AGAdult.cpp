@@ -39,7 +39,7 @@
 // method definitions
 // ===========================================================================
 AGWorkPosition*
-AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) throw() {
+AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) {
     size_t wpsIndex = 0;
 
     // TODO: Could end up in an endless loop
@@ -52,20 +52,20 @@ AGAdult::randomFreeWorkPosition(std::vector<AGWorkPosition> *wps) throw() {
 
 /****************************************************************************/
 
-AGAdult::AGAdult(int age) throw()
+AGAdult::AGAdult(int age)
     : AGPerson(age), work(0) {}
 
 /****************************************************************************/
 
 void
-AGAdult::print() const throw() {
+AGAdult::print() const {
     std::cout << "- AGAdult: Age=" << age << " Work=" << work << std::endl;
 }
 
 /****************************************************************************/
 
 void
-AGAdult::tryToWork(SUMOReal rate, std::vector<AGWorkPosition>* wps) throw() {
+AGAdult::tryToWork(SUMOReal rate, std::vector<AGWorkPosition>* wps) {
     if (decide(rate)) {
         // Select the new work position before giving up the current one.
         // This avoids that the current one is the same as the new one.
@@ -87,21 +87,21 @@ AGAdult::tryToWork(SUMOReal rate, std::vector<AGWorkPosition>* wps) throw() {
 /****************************************************************************/
 
 bool
-AGAdult::isWorking() const throw() {
+AGAdult::isWorking() const {
     return (work != 0);
 }
 
 /****************************************************************************/
 
 void
-AGAdult::lostWorkPosition() throw() {
+AGAdult::lostWorkPosition() {
     work = 0;
 }
 
 /****************************************************************************/
 
 void
-AGAdult::resignFromWorkPosition() throw() {
+AGAdult::resignFromWorkPosition() {
     if (work != 0) {
         work->let();
     }

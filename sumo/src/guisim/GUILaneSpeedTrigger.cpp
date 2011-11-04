@@ -263,7 +263,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
     : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() throw() {}
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() {}
 
 
 long
@@ -281,7 +281,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     const std::string& id, const std::vector<MSLane*> &destLanes,
-    const std::string& aXMLFilename) throw(ProcessError)
+    const std::string& aXMLFilename)
     : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
       GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
       myShowAsKMH(true), myLastValue(-1) {
@@ -300,12 +300,12 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
 }
 
 
-GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw() {}
+GUILaneSpeedTrigger::~GUILaneSpeedTrigger() {}
 
 
 GUIGLObjectPopupMenu*
 GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
-                                  GUISUMOAbstractView& parent) throw() {
+                                  GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -320,7 +320,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
-                                        GUISUMOAbstractView&) throw() {
+                                        GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 1);
     // add items
@@ -333,7 +333,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
 
 
 void
-GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
@@ -400,7 +400,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const throw() {
 
 
 Boundary
-GUILaneSpeedTrigger::getCenteringBoundary() const throw() {
+GUILaneSpeedTrigger::getCenteringBoundary() const {
     Boundary b(myBoundary);
     b.grow(20);
     return b;

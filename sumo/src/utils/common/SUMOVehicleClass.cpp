@@ -213,7 +213,7 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
-getVehicleEmissionTypeID(const std::string& name) throw(ProcessError) {
+getVehicleEmissionTypeID(const std::string& name) {
     try {
         if (name == "") {
             return SVE_UNKNOWN;

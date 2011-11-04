@@ -48,10 +48,10 @@
 class ROVehicleByDepartureComperator : public std::less<ROVehicle*> {
 public:
     /// @brief Constructor
-    explicit ROVehicleByDepartureComperator() throw() { }
+    explicit ROVehicleByDepartureComperator() { }
 
     /// @brief Destructor
-    ~ROVehicleByDepartureComperator() throw() { }
+    ~ROVehicleByDepartureComperator() { }
 
     /** @brief Comparing operator
      *
@@ -64,7 +64,7 @@ public:
      * @return Whether the first vehicle departs later than the second
      * @todo Check whether both vehicles can be const
      */
-    bool operator()(ROVehicle* veh1, ROVehicle* veh2) const throw() {
+    bool operator()(ROVehicle* veh1, ROVehicle* veh2) const {
         if (veh1->getDepartureTime() == veh2->getDepartureTime()) {
             return veh1->getID() > veh2->getID();
         }
@@ -89,14 +89,14 @@ namespace ROHelper {
 /*
 SUMOReal recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                     const std::vector<const ROEdge*> &edges,
-                    const ROVehicle * const v, SUMOTime time) throw();
+                    const ROVehicle * const v, SUMOTime time) ;
 */
 
 /** @brief Checks whether the given edge list contains loops and removes them
  *
  * @param[in] edges The list of edges to remove loops from
  */
-void recheckForLoops(std::vector<const ROEdge*> &edges) throw();
+void recheckForLoops(std::vector<const ROEdge*> &edges) ;
 
 }
 

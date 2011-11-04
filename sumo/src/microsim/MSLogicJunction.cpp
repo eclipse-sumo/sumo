@@ -49,7 +49,7 @@ MSLogicJunction::MSLogicJunction(const std::string& id,
 #ifdef HAVE_INTERNAL_LANES
                                  , std::vector<MSLane*> internal
 #endif
-                                ) throw()
+                                )
     : MSJunction(id, position, shape),
       myIncomingLanes(incoming),
 #ifdef HAVE_INTERNAL_LANES
@@ -62,7 +62,7 @@ MSLogicJunction::~MSLogicJunction() {}
 
 
 void
-MSLogicJunction::postloadInit() throw(ProcessError) {
+MSLogicJunction::postloadInit() {
     /*
     if(getID()=="1565") {
         int bla = 0;

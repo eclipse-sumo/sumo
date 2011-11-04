@@ -52,7 +52,7 @@
 // ===========================================================================
 void
 PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                           PCTypeMap& tm) throw(ProcessError) {
+                           PCTypeMap& tm) {
     if (!oc.isSet("shapefile-prefixes")) {
         return;
     }
@@ -69,7 +69,7 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 void
 PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
-                      PCTypeMap&) throw(ProcessError) {
+                      PCTypeMap&) {
 #ifdef HAVE_GDAL
     GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
     // get defaults

@@ -72,14 +72,14 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVTypeParameter() throw();
+    SUMOVTypeParameter() ;
 
 
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
      */
-    bool wasSet(int what) const throw() {
+    bool wasSet(int what) const {
         return (setParameter & what) != 0;
     }
 
@@ -89,11 +89,11 @@ public:
      * @param[in, out] dev The device to write into
      * @exception IOError not yet implemented
      */
-    void write(OutputDevice& dev) const throw(IOError);
+    void write(OutputDevice& dev) const;
 
     /** @brief Validates stored car-following parameter
      */
-    void validateCFParameter() const throw();
+    void validateCFParameter() const ;
 
 
     /// @brief The vehicle type's id

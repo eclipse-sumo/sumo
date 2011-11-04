@@ -135,7 +135,7 @@ GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
 }
 
 
-GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() throw() {}
+GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() {}
 
 
 long
@@ -215,7 +215,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       int vehicleIndex) throw(ProcessError)
+                       int vehicleIndex)
     : MSVehicle(pars, route, type, vehicleIndex),
       GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
@@ -224,7 +224,7 @@ GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 }
 
 
-GUIVehicle::~GUIVehicle() throw() {
+GUIVehicle::~GUIVehicle() {
     myLock.lock();
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
         while (i->first->removeAdditionalGLVisualisation(this));
@@ -237,7 +237,7 @@ GUIVehicle::~GUIVehicle() throw() {
 
 GUIGLObjectPopupMenu*
 GUIVehicle::getPopUpMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent) throw() {
+                         GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIVehiclePopupMenu(app, parent, *this, myAdditionalVisualizations);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -276,7 +276,7 @@ GUIVehicle::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIVehicle::getParameterWindow(GUIMainWindow& app,
-                               GUISUMOAbstractView&) throw() {
+                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 15);
     // add items
@@ -319,7 +319,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
 
 
 Boundary
-GUIVehicle::getCenteringBoundary() const throw() {
+GUIVehicle::getCenteringBoundary() const {
     Boundary b;
     b.add(getPosition());
     b.grow(20);
@@ -855,7 +855,7 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
 
 
 void
-GUIVehicle::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
@@ -956,7 +956,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const throw() {
 
 
 void
-GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const throw() {
+GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
@@ -983,7 +983,7 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
 
 
 const std::vector<MSVehicle::LaneQ> &
-GUIVehicle::getBestLanes() const throw() {
+GUIVehicle::getBestLanes() const {
     myLock.lock();
     const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
     myLock.unlock();
@@ -1086,13 +1086,13 @@ GUIVehicle::getColorValue(size_t activeScheme) const {
 
 // ------------ Additional visualisations
 bool
-GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const throw() {
+GUIVehicle::hasActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) const {
     return myAdditionalVisualizations.find(parent) != myAdditionalVisualizations.end() && (myAdditionalVisualizations.find(parent)->second & which) != 0;
 }
 
 
 bool
-GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw() {
+GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
     if (myAdditionalVisualizations.find(parent) == myAdditionalVisualizations.end()) {
         myAdditionalVisualizations[parent] = 0;
     }
@@ -1102,14 +1102,14 @@ GUIVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int whi
 
 
 bool
-GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) throw() {
+GUIVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) {
     myAdditionalVisualizations[parent] &= ~which;
     return parent->removeAdditionalGLVisualisation(this);
 }
 
 
 void
-GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const throw() {
+GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal darken) const {
     setColor(s);
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
@@ -1140,7 +1140,7 @@ GUIVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, SUMOReal d
 
 
 void
-GUIVehicle::drawBestLanes() const throw() {
+GUIVehicle::drawBestLanes() const {
     myLock.lock();
     std::vector<std::vector<MSVehicle::LaneQ> > bestLanes = myBestLanes;
     myLock.unlock();
@@ -1177,7 +1177,7 @@ GUIVehicle::drawBestLanes() const throw() {
 
 
 void
-GUIVehicle::draw(const MSRoute& r) const throw() {
+GUIVehicle::draw(const MSRoute& r) const {
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const MSEdge* e = *i;

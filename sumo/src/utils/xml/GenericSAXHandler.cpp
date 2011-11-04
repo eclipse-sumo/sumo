@@ -73,19 +73,19 @@ GenericSAXHandler::~GenericSAXHandler() {
 
 
 void
-GenericSAXHandler::setFileName(const std::string& name) throw() {
+GenericSAXHandler::setFileName(const std::string& name) {
     myFileName = name;
 }
 
 
 const std::string&
-GenericSAXHandler::getFileName() const throw() {
+GenericSAXHandler::getFileName() const {
     return myFileName;
 }
 
 
 XMLCh*
-GenericSAXHandler::convert(const std::string& name) const throw() {
+GenericSAXHandler::convert(const std::string& name) const {
     size_t len = name.length();
     XMLCh* ret = new XMLCh[len + 1];
     size_t i = 0;
@@ -176,7 +176,7 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 
 
 int
-GenericSAXHandler::convertTag(const std::string& tag) const throw() {
+GenericSAXHandler::convertTag(const std::string& tag) const {
     TagMap::const_iterator i = myTagMap.find(tag);
     if (i == myTagMap.end()) {
         return SUMO_TAG_NOTHING;
@@ -186,7 +186,7 @@ GenericSAXHandler::convertTag(const std::string& tag) const throw() {
 
 
 std::string
-GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
+GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) {
     std::ostringstream buf;
     char* pMsg = XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
@@ -199,19 +199,19 @@ GenericSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
 
 
 void
-GenericSAXHandler::warning(const SAXParseException& exception) throw() {
+GenericSAXHandler::warning(const SAXParseException& exception) {
     WRITE_WARNING(buildErrorMessage(exception));
 }
 
 
 void
-GenericSAXHandler::error(const SAXParseException& exception) throw(ProcessError) {
+GenericSAXHandler::error(const SAXParseException& exception) {
     throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
-GenericSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError) {
+GenericSAXHandler::fatalError(const SAXParseException& exception) {
     throw ProcessError(buildErrorMessage(exception));
 }
 

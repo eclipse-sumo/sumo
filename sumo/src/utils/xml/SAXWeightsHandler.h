@@ -79,10 +79,10 @@ public:
     class EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever() throw() { }
+        EdgeFloatTimeLineRetriever() { }
 
         /// @brief Destructor
-        virtual ~EdgeFloatTimeLineRetriever() throw() { }
+        virtual ~EdgeFloatTimeLineRetriever() { }
 
         /** @brief Adds a weight for a given edge and time period
          *
@@ -92,7 +92,7 @@ public:
          * @param[in] end The end of the interval the weight is valid for
          */
         virtual void addEdgeWeight(const std::string& id,
-                                   SUMOReal val, SUMOReal beg, SUMOReal end) const throw() = 0;
+                                   SUMOReal val, SUMOReal beg, SUMOReal end) const = 0;
 
     private:
         EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&); // just to avoid a compiler warning
@@ -159,7 +159,7 @@ public:
 
 
     /// Destructor
-    ~SAXWeightsHandler() throw();
+    ~SAXWeightsHandler() ;
 
 
 protected:
@@ -174,7 +174,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) throw(ProcessError);
+                        const SUMOSAXAttributes& attrs) ;
 
 
     /** @brief Called when a closing tag occurs
@@ -183,7 +183,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int elemente) throw();
+    void myEndElement(int elemente) ;
     //@}
 
 

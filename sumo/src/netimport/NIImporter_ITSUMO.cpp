@@ -139,16 +139,16 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_ITSUMO::Handler-methods
 // ---------------------------------------------------------------------------
-NIImporter_ITSUMO::Handler::Handler(NBNetBuilder& toFill) throw()
+NIImporter_ITSUMO::Handler::Handler(NBNetBuilder& toFill)
     : GenericSAXHandler(itsumoTags, ITSUMO_TAG_NOTHING, itsumoAttrs, ITSUMO_ATTR_NOTHING, "itsumo - file"), myNetBuilder(toFill) {
 }
 
 
-NIImporter_ITSUMO::Handler::~Handler() throw() {}
+NIImporter_ITSUMO::Handler::~Handler() {}
 
 
 void
-NIImporter_ITSUMO::Handler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+NIImporter_ITSUMO::Handler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case ITSUMO_TAG_NODE:
             myParameter.clear();

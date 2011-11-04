@@ -76,7 +76,7 @@ public:
      * @param[in] length The length of this link
      */
     MSLink(MSLane* succLane,
-           LinkDirection dir, LinkState state, SUMOReal length) throw();
+           LinkDirection dir, LinkState state, SUMOReal length) ;
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -88,11 +88,11 @@ public:
      */
     MSLink(MSLane* succLane, MSLane* via,
            LinkDirection dir, LinkState state,
-           SUMOReal length) throw();
+           SUMOReal length) ;
 #endif
 
     /// @brief Destructor
-    ~MSLink() throw();
+    ~MSLink() ;
 
 
     /** @brief Sets the request information
@@ -107,7 +107,7 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) throw();
+                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) ;
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -116,9 +116,9 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) throw();
+    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) ;
 
-    void addBlockedLink(MSLink* link) throw();
+    void addBlockedLink(MSLink* link) ;
 
 
 
@@ -132,14 +132,14 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const throw();
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const ;
 
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
-    bool isBlockingAnyone() const throw() {
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const ;
+    bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
     }
 
-    bool willHaveBlockedFoe() const throw();
+    bool willHaveBlockedFoe() const ;
 
 
 
@@ -149,14 +149,14 @@ public:
      *
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const throw();
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const ;
 
 
     /** @brief Returns the current state of the link
      *
      * @return The current state of this link
      */
-    LinkState getState() const throw() {
+    LinkState getState() const {
         return myState;
     }
 
@@ -165,34 +165,34 @@ public:
      *
      * @return The direction of this link
      */
-    LinkDirection getDirection() const throw();
+    LinkDirection getDirection() const ;
 
 
     /** @brief Sets the current tl-state
      *
      * @param[in] state The current state of the link
      */
-    void setTLState(LinkState state, SUMOTime t) throw();
+    void setTLState(LinkState state, SUMOTime t) ;
 
 
     /** @brief Returns the connected lane
      *
      * @return The lane approached by this link
      */
-    MSLane* getLane() const throw();
+    MSLane* getLane() const ;
 
 
     /** @brief Returns the respond index (for visualization)
      *
      * @return The respond index for this link
      */
-    unsigned int getRespondIndex() const throw();
+    unsigned int getRespondIndex() const ;
 
 
     /** @brief Returns whether this link is a major link
      * @return Whether the link has a large priority
      */
-    bool havePriority() const throw() {
+    bool havePriority() const {
         return myState >= 'A' && myState <= 'Z';
     }
 
@@ -201,7 +201,7 @@ public:
      *
      * @return The length of this link
      */
-    SUMOReal getLength() const throw() {
+    SUMOReal getLength() const {
         return myLength;
     }
 
@@ -209,12 +209,12 @@ public:
      *
      * @return Whether any foe links exist
      */
-    bool isCrossing() const throw() {
+    bool isCrossing() const {
         return myIsCrossing;
     }
 
 
-    bool isCont() const throw() {
+    bool isCont() const {
         return myAmCont;
     }
 
@@ -223,7 +223,7 @@ public:
      *
      * @return The inner lane to use to cross the junction
      */
-    MSLane* getViaLane() const throw();
+    MSLane* getViaLane() const ;
 #endif
 
 private:

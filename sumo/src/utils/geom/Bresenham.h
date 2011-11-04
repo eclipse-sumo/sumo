@@ -49,13 +49,13 @@ public:
     class BresenhamCallBack {
     public:
         /** constuctor */
-        BresenhamCallBack() throw() { }
+        BresenhamCallBack() { }
 
         /** destructor */
-        virtual ~BresenhamCallBack() throw() { }
+        virtual ~BresenhamCallBack() { }
 
         /** called when a bresenham step has been computed */
-        virtual void execute(const unsigned int val1, const unsigned int val2) throw() = 0;
+        virtual void execute(const unsigned int val1, const unsigned int val2) = 0;
     };
 
 public:

@@ -46,11 +46,11 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSDetectorControl::MSDetectorControl() throw() {
+MSDetectorControl::MSDetectorControl() {
 }
 
 
-MSDetectorControl::~MSDetectorControl() throw() {
+MSDetectorControl::~MSDetectorControl() {
     for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
         (*i).second.clear();
     }
@@ -70,7 +70,7 @@ MSDetectorControl::close(SUMOTime step) {
 
 
 void
-MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin) throw(ProcessError) {
+MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin) {
     if (myDetectors.find(type) == myDetectors.end()) {
         myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
@@ -85,7 +85,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& d
 
 
 void
-MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) throw(ProcessError) {
+MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (myDetectors.find(type) == myDetectors.end()) {
         myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
@@ -100,7 +100,7 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) throw(ProcessEr
 
 void
 MSDetectorControl::add(MSMeanData* mn, OutputDevice& device,
-                       SUMOTime frequency, SUMOTime begin) throw() {
+                       SUMOTime frequency, SUMOTime begin) {
     myMeanData.push_back(mn);
     addDetectorAndInterval(mn, &device, frequency, begin);
     if (begin == string2time(OptionsCont::getOptions().getString("begin"))) {
@@ -110,7 +110,7 @@ MSDetectorControl::add(MSMeanData* mn, OutputDevice& device,
 
 
 const NamedObjectCont<MSDetectorFileOutput*> &
-MSDetectorControl::getTypedDetectors(SumoXMLTag type) const throw() {
+MSDetectorControl::getTypedDetectors(SumoXMLTag type) const {
     if (myDetectors.find(type) == myDetectors.end()) {
         return myEmptyContainer;//myDetectors[type] = NamedObjectCont<MSDetectorFileOutput*>();
     }
@@ -119,7 +119,7 @@ MSDetectorControl::getTypedDetectors(SumoXMLTag type) const throw() {
 
 
 void
-MSDetectorControl::updateDetectors(const SUMOTime step) throw() {
+MSDetectorControl::updateDetectors(const SUMOTime step) {
     for (std::map<SumoXMLTag, NamedObjectCont<MSDetectorFileOutput*> >::const_iterator i = myDetectors.begin(); i != myDetectors.end(); ++i) {
         const std::map<std::string, MSDetectorFileOutput*> &dets = getTypedDetectors((*i).first).getMyMap();
         for (std::map<std::string, MSDetectorFileOutput*>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
@@ -133,7 +133,7 @@ MSDetectorControl::updateDetectors(const SUMOTime step) throw() {
 
 
 void
-MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
+MSDetectorControl::writeOutput(SUMOTime step, bool closing) {
     for (Intervals::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
         if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
@@ -154,7 +154,7 @@ void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         OutputDevice* device,
         SUMOTime interval,
-        SUMOTime begin) throw() {
+        SUMOTime begin) {
     if (begin == -1) {
         begin = string2time(OptionsCont::getOptions().getString("begin"));
     }

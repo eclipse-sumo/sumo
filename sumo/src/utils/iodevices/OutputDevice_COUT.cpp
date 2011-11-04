@@ -38,14 +38,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT() throw(IOError) {}
+OutputDevice_COUT::OutputDevice_COUT() {}
 
 
-OutputDevice_COUT::~OutputDevice_COUT() throw() {}
+OutputDevice_COUT::~OutputDevice_COUT() {}
 
 
 std::ostream&
-OutputDevice_COUT::getOStream() throw() {
+OutputDevice_COUT::getOStream() {
     return std::cout;
 }
 

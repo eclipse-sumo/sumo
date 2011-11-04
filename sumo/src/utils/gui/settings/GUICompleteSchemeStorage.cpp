@@ -49,15 +49,15 @@ GUICompleteSchemeStorage gSchemeStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUICompleteSchemeStorage::GUICompleteSchemeStorage() throw() { }
+GUICompleteSchemeStorage::GUICompleteSchemeStorage() { }
 
 
-GUICompleteSchemeStorage::~GUICompleteSchemeStorage() throw() { }
+GUICompleteSchemeStorage::~GUICompleteSchemeStorage() { }
 
 
 
 void
-GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) throw() {
+GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) {
     std::string name = scheme.name;
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name) == mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
@@ -67,25 +67,25 @@ GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) throw() {
 
 
 GUIVisualizationSettings&
-GUICompleteSchemeStorage::get(const std::string& name) throw() {
+GUICompleteSchemeStorage::get(const std::string& name) {
     return mySettings.find(name)->second;
 }
 
 
 GUIVisualizationSettings&
-GUICompleteSchemeStorage::getDefault() throw() {
+GUICompleteSchemeStorage::getDefault() {
     return mySettings.find(myDefaultSettingName)->second;
 }
 
 
 bool
-GUICompleteSchemeStorage::contains(const std::string& name) const throw() {
+GUICompleteSchemeStorage::contains(const std::string& name) const {
     return mySettings.find(name) != mySettings.end();
 }
 
 
 void
-GUICompleteSchemeStorage::remove(const std::string& name) throw() {
+GUICompleteSchemeStorage::remove(const std::string& name) {
     if (!contains(name)) {
         return;
     }
@@ -95,7 +95,7 @@ GUICompleteSchemeStorage::remove(const std::string& name) throw() {
 
 
 void
-GUICompleteSchemeStorage::setDefault(const std::string& name) throw() {
+GUICompleteSchemeStorage::setDefault(const std::string& name) {
     if (!contains(name)) {
         return;
     }
@@ -104,19 +104,19 @@ GUICompleteSchemeStorage::setDefault(const std::string& name) throw() {
 
 
 const std::vector<std::string> &
-GUICompleteSchemeStorage::getNames() const throw() {
+GUICompleteSchemeStorage::getNames() const {
     return mySortedSchemeNames;
 }
 
 
 unsigned int
-GUICompleteSchemeStorage::getNumInitialSettings() const throw() {
+GUICompleteSchemeStorage::getNumInitialSettings() const {
     return myNumInitialSettings;
 }
 
 
 RGBColor
-convert(const FXColor c) throw() {
+convert(const FXColor c) {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
                (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
@@ -125,7 +125,7 @@ convert(const FXColor c) throw() {
 
 
 void
-GUICompleteSchemeStorage::init(FXApp* app) throw() {
+GUICompleteSchemeStorage::init(FXApp* app) {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
@@ -187,7 +187,7 @@ GUICompleteSchemeStorage::init(FXApp* app) throw() {
 
 
 void
-GUICompleteSchemeStorage::writeSettings(FXApp* app) throw() {
+GUICompleteSchemeStorage::writeSettings(FXApp* app) {
     const std::vector<std::string> &names = getNames();
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size() - myNumInitialSettings);
     size_t gidx = 0;
@@ -210,7 +210,7 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) throw() {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) throw() {
+GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) {
     myX = x;
     myY = y;
     myZoom = zoom;
@@ -218,7 +218,7 @@ GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const
 
 
 void
-GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) throw() {
+GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
     if (myZoom > 0) {
         view->setViewport(myZoom, myX, myY);
     } else {

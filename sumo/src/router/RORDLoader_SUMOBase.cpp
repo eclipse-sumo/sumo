@@ -53,7 +53,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
         SUMOTime begin, SUMOTime end,
         const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
         const int maxRouteNumber, const bool tryRepair, const bool withTaz, const bool keepRoutes,
-        const bool skipRouteCalculation, const std::string& file) throw(ProcessError)
+        const bool skipRouteCalculation, const std::string& file)
     : ROTypedXMLRoutesLoader(net, begin, end, file),
       myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
       myCurrentAlternatives(0),
@@ -64,7 +64,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
 }
 
 
-RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw() {
+RORDLoader_SUMOBase::~RORDLoader_SUMOBase() {
     // clean up (on failure)
     delete myCurrentAlternatives;
     delete myCurrentRoute;
@@ -75,7 +75,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw() {
 
 void
 RORDLoader_SUMOBase::myStartElement(int element,
-                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_ROUTE:
             startRoute(attrs);
@@ -202,7 +202,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
 
 void
 RORDLoader_SUMOBase::myCharacters(int element,
-                                  const std::string& chars) throw(ProcessError) {
+                                  const std::string& chars) {
     // process routes only, all other elements do
     //  not have embedded characters
     if (element != SUMO_TAG_ROUTE) {
@@ -268,7 +268,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
+RORDLoader_SUMOBase::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_ROUTE:
             if (!myAltIsValid) {
@@ -318,7 +318,7 @@ RORDLoader_SUMOBase::myEndElement(int element) throw(ProcessError) {
 
 
 bool
-RORDLoader_SUMOBase::closeVehicle() throw() {
+RORDLoader_SUMOBase::closeVehicle() {
     // get the vehicle id
     if (myVehicleParameter->depart < myBegin || myVehicleParameter->depart >= myEnd) {
         myCurrentIsOk = false;
@@ -347,7 +347,7 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
 
 
 void
-RORDLoader_SUMOBase::beginNextRoute() throw() {
+RORDLoader_SUMOBase::beginNextRoute() {
     myHaveNextRoute = false;
 }
 

@@ -64,7 +64,7 @@
 // method definitions
 // ===========================================================================
 void
-fillOptions() throw() {
+fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 

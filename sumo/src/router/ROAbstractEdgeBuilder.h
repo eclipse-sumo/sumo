@@ -59,11 +59,11 @@ class RONode;
 class ROAbstractEdgeBuilder {
 public:
     /// @brief Constructor
-    ROAbstractEdgeBuilder() throw() : myCurrentIndex(0) { }
+    ROAbstractEdgeBuilder() : myCurrentIndex(0) { }
 
 
     /// @brief Destructor
-    virtual ~ROAbstractEdgeBuilder() throw() { }
+    virtual ~ROAbstractEdgeBuilder() { }
 
 
     /// @name Methods to be implemented
@@ -76,7 +76,7 @@ public:
      * @param[in] to The node the edge ends at
      * @return A proper instance of the named edge
      */
-    virtual ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) throw() = 0;
+    virtual ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) = 0;
     /// @}
 
 
@@ -84,7 +84,7 @@ protected:
     /** @brief Returns the index of the edge to built
      * @return Next valid edge index
      */
-    unsigned int getNextIndex() throw() {
+    unsigned int getNextIndex() {
         return myCurrentIndex++;
     }
 

@@ -59,11 +59,11 @@ public:
      *
      * @param[in] glObjectIDStorage Storage of gl-ids used to assign new ids to built edges
      */
-    GUIEdgeControlBuilder() throw();
+    GUIEdgeControlBuilder() ;
 
 
     /// @brief Destructor
-    ~GUIEdgeControlBuilder() throw();
+    ~GUIEdgeControlBuilder() ;
 
 
     /** @brief Builds and adds a lane
@@ -96,7 +96,7 @@ public:
      *
      * @param[in] id The id of the edge to build
      */
-    MSEdge* buildEdge(const std::string& id, const std::string& streetName) throw();
+    MSEdge* buildEdge(const std::string& id, const std::string& streetName) ;
 
 
 private:

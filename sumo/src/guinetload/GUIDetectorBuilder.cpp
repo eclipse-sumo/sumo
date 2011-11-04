@@ -53,23 +53,23 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDetectorBuilder::GUIDetectorBuilder(MSNet& net) throw()
+GUIDetectorBuilder::GUIDetectorBuilder(MSNet& net)
     : NLDetectorBuilder(net) {}
 
 
-GUIDetectorBuilder::~GUIDetectorBuilder() throw() {}
+GUIDetectorBuilder::~GUIDetectorBuilder() {}
 
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
-                                     MSLane* lane, SUMOReal pos, bool splitByType) throw() {
+                                     MSLane* lane, SUMOReal pos, bool splitByType) {
     return new GUIInductLoop(id, lane, pos, splitByType);
 }
 
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
-        MSLane* lane, SUMOReal pos, OutputDevice& od) throw() {
+        MSLane* lane, SUMOReal pos, OutputDevice& od) {
     return new GUIInstantInductLoop(id, od, lane, pos);
 }
 
@@ -77,7 +77,7 @@ GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
 #ifdef HAVE_MESOSIM
 MEInductLoop*
 GUIDetectorBuilder::createMEInductLoop(const std::string& id,
-                                       MESegment* s, SUMOReal pos) throw() {
+                                       MESegment* s, SUMOReal pos) {
     return new GUIMEInductLoop(id, s, pos);
 }
 #endif
@@ -88,7 +88,7 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal pos, SUMOReal length,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw() {
+        SUMOReal jamDistThreshold) {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
@@ -98,7 +98,7 @@ GUIDetectorBuilder::createMultiLaneE2Detector(const std::string& id,
         DetectorUsage usage, MSLane* lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw() {
+        SUMOReal jamDistThreshold) {
     return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold);
 }
 
@@ -108,7 +108,7 @@ GUIDetectorBuilder::createE3Detector(const std::string& id,
                                      const CrossSectionVector& entries,
                                      const CrossSectionVector& exits,
                                      SUMOReal haltingSpeedThreshold,
-                                     SUMOTime haltingTimeThreshold) throw() {
+                                     SUMOTime haltingTimeThreshold) {
     return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }
 

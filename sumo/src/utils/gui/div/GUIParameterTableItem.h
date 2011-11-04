@@ -62,7 +62,7 @@
 class GUIParameterTableItemInterface {
 public:
     /// @brief Destructor
-    virtual ~GUIParameterTableItemInterface()  throw() {}
+    virtual ~GUIParameterTableItemInterface()  {}
 
 
     /// @name Methods to be implemented by derived classes
@@ -72,26 +72,26 @@ public:
      *
      * @return Whether the value changes over simulation time
      */
-    virtual bool dynamic() const throw() = 0;
+    virtual bool dynamic() const = 0;
 
 
     /** @brief Forces an update of the value
      */
-    virtual void update() throw() = 0;
+    virtual void update() = 0;
 
 
     /** @brief Returns a SUMOReal-typed copy of the value-source
      *
      * @return A SUMOReal-typed copy of the value-source
      */
-    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw() = 0;
+    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() const = 0;
 
 
     /** @brief Returns the name of the value
      *
      * @return The name of the value
      */
-    virtual const std::string& getName() const throw() = 0;
+    virtual const std::string& getName() const = 0;
     /// @}
 
 };
@@ -129,7 +129,7 @@ public:
      */
     GUIParameterTableItem(FXTable* table, unsigned pos,
                           const std::string& name, bool dynamic,
-                          ValueSource<T> *src) throw()
+                          ValueSource<T> *src)
         : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
           myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
@@ -149,7 +149,7 @@ public:
      */
     GUIParameterTableItem(FXTable* table, unsigned pos,
                           const std::string& name, bool dynamic,
-                          T value) throw()
+                          T value)
         : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
           myValue(value), myTable(table) {
         init(dynamic, toString<T>(value));
@@ -169,7 +169,7 @@ public:
      */
     GUIParameterTableItem(FXTable* table, unsigned pos,
                           const std::string& name, bool dynamic,
-                          std::string value) throw()
+                          std::string value)
         : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
           myValue(0), myTable(table) {
         init(dynamic, value);
@@ -177,7 +177,7 @@ public:
 
 
     /// @brief Destructor
-    ~GUIParameterTableItem() throw() {
+    ~GUIParameterTableItem() {
         delete mySource;
     }
 
@@ -190,7 +190,7 @@ public:
      * @param[in] dynamic Information whether this value changes over time
      * @param[in] value The current (initial) value
      */
-    void init(bool dynamic, std::string value) throw() {
+    void init(bool dynamic, std::string value) {
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
@@ -207,7 +207,7 @@ public:
      *
      * @return Whether this item changes over time
      */
-    bool dynamic() const throw() {
+    bool dynamic() const {
         return myAmDynamic;
     }
 
@@ -216,7 +216,7 @@ public:
      *
      * @return The name of this value
      */
-    const std::string& getName() const throw() {
+    const std::string& getName() const {
         return myName;
     }
 
@@ -228,7 +228,7 @@ public:
      *  it is stored in myValue and set as the current value text within the
      *  according table cell.
      */
-    void update() throw() {
+    void update() {
         if (!dynamic() || mySource == 0) {
             return;
         }
@@ -244,7 +244,7 @@ public:
      *
      * @return A copy of the value source
      */
-    ValueSource<T> *getSourceCopy() const throw() {
+    ValueSource<T> *getSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }
@@ -256,7 +256,7 @@ public:
      *
      * @return A SUMOReal-typed copy of the value source
      */
-    ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw() {
+    ValueSource<SUMOReal> *getSUMORealSourceCopy() const {
         if (mySource == 0) {
             return 0;
         }

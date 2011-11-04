@@ -181,7 +181,7 @@ NIVissimEdge::dictionary(int id) {
 
 
 void
-NIVissimEdge::buildConnectionClusters() throw() {
+NIVissimEdge::buildConnectionClusters() {
     const SUMOReal MAX_CLUSTER_DISTANCE = 10;
     // build clusters for all edges made up from not previously assigne
     //  connections
@@ -424,7 +424,7 @@ NIVissimEdge::getOutgoingConnected(int lane) const {
 
 void
 NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
-                          SUMOReal sameNodesOffset) throw(ProcessError) {
+                          SUMOReal sameNodesOffset) {
     // build the edge
     std::pair<NIVissimConnectionCluster*, NBNode*> fromInf, toInf;
     NBNode* fromNode, *toNode;
@@ -976,7 +976,7 @@ NIVissimEdge::getToTreatAsSame() const {
 
 
 void
-NIVissimEdge::reportUnsetSpeeds() throw() {
+NIVissimEdge::reportUnsetSpeeds() {
     if (myLanesWithMissingSpeeds.size() == 0) {
         return;
     }
@@ -993,7 +993,7 @@ NIVissimEdge::reportUnsetSpeeds() throw() {
 
 
 NIVissimEdge*
-NIVissimEdge::getBestIncoming() const throw() {
+NIVissimEdge::getBestIncoming() const {
     for (IntVector::const_iterator i = myIncomingConnections.begin(); i != myIncomingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getFromEdgeID());
@@ -1003,7 +1003,7 @@ NIVissimEdge::getBestIncoming() const throw() {
 
 
 NIVissimEdge*
-NIVissimEdge::getBestOutgoing() const throw() {
+NIVissimEdge::getBestOutgoing() const {
     for (IntVector::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getToEdgeID());

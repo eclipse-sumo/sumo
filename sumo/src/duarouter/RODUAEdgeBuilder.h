@@ -59,11 +59,11 @@ public:
      * @param[in] interpolate Whether edges shall interpolate at interval boundaries
      * @todo useBoundariesOnOverride should not be a member of the edges
      */
-    RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) throw();
+    RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) ;
 
 
     /// @brief Destructor
-    ~RODUAEdgeBuilder() throw();
+    ~RODUAEdgeBuilder() ;
 
 
     /// @name Methods to be implemented, inherited from ROAbstractEdgeBuilder
@@ -79,7 +79,7 @@ public:
      * @return A proper instance of the named edge
      * @see ROEdge
      */
-    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) throw();
+    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) ;
     /// @}
 
 

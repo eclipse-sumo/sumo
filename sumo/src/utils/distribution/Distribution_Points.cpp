@@ -43,12 +43,12 @@
 // ===========================================================================
 Distribution_Points::Distribution_Points(const std::string& id,
         const PositionVector& points,
-        bool interpolating) throw()
+        bool interpolating)
     : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
       myInterpolateDist(interpolating) {}
 
 
-Distribution_Points::~Distribution_Points() throw() {}
+Distribution_Points::~Distribution_Points() {}
 
 
 SUMOReal

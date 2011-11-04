@@ -39,11 +39,11 @@
 // method definitions
 // ===========================================================================
 Distribution_MeanDev::Distribution_MeanDev(const std::string& id,
-        SUMOReal mean, SUMOReal deviation) throw()
+        SUMOReal mean, SUMOReal deviation)
     : Distribution(id), myMeanValue(mean), myDeviation(deviation) {}
 
 
-Distribution_MeanDev::~Distribution_MeanDev() throw() {}
+Distribution_MeanDev::~Distribution_MeanDev() {}
 
 
 SUMOReal

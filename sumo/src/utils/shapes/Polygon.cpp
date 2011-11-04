@@ -40,11 +40,11 @@
 // ===========================================================================
 Polygon::Polygon(const std::string& name, const std::string& type,
                  const RGBColor& color, const PositionVector& shape,
-                 bool fill) throw()
+                 bool fill)
     : myName(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
 
 
-Polygon::~Polygon() throw() {}
+Polygon::~Polygon() {}
 
 
 

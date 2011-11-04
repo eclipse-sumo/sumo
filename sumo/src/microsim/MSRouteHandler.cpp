@@ -88,7 +88,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
 }
 
 
-MSRouteHandler::~MSRouteHandler() throw() {
+MSRouteHandler::~MSRouteHandler() {
 }
 
 
@@ -113,7 +113,7 @@ MSRouteHandler::checkLastDepart() {
 
 void
 MSRouteHandler::myStartElement(int element,
-                               const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                               const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_VEHICLE:
             delete myVehicleParameter;
@@ -334,7 +334,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void
-MSRouteHandler::myEndElement(int element) throw(ProcessError) {
+MSRouteHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_ROUTE:
             closeRoute();
@@ -394,7 +394,7 @@ MSRouteHandler::myEndElement(int element) throw(ProcessError) {
 
 
 void
-MSRouteHandler::closeRoute() throw(ProcessError) {
+MSRouteHandler::closeRoute() {
     if (myActiveRoute.size() == 0) {
         if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
             myCurrentRouteDistribution->add(myActiveRouteProbability, MSRoute::dictionary(myActiveRouteRefID));
@@ -485,7 +485,7 @@ MSRouteHandler::closeRouteDistribution() {
 
 
 void
-MSRouteHandler::closeVehicle() throw(ProcessError) {
+MSRouteHandler::closeVehicle() {
     // get nested route
     const MSRoute* route = MSRoute::dictionary("!" + myVehicleParameter->id);
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
@@ -568,7 +568,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
 
 
 void
-MSRouteHandler::closePerson() throw(ProcessError) {
+MSRouteHandler::closePerson() {
     if (myActivePlan->size() == 0) {
         throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
     }
@@ -584,7 +584,7 @@ MSRouteHandler::closePerson() throw(ProcessError) {
 
 
 void
-MSRouteHandler::closeFlow() throw(ProcessError) {
+MSRouteHandler::closeFlow() {
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
@@ -658,7 +658,7 @@ MSRouteHandler::checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMORea
 
 
 void
-MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string errorSuffix;
     if (myActiveRouteID != "") {

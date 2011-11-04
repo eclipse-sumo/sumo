@@ -64,11 +64,11 @@ public:
      * @param[in] lane The lane to be represented
      * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
      */
-    GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) throw();
+    GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsigned int index) ;
 
 
     /// @brief Destructor
-    virtual ~GUILaneWrapper() throw();
+    virtual ~GUILaneWrapper() ;
 
 
 
@@ -83,7 +83,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) throw();
+                                       GUISUMOAbstractView& parent) ;
 
 
     /** @brief Returns an own parameter window
@@ -94,7 +94,7 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) throw();
+            GUISUMOAbstractView& parent) ;
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -102,14 +102,14 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const throw();
+    Boundary getCenteringBoundary() const ;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const throw();
+    void drawGL(const GUIVisualizationSettings& s) const ;
     //@}
 
 
@@ -117,7 +117,7 @@ public:
     /** @brief Returns the represented lane
      * @return The lane represented by this wrapper
      */
-    const MSLane& getLane() const throw() {
+    const MSLane& getLane() const {
         return myLane;
     }
 
@@ -154,37 +154,37 @@ public:
     /** @brief Returns the sum of last step CO2 emissions normed by the lane's length
      * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_CO2Emissions() const throw();
+    SUMOReal getNormedHBEFA_CO2Emissions() const ;
 
 
     /** @brief Returns the sum of last step CO emissions normed by the lane's length
      * @return CO emissions of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_COEmissions() const throw();
+    SUMOReal getNormedHBEFA_COEmissions() const ;
 
 
     /** @brief Returns the sum of last step PMx emissions normed by the lane's length
      * @return PMx emissions of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_PMxEmissions() const throw();
+    SUMOReal getNormedHBEFA_PMxEmissions() const ;
 
 
     /** @brief Returns the sum of last step NOx emissions normed by the lane's length
      * @return NOx emissions of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_NOxEmissions() const throw();
+    SUMOReal getNormedHBEFA_NOxEmissions() const ;
 
 
     /** @brief Returns the sum of last step HC emissions normed by the lane's length
      * @return HC emissions of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_HCEmissions() const throw();
+    SUMOReal getNormedHBEFA_HCEmissions() const ;
 
 
     /** @brief Returns the sum of last step fuel comsumption normed by the lane's length
      * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
      */
-    SUMOReal getNormedHBEFA_FuelConsumption() const throw();
+    SUMOReal getNormedHBEFA_FuelConsumption() const ;
     /// @}
 
 

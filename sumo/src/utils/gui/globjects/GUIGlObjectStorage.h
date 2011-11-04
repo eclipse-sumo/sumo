@@ -57,11 +57,11 @@
 class GUIGlObjectStorage {
 public:
     /// @brief Constructor
-    GUIGlObjectStorage() throw();
+    GUIGlObjectStorage() ;
 
 
     /// @brief Destructor
-    ~GUIGlObjectStorage() throw();
+    ~GUIGlObjectStorage() ;
 
 
     /** @brief Registers an object
@@ -73,7 +73,7 @@ public:
      * @param[in] fullName The full name of the object to register
      * @return the GUIGlObject under which the object has been registered
      */
-    GUIGlID registerObject(GUIGlObject* object, const std::string& fullName) throw();
+    GUIGlID registerObject(GUIGlObject* object, const std::string& fullName) ;
 
 
     /** @brief Returns the object from the container locking it
@@ -84,7 +84,7 @@ public:
      * @param[in] id The id of the object to return
      * @return The object with the given id or 0 if no such object is known
      */
-    GUIGlObject* getObjectBlocking(GUIGlID id) throw();
+    GUIGlObject* getObjectBlocking(GUIGlID id) ;
 
 
     /** @brief Returns the object from the container locking it
@@ -95,7 +95,7 @@ public:
      * @param[in] id The id of the object to return
      * @return The object with the given id or 0 if no such object is known
      */
-    GUIGlObject* getObjectBlocking(const std::string& fullName) throw();
+    GUIGlObject* getObjectBlocking(const std::string& fullName) ;
 
 
     /** @brief Removes the named object from this container
@@ -107,14 +107,14 @@ public:
      * @param[in] id The id of the object to remove
      * @return Whether the object could be removed (and may be deleted)
      */
-    bool remove(GUIGlID id) throw();
+    bool remove(GUIGlID id) ;
 
 
     /** @brief Clears this container
      *
      * The objects are not deleted.
      */
-    void clear() throw();
+    void clear() ;
 
 
     /** @brief Marks an object as unblocked
@@ -122,13 +122,13 @@ public:
      * The object is moved from "myBlocked" to "myMap".
      * @param[in] id The id of the object to unblock
      */
-    void unblockObject(GUIGlID id) throw();
+    void unblockObject(GUIGlID id) ;
 
 
     /** @brief Sets the given object as the "network" object
      * @param[in] object The object to set as network object
      */
-    void setNetObject(GUIGlObject* object) throw() {
+    void setNetObject(GUIGlObject* object) {
         myNetObject = object;
     }
 
@@ -136,7 +136,7 @@ public:
     /** @brief Returns the network object
      * @return The network object
      */
-    GUIGlObject* getNetObject() const throw() {
+    GUIGlObject* getNetObject() const {
         return myNetObject;
     }
 

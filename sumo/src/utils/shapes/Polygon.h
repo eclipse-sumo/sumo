@@ -54,11 +54,11 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      */
     Polygon(const std::string& name, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill) throw();
+            const RGBColor& color, const PositionVector& shape, bool fill) ;
 
 
     /// @brief Destructor
-    virtual ~Polygon() throw();
+    virtual ~Polygon() ;
 
 
 
@@ -68,7 +68,7 @@ public:
     /** @brief Returns the name of the polygon
      * @return The polygon's id
      */
-    const std::string& getID() const throw() {
+    const std::string& getID() const {
         return myName;
     }
 
@@ -76,7 +76,7 @@ public:
     /** @brief Returns the (abstract) type of the polygon
      * @return The polygon's (abstract) type
      */
-    const std::string& getType() const throw() {
+    const std::string& getType() const {
         return myType;
     }
 
@@ -84,7 +84,7 @@ public:
     /** @brief Returns the color of the polygon
      * @return The polygon's color
      */
-    const RGBColor& getColor() const throw() {
+    const RGBColor& getColor() const {
         return myColor;
     }
 
@@ -92,7 +92,7 @@ public:
     /** @brief Returns the shape of the polygon
      * @return The polygon's shape
      */
-    const PositionVector& getShape() const throw() {
+    const PositionVector& getShape() const {
         return myShape;
     }
 
@@ -100,7 +100,7 @@ public:
     /** @brief Returns whether the polygon is filled
      * @return Whether the polygon is filled
      */
-    bool fill() const throw() {
+    bool fill() const {
         return myFill;
     }
     /// @}
@@ -113,7 +113,7 @@ public:
     /** @brief Sets a new type
      * @param[in] type The new type to use
      */
-    void setType(const std::string& type) throw() {
+    void setType(const std::string& type) {
         myType = type;
     }
 
@@ -121,7 +121,7 @@ public:
     /** @brief Sets a new color
      * @param[in] col The new color to use
      */
-    void setColor(const RGBColor& col) throw() {
+    void setColor(const RGBColor& col) {
         myColor = col;
     }
 
@@ -129,7 +129,7 @@ public:
     /** @brief Sets a new shape
      * @param[in] shape The new shape to use
      */
-    void setShape(const PositionVector& shape) throw() {
+    void setShape(const PositionVector& shape) {
         myShape = shape;
     }
 
@@ -137,7 +137,7 @@ public:
     /** @brief Sets whether the polygon shall be filled
      * @param[in] fill Whether the polygon shall be filled
      */
-    void setFill(bool fill) throw() {
+    void setFill(bool fill) {
         myFill = fill;
     }
     /// @}

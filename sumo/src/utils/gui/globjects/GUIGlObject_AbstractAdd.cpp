@@ -55,7 +55,7 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(const std::string& prefix, GUIG
 }
 
 
-GUIGlObject_AbstractAdd::~GUIGlObject_AbstractAdd() throw() {}
+GUIGlObject_AbstractAdd::~GUIGlObject_AbstractAdd() {}
 
 
 void

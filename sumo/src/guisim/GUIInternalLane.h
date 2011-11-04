@@ -75,11 +75,11 @@ public:
                     SUMOReal length, MSEdge* const edge, unsigned int numericalID,
                     const PositionVector& shape, SUMOReal width,
                     const SUMOVehicleClasses& allowed,
-                    const SUMOVehicleClasses& disallowed) throw();
+                    const SUMOVehicleClasses& disallowed) ;
 
 
     /// @brief Destructor
-    ~GUIInternalLane() throw();
+    ~GUIInternalLane() ;
 
 
 
@@ -95,7 +95,7 @@ public:
      * @return The vehicles on this lane
      * @see MSLane::getVehiclesSecure
      */
-    const VehCont& getVehiclesSecure() const throw();
+    const VehCont& getVehiclesSecure() const ;
 
 
     /** @brief Allows to use the container for microsimulation again
@@ -103,7 +103,7 @@ public:
      * Unlocks "myLock" preventing usage by microsimulation.
      * @see MSLane::releaseVehicles
      */
-    void releaseVehicles() const throw();
+    void releaseVehicles() const ;
     /// @}
 
 
@@ -146,7 +146,7 @@ protected:
      */
     virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) throw(ProcessError);
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) ;
 
 
 private:

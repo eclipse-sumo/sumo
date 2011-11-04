@@ -95,13 +95,13 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 }
 
 
-MSTriggeredRerouter::~MSTriggeredRerouter() throw() {
+MSTriggeredRerouter::~MSTriggeredRerouter() {
 }
 
 // ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(int element,
-                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_INTERVAL) {
         bool ok = true;
         myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1);
@@ -185,7 +185,7 @@ MSTriggeredRerouter::myStartElement(int element,
 
 
 void
-MSTriggeredRerouter::myEndElement(int element) throw(ProcessError) {
+MSTriggeredRerouter::myEndElement(int element) {
     if (element == SUMO_TAG_INTERVAL) {
         RerouteInterval ri;
         ri.begin = myCurrentIntervalBegin;
@@ -266,7 +266,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw() {
+MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         return false;
     }

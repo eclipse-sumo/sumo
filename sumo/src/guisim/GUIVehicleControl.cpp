@@ -41,11 +41,11 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIVehicleControl::GUIVehicleControl() throw()
+GUIVehicleControl::GUIVehicleControl()
     : MSVehicleControl() {}
 
 
-GUIVehicleControl::~GUIVehicleControl() throw() {
+GUIVehicleControl::~GUIVehicleControl() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -55,7 +55,7 @@ GUIVehicleControl::~GUIVehicleControl() throw() {
 
 SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
+                                const MSRoute* route, const MSVehicleType* type) {
     myLoadedVehNo++;
     MSVehicle* built = new GUIVehicle(defs, route, type, myLoadedVehNo - 1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
@@ -64,7 +64,7 @@ GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 
 bool
-GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) throw() {
+GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
     myLock.lock();
     const bool result = MSVehicleControl::addVehicle(id, v);
     myLock.unlock();
@@ -73,7 +73,7 @@ GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) throw() {
 
 
 void
-GUIVehicleControl::deleteVehicle(SUMOVehicle* veh) throw() {
+GUIVehicleControl::deleteVehicle(SUMOVehicle* veh) {
     myLock.lock();
     MSVehicleControl::deleteVehicle(veh);
     myLock.unlock();
@@ -81,7 +81,7 @@ GUIVehicleControl::deleteVehicle(SUMOVehicle* veh) throw() {
 
 
 void
-GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) throw() {
+GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID> &into) {
     myLock.lock();
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {

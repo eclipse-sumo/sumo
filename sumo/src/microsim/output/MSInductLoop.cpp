@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
-                           SUMOReal positionInMeters, bool splitByType) throw() :
+                           SUMOReal positionInMeters, bool splitByType) :
     MSMoveReminder(lane),
     MSDetectorFileOutput(id),
     myPosition(positionInMeters),
@@ -62,12 +62,12 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
 }
 
 
-MSInductLoop::~MSInductLoop() throw() {
+MSInductLoop::~MSInductLoop() {
 }
 
 
 void
-MSInductLoop::reset() throw() {
+MSInductLoop::reset() {
     myDismissedVehicleNumber = 0;
     myLastVehicleDataCont = myVehicleDataCont;
     myVehicleDataCont.clear();
@@ -76,7 +76,7 @@ MSInductLoop::reset() throw() {
 
 bool
 MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                         SUMOReal newPos, SUMOReal newSpeed) throw() {
+                         SUMOReal newPos, SUMOReal newSpeed) {
     if (newPos < myPosition) {
         // detector not reached yet
         return true;
@@ -104,7 +104,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) throw() {
+MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle is on detector during lane change or arrival, or ...
         leaveDetectorByLaneChange(veh);
@@ -115,7 +115,7 @@ MSInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder
 
 
 bool
-MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw() {
+MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
     if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
@@ -126,7 +126,7 @@ MSInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) throw(
 
 
 SUMOReal
-MSInductLoop::getCurrentSpeed() const throw() {
+MSInductLoop::getCurrentSpeed() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) d.size()
@@ -135,7 +135,7 @@ MSInductLoop::getCurrentSpeed() const throw() {
 
 
 SUMOReal
-MSInductLoop::getCurrentLength() const throw() {
+MSInductLoop::getCurrentLength() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) d.size()
@@ -144,7 +144,7 @@ MSInductLoop::getCurrentLength() const throw() {
 
 
 SUMOReal
-MSInductLoop::getCurrentOccupancy() const throw() {
+MSInductLoop::getCurrentOccupancy() const {
     SUMOTime tbeg = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
     std::vector<VehicleData> d = collectVehiclesOnDet(tbeg);
     if (d.size() == 0) {
@@ -161,14 +161,14 @@ MSInductLoop::getCurrentOccupancy() const throw() {
 
 
 unsigned int
-MSInductLoop::getCurrentPassedNumber() const throw() {
+MSInductLoop::getCurrentPassedNumber() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return (unsigned int) d.size();
 }
 
 
 std::vector<std::string>
-MSInductLoop::getCurrentVehicleIDs() const throw() {
+MSInductLoop::getCurrentVehicleIDs() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     std::vector<std::string> ret;
     for (std::vector<VehicleData>::iterator i = d.begin(); i != d.end(); ++i) {
@@ -179,7 +179,7 @@ MSInductLoop::getCurrentVehicleIDs() const throw() {
 
 
 SUMOReal
-MSInductLoop::getTimestepsSinceLastDetection() const throw() {
+MSInductLoop::getTimestepsSinceLastDetection() const {
     if (myVehiclesOnDet.size() != 0) {
         // detector is occupied
         return 0;
@@ -189,14 +189,14 @@ MSInductLoop::getTimestepsSinceLastDetection() const throw() {
 
 
 void
-MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const throw(IOError) {
+MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
     dev.writeXMLHeader("detector");
 }
 
 
 void
 MSInductLoop::writeXMLOutput(OutputDevice& dev,
-                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+                             SUMOTime startTime, SUMOTime stopTime) {
     writeTypedXMLOutput(dev, startTime, stopTime, "", myVehicleDataCont, myVehiclesOnDet);
     if (mySplitByType) {
         dev << ">\n";
@@ -229,7 +229,7 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 
 void
 MSInductLoop::writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime,
-                                  const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) throw(IOError) {
+                                  const std::string& type, const VehicleDataCont& vdc, const VehicleMap& vm) {
     SUMOReal t(STEPS2TIME(stopTime - startTime));
     unsigned nVehCrossed = (unsigned) vdc.size();
     if (type == "") {
@@ -269,14 +269,14 @@ MSInductLoop::writeTypedXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTim
 
 void
 MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
-                                  SUMOReal entryTimestep) throw() {
+                                  SUMOReal entryTimestep) {
     myVehiclesOnDet.insert(std::make_pair(&veh, entryTimestep));
 }
 
 
 void
 MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
-                                  SUMOReal leaveTimestep) throw() {
+                                  SUMOReal leaveTimestep) {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
     if (it != myVehiclesOnDet.end()) {
         SUMOReal entryTimestep = it->second;
@@ -290,7 +290,7 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
+MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) {
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
@@ -298,7 +298,7 @@ MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh) throw() {
 
 
 std::vector<MSInductLoop::VehicleData>
-MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const throw() {
+MSInductLoop::collectVehiclesOnDet(SUMOTime tMS) const {
     SUMOReal t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;
     for (VehicleDataCont::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {

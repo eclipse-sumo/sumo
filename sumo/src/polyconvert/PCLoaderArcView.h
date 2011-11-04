@@ -68,7 +68,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                          PCTypeMap& tm) throw(ProcessError);
+                          PCTypeMap& tm) ;
 
 
 protected:
@@ -79,7 +79,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
-                     PCTypeMap& tm) throw(ProcessError);
+                     PCTypeMap& tm) ;
 
 
 private:

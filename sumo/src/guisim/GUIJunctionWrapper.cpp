@@ -59,7 +59,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction) throw()
+GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
     : GUIGlObject(GLO_JUNCTION, junction.getID()),
       myJunction(junction) {
     if (myJunction.getShape().size() == 0) {
@@ -77,12 +77,12 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction) throw()
 }
 
 
-GUIJunctionWrapper::~GUIJunctionWrapper() throw() {}
+GUIJunctionWrapper::~GUIJunctionWrapper() {}
 
 
 GUIGLObjectPopupMenu*
 GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
-                                 GUISUMOAbstractView& parent) throw() {
+                                 GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -95,13 +95,13 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& /*app*/,
-                                       GUISUMOAbstractView&) throw() {
+                                       GUISUMOAbstractView&) {
     return 0;
 }
 
 
 Boundary
-GUIJunctionWrapper::getCenteringBoundary() const throw() {
+GUIJunctionWrapper::getCenteringBoundary() const {
     Boundary b = myBoundary;
     b.grow(20);
     return b;
@@ -109,7 +109,7 @@ GUIJunctionWrapper::getCenteringBoundary() const throw() {
 
 
 void
-GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     // check whether it is not too small
     if (s.scale * myMaxSize < 1.) {
         return;

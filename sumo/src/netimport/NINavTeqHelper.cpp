@@ -42,7 +42,7 @@
 // method definitions
 // ===========================================================================
 SUMOReal
-NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) throw(ProcessError) {
+NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) {
     try {
         int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
         switch (speedClass) {
@@ -74,7 +74,7 @@ NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) 
 
 
 unsigned int
-NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS, SUMOReal speed) throw(ProcessError) {
+NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS, SUMOReal speed) {
     try {
         int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
         if (nolanes < 0) {

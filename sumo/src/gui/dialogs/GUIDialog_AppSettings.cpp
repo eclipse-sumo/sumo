@@ -54,7 +54,7 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent) throw()
+GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox(parent, "Application Settings"),
       myAppQuitOnEnd(gQuitOnEnd),
       myAllowTextures(gAllowTextures) {
@@ -74,7 +74,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent) throw()
 }
 
 
-GUIDialog_AppSettings::~GUIDialog_AppSettings() throw() {}
+GUIDialog_AppSettings::~GUIDialog_AppSettings() {}
 
 
 long

@@ -61,7 +61,7 @@ bool SUMOVehicleParserHelper::gHaveWarnedAboutDeprecatedVClass = false;
 // method definitions
 // ===========================================================================
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
@@ -166,7 +166,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs) thr
 
 SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-        bool skipID, bool skipDepart) throw(ProcessError) {
+        bool skipID, bool skipDepart) {
     bool ok = true;
     std::string id, errorMsg;
     if (!skipID) {
@@ -223,7 +223,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
 
 void
 SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
-        SUMOVehicleParameter* ret, std::string element) throw(ProcessError) {
+        SUMOVehicleParameter* ret, std::string element) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     bool ok = true;
     // parse route information
@@ -448,7 +448,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) throw(ProcessError) {
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
     SUMOVTypeParameter* vtype = new SUMOVTypeParameter();
     bool ok = true;
     vtype->id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
@@ -533,7 +533,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) throw
 void
 SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter& into,
         int element, const SUMOSAXAttributes& attrs,
-        bool fromVType) throw(ProcessError) {
+        bool fromVType) {
     const CFAttrMap& allowedAttrs = getAllowedCFModelAttrs();
     CFAttrMap::const_iterator cf_it;
     for (cf_it = allowedAttrs.begin(); cf_it != allowedAttrs.end(); cf_it++) {

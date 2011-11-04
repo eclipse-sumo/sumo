@@ -53,11 +53,11 @@ GUIInternalLane::GUIInternalLane(const std::string& id,
                                  MSEdge* const edge, unsigned int numericalID,
                                  const PositionVector& shape, SUMOReal width,
                                  const SUMOVehicleClasses& allowed,
-                                 const SUMOVehicleClasses& disallowed) throw()
+                                 const SUMOVehicleClasses& disallowed)
     : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
 
 
-GUIInternalLane::~GUIInternalLane() throw() {
+GUIInternalLane::~GUIInternalLane() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -69,7 +69,7 @@ GUIInternalLane::~GUIInternalLane() throw() {
 void
 GUIInternalLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification) throw(ProcessError) {
+                                    MSMoveReminder::Notification notification) {
     myLock.lock();
     try {
         MSInternalLane::incorporateVehicle(veh, pos, speed, at, notification);
@@ -83,14 +83,14 @@ GUIInternalLane::incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed
 
 // ------ Access to vehicles ------
 const MSLane::VehCont&
-GUIInternalLane::getVehiclesSecure() const throw() {
+GUIInternalLane::getVehiclesSecure() const {
     myLock.lock();
     return myVehicles;
 }
 
 
 void
-GUIInternalLane::releaseVehicles() const throw() {
+GUIInternalLane::releaseVehicles() const {
     myLock.unlock();
 }
 

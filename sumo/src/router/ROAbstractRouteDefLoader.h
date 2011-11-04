@@ -60,11 +60,11 @@ public:
      * @param[in] begin Vehicles departing before this time shall not be loaded
      * @param[in] end Vehicles departing after this time shall not be loaded
      */
-    ROAbstractRouteDefLoader(RONet& net, SUMOTime begin, SUMOTime end) throw();
+    ROAbstractRouteDefLoader(RONet& net, SUMOTime begin, SUMOTime end) ;
 
 
     /// @brief Destructor
-    virtual ~ROAbstractRouteDefLoader() throw();
+    virtual ~ROAbstractRouteDefLoader() ;
 
 
     /// @name Methods to be implemented
@@ -81,21 +81,21 @@ public:
      * @return Whether any errors occured
      * @todo Recheck usage of exceptions vs. return value
      */
-    virtual bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError) = 0;
+    virtual bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) = 0;
 
 
     /** @brief Returns the time the current (last read) route starts at
      *
      * @return The least time step that was read by this reader
      */
-    virtual SUMOTime getLastReadTimeStep() const throw() = 0;
+    virtual SUMOTime getLastReadTimeStep() const = 0;
 
 
     /** @brief Returns the information whether no routes are available from this loader anymore
      *
      * @return Whether the whole input has been processed
      */
-    virtual bool ended() const throw() = 0;
+    virtual bool ended() const = 0;
     /// @}
 
 

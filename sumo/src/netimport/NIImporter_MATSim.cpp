@@ -129,18 +129,18 @@ NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_MATSim::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont& toFill) throw()
+NIImporter_MATSim::NodesHandler::NodesHandler(NBNodeCont& toFill)
     : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
                         matsimAttrs, MATSIM_ATTR_NOTHING,
                         "matsim - file"), myNodeCont(toFill) {
 }
 
 
-NIImporter_MATSim::NodesHandler::~NodesHandler() throw() {}
+NIImporter_MATSim::NodesHandler::~NodesHandler() {}
 
 
 void
-NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) throw(ProcessError) {
+NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element != MATSIM_TAG_NODE) {
         return;
     }
@@ -170,7 +170,7 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
 // ---------------------------------------------------------------------------
 NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& toFill,
         bool keepEdgeLengths, bool lanesFromCapacity,
-        NBCapacity2Lanes capacity2Lanes) throw()
+        NBCapacity2Lanes capacity2Lanes)
     : GenericSAXHandler(matsimTags, MATSIM_TAG_NOTHING,
                         matsimAttrs, MATSIM_ATTR_NOTHING, "matsim - file"),
     myNodeCont(nc), myEdgeCont(toFill), myCapacityNorm(3600),
@@ -179,13 +179,13 @@ NIImporter_MATSim::EdgesHandler::EdgesHandler(const NBNodeCont& nc, NBEdgeCont& 
 }
 
 
-NIImporter_MATSim::EdgesHandler::~EdgesHandler() throw() {
+NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 }
 
 
 void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
-        const SUMOSAXAttributes& attrs) throw(ProcessError) {
+        const SUMOSAXAttributes& attrs) {
     bool ok = true;
     if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {

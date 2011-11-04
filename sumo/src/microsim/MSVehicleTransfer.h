@@ -62,7 +62,7 @@ class MSEdge;
 class MSVehicleTransfer {
 public:
     /// @brief Destructor
-    virtual ~MSVehicleTransfer() throw();
+    virtual ~MSVehicleTransfer() ;
 
 
     /** @brief Adds a vehicle to this transfer object
@@ -73,7 +73,7 @@ public:
      *
      * @param[in] veh The vehicle to add
      */
-    void addVeh(const SUMOTime t, MSVehicle* veh) throw();
+    void addVeh(const SUMOTime t, MSVehicle* veh) ;
 
 
     /** @brief Checks "movement" of stored vehicles
@@ -84,25 +84,25 @@ public:
      *
      * @param[in] time The current simulation time
      */
-    void checkInsertions(SUMOTime time) throw();
+    void checkInsertions(SUMOTime time) ;
 
 
     /** @brief Checks whether stored vehicles are present
      *
      * @return whether any vehicles wait for transfer
      */
-    bool hasPending() const throw();
+    bool hasPending() const ;
 
 
     /** @brief Returns the instance of this object
      * @return The singleton instance
      */
-    static MSVehicleTransfer* getInstance() throw();
+    static MSVehicleTransfer* getInstance() ;
 
 
 private:
     /// @brief Constructor
-    MSVehicleTransfer() throw();
+    MSVehicleTransfer() ;
 
 
 protected:
@@ -123,7 +123,7 @@ protected:
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(MSVehicle* veh, SUMOTime proceedTime, bool parking) throw()
+        VehicleInformation(MSVehicle* veh, SUMOTime proceedTime, bool parking)
             : myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
     };

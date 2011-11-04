@@ -97,7 +97,7 @@ static const char* dlr_icon[] = {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, int x, int y) throw()
+GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, int x, int y)
     : FXDialogBox(parent, name, DECOR_CLOSE | DECOR_TITLE, x, y, 0, 0) {
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_TOP | FRAME_NONE | LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 1, 1);
     // build icons
@@ -133,7 +133,7 @@ GUIDialog_AboutSUMO::create() {
 }
 
 
-GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO() throw() {
+GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO() {
     delete myDLRIcon;
     delete myHeadlineFont;
 }

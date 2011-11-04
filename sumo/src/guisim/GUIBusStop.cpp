@@ -68,7 +68,7 @@
 // method definitions
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &lines, MSLane& lane,
-                       SUMOReal frompos, SUMOReal topos) throw()
+                       SUMOReal frompos, SUMOReal topos)
     : MSBusStop(id, lines, lane, frompos, topos),
       GUIGlObject_AbstractAdd("bus_stop", GLO_TRIGGER, id) {
     myFGShape = lane.getShape();
@@ -94,12 +94,12 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string> &li
 }
 
 
-GUIBusStop::~GUIBusStop() throw() {}
+GUIBusStop::~GUIBusStop() {}
 
 
 GUIGLObjectPopupMenu*
 GUIBusStop::getPopUpMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent) throw() {
+                         GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -112,13 +112,13 @@ GUIBusStop::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIBusStop::getParameterWindow(GUIMainWindow&,
-                               GUISUMOAbstractView&) throw() {
+                               GUISUMOAbstractView&) {
     return 0;
 }
 
 
 void
-GUIBusStop::drawGL(const GUIVisualizationSettings& s) const throw() {
+GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     RGBColor green(76. / 255., 170. / 255., 50. / 255.);
@@ -166,7 +166,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const throw() {
 
 
 Boundary
-GUIBusStop::getCenteringBoundary() const throw() {
+GUIBusStop::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(20);
     return b;

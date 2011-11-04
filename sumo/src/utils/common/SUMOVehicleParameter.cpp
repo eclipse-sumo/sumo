@@ -42,7 +42,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVehicleParameter::SUMOVehicleParameter() throw()
+SUMOVehicleParameter::SUMOVehicleParameter()
     : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
       depart(-1), departProcedure(DEPART_GIVEN),
       departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
@@ -57,14 +57,14 @@ SUMOVehicleParameter::SUMOVehicleParameter() throw()
 
 
 bool
-SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const throw() {
+SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const {
     return oc.isSet(optionName) && oc.getBool("defaults-override");
 }
 
 
 void
 SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
-                              const OptionsCont& oc) const throw(IOError) {
+                              const OptionsCont& oc) const {
     dev.openTag(xmlElem) << " id=\"" << id << "\"";
     if (wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << vtypeid << "\"";
@@ -241,7 +241,7 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
 
 
 bool
-SUMOVehicleParameter::departlaneValidate(const std::string& val) throw() {
+SUMOVehicleParameter::departlaneValidate(const std::string& val) {
     if (val == "random" || val == "free" || val == "departlane" || val == "allowed" || val == "best") {
         return true;
     }
@@ -257,7 +257,7 @@ SUMOVehicleParameter::departlaneValidate(const std::string& val) throw() {
 
 
 bool
-SUMOVehicleParameter::departposValidate(const std::string& val) throw() {
+SUMOVehicleParameter::departposValidate(const std::string& val) {
     if (val == "random" || val == "free" || val == "random_free" || val == "base" || val == "pwagSimple" || val == "pwagGeneric" || val == "maxSpeedGap") {
         return true;
     }
@@ -273,7 +273,7 @@ SUMOVehicleParameter::departposValidate(const std::string& val) throw() {
 
 
 bool
-SUMOVehicleParameter::departspeedValidate(const std::string& val) throw() {
+SUMOVehicleParameter::departspeedValidate(const std::string& val) {
     if (val == "random" || val == "max") {
         return true;
     }
@@ -289,7 +289,7 @@ SUMOVehicleParameter::departspeedValidate(const std::string& val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivallaneValidate(const std::string& val) throw() {
+SUMOVehicleParameter::arrivallaneValidate(const std::string& val) {
     if (val == "current") {
         return true;
     }
@@ -305,7 +305,7 @@ SUMOVehicleParameter::arrivallaneValidate(const std::string& val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivalposValidate(const std::string& val) throw() {
+SUMOVehicleParameter::arrivalposValidate(const std::string& val) {
     if (val == "random" || val == "max") {
         return true;
     }
@@ -321,7 +321,7 @@ SUMOVehicleParameter::arrivalposValidate(const std::string& val) throw() {
 
 
 bool
-SUMOVehicleParameter::arrivalspeedValidate(const std::string& val) throw() {
+SUMOVehicleParameter::arrivalspeedValidate(const std::string& val) {
     if (val == "current") {
         return true;
     }

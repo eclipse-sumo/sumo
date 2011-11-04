@@ -54,12 +54,12 @@ RODFDetectorHandler::RODFDetectorHandler(RODFNet* optNet, bool ignoreErrors, ROD
       myHaveWarnedAboutDeprecatedDetectorDefinition(false) {}
 
 
-RODFDetectorHandler::~RODFDetectorHandler() throw() {}
+RODFDetectorHandler::~RODFDetectorHandler() {}
 
 
 void
 RODFDetectorHandler::myStartElement(int element,
-                                    const SUMOSAXAttributes& attrs) throw(ProcessError) {
+                                    const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED && !myHaveWarnedAboutDeprecatedDetectorDefinition) {
         myHaveWarnedAboutDeprecatedDetectorDefinition = true;
         WRITE_WARNING("Using '" + toString(SUMO_TAG_DETECTOR_DEFINITION__DEPRECATED) + "' is deprecated. Please use '" + toString(SUMO_TAG_DETECTOR_DEFINITION) + "' instead.");

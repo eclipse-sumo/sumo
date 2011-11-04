@@ -49,7 +49,7 @@ public:
      *
      * @param[in] w The window to delete all of his children
      */
-    static void deleteChildren(FXWindow* w) throw();
+    static void deleteChildren(FXWindow* w) ;
 
 
     /** @brief Returns true if either the file given by its name does not exist or the user allows overwriting it
@@ -64,7 +64,7 @@ public:
      * @return Whether the named file may be written
      */
     static FXbool userPermitsOverwritingWhenFileExists(
-        FXWindow* const parent, const FXString& file) throw();
+        FXWindow* const parent, const FXString& file) ;
 
 
     /** @brief Returns the title text in dependance to an optional file name
@@ -78,7 +78,7 @@ public:
      * @return The built title
      */
     static FXString getTitleText(const FXString& appname,
-                                 FXString filename = "") throw();
+                                 FXString filename = "") ;
 
 
     /** @brief Returns the document name
@@ -89,7 +89,7 @@ public:
      * @param[in] filename The file name (including the path) to obtain the name of
      * @return The name (without the path and the extension)
      */
-    static FXString getDocumentName(const FXString& filename) throw();
+    static FXString getDocumentName(const FXString& filename) ;
 
 
     /** @brief Corrects missing extension
@@ -102,7 +102,7 @@ public:
      * @param[in] defaultExtension The default extension to use
      * @return The corrected filename (with extension if no one was given
      */
-    static FXString assureExtension(const FXString& filename, const FXString& defaultExtension) throw();
+    static FXString assureExtension(const FXString& filename, const FXString& defaultExtension) ;
 
 
     /** @brief Returns the file name to write
@@ -124,7 +124,7 @@ public:
      */
     static FXString getFilename2Write(FXWindow* parent,
                                       const FXString& header, const FXString& extension,
-                                      FXIcon* icon, FXString& currentFolder) throw();
+                                      FXIcon* icon, FXString& currentFolder) ;
 
 
     /** @brief converts FXColor to RGBColor */

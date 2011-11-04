@@ -255,7 +255,7 @@ MSFrame::fillOptions() {
 
 
 void
-MSFrame::buildStreams() throw(IOError) {
+MSFrame::buildStreams() {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");

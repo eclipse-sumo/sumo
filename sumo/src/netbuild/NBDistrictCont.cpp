@@ -43,10 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBDistrictCont::NBDistrictCont() throw() {}
+NBDistrictCont::NBDistrictCont() {}
 
 
-NBDistrictCont::~NBDistrictCont() throw() {
+NBDistrictCont::~NBDistrictCont() {
     for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
         delete((*i).second);
     }
@@ -55,7 +55,7 @@ NBDistrictCont::~NBDistrictCont() throw() {
 
 
 bool
-NBDistrictCont::insert(NBDistrict* const district) throw() {
+NBDistrictCont::insert(NBDistrict* const district) {
     DistrictCont::const_iterator i = myDistricts.find(district->getID());
     if (i != myDistricts.end()) {
         return false;
@@ -66,7 +66,7 @@ NBDistrictCont::insert(NBDistrict* const district) throw() {
 
 
 NBDistrict*
-NBDistrictCont::retrieve(const std::string& id) const throw() {
+NBDistrictCont::retrieve(const std::string& id) const {
     DistrictCont::const_iterator i = myDistricts.find(id);
     if (i == myDistricts.end()) {
         return 0;
@@ -76,14 +76,14 @@ NBDistrictCont::retrieve(const std::string& id) const throw() {
 
 
 size_t
-NBDistrictCont::size() const throw() {
+NBDistrictCont::size() const {
     return myDistricts.size();
 }
 
 
 bool
 NBDistrictCont::addSource(const std::string& dist, NBEdge* const source,
-                          SUMOReal weight) throw() {
+                          SUMOReal weight) {
     NBDistrict* o = retrieve(dist);
     if (o == 0) {
         return false;
@@ -94,7 +94,7 @@ NBDistrictCont::addSource(const std::string& dist, NBEdge* const source,
 
 bool
 NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
-                        SUMOReal weight) throw() {
+                        SUMOReal weight) {
     NBDistrict* o = retrieve(dist);
     if (o == 0) {
         return false;
@@ -104,7 +104,7 @@ NBDistrictCont::addSink(const std::string& dist, NBEdge* const destination,
 
 
 void
-NBDistrictCont::removeFromSinksAndSources(NBEdge* const e) throw() {
+NBDistrictCont::removeFromSinksAndSources(NBEdge* const e) {
     for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
         (*i).second->removeFromSinksAndSources(e);
     }

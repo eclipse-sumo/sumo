@@ -60,7 +60,7 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 // method definitions
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
-        GUIGlObject& o, size_t noRows) throw()
+        GUIGlObject& o, size_t noRows)
     : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
                    NULL, NULL, DECOR_ALL, 20, 20, 300, (FXint)(noRows * 20 + 60)),
     myObject(&o),
@@ -88,7 +88,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app,
 }
 
 
-GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
+GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
     myLock.lock();
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
@@ -102,7 +102,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
 
 
 void
-GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) throw() {
+GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) {
     myLock.lock();
     myObject = 0;
     myLock.unlock();
@@ -159,7 +159,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<unsigned> *src) throw() {
+                                ValueSource<unsigned> *src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -167,7 +167,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOReal> *src) throw() {
+                                ValueSource<SUMOReal> *src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -176,7 +176,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                ValueSource<SUMOTime> *src) throw() {
+                                ValueSource<SUMOTime> *src) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOTime>(myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -185,7 +185,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                std::string value) throw() {
+                                std::string value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -193,7 +193,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                SUMOReal value) throw() {
+                                SUMOReal value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -201,7 +201,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                unsigned value) throw() {
+                                unsigned value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -210,7 +210,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
-                                SUMOTime value) throw() {
+                                SUMOTime value) {
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOTime>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -218,7 +218,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 
 
 void
-GUIParameterTableWindow::updateTable() throw() {
+GUIParameterTableWindow::updateTable() {
     myLock.lock();
     if (myObject == 0) {
         myLock.unlock();
@@ -232,7 +232,7 @@ GUIParameterTableWindow::updateTable() throw() {
 
 
 void
-GUIParameterTableWindow::closeBuilding() throw() {
+GUIParameterTableWindow::closeBuilding() {
     myApplication->addChild(this, true);
     create();
     show();

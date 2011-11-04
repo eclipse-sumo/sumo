@@ -61,10 +61,10 @@ class OutputDevice;
 class RODFRouteCont {
 public:
     /// @brief Constructor
-    RODFRouteCont() throw();
+    RODFRouteCont() ;
 
     /// @brief Destructor
-    ~RODFRouteCont() throw();
+    ~RODFRouteCont() ;
 
 
     /** @brief Adds a route to the container
@@ -78,7 +78,7 @@ public:
      * @param[in] desc The route description to add
      * @see setID
      */
-    void addRouteDesc(RODFRouteDesc& desc) throw();
+    void addRouteDesc(RODFRouteDesc& desc) ;
 
 
     /** @brief Removes the given route description from the container
@@ -90,7 +90,7 @@ public:
      * @return Whether the route was removed (a similar was found)
      * @see RODFRouteCont::route_finder
      */
-    bool removeRouteDesc(RODFRouteDesc& desc) throw();
+    bool removeRouteDesc(RODFRouteDesc& desc) ;
 
 
     /** @brief Saves routes
@@ -102,13 +102,13 @@ public:
      * @exception IOError not yet implemented
      */
     bool save(std::vector<std::string> &saved,
-              const std::string& prependix, OutputDevice& out) throw(IOError);
+              const std::string& prependix, OutputDevice& out);
 
 
     /** @brief Returns the container of stored routes
      * @return The stored routes
      */
-    std::vector<RODFRouteDesc> &get() throw() {
+    std::vector<RODFRouteDesc> &get() {
         return myRoutes;
     }
 
@@ -118,7 +118,7 @@ public:
      * Done using by_distance_sorter.
      * @see RODFRouteCont::by_distance_sorter
      */
-    void sortByDistance() throw();
+    void sortByDistance() ;
 
 
     /** @brief Removes "illegal" routes
@@ -128,12 +128,12 @@ public:
      * @param[in] illegals List of edge combinations that shall not be passed
      * @todo Not used, yet
      */
-    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) throw();
+    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) ;
 
 
     /** @brief All routes are replaced by their versions extended by follower edges
     */
-    void addAllEndFollower() throw();
+    void addAllEndFollower() ;
 
 
 protected:
@@ -144,7 +144,7 @@ protected:
      *
      * @param[in] desc The route description to add
      */
-    void setID(RODFRouteDesc& desc) const throw();
+    void setID(RODFRouteDesc& desc) const ;
 
 
     /** @brief A class for sorting route descriptions by their length */

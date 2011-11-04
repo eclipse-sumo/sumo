@@ -39,16 +39,16 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSJunctionControl::MSJunctionControl() throw() {
+MSJunctionControl::MSJunctionControl() {
 }
 
 
-MSJunctionControl::~MSJunctionControl() throw() {
+MSJunctionControl::~MSJunctionControl() {
 }
 
 
 void
-MSJunctionControl::postloadInitContainer() throw(ProcessError) {
+MSJunctionControl::postloadInitContainer() {
     const std::vector<MSJunction*> &junctions = buildAndGetStaticVector();
     for (std::vector<MSJunction*>::const_iterator i = junctions.begin(); i != junctions.end(); ++i) {
         (*i)->postloadInit();

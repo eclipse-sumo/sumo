@@ -49,7 +49,7 @@ public:
         GUIGlObjectType type,
         const std::string& id);
 
-    ~GUIGlObject_AbstractAdd() throw();
+    ~GUIGlObject_AbstractAdd() ;
 
     /// Clears the dictionary (the objects will not be deleted)
     static void clearDictionary();

@@ -45,7 +45,7 @@
 // ===========================================================================
 PositionVector
 GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string& objecttype,
-                                    const char* objectid, bool& ok, bool allowEmpty, bool report) throw() {
+                                    const char* objectid, bool& ok, bool allowEmpty, bool report) {
     if (shpdef == "") {
         if (!allowEmpty) {
             emitError(report, "Shape", objecttype, objectid, "the shape is empty");
@@ -87,7 +87,7 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
 
 Boundary
 GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string& objecttype,
-                                       const char* objectid, bool& ok, bool report) throw() {
+                                       const char* objectid, bool& ok, bool report) {
     StringTokenizer st(def, ",");
     if (st.size() != 4) {
         emitError(report, "Bounding box", objecttype, objectid, "mismatching entry number");
@@ -112,7 +112,7 @@ GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string
 
 void
 GeomConvHelper::emitError(bool report, const std::string& what, const std::string& objecttype,
-                          const char* objectid, const std::string& desc) throw() {
+                          const char* objectid, const std::string& desc) {
     if (!report) {
         return;
     }

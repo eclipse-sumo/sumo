@@ -69,7 +69,7 @@ class MSDevice_Routing : public MSDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
      */
-    static void insertOptions() throw();
+    static void insertOptions() ;
 
 
     /** @brief Build devices for the given vehicle, if needed
@@ -89,7 +89,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) throw();
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) ;
 
 
 public:
@@ -114,12 +114,12 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) throw();
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
     /// @}
 
 
     /// @brief Destructor.
-    ~MSDevice_Routing() throw();
+    ~MSDevice_Routing() ;
 
 
 private:
@@ -131,7 +131,7 @@ private:
      * @param[in] preInsertionPeriod The route search period before insertion
      */
     MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period,
-                     SUMOTime preInsertionPeriod) throw();
+                     SUMOTime preInsertionPeriod) ;
 
 
     /** @brief Performs rerouting at insertion into the network
@@ -145,7 +145,7 @@ private:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime preInsertionReroute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime preInsertionReroute(SUMOTime currentTime) ;
 
 
     /** @brief Performs rerouting after a period
@@ -162,7 +162,7 @@ private:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime) ;
 
 
     /** @brief Returns the effort to pass an edge
@@ -196,7 +196,7 @@ private:
      * @see MSEventHandler
      * @see StaticCommand
      */
-    static SUMOTime adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError);
+    static SUMOTime adaptEdgeEfforts(SUMOTime currentTime) ;
     /// @}
 
 

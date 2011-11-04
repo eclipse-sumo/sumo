@@ -48,7 +48,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFNet::RODFNet(bool amInHighwayMode) throw()
+RODFNet::RODFNet(bool amInHighwayMode)
     : RONet(), myAmInHighwayMode(amInHighwayMode),
       mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0) {
     myDisallowedEdges = OptionsCont::getOptions().getStringVector("disallowed-edges");
@@ -56,7 +56,7 @@ RODFNet::RODFNet(bool amInHighwayMode) throw()
 }
 
 
-RODFNet::~RODFNet() throw() {
+RODFNet::~RODFNet() {
 }
 
 

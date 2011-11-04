@@ -131,7 +131,7 @@ NLEdgeControlBuilder::build() {
 
 
 MSEdge*
-NLEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) throw() {
+NLEdgeControlBuilder::buildEdge(const std::string& id, const std::string& streetName) {
     return new MSEdge(id, myCurrentNumericalEdgeID++, streetName);
 }
 

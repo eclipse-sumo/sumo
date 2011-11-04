@@ -60,7 +60,7 @@
 // ===========================================================================
 void
 PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                         PCTypeMap& tm) throw(ProcessError) {
+                         PCTypeMap& tm) {
     if (!oc.isSet("visum-files")) {
         return;
     }
@@ -80,7 +80,7 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 void
 PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
-                    PCTypeMap& tm) throw(ProcessError) {
+                    PCTypeMap& tm) {
     GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
     std::string what;
     std::map<long, Position> punkte;
