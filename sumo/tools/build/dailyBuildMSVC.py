@@ -112,7 +112,7 @@ for platform in ["Win32", "x64"]:
         if os.path.exists(maxFile.replace("-src-", "-doc-")):
             docZip = zipfile.ZipFile(maxFile.replace("-src-", "-doc-"))
             for f in docZip.namelist():
-                zipf.writestr(f, srcZip.read(f))
+                zipf.writestr(f, docZip.read(f))
             docZip.close()
         files_to_zip = (
                 glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
