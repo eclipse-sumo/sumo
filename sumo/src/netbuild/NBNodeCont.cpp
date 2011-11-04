@@ -182,7 +182,7 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
 
 
 void
-NBNodeCont::joinDoubleNodeConnections(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     // magic values
     SUMOReal distanceThreshold = 7; // don't merge edges further apart
     SUMOReal lengthThreshold = 0.05; // don't merge edges with higher relative length-difference

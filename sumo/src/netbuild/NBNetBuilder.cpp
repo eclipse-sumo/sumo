@@ -119,9 +119,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_DONE_MESSAGE();
     //
-    PROGRESS_BEGIN_MESSAGE("Joining double connections");
+    PROGRESS_BEGIN_MESSAGE("Joining similar edges");
     myJoinedEdges.init(myEdgeCont);
-    myNodeCont.joinDoubleNodeConnections(myDistrictCont, myEdgeCont, myTLLCont);
+    myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_DONE_MESSAGE();
     //
     if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {

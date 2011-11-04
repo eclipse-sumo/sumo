@@ -194,7 +194,7 @@ public:
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post No two edges with same geometry connecting same nodes exist
      */
-    void joinDoubleNodeConnections(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    void joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Removes sequences of edges that are not connected with a junction.
