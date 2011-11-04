@@ -201,7 +201,7 @@ Checked(3): 66/66
    189 edges loaded.
 The split of edges was performed 56 times.
 Removing self-loops... done.
-Joining double connections... done.
+Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
 Moving network to origin... done.

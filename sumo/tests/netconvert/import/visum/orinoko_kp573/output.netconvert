@@ -42,7 +42,7 @@ Parsing FAHRSTREIFENABBIEGER... done.
    100 types loaded.
    54 edges loaded.
 Removing self-loops... done.
-Joining double connections... done.
+Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
 Moving network to origin... done.

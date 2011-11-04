@@ -4,7 +4,7 @@ Parsing edges from 'input_edges.edg.xml'... done.
    5 nodes loaded.
    4 edges loaded.
 Removing self-loops... done.
-Joining double connections... done.
+Joining similar edges... done.
 Removing empty nodes and geometry nodes... done.
    1 nodes removed.
 Moving network to origin... done.

@@ -3,7 +3,7 @@ Parsing sumo-net from 'input_net.net.xml'... done.
    9 nodes loaded.
    12 edges loaded.
 Removing self-loops... done.
-Joining double connections... done.
+Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
 Assigning nodes to traffic lights... done.
