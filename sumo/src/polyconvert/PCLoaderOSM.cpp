@@ -102,7 +102,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         for (std::vector<int>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
-            if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
+            if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + e->id + "'.");
             }
             vec.push_back_noDoublePos(pos);
@@ -187,7 +187,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                 ignorePrunning = true;
             }
             Position pos(n->lon, n->lat);
-            if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
+            if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
             }
             PointOfInterest* poi = new PointOfInterest(name, type, pos, color);

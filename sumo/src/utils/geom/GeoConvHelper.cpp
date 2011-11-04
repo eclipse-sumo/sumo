@@ -44,9 +44,9 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-GeoConvHelper GeoConvHelper::myDefault("!", Position(), Boundary(), Boundary());
+GeoConvHelper GeoConvHelper::myProcessing("!", Position(), Boundary(), Boundary());
 GeoConvHelper GeoConvHelper::myLoaded("!", Position(), Boundary(), Boundary());
-GeoConvHelper GeoConvHelper::myOutput("!", Position(), Boundary(), Boundary());
+GeoConvHelper GeoConvHelper::myFinal("!", Position(), Boundary(), Boundary());
 int GeoConvHelper::myNumLoaded = 0;
 
 // ===========================================================================
@@ -153,7 +153,8 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = oc.getString("proj");
     }
 #endif
-    myDefault = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse, baseFound);
+    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), shift, inverse, baseFound);
+    myFinal = myProcessing;
     return true;
 }
 
@@ -163,36 +164,9 @@ GeoConvHelper::init(const std::string& proj,
                     const Position& offset,
                     const Boundary& orig,
                     const Boundary& conv) {
-    myDefault = GeoConvHelper(proj, offset, orig, conv);
+    myProcessing = GeoConvHelper(proj, offset, orig, conv);
+    myFinal = myProcessing;
 }
-
-
-#ifdef HAVE_PROJ
-void
-GeoConvHelper::initProjection(double x, double y) {
-    assert(myProjection == 0); // do not reinitialize
-
-    if (myProjectionMethod == UTM) {
-        int zone = (int)(x + 180) / 6 + 1;
-        myProjString = "+proj=utm +zone=" + toString(zone) +
-                       " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
-        myProjection = pj_init_plus(myProjString.c_str());
-        //!!! check pj_errno
-    }
-    if (myProjectionMethod == DHDN) {
-        int zone = (int)(x / 3);
-        if (zone < 1 || zone > 5) {
-            WRITE_WARNING("Attempt to initialize DHDN-projection on invalid longitude " + toString(x));
-            return;
-        }
-        myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
-                       " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
-                       " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
-        myProjection = pj_init_plus(myProjString.c_str());
-        //!!! check pj_errno
-    }
-}
-#endif
 
 
 void
@@ -236,7 +210,7 @@ GeoConvHelper::usingInverseGeoProjection() const {
 
 
 void
-GeoConvHelper::cartesian2geo(Position& cartesian) {
+GeoConvHelper::cartesian2geo(Position& cartesian) const {
     cartesian.sub(myOffset);
     if (myProjectionMethod == NONE) {
         return;
@@ -257,22 +231,71 @@ GeoConvHelper::cartesian2geo(Position& cartesian) {
 bool
 GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     myOrigBoundary.add(from);
-    double x = from.x();
-    double y = from.y();
+    // init projection parameter on first use
+#ifdef HAVE_PROJ
+    if (myProjection == 0) {
+        const double x = from.x() * myGeoScale;
+        switch(myProjectionMethod) {
+            case UTM: {
+                int zone = (int)(x + 180) / 6 + 1;
+                myProjString = "+proj=utm +zone=" + toString(zone) +
+                    " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+                myProjection = pj_init_plus(myProjString.c_str());
+                //!!! check pj_errno
+            }
+            break;
+            case DHDN: {
+                int zone = (int)(x / 3);
+                if (zone < 1 || zone > 5) {
+                    WRITE_WARNING("Attempt to initialize DHDN-projection on invalid longitude " + toString(x));
+                    return false;
+                }
+                myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
+                    " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+                    " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+                myProjection = pj_init_plus(myProjString.c_str());
+                //!!! check pj_errno
+            } 
+            break;
+            default:
+            break;
+        }
+    }
+#endif
+    // perform conversion
+    bool ok = x2cartesian_const(from);
+    if (ok) {
+        if (!myBaseFound) {
+            // avoid very large coordinates to reduce numerical errors
+            if (myProjectionMethod == SIMPLE || from.x() > 100000 || from.y() > 100000) {
+                myBaseX = from.x();
+                myBaseY = from.y();
+                from.set(0,0);
+            }
+            myBaseFound = true;
+        }
+
+        if (includeInBoundary) {
+            myConvBoundary.add(from);
+        }
+    }
+    return ok;
+}
+
+
+bool
+GeoConvHelper::x2cartesian_const(Position& from) const {
+    double x = from.x() * myGeoScale;
+    double y = from.y() * myGeoScale;
     if (myProjectionMethod == NONE) {
         from.add(myOffset);
     } else if (myUseInverseProjection) {
         cartesian2geo(from);
     } else {
-        x *= myGeoScale;
-        y *= myGeoScale;
         if (x > 180.1 || x < -180.1 || y > 90.1 || y < -90.1) {
             return false;
         }
 #ifdef HAVE_PROJ
-        if (myProjection == 0) {
-            initProjection(x, y);
-        }
         if (myProjection != 0) {
             projUV p;
             p.u = x * DEG_TO_RAD;
@@ -285,11 +308,6 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
 #endif
         if (myProjectionMethod == SIMPLE) {
             double ys = y;
-            if (!myBaseFound) {
-                myBaseX = x;
-                myBaseY = y;
-                myBaseFound = true;
-            }
             x -= myBaseX;
             y -= myBaseY;
             x *= 111320. * cos(ys * PI / 180.0);
@@ -300,22 +318,10 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
         }
     }
     if (myProjectionMethod != SIMPLE) {
-        if (!myBaseFound) {
-            if (x > 100000 || y > 100000) {
-                myBaseX = x;
-                myBaseY = y;
-            }
-            myBaseFound = true;
-        }
-        if (myBaseFound) {
-            x -= myBaseX;
-            y -= myBaseY;
-        }
+        x -= myBaseX;
+        y -= myBaseY;
         from.set((SUMOReal)x, (SUMOReal)y);
         from.add(myOffset);
-    }
-    if (includeInBoundary) {
-        myConvBoundary.add(from);
     }
     return true;
 }
@@ -358,23 +364,33 @@ GeoConvHelper::getProjString() const {
 }
 
 
-const GeoConvHelper&
-GeoConvHelper:: getOutputInstance() {
+void 
+GeoConvHelper::computeFinal() {
     if (myNumLoaded == 0) {
-        return myDefault;
-    } else if (myNumLoaded > 1) {
-        WRITE_WARNING("Multiple location elements have been loaded. Check output location for correctness");
+        myFinal = myProcessing;
+    } else  {
+        myFinal = GeoConvHelper(
+                // prefer options over loaded location
+                myProcessing.usingGeoProjection() ? myProcessing.getProjString() : myLoaded.getProjString(),
+                // let offset and boundary lead back to the original coords of the loaded data
+                myProcessing.getOffset() + myLoaded.getOffset(),
+                myLoaded.getOrigBoundary(),
+                // the new boundary (updated during loading)
+                myProcessing.getConvBoundary());
     }
-    myOutput = GeoConvHelper(
-                   // prefer options over loaded location
-                   myDefault.usingGeoProjection() ? myDefault.getProjString() : myLoaded.getProjString(),
-                   // let offset and boundary lead back to the original coords of the loaded data
-                   myDefault.getOffset() + myLoaded.getOffset(),
-                   myLoaded.getOrigBoundary(),
-                   // the new boundary (updated during loading)
-                   myDefault.getConvBoundary());
-    return myOutput;
 }
+
+
+void 
+GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
+    myNumLoaded++;
+    if (myNumLoaded > 1) {
+        WRITE_WARNING("Ignoring loaded location attribute nr. " + toString(myNumLoaded) + " for tracking of original location");
+    } else {
+        myLoaded = loaded;
+    }
+}
+
 
 /****************************************************************************/
 

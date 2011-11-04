@@ -145,7 +145,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         if (name == "") {
             throw ProcessError("The name of a POI is missing.");
         }
-        if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos, true)) {
+        if (!GeoConvHelper::getProcessing().x2cartesian(pos, true)) {
             throw ProcessError("Unable to project coordinates for POI '" + name + "'.");
         }
 
@@ -220,7 +220,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position pos(x, y);
-            if (!GeoConvHelper::getDefaultInstance().x2cartesian(pos)) {
+            if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
             }
             vec.push_back(pos);

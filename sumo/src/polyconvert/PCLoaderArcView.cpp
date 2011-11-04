@@ -71,7 +71,7 @@ void
 PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
                       PCTypeMap&) {
 #ifdef HAVE_GDAL
-    GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
+    GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
     // get defaults
     std::string prefix = oc.getString("prefix");
     std::string type = oc.getString("type");

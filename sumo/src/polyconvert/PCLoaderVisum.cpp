@@ -81,7 +81,7 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 void
 PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& toFill,
                     PCTypeMap& tm) {
-    GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
+    GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
     std::string what;
     std::map<long, Position> punkte;
     std::map<long, PositionVector> kanten;

@@ -76,8 +76,8 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                            << "\" pos=\"" << veh->getPositionOnLane()
                            << "\" x=\"" << pos.x()
                            << "\" y=\"" << pos.y();
-            if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
-                GeoConvHelper::getDefaultInstance().cartesian2geo(pos);
+            if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                GeoConvHelper::getFinal().cartesian2geo(pos);
                 myOutputDevice.setPrecision(GEO_OUTPUT_ACCURACY);
                 myOutputDevice << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
                 myOutputDevice.setPrecision();

@@ -151,7 +151,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case VAR_NET_BOUNDING_BOX: {
             tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
-            Boundary b = GeoConvHelper::getDefaultInstance().getConvBoundary();
+            Boundary b = GeoConvHelper::getFinal().getConvBoundary();
             tempMsg.writeDouble(b.xmin());
             tempMsg.writeDouble(b.ymin());
             tempMsg.writeDouble(b.xmax());
@@ -264,9 +264,9 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
             geoPos.set(x, y);
             cartesianPos.set(x, y);
             if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
-                GeoConvHelper::getDefaultInstance().x2cartesian(cartesianPos);
+                GeoConvHelper::getFinal().x2cartesian_const(cartesianPos);
             } else {
-                GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
+                GeoConvHelper::getFinal().cartesian2geo(geoPos);
             }
         }
         break;
@@ -276,7 +276,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
             int laneIdx = inputStorage.readUnsignedByte();
             try {
                 cartesianPos = geoPos = getLaneChecking(roadID, laneIdx, pos)->getShape().positionAtLengthPosition(pos);
-                GeoConvHelper::getDefaultInstance().cartesian2geo(geoPos);
+                GeoConvHelper::getFinal().cartesian2geo(geoPos);
             } catch (TraCIException& e) {
                 server.writeStatusCmd(commandId, RTYPE_ERR, e.what());
                 return false;

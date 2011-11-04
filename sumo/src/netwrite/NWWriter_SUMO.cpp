@@ -558,7 +558,7 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 
 void
 NWWriter_SUMO::writeLocation(OutputDevice& into) {
-    const GeoConvHelper& geoConvHelper = GeoConvHelper::getOutputInstance();
+    const GeoConvHelper& geoConvHelper = GeoConvHelper::getFinal();
     into.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
                                     << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
     if (geoConvHelper.usingGeoProjection()) {

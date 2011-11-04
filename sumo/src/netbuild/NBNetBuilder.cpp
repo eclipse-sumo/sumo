@@ -94,7 +94,7 @@ void
 NBNetBuilder::compute(OptionsCont& oc,
                       const std::set<std::string> &explicitTurnarounds,
                       bool removeUnwishedNodes) {
-    GeoConvHelper& geoConvHelper = GeoConvHelper::getDefaultInstance();
+    GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
 
     // MODIFYING THE SETS OF NODES AND EDGES
@@ -181,6 +181,7 @@ NBNetBuilder::compute(OptionsCont& oc,
         geoConvHelper.moveConvertedBy(x, y);
         PROGRESS_DONE_MESSAGE();
     }
+    geoConvHelper.computeFinal(); // information needed for location element fixed at this point
 
     // @todo Why?
     myEdgeCont.recomputeLaneShapes();

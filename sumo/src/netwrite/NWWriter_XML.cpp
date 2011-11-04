@@ -74,7 +74,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
-        if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
+        if (GeoConvHelper::getFinal().usingInverseGeoProjection()) {
             device.setPrecision(GEO_OUTPUT_ACCURACY);
         }
         NWFrame::writePositionLong(n->getPosition(), device);
@@ -126,7 +126,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         }
         // write non-default geometry
         if (!e->hasDefaultGeometry()) {
-            if (GeoConvHelper::getOutputInstance().usingInverseGeoProjection()) {
+            if (GeoConvHelper::getFinal().usingInverseGeoProjection()) {
                 edevice.setPrecision(GEO_OUTPUT_ACCURACY);
             }
             edevice.writeAttr(SUMO_ATTR_SHAPE, e->getGeometry());

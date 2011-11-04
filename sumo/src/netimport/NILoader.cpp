@@ -125,8 +125,8 @@ NILoader::load(OptionsCont& oc) {
     if (myNetBuilder.getEdgeCont().getNoEdgeSplits() > 0) {
         WRITE_MESSAGE("The split of edges was performed " + toString(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
     }
-    if (GeoConvHelper::getDefaultInstance().usingGeoProjection()) {
-        WRITE_MESSAGE("Proj projection parameters used: '" + GeoConvHelper::getDefaultInstance().getProjString() + "'.");
+    if (GeoConvHelper::getProcessing().usingGeoProjection()) {
+        WRITE_MESSAGE("Proj projection parameters used: '" + GeoConvHelper::getProcessing().getProjString() + "'.");
     }
 }
 
@@ -194,7 +194,7 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &f
 bool
 NILoader::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
-    bool ok = GeoConvHelper::getDefaultInstance().x2cartesian(from, includeInBoundary);
+    bool ok = GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
 #ifdef HAVE_MESOSIM
     if (ok) {
         const HeightMapper& hm = HeightMapper::get();
