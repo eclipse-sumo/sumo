@@ -753,29 +753,29 @@ void* operator new[](size_t size) throw(std::bad_alloc)
 }
 
 #if !defined(__BORLANDC__) || __BORLANDC__ > 0x551
-void* operator new(size_t size, const std::nothrow_t&)
+void* operator new(size_t size, const std::nothrow_t&) throw()
 {
     return alloc_mem(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0, false);
 }
 
-void* operator new[](size_t size, const std::nothrow_t&)
+void* operator new[](size_t size, const std::nothrow_t&) throw()
 {
     return alloc_mem(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0, true);
 }
 #endif
 
-void operator delete(void* pointer)
+void operator delete(void* pointer) throw()
 {
     free_pointer(pointer, _DEBUG_NEW_CALLER_ADDRESS, false);
 }
 
-void operator delete[](void* pointer)
+void operator delete[](void* pointer) throw()
 {
     free_pointer(pointer, _DEBUG_NEW_CALLER_ADDRESS, true);
 }
 
 #if HAVE_PLACEMENT_DELETE
-void operator delete(void* pointer, const char* file, int line)
+void operator delete(void* pointer, const char* file, int line) throw()
 {
     if (new_verbose_flag)
     {
@@ -789,7 +789,7 @@ void operator delete(void* pointer, const char* file, int line)
     operator delete(pointer);
 }
 
-void operator delete[](void* pointer, const char* file, int line)
+void operator delete[](void* pointer, const char* file, int line) throw()
 {
     if (new_verbose_flag)
     {
@@ -803,12 +803,12 @@ void operator delete[](void* pointer, const char* file, int line)
     operator delete[](pointer);
 }
 
-void operator delete(void* pointer, const std::nothrow_t&)
+void operator delete(void* pointer, const std::nothrow_t&) throw()
 {
     operator delete(pointer, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 
-void operator delete[](void* pointer, const std::nothrow_t&)
+void operator delete[](void* pointer, const std::nothrow_t&) throw()
 {
     operator delete[](pointer, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }

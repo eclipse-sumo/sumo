@@ -96,14 +96,14 @@ int check_mem_corruption();
 void* operator new(size_t size, const char* file, int line);
 void* operator new[](size_t size, const char* file, int line);
 #if HAVE_PLACEMENT_DELETE
-void operator delete(void* pointer, const char* file, int line) ;
-void operator delete[](void* pointer, const char* file, int line) ;
+void operator delete(void* pointer, const char* file, int line) throw();
+void operator delete[](void* pointer, const char* file, int line) throw();
 #endif
 #if defined(_MSC_VER) && _MSC_VER < 1300
 // MSVC 6 requires the following declarations; or the non-placement
 // new[]/delete[] will not compile.
 void* operator new[](size_t) throw(std::bad_alloc);
-void operator delete[](void*) ;
+void operator delete[](void*) throw();
 #endif
 
 /* Control variables */
