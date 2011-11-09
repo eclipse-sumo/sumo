@@ -129,7 +129,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
 
     // there are two scenarios to consider
-    // 1) the tll.xml is loaded to updated traffic lights defined in a net.xml:
+    // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
     //   simply retrieve the loaded definitions and update them
     // 2) the tll.xml is loaded to define new traffic lights
     //   nod.xml will have triggered building of NBOwnTLDef. Replace it with NBLoadedSUMOTLDef
@@ -195,13 +195,13 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     // read other  attributes
     std::string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, 0, ok, "");
     if (tlID == "") {
-        // we are updating an existing connection
+        // we are updating an existing tl-controlled connection
         tlID = c.tlID;
         assert(tlID != "");
     }
     int tlIndex = attrs.getOptIntReporting(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
     if (tlIndex == -1) {
-        // we are updating an existing connection
+        // we are updating an existing tl-controlled connection
         tlIndex = c.tlLinkNo;
     }
 
