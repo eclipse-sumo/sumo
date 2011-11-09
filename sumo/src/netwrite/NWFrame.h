@@ -68,6 +68,11 @@ public:
      */
     static void writePositionLong(const Position& pos, OutputDevice& dev);
 
+
+
+    /** @brief The version number for written files */
+    static const std::string MAJOR_VERSION;
+
 };
 
 
