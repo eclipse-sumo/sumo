@@ -61,7 +61,7 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output, routesInfo, initial_type):
-    cfgname = "iteration_%s_%s.rou.cfg" % (step, file)
+    cfgname = "iteration_%s_%s.rou.cfg" % (step, os.path.basename(file))
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -102,7 +102,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     return cfgname
 
 def writeSUMOConf(step, options, files):
-    fd = open("iteration_" + str(step) + ".sumo.cfg", "w")
+    fd = open("iteration_%s.sumo.cfg" % step, "w")
     add = ""
     if options.additional != "":
         add = "," + options.additional
@@ -164,10 +164,12 @@ def main():
     optParser = initOptions()
     optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                          default=False, help="continues on unbuild routes")
-    optParser.add_option("-t", "--trips", dest="trips",
-                         help="trips in step 0 (either trips or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-r", "--routes", dest="routes",
-                         help="routes in step 0 (either trips or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-t", "--trips",
+                         help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-r", "--routes",
+                         help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-F", "--flows",
+                         help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     optParser.add_option("-A", "--gA", dest="gA",
                          type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
     optParser.add_option("-B", "--gBeta", dest="gBeta",
@@ -199,8 +201,8 @@ def main():
     (options, args) = optParser.parse_args()
     if not options.net:
         optParser.error("Option --net-file is mandatory")
-    if (not options.trips and not options.routes) or (options.trips and options.routes):
-        optParser.error("Either --trips or --routes have to be given!")
+    if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
+        optParser.error("Either --trips, --flows, or --routes have to be given!")
     duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
     if options.mesosim:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
@@ -223,6 +225,9 @@ def main():
     if options.trips:
         input_demands = options.trips.split(",")
         initial_type = "trip"
+    elif options.flows:
+        input_demands = options.flows.split(",")
+        initial_type = "flow"
     else:
         input_demands = options.routes.split(",")
         initial_type = "route"
