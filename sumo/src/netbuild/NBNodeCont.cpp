@@ -533,9 +533,52 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
                 throw ProcessError("Could not allocate tls '" + id + "'.");
             }
         }
-        // perform the merging
-        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
-            merge(*j, newNode, dc, ec);
+        // collect edges
+        std::set<NBEdge*> allEdges;
+        for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); ++j) {
+            const std::vector<NBEdge*> &edges = (*j)->getEdges();
+            for(std::vector<NBEdge*>::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
+                allEdges.insert(*k);
+            }
+        }
+
+        // remap and remove edges which are completely within the new intersection
+        for(std::set<NBEdge*>::iterator j=allEdges.begin(); j!=allEdges.end();) {
+            NBEdge *e = (*j);
+            NBNode *from = e->getFromNode();
+            NBNode *to = e->getToNode();
+            if(cluster.find(from)!=cluster.end() && cluster.find(to)!=cluster.end()) {
+                for(std::set<NBEdge*>::const_iterator l=allEdges.begin(); l!=allEdges.end(); ++l) {
+                    if(e==*l) {
+                        continue;
+                    }
+                    (*l)->replaceInConnections(e, e->getConnections());
+                }
+                ec.erase(dc, e);
+                j = allEdges.erase(j);
+                continue;
+            }
+            ++j;
+        }
+
+        // remap edges which are incoming / outgoing
+        for(std::set<NBEdge*>::iterator j=allEdges.begin(); j!=allEdges.end(); ++j) {
+            NBEdge *e = (*j);
+            std::vector<NBEdge::Connection> conns = e->getConnections();
+            PositionVector g = e->getGeometry();
+            if(cluster.find(e->getFromNode())!=cluster.end()) {
+                e->reinit(newNode, e->getToNode(), e->getTypeID(), e->getSpeed(),
+                    e->getNumLanes(), e->getPriority(), e->getGeometry(),
+                    e->getWidth(), e->getOffset(), e->getLaneSpreadFunction());
+            } else {
+                e->reinit(e->getFromNode(), newNode, e->getTypeID(), e->getSpeed(),
+                    e->getNumLanes(), e->getPriority(), e->getGeometry(),
+                    e->getWidth(), e->getOffset(), e->getLaneSpreadFunction());
+            }
+            e->setGeometry(g);
+            for(std::vector<NBEdge::Connection>::iterator k=conns.begin(); k!=conns.end(); ++k) {
+                e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
+            }
         }
     }
 }
@@ -559,36 +602,6 @@ NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position&
     sort(member_ids.begin(), member_ids.end());
     for (std::vector<std::string>::iterator j = member_ids.begin(); j != member_ids.end(); j++) {
         id = id + "_" + (*j);
-    }
-}
-
-
-void
-NBNodeCont::merge(NBNode* moved, NBNode* target, NBDistrictCont& dc, NBEdgeCont& ec) {
-    // deleting edges changes in the underlying EdgeVector so we have to make a copy
-    EdgeVector incoming = moved->getIncomingEdges();
-    for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
-        remapEdge(*it, (*it)->getFromNode(), target, dc, ec);
-    }
-    // deleting edges changes in the underlying EdgeVector so we have to make a copy
-    EdgeVector outgoing = moved->getOutgoingEdges();
-    for (EdgeVector::iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        remapEdge(*it, target, (*it)->getToNode(), dc, ec);
-    }
-    erase(moved);
-}
-
-
-void
-NBNodeCont::remapEdge(NBEdge* oldEdge, NBNode* from, NBNode* to, NBDistrictCont& dc, NBEdgeCont& ec) {
-    if (to == from) {
-        // @todo remap connections
-        ec.erase(dc, oldEdge);
-    } else {
-        NBEdge* remapped = new NBEdge(oldEdge->getID(), from, to, oldEdge);
-        remapped->setGeometry(oldEdge->getGeometry());
-        ec.erase(dc, oldEdge); // erase first so we can reuse the name
-        ec.insert(remapped);
     }
 }
 

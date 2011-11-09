@@ -176,6 +176,7 @@ public:
     /// @}
 
 
+
     /// @name Adapting the input
     /// @{
 
@@ -345,12 +346,7 @@ private:
      */
     void generateNodeClusters(SUMOReal maxDist, NodeClusters& into) const;
 
-    // @brief merges two nodes using name and position of target
-    void merge(NBNode* moved, NBNode* target, NBDistrictCont& dc, NBEdgeCont& ec);
-
-    // @brief replaces oldEdge by an edge between from and to, keeping all attributes
-    void remapEdge(NBEdge* oldEdge, NBNode* from, NBNode* to, NBDistrictCont& dc, NBEdgeCont& ec);
-
+ 
     // @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters,
                           NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);

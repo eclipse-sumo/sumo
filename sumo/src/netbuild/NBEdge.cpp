@@ -765,6 +765,59 @@ NBEdge::replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff) {
     }
 }
 
+void 
+NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection> &origConns) {
+    std::map<int, int> laneMap;
+    int minLane = -1;
+    int maxLane = -1;
+    // get lanes used to approach the edge to remap
+    bool wasConnected = false;
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        if ((*i).toEdge != which) {
+            continue;
+        }
+        wasConnected = true;
+        if((*i).fromLane!=-1) {
+            int fromLane = (*i).fromLane;
+            laneMap[(*i).toLane] = fromLane;
+            if(minLane==-1||minLane>fromLane) {
+                minLane= fromLane;
+            }
+            if(maxLane==-1||maxLane<fromLane) {
+                maxLane= fromLane;
+            }
+        }
+    }
+    if(!wasConnected) {
+        return;
+    }
+    // remove the remapped edge from connections
+    removeFromConnections(which);
+    // add new connections 
+    std::vector<NBEdge::Connection> conns = origConns;
+    for(std::vector<NBEdge::Connection>::iterator i=conns.begin(); i!=conns.end(); ++i) {
+        if((*i).toEdge==which) {
+            continue;
+        }
+            int fromLane = (*i).fromLane;
+            int toUse = -1;
+            if(laneMap.find(fromLane)==laneMap.end()) {
+                if(fromLane>=0 && fromLane<=minLane) {
+                    toUse = minLane;
+                }
+                if(fromLane>=0 && fromLane>=maxLane) {
+                    toUse = maxLane;
+                }
+            } else {
+                toUse = laneMap[fromLane];
+            }
+            if(toUse==-1) {
+                toUse = 0;
+            }
+                setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass);
+    }
+}
+
 
 void
 NBEdge::copyConnectionsFrom(NBEdge* src) {

@@ -716,6 +716,7 @@ public:
     void invalidateConnections(bool reallowSetting = false);
 
     void replaceInConnections(NBEdge* which, NBEdge* by, unsigned int laneOff);
+    void replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection> &origConns);
     void copyConnectionsFrom(NBEdge* src);
     /// @}
 
