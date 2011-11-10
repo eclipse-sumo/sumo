@@ -537,9 +537,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         std::set<NBEdge*> allEdges;
         for (std::set<NBNode*>::const_iterator j=cluster.begin(); j!=cluster.end(); ++j) {
             const std::vector<NBEdge*> &edges = (*j)->getEdges();
-            for(std::vector<NBEdge*>::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
-                allEdges.insert(*k);
-            }
+            allEdges.insert(edges.begin(), edges.end());
         }
 
         // remap and remove edges which are completely within the new intersection
@@ -547,18 +545,17 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             NBEdge *e = (*j);
             NBNode *from = e->getFromNode();
             NBNode *to = e->getToNode();
-            if(cluster.find(from)!=cluster.end() && cluster.find(to)!=cluster.end()) {
-                for(std::set<NBEdge*>::const_iterator l=allEdges.begin(); l!=allEdges.end(); ++l) {
-                    if(e==*l) {
-                        continue;
+            if(cluster.count(from) > 0 && cluster.count(to) > 0) {
+                for(std::set<NBEdge*>::iterator l=allEdges.begin(); l!=allEdges.end(); ++l) {
+                    if(e != *l) {
+                        (*l)->replaceInConnections(e, e->getConnections());
                     }
-                    (*l)->replaceInConnections(e, e->getConnections());
                 }
                 ec.erase(dc, e);
-                j = allEdges.erase(j);
-                continue;
+                allEdges.erase(j++); // erase does not invalidate the other iterators
+            } else {
+                ++j;
             }
-            ++j;
         }
 
         // remap edges which are incoming / outgoing
