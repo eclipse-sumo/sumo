@@ -639,7 +639,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     } else {
         // (potential) interaction with a vehicle extending partially into this lane
         MSVehicle* predP = myLane->getPartialOccupator();
-        if (predP != 0) {
+        if (predP != 0 && predP != this) {
             SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
             if (MSGlobals::gCheck4Accidents && gap < 0) {
                 // collision occured!
