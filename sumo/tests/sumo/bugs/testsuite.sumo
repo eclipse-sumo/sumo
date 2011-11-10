@@ -55,3 +55,9 @@ initialization_of_triggered_stops
 # Long stops should not cause a teleport
 teleport_after_long_stop
 ticket435_parking
+
+# invalid teleport message in connection with arrivalpos. 
+# Note that this behaviour highly nondeterministic:
+# The probability that a certain seed shows this behaviour is greatly affected by small changes in geometry
+# and ranges from 0 to 100%.
+ticket604
