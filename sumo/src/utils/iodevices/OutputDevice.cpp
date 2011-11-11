@@ -242,5 +242,11 @@ OutputDevice::inform(const std::string& msg) {
 }
 
 
+OutputDevice& 
+OutputDevice::writeAttr(std::string attr, std::string val) {
+    getOStream() << " " << attr << "=\"" << val << "\"";
+    return *this;
+}
+
 /****************************************************************************/
 

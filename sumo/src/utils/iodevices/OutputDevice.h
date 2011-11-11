@@ -228,10 +228,8 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    OutputDevice& writeAttr(std::string attr, std::string val) {
-        getOStream() << " " << attr << "=\"" << val << "\"";
-        return *this;
-    }
+    OutputDevice& writeAttr(std::string attr, std::string val);
+
 
     /** @brief writes an named attribute
      *
@@ -240,7 +238,7 @@ public:
      */
     template <class T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        return writeAttr(toString(attr), toString(val));
+        return writeAttr(toString(attr), toString(val, getOStream().precision()));
     }
 
 
