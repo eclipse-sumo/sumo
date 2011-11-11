@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/07/11 10:27:47 by SUMO netconvert Version dev-SVN-r10888
+<!-- generated on Fri Nov 11 12:09:14 2011 by SUMO netconvert Version dev-SVN-r11490
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -12,6 +12,7 @@
     <output>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
+        <output.street-names value="true"/>
     </output>
 
     <report>
