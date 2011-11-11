@@ -559,16 +559,17 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 void
 NWWriter_SUMO::writeLocation(OutputDevice& into) {
     const GeoConvHelper& geoConvHelper = GeoConvHelper::getFinal();
-    into.openTag(SUMO_TAG_LOCATION) << " netOffset=\"" << geoConvHelper.getOffsetBase() << "\""
-                                    << " convBoundary=\"" << geoConvHelper.getConvBoundary() << "\"";
+    into.openTag(SUMO_TAG_LOCATION);
+    into.writeAttr(SUMO_ATTR_NET_OFFSET, geoConvHelper.getOffsetBase());
+    into.writeAttr(SUMO_ATTR_CONV_BOUNDARY, geoConvHelper.getConvBoundary());
     if (geoConvHelper.usingGeoProjection()) {
         into.setPrecision(GEO_OUTPUT_ACCURACY);
-        into << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
+    } 
+    into.writeAttr(SUMO_ATTR_ORIG_BOUNDARY, geoConvHelper.getOrigBoundary());
+    if (geoConvHelper.usingGeoProjection()) {
         into.setPrecision();
-    } else {
-        into << " origBoundary=\"" << geoConvHelper.getOrigBoundary() << "\"";
-    }
-    into << " projParameter=\"" << geoConvHelper.getProjString() << "\"";
+    } 
+    into.writeAttr(SUMO_ATTR_ORIG_PROJ, geoConvHelper.getProjString());
     into.closeTag(true);
     into << "\n";
 }
