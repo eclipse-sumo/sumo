@@ -1,9 +1,9 @@
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
     <!-- Deleted Elements -->
-    <reset id="27441168"/>
-    <reset id="27441189"/>
-    <reset id="27445003"/>
-    <reset id="6137245"/>
+    <delete id="27441168"/>
+    <delete id="27441189"/>
+    <delete id="27445003"/>
+    <delete id="6137245"/>
     <!-- Created Elements -->
     <!-- Changed Elements -->
     <edge id="27445000#0" from="cluster_301292612_38919945_56231397_59993001" shape="35.18,54.83 0.00,51.05"/>

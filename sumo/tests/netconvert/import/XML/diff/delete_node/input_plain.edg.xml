@@ -1,7 +1,7 @@
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
     <!-- Deleted Elements -->
-    <reset id="edge_C2U"/>
-    <reset id="edge_U2C"/>
+    <delete id="edge_C2U"/>
+    <delete id="edge_U2C"/>
     <!-- Created Elements -->
     <!-- Changed Elements -->
 </edges>

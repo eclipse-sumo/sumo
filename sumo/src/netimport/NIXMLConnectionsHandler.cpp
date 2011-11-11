@@ -69,7 +69,7 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {}
 void
 NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_RESET) {
+    if (element == SUMO_TAG_DELETE) {
         bool ok = true;
         std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, 0, ok);
         std::string to = attrs.getStringReporting(SUMO_ATTR_TO, 0, ok);

@@ -112,6 +112,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
     { "wautJunction",     SUMO_TAG_WAUT_JUNCTION },
     { "reset",        	  SUMO_TAG_RESET },
+    { "delete",        	  SUMO_TAG_DELETE },
     { "stop",        	  SUMO_TAG_STOP },
     { "dest_prob_reroute", SUMO_TAG_DEST_PROB_REROUTE__DEPRECATED },
     { "destProbReroute",  SUMO_TAG_DEST_PROB_REROUTE },

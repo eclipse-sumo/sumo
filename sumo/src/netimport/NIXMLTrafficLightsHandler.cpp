@@ -89,7 +89,7 @@ NIXMLTrafficLightsHandler::myStartElement(
         case SUMO_TAG_CONNECTION:
             addTlConnection(attrs);
             break;
-        case SUMO_TAG_RESET:
+        case SUMO_TAG_DELETE:
             removeTlConnection(attrs);
             break;
         default:

@@ -1,5 +1,5 @@
 <connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/connections_file.xsd">
 
-	<reset from="1si" to="2o"/>
+	<delete from="1si" to="2o"/>
 
 </connections>

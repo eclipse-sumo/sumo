@@ -60,7 +60,7 @@ def get_id_attrs(tag):
     else:
         return ('id',)
 
-DELETE_ELEMENT = 'reset' # the xml element for signifying deletes
+DELETE_ELEMENT = 'delete' # the xml element for signifying deletes
 
 # provide an order for the attribute names
 ATTRIBUTE_NAMES = {

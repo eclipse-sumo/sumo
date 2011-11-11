@@ -79,7 +79,7 @@ NIXMLNodesHandler::myStartElement(int element,
         case SUMO_TAG_JOINEXCLUDE:
             addJoinExclusion(attrs);
             break;
-        case SUMO_TAG_RESET:
+        case SUMO_TAG_DELETE:
             deleteNode(attrs);
             break;
         default:
@@ -176,7 +176,7 @@ NIXMLNodesHandler::deleteNode(const SUMOSAXAttributes& attrs) {
     }
     NBNode* node = myNodeCont.retrieve(myID);
     if (node == 0) {
-        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_RESET) + "' for unknown node '" +
+        WRITE_WARNING("Ignoring tag '" + toString(SUMO_TAG_DELETE) + "' for unknown node '" +
                       myID + "'");
         return;
     } else {
