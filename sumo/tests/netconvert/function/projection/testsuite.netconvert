@@ -6,3 +6,6 @@ utm
 
 # utm projection across zone boundaries
 utm_multizone
+
+# test option proj.plain-geo
+plain_geo

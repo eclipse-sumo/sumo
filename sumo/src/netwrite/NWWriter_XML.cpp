@@ -67,18 +67,33 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 void
 NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
-    // write nodes
+    const GeoConvHelper& gch = GeoConvHelper::getFinal();
+    bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
+    if (useGeo && !gch.usingGeoProjection()) {
+        WRITE_WARNING("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined");
+        useGeo = false;
+    }
+    const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
+
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     device.writeXMLHeader("nodes", NWFrame::XML_PARAMS, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
         device.writeAttr(SUMO_ATTR_ID, n->getID());
-        if (GeoConvHelper::getFinal().usingInverseGeoProjection()) {
+        // write position
+        Position pos = n->getPosition();
+        if (useGeo) {
+            gch.cartesian2geo(pos);
+        }
+        if (geoAccuracy) {
             device.setPrecision(GEO_OUTPUT_ACCURACY);
         }
-        NWFrame::writePositionLong(n->getPosition(), device);
-        device.setPrecision();
+        NWFrame::writePositionLong(pos, device);
+        if (geoAccuracy) {
+            device.setPrecision();
+        }
+
         device.writeAttr(SUMO_ATTR_TYPE, toString(n->getType()));
         if (n->isTLControlled()) {
             const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
@@ -100,6 +115,10 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
 void
 NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec) {
+    const GeoConvHelper& gch = GeoConvHelper::getFinal();
+    bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
+    const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
+
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
     edevice.writeXMLHeader("edges", NWFrame::XML_PARAMS, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/edges_file.xsd\"");
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
@@ -126,11 +145,19 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         }
         // write non-default geometry
         if (!e->hasDefaultGeometry()) {
-            if (GeoConvHelper::getFinal().usingInverseGeoProjection()) {
+            PositionVector geom = e->getGeometry();
+            if (useGeo) {
+                for (int i = 0; i < (int) geom.size(); i++) {
+                    gch.cartesian2geo(geom[i]);
+                }
+            }
+            if (geoAccuracy) {
                 edevice.setPrecision(GEO_OUTPUT_ACCURACY);
             }
-            edevice.writeAttr(SUMO_ATTR_SHAPE, e->getGeometry());
-            edevice.setPrecision();
+            edevice.writeAttr(SUMO_ATTR_SHAPE, geom);
+            if (geoAccuracy) {
+                edevice.setPrecision();
+            }
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction() != LANESPREAD_RIGHT) {

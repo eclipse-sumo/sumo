@@ -193,6 +193,9 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
 
     oc.doRegister("proj.inverse", new Option_Bool(false));
     oc.addDescription("proj.inverse", "Projection", "Inverses projection");
+
+    oc.doRegister("proj.plain-geo", new Option_Bool(false));
+    oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
 #endif // HAVE_PROJ
 }
 
