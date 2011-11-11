@@ -61,7 +61,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
-    device.writeXMLHeader("net", " encoding=\"iso-8859-1\"", NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
+    device.writeXMLHeader("net", NWFrame::XML_PARAMS, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
     device << "\n";
     // get involved container
     const NBNodeCont& nc = nb.getNodeCont();

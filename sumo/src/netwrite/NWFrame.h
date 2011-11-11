@@ -73,6 +73,9 @@ public:
     /** @brief The version number for written files */
     static const std::string MAJOR_VERSION;
 
+    /** @brief The XML parameters */
+    static const std::string XML_PARAMS;
+
 };
 
 

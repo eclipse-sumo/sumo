@@ -48,6 +48,7 @@
 // static members
 // ===========================================================================
 const std::string NWFrame::MAJOR_VERSION = "version=\"0.13\"";
+const std::string NWFrame::XML_PARAMS = " encoding=\"UTF-8\"";
 
 
 // ===========================================================================
