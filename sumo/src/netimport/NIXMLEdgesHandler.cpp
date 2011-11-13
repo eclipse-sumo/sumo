@@ -220,13 +220,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myShape = tryGetShape(attrs);
     // try to get the spread type
     myLanesSpread = tryGetLaneSpread(attrs);
-    // get the length or compute it
-    if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        myLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok);
-    } else {
-        myLength = 0;
-    }
-    /// insert the parsed edge into the edges map
+    // try to get the length
+    myLength = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
+    // insert the parsed edge into the edges map
     if (!ok) {
         return;
     }

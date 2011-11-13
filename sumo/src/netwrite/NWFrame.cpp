@@ -65,7 +65,13 @@ NWFrame::fillOptions() {
 
     oc.doRegister("plain-output-prefix", new Option_FileName());
     oc.addSynonyme("plain-output-prefix", "plain-output");
+    oc.addSynonyme("plain-output-prefix", "plain");
     oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
+
+#ifdef HAVE_PROJ
+    oc.doRegister("proj.plain-geo", new Option_Bool(false));
+    oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
+#endif // HAVE_PROJ
 
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");

@@ -241,6 +241,8 @@ private:
         std::string toNode;
         /// @brief This edges's shape
         PositionVector shape;
+        /// @brief The length of the edge if set explicitly
+        SUMOReal length;
         /// @brief This edge's priority
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)

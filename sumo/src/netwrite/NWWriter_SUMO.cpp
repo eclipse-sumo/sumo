@@ -217,6 +217,9 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (e.getLaneSpreadFunction() != LANESPREAD_RIGHT) {
         into.writeAttr(SUMO_ATTR_SPREADTYPE, e.getLaneSpreadFunction());
     }
+    if (e.hasLoadedLength()) {
+        into.writeAttr(SUMO_ATTR_LENGTH, e.getLoadedLength());
+    }
     if (!e.hasDefaultGeometry()) {
         into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }

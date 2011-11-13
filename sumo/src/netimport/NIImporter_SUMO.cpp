@@ -147,6 +147,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
                                (unsigned int) ed->lanes.size(),
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                geom, ed->streetName, ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
+        e->setLoadedLength(ed->length);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -340,7 +341,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    myCurrentEdge = new EdgeAttrs;
+    myCurrentEdge = new EdgeAttrs();
     myCurrentEdge->builtEdge = 0;
     myCurrentEdge->id = id;
     // get the function
@@ -359,6 +360,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
                                attrs.getOptStringReporting(SUMO_ATTR_SHAPE, id.c_str(), ok, ""),
                                attrs.getObjectType(), id.c_str(), ok, true);
     NILoader::transformCoordinates(myCurrentEdge->shape, true, myLocation);
+    myCurrentEdge->length = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, id.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->streetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
