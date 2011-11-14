@@ -94,9 +94,6 @@ aggregated1:0.00001
 
 [batch_extra_version]
 default:perf
-meso:perf
 meso:meso
-msvc10mesox64:perf
 msvc10mesox64:meso
-msvc10mesoWin32:perf
 msvc10mesoWin32:meso
