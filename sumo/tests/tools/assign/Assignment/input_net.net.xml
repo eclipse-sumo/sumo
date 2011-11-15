@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:04 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:12:23 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.nod.xml"/>
-        <edge-files value="./tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.edg.xml"/>
-        <type-files value="./tools/assign/calibration/2ndTestNetwork_sumoFormat/testnetz1.typ.xml"/>
+        <node-files value=".\tools\assign\Assignment\testnetz1.nod.xml"/>
+        <edge-files value=".\tools\assign\Assignment\testnetz1.edg.xml"/>
+        <type-files value=".\tools\assign\Assignment\testnetz1.typ.xml"/>
     </input>
 
     <output>
-        <output-file value="./tools/assign/calibration/2ndTestNetwork_sumoFormat/input_net.net.xml"/>
+        <output-file value=".\tools\assign\Assignment\input_net.net.xml"/>
     </output>
 
     <report>
@@ -38,7 +39,7 @@
         <lane id=":11_1_0" index="0" speed="15.00" length="6.17" shape="2301.65,793.85 2301.84,795.82 2302.43,797.23 2303.39,798.07 2304.75,798.35"/>
     </edge>
     <edge id=":11_2" function="internal">
-        <lane id=":11_2_0" index="0" speed="12.50" length="11.54" shape="2294.56,803.11 2296.98,801.03 2299.49,799.54 2302.08,798.65 2304.75,798.35"/>
+        <lane id=":11_2_0" index="0" speed="12.50" length="11.67" shape="2294.56,803.11 2296.94,800.87 2299.10,799.40 2301.55,798.60 2304.75,798.35"/>
     </edge>
     <edge id=":12_0" function="internal">
         <lane id=":12_0_0" index="0" speed="15.00" length="2.58" shape="2300.05,498.35 2300.75,498.45 2301.25,498.75 2301.55,499.25 2301.65,499.95"/>
@@ -74,7 +75,7 @@
         <lane id=":6_0_0" index="0" speed="15.00" length="5.00" shape="1295.25,798.35 1296.61,798.16 1297.57,797.58 1298.16,796.61 1298.35,795.25"/>
     </edge>
     <edge id=":6_1" function="internal">
-        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.12 1301.25,800.09 1301.65,801.45"/>
+        <lane id=":6_1_0" index="0" speed="15.00" length="7.85" shape="1295.25,798.35 1298.05,798.54 1300.05,799.13 1301.25,800.09 1301.65,801.45"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" speed="15.00" length="2.58" shape="1298.35,499.95 1298.45,499.25 1298.75,498.75 1299.25,498.45 1299.95,498.35"/>
@@ -83,7 +84,7 @@
         <lane id=":8_0_0" index="0" speed="18.00" length="3.43" shape="1798.67,2295.03 1799.33,2295.78 1800.00,2296.03 1800.67,2295.78 1801.33,2295.03"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" speed="12.50" length="7.19" shape="1997.15,1098.35 1998.34,1098.11 1999.72,1097.40 2001.31,1096.22 2003.11,1094.56"/>
+        <lane id=":9_0_0" index="0" speed="12.50" length="7.06" shape="1997.15,1098.35 2003.11,1094.56"/>
     </edge>
     <edge id=":9_1" function="internal">
         <lane id=":9_1_0" index="0" speed="15.00" length="7.53" shape="1997.15,1098.35 2004.68,1098.35"/>
@@ -175,7 +176,7 @@
     <junction id="3" type="priority" x="3300.00" y="800.00" incLanes="L16_0" intLanes=":3_0_0" shape="3300.00,799.95 3300.00,796.75 3300.00,799.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="4" type="traffic_light" x="800.00" y="800.00" incLanes="L3_0 L2_0" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0" shape="802.04,802.97 804.70,801.20 805.37,799.95 805.37,796.75 803.25,795.25 800.05,795.25 798.55,796.75 798.55,799.95">
+    <junction id="4" type="priority" x="800.00" y="800.00" incLanes="L3_0 L2_0" intLanes=":4_0_0 :4_1_0 :4_2_0 :4_3_0" shape="802.04,802.97 804.70,801.20 805.37,799.95 805.37,796.75 803.25,795.25 800.05,795.25 798.55,796.75 798.55,799.95">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1100" cont="0"/>
         <request index="2" response="0011" foes="0011" cont="0"/>

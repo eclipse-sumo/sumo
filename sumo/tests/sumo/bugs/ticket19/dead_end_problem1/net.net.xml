@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:55 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:40 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.nod.xml"/>
-        <edge-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.edg.xml"/>
-        <connection-files value="./sumo/bugs/ticket19/dead_end_problem1/prunned.con.xml"/>
+        <node-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.nod.xml"/>
+        <edge-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.edg.xml"/>
+        <connection-files value=".\sumo\bugs\ticket19\dead_end_problem1\prunned.con.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/bugs/ticket19/dead_end_problem1/net.net.xml"/>
+        <output-file value=".\sumo\bugs\ticket19\dead_end_problem1\net.net.xml"/>
     </output>
 
     <processing>
@@ -223,7 +224,7 @@
     <junction id="15891" type="priority" x="240.55" y="729.08" incLanes="-9908_0 -9908_1" intLanes=":15891_0_0" shape="240.51,729.10 234.68,731.99 246.42,726.17 240.59,729.06">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="17208" type="traffic_light" x="169.16" y="583.19" incLanes="9908_0 9908_1 -9916_0 -9916_1" intLanes=":17208_0_0 :17208_1_0 :17208_2_0 :17208_3_0 :17208_4_0 :17208_5_0" shape="167.02,593.76 178.40,587.04 179.06,584.78 175.92,578.79 162.69,584.22 164.22,590.65">
+    <junction id="17208" type="priority" x="169.16" y="583.19" incLanes="9908_0 9908_1 -9916_0 -9916_1" intLanes=":17208_0_0 :17208_1_0 :17208_2_0 :17208_3_0 :17208_4_0 :17208_5_0" shape="167.02,593.76 178.40,587.04 179.06,584.78 175.92,578.79 162.69,584.22 164.22,590.65">
         <request index="0" response="101000" foes="101000" cont="0"/>
         <request index="1" response="101000" foes="101000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -231,7 +232,7 @@
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000011" cont="0"/>
     </junction>
-    <junction id="17209" type="traffic_light" x="151.07" y="546.33" incLanes="9910_0 9910_1 -9914_0 -9914_1" intLanes=":17209_0_0 :17209_1_0 :17209_2_0 :17209_3_0 :17209_4_0 :17209_5_0" shape="158.34,543.68 155.50,537.61 153.45,536.73 141.89,542.93 141.80,545.89 145.78,551.26">
+    <junction id="17209" type="priority" x="151.07" y="546.33" incLanes="9910_0 9910_1 -9914_0 -9914_1" intLanes=":17209_0_0 :17209_1_0 :17209_2_0 :17209_3_0 :17209_4_0 :17209_5_0" shape="158.34,543.68 155.50,537.61 153.45,536.73 141.89,542.93 141.80,545.89 145.78,551.26">
         <request index="0" response="101000" foes="101000" cont="0"/>
         <request index="1" response="101000" foes="101000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -239,7 +240,7 @@
         <request index="4" response="000000" foes="000000" cont="0"/>
         <request index="5" response="000000" foes="000011" cont="0"/>
     </junction>
-    <junction id="17210" type="traffic_light" x="143.04" y="571.77" incLanes="-9915_0 -9915_1 9912_0 9912_1 9912_2" intLanes=":17210_0_0 :17210_1_0 :17210_2_0 :17210_3_0 :17210_4_0 :17210_5_0" shape="141.64,581.62 147.64,578.50 141.61,561.54 134.94,563.45 131.60,566.73 139.34,581.18">
+    <junction id="17210" type="priority" x="143.04" y="571.77" incLanes="-9915_0 -9915_1 9912_0 9912_1 9912_2" intLanes=":17210_0_0 :17210_1_0 :17210_2_0 :17210_3_0 :17210_4_0 :17210_5_0" shape="141.64,581.62 147.64,578.50 141.61,561.54 134.94,563.45 131.60,566.73 139.34,581.18">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>
@@ -253,7 +254,7 @@
     <junction id="5887" type="priority" x="25.44" y="634.81" incLanes="-9912_0 -9912_1" intLanes=":5887_0_0" shape="25.42,634.77 20.79,626.13 28.53,640.58 25.46,634.85">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="6691" type="traffic_light" x="133.25" y="504.82" incLanes="-9910_0 -9910_1 -4312_0 -4312_1" intLanes=":6691_0_0 :6691_1_0 :6691_2_0 :6691_8_0 :6691_4_0 :6691_5_0 :6691_9_0 :6691_10_0" shape="128.79,512.02 141.18,507.80 138.96,501.28 126.57,505.55 125.62,508.29 126.93,511.21">
+    <junction id="6691" type="priority" x="133.25" y="504.82" incLanes="-9910_0 -9910_1 -4312_0 -4312_1" intLanes=":6691_0_0 :6691_1_0 :6691_2_0 :6691_8_0 :6691_4_0 :6691_5_0 :6691_9_0 :6691_10_0" shape="128.79,512.02 141.18,507.80 138.96,501.28 126.57,505.55 125.62,508.29 126.93,511.21">
         <request index="0" response="00000000" foes="01000000" cont="0"/>
         <request index="1" response="00000000" foes="11000000" cont="0"/>
         <request index="2" response="00000000" foes="11000000" cont="0"/>
@@ -266,7 +267,7 @@
     <junction id="6699" type="traffic_light" x="494.45" y="391.98" incLanes="9458_0 9458_1" intLanes=":6699_0_0" shape="494.47,392.02 498.94,400.75 491.46,386.15 494.43,391.94">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="6728" type="traffic_light" x="179.31" y="552.67" incLanes="-9458_0 -9458_1 -9458_2 -9917_0 -9917_1" intLanes=":6728_0_0 :6728_1_0 :6728_2_0 :6728_3_0 :6728_4_0 :6728_5_0" shape="182.24,563.39 188.55,560.61 189.69,558.44 182.26,543.82 179.67,543.58 174.77,547.93">
+    <junction id="6728" type="priority" x="179.31" y="552.67" incLanes="-9458_0 -9458_1 -9458_2 -9917_0 -9917_1" intLanes=":6728_0_0 :6728_1_0 :6728_2_0 :6728_3_0 :6728_4_0 :6728_5_0" shape="182.24,563.39 188.55,560.61 189.69,558.44 182.26,543.82 179.67,543.58 174.77,547.93">
         <request index="0" response="101000" foes="101000" cont="0"/>
         <request index="1" response="101000" foes="101000" cont="0"/>
         <request index="2" response="000000" foes="000000" cont="0"/>

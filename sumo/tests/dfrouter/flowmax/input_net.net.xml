@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:01 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./dfrouter/flowmax/split.nod.xml"/>
-        <edge-files value="./dfrouter/flowmax/split.edg.xml"/>
+        <node-files value=".\dfrouter\flowmax\split.nod.xml"/>
+        <edge-files value=".\dfrouter\flowmax\split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./dfrouter/flowmax/input_net.net.xml"/>
+        <output-file value=".\dfrouter\flowmax\input_net.net.xml"/>
     </output>
 
     <report>
@@ -49,7 +50,7 @@
         <lane id=":8_0_0" index="0" speed="13.90" length="0.10" shape="200.00,98.35 200.00,98.35"/>
     </edge>
     <edge id=":9_0" function="internal">
-        <lane id=":9_0_0" index="0" speed="13.90" length="7.19" shape="296.89,94.56 298.69,96.22 300.28,97.40 301.66,98.11 302.85,98.35"/>
+        <lane id=":9_0_0" index="0" speed="13.90" length="7.06" shape="296.89,94.56 302.85,98.35"/>
     </edge>
     <edge id=":9_1" function="internal">
         <lane id=":9_1_0" index="0" speed="13.90" length="7.53" shape="295.32,98.35 302.85,98.35"/>
@@ -119,7 +120,7 @@
     <junction id="8" type="priority" x="200.00" y="100.00" incLanes="7to8_0" intLanes=":8_0_0" shape="200.00,99.95 200.00,96.75 200.00,99.95">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="9" type="traffic_light" x="300.00" y="100.00" incLanes="2to9split_0 8to9_0" intLanes=":9_0_0 :9_1_0" shape="302.85,99.95 302.85,96.75 298.02,93.43 295.76,95.69 295.32,96.75 295.32,99.95">
+    <junction id="9" type="priority" x="300.00" y="100.00" incLanes="2to9split_0 8to9_0" intLanes=":9_0_0 :9_1_0" shape="302.85,99.95 302.85,96.75 298.02,93.43 295.76,95.69 295.32,96.75 295.32,99.95">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>

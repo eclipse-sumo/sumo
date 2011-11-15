@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 15:38:18 2011 by SUMO netgen Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:05 by SUMO netgen Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -10,12 +11,16 @@
     </grid_network>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value=".\duarouter\function\remove_loops\input_net.net.xml"/>
     </output>
 
     <processing>
         <no-internal-links value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

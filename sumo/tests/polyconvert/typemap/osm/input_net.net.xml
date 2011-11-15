@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 21 17:44:55 2011 by SUMO netconvert Version dev-SVN-r11052
+<!-- generated on 11/15/11 12:11:33 by SUMO netconvert Version dev-SVN-r11508
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="osm.xml"/>
+        <osm-files value=".\polyconvert\typemap\osm\osm.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value=".\polyconvert\typemap\osm\input_net.net.xml"/>
     </output>
 
     <projection>
@@ -36,8 +36,8 @@
         <lane id="-22917251_0" index="0" speed="22.22" length="53.81" shape="474.41,48.86 479.04,102.47"/>
     </edge>
     <edge id="-24214693#0" from="261599791" to="32266935" priority="9" type="highway.primary" shape="33.97,176.57 202.12,155.05 478.98,121.02">
-        <lane id="-24214693#0_0" index="0" speed="27.78" length="443.47" shape="33.35,171.66 201.49,150.14 473.43,116.72"/>
-        <lane id="-24214693#0_1" index="1" speed="27.78" length="443.47" shape="33.80,174.93 201.91,153.41 473.83,119.99"/>
+        <lane id="-24214693#0_0" index="0" speed="27.78" length="443.49" shape="33.34,171.66 201.49,150.14 473.43,116.72"/>
+        <lane id="-24214693#0_1" index="1" speed="27.78" length="443.49" shape="33.76,174.93 201.91,153.41 473.83,119.99"/>
     </edge>
     <edge id="-24214693#1" from="57343510" to="261599791" priority="9" type="highway.primary">
         <lane id="-24214693#1_0" index="0" speed="27.78" length="19.36" shape="14.14,174.41 33.34,171.66"/>
@@ -269,8 +269,8 @@
         <lane id="-6137239#4_0" index="0" speed="13.89" length="165.81" shape="781.63,577.04 769.91,565.24 760.35,560.44 750.80,558.96 622.06,563.26"/>
     </edge>
     <edge id="-7216737#0" from="36268421" to="94487954" priority="9" type="highway.primary" shape="1144.91,50.46 1508.96,10.80 1605.67,0.69 1640.10,0.00 1680.43,2.68 1696.54,5.94 1720.58,11.27 1737.68,19.68">
-        <lane id="-7216737#0_0" index="0" speed="27.78" length="1467.98" shape="-1.00,-1.00 1739.86,15.23 1722.23,6.57 1697.52,1.09 1680.76,-2.26 1640.00,-4.95 1605.15,-4.23 1508.42,5.88 1147.12,45.24"/>
-        <lane id="-7216737#0_1" index="1" speed="27.78" length="1467.98" shape="1147.48,48.52 1508.78,9.16 1605.49,-0.95 1640.06,-1.65 1680.54,1.03 1696.86,4.32 1721.13,9.71 1738.41,18.20"/>
+        <lane id="-7216737#0_0" index="0" speed="27.78" length="597.51" shape="1147.12,45.24 1508.42,5.88 1605.15,-4.23 1640.00,-4.95 1680.76,-2.26 1697.52,1.09 1722.23,6.57 1739.86,15.23"/>
+        <lane id="-7216737#0_1" index="1" speed="27.78" length="597.51" shape="1147.48,48.52 1508.78,9.16 1605.49,-0.95 1640.06,-1.65 1680.54,1.03 1696.86,4.32 1721.13,9.71 1738.41,18.20"/>
     </edge>
     <edge id="-7216737#1" from="261636678" to="36268421" priority="9" type="highway.primary">
         <lane id="-7216737#1_0" index="0" speed="27.78" length="23.54" shape="1117.72,47.92 1141.17,45.82"/>
@@ -315,12 +315,12 @@
         <lane id="24152812#1_0" index="0" speed="13.89" length="48.86" shape="1119.56,109.85 1115.78,61.13"/>
     </edge>
     <edge id="24214693#0" from="32266935" to="261599791" priority="9" type="highway.primary" shape="478.98,121.02 202.12,155.05 33.97,176.57">
-        <lane id="24214693#0_0" index="0" speed="27.78" length="443.38" shape="474.64,126.55 202.73,159.96 34.69,181.47"/>
-        <lane id="24214693#0_1" index="1" speed="27.78" length="443.38" shape="474.23,123.27 202.32,156.69 34.24,178.20"/>
+        <lane id="24214693#0_0" index="0" speed="27.78" length="443.46" shape="474.64,126.55 202.73,159.96 34.60,181.48"/>
+        <lane id="24214693#0_1" index="1" speed="27.78" length="443.46" shape="474.23,123.27 202.32,156.69 34.18,178.21"/>
     </edge>
     <edge id="24214693#1" from="261599791" to="57343510" priority="9" type="highway.primary">
-        <lane id="24214693#1_0" index="0" speed="27.78" length="19.27" shape="34.59,181.48 15.55,184.21"/>
-        <lane id="24214693#1_1" index="1" speed="27.78" length="19.27" shape="34.18,178.21 15.08,180.94"/>
+        <lane id="24214693#1_0" index="0" speed="27.78" length="19.32" shape="34.67,181.47 15.55,184.21"/>
+        <lane id="24214693#1_1" index="1" speed="27.78" length="19.32" shape="34.21,178.20 15.08,180.94"/>
     </edge>
     <edge id="24214694" from="32266935" to="32266938" priority="6" type="highway.tertiary">
         <lane id="24214694_0" index="0" speed="22.22" length="0.90" shape="476.65,113.13 476.57,112.23"/>

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:02 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:08 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./duarouter/vclasses/input_dua2s.nod.xml"/>
-        <edge-files value="./duarouter/vclasses/input_dua2s.edg.xml"/>
+        <node-files value=".\duarouter\vclasses\input_dua2s.nod.xml"/>
+        <edge-files value=".\duarouter\vclasses\input_dua2s.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./duarouter/vclasses/input_net.net.xml"/>
+        <output-file value=".\duarouter\vclasses\input_net.net.xml"/>
     </output>
 
     <report>
@@ -40,10 +41,10 @@
         <lane id=":begleft_0_0" index="0" speed="27.80" length="2.58" shape="501.65,496.75 501.75,497.45 502.05,497.95 502.55,498.25 503.25,498.35"/>
     </edge>
     <edge id=":end_0" function="internal">
-        <lane id=":end_0_0" index="0" speed="27.80" length="5.00" shape="1498.35,1.45 1498.54,0.09 1499.12,-0.88 1500.09,-1.46 1501.45,-1.65"/>
+        <lane id=":end_0_0" index="0" speed="27.80" length="7.85" shape="1498.35,1.45 1498.54,-1.35 1499.12,-3.35 1500.09,-4.55 1501.45,-4.95"/>
     </edge>
     <edge id=":end_1" function="internal">
-        <lane id=":end_1_0" index="0" speed="20.85" length="7.02" shape="1495.25,-1.65 1501.45,-4.95"/>
+        <lane id=":end_1_0" index="0" speed="20.85" length="6.20" shape="1495.25,-1.65 1501.45,-1.65"/>
     </edge>
     <edge id=":endleft_0" function="internal">
         <lane id=":endleft_0_0" index="0" speed="27.80" length="2.58" shape="1496.75,498.35 1497.45,498.25 1497.95,497.95 1498.25,497.45 1498.35,496.75"/>
@@ -103,16 +104,16 @@
     <connection from="end" to="absEnd" fromLane="0" toLane="0" via=":absEnd_0_0" dir="s" state="M"/>
     <connection from="end" to="absEnd" fromLane="1" toLane="1" via=":absEnd_1_0" dir="s" state="M"/>
     <connection from="left" to="left2end" fromLane="0" toLane="0" via=":endleft_0_0" dir="r" state="M"/>
-    <connection from="left2end" to="end" fromLane="0" toLane="1" via=":end_0_0" dir="l" state="M"/>
-    <connection from="middle" to="end" fromLane="0" toLane="0" via=":end_1_0" dir="s" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="0" via=":end_0_0" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="1" via=":end_1_0" dir="s" state="M"/>
 
     <connection from=":absEnd_0" to="absEnd" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":absEnd_1" to="absEnd" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":beg_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":beg_1" to="beg2left" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":begleft_0" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":end_0" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":end_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_1" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":endleft_0" to="left2end" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

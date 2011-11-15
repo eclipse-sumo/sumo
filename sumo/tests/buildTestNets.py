@@ -17,10 +17,11 @@ for root, dirs, files in os.walk(mRoot):
             if file.endswith(".netc.cfg"):
                 exe = binPrefix + "convert"
             print "----------------------------------"
-            print "Rebuilding config: " + file
+            print "Rebuilding config: " + os.path.join(root, file)
             curDir = os.getcwd()
             os.chdir(root)
             subprocess.call([exe, "--save-configuration", file+".tmp", "-c", file], stdout=sys.stdout, stderr=sys.stderr)
+            os.remove(file)
             os.rename(file+".tmp", file)
             os.chdir(curDir)
             print "Running: " + file

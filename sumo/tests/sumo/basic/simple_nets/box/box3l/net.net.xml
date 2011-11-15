@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:54 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:36 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./sumo/basic/simple_nets/box/box3l/box3l.nod.xml"/>
-        <edge-files value="./sumo/basic/simple_nets/box/box3l/box3l.edg.xml"/>
+        <node-files value=".\sumo\basic\simple_nets\box\box3l\box3l.nod.xml"/>
+        <edge-files value=".\sumo\basic\simple_nets\box\box3l\box3l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/basic/simple_nets/box/box3l/net.net.xml"/>
+        <output-file value=".\sumo\basic\simple_nets\box\box3l\net.net.xml"/>
     </output>
 
     <report>
@@ -55,7 +56,7 @@
         <lane id=":3_0_0" index="0" speed="36.00" length="2.58" shape="491.75,9.85 491.65,9.15 491.35,8.65 490.85,8.35 490.15,8.25"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="36.00" length="7.90" shape="495.05,9.85 494.74,7.71 493.82,6.18 492.29,5.26 490.15,4.95"/>
+        <lane id=":3_1_0" index="0" speed="36.00" length="7.90" shape="495.05,9.85 494.74,7.71 493.82,6.17 492.29,5.26 490.15,4.95"/>
     </edge>
     <edge id=":3_2" function="internal">
         <lane id=":3_2_0" index="0" speed="36.00" length="13.22" shape="498.35,9.85 497.84,6.26 496.30,3.70 493.74,2.16 490.15,1.65"/>

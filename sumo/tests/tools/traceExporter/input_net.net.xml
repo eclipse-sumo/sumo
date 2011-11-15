@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:05 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:12:30 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tools/traceExporter/vss1.nod.xml"/>
-        <edge-files value="./tools/traceExporter/vss1.edg.xml"/>
+        <node-files value=".\tools\traceExporter\vss1.nod.xml"/>
+        <edge-files value=".\tools\traceExporter\vss1.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tools/traceExporter/input_net.net.xml"/>
+        <output-file value=".\tools\traceExporter\input_net.net.xml"/>
     </output>
 
     <report>
@@ -34,16 +35,16 @@
         <lane id=":beg_0_0" index="0" speed="20.85" length="7.02" shape="498.55,15.05 504.75,18.35"/>
     </edge>
     <edge id=":beg_1" function="internal">
-        <lane id=":beg_1_0" index="0" speed="27.80" length="5.00" shape="498.55,18.35 499.91,18.54 500.88,19.12 501.46,20.09 501.65,21.45"/>
+        <lane id=":beg_1_0" index="0" speed="27.80" length="5.00" shape="498.55,18.35 499.91,18.54 500.88,19.13 501.46,20.09 501.65,21.45"/>
     </edge>
     <edge id=":begleft_0" function="internal">
         <lane id=":begleft_0_0" index="0" speed="27.80" length="2.58" shape="501.65,516.75 501.75,517.45 502.05,517.95 502.55,518.25 503.25,518.35"/>
     </edge>
     <edge id=":end_0" function="internal">
-        <lane id=":end_0_0" index="0" speed="27.80" length="5.00" shape="1498.35,21.45 1498.54,20.09 1499.12,19.12 1500.09,18.54 1501.45,18.35"/>
+        <lane id=":end_0_0" index="0" speed="27.80" length="7.85" shape="1498.35,21.45 1498.54,18.65 1499.12,16.65 1500.09,15.45 1501.45,15.05"/>
     </edge>
     <edge id=":end_1" function="internal">
-        <lane id=":end_1_0" index="0" speed="20.85" length="7.02" shape="1495.25,18.35 1501.45,15.05"/>
+        <lane id=":end_1_0" index="0" speed="20.85" length="6.20" shape="1495.25,18.35 1501.45,18.35"/>
     </edge>
     <edge id=":endleft_0" function="internal">
         <lane id=":endleft_0_0" index="0" speed="27.80" length="2.58" shape="1496.75,518.35 1497.45,518.25 1497.95,517.95 1498.25,517.45 1498.35,516.75"/>
@@ -103,16 +104,16 @@
     <connection from="end" to="rend" fromLane="0" toLane="0" via=":absEnd_0_0" dir="s" state="M"/>
     <connection from="end" to="rend" fromLane="1" toLane="1" via=":absEnd_1_0" dir="s" state="M"/>
     <connection from="left" to="left2end" fromLane="0" toLane="0" via=":endleft_0_0" dir="r" state="M"/>
-    <connection from="left2end" to="end" fromLane="0" toLane="1" via=":end_0_0" dir="l" state="M"/>
-    <connection from="middle" to="end" fromLane="0" toLane="0" via=":end_1_0" dir="s" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="0" via=":end_0_0" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="1" via=":end_1_0" dir="s" state="M"/>
 
     <connection from=":absEnd_0" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":absEnd_1" to="rend" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":beg_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":beg_1" to="beg2left" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":begleft_0" to="left" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":end_0" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":end_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":end_1" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":endleft_0" to="left2end" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

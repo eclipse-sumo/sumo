@@ -1,17 +1,22 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 21:55:40 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:53 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="three_split.nod.xml"/>
-        <edge-files value="three_split.edg.xml"/>
+        <node-files value=".\sumo\extended\rerouter\rerouter_middle_edge\three_split.nod.xml"/>
+        <edge-files value=".\sumo\extended\rerouter\rerouter_middle_edge\three_split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="three_split.net.xml"/>
+        <output-file value=".\sumo\extended\rerouter\rerouter_middle_edge\three_split.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -42,7 +47,7 @@
         <lane id=":begright_0_0" index="0" speed="13.90" length="2.58" shape="998.35,-0.05 998.45,-0.75 998.75,-1.25 999.25,-1.55 999.95,-1.65"/>
     </edge>
     <edge id=":end_0" function="internal">
-        <lane id=":end_0_0" index="0" speed="20.85" length="7.85" shape="1998.35,501.45 1998.75,500.09 1999.95,499.12 2001.95,498.54 2004.75,498.35"/>
+        <lane id=":end_0_0" index="0" speed="20.85" length="7.85" shape="1998.35,501.45 1998.75,500.09 1999.95,499.13 2001.95,498.54 2004.75,498.35"/>
     </edge>
     <edge id=":end_1" function="internal">
         <lane id=":end_1_0" index="0" speed="20.85" length="5.00" shape="2001.65,495.25 2001.84,496.61 2002.43,497.58 2003.39,498.16 2004.75,498.35"/>

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:02 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:06 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./duarouter/logit/clogit_example/input_example.nod.xml"/>
-        <edge-files value="./duarouter/logit/clogit_example/input_example.edg.xml"/>
+        <node-files value=".\duarouter\logit\clogit_example\input_example.nod.xml"/>
+        <edge-files value=".\duarouter\logit\clogit_example\input_example.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./duarouter/logit/clogit_example/input_net.net.xml"/>
+        <output-file value=".\duarouter\logit\clogit_example\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +42,7 @@
         <lane id="by_0" index="0" speed="13.90" length="990.17" shape="8001.65,3.07 8001.65,993.24"/>
     </edge>
     <edge id="oa" from="o" to="a" priority="-1">
-        <lane id="oa_0" index="0" speed="13.90" length="4998.25" shape="0.27,-1.65 4998.52,-1.65"/>
+        <lane id="oa_0" index="0" speed="13.90" length="4998.25" shape="0.28,-1.65 4998.52,-1.65"/>
     </edge>
     <edge id="ox" from="o" to="x" priority="-1">
         <lane id="ox_0" index="0" speed="13.90" length="6076.80" shape="0.27,-1.63 5994.39,997.39"/>
@@ -65,11 +66,11 @@
     </junction>
     <junction id="o" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.01,-0.05 0.53,-3.21 0.00,-0.05 0.00,-3.25">
     </junction>
-    <junction id="x" type="traffic_light" x="6000.00" y="1000.00" incLanes="ax_0 ox_0" intLanes="" shape="6002.85,999.95 6002.85,996.75 5997.33,992.74 5995.07,995.00 5994.65,995.81 5994.13,998.97">
+    <junction id="x" type="priority" x="6000.00" y="1000.00" incLanes="ax_0 ox_0" intLanes="" shape="6002.85,999.95 6002.85,996.75 5997.33,992.74 5995.07,995.00 5994.65,995.81 5994.13,998.97">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="y" type="traffic_light" x="8000.00" y="1000.00" incLanes="by_0 xy_0" intLanes="" shape="8006.02,996.93 8004.59,994.07 8003.25,993.24 8000.05,993.24 7998.55,996.75 7998.55,999.95">
+    <junction id="y" type="priority" x="8000.00" y="1000.00" incLanes="by_0 xy_0" intLanes="" shape="8006.02,996.93 8004.59,994.07 8003.25,993.24 8000.05,993.24 7998.55,996.75 7998.55,999.95">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:10:59 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./dfrouter/tri.nod.xml"/>
-        <edge-files value="./dfrouter/tri.edg.xml"/>
+        <node-files value=".\dfrouter\tri.nod.xml"/>
+        <edge-files value=".\dfrouter\tri.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./dfrouter/input_tri.net.xml"/>
+        <output-file value=".\dfrouter\input_tri.net.xml"/>
     </output>
 
     <processing>
@@ -64,7 +65,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="2" type="traffic_light" x="1100.00" y="200.00" incLanes="Lto2_0 Rto2_0 middle_0" intLanes="" shape="1096.75,201.45 1099.95,201.45 1104.75,199.95 1104.75,196.75 1103.25,195.25 1100.05,195.25 1095.25,196.75 1095.25,199.95">
+    <junction id="2" type="priority" x="1100.00" y="200.00" incLanes="Lto2_0 Rto2_0 middle_0" intLanes="" shape="1096.75,201.45 1099.95,201.45 1104.75,199.95 1104.75,196.75 1103.25,195.25 1100.05,195.25 1095.25,196.75 1095.25,199.95">
         <request index="0" response="010" foes="110"/>
         <request index="1" response="000" foes="101"/>
         <request index="2" response="011" foes="011"/>

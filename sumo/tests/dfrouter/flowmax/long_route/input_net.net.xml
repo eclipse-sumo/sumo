@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:01 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./dfrouter/flowmax/long_route/long.nod.xml"/>
-        <edge-files value="./dfrouter/flowmax/long_route/long.edg.xml"/>
+        <node-files value=".\dfrouter\flowmax\long_route\long.nod.xml"/>
+        <edge-files value=".\dfrouter\flowmax\long_route\long.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./dfrouter/flowmax/long_route/input_net.net.xml"/>
+        <output-file value=".\dfrouter\flowmax\long_route\input_net.net.xml"/>
     </output>
 
     <report>
@@ -34,7 +35,7 @@
         <lane id=":r1_0_0" index="0" speed="13.90" length="2.58" shape="1.65,96.75 1.75,97.45 2.05,97.95 2.55,98.25 3.25,98.35"/>
     </edge>
     <edge id=":r2_0" function="internal">
-        <lane id=":r2_0_0" index="0" speed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.57 103.39,98.16 104.75,98.35"/>
+        <lane id=":r2_0_0" index="0" speed="13.90" length="5.00" shape="101.65,95.25 101.84,96.61 102.43,97.58 103.39,98.16 104.75,98.35"/>
     </edge>
     <edge id=":r2_1" function="internal">
         <lane id=":r2_1_0" index="0" speed="13.90" length="6.20" shape="98.55,98.35 104.75,98.35"/>
@@ -43,7 +44,7 @@
         <lane id=":r3_0_0" index="0" speed="13.90" length="6.20" shape="198.55,98.35 204.75,98.35"/>
     </edge>
     <edge id=":r3_1" function="internal">
-        <lane id=":r3_1_0" index="0" speed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.12 201.46,100.09 201.65,101.45"/>
+        <lane id=":r3_1_0" index="0" speed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.13 201.46,100.09 201.65,101.45"/>
     </edge>
     <edge id=":r4_0" function="internal">
         <lane id=":r4_0_0" index="0" speed="13.90" length="2.58" shape="300.05,98.35 300.75,98.45 301.25,98.75 301.55,99.25 301.65,99.95"/>
@@ -94,7 +95,7 @@
     <junction id="r1" type="priority" x="0.00" y="100.00" incLanes="in1_0" intLanes=":r1_0_0" shape="3.25,99.95 3.25,96.75 0.05,96.75">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="r2" type="traffic_light" x="100.00" y="100.00" incLanes="in2_0 1to2_0" intLanes=":r2_0_0 :r2_1_0" shape="104.75,99.95 104.75,96.75 103.25,95.25 100.05,95.25 98.55,96.75 98.55,99.95">
+    <junction id="r2" type="priority" x="100.00" y="100.00" incLanes="in2_0 1to2_0" intLanes=":r2_0_0 :r2_1_0" shape="104.75,99.95 104.75,96.75 103.25,95.25 100.05,95.25 98.55,96.75 98.55,99.95">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>

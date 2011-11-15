@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:56 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:38 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./sumo/bugs/2350888/no_internal/cross3l.nod.xml"/>
-        <edge-files value="./sumo/bugs/2350888/no_internal/cross3l.edg.xml"/>
+        <node-files value=".\sumo\bugs\2350888\no_internal\cross3l.nod.xml"/>
+        <edge-files value=".\sumo\bugs\2350888\no_internal\cross3l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/bugs/2350888/no_internal/net.net.xml"/>
+        <output-file value=".\sumo\bugs\2350888\no_internal\net.net.xml"/>
     </output>
 
     <processing>

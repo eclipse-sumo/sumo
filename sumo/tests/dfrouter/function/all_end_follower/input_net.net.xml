@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:01 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./dfrouter/function/all_end_follower/t.nod.xml"/>
-        <edge-files value="./dfrouter/function/all_end_follower/t.edg.xml"/>
+        <node-files value=".\dfrouter\function\all_end_follower\t.nod.xml"/>
+        <edge-files value=".\dfrouter\function\all_end_follower\t.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./dfrouter/function/all_end_follower/input_net.net.xml"/>
+        <output-file value=".\dfrouter\function\all_end_follower\input_net.net.xml"/>
     </output>
 
     <report>
@@ -25,13 +26,13 @@
     <location netOffset="0.00,250.00" convBoundary="0.00,0.00,1200.00,500.00" origBoundary="0.00,-250.00,1200.00,250.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" speed="19.44" length="5.00" shape="95.25,248.35 96.61,248.16 97.57,247.57 98.16,246.61 98.35,245.25"/>
+        <lane id=":1_0_0" index="0" speed="19.44" length="5.00" shape="95.25,248.35 96.61,248.16 97.57,247.58 98.16,246.61 98.35,245.25"/>
     </edge>
     <edge id=":1_1" function="internal">
         <lane id=":1_1_0" index="0" speed="19.44" length="9.50" shape="95.25,248.35 104.75,248.35"/>
     </edge>
     <edge id=":1_2" function="internal">
-        <lane id=":1_2_0" index="0" speed="19.44" length="7.85" shape="95.25,248.35 98.05,248.54 100.05,249.12 101.25,250.09 101.65,251.45"/>
+        <lane id=":1_2_0" index="0" speed="19.44" length="7.85" shape="95.25,248.35 98.05,248.54 100.05,249.13 101.25,250.09 101.65,251.45"/>
     </edge>
     <edge id=":2_0" function="internal">
         <lane id=":2_0_0" index="0" speed="19.44" length="0.10" shape="1100.00,248.35 1100.00,248.35"/>

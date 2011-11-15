@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:02 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:05 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./duarouter/function/measure/input_dijkstra.nod.xml"/>
-        <edge-files value="./duarouter/function/measure/input_dijkstra.edg.xml"/>
+        <node-files value=".\duarouter\function\measure\input_dijkstra.nod.xml"/>
+        <edge-files value=".\duarouter\function\measure\input_dijkstra.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./duarouter/function/measure/input_net.net.xml"/>
+        <output-file value=".\duarouter\function\measure\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -37,43 +38,43 @@
     <edge id="a2e" from="a2" to="end" priority="-1">
         <lane id="a2e_0" index="0" speed="1.00" length="103.07" shape="100.05,201.82 7.86,247.91"/>
     </edge>
-    <edge id="a3a25" from="a3" to="a25" priority="-1">
+    <edge id="a3a25" from="a3" to="a25" priority="-1" length="0.50">
         <lane id="a3a25_0" index="0" speed="1.00" length="0.50" shape="98.35,300.05 98.35,255.16"/>
     </edge>
     <edge id="b1e" from="b1" to="end" priority="-1">
         <lane id="b1e_0" index="0" speed="1.00" length="235.71" shape="195.79,105.22 7.22,246.64"/>
     </edge>
-    <edge id="b2a1" from="b2" to="a1" priority="-1">
+    <edge id="b2a1" from="b2" to="a1" priority="-1" length="8.00">
         <lane id="b2a1_0" index="0" speed="1.00" length="8.00" shape="192.22,194.56 101.64,103.97"/>
     </edge>
-    <edge id="b2a2" from="b2" to="a2" priority="-1">
+    <edge id="b2a2" from="b2" to="a2" priority="-1" length="7.00">
         <lane id="b2a2_0" index="0" speed="1.00" length="7.00" shape="192.11,201.65 100.77,201.65"/>
     </edge>
-    <edge id="b2a25" from="b2" to="a25" priority="-1">
+    <edge id="b2a25" from="b2" to="a25" priority="-1" length="6.00">
         <lane id="b2a25_0" index="0" speed="1.00" length="6.00" shape="192.99,205.35 102.07,250.81"/>
     </edge>
-    <edge id="b2b1" from="b2" to="b1" priority="-1">
+    <edge id="b2b1" from="b2" to="b1" priority="-1" length="9.00">
         <lane id="b2b1_0" index="0" speed="1.00" length="9.00" shape="198.35,190.65 198.35,106.50"/>
     </edge>
-    <edge id="b2b3" from="b2" to="b3" priority="-1">
+    <edge id="b2b3" from="b2" to="b3" priority="-1" length="1.00">
         <lane id="b2b3_0" index="0" speed="1.00" length="1.00" shape="201.65,205.11 201.65,295.25"/>
     </edge>
-    <edge id="b2c1" from="b2" to="c1" priority="-1">
+    <edge id="b2c1" from="b2" to="c1" priority="-1" length="10.00">
         <lane id="b2c1_0" index="0" speed="1.00" length="10.00" shape="203.11,194.56 298.65,99.02"/>
     </edge>
-    <edge id="b2c2" from="b2" to="c2" priority="-1">
+    <edge id="b2c2" from="b2" to="c2" priority="-1" length="12.00">
         <lane id="b2c2_0" index="0" speed="1.00" length="12.00" shape="206.05,198.35 300.00,198.35"/>
     </edge>
-    <edge id="b2c3" from="b2" to="c3" priority="-1">
+    <edge id="b2c3" from="b2" to="c3" priority="-1" length="11.00">
         <lane id="b2c3_0" index="0" speed="1.00" length="11.00" shape="205.44,203.11 296.89,294.56"/>
     </edge>
-    <edge id="b3a3" from="b3" to="a3" priority="-1">
+    <edge id="b3a3" from="b3" to="a3" priority="-1" length="4.00">
         <lane id="b3a3_0" index="0" speed="1.00" length="4.00" shape="198.55,301.65 99.95,301.65"/>
     </edge>
-    <edge id="b3c3" from="b3" to="c3" priority="-1">
+    <edge id="b3c3" from="b3" to="c3" priority="-1" length="3.00">
         <lane id="b3c3_0" index="0" speed="1.00" length="3.00" shape="204.75,298.35 295.03,298.35"/>
     </edge>
-    <edge id="beg" from="start" to="b2" priority="-1">
+    <edge id="beg" from="start" to="b2" priority="-1" length="1.00">
         <lane id="beg_0" index="0" speed="1.00" length="1.00" shape="1.17,-1.17 194.56,192.22"/>
     </edge>
     <edge id="c1e" from="c1" to="end" priority="-1">

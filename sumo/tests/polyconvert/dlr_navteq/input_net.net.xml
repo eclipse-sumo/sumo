@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 21 17:37:16 2011 by SUMO netconvert Version dev-SVN-r11052
+<!-- generated on 11/15/11 12:11:32 by SUMO netconvert Version dev-SVN-r11508
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <dlr-navteq-prefix value="../../netconvert/import/dlr_navteq/tls/elmar"/>
+        <dlr-navteq-prefix value=".\polyconvert\dlr_navteq\../../netconvert/import/dlr_navteq/tls/elmar"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value=".\polyconvert\dlr_navteq\input_net.net.xml"/>
     </output>
 
     <projection>

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:03 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:02 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./dfrouter/real_world/oko_570/nodes.nod.xml"/>
-        <edge-files value="./dfrouter/real_world/oko_570/edges.edg.xml"/>
+        <node-files value=".\dfrouter\real_world\oko_570\nodes.nod.xml"/>
+        <edge-files value=".\dfrouter\real_world\oko_570\edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./dfrouter/real_world/oko_570/input_net.net.xml"/>
+        <output-file value=".\dfrouter\real_world\oko_570\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -135,13 +136,13 @@
     <junction id="11" type="priority" x="100.00" y="500.00" incLanes="01_11_0" intLanes="" shape="100.00,499.95 100.00,496.75 100.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="20" type="traffic_light" x="300.00" y="510.00" incLanes="30_20_0 21_20_0" intLanes="" shape="304.75,513.25 304.75,510.05 303.25,508.55 296.75,508.55 295.25,510.05 295.25,513.25">
+    <junction id="20" type="priority" x="300.00" y="510.00" incLanes="30_20_0 21_20_0" intLanes="" shape="304.75,513.25 304.75,510.05 303.25,508.55 296.75,508.55 295.25,510.05 295.25,513.25">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="21" type="traffic_light" x="300.00" y="500.00" incLanes="20_21_0 11_21_0" intLanes="" shape="296.75,501.45 303.25,501.45 304.75,499.95 304.75,496.75 295.25,496.75 295.25,499.95">
+    <junction id="21" type="priority" x="300.00" y="500.00" incLanes="20_21_0 11_21_0" intLanes="" shape="296.75,501.45 303.25,501.45 304.75,499.95 304.75,496.75 295.25,496.75 295.25,499.95">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="0000" foes="0001"/>
@@ -152,11 +153,11 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="31" type="traffic_light" x="500.00" y="500.00" incLanes="30_31_0 21_31_0" intLanes="" shape="496.75,501.45 499.95,501.45 501.45,499.95 501.45,496.75 495.25,496.75 495.25,499.95">
+    <junction id="31" type="priority" x="500.00" y="500.00" incLanes="30_31_0 21_31_0" intLanes="" shape="496.75,501.45 499.95,501.45 501.45,499.95 501.45,496.75 495.25,496.75 495.25,499.95">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="40" type="traffic_light" x="510.00" y="510.00" incLanes="50_40_0 41_40_0 a1_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
+    <junction id="40" type="priority" x="510.00" y="510.00" incLanes="50_40_0 41_40_0 a1_40_0" intLanes="" shape="514.75,513.25 514.75,510.05 513.25,508.55 510.05,508.55 508.55,510.05 508.55,513.25">
         <request index="0" response="000" foes="110"/>
         <request index="1" response="001" foes="101"/>
         <request index="2" response="011" foes="011"/>
@@ -165,13 +166,13 @@
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="50" type="traffic_light" x="710.00" y="510.00" incLanes="60_50_0 51_50_0" intLanes="" shape="714.75,513.25 714.75,510.05 713.25,508.55 706.75,508.55 705.25,510.05 705.25,513.25">
+    <junction id="50" type="priority" x="710.00" y="510.00" incLanes="60_50_0 51_50_0" intLanes="" shape="714.75,513.25 714.75,510.05 713.25,508.55 706.75,508.55 705.25,510.05 705.25,513.25">
         <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="1100"/>
         <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0010" foes="0010"/>
     </junction>
-    <junction id="51" type="traffic_light" x="710.00" y="500.00" incLanes="50_51_0 41_51_0" intLanes="" shape="706.75,501.45 713.25,501.45 714.75,499.95 714.75,496.75 705.25,496.75 705.25,499.95">
+    <junction id="51" type="priority" x="710.00" y="500.00" incLanes="50_51_0 41_51_0" intLanes="" shape="706.75,501.45 713.25,501.45 714.75,499.95 714.75,496.75 705.25,496.75 705.25,499.95">
         <request index="0" response="1100" foes="1100"/>
         <request index="1" response="1000" foes="1000"/>
         <request index="2" response="0000" foes="0001"/>
@@ -199,7 +200,7 @@
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="a3" type="traffic_light" x="510.00" y="200.00" incLanes="a2_a3_0 a4_a3_0 b1_a3_0" intLanes="" shape="506.75,205.96 513.25,205.96 513.25,196.13 506.75,196.13 503.33,198.74 505.32,204.92">
+    <junction id="a3" type="priority" x="510.00" y="200.00" incLanes="a2_a3_0 a4_a3_0 b1_a3_0" intLanes="" shape="506.75,205.96 513.25,205.96 513.25,196.13 506.75,196.13 503.33,198.74 505.32,204.92">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>

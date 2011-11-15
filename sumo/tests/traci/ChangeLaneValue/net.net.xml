@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:59 2011 by SUMO netgen Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:12:31 by SUMO netgen Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -12,7 +13,7 @@
     </grid_network>
 
     <output>
-        <output-file value="./traci/ChangeLaneValue/net.net.xml"/>
+        <output-file value=".\traci\ChangeLaneValue\net.net.xml"/>
     </output>
 
     <processing>

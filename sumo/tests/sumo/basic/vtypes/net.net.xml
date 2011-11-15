@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:53 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:38 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./sumo/basic/vtypes/nodes.nod.xml"/>
-        <edge-files value="./sumo/basic/vtypes/edges.edg.xml"/>
+        <node-files value=".\sumo\basic\vtypes\nodes.nod.xml"/>
+        <edge-files value=".\sumo\basic\vtypes\edges.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/basic/vtypes/net.net.xml"/>
+        <output-file value=".\sumo\basic\vtypes\net.net.xml"/>
     </output>
 
     <report>
@@ -31,13 +32,13 @@
         <lane id=":beg_0_0" index="0" speed="20.85" length="6.20" shape="498.55,18.35 504.75,18.35"/>
     </edge>
     <edge id=":beg_1" function="internal">
-        <lane id=":beg_1_0" index="0" speed="27.80" length="5.00" shape="498.55,18.35 499.91,18.54 500.88,19.12 501.46,20.09 501.65,21.45"/>
+        <lane id=":beg_1_0" index="0" speed="27.80" length="5.00" shape="498.55,18.35 499.91,18.54 500.88,19.13 501.46,20.09 501.65,21.45"/>
     </edge>
     <edge id=":begleft_0" function="internal">
         <lane id=":begleft_0_0" index="0" speed="27.80" length="2.58" shape="501.65,516.75 501.75,517.45 502.05,517.95 502.55,518.25 503.25,518.35"/>
     </edge>
     <edge id=":end_0" function="internal">
-        <lane id=":end_0_0" index="0" speed="27.80" length="5.00" shape="1498.35,21.45 1498.54,20.09 1499.12,19.12 1500.09,18.54 1501.45,18.35"/>
+        <lane id=":end_0_0" index="0" speed="27.80" length="5.00" shape="1498.35,21.45 1498.54,20.09 1499.12,19.13 1500.09,18.54 1501.45,18.35"/>
     </edge>
     <edge id=":end_1" function="internal">
         <lane id=":end_1_0" index="0" speed="20.85" length="6.20" shape="1495.25,18.35 1501.45,18.35"/>

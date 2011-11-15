@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:53:53 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:11:59 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./sumo/extended/simulation_routing/routes_explicite_routes/vclasses/input_dua2s.nod.xml"/>
-        <edge-files value="./sumo/extended/simulation_routing/routes_explicite_routes/vclasses/input_dua2s.edg.xml"/>
+        <node-files value=".\sumo\extended\simulation_routing\routes_explicite_routes\vclasses\input_dua2s.nod.xml"/>
+        <edge-files value=".\sumo\extended\simulation_routing\routes_explicite_routes\vclasses\input_dua2s.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./sumo/extended/simulation_routing/routes_explicite_routes/vclasses/net.net.xml"/>
+        <output-file value=".\sumo\extended\simulation_routing\routes_explicite_routes\vclasses\net.net.xml"/>
     </output>
 
     <processing>
@@ -82,7 +83,7 @@
     <connection from="end" to="absEnd" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="end" to="absEnd" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="left" to="left2end" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="left2end" to="end" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="1" dir="s" state="M"/>
 
 </net>

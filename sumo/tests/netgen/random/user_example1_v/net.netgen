@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/20/11 13:22:03 by SUMO netgen Version dev-SVN-r11265
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 11/15/11 12:15:19 by SUMO netgen Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -5714,16 +5714,13 @@
         <lane id=":532_0_0" index="0" speed="13.90" length="4.82" shape="2024.11,2362.69 2022.96,2362.52 2021.84,2362.68 2020.76,2363.18 2019.71,2364.01"/>
     </edge>
     <edge id=":532_1" function="internal">
-        <lane id=":532_1_0" index="0" speed="13.90" length="2.97" shape="2024.11,2362.69 2022.26,2361.93 2021.47,2361.37"/>
-    </edge>
-    <edge id=":532_9" function="internal">
-        <lane id=":532_9_0" index="0" speed="13.90" length="5.21" shape="2021.47,2361.37 2020.65,2360.79 2019.30,2359.28 2018.21,2357.40"/>
+        <lane id=":532_1_0" index="0" speed="13.90" length="8.18" shape="2024.11,2362.69 2022.26,2361.93 2020.65,2360.79 2019.30,2359.28 2018.21,2357.40"/>
     </edge>
     <edge id=":532_2" function="internal">
         <lane id=":532_2_0" index="0" speed="13.90" length="2.41" shape="2024.11,2362.69 2023.15,2361.55 2022.99,2360.65"/>
     </edge>
-    <edge id=":532_10" function="internal">
-        <lane id=":532_10_0" index="0" speed="13.90" length="2.41" shape="2022.99,2360.65 2023.61,2359.97 2025.03,2359.52"/>
+    <edge id=":532_9" function="internal">
+        <lane id=":532_9_0" index="0" speed="13.90" length="2.41" shape="2022.99,2360.65 2023.61,2359.97 2025.03,2359.52"/>
     </edge>
     <edge id=":532_3" function="internal">
         <lane id=":532_3_0" index="0" speed="13.90" length="5.37" shape="2021.20,2356.00 2021.93,2357.26 2022.81,2358.27 2023.84,2359.03 2025.03,2359.52"/>
@@ -5731,14 +5728,14 @@
     <edge id=":532_4" function="internal">
         <lane id=":532_4_0" index="0" speed="13.90" length="5.56" shape="2021.20,2356.00 2021.90,2358.20 2021.89,2360.27 2021.47,2361.37"/>
     </edge>
-    <edge id=":532_11" function="internal">
-        <lane id=":532_11_0" index="0" speed="13.90" length="3.20" shape="2021.47,2361.37 2021.16,2362.21 2019.71,2364.01"/>
+    <edge id=":532_10" function="internal">
+        <lane id=":532_10_0" index="0" speed="13.90" length="3.20" shape="2021.47,2361.37 2021.16,2362.21 2019.71,2364.01"/>
     </edge>
     <edge id=":532_5" function="internal">
         <lane id=":532_5_0" index="0" speed="13.90" length="2.41" shape="2021.20,2356.00 2020.97,2357.47 2020.40,2358.19"/>
     </edge>
-    <edge id=":532_12" function="internal">
-        <lane id=":532_12_0" index="0" speed="13.90" length="2.41" shape="2020.40,2358.19 2019.48,2358.17 2018.21,2357.40"/>
+    <edge id=":532_11" function="internal">
+        <lane id=":532_11_0" index="0" speed="13.90" length="2.41" shape="2020.40,2358.19 2019.48,2358.17 2018.21,2357.40"/>
     </edge>
     <edge id=":532_6" function="internal">
         <lane id=":532_6_0" index="0" speed="13.90" length="4.63" shape="2017.42,2361.63 2018.19,2360.68 2018.57,2359.65 2018.58,2358.56 2018.21,2357.40"/>
@@ -10536,9 +10533,9 @@
         <request index="23" response="0000000000001100000000000" foes="0000001100001100001111110" cont="1"/>
         <request index="24" response="0000001000001000001000001" foes="0000001000001000001000001" cont="1"/>
     </junction>
-    <junction id="532" type="priority" x="2021.33" y="2360.17" incLanes="-1388_0 533_0 -2872_0" intLanes=":532_0_0 :532_9_0 :532_10_0 :532_3_0 :532_11_0 :532_12_0 :532_6_0 :532_7_0 :532_8_0" shape="2023.66,2364.23 2025.48,2357.99 2022.64,2355.32 2016.76,2358.08 2016.31,2360.47 2020.81,2365.16">
+    <junction id="532" type="priority" x="2021.33" y="2360.17" incLanes="-1388_0 533_0 -2872_0" intLanes=":532_0_0 :532_1_0 :532_9_0 :532_3_0 :532_10_0 :532_11_0 :532_6_0 :532_7_0 :532_8_0" shape="2023.66,2364.23 2025.48,2357.99 2022.64,2355.32 2016.76,2358.08 2016.31,2360.47 2020.81,2365.16">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
-        <request index="1" response="000000000" foes="011110000" cont="1"/>
+        <request index="1" response="000000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
         <request index="3" response="000000000" foes="010000100" cont="0"/>
         <request index="4" response="000000011" foes="110000011" cont="1"/>
@@ -11352,10 +11349,9 @@
     <junction id=":522_26_0" type="internal" x="1622.22" y="1345.69" incLanes=":522_14_0 589_0" intLanes=":522_21_0"/>
     <junction id=":522_27_0" type="internal" x="1617.89" y="1350.62" incLanes=":522_23_0 4050_0" intLanes=":522_11_0 :522_12_0"/>
     <junction id=":522_28_0" type="internal" x="1614.18" y="1350.81" incLanes=":522_24_0 4050_0" intLanes=":522_12_0"/>
-    <junction id=":532_9_0" type="internal" x="2021.47" y="2361.37" incLanes=":532_1_0 533_0" intLanes=":532_4_0 :532_5_0"/>
-    <junction id=":532_10_0" type="internal" x="2022.99" y="2360.65" incLanes=":532_2_0 533_0" intLanes=":532_3_0"/>
-    <junction id=":532_11_0" type="internal" x="2021.47" y="2361.37" incLanes=":532_4_0 -1388_0" intLanes=":532_0_0 :532_1_0"/>
-    <junction id=":532_12_0" type="internal" x="2020.40" y="2358.19" incLanes=":532_5_0 -1388_0" intLanes=":532_1_0"/>
+    <junction id=":532_9_0" type="internal" x="2022.99" y="2360.65" incLanes=":532_2_0 533_0" intLanes=":532_3_0"/>
+    <junction id=":532_10_0" type="internal" x="2021.47" y="2361.37" incLanes=":532_4_0 -1388_0" intLanes=":532_0_0 :532_1_0"/>
+    <junction id=":532_11_0" type="internal" x="2020.40" y="2358.19" incLanes=":532_5_0 -1388_0" intLanes=":532_1_0"/>
     <junction id=":534_16_0" type="internal" x="1855.70" y="2392.18" incLanes=":534_2_0 -3719_0" intLanes=":534_8_0 :534_9_0"/>
     <junction id=":534_17_0" type="internal" x="1855.14" y="2396.92" incLanes=":534_3_0 -3719_0" intLanes=":534_9_0"/>
     <junction id=":534_18_0" type="internal" x="1852.79" y="2394.21" incLanes=":534_10_0 -2412_0" intLanes=":534_0_0 :534_1_0"/>
@@ -15180,15 +15176,14 @@
     <connection from=":522_24" to="-589" fromLane="0" toLane="0" via=":522_28_0" dir="s" state="M"/>
     <connection from=":522_28" to="-589" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":532_0" to="2872" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":532_1" to="-533" fromLane="0" toLane="0" via=":532_9_0" dir="s" state="M"/>
-    <connection from=":532_9" to="-533" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":532_2" to="1388" fromLane="0" toLane="0" via=":532_10_0" dir="s" state="M"/>
-    <connection from=":532_10" to="1388" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":532_1" to="-533" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":532_2" to="1388" fromLane="0" toLane="0" via=":532_9_0" dir="s" state="M"/>
+    <connection from=":532_9" to="1388" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":532_3" to="1388" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":532_4" to="2872" fromLane="0" toLane="0" via=":532_11_0" dir="s" state="M"/>
-    <connection from=":532_11" to="2872" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":532_5" to="-533" fromLane="0" toLane="0" via=":532_12_0" dir="s" state="M"/>
-    <connection from=":532_12" to="-533" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":532_4" to="2872" fromLane="0" toLane="0" via=":532_10_0" dir="s" state="M"/>
+    <connection from=":532_10" to="2872" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":532_5" to="-533" fromLane="0" toLane="0" via=":532_11_0" dir="s" state="M"/>
+    <connection from=":532_11" to="-533" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":532_6" to="-533" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":532_7" to="1388" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":532_8" to="2872" fromLane="0" toLane="0" dir="s" state="M"/>

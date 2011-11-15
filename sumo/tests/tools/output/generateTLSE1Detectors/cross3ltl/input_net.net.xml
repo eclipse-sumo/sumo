@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jul 11 12:54:05 2011 by SUMO netconvert Version dev-SVN-r10919
+<!-- generated on 11/15/11 12:12:27 by SUMO netconvert Version dev-SVN-r11508
+<?xml version="1.0" encoding="iso-8859-1"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./tools/output/generateE2Detectors/cross3ltl/cross3ltl.nod.xml"/>
-        <edge-files value="./tools/output/generateE2Detectors/cross3ltl/cross3ltl.edg.xml"/>
+        <node-files value=".\tools\output\generateTLSE1Detectors\cross3ltl\cross3ltl.nod.xml"/>
+        <edge-files value=".\tools\output\generateTLSE1Detectors\cross3ltl\cross3ltl.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./tools/output/generateE2Detectors/cross3ltl/input_net.net.xml"/>
+        <output-file value=".\tools\output\generateTLSE1Detectors\cross3ltl\input_net.net.xml"/>
     </output>
 
     <report>
@@ -61,7 +62,7 @@
         <lane id=":0_19_0" index="0" speed="12.50" length="2.41" shape="509.70,500.00 510.11,499.18 511.35,498.35"/>
     </edge>
     <edge id=":0_8" function="internal">
-        <lane id=":0_8_0" index="0" speed="12.50" length="10.88" shape="508.25,488.65 508.44,492.89 509.03,495.92 509.99,497.74 511.35,498.35"/>
+        <lane id=":0_8_0" index="0" speed="12.50" length="10.88" shape="508.25,488.65 508.44,492.89 509.03,495.93 509.99,497.74 511.35,498.35"/>
     </edge>
     <edge id=":0_9" function="internal">
         <lane id=":0_9_0" index="0" speed="12.50" length="22.98" shape="504.95,488.65 504.43,496.33 503.30,502.43 502.17,507.31 501.65,511.35"/>
