@@ -733,7 +733,7 @@ NBNode::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherT
         return true;
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
-        return true;
+        return mustBrake(fromE, toE, c.toLane);
     }
     return false;
 }
