@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-@file    dua_iterate.py
+@file    duaIterate.py
 @author  Daniel Krajzewicz, Michael Behrisch
 @date    2008-02-13
 @version $Id$
@@ -61,7 +61,7 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output, routesInfo, initial_type):
-    cfgname = "iteration_%s_%s.rou.cfg" % (step, os.path.basename(file))
+    cfgname = "iteration_%03i_%s.rou.cfg" % (step, os.path.basename(file))
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -75,7 +75,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
-        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
+        print >> fd, '        <weights value="dump_%03i_%s.xml"/>' % (step-1, options.aggregation)
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
@@ -102,7 +102,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     return cfgname
 
 def writeSUMOConf(step, options, files):
-    fd = open("iteration_%s.sumo.cfg" % step, "w")
+    fd = open("iteration_%03i.sumo.cfg" % step, "w")
     add = ""
     if options.additional != "":
         add = "," + options.additional
@@ -110,18 +110,18 @@ def writeSUMOConf(step, options, files):
     <input>
         <net-file value="%s"/>
         <route-files value="%s"/>
-        <additional-files value="dua_dump_%s.add.xml%s"/>
+        <additional-files value="dua_dump_%03i.add.xml%s"/>
     </input>
     <output>""" % (options.net, files, step, add)
     if hasattr(options, "noSummary") and not options.noSummary:
-        print >> fd, '        <summary-output value="summary_%s.xml"/>' % step
+        print >> fd, '        <summary-output value="summary_%03i.xml"/>' % step
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
-        print >> fd, '        <tripinfo-output value="tripinfo_%s.xml"/>' % step
+        print >> fd, '        <tripinfo-output value="tripinfo_%03i.xml"/>' % step
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+            print >> fd, '         <vehroute-output value="vehroute_%03i.xml"/>' % step
         elif options.routefile == "detailed":
-            print >> fd, '         <vehroute-output value="vehroute_%s.xml"/>' % step
+            print >> fd, '         <vehroute-output value="vehroute_%03i.xml"/>' % step
             print >> fd, '         <vehroute-output.exit-times value="True"/>'
     if hasattr(options, "lastroute") and options.lastroute:
         print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
@@ -154,9 +154,9 @@ def writeSUMOConf(step, options, files):
     </report>
 </configuration>""" % options.noWarnings
     fd.close()
-    fd = open("dua_dump_%s.add.xml" % step, "w")
+    fd = open("dua_dump_%03i.add.xml" % step, "w")
     print >> fd, """<a>
-    <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml"/>
+    <edgeData id="dump_%03i_%s" freq="%s" file="dump_%03i_%s.xml"/>
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
@@ -241,10 +241,10 @@ def main():
         for demand_file in input_demands:
             basename = os.path.basename(demand_file)
             basename = basename[:basename.find(".")]
-            output =  basename + "_%s.rou.xml" % step
+            output =  basename + "_%03i.rou.xml" % step
             if step>0:
                 # output of previous step
-                demand_file = basename + "_%s.rou.alt.xml" % (step-1)
+                demand_file = basename + "_%03i.rou.alt.xml" % (step-1)
     
             print ">> Running router"
             btime = datetime.now()
@@ -262,7 +262,7 @@ def main():
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
-        call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
+        call([sumoBinary, "-c", "iteration_%03i.sumo.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
