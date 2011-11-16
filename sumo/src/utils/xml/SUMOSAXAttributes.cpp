@@ -43,6 +43,7 @@
 // static members
 // ===========================================================================
 bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
+const std::string SUMOSAXAttributes::ENCODING = " encoding=\"UTF-8\"";
 
 
 // ===========================================================================

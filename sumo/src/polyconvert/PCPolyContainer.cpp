@@ -31,11 +31,12 @@
 #include <map>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/shapes/Polygon.h>
-#include "PCPolyContainer.h"
 #include <utils/common/UtilExceptions.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
+#include <utils/shapes/Polygon.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include "PCPolyContainer.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -145,7 +146,7 @@ PCPolyContainer::report() {
 void
 PCPolyContainer::save(const std::string& file) {
     OutputDevice& out = OutputDevice::getDevice(file);
-    out.writeXMLHeader("shapes", " encoding=\"iso-8859-1\"");
+    out.writeXMLHeader("shapes", SUMOSAXAttributes::ENCODING);
     // write polygons
     for (PolyCont::iterator i = myPolyCont.begin(); i != myPolyCont.end(); ++i) {
         out.openTag("poly") << " id=\"" << StringUtils::escapeXML((*i).second->getID())

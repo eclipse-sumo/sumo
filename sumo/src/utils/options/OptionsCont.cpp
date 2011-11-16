@@ -42,6 +42,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <sstream>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -740,7 +741,7 @@ void
 OptionsCont::writeConfiguration(std::ostream& os, bool filled,
                                 bool complete, bool addComments) {
     // to the best of our knowledge files are written in latin-1 on windows and linux
-    os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
+    os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
@@ -802,8 +803,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
 
 void
 OptionsCont::writeSchema(std::ostream& os, bool addComments) {
-    // to the best of our knowledge files are written in latin-1 on windows and linux
-    os << "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n\n";
+    os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";

@@ -474,6 +474,10 @@ public:
     }
 
 
+    /** @brief The encoding of parsed strings */
+    static const std::string ENCODING;
+
+
 protected:
     void emitUngivenError(const std::string& attrname, const char* objectid) const ;
     void emitEmptyError(const std::string& attrname, const char* objectid) const ;
