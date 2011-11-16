@@ -50,7 +50,7 @@ class NWFrame {
 public:
     /** @brief Inserts options used by the network writer
      */
-    static void fillOptions();
+    static void fillOptions(bool forNetgen);
 
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid

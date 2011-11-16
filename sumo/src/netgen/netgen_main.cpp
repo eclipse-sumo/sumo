@@ -87,7 +87,7 @@ fillOptions() {
 
     NGFrame::fillOptions();
     NBFrame::fillOptions(true);
-    NWFrame::fillOptions();
+    NWFrame::fillOptions(true);
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
     oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left] Determines the type of the build junctions");

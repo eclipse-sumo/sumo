@@ -78,7 +78,7 @@ fillOptions() {
 
     NIFrame::fillOptions();
     NBFrame::fillOptions(false);
-    NWFrame::fillOptions();
+    NWFrame::fillOptions(false);
     RandHelper::insertRandOptions();
 }
 

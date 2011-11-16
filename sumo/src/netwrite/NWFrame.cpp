@@ -55,7 +55,7 @@ const std::string NWFrame::XML_PARAMS = " encoding=\"UTF-8\"";
 // method definitions
 // ===========================================================================
 void
-NWFrame::fillOptions() {
+NWFrame::fillOptions(bool forNetgen) {
     OptionsCont& oc = OptionsCont::getOptions();
     // register options
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -69,8 +69,10 @@ NWFrame::fillOptions() {
     oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
 
 #ifdef HAVE_PROJ
-    oc.doRegister("proj.plain-geo", new Option_Bool(false));
-    oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
+    if (!forNetgen) {
+        oc.doRegister("proj.plain-geo", new Option_Bool(false));
+        oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
+    }
 #endif // HAVE_PROJ
 
     oc.doRegister("map-output", 'M', new Option_FileName());
