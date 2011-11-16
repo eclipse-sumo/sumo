@@ -35,6 +35,7 @@ output:\r{REPLACE \n}
 plain_nodes:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
+plain_tllogic:<!--{[->]}-->
 net:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found
