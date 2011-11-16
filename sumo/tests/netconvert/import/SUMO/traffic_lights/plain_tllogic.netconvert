@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 16 08:56:37 2011 by SUMO netconvert Version dev-SVN-r11512
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/tllogic_file.xsd">
+    <tlLogic id="node_centertl" type="static" programID="0" offset="0">
+        <phase duration="31" state="rrrGGgGgg"/>
+        <phase duration="3" state="rrryygygg"/>
+        <phase duration="6" state="rrrrrGrGG"/>
+        <phase duration="3" state="rrrrryryy"/>
+        <phase duration="31" state="GGgGrrrrr"/>
+        <phase duration="3" state="yyyyrrrrr"/>
+    </tlLogic>
+    <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
+        <phase duration="31" state="rrrGGgGgg"/>
+        <phase duration="3" state="rrryygygg"/>
+        <phase duration="6" state="rrrrrGrGG"/>
+        <phase duration="3" state="rrrrryryy"/>
+        <phase duration="31" state="GGgGrrrrr"/>
+        <phase duration="3" state="yyyyrrrrr"/>
+    </tlLogic>
+
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" tl="node_centertl" linkIndex="6"/>
+    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" tl="node_centertl" linkIndex="7"/>
+    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" tl="node_centertl" linkIndex="8"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" tl="node_centertl" linkIndex="3"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" tl="node_centertl" linkIndex="4"/>
+    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" tl="node_centertl" linkIndex="5"/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" tl="node_centertl" linkIndex="0"/>
+    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" tl="node_centertl" linkIndex="1"/>
+    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" tl="node_centertl" linkIndex="2"/>
+</tlLogics>
