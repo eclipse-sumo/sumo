@@ -124,6 +124,8 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <summary-output value="summary_%03i.xml"/>' % step
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%03i.xml"/>' % step
+        if hasattr(options, "ecomeasure"):
+            print >> fd, '        <device.hbefa.probability value="1"/>'
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
             print >> fd, '         <vehroute-output value="vehroute_%03i.xml"/>' % step
