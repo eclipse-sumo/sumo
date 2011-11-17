@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Jul 12 14:53:36 2011 by SUMO sumo Version dev-SVN-r10955
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 11/17/11 10:17:05 by SUMO sumo Version dev-SVN-r11517
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -329,7 +329,7 @@
         <vehicle id="always_left.3" lane="2o_0" pos="161.81" x="673.16" y="498.35" speed="10.91"/>
         <vehicle id="always_left.4" lane="2o_0" pos="139.63" x="650.98" y="498.35" speed="10.96"/>
         <vehicle id="always_left.5" lane="2o_0" pos="88.38" x="599.73" y="498.35" speed="10.92"/>
-        <vehicle id="always_left.6" lane=":0_8_0" pos="7.41" x="509.07" y="495.99" speed="11.05"/>
+        <vehicle id="always_left.6" lane=":0_8_0" pos="7.41" x="509.06" y="495.99" speed="11.05"/>
         <vehicle id="always_left.7" lane="3si_0" pos="99.21" x="508.25" y="350.71" speed="13.85"/>
         <vehicle id="always_left.8" lane="3fi_0" pos="235.36" x="501.65" y="235.36" speed="10.92"/>
         <vehicle id="always_left.9" lane="3fi_0" pos="126.61" x="501.65" y="126.61" speed="10.88"/>
