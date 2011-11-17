@@ -93,7 +93,10 @@ rawdump:0.0101
 aggregated1:0.00001
 
 [batch_extra_version]
-default:perf
+gcc4:perf
+gcc4_64:perf
+msvc10Win32:perf
+msvc10x64:perf
 meso:meso
-msvc10mesox64:meso
 msvc10mesoWin32:meso
+msvc10mesox64:meso
