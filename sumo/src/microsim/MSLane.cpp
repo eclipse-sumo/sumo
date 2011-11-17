@@ -154,27 +154,25 @@ MSLane::pWagGenericInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, S
             return true;
         }
     }
-    int nIter = 10;
-    SUMOReal vHlp = 0.5 * (vIn + mspeed);
+    const SUMOReal vHlp = 0.5 * (vIn + mspeed);
     SUMOReal x2 = xIn;// have seen leader length already - skCar::lCar;
     SUMOReal x1 = x2 - 100.0;
-    SUMOReal v = vIn;
     SUMOReal x = 0;
-    for (int i = 0; i <= nIter; i++) {
+    for (int i = 0; i <= 10; i++) {
         x = 0.5 * (x1 + x2);
-        SUMOReal vSafe = veh.getCarFollowModel().followSpeed(&veh, v, xIn - x, vIn, leaderDecel);
+        SUMOReal vSafe = veh.getCarFollowModel().followSpeed(&veh, vHlp, xIn - x, vIn, leaderDecel);
         if (vSafe < vHlp) {
             x2 = x;
         } else {
             x1 = x;
         }
     }
-    if (xIn < minPos) {
+    if (x < minPos) {
         return false;
-    } else if (xIn > maxPos) {
-        xIn = maxPos;
+    } else if (x > maxPos) {
+        x = maxPos;
     }
-    incorporateVehicle(&veh, x, v, myVehicles.begin());
+    incorporateVehicle(&veh, x, vHlp, myVehicles.begin());
     return true;
 }
 
@@ -199,7 +197,7 @@ MSLane::pWagSimpleInsertion(MSVehicle& veh, SUMOReal mspeed, SUMOReal maxPos, SU
             return true;
         }
     }
-    SUMOReal vHlp = 0.5 * (mspeed + vIn);
+    const SUMOReal vHlp = 0.5 * (mspeed + vIn);
     xIn = xIn - vHlp * veh.getCarFollowModel().getHeadwayTime();
     if (xIn < minPos) {
         return false;
