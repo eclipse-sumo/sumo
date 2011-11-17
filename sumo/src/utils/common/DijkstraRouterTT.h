@@ -114,15 +114,14 @@ public:
         }
     };
 
-    virtual SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) = 0;
+    virtual SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const = 0;
 
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
-
-        SUMOReal time = (SUMOReal) msTime / 1000.;
+        const SUMOReal time = STEPS2TIME(msTime);
         for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
             (*i).traveltime = std::numeric_limits<SUMOReal>::max();
             (*i).visited = false;
@@ -147,7 +146,7 @@ public:
                 return;
             }
             minimumInfo->visited = true;
-            const SUMOReal traveltime = minimumInfo->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumInfo->traveltime);
+            const SUMOReal traveltime = minimumInfo->traveltime + getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             const unsigned int length_size = minEdge->getNoFollowing();
@@ -177,14 +176,14 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V* const v, SUMOTime msTime) {
-        SUMOReal time = (SUMOReal) msTime / 1000.;
+    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V* const v, SUMOTime msTime) const {
+        const SUMOReal time = STEPS2TIME(msTime);
         SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;
             }
-            costs += getEffort(*i, v, (SUMOTime)(time + costs));
+            costs += getEffort(*i, v, time + costs);
         }
         return costs;
     }
@@ -225,7 +224,7 @@ public:
         : DijkstraRouterTTBase<E, V, PF>(noE, unbuildIsWarningOnly),
           myReceiver(receiver), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
         return (myReceiver->*myOperation)(e, v, t);
     }
 
@@ -249,7 +248,7 @@ public:
     DijkstraRouterTT_Direct(size_t noE, bool unbuildIsWarningOnly, Operation operation)
         : DijkstraRouterTTBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
         return (e->*myOperation)(v, t);
     }
 

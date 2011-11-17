@@ -117,7 +117,7 @@ public:
         }
     };
 
-    virtual SUMOReal getEffort(const E* const e, SUMOReal t) {
+    virtual SUMOReal getEffort(const E* const e, SUMOReal t) const {
         SUMOReal value;
         if (MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
             return value;
@@ -130,9 +130,9 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const MSVehicle* const vehicle,
-                         SUMOTime time, std::vector<const E*> &into) {
-
+                         SUMOTime msTime, std::vector<const E*> &into) {
         UNUSED_PARAMETER(vehicle);
+        const SUMOReal time = STEPS2TIME(msTime);
         // get structures to reuse
         std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
         if (visited == 0) {
@@ -178,10 +178,10 @@ public:
                 return;
             }
             (*visited)[minEdge->getNumericalID()] = true;
-            SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, time + minimumKnot->effort));
+            const SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, time + minimumKnot->effort));
             // check all ways from the node with the minimal length
             unsigned int i = 0;
-            unsigned int length_size = minEdge->getNoFollowing();
+            const unsigned int length_size = minEdge->getNoFollowing();
             for (i = 0; i < length_size; i++) {
                 const E* help = minEdge->getFollower(i);
 
@@ -199,11 +199,12 @@ public:
     }
 
 
-    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle* const v, SUMOTime time) {
+    SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle* const v, SUMOTime msTime) const {
         UNUSED_PARAMETER(v);
+        const SUMOReal time = STEPS2TIME(msTime);
         SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); i++) {
-            costs += getEffort(*i, (SUMOTime)(time + costs));
+            costs += getEffort(*i, time + costs);
         }
         return costs;
     }

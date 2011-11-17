@@ -89,7 +89,7 @@ public:
      * @param[in] time The departure time of the vehicle
      * @return The route costs
      */
-    SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle* const v, SUMOTime time) ;
+    SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle* const v, SUMOTime time) const;
     /// @}
 
 
