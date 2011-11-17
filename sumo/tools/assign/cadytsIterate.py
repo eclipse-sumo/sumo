@@ -96,9 +96,9 @@ def main():
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
         if '_' in routname:
-            output = "%s_%s.cal.xml" % (routname[:routname.rfind('_')], step)
+            output = "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step)
         else:
-            output = "%s_%s.cal.xml" % (routname[:routname.find('.')], step)
+            output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
 
         call(calibrator + ["CHOICE", "-choicesetfile", options.routes, "-choicefile", "%s" % output], log)
         files.append(output)
@@ -108,7 +108,7 @@ def main():
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
-        retCode = call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
+        retCode = call([sumoBinary, "-c", "iteration_%03i.sumo.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
@@ -116,9 +116,9 @@ def main():
         
         # calibration update
         if evalprefix:
-            call(calibrator + ["UPDATE", "-netfile", "dump_%s_%s.xml" % (step, options.aggregation), "-flowfile", "%s_%s.txt" % (evalprefix, step)], log)
+            call(calibrator + ["UPDATE", "-netfile", "dump_%03i_%s.xml" % (step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
-            call(calibrator + ["UPDATE", "-netfile", "dump_%s_%s.xml" % (step, options.aggregation)], log)
+            call(calibrator + ["UPDATE", "-netfile", "dump_%03i_%s.xml" % (step, options.aggregation)], log)
         print "< Step %s ended (duration: %s)" % (step, datetime.now() - btime)
         print "------------------\n"
         log.flush()

@@ -48,6 +48,9 @@ def initOptions():
                          default = False, help="Enable mesoscopic traffic light and priority junciton handling")
     optParser.add_option("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
                          default = False, help="Enable multiple queues at edge ends")
+    optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
+                         choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
+                         help="define the applied eco measure, e.g. fuel, CO2, noise")
     return optParser
 
 def call(command, log):
@@ -203,9 +206,6 @@ def main():
                          default = False, help="output the last routes")
     optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                          default = False, help="save routes with near zero probability")
-    optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
-                         choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
-                         help="define the applied eco measure, e.g. fuel, CO2, noise")
     
     (options, args) = optParser.parse_args()
     if not options.net:
