@@ -97,14 +97,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
-    try {
-        net.openOutput(oc.getString("output-file"), true);
-    } catch (IOError& e) {
-        throw e;
-    }
+    net.openOutput(oc.getString("output-file"), true);
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    std::string measure = oc.getString("weight-attribute");
+    const std::string measure = oc.getString("weight-attribute");
     if (measure == "traveltime") {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
@@ -129,6 +125,9 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             op = &ROEdge::getFuelEffort;
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
+        } else {
+            net.closeOutput();
+            throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
         }
         if (net.hasRestrictions()) {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
