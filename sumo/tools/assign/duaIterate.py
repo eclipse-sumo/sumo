@@ -61,7 +61,9 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output, routesInfo, initial_type):
-    cfgname = "iteration_%03i_%s.rou.cfg" % (step, os.path.basename(file))
+    filename = os.path.basename(file)
+    filename = filename.split('.')[0]
+    cfgname = "iteration_%03i_%s.rou.cfg" % (step, filename)
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -76,6 +78,8 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
         print >> fd, '        <weights value="dump_%03i_%s.xml"/>' % (step-1, options.aggregation)
+        if options.ecomeasure:
+            print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
@@ -155,9 +159,12 @@ def writeSUMOConf(step, options, files):
 </configuration>""" % options.noWarnings
     fd.close()
     fd = open("dua_dump_%03i.add.xml" % step, "w")
+    ecomeasure = ''
+    if options.ecomeasure:
+        ecomeasure = 'type= "hbefa"'
     print >> fd, """<a>
-    <edgeData id="dump_%03i_%s" freq="%s" file="dump_%03i_%s.xml"/>
-</a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
+    <edgeData id="dump_%03i_%s" %s freq="%s" file="dump_%03i_%s.xml"/>
+</a>""" % (step, options.aggregation, ecomeasure, options.aggregation, step, options.aggregation)
     fd.close()
 
 def main():
@@ -196,7 +203,9 @@ def main():
                          default = False, help="output the last routes")
     optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                          default = False, help="save routes with near zero probability")
-
+    optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
+                         choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
+                         help="define the applied eco measure, e.g. fuel, CO2, noise")
     
     (options, args) = optParser.parse_args()
     if not options.net:
