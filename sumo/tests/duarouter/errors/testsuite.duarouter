@@ -16,6 +16,9 @@ no_input
 # Tests what happens if an unknown option is passed
 unknown_option
 
+# Tests what happens if an unknown measure is passed as weights attribute
+unknown_measure
+
 
 # Tests what happens if the given alternatives do not exist
 false_input_alts

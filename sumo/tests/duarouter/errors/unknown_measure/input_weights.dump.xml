@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/13/09 09:40:46 by SUMO sumo Version dev-SVN-r7857
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="routes.duarouter"/>
+        <additional-files value="add.add.xml"/>
+    </input>
+
+    <time>
+        <end value="3600"/>
+    </time>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="86400" id="dump_300">
+      <edge id="beg" traveltime="1" CO_perVeh="169.23" />
+   </interval>
+</netstats>
