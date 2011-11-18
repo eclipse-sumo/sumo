@@ -61,3 +61,4 @@ ticket435_parking
 # The probability that a certain seed shows this behaviour is greatly affected by small changes in geometry
 # and ranges from 0 to 100%.
 ticket604
+ticket609
