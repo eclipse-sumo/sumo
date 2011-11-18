@@ -423,7 +423,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             SUMOReal gap = 0;
             MSVehicle* leader = currentLane->getPartialOccupator();
             if (leader != 0) {
-                gap = getPartialOccupatorEnd();
+                gap = seen + currentLane->getPartialOccupatorEnd() - currentLane->getLength();
             } else {
                 // check leader on next lane
                 leader = nextLane->getLastVehicle();
@@ -432,7 +432,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             if (leader != 0) {
-                SUMOReal nspeed = gap >= 0 ? cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) : 0;
+                if (gap < 0) {
+                    return false;
+                }
+                const SUMOReal nspeed = cfModel.followSpeed(aVehicle, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                 if (nspeed < speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -444,7 +447,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            SUMOReal nspeed = nextLane->getMaxSpeed();
+            const SUMOReal nspeed = nextLane->getMaxSpeed();
             if (nspeed < speed) {
                 // patch speed if needed
                 if (patchSpeed) {
