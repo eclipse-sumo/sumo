@@ -112,6 +112,11 @@ public:
      */
     static void setLoaded(const GeoConvHelper& loaded);
 
+
+    /** @brief resets loaded location elements
+     */
+    static void resetLoaded();
+
     /// Converts the given cartesian (shifted) position to its geo (lat/long) representation
     void cartesian2geo(Position& cartesian) const;
 

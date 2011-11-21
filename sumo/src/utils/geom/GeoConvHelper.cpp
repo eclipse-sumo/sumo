@@ -392,5 +392,11 @@ GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
 }
 
 
+void 
+GeoConvHelper::resetLoaded() {
+    myNumLoaded = 0;
+}
+
+
 /****************************************************************************/
 
