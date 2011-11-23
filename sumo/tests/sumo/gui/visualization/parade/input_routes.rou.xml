@@ -68,22 +68,22 @@
 
 
 
-   <vType id="rail" length="5" minGap="2.5" guiShape="rail"/>
+   <vType id="rail" length="15" minGap="0.4" guiShape="rail"/>
    <vehicle id="rail" route="always_right" depart="0" type="rail"/>
 
-   <vType id="rail/light" length="5" minGap="2.5" guiShape="rail/light"/>
+   <vType id="rail/light" length="12" minGap="0.4" guiShape="rail/light"/>
    <vehicle id="rail/light" route="always_right" depart="0" type="rail/light"/>
 
-   <vType id="rail/city" length="5" minGap="2.5" guiShape="rail/city"/>
+   <vType id="rail/city" length="12" minGap="0.4" guiShape="rail/city"/>
    <vehicle id="rail/city" route="always_right" depart="0" type="rail/city"/>
 
-   <vType id="rail/slow" length="5" minGap="2.5" guiShape="rail/slow"/>
+   <vType id="rail/slow" length="15" minGap="0.4" guiShape="rail/slow"/>
    <vehicle id="rail/slow" route="always_right" depart="0" type="rail/slow"/>
 
-   <vType id="rail/fast" length="5" minGap="2.5" guiShape="rail/fast"/>
+   <vType id="rail/fast" length="15" minGap="0.4" guiShape="rail/fast"/>
    <vehicle id="rail/fast" route="always_right" depart="0" type="rail/fast"/>
 
-   <vType id="rail/cargo" length="5" minGap="2.5" guiShape="rail/cargo"/>
+   <vType id="rail/cargo" length="15" minGap="0.4" guiShape="rail/cargo"/>
    <vehicle id="rail/cargo" route="always_right" depart="0" type="rail/cargo"/>
 
 
