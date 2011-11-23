@@ -797,17 +797,16 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
 
 #define BLINKER_POS_FRONT .5
 #define BLINKER_POS_BACK .5
-#define BRAKELIGHT_POS 1.2
 
 inline void
 drawAction_drawBlinker(const GUIVehicle& veh, double dir) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
-    glTranslated(dir, BLINKER_POS_FRONT + veh.getVehicleType().getMinGap(), 0);
+    glTranslated(dir, BLINKER_POS_FRONT + veh.getVehicleType().getMinGap(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(dir, veh.getVehicleType().getLengthWithGap() - BLINKER_POS_BACK, 0);
+    glTranslated(dir, veh.getVehicleType().getLengthWithGap() - BLINKER_POS_BACK, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -818,15 +817,16 @@ drawAction_drawVehicleBlinker(const GUIVehicle& veh) {
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
         return;
     }
+    const double offset = MAX2(.5 * veh.getVehicleType().getGuiWidth(), .4);
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
-        drawAction_drawBlinker(veh, (double) - 1.*veh.getVehicleType().getGuiWidth()*.5);
+        drawAction_drawBlinker(veh, -offset);
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
-        drawAction_drawBlinker(veh, (double) 1.*veh.getVehicleType().getGuiWidth()*.5);
+        drawAction_drawBlinker(veh, offset);;
     }
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
-        drawAction_drawBlinker(veh, (double) - 1.*veh.getVehicleType().getGuiWidth()*.5);
-        drawAction_drawBlinker(veh, (double) 1.*veh.getVehicleType().getGuiWidth()*.5);
+        drawAction_drawBlinker(veh, -offset);
+        drawAction_drawBlinker(veh, offset);
     }
 }
 
@@ -838,11 +838,11 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
     }
     glColor3f(1.f, .2f, 0);
     glPushMatrix();
-    glTranslated(-veh.getVehicleType().getGuiWidth() + BRAKELIGHT_POS, veh.getVehicleType().getLengthWithGap(), 0);
+    glTranslated(-veh.getVehicleType().getGuiWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(veh.getVehicleType().getGuiWidth() - BRAKELIGHT_POS, veh.getVehicleType().getLengthWithGap(), 0);
+    glTranslated(veh.getVehicleType().getGuiWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
