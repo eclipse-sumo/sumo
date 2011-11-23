@@ -891,6 +891,12 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             case SVS_PEDESTRIAN:
             case SVS_BICYCLE:
             case SVS_ANT:
+            case SVS_RAIL:
+            case SVS_RAIL_LIGHT:
+            case SVS_RAIL_SLOW:
+            case SVS_RAIL_FAST:
+            case SVS_RAIL_CARGO:
+            // only SVS_RAIL_CITY has blinkers and brake lights
                 break;
             default:
                 drawAction_drawVehicleBlinker(*this);
