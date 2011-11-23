@@ -399,11 +399,11 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
 
-    SUMOReal length = veh.getVehicleType().getLengthWithGap();
+    SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
-    glScaled(length - veh.getVehicleType().getMinGap(), veh.getVehicleType().getGuiWidth(), 1.);
+    glScaled(length, veh.getVehicleType().getGuiWidth(), 1.);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
 
     // draw main body
@@ -416,7 +416,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
             drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
             break;
         case SVS_PEDESTRIAN:
-            //glScaled(1./(length-veh.getVehicleType().getMinGap()), 1, 1.);
+            //glScaled(1./(lenght)), 1, 1.);
             glTranslated(0, 0, .045);
             GLHelper::drawFilledCircle(1);
             glTranslated(0, 0, -.045);
@@ -430,7 +430,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
         case SVS_MOTORCYCLE: {
             glPushMatrix();
             glTranslated(.5, 0, 0);
-            glScaled(.25 / (length - veh.getVehicleType().getMinGap()), 1, 1.);
+            glScaled(.25 / (length), 1, 1.);
             glTranslated(0, 0, .045);
             GLHelper::drawFilledCircle(1);
             glScaled(.7, 2, 1);
@@ -474,7 +474,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
         case SVS_TRANSPORT:
         case SVS_TRANSPORT_SEMITRAILER:
         case SVS_TRANSPORT_1TRAILER:
-            glScaled(1. / (length - veh.getVehicleType().getMinGap()), 1, 1.);
+            glScaled(1. / (length), 1, 1.);
             drawPoly(vehiclePoly_TransportBody, 4);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_TransportFrontGlass, 4.5);
@@ -483,9 +483,10 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
             break;
         case SVS_BUS:
         case SVS_BUS_TROLLEY:
+        case SVS_BUS_CITY_FLEXIBLE:
         case SVS_BUS_CITY: {
-            SUMOReal ml = length - veh.getVehicleType().getMinGap();
-            glScaled(1. / (length - veh.getVehicleType().getMinGap()), 1, 1.);
+            SUMOReal ml = length;
+            glScaled(1. / (length), 1, 1.);
             glTranslated(0, 0, .04);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(ml / 2., 0);
@@ -536,10 +537,10 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
         case SVS_RAIL_SLOW:
         case SVS_RAIL_FAST:
         case SVS_RAIL_CARGO:
-            glScaled(1. / (length - veh.getVehicleType().getMinGap()), 1, 1.);
+            glScaled(1. / (length), 1, 1.);
             glTranslated(0, 0, .04);
             glBegin(GL_TRIANGLE_FAN);
-            glVertex2d(length / 2., 0);
+            glVertex2d(length/ 2., 0);
             glVertex2d(0, 0);
             glVertex2d(0, -.45);
             glVertex2d(.05, -.5);
@@ -624,7 +625,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
         case SVS_PEDESTRIAN:
             break;
         case SVS_BICYCLE:
-            //glScaled(length-veh.getVehicleType().getMinGap(), 1, 1.);
+            //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(1 / 2., 0);
             glVertex2d(0, 0);
@@ -640,7 +641,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
             glEnd();
             break;
         case SVS_MOTORCYCLE:
-            //glScaled(length-veh.getVehicleType().getMinGap(), 1, 1.);
+            //glScaled(length, 1, 1.);
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(1 / 2., 0);
             glVertex2d(0, 0);
@@ -676,15 +677,15 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
             break;
         case SVS_TRANSPORT:
             GLHelper::setColor(current);
-            GLHelper::drawBoxLine(Position(2.3, 0), 90., length - veh.getVehicleType().getMinGap() - 2.3, .5);
+            GLHelper::drawBoxLine(Position(2.3, 0), 90., length - 2.3, .5);
             break;
         case SVS_TRANSPORT_SEMITRAILER:
             GLHelper::setColor(current);
-            GLHelper::drawBoxLine(Position(2.8, 0), 90., length - veh.getVehicleType().getMinGap() - 2.8, .5);
+            GLHelper::drawBoxLine(Position(2.8, 0), 90., length - 2.8, .5);
             break;
         case SVS_TRANSPORT_1TRAILER: {
             GLHelper::setColor(current);
-            SUMOReal l = length - veh.getVehicleType().getMinGap() - 2.3;
+            SUMOReal l = length - 2.3;
             l = l / 2.;
             GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
             GLHelper::drawBoxLine(Position(2.3 + l + .5, 0), 90., l - .5, .5);
