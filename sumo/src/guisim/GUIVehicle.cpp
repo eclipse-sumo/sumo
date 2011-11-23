@@ -328,10 +328,9 @@ GUIVehicle::getCenteringBoundary() const {
 
 
 inline void
-drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh, SUMOReal upscale) {
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
     SUMOReal length = veh.getVehicleType().getLengthWithGap();
     glPushMatrix();
-    glScaled(upscale, upscale, 1);
     if (length < 8) {
         glScaled(1, length, 1);
         glBegin(GL_TRIANGLES);
@@ -356,14 +355,13 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh, SUMOReal upscale) {
 }
 
 inline void
-drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh, SUMOReal upscale) {
+drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
     SUMOReal length = veh.getVehicleType().getLengthWithGap();
     SUMOReal offset = veh.getVehicleType().getMinGap();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     //glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
     glScaled(1, veh.getVehicleType().getGuiWidth(), 1.);
-    glScaled(upscale, upscale, 1);
     glBegin(GL_TRIANGLE_FAN);
     glVertex2d((length - offset) / 2., 0);
     glVertex2d(offset, 0);
@@ -396,7 +394,7 @@ drawPoly(double* poses, SUMOReal offset) {
 
 
 inline void
-drawAction_drawVehicleAsPoly(const GUIVehicle& veh, SUMOReal upscale) {
+drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(.2);
     RGBColor darker = current.changedBrightness(-.2);
@@ -406,7 +404,6 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh, SUMOReal upscale) {
     glRotated(90, 0, 0, 1);
     glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
     glScaled(length - veh.getVehicleType().getMinGap(), veh.getVehicleType().getGuiWidth(), 1.);
-    glScaled(upscale, upscale, 1);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
 
     // draw main body
@@ -818,9 +815,6 @@ drawAction_drawBlinker(const GUIVehicle& veh, double dir) {
 
 inline void
 drawAction_drawVehicleBlinker(const GUIVehicle& veh) {
-    if (veh.getVehicleType().getGuiWidth() < .5) {
-        return;
-    }
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
         return;
     }
@@ -863,6 +857,9 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glRotated(getAngle(), 0, 0, 1);
     // set lane color
     setColor(s);
+    // scale
+    SUMOReal upscale = s.vehicleExaggeration;
+    glScaled(upscale, upscale, 1);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
@@ -874,20 +871,19 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         }
         */
     // draw the vehicle
-    SUMOReal upscale = s.vehicleExaggeration;
     switch (s.vehicleQuality) {
         case 0:
-            drawAction_drawVehicleAsTrianglePlus(*this, upscale);
+            drawAction_drawVehicleAsTrianglePlus(*this);
             break;
         case 1:
-            drawAction_drawVehicleAsBoxPlus(*this, upscale);
+            drawAction_drawVehicleAsBoxPlus(*this);
             break;
         case 2:
         default:
-            drawAction_drawVehicleAsPoly(*this, upscale);
+            drawAction_drawVehicleAsPoly(*this);
             break;
     }
-    // draw the blinker if wished
+    // draw the blinker and brakelights if wished
     if (s.showBlinker) {
         glTranslated(0, 0, .1);
         switch (getVehicleType().getGuiShape()) {
