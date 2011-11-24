@@ -100,14 +100,14 @@ MSDevice_HBEFA::~MSDevice_HBEFA() {
 
 bool
 MSDevice_HBEFA::notifyMove(SUMOVehicle& veh, SUMOReal /*oldPos*/, SUMOReal /*newPos*/, SUMOReal newSpeed) {
-    SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
-    SUMOReal a = veh.getPreDawdleAcceleration();
-    myCO2 += HelpersHBEFA::computeCO2(c, newSpeed, a);
-    myCO += HelpersHBEFA::computeCO(c, newSpeed, a);
-    myHC += HelpersHBEFA::computeHC(c, newSpeed, a);
-    myPMx += HelpersHBEFA::computePMx(c, newSpeed, a);
-    myNOx += HelpersHBEFA::computeNOx(c, newSpeed, a);
-    myFuel += HelpersHBEFA::computeFuel(c, newSpeed, a);
+    const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
+    const SUMOReal a = veh.getPreDawdleAcceleration();
+    myCO2 += TS * HelpersHBEFA::computeCO2(c, newSpeed, a);
+    myCO += TS * HelpersHBEFA::computeCO(c, newSpeed, a);
+    myHC += TS * HelpersHBEFA::computeHC(c, newSpeed, a);
+    myPMx += TS * HelpersHBEFA::computePMx(c, newSpeed, a);
+    myNOx += TS * HelpersHBEFA::computeNOx(c, newSpeed, a);
+    myFuel += TS * HelpersHBEFA::computeFuel(c, newSpeed, a);
     return true;
 }
 
@@ -116,12 +116,12 @@ void
 MSDevice_HBEFA::generateOutput() const {
     OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
     (os.openTag("emissions") <<
-     " CO_abs=\"" << OutputDevice::realString(myCO, 6) <<
-     "\" CO2_abs=\"" << OutputDevice::realString(myCO2, 6) <<
-     "\" HC_abs=\"" << OutputDevice::realString(myHC, 6) <<
-     "\" PMx_abs=\"" << OutputDevice::realString(myPMx, 6) <<
-     "\" NOx_abs=\"" << OutputDevice::realString(myNOx, 6) <<
-     "\" fuel_abs=\"" << OutputDevice::realString(myFuel, 6) <<
+     " CO_abs=\"" << OutputDevice::realString(1000. * myCO, 6) <<
+     "\" CO2_abs=\"" << OutputDevice::realString(1000. * myCO2, 6) <<
+     "\" HC_abs=\"" << OutputDevice::realString(1000. * myHC, 6) <<
+     "\" PMx_abs=\"" << OutputDevice::realString(1000. * myPMx, 6) <<
+     "\" NOx_abs=\"" << OutputDevice::realString(1000. * myNOx, 6) <<
+     "\" fuel_abs=\"" << OutputDevice::realString(1000. * myFuel, 6) <<
      "\"").closeTag(true);
 }
 

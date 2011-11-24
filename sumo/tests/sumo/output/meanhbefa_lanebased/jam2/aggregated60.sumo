@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/09/11 14:28:06 by SUMO sumo Version dev-SVN-r9885
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 11/24/11 12:39:40 by SUMO sumo Version dev-SVN-r11538
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -32,12 +32,12 @@
         <edge id="3/1to2/1">
             <lane id="3/1to2/1_0" sampledSeconds="3180.00" CO_abs="20261.564333" CO2_abs="1913383.033333" HC_abs="1111.155600" PMx_abs="67.611526" NOx_abs="2669.641800" fuel_abs="762.835932"
             CO_normed="3113.172497" CO2_normed="293989.710627" HC_normed="170.728133" PMx_normed="10.388455" NOx_normed="410.188241" fuel_normed="117.209106"
-            traveltime="100000.00" CO_perVeh="637.156111" CO2_perVeh="60169.277778" HC_perVeh="34.942000" PMx_perVeh="2.126149" NOx_perVeh="83.951000" fuel_perVeh="23.988551"/>
+            traveltime="100000.00" CO_perVeh="637156.111111" CO2_perVeh="60169277.777777" HC_perVeh="34942.000000" PMx_perVeh="2126.148611" NOx_perVeh="83951.000000" fuel_perVeh="23988.551336"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="1500.0000000000" CO_abs="9557.341667" CO2_abs="902539.166667" HC_abs="524.130000" PMx_abs="31.892229" NOx_abs="1259.265000" fuel_abs="359.828270"
+            <lane id="4/1to3/1_0" sampledSeconds="1500.00" CO_abs="9557.341667" CO2_abs="902539.166667" HC_abs="524.130000" PMx_abs="31.892229" NOx_abs="1259.265000" fuel_abs="359.828270"
             CO_normed="1468.477593" CO2_normed="138674.391805" HC_normed="80.532138" PMx_normed="4.900214" NOx_normed="193.485019" fuel_normed="55.287314"
-            traveltime="100000.00" CO_perVeh="637.156111" CO2_perVeh="60169.277778" HC_perVeh="34.942000" PMx_perVeh="2.126149" NOx_perVeh="83.951000" fuel_perVeh="23.988551"/>
+            traveltime="100000.00" CO_perVeh="637156.111111" CO2_perVeh="60169277.777777" HC_perVeh="34942.000000" PMx_perVeh="2126.148611" NOx_perVeh="83951.000000" fuel_perVeh="23988.551336"/>
         </edge>
     </interval>
 </netstats>

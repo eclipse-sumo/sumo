@@ -115,10 +115,10 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
         "\" NOx_normed=\"" << OutputDevice::realString(normFactor * NOx, 6) <<
         "\" fuel_normed=\"" << OutputDevice::realString(normFactor * fuel, 6);
     if (sampleSeconds > myParent->myMinSamples) {
-        SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
+        SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds * 1000.;
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
+            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance * 1000.);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
