@@ -30,6 +30,7 @@
 #include <cassert>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
+#include <xercesc/util/XercesVersion.hpp>
 #include <xercesc/util/TransService.hpp>
 #include "SUMOSAXAttributesImpl_Xerces.h"
 #include <utils/common/TplConvert.h>
@@ -94,20 +95,27 @@ SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
+#if _XERCES_VERSION < 30000
+    return TplConvert<XMLCh>::_2str(getAttributeValueSecure(id));
+#else
     const XMLCh* utf16 = getAttributeValueSecure(id);
     if (XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
         return "";
     } else {
-        TranscodeToStr utf8(getAttributeValueSecure(id), "UTF-8");
+        TranscodeToStr utf8(utf16, "UTF-8");
         return TplConvert<XMLByte>::_2str(utf8.str(), utf8.length());
     }
+#endif
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         const std::string& str) const throw(EmptyData) {
+#if _XERCES_VERSION < 30000
+    return TplConvertSec<XMLCh>::_2str(getAttributeValueSecure(id));
+#else
     const XMLCh* utf16 = getAttributeValueSecure(id);
     if (XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
@@ -116,6 +124,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         TranscodeToStr utf8(utf16, "UTF-8");
         return TplConvertSec<XMLByte>::_2strSec(utf8.str(), utf8.length(), str);
     }
+#endif
 }
 
 
