@@ -84,7 +84,7 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
         if (idx1 != std::string::npos) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));
         } else {
-            if (arg2 == 0 || oc.isBool(convert(arg1 + 2))) {
+            if (arg2 == 0 || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
                 ok &= oc.set(convert(arg1 + 2), "true");
             } else {
                 ok &= oc.set(convert(arg1 + 2), convert(arg2));

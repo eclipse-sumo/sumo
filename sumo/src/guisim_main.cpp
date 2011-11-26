@@ -36,6 +36,7 @@
 #include <iostream>
 #include <fx.h>
 #include <fx3d.h>
+#include <microsim/MSFrame.h>
 #include <microsim/MSNet.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -76,15 +77,7 @@ fillOptions() {
     oc.addOptionSubTopic("Process");
     oc.addOptionSubTopic("Visualisation");
 
-    oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", "Process", "Loads the named config on startup");
-
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Process", "Prints this screen");
-
-    oc.doRegister("version", 'V', new Option_Bool(false));
-    oc.addDescription("version", "Process", "Prints the current version");
+    MSFrame::fillOptions();
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
@@ -156,9 +149,8 @@ main(int argc, char** argv) {
         application.addSignal(SIGINT, window, MID_QUIT);
         application.create();
         // Load configuration given on command line
-        if (oc.isSet("configuration-file")) {
-            window->loadOnStartup(oc.getString("configuration-file"),
-            !oc.getBool("no-start"));
+        if (oc.isSet("configuration-file") || oc.isSet("net-file")) {
+            window->loadOnStartup(!oc.getBool("no-start"));
         }
         // Run
         ret = application.run();

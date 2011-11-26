@@ -65,11 +65,11 @@ public:
      *  file and reset them by other values from the command line.
      *
      * @param[in] loadConfig Whether the configuration shall be loaded
-     * @param[in] argv number of arguments given at the command line
-     * @param[in] argc arguments given at the command line
+     * @param[in] argc number of arguments given at the command line
+     * @param[in] argv arguments given at the command line
      */
     static void getOptions(bool loadConfig,
-                           int argv, char** argc) ;
+                           int argc=0, char** argv=0) ;
 
 
     /** @brief Loads and parses the configuration
@@ -80,6 +80,9 @@ public:
      */
     static void loadConfiguration() ;
 
+private:
+    static int myArgC;
+    static char** myArgV;
 
 };
 

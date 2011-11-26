@@ -1053,9 +1053,9 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string& config, bool run) {
+GUIApplicationWindow::loadOnStartup(bool run) {
     myRunAtBegin = run;
-    load(config, false);
+    load("", false);
 }
 
 

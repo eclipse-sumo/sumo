@@ -92,10 +92,8 @@ GUILoadThread::run() {
     GUINet* net = 0;
     int simStartTime = 0;
     int simEndTime = 0;
-
-    // remove old options
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.clear();
+
     // within gui-based applications, nothing is reported to the console
     MsgHandler::getErrorInstance()->report2cout(false);
     MsgHandler::getErrorInstance()->report2cerr(false);
@@ -201,12 +199,14 @@ GUILoadThread::initOptions() {
         OptionsCont& oc = OptionsCont::getOptions();
         oc.clear();
         MSFrame::fillOptions();
-        if (myLoadNet) {
-            oc.set("net-file", myFile);
-        } else {
-            oc.set("configuration-file", myFile);
+        if (myFile != "") {
+            if (myLoadNet) {
+                oc.set("net-file", myFile);
+            } else {
+                oc.set("configuration-file", myFile);
+            }
         }
-        OptionsIO::getOptions(true, 1, 0);
+        OptionsIO::getOptions(true);
         return true;
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

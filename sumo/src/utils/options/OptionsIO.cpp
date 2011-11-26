@@ -48,6 +48,12 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+int OptionsIO::myArgC;
+char** OptionsIO::myArgV;
+
 
 // ===========================================================================
 // method definitions
@@ -56,7 +62,11 @@ void
 OptionsIO::getOptions(bool loadConfig, int argc, char** argv) {
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (!OptionsParser::parse(argc, argv)) {
+    if (argc > 1) {
+        myArgC = argc;
+        myArgV = argv;
+    }
+    if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
     }
     // check whether to use the command line parameters only
@@ -69,7 +79,7 @@ OptionsIO::getOptions(bool loadConfig, int argc, char** argv) {
     // reparse the options
     //  (overwrite the settings from the configuration file)
     OptionsCont::getOptions().resetWritable();
-    OptionsParser::parse(argc, argv);
+    OptionsParser::parse(myArgC, myArgV);
 }
 
 
