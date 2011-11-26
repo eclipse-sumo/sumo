@@ -118,7 +118,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
         SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds * 1000.;
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance * 1000.);
+            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance * SUMOReal(1000.));
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
