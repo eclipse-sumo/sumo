@@ -62,7 +62,7 @@ void
 OptionsIO::getOptions(bool loadConfig, int argc, char** argv) {
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (argc > 1) {
+    if (argc > 0) {
         myArgC = argc;
         myArgV = argv;
     }

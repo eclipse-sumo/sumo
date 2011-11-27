@@ -205,8 +205,10 @@ GUILoadThread::initOptions() {
             } else {
                 oc.set("configuration-file", myFile);
             }
+            OptionsIO::getOptions(true, 1, 0);
+        } else {
+            OptionsIO::getOptions(true);
         }
-        OptionsIO::getOptions(true);
         return true;
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

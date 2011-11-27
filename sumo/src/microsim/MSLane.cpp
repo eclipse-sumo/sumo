@@ -216,6 +216,9 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
     }
     // go through the lane, look for free positions (starting after the last vehicle)
     MSLane::VehCont::iterator predIt = myVehicles.begin();
+    SUMOReal maxSpeed = 0;
+    SUMOReal maxPos = 0;
+    MSLane::VehCont::iterator maxIt = myVehicles.begin();
     while (predIt != myVehicles.end()) {
         // get leader (may be zero) and follower
         const MSVehicle* leader = predIt != myVehicles.end() - 1 ? *(predIt + 1) : getPartialOccupator();
@@ -231,15 +234,19 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
         }
         const SUMOReal gap = leaderRearPos - follower->getPositionOnLane();
         const SUMOReal fSpeed = follower->getSpeed();
-        const SUMOReal maxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getHeadwayTime() - fSpeed;
-        if (maxSpeed > 0) {
-            if (isInsertionSuccess(&veh, MIN2(maxSpeed, mspeed), (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLengthWithGap()) / 2, true)) {
-                return true;
-            }
+        const SUMOReal currentMaxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getHeadwayTime() - fSpeed;
+        if (MIN2(currentMaxSpeed, mspeed) > maxSpeed) {
+            maxSpeed = currentMaxSpeed;
+            maxPos = (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLengthWithGap()) / 2;
+            maxIt = predIt+1;
         }
         ++predIt;
     }
-    // first check at lane's begin
+    if (maxSpeed > 0) {
+        if (maxIt == myVehicles.end()) std::cout << "end" << std::endl;
+        incorporateVehicle(&veh, maxPos, maxSpeed, maxIt);
+        return true;
+    }
     return false;
 }
 
