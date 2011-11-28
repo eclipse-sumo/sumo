@@ -36,3 +36,7 @@ split
 
 # The top (4*) edges are removed
 remove
+
+# overwriting name
+# 
+name
