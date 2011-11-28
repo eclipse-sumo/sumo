@@ -31,6 +31,16 @@ copy_test_path:e1.add.xml
 copy_test_path:e2.add.xml
 copy_test_path:e3.add.xml
 copy_test_path:connections.con.xml
+copy_test_path:source.net.xml
+copy_test_path:source.nod.xml
+copy_test_path:source.edg.xml
+copy_test_path:source.con.xml
+copy_test_path:source.tll.xml
+copy_test_path:dest.net.xml
+copy_test_path:dest.nod.xml
+copy_test_path:dest.edg.xml
+copy_test_path:dest.con.xml
+copy_test_path:dest.tll.xml
 
 [collate_file]
 detectors:e1.add.xml
@@ -52,6 +62,10 @@ pois:pois.add.xml
 trips:trips.trips.xml
 flows:out.flows.xml
 routes:out.rou.xml
+diff_nod:diff.nod.xml
+diff_edg:diff.edg.xml
+diff_con:diff.con.xml
+diff_tll:diff.tll.xml
 
 [run_dependent_text]
 output:Begin time
@@ -61,6 +75,9 @@ output:<!-- generated on
 trips:<!-- generated on
 pois:<!--
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
+errors:Leaked object at 
+errors:*** 9 leaks found
+errors:delete: freed
 
 [unordered_text]
 errors:ERROR:SCHEMA

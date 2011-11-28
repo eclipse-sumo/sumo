@@ -3,3 +3,6 @@ deleted_tll
 
 # handle multiple identical (id-less) children of an element
 duplicate_phases
+
+# diff for a complex network change
+join_junctions
