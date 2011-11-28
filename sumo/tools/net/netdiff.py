@@ -218,9 +218,14 @@ class AttributeStore:
                 # see CAVEAT4
                 names, values, children = self.id_attrs[(tag, id)]
                 additional = " " + self.attr_string(names, values)
-            if tag != TAG_TLL: # see CAVEAT3
-                self.write(file, '<%s %s%s/>\n' % (
-                    DELETE_ELEMENT, self.id_string(tag, id), additional))
+
+            comment_start, comment_end = ("", "")
+            if tag == TAG_TLL: # see CAVEAT3
+                comment_start, comment_end = ("<!-- implicit via changed node type: ", " -->")
+            self.write(file, '%s<%s %s%s/>%s\n' % (
+                comment_start,
+                DELETE_ELEMENT, self.id_string(tag, id), additional,
+                comment_end))
         # data loss if two elements with different tags 
         # have the same list of attributes and values
         for value_set in self.idless_deleted.itervalues():
