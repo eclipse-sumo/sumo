@@ -127,6 +127,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentType = "";
     myShape = PositionVector();
     myLanesSpread = LANESPREAD_RIGHT;
+    myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -168,6 +169,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentWidth = myCurrentEdge->getWidth();
         myCurrentOffset = myCurrentEdge->getOffset();
         myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
+        if (myCurrentEdge->hasLoadedLength()) {
+            myLength = myCurrentEdge->getLoadedLength();
+        }
     }
     // speed, priority and the number of lanes have now default values;
     // try to read the real values from the file
@@ -221,7 +225,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // try to get the spread type
     myLanesSpread = tryGetLaneSpread(attrs);
     // try to get the length
-    myLength = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, NBEdge::UNSPECIFIED_LOADED_LENGTH);
+    myLength = attrs.getOptSUMORealReporting(SUMO_ATTR_LENGTH, myCurrentID.c_str(), ok, myLength);
     // insert the parsed edge into the edges map
     if (!ok) {
         return;
@@ -244,8 +248,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
                                        myShape, myCurrentStreetName, myLanesSpread,
                                        OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
         }
-        myCurrentEdge->setLoadedLength(myLength);
     }
+    myCurrentEdge->setLoadedLength(myLength);
     myCurrentEdge->setVehicleClasses(myAllowed, myNotAllowed);
 }
 
