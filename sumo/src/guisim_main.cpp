@@ -65,35 +65,6 @@
 // methods
 // ===========================================================================
 /* -------------------------------------------------------------------------
- * options initialisation
- * ----------------------------------------------------------------------- */
-void
-fillOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("");
-    oc.addCallExample("-c <CONFIGURATION>");
-
-    // insert options sub-topics
-    oc.addOptionSubTopic("Process");
-    oc.addOptionSubTopic("Visualisation");
-
-    MSFrame::fillOptions();
-
-    oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
-    oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
-
-    oc.doRegister("game", 'G', new Option_Bool(false));
-    oc.addDescription("game", "Process", "Start the GUI in gaming mode");
-
-    oc.doRegister("no-start", 'N', new Option_Bool(false));
-    oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
-
-    oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
-    oc.addDescription("disable-textures", "Visualisation", "");
-}
-
-
-/* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
@@ -114,7 +85,7 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init(false);
-        fillOptions();
+        MSFrame::fillOptions();
         OptionsIO::getOptions(false, argc, argv);
         if (oc.processMetaOptions(false)) {
             SystemFrame::close();

@@ -247,9 +247,23 @@ MSFrame::fillOptions() {
     // add rand options
     RandHelper::insertRandOptions();
 
+    // add GUI options
+    // the reason that we include them in vanilla sumo as well is to make reusing config files easy
     oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", new Option_FileName());
     oc.addDescription("gui-settings-file", "GUI Only", "Load visualisation settings from FILE");
+
+    oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
+    oc.addDescription("quit-on-end", "GUI Only", "Quits the GUI when the simulation stops");
+
+    oc.doRegister("game", 'G', new Option_Bool(false));
+    oc.addDescription("game", "GUI Only", "Start the GUI in gaming mode");
+
+    oc.doRegister("no-start", 'N', new Option_Bool(false));
+    oc.addDescription("no-start", "GUI Only", "Does not start the simulation after loading");
+
+    oc.doRegister("disable-textures", 'T', new Option_Bool(false));
+    oc.addDescription("disable-textures", "GUI Only", "Do not load background pictures");
 
 }
 

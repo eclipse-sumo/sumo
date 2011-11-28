@@ -95,21 +95,27 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
     }
     // go through the abbreviated switches
     for (int i = 1; arg1[i] != 0; i++) {
-        if (arg2 == 0 || arg1[i + 1] != 0) {
-            // set boolean switches
-            if (oc.isBool(convert(arg1[i]))) {
+        // set boolean switches 
+        if (oc.isBool(convert(arg1[i]))) {
+            if (arg2 == 0 || arg2[0] == '-' || arg1[i + 1] != 0) {
                 ok &= oc.set(convert(arg1[i]), "true");
             } else {
+                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                return 2;
+            }
+            // set non-boolean switches
+        } else {
             // check whether the parameter comes directly after the switch
             //  and process if so
-                ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
+            if (arg2 == 0 || arg1[i + 1] != 0) {
+                ok &= processNonBooleanSingleSwitch(oc, arg1 + i); 
                 return 1;
-            }
-        } else {
-            // process parameter following after a space
-            ok &= oc.set(convert(arg1[i]), convert(arg2));
-            // option name and attribute were in two arguments
-            return 2;
+                // process parameter following after a space 
+            } else {
+                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                // option name and attribute were in two arguments
+                return 2;
+            } 
         }
     }
     // all switches within the current argument were boolean switches
