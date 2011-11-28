@@ -128,6 +128,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myShape = PositionVector();
     myLanesSpread = LANESPREAD_RIGHT;
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
+    myCurrentStreetName = "";
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -172,6 +173,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         if (myCurrentEdge->hasLoadedLength()) {
             myLength = myCurrentEdge->getLoadedLength();
         }
+        myCurrentStreetName = myCurrentEdge->getStreetName();
     }
     // speed, priority and the number of lanes have now default values;
     // try to read the real values from the file
@@ -205,7 +207,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentOffset = attrs.getSUMORealReporting(SUMO_ATTR_ENDOFFSET, myCurrentID.c_str(), ok);
     }
     // try to get the street name
-    myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, "");
+    myCurrentStreetName = attrs.getOptStringReporting(SUMO_ATTR_NAME, myCurrentID.c_str(), ok, myCurrentStreetName);
 
     // try to get the allowed/disallowed classes
     if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
@@ -234,7 +236,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge != 0) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
-                              myCurrentWidth, myCurrentOffset, myLanesSpread,
+                              myCurrentWidth, myCurrentOffset, 
+                              myCurrentStreetName, myLanesSpread,
                               OptionsCont::getOptions().getBool("plain.keep-edge-shape"));
     } else {
         // the edge must be allocated in dependence to whether a shape is given

@@ -192,6 +192,7 @@ private:
 
     /// @brief Information about how to spread the lanes
     SUMOVehicleClasses myNotAllowed;
+
     /// @}
 
 

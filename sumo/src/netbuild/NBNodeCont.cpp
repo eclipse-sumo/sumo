@@ -566,11 +566,11 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             if(cluster.find(e->getFromNode())!=cluster.end()) {
                 e->reinit(newNode, e->getToNode(), e->getTypeID(), e->getSpeed(),
                     e->getNumLanes(), e->getPriority(), e->getGeometry(),
-                    e->getWidth(), e->getOffset(), e->getLaneSpreadFunction());
+                    e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
             } else {
                 e->reinit(e->getFromNode(), newNode, e->getTypeID(), e->getSpeed(),
                     e->getNumLanes(), e->getPriority(), e->getGeometry(),
-                    e->getWidth(), e->getOffset(), e->getLaneSpreadFunction());
+                    e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
             }
             e->setGeometry(g);
             for(std::vector<NBEdge::Connection>::iterator k=conns.begin(); k!=conns.end(); ++k) {

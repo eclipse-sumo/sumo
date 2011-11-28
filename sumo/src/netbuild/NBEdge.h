@@ -276,12 +276,14 @@ public:
      * @param[in] geom The edge's geomatry
      * @param[in] width This edge's lane width
      * @param[in] offset Additional offset to the destination node
+     * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
     void reinit(NBNode* from, NBNode* to, const std::string& type,
                 SUMOReal speed, unsigned int nolanes, int priority,
                 PositionVector geom, SUMOReal width, SUMOReal offset,
+                const std::string& streetName,
                 LaneSpreadFunction spread = LANESPREAD_RIGHT,
                 bool tryIgnoreNodePositions = false) ;
 
@@ -1138,9 +1140,6 @@ private:
 
     /// @brief The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;
-
-    /// @brief An optional name
-    std::string myName;
 
     /// @brief This edges's offset to the intersection begin (will be applied to all lanes)
     SUMOReal myOffset;

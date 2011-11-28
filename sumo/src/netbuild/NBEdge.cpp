@@ -221,6 +221,7 @@ void
 NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
                SUMOReal speed, unsigned int nolanes, int priority,
                PositionVector geom, SUMOReal width, SUMOReal offset,
+               const std::string& streetName,
                LaneSpreadFunction spread,
                bool tryIgnoreNodePositions) {
     // connections may still be valid
@@ -242,6 +243,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     myOffset = offset;
     myWidth = width;
     myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
+    myStreetName = streetName;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
     init(nolanes, tryIgnoreNodePositions);
