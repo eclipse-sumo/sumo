@@ -1,2 +1,5 @@
 # regression test for deleting a traffic light
 deleted_tll
+
+# handle multiple identical (id-less) children of an element
+duplicate_phases
