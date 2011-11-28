@@ -399,16 +399,21 @@ def create_plain(netfile):
 def xmldiff(source, dest, diff, type):
     attributeStore = AttributeStore(type)
     root_open = None
-    if os.path.isfile(source):
+    have_source = os.path.isfile(source)
+    have_dest = os.path.isfile(dest)
+    if have_source:
         root_open, root_close = handle_children(source, attributeStore.store)
-    else:
-        print "Source file %s is missing. Assuming all elements are created" % source
-    if os.path.isfile(dest):
+    if have_dest:
         root_open, root_close = handle_children(dest, attributeStore.compare)
-    else:
-        print "Dest file %s is missing. Assuming all elements are deleted" % dest
 
-    if root_open:
+    if not have_source and not have_dest:
+        print "Skipping %s due to lack of input files" % diff
+    else:
+        if not have_source:
+            print "Source file %s is missing. Assuming all elements are created" % source
+        elif not have_dest:
+            print "Dest file %s is missing. Assuming all elements are deleted" % dest
+
         with open(diff, 'w') as diff_file:
             diff_file.write(root_open)
             attributeStore.write(diff_file, "<!-- Deleted Elements -->\n")
@@ -418,8 +423,6 @@ def xmldiff(source, dest, diff, type):
             attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
             attributeStore.writeChanged(diff_file)
             diff_file.write(root_close)
-    else:
-        print "Skipping %s due to lack of input files" % diff
 
 
 # calls function handle_parsenode for all children of the root element
