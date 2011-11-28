@@ -1,4 +1,3 @@
-
 # testing bug 1653266 (netconvert ignores second decimale)
 1653266
 
@@ -21,7 +20,7 @@
 ticket38
 
 # Test for #55 NETCONVERT breaks on cartesian networks and --use-projection
-#ticket55
+# ticket55
 
 # Test for #193 invalid traffic lights at dead ends
 ticket193
@@ -32,8 +31,8 @@ ticket252
 # Test for #267 keep-edges (postload) breaks on connections given for a removed edge
 ticket267
 
+# Test for messstrecke scenarios
+# ticket346_messstrecke_jr
 # Test for false foe determination (on inner-continuation-intersections) yielding in a teleport
 ticket19_falseFoe
-
-# Test for messstrecke scenarios
-#ticket346_messstrecke_jr
+ticket606
