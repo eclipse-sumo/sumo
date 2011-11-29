@@ -77,6 +77,9 @@ public:
     /// adds a phase to the traffic lights logic currently build
     static void addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL);
 
+    /// Parses network location description and registers it with GeoConveHelper::setLoaded
+    static GeoConvHelper* loadLocation(const SUMOSAXAttributes& attrs);
+
 
 protected:
     /** @brief Constructor
@@ -177,8 +180,6 @@ private:
      */
     void addProhibition(const SUMOSAXAttributes& attrs);
 
-    /// Parses network location description
-    void setLocation(const SUMOSAXAttributes& attrs);
     //@}
 
 

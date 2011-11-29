@@ -277,7 +277,7 @@ NIImporter_SUMO::myStartElement(int element,
             addPhase(attrs, myCurrentTL);
             break;
         case SUMO_TAG_LOCATION:
-            setLocation(attrs);
+            myLocation = loadLocation(attrs);
             break;
         case SUMO_TAG_PROHIBITION:
             addProhibition(attrs);
@@ -666,10 +666,11 @@ NIImporter_SUMO::reconstructEdgeShape(const EdgeAttrs* edge, const Position& fro
 }
 
 
-void
-NIImporter_SUMO::setLocation(const SUMOSAXAttributes& attrs) {
+GeoConvHelper*
+NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
+    GeoConvHelper* result = 0;
     PositionVector s = GeomConvHelper::parseShapeReporting(
                            attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, 0, ok),
                            attrs.getObjectType(), 0, ok, false);
@@ -682,9 +683,10 @@ NIImporter_SUMO::setLocation(const SUMOSAXAttributes& attrs) {
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, 0, ok);
     if (ok) {
         Position networkOffset = s[0];
-        myLocation = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
-        GeoConvHelper::setLoaded(*myLocation);
+        result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+        GeoConvHelper::setLoaded(*result);
     }
+    return result;
 }
 
 

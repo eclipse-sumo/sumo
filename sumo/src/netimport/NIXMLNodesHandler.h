@@ -37,6 +37,7 @@
 // class declarations
 // ===========================================================================
 class OptionsCont;
+class GeoConvHelper;
 class NBNode;
 class NBNodeCont;
 class NBTrafficLightLogicCont;
@@ -139,6 +140,9 @@ private:
 
     /// @brief The traffic lights container to add built tls to
     NBTrafficLightLogicCont& myTLLogicCont;
+
+    /// @brief The coordinate transformation which was used compute the node coordinates
+    GeoConvHelper* myLocation;
 
 
 private:

@@ -46,6 +46,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include "NILoader.h"
 #include "NIXMLNodesHandler.h"
+#include "NIImporter_SUMO.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -57,19 +58,27 @@
 // ===========================================================================
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
                                      NBTrafficLightLogicCont& tlc,
-                                     OptionsCont& options)
-    : SUMOSAXHandler("xml-nodes - file"),
-      myOptions(options),
-      myNodeCont(nc), myTLLogicCont(tlc) {}
+                                     OptionsCont& options) : 
+    SUMOSAXHandler("xml-nodes - file"),
+    myOptions(options),
+    myNodeCont(nc), 
+    myTLLogicCont(tlc),
+    myLocation(0) 
+{}
 
 
-NIXMLNodesHandler::~NIXMLNodesHandler() {}
+NIXMLNodesHandler::~NIXMLNodesHandler() {
+    delete myLocation;
+}
 
 
 void
 NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_LOCATION:
+            myLocation = NIImporter_SUMO::loadLocation(attrs);
+            break;
         case SUMO_TAG_NODE:
             addNode(attrs);
             break;
@@ -120,7 +129,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         myPosition.set(myPosition.x(), myPosition.y(), attrs.getSUMORealReporting(SUMO_ATTR_Z, myID.c_str(), ok));
     }
     if (xOk && yOk) {
-        if (needConversion && !NILoader::transformCoordinates(myPosition)) {
+        if (needConversion && !NILoader::transformCoordinates(myPosition, true, myLocation)) {
             WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
         }
     } else {
