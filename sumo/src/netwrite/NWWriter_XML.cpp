@@ -77,6 +77,13 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     device.writeXMLHeader("nodes", SUMOSAXAttributes::ENCODING, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
+
+    // write network offsets and projection to allow reconstruction of original coordinates
+    if (!useGeo) {
+        NWWriter_SUMO::writeLocation(device);
+    }
+
+    // write nodes
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         device.openTag(SUMO_TAG_NODE);
