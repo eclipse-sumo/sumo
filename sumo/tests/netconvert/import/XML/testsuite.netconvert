@@ -51,3 +51,6 @@ lane_based_speed
 # Load a tls.xml along with a sumo net to modify the program. 
 # This also demonstrates how identical phases are joined.
 alter_tls_program
+
+# load location attribute from nod.xml and use it for the generated net
+load_location
