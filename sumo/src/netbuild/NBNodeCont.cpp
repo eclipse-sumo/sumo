@@ -563,15 +563,12 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             NBEdge *e = (*j);
             std::vector<NBEdge::Connection> conns = e->getConnections();
             PositionVector g = e->getGeometry();
-            if(cluster.find(e->getFromNode())!=cluster.end()) {
-                e->reinit(newNode, e->getToNode(), e->getTypeID(), e->getSpeed(),
-                    e->getNumLanes(), e->getPriority(), e->getGeometry(),
-                    e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
-            } else {
-                e->reinit(e->getFromNode(), newNode, e->getTypeID(), e->getSpeed(),
-                    e->getNumLanes(), e->getPriority(), e->getGeometry(),
-                    e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
-            }
+            const bool outgoing = cluster.count(e->getFromNode()) > 0;
+            NBNode *from = outgoing ? newNode : e->getFromNode();
+            NBNode *to   = outgoing ? e->getToNode() : newNode;
+            e->reinit(from, to, e->getTypeID(), e->getSpeed(),
+                e->getNumLanes(), e->getPriority(), e->getGeometry(),
+                e->getWidth(), e->getOffset(), e->getStreetName(), e->getLaneSpreadFunction());
             e->setGeometry(g);
             for(std::vector<NBEdge::Connection>::iterator k=conns.begin(); k!=conns.end(); ++k) {
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
