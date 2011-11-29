@@ -120,6 +120,9 @@ del { color: #555555; }
 #step2 h3 {
 	background-color: #ebeb9a;
 }
+#step2 span h3  {
+	background-color: #c0e0ff;
+}
 
 #step3 h3 {
 	background-color: #ffb366;	
@@ -132,6 +135,10 @@ del { color: #555555; }
 #step2 li { color: #707000; border-bottom-color: #707000; } 
 #step2 a:link { color: #707000; border-bottom-color: #707000; } 
 #step2 a:visited { color: #707000; border-bottom-color: #707000; } 
+
+#step2 #releases li { color: #5588aa; border-bottom-color: #5588aa; } 
+#step2 #releases a:link { color: #5588aa; border-bottom-color: #5588aa; } 
+#step2 #releases a:visited { color: #5588aa; border-bottom-color: #5588aa; }
 
 #step3 a:link { color: #DF4532; border-bottom-color: #DF4532; }
 #step3 a:visited { color: #DF4532; border-bottom-color: #DF4532; }
