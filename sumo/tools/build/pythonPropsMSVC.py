@@ -26,10 +26,8 @@ print >> props, """<?xml version="1.0" encoding="utf-8"?>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>%s""" % (sys.prefix, sys.version[0], sys.version[2],
-                                             distutils.sysconfig.get_config_var('INCLUDEPY')),
-print >> props, """;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_PYTHON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%s;%%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PYTHON;%%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -37,5 +35,6 @@ print >> props, """;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectorie
       <Value>$(PYTHON_LIB)</Value>
     </BuildMacro>
   </ItemGroup>
-</Project>"""
+</Project>""" % (sys.prefix, sys.version[0], sys.version[2],
+			distutils.sysconfig.get_config_var('INCLUDEPY'))
 props.close()
