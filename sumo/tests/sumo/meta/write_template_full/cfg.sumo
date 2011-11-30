@@ -83,6 +83,10 @@
 
     <gui_only>
         <gui-settings-file value="" type="FILE" help="Load visualisation settings from FILE"/>
+        <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
+        <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
+        <no-start value="false" synonymes="N" type="BOOL" help="Does not start the simulation after loading"/>
+        <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
     </gui_only>
 
 </configuration>

@@ -189,6 +189,18 @@
         <!-- Load visualisation settings from FILE -->
         <gui-settings-file value="" type="FILE"/>
 
+        <!-- Quits the GUI when the simulation stops -->
+        <quit-on-end value="false" synonymes="Q" type="BOOL"/>
+
+        <!-- Start the GUI in gaming mode -->
+        <game value="false" synonymes="G" type="BOOL"/>
+
+        <!-- Does not start the simulation after loading -->
+        <no-start value="false" synonymes="N" type="BOOL"/>
+
+        <!-- Do not load background pictures -->
+        <disable-textures value="false" synonymes="T" type="BOOL"/>
+
     </gui_only>
 
 </configuration>
