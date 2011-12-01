@@ -3,7 +3,7 @@
 @file    netdiff.py
 @author  Jakob Erdmann
 @date    2011-10-04
-@version $Id: netdiff.bak -1   $
+@version $Id$
 
 multi set with insertion-order iteration
 based on OrderedSet by Raymond Hettinger (c) , MIT-License
