@@ -213,7 +213,6 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.closeTag();
         }
         // write this edge's connections to the connections-files
-        unsigned int noLanes = e->getNumLanes();
         e->sortOutgoingConnectionsByIndex();
         const std::vector<NBEdge::Connection> connections = e->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator c = connections.begin(); c != connections.end(); ++c) {
