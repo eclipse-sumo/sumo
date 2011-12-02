@@ -89,8 +89,13 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             device << "                            <predecessor id=\"-1\"/>\n"; // internal roads have this
             device << "                            <successor id=\"-1\"/>\n"; // internal roads have this
             device << "                        </link>\n";
-            device << "                        <width sOffset=\"0\" a=\"" << lanes[j].width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
-            device << "                        <roadMark sOffset=\"0\" type=\"broken\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+            SUMOReal width = lanes[j].width<0||!e->hasLaneSpecificWidth() ? SUMO_const_laneWidth : lanes[j].width;
+            device << "                        <width sOffset=\"0\" a=\"" << width << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+            std::string markType = "broken";
+            if(j==0) {
+                markType = "solid";
+            }
+            device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
             device << "                    </lane>\n";
         }
         device << "                 </right>\n";
@@ -181,7 +186,8 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
     for (unsigned int j = 0; j < shape.size() - 1; ++j) {
         const Position& p = shape[j];
         Line l = shape.lineAt(j);
-        device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << l.atan2Angle() << "\" length=\"" << l.length() << "\"><line/></geometry>\n";
+        SUMOReal hdg = atan2(l.p2().y() - l.p1().y(), l.p2().x() - l.p1().x());
+        device << "            <geometry s=\"" << offset << "\" x=\"" << p.x() << "\" y=\"" << p.y() << "\" hdg=\"" << hdg << "\" length=\"" << l.length() << "\"><line/></geometry>\n";
         offset += l.length();
     }
     device << "        </planView>\n";
@@ -191,9 +197,10 @@ NWWriter_OpenDrive::writePlanView(const PositionVector& shape, OutputDevice& dev
 void
 NWWriter_OpenDrive::writeEmptyCenterLane(OutputDevice& device) {
     device << "                <center>\n";
-    device << "                    <lane id=\"0\" type=\"driving\" level= \"0\">\n";
+    device << "                    <lane id=\"0\" type=\"none\" level= \"0\">\n";
     device << "                        <link></link>\n";
     device << "                        <roadMark sOffset=\"0\" type=\"solid\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
+    device << "                        <width sOffset=\"0\" a=\"0\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     device << "                    </lane>\n";
     device << "                </center>\n";
 }

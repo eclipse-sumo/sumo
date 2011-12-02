@@ -93,8 +93,13 @@ NWFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     // check whether the output is valid and can be build
-    if (!oc.isSet("output-file") && !oc.isSet("plain-output-prefix") && !oc.isSet("matsim-output")) {
+    if (!oc.isSet("output-file")&&!oc.isSet("plain-output-prefix")&&!oc.isSet("matsim-output")&&!oc.isSet("opendrive-output")) {
         oc.set("output-file", "net.net.xml");
+    }
+    // some outputs need internal lanes
+    if (oc.isSet("opendrive-output")&&oc.getBool("no-internal-links")) {
+        WRITE_ERROR("openDRIVE export needs internal links computation.");
+        ok = false;
     }
     return ok;
 }
