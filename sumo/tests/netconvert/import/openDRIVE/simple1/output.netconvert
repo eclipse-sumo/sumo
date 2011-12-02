@@ -1,0 +1,39 @@
+Parsing opendrive from 'opendrive.xodr'... 
+done.
+ Import done:
+   2 nodes loaded.
+   2 edges loaded.
+Removing self-loops... done.
+Joining similar edges... done.
+Removing empty nodes... done.
+   0 nodes removed.
+Moving network to origin... done.
+Assigning nodes to traffic lights... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
+ 0 traffic light(s) computed.
+Building inner edges... done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 2
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 0.00,0.00,50.00,0.00
+  Applied offset     : 0.00,0.00
+  Converted boundary : 0.00,0.00,50.00,0.00
+-----------------------------------------------------
+Success.

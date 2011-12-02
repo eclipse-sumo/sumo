@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 12/02/11 10:57:48 by SUMO netconvert Version dev-SVN-r11571
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <opendrive-files value="opendrive.xodr"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <opendrive-output value="foreign.net"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
+
+    <edge id="1" from="1.end" to="1.begin" priority="-1" spreadType="center">
+        <lane id="1_0" index="0" speed="13.90" length="50.00" shape="50.00,0.00 0.00,0.00"/>
+    </edge>
+
+    <junction id="1.begin" type="unregulated" x="0.00" y="0.00" incLanes="1_0" intLanes="" shape="-0.00,1.60 0.00,-1.60">
+    </junction>
+    <junction id="1.end" type="unregulated" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,-1.60 50.00,1.60">
+    </junction>
+
+</net>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="3" name="" version="1.00" date="!!!" north="0.0000000000000000e+00" south="0.0000000000000000e+00" east="0.0000000000000000e+00" west="0.0000000000000000e+00" maxRoad="517" maxJunc="2" maxPrg="0"/>
+    <road name="" length="50.00" id="0" junction="-1">
+        <link>
+            <predecessor elementType="junction" elementId="0"/>
+            <successor elementType="junction" elementId="1"/>
+        </link>
+        <type s="0" type="town"/>
+        <planView>
+            <geometry s="0.00" x="50.00" y="0.00" hdg="3.14" length="50.00"><line/></geometry>
+        </planView>
+        <elevationProfile><elevation s="0" a="0" b="0" c="0" d="0"/></elevationProfile>
+        <lateralProfile></lateralProfile>
+        <lanes>
+            <laneSection s="0">
+                <center>
+                    <lane id="0" type="none" level= "0">
+                        <link></link>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <width sOffset="0" a="0" b="0" c="0" d="0"/>
+                    </lane>
+                </center>
+                <right>
+                    <lane id="-1" type="driving" level="0">
+                        <link>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                    </lane>
+                 </right>
+            </laneSection>
+        </lanes>
+        <objects></objects>
+        <signals></signals>
+    </road>
+
+    <junction name="1.begin" id="1">
+    </junction>
+    <junction name="1.end" id="0">
+    </junction>
+</OpenDRIVE>

@@ -3,3 +3,21 @@ Crossing8Course
 CrossingComplex8Course
 Roundabout8Course
 
+# a round-trip test
+C8C_roundtrip
+
+# a round-trip test with no internal lanes (error)
+C8C_roundtrip_nointernal
+
+# own examples (roundtrip)
+simple1
+simple1_noturnarounds
+simple1_left_nt
+simple1_right_nt
+simple2_noturnarounds
+simple2_left_nt
+simple2_right_nt
+
+
+error_simple1_nolanes
+
