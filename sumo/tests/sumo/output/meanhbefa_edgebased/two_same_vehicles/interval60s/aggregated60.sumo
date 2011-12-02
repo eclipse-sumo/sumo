@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/24/11 12:39:28 by SUMO sumo Version dev-SVN-r11538
+<!-- generated on Fri Dec  2 20:45:23 2011 by SUMO sumo Version dev-SVN-r11571
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -33,8 +33,8 @@
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="1.70" CO_abs="0" CO2_abs="2856.120139" HC_abs="0.500135" PMx_abs="0.166507" NOx_abs="4.531670" fuel_abs="1.138692"
-            CO_normed="0" CO2_normed="438.840482" HC_normed="0.076845" PMx_normed="0.025584" NOx_normed="0.696287" fuel_normed="0.174959"
+        <edge id="1/1to0/1" sampledSeconds="18.70" CO_abs="0" CO2_abs="31417.321525" HC_abs="5.501484" PMx_abs="1.831581" NOx_abs="49.848366" fuel_abs="12.525610"
+            CO_normed="0" CO2_normed="4827.245305" HC_normed="0.845298" PMx_normed="0.281421" NOx_normed="7.659160" fuel_normed="1.924550"
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
         <edge id="2/1to1/1" sampledSeconds="78.10" CO_abs="0" CO2_abs="131213.519310" HC_abs="22.976786" PMx_abs="7.649542" NOx_abs="208.190233" fuel_abs="52.312842"
             CO_normed="0" CO2_normed="20160.848037" HC_normed="3.530364" PMx_normed="1.175346" NOx_normed="31.988256" fuel_normed="8.037825"
@@ -44,5 +44,8 @@
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="1/1to0/1" sampledSeconds="57.20" CO_abs="0" CO2_abs="96100.042311" HC_abs="16.828068" PMx_abs="5.602482" NOx_abs="152.477354" fuel_abs="38.313630"
+            CO_normed="0" CO2_normed="29531.383041" HC_normed="5.171237" PMx_normed="1.721633" NOx_normed="46.856037" fuel_normed="11.773715"
+            traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
     </interval>
 </netstats>

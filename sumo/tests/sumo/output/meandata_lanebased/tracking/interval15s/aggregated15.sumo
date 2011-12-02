@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/10 13:15:49 by SUMO sumo Version dev-SVN-r8739
-<configuration>
+<!-- generated on Fri Dec  2 20:45:15 2011 by SUMO sumo Version dev-SVN-r11571
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -47,17 +49,5 @@
         </edge>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
-    </interval>
-    <interval begin="105.00" end="120.00" id="dump_15">
-        <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.85" traveltime="0.85" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        </edge>
-    </interval>
-    <interval begin="120.00" end="135.00" id="dump_15">
-        <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.94" traveltime="0.94" waitingTime="0.00" speed="9.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        </edge>
-    </interval>
-    <interval begin="135.00" end="150.00" id="dump_15">
     </interval>
 </netstats>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/07/11 07:10:56 by SUMO sumo Version dev-SVN-r10879
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on Fri Dec  2 20:48:13 2011 by SUMO sumo Version dev-SVN-r11571
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -66,5 +66,8 @@
         <vehicle id="veh_parking" lane="1to2_0" pos="90.62" x="90.62" y="0.00" speed="10.12"/>
     </timestep>
     <timestep time="16.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="veh_parking" lane="out_0" pos="2.73" x="102.73" y="0.00" speed="12.11"/>
+    </timestep>
+    <timestep time="17.00" id="test1" vType="DEFAULT_VEHTYPE">
     </timestep>
 </vehicle-type-probes>

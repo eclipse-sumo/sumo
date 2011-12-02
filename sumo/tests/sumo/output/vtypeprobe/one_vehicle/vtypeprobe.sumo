@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/03/10 14:15:38 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on Fri Dec  2 20:44:42 2011 by SUMO sumo Version dev-SVN-r11571
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -56,7 +58,9 @@
         <vehicle id="0" lane="2/1to1/1_0" pos="319.00" x="476.25" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="110.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="0" lane="1/1to0/1_0" pos="28.50" x="366.75" y="401.65" speed="10.00"/>
     </timestep>
     <timestep time="120.00" id="test1" vType="DEFAULT_VEHTYPE">
+        <vehicle id="0" lane="1/1to0/1_0" pos="128.50" x="266.75" y="401.65" speed="10.00"/>
     </timestep>
 </vehicle-type-probes>

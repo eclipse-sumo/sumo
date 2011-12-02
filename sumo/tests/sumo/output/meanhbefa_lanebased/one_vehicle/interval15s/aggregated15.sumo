@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/24/11 12:39:32 by SUMO sumo Version dev-SVN-r11538
+<!-- generated on Fri Dec  2 20:45:28 2011 by SUMO sumo Version dev-SVN-r11571
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -85,8 +85,8 @@
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="0.85" CO_abs="0" CO2_abs="1428.060069" HC_abs="0.250067" PMx_abs="0.083254" NOx_abs="2.265835" fuel_abs="0.569346"
-            CO_normed="0" CO2_normed="877.680964" HC_normed="0.153691" PMx_normed="0.051167" NOx_normed="1.392575" fuel_normed="0.349918"
+            <lane id="1/1to0/1_0" sampledSeconds="11.85" CO_abs="0" CO2_abs="19908.837437" HC_abs="3.486234" PMx_abs="1.160654" NOx_abs="31.588403" fuel_abs="7.937352"
+            CO_normed="0" CO2_normed="12235.905211" HC_normed="2.142628" PMx_normed="0.713334" NOx_normed="19.414127" fuel_normed="4.878270"
             traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
         </edge>
         <edge id="2/1to1/1">
@@ -96,7 +96,17 @@
         </edge>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
+        <edge id="1/1to0/1">
+            <lane id="1/1to0/1_0" sampledSeconds="15.00" CO_abs="0" CO2_abs="25201.060047" HC_abs="4.412955" PMx_abs="1.469182" NOx_abs="39.985320" fuel_abs="10.047281"
+            CO_normed="0" CO2_normed="15488.487609" HC_normed="2.712187" PMx_normed="0.902955" NOx_normed="24.574845" fuel_normed="6.175025"
+            traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
+        </edge>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_15">
+        <edge id="1/1to0/1">
+            <lane id="1/1to0/1_0" sampledSeconds="12.20" CO_abs="0" CO2_abs="20496.862171" HC_abs="3.589203" PMx_abs="1.194935" NOx_abs="32.521394" fuel_abs="8.171788"
+            CO_normed="0" CO2_normed="12597.303255" HC_normed="2.205912" PMx_normed="0.734403" NOx_normed="19.987540" fuel_normed="5.022354"
+            traveltime="39.05" CO_perVeh="0" CO2_perVeh="65606.759655" HC_perVeh="11.488393" PMx_perVeh="3.824771" NOx_perVeh="104.095116" fuel_perVeh="26.156421"/>
+        </edge>
     </interval>
 </netstats>

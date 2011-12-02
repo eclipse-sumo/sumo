@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/07/11 07:07:56 by SUMO sumo Version dev-SVN-r10879
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on Fri Dec  2 20:42:51 2011 by SUMO sumo Version dev-SVN-r11571
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -554,6 +554,13 @@
             <lane id="beg_2">
                 <vehicle id="f1.0" pos="326.65" speed="26.81"/>
             </lane>
+        </edge>
+        <edge id="end">
+            <lane id="end_0"/>
+            <lane id="end_1">
+                <vehicle id="f1.1" pos="11.10" speed="27.32"/>
+            </lane>
+            <lane id="end_2"/>
         </edge>
     </timestep>
 </sumo-netstate>
