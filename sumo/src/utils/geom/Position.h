@@ -200,6 +200,7 @@ public:
     }
 
 
+    /// @brief returns the euclidean distance in 3 dimension
     inline SUMOReal distanceTo(const Position& p2) const {
         return sqrt(distanceSquaredTo(p2));
     }
@@ -207,6 +208,17 @@ public:
 
     inline SUMOReal distanceSquaredTo(const Position& p2) const {
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY) + (myZ - p2.myZ) * (myZ - p2.myZ);
+    }
+
+
+    /// @brief returns the euclidean distance in the x-y-plane 
+    inline SUMOReal distanceTo2D(const Position& p2) const {
+        return sqrt(distanceSquaredTo2D(p2));
+    }
+
+
+    inline SUMOReal distanceSquaredTo2D(const Position& p2) const {
+        return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY);
     }
 
     /// @brief returns the cross product between this point and the second one
