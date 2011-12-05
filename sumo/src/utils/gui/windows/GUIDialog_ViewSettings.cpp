@@ -263,8 +263,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         FXMatrix* m33 =
             new FXMatrix(frame3, 2, LAYOUT_FILL_X | LAYOUT_TOP | LAYOUT_LEFT | MATRIX_BY_COLUMNS,
                          0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
-        myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowBlinker = new FXCheckButton(m33, "Show blinker / brake lights", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowBlinker->setCheck(mySettings->showBlinker);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        myShowMinGap = new FXCheckButton(m33, "Show minimum gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowMinGap->setCheck(mySettings->drawMinGap);
         new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
         /*
         myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -496,6 +499,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
     myShowBlinker->setCheck(mySettings->showBlinker);
+    myShowMinGap->setCheck(mySettings->drawMinGap);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -561,6 +565,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
     tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
     tmpSettings.showBlinker = (myShowBlinker->getCheck() != FALSE);
+    tmpSettings.drawMinGap = (myShowMinGap->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */

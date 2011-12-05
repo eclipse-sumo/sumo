@@ -874,6 +874,8 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         glBegin(GL_LINES);
         glVertex2d(0., 0);
         glVertex2d(0., getVehicleType().getMinGap());
+        glVertex2d(-.5, 0);
+        glVertex2d(.5, 0);
         glEnd();
     }
     // draw the blinker and brakelights if wished

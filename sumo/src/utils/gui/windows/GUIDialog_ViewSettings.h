@@ -240,7 +240,7 @@ private:
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
     FXRealSpinDial* myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton* myShowBlinker; /* *myShowLaneChangePreference,*/
+    FXCheckButton* myShowBlinker, *myShowMinGap; /* *myShowLaneChangePreference,*/
 
     FXCheckButton* myShowTLIndex, *myShowJunctionIndex;
 
