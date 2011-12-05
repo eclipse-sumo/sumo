@@ -373,6 +373,7 @@ enum {
     /// misc messages
     MID_GNE_NEW_NETWORK,
     MID_GNE_OPEN_FOREIGN,
+    MID_GNE_VIS_HEIGHT,
     // MID_GNE_WIZARD,
     /** save network*/
     MID_GNE_SAVE_NETWORK,
