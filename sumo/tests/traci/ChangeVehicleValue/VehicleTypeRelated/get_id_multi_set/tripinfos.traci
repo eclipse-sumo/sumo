@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/19/10 13:19:07 by SUMO sumo Version dev-SVN-r9383
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 12/05/11 10:09:20 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -20,12 +20,11 @@
 
     <traci_server>
         <remote-port value="8808"/>
-        <penetration value="1"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="330.00" departSpeed="10.00" departDelay="0.00" arrival="43.00" arrivalLane="3/1to2/1_0" arrivalPos="0.80" arrivalSpeed="0.80" duration="43.00" routeLength="61.30" waitSteps="33" rerouteNo="0" devices="tripinfo_0" vType="t1@0" vaporized=""/>
+    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="330.00" departSpeed="10.00" departDelay="0.00" arrival="87.00" arrivalLane="3/1to2/1_0" arrivalPos="392.40" arrivalSpeed="10.00" duration="87.00" routeLength="452.90" waitSteps="33" rerouteNo="0" devices="tripinfo_0" vType="t1@0" vaporized=""/>
 </tripinfos>

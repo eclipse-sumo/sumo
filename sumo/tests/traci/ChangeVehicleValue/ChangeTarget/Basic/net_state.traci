@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/08/11 12:34:09 by SUMO sumo Version dev-SVN-r10899
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 12/05/11 10:08:41 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -883,22 +883,76 @@
         </edge>
     </timestep>
     <timestep time="95.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="10.73" speed="58.92"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="96.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="70.10" speed="59.37"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="97.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="129.85" speed="59.75"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="98.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="189.48" speed="59.63"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="99.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="249.28" speed="59.80"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="100.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="309.11" speed="59.83"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="101.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="368.83" speed="59.72"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="102.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="428.64" speed="59.82"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="103.00">
+        <edge id="e_vo0">
+            <lane id="e_vo0_0">
+                <vehicle id="veh0" pos="488.29" speed="59.65"/>
+            </lane>
+            <lane id="e_vo0_1"/>
+        </edge>
     </timestep>
     <timestep time="104.00">
     </timestep>
