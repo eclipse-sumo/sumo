@@ -326,8 +326,7 @@ std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position& beg,
                             const Position& end,
                             SUMOReal wanted_offset) {
-    const SUMOReal length = sqrt((beg.x() - end.x()) * (beg.x() - end.x()) + (beg.y() - end.y()) * (beg.y() - end.y()));
-    return getNormal90D_CW(beg, end, length, wanted_offset);
+    return getNormal90D_CW(beg, end, beg.distanceTo2D(end), wanted_offset);
 }
 
 
