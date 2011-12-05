@@ -146,6 +146,8 @@ public:
     bool showBlinker;
     /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
+    /// @brief Information whether the minimum gap shall be drawn
+    bool drawMinGap;
     // Setting bundles for optional drawing vehicle names
     GUIVisualizationTextSettings vehicleName;
     //@}

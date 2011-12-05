@@ -328,50 +328,35 @@ GUIVehicle::getCenteringBoundary() const {
 
 
 inline void
-drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
-    SUMOReal length = veh.getVehicleType().getLengthWithGap();
+drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
     glPushMatrix();
-    if (length < 8) {
-        glScaled(1, length, 1);
-        glBegin(GL_TRIANGLES);
-        glVertex2d(0, 0);
-        glVertex2d(0 - 1.25, 1);
-        glVertex2d(0 + 1.25, 1);
-        glEnd();
-    } else {
-        glBegin(GL_TRIANGLES);
-        glVertex2d(0, 0);
-        glVertex2d(0 - 1.25, 0 + 2);
-        glVertex2d(0 + 1.25, 0 + 2);
-        glVertex2d(0 - 1.25, 2);
-        glVertex2d(0 - 1.25, length);
-        glVertex2d(0 + 1.25, length);
-        glVertex2d(0 + 1.25, 2);
-        glVertex2d(0 - 1.25, 2);
-        glVertex2d(0 + 1.25, length);
-        glEnd();
-    }
+    glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
+    glScaled(veh.getVehicleType().getGuiWidth(), veh.getVehicleType().getLength(), 1.);
+    glBegin(GL_TRIANGLE_STRIP);
+    glVertex2d(0., 0.);
+    glVertex2d(-.5, .15);
+    glVertex2d( .5, .15);
+    glVertex2d(-.5, 1.);
+    glVertex2d( .5, 1.);
+    glEnd();
     glPopMatrix();
 }
 
+
 inline void
-drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
-    SUMOReal length = veh.getVehicleType().getLengthWithGap();
-    SUMOReal offset = veh.getVehicleType().getMinGap();
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
+    const SUMOReal length = veh.getVehicleType().getLength();
+    if (length >= 8.) {
+        drawAction_drawVehicleAsBoxPlus(veh);
+        return;
+    }
     glPushMatrix();
-    glRotated(90, 0, 0, 1);
-    //glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
-    glScaled(1, veh.getVehicleType().getGuiWidth(), 1.);
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex2d((length - offset) / 2., 0);
-    glVertex2d(offset, 0);
-    glVertex2d(offset, -.4);
-    glVertex2d(offset + .1, -.5);
-    glVertex2d(length, -.5);
-    glVertex2d(length, .5);
-    glVertex2d(offset + .1, .5);
-    glVertex2d(offset, .4);
-    glVertex2d(offset, 0);
+    glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
+    glScaled(veh.getVehicleType().getGuiWidth(), length, 1.);
+    glBegin(GL_TRIANGLES);
+    glVertex2d(0., 0.);
+    glVertex2d(-.5, 1.);
+    glVertex2d( .5, 1.);
     glEnd();
     glPopMatrix();
 }
@@ -883,6 +868,13 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         default:
             drawAction_drawVehicleAsPoly(*this);
             break;
+    }
+    if (s.drawMinGap) {
+        glColor3d(0., 1., 0.);
+        glBegin(GL_LINES);
+        glVertex2d(0., 0);
+        glVertex2d(0., getVehicleType().getMinGap());
+        glEnd();
     }
     // draw the blinker and brakelights if wished
     if (s.showBlinker) {
