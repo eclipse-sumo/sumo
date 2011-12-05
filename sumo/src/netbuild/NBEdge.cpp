@@ -2031,7 +2031,7 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
         mySpeed = speed;
         for (unsigned int i = 0; i < myLanes.size(); i++) {
             // ... do it for each lane
-            setOffset((int) i, speed);
+            setSpeed((int) i, speed);
         }
         return;
     }
