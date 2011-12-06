@@ -113,31 +113,38 @@ public:
 
 
 private:
-    /** @brief Returns the parameter for the given vehicle emission class
-     * @param[in] c The vehicle emission class
-     * @return The function parameter (for all pollutants)
-     */
-    static inline double* getParameterForClass(SUMOEmissionClass c) {
-        return myFunctionParameter[c];
-    }
-
-
-    /** @brief Computes the emitted pollutant amount using the given values
+    /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
      * As the functions are defining emissions/hour, the function's result is normed
-     *  by 3600 (seconds in an hour) yielding in <measure>/s.
+     *  by 3600 (seconds in an hour) yielding in <measure>/s. Negative acceleration
+	 *  results directly in zero emission.
      *
-     * @param[in] f Pointer to the function parameters to use
+     * @param[in] c emission class for the function parameters to use
+     * @param[in] offset the offset in the function parameters for the correct pollutant
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
      */
-    static inline double computeUsing(double* f, double v, double a) {
-        if (a < 0) {
+    static inline SUMOReal compute(SUMOEmissionClass c, const int offset, double v, const double a) {
+		switch (c) {
+			case SVE_ZERO_EMISSIONS:
+				return 0.;
+			case SVE_UNKNOWN:
+				c = SVE_P_LDV_7_7;
+				break;
+			default:
+				break;
+		}
+        v *= 3.6;
+		if (c > 42) {
+			const double* f = myFunctionParameter[c - 42] + offset;
+	        return (SUMOReal) MAX2((f[0] + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3600., 0.);
+		}
+        if (a < 0.) {
             return 0.;
         }
-        v = v * 3.6;
-        double alpha = asin(a / 9.81) * 180. / PI;
-        return MAX2(((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3600.), 0.);
+		const double* f = myFunctionParameter[c] + offset;
+        const double alpha = asin(a / 9.81) * 180. / PI;
+        return (SUMOReal) MAX2((f[0] + f[1] * alpha * v + f[2] * alpha * alpha * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / 3600., 0.);
     }
 
 

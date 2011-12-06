@@ -236,7 +236,54 @@ enum SUMOEmissionClass {
     SVE_P_LDV_14_13,
     SVE_P_LDV_14_14,
     // no emissions
-    SVE_ZERO_EMISSIONS
+    SVE_ZERO_EMISSIONS,
+    // heavy duty vehicles, no accel; 3 clusters
+    SVE_HDV_A0_3_1,
+    SVE_HDV_A0_3_2,
+    SVE_HDV_A0_3_3,
+    // heavy duty vehicles, no accel; 6 clusters
+    SVE_HDV_A0_6_1,
+    SVE_HDV_A0_6_2,
+    SVE_HDV_A0_6_3,
+    SVE_HDV_A0_6_4,
+    SVE_HDV_A0_6_5,
+    SVE_HDV_A0_6_6,
+    // heavy duty vehicles, no accel; 12 clusters
+    SVE_HDV_A0_12_1,
+    SVE_HDV_A0_12_2,
+    SVE_HDV_A0_12_3,
+    SVE_HDV_A0_12_4,
+    SVE_HDV_A0_12_5,
+    SVE_HDV_A0_12_6,
+    SVE_HDV_A0_12_7,
+    SVE_HDV_A0_12_8,
+    SVE_HDV_A0_12_9,
+    SVE_HDV_A0_12_10,
+    SVE_HDV_A0_12_11,
+    SVE_HDV_A0_12_12,
+    // passenger & light duty vehicles, no accel; 7 clusters
+    SVE_P_LDV_A0_7_1,
+    SVE_P_LDV_A0_7_2,
+    SVE_P_LDV_A0_7_3,
+    SVE_P_LDV_A0_7_4,
+    SVE_P_LDV_A0_7_5,
+    SVE_P_LDV_A0_7_6,
+    SVE_P_LDV_A0_7_7,
+    // passenger & light duty vehicles, no accel; 14 clusters
+    SVE_P_LDV_A0_14_1,
+    SVE_P_LDV_A0_14_2,
+    SVE_P_LDV_A0_14_3,
+    SVE_P_LDV_A0_14_4,
+    SVE_P_LDV_A0_14_5,
+    SVE_P_LDV_A0_14_6,
+    SVE_P_LDV_A0_14_7,
+    SVE_P_LDV_A0_14_8,
+    SVE_P_LDV_A0_14_9,
+    SVE_P_LDV_A0_14_10,
+    SVE_P_LDV_A0_14_11,
+    SVE_P_LDV_A0_14_12,
+    SVE_P_LDV_A0_14_13,
+    SVE_P_LDV_A0_14_14
 };
 
 
