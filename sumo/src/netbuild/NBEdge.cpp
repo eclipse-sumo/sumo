@@ -211,7 +211,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     myStreetName(tpl->getStreetName()) {
     init(tpl->getNumLanes(), false);
     for (unsigned int i = 0; i < getNumLanes(); i++) {
-        setLaneSpeed(i, tpl->getLaneSpeed(i));
+        setSpeed(i, tpl->getLaneSpeed(i));
         setVehicleClasses(tpl->getAllowedVehicleClasses(i), tpl->getDisallowedVehicleClasses(i), i);
     }
 }
@@ -1088,12 +1088,6 @@ NBEdge::acceptBeingTurning(NBEdge* e) {
         previous->computeTurningDirections();
     }
     return true;
-}
-
-
-void
-NBEdge::setLaneSpeed(unsigned int lane, SUMOReal speed) {
-    myLanes[lane].speed = speed;
 }
 
 

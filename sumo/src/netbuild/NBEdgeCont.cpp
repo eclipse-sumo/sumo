@@ -392,14 +392,14 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                              edge->getPriority(), edge->myWidth, 0, geoms.first,
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i = 0; i < noLanesFirstEdge && i < edge->getNumLanes(); i++) {
-        one->setLaneSpeed(i, edge->getLaneSpeed(i));
+        one->setSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge* two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
                              edge->getPriority(), edge->myWidth, edge->myOffset, geoms.second,
                              edge->getStreetName(), edge->myLaneSpreadFunction, true);
     for (unsigned int i = 0; i < noLanesSecondEdge && i < edge->getNumLanes(); i++) {
-        two->setLaneSpeed(i, edge->getLaneSpeed(i));
+        two->setSpeed(i, edge->getLaneSpeed(i));
     }
     two->copyConnectionsFrom(edge);
     // replace information about this edge within the nodes

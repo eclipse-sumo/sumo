@@ -504,9 +504,9 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
                                    avgSpeed / (SUMOReal) 3.6, myNoLanes, -1, -1, -1, myGeom, myName, LANESPREAD_CENTER, true);
     for (i = 0; i < (int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
-            buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (SUMOReal) 3.6);
+            buildEdge->setSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (SUMOReal) 3.6);
         } else {
-            buildEdge->setLaneSpeed(i, myLaneSpeeds[i] / (SUMOReal) 3.6);
+            buildEdge->setSpeed(i, myLaneSpeeds[i] / (SUMOReal) 3.6);
         }
     }
     ec.insert(buildEdge);
@@ -557,7 +557,7 @@ NIVissimEdge::recheckSpeedPatches()
             cot << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
         }
         //
-/        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
+/        // !!! ist natuerlich Quatsch - erst recht, wenn Edges zusammengefasst werden
         speed = DoubleVectorHelper::sum(myPatchedSpeeds);
         speed /= (SUMOReal) myPatchedSpeeds.size();*/
 /*        return true;
