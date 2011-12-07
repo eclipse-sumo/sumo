@@ -108,8 +108,8 @@ public:
     Position intersectsAtPoint(const Position& p1,
                                const Position& p2) const; // !!!
 
-    PositionVector intersectsAtPoints(const Position& p1,
-                                      const Position& p2) const; // !!!
+    /** Returns any intersection Points with the given line (ignoring z-coordinates) */
+    PositionVector intersectionPoints2D(const Line& line) const;
 
     DoubleVector intersectsAtLengths(const PositionVector& s) const; // !!!
 

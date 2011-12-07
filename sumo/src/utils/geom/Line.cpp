@@ -108,7 +108,7 @@ Line::move2side(SUMOReal amount) {
 
 DoubleVector
 Line::intersectsAtLengths(const PositionVector& v) {
-    PositionVector p = v.intersectsAtPoints(myP1, myP2);
+    PositionVector p = v.intersectionPoints2D(*this);
     DoubleVector ret;
     for (size_t i = 0; i < p.size(); i++) {
         ret.push_back(myP1.distanceTo(p[int(i)]));

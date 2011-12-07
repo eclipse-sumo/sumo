@@ -510,14 +510,13 @@ PositionVector::set(size_t pos, const Position& p) {
 }
 
 
-
-PositionVector
-PositionVector::intersectsAtPoints(const Position& p1,
-                                   const Position& p2) const {
+PositionVector 
+PositionVector::intersectionPoints2D(const Line& line) const {
     PositionVector ret;
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
-        if (GeomHelper::intersects(*i, *(i + 1), p1, p2)) {
-            ret.push_back_noDoublePos(GeomHelper::intersection_position(*i, *(i + 1), p1, p2));
+        if (GeomHelper::intersects(*i, *(i + 1), line.p1(), line.p2())) {
+            ret.push_back_noDoublePos(GeomHelper::intersection_position(
+                        *i, *(i + 1), line.p1(), line.p2()));
         }
     }
     return ret;
