@@ -497,12 +497,14 @@ public:
     void addGeometryPoint(int index, const Position& p) ;
 
 
-    /** @brief Computes the shape of the edge (regarding the nodes' shapes
-     *
-     * Because an edge's shape should start/end at the boundaries of the nodes
-     *  the edge starts/ends at, we have to recompute the edge's shape after
-     *  we know the ones of the nodes. This is done within this method.
-     * @todo Describe what is done here
+    /** @brief Recomputeds the lane shapes to terminate at the node shape
+     * For every lane the intersection with the fromNode and toNode is
+     * calculated and the lane shorted accordingly. The edge length is then set
+     * to the average of all lane lenghts (which may differ). This average length is used as the lane
+     * length when writing the network.
+     * @note All lanes of an edge in a sumo net must have the same nominal length 
+     *  but may differ in actual geomtric length.
+     * @note Depends on previous call to NBNodeCont::computeNodeShapes 
      */
     void computeEdgeShape() ;
 

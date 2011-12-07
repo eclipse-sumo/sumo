@@ -405,6 +405,7 @@ NBEdge::computeEdgeShape() {
         }
         if (shape.length() < POSITION_EPS) {
             WRITE_MESSAGE("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
+            // @note old shape may still be shorter than POSITION_EPS
             shape = old;
         } else {
             Line lc(shape[0], shape[-1]);
@@ -414,13 +415,13 @@ NBEdge::computeEdgeShape() {
             }
         }
     }
-    // recompute edge's length
-    SUMOReal length = 0;
+    // recompute edge's length as the average of lane lenghts
+    SUMOReal avgLength = 0;
     for (i = 0; i < myLanes.size(); i++) {
         assert(myLanes[i].shape.length() > 0);
-        length += myLanes[i].shape.length();
+        avgLength += myLanes[i].shape.length();
     }
-    myLength = length / (SUMOReal) myLanes.size();
+    myLength = avgLength / (SUMOReal) myLanes.size();
 }
 
 
