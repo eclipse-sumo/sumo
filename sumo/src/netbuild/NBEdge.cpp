@@ -353,61 +353,20 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
 
 void
 NBEdge::computeEdgeShape() {
-    unsigned int i;
-    for (i = 0; i < myLanes.size(); i++) {
+    for (unsigned int i = 0; i < myLanes.size(); i++) {
         PositionVector& shape = myLanes[i].shape;
-        // get lane begin and end
-        Line lb = Line(shape[0], shape[1]);
-        Line le = Line(shape[-1], shape[-2]);
-        lb.extrapolateBy(100.0);
-        le.extrapolateBy(100.0);
-        //
         PositionVector old = shape;
-        // lane begin
-        if (myFrom->getShape().intersects(shape)) {
-            // get the intersection position with the junction
-            DoubleVector pbv = shape.intersectsAtLengths(myFrom->getShape());
-            if (pbv.size() > 0) {
-                SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
-                if (pb >= 0 && pb <= shape.length()) {
-                    shape = shape.getSubpart(pb, shape.length());
-                }
-            }
-        } else if (myFrom->getShape().intersects(lb.p1(), lb.p2())) {
-            DoubleVector pbv = lb.intersectsAtLengths(myFrom->getShape());
-            if (pbv.size() > 0) {
-                SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
-                if (pb >= 0) {
-                    shape.eraseAt(0);
-                    shape.push_front_noDoublePos(lb.getPositionAtDistance(pb));
-                }
-            }
+        shape = startShapeAt(shape, myFrom, i);
+        if (shape.size() >= 2) {
+            shape = startShapeAt(shape.reverse(), myTo, i).reverse();
         }
-        // lane end
-        if (myTo->getShape().intersects(shape)) {
-            // get the intersection position with the junction
-            DoubleVector pev = shape.intersectsAtLengths(myTo->getShape());
-            if (pev.size() > 0) {
-                SUMOReal pe = VectorHelper<SUMOReal>::minValue(pev);
-                if (pe >= 0 && pe <= shape.length()) {
-                    shape = shape.getSubpart(0, pe);
-                }
-            }
-        } else if (myTo->getShape().intersects(le.p1(), le.p2())) {
-            DoubleVector pev = le.intersectsAtLengths(myTo->getShape());
-            if (pev.size() > 0) {
-                SUMOReal pe = VectorHelper<SUMOReal>::maxValue(pev);
-                if (pe >= 0) {
-                    shape.eraseAt((int) shape.size() - 1);
-                    shape.push_back(le.getPositionAtDistance(pe));
-                }
-            }
-        }
+        // sanity checks
         if (shape.length() < POSITION_EPS) {
             WRITE_MESSAGE("Lane '" + myID + "' has calculated shape length near zero. Revert it back to old shape.");
             // @note old shape may still be shorter than POSITION_EPS
             shape = old;
         } else {
+            // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
             Line lc(shape[0], shape[-1]);
             Line lo(old[0], old[-1]);
             if (135 < GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
@@ -417,11 +376,55 @@ NBEdge::computeEdgeShape() {
     }
     // recompute edge's length as the average of lane lenghts
     SUMOReal avgLength = 0;
-    for (i = 0; i < myLanes.size(); i++) {
+    for (unsigned int i = 0; i < myLanes.size(); i++) {
         assert(myLanes[i].shape.length() > 0);
         avgLength += myLanes[i].shape.length();
     }
     myLength = avgLength / (SUMOReal) myLanes.size();
+}
+
+
+PositionVector 
+NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, unsigned int laneIndex) const {
+    const std::string error = "Could not find a way to attach lane '" + getLaneID(laneIndex) + 
+        "' at node shape of '" + startNode->getID() + "'.";
+    const PositionVector& nodeShape = startNode->getShape();
+    Line lb = laneShape.getBegLine();
+    // this doesn't look reasonable @todo use lb.extrapolateFirstBy(100.0); 
+    lb.extrapolateBy(100.0); 
+    if (nodeShape.intersects(laneShape)) {
+        // shape intersects directly
+        DoubleVector pbv = laneShape.intersectsAtLengths(nodeShape);
+        assert(pbv.size() > 0);
+        SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
+        assert(pb >= 0);
+        if (pb <= laneShape.length()) {
+            return laneShape.getSubpart(pb, laneShape.length());
+        } else {
+            return laneShape; // @todo do not ignore this error silently
+        }
+    } else if (nodeShape.intersects(lb.p1(), lb.p2())) {
+        // extension of first segment intersects
+        DoubleVector pbv = lb.intersectsAtLengths(nodeShape);
+        assert(pbv.size() > 0);
+        SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
+        assert(pb >= 0);
+        PositionVector result = laneShape;
+        result.eraseAt(0);
+        result.push_front_noDoublePos(lb.getPositionAtDistance(pb));
+        return result;
+        //if (result.size() >= 2) {
+        //    return result;
+        //} else {
+        //    WRITE_WARNING(error + " (resulting shape is too short)");
+        //    return laneShape;
+        //}
+    } else {
+        // could not find proper intersection. Probably the edge is very short
+        // and lies within nodeShape
+        // @todo enable warning WRITE_WARNING(error + " (laneShape lies within nodeShape)");
+        return laneShape;
+    }
 }
 
 
