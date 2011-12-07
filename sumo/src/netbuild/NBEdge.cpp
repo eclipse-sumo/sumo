@@ -363,7 +363,6 @@ NBEdge::computeEdgeShape() {
         le.extrapolateBy(100.0);
         //
         PositionVector old = shape;
-        Position nb, ne;
         // lane begin
         if (myFrom->getShape().intersects(shape)) {
             // get the intersection position with the junction
