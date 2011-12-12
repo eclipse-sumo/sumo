@@ -151,11 +151,14 @@ Line::intersects(const Line& l) const {
 
 
 SUMOReal
+Line::length2D() const {
+    return myP1.distanceTo2D(myP2);
+}
+
+
+SUMOReal
 Line::length() const {
-    return sqrt(
-               (myP1.x() - myP2.x()) * (myP1.x() - myP2.x())
-               +
-               (myP1.y() - myP2.y()) * (myP1.y() - myP2.y()));
+    return myP1.distanceTo(myP2);
 }
 
 

@@ -534,7 +534,7 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
     l1.extrapolateBy(100);
     Line l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
-    if (l1.intersects(l2) && l1.intersectsAtLength(l2) < l1.length() - 100) { // !!! heuristic
+    if (l1.intersects(l2) && l1.intersectsAtLength(l2) < l1.length2D() - 100) { // !!! heuristic
         Position p = l1.intersectsAt(l2);
         myCont[myCont.size() - 1] = p;
         copy(v.myCont.begin() + 1, v.myCont.end(), back_inserter(myCont));
@@ -772,7 +772,7 @@ PositionVector::intersectsAtLengths(const PositionVector& s) const {
         DoubleVector atSegment = l.intersectsAtLengths(s);
         VectorHelper<SUMOReal>::add2All(atSegment, pos);
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
-        pos += l.length();
+        pos += l.length2D();
     }
     return ret;
 }
@@ -790,7 +790,7 @@ PositionVector::intersectsAtLengths(const Line& s) const {
             SUMOReal atLength = p.distanceTo(l.p1());
             ret.push_back(atLength + pos);
         }
-        pos += l.length();
+        pos += l.length2D();
     }
     return ret;
 }

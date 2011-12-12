@@ -65,6 +65,7 @@ public:
     bool intersects(const Line& l) const;
     Position intersectsAt(const Line& l) const;
     SUMOReal length() const;
+    SUMOReal length2D() const;
     void add(SUMOReal x, SUMOReal y);
     void add(const Position& p);
     void sub(SUMOReal x, SUMOReal y);
