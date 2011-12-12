@@ -46,14 +46,26 @@
  */
 class GeomHelper {
 public:
-    static bool intersects(SUMOReal x1b, SUMOReal y1b, SUMOReal x1e, SUMOReal y1e,
-                           SUMOReal x2b, SUMOReal y2b, SUMOReal x2e, SUMOReal y2e);
+    /** @brief return whether the line segments defined by Line (x1,y1),(x2,y2)
+     * and Line (x3,y3),(x4,y4) intersect
+     */
+    static bool intersects(
+            SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
+            SUMOReal x3, SUMOReal y3, SUMOReal x4, SUMOReal y4);
 
+    /** @brief return whether the line segments defined by 
+     * Line p11,p12 and Line p21,p22 intersect
+     */
     static bool intersects(const Position& p11, const Position& p12,
                            const Position& p21, const Position& p22);
 
-    static Position intersection_position(const Position& p11,
-                                          const Position& p12, const Position& p21, const Position& p22);
+    /** @brief returns the intersection point 
+     * of the (infinite) lines p11,p12 and p21,p22.
+     * If the given lines are parallel the result will contain NAN-values
+     */
+    static Position intersection_position(
+            const Position& p11, const Position& p12, 
+            const Position& p21, const Position& p22);
 
     static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
