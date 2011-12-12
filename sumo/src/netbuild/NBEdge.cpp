@@ -394,7 +394,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
     lb.extrapolateBy(100.0); 
     if (nodeShape.intersects(laneShape)) {
         // shape intersects directly
-        DoubleVector pbv = laneShape.intersectsAtLengths(nodeShape);
+        DoubleVector pbv = laneShape.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
@@ -405,7 +405,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
         }
     } else if (nodeShape.intersects(lb.p1(), lb.p2())) {
         // extension of first segment intersects
-        DoubleVector pbv = lb.intersectsAtLengths(nodeShape);
+        DoubleVector pbv = lb.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
@@ -918,7 +918,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                             crossingPositions.second.push_back(index);
                             PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
                             if (shape.intersects(otherShape)) {
-                                DoubleVector dv = shape.intersectsAtLengths(otherShape);
+                                DoubleVector dv = shape.intersectsAtLengths2D(otherShape);
                                 SUMOReal minDV = dv[0];
                                 if (minDV < shape.length() - .1 && minDV > .1) { // !!!?
                                     assert(minDV >= 0);

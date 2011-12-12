@@ -78,24 +78,24 @@ TEST(Line, test_method_reverse) {
 	EXPECT_FLOAT_EQ(0,(lineReverse.p2()).y());
 }
 
-/* Test the method 'intersectsAtLength' */
-TEST(Line, test_method_intersectsAtLength) {
+/* Test the method 'intersectsAtLength2D' */
+TEST(Line, test_method_intersectsAtLength2D) {
 	Line line(Position(0,0),Position(2,2));
-	SUMOReal point = line.intersectsAtLength(Line(Position(0,2),Position(2,0)));
+	SUMOReal point = line.intersectsAtLength2D(Line(Position(0,2),Position(2,0)));
 	EXPECT_FLOAT_EQ(sqrt(SUMOReal(2)), point);	
 }
 
 /* Test the method 'intersectsAtLength' at the beginning */
 TEST(Line, test_method_intersectsAtLength_zero) {
 	Line line(Position(0,0),Position(2,2));
-	SUMOReal point = line.intersectsAtLength(Line(Position(0,0),Position(2,0)));
+	SUMOReal point = line.intersectsAtLength2D(Line(Position(0,0),Position(2,0)));
 	EXPECT_FLOAT_EQ(0, point);	
 }
 
 /* Test the method 'intersectsAtLength' with no intersect. Must be -1*/
 TEST(Line, test_method_intersectsAtLength_no_intersect) {
 	Line line(Position(0,0),Position(2,2));
-	SUMOReal point = line.intersectsAtLength(Line(Position(0,3),Position(0,6)));
+	SUMOReal point = line.intersectsAtLength2D(Line(Position(0,3),Position(0,6)));
 	EXPECT_FLOAT_EQ(-1, point);	
 }
 

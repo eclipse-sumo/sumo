@@ -202,8 +202,8 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
 }
 
 
-/* Test the method 'intersectsAtLengths'*/
-TEST_F(PositionVectorTest, test_method_intersectsAtLenghts) {	
+/* Test the method 'intersectsAtLengths2D'*/
+TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {	
     PositionVector vec1;
     vec1.push_back(Position(0,0,42));
     vec1.push_back(Position(100,0,0));
@@ -211,5 +211,5 @@ TEST_F(PositionVectorTest, test_method_intersectsAtLenghts) {
     PositionVector vec2;
     vec2.push_back(Position(0,0,0));
     vec2.push_back(Position(3,1,0));
-	EXPECT_FLOAT_EQ(0, vec1.intersectsAtLengths(vec2)[0]);
+	EXPECT_FLOAT_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
 }

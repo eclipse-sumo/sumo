@@ -107,11 +107,11 @@ Line::move2side(SUMOReal amount) {
 
 
 DoubleVector
-Line::intersectsAtLengths(const PositionVector& v) {
+Line::intersectsAtLengths2D(const PositionVector& v) {
     PositionVector p = v.intersectionPoints2D(*this);
     DoubleVector ret;
     for (size_t i = 0; i < p.size(); i++) {
-        ret.push_back(myP1.distanceTo(p[int(i)]));
+        ret.push_back(myP1.distanceTo2D(p[int(i)]));
     }
     return ret;
 }
@@ -194,10 +194,10 @@ Line::reverse() {
 
 
 SUMOReal
-Line::intersectsAtLength(const Line& v) {
+Line::intersectsAtLength2D(const Line& v) {
     Position pos =
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
-    return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, pos);
+    return GeomHelper::nearest_position_on_line_to_point2D(myP1, myP2, pos);
 }
 
 

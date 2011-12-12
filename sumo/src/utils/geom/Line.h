@@ -43,7 +43,7 @@ class PositionVector;
 // class definitions
 // ===========================================================================
 /**
- *
+ * Class for line segments
  */
 class Line {
 public:
@@ -57,8 +57,11 @@ public:
     const Position& p2() const;
     Position getPositionAtDistance(SUMOReal offset) const;
     void move2side(SUMOReal amount);
-    DoubleVector intersectsAtLengths(const PositionVector& v);
-    SUMOReal intersectsAtLength(const Line& v);
+    DoubleVector intersectsAtLengths2D(const PositionVector& v);
+
+    /// @brief returns distance between myP1 and intersection or -1 if line segments do not intersect
+    SUMOReal intersectsAtLength2D(const Line& v);
+
     SUMOReal atan2Angle() const;
     SUMOReal atan2DegreeAngle() const;
     SUMOReal atan2PositiveAngle() const;

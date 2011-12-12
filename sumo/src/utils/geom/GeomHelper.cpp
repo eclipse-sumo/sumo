@@ -213,12 +213,14 @@ GeomHelper::extrapolate_second(const Position& p1,
 
 
 SUMOReal
-GeomHelper::nearest_position_on_line_to_point(const Position& LineStart,
+GeomHelper::nearest_position_on_line_to_point2D(const Position& LineStart,
         const Position& LineEnd,
         const Position& Point, bool perpendicular) {
+    // scalar product equals length of orthogonal projection times length of vector being projected onto
+    // dividing the scalar product by the square of the distance gives the relative position
     SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
                   ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
-                 ) / LineStart.distanceSquaredTo(LineEnd);
+                 ) / LineStart.distanceSquaredTo2D(LineEnd);
     if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
         if (perpendicular) {
             return -1;
@@ -226,9 +228,9 @@ GeomHelper::nearest_position_on_line_to_point(const Position& LineStart,
         if (u < 0.0f) {
             return 0.0f;
         }
-        return LineStart.distanceTo(LineEnd);
+        return LineStart.distanceTo2D(LineEnd);
     }
-    return u * LineStart.distanceTo(LineEnd);
+    return u * LineStart.distanceTo2D(LineEnd);
 }
 
 

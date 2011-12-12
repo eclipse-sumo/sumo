@@ -534,7 +534,7 @@ PositionVector::appendWithCrossingPoint(const PositionVector& v) {
     l1.extrapolateBy(100);
     Line l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
-    if (l1.intersects(l2) && l1.intersectsAtLength(l2) < l1.length2D() - 100) { // !!! heuristic
+    if (l1.intersects(l2) && l1.intersectsAtLength2D(l2) < l1.length2D() - 100) { // !!! heuristic
         Position p = l1.intersectsAt(l2);
         myCont[myCont.size() - 1] = p;
         copy(v.myCont.begin() + 1, v.myCont.end(), back_inserter(myCont));
@@ -615,7 +615,7 @@ PositionVector::pruneFromBeginAt(const Position& p) {
         myCont.erase(myCont.begin());
     }
     // replace first item by the new position
-    SUMOReal lpos = GeomHelper::nearest_position_on_line_to_point(
+    SUMOReal lpos = GeomHelper::nearest_position_on_line_to_point2D(
                         myCont[0], myCont[1], p);
     if (lpos == -1) {
         return;
@@ -660,7 +660,7 @@ PositionVector::pruneFromEndAt(const Position& p) {
     }
     // replace last item by the new position
     SUMOReal lpos =
-        GeomHelper::nearest_position_on_line_to_point(
+        GeomHelper::nearest_position_on_line_to_point2D(
             myCont[myCont.size() - 1], myCont[myCont.size() - 2], p);
     if (lpos == -1) {
         return;
@@ -702,7 +702,7 @@ PositionVector::nearest_position_on_line_to_point(const Position& p, bool perpen
     SUMOReal seen = 0;
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         SUMOReal pos =
-            GeomHelper::nearest_position_on_line_to_point(*i, *(i + 1), p, perpendicular);
+            GeomHelper::nearest_position_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
         SUMOReal dist =
             pos < 0 ? -1 : p.distanceTo(positionAtLengthPosition(pos + seen));
         //
@@ -764,30 +764,26 @@ PositionVector::distance(const Position& p) const {
 
 
 DoubleVector
-PositionVector::intersectsAtLengths(const PositionVector& s) const {
+PositionVector::intersectsAtLengths2D(const PositionVector& other) const {
     DoubleVector ret;
-    SUMOReal pos = 0;
-    for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
-        Line l((*i), *(i + 1));
-        DoubleVector atSegment = l.intersectsAtLengths(s);
-        VectorHelper<SUMOReal>::add2All(atSegment, pos);
+    for (ContType::const_iterator i = other.myCont.begin(); i != other.myCont.end() - 1; i++) {
+        DoubleVector atSegment = intersectsAtLengths2D(Line(*i, *(i+1)));
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
-        pos += l.length2D();
     }
     return ret;
 }
 
 
 DoubleVector
-PositionVector::intersectsAtLengths(const Line& s) const {
+PositionVector::intersectsAtLengths2D(const Line& line) const {
     DoubleVector ret;
     SUMOReal pos = 0;
     for (ContType::const_iterator i = myCont.begin(); i != myCont.end() - 1; i++) {
         Line l((*i), *(i + 1));
-        if (GeomHelper::intersects(l.p1(), l.p2(), s.p1(), s.p2())) {
+        if (GeomHelper::intersects(l.p1(), l.p2(), line.p1(), line.p2())) {
             Position p =
-                GeomHelper::intersection_position(l.p1(), l.p2(), s.p1(), s.p2());
-            SUMOReal atLength = p.distanceTo(l.p1());
+                GeomHelper::intersection_position(l.p1(), l.p2(), line.p1(), line.p2());
+            SUMOReal atLength = p.distanceTo2D(l.p1());
             ret.push_back(atLength + pos);
         }
         pos += l.length2D();

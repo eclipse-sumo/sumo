@@ -111,9 +111,13 @@ public:
     /** Returns any intersection Points with the given line (ignoring z-coordinates) */
     PositionVector intersectionPoints2D(const Line& line) const;
 
-    DoubleVector intersectsAtLengths(const PositionVector& s) const; // !!!
+    /** @brief For all intersections between this vector and other, 
+     * return the 2D-length of the subvector from this vectors start to the intersection */
+    DoubleVector intersectsAtLengths2D(const PositionVector& other) const; // !!!
 
-    DoubleVector intersectsAtLengths(const Line& s) const; // !!!
+    /** @brief For all intersections between this vector and line, 
+     * return the 2D-length of the subvector from this vectors start to the intersection */
+    DoubleVector intersectsAtLengths2D(const Line& line) const; // !!!
 
     /** Returns the position of the intersection */
     Position intersectsAtPoint(const PositionVector& v1) const; // !!!

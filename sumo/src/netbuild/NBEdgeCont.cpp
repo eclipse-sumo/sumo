@@ -356,7 +356,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
     SUMOReal pos;
     pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
     if (pos <= 0) {
-        pos = GeomHelper::nearest_position_on_line_to_point(
+        pos = GeomHelper::nearest_position_on_line_to_point2D(
                   edge->myFrom->getPosition(), edge->myTo->getPosition(),
                   node->getPosition());
     }

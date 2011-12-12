@@ -440,9 +440,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
             if (c1->getFromEdgeID() == c2->getFromEdgeID()) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
-                SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point(
+                SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point2D(
                                     g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
-                SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point(
+                SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point2D(
                                     g.getBegin(), g.getEnd(), c2->getBoundary().getCenter());
                 if (pos1 <= 5.0 && pos2 <= 5.0) {
                     return true;
@@ -451,9 +451,9 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster* cc2) {
             if (c1->getToEdgeID() == c2->getToEdgeID()) {
                 NIVissimEdge* e = NIVissimEdge::dictionary(c1->getFromEdgeID());
                 const PositionVector& g = e->getGeometry();
-                SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point(
+                SUMOReal pos1 = GeomHelper::nearest_position_on_line_to_point2D(
                                     g.getBegin(), g.getEnd(), c1->getBoundary().getCenter());
-                SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point(
+                SUMOReal pos2 = GeomHelper::nearest_position_on_line_to_point2D(
                                     g.getBegin(), g.getEnd(), c2->getBoundary().getCenter());
                 if (pos1 >= g.length() - 5.0 && pos2 >= g.length() - 5.0) {
                     return true;
@@ -709,7 +709,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     }
     const PositionVector& edgeGeom = edge->getGeometry();
     Position p = GeomHelper::crossPoint(myBoundary, edgeGeom);
-    return GeomHelper::nearest_position_on_line_to_point(
+    return GeomHelper::nearest_position_on_line_to_point2D(
                edgeGeom.getBegin(), edgeGeom.getEnd(), p);
 }
 

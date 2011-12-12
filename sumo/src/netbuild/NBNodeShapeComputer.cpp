@@ -113,7 +113,7 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
     tmp.rotateAtP1(PI / 2);
     tmp.extrapolateBy(100);
     if (l1.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset1 = l1.intersectsAtLengths(tmp)[0];
+        SUMOReal offset1 = l1.intersectsAtLengths2D(tmp)[0];
         Line tl1 = Line(
                        l1.lineAt(0).getPositionAtDistance(offset1),
                        l1[1]);
@@ -121,7 +121,7 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
         l1.replaceAt(0, tl1.p1());
     }
     if (l2.intersects(tmp.p1(), tmp.p2())) {
-        SUMOReal offset2 = l2.intersectsAtLengths(tmp)[0];
+        SUMOReal offset2 = l2.intersectsAtLengths2D(tmp)[0];
         Line tl2 = Line(
                        l2.lineAt(0).getPositionAtDistance(offset2),
                        l2[1]);
@@ -319,10 +319,10 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
             if (ccad < cad) {
                 if (!simpleContinuation) {
                     if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                        distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                        distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
                         if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
                             SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                            SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
                             if (ccad > (SUMOReal)((90. + 45.) / 180.*PI) && cad > (SUMOReal)((90. + 45.) / 180.*PI)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin > 100) {
@@ -334,14 +334,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                         }
                     } else {
                         if (*cwi != *ccwi && geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            distances[*i] = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                            distances[*i] = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
                         } else {
                             distances[*i] = (SUMOReal)(100. + 1.5);
                         }
                     }
                 } else {
                     if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                        distances[*i] = geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                        distances[*i] = geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
                     } else {
                         distances[*i] = (SUMOReal) 100.;
                     }
@@ -349,10 +349,10 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
             } else {
                 if (!simpleContinuation) {
                     if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                        distances[*i] = (SUMOReal)(1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0]);
+                        distances[*i] = (SUMOReal)(1.5 + geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0]);
                         if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
                             SUMOReal a1 = distances[*i];
-                            SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0]);
+                            SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0]);
                             if (ccad > (SUMOReal)((90. + 45.) / 180.*PI) && cad > (SUMOReal)((90. + 45.) / 180.*PI)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin > 100) {
@@ -364,14 +364,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                         }
                     } else {
                         if (*cwi != *ccwi && geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                            distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths2D(geomsCW[*ccwi])[0];
                         } else {
                             distances[*i] = (SUMOReal)(100. + 1.5);
                         }
                     }
                 } else {
                     if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                        distances[*i] = geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                        distances[*i] = geomsCW[*i].intersectsAtLengths2D(geomsCCW[*cwi])[0];
                     } else {
                         distances[*i] = (SUMOReal) 100;
                     }
