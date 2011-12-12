@@ -39,6 +39,9 @@ diff
 # testing error input and handling
 errors
 
+# tests related to 3D Positions
+3D
+
 # declared edge length should be writen back into the plain-output
 loaded_length
 
