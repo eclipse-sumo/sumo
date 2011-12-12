@@ -200,3 +200,16 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
 	EXPECT_FLOAT_EQ(smallDiff, result.second[0].x());
 	EXPECT_FLOAT_EQ(POSITION_EPS ,result.second[1].x());
 }
+
+
+/* Test the method 'intersectsAtLengths'*/
+TEST_F(PositionVectorTest, test_method_intersectsAtLenghts) {	
+    PositionVector vec1;
+    vec1.push_back(Position(0,0,42));
+    vec1.push_back(Position(100,0,0));
+
+    PositionVector vec2;
+    vec2.push_back(Position(0,0,0));
+    vec2.push_back(Position(3,1,0));
+	EXPECT_FLOAT_EQ(0, vec1.intersectsAtLengths(vec2)[0]);
+}
