@@ -51,6 +51,7 @@ $(XERCES_LIBS) \
 ./utils/geom/BoundaryTest.o \
 ./utils/geom/PositionVectorTest.o \
 ./utils/geom/LineTest.o \
+./utils/geom/GeomHelperTest.o \
 ./utils/geom/GeoConvHelperTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
 $(INTERNAL_TESTS) \
