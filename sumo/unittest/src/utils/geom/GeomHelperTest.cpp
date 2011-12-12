@@ -40,3 +40,56 @@ TEST(GeomHelper, test_method_intersection_position) {
 	EXPECT_FLOAT_EQ(expected.y(), pos.y());
 }
 
+
+TEST(GeomHelper, test_method_closestDistancePointLine_basic) {
+    Position expected(1,0);
+    SUMOReal expectedDistance = 1;
+    Position point(1,1);
+    Position start(0,0);
+    Position end(2,0);
+    Position closestPoint;
+    SUMOReal result = GeomHelper::closestDistancePointLine(point, start, end, closestPoint);
+	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
+	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
+	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
+	EXPECT_FLOAT_EQ(expectedDistance, result);
+}
+TEST(GeomHelper, test_method_closestDistancePointLine_onLine) {
+    Position expected(1,0);
+    SUMOReal expectedDistance = 0;
+    Position point(1,0);
+    Position start(0,0);
+    Position end(2,0);
+    Position closestPoint;
+    SUMOReal result = GeomHelper::closestDistancePointLine(point, start, end, closestPoint);
+	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
+	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
+	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
+	EXPECT_FLOAT_EQ(expectedDistance, result);
+}
+TEST(GeomHelper, test_method_closestDistancePointLine_outside_after) {
+    Position expected(2,0);
+    SUMOReal expectedDistance = 5;
+    Position point(5,4);
+    Position start(0,0);
+    Position end(2,0);
+    Position closestPoint;
+    SUMOReal result = GeomHelper::closestDistancePointLine(point, start, end, closestPoint);
+	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
+	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
+	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
+	EXPECT_FLOAT_EQ(expectedDistance, result);
+}
+TEST(GeomHelper, test_method_closestDistancePointLine_outside_before) {
+    Position expected(0,0);
+    SUMOReal expectedDistance = 5;
+    Position point(-3,4);
+    Position start(0,0);
+    Position end(2,0);
+    Position closestPoint;
+    SUMOReal result = GeomHelper::closestDistancePointLine(point, start, end, closestPoint);
+	EXPECT_FLOAT_EQ(expected.x(), closestPoint.x());
+	EXPECT_FLOAT_EQ(expected.y(), closestPoint.y());
+	EXPECT_FLOAT_EQ(expected.z(), closestPoint.z());
+	EXPECT_FLOAT_EQ(expectedDistance, result);
+}
