@@ -51,6 +51,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -640,7 +641,7 @@ NLHandler::addPOI(const SUMOSAXAttributes& attrs) {
     SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     SUMOReal lanePos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_POSITION);
-    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, 1);
+    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, GLO_SHAPE);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string laneID = attrs.getOptStringReporting(SUMO_ATTR_LANE, id.c_str(), ok, "");
     std::string colorStr = attrs.getOptStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok, "1,0,0");
@@ -674,7 +675,7 @@ NLHandler::addPoly(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, 1);
+	int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, id.c_str(), ok, GLO_SHAPE);
     bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, id.c_str(), ok, false);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     std::string colorStr = attrs.getStringReporting(SUMO_ATTR_COLOR, id.c_str(), ok);
