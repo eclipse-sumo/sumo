@@ -33,6 +33,7 @@
 #include "GeomHelper.h"
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/Line.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -257,28 +258,9 @@ GeomHelper::closestDistancePointLine(const Position& point,
                                      const Position& lineStart,
                                      const Position& lineEnd,
                                      Position& outIntersection) {
-    Position directVec(lineEnd.x() - lineStart.x(), lineEnd.y() - lineStart.y());
-    SUMOReal u = (((point.x() - lineStart.x()) * directVec.x()) +
-                  ((point.y() - lineStart.y()) * directVec.y())) /
-                 (directVec.x() * directVec.x() +
-                  directVec.y() * directVec.y());
-
-    // if closest point does not fall within the line segment
-    // return line start or line end
-
-    if (u >= 0.0f && u <= 1.0f) {
-        outIntersection.set(
-            lineStart.x() + u * directVec.x(),
-            lineStart.y() + u * directVec.y());
-    } else {
-        if (u < 0.0f) {
-            outIntersection = lineStart;
-        }
-        if (u > 1.0f) {
-            outIntersection = lineEnd;
-        }
-    }
-    return point.distanceTo(outIntersection);
+    const SUMOReal length = nearest_position_on_line_to_point2D(lineStart, lineEnd, point, false);
+    outIntersection.set(Line(lineStart, lineEnd).getPositionAtDistance(length));
+    return point.distanceTo2D(outIntersection);
 }
 
 
