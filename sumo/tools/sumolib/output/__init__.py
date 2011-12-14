@@ -32,7 +32,6 @@ def get_attrs(node, elementType, element_name):
         # why NamedNodeMap does not support iteration is a mystery
         attrnames = [node.attributes.item(i).localName for i in range(node.attributes.length)]
         attrnames = [prefix_keyword(a) for a in attrnames]
-        print attrnames
         elementType.append(namedtuple(element_name, attrnames))
     return elementType[0](*[node.getAttribute(a) for a in elementType[0]._fields])
 
