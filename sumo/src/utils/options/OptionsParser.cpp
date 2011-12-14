@@ -46,6 +46,11 @@
 bool
 OptionsParser::parse(int argc, char** argv) {
     bool ok = true;
+	if (argc == 2 && argv[1][0] != '-') {
+		// special case only one parameter is handled like config
+        check("-c", argv[1], ok);
+		return ok;
+	}
     for (int i = 1; i < argc;) {
         try {
             int add;
