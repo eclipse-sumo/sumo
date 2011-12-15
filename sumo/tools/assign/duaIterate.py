@@ -163,13 +163,13 @@ def writeSUMOConf(step, options, files):
     </report>
 </configuration>""" % options.noWarnings
     fd.close()
+    suffix = "_%03i_%s" % (step, options.aggregation)
     fd = open("dua_dump_%03i.add.xml" % step, "w")
     print >> fd, "<a>"
-	print >> fd, '    <edgeData id="dump_%03i_%s" freq="%s" file="dump_%03i_%s.xml"/>' % (step, options.aggregation, options.aggregation, step, options.aggregation)
+    print >> fd, '    <edgeData id="dump%s" freq="%s" file="dump%s.xml"/>' % (suffix, options.aggregation, suffix)
     if options.ecomeasure:
-		print >> fd, '    <edgeData id="eco_%03i_%s" type="hbefa" freq="%s" file="dump_%03i_%s.xml"/>' % (step, options.aggregation, options.aggregation, step, options.aggregation)
+        print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml"/>' % (suffix, options.aggregation, suffix)
     print >> fd, "</a>"
-
     fd.close()
 
 def main():
