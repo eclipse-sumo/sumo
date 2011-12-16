@@ -247,6 +247,7 @@ MSVehicle::~MSVehicle() {
     if (myType->amVehicleSpecific()) {
         delete myType;
     }
+    delete myInfluencer;
 }
 
 
