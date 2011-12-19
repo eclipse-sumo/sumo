@@ -56,3 +56,5 @@ cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %{_bindir}/*
 %{_prefix}/lib/sumo
 %doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/tutorial
+
+%changelog
