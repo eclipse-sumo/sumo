@@ -32,8 +32,8 @@ dist-hook:
 dist-doc: doc
 	cd $(srcdir)
 	$(am__remove_distdir)
-	mkdir $(distdir)
-	cp -r docs/wiki/docs $(distdir)
+	mkdir -p $(distdir)/docs
+	cp -r docs/wiki/docs $(distdir)/docs/userdoc
 	find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	mv $(distdir)/tests/complex/tutorial $(distdir)/docs
 	rmdir $(distdir)/tests/complex
@@ -41,6 +41,7 @@ dist-doc: doc
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
+	rm -f $(PACKAGE)-doc-$(VERSION).zip
 	zip -r $(PACKAGE)-doc-$(VERSION).zip $(distdir)
 	$(am__remove_distdir)
 
