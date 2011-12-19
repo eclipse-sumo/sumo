@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 10:05:42 by SUMO netconvert Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 12/19/11 13:44:39 by SUMO netconvert Version dev-SVN-r11613
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -68,10 +68,10 @@
         <lane id=":2_5_0" index="0" speed="13.89" length="3.00" shape="998.50,-1.65 1001.50,-1.65"/>
     </edge>
     <edge id=":3_0" function="internal">
-        <lane id=":3_0_0" index="0" speed="13.89" length="5.00" shape="1991.75,11.35 1991.56,9.99 1990.97,9.03 1990.01,8.44 1988.65,8.25"/>
+        <lane id=":3_0_0" index="0" speed="13.89" length="5.00" shape="1991.75,11.35 1991.56,9.99 1990.97,9.02 1990.01,8.44 1988.65,8.25"/>
     </edge>
     <edge id=":3_1" function="internal">
-        <lane id=":3_1_0" index="0" speed="13.89" length="26.29" shape="1995.05,11.35 1996.07,4.22 1999.12,-0.87 2004.22,-3.93 2011.35,-4.95"/>
+        <lane id=":3_1_0" index="0" speed="13.89" length="26.29" shape="1995.05,11.35 1996.07,4.22 1999.12,-0.88 2004.22,-3.93 2011.35,-4.95"/>
     </edge>
     <edge id=":3_2" function="internal">
         <lane id=":3_2_0" index="0" speed="13.89" length="20.97" shape="1998.35,11.35 1999.16,5.66 2001.60,1.60 2005.66,-0.84 2011.35,-1.65"/>
@@ -267,7 +267,7 @@
     </edge>
 
     <edge id="D1" from="911" to="91" priority="3" type="a">
-        <lane id="D1_0" index="0" speed="13.89" length="500.00" shape="500.00,1008.25 0.00,1008.25"/>
+        <lane id="D1_0" index="0" speed="13.89" length="500.00" shape="500.00,1008.25 -0.00,1008.25"/>
         <lane id="D1_1" index="1" speed="13.89" length="500.00" shape="500.00,1004.95 0.00,1004.95"/>
         <lane id="D1_2" index="2" speed="13.89" length="500.00" shape="500.00,1001.65 0.00,1001.65"/>
     </edge>
