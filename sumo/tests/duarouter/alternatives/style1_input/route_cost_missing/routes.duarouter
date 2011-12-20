@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/20/11 15:03:05 by SUMO duarouter Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="KRAUSS_DEFAULT" length="3.00" minGap="2.00" maxSpeed="70.00" color="1.00,1.00,0.00">
+        <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
+    </vType>
+    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

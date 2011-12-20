@@ -28,7 +28,8 @@ no_vehtype
 # Tests whether vehicle type attributes are parsed
 vtypecheck
 
+# Route's cost is not given
+route_cost_missing
 
 # Checks handling of broken input
 errors
-
