@@ -140,9 +140,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes& attrs) {
         }
     } else {
         // parse route alternative...
-        myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        myCost = attrs.getOptSUMORealReporting(SUMO_ATTR_COST, myCurrentAlternatives->getID().c_str(), myCurrentIsOk, -1);
         myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-        if (myCurrentIsOk && myCost < 0) {
+        if (myCurrentIsOk && myCost < 0 && myCost != -1) {
             WRITE_ERROR("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
             myCurrentIsOk = false;
             return;
@@ -215,10 +215,8 @@ RORDLoader_SUMOBase::myCharacters(int element,
         return;
     }
     // check whether the costs and the probability are valid
-    if (myCurrentAlternatives != 0) {
-        if (myCost < 0 || myProbability < 0 || !myCurrentIsOk) {
-            return;
-        }
+    if (myCurrentAlternatives != 0 && !myCurrentIsOk) {
+        return;
     }
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();

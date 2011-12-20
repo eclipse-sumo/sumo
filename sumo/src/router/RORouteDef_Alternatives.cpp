@@ -106,7 +106,11 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>
         return myAlternatives[myLastUsed];
     }
     // return the built route
-    opt->setCosts(costs);
+    if (myLogitGamma >= 0) {
+        opt->setCosts(costs / 3600.); //@todo need configurable scaling factor esp. for non travel time weights
+    } else {
+	    opt->setCosts(costs);
+	}
     return opt;
 }
 
@@ -145,7 +149,11 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
             if (myLogitGamma >= 0) {
                 alt->setCosts(newCosts / 3600.); //@todo need configurable scaling factor esp. for non travel time weights
             } else {
-                alt->setCosts(myBeta * newCosts + ((SUMOReal) 1.0 - myBeta) * oldCosts);
+				if (oldCosts < 0) {
+					alt->setCosts(newCosts);
+				} else {
+	                alt->setCosts(myBeta * newCosts + ((SUMOReal) 1.0 - myBeta) * oldCosts);
+				}
             }
         }
         assert(myAlternatives.size() != 0);
