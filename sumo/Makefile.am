@@ -16,7 +16,7 @@ doxygen:
 	doxygen sumo.doxyconf &> doxygen.log
 
 wikidump:
-	cd docs/wiki && ../../tools/build/getWikiPages.py && ../../tools/build/embedInIndex.py && cp *.png *.css docs
+	cd docs/wiki && ../../tools/build/buildHTMLDocs.py && cp *.png *.css docs
 
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
