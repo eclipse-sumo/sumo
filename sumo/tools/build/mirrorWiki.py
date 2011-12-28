@@ -3,7 +3,7 @@
 @file    getWikiPages.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2011-10-20
-@version $Id: getWikiPages.py 11398 2011-10-21 07:28:31Z dkrajzew $
+@version $Id$
 
 Mirrors wiki-documentation.
 
