@@ -20,6 +20,33 @@
                 <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
               </File>
+    <!-- Section copied from http://stackoverflow.com/questions/2772452/how-to-associate-application-with-existing-file-types-using-wix-installer -->
+    <!-- Capabilities keys for Vista/7 "Set Program Access and Defaults" -->
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities" Name="ApplicationDescription" Value="Simulation of Urban Mobility" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities" Name="ApplicationIcon" Value="[APPLICATIONFOLDER]sumo-gui.exe,0" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities" Name="ApplicationName" Value="SUMO" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities\DefaultIcon" Value="[APPLICATIONFOLDER]sumo-gui.exe,1" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities\FileAssociations" Name=".sumocfg" Value="Sumo.Document" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities\MIMEAssociations" Name="application/sumo" Value="Sumo.Document" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Sumo\Capabilities\shell\Open\command" Value="&quot;[APPLICATIONFOLDER]sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\RegisteredApplications" Name="Sumo" Value="SOFTWARE\Sumo\Capabilities" Type="string" />
+
+    <!-- App Paths to support Start,Run -> "Sumo" -->
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe" Value="sumo-gui.exe" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe" Name="Path" Value="[APPLICATIONFOLDER]" Type="string" />
+
+    <!-- Extend to the "open with" list + Win7 jump menu pinning  -->
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\SupportedTypes" Name=".sumocfg" Value="" Type="string" />
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open" Name="Simulation of Urban Mobility" Value="SUMO" Type="string" />
+
+    <!-- Sumo.Document ProgID -->
+    <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document" Name="SumoCfg" Value="SUMO Configuration File" Type="string" />
+    <ProgId Id="Sumo.Document" Description="SUMO Configuration File" Icon="sumogui.exe" Advertise="yes">
+        <Extension Id="SumoCfg">
+            <Verb Id="open" Command="Open Sumo" Argument="-c &quot;%1&quot;" />
+            <MIME Advertise="yes" ContentType="application/sumo" Default="yes" />
+        </Extension>
+    </ProgId>
               <File Id='sumoEXE' Name='sumo.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\sumo.exe' />
               <File Id='activitygenEXE' Name='activitygen.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\activitygen.exe' />
               <File Id='dfrouterEXE' Name='dfrouter.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\dfrouter.exe' />
@@ -60,12 +87,22 @@
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
-    <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='MainExecutables' />
-      <ComponentRef Id='HelperLibraries' />
-      <ComponentRef Id='EnvironmentBatch' />
-      <ComponentRef Id='ProgramMenuDir' />
+    <Feature Id='Complete' Title='SUMO' Description='The complete package.'
+      Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='MainProgram' Title='Program' Description='The main executables.' Level='1'>
+        <ComponentRef Id='MainExecutables' />
+        <ComponentRef Id='HelperLibraries' />
+        <ComponentRef Id='ProgramMenuDir' />
+      </Feature>
+
+      <Feature Id='Documentation' Title='Description' Description='The instruction manual.' Level='1000'>
+        <ComponentRef Id='EnvironmentBatch' />
+      </Feature>
     </Feature>
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
 
     <Icon Id="sumogui.exe" SourceFile="M:\Daten\Sumo\Nightly\sumo-gui.exe" />
 
