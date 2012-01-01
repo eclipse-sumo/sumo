@@ -118,12 +118,13 @@ for platform in ["Win32", "x64"]:
                 glob.glob(os.path.join(env["XERCES"+envSuffix], "bin", "xerces-c_?_?.dll")) +
                 glob.glob(os.path.join(env["PROJ_GDAL"+envSuffix], "bin", "*.dll")) +
                 glob.glob(os.path.join(env["FOX16"+envSuffix], "lib", "FOXDLL-?.?.dll")) +
+                glob.glob(os.path.join(nightlyDir, "msvc?100.dll")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
                 glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
         for f in files_to_zip:
             zipf.write(f, os.path.join(binDir, os.path.basename(f)))
-            if platform == "Win32":
+            if platform == "Win32" and not f.startswith(nightlyDir):
                 try:
                     shutil.copy2(f, nightlyDir)
                 except IOError, (errno, strerror):
