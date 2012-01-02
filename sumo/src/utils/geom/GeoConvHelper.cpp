@@ -124,7 +124,7 @@ GeoConvHelper::init(OptionsCont& oc) {
     std::string proj = "!"; // the default
     int shift = oc.getInt("proj.scale");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
-    bool inverse = oc.getBool("proj.inverse");
+    bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
     bool baseFound = !oc.exists("offset.disable-normalization") ||
                      oc.getBool("offset.disable-normalization") ||
                      !oc.isDefault("offset.x") ||
