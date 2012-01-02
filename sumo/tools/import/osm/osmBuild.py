@@ -50,7 +50,7 @@ def build(args=None):
         optParser.error('output directory "%s" does not exist' % options.output_directory) 
 
     netconvertOpts = ' ' + ' '.join(options.netconvert_options.split(',')) + ' --osm-files '
-    polyconvertOpts = ' ' + ' '.join(options.polyconvert_options.split(',')) + ' --typemap %s --osm-files ' % options.typemap
+    polyconvertOpts = ' ' + ' '.join(options.polyconvert_options.split(',')) + ' --type-file %s --osm-files ' % options.typemap
 
     prefix = options.oldapi_prefix
     if prefix: # used old API
