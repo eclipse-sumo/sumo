@@ -217,21 +217,26 @@ SUMOReal
 GeomHelper::nearest_position_on_line_to_point2D(const Position& LineStart,
         const Position& LineEnd,
         const Position& Point, bool perpendicular) {
-    // scalar product equals length of orthogonal projection times length of vector being projected onto
-    // dividing the scalar product by the square of the distance gives the relative position
-    SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
-                  ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
-                 ) / LineStart.distanceSquaredTo2D(LineEnd);
-    if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
-        if (perpendicular) {
-            return -1;
+    const SUMOReal lineLength2D = LineStart.distanceTo2D(LineEnd);
+    if (lineLength2D == 0.0f) {
+        return 0.0f;
+    } else {
+        // scalar product equals length of orthogonal projection times length of vector being projected onto
+        // dividing the scalar product by the square of the distance gives the relative position
+        const SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
+                      ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
+                     ) / (lineLength2D * lineLength2D);
+        if (u < 0.0f || u > 1.0f) {  // closest point does not fall within the line segment
+            if (perpendicular) {
+                return -1;
+            }
+            if (u < 0.0f) {
+                return 0.0f;
+            }
+            return lineLength2D;
         }
-        if (u < 0.0f) {
-            return 0.0f;
-        }
-        return LineStart.distanceTo2D(LineEnd);
+        return u * lineLength2D;
     }
-    return u * LineStart.distanceTo2D(LineEnd);
 }
 
 
@@ -239,18 +244,24 @@ SUMOReal
 GeomHelper::distancePointLine(const Position& point,
                               const Position& lineStart,
                               const Position& lineEnd) {
-    SUMOReal u = (((point.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
-                  ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
-                 ) / lineStart.distanceSquaredTo(lineEnd);
-    if (u < 0.0f || u > 1.0f) {
-        return -1;    // closest point does not fall within the line segment
+    const SUMOReal lineLengthSquared = lineStart.distanceSquaredTo(lineEnd);
+    if (lineLengthSquared == 0.0f) {
+        return point.distanceTo(lineStart);
+    } else {
+        // scalar product equals length of orthogonal projection times length of vector being projected onto
+        // dividing the scalar product by the square of the distance gives the relative position
+        SUMOReal u = (((point.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
+                ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
+                ) / lineLengthSquared;
+        if (u < 0.0f || u > 1.0f) {
+            return -1;    // closest point does not fall within the line segment
+        }
+        Position intersection(
+                lineStart.x() + u * (lineEnd.x() - lineStart.x()),
+                lineStart.y() + u * (lineEnd.y() - lineStart.y()));
+        return point.distanceTo(intersection);
     }
-    Position intersection(
-        lineStart.x() + u * (lineEnd.x() - lineStart.x()),
-        lineStart.y() + u * (lineEnd.y() - lineStart.y()));
-    return point.distanceTo(intersection);
 }
-
 
 
 SUMOReal
