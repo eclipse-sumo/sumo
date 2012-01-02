@@ -485,6 +485,11 @@ def setSpeed(vehID, speed):
     traci._sendDoubleCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID, speed)
 
 def setColor(vehID, color):
+    """setColor(string, (integer, integer, integer, integer))
+    sets color for vehicle with the given ID.
+    i.e. (255,0,0,0) for the color red. 
+    The fourth integer (alpha) is currently ignored
+    """
     traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_COLOR, vehID, 1+1+1+1+1)
     traci._message.string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]), int(color[3]))
     traci._sendExact()
