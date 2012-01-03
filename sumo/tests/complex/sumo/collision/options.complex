@@ -1,1 +1,1 @@
--c sumo.sumo.cfg tests/complex/sumo/collision/runner.py
+-c sumo.sumocfg tests/complex/sumo/collision/runner.py
