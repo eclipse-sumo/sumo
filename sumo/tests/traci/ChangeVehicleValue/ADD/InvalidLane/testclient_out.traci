@@ -1,0 +1,89 @@
+TraCITestClient output file. Date: Tue Jan 03 12:38:03 2012
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=0 objID=xxx
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"veh0" ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=128 objID=veh1
+.. Answered with error to command (196), [description: Invalid departlane definition for vehicle 'veh1'.]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=0 objID=xxx
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"veh0" ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=64 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=82 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=79 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=83 objID=veh1
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

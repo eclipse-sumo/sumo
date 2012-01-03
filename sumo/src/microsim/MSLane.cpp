@@ -349,11 +349,9 @@ MSLane::insertVehicle(MSVehicle& veh) {
     // determine the position
     switch (pars.departPosProcedure) {
         case DEPART_POS_GIVEN:
-            // Maybe we should warn the user about invalid inputs!
-            if (pars.departPos >= 0.) {
-                pos = MIN2(pars.departPos, getLength());
-            } else {
-                pos = MAX2(pars.departPos + getLength(), static_cast<SUMOReal>(0));
+			pos = pars.departPos;
+            if (pos < 0.) {
+				pos += myLength;
             }
             break;
         case DEPART_POS_RANDOM:
@@ -394,6 +392,12 @@ bool
 MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            SUMOReal speed, SUMOReal pos, bool patchSpeed,
                            MSMoveReminder::Notification notification) {
+    if (pos < 0 || pos > myLength) {
+        // we may not start there
+        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart at the given position!");
+        // !!! we probably should do something else...
+        return false;
+    }
     aVehicle->getBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);

@@ -1,7 +1,6 @@
 # test adding a vehicle
 ADD
 
-
 # Test error on specifying an invalid ID
 InvalidID
 
@@ -14,19 +13,8 @@ InvalidSpeed
 # Test error on specifying an invalid Type
 InvalidType
 
+# Test error on specifying an invalid lane
+InvalidLane
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Test error on specifying an invalid position
+InvalidPos
