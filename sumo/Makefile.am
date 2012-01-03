@@ -23,11 +23,9 @@ dist-hook:
 	&& cd $(srcdir) \
 	&& for f in `find build tools tests/complex/tutorial -name .svn -prune -o -type d -print`; do mkdir -p $$abs_distdir/$$f; done \
 	&& find build -regex ".*\.\(vcproj\|vsprops\|vcxproj\|vcxproj\.filters\|props\|sln\|spec\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find tests/complex/tutorial -regex ".*\.\(xml\|cfg\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& ( svn export --force tools $(distdir)/tools && cd $(distdir) && find tools -type f > ../tools_filelist; true ) \
 	&& xargs cp --parents --target-directory $$abs_distdir < tools_filelist \
-	&& cp tools_filelist $$abs_distdir \
-	&& if test -e tests/extractTest.py; then tests/extractTest.py -f tests/examples.txt -o $$abs_distdir; fi
+	&& cp tools_filelist $$abs_distdir
 
 dist-doc: doc
 	cd $(srcdir)
@@ -40,6 +38,7 @@ dist-doc: doc
 	rmdir $(distdir)/tests
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
+    tests/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	rm -f $(PACKAGE)-doc-$(VERSION).zip
 	zip -r $(PACKAGE)-doc-$(VERSION).zip $(distdir)

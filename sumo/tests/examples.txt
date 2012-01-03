@@ -4,7 +4,6 @@ duarouter/flows/100s_interval:../examples/duarouter/flows2routes_100s_interval
 duarouter/flows/100s_interval_ext:../examples/duarouter/flows2routes_100s_interval_ext
 duarouter/flows/200s_interval:../examples/duarouter/flows2routes_200s_interval
 duarouter/trips/one_time_notype:../examples/duarouter/trips2routes
-duarouter/trips/repetition:../examples/duarouter/trips2routes_repetition
 jtrrouter/function/turns/definite_xml:../examples/jtrrouter/turns
 jtrrouter/function/plain/straight_only_sinks:../examples/jtrrouter/straight_only_sinks
 netconvert/import/XML/connections/cross3l_edge2edge_conns:../examples/netconvert/connections/cross3l_edge2edge_conns

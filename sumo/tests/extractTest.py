@@ -21,6 +21,8 @@ from sumolib import checkBinary
 optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
 optParser.add_option("-o", "--output", default=".", help="send output to directory")
 optParser.add_option("-f", "--file", help="read list of source and target dirs from")
+optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
+                     default=False, help="generate cfg name from directory name")
 options, args = optParser.parse_args()
 if not options.file and len(args) == 0:
     optParser.print_help()
@@ -76,7 +78,10 @@ for source, target in targets.iteritems():
             o = o.split("=")[-1]
         if o[-8:] == ".net.xml":
             net = o
-    appOptions += ['--save-configuration', 'test.%s.cfg' % app[:4]]
+    nameBase = "test"
+    if options.names:
+        nameBase = os.path.basename(target)
+    appOptions += ['--save-configuration', '%s.%scfg' % (nameBase, app[:4])]
     for line in open(config):
         entry = line.strip().split(':')
         if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
