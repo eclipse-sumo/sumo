@@ -3,7 +3,7 @@
 @file    wix.py
 @author  Michael Behrisch
 @date    2011
-@version $Id: dailyBuildMSVC.py 11478 2011-11-04 22:01:59Z behrisch $
+@version $Id$
 
 Builds the installer based on the nightly zip.
 
