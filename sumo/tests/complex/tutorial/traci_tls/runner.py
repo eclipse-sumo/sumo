@@ -59,7 +59,7 @@ if not traci.isEmbedded():
     routes.close()
 
     sumoBinary = checkBinary('sumo')
-    sumoConfig = "data/cross.sumo.cfg"
+    sumoConfig = "data/cross.sumocfg"
     if len(sys.argv) > 1:
         retCode = subprocess.call("%s -c %s --python-script %s" % (sumoBinary, sumoConfig, __file__), shell=True, stdout=sys.stdout)
         sys.exit(retCode)

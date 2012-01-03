@@ -186,7 +186,7 @@ netconvertBinary = checkBinary('netconvert')
 
 # build the correct network, first
 print ">>> Building the correct network"
-retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 print ">>> Trying the correct network"
 call.append("-n")
 call.append("correct.net.xml")

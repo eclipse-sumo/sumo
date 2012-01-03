@@ -15,7 +15,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 def runSingle(addOption):
     step = 0
     timeline = []
-    sumoProcess = subprocess.Popen("%s -c %s %s" % (sumoBinary, "sumo.sumo.cfg", addOption), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen("%s -c %s %s" % (sumoBinary, "sumo.sumocfg", addOption), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step>10000:
         try:
@@ -44,7 +44,7 @@ def evalTimeline(timeline):
 
 print ">>> Building the network (with internal)"
 sys.stdout.flush()
-retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 print ">>> Checking Simulation (network: internal, simulation: internal)"
 evalTimeline(runSingle(""))
@@ -56,7 +56,7 @@ time.sleep(1)
 print ""
 print ">>> Building the network (without internal)"
 sys.stdout.flush()
-retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg", "--no-internal-links"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg", "--no-internal-links"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 print ">>> Checking Simulation (network: no internal, simulation: internal)"
 evalTimeline(runSingle(""))

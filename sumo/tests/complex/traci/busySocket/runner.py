@@ -9,14 +9,14 @@ import traci
 if sys.argv[1]=="sumo":
     sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
     addOption = ""
-    secondConfig = "sumo.sumo.cfg"
+    secondConfig = "sumo.sumocfg"
 else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
     addOption = "-Q"
-    secondConfig = "sumo_log.sumo.cfg"
+    secondConfig = "sumo_log.sumocfg"
 PORT = 8813
 
-subprocess.Popen("%s -c sumo.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
+subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
 traci.init(PORT)
 subprocess.Popen("%s -c %s %s" % (sumoBinary, secondConfig, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
 time.sleep(10)

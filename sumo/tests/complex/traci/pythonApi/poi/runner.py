@@ -13,7 +13,7 @@ def check(poiID):
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 
-sumoProcess = subprocess.Popen("%s -Q -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen("%s -Q -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
 for step in range(3):
     print "step", step

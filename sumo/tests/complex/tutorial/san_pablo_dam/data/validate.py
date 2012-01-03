@@ -9,7 +9,7 @@ from sumolib import checkBinary
 
 # running the simulation...
 sumoBinary = checkBinary('sumo')
-retcode = subprocess.call([sumoBinary, "-c", "spd-road.sumo.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([sumoBinary, "-c", "spd-road.sumocfg"], stdout=sys.stdout, stderr=sys.stderr)
 sys.stdout.flush()
 sys.stderr.flush()
 

@@ -22,13 +22,13 @@ from sumolib import checkBinary
 netconvertBinary = checkBinary('netconvert')
 sumoBinary = checkBinary('sumo')
 # build/check network
-retcode = subprocess.call([netconvertBinary, "-c", "data/hello.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "data/hello.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 try: shutil.copy("data/hello.net.xml", "net.net.xml")
 except: print "Missing 'hello.net.xml'"
 print ">> Netbuilding closed with status %s" % retcode
 sys.stdout.flush()
 # run simulation
-retcode = subprocess.call([sumoBinary, "-c", "data/hello.sumo.cfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([sumoBinary, "-c", "data/hello.sumocfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
 print ">> Simulation closed with status %s" % retcode
 sys.stdout.flush()
 

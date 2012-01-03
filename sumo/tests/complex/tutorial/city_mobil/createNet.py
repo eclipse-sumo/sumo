@@ -200,7 +200,7 @@ for period in range(5, 50, 5):
     print >> routes, "</routes>"
     routes.close()
 
-    config = open("%s%02i.sumo.cfg" % (PREFIX, period), "w")
+    config = open("%s%02i.sumocfg" % (PREFIX, period), "w")
     print >> config, """<configuration>
     <input>
         <net-file value="%s.net.xml"/>
@@ -215,7 +215,7 @@ for period in range(5, 50, 5):
     print >> bat, "simpleManager.py -d %s" % period
     print >> breakbat, "simpleManager.py -b 120 -d %s" % period
 
-    config = open("%s%02i_cyber.sumo.cfg" % (PREFIX, period), "w")
+    config = open("%s%02i_cyber.sumocfg" % (PREFIX, period), "w")
     print >> config, """<configuration>
     <input>
         <net-file value="%s.net.xml"/>

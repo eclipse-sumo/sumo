@@ -14,7 +14,7 @@ else:
     addOption = "-Q"
 PORT = 8813
 
-sumoProcess = subprocess.Popen("%s -c sumo.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
+sumoProcess = subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
 traci.init(PORT)
 time.sleep(10)
 step = 0

@@ -12,9 +12,9 @@ for root, dirs, files in os.walk(mRoot):
     if ".svn" in dirs:
         dirs.remove(".svn")
     for file in files:
-        if file.endswith(".netc.cfg") or file.endswith(".netg.cfg"):
+        if file.endswith(".netccfg") or file.endswith(".netg.cfg"):
             exe = binPrefix + "gen"
-            if file.endswith(".netc.cfg"):
+            if file.endswith(".netccfg"):
                 exe = binPrefix + "convert"
             print "----------------------------------"
             print "Rebuilding config: " + os.path.join(root, file)

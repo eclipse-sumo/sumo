@@ -61,7 +61,7 @@ class StartDialog:
         self.root.minsize(250, 50)
         self.gametime = 0
         self.ret = 0
-        configs = glob.glob(os.path.join(base, "*.sumo.cfg"))
+        configs = glob.glob(os.path.join(base, "*.sumocfg"))
         numButtons = len(configs) + 2
         print numButtons
         # some pretty images

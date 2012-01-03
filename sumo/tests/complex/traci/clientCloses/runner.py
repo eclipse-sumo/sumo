@@ -27,7 +27,7 @@ def patchFile(ifile, ofile, replacements):
 
 def runSingle(traciEndTime):
     step = 0
-    sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen("%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step>traciEndTime:
         traci.simulationStep(DELTA_T)
@@ -45,11 +45,11 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
 runSingle(99)
 
 
@@ -60,11 +60,11 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
 runSingle(99)
 
 
@@ -77,9 +77,9 @@ print >> fdo, '</routes>'
 fdo.close()
 print "----------- SUMO end time is smaller than TraCI's -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", "<end value='50'/>"] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", "<end value='50'/>"] ])
 runSingle(99)
 print "----------- SUMO end time is not given -----------"
 sys.stdout.flush()
-patchFile("sumo.sumo.cfg", "used.sumo.cfg", [ ["%end%", ""] ])
+patchFile("sumo.sumocfg", "used.sumocfg", [ ["%end%", ""] ])
 runSingle(99)

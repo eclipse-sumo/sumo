@@ -16,8 +16,8 @@ PORT = 8813
 DELTA_T = 1000
 
 def runSingle(sumoEndTime, traciEndTime):
-    fdi = open("sumo.sumo.cfg")
-    fdo = open("used.sumo.cfg", "w")
+    fdi = open("sumo.sumocfg")
+    fdo = open("used.sumocfg", "w")
     for line in fdi:
         line = line.replace("%end%", str(sumoEndTime))
         fdo.write(line)
@@ -25,7 +25,7 @@ def runSingle(sumoEndTime, traciEndTime):
     fdo.close()
     doClose = True
     step = 0
-    sumoProcess = subprocess.Popen("%s -c used.sumo.cfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen("%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step>traciEndTime:
         traci.simulationStep(DELTA_T)

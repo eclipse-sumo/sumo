@@ -42,7 +42,7 @@ while density<=1.:
     print >> fd, '    <edge id="b" from="b" to="a" numLanes="1" speed="36." length=".1"/>'
     print >> fd, '</edges>'
     fd.close()
-    call([netconvertBinary, "-c", "netconvert.netc.cfg"], log)
+    call([netconvertBinary, "-c", "netconvert.netccfg"], log)
 
     print ">>> Building the routes (at density %s)" % (density)
     vehicleOffset = (length - .1) / float(VEHICLENUMBER)
@@ -62,7 +62,7 @@ while density<=1.:
 
 
     print ">>> Simulating (at density %s)" % (density)
-    call([sumoBinary, "-c", "sumo.sumo.cfg", "-v"], log)
+    call([sumoBinary, "-c", "sumo.sumocfg", "-v"], log)
 
     backupdir = "backup/"
     if os.path.isdir(backupdir):

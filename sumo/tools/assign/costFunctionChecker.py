@@ -28,7 +28,7 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output):
-    fd = open("iteration_" + str(step) + ".rou.cfg", "w")
+    fd = open("iteration_" + str(step) + ".duarcfg", "w")
     print >> fd, """<configuration>
     <input>
         <net-file value="%s"/>""" % options.net
@@ -198,7 +198,7 @@ for step in range(options.firstStep, options.lastStep):
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeRouteConf(step, options, file, output)
-        retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
+        retCode = call([duaBinary, "-c", "iteration_%s.duarcfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)

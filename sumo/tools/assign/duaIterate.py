@@ -66,7 +66,7 @@ def call(command, log):
 def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
-    cfgname = "iteration_%03i_%s.rou.cfg" % (step, filename)
+    cfgname = "iteration_%03i_%s.duarcfg" % (step, filename)
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
@@ -109,7 +109,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     return cfgname
 
 def writeSUMOConf(step, options, files):
-    fd = open("iteration_%03i.sumo.cfg" % step, "w")
+    fd = open("iteration_%03i.sumocfg" % step, "w")
     add = ""
     if options.additional != "":
         add = "," + options.additional
@@ -273,7 +273,7 @@ def main():
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
-        call([sumoBinary, "-c", "iteration_%03i.sumo.cfg" % step], log)
+        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)

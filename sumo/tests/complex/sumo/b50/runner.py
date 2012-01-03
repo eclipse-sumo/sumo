@@ -11,4 +11,4 @@ sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo')
 netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(sumoHome, 'bin', 'netconvert'))
 
 subprocess.call([netconvertBinary, "-n", "input_nodes.nod.xml", "-e", "input_edges.edg.xml"], stdout=sys.stdout, stderr=sys.stderr)
-subprocess.call([sumoBinary, "-c", "sumo.sumo.cfg", "-v"], stdout=sys.stdout, stderr=sys.stderr)
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "-v"], stdout=sys.stdout, stderr=sys.stderr)

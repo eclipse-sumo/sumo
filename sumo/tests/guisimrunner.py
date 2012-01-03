@@ -6,9 +6,9 @@ sumoBinary = os.environ.get("SUMO_BINARY", sumoBinary)
 guisimBinary = sys.argv[1]
 
 #start sumo to generate config
-subprocess.call(sumoBinary + " --message-log guisim.stdout --error-log guisim.stderr --save-configuration guisim.sumo.cfg " + " ".join(sys.argv[2:]), 
+subprocess.call(sumoBinary + " --message-log guisim.stdout --error-log guisim.stderr --save-configuration guisim.sumocfg " + " ".join(sys.argv[2:]), 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
-ret = subprocess.call(guisimBinary + " -Q -c guisim.sumo.cfg", 
+ret = subprocess.call(guisimBinary + " -Q -c guisim.sumocfg", 
                       shell=True, stdout=sys.stdout, stderr=sys.stderr)
 if os.path.exists("guisim.stderr"):
     f = open("guisim.stderr")

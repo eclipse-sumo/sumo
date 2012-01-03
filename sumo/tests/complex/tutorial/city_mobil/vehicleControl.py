@@ -74,9 +74,9 @@ def init(manager):
     sumoExe = SUMO
     if options.gui:
         sumoExe = SUMOGUI
-    sumoConfig = "%s%02i.sumo.cfg" % (PREFIX, options.demand)
+    sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
-        sumoConfig = "%s%02i_cyber.sumo.cfg" % (PREFIX, options.demand)
+        sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
     sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     traci.simulation.subscribe()

@@ -108,7 +108,7 @@ def main():
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
-        retCode = call([sumoBinary, "-c", "iteration_%03i.sumo.cfg" % step], log)
+        retCode = call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)

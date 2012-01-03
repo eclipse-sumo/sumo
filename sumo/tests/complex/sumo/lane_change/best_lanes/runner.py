@@ -24,7 +24,7 @@ for root in sorted(roots):
     shutil.copy(prefix + "routes.rou.xml", "./input_routes.rou.xml")
     shutil.copy(prefix + "additional.add.xml", "./input_additional.add.xml")
 
-    sumoProcess = subprocess.Popen("%s -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
+    sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
     traci.init(8813)
     step = 0
     traci.simulationStep(DELTA_T)

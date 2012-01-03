@@ -6,7 +6,7 @@ import traci, sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
 
-sumoProcess = subprocess.Popen("%s -c sumo.sumo.cfg" % (sumoBinary), shell=True, stdout=sys.stdout)
+sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
 for step in range(3):
     print "step", step

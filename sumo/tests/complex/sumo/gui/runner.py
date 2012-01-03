@@ -6,7 +6,7 @@ import testUtil
 
 guisimBinary = testUtil.checkBinary('sumo-gui')
 for run in range(20):
-    p = subprocess.Popen([guisimBinary, "-Q", "-N", "-c", "sumo.sumo.cfg"])
+    p = subprocess.Popen([guisimBinary, "-Q", "-N", "-c", "sumo.sumocfg"])
     time.sleep(1)
     testUtil.findAndClick(testUtil.PLAY)
     time.sleep(10)

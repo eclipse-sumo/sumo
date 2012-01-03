@@ -23,13 +23,13 @@ from sumolib import checkBinary
 netconvertBinary = checkBinary('netconvert')
 sumoBinary = checkBinary('sumo')
 # build/check network
-retcode = subprocess.call([netconvertBinary, "-c", "data/quickstart.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "data/quickstart.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 try: shutil.copy("data/quickstart.net.xml", "net.net.xml")
 except: print "Missing 'quickstart.net.xml'"
 print ">> Netbuilding closed with status %s" % retcode
 sys.stdout.flush()
 # run simulation
-retcode = subprocess.call([sumoBinary, "-c", "data/quickstart.sumo.cfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([sumoBinary, "-c", "data/quickstart.sumocfg","--no-step-log"], stdout=sys.stdout, stderr=sys.stderr)
 print ">> Simulation closed with status %s" % retcode
 sys.stdout.flush()
 

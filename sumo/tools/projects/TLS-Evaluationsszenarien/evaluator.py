@@ -78,11 +78,11 @@ def getSaturationFlow():
     
     if gui:
         sumoExe = "guisim"
-        sumoConfig = "sumoConfig\cross_sat\cross_sat.sumo.cfg"
+        sumoConfig = "sumoConfig\cross_sat\cross_sat.sumocfg"
         sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
     else:
         sumoExe = "sumo"
-        sumoConfig = "sumoConfig\cross_sat\cross_sat.sumo.cfg"
+        sumoConfig = "sumoConfig\cross_sat\cross_sat.sumocfg"
         sumoProcess = subprocess.Popen("%s -c %s --no-duration-log --no-step-log --time-to-teleport 10000000" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
            
     sumoProcess.wait()
@@ -127,11 +127,11 @@ def getMinTravelTime():
     
     if gui:
         sumoExe = "guisim"
-        sumoConfig = "sumoConfig\one_intersection\cross.sumo.cfg"
+        sumoConfig = "sumoConfig\one_intersection\cross.sumocfg"
         sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
     else:
         sumoExe = "sumo"
-        sumoConfig = "sumoConfig\one_intersection\cross.sumo.cfg"
+        sumoConfig = "sumoConfig\one_intersection\cross.sumocfg"
         sumoProcess = subprocess.Popen("%s -c %s --no-duration-log --no-step-log --time-to-teleport 10000000" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
            
     sumoProcess.wait()

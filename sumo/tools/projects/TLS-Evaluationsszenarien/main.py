@@ -90,11 +90,11 @@ for ini in range(1,5):
             
                 if gui:
                     sumoExe = "guisim"
-                    sumoConfig = "sumoConfig\one_intersection\cross.sumo.cfg"
+                    sumoConfig = "sumoConfig\one_intersection\cross.sumocfg"
                     sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
                 else:
                     sumoExe = "sumo"
-                    sumoConfig = "sumoConfig\one_intersection\cross.sumo.cfg"
+                    sumoConfig = "sumoConfig\one_intersection\cross.sumocfg"
                     sumoProcess = subprocess.Popen("%s -c %s --no-duration-log --no-step-log --time-to-teleport 10000000 --actuated-tl.max-gap %f --actuated-tl.detector-pos %f" % (sumoExe, sumoConfig, maxGap, detPos), shell=True, stdout=sys.stdout)
                 
                

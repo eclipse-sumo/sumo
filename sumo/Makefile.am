@@ -38,7 +38,7 @@ dist-doc: doc
 	rmdir $(distdir)/tests
 	svn export docs/internet/xsd $(distdir)/docs/xsd
 	cp -r docs/pydoc docs/doxygen $(distdir)/docs
-    tests/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
+	tests/extractTest.py -i -f tests/examples.txt -o $(distdir)/docs
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	rm -f $(PACKAGE)-doc-$(VERSION).zip
 	zip -r $(PACKAGE)-doc-$(VERSION).zip $(distdir)

@@ -26,7 +26,7 @@ def call(command, log):
         sys.exit(retCode) 
 
 def writeSUMOConf(step, options, files):
-    fd = open("one_shot_" + str(step) + ".sumo.cfg", "w")
+    fd = open("one_shot_" + str(step) + ".sumocfg", "w")
     print >> fd, """<configuration>
     <files>
         <net-file value="%s"/>
@@ -125,7 +125,7 @@ for step in options.frequencies.split(","):
     btime = datetime.now()
     print ">> Begin time %s" % btime
     writeSUMOConf(step, options, options.trips)
-    call([sumoBinary, "-c", "one_shot_%s.sumo.cfg" % step], log)
+    call([sumoBinary, "-c", "one_shot_%s.sumocfg" % step], log)
     etime = datetime.now()
     print ">> End time %s" % etime
     print "< Step %s ended (duration: %s)" % (step, etime-btime)
