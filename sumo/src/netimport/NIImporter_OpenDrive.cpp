@@ -279,8 +279,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         LaneSpreadFunction lsf = LANESPREAD_CENTER;
         unsigned int noLanesRight = e.getMaxLaneNumber(OPENDRIVE_TAG_RIGHT);
         unsigned int noLanesLeft = e.getMaxLaneNumber(OPENDRIVE_TAG_LEFT);
-        if (noLanesRight != 0 && noLanesLeft != 0) {
+        if (noLanesRight != 0 || noLanesLeft != 0) {
             lsf = LANESPREAD_RIGHT;
+        } else {
+            WRITE_WARNING("Edge '" + e.id + "' has no lanes.");
         }
         if (noLanesRight > 0) {
             NBEdge* nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, noLanesRight, priority, -1, -1, e.geom, "", lsf, true);
