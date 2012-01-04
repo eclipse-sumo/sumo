@@ -96,7 +96,7 @@ protected:
         std::string streetName;
         /// @brief number of lanes, or -1 if unknown
         int myNoLanes;
-        /// @brief maximum speed in km/h, or -1 if unknown
+        /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeed;
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
@@ -161,6 +161,8 @@ private:
                     const std::vector<int> &passed, NBEdgeCont& ec, NBTypeCont& tc);
 
 
+    protected:
+        static const SUMOReal MAXSPEED_UNGIVEN;
 
     /**
      * @class NodesHandler

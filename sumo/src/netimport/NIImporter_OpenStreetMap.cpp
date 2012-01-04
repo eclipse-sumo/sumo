@@ -56,6 +56,10 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ---------------------------------------------------------------------------
+// static members
+// ---------------------------------------------------------------------------
+const SUMOReal NIImporter_OpenStreetMap::MAXSPEED_UNGIVEN = -1;
 
 
 // ===========================================================================
@@ -470,7 +474,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
     // if we had been able to extract the maximum speed, override the type's default
-    if (e->myMaxSpeed >= 0) {
+    if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
         speed = (SUMOReal)(e->myMaxSpeed / 3.6);
     }
 
@@ -603,10 +607,12 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     std::map<std::string, Edge*> &toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
+    mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = 300.;
     mySpeedMap["no"] = 300.;
     mySpeedMap["walk"] = 5.;
-    mySpeedMap["DE:rural"] = 50.;
+    mySpeedMap["DE:rural"] = 100.;
+    mySpeedMap["DE:urban"] = 50.;
     mySpeedMap["DE:living_street"] = 10.;
 
 }
@@ -636,7 +642,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         myCurrentEdge = new Edge();
         myCurrentEdge->id = id;
         myCurrentEdge->myNoLanes = -1;
-        myCurrentEdge->myMaxSpeed = -1;
+        myCurrentEdge->myMaxSpeed = MAXSPEED_UNGIVEN;
         myCurrentEdge->myCurrentIsRoad = false;
     }
     // parse "nd" (node) elements
@@ -681,11 +687,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
                 myCurrentEdge->myMaxSpeed = mySpeedMap[value];
             } else {
+                SUMOReal conversion = 1; // OSM default is km/h
                 if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
                     value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
+                } else if (StringUtils::to_lower_case(value).find("mph") != std::string::npos) {
+                    value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
+                    conversion = 1.609344; // kilometers per mile
                 }
                 try {
-                    myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
+                    myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str()) * conversion;
                 } catch (NumberFormatException&) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
                 }
