@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:46:54 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 01/04/12 21:53:36 by SUMO sumo Version dev-SVN-r11548
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,23 +31,23 @@
 -->
 
 <routes>
-    <vehicle id="horizontal01" depart="100.00" arrival="300.00">
+    <vehicle id="horizontal01" depart="100.00" arrival="292.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal03" depart="102.00" arrival="302.00">
+    <vehicle id="horizontal03" depart="102.00" arrival="295.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal05" depart="105.00" arrival="304.00">
+    <vehicle id="horizontal05" depart="105.00" arrival="297.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal07" depart="107.00" arrival="306.00">
+    <vehicle id="horizontal07" depart="107.00" arrival="300.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 
-    <vehicle id="horizontal09" depart="110.00" arrival="308.00">
+    <vehicle id="horizontal09" depart="110.00" arrival="302.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
     </vehicle>
 

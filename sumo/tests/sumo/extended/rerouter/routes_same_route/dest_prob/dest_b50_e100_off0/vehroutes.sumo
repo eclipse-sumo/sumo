@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:46:28 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 01/04/12 21:53:21 by SUMO sumo Version dev-SVN-r11548
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -39,18 +39,18 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.7" depart="140.00" arrival="235.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
-    <vehicle id="0.3" depart="60.00" arrival="241.00">
+    <vehicle id="0.3" depart="60.00" arrival="227.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.4" depart="80.00" arrival="250.00">
+    <vehicle id="0.7" depart="140.00" arrival="235.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.4" depart="80.00" arrival="247.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2left left left2end"/>
@@ -61,15 +61,15 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.9" depart="180.00" arrival="275.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
-    <vehicle id="0.5" depart="100.00" arrival="281.00">
+    <vehicle id="0.5" depart="100.00" arrival="267.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
         </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.9" depart="180.00" arrival="275.00">
+        <route edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="0.10" depart="200.00" arrival="295.00">
