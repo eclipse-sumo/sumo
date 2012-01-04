@@ -1,1 +1,1 @@
---save-configuration config.cfg -c sumo.sumo.cfg
+--save-configuration config.cfg -c sumo.sumocfg

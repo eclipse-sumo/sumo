@@ -1,1 +1,1 @@
---no-step-log -c sumo.sumo.cfg
+--no-step-log -c sumo.sumocfg
