@@ -9,3 +9,6 @@ two_vehicles_differen_vmax
 
 # one vehicle arrives at a short edge
 short_edge_arrival
+
+# one vehicle approaching a lane with a lower max speed
+approach_slow_lane
