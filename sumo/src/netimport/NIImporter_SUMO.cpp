@@ -447,7 +447,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     if (shapeS != "") {
         PositionVector shape = GeomConvHelper::parseShapeReporting(
                                    shapeS, attrs.getObjectType(), id.c_str(), ok, false);
-        shape.push_back(shape[0]); // need closed shape
+        shape.push_back_noDoublePos(shape[0]); // need closed shape
         if (!shape.around(pos) && shape.distance(pos) > 1) { // MAGIC_THRESHOLD
             // WRITE_WARNING("Junction '" + id + "': distance between pos and shape is " + toString(shape.distance(pos)));
             mySuspectKeepShape = true;
