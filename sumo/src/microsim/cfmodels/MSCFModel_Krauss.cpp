@@ -85,7 +85,7 @@ MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed, SUMOReal predMaxDecel
         return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + 2. * myDecel * gap));
     }
     if (predMaxDecel == 0) {
-        return predSpeed;
+        return (SUMOReal)(-myTauDecel + sqrt(myTauDecel * myTauDecel + predSpeed * predSpeed + 2. * myDecel * gap));
     }
     const SUMOReal speedReduction = ACCEL2SPEED(predMaxDecel);
     const int predSteps = int(predSpeed / speedReduction);
