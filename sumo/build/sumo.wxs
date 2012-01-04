@@ -1,14 +1,13 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='0.14.0' Manufacturer='DLR and contributors'>
+    Language='1033' Codepage='1252' Version='0.14.0' Manufacturer='DLR'>
 
-    <Package Id='*' Keywords='Installer' Description="SUMO 0.14.0 Installer"
-      Comments='Simulation of Urban Mobility' Manufacturer='DLR and contributors'
-      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Package Id='*' Description="SUMO 0.14.0 Installer"
+      Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
+      InstallerVersion='300' Compressed='yes' />
 
-    <Media Id='1' Cabinet='sumo.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="SUMO 0.14.0 Installation [1]" />
+    <Media Id='1' Cabinet='sumo.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -17,7 +16,7 @@
             <Directory Id='BINDIR' Name='bin'>
 
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
-                <File Id='sumoGuiEXE' Name='sumo-gui.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
+                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='M:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
                   <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                   <Shortcut Id="desktopSumoGui" Directory="DesktopFolder" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
@@ -49,45 +48,32 @@
         </Extension>
     </ProgId>
     <!-- End of copy -->
-                <File Id='sumoEXE' Name='sumo.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\sumo.exe' />
-                <File Id='activitygenEXE' Name='activitygen.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\activitygen.exe' />
-                <File Id='dfrouterEXE' Name='dfrouter.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\dfrouter.exe' />
-                <File Id='duarouterEXE' Name='duarouter.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\duarouter.exe' />
-                <File Id='jtrrouterEXE' Name='jtrrouter.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\jtrrouter.exe' />
-                <File Id='netconvertEXE' Name='netconvert.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\netconvert.exe' />
-                <File Id='netgenEXE' Name='netgen.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\netgen.exe' />
-                <File Id='od2tripsEXE' Name='od2trips.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\od2trips.exe' />
-                <File Id='polyconvertEXE' Name='polyconvert.exe' DiskId='1' Source='M:\Daten\Sumo\Nightly\polyconvert.exe' />
+                <File Id='sumoEXE' Name='sumo.exe' Source='M:\Daten\Sumo\Nightly\sumo.exe' />
+                <File Id='activitygenEXE' Name='activitygen.exe' Source='M:\Daten\Sumo\Nightly\activitygen.exe' />
+                <File Id='dfrouterEXE' Name='dfrouter.exe' Source='M:\Daten\Sumo\Nightly\dfrouter.exe' />
+                <File Id='duarouterEXE' Name='duarouter.exe' Source='M:\Daten\Sumo\Nightly\duarouter.exe' />
+                <File Id='jtrrouterEXE' Name='jtrrouter.exe' Source='M:\Daten\Sumo\Nightly\jtrrouter.exe' />
+                <File Id='netconvertEXE' Name='netconvert.exe' Source='M:\Daten\Sumo\Nightly\netconvert.exe' />
+                <File Id='netgenEXE' Name='netgen.exe' Source='M:\Daten\Sumo\Nightly\netgen.exe' />
+                <File Id='od2tripsEXE' Name='od2trips.exe' Source='M:\Daten\Sumo\Nightly\od2trips.exe' />
+                <File Id='polyconvertEXE' Name='polyconvert.exe' Source='M:\Daten\Sumo\Nightly\polyconvert.exe' />
               </Component>
 
               <Component Id='HelperLibraries' Guid='FD4424A1-2B13-11E1-A04E-028037EC0200'>
-                <File Id='foxDLL' Name='FOXDLL-1.6.dll' DiskId='1' Source='M:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
-                <File Id='gdalDLL' Name='gdal18.dll' DiskId='1' Source='M:\Daten\Sumo\Nightly\gdal18.dll' />
-                <File Id='projDLL' Name='proj.dll' DiskId='1' Source='M:\Daten\Sumo\Nightly\proj.dll' />
-                <File Id='xercesDLL' Name='xerces-c_3_1.dll' DiskId='1' Source='M:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
+                <File Id='foxDLL' Name='FOXDLL-1.6.dll' Source='M:\Daten\Sumo\Nightly\FOXDLL-1.6.dll' KeyPath='yes' />
+                <File Id='gdalDLL' Name='gdal18.dll' Source='M:\Daten\Sumo\Nightly\gdal18.dll' />
+                <File Id='projDLL' Name='proj.dll' Source='M:\Daten\Sumo\Nightly\proj.dll' />
+                <File Id='xercesDLL' Name='xerces-c_3_1.dll' Source='M:\Daten\Sumo\Nightly\xerces-c_3_1.dll' />
               </Component>
 
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
-                <File Id='EnvBat' Name='start-command-line.bat' DiskId='1' Source='M:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
+                <File Id='EnvBat' Name='start-command-line.bat' Source='M:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
                   <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
 
-            <Directory Id='DOCDIR' Name='doc'>
-              <Component Id='UserDoc' Guid='E50E97A1-3412-11E1-B8E1-028037EC0200'>
-                <CreateFolder />
-              </Component>
-              <Component Id='PyDoc' Guid='AF85CCB0-3413-11E1-ABC9-028037EC0200'>
-                <CreateFolder />
-              </Component>
-              <Component Id='Tutorials' Guid='B20FABDE-3413-11E1-8C9B-028037EC0200'>
-                <CreateFolder />
-              </Component>
-              <Component Id='Examples' Guid='B3BE6D4F-3413-11E1-984B-028037EC0200'>
-                <CreateFolder />
-              </Component>
-            </Directory>
+            <Directory Id='DOCDIR' Name='doc' />
 
           </Directory>
         </Directory>
@@ -115,10 +101,9 @@
       </Feature>
 
       <Feature Id='Documentation' Title='Description' Description='The instruction manual.' Level='1000'>
-        <ComponentRef Id='UserDoc' />
-        <ComponentRef Id='PyDoc' />
-        <ComponentRef Id='Tutorials' />
-        <ComponentRef Id='Examples' />
+        <ComponentGroupRef Id='userdoc' />
+        <ComponentGroupRef Id='pydoc' />
+        <ComponentGroupRef Id='tutorial' />
       </Feature>
     </Feature>
 
