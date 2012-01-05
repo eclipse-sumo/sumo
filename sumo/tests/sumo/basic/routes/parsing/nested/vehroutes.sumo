@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:42:56 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 01/05/12 12:56:45 by SUMO sumo Version dev-SVN-r11548
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,43 +23,43 @@
 -->
 
 <routes>
-    <vehicle id="1" type="KRAUSS_DEFAULT" depart="3.00" arrival="154.00">
+    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00" arrival="140.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00" arrival="156.00">
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="3.00" arrival="143.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="2" type="KRAUSS_DEFAULT" depart="5.00" arrival="158.00">
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="5.00" arrival="146.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="3" type="KRAUSS_DEFAULT" depart="8.00" arrival="160.00">
+    <vehicle id="3" type="KRAUSS_DEFAULT" depart="8.00" arrival="148.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="4" type="KRAUSS_DEFAULT" depart="10.00" arrival="162.00">
+    <vehicle id="4" type="KRAUSS_DEFAULT" depart="10.00" arrival="151.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="5" type="KRAUSS_DEFAULT" depart="13.00" arrival="165.00">
+    <vehicle id="5" type="KRAUSS_DEFAULT" depart="13.00" arrival="153.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="6" type="KRAUSS_DEFAULT" depart="15.00" arrival="167.00">
+    <vehicle id="6" type="KRAUSS_DEFAULT" depart="15.00" arrival="156.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="7" type="KRAUSS_DEFAULT" depart="18.00" arrival="169.00">
+    <vehicle id="7" type="KRAUSS_DEFAULT" depart="18.00" arrival="159.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="8" type="KRAUSS_DEFAULT" depart="26.00" arrival="171.00">
+    <vehicle id="8" type="KRAUSS_DEFAULT" depart="20.00" arrival="161.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="9" type="KRAUSS_DEFAULT" depart="28.00" arrival="183.00">
+    <vehicle id="9" type="KRAUSS_DEFAULT" depart="23.00" arrival="164.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
