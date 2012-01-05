@@ -11,44 +11,51 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import optparse, subprocess, zipfile, os, sys, tempfile, shutil
+import optparse, subprocess, zipfile, os, sys, tempfile, glob
 
-optParser = optparse.OptionParser()
-optParser.add_option("-n", "--nightly-zip", dest="nightlyZip",
-                     default=r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip",
-                     help="full path to nightly zip")
-optParser.add_option("-o", "--output",
-                     default=r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi",
-                     help="full path to output file")
-optParser.add_option("-w", "--wix", default="%sbin" % os.environ.get("WIX", r"C:\Programme\Windows Installer XML v3.5\\"),
-                     help="path to the wix binaries")
-optParser.add_option("-x", "--wxs", default=os.path.join(os.path.dirname(__file__), "..", "..", "build", "sumo.wxs"),
-                     help="path to wxs template")
-optParser.add_option("-l", "--license", default=os.path.join(os.path.dirname(__file__), "..", "..", "build", "License.rtf"),
-                     help="path to the license")
-(options, args) = optParser.parse_args()
+INPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.zip"
+OUTPUT_DEFAULT = r"M:\Daten\Sumo\Nightly\sumo-msvc10Win32-svn.msi"
+WIX_DEFAULT = "%sbin" % os.environ.get("WIX", r"D:\Programme\Windows Installer XML v3.5\\")
+WXS_DEFAULT = os.path.join(os.path.dirname(__file__), "..", "..", "build", "sumo.wxs")
+LICENSE = os.path.join(os.path.dirname(__file__), "..", "..", "build", "License.rtf")
 
-#tmpDir = r"C:\Users\behr_mi\AppData\Local\Temp\tmpm34etb"
-tmpDir = tempfile.mkdtemp()
-zipfile.ZipFile(options.nightlyZip).extractall(tmpDir)
-fragments = []
-for d in ["userdoc", "pydoc", "tutorial"]:
-    subprocess.call([os.path.join(options.wix, "heat.exe"), "dir", os.path.join(tmpDir, "sumo-svn", "docs", d),
-                     "-cg", d, "-gg", "-dr", "DOCDIR", "-out", os.path.join(tmpDir, "Fragment.wxs")])
-    fragIn = open(os.path.join(tmpDir, "Fragment.wxs"))
-    fragOut = open(os.path.join(tmpDir, d+"Fragment.wxs"), "w")
-    for l in fragIn:
-        fragOut.write(l.replace("SourceDir", os.path.join(tmpDir, "sumo-svn", "docs", d)))
-    fragOut.close()
-    fragIn.close()
-    fragments.append(fragOut.name)
-wxsIn = open(options.wxs)
-wxsOut = open(os.path.join(tmpDir, "sumo.wxs"), "w")
-for l in wxsIn:
-    l = l.replace("License.rtf", options.license)
-    wxsOut.write(l.replace(r"M:\Daten\Sumo\Nightly", r"sumo-svn\bin"))
-wxsOut.close()
-wxsIn.close()
-subprocess.call([os.path.join(options.wix, "candle.exe"), "-o", tmpDir+"\\", wxsOut.name] + fragments)
-wixObj = [f.replace(".wxs", ".wixobj") for f in [wxsOut.name] + fragments] 
-subprocess.call([os.path.join(options.wix, "light.exe"),  "-ext", "WixUIExtension", "-o", options.output] + wixObj)
+def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxs=WXS_DEFAULT,
+             license=LICENSE, platformSuffix=""):
+    #tmpDir = r"C:\Users\behr_mi\AppData\Local\Temp\tmpm34etb"
+    tmpDir = tempfile.mkdtemp()
+    zipfile.ZipFile(sourceZip).extractall(tmpDir)
+    sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
+    fragments = []
+    for d in ["userdoc", "pydoc", "tutorial", "examples"]:
+        subprocess.call([os.path.join(wixBin, "heat.exe"), "dir", os.path.join(sumoRoot, "docs", d),
+                         "-cg", d, "-gg", "-dr", "DOCDIR", "-out", os.path.join(tmpDir, "Fragment.wxs")])
+        fragIn = open(os.path.join(tmpDir, "Fragment.wxs"))
+        fragOut = open(os.path.join(tmpDir, d+"Fragment.wxs"), "w")
+        for l in fragIn:
+            fragOut.write(l.replace("SourceDir", os.path.join(sumoRoot, "docs", d)))
+        fragOut.close()
+        fragIn.close()
+        fragments.append(fragOut.name)
+    wxsIn = open(wxs)
+    wxsOut = open(os.path.join(tmpDir, "sumo.wxs"), "w")
+    for l in wxsIn:
+        l = l.replace("License.rtf", license)
+        l = l.replace(".exe' />", "%s.exe' />" % platformSuffix).replace(r"Nightly\sumo-gui.exe", r"Nightly\sumo-gui%s.exe" % platformSuffix)
+        wxsOut.write(l.replace(r"M:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
+    wxsOut.close()
+    wxsIn.close()
+    subprocess.call([os.path.join(wixBin, "candle.exe"), "-o", tmpDir+"\\", wxsOut.name] + fragments)
+    wixObj = [f.replace(".wxs", ".wixobj") for f in [wxsOut.name] + fragments] 
+    subprocess.call([os.path.join(wixBin, "light.exe"),  "-ext", "WixUIExtension", "-o", outFile] + wixObj)
+
+if __name__ == "__main__":
+    optParser = optparse.OptionParser()
+    optParser.add_option("-n", "--nightly-zip", dest="nightlyZip",
+                         default=INPUT_DEFAULT, help="full path to nightly zip")
+    optParser.add_option("-o", "--output", default=OUTPUT_DEFAULT,
+                         help="full path to output file")
+    optParser.add_option("-w", "--wix", default=WIXDEFAULT, help="path to the wix binaries")
+    optParser.add_option("-x", "--wxs", default=WXS_DEFAULT, help="path to wxs template")
+    optParser.add_option("-l", "--license", default=LICENSE, help="path to the license")
+    (options, args) = optParser.parse_args()
+    buildMSI(options.nightlyZip, options.output, options.wix, options.wxs, options.license)

@@ -18,17 +18,17 @@ from __future__ import with_statement
 import re
 from datetime import date
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
-import status
+import status, wix
 
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
-                     default="D:\\Sumo", help="root for svn and log output")
+                     default=r"D:\Sumo", help="root for svn and log output")
 optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
-optParser.add_option("-p", "--project", default="trunk\\sumo\\build\\msvc10\\prj.sln",
+optParser.add_option("-p", "--project", default=r"trunk\sumo\build\msvc10\prj.sln",
                      help="path to project solution relative to the root dir")
-optParser.add_option("-b", "--bin-dir", dest="binDir", default="trunk\\sumo\\bin",
+optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"trunk\sumo\bin",
                      help="directory containg the binaries, relative to the root dir")
-optParser.add_option("-t", "--tests-dir", dest="testsDir", default="trunk\\sumo\\tests",
+optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"trunk\sumo\tests",
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
                      help="name of the sumo executable")
@@ -42,9 +42,9 @@ optParser.add_option("-f", "--force", action="store_true",
 
 env = os.environ
 env["SMTP_SERVER"]="smtprelay.dlr.de"
-env["TEMP"]=env["TMP"]="D:\\Delphi\\texttesttmp"
-nightlyDir="M:\\Daten\\Sumo\\Nightly"
-compiler="D:\\Programme\\Microsoft Visual Studio 10.0\\Common7\\IDE\\devenv.exe"
+env["TEMP"]=env["TMP"]=r"D:\Delphi\texttesttmp"
+nightlyDir=r"M:\Daten\Sumo\Nightly"
+compiler=r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
 svnrev=""
 for platform in ["Win32", "x64"]:
     env["FILEPREFIX"]="msvc10" + options.suffix + platform
@@ -131,6 +131,7 @@ for platform in ["Win32", "x64"]:
                     print >> log, "Warning: Could not copy %s to %s!" % (f, nightlyDir)
                     print >> log, "I/O error(%s): %s" % (errno, strerror)
         zipf.close()
+        wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), platformSuffix=programSuffix)
     except IOError, (errno, strerror):
         print >> log, "Warning: Could not zip to %s!" % binaryZip
         print >> log, "I/O error(%s): %s" % (errno, strerror)
@@ -170,5 +171,5 @@ for platform in ["Win32", "x64"]:
     status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
     log.close()
     if not options.remoteDir:
-        toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, statusLog, binaryZip])
+        toPut = " ".join([env["SUMO_REPORT"], makeLog, makeAllLog, testLog, statusLog, binaryZip, binaryZip.replace(".zip", ".msi")])
         subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, toPut))

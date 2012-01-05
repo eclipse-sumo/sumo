@@ -104,6 +104,7 @@
         <ComponentGroupRef Id='userdoc' />
         <ComponentGroupRef Id='pydoc' />
         <ComponentGroupRef Id='tutorial' />
+        <ComponentGroupRef Id='examples' />
       </Feature>
     </Feature>
 
