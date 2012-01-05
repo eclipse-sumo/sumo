@@ -50,7 +50,7 @@ class PositionVector
         : public AbstractPoly {
 public:
     /// Definition of the list of points
-    typedef std::deque<Position> ContType;
+    typedef std::vector<Position> ContType;
 
 public:
     /** @brief Constructor

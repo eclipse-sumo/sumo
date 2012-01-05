@@ -78,7 +78,7 @@ PositionVector::push_back(const PositionVector& p) {
 
 void
 PositionVector::push_front(const Position& p) {
-    myCont.push_front(p);
+    myCont.insert(myCont.begin(), p);
 }
 
 
@@ -624,7 +624,7 @@ PositionVector::pruneFromBeginAt(const Position& p) {
     if (np != *(myCont.begin())) {
         myCont.erase(myCont.begin());
         if (np != *(myCont.begin())) {
-            myCont.push_front(np);
+            myCont.insert(myCont.begin(), p);
             assert(myCont.size() > 1);
             assert(*(myCont.begin()) != *(myCont.end() - 1));
         }
@@ -1023,7 +1023,7 @@ PositionVector::push_back_noDoublePos(const Position& p) {
 void
 PositionVector::push_front_noDoublePos(const Position& p) {
     if (size() == 0 || !p.almostSame(myCont.front())) {
-        myCont.push_front(p);
+        myCont.insert(myCont.begin(), p);
     }
 }
 
