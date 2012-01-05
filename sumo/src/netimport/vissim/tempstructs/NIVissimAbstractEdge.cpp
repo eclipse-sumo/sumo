@@ -47,11 +47,11 @@ NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const PositionVector& geom)
-    : myID(id), myNode(-1) {
+    : myID(id), myNode(-1) 
+{
     // convert/publicate geometry
-    std::deque<Position>::const_iterator i;
-    const std::deque<Position> &geomC = geom.getCont();
-    for (i = geomC.begin(); i != geomC.end(); ++i) {
+    const PositionVector::ContType &geomC = geom.getCont();
+    for (PositionVector::ContType::const_iterator i = geomC.begin(); i != geomC.end(); ++i) {
         Position p = *i;
         if (!NILoader::transformCoordinates(p)) {
             WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
