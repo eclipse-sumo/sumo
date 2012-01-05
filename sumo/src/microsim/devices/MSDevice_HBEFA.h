@@ -125,7 +125,7 @@ private:
 
 
 private:
-    /// @name Internal storages for pollutant/fuel sum
+    /// @name Internal storages for pollutant/fuel sum in mg or ml
     /// @{
 
     SUMOReal myCO2, myCO, myHC, myPMx, myNOx, myFuel;

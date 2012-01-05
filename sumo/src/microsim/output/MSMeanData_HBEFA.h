@@ -116,17 +116,17 @@ public:
     private:
         /// @name Collected values
         /// @{
-        /// @brief Sum of CO2 emissions
+        /// @brief Sum of CO2 emissions in mg
         SUMOReal CO2;
-        /// @brief Sum of CO emissions
+        /// @brief Sum of CO emissions in mg
         SUMOReal CO;
-        /// @brief Sum of HC emissions
+        /// @brief Sum of HC emissions in mg
         SUMOReal HC;
-        /// @brief Sum of NOx emissions
+        /// @brief Sum of NOx emissions in mg
         SUMOReal NOx;
-        /// @brief Sum of PMx emissions
+        /// @brief Sum of PMx emissions in mg
         SUMOReal PMx;
-        /// @brief  Sum of consumed fuel
+        /// @brief  Sum of consumed fuel in ml
         SUMOReal fuel;
         //@}
         /// @brief The meandata parent

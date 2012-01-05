@@ -101,13 +101,13 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUM
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const SUMOReal /*numLanes*/, const int /*numVehicles*/) const {
-    const SUMOReal normFactor = SUMOReal(3600. * 1000. / STEPS2TIME(period) / myLaneLength);
-    dev << "\" CO_abs=\"" << OutputDevice::realString(CO * 1000., 6) <<
-        "\" CO2_abs=\"" << OutputDevice::realString(CO2 * 1000., 6) <<
-        "\" HC_abs=\"" << OutputDevice::realString(HC * 1000., 6) <<
-        "\" PMx_abs=\"" << OutputDevice::realString(PMx * 1000., 6) <<
-        "\" NOx_abs=\"" << OutputDevice::realString(NOx * 1000., 6) <<
-        "\" fuel_abs=\"" << OutputDevice::realString(fuel * 1000., 6) <<
+    const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
+    dev << "\" CO_abs=\"" << OutputDevice::realString(CO, 6) <<
+        "\" CO2_abs=\"" << OutputDevice::realString(CO2, 6) <<
+        "\" HC_abs=\"" << OutputDevice::realString(HC, 6) <<
+        "\" PMx_abs=\"" << OutputDevice::realString(PMx, 6) <<
+        "\" NOx_abs=\"" << OutputDevice::realString(NOx, 6) <<
+        "\" fuel_abs=\"" << OutputDevice::realString(fuel, 6) <<
         "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * CO, 6) <<
         "\" CO2_normed=\"" << OutputDevice::realString(normFactor * CO2, 6) <<
         "\" HC_normed=\"" << OutputDevice::realString(normFactor * HC, 6) <<
@@ -115,10 +115,10 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
         "\" NOx_normed=\"" << OutputDevice::realString(normFactor * NOx, 6) <<
         "\" fuel_normed=\"" << OutputDevice::realString(normFactor * fuel, 6);
     if (sampleSeconds > myParent->myMinSamples) {
-        SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds * 1000.;
+        SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
         SUMOReal traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
-            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance * SUMOReal(1000.));
+            vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
