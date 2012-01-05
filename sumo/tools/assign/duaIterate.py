@@ -81,8 +81,8 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
         print >> fd, '        <weights value="dump_%03i_%s.xml"/>' % (step-1, options.aggregation)
-        if options.ecomeasure:
-            print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
+    if options.ecomeasure:
+        print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
@@ -152,10 +152,8 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <mesosim value="True"/>'
         if options.mesomultiqueue:
             print >> fd, '        <meso-multi-queue value="True"/>'
-            print 'mesomultiqueue'
         if options.mesojunctioncontrol:
             print >> fd, '        <meso-junction-control value="True"/>'
-            print 'mesojunctioncontrol'
     print >> fd, """</processing>
     <report>
         <verbose value="True"/>
