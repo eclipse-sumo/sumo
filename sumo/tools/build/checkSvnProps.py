@@ -16,7 +16,10 @@ import os, subprocess, sys, xml.sax
 from optparse import OptionParser
 
 _SOURCE_EXT = [".h", ".cpp", ".py", ".pl", ".java", ".am"]
-_TESTDATA_EXT = [".xml", ".cfg", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter", ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo", ".meso", ".tools", ".traci", ".activitygen", ".scenario"]
+_TESTDATA_EXT = [".xml", ".prog", ".complex", ".dfrouter", ".duarouter", ".jtrrouter",
+                 ".netconvert", ".netgen", ".od2trips", ".polyconvert", ".sumo",
+                 ".meso", ".tools", ".traci", ".activitygen", ".scenario",
+                 ".sumocfg", ".netccfg", ".netgcfg"]
 _VS_EXT = [".vsprops", ".sln", ".vcproj", ".bat", ".props", ".vcxproj", ".filters"]
 _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 
