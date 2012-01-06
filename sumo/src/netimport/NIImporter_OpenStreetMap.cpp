@@ -77,6 +77,27 @@ public:
     }
 };
 
+/** @brief Functor which compares two Edges
+ */
+class NIImporter_OpenStreetMap::CompareEdges {
+public:
+    bool operator()(const Edge* e1, const Edge* e2) const {
+        if (e1->myHighWayType != e2->myHighWayType) {
+            return e1->myHighWayType > e2->myHighWayType;
+        }
+        if (e1->myNoLanes != e2->myNoLanes) {
+            return e1->myNoLanes > e2->myNoLanes;
+        }
+        if (e1->myMaxSpeed != e2->myMaxSpeed) {
+            return e1->myMaxSpeed > e2->myMaxSpeed;
+        }
+        if (e1->myIsOneWay != e2->myIsOneWay) {
+            return e1->myIsOneWay > e2->myIsOneWay;
+        }
+        return e1->myCurrentNodes > e2->myCurrentNodes;
+    }
+};
+
 /** @brief A functor to substitute a node in the node list of an Edge
  */
 class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function <
@@ -287,19 +308,16 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
         PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
         if (myEdges.size() > 1) {
-            std::set<std::string> toRemove;
-            for (std::map<std::string, Edge*>::iterator it = myEdges.begin(), itnext = ++myEdges.begin(); itnext != myEdges.end(); ++it, ++itnext) {
-                std::map<std::string, Edge*>::iterator dupEdge = find_if(itnext, myEdges.end(), SimilarEdge(*it));
-                while (dupEdge != myEdges.end()) {
-                    WRITE_MESSAGE("Found duplicate edges. Removing " + dupEdge->first);
-                    toRemove.insert(dupEdge->first);
-                    dupEdge = find_if(++dupEdge, myEdges.end(), SimilarEdge(*it));
+            std::set<const Edge*, CompareEdges> dupsFinder;
+            for (std::map<std::string, Edge*>::iterator it = myEdges.begin(); it != myEdges.end();) {
+                if (dupsFinder.count(it->second) > 0) {
+                    WRITE_MESSAGE("Found duplicate edges. Removing " + it->first);
+                    delete it->second;
+                    myEdges.erase(it++);
+                } else {
+                    dupsFinder.insert(it->second);
+                    it++;
                 }
-            }
-            for (std::set<std::string>::iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
-                std::map<std::string, Edge*>::iterator j = myEdges.find(*i);
-                delete(*j).second;
-                myEdges.erase(j);
             }
         }
         PROGRESS_DONE_MESSAGE();
@@ -313,6 +331,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     for (std::map<std::string, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
         if (!e->myCurrentIsRoad) {
+            assert(false); // should not have been entered into myEdges
             continue;
         }
         for (std::vector<int>::const_iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
@@ -339,6 +358,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     for (std::map<std::string, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
         if (!e->myCurrentIsRoad) {
+            assert(false); // should not have been entered into myEdges
             continue;
         }
         // build nodes;

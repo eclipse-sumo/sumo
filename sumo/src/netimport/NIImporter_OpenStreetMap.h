@@ -121,6 +121,7 @@ private:
     static const std::string compoundTypeSeparator;
 
     class CompareNodes;
+    class CompareEdges;
     class SubstituteNode;
     class SimilarEdge;
 
