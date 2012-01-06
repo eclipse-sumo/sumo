@@ -140,41 +140,6 @@ private:
     const NIOSMNode* const myToSubstitute, * const mySubstituteWith;
 };
 
-/** @brief Functor which compares two Edges according to all values but id
- */
-class NIImporter_OpenStreetMap::SimilarEdge : public std::unary_function <
-        std::pair<std::string, Edge*>, bool > {
-public:
-    /** @brief Initializes the functor with the fixed comparison partner
-     *
-     * @param[in] p0 A pair with the Edge all other nodes should be compared with.
-     */
-    SimilarEdge(const std::pair<std::string, Edge*>& p0) :
-        myP0(p0) {
-    }
-
-    /** @brief Compares the Edge (p1.second) with the node given in the constructor for equality
-     *
-     * All values but the ids are compared
-     *
-     * @param[in] p1 A pair with the edge to compare.
-     * @return true if both edges are "similar"; otherwise false.
-     */
-    bool operator()(const std::pair<std::string, Edge*>& p1) const {
-        return
-            myP0.second->myNoLanes == p1.second->myNoLanes &&
-            myP0.second->myMaxSpeed == p1.second->myMaxSpeed &&
-            myP0.second->myHighWayType == p1.second->myHighWayType &&
-            myP0.second->myIsOneWay == p1.second->myIsOneWay &&
-            myP0.second->myCurrentNodes == p1.second->myCurrentNodes &&
-            myP0.second->myCurrentIsRoad == p1.second->myCurrentIsRoad;
-    }
-
-private:
-    std::pair<std::string, Edge*> myP0;
-};
-
-
 
 // ===========================================================================
 // method definitions

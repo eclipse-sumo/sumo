@@ -123,7 +123,6 @@ private:
     class CompareNodes;
     class CompareEdges;
     class SubstituteNode;
-    class SimilarEdge;
 
     /// we are responsible for ultimate cleanup
     std::map<int, NIOSMNode*> myOSMNodes;
