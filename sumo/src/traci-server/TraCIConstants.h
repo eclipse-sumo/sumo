@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    TraCIConstants.h
-/// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @author  Axel Wegener
 /// @date    2007/10/24
 /// @version $Id$
 ///

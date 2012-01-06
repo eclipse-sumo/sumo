@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGMain.cpp
-/// @author  Piotr Woznica & Walter Bamberger
+/// @author  Piotr Woznica, Walter Bamberger
 /// @date    Tue, 20 Jul 2010
 /// @version $Id$
 ///

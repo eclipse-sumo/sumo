@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    TraCIException.h
-/// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
-/// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
-/// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
+/// @author  Axel Wegener
+/// @author  Friedemann Wesner
+/// @author  Christoph Sommer
 /// @date    2007/10/24
 /// @version $Id$
 ///

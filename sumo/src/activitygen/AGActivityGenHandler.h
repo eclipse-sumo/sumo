@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    AGActivityGenHandler.h
-/// @author  Piotr Woznica and Daniel Krajzewicz
+/// @author  Piotr Woznica, Daniel Krajzewicz
 /// @date    July 2010
 /// @version $Id$
 ///

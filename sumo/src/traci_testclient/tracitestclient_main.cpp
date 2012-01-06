@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    tracitestclient_main.h
-/// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
+/// @author  Friedemann Wesner
 /// @date    2008/04/07
 /// @version $Id$
 ///

@@ -1,6 +1,6 @@
 /****************************************************************************/
 /// @file    TraCIDijkstraRouter.h
-/// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
+/// @author  Friedemann Wesner
 /// @date    2008/03/29
 /// @version $Id$
 ///
