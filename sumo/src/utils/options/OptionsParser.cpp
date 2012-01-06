@@ -72,7 +72,7 @@ OptionsParser::parse(int argc, char** argv) {
 
 
 int
-OptionsParser::check(char* arg1, char* arg2, bool& ok) {
+OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     // the first argument should be an option
     // (only the second may be a free string)
     if (!checkParameter(arg1)) {
@@ -129,7 +129,7 @@ OptionsParser::check(char* arg1, char* arg2, bool& ok) {
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, char* arg) {
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg) {
     if (arg[1] == '=') {
         if (strlen(arg) < 3) {
             WRITE_ERROR("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
@@ -149,7 +149,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, char* arg) {
 
 
 bool
-OptionsParser::checkParameter(char* arg1) {
+OptionsParser::checkParameter(const char* arg1) {
     if (arg1[0] != '-') {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
@@ -159,13 +159,13 @@ OptionsParser::checkParameter(char* arg1) {
 
 
 bool
-OptionsParser::isAbbreviation(char* arg1) {
+OptionsParser::isAbbreviation(const char* arg1) {
     return arg1[1] != '-';
 }
 
 
 std::string
-OptionsParser::convert(char* arg) {
+OptionsParser::convert(const char* arg) {
     std::string s(arg);
     return s;
 }
