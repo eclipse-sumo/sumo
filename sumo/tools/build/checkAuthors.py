@@ -25,32 +25,93 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         self._authors = set()
         self._currAuthor = None
         self._value = ""
+        self._revision = None
 
     def startElement(self, name, attrs):
         self._value = ""
+        if name == 'logentry':
+            self._revision = attrs['revision']
 
     def characters(self, content):
         self._value += content
 
     def endElement(self, name):
         if name == 'author':
-            self._currAuthor = self._value
+            self._currAuthor = realNames.get(self._value, self._value)
         if name == "msg":
             msg = self._value.lower()
-            if "svn" in msg or "#22" in msg or "licen" in msg or "copyright" in msg or "style" in msg:
+            if self._revision in ignoreRevisions:
+                return
+            keep = True
+            ticket = msg.find("#")
+            while ticket >= 0:
+                keep = False
+                e = ticket + 1
+                while e < len(msg) and msg[e].isdigit():
+                    e += 1
+                if msg[ticket+1:e] not in ignoreTickets:
+                    keep = True
+                    break
+                ticket = msg.find("#", e)
+            if not keep:
                 return
             try:
                 if self._currAuthor not in self._authors:
                     self._authors.add(self._currAuthor)
-                    print >> self._out, "@author", realNames.get(self._currAuthor, self._currAuthor)
-		    print >> self._out, msg
+                    print >> self._out, "@author", self._currAuthor
+                    print >> self._out, msg
+                    if self._currAuthor not in authorFiles:
+                        authorFiles[self._currAuthor] = set()
+                    authorFiles[self._currAuthor].add(self._out.name)
                 if "thank" in msg:
                     print >> self._out, "THANKS", " ".join(msg.splitlines())
+                    print >> log, "thank %s" % (msg, self._out.name)
+                    authorFiles["thank"].add(outfile.name)
             except:
                 pass
 
+def checkAuthors(fullName, pattern):
+    authors = set()
+    found = False
+    for line in open(fullName):
+        if line.startswith(pattern):
+            for item in line[len(pattern):].split(","):
+                a = item.strip()
+                found = True
+                if a in realNames.values():
+                    authors.add(a)
+                else:
+                    print >> log, "unknown author", a, fullName
+    if not found:
+        print >> log, "no author", fullName
+    return authors
 
+def setAuthors(fullName, removal, add, pattern):
+    out = open(fullName+".tmp", "w")
+    authors = []
+    for line in open(fullName):
+        if line.startswith(pattern):
+            for item in line[len(pattern):].split(","):
+                a = item.strip()
+                if a not in removal:
+                    authors.append(a)
+        elif authors:
+            for a in authors:
+                print >> out, "%s  %s" % (pattern, a)
+            for a in add:
+                print >> out, "%s  %s" % (pattern, a)
+            authors = []
+        else:
+            out.write(line)
+    out.close()
+
+ignoreRevisions = set(["11445", "10974", "9705", "9477", "9429", "9348", "8566",
+                       "8439", "8000", "7728", "7533", "6958", "6589", "6537",
+                       "6399", "6069", "5922", "5048", "4669", "4389", "4257", "4166",
+                       "4165", "4084", "4076", "4015", "3966", "3486"])
+ignoreTickets = set(["2", "22", "409"])
 sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+authorFiles = {"thank":set()}
 realNames = {}
 for line in open(os.path.join(sumoRoot, 'AUTHORS')):
     entries = line.split()
@@ -67,15 +128,31 @@ for line in open(os.path.join(sumoRoot, 'AUTHORS')):
             getAccounts = True
         if getAccounts:
             realNames[e] = author
+    if author and author not in realNames.values():
+        realNames[author] = author
+log = open(os.path.join(sumoRoot, 'author.log'), "w")
 for root, dirs, files in os.walk(sumoRoot):
     for name in files:
-        if "." in name and name[name.index("."):] in _SOURCE_EXT:
+        ext = os.path.splitext(name)[1]
+        if ext in _SOURCE_EXT:
             fullName = os.path.join(root, name)
             print "checking authors for", fullName
+            if ext in _SOURCE_EXT[:2]:
+                pattern = "/// @author"
+            elif ext == ".py":
+                pattern = "@author"
+            else:
+                print >> log, "no author", fullName
+                continue
+            authors = checkAuthors(fullName, pattern)
             p = subprocess.Popen(["svn", "log", "--xml", fullName], stdout=subprocess.PIPE)
             output = p.communicate()[0]
             if p.returncode == 0:
-                xml.sax.parseString(output, PropertyReader(open(fullName+".authors", "w")))
-    for ignoreDir in ['.svn', 'foreign', 'contributed']:
+                pr = PropertyReader(open(fullName+".authors", "w"))
+                xml.sax.parseString(output, pr)
+                setAuthors(fullName, authors - pr._authors, pr._authors - authors, pattern)
+    for ignoreDir in ['.svn', 'foreign', 'contributed', 'foxtools']:
         if ignoreDir in dirs:
             dirs.remove(ignoreDir)
+print >> log, authorFiles
+log.close()
