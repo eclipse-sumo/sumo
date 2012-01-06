@@ -104,7 +104,7 @@ SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
         return "";
     } else {
         TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert<XMLByte>::_2str(utf8.str(), utf8.length());
+        return TplConvert<XMLByte>::_2str(utf8.str(), (unsigned)utf8.length());
     }
 #endif
 }
@@ -122,7 +122,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         return "";
     } else {
         TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvertSec<XMLByte>::_2strSec(utf8.str(), utf8.length(), str);
+        return TplConvertSec<XMLByte>::_2strSec(utf8.str(), (int)utf8.length(), str);
     }
 #endif
 }
