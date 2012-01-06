@@ -295,10 +295,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     // Mark which nodes are used by edges (begin and end)
     for (std::map<std::string, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
-        if (!e->myCurrentIsRoad) {
-            assert(false); // should not have been entered into myEdges
-            continue;
-        }
+        assert(e->myCurrentIsRoad);
         for (std::vector<int>::const_iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             if (nodeUsage.find(*j) == nodeUsage.end()) {
                 nodeUsage[*j] = 0;
@@ -322,10 +319,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
     for (std::map<std::string, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
-        if (!e->myCurrentIsRoad) {
-            assert(false); // should not have been entered into myEdges
-            continue;
-        }
+        assert(e->myCurrentIsRoad);
         // build nodes;
         //  the from- and to-nodes must be built in any case
         //  the geometry nodes are only built if more than one edge references them
