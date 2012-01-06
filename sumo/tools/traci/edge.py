@@ -81,42 +81,42 @@ def getEffort(edgeID, time):
 def getCO2Emission(edgeID):
     """getCO2Emission(string) -> double
     
-    Returns the CO2 emission in g for the last time step on the given edge.
+    Returns the CO2 emission in mg for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_CO2EMISSION, edgeID)
 
 def getCOEmission(edgeID):
     """getCOEmission(string) -> double
     
-    Returns the CO emission in g for the last time step on the given edge.
+    Returns the CO emission in mg for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_COEMISSION, edgeID)
 
 def getHCEmission(edgeID):
     """getHCEmission(string) -> double
     
-    Returns the HC emission in g for the last time step on the given edge.
+    Returns the HC emission in mg for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_HCEMISSION, edgeID)
 
 def getPMxEmission(edgeID):
     """getPMxEmission(string) -> double
     
-    Returns the PMx emission in g for the last time step on the given edge.
+    Returns the particular matter emission in mg for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_PMXEMISSION, edgeID)
 
 def getNOxEmission(edgeID):
     """getNOxEmission(string) -> double
     
-    Returns the NOx emission in g for the last time step on the given edge.
+    Returns the NOx emission in mg for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_NOXEMISSION, edgeID)
 
 def getFuelConsumption(edgeID):
     """getFuelConsumption(string) -> double
     
-    Returns the fuel consumption in l for the last time step on the given edge.
+    Returns the fuel consumption in ml for the last time step on the given edge.
     """
     return _getUniversal(tc.VAR_FUELCONSUMPTION, edgeID)
 

@@ -142,98 +142,99 @@ def getEdgeID(laneID):
 def getCO2Emission(laneID):
     """getCO2Emission(string) -> double
     
-    .
+    Returns the CO2 emission in mg for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_CO2EMISSION, laneID)
 
 def getCOEmission(laneID):
     """getCOEmission(string) -> double
     
-    .
+    Returns the CO emission in mg for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_COEMISSION, laneID)
 
 def getHCEmission(laneID):
     """getHCEmission(string) -> double
     
-    .
+    Returns the HC emission in mg for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_HCEMISSION, laneID)
 
 def getPMxEmission(laneID):
     """getPMxEmission(string) -> double
     
-    .
+    Returns the particular matter emission in mg for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_PMXEMISSION, laneID)
 
 def getNOxEmission(laneID):
     """getNOxEmission(string) -> double
     
-    .
+    Returns the NOx emission in mg for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_NOXEMISSION, laneID)
 
 def getFuelConsumption(laneID):
     """getFuelConsumption(string) -> double
     
-    .
+    Returns the fuel consumption in ml for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_FUELCONSUMPTION, laneID)
 
 def getNoiseEmission(laneID):
     """getNoiseEmission(string) -> double
     
-    .
+    Returns the noise emission in db for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_NOISEEMISSION, laneID)
 
 def getLastStepMeanSpeed(laneID):
     """getLastStepMeanSpeed(string) -> double
     
-    .
+    Returns the average speed in m/s for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_MEAN_SPEED, laneID)
 
 def getLastStepOccupancy(laneID):
     """getLastStepOccupancy(string) -> double
     
-    .
+    Returns the occupancy in % for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_OCCUPANCY, laneID)
 
 def getLastStepLength(laneID):
     """getLastStepLength(string) -> double
     
-    .
+    Returns the total vehicle length in m for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_LENGTH, laneID)
 
 def getTraveltime(laneID):
     """getTraveltime(string) -> double
     
-    .
+    Returns the estimated travel time in s for the last time step on the given lane.
     """
     return _getUniversal(tc.VAR_CURRENT_TRAVELTIME, laneID)
 
 def getLastStepVehicleNumber(laneID):
     """getLastStepVehicleNumber(string) -> integer
     
-    .
+    Returns the total number of vehicles for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, laneID)
 
 def getLastStepHaltingNumber(laneID):
     """getLastStepHaltingNumber(string) -> integer
     
-    .
+    Returns the total number of halting vehicles for the last time step on the given lane.
+    A speed of less than 0.1 m/s is considered a halt.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, laneID)
 
 def getLastStepVehicleIDs(laneID):
     """getLastStepVehicleIDs(string) -> list(string)
     
-    .
+    Returns the ids of the vehicles for the last time step on the given lane.
     """
     return _getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
 
