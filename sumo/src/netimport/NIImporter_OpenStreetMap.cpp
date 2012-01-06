@@ -30,6 +30,7 @@
 #include <set>
 #include <functional>
 #include <sstream>
+#include <limits>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -681,7 +682,22 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             try {
                 myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
             } catch (NumberFormatException&) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
+                // might be a list of values
+                StringTokenizer st(value, ";", true);
+                std::vector<std::string> list = st.getVector();
+                if (list.size() >= 2) {
+                    int minLanes = std::numeric_limits<int>::max();
+                    try {
+                        for (std::vector<std::string>::iterator i = list.begin(); i != list.end(); ++i) {
+                            int numLanes = TplConvert<char>::_2int(StringUtils::prune(*i).c_str());
+                            minLanes = MIN2(minLanes, numLanes);
+                        }
+                        myCurrentEdge->myNoLanes = minLanes;
+                        WRITE_WARNING("Using minimum lane number from list (" + value + ") for edge '" + myCurrentEdge->id + "'.");
+                    } catch (NumberFormatException&) {
+                        WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
+                    }
+                }
             }
         } else if (key == "maxspeed") {
             if (mySpeedMap.find(value) != mySpeedMap.end()) {
