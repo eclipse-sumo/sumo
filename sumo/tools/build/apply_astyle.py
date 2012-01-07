@@ -2,6 +2,7 @@
 """
 @file    apply_astyle.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2007
 @version $Id$
 
@@ -9,7 +10,7 @@ Applies astyle with the proper settings used in SUMO on all
  files in src.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

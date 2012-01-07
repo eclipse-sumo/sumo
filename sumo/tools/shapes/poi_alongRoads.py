@@ -4,6 +4,8 @@
 """
 @file    poi_alongRoads.py
 @author  Ronald Nippold
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-20-10
 @version
 @usage   poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
@@ -18,7 +20,7 @@ So far POIs are situated in the middle on all edges without regard to the type o
  Output is written in file 'pois.add.xml'
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

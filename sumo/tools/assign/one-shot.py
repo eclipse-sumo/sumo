@@ -2,13 +2,16 @@
 """
 @file    one-shot.py
 @author  Daniel Krajzewicz
+@author  Jakob Erdmann
+@author  Yun-Pang Wang
+@author  Michael Behrisch
 @date    2008-03-10
 @version $Id$
 
 This script does multiple sumo runs with different rerouting intervals.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess

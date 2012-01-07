@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 @file    duaIterate.py
-@author  Daniel Krajzewicz, Michael Behrisch
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
+@author  Jakob Erdmann
+@author  Yun-Pang Wang
 @date    2008-02-13
 @version $Id$
 
@@ -10,7 +13,7 @@ Run duarouter and sumo alternating to perform a dynamic user assignment.
 Based on the Perl script dua_iterate.pl.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess, types

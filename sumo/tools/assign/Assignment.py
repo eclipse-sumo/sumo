@@ -2,6 +2,7 @@
 """
 @file    Assignment.py
 @author  Yun-Pang Wang
+@author  Michael Behrisch
 @date    2008-03-28
 @version $Id$
 
@@ -14,7 +15,7 @@ Three assignment models are available:
 The c-logit model are set as default.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

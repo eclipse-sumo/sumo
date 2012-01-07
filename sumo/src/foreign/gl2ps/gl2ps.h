@@ -2,7 +2,8 @@
  * GL2PS, an OpenGL to PostScript Printing Library
  * Copyright (C) 1999-2011 C. Geuzaine
  *
- * This program is free software; you can redistribute it and/or
+ * This file is part of SUMO.
+//   SUMO is free software: you can redistribute it and/or
  * modify it under the terms of either:
  *
  * a) the GNU Library General Public License as published by the Free

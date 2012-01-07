@@ -2,6 +2,7 @@
 """
 @file    schemaCheck.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    03.12.2009
 @version $Id$
 
@@ -9,7 +10,7 @@ Checks schema for files matching certain file names using either
 lxml or SAX2Count.exe depending on availability.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

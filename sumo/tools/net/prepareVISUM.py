@@ -2,6 +2,7 @@
 """
 @file    prepareVISUM.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2008-09-01
 @version $Id$
 
@@ -13,7 +14,7 @@ Removes all roads which type is not within
  for all other using the values stored in types2import.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

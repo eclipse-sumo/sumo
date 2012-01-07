@@ -2,13 +2,14 @@
 """
 @file    patchTrafficLights.py
 @author  Michael Behrisch
+@author  Jakob Erdmann
 @date    2010-03-11
 @version $Id$
 
 This script patches the traffic lights of an input network for the gaming mode.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import re, sys

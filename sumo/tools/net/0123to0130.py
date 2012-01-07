@@ -2,13 +2,15 @@
 """
 @file    0123to0130.py
 @author  Daniel Krajzewicz
+@author  Jakob Erdmann
+@author  Michael Behrisch
 @date    2007
 @version $Id$
 
 Changes xml network files from version 0.12.3 to version 0.13.0.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, string, sys, glob

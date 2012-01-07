@@ -2,13 +2,14 @@
 """
 @file    constants.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2008-07-21
 @version $Id$
 
 Defining constants for the CityMobil parking lot.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os

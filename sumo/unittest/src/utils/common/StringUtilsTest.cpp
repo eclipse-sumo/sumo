@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    StringUtilsTests.cpp
 /// @author  Matthias Heppner
+/// @author  Michael Behrisch
 /// @date    2009
 /// @version $Id$
 ///

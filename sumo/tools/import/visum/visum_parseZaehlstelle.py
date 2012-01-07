@@ -2,6 +2,7 @@
 """
 @file    visum_parseZaehlstelle.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2008-11-30
 @version $Id$
 
@@ -11,7 +12,7 @@ This script reads "Zaehlstellen" from a given VISUM-network
 The parsed "Zaehlstellen" are written as POIs.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

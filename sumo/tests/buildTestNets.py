@@ -1,7 +1,16 @@
 #!/usr/bin/env python
-# Builds all example networks
-# $Id$
+"""
+@file    buildTestNets.py
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
+@version $Id$
 
+Rebuils all sumo networks serving as input for the tests.
+
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+All rights reserved
+"""
 import os, sys, subprocess
 
 mRoot = "."

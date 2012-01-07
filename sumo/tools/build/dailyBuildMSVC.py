@@ -2,6 +2,8 @@
 """
 @file    dailyBuildMSVC.py
 @author  Michael Behrisch
+@author  Jakob Erdmann
+@author  Laura Bieker
 @date    2008
 @version $Id$
 
@@ -11,7 +13,7 @@ Some paths especially for the temp dir and the compiler are
 hard coded into this script.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 from __future__ import with_statement

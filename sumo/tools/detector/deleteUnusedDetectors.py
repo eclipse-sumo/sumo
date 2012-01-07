@@ -2,6 +2,7 @@
 """
 @file    deleteUnusedDetektors.py
 @author  Laura Bieker
+@author  Michael Behrisch
 @date    2010-03-03
 
 This script reads a network as first parameter and a file with the positions
@@ -9,7 +10,7 @@ of detectors as second parameter. As result the script writes a new file
 with detectors which are actually used in the given network. 
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

@@ -2,6 +2,8 @@
 """
 @file    createRoundaboutConnections.py
 @author  Laura Bieker
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-02-21
 @version $Id$
 
@@ -9,7 +11,7 @@ This script reads in the network given as
  first parameter and generates additional connections for roundabouts.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2010-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2010-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

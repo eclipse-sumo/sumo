@@ -2,13 +2,15 @@
 """
 @file    costFunctionChecker.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @date    2009-08-31
 @version $Id$
 
 Run duarouter repeatedly and simulate weight changes via a cost function.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys, subprocess, types

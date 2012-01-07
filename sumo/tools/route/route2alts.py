@@ -2,6 +2,7 @@
 """
 @file    route2alts.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    11.09.2009
 @version $Id$
 
@@ -11,7 +12,7 @@ Builds route alternatives assigning the so determined probabilities to use a rou
 Please note that the cost of the route is not computed!
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, optparse, array

@@ -2,13 +2,14 @@
 """
 @file    agentManager.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2008-10-09
 @version $Id$
 
 Control the CityMobil parking lot with a multi agent system.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import vehicleControl, statistics

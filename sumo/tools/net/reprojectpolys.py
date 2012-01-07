@@ -2,6 +2,7 @@
 """
 @file    reprojectpolys.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2008-03-27
 @version $Id$
 
@@ -14,7 +15,7 @@ This means, the resulting polygons, written to the output
  be on net1.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

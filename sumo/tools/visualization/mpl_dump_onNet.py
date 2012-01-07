@@ -2,6 +2,7 @@
 """
 @file    mpl_dump_onNet.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-10-25
 @version $Id$
 
@@ -13,7 +14,7 @@ This script reads a network and a dump file and
 matplotlib has to be installed for this purpose
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

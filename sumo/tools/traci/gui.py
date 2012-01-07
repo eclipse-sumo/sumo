@@ -2,6 +2,7 @@
 """
 @file    gui.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2011-03-09
 @version $Id$
 

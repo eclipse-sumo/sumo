@@ -2,6 +2,7 @@
 """
 @file    netextract_subPart.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-02-21
 @version $Id$
 
@@ -14,7 +15,7 @@ It extracts nodes given on the command line as well as the edges
  for their reuse in NETCONVERT
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

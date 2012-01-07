@@ -1,4 +1,17 @@
 #!/usr/bin/env python
+"""
+@file    tracirunner.py
+@author  Michael Behrisch
+@author  Daniel Krajzewicz
+@author  Friedemann Wesner
+@version $Id$
+
+Wrapper script for running TraCI tests with TextTest.
+
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+All rights reserved
+"""
 import os,subprocess,sys,time
 
 numParams = 1

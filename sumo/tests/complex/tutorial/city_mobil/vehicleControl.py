@@ -2,13 +2,15 @@
 """
 @file    vehicleControl.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
+@author  Lena Kalleske
 @date    2008-07-21
 @version $Id$
 
 Control the CityMobil parking lot via TraCI.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import subprocess, random, sys, os

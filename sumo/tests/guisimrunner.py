@@ -1,4 +1,16 @@
 #!/usr/bin/env python
+"""
+@file    guisimrunner.py
+@author  Michael Behrisch
+@author  Daniel Krajzewicz
+@version $Id$
+
+Wrapper script for GUI runs of the sumo tests.
+
+SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
+All rights reserved
+"""
 import os, subprocess, sys, shutil
 
 sumoBinary = os.path.join(os.path.dirname(sys.argv[1]), "sumo")

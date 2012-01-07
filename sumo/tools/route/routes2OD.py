@@ -2,6 +2,8 @@
 """
 @file    routes2OD.py
 @author  Julia Ringel
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-04-15
 @version $Id$
 
@@ -10,7 +12,7 @@ when starting the programm the name for the inputfile and the outputfile
 have to de supplied via the command line
  
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

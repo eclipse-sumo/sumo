@@ -2,6 +2,7 @@
 """
 @file    tls_csv2SUMO.py
 @author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-08-01
 @version $Id$
 
@@ -10,7 +11,7 @@ Currently verified:
 - phase length matches controlled link number
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2009-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

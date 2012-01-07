@@ -2,6 +2,7 @@
 """
 @file    inductionloop.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2011-03-16
 @version $Id$
 

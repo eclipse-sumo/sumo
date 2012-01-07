@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 @file    poi.py
-@author  Michael Behrisch, Lena Kalleske
+@author  Michael Behrisch
+@author  Lena Kalleske
 @date    2008-10-09
 @version $Id$
 
 Python implementation of the TraCI interface.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import struct, traci

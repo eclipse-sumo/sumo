@@ -2,6 +2,8 @@
 """
 @file    version.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
+@author  Jakob Erdmann
 @date    2007
 @version $Id$
 
@@ -11,7 +13,7 @@ If a version file exists, it is kept, otherwise the current
  SVN revision is used as version information.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

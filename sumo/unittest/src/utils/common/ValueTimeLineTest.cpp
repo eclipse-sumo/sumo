@@ -1,6 +1,8 @@
 /****************************************************************************/
 /// @file    ValueTimeLineTest.cpp
 /// @author  Matthias Heppner
+/// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    Sept 2009
 /// @version $Id$
 ///

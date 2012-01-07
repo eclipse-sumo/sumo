@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
 @file    getWikiPages.py
-@author  Daniel.Krajzewicz@dlr.de
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2011-10-20
 @version $Id$
 

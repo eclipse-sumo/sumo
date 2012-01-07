@@ -2,6 +2,8 @@
 """
 @file    inputs.py
 @author  Yun-Pang Wang
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-10-25
 @version $Id$
 
@@ -9,7 +11,7 @@ This script is to retrieve the assignment parameters, the OD districts and the m
 Moreover, the link travel time for district connectors will be estimated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

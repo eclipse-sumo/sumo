@@ -2,12 +2,14 @@
 """
 @file    GenerateTaxiRoutesMain.py
 @author  Sascha Krieg
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2008-08-30
 
 Reads taxi routes and create several new routeFile with different depart times for each route.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

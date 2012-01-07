@@ -2,6 +2,7 @@
 """
 @file    route2trips.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2008-03-19
 @version $Id$
 
@@ -11,7 +12,7 @@ It reads the routes from a file given as first parameter
 and outputs the trips to stdout.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import sys, datetime

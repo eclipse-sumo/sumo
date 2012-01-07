@@ -2,13 +2,14 @@
 """
 @file    runner.py
 @author  Michael Behrisch
+@author  Daniel Krajzewicz
 @date    2011-10-28
 @version $Id$
 
 This script is a test runner for the CityMobil scenario.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2011-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2011-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

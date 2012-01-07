@@ -1,6 +1,8 @@
 """
 @file    tables.py
 @author  Yun-Pang Wang
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2008-03-18
 @version $Id: calStatistics.py 2008-03-18$
 
@@ -11,7 +13,7 @@ This file defines global tables used to:
 - conduct significance tests
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 crCurveTable = {"CR2": (1., 2., 2.),

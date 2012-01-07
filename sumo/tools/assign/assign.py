@@ -1,6 +1,8 @@
 """
 @file    assign.py
 @author  Yun-Pang Wang
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2007-11-25
 @version $Id$
 
@@ -8,7 +10,7 @@ This script is for executing traffic assignment according to the required assign
 The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2008-2011 DLR (http://www.dlr.de/) and contributors
+Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 

@@ -2,13 +2,15 @@
 """
 @file    runner.py
 @author  Lena Kalleske
+@author  Daniel Krajzewicz
+@author  Michael Behrisch
 @date    2009-03-26
 @version $Id$
 
 Tutorial for traffic light control via the TraCI interface.
 
 SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-Copyright (C) 2009-2011 DLR/TS, Germany
+Copyright (C) 2009-2012 DLR/TS, Germany
 All rights reserved
 """
 
