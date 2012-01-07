@@ -542,10 +542,10 @@ OptionsCont::processMetaOptions(bool missingOptions) {
                     myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
             std::cout << " " << *it << std::endl;
         }
-        std::cout << "\nThis file is part of SUMO.
-//   SUMO is free software: you can redistribute it and/or modify\n";
+        std::cout << "\n" << myFullName << " is part of SUMO.\n";
+        std::cout << "SUMO is free software: you can redistribute it and/or modify\n";
         std::cout << "it under the terms of the GNU General Public License as published by\n";
-        std::cout << "the Free Software Foundation; either version 3 of the License, or\n";
+        std::cout << "the Free Software Foundation, either version 3 of the License, or\n";
         std::cout << "(at your option) any later version.\n\n";
         std::cout << "This program is distributed in the hope that it will be useful,\n";
         std::cout << "but WITHOUT ANY WARRANTY; without even the implied warranty of\n";
