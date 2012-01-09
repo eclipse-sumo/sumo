@@ -293,20 +293,19 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             // build only once...
             std::string state = inputStorage.readString();
-            MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
-            std::vector<MSPhaseDefinition*> phases;
-            phases.push_back(phase);
             if (vars.getLogic("online") == 0) {
+                MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
+                std::vector<MSPhaseDefinition*> phases;
+                phases.push_back(phase);
                 MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime + DELTA_T);
                 vars.addLogic("online", logic, true, true);
-                vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-                vars.executeOnSwitchActions();
             } else {
                 MSPhaseDefinition nphase(DELTA_T, state);
                 *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-                vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-                vars.executeOnSwitchActions();
             }
+            // @note: this assumes logic "online" is still active
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         }
         break;
         case TL_COMPLETE_PROGRAM_RYG: {

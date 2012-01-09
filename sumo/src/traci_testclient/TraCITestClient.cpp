@@ -73,6 +73,7 @@ TraCITestClient::TraCITestClient(std::string outputFileName)
 
 TraCITestClient::~TraCITestClient() {
     writeResult();
+    delete socket;
 }
 
 
