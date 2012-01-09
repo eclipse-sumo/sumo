@@ -2,9 +2,9 @@
    5 nodes generated.
    16 edges generated.
 Removing self-loops... done.
-Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
+Joining similar edges... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.
 Computing turning directions... done.
