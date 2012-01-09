@@ -6,9 +6,9 @@ Loading edges... done.
    8 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
-Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
+Joining similar edges... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.
 Computing turning directions... done.

@@ -10,11 +10,11 @@ Removing duplicate edges... done.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done.
-Joining similar edges... done.
 Finding isolated roads... 
 done.
 Removing empty nodes and geometry nodes... done.
    2 nodes removed.
+Joining similar edges... done.
 Guessing and setting on-/off-ramps... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.

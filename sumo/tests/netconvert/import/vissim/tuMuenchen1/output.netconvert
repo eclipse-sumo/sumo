@@ -23,9 +23,9 @@ Checked(3): 7/7
    11 nodes loaded.
    10 edges loaded.
 Removing self-loops... done.
-Joining similar edges... done.
 Removing empty nodes... done.
    0 nodes removed.
+Joining similar edges... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.
 Computing turning directions... done.

@@ -11,9 +11,9 @@ Removing duplicate edges... done.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... 
 done.
-Joining similar edges... done.
 Removing empty nodes... done.
    2 nodes removed.
+Joining similar edges... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.
 Computing turning directions... done.
