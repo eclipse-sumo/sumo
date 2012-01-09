@@ -186,7 +186,13 @@ NIImporter_ArcView::load() {
             from_node = toString(myRunningNodeID++);
             to_node = toString(myRunningNodeID++);
         }
-        std::string type = poFeature->GetFieldAsString("ST_TYP_AFT");
+
+        std::string type;
+        if (myOptions.isSet("shapefile.type-id") && poFeature->GetFieldIndex(myOptions.getString("shapefile.type-id").c_str())>=0) {
+            type = poFeature->GetFieldAsString(myOptions.getString("shapefile.type-id").c_str());
+        } else if(poFeature->GetFieldIndex("ST_TYP_AFT")>=0) {
+            type = poFeature->GetFieldAsString("ST_TYP_AFT");
+        }
         SUMOReal width = myTypeCont.getWidth(type);
         SUMOReal speed = getSpeed(*poFeature, id);
         unsigned int nolanes = getLaneNo(*poFeature, id, speed);
