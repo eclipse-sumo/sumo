@@ -61,9 +61,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
 
 
 MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
-    for (size_t i = 0; i < myPhases.size(); i++) {
-        delete myPhases[i];
-    }
+    deletePhases();
 }
 
 
@@ -198,6 +196,21 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, stepDuration + simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
+}
+
+
+void 
+MSSimpleTrafficLightLogic::setPhases(const Phases& phases) {
+    deletePhases();
+    myPhases = phases;
+}
+
+
+void 
+MSSimpleTrafficLightLogic::deletePhases() {
+    for (size_t i = 0; i < myPhases.size(); i++) {
+        delete myPhases[i];
+    }
 }
 
 

@@ -182,6 +182,10 @@ public:
      */
     void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
                                unsigned int step, SUMOTime stepDuration);
+
+    /** @brief Replaces the phases
+     */
+    void setPhases(const Phases& phases);
     /// @}
 
 
@@ -192,6 +196,10 @@ protected:
     /// @brief The current step
     unsigned int myStep;
 
+
+private:
+    /// @brief frees memory responsibilities
+    void deletePhases();
 
 };
 

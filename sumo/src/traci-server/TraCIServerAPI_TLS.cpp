@@ -370,13 +370,11 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (vars.getLogic(subid) == 0) {
                 MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
                 vars.addLogic(subid, logic, true, true);
-                vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-                vars.executeOnSwitchActions();
             } else {
-                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->getPhases() = phases;
-                vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-                vars.executeOnSwitchActions();
+                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases);
             }
+            vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+            vars.executeOnSwitchActions();
         }
         break;
         default:

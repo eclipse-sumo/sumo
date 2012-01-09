@@ -862,8 +862,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Adding a vehicle needs six parameters.", outputStorage);
                 return false;
             }
-            SUMOVehicleParameter* vehicleParams = new SUMOVehicleParameter();
-            vehicleParams->id = id;
+            SUMOVehicleParameter vehicleParams;
+            vehicleParams.id = id;
 
             if (inputStorage.readUnsignedByte() != TYPE_STRING) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "First parameter (type) requires a string.", outputStorage);
@@ -890,66 +890,69 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Third parameter (depart) requires an integer.", outputStorage);
                 return false;
             }
-            vehicleParams->depart = inputStorage.readInt();
-            if (vehicleParams->depart < 0) {
-                const int proc = static_cast<int>(-vehicleParams->depart);
+            vehicleParams.depart = inputStorage.readInt();
+            if (vehicleParams.depart < 0) {
+                const int proc = static_cast<int>(-vehicleParams.depart);
                 if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure time.", outputStorage);
                     return false;
                 }
-                vehicleParams->departProcedure = (DepartDefinition)proc;
+                vehicleParams.departProcedure = (DepartDefinition)proc;
             }
 
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fourth parameter (position) requires a double.", outputStorage);
                 return false;
             }
-            vehicleParams->departPos = inputStorage.readDouble();
-            if (vehicleParams->departPos < 0) {
-                const int proc = static_cast<int>(-vehicleParams->departPos);
+            vehicleParams.departPos = inputStorage.readDouble();
+            if (vehicleParams.departPos < 0) {
+                const int proc = static_cast<int>(-vehicleParams.departPos);
                 if (proc >= static_cast<int>(DEPART_POS_DEF_MAX)) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure position.", outputStorage);
                     return false;
                 }
-                vehicleParams->departPosProcedure = (DepartPosDefinition)proc;
+                vehicleParams.departPosProcedure = (DepartPosDefinition)proc;
             } else {
-                vehicleParams->departPosProcedure = DEPART_POS_GIVEN;
+                vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
             }
 
             if (inputStorage.readUnsignedByte() != TYPE_DOUBLE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Fifth parameter (speed) requires a double.", outputStorage);
                 return false;
             }
-            vehicleParams->departSpeed = inputStorage.readDouble();
-            if (vehicleParams->departSpeed < 0) {
-                const int proc = static_cast<int>(-vehicleParams->departSpeed);
+            vehicleParams.departSpeed = inputStorage.readDouble();
+            if (vehicleParams.departSpeed < 0) {
+                const int proc = static_cast<int>(-vehicleParams.departSpeed);
                 if (proc >= static_cast<int>(DEPART_SPEED_DEF_MAX)) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure speed.", outputStorage);
                     return false;
                 }
-                vehicleParams->departSpeedProcedure = (DepartSpeedDefinition)proc;
+                vehicleParams.departSpeedProcedure = (DepartSpeedDefinition)proc;
             } else {
-                vehicleParams->departSpeedProcedure = DEPART_SPEED_GIVEN;
+                vehicleParams.departSpeedProcedure = DEPART_SPEED_GIVEN;
             }
 
             if (inputStorage.readUnsignedByte() != TYPE_BYTE) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Sixth parameter (lane) requires a byte.", outputStorage);
                 return false;
             }
-            vehicleParams->departLane = inputStorage.readByte();
-            if (vehicleParams->departLane < 0) {
-                const int proc = static_cast<int>(-vehicleParams->departLane);
+            vehicleParams.departLane = inputStorage.readByte();
+            if (vehicleParams.departLane < 0) {
+                const int proc = static_cast<int>(-vehicleParams.departLane);
                 if (proc >= static_cast<int>(DEPART_LANE_DEF_MAX)) {
                     server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid departure lane.", outputStorage);
                     return false;
                 }
-                vehicleParams->departLaneProcedure = (DepartLaneDefinition)proc;
+                vehicleParams.departLaneProcedure = (DepartLaneDefinition)proc;
             } else {
-                vehicleParams->departLaneProcedure = DEPART_LANE_GIVEN;
+                vehicleParams.departLaneProcedure = DEPART_LANE_GIVEN;
             }
+
+            SUMOVehicleParameter* params = new SUMOVehicleParameter();
+            *params = vehicleParams;
             try {
-                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(vehicleParams, route, vehicleType);
-                MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams->id, vehicle);
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType);
+                MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
             } catch (ProcessError& e) {
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, e.what(), outputStorage);
