@@ -96,7 +96,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>
     std::vector<const ROEdge*> edges;
     router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
     RORoute* opt = new RORoute(myID, 0, 1, edges, copyColorIfGiven());
-    SUMOReal costs = router.recomputeCosts(opt->getEdgeVector(), &veh, begin);
+    const SUMOReal costs = router.recomputeCosts(edges, &veh, begin);
     // check whether the same route was already used
     myLastUsed = findRoute(opt);
     myNewRoute = true;

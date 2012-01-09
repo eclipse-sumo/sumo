@@ -78,7 +78,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     <input>
         <net-file value="%s"/>""" % options.net
     if options.districts:
-        print >> fd, '        <districts value="%s"/>' % options.districts
+        print >> fd, '        <taz-files value="%s"/>' % options.districts
     if step==0:
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
