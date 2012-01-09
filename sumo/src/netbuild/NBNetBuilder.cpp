@@ -125,11 +125,6 @@ NBNetBuilder::compute(OptionsCont& oc,
     myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_DONE_MESSAGE();
     //
-    PROGRESS_BEGIN_MESSAGE("Joining similar edges");
-    myJoinedEdges.init(myEdgeCont);
-    myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
-    PROGRESS_DONE_MESSAGE();
-    //
     if (oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         PROGRESS_BEGIN_MESSAGE("Finding isolated roads");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
@@ -156,6 +151,12 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
+    // @note: removing geometry can create similar edges so "Joining" must come afterwards
+    // @note: likewise splitting can destroy similarities so "Joining" must come before 
+    PROGRESS_BEGIN_MESSAGE("Joining similar edges");
+    myJoinedEdges.init(myEdgeCont);
+    myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
+    PROGRESS_DONE_MESSAGE();
     //
     if (oc.exists("geometry.split") && oc.getBool("geometry.split")) {
         PROGRESS_BEGIN_MESSAGE("Splitting geometry edges");
