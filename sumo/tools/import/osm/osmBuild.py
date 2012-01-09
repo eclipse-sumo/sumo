@@ -21,7 +21,7 @@ netconvert = path.join(os.environ.get('SUMO_BINDIR', ''), 'netconvert')
 polyconvert = path.join(os.environ.get('SUMO_BINDIR', ''), 'polyconvert')
 
 vclassRemove = {"passenger" : " --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian",
-                "road" : " --remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian",
+                "road" : " --remove-edges.by-vclass rail_slow,rail_fast,lightrail,cityrail,bicycle,pedestrian",
                 "all" : "" }
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
