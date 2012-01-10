@@ -219,20 +219,14 @@ NBFrame::fillOptions(bool forNetgen) {
     }
 
     oc.doRegister("keep-edges.in-boundary", new Option_String());
-    oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Only keeps edges which are located within the given boundary");
+    oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Keeps edges which are located within the given boundary");
 
     if (!forNetgen) {
         oc.doRegister("keep-edges.by-vclass", new Option_String());
-        oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Only keep edges that allow any of the vclasss in STR");
-
-        oc.doRegister("keep-edges.by-type", new Option_String());
-        oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR");
+        oc.addDescription("keep-edges.by-vclass", "Edge Removal", "Keep edges that allow any of the vclasss in STR");
 
         oc.doRegister("remove-edges.by-vclass", new Option_String());
-        oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges which allow only classes in STR");
-
-        oc.doRegister("remove-edges.by-type", new Option_String());
-        oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR");
+        oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
 
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
