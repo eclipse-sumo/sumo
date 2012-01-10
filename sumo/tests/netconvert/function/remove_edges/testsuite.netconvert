@@ -3,20 +3,20 @@
 # no_removal (plain import)
 plain
 
-# The top (4*) edges are removed 
+# The top (4*) edges are removed
 removing_top
 
-# The bottom (3*) edges are removed 
+# The bottom (3*) edges are removed
 removing_bottom
 
-# The left (1*) edges are removed 
+# The left (1*) edges are removed
 removing_left
 
-# The right (2*) edges are removed 
+# The right (2*) edges are removed
 removing_right
-
-
 
 # tests whether dividing edges by a ';' yields in a deprecation warning (based on removing_bottom)
 _deprecated_
 
+# remove edges with the given type
+by-type

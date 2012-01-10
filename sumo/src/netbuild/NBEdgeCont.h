@@ -504,6 +504,12 @@ private:
     /// @brief Set of vehicle types which must not be disallowed on edges in order to keep them
     SUMOVehicleClasses myVehicleClasses2Remove;
 
+    /// @brief Set of edges types which shall be kept
+    std::set<std::string> myTypes2Keep;
+
+    /// @brief Set of edges types which shall be removed
+    std::set<std::string> myTypes2Remove;
+
     /// @brief Boundary within which an edge must be located in order to be kept
     PositionVector myPrunningBoundary;
 

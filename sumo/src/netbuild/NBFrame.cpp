@@ -228,6 +228,12 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("remove-edges.by-vclass", new Option_String());
         oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges which allow only vclasses from STR");
 
+        oc.doRegister("keep-edges.by-type", new Option_String());
+        oc.addDescription("keep-edges.by-type", "Edge Removal", "Only keep edges where type is in STR");
+
+        oc.doRegister("remove-edges.by-type", new Option_String());
+        oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where type is in STR");
+
         oc.doRegister("remove-edges.isolated", new Option_Bool(false));
         oc.addSynonyme("remove-edges.isolated", "remove-isolated", true);
         oc.addDescription("remove-edges.isolated", "Edge Removal", "Removes isolated edges");

@@ -102,6 +102,15 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
             myVehicleClasses2Remove.insert(svc);
         }
     }
+    if (oc.exists("keep-edges.by-type") && oc.isSet("keep-edges.by-type")) {
+        const std::vector<std::string> types = oc.getStringVector("keep-edges.by-type");
+        myTypes2Keep.insert(types.begin(), types.end());
+    }
+    if (oc.exists("remove-edges.by-type") && oc.isSet("remove-edges.by-type")) {
+        const std::vector<std::string> types = oc.getStringVector("remove-edges.by-type");
+        myTypes2Remove.insert(types.begin(), types.end());
+    }
+
     if (oc.isSet("keep-edges.in-boundary")) {
         std::vector<std::string> polyS = oc.getStringVector("keep-edges.in-boundary");
         // !!! throw something if length<4 || length%2!=0?
@@ -196,6 +205,18 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
         }
         // remove the edge if all allowed
         if (allowed.size() == 0 && matching != 0) {
+            ignore = true;
+        }
+    }
+    // check whether the edge shall be removed because it does not have one of the requested types
+    if (!ignore && myTypes2Keep.size() != 0) {
+        if (myTypes2Keep.count(edge->getTypeID()) == 0) {
+            ignore = true;
+        }
+    }
+    // check whether the edge shall be removed because it has one of the forbidden types
+    if (!ignore && myTypes2Remove.size() != 0) {
+        if (myTypes2Remove.count(edge->getTypeID()) > 0) {
             ignore = true;
         }
     }
