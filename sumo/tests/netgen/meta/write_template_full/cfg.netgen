@@ -62,15 +62,15 @@
     </tls_building>
 
     <edge_removal>
-        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Remove edges with speed < FLOAT"/>
+        <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed > FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
-        <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Remove edges not in STR"/>
-        <keep-edges.input-file value="" type="FILE" help="Removed edges not in FILE"/>
-        <keep-edges.in-boundary value="" type="STR" help="Keeps edges which are located within the given boundary"/>
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE"/>
+        <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary"/>
     </edge_removal>
 
     <unregulated_nodes>
-        <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL" help="All nodes will be not regulated"/>
+        <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL" help="All nodes will be unregulated"/>
         <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR" help="Do not regulate nodes in STR"/>
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL" help="Do not regulate district nodes"/>
     </unregulated_nodes>

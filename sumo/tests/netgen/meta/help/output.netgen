@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r11672
+SUMO netgen Version dev-SVN-r11690
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -97,15 +97,15 @@ Usage: netgen [OPTION]*
                                         quarter-phase
 
  Edge Removal Options:
-  --keep-edges.min-speed FLOAT        Remove edges with speed < FLOAT
+  --keep-edges.min-speed FLOAT        Only keep edges with speed > FLOAT
   --remove-edges.explicit STR         Remove edges in STR
-  --keep-edges.explicit STR           Remove edges not in STR
-  --keep-edges.input-file FILE        Removed edges not in FILE
-  --keep-edges.in-boundary STR        Keeps edges which are located within the
-                                        given boundary
+  --keep-edges.explicit STR           Only keep edges in STR
+  --keep-edges.input-file FILE        Only keep edges in FILE
+  --keep-edges.in-boundary STR        Only keep edges which are located within
+                                        the given boundary
 
  Unregulated Nodes Options:
-  --keep-nodes-unregulated            All nodes will be not regulated
+  --keep-nodes-unregulated            All nodes will be unregulated
   --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 

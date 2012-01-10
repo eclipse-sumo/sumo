@@ -153,28 +153,28 @@
     </ramp_guessing>
 
     <edge_removal>
-        <!-- Remove edges with speed < FLOAT -->
+        <!-- Only keep edges with speed > FLOAT -->
         <keep-edges.min-speed value="" synonymes="edges-min-speed" type="FLOAT"/>
 
         <!-- Remove edges in STR -->
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
 
-        <!-- Remove edges not in STR -->
+        <!-- Only keep edges in STR -->
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR"/>
 
-        <!-- Removed edges not in FILE -->
+        <!-- Only keep edges in FILE -->
         <keep-edges.input-file value="" type="FILE"/>
 
         <!-- Remove edges after joining -->
         <keep-edges.postload value="false" type="BOOL"/>
 
-        <!-- Keeps edges which are located within the given boundary -->
+        <!-- Only keep edges which are located within the given boundary -->
         <keep-edges.in-boundary value="" type="STR"/>
 
-        <!-- Keep edges that allow any of the vclasss in STR -->
+        <!-- Only keep edges which allow one of the vclasss in STR -->
         <keep-edges.by-vclass value="" type="STR"/>
 
-        <!-- Remove edges where vclass def is not in STR -->
+        <!-- Remove edges which allow only vclasses from STR -->
         <remove-edges.by-vclass value="" type="STR"/>
 
         <!-- Removes isolated edges -->
@@ -183,7 +183,7 @@
     </edge_removal>
 
     <unregulated_nodes>
-        <!-- All nodes will be not regulated -->
+        <!-- All nodes will be unregulated -->
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL"/>
 
         <!-- Do not regulate nodes in STR -->
