@@ -133,10 +133,10 @@ def writeSUMOConf(step, options, files):
             print >> fd, '        <device.hbefa.probability value="1"/>'
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            print >> fd, '         <vehroute-output value="vehroute_%03i.xml"/>' % step
+            print >> fd, '        <vehroute-output value="vehroute_%03i.xml"/>' % step
         elif options.routefile == "detailed":
-            print >> fd, '         <vehroute-output value="vehroute_%03i.xml"/>' % step
-            print >> fd, '         <vehroute-output.exit-times value="True"/>'
+            print >> fd, '        <vehroute-output value="vehroute_%03i.xml"/>' % step
+            print >> fd, '        <vehroute-output.exit-times value="True"/>'
     if hasattr(options, "lastroute") and options.lastroute:
         print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
     print >> fd, "    </output>"
@@ -151,6 +151,7 @@ def writeSUMOConf(step, options, files):
         <route-steps value="%s"/>""" % options.routeSteps
     print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
     print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
+    print >> fd, '        <sloppy-insert value="%s"/>' % options.sloppy_insert
     if hasattr(options, "incBase") and options.incBase > 0:
         print >> fd, '        <scale value="%s"/>' % (options.incValue*float(step+1) / options.incBase)
     if options.mesosim:
