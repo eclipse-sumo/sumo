@@ -434,7 +434,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
         } else {
             // we do not know the type -> something else, ignore
-            WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
+            //WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
             return;
         }
     }
