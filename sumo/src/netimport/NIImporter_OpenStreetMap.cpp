@@ -200,7 +200,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     tc.insert("highway.residential",   1, (SUMOReal)(50. / 3.6),  4, WIDTH); // actually, maybe one lane for parking would be nice...
     tc.insert("highway.living_street", 1, (SUMOReal)(10. / 3.6),  3, WIDTH);
     tc.insert("highway.service",       1, (SUMOReal)(20. / 3.6),  2, WIDTH, SVC_DELIVERY);
-    tc.insert("highway.track",         1, (SUMOReal)(20. / 3.6),  1, WIDTH, SVC_BICYCLE); // developed countries!
+    tc.insert("highway.track",         1, (SUMOReal)(20. / 3.6),  1, WIDTH);
     tc.insert("highway.services",      1, (SUMOReal)(30. / 3.6),  1, WIDTH);
     tc.insert("highway.unsurfaced",    1, (SUMOReal)(30. / 3.6),  1, WIDTH); // unofficial value, used outside germany
     tc.insert("highway.footway",       1, (SUMOReal)(30. / 3.6),  1, WIDTH, SVC_PEDESTRIAN); 
