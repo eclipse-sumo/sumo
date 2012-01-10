@@ -250,7 +250,6 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
         ++predIt;
     }
     if (maxSpeed > 0) {
-        if (maxIt == myVehicles.end()) std::cout << "end" << std::endl;
         incorporateVehicle(&veh, maxPos, maxSpeed, maxIt);
         return true;
     }
