@@ -158,80 +158,7 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
     if (myEdges.count(edge->getID())) {
         return false;
     }
-    if (ignorePrunning) {
-        myEdges[edge->getID()] = edge;
-        return true;
-    }
-    // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
-    bool ignore = edge->getSpeed() < myEdgesMinSpeed;
-    // check whether the edge is a named edge to keep
-    if (!ignore && !myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
-        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID()) == myEdges2Keep.end()) {
-            ignore = true;
-        }
-    }
-    // check whether the edge is a named edge to remove
-    if (!ignore && myEdges2Remove.size() != 0) {
-        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID()) != myEdges2Remove.end()) {
-            ignore = true;
-        }
-    }
-    // check whether the edge shall be removed because it does not allow any of the wished classes
-    if (!ignore && myVehicleClasses2Keep.size() != 0) {
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        // @todo also check disallowed
-        if (allowed.size() > 0) {
-            int matching = 0;
-            for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Keep.begin(); i != myVehicleClasses2Keep.end(); ++i) {
-                if (allowed.count(*i)) {
-                    allowed.erase(*i);
-                    matching++;
-                }
-            }
-            if (matching == 0) {
-                ignore = true;
-            }
-        }
-    }
-    // check whether the edge shall be removed due to allowing unwished classes only
-    if (!ignore && myVehicleClasses2Remove.size() != 0) {
-        int matching = 0;
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Remove.begin(); i != myVehicleClasses2Remove.end(); ++i) {
-            if (allowed.count(*i)) {
-                allowed.erase(*i);
-                matching++;
-            }
-        }
-        // remove the edge if all allowed
-        if (allowed.size() == 0 && matching != 0) {
-            ignore = true;
-        }
-    }
-    // check whether the edge shall be removed because it does not have one of the requested types
-    if (!ignore && myTypes2Keep.size() != 0) {
-        if (myTypes2Keep.count(edge->getTypeID()) == 0) {
-            ignore = true;
-        }
-    }
-    // check whether the edge shall be removed because it has one of the forbidden types
-    if (!ignore && myTypes2Remove.size() != 0) {
-        if (myTypes2Remove.count(edge->getTypeID()) > 0) {
-            ignore = true;
-        }
-    }
-
-    // check whether the edge is within the prunning boundary
-    if (!ignore && myPrunningBoundary.size() != 0) {
-        if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
-            ignore = true;
-        }
-    }
-    if (!ignore && myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
-        ignore = true;
-    }
-
-    if (ignore) {
+    if (!ignorePrunning && ignoreFilterMatch(edge)) {
         edge->getFromNode()->removeEdge(edge);
         edge->getToNode()->removeEdge(edge);
         myIgnoredEdges.insert(edge->getID());
@@ -244,6 +171,81 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
         myEdges[edge->getID()] = edge;
     }
     return true;
+}
+
+
+bool 
+NBEdgeCont::ignoreFilterMatch(NBEdge *edge) {
+    // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
+    if (edge->getSpeed() < myEdgesMinSpeed) {
+        return true;
+    }
+    // check whether the edge is a named edge to keep
+    if (!myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
+        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID()) == myEdges2Keep.end()) {
+            return true;
+        }
+    }
+    // check whether the edge is a named edge to remove
+    if (myEdges2Remove.size() != 0) {
+        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID()) != myEdges2Remove.end()) {
+            return true;
+        }
+    }
+    // check whether the edge shall be removed because it does not allow any of the wished classes
+    if (myVehicleClasses2Keep.size() != 0) {
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
+        // @todo also check disallowed
+        if (allowed.size() > 0) {
+            int matching = 0;
+            for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Keep.begin(); i != myVehicleClasses2Keep.end(); ++i) {
+                if (allowed.count(*i)) {
+                    allowed.erase(*i);
+                    matching++;
+                }
+            }
+            if (matching == 0) {
+                return true;
+            }
+        }
+    }
+    // check whether the edge shall be removed due to allowing unwished classes only
+    if (myVehicleClasses2Remove.size() != 0) {
+        int matching = 0;
+        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
+        for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Remove.begin(); i != myVehicleClasses2Remove.end(); ++i) {
+            if (allowed.count(*i)) {
+                allowed.erase(*i);
+                matching++;
+            }
+        }
+        // remove the edge if all allowed
+        if (allowed.size() == 0 && matching != 0) {
+            return true;
+        }
+    }
+    // check whether the edge shall be removed because it does not have one of the requested types
+    if (myTypes2Keep.size() != 0) {
+        if (myTypes2Keep.count(edge->getTypeID()) == 0) {
+            return true;
+        }
+    }
+    // check whether the edge shall be removed because it has one of the forbidden types
+    if (myTypes2Remove.size() != 0) {
+        if (myTypes2Remove.count(edge->getTypeID()) > 0) {
+            return true;
+        }
+    }
+    // check whether the edge is within the prunning boundary
+    if (myPrunningBoundary.size() != 0) {
+        if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
+            return true;
+        }
+    }
+    if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
+        return true;
+    }
+    return false;
 }
 
 

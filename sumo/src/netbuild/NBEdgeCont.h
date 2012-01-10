@@ -463,6 +463,10 @@ private:
     EdgeVector getGeneratedFrom(const std::string& id) const ;
 
 
+    /// @brief Returns true if this edge matches one of the removal criteria
+    bool ignoreFilterMatch(NBEdge *edge);
+
+
 private:
     /// @brief The type of the dictionary where an edge may be found by its id
     typedef std::map<std::string, NBEdge*> EdgeCont;
