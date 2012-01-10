@@ -71,16 +71,6 @@ const SUMOReal NIImporter_OpenStreetMap::MAXSPEED_UNGIVEN = -1;
 // Private classes
 // ===========================================================================
 
-/** @brief Functor which compares two NIOSMNodes according
- * to their coordinates
- */
-class NIImporter_OpenStreetMap::CompareNodes {
-public:
-    bool operator()(const NIOSMNode* n1, const NIOSMNode* n2) const {
-        return (n1->lat > n2->lat) || (n1->lat == n2->lat && n1->lon > n2->lon);
-    }
-};
-
 /** @brief Functor which compares two Edges
  */
 class NIImporter_OpenStreetMap::CompareEdges {
@@ -101,49 +91,6 @@ public:
         return e1->myCurrentNodes > e2->myCurrentNodes;
     }
 };
-
-/** @brief A functor to substitute a node in the node list of an Edge
- */
-class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function <
-        std::pair<std::string, Edge*>, void > {
-public:
-    /** @brief Initializes the functor with the node to substitute
-     * and the node with that the node in the first argument
-     * is substituted
-     *
-     * @param[in] toSubstitute Every occurrence of this node should
-     *                         substituted
-     * @param[in] substituteWith This node is overwrites
-     *                           the occurrences of toSubstitute
-     */
-    SubstituteNode(const NIOSMNode* const toSubstitute,
-                   const NIOSMNode* const substituteWith) :
-        myToSubstitute(toSubstitute), mySubstituteWith(substituteWith) {
-    }
-    /** @brief Substitutes the nodes in the edge of the given pair
-     *
-     * In the node list, all occurrences of toSubstitute are substituted
-     * with substituteWith. The final list has no equal adjacent nodes.
-     *
-     * @param[in] p A pair with the edge in which the nodes are
-     *              substituted
-     */
-    void operator()(const std::pair<std::string, Edge*>& p) const {
-        std::vector<int>& edgeNodes = p.second->myCurrentNodes;
-        // Substitute nodes
-        std::replace_if(edgeNodes.begin(), edgeNodes.end(), std::bind2nd(
-                            std::equal_to<int>(), myToSubstitute->id), mySubstituteWith->id);
-
-        // Remove adjacent duplicates
-        std::vector<int>::iterator newEnd = std::unique(edgeNodes.begin(),
-                                            edgeNodes.end());
-        edgeNodes.erase(newEnd, edgeNodes.end());
-    }
-
-private:
-    const NIOSMNode* const myToSubstitute, * const mySubstituteWith;
-};
-
 
 // ===========================================================================
 // method definitions
@@ -166,8 +113,8 @@ NIImporter_OpenStreetMap::NIImporter_OpenStreetMap() {}
 
 NIImporter_OpenStreetMap::~NIImporter_OpenStreetMap() {
     // delete nodes
-    for (std::map<int, NIOSMNode*>::iterator i = myOSMNodes.begin(); i != myOSMNodes.end(); ++i) {
-        delete(*i).second;
+    for (std::set<NIOSMNode*, CompareNodes>::iterator i = myUniqueNodes.begin(); i != myUniqueNodes.end(); i++) {
+        delete *i;
     }
     // delete edges
     for (std::map<std::string, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
@@ -230,7 +177,7 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
-    NodesHandler nodesHandler(myOSMNodes);
+    NodesHandler nodesHandler(myOSMNodes, myUniqueNodes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::exists(*file)) {
@@ -251,28 +198,6 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
         edgesHandler.setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + *file + "'");
         XMLSubSys::runParser(edgesHandler, *file);
-        PROGRESS_DONE_MESSAGE();
-    }
-
-    /* Remove duplicate nodes with the same coordinates
-     *
-     * Without that, insertEdge can fail, if both nodes start
-     * the shape of an edge. (NBEdge::init calls PositionVector::push_front
-     * with the second, which has the same coordinates as the first.) */
-    if (!OptionsCont::getOptions().getBool("osm.skip-duplicates-check")) {
-        PROGRESS_BEGIN_MESSAGE("Removing duplicate nodes");
-        if (myOSMNodes.size() > 1) {
-            std::set<const NIOSMNode*, CompareNodes> dupsFinder;
-            for (std::map<int, NIOSMNode*>::iterator it = myOSMNodes.begin(); it != myOSMNodes.end(); ++it) {
-                const std::set<const NIOSMNode*, CompareNodes>::iterator origNode = dupsFinder.find(it->second);
-                if (origNode != dupsFinder.end()) {
-                    WRITE_MESSAGE("Found duplicate nodes. Substituting " + toString(it->second->id) + " with " + toString((*origNode)->id));
-                    for_each(myEdges.begin(), myEdges.end(), SubstituteNode(it->second, *origNode));
-                } else {
-                    dupsFinder.insert(it->second);
-                }
-            }
-        }
         PROGRESS_DONE_MESSAGE();
     }
 
@@ -498,8 +423,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 // ---------------------------------------------------------------------------
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill)
-    : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {
+NIImporter_OpenStreetMap::NodesHandler::NodesHandler(
+        std::map<int, NIOSMNode*> &toFill,
+        std::set<NIOSMNode*, CompareNodes> &uniqueNodes) : 
+    SUMOSAXHandler("osm - file"), 
+    myToFill(toFill), 
+    myUniqueNodes(uniqueNodes),
+    myLastNodeID(-1), 
+    myIsInValidNodeTag(false), 
+    myHierarchyLevel(0) {
 }
 
 
@@ -553,8 +485,17 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             toAdd->tlsControlled = false;
             toAdd->lat = tlat;
             toAdd->lon = tlon;
-            myToFill[toAdd->id] = toAdd;
             myIsInValidNodeTag = true;
+
+            std::set<NIOSMNode*, CompareNodes>::iterator similarNode = myUniqueNodes.find(toAdd);
+            if (similarNode == myUniqueNodes.end()) {
+                myUniqueNodes.insert(toAdd);
+            } else {
+                delete toAdd;
+                toAdd = *similarNode; 
+                WRITE_MESSAGE("Found duplicate nodes. Substituting " + toString(id) + " with " + toString(toAdd->id));
+            }
+            myToFill[id] = toAdd;
         }
     }
     if (element == SUMO_TAG_TAG && myIsInValidNodeTag) {
@@ -637,11 +578,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         bool ok = true;
         int ref = attrs.getIntReporting(SUMO_ATTR_REF, 0, ok);
         if (ok) {
-            if (myOSMNodes.find(ref) == myOSMNodes.end()) {
+            std::map<int, NIOSMNode*>::const_iterator node = myOSMNodes.find(ref);
+            if (node == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
+            } else {
+                ref = node->second->id; // node may have been substituted
+                if (myCurrentEdge->myCurrentNodes.size() == 0 ||
+                        myCurrentEdge->myCurrentNodes.back() != ref) { // avoid consecutive duplicates
+                    myCurrentEdge->myCurrentNodes.push_back(ref); 
+                }
             }
-            myCurrentEdge->myCurrentNodes.push_back(ref);
         }
     }
     // parse values

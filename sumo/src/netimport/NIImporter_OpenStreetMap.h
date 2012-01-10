@@ -120,16 +120,31 @@ protected:
     void _loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 private:
+    /** @brief Functor which compares two NIOSMNodes according
+     * to their coordinates
+     */
+    class CompareNodes {
+        public:
+            bool operator()(const NIOSMNode* n1, const NIOSMNode* n2) const {
+                return (n1->lat > n2->lat) || (n1->lat == n2->lat && n1->lon > n2->lon);
+            }
+    };
+
 
     /// @brief The separator within newly created compound type names
     static const std::string compoundTypeSeparator;
 
-    class CompareNodes;
     class CompareEdges;
-    class SubstituteNode;
 
-    /// we are responsible for ultimate cleanup
+    /** @brief the map from OSM node ids to actual nodes
+     * @note: NIOSMNodes may appear multiple times due to substition
+     */
     std::map<int, NIOSMNode*> myOSMNodes;
+
+    /// @brief the set of unique nodes used in NodesHandler, used when freeing memory
+    std::set<NIOSMNode*, CompareNodes> myUniqueNodes;
+
+
     std::map<std::string, Edge*> myEdges;
 
     /** @brief Builds an NBNode
@@ -172,13 +187,16 @@ private:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
+    friend class NodesHandler;
     class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
          * @param[in, out] toFill The nodes container to fill
+         * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<int, NIOSMNode*> &toFill) ;
+        NodesHandler(std::map<int, NIOSMNode*> &toFill, 
+                std::set<NIOSMNode*, CompareNodes> &uniqueNodes);
 
 
         /// @brief Destructor
@@ -210,6 +228,7 @@ private:
 
 
     private:
+
         /// @brief The nodes container to fill
         std::map<int, NIOSMNode*> &myToFill;
 
@@ -221,6 +240,9 @@ private:
 
         /// @brief The current hierarchy level
         int myHierarchyLevel;
+
+        /// @brief the set of unique nodes (used for duplicate detection/substitution)
+        std::set<NIOSMNode*, CompareNodes> &myUniqueNodes;
 
 
     private:
