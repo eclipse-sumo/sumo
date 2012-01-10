@@ -56,13 +56,13 @@ def outputStatistics(net, starttime, periods):
     assigntime = datetime.datetime.now() - starttime
     foutMOE = file('MOE.txt', 'w')
     foutMOE.write('Number of analyzed periods(hr):%s' %periods)
-    for edgeName, edgeObj in net._edges.iteritems():                                      # generate the output of the link travel times
-        if str(edgeObj.source) != str(edgeObj.target) and edgeObj.estcapacity > 0.:
-            totaltime += edgeObj.flow * edgeObj.actualtime
-            totalflow += edgeObj.flow
+    for edge in net._edges:                                      # generate the output of the link travel times
+        if edge.estcapacity > 0.:
+            totaltime += edge.flow * edge.actualtime
+            totalflow += edge.flow
             foutMOE.write('\nedge:%s \t from:%s \t to:%s \t freeflowtime(s):%2.2f \t traveltime(s):%2.2f \t traffic flow(veh):%2.2f \t v/c:%2.2f' \
-            %(edgeName, edgeObj.source, edgeObj.target, edgeObj.freeflowtime, edgeObj.actualtime, edgeObj.flow, (edgeObj.flow/edgeObj.estcapacity)))    
-        if edgeObj.flow > edgeObj.estcapacity and edgeObj.connection == 0:
+            %(edge._id, edge._from, edge._to, edge.freeflowtime, edge.actualtime, edge.flow, (edge.flow/edge.estcapacity)))    
+        if edge.flow > edge.estcapacity and edge.connection == 0:
             foutMOE.write('****overflow!')
 
     avetime = totaltime / totalflow
@@ -82,7 +82,7 @@ def sortedVehOutput(vehicles, departtime, options, foutroute):
         foutroute.write('    <vehicle id="%s" depart="%d" departlane="free">\n' %(veh.label, veh.depart))
         foutroute.write('        <route>')
         for edge in veh.route[1:-1]:                       # for generating vehicle routes used in SUMO 
-            foutroute.write('%s ' % edge.label)
+            foutroute.write('%s ' % edge._id)
         foutroute.write('</route>\n')
         foutroute.write('    </vehicle>\n') 
     

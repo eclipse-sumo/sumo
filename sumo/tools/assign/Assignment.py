@@ -23,12 +23,14 @@ import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
-from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
+from network import Net, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
 from inputs import getMatrix, getConnectionTravelTime
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, linkChoicesOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 
 def initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap):
@@ -59,10 +61,9 @@ def main():
     
     if options.verbose:
         print "Reading net"
-    net = Net()
     print 'net file:', options.netfile
-    parser.setContentHandler(NetworkReader(net))
-    parser.parse(options.netfile)
+    net = Net()
+    sumolib.net.readNet(options.netfile, net=net)
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
     if options.sigfile:
@@ -82,13 +83,12 @@ def main():
     else:
         assignHours = options.hours 
 
-    for edge in net._edges.itervalues():
-        if edge.numberlane > 0.:
+    for edge in net.getEdges():
+        if edge._lanes:
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
             edge.estcapacity *= assignHours
             edge.getConflictLink()
-    net.linkReduce()
 
     if options.dijkstra == 'boost':
         net.createBoostGraph()
@@ -173,7 +173,7 @@ def main():
             odPairsMap.clear()
             linkChoiceMap = initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap)
 
-        for edge in net._fullEdges.itervalues():
+        for edge in net.getEdges():
             edge.flow = 0.
             edge.helpflow = 0.
             edge.actualtime = edge.freeflowtime

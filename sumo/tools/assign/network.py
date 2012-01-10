@@ -18,41 +18,39 @@ import os, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib.net
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
 #  are also in this class.
 
-class Net:
+class Net(sumolib.net.Net):
     def __init__(self):
-        self._vertices = []
-        self._edges = {}
-        self._fullEdges = {}
+        sumolib.net.Net.__init__(self)
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
-        self._junctions = {}
         self._detectedLinkCounts = 0.
         self._detectedEdges = []
         
-    def newVertex(self):
-        v = Vertex(len(self._vertices))
-        self._vertices.append(v)
-        return v
+    def addNode(self, id, coord=None, incLanes=None):
+        if id not in self._id2node:
+            node = Vertex(id, coord, incLanes)
+            self._nodes.append(node)
+            self._id2node[id] = node
+        self.setAdditionalNodeInfo(self._id2node[id], coord, incLanes)
+        return self._id2node[id]
+    
+    def addEdge(self, id, fromID, toID, prio, function, name):
+        if id not in self._id2edge:
+            fromN = self.addNode(fromID)
+            toN = self.addNode(toID)
+            edge = Edge(id, fromN, toN, prio, function, name)
+            self._edges.append(edge)
+            self._id2edge[id] = edge
+        return self._id2edge[id]
 
-    def getEdge(self, edgeLabel):
-        return self._edges[edgeLabel]
-
-    def addEdge(self, edgeObj):
-        edgeObj.source.outEdges.add(edgeObj)
-        edgeObj.target.inEdges.add(edgeObj)
-        if edgeObj.kind == "real":
-            self._edges[edgeObj.label] = edgeObj
-        self._fullEdges[edgeObj.label] = edgeObj
-
-    def addIsolatedRealEdge(self, edgeLabel):
-        self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
-                          "real"))
     def getDetectedEdges(self, datadir):
         for line in open(os.path.join(datadir, "detectedEdges.txt")):
             line = line.split('\n')[0]
@@ -100,39 +98,6 @@ class Net:
     def getfullEdgeCounts(self):
         return len(self._fullEdges)
         
-    def linkReduce(self):
-        toRemove = []
-        for node in self._vertices:
-            split = True
-            candidates = []
-            if len(node.inEdges) == 1:
-                for edge in node.outEdges:
-                    if edge.kind != "real" and len(edge.target.inEdges) == 1:
-                        candidates.append(edge)
-            else:
-                for edge in node.inEdges:
-                    if edge.kind != "real" and len(edge.source.outEdges) == 1:
-                        candidates.append(edge)
-                        split = False
-            for edge in candidates:
-                if split:
-                    for link in edge.target.outEdges:
-                        node.outEdges.add(link)
-                        link.source = node
-                    node.outEdges.remove(edge)
-                    del self._fullEdges[edge.label]
-                    toRemove.append(edge.target)   
-                else:
-                    for link in edge.source.inEdges:
-                        node.inEdges.add(link)
-                        link.target = node
-                    node.inEdges.remove(edge)
-                    del self._fullEdges[edge.label]
-                    toRemove.append(edge.source)
-            
-        for node in toRemove:
-            self._vertices.remove(node)
-
     def reduce(self):
         visited = set()
         for link in self._edges.itervalues():
@@ -216,7 +181,7 @@ class Net:
         for start, startVertex in enumerate(startVertices):
             endSet = set()
             for end, endVertex in enumerate(endVertices):
-                if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
+                if startVertex._id != endVertex._id and matrixPshort[start][end] > 0.:
                     endSet.add(endVertex)
             if dk == 'boost':
                 D,P = dijkstraBoost(self._boostGraph, startVertex.boost)
@@ -225,7 +190,7 @@ class Net:
             elif dk == 'extend':
                 D,P = dijkstra(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
-                if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
+                if startVertex._id != endVertex._id and matrixPshort[start][end] > 0.:
                     helpPath = []
                     helpPathSet = set()
                     pathcost = D[endVertex]/3600.
@@ -237,7 +202,7 @@ class Net:
                     while vertex != startVertex:
                         helpPath.append(P[vertex])
                         helpPathSet.add(P[vertex])
-                        vertex = P[vertex].source
+                        vertex = P[vertex]._from
                     helpPath.reverse()
     
                     newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, helpPathSet, pathcost)
@@ -275,7 +240,7 @@ class Net:
 <!-- generated on %s by $Id$ -->
 <routes>""" % datetime.datetime.now()
         for start, startVertex in enumerate(startVertices):
-            for vertex in self._vertices:
+            for vertex in self.getNodes():
                 vertex.preds = []
                 vertex.wasUpdated = False
             startVertex.preds.append(Predecessor(None, None, 0))
@@ -284,13 +249,13 @@ class Net:
             while len(updatedVertices) > 0:
                 vertex = updatedVertices.pop(0)
                 vertex.wasUpdated = False
-                for edge in vertex.outEdges:
-                    if edge.target != startVertex and edge.target.update(kPaths, edge):
-                        updatedVertices.append(edge.target)
+                for edge in vertex.getOutgoing():
+                    if edge._to != startVertex and edge._to.update(kPaths, edge):
+                        updatedVertices.append(edge._to)
     
             for end, endVertex in enumerate(endVertices):
                 ODPaths = self._paths[startVertex][endVertex]
-                if startVertex.label != endVertex.label and matrixPshort[start][end] != 0.:
+                if startVertex._id != endVertex._id and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         temppath = []
                         temppathcost = 0.
@@ -299,7 +264,7 @@ class Net:
                         while vertex != startVertex:
                             temppath.append(pred.edge)
                             temppathcost += pred.edge.freeflowtime
-                            vertex = pred.edge.source
+                            vertex = pred.edge._from
                             pred = pred.pred
                         
                         if len(ODPaths) > 0:
@@ -337,148 +302,34 @@ class Net:
             foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n'
             %(edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length, 
               edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.ratio, edgeObj.connection))
-     
-# The class is for parsing the XML input file (network file). The data parsed is written into the net.
-class NetworkReader(handler.ContentHandler):
-    def __init__(self, net):
-        self._net = net
-        self._edge = ''
-        self._maxSpeed = 0
-        self._laneNumber = 0
-        self._length = 0
-        self._edgeObj = None
-        self._junctionObj = None
-        self._phaseObj = None
-        self._chars = ''
-        self._counter = 0
-        self._turnlink = None
-        self._phasenoInfo = True
 
-    def startElement(self, name, attrs):
-        self._chars = ''
-        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
-            self._edge = attrs['id']
-            self._net.addIsolatedRealEdge(self._edge)
-            self._edgeObj = self._net.getEdge(self._edge)
-            self._edgeObj.source.label = attrs['from']
-            self._edgeObj.target.label = attrs['to']
-            self._maxSpeed = 0
-            self._laneNumber = 0
-            self._length = 0
-        elif name == 'tl-logic' or name == 'tlLogic':
-            self._junctionObj = TLJunction()
-            if self._junctionObj and attrs.has_key('id'):
-                self._junctionObj.label = attrs['id']
-                self._net.addTLJunctions(self._junctionObj)
-                self._phasenoInfo = False
-        elif self._junctionObj and name == 'phase':
-            if attrs.has_key('state'):
-                self._newphase = Signalphase(float(attrs['duration']), attrs['state'])
-            else:
-                self._newphase = Signalphase(float(attrs['duration']), None, attrs['phase'], attrs['brake'], attrs['yellow'])
-            if self._junctionObj:
-                self._junctionObj.phases.append(self._newphase)
-                self._counter += 1
-                self._newphase.label = self._counter
-        elif name == 'succ':
-            self._edge = attrs['edge']
-            if self._edge[0]!=':':
-                self._edgeObj = self._net.getEdge(self._edge)
-                if self._edgeObj.junction == 'None':
-                    self._edgeObj.junction = attrs['junction']
-            else:
-                self._edge = ""
-        elif name == 'succlane' and self._edge!="":
-            l = attrs['lane']
-            if l != "SUMO_NO_DESTINATION":
-                toEdge = self._net.getEdge(l[:l.rfind('_')])
-                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
-                self._net.addEdge(newEdge)
-                self._edgeObj.finalizer = l[:l.rfind('_')]
-                if attrs.has_key('tl'):
-                    self._edgeObj.junction = attrs['tl']
-                    self._edgeObj.junctiontype = 'signalized'
-                    if attrs['dir'] == "r":
-                        self._edgeObj.rightturn = attrs['linkno']
-                        self._edgeObj.rightlink.append(toEdge)
-                    elif attrs['dir'] == "s": 
-                        self._edgeObj.straight = attrs['linkno']
-                        self._edgeObj.straightlink.append(toEdge)
-                    elif attrs['dir'] == "l": 
-                        self._edgeObj.leftturn = attrs['linkno']
-                        self._edgeObj.leftlink.append(toEdge)
-                    elif attrs['dir'] == "t": 
-                        self._edgeObj.uturn = attrs['linkno']
-                else:
-                    self._edgeObj.junctiontype = 'prioritized'
-                    if attrs['dir'] == "r":
-                        self._edgeObj.rightturn = attrs['state']
-                        self._edgeObj.rightlink.append(toEdge)
-                    elif attrs['dir'] == "s": 
-                        self._edgeObj.straight = attrs['state']
-                        self._edgeObj.straightlink.append(toEdge)
-                    elif attrs['dir'] == "l": 
-                        self._edgeObj.leftturn = attrs['state']
-                        self._edgeObj.leftlink.append(toEdge)
-                    elif attrs['dir'] == "t": 
-                        self._edgeObj.uturn = attrs['state']
-        elif name == 'lane' and self._edge != '':
-            self._maxSpeed = max(self._maxSpeed, float(attrs['speed']))
-            self._laneNumber = self._laneNumber + 1
-            self._length = float(attrs['length'])
-      
-    def characters(self, content):
-        self._chars += content
 
-    def endElement(self, name):
-        if name == 'edge' and self._edge != '':
-            self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
-            self._edge = ''
-        elif name == 'key' and self._edge != '':
-            if self._junctionObj:
-                self._junctionObj.label = self._chars
-                self._net.addTLJunctions(self._junctionObj)
-                self._chars = ''
-        elif name == 'phaseno' and self._edge != '':
-            self._junctionObj.phaseNum = int(self._chars)
-            self._chars = ''
-        elif (name == 'tl-logic' or name == 'tlLogic') and self._edge != '':
-            if not self._phasenoInfo:
-                self._junctionObj.phaseNum = self._counter
-            self._counter = 0
-            self._phasenoInfo = True
-            self._junctionObj = None
-
-# The class is for parsing the XML input file (districts). The data parsed is written into the net.
 class DistrictsReader(handler.ContentHandler):
+    """The class is for parsing the XML input file (districts).
+       The data parsed is written into the net.
+    """
     def __init__(self, net):
         self._net = net
-        self._StartDTIn = None
-        self._StartDTOut = None
+        self._node = None
         self.I = 100
 
     def startElement(self, name, attrs):
-        if name == 'district':
-            self._StartDTIn = self._net.newVertex()
-            self._StartDTIn.label = attrs['id']
-            self._StartDTOut = self._net.newVertex()
-            self._StartDTOut.label = self._StartDTIn.label
-            self._net._startVertices.append(self._StartDTIn)
-            self._net._endVertices.append(self._StartDTOut)
-        elif name == 'dsink':
+        if name in ['district', 'taz']:
+            self._node = self._net.addNode(attrs['id'])
+            self._net._startVertices.append(self._node)
+            self._net._endVertices.append(self._node)
+        elif name in ['dsink', 'tazSink']:
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
-            conlink = self._StartDTOut.label + str(self.I)
-            newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
-            self._net.addEdge(newEdge)
+            newEdge = self._net.addEdge(self._node._id + str(self.I), sinklink._to._id, self._node._id, -1, "connector", "")
+            newEdge._length = 0.
             newEdge.ratio = attrs['weight']
             newEdge.connection = 1
-        elif name == 'dsource':
+        elif name in ['dsource', 'tazSource']:
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
-            conlink = self._StartDTIn.label + str(self.I)
-            newEdge = Edge(conlink, self._StartDTIn, sourcelink.source, "real")
-            self._net.addEdge(newEdge)
+            newEdge = self._net.addEdge(self._node._id + str(self.I), self._node._id, sourcelink._from._id, -1, "connector", "")
+            newEdge._length = 0.
             newEdge.ratio = attrs['weight']
             newEdge.connection = 2
 

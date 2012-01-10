@@ -124,8 +124,8 @@ def dijkstraPlain(start, targets):
         if targets.discard(v):
             if len(targets) == 0:
                 return (D, P)
-        for edge in v.outEdges:
-            w = edge.target
+        for edge in v.getOutgoing():
+            w = edge._to
             vwLength = D[v] + edge.helpacttime
 
             if w not in D and (w not in Q or vwLength < Q[w]):

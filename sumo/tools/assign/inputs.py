@@ -50,10 +50,10 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
                     for elem in line.split():
                         if len(elem) > 0:
                             for startVertex in net.getstartVertices():
-                                if startVertex.label == elem:
+                                if startVertex._id == elem:
                                     startVertices.append(startVertex)
                             for endVertex in net.getendVertices():
-                                if endVertex.label == elem:
+                                if endVertex._id == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
                     dest = len(endVertices)
@@ -94,22 +94,22 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
 def getConnectionTravelTime(startVertices, endVertices):
     for vertex in startVertices:
         weightList = []
-        for edge in vertex.outEdges:
+        for edge in vertex.getOutgoing():
            weightList.append(float(edge.ratio))
         if len(weightList) > 0:
             minWeight = min(weightList)
 
-        for edge in vertex.outEdges:
+        for edge in vertex.getOutgoing():
             edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
             edge.actualtime = edge.freeflowtime
 
     for vertex in endVertices:
         weightList = []
-        for edge in vertex.inEdges:
+        for edge in vertex.getIncoming():
             weightList.append(float(edge.ratio))
         if len(weightList) > 0:
             minWeight = min(weightList)
 
-        for edge in vertex.inEdges:
+        for edge in vertex.getIncoming():
             edge.freeflowtime = (float(edge.ratio)/minWeight) * 1200.
             edge.actualtime = edge.freeflowtime

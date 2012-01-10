@@ -26,7 +26,7 @@ def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, st
         if (odestimation and matrixPshort[start][end] > 0.) or (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
             getlinkChoices = True
 
-        if startVertex.label != endVertex.label and getlinkChoices:
+        if startVertex._id != endVertex._id and getlinkChoices:
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             helpPath = []
             vertex = endVertex
@@ -41,7 +41,7 @@ def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, st
                     helpPath.append(P[vertex])
                     P[vertex].flow += demand
                     if getlinkChoices and P[vertex] in net._detectedEdges:
-                        odIndex = odPairsMap[startVertex.label][endVertex.label]
+                        odIndex = odPairsMap[startVertex._id][endVertex._id]
                         linkChoiceMap[P[vertex].detected][odIndex] += demand
 
                 vertex = P[vertex].source
@@ -71,7 +71,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
         for end, endVertex in enumerate(endVertices):
             cumulatedflow = 0.
             pathcount = 0          
-            if matrixPshort[start][end] > 0. and startVertex.label != endVertex.label:
+            if matrixPshort[start][end] > 0. and startVertex._id != endVertex._id:
                 ODPaths = net._paths[startVertex][endVertex]
                 
                 for path in ODPaths:
@@ -95,40 +95,33 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
                             foutassign.write('    last_path.helpflow:%s\n' % path.helpflow)
                     if first and iter == 1:
                         for edge in path.edges:
-                            if edge.source.label != edge.target.label:
-                                edge.flow += path.helpflow
+                            edge.flow += path.helpflow
                     else:
                         for edge in path.edges:
-                            if edge.source.label != edge.target.label:
-                                edge.helpflow += path.helpflow
+                            edge.helpflow += path.helpflow
     
     # Reset the convergence index for the C-Logit model
     notstable = 0
     stable = False
-    # link travel timess and link flows will be updated according to the latest traffic assingment
-    if options.dijkstra != 'extend':
-        linkMap = net._fullEdges
-    else:
-        linkMap = net._edges
-    for edge in linkMap.itervalues():                                       
-        if edge.kind == 'real':
-            if (first and iter > 1) or (not first):
-                exflow = edge.flow
-                edge.flow = edge.flow + (1./iter)*(edge.helpflow - edge.flow)
-                
-                if not lohse:
-                    if edge.flow > 0.:
-                        if abs(edge.flow-exflow)/edge.flow > options.sueTolerance:
-                            notstable += 1
-                    elif edge.flow == 0.:
-                        if exflow != 0. and (abs(edge.flow-exflow)/exflow > options.sueTolerance):
-                            notstable += 1
-                    elif edge.flow < 0.:
+    # link travel times and link flows will be updated according to the latest traffic assingment
+    for edge in net._edges:
+        if (first and iter > 1) or (not first):
+            exflow = edge.flow
+            edge.flow = edge.flow + (1./iter)*(edge.helpflow - edge.flow)
+            
+            if not lohse:
+                if edge.flow > 0.:
+                    if abs(edge.flow-exflow)/edge.flow > options.sueTolerance:
                         notstable += 1
-                        edge.flow = 0.
-                else:
-                    if edge.flow < 0.:
-                        edge.flow = 0.
+                elif edge.flow == 0.:
+                    if exflow != 0. and (abs(edge.flow-exflow)/exflow > options.sueTolerance):
+                        notstable += 1
+                elif edge.flow < 0.:
+                    notstable += 1
+                    edge.flow = 0.
+            else:
+                if edge.flow < 0.:
+                    edge.flow = 0.
         # reset the edge.helpflow for the next iteration
         edge.helpflow = 0.0
         edge.getActualTravelTime(options, lohse)
@@ -205,7 +198,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
         for end, endVertex in enumerate(endVertices):
             pathcount = 0
             cumulatedflow = 0.
-            if matrixPshort[start][end] > 0. and startVertex.label != endVertex.label:
+            if matrixPshort[start][end] > 0. and startVertex._id != endVertex._id:
                 if options.verbose:
                     foutpath.write('destination=%s' %endVertex)
                 ODPaths = net._paths[startVertex][endVertex]
@@ -231,13 +224,12 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                         foutpath.write('\npathID= %s, path flow=%4.4f, actpathtime=%4.4f, choiceprob=%4.4f, edges=' 
                                         %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
                         for item in path.edges:
-                            foutpath.write('%s, ' %(item.label))
+                            foutpath.write('%s, ' %(item._id))
                         
                     AssignedTrip[startVertex][endVertex] += path.pathflow
                     edges = []
                     for link in path.edges:
-                        if link.kind == 'real':
-                            edges.append(link)
+                        edges.append(link)
                     vehID = assignVeh(options.verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID)
                 if options.verbose:
                     foutpath.write('\n')
