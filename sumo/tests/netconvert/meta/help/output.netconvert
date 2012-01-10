@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11692
+SUMO netconvert Version dev-SVN-r11698
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -159,7 +159,9 @@ Usage: netconvert [OPTION]*
                                         tls-controlled junctions
   --no-left-connections               Disables building connections to left
   --geometry.split                    Splits edges across geometry nodes
-  -R, --geometry.remove               Removes geometry information from edges
+  -R, --geometry.remove               Replace nodes which only define edge
+                                        geometry by geometry points (joins
+                                        edges)
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --offset.disable-normalization      Turn off normalizing node positions

@@ -303,7 +303,7 @@
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
 
-        <!-- Removes geometry information from edges -->
+        <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
 
         <!-- splits geometry to restrict segment length -->
