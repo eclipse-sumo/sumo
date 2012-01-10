@@ -29,19 +29,19 @@ def initOptions():
                          help="SUMO network (mandatory)", metavar="FILE")
     optParser.add_option("-+", "--additional", dest="additional",
                          default="", help="Additional files")
-    optParser.add_option("-b", "--begin", dest="begin",
+    optParser.add_option("-b", "--begin",
                          type="int", default=0, help="Set simulation/routing begin [default: %default]")
-    optParser.add_option("-e", "--end", dest="end",
+    optParser.add_option("-e", "--end",
                          type="int", help="Set simulation/routing end [default: %default]")
     optParser.add_option("-R", "--route-steps", dest="routeSteps",
                          type="int", default=200, help="Set simulation route steps [default: %default]")
-    optParser.add_option("-a", "--aggregation", dest="aggregation",
+    optParser.add_option("-a", "--aggregation",
                          type="int", default=900, help="Set main weights aggregation period [default: %default]")
-    optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
+    optParser.add_option("-m", "--mesosim", action="store_true",
                          default=False, help="Whether mesosim shall be used")
-    optParser.add_option("-p", "--path", dest="path",
+    optParser.add_option("-p", "--path",
                          default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries [default: %default]")
-    optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
+    optParser.add_option("-y", "--absrand", action="store_true",
                          default= False, help="use current time to generate random number")
     optParser.add_option("-I", "--nointernal-link", action="store_true", dest="internallink",
                          default = False, help="not to simulate internal link: true or false")
@@ -54,6 +54,8 @@ def initOptions():
     optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
                          choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
+    optParser.add_option("-s", "--sloppy-insert", action="store_true",
+                         default=False, help="sloppy insertion tests (may speed up the sim considerably)")
     return optParser
 
 def call(command, log):
@@ -157,7 +159,7 @@ def writeSUMOConf(step, options, files):
             print >> fd, '        <meso-multi-queue value="True"/>'
         if options.mesojunctioncontrol:
             print >> fd, '        <meso-junction-control value="True"/>'
-    print >> fd, """</processing>
+    print >> fd, """    </processing>
     <report>
         <verbose value="True"/>
         <no-warnings value="%s"/>
@@ -183,9 +185,9 @@ def main():
                          help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
     optParser.add_option("-F", "--flows",
                          help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-A", "--gA", dest="gA",
+    optParser.add_option("-A", "--gA",
                          type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
-    optParser.add_option("-B", "--gBeta", dest="gBeta",
+    optParser.add_option("-B", "--gBeta",
                          type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
     optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
                          default=False, help="No summaries are written by the simulation")
