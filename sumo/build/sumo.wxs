@@ -100,11 +100,15 @@
         <ComponentRef Id='ProgramMenuDir' />
       </Feature>
 
-      <Feature Id='Documentation' Title='Description' Description='The instruction manual.' Level='1000'>
+      <Feature Id='Documentation' Title='Documentation' Description='The instruction and programming manuals.' Level='2'>
         <ComponentGroupRef Id='userdoc' />
         <ComponentGroupRef Id='pydoc' />
         <ComponentGroupRef Id='tutorial' />
         <ComponentGroupRef Id='examples' />
+      </Feature>
+
+      <Feature Id='Tools' Title='Tools' Description='Additional Python tools.' Level='3'>
+        <ComponentGroupRef Id='tools' />
       </Feature>
     </Feature>
 
