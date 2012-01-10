@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11690
+SUMO netconvert Version dev-SVN-r11692
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -105,6 +105,8 @@ Usage: netconvert [OPTION]*
                                         vclasss in STR
   --remove-edges.by-vclass STR        Remove edges which allow only vclasses
                                         from STR
+  --keep-edges.by-type STR            Only keep edges where type is in STR
+  --remove-edges.by-type STR          Remove edges where type is in STR
   --remove-edges.isolated             Removes isolated edges
 
  Unregulated Nodes Options:

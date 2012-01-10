@@ -71,6 +71,8 @@
         <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary"/>
         <keep-edges.by-vclass value="" type="STR" help="Only keep edges which allow one of the vclasss in STR"/>
         <remove-edges.by-vclass value="" type="STR" help="Remove edges which allow only vclasses from STR"/>
+        <keep-edges.by-type value="" type="STR" help="Only keep edges where type is in STR"/>
+        <remove-edges.by-type value="" type="STR" help="Remove edges where type is in STR"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
     </edge_removal>
 

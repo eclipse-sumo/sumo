@@ -177,6 +177,12 @@
         <!-- Remove edges which allow only vclasses from STR -->
         <remove-edges.by-vclass value="" type="STR"/>
 
+        <!-- Only keep edges where type is in STR -->
+        <keep-edges.by-type value="" type="STR"/>
+
+        <!-- Remove edges where type is in STR -->
+        <remove-edges.by-type value="" type="STR"/>
+
         <!-- Removes isolated edges -->
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
 
