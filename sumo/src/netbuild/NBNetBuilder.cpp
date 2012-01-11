@@ -141,13 +141,9 @@ NBNetBuilder::compute(OptionsCont& oc,
     //
     if (removeUnwishedNodes) {
         unsigned int no = 0;
-        if (oc.exists("geometry.remove") && oc.getBool("geometry.remove")) {
-            PROGRESS_BEGIN_MESSAGE("Removing empty nodes and geometry nodes");
-            no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, true);
-        } else {
-            PROGRESS_BEGIN_MESSAGE("Removing empty nodes");
-            no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, false);
-        }
+        const bool removeGeometryNodes = oc.exists("geometry.remove") && oc.getBool("geometry.remove");
+        PROGRESS_BEGIN_MESSAGE("Removing empty nodes" + removeGeometryNodes ? " and geometry nodes" : "");
+        no = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myJoinedEdges, myTLLCont, removeGeometryNodes);
         PROGRESS_DONE_MESSAGE();
         WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
     }
