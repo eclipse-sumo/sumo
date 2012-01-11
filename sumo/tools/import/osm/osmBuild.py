@@ -17,8 +17,6 @@ All rights reserved
 import os,sys,optparse,subprocess
 from os import path
 
-netconvert = path.join(os.environ.get('SUMO_BINDIR', ''), 'netconvert')
-polyconvert = path.join(os.environ.get('SUMO_BINDIR', ''), 'polyconvert')
 
 vclassRemove = {"passenger" : " --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian",
                 "road" : " --remove-edges.by-vclass rail_slow,rail_fast,lightrail,cityrail,bicycle,pedestrian",
@@ -37,8 +35,10 @@ optParser.add_option("-d", "--output-directory", default=os.getcwd(), help="dire
 optParser.add_option("-n", "--netconvert-options", default="-R,--ramps.guess,--tls.guess,--tls.join,-v", help="comma-separated options for netconvert") 
 optParser.add_option("-y", "--polyconvert-options", default="-v,--osm.keep-full-type", help="comma-separated options for polyconverty") 
 
-def build(args=None):
+def build(args=None, bindir=os.environ.get('SUMO_BINDIR','')):
     (options, args) = optParser.parse_args(args=args)
+    netconvert = path.join(bindir, 'netconvert')
+    polyconvert = path.join(bindir, 'polyconvert')
 
     if ((options.oldapi_prefix and options.osm_file) or
             not (options.oldapi_prefix or options.osm_file)):
