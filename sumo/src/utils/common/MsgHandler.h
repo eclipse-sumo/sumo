@@ -227,7 +227,7 @@ private:
 // ===========================================================================
 #define WRITE_WARNING(msg) MsgHandler::getWarningInstance()->inform(msg);
 #define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
-#define PROGRESS_BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg(msg + std::string("..."));
+#define PROGRESS_BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string("..."));
 #define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("done.");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg)   MsgHandler::getErrorInstance()->inform(msg);
