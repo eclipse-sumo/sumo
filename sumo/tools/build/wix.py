@@ -33,9 +33,9 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
 
 def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT, wixBin=WIX_DEFAULT, wxs=WXS_DEFAULT,
              license=LICENSE, platformSuffix=""):
-    tmpDir = r"C:\Users\behr_mi\AppData\Local\Temp\tmpnq_cis"
-    #tmpDir = tempfile.mkdtemp()
-    #zipfile.ZipFile(sourceZip).extractall(tmpDir)
+    #tmpDir = r"C:\Users\behr_mi\AppData\Local\Temp\tmpnq_cis"
+    tmpDir = tempfile.mkdtemp()
+    zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
     fragments = []
     for d in ["userdoc", "pydoc", "tutorial", "examples"]:
