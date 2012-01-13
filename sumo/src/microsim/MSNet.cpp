@@ -292,7 +292,7 @@ MSNet::closeSimulation(SUMOTime start) {
         std::ostringstream msg;
         msg << "Performance: " << "\n" << " Duration: " << duration << " ms" << "\n";
         if (duration != 0) {
-            msg << " Real time factor: " << ((SUMOReal)(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
+            msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
