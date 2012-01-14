@@ -62,7 +62,7 @@ class OutputDevice;
 class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUIRunThread(MFXInterThreadEventClient* mw,
+    GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
                  FXRealSpinDial& simDelay, MFXEventQue& eq, FXEX::FXThreadEvent& ev);
 
     /// destructor

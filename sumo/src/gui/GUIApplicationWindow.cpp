@@ -212,8 +212,8 @@ GUIApplicationWindow::dependentBuild(bool game) {
         myMessageWindow->hide();
     }
     // build additional threads
-    myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
-    myRunThread = new GUIRunThread(this, *mySimDelayTarget, myEvents,
+    myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
+    myRunThread = new GUIRunThread(getApp(), this, *mySimDelayTarget, myEvents,
                                    myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
@@ -866,7 +866,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     if (ec->myNet == 0) {
         // report failure
         setStatusBarText("Loading of '" + ec->myFile + "' failed!");
-        if (gQuitOnEnd) {
+        if (GUIGlobals::gQuitOnEnd) {
             closeAllWindows();
             getApp()->exit(1);
         }
@@ -906,7 +906,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     // start if wished
-    if (myRunAtBegin && ec->myNet != 0 && myRunThread->simulationIsStartable()) {
+    if (GUIGlobals::gRunAfterLoad && ec->myNet != 0 && myRunThread->simulationIsStartable()) {
         onCmdStart(0, 0, 0);
     }
     update();
@@ -936,7 +936,7 @@ GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
 void
 GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     GUIEvent_SimulationEnded* ec = static_cast<GUIEvent_SimulationEnded*>(e);
-    if (!gQuitOnEnd) {
+    if (!GUIGlobals::gQuitOnEnd) {
         // build the text
         std::stringstream text;
         text << "The simulation has ended at time step " << time2string(ec->getTimeStep()) << ".\n";
@@ -946,7 +946,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     } else {
         onCmdStop(0, 0, 0);
     }
-    if (gQuitOnEnd) {
+    if (GUIGlobals::gQuitOnEnd) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
     }
@@ -1057,8 +1057,7 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup(bool run) {
-    myRunAtBegin = run;
+GUIApplicationWindow::loadOnStartup() {
     load("", false);
 }
 

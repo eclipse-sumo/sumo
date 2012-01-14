@@ -34,7 +34,6 @@
 #endif
 
 #include "GUIDialog_AboutSUMO.h"
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 

@@ -33,26 +33,30 @@
 #endif
 
 #include <vector>
-#include <fx.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 
 // ===========================================================================
-// class declarations
+// class definitions
 // ===========================================================================
-class GUINet;
+/**
+ * @class MSGlobals
+ * This class holds some static variables, filled mostly with values coming
+ *  from the command line or the simulation configuration file.
+ * They are stored herein to allow a faster access than from the options
+ *  container.
+ */
+class GUIGlobals {
+public:
+    /// the simulation shall start direct after loading
+    static bool gRunAfterLoad;
 
+    /// the window shall be closed when the simulation has ended
+    static bool gQuitOnEnd;
 
-// ===========================================================================
-// global variables declarations
-// ===========================================================================
-/// the window shall be closed when the simulation has ended
-extern bool gQuitOnEnd;
-
-/// List of breakpoint
-extern std::vector<SUMOTime> gBreakpoints;
-
+    /// List of breakpoints
+    static std::vector<SUMOTime> gBreakpoints;
+};
 
 #endif
 

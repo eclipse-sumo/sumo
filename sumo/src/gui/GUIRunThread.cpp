@@ -47,7 +47,6 @@
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/SysUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -70,10 +69,10 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIRunThread::GUIRunThread(MFXInterThreadEventClient* parent,
+GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
                            FXRealSpinDial& simDelay, MFXEventQue& eq,
                            FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(gFXApp, parent),
+    : FXSingleEventThread(app, parent),
       myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
       mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
@@ -123,7 +122,7 @@ GUIRunThread::run() {
                 }
             }
             // check whether we shall stop at this step
-            bool haltAfter = find(gBreakpoints.begin(), gBreakpoints.end(), myNet->getCurrentTimeStep()) != gBreakpoints.end();
+            bool haltAfter = find(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end(), myNet->getCurrentTimeStep()) != GUIGlobals::gBreakpoints.end();
             // do the step
             makeStep();
             // stop if wished

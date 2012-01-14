@@ -554,10 +554,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp"
 				>
 			</File>
@@ -597,10 +593,6 @@
 			>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppEnum.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.h"
 				>
 			</File>
 			<File

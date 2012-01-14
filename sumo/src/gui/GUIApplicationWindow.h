@@ -98,7 +98,7 @@ public:
     virtual void detach();
 
 
-    void loadOnStartup(bool run);
+    void loadOnStartup();
 
 
     void dependentBuild(bool game);

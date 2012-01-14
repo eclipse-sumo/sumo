@@ -265,8 +265,8 @@ MSFrame::fillOptions() {
     oc.doRegister("game", 'G', new Option_Bool(false));
     oc.addDescription("game", "GUI Only", "Start the GUI in gaming mode");
 
-    oc.doRegister("no-start", 'N', new Option_Bool(false));
-    oc.addDescription("no-start", "GUI Only", "Does not start the simulation after loading");
+    oc.doRegister("start", 'S', new Option_Bool(false));
+    oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.addDescription("disable-textures", "GUI Only", "Do not load background pictures");

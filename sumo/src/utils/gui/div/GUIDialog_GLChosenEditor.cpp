@@ -41,7 +41,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 

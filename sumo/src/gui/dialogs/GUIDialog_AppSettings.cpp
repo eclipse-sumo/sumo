@@ -58,7 +58,7 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 // ===========================================================================
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox(parent, "Application Settings"),
-      myAppQuitOnEnd(gQuitOnEnd),
+      myAppQuitOnEnd(GUIGlobals::gQuitOnEnd),
       myAllowTextures(gAllowTextures) {
     FXCheckButton* b = 0;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -81,7 +81,7 @@ GUIDialog_AppSettings::~GUIDialog_AppSettings() {}
 
 long
 GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
-    gQuitOnEnd = myAppQuitOnEnd;
+    GUIGlobals::gQuitOnEnd = myAppQuitOnEnd;
     gAllowTextures = myAllowTextures;
     destroy();
     return 1;

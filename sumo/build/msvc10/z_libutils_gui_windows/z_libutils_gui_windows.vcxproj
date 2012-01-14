@@ -195,7 +195,6 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.cpp" />
@@ -207,7 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIAppEnum.h" />
-    <ClInclude Include="..\..\..\src\utils\gui\windows\GUIAppGlobals.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.h" />

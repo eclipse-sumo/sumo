@@ -107,8 +107,6 @@ protected:
 
     FXDockSite* myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 
-    bool myRunAtBegin;
-
     /// information whether the gui is currently in gaming mode
     bool myAmGaming;
 

@@ -36,7 +36,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>

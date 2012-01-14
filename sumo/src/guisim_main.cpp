@@ -54,8 +54,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIEdge.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
-#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicle.h>
@@ -104,16 +102,12 @@ main(int argc, char** argv) {
         MsgHandler::getMessageInstance()->report2cerr(false);
         // Make application
         FXApp application("SUMO GUISimulation", "DLR");
-        gFXApp = &application;
         // Open display
         application.init(argc, argv);
         int minor, major;
         if (!FXGLVisual::supported(&application, major, minor)) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
         }
-        // initialise global settings
-        gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowTextures = !oc.getBool("disable-textures");
 
         // build the main window
         GUIApplicationWindow* window =
@@ -125,7 +119,7 @@ main(int argc, char** argv) {
         application.create();
         // Load configuration given on command line
         if (oc.isSet("configuration-file") || oc.isSet("net-file")) {
-            window->loadOnStartup(!oc.getBool("no-start"));
+            window->loadOnStartup();
         }
         // Run
         ret = application.run();

@@ -30,9 +30,6 @@
 #endif
 
 #include "GUIGlobals.h"
-#include <utils/gui/div/GUIGlobalSelection.h>
-
-#include <algorithm>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -40,13 +37,15 @@
 
 
 // ===========================================================================
-// global variables definitions
+// static member variables definitions
 // ===========================================================================
-bool gQuitOnEnd;
+bool GUIGlobals::gQuitOnEnd;
 
-std::vector<int> gBreakpoints;
 
+bool GUIGlobals::gRunAfterLoad;
+
+
+std::vector<SUMOTime> GUIGlobals::gBreakpoints;
 
 
 /****************************************************************************/
-

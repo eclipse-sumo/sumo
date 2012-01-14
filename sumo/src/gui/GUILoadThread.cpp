@@ -56,7 +56,7 @@
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/common/RandHelper.h>
 #include <ctime>
 
@@ -72,9 +72,9 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUILoadThread::GUILoadThread(MFXInterThreadEventClient* mw,
+GUILoadThread::GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw,
                              MFXEventQue& eq, FXEX::FXThreadEvent& ev)
-    : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
+    : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
@@ -123,9 +123,12 @@ GUILoadThread::run() {
         return 0;
     }
 
+    // initialise global settings
     RandHelper::initRandGlobal();
-    // try to load
     MSFrame::setMSGlobals(oc);
+    GUIGlobals::gRunAfterLoad = oc.getBool("start");
+    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
+    gAllowTextures = !oc.getBool("disable-textures");
 #ifdef HAVE_MESOSIM
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {

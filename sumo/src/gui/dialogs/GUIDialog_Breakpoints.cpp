@@ -49,8 +49,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -130,9 +128,9 @@ GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
 void
 GUIDialog_Breakpoints::rebuildList() {
     myTable->clearItems();
-    sort(gBreakpoints.begin(), gBreakpoints.end());
+    sort(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end());
     // set table attributes
-    myTable->setTableSize((FXint) gBreakpoints.size() + 1, 1);
+    myTable->setTableSize((FXint) GUIGlobals::gBreakpoints.size() + 1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader* header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
@@ -143,7 +141,7 @@ GUIDialog_Breakpoints::rebuildList() {
     // insert into table
     FXint row = 0;
     std::vector<int>::iterator j;
-    for (j = gBreakpoints.begin(); j != gBreakpoints.end(); ++j) {
+    for (j = GUIGlobals::gBreakpoints.begin(); j != GUIGlobals::gBreakpoints.end(); ++j) {
         myTable->setItemText(row, 0, time2string(*j).c_str());
         row++;
     }
@@ -172,7 +170,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
             strm >> val;
             try {
                 SUMOTime value = string2time(val);
-                gBreakpoints.push_back(value);
+                GUIGlobals::gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
                 WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
             } catch (EmptyData&) {}
@@ -204,8 +202,8 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
 std::string
 GUIDialog_Breakpoints::encode2TXT() {
     std::ostringstream strm;
-    std::sort(gBreakpoints.begin(), gBreakpoints.end());
-    for (std::vector<int>::iterator j = gBreakpoints.begin(); j != gBreakpoints.end(); ++j) {
+    std::sort(GUIGlobals::gBreakpoints.begin(), GUIGlobals::gBreakpoints.end());
+    for (std::vector<int>::iterator j = GUIGlobals::gBreakpoints.begin(); j != GUIGlobals::gBreakpoints.end(); ++j) {
         if ((*j) != INVALID_VALUE) {
             strm << time2string(*j) << std::endl;
         }
@@ -216,7 +214,7 @@ GUIDialog_Breakpoints::encode2TXT() {
 
 long
 GUIDialog_Breakpoints::onCmdClear(FXObject*, FXSelector, void*) {
-    gBreakpoints.clear();
+    GUIGlobals::gBreakpoints.clear();
     rebuildList();
     return 1;
 }
@@ -240,14 +238,14 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
         value = INVALID_VALUE_STR;
     }
     int row = i->row;
-    if (row == (int) gBreakpoints.size()) {
-        gBreakpoints.push_back(INVALID_VALUE);
+    if (row == (int) GUIGlobals::gBreakpoints.size()) {
+        GUIGlobals::gBreakpoints.push_back(INVALID_VALUE);
     }
 
     switch (i->col) {
         case 0:
             try {
-                gBreakpoints[row] = string2time(value);
+                GUIGlobals::gBreakpoints[row] = string2time(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be an int, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());

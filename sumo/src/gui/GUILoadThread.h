@@ -55,7 +55,7 @@ class GUINet;
 class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(MFXInterThreadEventClient* mw, MFXEventQue& eq,
+    GUILoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue& eq,
                   FXEX::FXThreadEvent& ev);
 
     /// destructor

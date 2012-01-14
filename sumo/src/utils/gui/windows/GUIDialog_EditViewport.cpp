@@ -30,7 +30,6 @@
 #endif
 
 #include "GUIDialog_EditViewport.h"
-#include <utils/gui/windows/GUIAppGlobals.h>
 #include "GUISUMOAbstractView.h"
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>

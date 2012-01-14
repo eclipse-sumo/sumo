@@ -20,7 +20,7 @@ guisimBinary = sys.argv[1]
 #start sumo to generate config
 subprocess.call(sumoBinary + " --message-log guisim.stdout --error-log guisim.stderr --save-configuration guisim.sumocfg " + " ".join(sys.argv[2:]), 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
-ret = subprocess.call(guisimBinary + " -Q -c guisim.sumocfg", 
+ret = subprocess.call(guisimBinary + " -S -Q -c guisim.sumocfg", 
                       shell=True, stdout=sys.stdout, stderr=sys.stderr)
 if os.path.exists("guisim.stderr"):
     f = open("guisim.stderr")

@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -41,9 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIAppEnum.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\gui\windows\GUIAppGlobals.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h">
