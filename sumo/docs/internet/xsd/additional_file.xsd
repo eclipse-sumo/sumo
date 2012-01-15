@@ -1,185 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Additional" xmlns:tns="http://www.example.org/Additional" elementFormDefault="qualified">
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <element name="additional" type="tns:additionalType"></element>
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
+    <xsd:element name="additional" type="additionalType"></xsd:element>
     
-    <complexType name="additionalType">
-    	<sequence>
-    		<element name="vtypeprobe" type="tns:vtypeprobeType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="e1-detector" type="tns:e1-detectorType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="e2-detector" type="tns:e2-detectorType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="e3-detector" type="tns:e3-detectorType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="meandata-edge" type="tns:meandataType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="meandata-lane" type="tns:meandataType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="timed_event" type="tns:timed_eventType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="tl-logic" type="tns:tl-logicType"
-    			minOccurs="0" maxOccurs="unbounded">
-    		</element>
-    		<element name="WAUT" type="tns:WAUTType" minOccurs="0"
-    			maxOccurs="unbounded">
-    		</element>
-    		<element name="wautJunction" type="tns:wautJunctionType" minOccurs="0" maxOccurs="unbounded"></element>
-    	</sequence>
+    <xsd:complexType name="additionalType">
+        <xsd:sequence>
+            <xsd:element name="vTypeProbe" type="vTypeProbeType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="e1Detector" type="e1DetectorType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="e2Detector" type="e2DetectorType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="e3Detector" type="e3DetectorType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="edgeData" type="meandataType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="laneData" type="meandataType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="timed_event" type="timed_eventType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="tlLogic" type="tlLogicType"
+                minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="WAUT" type="WAUTType" minOccurs="0"
+                maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="wautJunction" type="wautJunctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
 
-    </complexType>
+    </xsd:complexType>
     
-    <complexType name="e1-detectorType">
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="lane" type="string" use="required"></attribute>
-    	<attribute name="pos" type="float" use="required"></attribute>
-    	<attribute name="freq" type="int" use="required"></attribute>
-    	<attribute name="file" type="string" use="required"></attribute>
-    	<attribute name="friendly_pos" use="optional" type="boolean">
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="e1DetectorType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
+        </xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="vtypeprobeType">
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="type" type="string" use="optional"></attribute>
-    	<attribute name="freq" type="int" use="required"></attribute>
-    	<attribute name="file" type="string" use="required"></attribute>
-    </complexType>
+    <xsd:complexType name="vTypeProbeType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="e2-detectorType">
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="lane" type="string" use="required"></attribute>
-    	<attribute name="pos" type="float" use="required"></attribute>
-    	<attribute name="file" type="string" use="required"></attribute>
-		<attribute name="length" type="float" use="required"></attribute>
-		<attribute name="freq" type="int" use="optional"></attribute>
-		<attribute name="tl" type="string" use="optional"></attribute>
-		<attribute name="cont" type="boolean" use="optional"></attribute>
-		<attribute name="time_treshold" type="int" use="optional"></attribute>
-		<attribute name="speed_treshold" type="float" use="optional"></attribute>
-		<attribute name="jam_treshold" type="float" use="optional"></attribute>
-    	<attribute name="friendly_pos" use="optional" type="boolean"></attribute>		
-    </complexType>
+    <xsd:complexType name="e2DetectorType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="length" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="optional"></xsd:attribute>
+        <xsd:attribute name="tl" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="cont" type="xsd:boolean" use="optional"></xsd:attribute>
+        <xsd:attribute name="time_treshold" type="xsd:int" use="optional"></xsd:attribute>
+        <xsd:attribute name="speed_treshold" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="jam_treshold" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean"></xsd:attribute>        
+    </xsd:complexType>
 
-    <complexType name="e3-detectorType">
-    	<sequence>
-    		<element name="det_entry" type="tns:det_entryexitType"
-    			minOccurs="1" maxOccurs="unbounded">
-    		</element>
-    		<element name="det_exit" type="tns:det_entryexitType" minOccurs="1" maxOccurs="unbounded"></element>
-    	</sequence>
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="freq" type="int" use="required"></attribute>
-    	<attribute name="file" type="string" use="required"></attribute>
-    	<attribute name="time_treshold" type="float" use="optional"></attribute>
-    	<attribute name="speed_treshold" use="optional">
-    		<simpleType>
-    			<restriction base="float"></restriction>
-    		</simpleType>
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="e3DetectorType">
+        <xsd:sequence>
+            <xsd:element name="detEntry" type="detEntryExitType"
+                minOccurs="1" maxOccurs="unbounded">
+            </xsd:element>
+            <xsd:element name="detExit" type="detEntryExitType"
+                minOccurs="1" maxOccurs="unbounded">
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="time_treshold" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="speed_treshold" type="nonNegativeFloatType" use="optional"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="det_entryexitType">
-    	<attribute name="lane" type="string" use="required"></attribute>
-    	<attribute name="pos" type="float" use="required"></attribute>
-    	<attribute name="friendly_pos" use="optional" type="boolean">
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="detEntryexitType">
+        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
+        </xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="meandataType">
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="type" use="optional">
-    		<simpleType>
-    			<restriction base="string">
-    				<enumeration value="hbefa"></enumeration>
-    				<enumeration value="harmonoise"></enumeration>
-    			</restriction>
-    		</simpleType>
-    	</attribute>
-    	<attribute name="freq" type="int" use="required"></attribute>
-    	<attribute name="file" type="string" use="required"></attribute>
-    	<attribute name="begin" type="int" use="optional"></attribute>
-    	<attribute name="end" type="int" use="optional"></attribute>
-    	<attribute name="excludeEmpty" use="optional">
-    		<simpleType>
-    			<restriction base="string"></restriction>
-    		</simpleType>
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="meandataType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="type" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="hbefa"></xsd:enumeration>
+                    <xsd:enumeration value="harmonoise"></xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="begin" type="xsd:int" use="optional"></xsd:attribute>
+        <xsd:attribute name="end" type="xsd:int" use="optional"></xsd:attribute>
+        <xsd:attribute name="excludeEmpty" type="xsd:boolean" use="optional"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="timed_eventType">
-    	<attribute name="type" use="required">
-    		<simpleType>
-    			<restriction base="string">
-    				<enumeration value="SaveTLSStates"></enumeration>
-    				<enumeration value="SaveTLSSwitches"></enumeration>
-    				<enumeration value="SaveTLSSwitchStates"></enumeration>
-    			</restriction>
-    		</simpleType>
-    	</attribute>
-    	<attribute name="source" type="string" use="required"></attribute>
-    	<attribute name="dest" type="string" use="required"></attribute>
-    </complexType>
+    <xsd:complexType name="timed_eventType">
+        <xsd:attribute name="type" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="SaveTLSStates"></xsd:enumeration>
+                    <xsd:enumeration value="SaveTLSSwitches"></xsd:enumeration>
+                    <xsd:enumeration value="SaveTLSSwitchStates"></xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="source" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="dest" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="tl-logicType">
-    	<all>
-    		<element name="key" type="string" minOccurs="1"></element>
-    		<element name="subkey" type="string" minOccurs="1"></element>
-    		<element name="phaseno" type="int" minOccurs="1"></element>
-    		<element name="offset" type="int" minOccurs="1"></element>
-    		<sequence>
-    			<element name="phase" type="tns:phaseType" minOccurs="1" maxOccurs="unbounded"></element>
-    		</sequence>
-    	</all>
-    	<attribute name="type" use="required">
-    		<simpleType>
-    			<restriction base="string">
-    				<enumeration value="static"></enumeration>
-    				<enumeration value="traffic_light"></enumeration>
-    				<enumeration value="actuated"></enumeration>
-    				<enumeration value="agentbased"></enumeration>
-    			</restriction>
-    		</simpleType>
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="tlLogicType">
+        <xsd:sequence>
+            <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="type" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="actuated"></xsd:enumeration>
+                    <xsd:enumeration value="agentbased"></xsd:enumeration>
+                    <xsd:enumeration value="static"></xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="programID" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="offset" type="xsd:float" use="required"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="phaseType">
-    	<attribute name="duration" type="int" use="required"></attribute>
-    	<attribute name="state" use="required">
-    		<simpleType>
-    			<restriction base="string">
-    				<pattern value="(G|g|r|y)+"></pattern>
-    			</restriction>
-    		</simpleType>
-    	</attribute>
-    </complexType>
+    <xsd:complexType name="phaseType">
+        <xsd:attribute name="duration" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="state" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(G|g|r|y)+"></xsd:pattern>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="WAUTType">
-    	<sequence>
-    		<element name="wautSwitch" type="tns:wautSwitchType" minOccurs="0" maxOccurs="unbounded"></element>
-    	</sequence>
-    	<attribute name="id" type="string" use="required"></attribute>
-    	<attribute name="refTime" type="int" use="required"></attribute>
-    	<attribute name="startProg" type="string" use="required"></attribute>
-    </complexType>
+    <xsd:complexType name="WAUTType">
+        <xsd:sequence>
+            <xsd:element name="wautSwitch" type="wautSwitchType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="refTime" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="startProg" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="wautSwitchType">
-    	<attribute name="time" type="int" use="required"></attribute>
-    	<attribute name="to" type="string" use="required"></attribute>
-    </complexType>
+    <xsd:complexType name="wautSwitchType">
+        <xsd:attribute name="time" type="xsd:int" use="required"></xsd:attribute>
+        <xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
 
-    <complexType name="wautJunctionType">
-    	<attribute name="wautID" type="string" use="required"></attribute>
-    	<attribute name="junctionID" type="string" use="required"></attribute>
-    	<attribute name="procedure" type="string"></attribute>
-    	<attribute name="synchron" type="string"></attribute>
-    </complexType>
-</schema>
+    <xsd:complexType name="wautJunctionType">
+        <xsd:attribute name="wautID" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="junctionID" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="procedure" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="synchron" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+</xsd:schema>

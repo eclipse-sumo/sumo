@@ -1,4 +1,4 @@
-<additional>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/additional_file.xsd">
     <route id="completeA" edges="a b a b a b a"/>
     <route id="completeB" edges="b a b a b a b"/>
     <rerouter id="rerouterA" edges="a" pos="0" file="input_definitionA.def.xml"/>

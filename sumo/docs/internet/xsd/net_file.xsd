@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
     <xsd:element name="net" type="netType">
         <xsd:key name="edgeKey">
             <xsd:selector xpath="edge"></xsd:selector>
@@ -82,6 +84,7 @@
         <xsd:attribute name="to" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="name" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="priority" type="xsd:integer" use="optional"></xsd:attribute>
+        <xsd:attribute name="length" type="positiveFloatType" use="optional"></xsd:attribute>
         <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
         <xsd:attribute name="spreadType" use="optional">
@@ -240,19 +243,5 @@
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
     </xsd:complexType>
-
-    <xsd:simpleType name="shapeType">
-        <xsd:restriction base="xsd:string">
-            <xsd:pattern
-                value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
-            </xsd:pattern>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="positiveFloatType">
-        <xsd:restriction base="xsd:float">
-            <xsd:minExclusive value="0"></xsd:minExclusive>
-        </xsd:restriction>
-    </xsd:simpleType>
 
 </xsd:schema>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
     <xsd:element name="edges" type="edgesType">
         <xsd:key name="edgeKey">
             <xsd:selector xpath="edge"></xsd:selector>
@@ -33,38 +35,12 @@
         <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="length" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="endOffset" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="length" type="positiveFloatType" use="optional"></xsd:attribute>
+        <xsd:attribute name="endOffset" type="nonNegativeFloatType" use="optional"></xsd:attribute>
         <xsd:attribute name="numLanes" type="xsd:positiveInteger" use="optional"></xsd:attribute>
-        <xsd:attribute name="speed" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minExclusive value="0"></xsd:minExclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="speed" type="positiveFloatType" use="optional"></xsd:attribute>
         <xsd:attribute name="priority" type="xsd:int" use="optional"></xsd:attribute>
-        <xsd:attribute name="shape" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern
-                        value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
-                    </xsd:pattern>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -76,23 +52,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneType">
-        <xsd:attribute name="index" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="maxSpeed">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="allow" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="disallow" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="prefer" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"></xsd:attribute>
+        <xsd:attribute name="speed" type="positiveFloatType" use="optional"></xsd:attribute>
+        <xsd:attribute name="allow" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="disallow" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="prefer" type="xsd:string" use="optional"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="splitType">
@@ -107,6 +71,5 @@
         </xsd:attribute>
         <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
     </xsd:complexType>
-
 
 </xsd:schema>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
     <xsd:element name="routes" type="routesType"></xsd:element>
     <xsd:element name="route-alternatives" type="routesType"></xsd:element>
 
@@ -208,24 +210,6 @@
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="colorType">
-        <xsd:restriction base="xsd:string">
-            <xsd:pattern value="(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*)),(0|(0?.(\d+))|(1|1.0*))"></xsd:pattern>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="positiveFloatType">
-        <xsd:restriction base="xsd:float">
-            <xsd:minExclusive value="0"></xsd:minExclusive>
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="nonNegativeFloatType">
-        <xsd:restriction base="xsd:float">
-            <xsd:minInclusive value="0"></xsd:minInclusive>
-        </xsd:restriction>
     </xsd:simpleType>
 
     <xsd:complexType name="vehicleRouteType">
