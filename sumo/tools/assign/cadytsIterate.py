@@ -29,7 +29,7 @@ def main():
     optParser.add_option("-c", "--classpath", dest="classpath",
                          default=os.path.join(os.path.dirname(sys.argv[0]), "..", "contributed", "calibration", "cadytsSumoController.jar"),
                          help="classpath for the calibrator [default: %default]")
-    optParser.add_option("-s", "--last-calibration-step", dest="calibStep",
+    optParser.add_option("-l", "--last-calibration-step", dest="calibStep",
                          type="int", default=100, help="last step of the calibration [default: %default]")
     optParser.add_option("-S", "--demandscale", dest="demandscale", type="float", default=2., help="scaled demand [default: %default]")
     optParser.add_option("-F", "--freezeit",  dest="freezeit",
