@@ -1,0 +1,4 @@
+<trips>
+    <trip id="slow" depart="0" from="start" to="end" type="slow_car"/>
+    <trip id="fast" depart="0" from="start" to="end" type="fast_car"/>
+</trips>

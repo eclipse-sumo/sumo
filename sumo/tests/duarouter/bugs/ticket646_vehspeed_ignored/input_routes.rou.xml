@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+  <vType accel="3.0" decel="6.0" id="slow_car" minGap="2.5" length="5.0" maxSpeed="5.0" sigma="0.5" guiShape="passenger"/>
+  <vType accel="3.0" decel="6.0" id="fast_car" minGap="2.5" length="5.0" maxSpeed="100.0" sigma="0.5" guiShape="passenger"/>
+</routes>
+

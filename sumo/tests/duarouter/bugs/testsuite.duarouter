@@ -24,3 +24,7 @@ ticket328
 
 # duarouter completly ignores a trip
 ticket445
+
+# the vehicle "fast" should be routed along the fast edges.
+# The bug is circumvented in test ticket646 by adding another dummy edge.
+ticket646_vehspeed_ignored

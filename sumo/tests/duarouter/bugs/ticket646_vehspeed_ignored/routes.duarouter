@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Jan 16 12:27:05 2012 by SUMO duarouter Version dev-SVN-r11711
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-files value="input_trips.trips.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="slow_car" length="5.00" minGap="2.50" maxSpeed="5.00" guiShape="passenger">
+        <carFollowing-Krauss accel="3.00" decel="6.00" sigma="0.50"/>
+    </vType>
+    <vehicle id="slow" type="slow_car" depart="0.00">
+        <route edges="start slow end"/>
+    </vehicle>
+    <vType id="fast_car" length="5.00" minGap="2.50" maxSpeed="100.00" guiShape="passenger">
+        <carFollowing-Krauss accel="3.00" decel="6.00" sigma="0.50"/>
+    </vType>
+    <vehicle id="fast" type="fast_car" depart="0.00">
+        <route edges="start fast1 fast2 end"/>
+    </vehicle>
+</routes>
