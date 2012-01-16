@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="baseTypes.xsd" />
+    <xsd:include schemaLocation="routeTypes.xsd" />
 
     <xsd:element name="additional" type="additionalType"></xsd:element>
     
     <xsd:complexType name="additionalType">
-        <xsd:sequence>
-            <xsd:element name="vTypeProbe" type="vTypeProbeType"
-                minOccurs="0" maxOccurs="unbounded">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="vTypeProbe" type="vTypeProbeType" minOccurs="0"></xsd:element>
+            <xsd:element name="e1Detector" type="e1DetectorType" minOccurs="0"></xsd:element>
+            <xsd:element name="e2Detector" type="e2DetectorType" minOccurs="0"></xsd:element>
+            <xsd:element name="e3Detector" type="e3DetectorType" minOccurs="0"></xsd:element>
+            <xsd:element name="edgeData" type="meandataType" minOccurs="0"></xsd:element>
+            <xsd:element name="laneData" type="meandataType" minOccurs="0"></xsd:element>
+            <xsd:element name="timed_event" type="timed_eventType" minOccurs="0"></xsd:element>
+            <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0"></xsd:element>
+            <xsd:element name="WAUT" type="WAUTType" minOccurs="0"></xsd:element>
+            <xsd:element name="wautJunction" type="wautJunctionType" minOccurs="0"></xsd:element>
+            <xsd:element name="variableSpeedSign" type="variableSpeedSignType" minOccurs="0"></xsd:element>
+
+            <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"></xsd:element>
+            <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"></xsd:element>
+            <xsd:element name="vType" type="vTypeType" minOccurs="0"></xsd:element>
+            <xsd:element name="route" type="routeType" minOccurs="0"></xsd:element>
+            <xsd:element name="vehicle" type="vehicleType" minOccurs="0"></xsd:element>
+            <xsd:element name="flow" type="flowType" minOccurs="0"></xsd:element>
+            <xsd:element name="person" type="personType" minOccurs="0"></xsd:element>
+            <xsd:element name="include" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:attribute name="href" type="xsd:string"></xsd:attribute>
+                </xsd:complexType>
             </xsd:element>
-            <xsd:element name="e1Detector" type="e1DetectorType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="e2Detector" type="e2DetectorType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="e3Detector" type="e3DetectorType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="edgeData" type="meandataType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="laneData" type="meandataType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="timed_event" type="timed_eventType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="tlLogic" type="tlLogicType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="WAUT" type="WAUTType" minOccurs="0"
-                maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="wautJunction" type="wautJunctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:sequence>
+        </xsd:choice>
 
     </xsd:complexType>
     
@@ -68,7 +64,7 @@
         <xsd:attribute name="time_treshold" type="xsd:int" use="optional"></xsd:attribute>
         <xsd:attribute name="speed_treshold" type="xsd:float" use="optional"></xsd:attribute>
         <xsd:attribute name="jam_treshold" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean"></xsd:attribute>        
+        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="e3DetectorType">
@@ -87,7 +83,7 @@
         <xsd:attribute name="speed_treshold" type="nonNegativeFloatType" use="optional"></xsd:attribute>
     </xsd:complexType>
 
-    <xsd:complexType name="detEntryexitType">
+    <xsd:complexType name="detEntryExitType">
         <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
         <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
@@ -174,4 +170,11 @@
         <xsd:attribute name="procedure" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="synchron" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
+
+    <xsd:complexType name="variableSpeedSignType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="lanes" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
+
 </xsd:schema>
