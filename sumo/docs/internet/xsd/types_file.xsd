@@ -17,5 +17,6 @@
         <xsd:attribute name="numLanes" type="xsd:int"></xsd:attribute>
         <xsd:attribute name="speed" type="xsd:float"></xsd:attribute>
         <xsd:attribute name="discard" type="xsd:boolean"></xsd:attribute>
+        <xsd:attribute name="oneway" type="xsd:boolean"></xsd:attribute>
     </xsd:complexType>
 </xsd:schema>

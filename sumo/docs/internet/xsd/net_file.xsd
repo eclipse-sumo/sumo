@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:include schemaLocation="baseTypes.xsd" />
+    <xsd:include schemaLocation="taz_file.xsd" />
 
     <xsd:element name="net" type="netType">
         <xsd:key name="edgeKey">
@@ -25,6 +25,7 @@
             <xsd:element name="tlLogic" type="tlLogicType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="junction" type="junctionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="prohibition" type="prohibitionType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="roundabout" type="roundaboutType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="taz" type="tazType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
@@ -221,27 +222,13 @@
         </xsd:attribute>
     </xsd:complexType>
 
+    <xsd:complexType name="prohibitionType">
+        <xsd:attribute name="prohibitor" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="prohibited" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
+
     <xsd:complexType name="roundaboutType">
         <xsd:attribute name="nodes" type="xsd:string" use="required"></xsd:attribute>
-    </xsd:complexType>
-
-    <xsd:complexType name="tazType">
-        <xsd:sequence>
-            <xsd:element name="tazSource" type="tazSourceType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-            <xsd:element name="tazSink" type="tazSinkType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
-    </xsd:complexType>
-
-    <xsd:complexType name="tazSourceType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
-    </xsd:complexType>
-
-    <xsd:complexType name="tazSinkType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
     </xsd:complexType>
 
 </xsd:schema>

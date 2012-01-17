@@ -18,6 +18,8 @@
             <xsd:element name="WAUT" type="WAUTType" minOccurs="0"></xsd:element>
             <xsd:element name="wautJunction" type="wautJunctionType" minOccurs="0"></xsd:element>
             <xsd:element name="variableSpeedSign" type="variableSpeedSignType" minOccurs="0"></xsd:element>
+            <xsd:element name="routeProbe" type="routeProbeType" minOccurs="0"></xsd:element>
+            <xsd:element name="instantInductionLoop" type="instantInductionLoopType" minOccurs="0"></xsd:element>
 
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"></xsd:element>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"></xsd:element>
@@ -174,6 +176,22 @@
     <xsd:complexType name="variableSpeedSignType">
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="lanes" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="instantInductionLoopType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="routeProbeType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="edge" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="freq" type="xsd:int" use="required"></xsd:attribute>
         <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
     </xsd:complexType>
 
