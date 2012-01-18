@@ -234,8 +234,9 @@ public:
      *
      * @param[in] filename The (base) name of the file(s) to create
      * @param[in] useAlternatives Whether a file for writing alternatives shall be created
+     * @param[in] filename The name of the vtype file to create, "" means no separate types
      */
-    void openOutput(const std::string& filename, bool useAlternatives);
+    void openOutput(const std::string& filename, bool useAlternatives, const std::string& typefilename);
 
 
     /** @brief closes the file output for computed routes */
@@ -298,35 +299,41 @@ protected:
     void checkSourceAndDestinations() const;
 
 protected:
-    /// Known vehicle ids
+    /// @brief Known vehicle ids
     std::set<std::string> myVehIDs;
 
-    /// Known nodes
+    /// @brief Known nodes
     NamedObjectCont<RONode*> myNodes;
 
-    /// Known edges
+    /// @brief Known edges
     NamedObjectCont<ROEdge*> myEdges;
 
-    /// Known vehicle types
+    /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;
 
-    /// Known routes
+    /// @brief Whether no vehicle type was loaded
+    bool myDefaultVTypeMayBeDeleted;
+
+    /// @brief Known routes
     NamedObjectCont<RORouteDef*> myRoutes;
 
-    /// Known vehicles
+    /// @brief Known vehicles
     ROVehicleCont myVehicles;
 
-    /// List of source edges
+    /// @brief List of source edges
     mutable std::vector<ROEdge*> mySourceEdges;
 
-    /// List of destination edges
+    /// @brief List of destination edges
     mutable std::vector<ROEdge*> myDestinationEdges;
 
-    /// The file to write the computed routes into
+    /// @brief The file to write the computed routes into
     OutputDevice* myRoutesOutput;
 
-    /// The file to write the computed route alternatives into
+    /// @brief The file to write the computed route alternatives into
     OutputDevice* myRouteAlternativesOutput;
+
+    /// @brief The file to write the vehicle types into
+    OutputDevice* myTypesOutput;
 
     /// @brief The number of read routes
     unsigned int myReadRouteNo;

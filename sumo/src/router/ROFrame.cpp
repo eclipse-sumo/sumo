@@ -57,6 +57,10 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Write generated routes to FILE");
 
+    oc.doRegister("vtype-output", new Option_FileName(""));
+    oc.addSynonyme("vtype-output", "vtype");
+    oc.addDescription("vtype-output", "Output", "Write used vehicle types into separate FILE");
+
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");

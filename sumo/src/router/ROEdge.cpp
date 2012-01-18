@@ -130,17 +130,16 @@ ROEdge::addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
-    UNUSED_PARAMETER(veh);
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return (SUMOReal)(myLength / mySpeed);
+        return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, mySpeed));
     }
     return ret;
 }
 
 
 SUMOReal
-ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const {
+ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
@@ -156,7 +155,7 @@ ROEdge::getTravelTime(const ROVehicle* const, SUMOReal time) const {
         return myTravelTimes.getValue(time);
     }
     // ok, no absolute value was found, use the normal value (without) as default
-    return (SUMOReal)(myLength / mySpeed);
+    return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, mySpeed));
 }
 
 
@@ -164,12 +163,8 @@ SUMOReal
 ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computeCO(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -180,12 +175,8 @@ SUMOReal
 ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computeCO2(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -196,12 +187,8 @@ SUMOReal
 ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computePMx(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -212,12 +199,8 @@ SUMOReal
 ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computeHC(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -228,12 +211,8 @@ SUMOReal
 ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computeNOx(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -244,12 +223,8 @@ SUMOReal
 ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOEmissionClass c = veh->getType()->emissionClass;
         ret = HelpersHBEFA::computeFuel(c, v, 0) * getTravelTime(veh, time);
     }
     return ret;
@@ -260,12 +235,7 @@ SUMOReal
 ROEdge::getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        SUMOReal v = mySpeed;
-        SUMOEmissionClass c = SVE_UNKNOWN;
-        if (veh->getType() != 0) {
-            v = MIN2(veh->getType()->maxSpeed, mySpeed);
-            c = veh->getType()->emissionClass;
-        }
+        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
         ret = HelpersHarmonoise::computeNoise(veh->getType()->emissionClass, v, 0);
     }
     return ret;

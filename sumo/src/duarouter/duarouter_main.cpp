@@ -100,7 +100,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
-    net.openOutput(oc.getString("output-file"), true);
+    net.openOutput(oc.getString("output-file"), true, oc.getString("vtype-output"));
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     const std::string measure = oc.getString("weight-attribute");
