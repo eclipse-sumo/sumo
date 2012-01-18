@@ -31,12 +31,12 @@ sys.stdout.flush()
 # build/check vss
 os.chdir("data")
 exec(compile(open('make-vss-file.py').read(), 'make-vss-file.py', 'exec'))
-try: shutil.copy("spd-road.vss.xml", "../result1")
+try: shutil.copy("spd-road.vss.xml", "../vss.xml")
 except: print "Missing 'spd-road.vss.xml'"
 sys.stdout.flush()
 # perform calibration
 exec(compile(open('calibrate.py').read(), 'calibrate.py', 'exec'))
-try: shutil.copy("all-the-results.txt", "../result2")
+try: shutil.copy("all-the-results.txt", "../result.txt")
 except: print "Missing 'all-the-results.txt'"
 sys.stdout.flush()
 

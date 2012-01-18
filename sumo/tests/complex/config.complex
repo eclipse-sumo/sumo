@@ -24,7 +24,8 @@ vehroutes:vehroutes.xml
 state:state.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
-
+vss:vss.xml
+result:result.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
