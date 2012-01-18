@@ -70,16 +70,18 @@ for platform in ["Win32", "x64"]:
     if platform == "Win32":
         with open(makeLog, 'w') as log:
             subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
-        match_update = re.search('Updated to revision (\d*)\.', open(makeLog).read())
-        if match_update:
-            svnrev = match_update.group(1)
-        elif options.force:
-            match = re.search('At revision (\d*)\.', open(makeLog).read())
-            if match:
-                svnrev = match.group(1)
+        update_log = open(makeLog).read()
+        match_rev = re.search('At revision (\d*)\.', update_log)
+        if match_rev:
+            svnrev = match_rev.group(1)
         else:
+            print >>log, "Error parsing svn revision"            
+            sys.exit()
+        update_lines = len(update_log[:update_log.index('Fetching external')].splitlines())
+        if update_lines < 3 and not options.force:
             print "No changes since last update, skipping build and test"
             sys.exit()
+
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
     if options.addConf:
         subprocess.call(compiler+" /rebuild %sRelease|%s %s\\%s /out %s" % (options.addConf, platform, options.rootDir, options.project, makeLog))
