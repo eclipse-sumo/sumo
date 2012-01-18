@@ -26,6 +26,7 @@ tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
 result:result.txt
+results:results.csv
 
 [run_dependent_text]
 net:<!--{[->]}-->
