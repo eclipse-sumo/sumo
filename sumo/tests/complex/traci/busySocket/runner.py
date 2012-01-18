@@ -12,7 +12,7 @@ if sys.argv[1]=="sumo":
     secondConfig = "sumo.sumocfg"
 else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-Q"
+    addOption = "-S -Q"
     secondConfig = "sumo_log.sumocfg"
 PORT = 8813
 

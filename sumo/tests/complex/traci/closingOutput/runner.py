@@ -11,7 +11,7 @@ if sys.argv[1]=="sumo":
     addOption = ""
 else:
     sumoBinary = os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-Q"
+    addOption = "-S -Q"
 PORT = 8813
 
 sumoProcess = subprocess.Popen("%s -c sumo.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout, stderr=sys.stderr)
