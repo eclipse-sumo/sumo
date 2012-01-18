@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
@@ -96,11 +96,19 @@
     <xsd:complexType name="outputType">
         <xsd:sequence>
             <xsd:element name="output-file" type="output-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="vtype-output" type="vtype-outputType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="exit-times" type="exit-timesType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="output-fileType">
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="vtype-outputType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
         <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>

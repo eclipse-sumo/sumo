@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
@@ -14,7 +14,6 @@
             <xsd:element name="routing" type="routingType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="emissions" type="emissionsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="traci_server" type="traci_serverType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="mesoscopic" type="mesoscopicType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="random_number" type="random_numberType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="gui_only" type="gui_onlyType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
@@ -27,8 +26,6 @@
             <xsd:element name="additional-files" type="additional-filesType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="weight-files" type="weight-filesType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="weight-attribute" type="weight-attributeType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="load-state" type="load-stateType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="load-state.offset" type="load-state.offsetType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -67,20 +64,6 @@
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="load-stateType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="load-state.offsetType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
     <xsd:complexType name="outputType">
         <xsd:sequence>
             <xsd:element name="netstate-dump" type="netstate-dumpType" minOccurs="0" maxOccurs="1"/>
@@ -91,9 +74,6 @@
             <xsd:element name="vehroute-output.exit-times" type="vehroute-output.exit-timesType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="vehroute-output.last-route" type="vehroute-output.last-routeType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="vehroute-output.sorted" type="vehroute-output.sortedType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="save-state.times" type="save-state.timesType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="save-state.prefix" type="save-state.prefixType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="save-state.files" type="save-state.filesType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -153,32 +133,10 @@
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="save-state.timesType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="save-state.prefixType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="save-state.filesType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
     <xsd:complexType name="timeType">
         <xsd:sequence>
             <xsd:element name="begin" type="beginType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="end" type="endType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="step-length" type="step-lengthType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -196,17 +154,9 @@
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="step-lengthType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
     <xsd:complexType name="processingType">
         <xsd:sequence>
             <xsd:element name="route-steps" type="route-stepsType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="no-internal-links" type="no-internal-linksType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="ignore-accidents" type="ignore-accidentsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="ignore-route-errors" type="ignore-route-errorsType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="max-num-vehicles" type="max-num-vehiclesType" minOccurs="0" maxOccurs="1"/>
@@ -222,13 +172,6 @@
 
     <xsd:complexType name="route-stepsType">
         <xsd:attribute name="value" type="xsd:int" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="no-internal-linksType">
-        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
         <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
@@ -500,91 +443,6 @@
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
-    <xsd:complexType name="mesoscopicType">
-        <xsd:sequence>
-            <xsd:element name="mesosim" type="mesosimType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-edgelength" type="meso-edgelengthType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-tauff" type="meso-tauffType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-taufj" type="meso-taufjType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-taujf" type="meso-taujfType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-taujj" type="meso-taujjType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-jam-threshold" type="meso-jam-thresholdType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-multi-queue" type="meso-multi-queueType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-junction-control" type="meso-junction-controlType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="meso-recheck" type="meso-recheckType" minOccurs="0" maxOccurs="1"/>
-        </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="mesosimType">
-        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-edgelengthType">
-        <xsd:attribute name="value" type="xsd:float" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-tauffType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-taufjType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-taujfType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-taujjType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-jam-thresholdType">
-        <xsd:attribute name="value" type="xsd:float" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-multi-queueType">
-        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-junction-controlType">
-        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="meso-recheckType">
-        <xsd:attribute name="value" type="xsd:string" use="required"/>
-        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="type" type="xsd:string" use="optional"/>
-        <xsd:attribute name="help" type="xsd:string" use="optional"/>
-    </xsd:complexType>
-
     <xsd:complexType name="random_numberType">
         <xsd:sequence>
             <xsd:element name="random" type="randomType" minOccurs="0" maxOccurs="1"/>
@@ -609,11 +467,43 @@
     <xsd:complexType name="gui_onlyType">
         <xsd:sequence>
             <xsd:element name="gui-settings-file" type="gui-settings-fileType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="quit-on-end" type="quit-on-endType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="game" type="gameType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="start" type="startType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="disable-textures" type="disable-texturesType" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="gui-settings-fileType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="quit-on-endType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="gameType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="startType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
+        <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="help" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="disable-texturesType">
+        <xsd:attribute name="value" type="xsd:boolean" use="required"/>
         <xsd:attribute name="synonymes" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
