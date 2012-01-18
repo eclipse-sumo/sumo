@@ -10,8 +10,14 @@ noid_unsorted_time
 # same as noid_increasing_time, but a non-standard vehicle type is defined
 with_vehtype
 
-# same as with_vehtype, but two non-standard vehicle types ae defined
+# same as with_vehtype, but two non-standard vehicle types are defined
 with_2vehtypes
+
+# same as with_2vehtypes, but separate output file
+separate_vehtypes
+
+# same as with_2vehtypes, but overwriting default vehicle type
+defaulttype_overwrite
 
 # same as noid_increasing_time, but a non-standard vehicle type is used but not defined
 with_vehtype_nodef
@@ -31,7 +37,5 @@ exit_times
 # Tests whether processing vehicle parameter works
 vtypecheck
 
-
 # Tests for false user input
 errors
-

@@ -16,6 +16,7 @@
 
     <output>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
+        <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
     </output>
 

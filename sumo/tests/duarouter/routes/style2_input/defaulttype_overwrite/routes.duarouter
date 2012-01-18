@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/18/12 13:14:17 by SUMO duarouter Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" length="3.50" minGap="2.00" maxSpeed="70.00">
+        <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
+    </vType>
+    <vehicle id="0" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vType id="1" length="3.50" minGap="2.00" maxSpeed="70.00">
+        <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
+    </vType>
+    <vehicle id="1" type="1" depart="0.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="10" depart="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="11" type="1" depart="10.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

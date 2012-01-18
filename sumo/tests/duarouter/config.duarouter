@@ -11,6 +11,7 @@ copy_test_path:input_districts.net.xml
 [collate_file]
 routes:routes.rou.xml
 alts:routes.rou.alt.xml
+vtypes:vtypes.rou.xml
 cfg:config.cfg
 log:log.txt
 
