@@ -195,8 +195,8 @@
         <!-- Start the GUI in gaming mode -->
         <game value="false" synonymes="G" type="BOOL"/>
 
-        <!-- Does not start the simulation after loading -->
-        <no-start value="false" synonymes="N" type="BOOL"/>
+        <!-- Start the simulation after loading -->
+        <start value="false" synonymes="S" type="BOOL"/>
 
         <!-- Do not load background pictures -->
         <disable-textures value="false" synonymes="T" type="BOOL"/>

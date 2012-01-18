@@ -1,1 +1,1 @@
-$SUMO_HOME/docs/tools tools/xml/schemaCheck.py
+$SUMO_HOME/tools tools/xml/schemaCheck.py

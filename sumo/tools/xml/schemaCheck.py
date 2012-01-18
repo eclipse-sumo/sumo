@@ -67,13 +67,15 @@ def main(srcRoot, err):
                 validate(srcRoot)
             elif os.name != "posix":
                 subprocess.call(sax2count + " -v=always -f " + srcRoot, stdout=open(os.devnull), stderr=err)
-    fail = 0
+    else:
+        print >> err, "cannot open", srcRoot
+        return 1
     if haveLxml:
         for scheme in schemes.itervalues():
             if scheme.error_log:
-                fail = 1
                 print >> err, scheme.error_log
-    return fail
+                return 1
+    return 0
 
 if __name__ == "__main__":
     if os.name == "posix" and not haveLxml:
