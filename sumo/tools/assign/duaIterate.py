@@ -56,6 +56,41 @@ def initOptions():
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
     optParser.add_option("-s", "--sloppy-insert", action="store_true",
                          default=False, help="sloppy insertion tests (may speed up the sim considerably)")
+
+    optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+                         default=False, help="continues on unbuild routes")
+    optParser.add_option("-t", "--trips",
+                         help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-r", "--routes",
+                         help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-F", "--flows",
+                         help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
+    optParser.add_option("-A", "--gA",
+                         type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
+    optParser.add_option("-B", "--gBeta",
+                         type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
+    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+                         default=False, help="No summaries are written by the simulation")
+    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
+                         default=False, help="No tripinfos are written by the simulation")
+    optParser.add_option("--inc-base", dest="incBase",
+                         type="int", default=-1, help="Give the incrementation base")
+    optParser.add_option("--incrementation", dest="incValue",
+                         type="int", default=1, help="Give the incrementation")
+    optParser.add_option("--time-inc", dest="timeInc",
+                         type="int", default=0, help="Give the time incrementation")
+    optParser.add_option("-f", "--first-step", dest="firstStep",
+                         type="int", default=0, help="First DUA step [default: %default]")
+    optParser.add_option("-l", "--last-step", dest="lastStep",
+                         type="int", default=50, help="Last DUA step [default: %default]")
+    optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
+    optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
+                         choices=('None', 'routesonly', 'detailed'), 
+                         default = 'None', help="choose the format of the route file")
+    optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
+                         default = False, help="output the last routes")
+    optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
+                         default = False, help="save routes with near zero probability")
     return optParser
 
 def call(command, log):
@@ -176,44 +211,10 @@ def writeSUMOConf(step, options, files):
     print >> fd, "</a>"
     fd.close()
 
-def main():
+def main(args=None):
     optParser = initOptions()
-    optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
-                         default=False, help="continues on unbuild routes")
-    optParser.add_option("-t", "--trips",
-                         help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-r", "--routes",
-                         help="routes in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-F", "--flows",
-                         help="flows in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
-    optParser.add_option("-A", "--gA",
-                         type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
-    optParser.add_option("-B", "--gBeta",
-                         type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
-    optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
-                         default=False, help="No summaries are written by the simulation")
-    optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
-                         default=False, help="No tripinfos are written by the simulation")
-    optParser.add_option("--inc-base", dest="incBase",
-                         type="int", default=-1, help="Give the incrementation base")
-    optParser.add_option("--incrementation", dest="incValue",
-                         type="int", default=1, help="Give the incrementation")
-    optParser.add_option("--time-inc", dest="timeInc",
-                         type="int", default=0, help="Give the time incrementation")
-    optParser.add_option("-f", "--first-step", dest="firstStep",
-                         type="int", default=0, help="First DUA step [default: %default]")
-    optParser.add_option("-l", "--last-step", dest="lastStep",
-                         type="int", default=50, help="Last DUA step [default: %default]")
-    optParser.add_option("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
-    optParser.add_option("-x", "--vehroute-file",  dest="routefile", type="choice",
-                         choices=('None', 'routesonly', 'detailed'), 
-                         default = 'None', help="choose the format of the route file")
-    optParser.add_option("-z", "--output-lastRoute",  action="store_true", dest="lastroute",
-                         default = False, help="output the last routes")
-    optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
-                         default = False, help="save routes with near zero probability")
     
-    (options, args) = optParser.parse_args()
+    (options, args) = optParser.parse_args(args=args)
     if not options.net:
         optParser.error("Option --net-file is mandatory")
     if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
