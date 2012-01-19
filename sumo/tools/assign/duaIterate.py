@@ -21,8 +21,9 @@ import StringIO
 from datetime import datetime
 from optparse import OptionParser
 
-def initOptions():
-    optParser = OptionParser()
+
+def addGenericOptions(optParser):
+    # add options which are used by duaIterate and cadytsIterate
     optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
                          default=False, help="disables warnings")
     optParser.add_option("-n", "--net-file", dest="net",
@@ -56,6 +57,10 @@ def initOptions():
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
     optParser.add_option("-s", "--sloppy-insert", action="store_true",
                          default=False, help="sloppy insertion tests (may speed up the sim considerably)")
+
+def initOptions():
+    optParser = OptionParser()
+    addGenericOptions(optParser)
 
     optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                          default=False, help="continues on unbuild routes")
@@ -141,7 +146,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '<end value="%s"/>' % options.end,
     print >> fd, """</time>
     <report>
-        <verbose value="True"/>
+        <verbose value="False"/>
         <no-warnings value="%s"/>
     </report>
 </configuration>""" % options.noWarnings
@@ -160,11 +165,12 @@ def writeSUMOConf(step, options, files):
         <additional-files value="dua_dump_%03i.add.xml%s"/>
     </input>
     <output>""" % (options.net, files, step, add)
+    print >> fd, '        <no-step-log value="True"/>'
     if hasattr(options, "noSummary") and not options.noSummary:
         print >> fd, '        <summary-output value="summary_%03i.xml"/>' % step
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%03i.xml"/>' % step
-        if hasattr(options, "ecomeasure"):
+        if hasattr(options, "ecomeasure") and options.ecomeasure:
             print >> fd, '        <device.hbefa.probability value="1"/>'
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
@@ -205,9 +211,9 @@ def writeSUMOConf(step, options, files):
     suffix = "_%03i_%s" % (step, options.aggregation)
     fd = open("dua_dump_%03i.add.xml" % step, "w")
     print >> fd, "<a>"
-    print >> fd, '    <edgeData id="dump%s" freq="%s" file="dump%s.xml"/>' % (suffix, options.aggregation, suffix)
+    print >> fd, '    <edgeData id="dump%s" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
     if options.ecomeasure:
-        print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml"/>' % (suffix, options.aggregation, suffix)
+        print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
     print >> fd, "</a>"
     fd.close()
 
@@ -266,18 +272,19 @@ def main(args=None):
             btime = datetime.now()
             print ">>> Begin time: %s" % btime
             cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
+            log.flush()
             call([duaBinary, "-c", cfgname], log)
             etime = datetime.now()
             print ">>> End time: %s" % etime
             print ">>> Duration: %s" % (etime-btime)
             print "<<"
             files.append(output)
-    
         # simulation
         print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeSUMOConf(step, options, ",".join(files))
+        log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime

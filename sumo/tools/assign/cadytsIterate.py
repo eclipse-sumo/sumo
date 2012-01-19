@@ -18,10 +18,13 @@ All rights reserved
 import os, sys, subprocess, types
 from datetime import datetime
 from optparse import OptionParser
-from duaIterate import call, writeSUMOConf, initOptions
+from duaIterate import call, writeSUMOConf, addGenericOptions
 
-def main():
-    optParser = initOptions()
+
+def initOptions():
+    optParser = OptionParser()
+    addGenericOptions(optParser)
+
     optParser.add_option("-r", "--route-alternatives", dest="routes",
                          help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
     optParser.add_option("-d", "--detector-values", dest="detvals",
@@ -58,6 +61,10 @@ def main():
                          default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
     optParser.add_option("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
                          default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
+
+
+def main():
+    optParser = initOptions()
 
     (options, args) = optParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
