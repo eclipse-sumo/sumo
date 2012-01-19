@@ -32,6 +32,7 @@
 #include <config.h>
 #endif
 
+#include <math.h>
 #include <string>
 #include <map>
 #include <set>
@@ -227,10 +228,10 @@ public:
      * @return True iff the vehicle number is acceptable
      */
     bool isInQuota(const SUMOReal frac) const {
-        if (MSGlobals::gFractions.find(frac) == MSGlobals::gFractions.end()) {
-            return (myLoadedVehNo - 1) % 1000 < (unsigned int)(frac * 1000.);
-        }
-        return (myLoadedVehNo - 1) % MSGlobals::gFractions[frac].second < MSGlobals::gFractions[frac].first;
+        const SUMOReal eps = 0.00001; // floating point inaccuracy
+        SUMOReal intPart;
+        // the vehicle in question has already been loaded, hence  the '-1'
+        return modf((myLoadedVehNo - 1) * frac, &intPart) + eps < frac;
     }
 
 
