@@ -19,3 +19,6 @@ step10
 # Test for step 11
 step11
 more_digits
+
+# expose bug in previous implementation
+larger_numbers
