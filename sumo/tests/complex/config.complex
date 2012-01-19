@@ -25,7 +25,6 @@ state:state.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
-result:result.txt
 results:results.csv
 
 [run_dependent_text]
@@ -42,9 +41,9 @@ errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 
-
 [floating_point_tolerance]
 output:0.0001
+vss:0.0001
 
 [batch_extra_version]
 meso:meso
