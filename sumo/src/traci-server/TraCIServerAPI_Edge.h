@@ -21,7 +21,6 @@
 #ifndef TraCIServerAPI_Edge_h
 #define TraCIServerAPI_Edge_h
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -30,6 +29,8 @@
 #else
 #include <config.h>
 #endif
+
+#ifndef NO_TRACI
 
 #include "TraCIException.h"
 #include "TraCIServer.h"
@@ -75,6 +76,8 @@ private:
 
 };
 
+
+#endif
 
 #endif
 

@@ -29,6 +29,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE3Collector.h>
@@ -113,6 +115,8 @@ TraCIServerAPI_MeMeDetector::processGet(TraCIServer& server, tcpip::Storage& inp
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
+
+#endif
 
 
 /****************************************************************************/

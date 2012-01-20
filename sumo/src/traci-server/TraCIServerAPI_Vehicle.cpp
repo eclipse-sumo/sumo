@@ -32,6 +32,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <microsim/MSNet.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicle.h>
@@ -1083,6 +1085,8 @@ TraCIServerAPI_Vehicle::getSingularType(SUMOVehicle* const veh) {
     static_cast<MSVehicle*>(veh)->replaceVehicleType(type);
     return *type;
 }
+
+#endif
 
 
 /****************************************************************************/

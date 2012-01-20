@@ -31,6 +31,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIConstants.h"
 #include <microsim/MSLane.h>
 #include "TraCIServerAPI_Lane.h"
@@ -356,6 +358,8 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
+
+#endif
 
 
 /****************************************************************************/

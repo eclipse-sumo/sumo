@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIConstants.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
@@ -164,6 +166,8 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
+
+#endif
 
 
 /****************************************************************************/

@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
 #include <utils/shapes/PointOfInterest.h>
@@ -283,6 +285,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
+#endif
 
 
 /****************************************************************************/

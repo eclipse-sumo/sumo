@@ -32,6 +32,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -450,6 +452,8 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     return true;
 }
 
+
+#endif
 
 
 /****************************************************************************/

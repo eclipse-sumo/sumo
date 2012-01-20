@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIConstants.h"
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSLane.h>
@@ -383,6 +385,9 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
+
+#endif
+
 
 /****************************************************************************/
 

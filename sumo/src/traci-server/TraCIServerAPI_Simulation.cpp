@@ -31,6 +31,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
@@ -461,3 +463,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
     outputStorage.writeDouble(distance);
     return true;
 }
+
+#endif
+
+/****************************************************************************/

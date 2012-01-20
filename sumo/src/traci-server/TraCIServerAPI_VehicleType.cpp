@@ -31,6 +31,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
@@ -337,5 +339,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable, const
     }
     return true;
 }
+
+#endif
+
 
 /****************************************************************************/

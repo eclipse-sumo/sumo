@@ -31,6 +31,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIException.h"
 #include <microsim/MSEdgeWeightsStorage.h>
 #include "TraCIServer.h"
@@ -83,6 +85,8 @@ private:
 
 };
 
+
+#endif
 
 #endif
 

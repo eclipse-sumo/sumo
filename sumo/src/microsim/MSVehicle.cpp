@@ -141,6 +141,7 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer
  * ----------------------------------------------------------------------- */
+#ifndef NO_TRACI
 MSVehicle::Influencer::Influencer()
     : mySpeedAdaptationStarted(true), myConsiderSafeVelocity(true),
       myConsiderMaxAcceleration(true), myConsiderMaxDeceleration(true) {}
@@ -235,7 +236,7 @@ void
 MSVehicle::Influencer::setConsiderMaxDeceleration(bool value) {
     myConsiderMaxDeceleration = value;
 }
-
+#endif
 
 
 /* -------------------------------------------------------------------------
@@ -258,7 +259,9 @@ MSVehicle::~MSVehicle() {
     if (myType->amVehicleSpecific()) {
         delete myType;
     }
+#ifndef NO_TRACI
     delete myInfluencer;
+#endif
 }
 
 
@@ -1046,14 +1049,16 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
 
 void
 MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
+#ifdef DEBUG_VEHICLE_GUI_SELECTION
+    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+        int bla = 0;
+    }
+#endif
+#ifndef NO_TRACI
     if (myInfluencer != 0) {
         SUMOReal vMin = MAX2(SUMOReal(0), getVehicleType().getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed));
         SUMOReal vMax = getVehicleType().getCarFollowModel().maxNextSpeed(myState.mySpeed);
         boundVSafe = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), boundVSafe, boundVSafe, vMin, vMax);
-    }
-#ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
-        int bla = 0;
     }
 #endif
     const MSCFModel& cfModel = getCarFollowModel();

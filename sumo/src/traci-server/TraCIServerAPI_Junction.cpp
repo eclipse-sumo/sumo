@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#ifndef NO_TRACI
+
 #include "TraCIConstants.h"
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionControl.h>
@@ -100,6 +102,8 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     server.writeResponseWithLength(outputStorage, tempMsg);
     return true;
 }
+
+#endif
 
 
 /****************************************************************************/
