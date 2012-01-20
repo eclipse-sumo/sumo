@@ -10,7 +10,7 @@ endif
 
 if MESOSIM
 MESO_LIBS = ./mesosim/libmesosim.a
-MESOGUI_LIBS = ./mesogui/libmesogui.a
+MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
 INTERNAL_LIBS = ./internal/libinternal.a
 endif
 
@@ -103,6 +103,7 @@ $(sumo_LDADD) \
 ./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
 ./gui/GUITLLogicPhasesTrackerWindow.o \
+$(OSG_LIBS) \
 -l$(LIB_FOX)
 endif
 
