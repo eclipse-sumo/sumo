@@ -126,8 +126,8 @@ public:
 
     Boundary getVisibleBoundary() const;
 
-    long onConfigure(FXObject*, FXSelector, void*);
-    long onPaint(FXObject*, FXSelector, void*);
+    virtual long onConfigure(FXObject*, FXSelector, void*);
+    virtual long onPaint(FXObject*, FXSelector, void*);
     virtual long onLeftBtnPress(FXObject*, FXSelector, void*);
     virtual long onLeftBtnRelease(FXObject*, FXSelector, void*);
     virtual long onRightBtnPress(FXObject*, FXSelector, void*);
@@ -136,8 +136,8 @@ public:
     virtual long onMouseMove(FXObject*, FXSelector, void*);
     virtual long onMouseLeft(FXObject*, FXSelector, void*);
 
-    long onKeyPress(FXObject* o, FXSelector sel, void* data);
-    long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+    virtual long onKeyPress(FXObject* o, FXSelector sel, void* data);
+    virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
 
     virtual void openObjectDialog();

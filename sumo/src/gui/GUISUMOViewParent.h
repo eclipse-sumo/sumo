@@ -68,6 +68,15 @@ class GUISUMOViewParent : public GUIGlChildWindow {
     FXDECLARE(GUISUMOViewParent)
 
 public:
+    /// @brief Available view types
+    enum ViewType {
+        /// @brief plain 2D openGL view (@see GUIViewTraffic)
+        VIEW_2D_OPENGL,
+        /// @brief plain 3D OSG view (@see GUIOSGView)
+        VIEW_3D_OSG
+    };
+
+
     /** @brief Constructor
      * @param[in] p The MDI-pane this window is shown within
      * @param[in] mdimenu The MDI-menu for alignment
@@ -88,9 +97,10 @@ public:
     /** @brief "Initialises" this window by building the contents
      * @param[in] share A canvas tor get the shared context from
      * @param[in] net The network to show
+     * @param[in] vt The view type to use
      * @todo Check whether this could be done in the constructor
      */
-    virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net);
+    virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net, ViewType type);
 
 
     /// @brief Destructor

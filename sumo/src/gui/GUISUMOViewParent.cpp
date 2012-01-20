@@ -60,6 +60,10 @@
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
 
+#ifdef HAVE_OSG
+#include <osgview/GUIOSGViewBuilder.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -99,9 +103,18 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
 
 
 GUISUMOAbstractView*
-GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net) {
-    myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
-                                myParent->getGLVisual(), share);
+GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewType type) {
+    switch(type) {
+    default:
+    case VIEW_2D_OPENGL:
+        myView = new GUIViewTraffic(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+        break;
+#ifdef HAVE_OSG
+    case VIEW_3D_OSG:
+        myView = GUIOSGViewBuilder::build(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+        break;
+#endif
+    }
     myView->buildViewToolBars(*this);
     if (myParent->isGaming()) {
         myNavigationToolBar->hide();

@@ -149,6 +149,9 @@ public:
     long onCmdStep(FXObject*, FXSelector, void*);
 
     long onCmdNewView(FXObject*, FXSelector, void*);
+#ifdef HAVE_OSG
+    long onCmdNewOSG(FXObject*,FXSelector,void*);
+#endif
 
     long onUpdOpen(FXObject*, FXSelector, void*);
     long onUpdReload(FXObject*, FXSelector, void*);
@@ -160,7 +163,6 @@ public:
     long onUpdEditChosen(FXObject* sender, FXSelector, void* ptr);
     virtual long onUpdEditBreakpoints(FXObject*, FXSelector, void*);
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
-
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
     /// Somebody wants our clipped text
@@ -182,8 +184,9 @@ private:
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
+
     /** opens a new simulation display */
-    GUISUMOAbstractView* openNewView();
+    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt=GUISUMOViewParent::VIEW_2D_OPENGL);
 
 protected:
     /// FOX needs this for static members

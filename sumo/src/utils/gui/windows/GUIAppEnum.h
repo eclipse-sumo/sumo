@@ -101,6 +101,7 @@ enum {
 
     /// Open a new microscopic view
     MID_NEW_MICROVIEW,
+    /// Open a new microscopic 3D view
     MID_NEW_OSGVIEW,
     //@}
 
@@ -182,6 +183,8 @@ enum {
 
     /// GLCanvas - ID
     MID_GLCANVAS,
+    /// chore
+    MID_CHORE,
     //@}
 
 

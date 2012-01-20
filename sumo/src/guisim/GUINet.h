@@ -259,6 +259,7 @@ private:
     /// @brief creates a wrapper for the given logic and returns the GlID
     GUIGlID createTLWrapper(MSTrafficLightLogic* tll);
 
+    friend class GUIOSGBuilder;
 
 protected:
     /// @brief The visualization speed-up

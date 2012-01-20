@@ -126,6 +126,13 @@ public:
         return myIsInner;
     }
 
+    /** @brief Returns the represented junction
+     * @return The junction itself
+     */
+    const MSJunction &getJunction() const {
+        return myJunction;
+    }
+
 
 protected:
     /// @brief A reference to the represented junction

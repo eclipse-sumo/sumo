@@ -106,6 +106,9 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,       GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
+#ifdef HAVE_OSG
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_OSGVIEW,        GUIApplicationWindow::onCmdNewOSG),
+#endif
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
@@ -502,6 +505,11 @@ GUIApplicationWindow::buildToolBars() {
         new FXButton(myToolBar5, "\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT | BUTTON_TOOLBAR | FRAME_RAISED | LAYOUT_TOP | LAYOUT_LEFT);
+#ifdef HAVE_OSG
+        new FXButton(myToolBar5,"\t\tOpen a new 3D view.",
+                     GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_OSGVIEW,
+                     ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+#endif
     }
 }
 
@@ -773,9 +781,19 @@ GUIApplicationWindow::onCmdListInternal(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdNewView(FXObject*, FXSelector, void*) {
-    openNewView();
+    openNewView(GUISUMOViewParent::VIEW_2D_OPENGL);
     return 1;
 }
+
+
+#ifdef HAVE_OSG
+long
+GUIApplicationWindow::onCmdNewOSG(FXObject*,FXSelector,void*)
+{
+    openNewView(GUISUMOViewParent::VIEW_3D_OSG);
+    return 1;
+}
+#endif
 
 
 long
@@ -971,20 +989,17 @@ GUIApplicationWindow::load(const std::string& file, bool isNet, bool isReload) {
 }
 
 
-
 GUISUMOAbstractView*
-GUIApplicationWindow::openNewView() {
+GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return 0;
     }
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient,
-            myMDIMenu, FXString(caption.c_str()),
-            this, GUIIconSubSys::getIcon(ICON_APP),
-            opts, 10, 10, 300, 200);
-    GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet());
+    GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
+            this, GUIIconSubSys::getIcon(ICON_APP), opts, 10, 10, 300, 200);
+    GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet(), vt);
     w->create();
     if (myMDIClient->numChildren() == 1) {
         w->maximize();
