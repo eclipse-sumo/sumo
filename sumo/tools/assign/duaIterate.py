@@ -153,6 +153,13 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     fd.close()
     return cfgname
 
+def get_scale(options, step):
+    # compute scaling factor for simulation
+    # using incValue = 1 (default) and incBase = 10 would produce 
+    # iterations with increasing scale 0.1, 0.2, ... 0.9, 1, 1, 1, ...
+    return min(options.incValue * float(step + 1) / options.incBase, 1)
+
+
 def writeSUMOConf(step, options, files):
     fd = open("iteration_%03i.sumocfg" % step, "w")
     add = ""
@@ -194,7 +201,7 @@ def writeSUMOConf(step, options, files):
     print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
     print >> fd, '        <sloppy-insert value="%s"/>' % options.sloppy_insert
     if hasattr(options, "incBase") and options.incBase > 0:
-        print >> fd, '        <scale value="%s"/>' % (options.incValue*float(step+1) / options.incBase)
+        print >> fd, '        <scale value="%s"/>' % get_scale(options, step)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
         if options.mesomultiqueue:
