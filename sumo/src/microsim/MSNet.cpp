@@ -297,8 +297,10 @@ MSNet::closeSimulation(SUMOTime start) {
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
         }
+        const std::string scaleNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
+                " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
         msg << "Vehicles: " << "\n"
-            << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << "\n"
+            << " Emitted: " << myVehicleControl->getDepartedVehicleNo() << scaleNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());

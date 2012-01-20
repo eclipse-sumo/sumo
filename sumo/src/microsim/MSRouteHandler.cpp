@@ -542,7 +542,7 @@ MSRouteHandler::closeVehicle() {
             }
             myVehicleParameter = 0;
         } else {
-            vehControl.deleteVehicle(vehicle);
+            vehControl.deleteVehicle(vehicle, true);
             myVehicleParameter = 0;
             vehicle = 0;
         }

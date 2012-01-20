@@ -76,9 +76,9 @@ GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
 
 
 void
-GUIVehicleControl::deleteVehicle(SUMOVehicle* veh) {
+GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     myLock.lock();
-    MSVehicleControl::deleteVehicle(veh);
+    MSVehicleControl::deleteVehicle(veh, discard);
     myLock.unlock();
 }
 

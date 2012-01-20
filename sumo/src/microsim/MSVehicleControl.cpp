@@ -53,6 +53,7 @@ MSVehicleControl::MSVehicleControl() :
     myLoadedVehNo(0),
     myRunningVehNo(0),
     myEndedVehNo(0),
+    myDiscarded(0),
     myTotalDepartureDelay(0),
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
@@ -169,8 +170,11 @@ MSVehicleControl::getVehicle(const std::string& id) const {
 
 
 void
-MSVehicleControl::deleteVehicle(SUMOVehicle* veh) {
+MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     myEndedVehNo++;
+    if (discard) {
+        myDiscarded++;
+    }
     myVehicleDict.erase(veh->getID());
     delete veh;
 }

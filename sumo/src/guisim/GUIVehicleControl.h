@@ -102,9 +102,9 @@ public:
      * Identical to the MSVehicleControl implementation except for locking.
      *
      * @param[in] v The vehicle to delete
-     * @todo Isn't this quite insecure?
+     * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      */
-    void deleteVehicle(SUMOVehicle* v) ;
+    void deleteVehicle(SUMOVehicle* v, bool discard=false);
 
 
     /** @brief Returns the list of all known vehicles by gl-id
