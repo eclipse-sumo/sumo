@@ -225,15 +225,11 @@ public:
     }
 
 
-    /** @brief Returns the information whether the currently vehicle number is still in the given range
+    /** @brief Returns the information whether the currently vehicle number shall be emitted 
+     * considering that only frac of all vehicles shall be emitted overall
      * @return True iff the vehicle number is acceptable
      */
-    bool isInQuota(const SUMOReal frac) const {
-        const SUMOReal eps = 0.00001; // floating point inaccuracy
-        double intPart;
-        // the vehicle in question has already been loaded, hence  the '-1'
-        return modf((myLoadedVehNo - 1) * frac, &intPart) + eps < frac;
-    }
+    bool isInQuota(const SUMOReal frac) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed
