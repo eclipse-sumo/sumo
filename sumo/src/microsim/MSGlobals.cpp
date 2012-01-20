@@ -49,8 +49,6 @@ bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
 
-std::map<SUMOReal, std::pair<unsigned int, unsigned int> > MSGlobals::gFractions;
-
 #ifdef HAVE_MESOSIM
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
