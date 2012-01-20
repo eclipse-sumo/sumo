@@ -229,7 +229,7 @@ public:
      */
     bool isInQuota(const SUMOReal frac) const {
         const SUMOReal eps = 0.00001; // floating point inaccuracy
-        SUMOReal intPart;
+        double intPart;
         // the vehicle in question has already been loaded, hence  the '-1'
         return modf((myLoadedVehNo - 1) * frac, &intPart) + eps < frac;
     }
