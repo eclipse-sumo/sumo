@@ -41,13 +41,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteLoaderControl::MSRouteLoaderControl(MSNet&,
-        int inAdvanceStepNo,
-        LoaderVector loader)
-    : myLastLoadTime(-inAdvanceStepNo),
-      myInAdvanceStepNo(inAdvanceStepNo),
-      myRouteLoaders(loader),
-      myAllLoaded(false) {
+MSRouteLoaderControl::MSRouteLoaderControl(MSNet&, SUMOTime inAdvanceStepNo, LoaderVector loader): 
+    myLastLoadTime(-inAdvanceStepNo),
+    myInAdvanceStepNo(inAdvanceStepNo),
+    myRouteLoaders(loader),
+    myAllLoaded(false) 
+{
     myLoadAll = myInAdvanceStepNo <= 0;
     myAllLoaded = false;
     myLastLoadTime = -1 * (int) myInAdvanceStepNo;
@@ -71,31 +70,18 @@ void
 MSRouteLoaderControl::loadNext(SUMOTime step) {
     // check whether new vehicles shall be loaded
     //  return if not
-    if ((myLoadAll && myAllLoaded) || (myLastLoadTime >= 0 && myLastLoadTime/*+myInAdvanceStepNo*/ >= step)) {
+    if (myAllLoaded) {
         return;
     }
+    SUMOTime loadMaxTime = myLoadAll ? SUMOTime_MAX : step + myInAdvanceStepNo;
+
     // load all routes for the specified time period
-    SUMOTime run = step;
-    bool furtherAvailable = true;
-    for (;
-            furtherAvailable &&
-            (myLoadAll || run <= step + (SUMOTime) myInAdvanceStepNo);
-            run++) {
-        furtherAvailable = false;
-        for (LoaderVector::iterator i = myRouteLoaders.begin();
-                i != myRouteLoaders.end(); ++i) {
-            if ((*i)->moreAvailable()) {
-                (*i)->loadUntil(run);
-            }
-            furtherAvailable |= (*i)->moreAvailable();
-        }
+    bool furtherAvailable = false;
+    for (LoaderVector::iterator i = myRouteLoaders.begin(); i != myRouteLoaders.end(); ++i) {
+        (*i)->loadUntil(loadMaxTime);
+        furtherAvailable |= (*i)->moreAvailable();
     }
-    // no further loading when all was loaded
-    if (myLoadAll || !furtherAvailable) {
-        myAllLoaded = true;
-    }
-    // set the step information
-    myLastLoadTime = run - 1;
+    myAllLoaded = !furtherAvailable;
 }
 
 

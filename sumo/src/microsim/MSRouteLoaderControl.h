@@ -62,7 +62,7 @@ public:
 
 public:
     /// constructor
-    MSRouteLoaderControl(MSNet& net, int inAdvanceStepNo,
+    MSRouteLoaderControl(MSNet& net, SUMOTime inAdvanceStepNo,
                          LoaderVector loader);
 
     /// destructor
@@ -76,7 +76,7 @@ private:
     SUMOTime myLastLoadTime;
 
     /// the number of routes to read in forward
-    size_t myInAdvanceStepNo;
+    SUMOTime myInAdvanceStepNo;
 
     /// the list of route loaders
     LoaderVector myRouteLoaders;
