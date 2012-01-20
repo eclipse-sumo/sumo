@@ -41,14 +41,17 @@ def getWeaklyConnected(net):
     return components
 
 
-if len(sys.argv) != 2:
-    print "Usage: " + sys.argv[0] + " <net>"
-    sys.exit()
-net = sumolib.net.readNet(sys.argv[1])
-components = getWeaklyConnected(net)
-if len(components) != 1:
-    print "Warning! Net is not connected."
-    for idx, comp in enumerate(components):
-        print "Component", idx
-        print " ".join(comp)
-        print
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print "Usage: " + sys.argv[0] + " <net>"
+        sys.exit()
+
+    net = sumolib.net.readNet(sys.argv[1])
+    components = getWeaklyConnected(net)
+    if len(components) != 1:
+        print "Warning! Net is not connected."
+        for idx, comp in enumerate(components):
+            print "Component", idx
+            print " ".join(comp)
+            print
+
