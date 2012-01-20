@@ -48,7 +48,8 @@ Usage: sumo [OPTION]*
   --step-length TIME                  Defines the step duration
 
  Processing Options:
-  -s, --route-steps INT               Load routes for the next INT steps ahead
+  -s, --route-steps INT               Load routes for the next INT seconds
+                                        ahead
   --no-internal-links                 Disable (junction) internal links
   --ignore-accidents                  Do not check whether accidents occure
                                         more deeply
