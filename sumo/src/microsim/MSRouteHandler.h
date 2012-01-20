@@ -188,6 +188,9 @@ private:
     /// Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();
 
+    /// save last depart (only to be used if vehicle is not discarded)
+    void registerLastDepart();
+
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s);
 

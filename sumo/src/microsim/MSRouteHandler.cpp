@@ -109,9 +109,17 @@ MSRouteHandler::checkLastDepart() {
             WRITE_WARNING("Route file should be sorted by departure time, ignoring '" + myVehicleParameter->id + "'!");
             return false;
         }
-        myLastDepart = myVehicleParameter->depart;
     }
     return true;
+}
+
+
+void 
+MSRouteHandler::registerLastDepart() {
+    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
+        myLastDepart = myVehicleParameter->depart;
+    }
+    // else: we don't know when this vehicle will depart. keep the previous known depart time
 }
 
 
@@ -540,6 +548,7 @@ MSRouteHandler::closeVehicle() {
                 vehControl.addWaiting(*route->begin(), vehicle);
                 vehControl.registerOneWaitingForPerson();
             }
+            registerLastDepart();
             myVehicleParameter = 0;
         } else {
             vehControl.deleteVehicle(vehicle, true);
@@ -577,8 +586,10 @@ MSRouteHandler::closePerson() {
         throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
     }
     MSPerson* person = new MSPerson(myVehicleParameter, myActivePlan);
+    // @todo: consider myScale?
     if (checkLastDepart() && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
+        registerLastDepart();
     } else {
         delete person;
     }
@@ -589,6 +600,7 @@ MSRouteHandler::closePerson() {
 
 void
 MSRouteHandler::closeFlow() {
+    // @todo: consider myScale?
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
@@ -619,6 +631,7 @@ MSRouteHandler::closeFlow() {
     //  shall stay in the internal buffer
     if (checkLastDepart()) {
         MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
+        registerLastDepart();
     }
     myVehicleParameter = 0;
 }
