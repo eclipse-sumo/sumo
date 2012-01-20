@@ -12,3 +12,6 @@ calibrator
 
 # Tests whether variable speed signs work
 variable_speed_signs
+
+# Tests for dua-inc emissions
+inc-dua
