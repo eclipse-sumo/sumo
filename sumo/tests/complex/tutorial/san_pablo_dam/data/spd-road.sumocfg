@@ -2,7 +2,7 @@
     <input>
         <net-file value="spd-road.net.xml"/>
         <route-files value="spd-road.rou.xml"/>
-    <additional-files value="input_vss.add.xml,input_det.add.xml"/>
+        <additional-files value="input_vss.add.xml,input_det.add.xml,input_types.add.xml"/>
     </input>
     <time>
         <begin value="24420"/>
