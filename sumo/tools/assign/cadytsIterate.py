@@ -61,7 +61,7 @@ def initOptions():
                          default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
     optParser.add_option("-K", "--cntlastlink", action="store_false", dest="cntlastlink",
                          default=True, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
-
+    return optParser
 
 def main():
     optParser = initOptions()
