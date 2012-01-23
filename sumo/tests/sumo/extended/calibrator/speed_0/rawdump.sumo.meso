@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/25/10 15:42:08 by SUMO sumo Version dev-SVN-r8982
-<configuration>
+<!-- generated on 01/23/12 11:23:34 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -1473,6 +1475,9 @@
             <vehicle id="calibtest.2" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.1" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.0" pos="0.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="169.00">
         <edge id="end">
@@ -1482,6 +1487,9 @@
             <vehicle id="calibtest.2" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.1" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.0" pos="0.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="170.00">
         <edge id="end">
@@ -1489,6 +1497,10 @@
             <vehicle id="calibtest.4" pos="297.15" speed="27.81"/>
             <vehicle id="calibtest.3" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.2" pos="396.20" speed="27.81"/>
+        </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.1" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="0.00" speed="27.80"/>
         </edge>
     </timestep>
     <timestep time="171.00">
@@ -1498,6 +1510,10 @@
             <vehicle id="calibtest.3" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.2" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.1" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="0.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="172.00">
         <edge id="end">
@@ -1505,11 +1521,22 @@
             <vehicle id="calibtest.4" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.3" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.2" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="100.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="173.00">
         <edge id="end">
             <vehicle id="veh0" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.4" pos="396.20" speed="27.81"/>
+        </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.3" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="100.00" speed="27.80"/>
         </edge>
     </timestep>
     <timestep time="174.00">
@@ -1517,12 +1544,183 @@
             <vehicle id="veh0" pos="396.20" speed="27.81"/>
             <vehicle id="calibtest.4" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.3" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="100.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="175.00">
         <edge id="end">
             <vehicle id="veh0" pos="396.20" speed="27.81"/>
         </edge>
+        <edge id="rend">
+            <vehicle id="calibtest.4" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="200.00" speed="27.80"/>
+        </edge>
     </timestep>
     <timestep time="176.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="177.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="178.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="200.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="179.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="0.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="180.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="181.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="300.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="182.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="100.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="183.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="184.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="185.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.0" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="186.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="200.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="187.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.1" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="188.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="189.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.2" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="190.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="300.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.3" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="191.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="192.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="400.00" speed="27.80"/>
+            <vehicle id="calibtest.4" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="193.00">
+        <edge id="rend">
+            <vehicle id="veh0" pos="400.00" speed="27.80"/>
+        </edge>
+    </timestep>
+    <timestep time="194.00">
     </timestep>
 </sumo-netstate>

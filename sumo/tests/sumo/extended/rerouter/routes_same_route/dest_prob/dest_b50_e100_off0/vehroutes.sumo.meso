@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jan 30 01:14:18 2011 by SUMO sumo Version dev-SVN-r9638
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 01/23/12 11:23:16 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -27,15 +27,15 @@
 -->
 
 <routes>
-    <vehicle id="0.0" depart="0.00" arrival="72.00">
+    <vehicle id="0.0" depart="0.00" arrival="90.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.1" depart="20.00" arrival="92.00">
+    <vehicle id="0.1" depart="20.00" arrival="110.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.2" depart="40.00" arrival="112.00">
+    <vehicle id="0.2" depart="40.00" arrival="130.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -46,10 +46,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.6" depart="120.00" arrival="192.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
     <vehicle id="0.4" depart="80.00" arrival="205.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="80.00" probability="0" edges="beg middle end rend"/>
@@ -57,7 +53,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.7" depart="140.00" arrival="212.00">
+    <vehicle id="0.6" depart="120.00" arrival="210.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -68,15 +64,19 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="0.8" depart="160.00" arrival="232.00">
+    <vehicle id="0.7" depart="140.00" arrival="230.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.9" depart="180.00" arrival="252.00">
+    <vehicle id="0.8" depart="160.00" arrival="250.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.10" depart="200.00" arrival="272.00">
+    <vehicle id="0.9" depart="180.00" arrival="270.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.10" depart="200.00" arrival="290.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

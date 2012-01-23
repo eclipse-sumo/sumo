@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jan 30 01:14:18 2011 by SUMO sumo Version dev-SVN-r9638
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 01/23/12 11:23:16 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -27,23 +27,23 @@
 -->
 
 <routes>
-    <vehicle id="0.0" depart="0.00" arrival="72.00">
+    <vehicle id="0.0" depart="0.00" arrival="90.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.1" depart="20.00" arrival="92.00">
+    <vehicle id="0.1" depart="20.00" arrival="110.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.2" depart="40.00" arrival="112.00">
+    <vehicle id="0.2" depart="40.00" arrival="130.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.3" depart="60.00" arrival="132.00">
+    <vehicle id="0.3" depart="60.00" arrival="150.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="0.4" depart="80.00" arrival="152.00">
+    <vehicle id="0.4" depart="80.00" arrival="170.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

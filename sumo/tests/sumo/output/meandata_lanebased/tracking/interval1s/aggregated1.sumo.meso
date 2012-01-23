@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Oct 25 11:22:50 2010 by SUMO sumo Version dev-SVN-r9300
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 01/23/12 11:23:04 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -251,7 +251,7 @@
     <interval begin="107.00" end="108.00" id="dump_1">
     </interval>
     <interval begin="108.00" end="109.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1/1to0/1" sampledSeconds="39.05" traveltime="39.05" waitingTime="0.00" speed="10.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="109.00" end="110.00" id="dump_1">
     </interval>
@@ -284,56 +284,5 @@
     <interval begin="123.00" end="124.00" id="dump_1">
     </interval>
     <interval begin="124.00" end="125.00" id="dump_1">
-    </interval>
-    <interval begin="125.00" end="126.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="0.00" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-    </interval>
-    <interval begin="126.00" end="127.00" id="dump_1">
-    </interval>
-    <interval begin="127.00" end="128.00" id="dump_1">
-    </interval>
-    <interval begin="128.00" end="129.00" id="dump_1">
-    </interval>
-    <interval begin="129.00" end="130.00" id="dump_1">
-    </interval>
-    <interval begin="130.00" end="131.00" id="dump_1">
-    </interval>
-    <interval begin="131.00" end="132.00" id="dump_1">
-    </interval>
-    <interval begin="132.00" end="133.00" id="dump_1">
-    </interval>
-    <interval begin="133.00" end="134.00" id="dump_1">
-    </interval>
-    <interval begin="134.00" end="135.00" id="dump_1">
-    </interval>
-    <interval begin="135.00" end="136.00" id="dump_1">
-    </interval>
-    <interval begin="136.00" end="137.00" id="dump_1">
-    </interval>
-    <interval begin="137.00" end="138.00" id="dump_1">
-    </interval>
-    <interval begin="138.00" end="139.00" id="dump_1">
-    </interval>
-    <interval begin="139.00" end="140.00" id="dump_1">
-    </interval>
-    <interval begin="140.00" end="141.00" id="dump_1">
-    </interval>
-    <interval begin="141.00" end="142.00" id="dump_1">
-    </interval>
-    <interval begin="142.00" end="143.00" id="dump_1">
-    </interval>
-    <interval begin="143.00" end="144.00" id="dump_1">
-    </interval>
-    <interval begin="144.00" end="145.00" id="dump_1">
-    </interval>
-    <interval begin="145.00" end="146.00" id="dump_1">
-    </interval>
-    <interval begin="146.00" end="147.00" id="dump_1">
-    </interval>
-    <interval begin="147.00" end="148.00" id="dump_1">
-    </interval>
-    <interval begin="148.00" end="149.00" id="dump_1">
-    </interval>
-    <interval begin="149.00" end="150.00" id="dump_1">
     </interval>
 </netstats>

@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/10 16:12:59 by SUMO sumo Version dev-SVN-r8682
-<configuration>
+<!-- generated on 01/23/12 11:23:33 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -26,23 +28,23 @@
 -->
 
 <routes>
-    <vehicle id="veh0" depart="1.00" arrival="73.00">
+    <vehicle id="veh0" depart="1.00" arrival="91.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.0" depart="36.00" arrival="104.00">
+    <vehicle id="calibtest.0" depart="36.00" arrival="122.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.1" depart="54.00" arrival="122.00">
+    <vehicle id="calibtest.1" depart="54.00" arrival="140.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.2" depart="72.00" arrival="140.00">
+    <vehicle id="calibtest.2" depart="72.00" arrival="158.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.3" depart="90.00" arrival="158.00">
+    <vehicle id="calibtest.3" depart="90.00" arrival="176.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Jan 30 01:14:30 2011 by SUMO sumo Version dev-SVN-r9638
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 01/23/12 11:23:28 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -25,8 +25,8 @@
     </report>
 
     <routing>
-        <device.routing.probability value="1"/>
-        <device.routing.with-taz value="true"/>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.with-taz value="true"/>
     </routing>
 
     <mesoscopic>
@@ -37,43 +37,43 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="72.00" fromTaz="1" toTaz="2">
+    <vehicle id="0" depart="0.00" arrival="90.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="92.00" fromTaz="1" toTaz="2">
+    <vehicle id="1" depart="20.00" arrival="110.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="112.00" fromTaz="1" toTaz="2">
+    <vehicle id="2" depart="40.00" arrival="130.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="132.00" fromTaz="1" toTaz="2">
+    <vehicle id="3" depart="60.00" arrival="150.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="4" depart="80.00" arrival="152.00" fromTaz="1" toTaz="2">
+    <vehicle id="4" depart="80.00" arrival="170.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="172.00" fromTaz="1" toTaz="2">
+    <vehicle id="5" depart="100.00" arrival="190.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="6" depart="120.00" arrival="192.00" fromTaz="1" toTaz="2">
+    <vehicle id="6" depart="120.00" arrival="210.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="7" depart="140.00" arrival="212.00" fromTaz="1" toTaz="2">
+    <vehicle id="7" depart="140.00" arrival="230.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="232.00" fromTaz="1" toTaz="2">
+    <vehicle id="8" depart="160.00" arrival="250.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="252.00" fromTaz="1" toTaz="2">
+    <vehicle id="9" depart="180.00" arrival="270.00" fromTaz="1" toTaz="2">
         <route edges="beg2left left left2end end"/>
     </vehicle>
 

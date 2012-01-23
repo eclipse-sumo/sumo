@@ -1,6 +1,9 @@
 # no traffic, just plain output
 no_vehicles
 
+# to compare abs and per_veh
+hundred_vehicles
+
 # one vehicle is moving
 one_vehicle
 
