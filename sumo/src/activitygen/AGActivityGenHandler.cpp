@@ -146,8 +146,8 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
         myCity.statData.carRate = attrs.getFloatSecure(AGEN_ATTR_CARS, 0.58);
         myCity.statData.unemployement = attrs.getFloatSecure(AGEN_ATTR_UNEMPLOYEMENT, 0.06);
         myCity.statData.maxFootDistance = attrs.getFloatSecure(AGEN_ATTR_MAX_FOOT_DIST, 300.0);
-        myCity.statData.incomingTraffic = attrs.getInt(AGEN_ATTR_IN_TRAFFIC);
-        myCity.statData.outgoingTraffic = attrs.getInt(AGEN_ATTR_OUT_TRAFFIC);
+        myCity.statData.incomingTraffic = attrs.getIntSecure(AGEN_ATTR_IN_TRAFFIC, 0);
+        myCity.statData.outgoingTraffic = attrs.getIntSecure(AGEN_ATTR_OUT_TRAFFIC, 0);
 
     } catch (const exception& e) {
         WRITE_ERROR("Error while parsing the element " +
