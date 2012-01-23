@@ -37,7 +37,7 @@ optParser.add_option("-e", "--sumo-exe", dest="sumoExe", default="sumo",
 optParser.add_option("-m", "--remote-dir", dest="remoteDir",
                      help="directory to move the results to")
 optParser.add_option("-a", "--add-build-config-prefix", dest="addConf",
-                     help="directory to move the results to")
+                     help="prefix of an additional configuration to build")
 optParser.add_option("-f", "--force", action="store_true",
                      default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
@@ -75,10 +75,11 @@ for platform in ["Win32", "x64"]:
         if match_rev:
             svnrev = match_rev.group(1)
         else:
-            print >>log, "Error parsing svn revision"            
+            open(makeLog, 'a').write("Error parsing svn revision\n")
             sys.exit()
         update_lines = len(update_log[:update_log.index('Fetching external')].splitlines())
         if update_lines < 3 and not options.force:
+            open(makeLog, 'a').write("No changes since last update, skipping build and test\n")
             print "No changes since last update, skipping build and test"
             sys.exit()
 
@@ -139,6 +140,11 @@ for platform in ["Win32", "x64"]:
     except IOError, (errno, strerror):
         print >> log, "Warning: Could not zip to %s!" % binaryZip
         print >> log, "I/O error(%s): %s" % (errno, strerror)
+    if platform == "Win32" and options.sumoExe == "sumo":
+        try:
+            subprocess.call(os.path.join(os.path.dirname(__file__), '..', game, 'setup.py'), stdout=log, stderr=subprocess.STDOUT)
+        except:
+            print >> log, "Warning: Could not create nightly sumogame.zip!"
     log.close()
     subprocess.call(compiler+" /rebuild Debug|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeAllLog))
     if options.addConf:
