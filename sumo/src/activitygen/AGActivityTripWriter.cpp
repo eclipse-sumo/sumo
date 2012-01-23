@@ -48,9 +48,9 @@ AGActivityTripWriter::initialize() {
 
 void
 AGActivityTripWriter::vtypes() {
-    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxSpeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" maxSpeed=\"90\"/>" << std::endl;
-    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" maxSpeed=\"70\"/>" << std::endl << std::endl;
+    routes << "    <vType id=\"default\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"random\" accel=\"4.0\" decel=\"8.0\" sigma=\"0.0\" length=\"5\" minGap=\"2.5\" maxSpeed=\"90\"/>" << std::endl;
+    routes << "    <vType id=\"bus\" accel=\"2.0\" decel=\"4.0\" sigma=\"0.0\" length=\"10\" minGap=\"3\" maxSpeed=\"70\"/>" << std::endl << std::endl;
 
     colors["default"] = "1,0,0";
     colors["bus"] = "0,1,0";
