@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/23/10 18:38:40 by SUMO sumo Version dev-SVN-r9400
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 01/23/12 14:11:36 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional2.add.xml"/>
     </input>
 
     <output>
@@ -33,5 +32,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="28.17" duration="18.00" routeLength="1000.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized="0"/>
+    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="18.00" arrivalLane="" arrivalPos="0.00" arrivalSpeed="28.17" duration="18.00" routeLength="502.00" waitSteps="0" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" vaporized=""/>
 </tripinfos>
