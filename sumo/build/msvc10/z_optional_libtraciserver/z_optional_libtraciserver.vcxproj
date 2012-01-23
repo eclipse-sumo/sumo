@@ -337,12 +337,6 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Vehicle.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
-      <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -2,6 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 	ProjectSection(ProjectDependencies) = postProject
+		{308BEB29-142B-4088-BD41-80E273E20D3A} = {308BEB29-142B-4088-BD41-80E273E20D3A}
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0} = {F5218B3F-4CE3-47F7-8A3D-41683281EAA0}
+		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684} = {3CD3D44A-7809-485C-B7A9-D5FDE0C31684}
 		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
 	EndProjectSection
 EndProject
@@ -12,19 +15,24 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo", "sumo\sumo.vcxproj",
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libgui", "y_libgui\y_libgui.vcxproj", "{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
+	ProjectSection(ProjectDependencies) = postProject
+		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguinetload", "y_libguinetload\y_libguinetload.vcxproj", "{B2AD8EB4-16B1-4BDC-9CF5-F7ADADBD316D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libguisim", "y_libguisim\y_libguisim.vcxproj", "{9046260E-78AA-4458-BE80-0747860A0F70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
+		{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C} = {00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesogui", "y_libmesogui\y_libmesogui.vcxproj", "{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmesosim", "y_libmesosim\y_libmesosim.vcxproj", "{308BEB29-142B-4088-BD41-80E273E20D3A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim", "y_libmicrosim\y_libmicrosim.vcxproj", "{2A069662-6B6F-40D7-A808-211F9C9A4AAE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{308BEB29-142B-4088-BD41-80E273E20D3A} = {308BEB29-142B-4088-BD41-80E273E20D3A}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetload", "y_libnetload\y_libnetload.vcxproj", "{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}"
 EndProject
@@ -115,6 +123,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_eulerspiral", "zz_foreign_eulerspiral\zz_foreign_eulerspiral.vcxproj", "{50B2C273-2B6A-4A3A-BE24-83E3202DE180}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetwrite", "y_libnetwrite\y_libnetwrite.vcxproj", "{91422FEF-2369-45E6-87AA-8B38709AD824}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_osgview", "y_osgview\y_osgview.vcxproj", "{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -866,6 +876,26 @@ Global
 		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|Win32.Build.0 = Release|Win32
 		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.ActiveCfg = Release|x64
 		{91422FEF-2369-45E6-87AA-8B38709AD824}.Release|x64.Build.0 = Release|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Debug|Win32.Build.0 = Debug|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Debug|x64.ActiveCfg = Debug|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Debug|x64.Build.0 = Debug|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoDebug|Win32.ActiveCfg = Debug|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoDebug|Win32.Build.0 = Debug|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoDebug|x64.ActiveCfg = Debug|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoDebug|x64.Build.0 = Debug|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoRelease|Win32.ActiveCfg = Release|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoRelease|Win32.Build.0 = Release|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoRelease|x64.ActiveCfg = Release|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.MesoRelease|x64.Build.0 = Release|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Release|Win32.ActiveCfg = Release|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Release|Win32.Build.0 = Release|Win32
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Release|x64.ActiveCfg = Release|x64
+		{F5218B3F-4CE3-47F7-8A3D-41683281EAA0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

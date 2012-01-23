@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\src\netload\NLEdgeControlBuilder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netload\NLGeomShapeBuilder.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netload\NLHandler.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -50,9 +47,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netload\NLEdgeControlBuilder.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netload\NLGeomShapeBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netload\NLHandler.h">

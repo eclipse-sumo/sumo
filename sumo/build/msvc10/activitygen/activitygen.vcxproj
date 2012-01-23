@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -214,6 +214,9 @@
     <ProjectReference Include="..\y_librouter\y_librouter.vcxproj">
       <Project>{a003a0ed-38c6-4e03-84d1-ba42d25abc4d}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
+      <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\z_libutils_common\z_libutils_common.vcxproj">
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>

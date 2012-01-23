@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\src\guinetload\GUIEdgeControlBuilder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\guinetload\GUIGeomShapeBuilder.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\guinetload\GUITriggerBuilder.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guinetload\GUIEdgeControlBuilder.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\guinetload\GUIGeomShapeBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\guinetload\GUITriggerBuilder.h">

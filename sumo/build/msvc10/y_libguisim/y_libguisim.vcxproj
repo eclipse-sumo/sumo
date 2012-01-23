@@ -302,24 +302,6 @@
     <ClInclude Include="..\..\..\src\guisim\GUIVehicle.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIVehicleControl.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\y_libmicrosim\y_libmicrosim.vcxproj">
-      <Project>{2a069662-6b6f-40d7-a808-211f9c9a4aae}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <Private>true</Private>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="..\zz_foreign_nvwa\zz_foreign_nvwa.vcxproj">
-      <Project>{fc5b65e0-a0b1-40d7-8687-c2fc79e3da47}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\z_libutils_importio\z_libutils_importio.vcxproj">
-      <Project>{9fcf1caf-0189-4242-88ba-47706e741119}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

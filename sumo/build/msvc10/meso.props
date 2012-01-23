@@ -3,9 +3,13 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
   </PropertyGroup>
+  <PropertyGroup Label="UserMacros">
+    <OSG_LIB>$(OSG)\lib\osgUtil.lib;$(OSG)\lib\osgDB.lib;$(OSG)\lib\osgGA.lib;$(OSG)\lib\osg.lib;$(OSG)\lib\osgViewer.lib</OSG_LIB>
+    <OSG_DEBUG_LIB>$(OSG)\lib\osgUtild.lib;$(OSG)\lib\osgDBd.lib;$(OSG)\lib\osgGAd.lib;$(OSG)\lib\osgd.lib;$(OSG)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>HAVE_MESOSIM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_OSG;HAVE_MESOSIM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
