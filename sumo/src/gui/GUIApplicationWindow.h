@@ -66,9 +66,6 @@ class GUIParameterTableWindow;
  * @class GUIApplicationWindow
  * @brief The main window of the SUMO-gui.
  *
- * Contains the file opening support and a canvas to display the simulation
- *  representations in.
- *
  * Beside views on the simulation, shown within a MDI-window, the main window
  * may also have some further views (children) assigned which are stored
  * within a separate list.
@@ -90,13 +87,15 @@ public:
     virtual ~GUIApplicationWindow();
 
 
+    /// @name FOX-interactions
+    /// {
+
     /// @brief Creates the main window (required by FOX)
     virtual void create();
 
-
-    /// Detaches the tool/menu bar
+    /// @brief Detaches the tool/menu bar
     virtual void detach();
-
+    /// @}
 
     void loadOnStartup();
 
@@ -104,6 +103,13 @@ public:
     void dependentBuild(bool game);
 
     void setStatusBarText(const std::string&);
+
+    FXGLCanvas* getBuildGLCanvas() const;
+    SUMOTime getCurrentSimTime() const;
+
+    FXCursor* getDefaultCursor();
+
+
 
 
     /// @name Inter-thread event handling
@@ -120,59 +126,101 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
+    /// @brief Called on menu File->Open Configuration
     long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Open Network
     long onCmdOpenNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
+
+    /// @brief Called on opening a recent file
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu File->Close
     long onCmdClose(FXObject*, FXSelector, void*);
 
     /** @brief Called by FOX if the application shall be closed
-        Called either by FileMenu->Quit, the normal close-menu or SIGINT  */
+     *
+     * Called either by FileMenu->Quit, the normal close-menu or SIGINT */
     long onCmdQuit(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu Edit->Edit Chosen
     long onCmdEditChosen(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
-    /// Opens the application settings menu
+    /// @brief Opens the application settings menu (Settings->Application Settings...)
     long onCmdAppSettings(FXObject*, FXSelector, void*);
-    /// Toggle gaming mode
+
+    /// @brief Toggle gaming mode
     long onCmdGaming(FXObject*, FXSelector, void*);
-    /// Toggle listing of internal structures
+
+    /// @brief Toggle listing of internal structures
     long onCmdListInternal(FXObject*, FXSelector, void*);
 
-    /// Shows the about dialog
+    /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "play"
     long onCmdStart(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "stop"
     long onCmdStop(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "step"
     long onCmdStep(FXObject*, FXSelector, void*);
 
+    /// @brief Called if a new view shall be opened (2D view)
     long onCmdNewView(FXObject*, FXSelector, void*);
+
 #ifdef HAVE_OSG
+    /// @brief Called if a new 3D view shall be opened
     long onCmdNewOSG(FXObject*,FXSelector,void*);
 #endif
 
+    /// @brief Determines whether opening is enabled
     long onUpdOpen(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether reloading is enabled
     long onUpdReload(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether opening a recent file is enabled
     long onUpdOpenRecent(FXObject*, FXSelector, void*);
-    long onUpdAddMicro(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether adding a view is enabled
+    long onUpdAddView(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether "play" is enabled
     virtual long onUpdStart(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether "stop" is enabled
     long onUpdStop(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether "step" is enabled
     long onUpdStep(FXObject*, FXSelector, void*);
+
+    /// @brief Determines whether editing chosen is enabled
     long onUpdEditChosen(FXObject* sender, FXSelector, void* ptr);
+
+    /// @brief Determines whether editing breakpoints is enabled
     virtual long onUpdEditBreakpoints(FXObject*, FXSelector, void*);
+
+    /// @brief Called if the message window shall be cleared
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
+
+    /// @brief Called on an event from the loading thread
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
+
+    /// @brief Called on an event from the simulation thread
     long onRunThreadEvent(FXObject*, FXSelector, void*);
-    /// Somebody wants our clipped text
+
+    /// @brief Somebody wants our clipped text
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
     /// @}
-
-    FXGLCanvas* getBuildGLCanvas() const;
-    SUMOTime getCurrentSimTime() const;
-
-    FXCursor* getDefaultCursor();
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
