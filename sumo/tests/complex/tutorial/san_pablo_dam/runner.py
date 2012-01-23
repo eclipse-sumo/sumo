@@ -15,11 +15,9 @@ All rights reserved
 
 import os,subprocess,sys
 import shutil
-import numpy as np
 from scipy.optimize import fmin_cobyla
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(__file__), "..", "..", "..")), "tools"))
 from sumolib import checkBinary
 import validate
 
