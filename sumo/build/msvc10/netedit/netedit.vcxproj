@@ -154,7 +154,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(GDAL_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)neteditF.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -248,6 +248,9 @@
     </ProjectReference>
     <ProjectReference Include="..\zz_foreign_polyfonts\zz_foreign_polyfonts.vcxproj">
       <Project>{306768a4-b73e-4b81-9ec0-b4836efe0504}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zz_foreign_tcpip\zz_foreign_tcpip.vcxproj">
+      <Project>{492b0b5a-0bbe-49ba-82e6-70a82dbc242f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\z_libnetimport_vissim\z_libnetimport_vissim.vcxproj">
       <Project>{f7f13336-3e29-4219-8580-a17c71e69718}</Project>

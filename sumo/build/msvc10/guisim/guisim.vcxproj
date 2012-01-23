@@ -216,25 +216,25 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\Release\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\Release\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\Release\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\MesoRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\MesoRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\MesoRelease\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso-gui.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\Release\y_libmesogui.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_LIB);$(FOX16_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\MesoRelease\y_libmesogui.lib;$(OSG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\MesoRelease\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\MesoRelease\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso-gui64.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\Debug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\Debug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\Debug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\MesoDebug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\MesoDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\MesoDebug\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso-guiD.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|x64'">
     <Link>
-      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\Debug\y_libmesogui.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(PROJ_LIB);$(PYTHON_LIB);shell32.lib;opengl32.lib;glu32.lib;$(XERCES_DEBUG_LIB);$(FOX16_DEBUG_LIB);user32.lib;winmm.lib;vfw32.lib;gdi32.lib;ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesogui\x64\Debug\y_libmesogui.lib;$(OSG_DEBUG_LIB);$(MSBuildProjectDirectory)\..\y_osgview\x64\MesoDebug\y_osgview.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\MesoDebug\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso-gui64D.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>

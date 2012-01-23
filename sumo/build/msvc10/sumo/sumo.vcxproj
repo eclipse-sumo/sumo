@@ -234,7 +234,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\Release\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\MesoRelease\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -244,7 +244,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\Release\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\MesoRelease\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso64.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -254,7 +254,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\Debug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\MesoDebug\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)mesoD.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -265,7 +265,7 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\Debug\y_libmesosim.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);$(PYTHON_LIB);ws2_32.lib;$(MSBuildProjectDirectory)\..\y_libmesosim\x64\MesoDebug\y_libmesosim.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)meso64D.exe</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
