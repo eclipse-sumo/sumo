@@ -59,7 +59,9 @@ const int VTYPEPARS_EMISSIONCLASS_SET = 2 << 6;
 const int VTYPEPARS_COLOR_SET = 2 << 7;
 const int VTYPEPARS_VEHICLECLASS_SET = 2 << 8;
 const int VTYPEPARS_WIDTH_SET = 2 << 9;
-const int VTYPEPARS_SHAPE_SET = 2 << 10;
+const int VTYPEPARS_HEIGHT_SET = 2 << 10;
+const int VTYPEPARS_SHAPE_SET = 2 << 11;
+const int VTYPEPARS_OSGFILE_SET = 2 << 12;
 
 
 // ===========================================================================
@@ -128,8 +130,14 @@ public:
     /// @brief This class' width
     SUMOReal width;
 
+    /// @brief This class' height
+    SUMOReal height;
+
     /// @brief This class' shape
     SUMOVehicleShape shape;
+
+    /// @brief This class 3D model file
+    std::string osgFile;
     /// @}
 
 

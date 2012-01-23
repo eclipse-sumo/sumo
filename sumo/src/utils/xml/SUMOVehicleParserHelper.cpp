@@ -508,9 +508,17 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
         vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIWIDTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_WIDTH_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_HEIGHT)) {
+        vtype->height = attrs.getSUMORealReporting(SUMO_ATTR_HEIGHT, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_HEIGHT_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
         vtype->shape = parseGuiShape(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_SHAPE_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_OSGFILE)) {
+        vtype->osgFile = attrs.getStringReporting(SUMO_ATTR_OSGFILE, vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_OSGFILE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         vtype->color = RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(), vtype->id.c_str(), true, ok);

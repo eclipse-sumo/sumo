@@ -84,16 +84,19 @@ public:
      * @param[in] vclass The class vehicles of this type belong to
      * @param[in] emissionClass The emission class vehicles of this type belong to
      * @param[in] guiWidth The width of the vehicles when being drawn
+     * @param[in] height The height of the vehicles when being drawn
      * @param[in] shape How vehicles of this class shall be drawn
+     * @param[in] osgFile Model file of this class
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
-    MSVehicleType(const std::string& id, SUMOReal lengthWithGap,
-                  SUMOReal minGap, SUMOReal maxSpeed,
-                  SUMOReal prob, SUMOReal speedFactor,
-                  SUMOReal speedDev, SUMOVehicleClass vclass,
-                  SUMOEmissionClass emissionClass,
-                  SUMOReal guiWidth, SUMOVehicleShape shape,
+    MSVehicleType(const std::string& id, const SUMOReal lengthWithGap,
+                  const SUMOReal minGap, const SUMOReal maxSpeed,
+                  const SUMOReal prob, const SUMOReal speedFactor,
+                  const SUMOReal speedDev, const SUMOVehicleClass vclass,
+                  const SUMOEmissionClass emissionClass,
+                  const SUMOReal guiWidth, const SUMOReal height,
+                  const SUMOVehicleShape shape, const std::string osgFile,
                   const std::string& lcModel,
                   const RGBColor& c) ;
 
@@ -245,12 +248,26 @@ public:
         return myWidth;
     }
 
+    /** @brief Get the height which vehicles of this class shall have when being drawn
+     * @return The height of this type's vehicles
+     */
+    SUMOReal getHeight() const {
+        return myHeight;
+    }
+
     /** @brief Get this vehicle type's shape
      * @return The shape of this vehicle type
      * @see SUMOVehicleShape
      */
     SUMOVehicleShape getGuiShape() const {
         return myShape;
+    }
+
+    /** @brief Get this vehicle type's 3D model file name
+     * @return The model file name of this vehicle type
+     */
+    std::string getOSGFile() const {
+        return myOSGFile;
     }
 
     /// @}
@@ -444,8 +461,14 @@ private:
     /// @brief This class' width
     SUMOReal myWidth;
 
+    /// @brief This class' height
+    SUMOReal myHeight;
+
     /// @brief This class' shape
     SUMOVehicleShape myShape;
+
+    /// @brief This class' model file
+    std::string myOSGFile;
     /// @}
 
 

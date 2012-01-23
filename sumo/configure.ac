@@ -391,7 +391,7 @@ else
 fi
 
 AC_CHECK_HEADER([osg/Config], [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
-OSG_LIBS="-losg -losgGA -losgViewer -losgUtil" AC_SUBST(OSG_LIBS)])
+OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB" AC_SUBST(OSG_LIBS)])
 
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)

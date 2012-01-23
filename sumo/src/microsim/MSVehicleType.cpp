@@ -54,12 +54,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const std::string& id, SUMOReal length,
-                             SUMOReal minGap, SUMOReal maxSpeed, SUMOReal prob,
-                             SUMOReal speedFactor, SUMOReal speedDev,
-                             SUMOVehicleClass vclass,
-                             SUMOEmissionClass emissionClass,
-                             SUMOReal guiWidth, SUMOVehicleShape shape,
+MSVehicleType::MSVehicleType(const std::string& id, const SUMOReal length,
+                             const SUMOReal minGap, const SUMOReal maxSpeed, const SUMOReal prob,
+                             const SUMOReal speedFactor, const SUMOReal speedDev,
+                             const SUMOVehicleClass vclass,
+                             const SUMOEmissionClass emissionClass,
+                             const SUMOReal guiWidth, const SUMOReal height,
+                             const SUMOVehicleShape shape, const std::string osgFile,
                              const std::string& lcModel,
                              const RGBColor& c)
     : myID(id), myLength(length),
@@ -67,7 +68,8 @@ MSVehicleType::MSVehicleType(const std::string& id, SUMOReal length,
       myDefaultProbability(prob), mySpeedFactor(speedFactor),
       mySpeedDev(speedDev), myLaneChangeModel(lcModel),
       myEmissionClass(emissionClass), myColor(c),
-      myVehicleClass(vclass), myWidth(guiWidth), myShape(shape),
+      myVehicleClass(vclass), myWidth(guiWidth),
+      myHeight(height), myShape(shape), myOSGFile(osgFile),
       myOriginalType(0) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
@@ -220,7 +222,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     MSVehicleType* vtype = new MSVehicleType(
         from.id, from.length, from.minGap, from.maxSpeed,
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
-        from.width, from.shape, from.lcModel, from.color);
+        from.width, from.height, from.shape, from.osgFile, from.lcModel, from.color);
     MSCFModel* model = 0;
     switch (from.cfModel) {
         case SUMO_TAG_CF_IDM:
@@ -290,7 +292,7 @@ MSVehicleType::build(const std::string& id, const MSVehicleType* from) {
     MSVehicleType* vtype = new MSVehicleType(
         id, from->myLength, from->myMinGap, from->myMaxSpeed,
         from->myDefaultProbability, from->mySpeedFactor, from->mySpeedDev, from->myVehicleClass, from->myEmissionClass,
-        from->myWidth, from->myShape, from->myLaneChangeModel, from->myColor);
+        from->myWidth, from->myHeight, from->myShape, from->myOSGFile, from->myLaneChangeModel, from->myColor);
     vtype->myCarFollowModel = from->myCarFollowModel->duplicate(vtype);
     vtype->myOriginalType = from->myOriginalType != 0 ? from->myOriginalType : from;
     return vtype;
