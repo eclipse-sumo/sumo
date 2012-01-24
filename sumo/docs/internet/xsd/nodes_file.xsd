@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
     <xsd:element name="nodes" type="nodesType">
         <xsd:key name="nodeKey">
             <xsd:selector xpath="node"></xsd:selector>
@@ -10,7 +12,11 @@
 
     <xsd:complexType name="nodesType">
         <xsd:sequence>
-            <xsd:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"></xsd:element>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="node" type="nodeType"></xsd:element>
+                <xsd:element name="delete" type="deleteType"></xsd:element>
+            </xsd:choice>
         </xsd:sequence>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
@@ -23,8 +29,9 @@
 
     <xsd:complexType name="nodeType">
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="x" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="y" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="x" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="y" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="z" type="xsd:float" use="optional"></xsd:attribute>
         <xsd:attribute name="type" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -35,6 +42,10 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="deleteType">
+        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
     </xsd:complexType>
 
 </xsd:schema>

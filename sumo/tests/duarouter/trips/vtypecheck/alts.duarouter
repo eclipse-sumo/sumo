@@ -41,7 +41,7 @@
         </routeDistribution>
     </vehicle>
     <vType id="2">
-        <carFollowing-Krauss sigma="100.00"/>
+        <carFollowing-Krauss sigma="1.00"/>
     </vType>
     <vehicle id="2" type="2" depart="0.00">
         <routeDistribution last="0">

@@ -4,33 +4,18 @@
     <xsd:element name="connections" type="connectionsType"></xsd:element>
 
     <xsd:complexType name="connectionsType">
-        <xsd:sequence>
-            <xsd:element name="connection" type="connectionType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-            <xsd:element name="prohibition" type="prohibitionType"
-                minOccurs="0" maxOccurs="unbounded">
-            </xsd:element>
-        </xsd:sequence>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="connection" type="connectionType"></xsd:element>
+            <xsd:element name="prohibition" type="prohibitionType"></xsd:element>
+            <xsd:element name="delete" type="deleteType"></xsd:element>
+        </xsd:choice>
     </xsd:complexType>
 
     <xsd:complexType name="connectionType">
         <xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="to" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="fromLane" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
-        <xsd:attribute name="toLane" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:int">
-                    <xsd:minInclusive value="0"></xsd:minInclusive>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
         <xsd:attribute name="uncontrolled" type="xsd:boolean" use="optional"></xsd:attribute>
     </xsd:complexType>
 
@@ -49,6 +34,13 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="deleteType">
+        <xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="to" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
     </xsd:complexType>
 
 </xsd:schema>

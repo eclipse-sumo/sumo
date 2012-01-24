@@ -1,7 +1,7 @@
 <trips>
    <vType id="0" accel="100"/>
    <vType id="1" decel="100"/>
-   <vType id="2" sigma="100"/>
+   <vType id="2" sigma="1.00"/>
    <vType id="3" length="100"/>
    <vType id="4" minGap="100"/>
    <vType id="5" maxSpeed="100"/>
