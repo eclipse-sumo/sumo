@@ -71,18 +71,22 @@ class StartDialog:
         Tkinter.Label(self.root, image=dlrLogo).grid(rowspan=numButtons)
         idx = 0
         for cfg in configs:
-            text = category = os.path.basename(cfg)[:-9]
+            text = category = os.path.basename(cfg)[:-8]
             if text == "cross":
                 text = "Simple Junction" 
             elif text == "square":
                 text = "Four Junctions" 
             elif text == "kuehne":
                 text = "Prof. Kühne" 
-            Tkinter.Button(self.root, text=text, width=bWidth, command=lambda cfg=cfg:self.ok(cfg)).grid(row=idx, column=1)
+            Tkinter.Button(self.root, text=text, width=bWidth,
+                           command=lambda cfg=cfg:self.ok(cfg)).grid(row=idx, column=1)
             idx += 1
-        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth, command=high.clear).grid(row=idx, column=1)
-        Tkinter.Button(self.root, text="Quit", width=bWidth, command=sys.exit).grid(row=idx+1, column=1)
-        Tkinter.Label(self.root, image=sumoLogo).grid(row=0, column=2, rowspan=numButtons)
+        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth,
+                       command=high.clear).grid(row=idx, column=1)
+        Tkinter.Button(self.root, text="Quit", width=bWidth,
+                       command=sys.exit).grid(row=idx+1, column=1)
+        Tkinter.Label(self.root, image=sumoLogo).grid(row=0, column=2,
+                                                      rowspan=numButtons)
         self.root.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
@@ -95,8 +99,8 @@ class StartDialog:
         self.root.destroy()
         print "starting", cfg
         self.gametime = parseEndTime(cfg)
-        self.ret = subprocess.call([guisimPath, "-G", "-Q", "-c", cfg])
-        self.category = os.path.basename(cfg)[:-9]
+        self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg])
+        self.category = os.path.basename(cfg)[:-8]
 
 
 class ScoreDialog:
@@ -118,7 +122,8 @@ class ScoreDialog:
                 Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
-                self.scoreLabel = Tkinter.Label(self.root, text=str(points), bg="pale green").grid(row=idx, column=2)
+                self.scoreLabel = Tkinter.Label(self.root, text=str(points),
+                                                bg="pale green").grid(row=idx, column=2)
                 self.idx = idx
                 haveHigh = True
                 self.root.title("Congratulations!")
@@ -130,8 +135,10 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
         if not haveHigh:
-            Tkinter.Label(self.root, text='your score', padx=5, bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
-            Tkinter.Label(self.root, text=str(points), bg="indian red").grid(row=idx, column=2)
+            Tkinter.Label(self.root, text='your score', padx=5,
+                          bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
+            Tkinter.Label(self.root, text=str(points),
+                          bg="indian red").grid(row=idx, column=2)
             idx += 1
         else:
             self.saveBut = Tkinter.Button(self.root, text="Save", command=self.save)
@@ -158,7 +165,8 @@ class ScoreDialog:
             self.saveBut.config(state=Tkinter.DISABLED)
             self.name.destroy()
             self.name = None
-            Tkinter.Label(self.root, text=name, padx=5, bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
+            Tkinter.Label(self.root, text=name, padx=5,
+                          bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
             try:
                 f = open(_SCOREFILE, 'w')
                 pickle.dump(high, f)
