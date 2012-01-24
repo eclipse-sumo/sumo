@@ -451,7 +451,7 @@ GUINet::getCenteringBoundary() const {
 
 
 GUINet*
-GUINet::getGUIInstance(void) {
+GUINet::getGUIInstance() {
     GUINet* net = dynamic_cast<GUINet*>(MSNet::getInstance());
     if (net != 0) {
         return net;

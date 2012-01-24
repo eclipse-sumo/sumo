@@ -74,7 +74,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     : MSTrigger(id), MSMoveReminder(), SUMOSAXHandler(file),
       myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // read in the trigger description
-    if (!XMLSubSys::runParser(*this, file)) {
+    if (file != "" && !XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
     }
     // build actors

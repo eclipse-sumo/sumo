@@ -222,7 +222,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
         throw ProcessError();
     }
     // get the file name to read further definitions from
-    std::string file = getFileName(attrs, base);
+    std::string file = getFileName(attrs, base, true);
     std::string objectid = attrs.getStringReporting(SUMO_ATTR_EDGES, id.c_str(), ok);
     if (!ok) {
         throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
@@ -245,7 +245,10 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
     }
-    buildRerouter(net, id, edges, prob, file, off);
+    MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, file, off);
+    if (file == "") {
+        trigger->registerParent(SUMO_TAG_REROUTER, myHandler);
+    }
 }
 
 
@@ -272,11 +275,11 @@ NLTriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
 #endif
 
 
-void
+MSTriggeredRerouter*
 NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
                                 std::vector<MSEdge*> &edges,
                                 SUMOReal prob, const std::string& file, bool off) {
-    new MSTriggeredRerouter(id, edges, prob, file, off);
+    return new MSTriggeredRerouter(id, edges, prob, file, off);
 }
 
 

@@ -225,9 +225,9 @@ protected:
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
      */
-    virtual void buildRerouter(MSNet& net,
-                               const std::string& id, std::vector<MSEdge*> &edges,
-                               SUMOReal prob, const std::string& file, bool off) ;
+    virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
+                                               const std::string& id, std::vector<MSEdge*> &edges,
+                                               SUMOReal prob, const std::string& file, bool off) ;
     //@}
 
 

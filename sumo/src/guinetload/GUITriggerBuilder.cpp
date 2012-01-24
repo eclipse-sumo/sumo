@@ -62,11 +62,13 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 }
 
 
-void
+MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string& file, bool off) {
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(new GUITriggeredRerouter(id, edges, prob, file, off));
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off);
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(rr);
+    return rr;
 }
 
 

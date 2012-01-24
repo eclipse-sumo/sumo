@@ -53,7 +53,6 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
-#include <guisim/GUINet.h>
 #include <microsim/MSJunction.h>
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
