@@ -10,6 +10,8 @@
     <GDAL_LIB>$(PROJ_GDAL_64)\lib\gdal_i.lib</GDAL_LIB>
     <FOX16_LIB>$(FOX16_64)\lib\FOXDLL-1.6.lib</FOX16_LIB>
     <FOX16_DEBUG_LIB>$(FOX16_64)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
+    <OSG_LIB>$(OSG_64)\lib\osgUtil.lib;$(OSG_64)\lib\osgDB.lib;$(OSG_64)\lib\osgGA.lib;$(OSG_64)\lib\osg.lib;$(OSG_64)\lib\osgViewer.lib</OSG_LIB>
+    <OSG_DEBUG_LIB>$(OSG_64)\lib\osgUtild.lib;$(OSG_64)\lib\osgDBd.lib;$(OSG_64)\lib\osgGAd.lib;$(OSG_64)\lib\osgd.lib;$(OSG_64)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
