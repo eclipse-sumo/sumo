@@ -56,21 +56,33 @@ def parseEndTime(cfg):
 
 class StartDialog:
     def __init__(self):
-        bWidth = 25
+        # misc variables
+        self.name = ''
+        # setup gui
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
         self.root.minsize(250, 50)
-        self.gametime = 0
-        self.ret = 0
+        # we use a grid layout with 4 columns
+        COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
+        # there is one column for every config, +2 more columns for control buttons
         configs = glob.glob(os.path.join(base, "*.sumocfg"))
         numButtons = len(configs) + 2
         print numButtons
+        # button dimensions
+        bWidth_start = 15
+        bWidth_high = 7
+        bWidth_control = 26
+
+        self.gametime = 0
+        self.ret = 0
         # some pretty images
-        dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
+        dlrLogo = Tkinter.PhotoImage(file='dlr.gif') 
         sumoLogo = Tkinter.PhotoImage(file='logo.gif')
-        Tkinter.Label(self.root, image=dlrLogo).grid(rowspan=numButtons)
-        idx = 0
-        for cfg in configs:
+        Tkinter.Label(self.root, image=dlrLogo).grid(row=0, rowspan=numButtons, column=COL_DLRLOGO)
+        Tkinter.Label(self.root, image=sumoLogo).grid(row=0, rowspan=numButtons, column=COL_SUMOLOGO)
+
+        # 2 button for each config (start, highscore)
+        for row, cfg in enumerate(configs):
             text = category = os.path.basename(cfg)[:-8]
             if text == "cross":
                 text = "Simple Junction" 
@@ -78,15 +90,18 @@ class StartDialog:
                 text = "Four Junctions" 
             elif text == "kuehne":
                 text = "Prof. Kühne" 
-            Tkinter.Button(self.root, text=text, width=bWidth,
-                           command=lambda cfg=cfg:self.ok(cfg)).grid(row=idx, column=1)
-            idx += 1
-        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth,
-                       command=high.clear).grid(row=idx, column=1)
-        Tkinter.Button(self.root, text="Quit", width=bWidth,
-                       command=sys.exit).grid(row=idx+1, column=1)
-        Tkinter.Label(self.root, image=sumoLogo).grid(row=0, column=2,
-                                                      rowspan=numButtons)
+            # lambda must make a copy of cfg argument
+            Tkinter.Button(self.root, text=text, width=bWidth_start, 
+                    command=lambda cfg=cfg:self.start_cfg(cfg)).grid(row=row, column=COL_START)
+            Tkinter.Button(self.root, text="Highscore", width=bWidth_high,
+                    command=lambda cfg=cfg:ScoreDialog([], None, self.category_name(cfg))).grid(row=row, column=COL_HIGH)
+
+        # control buttons
+        Tkinter.Button(self.root, text="Reset Highscore", width=bWidth_control,
+                       command=high.clear).grid(row=numButtons - 2, column=COL_START, columnspan=2)
+        Tkinter.Button(self.root, text="Quit", width=bWidth_control,
+                       command=sys.exit).grid(row=numButtons - 1, column=COL_START, columnspan = 2)
+
         self.root.grid()
         # The following three commands are needed so the window pops
         # up on top on Windows...
@@ -95,12 +110,15 @@ class StartDialog:
         self.root.deiconify()
         self.root.mainloop()
 
-    def ok(self, cfg):
+    def category_name(self, cfg):
+        return os.path.basename(cfg)[:-8]
+
+    def start_cfg(self, cfg):
         self.root.destroy()
         print "starting", cfg
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call([guisimPath, "-S", "-G", "-Q", "-c", cfg])
-        self.category = os.path.basename(cfg)[:-8]
+        self.category = self.category_name(cfg) # remember which which cfg was launched
 
 
 class ScoreDialog:
@@ -135,11 +153,12 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
             idx += 1
         if not haveHigh:
-            Tkinter.Label(self.root, text='your score', padx=5,
-                          bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
-            Tkinter.Label(self.root, text=str(points),
-                          bg="indian red").grid(row=idx, column=2)
-            idx += 1
+            if points != None: # not called from the main menue
+                Tkinter.Label(self.root, text='your score', padx=5,
+                              bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
+                Tkinter.Label(self.root, text=str(points),
+                              bg="indian red").grid(row=idx, column=2)
+                idx += 1
         else:
             self.saveBut = Tkinter.Button(self.root, text="Save", command=self.save)
             self.saveBut.grid(row=idx, column=1)
