@@ -111,13 +111,15 @@ GUILoadThread::run() {
 
     // try to load the given configuration
     if (!initOptions()) {
-        // the options are not valid
+        // the options are not valid but maybe we want to quit
+	    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
     MsgHandler::initOutputOptions(true);
+    GUIGlobals::gRunAfterLoad = oc.getBool("start");
+    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
     if (!MSFrame::checkOptions()) {
-        // the options are not valid
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
@@ -126,8 +128,6 @@ GUILoadThread::run() {
     // initialise global settings
     RandHelper::initRandGlobal();
     MSFrame::setMSGlobals(oc);
-    GUIGlobals::gRunAfterLoad = oc.getBool("start");
-    GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
     gAllowTextures = !oc.getBool("disable-textures");
 #ifdef HAVE_MESOSIM
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
