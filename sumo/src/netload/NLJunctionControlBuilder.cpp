@@ -213,9 +213,16 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument, Proces
         throw InvalidArgument("TLS program '" + myActiveProgram + "' for TLS '" + myActiveKey + "' has a duration of 0.");
     }
     // compute the initial step and first switch time of the tls-logic
+    // a positive offset delays all phases by x (advance by absDuration - x) while a negative offset advances all phases by x seconds
+    // @note The implementation of % for negative values is implementation defined in ISO1998
+    SUMOTime offset; // the time to run the traffic light in advance
+    if (myOffset >= 0) {
+        offset = (myNet.getCurrentTimeStep() + myAbsDuration - (myOffset % myAbsDuration)) % myAbsDuration;
+    } else {
+        offset = (myNet.getCurrentTimeStep() + ((-myOffset) % myAbsDuration)) % myAbsDuration;
+    }
     unsigned int step = 0;
     SUMOTime firstEventOffset = 0;
-    SUMOTime offset = (myNet.getCurrentTimeStep() + myOffset % myAbsDuration) % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     while (offset >= (*i)->duration) {
         step++;
