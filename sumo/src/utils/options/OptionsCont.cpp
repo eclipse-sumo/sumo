@@ -616,59 +616,11 @@ OptionsCont::processMetaOptions(bool missingOptions) {
 void
 OptionsCont::printHelp(std::ostream& os) {
     std::vector<std::string>::const_iterator i, j;
-//#define WIKI_OUTPUT 1
-#ifdef WIKI_OUTPUT
-    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        os << "===" << (*i) << "===\n";
-        os << "{| cellspacing=\"0\" border=\"1\" width=\"90%\" align=\"center\"\n";
-        os << "|-\n";
-        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Option\n";
-        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Default Value\n";
-        os << "! style=\"background:#ddffdd;\" valign=\"top\" | Description\n";
-        const std::vector<std::string> &entries = mySubTopicEntries[*i];
-        for (j = entries.begin(); j != entries.end(); ++j) {
-            // start length computation
-            size_t csize = (*j).length() + 2;
-            Option* o = getSecure(*j);
-            os << "|-\n";
-            os << "| valign=\"top\" | ";
-            // write abbreviation if given
-            std::vector<std::string> synonymes = getSynonymes(*j);
-            std::vector<std::string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
-            std::string outputType = o->getTypeName();
-            if (a != synonymes.end()) {
-                os << "{{Option|-" << (*a) << " {{DT_" << outputType << "}}}}<br/>";
-            }
-            // write the name
-            os << "{{Option|--" << *j << " {{DT_" << outputType << "}}}}\n";
-            std::string defaultValue = o->isSet() ? o->getValueString() : "";
-            os << "| valign=\"top\" | " << defaultValue << "\n";
-            os << "| valign=\"top\" | " << o->getDescription() << "\n";
-        }
-        os << "|-\n";
-        os << "|}\n\n";
-    }
-    return;
-#endif
     // print application description
-    os << ' ' << std::endl;
     splitLines(os, myAppDescription, 0, 0);
     os << std::endl;
     // print usage BNF
     os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
-    os << ' ' << std::endl;
-    // print usage examples
-    if (myCallExamples.size() > 1) {
-        os << " Examples:" << std::endl;
-    } else if (myCallExamples.size() != 0) {
-        os << " Example:" << std::endl;
-    }
-    if (myCallExamples.size() != 0) {
-        for (i = myCallExamples.begin(); i != myCallExamples.end(); ++i) {
-            os << "  " << myAppName << ' ' << (*i) << std::endl;
-        }
-    }
-    os << ' ' << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length() > 0) {
         os << myAdditionalMessage << std::endl << ' ' << std::endl;
@@ -739,18 +691,29 @@ OptionsCont::printHelp(std::ostream& os) {
         }
         os << std::endl;
     }
+    os << std::endl;
+    // print usage examples
+	if (myCallExamples.size() != 0) {
+        os << "Examples:" << std::endl;
+        for (i = myCallExamples.begin(); i != myCallExamples.end(); ++i) {
+            os << "  " << myAppName << ' ' << (*i) << std::endl;
+        }
+    }
+    os << std::endl;
+    os << "Report bugs at <http://sourceforge.net/apps/trac/sumo/>." << std::endl;
+    os << "SUMO homepage <http://sumo.sourceforge.net/>." << std::endl;
+    os << "Get in contact via <sumo-user@lists.sourceforge.net>." << std::endl;
 }
 
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, bool filled,
                                 bool complete, bool addComments) {
-    // to the best of our knowledge files are written in latin-1 on windows and linux
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/" << myAppName << "Configuration.xsd\">" << std::endl << std::endl;
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
-        if (subtopic == "Configuration") {
+        if (subtopic == "Configuration" && !complete) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
@@ -772,7 +735,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
             }
             // write the option and the value (if given)
             os << "        <" << *j << " value=\"";
-            if (o->isSet()) {
+            if (o->isSet() && (filled || o->isDefault())) {
                 os << o->getValueString();
             }
             if (complete) {

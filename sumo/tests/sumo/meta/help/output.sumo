@@ -1,15 +1,8 @@
 SUMO sumo Version dev-SVN-r11789
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
- 
 A microscopic road traffic simulation.
 
 Usage: sumo [OPTION]*
- 
- Examples:
-  sumo -b 0 -e 1000 -n net.xml -r routes.xml
-  sumo -c munich_config.cfg
-  sumo --help
- 
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup
   --save-configuration FILE           Saves current configuration into FILE
@@ -123,3 +116,12 @@ Usage: sumo [OPTION]*
   -S, --start                         Start the simulation after loading
   -T, --disable-textures              Do not load background pictures
 
+
+Examples:
+  sumo -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo -c munich_config.cfg
+  sumo --help
+
+Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+SUMO homepage <http://sumo.sourceforge.net/>.
+Get in contact via <sumo-user@lists.sourceforge.net>.

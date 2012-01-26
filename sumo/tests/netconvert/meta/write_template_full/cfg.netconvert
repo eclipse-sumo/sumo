@@ -2,6 +2,14 @@
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
+    <configuration>
+        <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
+        <save-configuration value="" synonymes="save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
+        <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
+        <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
+    </configuration>
+
     <input>
         <sumo-net-file value="" synonymes="s sumo-net" type="FILE" help="Read SUMO-net from FILE"/>
         <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE" help="Read XML-node defs from FILE"/>

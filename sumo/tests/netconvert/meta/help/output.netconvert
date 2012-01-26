@@ -1,14 +1,8 @@
-SUMO netconvert Version dev-SVN-r11698
+SUMO netconvert Version dev-SVN-r11548
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
- 
 Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: netconvert [OPTION]*
- 
- Examples:
-  netconvert -c <CONFIGURATION>
-  netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
- 
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup
   --save-configuration FILE           Saves current configuration into FILE
@@ -198,3 +192,11 @@ Usage: netconvert [OPTION]*
   --seed INT                          Initialises the random number generator
                                         with the given value
 
+
+Examples:
+  netconvert -c <CONFIGURATION>
+  netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
+
+Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+SUMO homepage <http://sumo.sourceforge.net/>.
+Get in contact via <sumo-user@lists.sourceforge.net>.

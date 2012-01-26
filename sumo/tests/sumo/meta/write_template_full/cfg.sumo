@@ -2,6 +2,14 @@
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
+    <configuration>
+        <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
+        <save-configuration value="" synonymes="save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
+        <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
+        <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
+    </configuration>
+
     <input>
         <net-file value="" synonymes="n net" type="FILE" help="Load road network description from FILE"/>
         <route-files value="" synonymes="r routes" type="FILE" help="Load routes descriptions from FILE(s)"/>

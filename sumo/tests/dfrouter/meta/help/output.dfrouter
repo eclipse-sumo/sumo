@@ -1,13 +1,8 @@
-SUMO dfrouter Version dev-SVN-r11672
+SUMO dfrouter Version dev-SVN-r11548
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
- 
 Builds vehicle routes for SUMO using detector values.
 
 Usage: dfrouter [OPTION]*
- 
- Example:
-  dfrouter -c <CONFIGURATION>
- 
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   --save-configuration FILE            Saves current configuration into FILE
@@ -95,3 +90,10 @@ Usage: dfrouter [OPTION]*
   --seed INT                           Initialises the random number generator
                                          with the given value
 
+
+Examples:
+  dfrouter -c <CONFIGURATION>
+
+Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+SUMO homepage <http://sumo.sourceforge.net/>.
+Get in contact via <sumo-user@lists.sourceforge.net>.
