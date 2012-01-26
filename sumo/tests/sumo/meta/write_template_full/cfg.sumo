@@ -28,7 +28,7 @@
     </time>
 
     <processing>
-        <route-steps value="200" synonymes="s" type="INT" help="Load routes for the next INT seconds ahead"/>
+        <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <no-internal-links value="false" type="BOOL" help="Disable (junction) internal links"/>
         <ignore-accidents value="false" type="BOOL" help="Do not check whether accidents occure more deeply"/>
         <ignore-route-errors value="false" type="BOOL" help="Do not check whether routes are connected"/>

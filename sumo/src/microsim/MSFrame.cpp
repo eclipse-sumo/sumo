@@ -164,8 +164,8 @@ MSFrame::fillOptions() {
 
 
     // register the processing options
-    oc.doRegister("route-steps", 's', new Option_Integer(200));
-    oc.addDescription("route-steps", "Processing", "Load routes for the next INT seconds ahead");
+    oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
+    oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
 
 #ifdef HAVE_INTERNAL_LANES
     oc.doRegister("no-internal-links", new Option_Bool(false));

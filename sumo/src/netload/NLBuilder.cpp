@@ -181,7 +181,7 @@ NLBuilder::build() {
         }
     }
     // load routes
-    if (myOptions.isSet("route-files") && myOptions.getInt("route-steps") <= 0) {
+    if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
         if (!load("route-files")) {
             return false;
         }
@@ -270,7 +270,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
-    if (oc.isSet("route-files") && oc.getInt("route-steps") > 0) {
+    if (oc.isSet("route-files") && string2time(oc.getString("route-steps")) > 0) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
@@ -283,7 +283,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         }
     }
     // build the route control
-    return new MSRouteLoaderControl(myNet, TIME2STEPS(oc.getInt("route-steps")), loaders);
+    return new MSRouteLoaderControl(myNet, string2time(oc.getString("route-steps")), loaders);
 }
 
 

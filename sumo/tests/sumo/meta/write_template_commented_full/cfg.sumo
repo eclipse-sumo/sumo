@@ -60,8 +60,8 @@
     </time>
 
     <processing>
-        <!-- Load routes for the next INT seconds ahead -->
-        <route-steps value="200" synonymes="s" type="INT"/>
+        <!-- Load routes for the next number of seconds ahead -->
+        <route-steps value="200" synonymes="s" type="TIME"/>
 
         <!-- Disable (junction) internal links -->
         <no-internal-links value="false" type="BOOL"/>
