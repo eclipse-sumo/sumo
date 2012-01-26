@@ -68,10 +68,10 @@
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>");
-    oc.addCallExample("--grid [grid-network options] -o <OUTPUTFILE>");
-    oc.addCallExample("--spider [spider-network options] -o <OUTPUTFILE>");
-    oc.addCallExample("--rand [random-network options] -o <OUTPUTFILE>");
+    oc.addCallExample("-c <CONFIGURATION>", "create net from given configuration");
+    oc.addCallExample("--grid [grid-network options] -o <OUTPUTFILE>", "create grid net");
+    oc.addCallExample("--spider [spider-network options] -o <OUTPUTFILE>", "create spider net");
+    oc.addCallExample("--rand [random-network options] -o <OUTPUTFILE>", "create random net");
 
     oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependance to these switches other options are used.");
 

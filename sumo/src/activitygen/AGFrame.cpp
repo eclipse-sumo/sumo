@@ -56,8 +56,10 @@ void AGFrame::fillOptions() {
     oc.setApplicationName("activitygen", "SUMO activitygen Version " + (std::string)VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2011 Technische Universitaet Muenchen");
     // Options handling
-    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --abs-rand");
-    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>");
+    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --rand",
+                      "generate a route file from a stats file on a given net using arbitrary random seed");
+    oc.addCallExample("--net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>",
+                      "generate a route file from a stats file on a given net for numerous days (with fixed random seed)");
 
     // Add categories and insert the standard options
     SystemFrame::addConfigurationOptions(oc);

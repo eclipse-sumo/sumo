@@ -55,7 +55,7 @@
 void
 ROJTRFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>");
+    oc.addCallExample("-c <CONFIGURATION>", "run with routing options defined in file");
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc);

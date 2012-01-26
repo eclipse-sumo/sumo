@@ -55,7 +55,7 @@
 void
 RODUAFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>");
+    oc.addCallExample("-c <CONFIGURATION>", "run routing with options from file");
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too

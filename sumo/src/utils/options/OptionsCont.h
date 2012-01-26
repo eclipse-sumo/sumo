@@ -141,8 +141,9 @@ public:
     /** @brief Add a call example
      *
      * @param[in] example A call example (without the app name)
+     * @param[in] desc A verbose description
      */
-    void addCallExample(const std::string& example);
+    void addCallExample(const std::string& example, const std::string& desc);
 
 
     /** @brief Sets an additional message to be printed at the begin of the help screen
@@ -675,8 +676,11 @@ private:
     /// some information on the application
     std::string myAppName, myFullName, myAppDescription, myAdditionalMessage;
 
-    /// lists of call examples, option subtopics and copyright notices
-    std::vector<std::string> myCallExamples, mySubTopics, myCopyrightNotices;
+    /// list of call examples
+    std::vector< std::pair<std::string, std::string> > myCallExamples;
+
+    /// lists of option subtopics and copyright notices
+    std::vector<std::string> mySubTopics, myCopyrightNotices;
 
     /// A map from subtopic to option
     std::map<std::string, std::vector<std::string> > mySubTopicEntries;

@@ -450,8 +450,8 @@ OptionsCont::setApplicationDescription(const std::string& appDesc) {
 
 
 void
-OptionsCont::addCallExample(const std::string& example) {
-    myCallExamples.push_back(example);
+OptionsCont::addCallExample(const std::string& example, const std::string& desc) {
+    myCallExamples.push_back(std::make_pair(example, desc));
 }
 
 
@@ -654,7 +654,7 @@ OptionsCont::printHelp(std::ostream& os) {
     }
 
     for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        os << ' ' << *i << " Options:" << std::endl;
+        os << *i << " Options:" << std::endl;
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
         for (j = entries.begin(); j != entries.end(); ++j) {
             // start length computation
@@ -681,27 +681,25 @@ OptionsCont::printHelp(std::ostream& os) {
             csize += 2;
             // write the description formatting it
             os << "  ";
-            size_t r;
-            for (r = maxSize; r > csize; --r) {
+            for (size_t r = maxSize; r > csize; --r) {
                 os << ' ';
             }
-            std::string desc = o->getDescription();
             size_t offset = csize > tooLarge ? csize : maxSize;
-            splitLines(os, desc, offset, maxSize);
+            splitLines(os, o->getDescription(), offset, maxSize);
         }
         os << std::endl;
     }
     os << std::endl;
-    // print usage examples
-	if (myCallExamples.size() != 0) {
+    // print usage examples, calc size first
+    if (myCallExamples.size() != 0) {
         os << "Examples:" << std::endl;
-        for (i = myCallExamples.begin(); i != myCallExamples.end(); ++i) {
-            os << "  " << myAppName << ' ' << (*i) << std::endl;
+        for (std::vector<std::pair<std::string,std::string> >::const_iterator e = myCallExamples.begin(); e != myCallExamples.end(); ++e) {
+            os << "  " << myAppName << ' ' << e->first << std::endl;
+            os << "    " << e->second << std::endl;
         }
     }
     os << std::endl;
     os << "Report bugs at <http://sourceforge.net/apps/trac/sumo/>." << std::endl;
-    os << "SUMO homepage <http://sumo.sourceforge.net/>." << std::endl;
     os << "Get in contact via <sumo-user@lists.sourceforge.net>." << std::endl;
 }
 

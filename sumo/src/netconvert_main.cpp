@@ -63,8 +63,9 @@
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.addCallExample("-c <CONFIGURATION>");
-    oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
+    oc.addCallExample("-c <CONFIGURATION>", "generate net with options read from file");
+    oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml",
+                      "generate net with given nodes, edges, and edge types doing verbose output");
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too

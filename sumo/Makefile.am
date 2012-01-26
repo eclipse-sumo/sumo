@@ -18,6 +18,11 @@ doxygen:
 wikidump:
 	cd docs/wiki && ../../tools/build/buildHTMLDocs.py && cp *.png *.css docs
 
+man:
+	rm -rf docs/man
+	mkdir docs/man
+	for exe in sumo dfrouter duarouter jtrrouter activitygen od2trips netconvert netgen polyconvert; do help2man -N bin/$$exe > docs/man/$$exe.1; done
+
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
