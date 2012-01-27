@@ -5,7 +5,7 @@ Generates routes of persons throughout a day for the microscopic road traffic
   simulation SUMO.
 
 Usage: activitygen [OPTION]*
- Configuration Options:
+Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
@@ -14,26 +14,26 @@ Usage: activitygen [OPTION]*
   --save-commented                 Adds comments to saved template,
                                      configuration, or schema
 
- Input Options:
+Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -s, --stat-file FILE             Loads the SUMO-statistics FILE
 
- Output Options:
+Output Options:
   -o, --output-file FILE           Write generated routes to FILE
 
- Processing Options:
+Processing Options:
   --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
   --weights.expand                 Expand weights behind the simulation's end
 
- Time Options:
+Time Options:
   -b, --begin INT                  Sets the time of beginning of the simulation
                                      during the first day (in seconds)
   -e, --end INT                    Sets the time of ending of the simulation
                                      during the last day (in seconds)
   --duration-d INT                 Sets the duration of the simulation in days
 
- Report Options:
+Report Options:
   -v, --verbose                    Switches to verbose output
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
@@ -44,7 +44,7 @@ Usage: activitygen [OPTION]*
   --error-log FILE                 Writes all warnings and errors to FILE
   --debug                          Detailed messages about every single step
 
- Random Number Options:
+Random Number Options:
   --random                         Initialises the random number generator with
                                      the current system time
   --seed INT                       Initialises the random number generator with
@@ -52,9 +52,10 @@ Usage: activitygen [OPTION]*
 
 
 Examples:
-  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --abs-rand
+  activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --rand
+    generate a route file from a stats file on a given net using arbitrary random seed
   activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
+    generate a route file from a stats file on a given net for numerous days (with fixed random seed)
 
 Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
-SUMO homepage <http://sumo.sourceforge.net/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.

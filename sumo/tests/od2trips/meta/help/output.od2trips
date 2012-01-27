@@ -3,7 +3,7 @@ SUMO od2trips Version dev-SVN-r11548
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
 Usage: od2trips [OPTION]*
- Configuration Options:
+Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
@@ -12,15 +12,15 @@ Usage: od2trips [OPTION]*
   --save-commented                 Adds comments to saved template,
                                      configuration, or schema
 
- Input Options:
+Input Options:
   -n, --net-file FILE              Loads network (districts) from FILE
   -d, --od-matrix-files FILE       Loads O/D-files from FILE(s)
 
- Output Options:
+Output Options:
   -o, --output-file FILE           Writes trip definitions into FILE
   --ignore-vehicle-type            Does not save vtype information
 
- Time Options:
+Time Options:
   -b, --begin TIME                 Defines the begin time;
                                      Previous trips will be discarded
   -e, --end TIME                   Defines the end time;
@@ -28,7 +28,7 @@ Usage: od2trips [OPTION]*
                                      Defaults to the maximum time that SUMO can
                                      represent
 
- Processing Options:
+Processing Options:
   -s, --scale FLOAT                Scales the loaded flows by FLOAT
   --spread.uniform                 Spreads trips uniformly over each time
                                      period
@@ -38,7 +38,7 @@ Usage: od2trips [OPTION]*
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
   --dismiss-loading-errors         Continue on broken input
 
- Defaults Options:
+Defaults Options:
   --departlane STR                 Assigns a default depart lane
   --departpos STR                  Assigns a default depart position
   --departspeed STR                Assigns a default depart speed
@@ -46,7 +46,7 @@ Usage: od2trips [OPTION]*
   --arrivalpos STR                 Assigns a default arrival position
   --arrivalspeed STR               Assigns a default arrival speed
 
- Report Options:
+Report Options:
   -v, --verbose                    Switches to verbose output
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
@@ -56,7 +56,7 @@ Usage: od2trips [OPTION]*
   --message-log FILE               Writes all non-error messages to FILE
   --error-log FILE                 Writes all warnings and errors to FILE
 
- Random Number Options:
+Random Number Options:
   --random                         Initialises the random number generator with
                                      the current system time
   --seed INT                       Initialises the random number generator with
@@ -65,7 +65,7 @@ Usage: od2trips [OPTION]*
 
 Examples:
   od2trips -c <CONFIGURATION>
+    run with configuration file
 
 Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
-SUMO homepage <http://sumo.sourceforge.net/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.

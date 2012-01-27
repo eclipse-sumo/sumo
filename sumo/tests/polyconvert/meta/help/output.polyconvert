@@ -3,7 +3,7 @@ SUMO polyconvert Version dev-SVN-r11548
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
 Usage: polyconvert [OPTION]*
- Configuration Options:
+Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
@@ -12,7 +12,7 @@ Usage: polyconvert [OPTION]*
   --save-commented                 Adds comments to saved template,
                                      configuration, or schema
 
- Input Options:
+Input Options:
   -n, --net-file FILE              Loads SUMO-network FILE as reference to
                                      offset and projection
   --dlr-navteq-poly-files FILE     Reads polygons from FILE assuming they're
@@ -34,10 +34,10 @@ Usage: polyconvert [OPTION]*
   --shapefile.id-column FILE       Defines in which column the id can be found
   --type-file FILE                 Reads types from FILE
 
- Output Options:
+Output Options:
   -o, --output-file FILE           Write generated polygons/pois to FILE
 
- Projection Options:
+Projection Options:
   --simple-projection              Uses a simple method for projection
   --proj.scale INT                 Number of places to shift decimal point to
                                      right in geo-coordinates
@@ -50,7 +50,7 @@ Usage: polyconvert [OPTION]*
   --proj STR                       Uses STR as proj.4 definition for projection
   --proj.inverse                   Inverses projection
 
- Pruning Options:
+Pruning Options:
   --prune.in-net                   Enables pruning on net boundaries
   --prune.in-net.offsets STR       Uses STR as offset definition added to the
                                      net boundaries
@@ -59,18 +59,18 @@ Usage: polyconvert [OPTION]*
                                      boundary
   --prune.explicit STR             Items with names in STR will be removed
 
- Processing Options:
+Processing Options:
   --offset.x FLOAT                 Adds FLOAT to net x-positions
   --offset.y FLOAT                 Adds FLOAT to net y-positions
 
- Building Defaults Options:
+Building Defaults Options:
   --color STR                      Sets STR as default color
   --prefix STR                     Sets STR as default prefix
   --type STR                       Sets STR as default type
   --layer INT                      Sets INT as default layer
   --discard                        Sets default action to discard
 
- Report Options:
+Report Options:
   -v, --verbose                    Switches to verbose output
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
@@ -83,7 +83,7 @@ Usage: polyconvert [OPTION]*
 
 Examples:
   polyconvert -c <CONFIGURATION>
+    run with configuration options set in file
 
 Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
-SUMO homepage <http://sumo.sourceforge.net/>.
 Get in contact via <sumo-user@lists.sourceforge.net>.
