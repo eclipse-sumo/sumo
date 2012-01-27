@@ -303,6 +303,11 @@ public:
     SUMOReal getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const ;
     //@}
 
+
+    /// @brief optimistic distance heuristic for use in routing
+    SUMOReal getDistanceTo(const ROEdge* other) const;
+
+
     /** @brief Returns the ROEdge at the index */
     static ROEdge* dictionary(size_t index) ;
 

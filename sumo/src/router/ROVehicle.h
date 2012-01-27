@@ -114,6 +114,10 @@ public:
     }
 
 
+    /// @brief Returns the vehicle's maximum speed
+    SUMOReal getMaxSpeed() const;
+
+
     /** @brief Saves the complete vehicle description.
      *
      * Saves the vehicle type if it was not saved before.

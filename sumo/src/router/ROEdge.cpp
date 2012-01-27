@@ -138,6 +138,12 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
 }
 
 
+SUMOReal 
+ROEdge::getDistanceTo(const ROEdge* other) const {
+    return getToNode()->getPosition().distanceTo2D(other->getFromNode()->getPosition());
+}
+
+
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
     if (myUsingTTTimeLine) {

@@ -97,6 +97,12 @@ ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDev
 }
 
 
+SUMOReal 
+ROVehicle::getMaxSpeed() const {
+    return myType->maxSpeed;
+}
+
+
 ROVehicle*
 ROVehicle::copy(const std::string& id, unsigned int depTime,
                 RORouteDef* newRoute) {

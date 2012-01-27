@@ -46,6 +46,7 @@
 #include <router/ROEdge.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
+#include <utils/common/AStarRouter.h>
 #include "RODUAEdgeBuilder.h"
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -104,14 +105,28 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     const std::string measure = oc.getString("weight-attribute");
+    const std::string routingAlgorithm = oc.getString("routing-algorithm");
     if (measure == "traveltime") {
-        if (net.hasRestrictions()) {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+        if (routingAlgorithm == "dijkstra") {
+            if (net.hasRestrictions()) {
+                router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+            } else {
+                router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+            }
+        } else if (routingAlgorithm == "astar") {
+            if (net.hasRestrictions()) {
+                router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+            } else {
+                router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+            }
         } else {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
+            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
+
     } else {
         DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
         if (measure == "CO") {

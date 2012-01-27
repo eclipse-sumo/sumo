@@ -383,6 +383,10 @@ public:
     void rebuildAllowedLanes() ;
 
 
+    /// @brief optimistic distance heuristic for use in routing
+    SUMOReal getDistanceTo(const MSEdge* other) const {
+        return 0; // XXX @todo use straight-line distance
+    };
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
