@@ -172,12 +172,12 @@ private:
      * @param[in] to The destination node of the edge
      * @param[in] passed The list of passed nodes (geometry information)
      * @param[in] osmNodes Container of node definitions for getting information about nodes from
-     * @param[in, out] The edge container to add the built edge to
-     * @param[in] tc The type container to get information about the edge from
+     * @param[in, out] The NetBuilder instance
+     * @return the new index if the edge is split
      * @exception ProcessError If the edge could not be added to the container
      */
-    void insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                    const std::vector<int> &passed, NBEdgeCont& ec, NBTypeCont& tc);
+    int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+                    const std::vector<int> &passed, NBNetBuilder& nb);
 
 
     protected:

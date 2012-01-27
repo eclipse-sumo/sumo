@@ -19,3 +19,4 @@ multimodal_edge
 # (larger values are probably short turning lanes)
 key_lanes_non_numerical
 way_with_with_insufficient_nodes
+way_with_selfloop

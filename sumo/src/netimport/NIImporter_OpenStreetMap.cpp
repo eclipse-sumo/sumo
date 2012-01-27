@@ -259,8 +259,6 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
         // build nodes;
         //  - the from- and to-nodes must be built in any case
         //  - the in-between nodes are only built if more than one edge references them
-        //  - @odo in the special case of a way looping back on itself, 
-        //    an in-between node must be instantiated to avoid self-loops
         NBNode* currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
         NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end() - 1), nc, tlsc);
         int running = 0;
@@ -269,16 +267,15 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end() - 1 && j != e->myCurrentNodes.begin()) {
                 NBNode* currentTo = insertNodeChecking(*j, nc, tlsc);
-                insertEdge(e, running, currentFrom, currentTo, passed, ec, tc);
+                running = insertEdge(e, running, currentFrom, currentTo, passed, nb);
                 currentFrom = currentTo;
-                running++;
                 passed.clear();
             }
         }
         if (running == 0) {
             running = -1;
         }
-        insertEdge(e, running, currentFrom, last, passed, ec, tc);
+        insertEdge(e, running, currentFrom, last, passed, nb);
     }
 }
 
@@ -315,14 +312,33 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, NBNodeCont& nc, NBTrafficLi
 }
 
 
-void
+int
 NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                                     const std::vector<int> &passed, NBEdgeCont& ec, NBTypeCont& tc) {
+                                     const std::vector<int> &passed, NBNetBuilder& nb) {
+    NBNodeCont& nc = nb.getNodeCont();
+    NBEdgeCont& ec = nb.getEdgeCont();
+    NBTypeCont& tc = nb.getTypeCont();
+    NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
+
     // patch the id
     std::string id = e->id;
     if (index >= 0) {
         id = id + "#" + toString(index);
+    } else {
+        index = 0;
     }
+    if (from == to) {
+        // in the special case of a looped way split again using passed
+        assert(passed.size() >= 2);
+        std::vector<int> geom(passed);
+        geom.pop_back(); // remove to-node
+        NBNode* intermediate = insertNodeChecking(geom.back(), nc, tlsc);
+        index = insertEdge(e, index, from, intermediate, geom, nb);
+        geom.clear();
+        return insertEdge(e, index, intermediate, to, geom, nb);
+    }
+    const int newIndex = index + 1;
+
     // convert the shape
     PositionVector shape;
     for (std::vector<int>::const_iterator i = passed.begin(); i != passed.end(); ++i) {
@@ -346,7 +362,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     types.insert(t);
                 } else {
                     WRITE_WARNING("Discarding edge " + id + " with type \"" + type + "\" (unknown compound \"" + t + "\").");
-                    return;
+                    return newIndex;
                 }
             }
 
@@ -361,16 +377,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             } else {
                 // other cases not implemented yet
                 WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
-                return;
+                return newIndex;
             }
         } else {
             // we do not know the type -> something else, ignore
             //WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
-            return;
+            return newIndex;
         }
     }
-
-
 
     // otherwise it is not an edge and will be ignored
     int noLanes = tc.getNumLanes(type);
@@ -423,6 +437,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
         }
     }
+    return newIndex;
 }
 
 
