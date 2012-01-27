@@ -47,29 +47,6 @@
 template<class E, class V>
 class SUMOAbstractRouter {
 public:
-    /**
-     * @class ROAbstractEdgeEffortRetriever
-     * This interface has to be implemented in order to get the real efforts of edges
-     */
-    class ROAbstractEdgeEffortRetriever {
-    public:
-        /// Constructor
-        ROAbstractEdgeEffortRetriever() { }
-
-        /// Destructor
-        virtual ~ROAbstractEdgeEffortRetriever() { }
-
-        /// This function should return the effort to use
-        virtual SUMOReal getEffort(const V* const, SUMOTime time, const E* const edge,
-                                   SUMOReal dist) const = 0;
-
-        /// Returns the name of this retriever
-        virtual const std::string& getID() const = 0;
-
-    };
-
-
-public:
     /// Constructor
     SUMOAbstractRouter() { }
 
