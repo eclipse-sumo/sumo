@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\common\AbstractMutex.h" />
+    <ClInclude Include="..\..\..\src\utils\common\AStarRouter.h" />
     <ClInclude Include="..\..\..\src\utils\common\Command.h" />
     <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterEffort.h" />
     <ClInclude Include="..\..\..\src\utils\common\DijkstraRouterTT.h" />
