@@ -252,9 +252,15 @@ NIImporter_OpenStreetMap::_loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) 
     for (std::map<std::string, Edge*>::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         Edge* e = (*i).second;
         assert(e->myCurrentIsRoad);
+        if (e->myCurrentNodes.size() < 2) {
+            WRITE_WARNING("Discarding way '" + e->id + "' because it has only " + toString(e->myCurrentNodes.size()) + " node(s)");
+            continue;
+        }
         // build nodes;
-        //  the from- and to-nodes must be built in any case
-        //  the geometry nodes are only built if more than one edge references them
+        //  - the from- and to-nodes must be built in any case
+        //  - the in-between nodes are only built if more than one edge references them
+        //  - @odo in the special case of a way looping back on itself, 
+        //    an in-between node must be instantiated to avoid self-loops
         NBNode* currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
         NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end() - 1), nc, tlsc);
         int running = 0;
