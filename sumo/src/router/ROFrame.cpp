@@ -91,14 +91,13 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
         oc.addSynonyme("weight-attribute", "measure", true);
         oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
     }
-
+        
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
     oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
-
 
     // register the processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
@@ -128,6 +127,10 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     oc.doRegister("with-taz", new Option_Bool(false));
     oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");
 
+    if (forDuarouter) {
+        oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
+        oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar']");
+    }
 
     // register defaults options
     oc.doRegister("departlane", new Option_String());

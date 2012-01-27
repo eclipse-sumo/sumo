@@ -87,6 +87,9 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
+        <!-- Select among routing algorithms ['dijkstra', 'astar'] -->
+        <routing-algorithm value="dijkstra" type="STR"/>
+
         <!-- Expand weights behind the simulation's end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
 

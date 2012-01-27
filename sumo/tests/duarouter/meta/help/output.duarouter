@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r11548
+SUMO duarouter Version dev-SVN-r11798
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -44,6 +44,8 @@ Processing Options:
                                      boundaries
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
+  --routing-algorithm STR          Select among routing algorithms ['dijkstra',
+                                     'astar']
   --weights.expand                 Expand weights behind the simulation's end
   --gawron.beta FLOAT              Use FLOAT as Gawron's beta
   --gawron.a FLOAT                 Use FLOAT as Gawron's a

@@ -37,6 +37,7 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
+        <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms ['dijkstra', 'astar']"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation's end"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron's beta"/>
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron's a"/>
