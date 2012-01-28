@@ -390,7 +390,7 @@ else
     ac_disabled="$ac_disabled Python"
 fi
 
-if test x$MESOGUI_DIRS != x; then
+if test x"$MESOGUI_DIRS" != x; then
     AC_CHECK_HEADER([osg/Config], [AC_DEFINE([HAVE_OSG], [1], [defined if osg is available])
     OSG_LIBS="-losg -losgGA -losgViewer -losgUtil -losgDB" AC_SUBST(OSG_LIBS)])
 fi

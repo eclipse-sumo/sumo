@@ -504,8 +504,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs) {
         vtype->vehicleClass = parseVehicleClass(attrs, vtype->id);
         vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
     }
-    if (attrs.hasAttribute(SUMO_ATTR_GUIWIDTH)) {
-        vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIWIDTH, vtype->id.c_str(), ok);
+    if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+        vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_WIDTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_HEIGHT)) {

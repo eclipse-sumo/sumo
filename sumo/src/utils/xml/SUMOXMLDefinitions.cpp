@@ -374,7 +374,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "controlledInner", SUMO_ATTR_CONTROLLED_INNER },
     { "vehsPerHour",    SUMO_ATTR_VEHSPERHOUR },
     { "output",         SUMO_ATTR_OUTPUT },
-    { "guiWidth",       SUMO_ATTR_GUIWIDTH },
     { "height",         SUMO_ATTR_HEIGHT },
     { "guiOffset",      SUMO_ATTR_GUIOFFSET },
     { "guiShape",       SUMO_ATTR_GUISHAPE },

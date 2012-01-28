@@ -334,7 +334,7 @@ inline void
 drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
     glPushMatrix();
     glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
-    glScaled(veh.getVehicleType().getGuiWidth(), veh.getVehicleType().getLength(), 1.);
+    glScaled(veh.getVehicleType().getWidth(), veh.getVehicleType().getLength(), 1.);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
     glVertex2d(-.5, .15);
@@ -355,7 +355,7 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
     }
     glPushMatrix();
     glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
-    glScaled(veh.getVehicleType().getGuiWidth(), length, 1.);
+    glScaled(veh.getVehicleType().getWidth(), length, 1.);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
     glVertex2d(-.5, 1.);
@@ -391,7 +391,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
-    glScaled(length, veh.getVehicleType().getGuiWidth(), 1.);
+    glScaled(length, veh.getVehicleType().getWidth(), 1.);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
 
     // draw main body
@@ -806,7 +806,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle& veh) {
     if (!veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY)) {
         return;
     }
-    const double offset = MAX2(.5 * veh.getVehicleType().getGuiWidth(), .4);
+    const double offset = MAX2(.5 * veh.getVehicleType().getWidth(), .4);
     if (veh.signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
         drawAction_drawBlinker(veh, -offset);
     }
@@ -827,11 +827,11 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
     }
     glColor3f(1.f, .2f, 0);
     glPushMatrix();
-    glTranslated(-veh.getVehicleType().getGuiWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
+    glTranslated(-veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(veh.getVehicleType().getGuiWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
+    glTranslated(veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }

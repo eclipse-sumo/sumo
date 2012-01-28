@@ -83,7 +83,7 @@ public:
      * @param[in] speedDev The speed deviation
      * @param[in] vclass The class vehicles of this type belong to
      * @param[in] emissionClass The emission class vehicles of this type belong to
-     * @param[in] guiWidth The width of the vehicles when being drawn
+     * @param[in] width The width of the vehicles when being drawn
      * @param[in] height The height of the vehicles when being drawn
      * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] osgFile Model file of this class
@@ -95,7 +95,7 @@ public:
                   const SUMOReal prob, const SUMOReal speedFactor,
                   const SUMOReal speedDev, const SUMOVehicleClass vclass,
                   const SUMOEmissionClass emissionClass,
-                  const SUMOReal guiWidth, const SUMOReal height,
+                  const SUMOReal width, const SUMOReal height,
                   const SUMOVehicleShape shape, const std::string osgFile,
                   const std::string& lcModel,
                   const RGBColor& c) ;
@@ -244,7 +244,7 @@ public:
     /** @brief Get the width which vehicles of this class shall have when being drawn
      * @return The width of this type's vehicles
      */
-    SUMOReal getGuiWidth() const {
+    SUMOReal getWidth() const {
         return myWidth;
     }
 

@@ -151,7 +151,7 @@ TraCIServerAPI_VehicleType::getVariable(const int variable, const MSVehicleType&
             break;
         case VAR_WIDTH:
             tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(v.getGuiWidth());
+            tempMsg.writeDouble(v.getWidth());
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);

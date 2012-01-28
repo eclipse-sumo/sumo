@@ -53,7 +53,7 @@ SUMOVTypeParameter::SUMOVTypeParameter()
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
       emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
-      vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
+      vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_WIDTH),
       height(DEFAULT_VEH_HEIGHT), shape(DEFAULT_VEH_SHAPE),
       cfModel(DEFAULT_VEH_FOLLOW_MODEL), lcModel(DEFAULT_VEH_LANE_CHANGE_MODEL),
       setParameter(0), saved(false), onlyReferenced(false) {
@@ -95,7 +95,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_GUISHAPE, getVehicleShapeName(shape));
     }
     if (wasSet(VTYPEPARS_WIDTH_SET)) {
-        dev.writeAttr(SUMO_ATTR_GUIWIDTH, width);
+        dev.writeAttr(SUMO_ATTR_WIDTH, width);
     }
     if (wasSet(VTYPEPARS_HEIGHT_SET)) {
         dev.writeAttr(SUMO_ATTR_HEIGHT, height);
