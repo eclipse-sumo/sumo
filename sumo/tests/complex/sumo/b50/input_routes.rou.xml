@@ -2,22 +2,22 @@
    <route id="a" edges="i1 i2 i3 i4 i5 i6 i7 o e1 e2 e3 e4 e5 e6 e7 e8"/>
 
    <vTypeDistribution id="v">
-   <vType id="pedestrian" length=".25" minGap="0" guiShape="pedestrian" guiWidth=".25"/>
-   <vType id="bicycle" length="1.5" minGap=".5" guiShape="bicycle" guiWidth=".25"/>
-   <vType id="motorcycle" length="2" minGap=".5" guiShape="motorcycle" guiWidth=".25"/>
+   <vType id="pedestrian" length=".25" minGap="0" guiShape="pedestrian" width=".25"/>
+   <vType id="bicycle" length="1.5" minGap=".5" guiShape="bicycle" width=".25"/>
+   <vType id="motorcycle" length="2" minGap=".5" guiShape="motorcycle" width=".25"/>
    <vType id="passenger" length="5" minGap="2.5" guiShape="passenger"/>
    <vType id="passenger/sedan" length="5" minGap="2.5" guiShape="passenger/sedan"/>
    <vType id="passenger/hatchback" length="5" minGap="2.5" guiShape="passenger/hatchback"/>
    <vType id="passenger/wagon" length="5" minGap="2.5" guiShape="passenger/wagon"/>
    <vType id="passenger/van" length="5" minGap="2.5" guiShape="passenger/van"/>
    <vType id="delivery" length="5" minGap="2.5" guiShape="delivery"/>
-   <vType id="transport" length="7.5" minGap="2.5" guiShape="transport" guiWidth="2.5"/>
-   <vType id="transport/semitrailer" length="16.25" minGap="2.5" guiShape="transport/semitrailer" guiWidth="2.6"/>
-   <vType id="transport/trailer" length="16.25" minGap="2.5" guiShape="transport/trailer" guiWidth="2.6"/>
-   <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" guiWidth="2.4"/>
-   <vType id="bus/city" length="12.5" minGap="2.5" guiShape="bus/city" guiWidth="2.4"/>
-   <vType id="bus/flexible" length="15.5" minGap="2.5" guiShape="bus/flexible" guiWidth="2.4"/>
-   <vType id="bus/overland" length="15.5" minGap="2.5" guiShape="bus/overland" guiWidth="2.6"/>
+   <vType id="transport" length="7.5" minGap="2.5" guiShape="transport" width="2.5"/>
+   <vType id="transport/semitrailer" length="16.25" minGap="2.5" guiShape="transport/semitrailer" width="2.6"/>
+   <vType id="transport/trailer" length="16.25" minGap="2.5" guiShape="transport/trailer" width="2.6"/>
+   <vType id="bus" length="12.5" minGap="2.5" guiShape="bus" width="2.4"/>
+   <vType id="bus/city" length="12.5" minGap="2.5" guiShape="bus/city" width="2.4"/>
+   <vType id="bus/flexible" length="15.5" minGap="2.5" guiShape="bus/flexible" width="2.4"/>
+   <vType id="bus/overland" length="15.5" minGap="2.5" guiShape="bus/overland" width="2.6"/>
    <vType id="rail" length="5" minGap="2.5" guiShape="rail"/>
    <vType id="rail/light" length="5" minGap="2.5" guiShape="rail/light"/>
    <vType id="rail/city" length="5" minGap="2.5" guiShape="rail/city"/>

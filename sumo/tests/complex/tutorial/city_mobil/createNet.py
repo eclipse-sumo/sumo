@@ -27,7 +27,7 @@ print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
     <vType id="car" length="3" minGap=".5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
-    <vType id="person" length=".25" minGap="0" guiShape="pedestrian" guiWidth=".25" maxSpeed="5" color="1,0.2,0.2"/>
+    <vType id="person" length=".25" minGap="0" guiShape="pedestrian" width=".25" maxSpeed="5" color="1,0.2,0.2"/>
     <vType id="cybercar" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
 #streets
 nodeID = "main-0"

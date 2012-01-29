@@ -64,7 +64,7 @@
     <vehicle id="9_0" type="9" depart="32.00" departLane="random">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vType id="10" guiWidth="100.00"/>
+    <vType id="10" width="100.00"/>
     <vehicle id="10_0" type="10" depart="33.00" departLane="free">
         <route edges="beg middle end rend"/>
     </vehicle>

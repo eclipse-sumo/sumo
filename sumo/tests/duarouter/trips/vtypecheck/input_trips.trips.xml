@@ -9,7 +9,7 @@
    <vType id="7" vClass="bus"/>
    <vType id="8" emissionClass="P_7_1"/>
    <vType id="9" guiShape="passenger/hatchback"/>
-   <vType id="10" guiWidth="100"/>
+   <vType id="10" width="100"/>
 
 	<trip type="0" depart="0" from="beg" to="rend"/>
 	<trip type="1" depart="0" from="beg" to="rend"/>

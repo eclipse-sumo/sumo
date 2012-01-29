@@ -84,7 +84,7 @@
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
-    <vType id="10" guiWidth="100.00"/>
+    <vType id="10" width="100.00"/>
     <vehicle id="10_0" type="10" depart="33.00" departLane="free">
         <routeDistribution last="0">
             <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>

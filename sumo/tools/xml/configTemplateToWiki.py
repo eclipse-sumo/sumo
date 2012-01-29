@@ -2,7 +2,7 @@
 """
 @file    configTemplateToWiki.py
 @author  Michael Behrisch
-@version $Id: guisimrunner.py 11719 2012-01-14 21:45:05Z behrisch $
+@version $Id$
 
 Generate Wiki table from configuration template.
 

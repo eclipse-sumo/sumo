@@ -30,7 +30,7 @@
     <vehicle id="1" type="1" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vType id="10" guiWidth="100.00"/>
+    <vType id="10" width="100.00"/>
     <vehicle id="10" type="10" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
