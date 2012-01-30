@@ -173,11 +173,6 @@ ROFrame::checkOptions(OptionsCont& oc) {
         WRITE_ERROR("At least two alternatives should be enabled");
         return false;
     }
-    if (oc.getString("routing-algorithm") == "astar" && oc.getString("weight-attribute") != "traveltime") {
-        WRITE_ERROR("Routing Algorithm 'astar' only supports weight-attribute 'traveltime'");
-        return false;
-    }
-    // check departure/arrival options
     return true;
 }
 
