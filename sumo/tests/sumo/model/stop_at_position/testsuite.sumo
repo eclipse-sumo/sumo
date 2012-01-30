@@ -1,0 +1,17 @@
+# the standard structure for model tests
+default
+
+# idm model test
+idm
+
+# idm model with memory test
+idmm
+
+# kerner model test
+kerner
+
+# original krauss model test
+krauss
+
+# wiedemann model test
+wiedemann
