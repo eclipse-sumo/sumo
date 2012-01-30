@@ -400,9 +400,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                            MSMoveReminder::Notification notification) {
     if (pos < 0 || pos > myLength) {
         // we may not start there
-        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart at the given position!");
-        // !!! we probably should do something else...
-        return false;
+        WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" + 
+                aVehicle->getID() + "'. Inserting at lane end instead.");
+        pos = myLength;
     }
     aVehicle->getBestLanes(true, this);
     const MSCFModel& cfModel = aVehicle->getCarFollowModel();
