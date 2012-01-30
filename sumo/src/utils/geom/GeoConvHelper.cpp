@@ -115,8 +115,11 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
         pj_free(myProjection);
+        myProjection = 0;
     }
-    myProjection = (orig.myProjectionMethod == PROJ ? pj_init_plus(orig.myProjString.c_str()) : 0);
+    if (orig.myProjection != 0) {
+        myProjection = pj_init_plus(orig.myProjString.c_str());
+    }
 #endif
     return *this;
 }
