@@ -9,3 +9,7 @@ multiple_reroute
 
 # Testing rerouters which are not at the beginning of a route
 rerouter_middle_edge
+
+# tests for using plain inserted vehicles, each having an own route without separate definiton files
+nested
+
