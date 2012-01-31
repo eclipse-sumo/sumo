@@ -142,8 +142,8 @@ RODUAFrame::checkOptions() {
     ok &= (!oc.isSet("arrivallane") || SUMOVehicleParameter::arrivallaneValidate(oc.getString("arrivallane")));
     ok &= (!oc.isSet("arrivalpos") || SUMOVehicleParameter::arrivalposValidate(oc.getString("arrivalpos")));
     ok &= (!oc.isSet("arrivalspeed") || SUMOVehicleParameter::arrivalspeedValidate(oc.getString("arrivalspeed")));
-    if (oc.getString("routing-algorithm") == "astar" && oc.getString("weight-attribute") != "traveltime") {
-        WRITE_ERROR("Routing Algorithm 'astar' only supports weight-attribute 'traveltime'");
+    if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
+        WRITE_ERROR("Only routing algorithm 'dijkstra' supports weight-attribute '" + oc.getString("weight-attribute") + "'.");
         return false;
     }
     return ok;
