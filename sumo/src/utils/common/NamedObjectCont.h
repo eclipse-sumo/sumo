@@ -52,6 +52,9 @@
 template<class T>
 class NamedObjectCont {
 public:
+    /// @brief Definition of the key to pointer map type
+    typedef std::map< std::string, T > IDMap;
+
     /// @brief Constructor
     NamedObjectCont() : myHaveChanged(false) { }
 
@@ -217,15 +220,12 @@ public:
      *
      * @return A reference to the internal map
      */
-    const std::map<std::string, T> &getMyMap() const {
+    const IDMap &getMyMap() const {
         return myMap;
     }
 
 
 private:
-    /// @brief Definition of the key to pointer map type
-    typedef std::map< std::string, T > IDMap;
-
     /// @brief Definition of the container type iterator
     typedef typename IDMap::iterator myContIt;
 
