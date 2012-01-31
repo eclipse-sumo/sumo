@@ -66,6 +66,8 @@ class OutputDevice;
  * @todo Vehicle ids are not tracked; it may happen that the same id is added twice...
  */
 class RONet {
+    friend class RouteAggregator;
+
 public:
     /// @brief Constructor
     RONet() ;
@@ -290,13 +292,19 @@ public:
 
     void setRestrictionFound();
 
-
 protected:
     bool computeRoute(OptionsCont& options,
                       SUMOAbstractRouter<ROEdge, ROVehicle> &router, const ROVehicle* const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations() const;
+
+
+    /// @brief return vehicles for use by RouteAggregator
+    ROVehicleCont& getVehicles() {
+        return myVehicles;
+    }
+
 
 protected:
     /// @brief Known vehicle ids
