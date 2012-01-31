@@ -217,7 +217,7 @@ GeoConvHelper::usingInverseGeoProjection() const {
 
 void
 GeoConvHelper::cartesian2geo(Position& cartesian) const {
-    cartesian.sub(myOffset);
+    cartesian.sub(getOffsetBase());
     if (myProjectionMethod == NONE) {
         return;
     }

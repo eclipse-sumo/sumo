@@ -1,1 +1,1 @@
---no-internal-links --osm-files osm.xml -v --proj.utm --output.street-names
+--no-internal-links --osm-files osm.xml -v --proj.utm --output.street-names --plain-output-prefix plain --proj.plain-geo --output net.net.xml
