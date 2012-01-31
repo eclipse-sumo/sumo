@@ -225,12 +225,12 @@ RONet::computeRoute(OptionsCont& options, SUMOAbstractRouter<ROEdge, ROVehicle> 
     // check whether we have to evaluate the route for not containing loops
     if (options.getBool("remove-loops")) {
         current->recheckForLoops();
-    }
-    // check whether the route is still valid
-    if (current->size() == 0) {
-        delete current;
-        mh->inform(noRouteMsg + " (after removing loops)");
-        return false;
+        // check whether the route is still valid
+        if (current->size() == 0) {
+            delete current;
+            mh->inform(noRouteMsg + " (after removing loops)");
+            return false;
+        }
     }
     // add built route
     routeDef->addAlternative(router, veh, current, veh->getDepartureTime());
