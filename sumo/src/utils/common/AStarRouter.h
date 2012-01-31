@@ -2,7 +2,7 @@
 /// @file    AStarRouter.h
 /// @author  Jakob Erdmann
 /// @date    January 2012
-/// @version $$
+/// @version $Id$
 ///
 // A* Algorithm using euclidean distance heuristic. 
 // Based on DijkstraRouterTT. For routing by effort a novel heuristic would be needed.
@@ -38,7 +38,6 @@
 #include <limits>
 #include <algorithm>
 #include <iterator>
-#include <utils/common/InstancePool.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
