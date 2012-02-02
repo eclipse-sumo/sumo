@@ -56,6 +56,10 @@
 #include "RORDGenerator_ODAmounts.h"
 #include "ROAbstractRouteDefLoader.h"
 
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+#include <internal/RouteAggregator.h>
+#endif // have HAVE_MESOSIM
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -258,6 +262,22 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
             time = end;
         }
     }
+}
+
+
+void
+ROLoader::processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
+                           RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router) {
+#ifndef HAVE_MESOSIM // catchall for internal stuff
+    assert(false);
+#else
+    bool ok = true;
+    for (RouteLoaderCont::iterator i = myHandler.begin(); ok && i != myHandler.end(); i++) {
+        ok &= (*i)->readRoutesAtLeastUntil(SUMOTime_MAX, false);
+    }
+    RouteAggregator::processAllRoutes(net, router);
+    net.saveAndRemoveRoutesUntil(myOptions, router, end);
+#endif
 }
 
 

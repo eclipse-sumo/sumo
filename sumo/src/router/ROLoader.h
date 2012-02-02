@@ -89,12 +89,16 @@ public:
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
-    virtual void processRoutesStepWise(SUMOTime start, SUMOTime end,
+    void processRoutesStepWise(SUMOTime start, SUMOTime end,
                                        RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
-    virtual void processAllRoutes(SUMOTime start, SUMOTime end,
+    void processAllRoutes(SUMOTime start, SUMOTime end,
+                                  RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
+
+    /** @brief Loads all routes at and processes them with BulkStarRouter */
+    void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                                   RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
     bool makeSingleStep(SUMOTime end, RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);

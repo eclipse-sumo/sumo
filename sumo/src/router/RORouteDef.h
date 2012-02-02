@@ -75,10 +75,14 @@ public:
     virtual ~RORouteDef() ;
 
 
+    /** @brief Triggers building of the complete route (via
+     * preComputeCurrentRoute) or returns precomputed route */
+    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+                                       const ROVehicle& veh) const;
+
     /** @brief Builds the complete route
-     *
      * (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+    virtual void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                        const ROVehicle& veh) const = 0;
 
     /** @brief Adds an alternative to the list of routes
@@ -95,6 +99,7 @@ public:
         return myColor;
     }
 
+    virtual const ROEdge* getDestination() const = 0;
 
     /** @brief Saves the built route / route alternatives
      *
@@ -115,6 +120,8 @@ protected:
     /// The color the route shall have
     const RGBColor* const myColor;
 
+    /// @brief precomputed route for out-of-order computation
+    mutable RORoute* myPrecomputed;
 
 private:
     /// @brief Invalidated copy constructor

@@ -61,6 +61,10 @@
 #include "RODUAFrame.h"
 #include <utils/iodevices/OutputDevice.h>
 
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+#include <internal/BulkStarRouter.h>
+#endif // have HAVE_MESOSIM
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -123,6 +127,16 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
             }
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+        } else if (routingAlgorithm == "bulkstar") {
+            if (net.hasRestrictions()) {
+                router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
+            } else {
+                router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
+            }
+#endif // have HAVE_MESOSIM
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
@@ -157,12 +171,14 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
     // process route definitions
     try {
-        // the routes are sorted - process stepwise
-        if (!oc.getBool("unsorted-input")) {
+        if (routingAlgorithm == "bulkstar") {
+            // need to load all routes for spatial aggregation
+            loader.processAllRoutesWithBulkRouter(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
+        } else if (!oc.getBool("unsorted-input")) {
+            // the routes are sorted - process stepwise
             loader.processRoutesStepWise(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
-        }
-        // the routes are not sorted: load all and process
-        else {
+        } else { 
+            // the routes are not sorted: load all and process
             loader.processAllRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")), net, *router);
         }
         // end the processing

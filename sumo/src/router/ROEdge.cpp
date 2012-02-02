@@ -110,6 +110,9 @@ void
 ROEdge::addFollower(ROEdge* s) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+        s->myApproachingEdges.push_back(this);
+#endif
     }
 }
 
@@ -161,6 +164,12 @@ ROEdge::getTravelTime(const ROVehicle* const veh, SUMOReal time) const {
         return myTravelTimes.getValue(time);
     }
     // ok, no absolute value was found, use the normal value (without) as default
+    return getMinimumTravelTime(veh);
+}
+
+
+SUMOReal
+ROEdge::getMinimumTravelTime(const ROVehicle* const veh) const {
     return (SUMOReal)(myLength / MIN2(veh->getType()->maxSpeed, mySpeed));
 }
 
@@ -280,6 +289,17 @@ ROEdge::getNoFollowing() const {
     }
     return (unsigned int) myFollowingEdges.size();
 }
+
+
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+unsigned int
+ROEdge::getNumApproaching() const {
+    if (getType() == ET_SOURCE) {
+        return 0;
+    }
+    return (unsigned int) myApproachingEdges.size();
+}
+#endif
 
 
 void

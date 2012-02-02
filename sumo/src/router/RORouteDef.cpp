@@ -51,9 +51,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color)
-    : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
-      myColor(color) {}
+RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color) : 
+    ReferencedItem(), 
+    Named(StringUtils::convertUmlaute(id)),
+    myColor(color),
+    myPrecomputed(0)
+{}
 
 
 RORouteDef::~RORouteDef() {
@@ -67,6 +70,16 @@ RORouteDef::copyColorIfGiven() const {
         return 0;
     }
     return new RGBColor(*myColor);
+}
+
+
+RORoute*
+RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+                                       SUMOTime begin, const ROVehicle& veh) const {
+    if (myPrecomputed == 0) {
+        preComputeCurrentRoute(router, begin, veh);
+    }
+    return myPrecomputed;
 }
 
 /****************************************************************************/

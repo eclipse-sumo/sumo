@@ -129,7 +129,13 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 
     if (forDuarouter) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar']");
+        oc.addDescription("routing-algorithm", "Processing", 
+#ifndef HAVE_MESOSIM // catchall for internal stuff
+                "Select among routing algorithms ['dijkstra', 'astar']"
+#else
+                "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar']"
+#endif
+                );
     }
 
     // register defaults options

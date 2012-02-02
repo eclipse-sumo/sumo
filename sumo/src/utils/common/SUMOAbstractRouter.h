@@ -34,6 +34,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <assert.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -61,6 +62,10 @@ public:
     virtual SUMOReal recomputeCosts(const std::vector<const E*> &edges,
                                     const V* const v, SUMOTime msTime) const = 0;
 
+    // interface extension for BulkStarRouter
+    virtual void prepare(const E* edge, const V* vehicle) {
+        assert(false);
+    }
 };
 
 

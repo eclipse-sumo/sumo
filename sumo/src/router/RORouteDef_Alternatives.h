@@ -65,7 +65,7 @@ public:
     virtual void addLoadedAlternative(RORoute* alternative);
 
     /// Build the next route
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                const ROVehicle& veh) const;
 
     /// Adds a build alternative
@@ -82,6 +82,9 @@ public:
     virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh,
             bool asAlternatives, bool withExitTimes) const;
+
+    /* @brief Returns destination of this route definition */
+    const ROEdge* getDestination() const;
 
 private:
     /// Searches for the route within the list of alternatives

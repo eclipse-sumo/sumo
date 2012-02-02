@@ -64,8 +64,8 @@ RORouteDef_OrigDest::~RORouteDef_OrigDest() {
 }
 
 
-RORoute*
-RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+void
+RORouteDef_OrigDest::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle& veh) const {
     std::vector<const ROEdge*> edges;
     router.compute(myFrom, myTo, &veh, begin, edges);
@@ -73,7 +73,7 @@ RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &ro
         edges.erase(edges.begin());
         edges.erase(edges.end() - 1);
     }
-    return new RORoute(myID, 0, 1, edges, copyColorIfGiven());
+    myPrecomputed = new RORoute(myID, 0, 1, edges, copyColorIfGiven());
 }
 
 
@@ -97,6 +97,12 @@ OutputDevice&
 RORouteDef_OrigDest::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                         OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const {
     return myCurrent->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
+}
+
+
+const ROEdge*
+RORouteDef_OrigDest::getDestination() const {
+    return myTo;
 }
 
 

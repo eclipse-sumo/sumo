@@ -82,14 +82,14 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute* alt) {
 }
 
 
-
-RORoute*
-RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+void
+RORouteDef_Alternatives::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
         SUMOTime begin, const ROVehicle& veh) const {
     if (mySkipRouteCalculation) {
         myLastUsed = 0;
         myNewRoute = false;
-        return myAlternatives[myLastUsed];
+        myPrecomputed = myAlternatives[myLastUsed];
+        return;
     }
     // recompute duration of the last route used
     // build a new route to test whether it is better
@@ -105,7 +105,8 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>
         delete opt;
         myNewRoute = false;
         myAlternatives[myLastUsed]->setCosts(costs);
-        return myAlternatives[myLastUsed];
+        myPrecomputed = myAlternatives[myLastUsed];
+        return;
     }
     // return the built route
     if (myLogitGamma >= 0) {
@@ -113,7 +114,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>
     } else {
 	    opt->setCosts(costs);
 	}
-    return opt;
+    myPrecomputed = opt;
 }
 
 
@@ -371,6 +372,12 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle
     } else {
         return myAlternatives[myLastUsed]->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
     }
+}
+
+
+const ROEdge*
+RORouteDef_Alternatives::getDestination() const {
+    return myAlternatives[0]->getLast();
 }
 
 

@@ -64,7 +64,7 @@ public:
     virtual ~RORouteDef_Complete() ;
 
     /// Builds the route
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                const ROVehicle& veh) const;
 
     /** @brief Adds an route alternative (see further comments)
@@ -79,6 +79,9 @@ public:
 
     virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
+
+    /* @brief Returns destination of this route definition */
+    const ROEdge* getDestination() const;
 
 protected:
     /// The list of edges the driver passes

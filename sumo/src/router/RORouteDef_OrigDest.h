@@ -61,7 +61,7 @@ public:
     virtual ~RORouteDef_OrigDest() ;
 
     /// Builds the current route from the given information (perform routing, here)
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                const ROVehicle& veh) const;
 
     /** @brief Adds the build route to the container
@@ -75,6 +75,10 @@ public:
 
     virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
+
+
+    /* @brief Returns destination of this route definition */
+    const ROEdge* getDestination() const;
 
 protected:
     /// The origin and the destination edge of the route

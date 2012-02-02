@@ -273,6 +273,26 @@ public:
         return myFollowingEdges[pos];
     }
 
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+    /** @brief Returns the number of edges this edge is connected to
+     *
+     * If this edge's type is set to "source", 0 is returned, otherwise
+     *  the number of edges stored in "myApproachingEdges".
+     *
+     * @return The number of edges following this edge
+     */
+    unsigned int getNumApproaching() const ;
+
+
+    /** @brief Returns the edge at the given position from the list of reachable edges
+     * @param[in] pos The position of the list within the list of approached
+     * @return The following edge, stored at position pos
+     */
+    ROEdge* getApproaching(unsigned int pos) const {
+        return myApproachingEdges[pos];
+    }
+#endif
+
 
     /** @brief Returns the effort for this edge
      *
@@ -292,6 +312,14 @@ public:
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
     SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const ;
+
+
+    /** @brief Returns the travel time for this edge without using any stored timeLine
+     *
+     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
+     * @param[in] time The time for which the effort shall be returned [s]
+     */
+    SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const ;
 
 
     SUMOReal getCOEffort(const ROVehicle* const veh, SUMOReal time) const ;
@@ -361,6 +389,11 @@ protected:
 
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
+
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+    /// @brief List of edges that approached this edge
+    std::vector<ROEdge*> myApproachingEdges;
+#endif
 
     /// @brief The type of the edge
     EdgeType myType;
