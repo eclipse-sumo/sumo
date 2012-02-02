@@ -97,7 +97,7 @@ public:
     void processAllRoutes(SUMOTime start, SUMOTime end,
                                   RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
-    /** @brief Loads all routes at and processes them with BulkStarRouter */
+    /** @brief Loads all routes and processes them with BulkStarRouter */
     void processAllRoutesWithBulkRouter(SUMOTime start, SUMOTime end,
                                   RONet& net, SUMOAbstractRouter<ROEdge, ROVehicle> &router);
 
