@@ -16,8 +16,24 @@ Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import os, sys
+from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
+
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <net> <options>"
+    optParser = OptionParser()
+    optParser.add_option("-s", "--source",
+            default=False, help="List edges reachable from the source")
+    optParser.add_option("--selection-output", 
+            help="When used with --source, write output to file as a loadable selection")
+
+    options, args = optParser.parse_args()
+    if len(args) != 1:
+        sys.exit(USAGE)
+    options.net = args[0]
+    return options 
+
 
 def getWeaklyConnected(net):
     components = []
@@ -41,17 +57,45 @@ def getWeaklyConnected(net):
     return components
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print "Usage: " + sys.argv[0] + " <net>"
-        sys.exit()
+def getReachable(net, source_id, options):
+    if not net.hasEdge(source_id):
+        sys.exit("'%s' is not a valid edge id" % source_id)
+    source = net.getEdge(source_id)
+    fringe = [source]
+    found = set()
+    found.add(source)
+    while len(fringe) > 0:
+        new_fringe = []
+        for edge in fringe:
+            for reachable in edge.getOutgoing().iterkeys():
+                if not reachable in found:
+                    found.add(reachable)
+                    new_fringe.append(reachable)
+        fringe = new_fringe
 
-    net = sumolib.net.readNet(sys.argv[1])
-    components = getWeaklyConnected(net)
-    if len(components) != 1:
-        print "Warning! Net is not connected."
-        for idx, comp in enumerate(components):
-            print "Component", idx
-            print " ".join(comp)
-            print
+    print "%s of %s edges are reachable from edge '%s':" % (
+            len(found), len(net.getEdges()), source_id)
+
+    if options.selection_output:
+        with open(options.selection_output, 'w') as f:
+            for e in found:
+                f.write("edge:%s\n" % e.getID())
+    else:
+        print [e.getID() for e in found]
+
+
+if __name__ == "__main__":
+    options = parse_args()
+
+    net = sumolib.net.readNet(options.net)
+    if options.source:
+        getReachable(net, options.source, options)
+    else:
+        components = getWeaklyConnected(net)
+        if len(components) != 1:
+            print "Warning! Net is not connected."
+            for idx, comp in enumerate(components):
+                print "Component", idx
+                print " ".join(comp)
+                print
 

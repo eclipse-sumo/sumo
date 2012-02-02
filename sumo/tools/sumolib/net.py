@@ -330,6 +330,9 @@ class Net:
 
     def getRoundabouts(self):
         return self._roundabouts
+
+    def hasEdge(self, id):
+        return id in self._id2edge
         
     def getEdge(self, id):
         return self._id2edge[id]
