@@ -63,7 +63,7 @@ public:
                                     const V* const v, SUMOTime msTime) const = 0;
 
     // interface extension for BulkStarRouter
-    virtual void prepare(const E* edge, const V* vehicle) {
+    virtual void prepare(const E*, const V*, bool) {
         assert(false);
     }
 };
