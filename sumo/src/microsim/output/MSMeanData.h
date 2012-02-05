@@ -400,12 +400,13 @@ protected:
      *
      * @param[in] dev The output device to write the data into
      * @param[in] values The values to check for emptiness
-     * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
+     * @param[in] tag The xml tag to write (lane / edge)
+     * @param[in] id The id for the lane / edge to write
      * @return whether further output should be generated
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
-                     const std::string prefix) const;
+                     const std::string tag, const std::string id) const;
 
 protected:
     /// @brief the minimum sample seconds

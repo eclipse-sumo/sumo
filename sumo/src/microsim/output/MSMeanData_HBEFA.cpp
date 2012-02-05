@@ -131,7 +131,8 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             "\" NOx_perVeh=\"" << OutputDevice::realString(NOx * vehFactor, 6) <<
             "\" fuel_perVeh=\"" << OutputDevice::realString(fuel * vehFactor, 6);
     }
-    dev << "\"/>\n";
+    dev << "\"";
+	dev.closeTag(true);
 }
 
 

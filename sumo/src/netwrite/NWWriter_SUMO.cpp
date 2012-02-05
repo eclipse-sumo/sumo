@@ -188,7 +188,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMO
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
     into.writeAttr(SUMO_ATTR_FUNCTION, toString(EDGEFUNC_INTERNAL));
-    into << ">\n";
+	into.closeOpener();
     into.openTag(SUMO_TAG_LANE);
     into.writeAttr(SUMO_ATTR_ID, id + "_0");
     into.writeAttr(SUMO_ATTR_INDEX, 0);
@@ -226,7 +226,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (!e.hasDefaultGeometry()) {
         into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }
-    into << ">\n";
+	into.closeOpener();
     // write the lanes
     const std::vector<NBEdge::Lane> &lanes = e.getLanes();
     SUMOReal length = e.getLoadedLength();
@@ -330,7 +330,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     if (n.getType() == NODETYPE_DEAD_END) {
         into.closeTag(true);
     } else {
-        into <<  ">\n";
+		into.closeOpener();
         // write right-of-way logics
         n.writeLogic(into);
         into.closeTag();
@@ -478,24 +478,24 @@ NWWriter_SUMO::writeDistrict(OutputDevice& into, const NBDistrict& d) {
     std::vector<SUMOReal> sinkW = d.getSinkWeights();
     VectorHelper<SUMOReal>::normaliseSum(sinkW, 1.0);
     // write the head and the id of the district
-    into.openTag(SUMO_TAG_TAZ) << " id=\"" << d.getID() << "\"";
+	into.openTag(SUMO_TAG_TAZ).writeAttr(SUMO_ATTR_ID, d.getID());
     if (d.getShape().size() > 0) {
-        into << " shape=\"" << d.getShape() << "\"";
+		into.writeAttr(SUMO_ATTR_SHAPE, d.getShape());
     }
-    into << ">\n";
+	into.closeOpener();
     size_t i;
     // write all sources
     const std::vector<NBEdge*> &sources = d.getSourceEdges();
     for (i = 0; i < sources.size(); i++) {
         // write the head and the id of the source
-        into.openTag(SUMO_TAG_TAZSOURCE) << " id=\"" << sources[i]->getID() << "\" weight=\"" << sourceW[i] << "\"";
+        into.openTag(SUMO_TAG_TAZSOURCE).writeAttr(SUMO_ATTR_ID, sources[i]->getID()).writeAttr(SUMO_ATTR_WEIGHT, sourceW[i]);
         into.closeTag(true);
     }
     // write all sinks
     const std::vector<NBEdge*> &sinks = d.getSinkEdges();
     for (i = 0; i < sinks.size(); i++) {
         // write the head and the id of the sink
-        into.openTag(SUMO_TAG_TAZSINK) << " id=\"" << sinks[i]->getID() << "\" weight=\"" << sinkW[i] << "\"";
+        into.openTag(SUMO_TAG_TAZSINK).writeAttr(SUMO_ATTR_ID, sinks[i]->getID()).writeAttr(SUMO_ATTR_WEIGHT, sinkW[i]);
         into.closeTag(true);
     }
     // write the tail
@@ -545,7 +545,7 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
         into.writeAttr(SUMO_ATTR_TYPE, toString(TLTYPE_STATIC));
         into.writeAttr(SUMO_ATTR_PROGRAMID, (*it)->getProgramID());
         into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime((*it)->getOffset()));
-        into << ">\n";
+		into.closeOpener();
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition> &phases = (*it)->getPhases();
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j = phases.begin(); j != phases.end(); ++j) {

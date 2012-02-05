@@ -174,8 +174,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         dev << "\" departed=\"" << nVehDeparted <<
             "\" arrived=\"" << nVehArrived <<
             "\" entered=\"" << nVehEntered <<
-            "\" left=\"" << nVehLeft <<
-            "\"/>\n";
+            "\" left=\"" << nVehLeft << "\"";
+		dev.closeTag(true);
         return;
     }
     if (sampleSeconds > myParent->myMinSamples) {
@@ -200,8 +200,8 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         "\" entered=\"" << nVehEntered <<
         "\" left=\"" << nVehLeft <<
         "\" laneChangedFrom=\"" << nVehLaneChangeFrom <<
-        "\" laneChangedTo=\"" << nVehLaneChangeTo <<
-        "\"/>\n";
+        "\" laneChangedTo=\"" << nVehLaneChangeTo << "\"";
+	dev.closeTag(true);
 }
 
 // ---------------------------------------------------------------------------

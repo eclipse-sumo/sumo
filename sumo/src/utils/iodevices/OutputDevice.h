@@ -33,11 +33,11 @@
 #endif
 
 #include <string>
-#include <vector>
 #include <map>
-#include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "PlainXMLFormatter.h"
+#include "BinaryFormatter.h"
 
 
 // ===========================================================================
@@ -129,11 +129,13 @@ public:
     /// @}
 
 
-    /** @brief Abstract output operator
-     * @return The OutputDevice for further processing
+    /** @brief Helper method for string formatting
+     *
+     * @param[in] v The floating point value to be formatted
+	 * @param[in] precision the precision to achieve 
+     * @return The formatted string
      */
-    static std::string realString(const SUMOReal v, const int precision = OUTPUT_ACCURACY);
-
+    static std::string realString(const SUMOReal v, const int precision=OUTPUT_ACCURACY);
 
 
 public:
@@ -141,7 +143,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const unsigned int defaultIndentation = 0);
+    OutputDevice(const unsigned int defaultIndentation=0);
 
 
     /// @brief Destructor
@@ -162,7 +164,7 @@ public:
     /** @brief Sets the precison or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
-    void setPrecision(unsigned int precision = OUTPUT_ACCURACY) ;
+    void setPrecision(unsigned int precision=OUTPUT_ACCURACY);
 
 
     /** @brief Writes an XML header with optional configuration
@@ -180,16 +182,7 @@ public:
     bool writeXMLHeader(const std::string& rootElement,
                         const std::string xmlParams = "",
                         const std::string& attrs = "",
-                        const std::string& comment = "") ;
-
-
-    /** @brief Adds indentation
-     *
-     * An intendation, depending on the current xml-element-stack size, is written.
-     *
-     * @returns The OutputDevice for further processing
-     */
-    OutputDevice& indent() ;
+                        const std::string& comment = "");
 
 
     /** @brief Opens an XML tag
@@ -201,7 +194,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const std::string& xmlElement) ;
+    OutputDevice& openTag(const std::string& xmlElement);
 
 
     /** @brief Opens an XML tag
@@ -211,8 +204,14 @@ public:
      * @param[in] xmlElement Id of the element to open
      * @returns The OutputDevice for further processing
      */
-    OutputDevice& openTag(const SumoXMLTag& xmlElement) ;
+    OutputDevice& openTag(const SumoXMLTag& xmlElement);
 
+
+    /** @brief Ends the most recently opened element start.
+     *
+     * Writes more or less nothing but ">" and a line feed.
+     */
+    void closeOpener();
 
     /** @brief Closes the most recently opened tag
      *
@@ -224,7 +223,7 @@ public:
      * @returns Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(bool abbreviated = false) ;
+    bool closeTag(bool abbreviated=false);
 
     /** @brief writes an arbitrary attribute
      *
@@ -234,14 +233,19 @@ public:
     OutputDevice& writeAttr(std::string attr, std::string val);
 
 
-    /** @brief writes an named attribute
+    /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
     template <class T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        return writeAttr(toString(attr), toString(val, getOStream().precision()));
+		if (myAmBinary) {
+			BinaryFormatter::writeAttr(getOStream(), attr, val);
+		} else {
+			PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+		}
+        return *this;
     }
 
 
@@ -277,27 +281,15 @@ protected:
 
 
 private:
-    /// @name static members
-    /// @{
-
-    /// @brief Definition of a map from names to output devices
-    typedef std::map<std::string, OutputDevice*> DeviceMap;
-
     /// @brief map from names to output devices
-    static DeviceMap myOutputDevices;
-    /// @}
+    static std::map<std::string, OutputDevice*> myOutputDevices;
 
 
 private:
-    /// @name Non-static members of each OutputDevice
-    /// @{
+    /// @brief The formatter for XML
+	OutputFormatter* myFormatter;
 
-    /// @brief The stack of begun xml elements
-    std::vector<std::string> myXMLStack;
-
-    /// @brief The initial indentation level
-    unsigned int myDefaultIndentation;
-    /// @}
+	bool myAmBinary;
 
 };
 

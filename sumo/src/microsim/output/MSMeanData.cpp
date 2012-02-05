@@ -350,7 +350,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             s->prepareDetectorForWriting(*data);
             s = s->getNextSegment();
         }
-        if (writePrefix(dev, *data, "<edge id=\"" + edge->getID())) {
+        if (writePrefix(dev, *data, "edge", edge->getID())) {
             data->write(dev, stopTime - startTime,
                         (SUMOReal)edge->getLanes().size());
         }
@@ -374,7 +374,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         }
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
-            if (writePrefix(dev, meanData, "<lane id=\"" + meanData.getLane()->getID())) {
+            if (writePrefix(dev, meanData, "lane", meanData.getLane()->getID())) {
                 meanData.write(dev, stopTime - startTime, 1.f);
             }
             meanData.reset(true);
@@ -385,7 +385,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
     } else {
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
-            if (writePrefix(dev, meanData, "<edge id=\"" + edge->getID())) {
+            if (writePrefix(dev, meanData, "edge", edge->getID())) {
                 meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
             }
             meanData.reset(true);
@@ -396,7 +396,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.addTo(*sumData);
                 meanData.reset();
             }
-            if (writePrefix(dev, *sumData, "<edge id=\"" + edge->getID())) {
+            if (writePrefix(dev, *sumData, "edge", edge->getID())) {
                 sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
             }
             delete sumData;
@@ -406,9 +406,9 @@ MSMeanData::writeEdge(OutputDevice& dev,
 
 
 bool
-MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const std::string prefix) const {
+MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const std::string tag, const std::string id) const {
     if (myDumpEmpty || !values.isEmpty()) {
-        dev.indent() << prefix << "\" sampledSeconds=\"" << values.getSamples();
+        dev.openTag(tag) << "id=\"" << id << "\" sampledSeconds=\"" << values.getSamples();
         return true;
     }
     return false;

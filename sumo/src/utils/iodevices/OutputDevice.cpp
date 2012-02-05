@@ -40,6 +40,7 @@
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
 #include "OutputDevice_Network.h"
+#include "PlainXMLFormatter.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -54,7 +55,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-OutputDevice::DeviceMap OutputDevice::myOutputDevices;
+std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
 
 
 // ===========================================================================
@@ -146,7 +147,7 @@ OutputDevice::realString(const SUMOReal v, const int precision) {
 // member method definitions
 // ===========================================================================
 OutputDevice::OutputDevice(const unsigned int defaultIndentation)
-    : myDefaultIndentation(defaultIndentation) {
+    : myFormatter(new PlainXMLFormatter(defaultIndentation)), myAmBinary(false) {
 }
 
 
@@ -159,7 +160,7 @@ OutputDevice::ok() {
 void
 OutputDevice::close() {
     while (closeTag()) {}
-    for (DeviceMap::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
+    for (std::map<std::string, OutputDevice*>::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
         if (i->second == this) {
             myOutputDevices.erase(i);
             break;
@@ -178,59 +179,37 @@ OutputDevice::setPrecision(unsigned int precision) {
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement, const std::string xmlParams,
                              const std::string& attrs, const std::string& comment) {
-    if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(getOStream(), xmlParams);
-        if (comment != "") {
-            getOStream() << comment << "\n";
-        }
-        openTag(rootElement);
-        if (attrs != "") {
-            getOStream() << " " << attrs;
-        }
-        getOStream() << ">\n";
-        return true;
-    }
-    return false;
-}
-
-
-OutputDevice&
-OutputDevice::indent() {
-    getOStream() << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ');
-    postWriteHook();
-    return *this;
+	return myFormatter->writeXMLHeader(getOStream(), rootElement, xmlParams, attrs, comment);
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const std::string& xmlElement) {
-    getOStream() << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
-    postWriteHook();
-    myXMLStack.push_back(xmlElement);
+	myFormatter->openTag(getOStream(), xmlElement);
     return *this;
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const SumoXMLTag& xmlElement) {
-    return openTag(toString(xmlElement));
+	myFormatter->openTag(getOStream(), xmlElement);
+    return *this;
+}
+
+
+void
+OutputDevice::closeOpener() {
+	myFormatter->closeOpener(getOStream());
 }
 
 
 bool
 OutputDevice::closeTag(bool abbreviated) {
-    if (!myXMLStack.empty()) {
-        if (abbreviated) {
-            getOStream() << "/>" << std::endl;
-        } else {
-            std::string indent(4 * (myXMLStack.size() + myDefaultIndentation - 1), ' ');
-            getOStream() << indent << "</" << myXMLStack.back() << ">" << std::endl;
-        }
-        myXMLStack.pop_back();
-        postWriteHook();
-        return true;
-    }
-    return false;
+	if (myFormatter->closeTag(getOStream(), abbreviated)) {
+		postWriteHook();
+		return true;
+	}
+	return false;
 }
 
 
@@ -247,7 +226,7 @@ OutputDevice::inform(const std::string& msg) {
 
 OutputDevice& 
 OutputDevice::writeAttr(std::string attr, std::string val) {
-    getOStream() << " " << attr << "=\"" << val << "\"";
+	myFormatter->writeAttr(getOStream(), attr, val);
     return *this;
 }
 

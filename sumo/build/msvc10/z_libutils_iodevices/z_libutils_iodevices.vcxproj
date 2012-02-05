@@ -187,20 +187,25 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\utils\iodevices\BinaryFormatter.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\BinaryInputDevice.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_COUT.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_File.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_Network.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_String.cpp" />
+    <ClCompile Include="..\..\..\src\utils\iodevices\PlainXMLFormatter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\iodevices\BinaryFormatter.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\BinaryInputDevice.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_COUT.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_File.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_Network.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_String.h" />
+    <ClInclude Include="..\..\..\src\utils\iodevices\OutputFormatter.h" />
+    <ClInclude Include="..\..\..\src\utils\iodevices\PlainXMLFormatter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

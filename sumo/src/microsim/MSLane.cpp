@@ -239,14 +239,22 @@ MSLane::maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) {
             }
             leaderSpeed = leader->getSpeed();
         }
-        const SUMOReal gap = leaderRearPos - follower->getPositionOnLane();
-        const SUMOReal fSpeed = follower->getSpeed();
-        const SUMOReal currentMaxSpeed = (gap + leaderSpeed * leaderSpeed / veh.getCarFollowModel().getMaxDecel() - fSpeed * fSpeed / follower->getCarFollowModel().getMaxDecel()) / veh.getCarFollowModel().getHeadwayTime() - fSpeed;
-        if (MIN2(currentMaxSpeed, mspeed) > maxSpeed) {
-            maxSpeed = currentMaxSpeed;
-            maxPos = (leaderRearPos + follower->getPositionOnLane() + veh.getVehicleType().getLengthWithGap()) / 2;
-            maxIt = predIt+1;
-        }
+        const SUMOReal nettoGap = leaderRearPos - follower->getPositionOnLane() - veh.getVehicleType().getLengthWithGap();
+		if (nettoGap > 0) {
+			const SUMOReal tau = veh.getCarFollowModel().getHeadwayTime();
+			const SUMOReal tauDecel = tau * veh.getCarFollowModel().getMaxDecel();
+			const SUMOReal fSpeed = follower->getSpeed();
+			const SUMOReal lhs = nettoGap/tau + tauDecel - fSpeed - fSpeed*fSpeed/(2*tauDecel) + leaderSpeed*leaderSpeed/(2*tauDecel);
+			if (lhs >= sqrt(tauDecel * tauDecel + leaderSpeed * leaderSpeed)) {
+				const SUMOReal frontGap = (lhs * lhs - tauDecel * tauDecel - leaderSpeed * leaderSpeed) / (2*veh.getCarFollowModel().getMaxDecel());
+				const SUMOReal currentMaxSpeed = lhs - tauDecel;
+				if (MIN2(currentMaxSpeed, mspeed) > maxSpeed) {
+					maxSpeed = currentMaxSpeed;
+					maxPos = leaderRearPos + frontGap;
+					maxIt = predIt+1;
+				}
+			}
+		}
         ++predIt;
     }
     if (maxSpeed > 0) {

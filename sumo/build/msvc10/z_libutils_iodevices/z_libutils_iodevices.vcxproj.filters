@@ -29,6 +29,12 @@
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_String.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\iodevices\PlainXMLFormatter.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\iodevices\BinaryFormatter.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\iodevices\BinaryInputDevice.h">
@@ -47,6 +53,15 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_String.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\iodevices\OutputFormatter.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\iodevices\PlainXMLFormatter.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\iodevices\BinaryFormatter.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
