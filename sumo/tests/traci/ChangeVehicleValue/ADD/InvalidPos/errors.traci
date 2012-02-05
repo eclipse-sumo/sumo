@@ -1,7 +1,7 @@
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
-Error: Vehicle 'veh1' will not be able to depart at the given position!
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
+Warning: Invalid departPos 4000000.00 given for vehicle 'veh1'. Inserting at lane end instead.
