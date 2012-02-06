@@ -157,31 +157,25 @@ NIImporter_ArcView::load() {
     poLayer->ResetReading();
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
-        std::string id =
-            myOptions.isSet("shapefile.street-id")
-            ? poFeature->GetFieldAsString((char*)(myOptions.getString("shapefile.street-id").c_str()))
-            : poFeature->GetFieldAsString("LINK_ID");
-        id = StringUtils::prune(id);
+        std::string id, name, from_node, to_node;
+        if(!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
+            WRITE_ERROR("Needed field '" + id + "' (from node id) is missing.");
+        }
         if (id == "") {
             WRITE_ERROR("Could not obtain edge id.");
             return;
         }
-        std::string name =
-            myOptions.isSet("shapefile.street-id")
-            ? poFeature->GetFieldAsString((char*) myOptions.getString("shapefile.street-id").c_str())
-            : poFeature->GetFieldAsString("ST_NAME");
-        name = StringUtils::prune(StringUtils::replace(name, "&", "&amp;"));
 
-        std::string from_node =
-            myOptions.isSet("shapefile.from-id")
-            ? poFeature->GetFieldAsString((char*)(myOptions.getString("shapefile.from-id").c_str()))
-            : poFeature->GetFieldAsString("REF_IN_ID");
-        from_node = StringUtils::prune(from_node);
-        std::string to_node =
-            myOptions.isSet("shapefile.to-id")
-            ? poFeature->GetFieldAsString((char*) myOptions.getString("shapefile.to-id").c_str())
-            : poFeature->GetFieldAsString("NREF_IN_ID");
-        to_node = StringUtils::prune(to_node);
+        getStringEntry(poFeature, "shapefile.street-id", "ST_NAME", true, name);
+        name = StringUtils::replace(name, "&", "&amp;");
+
+        if(!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
+            WRITE_ERROR("Needed field '" + from_node + "' (from node id) is missing.");
+        }
+        if(!getStringEntry(poFeature, "shapefile.to-id", "NREF_IN_ID", true, to_node)) {
+            WRITE_ERROR("Needed field '" + to_node + "' (to node id) is missing.");
+        }
+
         if (from_node == "" || to_node == "") {
             from_node = toString(myRunningNodeID++);
             to_node = toString(myRunningNodeID++);
@@ -385,6 +379,28 @@ NIImporter_ArcView::checkSpread(NBEdge* e) {
         ret->setLaneSpreadFunction(LANESPREAD_RIGHT);
     }
 }
+
+bool
+NIImporter_ArcView::getStringEntry(OGRFeature*poFeature, const std::string &optionName, char *defaultName, bool prune, std::string &into) {
+    std::string v(defaultName);
+    if(myOptions.isSet(optionName)) {
+        v = myOptions.getString(optionName);
+    }
+    if(poFeature->GetFieldIndex(v.c_str())<0) {
+        if(myOptions.isSet(optionName)) {
+            into = v;
+            return false;
+        }
+        into = "";
+        return true;
+    }
+    into = poFeature->GetFieldAsString((char*)v.c_str());
+    if(prune) {
+        into = StringUtils::prune(into);
+    }
+    return true;
+}
+
 
 
 #endif

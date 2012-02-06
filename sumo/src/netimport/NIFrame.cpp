@@ -256,7 +256,9 @@ NIFrame::checkOptions() {
 #ifdef HAVE_PROJ
     unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && numProjections == 0) {
-        oc.set("proj.utm", "true");
+        if(oc.isDefault("proj")) {
+            oc.set("proj.utm", "true");
+        }
     }
     if (oc.isSet("dlr-navteq-prefix") && oc.isDefault("proj.scale")) {
         oc.set("proj.scale", std::string("5"));

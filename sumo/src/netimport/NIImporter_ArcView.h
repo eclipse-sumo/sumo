@@ -125,6 +125,22 @@ private:
      * @param[in] e The edge to check
      */
     void checkSpread(NBEdge* e);
+
+
+    /** @brief Sets the value from the named field into "into"
+     *
+     * If the field's name was set on the command line, the value is tried to be retrieved, returning true on success. 
+     * If it cannot be retrieved, false is retuned, and the field's name is inserted into "into".
+     *
+     * If no field name was given, the standard value (defaultName) is used. In this case, an empty string is returned
+     *  if the field does not exist.
+     * @param[in] poFeature The feature to read from
+     * @param[in] optionName The name of the option at which an optional field name is stored
+     * @param[in] defaultName The field's default name
+     * @param[in] prune Whether the value shall be prunned
+     * @param[out] into The read value/missing field is stored here
+     */
+    bool getStringEntry(OGRFeature*poFeature, const std::string &optionName, char *defaultName, bool prune, std::string &into);
 #endif
 
 private:
