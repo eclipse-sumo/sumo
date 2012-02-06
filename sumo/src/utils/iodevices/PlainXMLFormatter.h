@@ -2,7 +2,7 @@
 /// @file    PlainXMLFormatter.h
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id: OutputDevice.h 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Output formatter for plain XML output
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    BinaryFormatter.cpp
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id: BinaryFormatter.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
