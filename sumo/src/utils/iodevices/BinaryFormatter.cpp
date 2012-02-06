@@ -50,9 +50,9 @@ BinaryFormatter::BinaryFormatter() {
 bool
 BinaryFormatter::writeXMLHeader(std::ostream& into,
                                 const std::string& rootElement,
-								const std::string xmlParams,
+const std::string xmlParams,
                                 const std::string& attrs,
-								const std::string& comment) {
+const std::string& comment) {
     if (myXMLStack.empty()) {
         FileHelpers::writeByte(into, TYPE_BYTE);
         FileHelpers::writeByte(into, 1);
@@ -117,7 +117,7 @@ BinaryFormatter::closeTag(std::ostream& into, bool abbreviated) {
 void
 BinaryFormatter::writeAttr(std::ostream& into, const std::string& attr, const std::string& val) {
     if (SUMOXMLDefinitions::Attrs.hasString(attr)) {
-        BinaryFormatter::writeAttr(into, (const SumoXMLAttr)(SUMOXMLDefinitions::Attrs.get(attr)), val);
+        writeAttr(into, (const SumoXMLAttr)(SUMOXMLDefinitions::Attrs.get(attr)), val);
     }
 }
 

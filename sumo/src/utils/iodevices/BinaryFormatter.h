@@ -117,32 +117,37 @@ public:
     void writeAttr(std::ostream& into, const std::string& attr, const std::string& val);
 
 
-	/** @brief writes a named attribute
+    /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    template <class T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-        FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
-        FileHelpers::writeInt(into, attr);
-        FileHelpers::writeByte(into, TYPE_STRING);
-        FileHelpers::writeString(into, toString(val, into.precision()));
-	}
+    template <typename T>
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val);
 
-
-	/** @brief writes a named attribute
+    /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    template <>
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val) {
         FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
         FileHelpers::writeInt(into, attr);
         FileHelpers::writeByte(into, TYPE_FLOAT);
         FileHelpers::writeFloat(into, val);
-	}
+    }
+
+    /** @brief writes a named attribute
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const int& val) {
+        FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
+        FileHelpers::writeInt(into, attr);
+        FileHelpers::writeByte(into, TYPE_INTEGER);
+        FileHelpers::writeInt(into, val);
+    }
 
 
 private:
@@ -151,6 +156,15 @@ private:
 
 
 };
+
+
+template <typename T>
+void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+    FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
+    FileHelpers::writeInt(into, attr);
+    FileHelpers::writeByte(into, TYPE_STRING);
+    FileHelpers::writeString(into, toString(val, into.precision()));
+}
 
 
 #endif

@@ -132,7 +132,7 @@ public:
     /** @brief Helper method for string formatting
      *
      * @param[in] v The floating point value to be formatted
-	 * @param[in] precision the precision to achieve 
+     * @param[in] precision the precision to achieve 
      * @return The formatted string
      */
     static std::string realString(const SUMOReal v, const int precision=OUTPUT_ACCURACY);
@@ -236,8 +236,8 @@ public:
     /** @brief writes a line feed if applicable
      */
     void lf() {
-		if (!myAmBinary) {
-			getOStream() << "\n";
+        if (!myAmBinary) {
+            getOStream() << "\n";
         }
     }
 
@@ -247,13 +247,13 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    template <class T>
+    template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-		if (myAmBinary) {
-			BinaryFormatter::writeAttr(getOStream(), attr, val);
-		} else {
-			PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-		}
+        if (myAmBinary) {
+            BinaryFormatter::writeAttr(getOStream(), attr, val);
+        } else {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        }
         return *this;
     }
 
@@ -296,9 +296,9 @@ private:
 
 private:
     /// @brief The formatter for XML
-	OutputFormatter* myFormatter;
+    OutputFormatter* myFormatter;
 
-	const bool myAmBinary;
+    const bool myAmBinary;
 
 };
 
