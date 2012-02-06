@@ -28,8 +28,11 @@
 #include <config.h>
 #endif
 
+#include <version.h>
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <traci-server/TraCIConstants.h>
 #include "BinaryFormatter.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -51,7 +54,28 @@ BinaryFormatter::writeXMLHeader(std::ostream& into,
                                 const std::string& attrs,
 								const std::string& comment) {
     if (myXMLStack.empty()) {
-        return true;
+        FileHelpers::writeByte(into, TYPE_BYTE);
+        FileHelpers::writeByte(into, 1);
+        FileHelpers::writeByte(into, TYPE_STRING);
+        FileHelpers::writeString(into, VERSION_STRING);
+        const std::vector<std::string> tags = SUMOXMLDefinitions::Tags.getStrings();
+        FileHelpers::writeByte(into, TYPE_COMPOUND);
+        FileHelpers::writeInt(into, tags.size());
+        for (std::vector<std::string>::const_iterator it = tags.begin(); it != tags.end(); ++it) {
+            FileHelpers::writeByte(into, TYPE_STRING);
+            FileHelpers::writeString(into, *it);
+        }
+        const std::vector<std::string> attrs = SUMOXMLDefinitions::Attrs.getStrings();
+        FileHelpers::writeByte(into, TYPE_COMPOUND);
+        FileHelpers::writeInt(into, attrs.size());
+        for (std::vector<std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
+            FileHelpers::writeByte(into, TYPE_STRING);
+            FileHelpers::writeString(into, *it);
+        }
+        if (SUMOXMLDefinitions::Tags.hasString(rootElement)) {
+            openTag(into, (const SumoXMLTag)(SUMOXMLDefinitions::Tags.get(rootElement)));
+            return true;
+        }
     }
     return false;
 }
@@ -59,12 +83,17 @@ BinaryFormatter::writeXMLHeader(std::ostream& into,
 
 void
 BinaryFormatter::openTag(std::ostream& into, const std::string& xmlElement) {
+    if (SUMOXMLDefinitions::Tags.hasString(xmlElement)) {
+        openTag(into, (const SumoXMLTag)(SUMOXMLDefinitions::Tags.get(xmlElement)));
+    }
 }
 
 
 void
 BinaryFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
     myXMLStack.push_back(xmlElement);
+    FileHelpers::writeByte(into, TYPE_XML_ELEMENT_START);
+    FileHelpers::writeInt(into, xmlElement);
 }
 
 
@@ -76,6 +105,8 @@ BinaryFormatter::closeOpener(std::ostream& into) {
 bool
 BinaryFormatter::closeTag(std::ostream& into, bool abbreviated) {
     if (!myXMLStack.empty()) {
+        FileHelpers::writeByte(into, TYPE_XML_ELEMENT_END);
+        FileHelpers::writeInt(into, myXMLStack.back());
         myXMLStack.pop_back();
         return true;
     }
@@ -85,6 +116,9 @@ BinaryFormatter::closeTag(std::ostream& into, bool abbreviated) {
 
 void
 BinaryFormatter::writeAttr(std::ostream& into, const std::string& attr, const std::string& val) {
+    if (SUMOXMLDefinitions::Attrs.hasString(attr)) {
+        BinaryFormatter::writeAttr(into, (const SumoXMLAttr)(SUMOXMLDefinitions::Attrs.get(attr)), val);
+    }
 }
 
 /****************************************************************************/

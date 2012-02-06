@@ -233,6 +233,15 @@ public:
     OutputDevice& writeAttr(std::string attr, std::string val);
 
 
+    /** @brief writes a line feed if applicable
+     */
+    void lf() {
+		if (!myAmBinary) {
+			getOStream() << "\n";
+        }
+    }
+
+
     /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)

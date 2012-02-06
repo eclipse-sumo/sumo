@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/FileHelpers.h>
+#include <traci-server/TraCIConstants.h>
 #include "OutputFormatter.h"
 
 
@@ -122,6 +124,24 @@ public:
      */
     template <class T>
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+        FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
+        FileHelpers::writeInt(into, attr);
+        FileHelpers::writeByte(into, TYPE_STRING);
+        FileHelpers::writeString(into, toString(val, into.precision()));
+	}
+
+
+	/** @brief writes a named attribute
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     */
+    template <>
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const SUMOReal& val) {
+        FileHelpers::writeByte(into, TYPE_XML_ATTRIBUTE);
+        FileHelpers::writeInt(into, attr);
+        FileHelpers::writeByte(into, TYPE_FLOAT);
+        FileHelpers::writeFloat(into, val);
 	}
 
 

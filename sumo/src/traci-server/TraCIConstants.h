@@ -255,6 +255,12 @@
 #define TYPE_COMPOUND 0x0F
 // color (four ubytes)
 #define TYPE_COLOR 0x11
+// xml element start (32 bit signed integer, reference into element list)
+#define TYPE_XML_ELEMENT_START 0x12
+// xml element end (32 bit signed integer, reference into element list)
+#define TYPE_XML_ELEMENT_END 0x13
+// xml attríbute (32 bit signed integer, reference into attribute list)
+#define TYPE_XML_ATTRIBUTE 0x14
 
 
 

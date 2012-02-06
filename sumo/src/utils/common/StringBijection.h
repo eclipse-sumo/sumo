@@ -107,9 +107,9 @@ public:
 
     std::vector<std::string> getStrings() const {
         std::vector<std::string> result;
-        typename std::map<std::string, T>::const_iterator it; // learn something new every day
-        for (it = myString2T.begin(); it != myString2T.end(); it++) {
-            result.push_back(it->first);
+        typename std::map<T, std::string>::const_iterator it; // learn something new every day
+        for (it = myT2String.begin(); it != myT2String.end(); it++) {
+            result.push_back(it->second);
         }
         return result;
     }

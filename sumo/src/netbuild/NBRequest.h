@@ -167,13 +167,12 @@ private:
      * @param[in] mayDefinitelyPass Whether this link is definitely not disturbed
      * @exception IOError not yet implemented
      */
-    void writeResponse(OutputDevice& od, const NBEdge* const from, const NBEdge* const to,
-                       int fromLane, int toLane, bool mayDefinitelyPass) const;
+    std::string getResponseString(const NBEdge* const from, const NBEdge* const to,
+                                  int fromLane, bool mayDefinitelyPass) const;
 
 
     /** writes which participating links are foes to the given */
-    void writeAreFoes(OutputDevice& od, NBEdge* from, NBEdge* to,
-                      bool isInnerEnd) const;
+    std::string getFoesString(NBEdge* from, NBEdge* to) const;
 
 
     /** @brief Returns the index to the internal combination container for the given edge combination

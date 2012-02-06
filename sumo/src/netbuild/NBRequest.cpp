@@ -473,11 +473,8 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
     for (std::vector<NBEdge::Connection>::iterator j = connected.begin(); j != connected.end(); j++) {
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
-        od << " " << toString(SUMO_ATTR_RESPONSE) << "=\"";
-        writeResponse(od, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
-        od << "\" " << toString(SUMO_ATTR_FOES) << "=\"";
-        writeAreFoes(od, from, (*j).toEdge, (*j).haveVia);
-        od << "\"";
+        od.writeAttr(SUMO_ATTR_RESPONSE, getResponseString(from, (*j).toEdge, fromLane, (*j).mayDefinitelyPass));
+        od.writeAttr(SUMO_ATTR_FOES, getFoesString(from, (*j).toEdge));
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
             if ((*j).haveVia) {
                 od.writeAttr(SUMO_ATTR_CONT, 1);
@@ -491,57 +488,58 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 }
 
 
-void
-NBRequest::writeResponse(OutputDevice& od, const NBEdge* const from, const NBEdge* const to,
-                         int fromLane, int toLane, bool mayDefinitelyPass) const {
-    UNUSED_PARAMETER(toLane);
+std::string
+NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
+                             int fromLane, bool mayDefinitelyPass) const {
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
     }
+    std::string result;
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNumLanes();
-        for (int j = noLanes; j-- > 0;) {
+        for (int j = noLanes; j > 0; j--) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
-            for (int k = size; k-- > 0;) {
+            for (int k = size; k > 0; k--) {
                 if (mayDefinitelyPass) {
-                    od << '0';
+                    result += '0';
                 } else if (to == 0) {
                     // should wait if no further connection!?
-                    od << '1';
+                    result += '1';
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
-                    od << '0';
+                    result += '0';
                 } else {
                     assert(k < (int) connected.size());
                     assert((size_t) idx < myIncoming.size()*myOutgoing.size());
                     assert(connected[k].toEdge == 0 || (size_t) getIndex(*i, connected[k].toEdge) < myIncoming.size()*myOutgoing.size());
                     // check whether the connection is prohibited by another one
                     if (connected[k].toEdge != 0 && myForbids[getIndex(*i, connected[k].toEdge)][idx]) {
-                        od << '1';
+                        result += '1';
                         continue;
                     }
-                    od << '0';
+                    result += '0';
                 }
             }
         }
     }
+    return result;
 }
 
 
-void
-NBRequest::writeAreFoes(OutputDevice& od, NBEdge* from, NBEdge* to, bool isInnerEnd) const {
+std::string
+NBRequest::getFoesString(NBEdge* from, NBEdge* to) const {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
-    UNUSED_PARAMETER(isInnerEnd);
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
     }
     // !!! move to forbidden
+    std::string result;
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
             i != myIncoming.rend(); i++) {
 
@@ -551,18 +549,19 @@ NBRequest::writeAreFoes(OutputDevice& od, NBEdge* from, NBEdge* to, bool isInner
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 if (to == 0) {
-                    od << '0';
+                    result += '0';
                 } else {
 //                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
                     if (foes(from, to, (*i), connected[k].toEdge)) {
-                        od << '1';
+                        result += '1';
                     } else {
-                        od << '0';
+                        result += '0';
                     }
                 }
             }
         }
     }
+    return result;
 }
 
 

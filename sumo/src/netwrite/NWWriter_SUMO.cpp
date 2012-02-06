@@ -65,7 +65,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
     device.writeXMLHeader("net", SUMOSAXAttributes::ENCODING, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/net_file.xsd\""); // street names may contain non-ascii chars
-    device << "\n";
+    device.lf();
     // get involved container
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
@@ -81,7 +81,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             hadAny |= writeInternalEdges(device, *(*i).second);
         }
         if (hadAny) {
-            device << "\n";
+            device.lf();
         }
     }
 
@@ -90,7 +90,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         writeEdge(device, *(*i).second, noNames);
     }
-    device << "\n";
+    device.lf();
 
     // write tls logics
     writeTrafficLights(device, nb.getTLLogicCont());
@@ -99,7 +99,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         writeJunction(device, *(*i).second);
     }
-    device << "\n";
+    device.lf();
     const bool includeInternal = !oc.getBool("no-internal-links");
     if (includeInternal) {
         // ... internal nodes if not unwanted
@@ -108,7 +108,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             hadAny |= writeInternalNodes(device, *(*i).second);
         }
         if (hadAny) {
-            device << "\n";
+            device.lf();
         }
     }
 
@@ -124,7 +124,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
     }
     if (numConnections > 0) {
-        device << "\n";
+        device.lf();
     }
     if (includeInternal) {
         // ... internal successors if not unwanted
@@ -133,7 +133,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             hadAny |= writeInternalConnections(device, *(*i).second);
         }
         if (hadAny) {
-            device << "\n";
+            device.lf();
         }
     }
     // write loaded prohibitions
@@ -147,7 +147,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writeRoundabout(device, *i);
     }
     if (roundabouts.size() != 0) {
-        device << "\n";
+        device.lf();
     }
 
     // write the districts
@@ -155,7 +155,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writeDistrict(device, *(*i).second);
     }
     if (dc.size() != 0) {
-        device << "\n";
+        device.lf();
     }
     device.close();
 }
@@ -244,18 +244,18 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::string& lID, const NBEdge::Lane& lane, SUMOReal length, unsigned int index) {
     // output the lane's attributes
-    into.openTag(SUMO_TAG_LANE) << " id=\"" << lID << "\"";
+    into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
-    into << " index=\"" << index << "\"";
+    into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
     if (lane.allowed.size() > 0) {
-        into << " allow=\"" << getVehicleClassNames(lane.allowed) << '\"';
+        into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(lane.allowed));
     }
     if (lane.notAllowed.size() > 0) {
-        into << " disallow=\"" << getVehicleClassNames(lane.notAllowed) << '\"';
+        into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(lane.notAllowed));
     }
     if (lane.preferred.size() > 0) {
-        into << " prefer=\"" << getVehicleClassNames(lane.preferred) << '\"';
+        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(lane.preferred));
     }
     // some further information
     if (lane.speed == 0) {
@@ -269,16 +269,16 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     into.writeAttr(SUMO_ATTR_SPEED, lane.speed);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
     if (lane.offset > 0) {
-        into << " endOffset=\"" << lane.offset << '\"';
+        into.writeAttr(SUMO_ATTR_ENDOFFSET, lane.offset);
     }
     if (lane.width != NBEdge::UNSPECIFIED_WIDTH) {
-        into << " width=\"" << lane.width << '\"';
+        into.writeAttr(SUMO_ATTR_WIDTH, lane.width);
     }
     PositionVector shape = lane.shape;
     if (lane.offset > 0) {
         shape = shape.getSubpart(0, shape.length() - lane.offset);
     }
-    into << " shape=\"" << shape << "\"";
+    into.writeAttr(SUMO_ATTR_SHAPE, shape);
     into.closeTag(true);
 }
 
@@ -286,7 +286,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
 void
 NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     // write the attributes
-    into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << n.getID() << '\"';
+    into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, n.getID());
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
     NWFrame::writePositionLong(n.getPosition(), into);
     into << " incLanes=\"";
@@ -326,7 +326,7 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     }
     into << "\"";
     // close writing
-    into << " shape=\"" << n.getShape() << "\"";
+    into.writeAttr(SUMO_ATTR_SHAPE, n.getShape());
     if (n.getType() == NODETYPE_DEAD_END) {
         into.closeTag(true);
     } else {
@@ -557,7 +557,7 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
         into.closeTag();
     }
     if (logics.size() > 0) {
-        into << "\n";
+        into.lf();
     }
 }
 
@@ -577,7 +577,7 @@ NWWriter_SUMO::writeLocation(OutputDevice& into) {
     } 
     into.writeAttr(SUMO_ATTR_ORIG_PROJ, geoConvHelper.getProjString());
     into.closeTag(true);
-    into << "\n";
+    into.lf();
 }
 
 /****************************************************************************/
