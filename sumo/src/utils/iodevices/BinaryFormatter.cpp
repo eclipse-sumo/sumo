@@ -45,8 +45,11 @@ BinaryFormatter::BinaryFormatter() {
 
 
 bool
-BinaryFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement, const std::string xmlParams,
-                                  const std::string& attrs, const std::string& comment) {
+BinaryFormatter::writeXMLHeader(std::ostream& into,
+                                const std::string& rootElement,
+								const std::string xmlParams,
+                                const std::string& attrs,
+								const std::string& comment) {
     if (myXMLStack.empty()) {
         return true;
     }

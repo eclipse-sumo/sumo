@@ -143,7 +143,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const unsigned int defaultIndentation=0);
+    OutputDevice(const bool binary=false, const unsigned int defaultIndentation=0);
 
 
     /// @brief Destructor
@@ -289,7 +289,7 @@ private:
     /// @brief The formatter for XML
 	OutputFormatter* myFormatter;
 
-	bool myAmBinary;
+	const bool myAmBinary;
 
 };
 

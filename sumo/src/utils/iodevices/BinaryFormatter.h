@@ -122,7 +122,6 @@ public:
      */
     template <class T>
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-		into << " " << attr << "=\"" << val << "\"";
 	}
 
 

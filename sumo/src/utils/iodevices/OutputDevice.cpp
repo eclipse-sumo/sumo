@@ -83,7 +83,7 @@ OutputDevice::getDevice(const std::string& name,
             throw IOError("No port number given.");
         }
     } else {
-        dev = new OutputDevice_File(FileHelpers::checkForRelativity(name, base));
+        dev = new OutputDevice_File(FileHelpers::checkForRelativity(name, base), base.find(".sbx") != std::string::npos);
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
@@ -146,8 +146,8 @@ OutputDevice::realString(const SUMOReal v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const unsigned int defaultIndentation)
-    : myFormatter(new PlainXMLFormatter(defaultIndentation)), myAmBinary(false) {
+OutputDevice::OutputDevice(const bool binary, const unsigned int defaultIndentation)
+    : myFormatter(new PlainXMLFormatter(defaultIndentation)), myAmBinary(binary) {
 }
 
 

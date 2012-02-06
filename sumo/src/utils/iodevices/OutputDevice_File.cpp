@@ -40,8 +40,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string& fullName)
-    : myFileStream(0) {
+OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
+    : OutputDevice(binary), myFileStream(0) {
 #ifdef WIN32
     if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");

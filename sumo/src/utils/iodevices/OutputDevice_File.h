@@ -51,7 +51,7 @@ public:
      * @param[in] strm The output stream to used
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(const std::string& fullName);
+    OutputDevice_File(const std::string& fullName, const bool binary);
 
 
     /// @brief Destructor
