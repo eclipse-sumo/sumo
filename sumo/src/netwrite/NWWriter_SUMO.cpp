@@ -289,21 +289,21 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, n.getID());
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
     NWFrame::writePositionLong(n.getPosition(), into);
-    into << " incLanes=\"";
     // write the incoming lanes
+    std::string incLanes;
     const std::vector<NBEdge*> &incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
         unsigned int noLanes = (*i)->getNumLanes();
         for (unsigned int j = 0; j < noLanes; j++) {
-            into << (*i)->getLaneID(j);
+            incLanes += (*i)->getLaneID(j);
             if (i != incoming.end() - 1 || j < noLanes - 1) {
-                into << ' ';
+                incLanes += ' ';
             }
         }
     }
-    into << "\"";
+    into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
     // write the internal lanes
-    into << " intLanes=\"";
+    std::string intLanes;
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
         unsigned int l = 0;
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
@@ -313,18 +313,18 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
                     continue;
                 }
                 if (l != 0) {
-                    into << ' ';
+                    intLanes += ' ';
                 }
                 if (!(*k).haveVia) {
-                    into << (*k).id << "_0";
+                    intLanes += (*k).id + "_0";
                 } else {
-                    into << (*k).viaID << "_0";
+                    intLanes += (*k).viaID + "_0";
                 }
                 l++;
             }
         }
     }
-    into << "\"";
+    into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
     // close writing
     into.writeAttr(SUMO_ATTR_SHAPE, n.getShape());
     if (n.getType() == NODETYPE_DEAD_END) {
@@ -349,17 +349,15 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                 continue;
             }
             Position pos = (*k).shape[-1];
-            into.openTag(SUMO_TAG_JUNCTION) << " id=\"" << (*k).viaID << "_0\"";
-            into << " type=\"" << toString(NODETYPE_INTERNAL) << "\"";
+            into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, (*k).viaID + "_0");
+            into.writeAttr(SUMO_ATTR_TYPE, NODETYPE_INTERNAL);
             NWFrame::writePositionLong(pos, into);
-            into << " incLanes=\"";
-            std::string furtherIncoming = (*k).sourceNames;
-            into << (*k).id << "_0";
-            if (furtherIncoming.length() != 0) {
-                into << " " << furtherIncoming;
+            std::string incLanes = (*k).id + "_0";
+            if ((*k).sourceNames.length() != 0) {
+                incLanes += " " + (*k).sourceNames;
             }
-            into << "\"";
-            into << " intLanes=\"" << (*k).crossingNames << "\"";
+            into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
+            into.writeAttr(SUMO_ATTR_INTLANES, (*k).crossingNames);
             into.closeTag(true);
             ret = true;
         }
@@ -450,24 +448,18 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
 
 void
 NWWriter_SUMO::writeRoundabout(OutputDevice& into, const std::set<NBEdge*> &r) {
-    std::vector<NBNode*> nodes;
+    std::set<std::string> nodes;
     for (std::set<NBEdge*>::const_iterator j = r.begin(); j != r.end(); ++j) {
-        NBNode* n = (*j)->getToNode();
-        if (find(nodes.begin(), nodes.end(), n) == nodes.end()) {
-            nodes.push_back(n);
-        }
+        nodes.insert((*j)->getToNode()->getID());
     }
-    sort(nodes.begin(), nodes.end(), NBNode::nodes_by_id_sorter());
-    into.openTag(SUMO_TAG_ROUNDABOUT) << " nodes=\"";
-    int k = 0;
-    for (std::vector<NBNode*>::iterator j = nodes.begin(); j != nodes.end(); ++j, ++k) {
-        if (k != 0) {
-            into << ' ';
+    std::string nodeString;
+    for (std::set<std::string>::const_iterator j = nodes.begin(); j != nodes.end(); ++j) {
+        if (j != nodes.begin()) {
+            nodeString += " ";
         }
-        into << (*j)->getID();
+        nodeString += *j;
     }
-    into << "\"";
-    into.closeTag(true);
+    into.openTag(SUMO_TAG_ROUNDABOUT).writeAttr(SUMO_ATTR_NODES, nodeString).closeTag(true);
 }
 
 

@@ -68,11 +68,11 @@ SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::s
 void
 SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
                               const OptionsCont& oc) const {
-    dev.openTag(xmlElem) << " id=\"" << id << "\"";
+    dev.openTag(xmlElem).writeAttr(SUMO_ATTR_ID, id);
     if (wasSet(VEHPARS_VTYPE_SET)) {
-        dev << " type=\"" << vtypeid << "\"";
+        dev.writeAttr(SUMO_ATTR_TYPE, vtypeid);
     }
-    dev << " depart=\"" << time2string(depart) << "\"";
+    dev.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
 
     // optional parameter
     //  departlane
@@ -98,9 +98,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " departLane=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTLANE, val);
     } else if (oc.isSet("departlane")) {
-        dev << " departLane=\"" << oc.getString("departlane") << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
     }
     //  departpos
     if (wasSet(VEHPARS_DEPARTPOS_SET) && !defaultOptionOverrides(oc, "departpos")) {
@@ -134,9 +134,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " departPos=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTPOS, val);
     } else if (oc.isSet("departpos")) {
-        dev << " departPos=\"" << oc.getString("departpos") << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTPOS, oc.getString("departpos"));
     }
     //  departspeed
     if (wasSet(VEHPARS_DEPARTSPEED_SET) && !defaultOptionOverrides(oc, "departspeed")) {
@@ -155,9 +155,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " departSpeed=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTSPEED, val);
     } else if (oc.isSet("departspeed")) {
-        dev << " departSpeed=\"" << oc.getString("departspeed") << "\"";
+        dev.writeAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
     }
 
     //  arrivallane

@@ -28,7 +28,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/output/MSInstantInductLoop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUILaneWrapper.h"
@@ -38,6 +37,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/output/MSInstantInductLoop.h>
 #include <microsim/MSLane.h>
 #include "GUIEdge.h"
 

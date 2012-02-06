@@ -499,10 +499,10 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge* const to,
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNumLanes();
-        for (int j = noLanes; j > 0; j--) {
+        for (int j = noLanes; j-- > 0;) {
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
-            for (int k = size; k > 0; k--) {
+            for (int k = size; k-- > 0;) {
                 if (mayDefinitelyPass) {
                     result += '0';
                 } else if (to == 0) {

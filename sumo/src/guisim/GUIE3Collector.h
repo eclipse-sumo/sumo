@@ -34,8 +34,8 @@
 
 #include <string>
 #include <vector>
-#include <microsim/output/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
+#include <microsim/output/MSE3Collector.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/ValueSource.h>
 

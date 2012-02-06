@@ -98,33 +98,33 @@ RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
     UNUSED_PARAMETER(router);
     // (optional) alternatives header
     if (asAlternatives) {
-        dev.openTag("routeDistribution") << " last=\"0\">\n";
+        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, 0).closeOpener();
     }
     // the route
-    dev.openTag("route");
+    dev.openTag(SUMO_TAG_ROUTE);
     if (asAlternatives) {
-        dev << " cost=\"" << myCosts;
+        dev.writeAttr(SUMO_ATTR_COST, myCosts);
         dev.setPrecision(8);
-        dev << "\" probability=\"" << myProbability << "\"";
+        dev.writeAttr(SUMO_ATTR_PROB, myProbability);
         dev.setPrecision();
     }
     if (myColor != 0) {
-        dev << " color=\"" << *myColor << "\"";
+        dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    dev << " edges=\"" << myRoute;
+    dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
     if (withExitTimes) {
+        std::string exitTimes;
         SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-        dev << "\" exitTimes=\"";
-        std::vector<const ROEdge*>::const_iterator i = myRoute.begin();
-        for (; i != myRoute.end(); ++i) {
+        for (std::vector<const ROEdge*>::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
             if (i != myRoute.begin()) {
-                dev << " ";
+                exitTimes += " ";
             }
-            time += (*i)->getTravelTime(veh, (SUMOTime) time);
-            dev << time;
+            time += (*i)->getTravelTime(veh, time);
+            exitTimes += toString(time);
         }
+        dev.writeAttr("exitTimes", exitTimes);
     }
-    (dev << "\"").closeTag(true);
+    dev.closeTag(true);
     // (optional) alternatives end
     if (asAlternatives) {
         dev.closeTag();

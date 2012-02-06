@@ -31,13 +31,13 @@
 
 #include <string>
 #include <iostream>
-#include <microsim/MSNet.h>
-#include <microsim/output/MSInductLoop.h>
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
 #include <guisim/GUIInstantInductLoop.h>
+#include <microsim/MSNet.h>
+#include <microsim/output/MSInductLoop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include "GUIDetectorBuilder.h"

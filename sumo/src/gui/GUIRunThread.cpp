@@ -35,19 +35,19 @@
 #include <iostream>
 #include <algorithm>
 
-#include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
 #include <guisim/GUINet.h>
-#include <microsim/MSVehicleControl.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include "GUIEvent_SimulationEnded.h"
 #include "GUIApplicationWindow.h"
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
+#include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
+#include <utils/common/MsgRetrievingFunction.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #ifndef NO_TRACI

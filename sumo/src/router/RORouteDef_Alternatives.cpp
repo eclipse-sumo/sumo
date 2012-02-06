@@ -340,32 +340,32 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle
         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev.openTag("routeDistribution") << " last=\"" << myLastUsed << "\">\n";
+        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed).closeOpener();
         for (size_t i = 0; i != myAlternatives.size(); i++) {
             const RORoute& alt = *(myAlternatives[i]);
-            dev.openTag("route") << " cost=\"" << alt.getCosts();
+            dev.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, alt.getCosts());
             dev.setPrecision(8);
-            dev << "\" probability=\"" << alt.getProbability();
+            dev.writeAttr(SUMO_ATTR_PROB, alt.getProbability());
             dev.setPrecision();
             if (alt.getColor() != 0) {
-                dev << "\" color=\"" << *alt.getColor();
+                dev.writeAttr(SUMO_ATTR_COLOR, *alt.getColor());
             } else if (myColor != 0) {
-                dev << "\" color=\"" << *myColor;
+                dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
             }
-            dev << "\" edges=\"" << alt.getEdgeVector();
+            dev.writeAttr(SUMO_ATTR_EDGES, alt.getEdgeVector());
             if (withExitTimes) {
+                std::string exitTimes;
                 SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-                dev << "\" exitTimes=\"";
-                std::vector<const ROEdge*>::const_iterator i = alt.getEdgeVector().begin();
-                for (; i != alt.getEdgeVector().end(); ++i) {
+                for (std::vector<const ROEdge*>::const_iterator i = alt.getEdgeVector().begin(); i != alt.getEdgeVector().end(); ++i) {
                     if (i != alt.getEdgeVector().begin()) {
-                        dev << " ";
+                        exitTimes += " ";
                     }
-                    time += (*i)->getTravelTime(veh, (SUMOTime) time);
-                    dev << time;
+                    time += (*i)->getTravelTime(veh, time);
+                    exitTimes += toString(time);
                 }
+                dev.writeAttr("exitTimes", exitTimes);
             }
-            (dev << "\"").closeTag(true);
+            dev.closeTag(true);
         }
         dev.closeTag();
         return dev;

@@ -122,31 +122,31 @@ RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &r
                                         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev.openTag("routeDistribution") << " last=\"0\">\n";
+        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, 0).closeOpener();
     }
     // the route
-    dev.openTag("route");
+    dev.openTag(SUMO_TAG_ROUTE);
     if (asAlternatives) {
-        dev << " cost=\"" << router.recomputeCosts(myEdges, veh, veh->getDepartureTime());
-        dev << "\" probability=\"1.00\"";
+        dev.writeAttr(SUMO_ATTR_COST, router.recomputeCosts(myEdges, veh, veh->getDepartureTime()));
+        dev.writeAttr(SUMO_ATTR_PROB, 1.);
     }
     if (myColor != 0) {
-        dev << " color=\"" << *myColor << "\"";
+        dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    dev << " edges=\"" << myEdges;
+    dev.writeAttr(SUMO_ATTR_EDGES, myEdges);
     if (withExitTimes) {
+        std::string exitTimes;
         SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-        dev << "\" exitTimes=\"";
-        std::vector<const ROEdge*>::const_iterator i = myEdges.begin();
-        for (; i != myEdges.end(); ++i) {
+        for (std::vector<const ROEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
             if (i != myEdges.begin()) {
-                dev << " ";
+                exitTimes += " ";
             }
-            time += (*i)->getTravelTime(veh, (SUMOTime) time);
-            dev << time;
+            time += (*i)->getTravelTime(veh, time);
+            exitTimes += toString(time);
         }
+        dev.writeAttr("exitTimes", exitTimes);
     }
-    (dev << "\"").closeTag(true);
+    dev.closeTag(true);
     // (optional) alternatives end
     if (asAlternatives) {
         dev.closeTag();
