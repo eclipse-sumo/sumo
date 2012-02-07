@@ -370,7 +370,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             }
         }
         if (writeCheck) {
-            dev.openTag("edge") << " id=\"" << edge->getID() << "\">\n";
+            dev.openTag("edge").writeAttr(SUMO_ATTR_ID, edge->getID()).closeOpener();
         }
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
@@ -408,7 +408,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
 bool
 MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const std::string tag, const std::string id) const {
     if (myDumpEmpty || !values.isEmpty()) {
-        dev.openTag(tag) << "id=\"" << id << "\" sampledSeconds=\"" << values.getSamples();
+        dev.openTag(tag).writeAttr(SUMO_ATTR_ID, id) << " sampledSeconds=\"" << values.getSamples();
         return true;
     }
     return false;
