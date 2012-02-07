@@ -28,7 +28,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
 #include <version.h>
+#endif
+
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
