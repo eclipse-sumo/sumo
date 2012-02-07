@@ -669,8 +669,6 @@ protected:
     VehCont myTmpVehicles;
 
 
-    SUMOReal myBackDistance;
-
     /** Vehicle-buffer for vehicle that was put onto this lane by a
         junction. The  buffer is necessary, because of competing
         push- and pop-operations on myVehicles during
