@@ -1,5 +1,60 @@
-% This file was created with JabRef 2.7.2.
+% This file was created with JabRef 2.7.
 % Encoding: Cp1252
+
+@INPROCEEDINGS{Bajpai2011,
+  author = {Ashutosh Bajpai and Tom V Mathew},
+  title = {Development of an Interface between Signal Controller and Traffic
+	Simulator},
+  booktitle = {1st Conference of Transportation Research Group of India},
+  year = {2011},
+  month = {12},
+  organization = {Transportation Research Group of India},
+  abstract = {Adaptive Traffic Control algorithm is an important strategy to manage
+	traffic at an intersection. These are an improvement of vehicle actuated
+	signal control, where explicitly strategies are formulated to compute
+	the signal timing considering the current traffic state obtained
+	from sensors. However, field evaluation of these strategies is cumbersome
+	and expensive and hence simulators which model traffic system can
+	be a good alternative. The main challenge in this is a good interface
+	between the signal control system and the traffic simulators. The
+	signal control system needs the state of the junction in terms of
+	vehicle occupancy at every instant. On the other hand, traffic simulator
+	needs information on whether the signal state has changed. This two
+	way communication requires an efficient interface which is similar
+	to client-server architecture. The simulator acts as the server where
+	as the adaptive control strategy act like client. This paper proposes
+	an efficient interface to couple adaptive control strategy and traffic
+	simulator. This interface mediates between traffic control system
+	and traffic simulator and provides online interaction to simulation
+	from the control strategy. This interface facilitates pure procedural
+	routines to communicate and is written in C language along with Python/C
+	API. Additionally, a module to estimate the vehicular delay due to
+	the control strategy is developed. This delay is estimated by defining
+	effective length of queue, which is provided as a user input.
+	
+	
+	This interface is tested using SUMO (Simulation for Urban Mobility),
+	which is an open source, microscopic, space continuous and time discrete
+	simulator developed by German Aerospace Centre. The traffic control
+	strategy is analogous to the HCM vehicle actuated traffic control
+	except that there is a queue prediction model which computes upper
+	limits on the maximum green time. An isolated four arm junction having
+	four phases is simulated for various flow conditions. The simulator
+	supplied the state of the downstream detector to the traffic control
+	algorithm at every simulation step and the control algorithm determines
+	the signal time strategies (phase termination, green extension, and
+	maximum green time). These strategies are communicated to the simulator.
+	These communications were facilitated by the proposed interface.
+	The average stopped delay is computed as the performance parameter.
+	The interface was also coupled with another traffic simulator (VISSIM)
+	and the results are compared. This interface justifies the concept
+	of reusability by the evaluation of number of control strategy.},
+  file = {:http\://sumo.sourceforge.net/pdf/CTRG_Interface-SUMO.pdf:URL},
+  keywords = {Traffic simulator, Signal controller, Procedural Interface, SUMO (Simulation
+	of Urban Mobility), VISSIM (Verkehr In Städten - SIMulationsmodell)},
+  owner = {dkrajzew},
+  timestamp = {2012.02.07}
+}
 
 @INPROCEEDINGS{Bamberger2010,
   author = {Walter Bamberger and Josef Schlittenlacher and Klaus Diepold},
@@ -1881,7 +1936,6 @@
   journal = {MMI-Interaktiv},
   year = {2004},
   number = {7},
-  publisher = {Technische Universit\"at Berlin},
   abstract = {Das Institut f?r Verkehrsforschung am Deutschen Zentrum f?r Luft-
 	und Raumfahrt (IVF/DLR) setzt in vielen Projekten Simulationen des
 	Stra?enverkehrs ein, z. B. um Schwachstellen in Verkehrsnetzen zu
@@ -1907,6 +1961,7 @@
   keywords = {Fahrermodellierung, Verkehrssimulationen, Verkehrsmodelle, Kognition,
 	acmedriver, DLR/TS/VM},
   owner = {dkrajzew},
+  publisher = {Technische Universit\"at Berlin},
   series = {Modellierung und Simulation in Mensch-Maschine-Systemen},
   timestamp = {2011.09.16},
   url = {http://elib.dlr.de/6721/}
@@ -1947,12 +2002,12 @@
   volume = {55},
   pages = {5597--5602},
   month = {May},
-  publisher = {American Physical Society},
   doi = {10.1103/PhysRevE.55.5597},
   file = {:http\://sumo.sourceforge.net/pdf/sk.pdf:URL},
   issue = {5},
   keywords = {Models, ZAIK},
   owner = {dkrajzew},
+  publisher = {American Physical Society},
   timestamp = {2011.09.19},
   url = {http://link.aps.org/doi/10.1103/PhysRevE.55.5597}
 }
