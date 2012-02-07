@@ -215,6 +215,10 @@ public:
         long onCmdStartTrack(FXObject*, FXSelector, void*);
         /// @brief Called if the current shall not be tracked any longer
         long onCmdStopTrack(FXObject*, FXSelector, void*);
+        /// @brief Called if all routes of the vehicle shall be shown
+        long onCmdShowLFLinkItems(FXObject*, FXSelector, void*);
+        /// @brief Called if all routes of the vehicle shall be hidden
+        long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)
@@ -242,7 +246,9 @@ public:
         /// @brief show all vehicle's routes
         VO_SHOW_ALL_ROUTES = 4,
         /// @brief track vehicle
-        VO_TRACKED = 8
+        VO_TRACKED = 8,
+        /// @brief LFLinkItems
+        VO_SHOW_LFLINKITEMS = 16
     };
 
     /// @brief Enabled visualisations, per view

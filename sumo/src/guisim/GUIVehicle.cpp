@@ -78,6 +78,8 @@ FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack),
     FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIVehicle::GUIVehiclePopupMenu::onCmdShowLFLinkItems),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems),
 };
 
 // Object implementation
@@ -150,7 +152,6 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*, FXSelector, void*
     return 1;
 }
 
-
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
@@ -168,6 +169,13 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*, FXSelector, vo
     return 1;
 }
 
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
+    return 1;
+}
+
 
 long
 GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*, FXSelector, void*) {
@@ -175,14 +183,6 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*, FXSelector, void*
     if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_BEST_LANES)) {
         static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_BEST_LANES);
     }
-    return 1;
-}
-
-
-long
-GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*, FXSelector, void*) {
-    assert(myObject->getType() == GLO_VEHICLE);
-    static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
     return 1;
 }
 
@@ -209,6 +209,23 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
     static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_TRACKED);
     myParent->stopTrack();
+    return 1;
+}
+
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowLFLinkItems(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    if (!static_cast<GUIVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_LFLINKITEMS)) {
+        static_cast<GUIVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_LFLINKITEMS);
+    }
+    return 1;
+}
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    static_cast<GUIVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_LFLINKITEMS);
     return 1;
 }
 
@@ -261,6 +278,11 @@ GUIVehicle::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Hide Best Lanes", 0, ret, MID_HIDE_BEST_LANES);
     } else {
         new FXMenuCommand(ret, "Show Best Lanes", 0, ret, MID_SHOW_BEST_LANES);
+    }
+    if (hasActiveAddVisualisation(&parent, VO_SHOW_LFLINKITEMS)) {
+        new FXMenuCommand(ret, "Hide Link Items", 0, ret, MID_HIDE_LFLINKITEMS);
+    } else {
+        new FXMenuCommand(ret, "Show Link Items", 0, ret, MID_SHOW_LFLINKITEMS);
     }
     new FXMenuSeparator(ret);
     int trackedID = parent.getTrackedID();
@@ -975,6 +997,23 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
             }
         } else {
             drawRoute(s, 0, 0.25);
+        }
+    }
+    if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
+        for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+            MSLink* link = (*i).myLink;
+            MSLane *via = link->getViaLane();
+            if(via!=0) {
+                Position p = via->getShape()[0];
+                if((*i).mySetRequest) {
+                    glColor3f(0, 1, 0);
+                } else {
+                    glColor3f(1, 0, 0);
+                }
+                glTranslated(p.x(), p.y(), -.1);
+                GLHelper::drawFilledCircle(1);
+                glTranslated(-p.x(), -p.y(), .1);
+            }
         }
     }
     glPopMatrix();

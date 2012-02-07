@@ -970,7 +970,7 @@ protected:
 
     bool myHaveToWaitOnNextLink;
 
-private:
+protected:
     struct DriveProcessItem {
         MSLink* myLink;
         SUMOReal myVLinkPass;
@@ -990,6 +990,8 @@ private:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
+
+private:
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
     MSEdgeWeightsStorage* myEdgeWeights;
 
