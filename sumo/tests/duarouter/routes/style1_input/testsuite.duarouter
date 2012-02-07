@@ -16,6 +16,8 @@ increasing_time_color
 # Cheks whether parameter passing works
 withparams
 
+# Tests the import of shared routes
+multiref
 
 # Tests for false user input
 errors
