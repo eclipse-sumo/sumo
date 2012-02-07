@@ -40,8 +40,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_String::OutputDevice_String(const unsigned int defaultIndentation)
-    : OutputDevice(defaultIndentation) {
+OutputDevice_String::OutputDevice_String(const bool binary, const unsigned int defaultIndentation)
+    : OutputDevice(binary, defaultIndentation) {
 }
 
 

@@ -49,7 +49,7 @@ public:
     /** @brief Constructor
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_String(const unsigned int defaultIndentation = 0);
+    OutputDevice_String(const bool binary=false, const unsigned int defaultIndentation=0);
 
 
     /// @brief Destructor

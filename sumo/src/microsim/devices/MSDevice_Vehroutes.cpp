@@ -195,8 +195,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
 
 void
 MSDevice_Vehroutes::generateOutput() const {
-    OutputDevice_String od(1);
-    od.openTag("vehicle").writeAttr(SUMO_ATTR_ID, myHolder.getID());
+    OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
+    OutputDevice_String od(routeOut.isBinary(), 1);
+    od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, myHolder.getID());
     if (myHolder.getVehicleType().getID() != DEFAULT_VTYPE_ID) {
         od.writeAttr(SUMO_ATTR_TYPE, myHolder.getVehicleType().getID());
     }
@@ -205,9 +206,9 @@ MSDevice_Vehroutes::generateOutput() const {
     if (myWithTaz) {
         od.writeAttr(SUMO_ATTR_FROM_TAZ, myHolder.getParameter().fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, myHolder.getParameter().toTaz);
     }
-    od << ">\n";
+    od.closeOpener();
     if (myReplacedRoutes.size() > 0) {
-        od.openTag("routeDistribution") << ">\n";
+        od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).closeOpener();
         for (unsigned int i = 0; i < myReplacedRoutes.size(); ++i) {
             writeXMLRoute(od, i);
         }
@@ -217,19 +218,19 @@ MSDevice_Vehroutes::generateOutput() const {
         od.closeTag();
     }
     od.closeTag();
-    od << "\n";
+    od.lf();
     if (mySorted) {
         myRouteInfos[myHolder.getDeparture()] += od.getString();
         myDepartureCounts[myHolder.getDeparture()]--;
         std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
         while (it != myDepartureCounts.end() && it->second == 0) {
-            OutputDevice::getDeviceByOption("vehroute-output") << myRouteInfos[it->first];
+            routeOut << myRouteInfos[it->first];
             myRouteInfos.erase(it->first);
             myDepartureCounts.erase(it);
             it = myDepartureCounts.begin();
         }
     } else {
-        OutputDevice::getDeviceByOption("vehroute-output") << od.getString();
+        routeOut << od.getString();
     }
 }
 

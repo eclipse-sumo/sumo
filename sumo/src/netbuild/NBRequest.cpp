@@ -42,7 +42,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice_String.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBEdge.h"
 #include "NBContHelper.h"
 #include "NBTrafficLightLogic.h"

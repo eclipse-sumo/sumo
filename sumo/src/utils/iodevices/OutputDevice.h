@@ -176,6 +176,7 @@ public:
      * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      * @param[in] attrs Additional attributes to save within the rootElement
      * @param[in] comment Additional comment (saved in front the rootElement)
+     * @return Whether the header could be written (stack was empty)
      * @todo Check which parameter is used herein
      * @todo Describe what is saved
      */
@@ -192,7 +193,7 @@ public:
      * The xml element is added to the stack, then.
      *
      * @param[in] xmlElement Name of element to open
-     * @returns The OutputDevice for further processing
+     * @return The OutputDevice for further processing
      */
     OutputDevice& openTag(const std::string& xmlElement);
 
@@ -202,7 +203,7 @@ public:
      * Helper method which finds the correct string before calling openTag.
      *
      * @param[in] xmlElement Id of the element to open
-     * @returns The OutputDevice for further processing
+     * @return The OutputDevice for further processing
      */
     OutputDevice& openTag(const SumoXMLTag& xmlElement);
 
@@ -220,7 +221,7 @@ public:
      *  the stack. If abbreviated closing is requested, only "/>" is the output.
      *
      * @param[in] name whether abbreviated closing is performed
-     * @returns Whether a further element existed in the stack and could be closed
+     * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
     bool closeTag(bool abbreviated=false);
@@ -229,6 +230,7 @@ public:
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @return The OutputDevice for further processing
      */
     OutputDevice& writeAttr(std::string attr, std::string val);
 
@@ -242,10 +244,19 @@ public:
     }
 
 
+    /** @brief Returns whether we have a binary output
+     * @return whether we have a binary output
+     */
+    bool isBinary() const {
+        return myAmBinary;
+    }
+
+
     /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @return The OutputDevice for further processing
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {

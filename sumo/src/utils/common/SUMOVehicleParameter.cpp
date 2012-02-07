@@ -174,9 +174,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " arrivalLane=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALLANE, val);
     } else if (oc.isSet("arrivallane")) {
-        dev << " arrivalLane=\"" << oc.getString("arrivallane") << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALLANE, oc.getString("arrivallane"));
     }
     //  arrivalpos
     if (wasSet(VEHPARS_ARRIVALPOS_SET) && !defaultOptionOverrides(oc, "arrivalpos")) {
@@ -195,9 +195,9 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " arrivalPos=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALPOS, val);
     } else if (oc.isSet("arrivalpos")) {
-        dev << " arrivalPos=\"" << oc.getString("arrivalpos") << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALPOS, oc.getString("arrivalpos"));
     }
     //  arrivalspeed
     if (wasSet(VEHPARS_ARRIVALSPEED_SET) && !defaultOptionOverrides(oc, "arrivalspeed")) {
@@ -213,33 +213,33 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
             default:
                 break;
         }
-        dev << " arrivalSpeed=\"" << val << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, val);
     } else if (oc.isSet("arrivalspeed")) {
-        dev << " arrivalSpeed=\"" << oc.getString("arrivalspeed") << "\"";
+        dev.writeAttr(SUMO_ATTR_ARRIVALSPEED, oc.getString("arrivalspeed"));
     }
 
     // color
     if (wasSet(VEHPARS_COLOR_SET)) {
-        dev << " color=\"" << color << "\"";
+        dev.writeAttr(SUMO_ATTR_COLOR, color);
     }
     // repetition values
     if (wasSet(VEHPARS_PERIODNUM_SET)) {
-        dev << " repno=\"" << repetitionNumber << "\"";
+        dev.writeAttr(SUMO_ATTR_REPNUMBER, repetitionNumber);
     }
     if (wasSet(VEHPARS_PERIODFREQ_SET)) {
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-        dev << " period=\"" << time2string(repetitionOffset) << "\"";
+        dev.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
 #else
-        dev << " period=\"" << repetitionOffset << "\"";
+        dev.writeAttr(SUMO_ATTR_PERIOD, repetitionOffset);
 #endif
     }
     if (wasSet(VEHPARS_LINE_SET)) {
-        dev << " line=\"" << line << "\"";
+        dev.writeAttr(SUMO_ATTR_LINE, line);
     }
     if (wasSet(VEHPARS_TAZ_SET)) {
-        dev << " fromTaz=\"" << fromTaz << "\" toTaz=\"" << toTaz << "\"";
+        dev.writeAttr(SUMO_ATTR_FROM_TAZ, fromTaz).writeAttr(SUMO_ATTR_TO_TAZ, toTaz);
     }
-    dev << ">\n";
+    dev.closeOpener();
 }
 
 
