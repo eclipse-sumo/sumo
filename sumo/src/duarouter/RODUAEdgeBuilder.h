@@ -85,13 +85,6 @@ public:
     /// @}
 
 
-protected:
-    /// @brief Information whether to use the first/last entry of the time in case it is too short
-    bool myUseBoundariesOnOverride;
-
-    /// @brief Information whether to interpolate at interval boundaries
-    bool myInterpolate;
-
 };
 
 

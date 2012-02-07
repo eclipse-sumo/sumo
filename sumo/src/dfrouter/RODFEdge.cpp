@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 RODFEdge::RODFEdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
-    : ROEdge(id, from, to, index, false) {}
+    : ROEdge(id, from, to, index) {}
 
 
 RODFEdge::~RODFEdge() {}

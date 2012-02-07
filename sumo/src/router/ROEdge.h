@@ -85,12 +85,8 @@ public:
      * @param[in] from The node the edge begins at
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
-     * @param[in] useBoundariesOnOverride Whether the edge shall use a boundary value if the requested is beyond known time scale
-     * @param[in] interpolate Whether the edge shall interpolate at interval boundaries
-     * @todo useBoundariesOnOverride and interpolate should not be members of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index,
-           bool useBoundariesOnOverride, bool interpolate = false) ;
+    ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index);
 
 
     /// Destructor
@@ -340,6 +336,16 @@ public:
     static ROEdge* dictionary(size_t index) ;
 
 
+    static void setTimeLineOptions(
+            bool useBoundariesOnOverrideTT,
+            bool useBoundariesOnOverrideE,
+            bool interpolate) {
+        myUseBoundariesOnOverrideTT = useBoundariesOnOverrideTT;
+        myUseBoundariesOnOverrideE = useBoundariesOnOverrideE;
+        myInterpolate = interpolate;
+    }
+
+
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -370,22 +376,22 @@ protected:
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTTTimeLine;
     /// @brief Whether overriding weight boundaries shall be reported
-    bool myUseBoundariesOnOverrideTT;
-    /// @brief Information whether the edge has reported missing weights
-    static bool myHaveTTWarned;
+    static bool myUseBoundariesOnOverrideTT;
 
     /// @brief Container storing passing time varying over time for the edge
     mutable ValueTimeLine<SUMOReal> myEfforts;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingETimeLine;
     /// @brief Whether overriding weight boundaries shall be reported
-    bool myUseBoundariesOnOverrideE;
-    /// @brief Information whether the edge has reported missing weights
-    static bool myHaveEWarned;
+    static bool myUseBoundariesOnOverrideE;
 
     /// @brief Information whether to interpolate at interval boundaries
-    bool myInterpolate;
+    static bool myInterpolate;
 
+    /// @brief Information whether the edge has reported missing weights
+    static bool myHaveEWarned;
+    /// @brief Information whether the edge has reported missing weights
+    static bool myHaveTTWarned;
 
     /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;

@@ -51,6 +51,9 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+bool ROEdge::myUseBoundariesOnOverrideTT = false;
+bool ROEdge::myUseBoundariesOnOverrideE = false;
+bool ROEdge::myInterpolate = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
 std::vector<ROEdge*> ROEdge::myEdges;
@@ -59,13 +62,12 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index,
-               bool useBoundariesOnOverride, bool interpolate)
+ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
     : myID(id), mySpeed(-1),
       myIndex(index), myLength(-1),
-      myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
-      myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
-      myFromNode(from), myToNode(to), myInterpolate(interpolate) {
+      myUsingTTTimeLine(false), 
+      myUsingETimeLine(false), 
+      myFromNode(from), myToNode(to) {
     while (myEdges.size() <= index) {
         myEdges.push_back(0);
     }

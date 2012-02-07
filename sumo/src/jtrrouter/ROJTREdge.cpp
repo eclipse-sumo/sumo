@@ -46,7 +46,7 @@
 // method definitions
 // ===========================================================================
 ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, unsigned int index)
-    : ROEdge(id, from, to, index, false) {}
+    : ROEdge(id, from, to, index) {}
 
 
 ROJTREdge::~ROJTREdge() {
