@@ -96,6 +96,7 @@ def initOptions():
                          default = False, help="output the last routes")
     optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                          default = False, help="save routes with near zero probability")
+    optParser.add_option("--routing-algorithm", default = "dijkstra", help="select the routing algorithm")
     return optParser
 
 def call(command, log):
@@ -139,7 +140,9 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         <gawron.beta value="%s"/>
         <gawron.a value="%s"/>
         <keep-all-routes value="%s"/>
-    </processing>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA, options.allroutes)
+        <routing-algorithm value="%s"/>
+    </processing>""" % (options.continueOnUnbuild, bool(options.districts), 
+            options.gBeta, options.gA, options.allroutes, options.routing_algorithm)
     print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
