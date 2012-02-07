@@ -335,16 +335,4 @@ MSMessageEmitter::setWriteEvents(std::string& events) {
         }
     }
 }
-
-
-void
-MSMessageEmitter::setFile(const std::string& file) {
-#ifdef _DEBUG
-    std::cout << "Filename: '" + file + "'." << std::endl;
-#endif
-    myDev = OutputDevice::getDevice(file);
-#ifdef _DEBUG
-    std::cout << "done..." << std::endl;
-#endif
-}
 #endif

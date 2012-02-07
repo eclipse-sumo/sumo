@@ -83,8 +83,6 @@ private:
 
     void setWriteEvents(std::string& events);
 
-    void setFile(const std::string& file);
-
     void initXML();
     // variables
     OutputDevice& myDev;
