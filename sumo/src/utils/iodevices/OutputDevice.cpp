@@ -156,6 +156,11 @@ OutputDevice::OutputDevice(const bool binary, const unsigned int defaultIndentat
 }
 
 
+OutputDevice::~OutputDevice() {
+    delete myFormatter;
+}
+
+
 bool
 OutputDevice::ok() {
     return getOStream().good();

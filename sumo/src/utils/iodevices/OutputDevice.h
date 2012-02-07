@@ -147,7 +147,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~OutputDevice() { }
+    virtual ~OutputDevice();
 
 
     /** @brief returns the information whether one can write into the device
