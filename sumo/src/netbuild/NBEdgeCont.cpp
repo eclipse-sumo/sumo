@@ -118,7 +118,11 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
             poly.push_back(TplConvert<char>::_2SUMOReal((*i).c_str())); // !!! may throw something anyhow...
         }
-        if (poly.size() == 4) {
+        if (poly.size() < 4) {
+            throw ProcessError("Invalid boundary: need at least 2 coordinates");
+        } else if (poly.size() % 2 != 0) {
+            throw ProcessError("Invalid boundary: malformed coordinate");
+        } else if (poly.size() == 4) {
             // prunning boundary (box)
             myPrunningBoundary.push_back(Position(poly[0], poly[1]));
             myPrunningBoundary.push_back(Position(poly[2], poly[1]));
