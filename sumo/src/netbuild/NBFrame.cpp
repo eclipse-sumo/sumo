@@ -219,7 +219,7 @@ NBFrame::fillOptions(bool forNetgen) {
     }
 
     oc.doRegister("keep-edges.in-boundary", new Option_String());
-    oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>)");
+    oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>)");
 
     if (!forNetgen) {
         oc.doRegister("keep-edges.by-vclass", new Option_String());

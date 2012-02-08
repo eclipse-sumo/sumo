@@ -186,7 +186,7 @@
         <!-- Remove edges after joining -->
         <keep-edges.postload value="false" type="BOOL"/>
 
-        <!-- Only keep edges which are located within the given boundary -->
+        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) -->
         <keep-edges.in-boundary value="" type="STR"/>
 
         <!-- Only keep edges which allow one of the vclasss in STR -->

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11548
+SUMO netconvert Version dev-SVN-r11857
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -94,7 +94,10 @@ Edge Removal Options:
   --keep-edges.input-file FILE        Only keep edges in FILE
   --keep-edges.postload               Remove edges after joining
   --keep-edges.in-boundary STR        Only keep edges which are located within
-                                        the given boundary
+                                        the given boundary (given either as
+                                        CARTESIAN corner coordinates
+                                        <xmin,ymin,xmax,ymax> or as polygon
+                                        <x0,y0,x1,y1,...>)
   --keep-edges.by-vclass STR          Only keep edges which allow one of the
                                         vclasss in STR
   --remove-edges.by-vclass STR        Remove edges which allow only vclasses
