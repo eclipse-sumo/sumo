@@ -309,10 +309,10 @@ MSVehicleControl::abortWaiting() {
 
 bool 
 MSVehicleControl::isInQuota(const SUMOReal frac) const {
-    const SUMOReal eps = 0.00001; // floating point inaccuracy
-    double intPart;
+    const int resolution = 1000;
+    const int intFrac = (int)floor(frac * resolution + 0.5);
     // the vehicle in question has already been loaded, hence  the '-1'
-    return modf((myLoadedVehNo - 1) * frac, &intPart) + eps < frac;
+    return (myLoadedVehNo - 1) * intFrac % resolution < intFrac;
 }
 
 /****************************************************************************/
