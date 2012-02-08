@@ -1,0 +1,2 @@
+-v --no-step-log -b 0 --net-file=net.net.xml --routes=input_routes.rou.xml
+--scale 0.7
