@@ -78,7 +78,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoRelease|Win32'">
     <ClCompile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>$(OSG)/include;$(PROJ_GDAL)\include;$(FOX16)\include;$(XERCES)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <Culture>0x0407</Culture>
@@ -95,7 +94,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MesoDebug|Win32'">
     <ClCompile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>$(OSG)/include;$(PROJ_GDAL)\include;$(FOX16)\include;$(XERCES)\include;..\..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <Culture>0x0407</Culture>
@@ -121,6 +119,7 @@
     <ClCompile Include="..\..\..\src\osgview\GUIOSGViewBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\osgview\GUIOSGBoundingBoxCalculator.h" />
     <ClInclude Include="..\..\..\src\osgview\GUIOSGBuilder.h" />
     <ClInclude Include="..\..\..\src\osgview\GUIOSGView.h" />
     <ClInclude Include="..\..\..\src\osgview\GUIOSGViewBuilder.h" />

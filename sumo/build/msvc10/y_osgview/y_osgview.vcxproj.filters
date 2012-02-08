@@ -22,6 +22,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\osgview\GUIOSGBoundingBoxCalculator.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\osgview\GUIOSGBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
