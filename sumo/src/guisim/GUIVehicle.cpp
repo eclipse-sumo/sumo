@@ -1002,8 +1002,15 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
     if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
         for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
             MSLink* link = (*i).myLink;
+#ifdef HAVE_INTERNAL_LANES
             MSLane *via = link->getViaLane();
-            if(via!=0) {
+            if (via == 0) {
+                via = link->getLane();
+            }
+#else
+            MSLane *via = link->getLane();
+#endif
+            if (via != 0) {
                 Position p = via->getShape()[0];
                 if((*i).mySetRequest) {
                     glColor3f(0, 1, 0);
