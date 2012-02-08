@@ -143,10 +143,10 @@ GUILaneWrapper::ROWdrawAction_drawLinkNo() const {
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i = 0; i < noLinks; ++i) {
+    for (int i = noLinks; --i >= 0; ) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         GLHelper::drawText(toString(getLane().getLinkCont()[i]->getRespondIndex()),
-                           Position(x2, .1), 0, 1, RGBColor(.5, .5, 1), 180);
+                           Position(x2, 0), 0, .6, RGBColor(.5, .5, 1), 180);
         x1 -= w;
     }
     glPopMatrix();
@@ -170,14 +170,14 @@ GUILaneWrapper::ROWdrawAction_drawTLSLinkNo(const GUINet& net) const {
     SUMOReal rot = (SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (unsigned int i = 0; i < noLinks; ++i) {
+    for (int i = noLinks; --i >= 0; ) {
         SUMOReal x2 = x1 - (SUMOReal)(w / 2.);
         int linkNo = net.getLinkTLIndex(getLane().getLinkCont()[i]);
         if (linkNo < 0) {
             continue;
         }
         GLHelper::drawText(toString(linkNo),
-                           Position(x2, .1), 0, 1, RGBColor(.5, .5, 1), 180);
+                           Position(x2, 0), 0, .6, RGBColor(.5, .5, 1), 180);
         x1 -= w;
     }
     glPopMatrix();
