@@ -187,7 +187,7 @@ NWWriter_SUMO::writeInternalEdge(OutputDevice& into, const std::string& id, SUMO
     SUMOReal length = MAX2(shape.length(), (SUMOReal)POSITION_EPS); // microsim needs positive length
     into.openTag(SUMO_TAG_EDGE);
     into.writeAttr(SUMO_ATTR_ID, id);
-    into.writeAttr(SUMO_ATTR_FUNCTION, toString(EDGEFUNC_INTERNAL));
+    into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
 	into.closeOpener();
     into.openTag(SUMO_TAG_LANE);
     into.writeAttr(SUMO_ATTR_ID, id + "_0");
@@ -214,7 +214,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
         into.writeAttr(SUMO_ATTR_TYPE, e.getTypeName());
     }
     if (e.isMacroscopicConnector()) {
-        into.writeAttr(SUMO_ATTR_FUNCTION, "connector");
+        into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CONNECTOR);
     }
     // write the spread type if not default ("right")
     if (e.getLaneSpreadFunction() != LANESPREAD_RIGHT) {

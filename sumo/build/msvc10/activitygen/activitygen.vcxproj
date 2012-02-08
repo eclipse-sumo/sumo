@@ -222,6 +222,9 @@
       <Project>{72cdb11a-ec19-4be2-bbe9-1fa33deccb20}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\z_libutils_geom\z_libutils_geom.vcxproj">
+      <Project>{334df447-d0b3-4cea-9693-f755eb11c18f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\z_libutils_iodevices\z_libutils_iodevices.vcxproj">
       <Project>{fc588f88-ffc4-4ebd-a790-1b1fe06e1fc8}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

@@ -194,9 +194,8 @@ PCLoaderXML::myCharacters(int element,
         if (!ok) {
             return;
         }
-        const PositionVector::ContType& cont = pshape.getCont();
         PositionVector shape;
-        for (PositionVector::ContType::const_iterator i = cont.begin(); i != cont.end(); ++i) {
+        for (PositionVector::ContType::const_iterator i = pshape.begin(); i != pshape.end(); ++i) {
             Position pos((*i));
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + myCurrentID + "'.");

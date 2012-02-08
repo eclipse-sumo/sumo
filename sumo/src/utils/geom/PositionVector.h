@@ -197,9 +197,12 @@ public:
 
     int appendWithCrossingPoint(const PositionVector& v);
 
+    ContType::const_iterator begin() const {
+        return myCont.begin();
+    }
 
-    const ContType& getCont() const {
-        return myCont;
+    ContType::const_iterator end() const {
+        return myCont.end();
     }
 
     PositionVector getSubpart(SUMOReal begin, SUMOReal end) const;

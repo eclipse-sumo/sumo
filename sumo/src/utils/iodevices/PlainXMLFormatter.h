@@ -57,6 +57,7 @@ public:
      * If something has been written (myXMLStack is not empty), nothing
      *  is written and false returned.
      *
+     * @param[in] into The output stream to use
      * @param[in] rootElement The root element to use
      * @param[in] xmlParams Additional parameters (such as encoding) to include in the <?xml> declaration
      * @param[in] attrs Additional attributes to save within the rootElement
@@ -76,8 +77,9 @@ public:
      *  by the given xml element ("<" + xmlElement)
      * The xml element is added to the stack, then.
      *
+     * @param[in] into The output stream to use
      * @param[in] xmlElement Name of element to open
-     * @returns The OutputDevice for further processing
+     * @return The OutputDevice for further processing
      */
     void openTag(std::ostream& into, const std::string& xmlElement);
 
@@ -86,6 +88,7 @@ public:
      *
      * Helper method which finds the correct string before calling openTag.
      *
+     * @param[in] into The output stream to use
      * @param[in] xmlElement Id of the element to open
      */
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
@@ -94,14 +97,17 @@ public:
     /** @brief Ends the most recently opened element start.
      *
      * Writes more or less nothing but ">" and a line feed.
+     *
+     * @param[in] into The output stream to use
      */
     void closeOpener(std::ostream& into);
 
 
     /** @brief Closes the most recently opened tag
      *
+     * @param[in] into The output stream to use
      * @param[in] name whether abbreviated closing is performed
-     * @returns Whether a further element existed in the stack and could be closed
+     * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
     bool closeTag(std::ostream& into, bool abbreviated=false);
@@ -109,6 +115,7 @@ public:
 
     /** @brief writes an arbitrary attribute
      *
+     * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
@@ -117,6 +124,7 @@ public:
 
 	/** @brief writes a named attribute
      *
+     * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
