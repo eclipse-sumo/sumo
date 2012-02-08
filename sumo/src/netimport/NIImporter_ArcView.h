@@ -140,7 +140,7 @@ private:
      * @param[in] prune Whether the value shall be prunned
      * @param[out] into The read value/missing field is stored here
      */
-    bool getStringEntry(OGRFeature*poFeature, const std::string &optionName, char *defaultName, bool prune, std::string &into);
+    bool getStringEntry(OGRFeature*poFeature, const std::string &optionName, const char *defaultName, bool prune, std::string &into);
 #endif
 
 private:

@@ -381,7 +381,7 @@ NIImporter_ArcView::checkSpread(NBEdge* e) {
 }
 
 bool
-NIImporter_ArcView::getStringEntry(OGRFeature*poFeature, const std::string &optionName, char *defaultName, bool prune, std::string &into) {
+NIImporter_ArcView::getStringEntry(OGRFeature*poFeature, const std::string &optionName, const char *defaultName, bool prune, std::string &into) {
     std::string v(defaultName);
     if(myOptions.isSet(optionName)) {
         v = myOptions.getString(optionName);
