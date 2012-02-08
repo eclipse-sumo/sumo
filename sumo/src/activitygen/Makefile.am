@@ -11,6 +11,7 @@ COMMON_LIBS = ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
+../utils/geom/libgeom.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 $(XERCES_LIBS)

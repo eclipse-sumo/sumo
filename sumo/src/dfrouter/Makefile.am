@@ -15,12 +15,12 @@ RODFFrame.cpp RODFFrame.h
 dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 dfrouter_LDADD   = ../router/librouter.a \
-../utils/geom/libgeom.a \
 ../utils/options/liboptions.a \
 ../utils/common/libcommon.a \
 ../utils/xml/libxml.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
+../utils/geom/libgeom.a \
 ../foreign/tcpip/libtcpip.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
