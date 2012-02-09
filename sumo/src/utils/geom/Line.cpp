@@ -91,14 +91,29 @@ Line::p2() const {
 
 Position
 Line::getPositionAtDistance(SUMOReal offset) const {
-    SUMOReal length = myP1.distanceTo(myP2);
+    const SUMOReal length = myP1.distanceTo(myP2);
     if (length == 0) {
         if (offset != 0) {
             throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
         }
         return myP1;
     }
-    return myP1 + ((myP2 - myP1) * (offset / length));
+    return myP1 + (myP2 - myP1) * (offset / length);
+}
+
+
+Position
+Line::getPositionAtDistance2D(SUMOReal offset) const {
+    const Position p1(myP1.x(), myP1.y());
+    const Position p2(myP2.x(), myP2.y());
+    const SUMOReal length = p1.distanceTo(p2);
+    if (length == 0) {
+        if (offset != 0) {
+            throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
+        }
+        return myP1;
+    }
+    return p1 + (p2 - p1) * (offset / length) + Position(0, 0, myP1.z() + (myP2.z() - myP1.z()) * (offset / length));
 }
 
 

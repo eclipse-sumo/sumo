@@ -59,6 +59,7 @@ public:
     const Position& p1() const;
     const Position& p2() const;
     Position getPositionAtDistance(SUMOReal offset) const;
+    Position getPositionAtDistance2D(SUMOReal offset) const;
     void move2side(SUMOReal amount);
     DoubleVector intersectsAtLengths2D(const PositionVector& v);
 

@@ -416,7 +416,7 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
         assert(pb >= 0);
         PositionVector result = laneShape;
         result.eraseAt(0);
-        result.push_front_noDoublePos(lb.getPositionAtDistance(pb));
+        result.push_front_noDoublePos(lb.getPositionAtDistance2D(pb));
         return result;
         //if (result.size() >= 2) {
         //    return result;

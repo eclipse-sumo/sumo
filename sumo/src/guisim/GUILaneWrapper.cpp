@@ -84,24 +84,13 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
     myLane(lane),
     myShape(shape),
     myIndex(index) {
-    SUMOReal x1 = shape[0].x();
-    SUMOReal y1 = shape[0].y();
-    SUMOReal x2 = shape[-1].x();
-    SUMOReal y2 = shape[-1].y();
-    // also the virtual length is set in here
-    myVisLength = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-    // check maximum speed
-    if (myAllMaxSpeed < lane.getMaxSpeed()) {
-        myAllMaxSpeed = lane.getMaxSpeed();
-    }
-    //
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
     for (int i = 0; i < e; ++i) {
         const Position& f = myShape[i];
         const Position& s = myShape[i + 1];
-        myShapeLengths.push_back(f.distanceTo(s));
+        myShapeLengths.push_back(f.distanceTo2D(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x() - f.x()), (f.y() - s.y())) * (SUMOReal) 180.0 / (SUMOReal) PI);
     }
     //
@@ -111,12 +100,6 @@ GUILaneWrapper::GUILaneWrapper(MSLane& lane, const PositionVector& shape, unsign
 
 
 GUILaneWrapper::~GUILaneWrapper() {}
-
-
-SUMOReal
-GUILaneWrapper::getOverallMaxSpeed() {
-    return myAllMaxSpeed;
-}
 
 
 bool
