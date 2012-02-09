@@ -94,7 +94,10 @@ Edge Removal Options:
   --keep-edges.explicit STR           Only keep edges in STR
   --keep-edges.input-file FILE        Only keep edges in FILE
   --keep-edges.in-boundary STR        Only keep edges which are located within
-                                        the given boundary
+                                        the given boundary (given either as
+                                        CARTESIAN corner coordinates
+                                        <xmin,ymin,xmax,ymax> or as polygon
+                                        <x0,y0,x1,y1,...>)
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated            All nodes will be unregulated

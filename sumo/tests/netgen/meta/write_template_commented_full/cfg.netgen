@@ -180,7 +180,7 @@
         <!-- Only keep edges in FILE -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Only keep edges which are located within the given boundary -->
+        <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) -->
         <keep-edges.in-boundary value="" type="STR"/>
 
     </edge_removal>
