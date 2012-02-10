@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<!-- generated on Fri Feb 10 14:15:53 2012 by SUMO duarouter Version dev-SVN-r11870
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <alternative-files value="input_alts.rou.alt.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <max-alternatives value="2"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+    <vType id="0" length="3.00" minGap="2.00" maxSpeed="70.00" color="1.00,1.00,0.00">
+        <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
+    </vType>
+    <vehicle id="0" type="0" depart="0.00" color="0.00,0.00,0.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+</routes>

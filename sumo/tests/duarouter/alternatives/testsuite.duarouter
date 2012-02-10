@@ -8,3 +8,6 @@ style2_input
 
 # Bug that occured during an iteration
 iteration_bug1
+
+# only keep a limited number of alternatives
+max_alternatives
