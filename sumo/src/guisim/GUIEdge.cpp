@@ -258,7 +258,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                             glRotated(shapeRotations[shapePos], 0, 0, 1);
                         }
                         glPushMatrix();
-                        glTranslated(xOff, -(vehiclePosition - positionOffset), 0);
+                        glTranslated(xOff, -(vehiclePosition - positionOffset), GLO_VEHICLE);
                         glPushMatrix();
                         glScaled(1, avgCarSize, 1);
                         glBegin(GL_TRIANGLES);
