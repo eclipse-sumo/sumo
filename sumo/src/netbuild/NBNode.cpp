@@ -525,10 +525,25 @@ NBNode::setPriorityJunctionPriorities() {
     if (bestIncoming.size() == 1) {
         // let's mark this road as the best
         NBEdge* best1 = extractAndMarkFirst(bestIncoming);
+        if(counterIncomingEdges.find(best1)!=counterIncomingEdges.end()) {
+            // ok, look, what we want is the opposit of the straight continuation edge
+            // but, what if such an edge does not exist? By now, we'll determine it
+            // geometrically
+            NBEdge *s = counterIncomingEdges.find(best1)->second;
+            if(GeomHelper::getMinAngleDiff(best1->getAngle(*this), s->getAngle(*this))>180-45) {
+                s->setJunctionPriority(this, 1);
+            }
+        }
         if (bestOutgoing.size() != 0) {
             // mark the best outgoing as the continuation
             sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
-            extractAndMarkFirst(bestOutgoing);
+            best1 = extractAndMarkFirst(bestOutgoing);
+            if(counterOutgoingEdges.find(best1)!=counterOutgoingEdges.end()) {
+                NBEdge *s = counterOutgoingEdges.find(best1)->second;
+                if(GeomHelper::getMinAngleDiff(best1->getAngle(*this), s->getAngle(*this))>180-45) {
+                    s->setJunctionPriority(this, 1);
+                }
+            }
         }
         return;
     }
