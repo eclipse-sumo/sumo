@@ -34,6 +34,7 @@
 #include <string>
 #include <vector>
 #include "RORouteDef.h"
+#include "RORoute.h"
 #include <utils/common/RGBColor.h>
 
 
@@ -103,6 +104,13 @@ private:
     /** @brief Performs the gawron - g() function
         From "Dynamic User Equilibria..." */
     SUMOReal gawronG(SUMOReal a, SUMOReal x);
+
+    /** Function-object for sorting routes from highest to lowest probability. */
+    struct ComparatorProbability {
+        bool operator()(const RORoute* const a, const RORoute* const b) {
+            return a->getProbability() > b->getProbability();
+        }
+    };
 
 private:
     /// @brief Information whether a new route was generated

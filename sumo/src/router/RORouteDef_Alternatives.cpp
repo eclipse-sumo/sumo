@@ -210,6 +210,25 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
             }
         }
     }
+    if (myAlternatives.size() > myMaxRouteNumber) {
+        // only keep the routes with highest probability
+        sort(myAlternatives.begin(), myAlternatives.end(), ComparatorProbability());
+        for (AlternativesVector::iterator i = myAlternatives.begin() + myMaxRouteNumber; i != myAlternatives.end(); i++) {
+            delete *i;
+        }
+        myAlternatives.erase(myAlternatives.begin() + myMaxRouteNumber, myAlternatives.end());
+        // rescale probabilities
+        SUMOReal newSum = 0;
+        for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
+            newSum += (*i)->getProbability();
+        }
+        assert(newSum > 0);
+        assert(newSum <= 1);
+        for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
+            (*i)->setProbability((*i)->getProbability() / newSum);
+        }
+    }
+
     // find the route to use
     SUMOReal chosen = RandHelper::rand();
     int pos = 0;
