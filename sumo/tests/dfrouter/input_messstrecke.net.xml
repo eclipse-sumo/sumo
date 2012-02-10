@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:32:33 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on 02/10/12 13:00:03 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -167,10 +167,10 @@
     </edge>
 
     <tlLogic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGrrggg"/>
-        <phase duration="6" state="yyyrrggg"/>
-        <phase duration="6" state="rrrrrGGG"/>
-        <phase duration="6" state="rrrrryyy"/>
+        <phase duration="31" state="GGgrrGGG"/>
+        <phase duration="6" state="yygrryyy"/>
+        <phase duration="6" state="rrGrrrrr"/>
+        <phase duration="6" state="rryrrrrr"/>
         <phase duration="31" state="rrrGGGrr"/>
         <phase duration="6" state="rrryyyrr"/>
     </tlLogic>
@@ -193,12 +193,12 @@
     <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes="" shape="1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55">
         <request index="0" response="00000000" foes="00010000"/>
         <request index="1" response="00000000" foes="00010000"/>
-        <request index="2" response="00000000" foes="11110000"/>
-        <request index="3" response="00000000" foes="11000000"/>
-        <request index="4" response="00000111" foes="11000111"/>
-        <request index="5" response="00000100" foes="00000100"/>
-        <request index="6" response="00011100" foes="00011100"/>
-        <request index="7" response="00011100" foes="00011100"/>
+        <request index="2" response="11100000" foes="11110000"/>
+        <request index="3" response="11000000" foes="11000000"/>
+        <request index="4" response="11000111" foes="11000111"/>
+        <request index="5" response="00000000" foes="00000100"/>
+        <request index="6" response="00000000" foes="00011100"/>
+        <request index="7" response="00000000" foes="00011100"/>
     </junction>
     <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes="" shape="291.66,208.05 298.16,208.05 299.67,206.55 299.67,193.45 290.17,193.45 290.17,206.55">
         <request index="0" response="00011000" foes="00011000"/>
@@ -224,15 +224,15 @@
         <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes="" shape="1008.70,208.05 1021.80,208.05 1023.30,206.55 1023.30,190.15 1007.20,190.15 1007.20,206.55">
-        <request index="0" response="000000000" foes="000110000"/>
-        <request index="1" response="111000000" foes="111110000"/>
-        <request index="2" response="111000000" foes="111110000"/>
-        <request index="3" response="100000000" foes="100000000"/>
-        <request index="4" response="100000111" foes="100000111"/>
-        <request index="5" response="100000111" foes="100000111"/>
+        <request index="0" response="000110000" foes="000110000"/>
+        <request index="1" response="111110000" foes="111110000"/>
+        <request index="2" response="111110000" foes="111110000"/>
+        <request index="3" response="000000000" foes="100000000"/>
+        <request index="4" response="000000000" foes="100000111"/>
+        <request index="5" response="000000000" foes="100000111"/>
         <request index="6" response="000000000" foes="000000110"/>
         <request index="7" response="000000000" foes="000000110"/>
-        <request index="8" response="000000000" foes="000111110"/>
+        <request index="8" response="000111000" foes="000111110"/>
     </junction>
     <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes="" shape="986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55">
         <request index="0" response="00000" foes="00000"/>
@@ -290,14 +290,14 @@
     <connection from="ErnstRuska1W" to="ErnstRuskaSink1W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="ErnstRuska231O" to="ErnstRuska232O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="ErnstRuska231O" to="ErnstRuska232O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="ErnstRuska231O" to="HavestadtN" fromLane="2" toLane="0" dir="l" state="M"/>
+    <connection from="ErnstRuska231O" to="HavestadtN" fromLane="2" toLane="0" dir="l" state="m"/>
     <connection from="ErnstRuska231W" to="ErnstRuska2W" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="ErnstRuska231W" to="ErnstRuska2W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="ErnstRuska232O" to="ErnstRuska3O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="ErnstRuska232O" to="ErnstRuska3O" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="ErnstRuska232W" to="HavestadtN" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="ErnstRuska232W" to="ErnstRuska231W" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="ErnstRuska232W" to="ErnstRuska231W" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="ErnstRuska232W" to="HavestadtN" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="ErnstRuska232W" to="ErnstRuska231W" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="ErnstRuska232W" to="ErnstRuska231W" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="ErnstRuska2O" to="ErnstRuska231O" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="ErnstRuska2O" to="ErnstRuska231O" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="ErnstRuska2O" to="ErnstRuska231O" fromLane="1" toLane="2" dir="s" state="M"/>
@@ -327,7 +327,7 @@
     <connection from="ErnstRuskaSink5W" to="ErnstRuska5W" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="HavestadtN" to="HavestadtSinkN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="HavestadtN" to="HavestadtSinkN" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="HavestadtS" to="ErnstRuska231W" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="HavestadtS" to="ErnstRuska231W" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="HavestadtS" to="ErnstRuska232O" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="HavestadtS" to="ErnstRuska232O" fromLane="1" toLane="2" dir="l" state="m"/>
     <connection from="HavestadtSinkS" to="HavestadtS" fromLane="0" toLane="0" dir="s" state="M"/>
