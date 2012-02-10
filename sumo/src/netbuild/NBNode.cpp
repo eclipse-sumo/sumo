@@ -1267,7 +1267,7 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     std::vector<NBEdge*>::const_iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), from);
     do {
         NBContHelper::nextCW(myAllEdges, i);
-    } while ((!hasOutgoing(*i) || from->getTurnDestination() == *i) && *i != from);
+    } while ((!hasOutgoing(*i) || from->isTurningDirectionAt(this, *i)) && *i != from);
     return cw < ccw && (*i) == to && myOutgoingEdges.size() > 2;
 }
 
