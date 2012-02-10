@@ -903,8 +903,8 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
 
         LinkDirection dir = n.getDirection(this, (*i).toEdge);
         std::pair<SUMOReal, std::vector<unsigned int> > crossingPositions(-1, std::vector<unsigned int>());
-        std::string crossingNames;
-        std::set<std::string> tmpSourceNames;
+        std::string foeInternalLanes;
+        std::set<std::string> tmpFoeIncomingLanes;
         switch (dir) {
             case LINKDIR_LEFT:
             case LINKDIR_PARTLEFT:
@@ -933,32 +933,23 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                                 }
                             }
                         }
-                        // compute crossing ids
-                        NBEdge* e = getToNode()->getOppositeIncoming(this);
-                        if (e != *i2) {
-                            index++;
-                            continue;
-                        }
-                        if (needsCont) {
-                            if (crossingNames.length() != 0) {
-                                crossingNames += " ";
+                        // compute foe internal lanes
+                        if (n.foes(this, (*i).toEdge, *i2, (*k2).toEdge)) {
+                            if (foeInternalLanes.length() != 0) {
+                                foeInternalLanes += " ";
                             }
-                            crossingNames += (":" + n.getID() + "_" + toString(index) + "_0");
+                            foeInternalLanes += (":" + n.getID() + "_" + toString(index) + "_0");
                         }
-
-                        // compute source ids
-                        if ((*k2).mayDefinitelyPass) {
-                            index++;
-                            continue;
-                        }
-                        if (needsCont) {
-                            tmpSourceNames.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
+                        // compute foe incoming lanes
+                        NBEdge* e = getToNode()->getOppositeIncoming(this);
+                        if (e == *i2 && needsCont) {
+                            tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;
                     }
                 }
                 if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0) {
-                    // let turnarounds wait at the begin if no other crossing point was found
+                    // let turnarounds wait in the middle if no other crossing point was found
                     crossingPositions.first = (SUMOReal) shape.length() / 2.;
                 }
             }
@@ -987,12 +978,13 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
             (*i).id = innerID + "_" + toString(lno);
             (*i).vmax = vmax;
             (*i).shape = split.first;
-            (*i).crossingNames = crossingNames;
-            for (std::set<std::string>::iterator q = tmpSourceNames.begin(); q != tmpSourceNames.end(); ++q) {
-                if ((*i).sourceNames.length() != 0) {
-                    (*i).sourceNames += " ";
+            (*i).foeInternalLanes = foeInternalLanes;
+
+            for (std::set<std::string>::iterator q = tmpFoeIncomingLanes.begin(); q != tmpFoeIncomingLanes.end(); ++q) {
+                if ((*i).foeIncomingLanes.length() != 0) {
+                    (*i).foeIncomingLanes += " ";
                 }
-                (*i).sourceNames += *q;
+                (*i).foeIncomingLanes += *q;
             }
             (*i).viaID = innerID + "_" + toString(splitNo + noInternalNoSplits);
             (*i).viaVmax = vmax;

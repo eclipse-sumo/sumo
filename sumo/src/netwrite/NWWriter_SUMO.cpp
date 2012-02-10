@@ -353,11 +353,11 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             into.writeAttr(SUMO_ATTR_TYPE, NODETYPE_INTERNAL);
             NWFrame::writePositionLong(pos, into);
             std::string incLanes = (*k).id + "_0";
-            if ((*k).sourceNames.length() != 0) {
-                incLanes += " " + (*k).sourceNames;
+            if ((*k).foeIncomingLanes.length() != 0) {
+                incLanes += " " + (*k).foeIncomingLanes;
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
-            into.writeAttr(SUMO_ATTR_INTLANES, (*k).crossingNames);
+            into.writeAttr(SUMO_ATTR_INTLANES, (*k).foeInternalLanes);
             into.closeTag(true);
             ret = true;
         }

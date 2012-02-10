@@ -63,7 +63,17 @@ void
 MSInternalJunction::postloadInit() {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
-    myInternalLaneFoes = myInternalLanes;
+    for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
+            const MSLinkCont& lc = (*i)->getLinkCont();
+            for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
+                if ((*q)->getViaLane() != 0) {
+                    myInternalLaneFoes.push_back((*q)->getViaLane());
+                } else {
+                    myInternalLaneFoes.push_back(*i);
+                }
+            }
+            
+    }
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         MSLane* l = *i;
         const MSLinkCont& lc = l->getLinkCont();

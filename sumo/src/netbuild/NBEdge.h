@@ -175,8 +175,8 @@ public:
         SUMOReal viaVmax;
         PositionVector viaShape;
 
-        std::string crossingNames;
-        std::string sourceNames;
+        std::string foeInternalLanes;
+        std::string foeIncomingLanes;
 
     };
 
