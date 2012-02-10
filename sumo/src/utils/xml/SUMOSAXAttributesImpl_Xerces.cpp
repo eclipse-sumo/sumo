@@ -96,6 +96,12 @@ SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
 }
 
 
+long
+SUMOSAXAttributesImpl_Xerces::getLong(int id) const throw(EmptyData, NumberFormatException) {
+    return TplConvert<XMLCh>::_2long(getAttributeValueSecure(id));
+}
+
+
 std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
     const XMLCh* utf16 = getAttributeValueSecure(id);

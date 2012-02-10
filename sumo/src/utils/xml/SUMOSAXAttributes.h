@@ -98,6 +98,24 @@ public:
 
 
 
+    /** @brief Tries to read given attribute assuming it is a long
+     *
+     * If an error occurs (the attribute is not there, it is not numeric), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+     * If the value could be read, "ok" is not changed, and the value is returned.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and correct; -1 if an error occured
+     */
+    long getLongReporting(int attr, const char* objectid, bool& ok,
+        bool report = true) const ;
+
+
+
     /** @brief Tries to read given attribute assuming it is a SUMOReal
      *
      * If an error occurs (the attribute is not there, it is not numeric), "ok" is
@@ -330,6 +348,24 @@ public:
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
     virtual int getInt(int id) const throw(EmptyData, NumberFormatException) = 0;
+
+
+    /**
+     * @brief Returns the long-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2long.
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2long throws an
+     *  EmptyData-exception which is passed.
+     * If the value can not be parsed to a long, TplConvert<XMLCh>::_2long throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as an int, if it could be read and parsed
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an int
+     */
+    virtual long getLong(int id) const throw(EmptyData, NumberFormatException) = 0;
 
 
     /**

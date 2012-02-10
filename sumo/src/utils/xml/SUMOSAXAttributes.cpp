@@ -104,6 +104,32 @@ SUMOSAXAttributes::getOptIntReporting(int attr, const char* objectid,
 }
 
 
+long
+SUMOSAXAttributes::getLongReporting(int attr, const char* objectid,
+                                   bool& ok, bool report) const {
+    if (!hasAttribute(attr)) {
+        if (report) {
+            emitUngivenError(getName(attr), objectid);
+        }
+        ok = false;
+        return -1;
+    }
+    try {
+        return getLong(attr);
+    } catch (NumberFormatException&) {
+        if (report) {
+            emitFormatError(getName(attr), "an int", objectid);
+        }
+    } catch (EmptyData&) {
+        if (report) {
+            emitEmptyError(getName(attr), objectid);
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
 SUMOReal
 SUMOSAXAttributes::getSUMORealReporting(int attr, const char* objectid,
                                         bool& ok, bool report) const {

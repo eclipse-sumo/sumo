@@ -159,6 +159,24 @@ public:
 
 
     /**
+     * @brief Returns the long-value of the named (by its enum-value) attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2long.
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2long throws an
+     *  EmptyData-exception which is passed.
+     * If the value can not be parsed to a long, TplConvert<XMLCh>::_2long throws a
+     *  NumberFormatException-exception which is passed.
+     *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as an int, if it could be read and parsed
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception NumberFormatException If the attribute value can not be parsed to an int
+     */
+    long getLong(int id) const throw(EmptyData, NumberFormatException);
+
+
+    /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
