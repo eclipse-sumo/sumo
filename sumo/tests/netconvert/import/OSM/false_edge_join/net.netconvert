@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 12:19:15 by SUMO netconvert Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/10/12 09:35:28 by SUMO netconvert Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -308,7 +308,7 @@
     <junction id="49615901" type="dead_end" x="449.80" y="3723.41" incLanes="-6040380_0" intLanes="" shape="449.76,3723.44 447.23,3725.40 452.37,3721.42 449.84,3723.38"/>
     <junction id="49616450" type="dead_end" x="285.10" y="3784.62" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="285.06,3784.63 278.84,3786.54 291.37,3782.70 285.15,3784.60"/>
 
-    <junction id=":49613629_8_0" type="internal" x="239.12" y="3585.85" incLanes=":49613629_2_0 -6034273#1_0" intLanes=":49613629_5_0 :49613629_6_0"/>
+    <junction id=":49613629_8_0" type="internal" x="239.12" y="3585.85" incLanes=":49613629_2_0 -6034273#1_0" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_7_0"/>
 
     <connection from="-14" to="38232899#0" fromLane="0" toLane="0" via=":450601528_0_0" dir="s" state="M"/>
     <connection from="-14" to="38232899#0" fromLane="1" toLane="1" via=":450601528_1_0" dir="s" state="M"/>

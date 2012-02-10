@@ -23,6 +23,7 @@ Processing turnarounds... done.
 Rechecking of lane endings... done.
 Computing node shapes... done.
 Computing edge shapes... 
+Lane '-7727483#0' has calculated shape length near zero. Revert it back to old shape.
 Lane '5784950#2' has calculated shape length near zero. Revert it back to old shape.
 done.
 Computing traffic light control information... done.

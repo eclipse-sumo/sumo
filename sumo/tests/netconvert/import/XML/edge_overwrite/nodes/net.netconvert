@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul 15 10:49:00 2011 by SUMO netconvert Version dev-SVN-r11002
+<!-- generated on 02/10/12 09:34:29 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -150,10 +150,10 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="504.49" y="498.86" incLanes=":0_2_0 3fi_0" intLanes=":0_8_0 :0_9_0"/>
-    <junction id=":0_13_0" type="internal" x="500.00" y="506.40" incLanes=":0_3_0 3fi_0" intLanes=":0_9_0"/>
-    <junction id=":0_14_0" type="internal" x="496.70" y="501.05" incLanes=":0_10_0 4fi_0" intLanes=":0_0_0 :0_1_0"/>
-    <junction id=":0_15_0" type="internal" x="500.00" y="496.90" incLanes=":0_11_0 4fi_0" intLanes=":0_1_0"/>
+    <junction id=":0_12_0" type="internal" x="504.49" y="498.86" incLanes=":0_2_0 3fi_0" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0"/>
+    <junction id=":0_13_0" type="internal" x="500.00" y="506.40" incLanes=":0_3_0 3fi_0" intLanes=":0_4_0 :0_9_0"/>
+    <junction id=":0_14_0" type="internal" x="496.70" y="501.05" incLanes=":0_10_0 4fi_0" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_6_0"/>
+    <junction id=":0_15_0" type="internal" x="500.00" y="496.90" incLanes=":0_11_0 4fi_0" intLanes=":0_1_0 :0_6_0"/>
 
     <connection from="1fi" to="3fi" fromLane="0" toLane="0" via=":3_1_0" dir="r" state="M"/>
     <connection from="1fi" to="3fi" fromLane="1" toLane="1" via=":3_2_0" dir="r" state="M"/>

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct  4 08:06:57 2011 by SUMO netconvert Version dev-SVN-r11329
+<!-- generated on 02/10/12 09:35:18 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_nodes.nod.xml"/>
-        <edge-files value="input_edges.edg.xml"/>
-        <connection-files value="input_connections.con.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
@@ -16,8 +14,13 @@
     </output>
 
     <processing>
-        <speed-in-kmh value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
     </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -219,10 +222,10 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="503.69" y="500.35" incLanes=":0_2_0 3si_0 3si_1" intLanes=":0_6_0 :0_7_0"/>
-    <junction id=":0_13_0" type="internal" x="500.00" y="509.70" incLanes=":0_3_0 3si_1" intLanes=":0_7_0"/>
-    <junction id=":0_14_0" type="internal" x="496.31" y="499.65" incLanes=":0_8_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0"/>
-    <junction id=":0_15_0" type="internal" x="500.00" y="490.30" incLanes=":0_9_0 4si_1" intLanes=":0_1_0"/>
+    <junction id=":0_12_0" type="internal" x="503.69" y="500.35" incLanes=":0_2_0 3si_0 3si_1" intLanes=":0_5_0 :0_6_0 :0_7_0 :0_11_0"/>
+    <junction id=":0_13_0" type="internal" x="500.00" y="509.70" incLanes=":0_3_0 3si_1" intLanes=":0_4_0 :0_7_0"/>
+    <junction id=":0_14_0" type="internal" x="496.31" y="499.65" incLanes=":0_8_0 4si_0 4si_1" intLanes=":0_0_0 :0_1_0 :0_5_0 :0_11_0"/>
+    <junction id=":0_15_0" type="internal" x="500.00" y="490.30" incLanes=":0_9_0 4si_1" intLanes=":0_1_0 :0_10_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="0" toLane="1" via=":m1_1_0" dir="s" state="M"/>

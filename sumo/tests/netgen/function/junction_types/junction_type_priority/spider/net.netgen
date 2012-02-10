@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/01/11 09:29:46 by SUMO netgen Version dev-SVN-r10489
+<!-- generated on 02/10/12 09:34:01 by SUMO netgen Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -12,7 +13,7 @@
     </spider_network>
 
     <output>
-        <output value="net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <building_defaults>
@@ -319,18 +320,18 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":1/1_9_0" type="internal" x="194.65" y="101.20" incLanes=":1/1_1_0 2/1to1/1_0" intLanes=":1/1_6_0 :1/1_7_0"/>
-    <junction id=":1/1_10_0" type="internal" x="194.56" y="94.56" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_7_0"/>
-    <junction id=":1/1_11_0" type="internal" x="194.56" y="105.44" incLanes=":1/1_8_0 4/1to1/1_0" intLanes=":1/1_0_0"/>
-    <junction id=":2/1_9_0" type="internal" x="98.80" y="194.65" incLanes=":2/1_1_0 3/1to2/1_0" intLanes=":2/1_6_0 :2/1_7_0"/>
-    <junction id=":2/1_10_0" type="internal" x="105.44" y="194.56" incLanes=":2/1_2_0 3/1to2/1_0" intLanes=":2/1_7_0"/>
-    <junction id=":2/1_11_0" type="internal" x="94.56" y="194.56" incLanes=":2/1_8_0 1/1to2/1_0" intLanes=":2/1_0_0"/>
-    <junction id=":3/1_9_0" type="internal" x="5.35" y="98.80" incLanes=":3/1_1_0 4/1to3/1_0" intLanes=":3/1_6_0 :3/1_7_0"/>
-    <junction id=":3/1_10_0" type="internal" x="5.44" y="105.44" incLanes=":3/1_2_0 4/1to3/1_0" intLanes=":3/1_7_0"/>
-    <junction id=":3/1_11_0" type="internal" x="5.44" y="94.56" incLanes=":3/1_8_0 2/1to3/1_0" intLanes=":3/1_0_0"/>
-    <junction id=":4/1_9_0" type="internal" x="105.44" y="5.44" incLanes=":4/1_5_0 3/1to4/1_0" intLanes=":4/1_6_0"/>
-    <junction id=":4/1_10_0" type="internal" x="101.20" y="5.35" incLanes=":4/1_7_0 1/1to4/1_0" intLanes=":4/1_3_0 :4/1_4_0"/>
-    <junction id=":4/1_11_0" type="internal" x="94.56" y="5.44" incLanes=":4/1_8_0 1/1to4/1_0" intLanes=":4/1_4_0"/>
+    <junction id=":1/1_9_0" type="internal" x="194.65" y="101.20" incLanes=":1/1_1_0 2/1to1/1_0" intLanes=":1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0"/>
+    <junction id=":1/1_10_0" type="internal" x="194.56" y="94.56" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_3_0 :1/1_7_0"/>
+    <junction id=":1/1_11_0" type="internal" x="194.56" y="105.44" incLanes=":1/1_8_0 4/1to1/1_0" intLanes=":1/1_0_0 :1/1_4_0"/>
+    <junction id=":2/1_9_0" type="internal" x="98.80" y="194.65" incLanes=":2/1_1_0 3/1to2/1_0" intLanes=":2/1_4_0 :2/1_5_0 :2/1_6_0 :2/1_7_0"/>
+    <junction id=":2/1_10_0" type="internal" x="105.44" y="194.56" incLanes=":2/1_2_0 3/1to2/1_0" intLanes=":2/1_3_0 :2/1_7_0"/>
+    <junction id=":2/1_11_0" type="internal" x="94.56" y="194.56" incLanes=":2/1_8_0 1/1to2/1_0" intLanes=":2/1_0_0 :2/1_4_0"/>
+    <junction id=":3/1_9_0" type="internal" x="5.35" y="98.80" incLanes=":3/1_1_0 4/1to3/1_0" intLanes=":3/1_4_0 :3/1_5_0 :3/1_6_0 :3/1_7_0"/>
+    <junction id=":3/1_10_0" type="internal" x="5.44" y="105.44" incLanes=":3/1_2_0 4/1to3/1_0" intLanes=":3/1_3_0 :3/1_7_0"/>
+    <junction id=":3/1_11_0" type="internal" x="5.44" y="94.56" incLanes=":3/1_8_0 2/1to3/1_0" intLanes=":3/1_0_0 :3/1_4_0"/>
+    <junction id=":4/1_9_0" type="internal" x="105.44" y="5.44" incLanes=":4/1_5_0 3/1to4/1_0" intLanes=":4/1_1_0 :4/1_6_0"/>
+    <junction id=":4/1_10_0" type="internal" x="101.20" y="5.35" incLanes=":4/1_7_0 1/1to4/1_0" intLanes=":4/1_1_0 :4/1_2_0 :4/1_3_0 :4/1_4_0"/>
+    <junction id=":4/1_11_0" type="internal" x="94.56" y="5.44" incLanes=":4/1_8_0 1/1to4/1_0" intLanes=":4/1_0_0 :4/1_4_0"/>
 
     <connection from="1/1to1" to="1to2/1" fromLane="0" toLane="0" via=":1_4_0" dir="r" state="M"/>
     <connection from="1/1to1" to="1to3/1" fromLane="0" toLane="0" via=":1_5_0" dir="s" state="M"/>

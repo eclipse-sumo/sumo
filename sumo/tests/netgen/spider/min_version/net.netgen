@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 12:15:02 by SUMO netgen Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/10/12 09:33:48 by SUMO netgen Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -223,12 +223,12 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":1/1_9_0" type="internal" x="15.41" y="7.79" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_7_0"/>
-    <junction id=":1/1_10_0" type="internal" x="15.05" y="10.24" incLanes=":1/1_8_0 3/1to1/1_0" intLanes=":1/1_0_0"/>
-    <junction id=":2/1_9_0" type="internal" x="0.55" y="18.10" incLanes=":2/1_2_0 3/1to2/1_0" intLanes=":2/1_7_0"/>
-    <junction id=":2/1_10_0" type="internal" x="-1.39" y="16.57" incLanes=":2/1_8_0 1/1to2/1_0" intLanes=":2/1_0_0"/>
-    <junction id=":3/1_9_0" type="internal" x="-0.95" y="0.08" incLanes=":3/1_2_0 1/1to3/1_0" intLanes=":3/1_7_0"/>
-    <junction id=":3/1_10_0" type="internal" x="1.34" y="-0.83" incLanes=":3/1_8_0 2/1to3/1_0" intLanes=":3/1_0_0"/>
+    <junction id=":1/1_9_0" type="internal" x="15.41" y="7.79" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_3_0 :1/1_7_0"/>
+    <junction id=":1/1_10_0" type="internal" x="15.05" y="10.24" incLanes=":1/1_8_0 3/1to1/1_0" intLanes=":1/1_0_0 :1/1_4_0"/>
+    <junction id=":2/1_9_0" type="internal" x="0.55" y="18.10" incLanes=":2/1_2_0 3/1to2/1_0" intLanes=":2/1_3_0 :2/1_7_0"/>
+    <junction id=":2/1_10_0" type="internal" x="-1.39" y="16.57" incLanes=":2/1_8_0 1/1to2/1_0" intLanes=":2/1_0_0 :2/1_4_0"/>
+    <junction id=":3/1_9_0" type="internal" x="-0.95" y="0.08" incLanes=":3/1_2_0 1/1to3/1_0" intLanes=":3/1_3_0 :3/1_7_0"/>
+    <junction id=":3/1_10_0" type="internal" x="1.34" y="-0.83" incLanes=":3/1_8_0 2/1to3/1_0" intLanes=":3/1_0_0 :3/1_4_0"/>
 
     <connection from="1/1to1" to="1to2/1" fromLane="0" toLane="0" via=":1_0_0" dir="r" state="M"/>
     <connection from="1/1to1" to="1to3/1" fromLane="0" toLane="0" via=":1_1_0" dir="l" state="M"/>

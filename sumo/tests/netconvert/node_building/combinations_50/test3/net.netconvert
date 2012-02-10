@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 12:14:03 by SUMO netconvert Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/10/12 09:33:26 by SUMO netconvert Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -111,9 +111,9 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":0_9_0" type="internal" x="50.00" y="53.10" incLanes=":0_2_0" intLanes=""/>
-    <junction id=":0_10_0" type="internal" x="49.95" y="50.05" incLanes=":0_4_0 4i_0" intLanes=":0_0_0 :0_1_0"/>
-    <junction id=":0_11_0" type="internal" x="53.10" y="50.00" incLanes=":0_5_0 4i_0" intLanes=":0_1_0"/>
+    <junction id=":0_9_0" type="internal" x="50.00" y="53.10" incLanes=":0_2_0" intLanes=":0_3_0 :0_7_0"/>
+    <junction id=":0_10_0" type="internal" x="49.95" y="50.05" incLanes=":0_4_0 4i_0" intLanes=":0_0_0 :0_1_0 :0_7_0 :0_8_0"/>
+    <junction id=":0_11_0" type="internal" x="53.10" y="50.00" incLanes=":0_5_0 4i_0" intLanes=":0_1_0 :0_6_0"/>
 
     <connection from="2i" to="4o" fromLane="0" toLane="0" via=":0_3_0" dir="r" state="M"/>
     <connection from="2i" to="3o" fromLane="0" toLane="0" via=":0_4_0" dir="l" state="m"/>

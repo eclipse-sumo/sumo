@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov  9 09:19:32 2011 by SUMO netconvert Version dev-SVN-r11482
+<!-- generated on 02/10/12 09:34:54 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -86,8 +86,8 @@
     <junction id="gneJ4" type="dead_end" x="40.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="40.00,0.05 40.00,3.25 40.00,-3.25 40.00,-0.05"/>
     <junction id="gneJ5" type="dead_end" x="20.00" y="20.00" incLanes="gneE5_0" intLanes="" shape="19.95,20.00 16.75,20.00 23.25,20.00 20.05,20.00"/>
 
-    <junction id=":gneJ3_6_0" type="internal" x="18.93" y="1.65" incLanes=":gneJ3_1_0 gneE4_0" intLanes=":gneJ3_3_0"/>
-    <junction id=":gneJ3_7_0" type="internal" x="21.07" y="1.65" incLanes=":gneJ3_5_0 gneE4_0" intLanes=":gneJ3_2_0 :gneJ3_3_0"/>
+    <junction id=":gneJ3_6_0" type="internal" x="18.93" y="1.65" incLanes=":gneJ3_1_0 gneE4_0" intLanes=":gneJ3_3_0 :gneJ3_4_0 :gneJ3_5_0"/>
+    <junction id=":gneJ3_7_0" type="internal" x="21.07" y="1.65" incLanes=":gneJ3_5_0 gneE4_0" intLanes=":gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0"/>
 
     <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" via=":gneJ3_4_0" tl="gneJ3" linkIndex="4" dir="s" state="o"/>
     <connection from="gneE1" to="gneE5" fromLane="0" toLane="0" via=":gneJ3_5_0" tl="gneJ3" linkIndex="5" dir="l" state="o"/>

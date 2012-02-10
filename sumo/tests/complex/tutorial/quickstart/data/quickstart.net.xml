@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 08:59:48 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on 02/10/12 09:32:33 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -487,11 +487,11 @@
     <junction id="93" type="dead_end" x="4000.00" y="0.00" incLanes="D5_0 D5_1 D5_2" intLanes="" shape="4000.00,0.05 4000.00,6.55 4000.00,-9.85 4000.00,-0.05"/>
     <junction id="94" type="dead_end" x="4000.00" y="1000.00" incLanes="D7_0 D7_1 D7_2" intLanes="" shape="4000.00,1000.05 4000.00,1006.55 4000.00,990.15 4000.00,999.95"/>
 
-    <junction id=":3_15_0" type="internal" x="2005.17" y="1.65" incLanes=":3_12_0 L17_0 L17_1 L17_2" intLanes=":3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
-    <junction id=":3_16_0" type="internal" x="2002.39" y="1.65" incLanes=":3_13_0 L17_0 L17_1 L17_2" intLanes=":3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
-    <junction id=":3_17_0" type="internal" x="1998.40" y="1.60" incLanes=":3_14_0 L17_0 L17_1 L17_2" intLanes=":3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
-    <junction id=":6_14_0" type="internal" x="1997.61" y="998.35" incLanes=":6_3_0 L12_0 L12_1 L12_2" intLanes=":6_9_0 :6_10_0 :6_11_0 :6_12_0 :6_13_0"/>
-    <junction id=":6_15_0" type="internal" x="2001.60" y="998.40" incLanes=":6_4_0 L12_0 L12_1 L12_2" intLanes=":6_9_0 :6_10_0 :6_11_0 :6_12_0 :6_13_0"/>
+    <junction id=":3_15_0" type="internal" x="2005.17" y="1.65" incLanes=":3_12_0 L17_0 L17_1 L17_2" intLanes=":3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
+    <junction id=":3_16_0" type="internal" x="2002.39" y="1.65" incLanes=":3_13_0 L17_0 L17_1 L17_2" intLanes=":3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
+    <junction id=":3_17_0" type="internal" x="1998.40" y="1.60" incLanes=":3_14_0 L17_0 L17_1 L17_2" intLanes=":3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0"/>
+    <junction id=":6_14_0" type="internal" x="1997.61" y="998.35" incLanes=":6_3_0 L12_0 L12_1 L12_2" intLanes=":6_8_0 :6_9_0 :6_10_0 :6_11_0 :6_12_0 :6_13_0"/>
+    <junction id=":6_15_0" type="internal" x="2001.60" y="998.40" incLanes=":6_4_0 L12_0 L12_1 L12_2" intLanes=":6_8_0 :6_9_0 :6_10_0 :6_11_0 :6_12_0 :6_13_0"/>
 
     <connection from="D2" to="L2" fromLane="0" toLane="0" via=":911_3_0" dir="s" state="M"/>
     <connection from="D2" to="L2" fromLane="1" toLane="1" via=":911_4_0" dir="s" state="M"/>

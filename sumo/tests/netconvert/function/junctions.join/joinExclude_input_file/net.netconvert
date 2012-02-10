@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 25 08:37:13 2011 by SUMO netconvert Version dev-SVN-r11146
+<!-- generated on 02/10/12 09:36:01 by SUMO netconvert Version dev-SVN-r11865
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -120,7 +120,7 @@
         <lane id="gneE7_0" index="0" speed="13.89" length="7.76" shape="42.01,59.57 43.37,51.93"/>
     </edge>
     <edge id="gneE8" from="cluster_gneJ11_gneJ14_gneJ3_gneJ5" to="gneJ15" priority="1" spreadType="center" shape="44.02,48.26 0.00,46.27">
-        <lane id="gneE8_0" index="0" speed="13.89" length="40.74" shape="40.70,48.11 0.00,46.27"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="40.74" shape="40.70,48.11 -0.00,46.27"/>
     </edge>
 
     <junction id="cluster_gneJ11_gneJ14_gneJ3_gneJ5" type="priority" x="51.28" y="42.99" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_7_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_15_0" shape="61.87,51.48 61.50,36.06 60.19,34.61 44.13,33.00 41.35,34.10 40.63,49.71 41.76,51.84 58.94,52.82">
@@ -162,10 +162,10 @@
     <junction id="gneJ8" type="unregulated" x="49.04" y="0.00" incLanes="gneE4_0" intLanes="" shape="47.45,-0.16 50.63,0.16">
     </junction>
 
-    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" type="internal" x="45.92" y="36.35" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 gneE3_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0"/>
-    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" type="internal" x="55.58" y="43.91" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 gneE3_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0"/>
-    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" type="internal" x="57.00" y="49.50" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 gneE5_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0"/>
-    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" type="internal" x="47.19" y="42.20" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 gneE5_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0"/>
+    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0" type="internal" x="45.92" y="36.35" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 gneE3_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_7_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0"/>
+    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0" type="internal" x="55.58" y="43.91" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 gneE3_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0"/>
+    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0" type="internal" x="57.00" y="49.50" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 gneE5_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_14_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_15_0"/>
+    <junction id=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" type="internal" x="47.19" y="42.20" incLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 gneE5_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_6_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0"/>
 
     <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0" dir="r" state="m"/>
     <connection from="gneE0" to="gneE6" fromLane="0" toLane="0" via=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0" dir="s" state="m"/>
