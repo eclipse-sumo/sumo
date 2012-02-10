@@ -116,11 +116,17 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
                  "\tLocate Street\tLocate a street within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+#ifdef HAVE_MESOSIM
+    if (!MSGlobals::gUseMesoSim) {
+#endif
     // for vehicles
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Vehicle\tLocate a vehicle within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+#ifdef HAVE_MESOSIM
+    }
+#endif
     // for tls
     new FXButton(v.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
