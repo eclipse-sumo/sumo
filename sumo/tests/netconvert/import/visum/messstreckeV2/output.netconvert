@@ -1,0 +1,77 @@
+Found: $VSYS: at 1286
+Found: $PUNKT: at 2255
+Found: $KANTE: at 2318
+Found: $TEILFLAECHENELEMENT: at 2548
+Found: $FLAECHENELEMENT: at 2676
+Found: $KNOTEN: at 3452
+Found: $BEZIRK: at 6531
+Found: $STRECKENTYP: at 6679
+Found: $STRECKE: at 11222
+Found: $STRECKENPOLY: at 22274
+Found: $ABBIEGER: at 24181
+Found: $ANBINDUNG: at 30370
+Found: $LSA: at 38446
+Found: $LSAZUKNOTEN: at 38830
+Found: $SIGNALGRUPPE: at 39005
+Found: $PHASE: at 39769
+Found: $FAHRSTREIFEN: at 41582
+Found: $FAHRSTREIFENABBIEGER: at 43535
+Found: $SIGNALGRUPPEZUFSABBIEGER: at 44197
+Parsing VSYS... done.
+Parsing STRECKENTYP... done.
+Parsing KNOTEN... done.
+Parsing BEZIRK... done.
+Parsing PUNKT... done.
+Parsing STRECKE... done.
+Parsing KANTE... done.
+Parsing ANBINDUNG... done.
+Parsing ABBIEGER... done.
+Parsing STRECKENPOLY... done.
+Parsing FAHRSTREIFEN... done.
+Parsing FLAECHENELEMENT... done.
+Parsing LSA... done.
+Parsing LSAZUKNOTEN... done.
+Parsing SIGNALGRUPPE... done.
+Parsing SIGNALGRUPPEZUFSABBIEGER... done.
+Parsing TEILFLAECHENELEMENT... done.
+Parsing PHASE... done.
+Parsing FAHRSTREIFENABBIEGER... done.
+ Import done:
+   26 nodes loaded.
+   100 types loaded.
+   50 edges loaded.
+Removing self-loops... done.
+Removing empty nodes... done.
+   0 nodes removed.
+Joining similar edges... done.
+Moving network to origin... done.
+Assigning nodes to traffic lights... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
+ 3 traffic light(s) computed.
+Building inner edges... done.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Dead-end junctions          : 10
+  Priority junctions          : 16
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 889.00,-1209.00,2949.00,-364.00
+  Applied offset     : -889.00,1209.00
+  Converted boundary : 0.00,0.00,2060.00,845.00
+-----------------------------------------------------
+Success.
