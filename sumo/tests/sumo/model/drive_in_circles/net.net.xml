@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 12:12:06 by SUMO netgen Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/10/12 09:00:09 by SUMO netgen Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
 
@@ -14,7 +14,7 @@
     </spider_network>
 
     <output>
-        <output-file value=".\sumo\model\net.net.xml"/>
+        <output-file value=".\sumo\model\drive_in_circles\net.net.xml"/>
     </output>
 
     <processing>

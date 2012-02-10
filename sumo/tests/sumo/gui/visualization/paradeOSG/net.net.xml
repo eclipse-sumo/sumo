@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 12:12:05 by SUMO netconvert Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/10/12 09:00:08 by SUMO netconvert Version dev-SVN-r11865
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\sumo\gui\visualization\parade\cross1l.nod.xml"/>
-        <edge-files value=".\sumo\gui\visualization\parade\cross1l.edg.xml"/>
+        <node-files value=".\sumo\gui\visualization\paradeOSG\cross1l.nod.xml"/>
+        <edge-files value=".\sumo\gui\visualization\paradeOSG\cross1l.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\sumo\gui\visualization\parade\net.net.xml"/>
+        <output-file value=".\sumo\gui\visualization\paradeOSG\net.net.xml"/>
     </output>
 
     <report>
