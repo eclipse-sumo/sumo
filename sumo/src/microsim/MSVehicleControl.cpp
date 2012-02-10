@@ -312,7 +312,8 @@ MSVehicleControl::isInQuota(const SUMOReal frac) const {
     const int resolution = 1000;
     const int intFrac = (int)floor(frac * resolution + 0.5);
     // the vehicle in question has already been loaded, hence  the '-1'
-    return (myLoadedVehNo - 1) * intFrac % resolution < intFrac;
+    // apply % twice to avoid integer overflow
+    return (((myLoadedVehNo - 1) % resolution) * intFrac) % resolution < intFrac;
 }
 
 /****************************************************************************/
