@@ -210,7 +210,7 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
             }
         }
     }
-    if (myAlternatives.size() > myMaxRouteNumber) {
+    if (myAlternatives.size() > (unsigned)myMaxRouteNumber) {
         // only keep the routes with highest probability
         sort(myAlternatives.begin(), myAlternatives.end(), ComparatorProbability());
         for (AlternativesVector::iterator i = myAlternatives.begin() + myMaxRouteNumber; i != myAlternatives.end(); i++) {
