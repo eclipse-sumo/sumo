@@ -189,6 +189,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
 void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic,
                                 std::string value) {
+    // T = SUMOReal is only a dummy type here
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<SUMOReal>(myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
