@@ -176,7 +176,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = 0;
 #ifdef HAVE_MESOSIM
-    ret = new GUIParameterTableWindow(app, *this, 5);
+    ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
@@ -188,6 +188,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true,
                 new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
+    ret->mkItem("vehicle ids", false, getVehicleIDs());
     // close building
     ret->closeBuilding();
 #endif
@@ -209,13 +210,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (s.hideConnectors && myFunction == MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
+    if (MSGlobals::gUseMesoSim) {
+        glPushName(getGlID());
+    }
     // draw the lanes
     for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
-#ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
-#endif
         (*i)->drawGL(s);
     }
 #ifdef HAVE_MESOSIM
@@ -272,6 +274,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
             glPopMatrix();
         }
+        glPopName();
     }
 #endif
     // (optionally) draw the name and/or the street name
@@ -309,6 +312,21 @@ GUIEdge::getVehicleNo() const {
         vehNo += segment->getCarNumber();
     }
     return (unsigned int)vehNo;
+}
+
+
+std::string
+GUIEdge::getVehicleIDs() const {
+    std::string result = " ";
+    std::vector<const MEVehicle*> vehs;
+    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
+        std::vector<const MEVehicle*> segmentVehs = segment->getVehicles();
+        vehs.insert(vehs.end(), segmentVehs.begin(), segmentVehs.end());
+    }
+    for (std::vector<const MEVehicle*>::const_iterator it = vehs.begin(); it != vehs.end(); it++) {
+        result += (*it)->getID() + " ";
+    }
+    return result;
 }
 
 

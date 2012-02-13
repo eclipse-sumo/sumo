@@ -139,6 +139,7 @@ public:
 
 #ifdef HAVE_MESOSIM
     unsigned int getVehicleNo() const;
+    std::string getVehicleIDs() const;
     SUMOReal getOccupancy() const;
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
