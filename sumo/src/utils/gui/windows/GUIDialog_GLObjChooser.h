@@ -104,6 +104,9 @@ public:
 
     /// @brief Callback: Selects to current item if enter is pressed
     long onListKeyPress(FXObject*, FXSelector, void*);
+
+    /// @brief Callback: Hides unselected items if pressed
+    long onCmdFilter(FXObject*, FXSelector, void*);
     /// @}
 
 

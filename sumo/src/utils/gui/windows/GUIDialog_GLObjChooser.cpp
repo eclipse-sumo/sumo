@@ -63,6 +63,7 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GUIDialog_GLObjChooser::onCmdFilter),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -103,6 +104,10 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
                  this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
+    new FXButton(layout, "Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
+                 this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
     new FXHorizontalSeparator(layout, SEPARATOR_GROOVE | LAYOUT_FILL_X);
     new FXButton(layout, "Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
@@ -174,6 +179,28 @@ GUIDialog_GLObjChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
     return 1;
 }
 
+
+long
+GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
+    FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
+    std::vector<GUIGlID> selectedGlIDs;
+    std::vector<FXString> selectedMicrosimIDs;
+    const int numItems = myList->getNumItems();
+    for (int i = 0; i < numItems; i++) {
+        const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
+        if (myList->getItemIcon(i) == flag) {
+            selectedGlIDs.push_back(glID);
+            selectedMicrosimIDs.push_back(myList->getItemText(i));
+        }
+    }
+    myList->clearItems();
+    const int numSelected = selectedGlIDs.size();
+    for (int i = 0; i < numSelected; i++) {
+        myList->appendItem(selectedMicrosimIDs[i], flag, (void*) & (*myIDs.find(selectedGlIDs[i])));
+    }
+    myList->update();
+    return 1;
+}
 
 
 /****************************************************************************/

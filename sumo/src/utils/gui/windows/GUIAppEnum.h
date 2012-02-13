@@ -287,6 +287,8 @@ enum {
     MID_CHOOSER_TEXT,
     /// Object list
     MID_CHOOSER_LIST,
+    /// Filter selected
+    MID_CHOOSER_FILTER,
     //@}
 
 
