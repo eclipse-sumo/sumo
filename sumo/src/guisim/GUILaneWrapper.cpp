@@ -388,16 +388,17 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
     }
     // set lane color
-#ifdef HAVE_MESOSIM
-    if (!MSGlobals::gUseMesoSim)
-#endif
+    if (!MSGlobals::gUseMesoSim) {
         setColor(s);
-    glPushName(getGlID());
+        glPushName(getGlID()); // do not register for clicks in MESOSIM
+    }
     // draw lane
     // check whether it is not too small
     if (s.scale < 1.) {
         GLHelper::drawLine(myShape);
-        glPopName();
+        if (!MSGlobals::gUseMesoSim) {
+            glPopName();
+        }
         glPopMatrix();
     } else {
         if (!isInternal) {
@@ -406,7 +407,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth);
         }
-        glPopName();
+        if (!MSGlobals::gUseMesoSim) {
+            glPopName();
+        }
         glPopMatrix();
         // draw ROWs (not for inner lanes)
         if (!isInternal) {
