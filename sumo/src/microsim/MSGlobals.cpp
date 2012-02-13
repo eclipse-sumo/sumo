@@ -53,6 +53,8 @@ bool MSGlobals::gCheckRoutes;
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 MELoop* MSGlobals::gMesoNet;
+#else
+const bool MSGlobals::gUseMesoSim = false;
 #endif
 
 

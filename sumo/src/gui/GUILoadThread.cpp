@@ -129,18 +129,18 @@ GUILoadThread::run() {
     RandHelper::initRandGlobal();
     MSFrame::setMSGlobals(oc);
     gAllowTextures = !oc.getBool("disable-textures");
-#ifdef HAVE_MESOSIM
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
+    MSVehicleControl* vehControl = 0;
     if (MSGlobals::gUseMesoSim) {
-        net = new GUINet(new MEVehicleControl(), new GUIEventControl(),
-                         new GUIEventControl(), new GUIEventControl());
+        vehControl = new MEVehicleControl();
     } else {
-#endif
-        net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
-                         new GUIEventControl(), new GUIEventControl());
-#ifdef HAVE_MESOSIM
+        vehControl = new GUIVehicleControl();
     }
-#endif
+    net = new GUINet(
+            vehControl,
+            new GUIEventControl(),
+            new GUIEventControl(), 
+            new GUIEventControl());
     GUIEdgeControlBuilder* eb = new GUIEdgeControlBuilder();
     GUIDetectorBuilder db(*net);
     NLJunctionControlBuilder jb(*net, db);

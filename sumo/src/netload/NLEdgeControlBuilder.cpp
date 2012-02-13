@@ -123,11 +123,9 @@ MSEdgeControl*
 NLEdgeControlBuilder::build() {
     for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
-#ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(**i1, OptionsCont::getOptions());
         }
-#endif
     }
     return new MSEdgeControl(myEdges);
 }

@@ -102,16 +102,13 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
-#ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
-#endif
         // get and check the position
         pos = getPositionChecking(pos, clane, friendlyPos, id);
         // build the loop
         MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, splitByType);
         // add the file output
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
-#ifdef HAVE_MESOSIM
     } else {
         if (pos < 0) {
             pos = clane->getLength() + pos;
@@ -136,7 +133,6 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
             createMEInductLoop(id, prev, rpos);
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     }
-#endif
 }
 
 

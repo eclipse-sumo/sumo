@@ -81,6 +81,10 @@ public:
 
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
+#else
+    /** Information whether mesosim shall be used = constant false */
+    const static bool gUseMesoSim;
+
 #endif
 
 };

@@ -81,13 +81,9 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& /*veh*/, SUMOReal /*oldPos*/,
 bool
 MSDevice_Tripinfo::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-#ifdef HAVE_MESOSIM
         if (!MSGlobals::gUseMesoSim) {
-#endif
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
-#ifdef HAVE_MESOSIM
         }
-#endif
         myDepartPos = veh.getPositionOnLane();
         myDepartSpeed = veh.getSpeed();
     }
@@ -100,13 +96,9 @@ MSDevice_Tripinfo::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/,
                                MSMoveReminder::Notification reason) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         myArrivalTime = MSNet::getInstance()->getCurrentTimeStep();
-#ifdef HAVE_MESOSIM
         if (!MSGlobals::gUseMesoSim) {
-#endif
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
-#ifdef HAVE_MESOSIM
         }
-#endif
         myArrivalPos = myHolder.getPositionOnLane();
         myArrivalSpeed = veh.getSpeed();
     }
