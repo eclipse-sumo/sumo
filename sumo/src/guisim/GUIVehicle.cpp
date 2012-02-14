@@ -355,7 +355,6 @@ GUIVehicle::getCenteringBoundary() const {
 inline void
 drawAction_drawVehicleAsBoxPlus(const GUIVehicle& veh) {
     glPushMatrix();
-    glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
     glScaled(veh.getVehicleType().getWidth(), veh.getVehicleType().getLength(), 1.);
     glBegin(GL_TRIANGLE_STRIP);
     glVertex2d(0., 0.);
@@ -376,7 +375,6 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle& veh) {
         return;
     }
     glPushMatrix();
-    glTranslated(0., veh.getVehicleType().getMinGap(), 0.);
     glScaled(veh.getVehicleType().getWidth(), length, 1.);
     glBegin(GL_TRIANGLES);
     glVertex2d(0., 0.);
@@ -412,7 +410,6 @@ drawAction_drawVehicleAsPoly(const GUIVehicle& veh) {
     SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
-    glTranslated(veh.getVehicleType().getMinGap(), 0, 0);
     glScaled(length, veh.getVehicleType().getWidth(), 1.);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
 
@@ -813,11 +810,11 @@ inline void
 drawAction_drawBlinker(const GUIVehicle& veh, double dir) {
     glColor3d(1.f, .8f, 0);
     glPushMatrix();
-    glTranslated(dir, BLINKER_POS_FRONT + veh.getVehicleType().getMinGap(), -0.1);
+    glTranslated(dir, BLINKER_POS_FRONT, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(dir, veh.getVehicleType().getLengthWithGap() - BLINKER_POS_BACK, -0.1);
+    glTranslated(dir, veh.getVehicleType().getLength() - BLINKER_POS_BACK, -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -849,11 +846,11 @@ drawAction_drawVehicleBrakeLight(const GUIVehicle& veh) {
     }
     glColor3f(1.f, .2f, 0);
     glPushMatrix();
-    glTranslated(-veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
+    glTranslated(-veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLength(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLengthWithGap(), -0.1);
+    glTranslated(veh.getVehicleType().getWidth() * 0.5, veh.getVehicleType().getLength(), -0.1);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -895,12 +892,13 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
             break;
     }
     if (s.drawMinGap) {
+        SUMOReal minGap = -getVehicleType().getMinGap();
         glColor3d(0., 1., 0.);
         glBegin(GL_LINES);
         glVertex2d(0., 0);
-        glVertex2d(0., getVehicleType().getMinGap());
-        glVertex2d(-.5, 0);
-        glVertex2d(.5, 0);
+        glVertex2d(0., minGap);
+        glVertex2d(-.5, minGap);
+        glVertex2d(.5, minGap);
         glEnd();
     }
     // draw the blinker and brakelights if wished
@@ -971,7 +969,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
         */
     }
     glPopMatrix();
-    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLengthWithGap() / 2),
+    drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
              s.scale, s.vehicleName);
     glPopName();
 }
@@ -1001,6 +999,9 @@ GUIVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisuali
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {
         for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+            if((*i).myLink==0) {
+                continue;
+            }
             MSLink* link = (*i).myLink;
 #ifdef HAVE_INTERNAL_LANES
             MSLane *via = link->getViaLane();

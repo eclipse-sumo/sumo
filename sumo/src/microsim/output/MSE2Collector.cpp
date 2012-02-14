@@ -85,7 +85,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
             myKnownVehicles.push_back(&veh);
         }
     }
-    if (newPos - veh.getVehicleType().getLengthWithGap() > myEndPos) {
+    if (newPos - veh.getVehicleType().getLength() > myEndPos) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i != myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -98,7 +98,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
 
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) {
-    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLengthWithGap() < myEndPos)) {
+    if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (lastPos >= myStartPos && lastPos - veh.getVehicleType().getLength() < myEndPos)) {
         std::list<SUMOVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i != myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -111,12 +111,12 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::N
 
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
-    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() < myEndPos) {
+    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         myKnownVehicles.push_back(&veh);
         return true;
     }
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myEndPos) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myEndPos) {
         // vehicle is beyond detector
         return false;
     }
@@ -168,13 +168,13 @@ MSE2Collector::detectorUpdate(const SUMOTime step) {
     for (std::list<SUMOVehicle*>::const_iterator i = myKnownVehicles.begin(); i != myKnownVehicles.end(); ++i) {
         MSVehicle* veh = static_cast<MSVehicle*>(*i);
 
-        SUMOReal length = veh->getVehicleType().getLengthWithGap();
+        SUMOReal length = veh->getVehicleType().getLength();
         if (veh->getLane() == getLane()) {
-            if (veh->getPositionOnLane() - veh->getVehicleType().getLengthWithGap() < myStartPos) {
+            if (veh->getPositionOnLane() - veh->getVehicleType().getLength() < myStartPos) {
                 // vehicle entered detector partially
-                length -= (veh->getVehicleType().getLengthWithGap() - (veh->getPositionOnLane() - myStartPos));
+                length -= (veh->getVehicleType().getLength() - (veh->getPositionOnLane() - myStartPos));
             }
-            if (veh->getPositionOnLane() > myEndPos && veh->getPositionOnLane() - veh->getVehicleType().getLengthWithGap() <= myEndPos) {
+            if (veh->getPositionOnLane() > myEndPos && veh->getPositionOnLane() - veh->getVehicleType().getLength() <= myEndPos) {
                 // vehicle left detector partially
                 length -= (veh->getPositionOnLane() - myEndPos);
             }

@@ -86,8 +86,8 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMORe
     if (oldPos < 0 && newSpeed != 0) {
         timeOnLane = newPos / newSpeed;
     }
-    if (newPos > myLaneLength && newSpeed != 0) {
-        timeOnLane -= (newPos - myLaneLength) / newSpeed;
+    if (newPos-veh.getVehicleType().getLength() > myLaneLength && newSpeed != 0) {
+        timeOnLane -= (newPos - veh.getVehicleType().getLength() - myLaneLength) / newSpeed;
         if (fabs(timeOnLane) < 0.001) { // reduce rounding errors
             timeOnLane = 0.;
         }

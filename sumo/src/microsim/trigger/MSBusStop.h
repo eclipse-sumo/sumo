@@ -40,6 +40,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -109,7 +110,7 @@ public:
      * @param[in] what The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(void* what, SUMOReal beg, SUMOReal end) ;
+    void enter(SUMOVehicle* what, SUMOReal beg, SUMOReal end) ;
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -121,14 +122,14 @@ public:
      * @param[in] what The vehicle that leaves the bus stop
      * @see computeLastFreePos
      */
-    void leaveFrom(void* what) ;
+    void leaveFrom(SUMOVehicle* what) ;
 
 
     /** @brief Returns the last free position on this stop
      *
      * @return The last free position of this bus stop
      */
-    SUMOReal getLastFreePos() const ;
+    SUMOReal getLastFreePos(SUMOVehicle &forVehicle) const ;
 
 
 protected:
@@ -146,7 +147,7 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
-    std::map<void*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
+    std::map<SUMOVehicle*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
 
     /// @brief The lane this bus stop is located at
     MSLane& myLane;

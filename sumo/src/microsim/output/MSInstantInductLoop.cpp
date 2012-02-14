@@ -84,10 +84,10 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
         myEntryTimes[&veh] = entryTime;
         return true;
     }
-    if (newPos - veh.getVehicleType().getLengthWithGap() > myPosition) {
+    if (newPos - veh.getVehicleType().getLength() > myPosition) {
         // vehicle passed the detector
         SUMOReal leaveTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-        leaveTime += (myPosition - oldPos + veh.getVehicleType().getLengthWithGap()) / newSpeed;
+        leaveTime += (myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed;
         std::map<SUMOVehicle*, SUMOReal>::iterator i = myEntryTimes.find(&veh);
         if (i != myEntryTimes.end()) {
             write("leave", leaveTime, veh, newSpeed, "occupancy", leaveTime - (*i).second);
@@ -134,7 +134,7 @@ MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveR
 
 bool
 MSInstantInductLoop::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification) {
-    if (veh.getPositionOnLane() - veh.getVehicleType().getLengthWithGap() > myPosition) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
     }

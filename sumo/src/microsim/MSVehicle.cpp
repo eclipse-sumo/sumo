@@ -87,6 +87,7 @@
 
 //#define DEBUG_VEHICLE_GUI_SELECTION 1
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
+#undef ID_LIST
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILane.h>
@@ -436,7 +437,7 @@ MSVehicle::getAngle() const {
     Position p1 = myLane->getShape().positionAtLengthPosition(myState.pos());
     Position p2 = myFurtherLanes.size() > 0
                   ? myFurtherLanes.front()->getShape().positionAtLengthPosition(myFurtherLanes.front()->getPartialOccupatorEnd())
-                  : myLane->getShape().positionAtLengthPosition(myState.pos() - myType->getLengthWithGap());
+                  : myLane->getShape().positionAtLengthPosition(myState.pos() - myType->getLength());
     if (p1 != p2) {
         return atan2(p1.x() - p2.x(), p2.y() - p1.y()) * 180. / PI;
     } else {
@@ -570,12 +571,12 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
             bool busStopsMustHaveSpace = true;
             if (stop.busstop != 0) {
                 // on bus stops, we have to wait for free place if they are in use...
-                endPos = stop.busstop->getLastFreePos();
+                endPos = stop.busstop->getLastFreePos(*this);
                 if (endPos - 5. < stop.busstop->getBeginLanePosition()) { // !!! explicit offset
                     busStopsMustHaveSpace = false;
                 }
             }
-            if (myState.pos() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace) {
+            if (myState.pos() + getVehicleType().getMinGap() >= endPos - BUS_STOP_OFFSET && busStopsMustHaveSpace) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
@@ -589,11 +590,10 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
                 }
                 if (stop.busstop != 0) {
                     // let the bus stop know the vehicle
-                    stop.busstop->enter(this, myState.pos(), myState.pos() - myType->getLengthWithGap());
+                    stop.busstop->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
             }
             // decelerate
-            // !!! should not v be 0 when we have reached the stop?
             return getCarFollowModel().stopSpeed(this, endPos - myState.pos());
         }
     }
@@ -633,7 +633,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     bool onAppropriateLane = myLane->appropriate(this);
     if (!onAppropriateLane) {
         // decelerate to lane end when yes
-        vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos), myLane->getMaxSpeed());
+        vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos - getVehicleType().getMinGap()), myLane->getMaxSpeed());
     }
     if (myCurrEdge == myRoute->end() - 1) {
         if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
@@ -655,7 +655,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         // (potential) interaction with a vehicle extending partially into this lane
         MSVehicle* predP = myLane->getPartialOccupator();
         if (predP != 0 && predP != this) {
-            SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
+            SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos - getVehicleType().getMinGap();
             if (MSGlobals::gCheck4Accidents && gap < 0) {
                 // collision occured!
                 return true;
@@ -668,7 +668,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     // check whether the vehicle wants to stop somewhere
     if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge()) {
         const Stop& stop = *myStops.begin();
-        SUMOReal stopPos = stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos() - POSITION_EPS;
+        SUMOReal stopPos = stop.busstop == 0 ? stop.endPos : stop.busstop->getLastFreePos(*this) - POSITION_EPS;
         SUMOReal seen = lane->getLength() - myState.pos();
         SUMOReal vsafeStop = cfModel.stopSpeed(this, seen - (lane->getLength() - stopPos));
         vBeg = MIN2(vBeg, vsafeStop);
@@ -680,7 +680,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     }
 #endif
     if (!onAppropriateLane) {
-        myLFLinkLanes.push_back(DriveProcessItem(0, vBeg, vBeg, false, 0, 0, myLane->getLength() - myState.myPos));
+        myLFLinkLanes.push_back(DriveProcessItem(0, vBeg, vBeg, false, 0, 0, myLane->getLength() - myState.myPos - getVehicleType().getMinGap()));
     } else {
         // check whether the driver wants to let someone in
         vsafeCriticalCont(t, vBeg);
@@ -857,8 +857,8 @@ MSVehicle::moveChecked() {
     }
     myFurtherLanes.clear();
     if (!ends()) {
-        if (myState.myPos - getVehicleType().getLengthWithGap() < 0 && passedLanes.size() > 0) {
-            SUMOReal leftLength = getVehicleType().getLengthWithGap() - myState.myPos;
+        if (myState.myPos - getVehicleType().getLength() < 0 && passedLanes.size() > 0) {
+            SUMOReal leftLength = getVehicleType().getLength() - myState.myPos;
             std::vector<MSLane*>::reverse_iterator i = passedLanes.rbegin() + 1;
             while (leftLength > 0 && i != passedLanes.rend()) {
                 myFurtherLanes.push_back(*i);
@@ -921,7 +921,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             // get the next lane, determine whether it is an internal lane
             MSLane* approachedLane = item.myLink->getViaLane();
             if (approachedLane != 0) {
-                if (item.myLink->isCrossing() && item.myLink->willHaveBlockedFoe()) {
+                if (item.myLink->isCrossing()/* && item.myLink->willHaveBlockedFoe()*/) {
                     seenSpace = seenSpace - approachedLane->getVehLenSum();
                     hadVehicle |= approachedLane->getVehicleNumber() != 0;
                 } else {
@@ -986,7 +986,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i = (int)(myLFLinkLanes.size() - 1); i > 0; --i) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
-            bool opened = item.myLink != 0 && item.myLink->opened(t, .1, getVehicleType().getLengthWithGap());
+            bool opened = item.myLink != 0 && (/*item.myLink->havePriority() || */item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,/*t, .1,*/ getVehicleType().getLengthWithGap()));
             bool check1 = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i];
             bool allowsContinuation = check1 || opened;
             if (!opened && item.myLink != 0) {
@@ -1016,7 +1016,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
             */
 
             SUMOReal leftSpace = availableSpace[i] - getVehicleType().getLengthWithGap();
-            if (leftSpace < 0 && item.myLink->willHaveBlockedFoe()) {
+            if (leftSpace < 0/* && item.myLink->willHaveBlockedFoe()*/) {
                 SUMOReal impatienceCorrection = 0;
                 /*
                 if(item.myLink->getState()==LINKSTATE_MINOR) {
@@ -1031,8 +1031,10 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         }
         if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL)) {
             while (removalBegin < (int)(myLFLinkLanes.size())) {
-                myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
-                myLFLinkLanes[removalBegin].mySetRequest = false;
+                if(myLFLinkLanes[removalBegin].myDistance>=getCarFollowModel().brakeGap(myState.mySpeed)) {
+                    myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
+                    myLFLinkLanes[removalBegin].mySetRequest = false;
+                }
                 ++removalBegin;
             }
         }
@@ -1064,7 +1066,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     const MSCFModel& cfModel = getCarFollowModel();
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
-    SUMOReal seen = myLane->getLength() - myState.myPos;
+    SUMOReal seen = myLane->getLength() - myState.myPos - getVehicleType().getMinGap();
     SUMOReal seenNonInternal = 0;
     //
     if (this != myLane->getFirstVehicle() && seen - cfModel.brakeGap(myState.mySpeed) > 0 && seen - SPEED2DIST(boundVSafe) - ACCEL2DIST(cfModel.getMaxAccel()) > 0) {
@@ -1092,7 +1094,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     while (true) {
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &nextLane->getEdge()) {
-            SUMOReal vsafeStop = cfModel.stopSpeed(this, seen - (nextLane->getLength() - myStops.begin()->endPos));
+            const Stop& stop = *myStops.begin();
+            const SUMOReal vsafeStop = stop.busstop == 0
+                                       ? cfModel.stopSpeed(this, seen + stop.endPos + getVehicleType().getMinGap())
+                                       : cfModel.stopSpeed(this, seen + stop.busstop->getLastFreePos(*this) + getVehicleType().getMinGap() - POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1171,8 +1176,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &nextLane->getEdge()) {
             const Stop& stop = *myStops.begin();
             const SUMOReal vsafeStop = stop.busstop == 0
-                                       ? cfModel.stopSpeed(this, seen + stop.endPos)
-                                       : cfModel.stopSpeed(this, seen + stop.busstop->getLastFreePos() - POSITION_EPS);
+                                       ? cfModel.stopSpeed(this, seen + stop.endPos + getVehicleType().getMinGap())
+                                       : cfModel.stopSpeed(this, seen + stop.busstop->getLastFreePos(*this) + getVehicleType().getMinGap() - POSITION_EPS);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -1186,9 +1191,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         }
 
         setRequest |= ((*link)->getState() != LINKSTATE_TL_RED && (vLinkPass > 0 && dist - seen > 0));
+//        setRequest |= (seen < cfModel.brakeGap(myState.mySpeed) + SPEED2DIST(myState.mySpeed)*cfModel.getHeadwayTime());
         bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState() == LINKSTATE_TL_RED;
-        if ((yellow || red) && seen > cfModel.brakeGap(myState.mySpeed) - SPEED2DIST(myState.mySpeed)*cfModel.getHeadwayTime()) { // !!! we should reuse brakeGap with no reaction time...
+        if ((yellow || red) && seen - myState.mySpeed*cfModel.getHeadwayTime() > cfModel.brakeGap(myState.mySpeed)) { // !!! we should reuse brakeGap with no reaction time...
             vLinkPass = vLinkWait;
             setRequest = false;
             assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
@@ -1197,7 +1203,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
         // the next condition matches the previously one used for determining the difference
         //  between critical/non-critical vehicles. Though, one should assume that a vehicle
         //  should want to move over an intersection even though it could brake before it!?
-        setRequest &= dist - seen > 0;
+        //setRequest &= dist - seen > 0;
 #ifdef _DEBUG
         if (MIN2(vLinkPass, vLinkWait) < cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) {
             WRITE_WARNING("Vehicle '" + getID() + "' is decelerating too much (#3; is: " + toString(myState.mySpeed - MIN2(vLinkPass, vLinkWait)) + ", may: " + toString(cfModel.getSpeedAfterMaxDecel(myState.mySpeed)) + ")");
@@ -1282,7 +1288,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         addReminder(*rem);
     }
     activateReminders(MSMoveReminder::NOTIFICATION_LANE_CHANGE);
-    SUMOReal leftLength = myState.myPos - getVehicleType().getLengthWithGap();
+    SUMOReal leftLength = myState.myPos - getVehicleType().getLength();
     if (leftLength < 0) {
         // we have to rebuild "further lanes"
         const MSRoute& route = getRoute();
@@ -1332,7 +1338,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, SUMOReal pos, SUMOReal spee
     }
     myAmOnNet = true;
     // build the list of lanes the vehicle is lapping into
-    SUMOReal leftLength = myType->getLengthWithGap() - pos;
+    SUMOReal leftLength = myType->getLength() - pos;
     MSLane* clane = enteredLane;
     while (leftLength > 0) {
         clane = clane->getLogicalPredecessorLane();

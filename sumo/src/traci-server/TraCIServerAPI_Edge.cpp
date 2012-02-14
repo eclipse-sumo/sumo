@@ -276,7 +276,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
                     const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
                     for (std::deque<MSVehicle*>::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                        lengthSum += (*j)->getVehicleType().getLengthWithGap();
+                        lengthSum += (*j)->getVehicleType().getLength();
                     }
                     noVehicles += (int) vehs.size();
                     (*i)->releaseVehicles();

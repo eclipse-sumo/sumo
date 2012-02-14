@@ -234,7 +234,7 @@ public:
      * @return The gap between this vehicle and the leader (may be <0)
      */
     SUMOReal gap2pred(const MSVehicle& pred) const {
-        SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLengthWithGap() - getPositionOnLane();
+        SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLength() - getPositionOnLane() - getVehicleType().getMinGap();
         if (gap < 0 && gap > -1.0e-12) {
             gap = 0;
         }

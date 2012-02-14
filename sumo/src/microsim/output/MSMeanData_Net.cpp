@@ -105,7 +105,7 @@ void
 MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) {
     sampleSeconds += timeOnLane;
     travelledDistance += speed * timeOnLane;
-    vehLengthSum += veh.getVehicleType().getLengthWithGap() * timeOnLane;
+    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
     if (myParent != 0 && speed < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }

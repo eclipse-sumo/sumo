@@ -285,7 +285,7 @@ protected:
         if (leader->getSpeed() < (80.0 / 3.6)) {
             return false;
         }
-        SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLengthWithGap() - myVehicle.getPositionOnLane();
+        SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLength() - myVehicle.getVehicleType().getMinGap() - myVehicle.getPositionOnLane();
         return gap < myCarFollowModel.interactionGap(&myVehicle, leader->getSpeed());
     }
 
