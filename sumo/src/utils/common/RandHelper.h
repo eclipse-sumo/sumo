@@ -95,6 +95,7 @@ public:
     template<class T>
     static inline T
     getRandomFrom(const std::vector<T> &v) {
+        assert(v.size() > 0);
         return v[rand(v.size())];
     }
 
