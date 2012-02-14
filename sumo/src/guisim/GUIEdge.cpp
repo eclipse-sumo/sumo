@@ -215,9 +215,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw the lanes
     for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
+#ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
+#endif
         (*i)->drawGL(s);
     }
 #ifdef HAVE_MESOSIM

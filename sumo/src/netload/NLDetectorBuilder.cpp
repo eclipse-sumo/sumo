@@ -110,6 +110,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
         // add the file output
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     } else {
+#ifdef HAVE_MESOSIM
         if (pos < 0) {
             pos = clane->getLength() + pos;
         }
@@ -132,6 +133,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
         MEInductLoop* loop =
             createMEInductLoop(id, prev, rpos);
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
+#endif
     }
 }
 
