@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/13/11 15:42:14 by SUMO sumo Version dev-SVN-r11230
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/13/12 14:20:08 by SUMO sumo Version dev-SVN-r11881
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -30,9 +30,9 @@
    </interval>
    <interval begin="10.00" end="20.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
    </interval>
-   <interval begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="2" flow="720.00" occupancy="10.56" speed="9.50" length="5.00" nVehEntered="2">
-      <typedInterval type="t1" begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="1" flow="360.00" occupancy="5.00" speed="10.00" length="5.00" nVehEntered="1"/>
-      <typedInterval type="t2" begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="1" flow="360.00" occupancy="5.56" speed="9.00" length="5.00" nVehEntered="1"/>
+   <interval begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="2" flow="720.00" occupancy="6.33" speed="9.50" length="3.00" nVehEntered="2">
+      <typedInterval type="t1" begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="1" flow="360.00" occupancy="3.00" speed="10.00" length="3.00" nVehEntered="1"/>
+      <typedInterval type="t2" begin="10.00" end="20.00" id="4/1to3/1" nVehContrib="1" flow="360.00" occupancy="3.33" speed="9.00" length="3.00" nVehEntered="1"/>
    </interval>
    <interval begin="20.00" end="30.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
    </interval>
@@ -46,13 +46,13 @@
    </interval>
    <interval begin="40.00" end="50.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
    </interval>
-   <interval begin="50.00" end="60.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="5.00" speed="10.00" length="5.00" nVehEntered="1">
-      <typedInterval type="t1" begin="50.00" end="60.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="5.00" speed="10.00" length="5.00" nVehEntered="1"/>
+   <interval begin="50.00" end="60.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="3.00" speed="10.00" length="3.00" nVehEntered="1">
+      <typedInterval type="t1" begin="50.00" end="60.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="3.00" speed="10.00" length="3.00" nVehEntered="1"/>
    </interval>
    <interval begin="50.00" end="60.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
    </interval>
-   <interval begin="60.00" end="70.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="5.56" speed="9.00" length="5.00" nVehEntered="1">
-      <typedInterval type="t2" begin="60.00" end="70.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="5.56" speed="9.00" length="5.00" nVehEntered="1"/>
+   <interval begin="60.00" end="70.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="3.33" speed="9.00" length="3.00" nVehEntered="1">
+      <typedInterval type="t2" begin="60.00" end="70.00" id="3/1to2/1" nVehContrib="1" flow="360.00" occupancy="3.33" speed="9.00" length="3.00" nVehEntered="1"/>
    </interval>
    <interval begin="60.00" end="70.00" id="4/1to3/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0">
    </interval>

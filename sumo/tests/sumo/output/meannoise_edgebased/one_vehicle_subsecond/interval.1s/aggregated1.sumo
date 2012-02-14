@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:45:40 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 02/13/12 15:05:30 by SUMO sumo Version dev-SVN-r11881
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -917,16 +917,19 @@
     </interval>
     <interval begin="30.00" end="30.10" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
-        <edge id="4/1to3/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="30.10" end="30.20" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="30.20" end="30.30" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="30.30" end="30.40" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="30.40" end="30.50" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
@@ -2091,12 +2094,15 @@
     </interval>
     <interval begin="69.10" end="69.20" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="69.20" end="69.30" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="69.30" end="69.40" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="3/1to2/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="69.40" end="69.50" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
@@ -3261,16 +3267,19 @@
     </interval>
     <interval begin="108.10" end="108.20" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
-        <edge id="2/1to1/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="108.20" end="108.30" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="108.30" end="108.40" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="108.40" end="108.50" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="0.05" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="108.50" end="108.60" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="0.10" noise="61.77" traveltime="39.05"/>

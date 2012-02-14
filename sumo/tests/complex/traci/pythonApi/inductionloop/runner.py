@@ -8,7 +8,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 sumoProcess = subprocess.Popen("%s -c sumo.sumocfg" % (sumoBinary), shell=True, stdout=sys.stdout)
 traci.init(8813)
-for step in range(3):
+for step in range(4):
     print "step", step
     traci.simulationStep(step)
 print "inductionloops", traci.inductionloop.getIDList()

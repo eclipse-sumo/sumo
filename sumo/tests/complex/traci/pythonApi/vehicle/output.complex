@@ -6,7 +6,7 @@ vehicles ['horiz']
 examining horiz
 speed 3.1154472965
 speed w/o traci 3.1154472965
-pos (987.8428640337894, 501.65000000000003)
+pos (990.3428640337894, 501.65000000000003)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -14,7 +14,7 @@ laneIndex 0
 type DEFAULT_VEHTYPE
 routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
-lanePos 12.1571359662
+lanePos 9.65713596621
 color (255, 255, 0, 255)
 bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 2736.29355859
@@ -41,18 +41,18 @@ emissionclass
 shape 
 MinGap 2.5
 width 2.0
-{80: '2fi', 86: 12.157135966210626}
+{80: '2fi', 86: 9.657135966210626}
 step 3
-{80: '2fi', 86: 17.813460015063175}
+{80: '2fi', 86: 15.313460015063175}
 step 4
-{80: '2fi', 86: 25.43090530233458}
+{80: '2fi', 86: 22.93090530233458}
 step 5
-{80: '2fi', 86: 34.88140935478732}
+{80: '2fi', 86: 32.38140935478732}
 vehicles ['horiz']
 examining horiz
 speed 9.45050405245
 speed w/o traci 9.45050405245
-pos (965.1185906452126, 501.65000000000003)
+pos (967.6185906452126, 501.65000000000003)
 angle -90.0
 road 2fi
 lane 2fi_0
@@ -60,7 +60,7 @@ laneIndex 0
 type DEFAULT_VEHTYPE@horiz
 routeID horizontal
 route ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
-lanePos 34.8814093548
+lanePos 32.3814093548
 color (1, 0, 0, 255)
 bestLanes [['2fi_0', 2922.9, 0.0, 0, 1, ['2fi_0', '2si_1', '1o_0', '1fi_0', '1si_0', '3o_0', '3fi_0', '3si_1', '4o_0']]]
 CO2 0.0

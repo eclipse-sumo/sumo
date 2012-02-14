@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/12 21:53:46 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 02/13/12 14:26:47 by SUMO sumo Version dev-SVN-r11881
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="139.00">
+    <vehicle id="0" depart="0.00" arrival="140.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg rend"/>
             <route edges="beg middle end rend"/>
@@ -52,7 +52,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="195.00">
+    <vehicle id="3" depart="60.00" arrival="196.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg rend"/>
             <route edges="beg beg2left left left2end end rend"/>
@@ -66,7 +66,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="5" depart="100.00" arrival="234.00">
+    <vehicle id="5" depart="100.00" arrival="235.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg rend"/>
             <route edges="beg beg2left left left2end end rend"/>
@@ -87,7 +87,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="8" depart="160.00" arrival="300.00">
+    <vehicle id="8" depart="160.00" arrival="299.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="160.00" probability="0" edges="beg rend"/>
             <route edges="beg middle end rend"/>

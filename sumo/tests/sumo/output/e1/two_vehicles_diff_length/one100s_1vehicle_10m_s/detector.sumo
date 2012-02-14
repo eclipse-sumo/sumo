@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:54:15 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 02/13/12 14:20:08 by SUMO sumo Version dev-SVN-r11881
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -22,5 +24,5 @@
 -->
 
 <detector>
-   <interval begin="0.00" end="100.00" id="3/1to2/1" nVehContrib="2" flow="72.00" occupancy="2.00" speed="10.00" length="10.00" nVehEntered="2"/>
+   <interval begin="0.00" end="100.00" id="3/1to2/1" nVehContrib="2" flow="72.00" occupancy="1.60" speed="10.00" length="8.00" nVehEntered="2"/>
 </detector>

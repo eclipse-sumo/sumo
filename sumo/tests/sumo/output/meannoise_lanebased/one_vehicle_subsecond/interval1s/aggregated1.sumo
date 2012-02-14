@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:45:55 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 02/13/12 15:05:32 by SUMO sumo Version dev-SVN-r11881
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -177,7 +177,7 @@
             <lane id="3/1to2/1_0" sampledSeconds="0.95" noise="61.77" traveltime="39.05"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="0.05" noise="51.77" traveltime="39.05"/>
+            <lane id="4/1to3/1_0" sampledSeconds="0.35" noise="57.80" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="31.00" end="32.00" id="dump_1">
@@ -375,7 +375,7 @@
             <lane id="2/1to1/1_0" sampledSeconds="0.90" noise="61.32" traveltime="39.05"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="0.10" noise="51.77" traveltime="39.05"/>
+            <lane id="3/1to2/1_0" sampledSeconds="0.40" noise="57.80" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="70.00" end="71.00" id="dump_1">
@@ -573,7 +573,7 @@
             <lane id="1/1to0/1_0" sampledSeconds="0.85" noise="61.32" traveltime="39.05"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="0.15" noise="54.79" traveltime="39.05"/>
+            <lane id="2/1to1/1_0" sampledSeconds="0.45" noise="58.76" traveltime="39.05"/>
         </edge>
     </interval>
     <interval begin="109.00" end="110.00" id="dump_1">

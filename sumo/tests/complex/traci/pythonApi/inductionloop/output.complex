@@ -2,18 +2,19 @@ Loading configuration... done.
 step 0
 step 1
 step 2
+step 3
 inductionloops ['0']
 examining 0
 vehNum 1
-meanSpeed 3.1154472965
+meanSpeed 5.65632404885
 vehIDs ['horiz']
-occupancy 69.2400082849
-meanLength 7.5
-timeSinceDet 0.0
-vehData [['horiz', 7.5, 2.307599917151332, 3.0, 'DEFAULT_VEHTYPE']]
+occupancy 88.3966328099
+meanLength 5.0
+timeSinceDet 0.0554176197042
+vehData [['horiz', 5.0, 3.0606160521971733, 3.944582380295775, 'DEFAULT_VEHTYPE']]
 {16: 1}
 step 3
-{16: 1}
+{16: 0}
 step 4
 {16: 0}
 step 5

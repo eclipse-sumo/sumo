@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/26/10 12:54:06 by SUMO sumo Version dev-SVN-r8163
-<configuration>
+<!-- generated on 02/13/12 14:20:03 by SUMO sumo Version dev-SVN-r11881
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -72,7 +74,7 @@
    <interval begin="47.00" end="48.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="48.00" end="49.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="49.00" end="50.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="50.00" end="51.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="50.00" speed="10.00" length="5.00" nVehEntered="1"/>
+   <interval begin="50.00" end="51.00" id="3/1to2/1" nVehContrib="1" flow="3600.00" occupancy="30.00" speed="10.00" length="3.00" nVehEntered="1"/>
    <interval begin="51.00" end="52.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="52.00" end="53.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
    <interval begin="53.00" end="54.00" id="3/1to2/1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>

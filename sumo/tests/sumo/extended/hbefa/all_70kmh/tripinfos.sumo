@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/04/12 21:53:51 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on 02/13/12 14:26:51 by SUMO sumo Version dev-SVN-r11881
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,130 +31,130 @@
 -->
 
 <tripinfos>
-    <tripinfo id="HDV_3_1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="224.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_1 hbefa_HDV_3_1" vType="HDV_3_1" vaporized="">
-        <emissions CO_abs="4340.089511" CO2_abs="9819201.802235" HC_abs="2799.375962" PMx_abs="1517.787220" NOx_abs="42783.538447" fuel_abs="3914.761102"/>
+    <tripinfo id="HDV_3_1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="224.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_1 hbefa_HDV_3_1" vType="HDV_3_1" vaporized="">
+        <emissions CO_abs="4340.941307" CO2_abs="9821229.595516" HC_abs="2799.630924" PMx_abs="1518.066380" NOx_abs="42794.462955" fuel_abs="3915.569552"/>
     </tripinfo>
-    <tripinfo id="HDV_3_2" depart="20.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="244.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_2 hbefa_HDV_3_2" vType="HDV_3_2" vaporized="">
-        <emissions CO_abs="12910.346299" CO2_abs="16323963.039105" HC_abs="6153.441001" PMx_abs="5044.566058" NOx_abs="162000.504034" fuel_abs="6508.109734"/>
+    <tripinfo id="HDV_3_2" depart="20.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="244.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_2 hbefa_HDV_3_2" vType="HDV_3_2" vaporized="">
+        <emissions CO_abs="12913.539789" CO2_abs="16328560.457123" HC_abs="6154.327358" PMx_abs="5045.919240" NOx_abs="162049.971264" fuel_abs="6509.942651"/>
     </tripinfo>
-    <tripinfo id="HDV_3_3" depart="40.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="264.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_3 hbefa_HDV_3_3" vType="HDV_3_3" vaporized="">
-        <emissions CO_abs="4540.086131" CO2_abs="17574976.267648" HC_abs="4311.630013" PMx_abs="1139.891062" NOx_abs="77651.274429" fuel_abs="6716.472072"/>
+    <tripinfo id="HDV_3_3" depart="40.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="264.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_3_3 hbefa_HDV_3_3" vType="HDV_3_3" vaporized="">
+        <emissions CO_abs="4537.071702" CO2_abs="17580113.000264" HC_abs="4312.358479" PMx_abs="1140.258109" NOx_abs="77679.163103" fuel_abs="6718.472484"/>
     </tripinfo>
-    <tripinfo id="HDV_6_1" depart="100.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="324.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_1 hbefa_HDV_6_1" vType="HDV_6_1" vaporized="">
-        <emissions CO_abs="3262.858466" CO2_abs="9295120.532965" HC_abs="2171.110327" PMx_abs="802.417602" NOx_abs="36230.815525" fuel_abs="3705.818930"/>
+    <tripinfo id="HDV_6_1" depart="100.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="324.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_1 hbefa_HDV_6_1" vType="HDV_6_1" vaporized="">
+        <emissions CO_abs="3263.267335" CO2_abs="9297017.997330" HC_abs="2171.274539" PMx_abs="802.567723" NOx_abs="36240.089693" fuel_abs="3706.575420"/>
     </tripinfo>
-    <tripinfo id="HDV_6_2" depart="120.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="344.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_2 hbefa_HDV_6_2" vType="HDV_6_2" vaporized="">
-        <emissions CO_abs="4246.272619" CO2_abs="17676384.502484" HC_abs="4746.489282" PMx_abs="441.430767" NOx_abs="55650.918606" fuel_abs="7047.295995"/>
+    <tripinfo id="HDV_6_2" depart="120.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="344.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_2 hbefa_HDV_6_2" vType="HDV_6_2" vaporized="">
+        <emissions CO_abs="4239.650846" CO2_abs="17681652.960487" HC_abs="4747.354403" PMx_abs="441.585484" NOx_abs="55673.894343" fuel_abs="7049.396447"/>
     </tripinfo>
-    <tripinfo id="HDV_6_3" depart="140.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="364.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_3 hbefa_HDV_6_3" vType="HDV_6_3" vaporized="">
-        <emissions CO_abs="20798.125997" CO2_abs="16838970.386470" HC_abs="1530.029277" PMx_abs="3074.882070" NOx_abs="113551.339731" fuel_abs="5582.285824"/>
+    <tripinfo id="HDV_6_3" depart="140.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="364.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_3 hbefa_HDV_6_3" vType="HDV_6_3" vaporized="">
+        <emissions CO_abs="20803.567004" CO2_abs="16843645.830558" HC_abs="1530.086809" PMx_abs="3075.592592" NOx_abs="113584.920054" fuel_abs="5583.962237"/>
     </tripinfo>
-    <tripinfo id="HDV_6_4" depart="160.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="384.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_4 hbefa_HDV_6_4" vType="HDV_6_4" vaporized="">
-        <emissions CO_abs="6472.011338" CO2_abs="18323460.305532" HC_abs="5464.505493" PMx_abs="2375.383375" NOx_abs="216456.099523" fuel_abs="7305.277231"/>
+    <tripinfo id="HDV_6_4" depart="160.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="384.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_4 hbefa_HDV_6_4" vType="HDV_6_4" vaporized="">
+        <emissions CO_abs="6471.038223" CO2_abs="18328610.411902" HC_abs="5465.219428" PMx_abs="2376.213515" NOx_abs="216521.676319" fuel_abs="7307.330497"/>
     </tripinfo>
-    <tripinfo id="HDV_6_5" depart="180.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="404.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_5 hbefa_HDV_6_5" vType="HDV_6_5" vaporized="">
-        <emissions CO_abs="7578.533077" CO2_abs="18566061.993788" HC_abs="7440.528901" PMx_abs="4666.066462" NOx_abs="233955.329183" fuel_abs="6149.127823"/>
+    <tripinfo id="HDV_6_5" depart="180.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="404.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_5 hbefa_HDV_6_5" vType="HDV_6_5" vaporized="">
+        <emissions CO_abs="7586.758348" CO2_abs="18571001.873972" HC_abs="7441.627888" PMx_abs="4667.951428" NOx_abs="234025.098048" fuel_abs="6150.899746"/>
     </tripinfo>
-    <tripinfo id="HDV_6_6" depart="200.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="424.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_6 hbefa_HDV_6_6" vType="HDV_6_6" vaporized="">
-        <emissions CO_abs="24341.635855" CO2_abs="13647310.914935" HC_abs="6345.241435" PMx_abs="6403.349847" NOx_abs="106825.273462" fuel_abs="5440.970973"/>
+    <tripinfo id="HDV_6_6" depart="200.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="424.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_6_6 hbefa_HDV_6_6" vType="HDV_6_6" vaporized="">
+        <emissions CO_abs="24347.188186" CO2_abs="13651119.322466" HC_abs="6346.196937" PMx_abs="6404.906072" NOx_abs="106858.142545" fuel_abs="5442.489323"/>
     </tripinfo>
-    <tripinfo id="HDV_12_1" depart="300.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="524.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_1 hbefa_HDV_12_1" vType="HDV_12_1" vaporized="">
-        <emissions CO_abs="3103.648835" CO2_abs="12221203.838319" HC_abs="3213.971977" PMx_abs="477.296589" NOx_abs="39733.463123" fuel_abs="4872.401628"/>
+    <tripinfo id="HDV_12_1" depart="300.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="524.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_1 hbefa_HDV_12_1" vType="HDV_12_1" vaporized="">
+        <emissions CO_abs="3102.234302" CO2_abs="12223787.951279" HC_abs="3214.369819" PMx_abs="477.418323" NOx_abs="39745.663122" fuel_abs="4873.431873"/>
     </tripinfo>
-    <tripinfo id="HDV_12_2" depart="320.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="544.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_2 hbefa_HDV_12_2" vType="HDV_12_2" vaporized="">
-        <emissions CO_abs="5616.787677" CO2_abs="4419176.440230" HC_abs="976.994776" PMx_abs="763.042558" NOx_abs="32988.901684" fuel_abs="1761.855835"/>
+    <tripinfo id="HDV_12_2" depart="320.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="544.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_2 hbefa_HDV_12_2" vType="HDV_12_2" vaporized="">
+        <emissions CO_abs="5617.698355" CO2_abs="4420132.426595" HC_abs="977.056752" PMx_abs="763.167789" NOx_abs="32995.772527" fuel_abs="1762.236973"/>
     </tripinfo>
-    <tripinfo id="HDV_12_3" depart="340.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="564.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_3 hbefa_HDV_12_3" vType="HDV_12_3" vaporized="">
-        <emissions CO_abs="14345.178070" CO2_abs="10797021.619868" HC_abs="5654.219714" PMx_abs="4796.726517" NOx_abs="71635.470859" fuel_abs="4304.603567"/>
+    <tripinfo id="HDV_12_3" depart="340.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="564.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_3 hbefa_HDV_12_3" vType="HDV_12_3" vaporized="">
+        <emissions CO_abs="14348.106304" CO2_abs="10799928.492597" HC_abs="5655.099539" PMx_abs="4797.822089" NOx_abs="71657.096488" fuel_abs="4305.762492"/>
     </tripinfo>
-    <tripinfo id="HDV_12_4" depart="360.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="584.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_4 hbefa_HDV_12_4" vType="HDV_12_4" vaporized="">
-        <emissions CO_abs="6608.745719" CO2_abs="19364313.527922" HC_abs="5645.893625" PMx_abs="2493.118549" NOx_abs="227318.389044" fuel_abs="7720.251417"/>
+    <tripinfo id="HDV_12_4" depart="360.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="584.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_4 hbefa_HDV_12_4" vType="HDV_12_4" vaporized="">
+        <emissions CO_abs="6607.385254" CO2_abs="19369839.253074" HC_abs="5646.667924" PMx_abs="2494.005844" NOx_abs="227388.370822" fuel_abs="7722.454435"/>
     </tripinfo>
-    <tripinfo id="HDV_12_5" depart="380.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="604.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_5 hbefa_HDV_12_5" vType="HDV_12_5" vaporized="">
-        <emissions CO_abs="4244.112467" CO2_abs="17336450.683171" HC_abs="5059.790855" PMx_abs="497.907329" NOx_abs="96891.658841" fuel_abs="6911.771035"/>
+    <tripinfo id="HDV_12_5" depart="380.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="604.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_5 hbefa_HDV_12_5" vType="HDV_12_5" vaporized="">
+        <emissions CO_abs="4239.721170" CO2_abs="17341555.748923" HC_abs="5060.776896" PMx_abs="498.200570" NOx_abs="96925.071320" fuel_abs="6913.806345"/>
     </tripinfo>
-    <tripinfo id="HDV_12_6" depart="400.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="624.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_6 hbefa_HDV_12_6" vType="HDV_12_6" vaporized="">
-        <emissions CO_abs="9052.173154" CO2_abs="17490033.313429" HC_abs="8948.803131" PMx_abs="7675.887993" NOx_abs="133259.542951" fuel_abs="6973.004317"/>
+    <tripinfo id="HDV_12_6" depart="400.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="624.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_6 hbefa_HDV_12_6" vType="HDV_12_6" vaporized="">
+        <emissions CO_abs="9055.005642" CO2_abs="17495263.528429" HC_abs="8950.533277" PMx_abs="7677.854816" NOx_abs="133302.709912" fuel_abs="6975.089519"/>
     </tripinfo>
-    <tripinfo id="HDV_12_7" depart="420.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="644.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_7 hbefa_HDV_12_7" vType="HDV_12_7" vaporized="">
-        <emissions CO_abs="17792.745658" CO2_abs="3395004.290905" HC_abs="2202.407561" PMx_abs="1886.700758" NOx_abs="50833.881571" fuel_abs="1353.530410"/>
+    <tripinfo id="HDV_12_7" depart="420.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="644.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_7 hbefa_HDV_12_7" vType="HDV_12_7" vaporized="">
+        <emissions CO_abs="17795.779679" CO2_abs="3395661.080036" HC_abs="2201.960126" PMx_abs="1887.057387" NOx_abs="50844.367244" fuel_abs="1353.792267"/>
     </tripinfo>
-    <tripinfo id="HDV_12_8" depart="440.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="664.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_8 hbefa_HDV_12_8" vType="HDV_12_8" vaporized="">
-        <emissions CO_abs="54222.705708" CO2_abs="11496759.570471" HC_abs="3608.836570" PMx_abs="6441.784662" NOx_abs="111951.316659" fuel_abs="4583.580697"/>
+    <tripinfo id="HDV_12_8" depart="440.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="664.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_8 hbefa_HDV_12_8" vType="HDV_12_8" vaporized="">
+        <emissions CO_abs="54234.560557" CO2_abs="11499603.647719" HC_abs="3608.852674" PMx_abs="6443.310017" NOx_abs="111983.059408" fuel_abs="4584.714584"/>
     </tripinfo>
-    <tripinfo id="HDV_12_9" depart="460.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="684.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_9 hbefa_HDV_12_9" vType="HDV_12_9" vaporized="">
-        <emissions CO_abs="7578.533077" CO2_abs="18566061.993788" HC_abs="7440.528901" PMx_abs="4666.066462" NOx_abs="233955.329183" fuel_abs="6149.127823"/>
+    <tripinfo id="HDV_12_9" depart="460.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="684.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_9 hbefa_HDV_12_9" vType="HDV_12_9" vaporized="">
+        <emissions CO_abs="7586.758348" CO2_abs="18571001.873972" HC_abs="7441.627888" PMx_abs="4667.951428" NOx_abs="234025.098048" fuel_abs="6150.899746"/>
     </tripinfo>
-    <tripinfo id="HDV_12_10" depart="480.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="704.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_10 hbefa_HDV_12_10" vType="HDV_12_10" vaporized="">
-        <emissions CO_abs="4280.632051" CO2_abs="17919198.559969" HC_abs="4522.186103" PMx_abs="401.133502" NOx_abs="26193.253269" fuel_abs="7144.099923"/>
+    <tripinfo id="HDV_12_10" depart="480.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="704.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_10 hbefa_HDV_12_10" vType="HDV_12_10" vaporized="">
+        <emissions CO_abs="4270.345214" CO2_abs="17924583.725047" HC_abs="4522.965370" PMx_abs="401.189222" NOx_abs="26208.774188" fuel_abs="7146.246906"/>
     </tripinfo>
-    <tripinfo id="HDV_12_11" depart="500.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="724.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_11 hbefa_HDV_12_11" vType="HDV_12_11" vaporized="">
-        <emissions CO_abs="20798.125997" CO2_abs="16838970.386470" HC_abs="1530.029277" PMx_abs="3074.882070" NOx_abs="113551.339731" fuel_abs="5582.285824"/>
+    <tripinfo id="HDV_12_11" depart="500.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="724.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_11 hbefa_HDV_12_11" vType="HDV_12_11" vaporized="">
+        <emissions CO_abs="20803.567004" CO2_abs="16843645.830558" HC_abs="1530.086809" PMx_abs="3075.592592" NOx_abs="113584.920054" fuel_abs="5583.962237"/>
     </tripinfo>
-    <tripinfo id="HDV_12_12" depart="520.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="744.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_12 hbefa_HDV_12_12" vType="HDV_12_12" vaporized="">
-        <emissions CO_abs="4311.236740" CO2_abs="11719665.990741" HC_abs="2684.611386" PMx_abs="452.050791" NOx_abs="41940.414000" fuel_abs="4672.446904"/>
+    <tripinfo id="HDV_12_12" depart="520.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="744.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_HDV_12_12 hbefa_HDV_12_12" vType="HDV_12_12" vaporized="">
+        <emissions CO_abs="4311.917506" CO2_abs="11722738.262011" HC_abs="2684.821742" PMx_abs="452.125031" NOx_abs="41954.979261" fuel_abs="4673.671770"/>
     </tripinfo>
-    <tripinfo id="P_7_1" depart="600.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="824.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_1 hbefa_P_7_1" vType="P_7_1" vaporized="">
-        <emissions CO_abs="89720.438378" CO2_abs="5080982.095188" HC_abs="14084.557663" PMx_abs="0" NOx_abs="72559.358104" fuel_abs="2025.711592"/>
+    <tripinfo id="P_7_1" depart="600.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="824.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_1 hbefa_P_7_1" vType="P_7_1" vaporized="">
+        <emissions CO_abs="89765.085940" CO2_abs="5081660.306288" HC_abs="14086.544536" PMx_abs="0" NOx_abs="72567.840960" fuel_abs="2025.981980"/>
     </tripinfo>
-    <tripinfo id="P_7_2" depart="620.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="844.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_2 hbefa_P_7_2" vType="P_7_2" vaporized="">
-        <emissions CO_abs="319049.648093" CO2_abs="4735859.098527" HC_abs="5763.239682" PMx_abs="0" NOx_abs="41122.659727" fuel_abs="1888.118702"/>
+    <tripinfo id="P_7_2" depart="620.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="844.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_2 hbefa_P_7_2" vType="P_7_2" vaporized="">
+        <emissions CO_abs="319139.316515" CO2_abs="4736705.622724" HC_abs="5764.814341" PMx_abs="0" NOx_abs="41130.941926" fuel_abs="1888.456191"/>
     </tripinfo>
-    <tripinfo id="P_7_3" depart="640.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="864.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_3 hbefa_P_7_3" vType="P_7_3" vaporized="">
-        <emissions CO_abs="103426.163716" CO2_abs="3162393.807102" HC_abs="8613.602308" PMx_abs="0" NOx_abs="18232.655460" fuel_abs="1264.250701"/>
+    <tripinfo id="P_7_3" depart="640.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="864.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_3 hbefa_P_7_3" vType="P_7_3" vaporized="">
+        <emissions CO_abs="103457.065492" CO2_abs="3162944.798583" HC_abs="8615.282510" PMx_abs="0" NOx_abs="18235.632884" fuel_abs="1264.471561"/>
     </tripinfo>
-    <tripinfo id="P_7_4" depart="660.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="884.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_4 hbefa_P_7_4" vType="P_7_4" vaporized="">
-        <emissions CO_abs="123881.903486" CO2_abs="3655968.101075" HC_abs="8803.775021" PMx_abs="0" NOx_abs="49545.273170" fuel_abs="1457.572992"/>
+    <tripinfo id="P_7_4" depart="660.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="884.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_4 hbefa_P_7_4" vType="P_7_4" vaporized="">
+        <emissions CO_abs="123911.572610" CO2_abs="3656620.192652" HC_abs="8804.563830" PMx_abs="0" NOx_abs="49553.311267" fuel_abs="1457.832976"/>
     </tripinfo>
-    <tripinfo id="P_7_5" depart="680.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="904.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_5 hbefa_P_7_5" vType="P_7_5" vaporized="">
-        <emissions CO_abs="7714.392555" CO2_abs="3383863.408262" HC_abs="302.981937" PMx_abs="2834.489694" NOx_abs="11376.828819" fuel_abs="1349.095226"/>
+    <tripinfo id="P_7_5" depart="680.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="904.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_5 hbefa_P_7_5" vType="P_7_5" vaporized="">
+        <emissions CO_abs="7716.011353" CO2_abs="3384528.516399" HC_abs="303.071274" PMx_abs="2835.091039" NOx_abs="11379.249449" fuel_abs="1349.360392"/>
     </tripinfo>
-    <tripinfo id="P_7_6" depart="700.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="924.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_6 hbefa_P_7_6" vType="P_7_6" vaporized="">
-        <emissions CO_abs="9396.954725" CO2_abs="5230448.319430" HC_abs="703.522515" PMx_abs="4278.980462" NOx_abs="21850.011027" fuel_abs="2085.293749"/>
+    <tripinfo id="P_7_6" depart="700.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="924.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_6 hbefa_P_7_6" vType="P_7_6" vaporized="">
+        <emissions CO_abs="9399.089376" CO2_abs="5231488.973098" HC_abs="703.833895" PMx_abs="4279.910126" NOx_abs="21854.853909" fuel_abs="2085.708646"/>
     </tripinfo>
-    <tripinfo id="P_7_7" depart="720.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="944.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_7 hbefa_P_7_7" vType="P_7_7" vaporized="">
-        <emissions CO_abs="55080.734459" CO2_abs="2517897.042858" HC_abs="928.573707" PMx_abs="558.752599" NOx_abs="6449.981043" fuel_abs="1003.846753"/>
+    <tripinfo id="P_7_7" depart="720.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="944.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_7_7 hbefa_P_7_7" vType="P_7_7" vaporized="">
+        <emissions CO_abs="55095.194079" CO2_abs="2518319.320502" HC_abs="928.811718" PMx_abs="558.870531" NOx_abs="6451.205468" fuel_abs="1004.015108"/>
     </tripinfo>
-    <tripinfo id="P_14_1" depart="800.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1024.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_1 hbefa_P_14_1" vType="P_14_1" vaporized="">
-        <emissions CO_abs="431274.888495" CO2_abs="5604548.691788" HC_abs="3915.585058" PMx_abs="0" NOx_abs="47041.344109" fuel_abs="2234.451930"/>
+    <tripinfo id="P_14_1" depart="800.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1024.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_1 hbefa_P_14_1" vType="P_14_1" vaporized="">
+        <emissions CO_abs="431364.490951" CO2_abs="5605320.508038" HC_abs="3916.433696" PMx_abs="0" NOx_abs="47048.127818" fuel_abs="2234.759635"/>
     </tripinfo>
-    <tripinfo id="P_14_2" depart="820.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1044.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_2 hbefa_P_14_2" vType="P_14_2" vaporized="">
-        <emissions CO_abs="73708.347392" CO2_abs="4102267.872679" HC_abs="11978.600122" PMx_abs="0" NOx_abs="58092.853260" fuel_abs="1635.513778"/>
+    <tripinfo id="P_14_2" depart="820.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1044.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_2 hbefa_P_14_2" vType="P_14_2" vaporized="">
+        <emissions CO_abs="73752.994954" CO2_abs="4102946.083779" HC_abs="11980.586995" PMx_abs="0" NOx_abs="58101.336116" fuel_abs="1635.784166"/>
     </tripinfo>
-    <tripinfo id="P_14_3" depart="840.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1064.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_3 hbefa_P_14_3" vType="P_14_3" vaporized="">
-        <emissions CO_abs="303850.618595" CO2_abs="4962288.386781" HC_abs="8476.025657" PMx_abs="0" NOx_abs="45229.017068" fuel_abs="1978.392296"/>
+    <tripinfo id="P_14_3" depart="840.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1064.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_3 hbefa_P_14_3" vType="P_14_3" vaporized="">
+        <emissions CO_abs="303940.352965" CO2_abs="4963209.619088" HC_abs="8478.326336" PMx_abs="0" NOx_abs="45238.797759" fuel_abs="1978.759570"/>
     </tripinfo>
-    <tripinfo id="P_14_4" depart="860.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1084.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_4 hbefa_P_14_4" vType="P_14_4" vaporized="">
-        <emissions CO_abs="6945.961639" CO2_abs="2630597.056840" HC_abs="355.525600" PMx_abs="1749.576997" NOx_abs="10744.828219" fuel_abs="1048.779411"/>
+    <tripinfo id="P_14_4" depart="860.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1084.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_4 hbefa_P_14_4" vType="P_14_4" vaporized="">
+        <emissions CO_abs="6947.384888" CO2_abs="2631077.484210" HC_abs="355.654730" PMx_abs="1749.958361" NOx_abs="10746.870130" fuel_abs="1048.970948"/>
     </tripinfo>
-    <tripinfo id="P_14_5" depart="880.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1104.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_5 hbefa_P_14_5" vType="P_14_5" vaporized="">
-        <emissions CO_abs="3466.165887" CO2_abs="5230448.319430" HC_abs="365.743115" PMx_abs="1531.327600" NOx_abs="12665.036385" fuel_abs="2085.293749"/>
+    <tripinfo id="P_14_5" depart="880.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1104.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_5 hbefa_P_14_5" vType="P_14_5" vaporized="">
+        <emissions CO_abs="3466.951609" CO2_abs="5231488.973098" HC_abs="365.904526" PMx_abs="1531.659012" NOx_abs="12667.846082" fuel_abs="2085.708646"/>
     </tripinfo>
-    <tripinfo id="P_14_6" depart="900.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1124.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_6 hbefa_P_14_6" vType="P_14_6" vaporized="">
-        <emissions CO_abs="11285.374444" CO2_abs="5230448.319430" HC_abs="804.270718" PMx_abs="5026.613347" NOx_abs="23730.405896" fuel_abs="2085.293749"/>
+    <tripinfo id="P_14_6" depart="900.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1124.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_6 hbefa_P_14_6" vType="P_14_6" vaporized="">
+        <emissions CO_abs="11287.939231" CO2_abs="5231488.973098" HC_abs="804.629947" PMx_abs="5027.706331" NOx_abs="23735.664003" fuel_abs="2085.708646"/>
     </tripinfo>
-    <tripinfo id="P_14_7" depart="920.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1144.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_7 hbefa_P_14_7" vType="P_14_7" vaporized="">
-        <emissions CO_abs="136076.988054" CO2_abs="3185006.346520" HC_abs="6457.408151" PMx_abs="0" NOx_abs="14663.595667" fuel_abs="1269.811536"/>
+    <tripinfo id="P_14_7" depart="920.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1144.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_7 hbefa_P_14_7" vType="P_14_7" vaporized="">
+        <emissions CO_abs="136113.462770" CO2_abs="3185531.611444" HC_abs="6459.057860" PMx_abs="0" NOx_abs="14666.258076" fuel_abs="1270.020951"/>
     </tripinfo>
-    <tripinfo id="P_14_8" depart="940.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1164.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_8 hbefa_P_14_8" vType="P_14_8" vaporized="">
-        <emissions CO_abs="3000.101863" CO2_abs="2046268.395510" HC_abs="144.003021" PMx_abs="1096.620222" NOx_abs="7726.649886" fuel_abs="815.816669"/>
+    <tripinfo id="P_14_8" depart="940.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1164.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_8 hbefa_P_14_8" vType="P_14_8" vaporized="">
+        <emissions CO_abs="3000.733851" CO2_abs="2046638.883259" HC_abs="144.057086" PMx_abs="1096.848151" NOx_abs="7728.102184" fuel_abs="815.964375"/>
     </tripinfo>
-    <tripinfo id="P_14_9" depart="960.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1184.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_9 hbefa_P_14_9" vType="P_14_9" vaporized="">
-        <emissions CO_abs="92004.466144" CO2_abs="2546121.784729" HC_abs="1360.214034" PMx_abs="0" NOx_abs="3525.996521" fuel_abs="1015.101113"/>
+    <tripinfo id="P_14_9" depart="960.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1184.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_9 hbefa_P_14_9" vType="P_14_9" vaporized="">
+        <emissions CO_abs="92026.897594" CO2_abs="2546523.438261" HC_abs="1360.519753" PMx_abs="0" NOx_abs="3526.682270" fuel_abs="1015.261243"/>
     </tripinfo>
-    <tripinfo id="P_14_10" depart="980.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1204.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_10 hbefa_P_14_10" vType="P_14_10" vaporized="">
-        <emissions CO_abs="8843.435275" CO2_abs="2922216.782956" HC_abs="295.206167" PMx_abs="3286.468608" NOx_abs="11940.719575" fuel_abs="1165.045440"/>
+    <tripinfo id="P_14_10" depart="980.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1204.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_10 hbefa_P_14_10" vType="P_14_10" vaporized="">
+        <emissions CO_abs="8845.276367" CO2_abs="2922788.004930" HC_abs="295.279976" PMx_abs="3287.164509" NOx_abs="11943.239816" fuel_abs="1165.273175"/>
     </tripinfo>
-    <tripinfo id="P_14_11" depart="1000.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1224.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_11 hbefa_P_14_11" vType="P_14_11" vaporized="">
-        <emissions CO_abs="13982.817390" CO2_abs="2930086.552345" HC_abs="17974.198994" PMx_abs="0" NOx_abs="29007.201190" fuel_abs="1181.995241"/>
+    <tripinfo id="P_14_11" depart="1000.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1224.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_11 hbefa_P_14_11" vType="P_14_11" vaporized="">
+        <emissions CO_abs="13997.735123" CO2_abs="2930594.689037" HC_abs="17976.680059" PMx_abs="0" NOx_abs="29010.733289" fuel_abs="1182.202582"/>
     </tripinfo>
-    <tripinfo id="P_14_12" depart="1020.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1244.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_12 hbefa_P_14_12" vType="P_14_12" vaporized="">
-        <emissions CO_abs="123881.903486" CO2_abs="3655968.101075" HC_abs="8803.775021" PMx_abs="0" NOx_abs="49545.273170" fuel_abs="1457.572992"/>
+    <tripinfo id="P_14_12" depart="1020.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1244.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_12 hbefa_P_14_12" vType="P_14_12" vaporized="">
+        <emissions CO_abs="123911.572610" CO2_abs="3656620.192652" HC_abs="8804.563830" PMx_abs="0" NOx_abs="49553.311267" fuel_abs="1457.832976"/>
     </tripinfo>
-    <tripinfo id="P_14_13" depart="1040.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1264.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_13 hbefa_P_14_13" vType="P_14_13" vaporized="">
-        <emissions CO_abs="92881.190766" CO2_abs="3524216.867502" HC_abs="839.542628" PMx_abs="0" NOx_abs="4292.740126" fuel_abs="1405.046934"/>
+    <tripinfo id="P_14_13" depart="1040.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1264.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_13 hbefa_P_14_13" vType="P_14_13" vaporized="">
+        <emissions CO_abs="92907.221086" CO2_abs="3524774.516741" HC_abs="839.770424" PMx_abs="0" NOx_abs="4293.525528" fuel_abs="1405.269263"/>
     </tripinfo>
-    <tripinfo id="P_14_14" depart="1060.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1284.00" arrivalLane="rend_0" arrivalPos="518.68" arrivalSpeed="19.44" duration="224.00" routeLength="3499.88" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_14 hbefa_P_14_14" vType="P_14_14" vaporized="">
-        <emissions CO_abs="134695.787032" CO2_abs="3025439.143834" HC_abs="3981.028513" PMx_abs="0" NOx_abs="15014.964409" fuel_abs="1206.194270"/>
+    <tripinfo id="P_14_14" depart="1060.00" departLane="beg_0" departPos="0.00" departSpeed="19.44" departDelay="0.00" arrival="1284.00" arrivalLane="rend_0" arrivalPos="515.29" arrivalSpeed="19.44" duration="224.00" routeLength="3496.49" waitSteps="0" rerouteNo="0" devices="tripinfo_P_14_14 hbefa_P_14_14" vType="P_14_14" vaporized="">
+        <emissions CO_abs="134735.216882" CO2_abs="3026004.930684" HC_abs="3982.088759" PMx_abs="0" NOx_abs="15018.030595" fuel_abs="1206.419841"/>
     </tripinfo>
 </tripinfos>

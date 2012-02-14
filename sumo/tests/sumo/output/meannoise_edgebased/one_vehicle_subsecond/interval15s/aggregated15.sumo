@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Fri Dec  2 20:45:38 2011 by SUMO sumo Version dev-SVN-r11571
+<!-- generated on 02/13/12 15:05:30 by SUMO sumo Version dev-SVN-r11881
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -33,14 +33,14 @@
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
         <edge id="3/1to2/1" sampledSeconds="14.95" noise="61.77" traveltime="39.05"/>
-        <edge id="4/1to3/1" sampledSeconds="0.05" noise="40.01" traveltime="39.05"/>
+        <edge id="4/1to3/1" sampledSeconds="0.35" noise="46.03" traveltime="39.05"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
         <edge id="3/1to2/1" sampledSeconds="15.00" noise="61.77" traveltime="39.05"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
         <edge id="2/1to1/1" sampledSeconds="5.90" noise="57.72" traveltime="39.05"/>
-        <edge id="3/1to2/1" sampledSeconds="9.10" noise="59.60" traveltime="39.05"/>
+        <edge id="3/1to2/1" sampledSeconds="9.40" noise="59.75" traveltime="39.05"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
         <edge id="2/1to1/1" sampledSeconds="15.00" noise="61.77" traveltime="39.05"/>
@@ -50,7 +50,7 @@
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="11.85" noise="60.77" traveltime="39.05"/>
-        <edge id="2/1to1/1" sampledSeconds="3.15" noise="55.07" traveltime="39.05"/>
+        <edge id="2/1to1/1" sampledSeconds="3.45" noise="55.45" traveltime="39.05"/>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
         <edge id="1/1to0/1" sampledSeconds="15.00" noise="61.77" traveltime="39.05"/>
