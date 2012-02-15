@@ -540,7 +540,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (predIt != myVehicles.end()) {
         // ok, there is one (a leader)
         MSVehicle* leader = *predIt;
-        SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+        SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + aVehicle->getVehicleType().getMinGap();
         SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos+aVehicle->getVehicleType().getMinGap());
         if (gap < frontGapNeeded) {
             // too close to the leader on this lane
@@ -578,7 +578,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // check for in-lapping vehicle
         MSVehicle* leader = getPartialOccupator();
         if (leader != 0) {
-            SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + aVehicle->getVehicleType().getMinGap();
             SUMOReal gap = getPartialOccupatorEnd() - pos;
             if (gap <= frontGapNeeded) {
                 // too close to the leader on this lane
