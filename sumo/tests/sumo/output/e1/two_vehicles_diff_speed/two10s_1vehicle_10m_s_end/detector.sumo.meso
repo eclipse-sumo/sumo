@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/23/10 15:25:42 by SUMO sumo Version dev-SVN-r9400
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 02/15/12 11:58:35 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
@@ -29,7 +29,7 @@
 
 <detector>
     <interval begin="0.00" end="10.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="0.00" end="10.00" id="4/1to3/1" sampledSeconds="13.00" density="13.32" occupancy="6.66" waitingTime="0.00" speed="9.69" departed="2" arrived="0" entered="0" left="0"/>
+    <interval begin="0.00" end="10.00" id="4/1to3/1" sampledSeconds="13.00" density="13.32" occupancy="3.99" waitingTime="0.00" speed="9.69" departed="2" arrived="0" entered="0" left="0"/>
     <interval begin="10.00" end="15.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="10.00" end="15.00" id="4/1to3/1" sampledSeconds="5.76" density="11.80" occupancy="5.90" waitingTime="0.00" speed="9.13" departed="0" arrived="0" entered="0" left="1"/>
+    <interval begin="10.00" end="15.00" id="4/1to3/1" sampledSeconds="6.76" density="13.85" occupancy="4.16" waitingTime="0.00" speed="9.11" departed="0" arrived="0" entered="0" left="1"/>
 </detector>

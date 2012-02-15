@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/10 08:19:04 by SUMO sumo Version dev-SVN-r8511
-<configuration>
+<!-- generated on 02/15/12 11:58:31 by SUMO sumo Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -11,6 +13,7 @@
     <time>
         <begin value="0"/>
         <end value="100"/>
+        <step-length value="0.1"/>
     </time>
 
     <report>
@@ -30,7 +33,7 @@
     <interval begin="10.00" end="20.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="20.00" end="30.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="30.00" end="40.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="40.00" end="50.00" id="3/1to2/1" sampledSeconds="9.76" density="10.00" occupancy="5.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="40.00" end="50.00" id="3/1to2/1" sampledSeconds="9.76" density="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="1"/>
     <interval begin="50.00" end="60.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="60.00" end="70.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="70.00" end="80.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
