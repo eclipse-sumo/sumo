@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/13/12 14:19:45 by SUMO sumo Version dev-SVN-r11881
+<!-- generated on 02/15/12 11:25:00 by SUMO sumo Version dev-SVN-r11891
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -32,27 +32,27 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="1" type="KRAUSS_DEFAULT" depart="3.00" arrival="143.00">
+    <vehicle id="1" type="KRAUSS_DEFAULT" depart="3.00" arrival="142.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="2" type="KRAUSS_DEFAULT" depart="5.00" arrival="146.00">
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="6.00" arrival="147.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="3" type="KRAUSS_DEFAULT" depart="8.00" arrival="149.00">
+    <vehicle id="3" type="KRAUSS_DEFAULT" depart="9.00" arrival="149.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="4" type="KRAUSS_DEFAULT" depart="10.00" arrival="150.00">
+    <vehicle id="4" type="KRAUSS_DEFAULT" depart="12.00" arrival="151.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="5" type="KRAUSS_DEFAULT" depart="13.00" arrival="154.00">
+    <vehicle id="5" type="KRAUSS_DEFAULT" depart="14.00" arrival="155.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="6" type="KRAUSS_DEFAULT" depart="15.00" arrival="156.00">
+    <vehicle id="6" type="KRAUSS_DEFAULT" depart="17.00" arrival="158.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 

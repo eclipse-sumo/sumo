@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/14/12 12:11:50 by SUMO sumo Version dev-SVN-r11888
+<!-- generated on 02/15/12 11:30:16 by SUMO sumo Version dev-SVN-r11891
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -60,313 +60,306 @@
         <vehicle id="vertical.0" lane="3fi_0" pos="15.93" x="501.65" y="15.93" speed="3.57"/>
     </timestep>
     <timestep time="120.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="3fi_0" pos="135.57" x="501.65" y="135.57" speed="10.85"/>
-        <vehicle id="always_left.1" lane="3fi_0" pos="33.73" x="501.65" y="33.73" speed="5.94"/>
+        <vehicle id="always_left.0" lane="3fi_0" pos="135.83" x="501.65" y="135.83" speed="10.92"/>
+        <vehicle id="always_left.1" lane="3fi_0" pos="35.28" x="501.65" y="35.28" speed="5.96"/>
         <vehicle id="always_left.2" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="1fi_0" pos="125.25" x="125.25" y="498.35" speed="10.99"/>
-        <vehicle id="always_right.1" lane="1fi_0" pos="36.75" x="36.75" y="498.35" speed="5.98"/>
+        <vehicle id="always_right.0" lane="1fi_0" pos="125.41" x="125.41" y="498.35" speed="10.72"/>
+        <vehicle id="always_right.1" lane="1fi_0" pos="35.81" x="35.81" y="498.35" speed="5.82"/>
         <vehicle id="always_right.2" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="2fi_0" pos="131.04" x="868.96" y="501.65" speed="10.97"/>
-        <vehicle id="horizontal.1" lane="2fi_0" pos="34.91" x="965.09" y="501.65" speed="5.83"/>
+        <vehicle id="horizontal.0" lane="2fi_0" pos="131.10" x="868.90" y="501.65" speed="10.95"/>
+        <vehicle id="horizontal.1" lane="2fi_0" pos="34.58" x="965.42" y="501.65" speed="5.72"/>
         <vehicle id="horizontal.2" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="3fi_0" pos="86.03" x="501.65" y="86.03" speed="9.77"/>
-        <vehicle id="vertical.1" lane="3fi_0" pos="14.95" x="501.65" y="14.95" speed="3.46"/>
+        <vehicle id="vertical.0" lane="3fi_0" pos="86.12" x="501.65" y="86.12" speed="10.04"/>
+        <vehicle id="vertical.1" lane="3fi_0" pos="12.41" x="501.65" y="12.41" speed="3.06"/>
     </timestep>
     <timestep time="130.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="3fi_0" pos="243.92" x="501.65" y="243.92" speed="10.75"/>
-        <vehicle id="always_left.1" lane="3fi_0" pos="124.36" x="501.65" y="124.36" speed="10.89"/>
-        <vehicle id="always_left.2" lane="3fi_0" pos="32.88" x="501.65" y="32.88" speed="5.62"/>
+        <vehicle id="always_left.0" lane="3fi_0" pos="245.34" x="501.65" y="245.34" speed="10.73"/>
+        <vehicle id="always_left.1" lane="3fi_0" pos="126.54" x="501.65" y="126.54" speed="11.02"/>
+        <vehicle id="always_left.2" lane="3fi_0" pos="36.60" x="501.65" y="36.60" speed="6.25"/>
         <vehicle id="always_left.3" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="1fi_0" pos="233.62" x="233.62" y="498.35" speed="10.72"/>
-        <vehicle id="always_right.1" lane="1fi_0" pos="127.25" x="127.25" y="498.35" speed="11.03"/>
-        <vehicle id="always_right.2" lane="1fi_0" pos="33.74" x="33.74" y="498.35" speed="5.81"/>
+        <vehicle id="always_right.0" lane="1fi_0" pos="234.40" x="234.40" y="498.35" speed="11.03"/>
+        <vehicle id="always_right.1" lane="1fi_0" pos="123.90" x="123.90" y="498.35" speed="10.87"/>
+        <vehicle id="always_right.2" lane="1fi_0" pos="32.67" x="32.67" y="498.35" speed="5.35"/>
         <vehicle id="always_right.3" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="2fi_0" pos="240.44" x="759.56" y="501.65" speed="10.90"/>
-        <vehicle id="horizontal.1" lane="2fi_0" pos="124.00" x="876.00" y="501.65" speed="11.07"/>
-        <vehicle id="horizontal.2" lane="2fi_0" pos="41.36" x="958.64" y="501.65" speed="6.65"/>
+        <vehicle id="horizontal.0" lane="2fi_0" pos="240.43" x="759.57" y="501.65" speed="11.07"/>
+        <vehicle id="horizontal.1" lane="2fi_0" pos="127.58" x="872.42" y="501.65" speed="10.95"/>
+        <vehicle id="horizontal.2" lane="2fi_0" pos="31.55" x="968.45" y="501.65" speed="5.27"/>
         <vehicle id="horizontal.3" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="3fi_0" pos="194.99" x="501.65" y="194.99" speed="10.73"/>
-        <vehicle id="vertical.1" lane="3fi_0" pos="82.76" x="501.65" y="82.76" speed="9.66"/>
-        <vehicle id="vertical.2" lane="3fi_0" pos="12.73" x="501.65" y="12.73" speed="3.36"/>
+        <vehicle id="vertical.0" lane="3fi_0" pos="194.81" x="501.65" y="194.81" speed="10.89"/>
+        <vehicle id="vertical.1" lane="3fi_0" pos="72.79" x="501.65" y="72.79" speed="8.68"/>
+        <vehicle id="vertical.2" lane="3fi_0" pos="13.80" x="501.65" y="13.80" speed="3.42"/>
     </timestep>
     <timestep time="140.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="3si_0" pos="116.95" x="508.25" y="368.45" speed="13.66"/>
-        <vehicle id="always_left.1" lane="3fi_0" pos="233.55" x="501.65" y="233.55" speed="11.03"/>
-        <vehicle id="always_left.2" lane="3fi_0" pos="119.55" x="501.65" y="119.55" speed="10.81"/>
-        <vehicle id="always_left.3" lane="3fi_0" pos="33.63" x="501.65" y="33.63" speed="5.51"/>
+        <vehicle id="always_left.0" lane="3si_0" pos="120.05" x="508.25" y="371.55" speed="13.66"/>
+        <vehicle id="always_left.1" lane="3fi_0" pos="235.15" x="501.65" y="235.15" speed="10.81"/>
+        <vehicle id="always_left.2" lane="3fi_0" pos="127.92" x="501.65" y="127.92" speed="10.85"/>
+        <vehicle id="always_left.3" lane="3fi_0" pos="38.86" x="501.65" y="38.86" speed="6.12"/>
         <vehicle id="always_left.4" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="1si_2" pos="109.71" x="361.21" y="498.35" speed="13.84"/>
-        <vehicle id="always_right.1" lane="1fi_0" pos="236.46" x="236.46" y="498.35" speed="11.09"/>
-        <vehicle id="always_right.2" lane="1fi_0" pos="121.20" x="121.20" y="498.35" speed="10.79"/>
-        <vehicle id="always_right.3" lane="1fi_0" pos="36.47" x="36.47" y="498.35" speed="5.88"/>
+        <vehicle id="always_right.0" lane="1si_2" pos="109.43" x="360.93" y="498.35" speed="13.83"/>
+        <vehicle id="always_right.1" lane="1fi_0" pos="232.53" x="232.53" y="498.35" speed="10.81"/>
+        <vehicle id="always_right.2" lane="1fi_0" pos="119.65" x="119.65" y="498.35" speed="11.06"/>
+        <vehicle id="always_right.3" lane="1fi_0" pos="36.59" x="36.59" y="498.35" speed="6.24"/>
         <vehicle id="always_right.4" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="2si_1" pos="116.67" x="631.83" y="504.95" speed="13.88"/>
-        <vehicle id="horizontal.1" lane="2fi_0" pos="233.14" x="766.86" y="501.65" speed="10.72"/>
-        <vehicle id="horizontal.2" lane="2fi_0" pos="138.60" x="861.40" y="501.65" speed="11.09"/>
-        <vehicle id="horizontal.3" lane="2fi_0" pos="35.82" x="964.18" y="501.65" speed="6.10"/>
+        <vehicle id="horizontal.0" lane="2si_1" pos="116.71" x="631.79" y="504.95" speed="13.55"/>
+        <vehicle id="horizontal.1" lane="2fi_0" pos="236.76" x="763.24" y="501.65" speed="11.05"/>
+        <vehicle id="horizontal.2" lane="2fi_0" pos="118.97" x="881.03" y="501.65" speed="11.09"/>
+        <vehicle id="horizontal.3" lane="2fi_0" pos="35.01" x="964.99" y="501.65" speed="5.51"/>
         <vehicle id="horizontal.4" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="3si_1" pos="61.20" x="504.95" y="312.70" speed="13.83"/>
-        <vehicle id="vertical.1" lane="3fi_0" pos="190.92" x="501.65" y="190.92" speed="10.90"/>
-        <vehicle id="vertical.2" lane="3fi_0" pos="82.05" x="501.65" y="82.05" speed="9.72"/>
-        <vehicle id="vertical.3" lane="3fi_0" pos="14.50" x="501.65" y="14.50" speed="3.44"/>
+        <vehicle id="vertical.0" lane="3si_1" pos="60.04" x="504.95" y="311.54" speed="13.76"/>
+        <vehicle id="vertical.1" lane="3fi_0" pos="179.04" x="501.65" y="179.04" speed="10.84"/>
+        <vehicle id="vertical.2" lane="3fi_0" pos="80.30" x="501.65" y="80.30" speed="9.35"/>
+        <vehicle id="vertical.3" lane="3fi_0" pos="12.49" x="501.65" y="12.49" speed="3.18"/>
     </timestep>
     <timestep time="150.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="3si_0" pos="233.27" x="508.25" y="484.77" speed="3.46"/>
-        <vehicle id="always_left.1" lane="3si_0" pos="102.35" x="508.25" y="353.85" speed="13.87"/>
-        <vehicle id="always_left.2" lane="3fi_0" pos="228.62" x="501.65" y="228.62" speed="11.00"/>
-        <vehicle id="always_left.3" lane="3fi_0" pos="118.73" x="501.65" y="118.73" speed="10.94"/>
-        <vehicle id="always_left.4" lane="3fi_0" pos="38.77" x="501.65" y="38.77" speed="6.49"/>
-        <vehicle id="always_left.5" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="1si_2" pos="231.75" x="483.25" y="498.35" speed="5.25"/>
-        <vehicle id="always_right.1" lane="1si_2" pos="112.15" x="363.65" y="498.35" speed="13.66"/>
-        <vehicle id="always_right.2" lane="1fi_0" pos="230.20" x="230.20" y="498.35" speed="11.10"/>
-        <vehicle id="always_right.3" lane="1fi_0" pos="126.02" x="126.02" y="498.35" speed="10.90"/>
-        <vehicle id="always_right.4" lane="1fi_0" pos="35.14" x="35.14" y="498.35" speed="5.93"/>
+        <vehicle id="always_left.0" lane="3si_0" pos="233.97" x="508.25" y="485.47" speed="3.21"/>
+        <vehicle id="always_left.1" lane="3si_0" pos="105.82" x="508.25" y="357.32" speed="13.75"/>
+        <vehicle id="always_left.2" lane="3fi_0" pos="236.40" x="501.65" y="236.40" speed="10.99"/>
+        <vehicle id="always_left.3" lane="3fi_0" pos="131.07" x="501.65" y="131.07" speed="10.76"/>
+        <vehicle id="always_left.4" lane="3fi_0" pos="31.00" x="501.65" y="31.00" speed="5.27"/>
+        <vehicle id="always_right.0" lane="1si_2" pos="231.58" x="483.08" y="498.35" speed="5.40"/>
+        <vehicle id="always_right.1" lane="1si_2" pos="106.51" x="358.01" y="498.35" speed="13.70"/>
+        <vehicle id="always_right.2" lane="1fi_0" pos="228.78" x="228.78" y="498.35" speed="10.88"/>
+        <vehicle id="always_right.3" lane="1fi_0" pos="131.58" x="131.58" y="498.35" speed="10.73"/>
+        <vehicle id="always_right.4" lane="1fi_0" pos="35.54" x="35.54" y="498.35" speed="6.06"/>
         <vehicle id="always_right.5" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane=":0_5_0" pos="13.74" x="497.73" y="503.33" speed="12.40"/>
-        <vehicle id="horizontal.1" lane="2si_1" pos="107.40" x="641.10" y="504.95" speed="13.51"/>
-        <vehicle id="horizontal.2" lane="2fi_0" pos="247.10" x="752.90" y="501.65" speed="10.76"/>
-        <vehicle id="horizontal.3" lane="2fi_0" pos="125.64" x="874.36" y="501.65" speed="10.91"/>
-        <vehicle id="horizontal.4" lane="2fi_0" pos="36.20" x="963.80" y="501.65" speed="5.98"/>
+        <vehicle id="horizontal.0" lane=":0_5_0" pos="13.88" x="497.59" y="503.30" speed="12.38"/>
+        <vehicle id="horizontal.1" lane="2si_1" pos="108.81" x="639.69" y="504.95" speed="13.76"/>
+        <vehicle id="horizontal.2" lane="2fi_0" pos="227.63" x="772.37" y="501.65" speed="10.90"/>
+        <vehicle id="horizontal.3" lane="2fi_0" pos="123.97" x="876.03" y="501.65" speed="10.72"/>
+        <vehicle id="horizontal.4" lane="2fi_0" pos="36.70" x="963.30" y="501.65" speed="5.98"/>
         <vehicle id="horizontal.5" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="3si_1" pos="197.80" x="504.95" y="449.30" speed="13.75"/>
-        <vehicle id="vertical.1" lane="3si_1" pos="53.04" x="504.95" y="304.54" speed="13.45"/>
-        <vehicle id="vertical.2" lane="3fi_0" pos="189.85" x="501.65" y="189.85" speed="10.79"/>
-        <vehicle id="vertical.3" lane="3fi_0" pos="84.91" x="501.65" y="84.91" speed="9.87"/>
-        <vehicle id="vertical.4" lane="3fi_0" pos="13.17" x="501.65" y="13.17" speed="2.88"/>
+        <vehicle id="vertical.0" lane="3si_1" pos="196.90" x="504.95" y="448.40" speed="13.70"/>
+        <vehicle id="vertical.1" lane="3si_1" pos="38.94" x="504.95" y="290.44" speed="12.75"/>
+        <vehicle id="vertical.2" lane="3fi_0" pos="188.32" x="501.65" y="188.32" speed="10.80"/>
+        <vehicle id="vertical.3" lane="3fi_0" pos="80.88" x="501.65" y="80.88" speed="9.69"/>
+        <vehicle id="vertical.4" lane="3fi_0" pos="9.44" x="501.65" y="9.44" speed="2.62"/>
     </timestep>
     <timestep time="160.00" id="test1" vType="SUMO_DEFAULT_TYPE">
         <vehicle id="always_left.0" lane="3si_0" pos="235.15" x="508.25" y="486.65" speed="0.00"/>
-        <vehicle id="always_left.1" lane="3si_0" pos="225.93" x="508.25" y="477.43" speed="5.61"/>
-        <vehicle id="always_left.2" lane="3si_0" pos="99.20" x="508.25" y="350.70" speed="13.59"/>
-        <vehicle id="always_left.3" lane="3fi_0" pos="228.11" x="501.65" y="228.11" speed="11.06"/>
-        <vehicle id="always_left.4" lane="3fi_0" pos="134.13" x="501.65" y="134.13" speed="10.87"/>
-        <vehicle id="always_left.5" lane="3fi_0" pos="31.25" x="501.65" y="31.25" speed="5.33"/>
-        <vehicle id="always_left.6" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="4o_0" pos="32.54" x="501.65" y="543.89" speed="8.37"/>
-        <vehicle id="always_right.1" lane="1si_2" pos="232.00" x="483.50" y="498.35" speed="5.00"/>
-        <vehicle id="always_right.2" lane="1si_2" pos="105.32" x="356.82" y="498.35" speed="13.82"/>
-        <vehicle id="always_right.3" lane="1fi_0" pos="234.94" x="234.94" y="498.35" speed="10.92"/>
-        <vehicle id="always_right.4" lane="1fi_0" pos="125.02" x="125.02" y="498.35" speed="11.11"/>
-        <vehicle id="always_right.5" lane="1fi_0" pos="32.39" x="32.39" y="498.35" speed="5.69"/>
+        <vehicle id="always_left.1" lane="3si_0" pos="226.71" x="508.25" y="478.21" speed="5.00"/>
+        <vehicle id="always_left.2" lane="3si_0" pos="106.34" x="508.25" y="357.84" speed="13.85"/>
+        <vehicle id="always_left.3" lane="3fi_0" pos="240.30" x="501.65" y="240.30" speed="10.77"/>
+        <vehicle id="always_left.4" lane="3fi_0" pos="117.82" x="501.65" y="117.82" speed="10.92"/>
+        <vehicle id="always_left.5" lane="3fi_0" pos="29.17" x="501.65" y="29.17" speed="5.24"/>
+        <vehicle id="always_right.0" lane="4o_0" pos="31.37" x="501.65" y="542.72" speed="8.39"/>
+        <vehicle id="always_right.1" lane="1si_2" pos="230.89" x="482.39" y="498.35" speed="6.14"/>
+        <vehicle id="always_right.2" lane="1si_2" pos="103.81" x="355.31" y="498.35" speed="13.78"/>
+        <vehicle id="always_right.3" lane="1fi_0" pos="240.29" x="240.29" y="498.35" speed="10.73"/>
+        <vehicle id="always_right.4" lane="1fi_0" pos="127.89" x="127.89" y="498.35" speed="10.80"/>
+        <vehicle id="always_right.5" lane="1fi_0" pos="36.68" x="36.68" y="498.35" speed="5.97"/>
         <vehicle id="always_right.6" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="1o_0" pos="99.63" x="389.02" y="501.65" speed="10.78"/>
-        <vehicle id="horizontal.1" lane=":0_5_0" pos="6.19" x="505.18" y="504.53" speed="12.50"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="123.81" x="624.69" y="504.95" speed="13.58"/>
-        <vehicle id="horizontal.3" lane="2fi_0" pos="233.98" x="766.02" y="501.65" speed="10.93"/>
-        <vehicle id="horizontal.4" lane="2fi_0" pos="129.08" x="870.92" y="501.65" speed="10.77"/>
-        <vehicle id="horizontal.5" lane="2fi_0" pos="38.08" x="961.92" y="501.65" speed="6.24"/>
+        <vehicle id="horizontal.0" lane="1o_0" pos="100.24" x="388.41" y="501.65" speed="10.93"/>
+        <vehicle id="horizontal.1" lane=":0_5_0" pos="7.37" x="504.00" y="504.45" speed="12.48"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="100.15" x="648.35" y="504.95" speed="13.56"/>
+        <vehicle id="horizontal.3" lane="2fi_0" pos="232.83" x="767.17" y="501.65" speed="11.04"/>
+        <vehicle id="horizontal.4" lane="2fi_0" pos="125.52" x="874.48" y="501.65" speed="11.11"/>
+        <vehicle id="horizontal.5" lane="2fi_0" pos="35.42" x="964.58" y="501.65" speed="5.68"/>
         <vehicle id="horizontal.6" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
         <vehicle id="vertical.0" lane="3si_1" pos="235.15" x="504.95" y="486.65" speed="0.00"/>
-        <vehicle id="vertical.1" lane="3si_1" pos="190.17" x="504.95" y="441.67" speed="13.58"/>
-        <vehicle id="vertical.2" lane="3si_1" pos="52.88" x="504.95" y="304.38" speed="13.54"/>
-        <vehicle id="vertical.3" lane="3fi_0" pos="193.07" x="501.65" y="193.07" speed="10.81"/>
-        <vehicle id="vertical.4" lane="3fi_0" pos="78.65" x="501.65" y="78.65" speed="9.43"/>
-        <vehicle id="vertical.5" lane="3fi_0" pos="13.60" x="501.65" y="13.60" speed="3.53"/>
+        <vehicle id="vertical.1" lane="3si_1" pos="175.64" x="504.95" y="427.14" speed="13.75"/>
+        <vehicle id="vertical.2" lane="3si_1" pos="49.16" x="504.95" y="300.66" speed="13.21"/>
+        <vehicle id="vertical.3" lane="3fi_0" pos="189.23" x="501.65" y="189.23" speed="10.84"/>
+        <vehicle id="vertical.4" lane="3fi_0" pos="65.58" x="501.65" y="65.58" speed="8.28"/>
+        <vehicle id="vertical.5" lane="3fi_0" pos="8.75" x="501.65" y="8.75" speed="2.30"/>
     </timestep>
     <timestep time="170.00" id="test1" vType="SUMO_DEFAULT_TYPE">
         <vehicle id="always_left.0" lane="3si_0" pos="235.15" x="508.25" y="486.65" speed="0.00"/>
-        <vehicle id="always_left.1" lane="3si_0" pos="230.15" x="508.25" y="481.65" speed="0.00"/>
-        <vehicle id="always_left.2" lane="3si_0" pos="221.44" x="508.25" y="472.94" speed="5.09"/>
-        <vehicle id="always_left.3" lane="3si_0" pos="99.74" x="508.25" y="351.24" speed="13.61"/>
-        <vehicle id="always_left.4" lane="3fi_0" pos="243.10" x="501.65" y="243.10" speed="10.98"/>
-        <vehicle id="always_left.5" lane="3fi_0" pos="117.76" x="501.65" y="117.76" speed="10.78"/>
-        <vehicle id="always_left.6" lane="3fi_0" pos="39.12" x="501.65" y="39.12" speed="6.68"/>
-        <vehicle id="always_left.7" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="4o_0" pos="137.47" x="501.65" y="648.82" speed="10.99"/>
-        <vehicle id="always_right.1" lane="4o_0" pos="58.69" x="501.65" y="570.04" speed="10.77"/>
-        <vehicle id="always_right.2" lane="1si_2" pos="234.40" x="485.90" y="498.35" speed="10.43"/>
-        <vehicle id="always_right.3" lane="1si_2" pos="110.10" x="361.60" y="498.35" speed="13.70"/>
-        <vehicle id="always_right.4" lane="1fi_0" pos="234.47" x="234.47" y="498.35" speed="10.96"/>
-        <vehicle id="always_right.5" lane="1fi_0" pos="118.70" x="118.70" y="498.35" speed="10.95"/>
-        <vehicle id="always_right.6" lane="1fi_0" pos="35.12" x="35.12" y="498.35" speed="5.78"/>
+        <vehicle id="always_left.1" lane="3si_0" pos="230.14" x="508.25" y="481.64" speed="0.00"/>
+        <vehicle id="always_left.2" lane="3si_0" pos="223.29" x="508.25" y="474.79" speed="3.61"/>
+        <vehicle id="always_left.3" lane="3si_0" pos="113.82" x="508.25" y="365.32" speed="13.52"/>
+        <vehicle id="always_left.4" lane="3fi_0" pos="227.04" x="501.65" y="227.04" speed="10.95"/>
+        <vehicle id="always_left.5" lane="3fi_0" pos="112.01" x="501.65" y="112.01" speed="10.98"/>
+        <vehicle id="always_left.6" lane="3fi_0" pos="28.45" x="501.65" y="28.45" speed="5.14"/>
+        <vehicle id="always_right.0" lane="4o_0" pos="135.81" x="501.65" y="647.16" speed="10.74"/>
+        <vehicle id="always_right.1" lane="4o_0" pos="65.43" x="501.65" y="576.78" speed="11.09"/>
+        <vehicle id="always_right.2" lane="1si_2" pos="233.70" x="485.20" y="498.35" speed="10.42"/>
+        <vehicle id="always_right.3" lane="1si_2" pos="118.54" x="370.04" y="498.35" speed="13.81"/>
+        <vehicle id="always_right.4" lane="1fi_0" pos="236.74" x="236.74" y="498.35" speed="10.83"/>
+        <vehicle id="always_right.5" lane="1fi_0" pos="129.19" x="129.19" y="498.35" speed="10.79"/>
+        <vehicle id="always_right.6" lane="1fi_0" pos="39.23" x="39.23" y="498.35" speed="6.67"/>
         <vehicle id="always_right.7" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="1o_0" pos="208.02" x="280.63" y="501.65" speed="10.96"/>
-        <vehicle id="horizontal.1" lane="1o_0" pos="93.63" x="395.02" y="501.65" speed="11.08"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="234.32" x="514.18" y="504.95" speed="2.71"/>
-        <vehicle id="horizontal.3" lane="2si_1" pos="106.98" x="641.52" y="504.95" speed="13.66"/>
-        <vehicle id="horizontal.4" lane="2fi_0" pos="237.62" x="762.38" y="501.65" speed="10.74"/>
-        <vehicle id="horizontal.5" lane="2fi_0" pos="133.85" x="866.15" y="501.65" speed="11.09"/>
-        <vehicle id="horizontal.6" lane="2fi_0" pos="36.01" x="963.99" y="501.65" speed="5.91"/>
+        <vehicle id="horizontal.0" lane="1o_0" pos="209.11" x="279.54" y="501.65" speed="10.87"/>
+        <vehicle id="horizontal.1" lane="1o_0" pos="94.21" x="394.44" y="501.65" speed="10.96"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="228.01" x="520.49" y="504.95" speed="7.57"/>
+        <vehicle id="horizontal.3" lane="2si_1" pos="106.59" x="641.91" y="504.95" speed="13.69"/>
+        <vehicle id="horizontal.4" lane="2fi_0" pos="234.86" x="765.14" y="501.65" speed="10.76"/>
+        <vehicle id="horizontal.5" lane="2fi_0" pos="126.34" x="873.66" y="501.65" speed="11.11"/>
+        <vehicle id="horizontal.6" lane="2fi_0" pos="37.94" x="962.06" y="501.65" speed="6.24"/>
         <vehicle id="horizontal.7" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
         <vehicle id="vertical.0" lane="3si_1" pos="235.15" x="504.95" y="486.65" speed="0.00"/>
-        <vehicle id="vertical.1" lane="3si_1" pos="230.14" x="504.95" y="481.64" speed="0.00"/>
-        <vehicle id="vertical.2" lane="3si_1" pos="189.90" x="504.95" y="441.40" speed="13.66"/>
-        <vehicle id="vertical.3" lane="3si_1" pos="55.68" x="504.95" y="307.18" speed="13.35"/>
-        <vehicle id="vertical.4" lane="3fi_0" pos="186.36" x="501.65" y="186.36" speed="10.85"/>
-        <vehicle id="vertical.5" lane="3fi_0" pos="81.97" x="501.65" y="81.97" speed="9.39"/>
-        <vehicle id="vertical.6" lane="3fi_0" pos="13.56" x="501.65" y="13.56" speed="2.97"/>
+        <vehicle id="vertical.1" lane="3si_1" pos="230.14" x="504.95" y="481.64" speed="0.01"/>
+        <vehicle id="vertical.2" lane="3si_1" pos="186.26" x="504.95" y="437.76" speed="13.85"/>
+        <vehicle id="vertical.3" lane="3si_1" pos="52.23" x="504.95" y="303.73" speed="13.33"/>
+        <vehicle id="vertical.4" lane="3fi_0" pos="169.84" x="501.65" y="169.84" speed="10.96"/>
+        <vehicle id="vertical.5" lane="3fi_0" pos="62.92" x="501.65" y="62.92" speed="7.99"/>
+        <vehicle id="vertical.6" lane="3fi_0" pos="8.06" x="501.65" y="8.06" speed="2.08"/>
     </timestep>
     <timestep time="180.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="3si_0" pos="235.92" x="508.25" y="487.42" speed="0.77"/>
-        <vehicle id="always_left.1" lane="3si_0" pos="230.15" x="508.25" y="481.65" speed="0.00"/>
-        <vehicle id="always_left.2" lane="3si_0" pos="225.14" x="508.25" y="476.64" speed="0.00"/>
-        <vehicle id="always_left.3" lane="3si_0" pos="217.73" x="508.25" y="469.23" speed="4.24"/>
-        <vehicle id="always_left.4" lane="3si_0" pos="116.71" x="508.25" y="368.21" speed="13.54"/>
-        <vehicle id="always_left.5" lane="3fi_0" pos="227.02" x="501.65" y="227.02" speed="10.91"/>
-        <vehicle id="always_left.6" lane="3fi_0" pos="138.16" x="501.65" y="138.16" speed="10.78"/>
-        <vehicle id="always_left.7" lane="3fi_0" pos="33.08" x="501.65" y="33.08" speed="5.71"/>
-        <vehicle id="always_left.8" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="4o_0" pos="247.07" x="501.65" y="758.42" speed="11.10"/>
-        <vehicle id="always_right.1" lane="4o_0" pos="167.97" x="501.65" y="679.32" speed="11.02"/>
-        <vehicle id="always_right.2" lane="4o_0" pos="85.14" x="501.65" y="596.49" speed="11.06"/>
-        <vehicle id="always_right.3" lane="1si_2" pos="231.75" x="483.25" y="498.35" speed="5.22"/>
-        <vehicle id="always_right.4" lane="1si_2" pos="110.38" x="361.88" y="498.35" speed="13.87"/>
-        <vehicle id="always_right.5" lane="1fi_0" pos="228.01" x="228.01" y="498.35" speed="10.93"/>
-        <vehicle id="always_right.6" lane="1fi_0" pos="125.51" x="125.51" y="498.35" speed="10.85"/>
-        <vehicle id="always_right.7" lane="1fi_0" pos="33.36" x="33.36" y="498.35" speed="5.75"/>
+        <vehicle id="always_left.0" lane="3si_0" pos="235.78" x="508.25" y="487.28" speed="0.64"/>
+        <vehicle id="always_left.1" lane="3si_0" pos="230.14" x="508.25" y="481.64" speed="0.00"/>
+        <vehicle id="always_left.2" lane="3si_0" pos="225.13" x="508.25" y="476.63" speed="0.00"/>
+        <vehicle id="always_left.3" lane="3si_0" pos="219.71" x="508.25" y="471.21" speed="1.91"/>
+        <vehicle id="always_left.4" lane="3si_0" pos="96.36" x="508.25" y="347.86" speed="13.81"/>
+        <vehicle id="always_left.5" lane="3fi_0" pos="221.13" x="501.65" y="221.13" speed="10.94"/>
+        <vehicle id="always_left.6" lane="3fi_0" pos="109.58" x="501.65" y="109.58" speed="10.78"/>
+        <vehicle id="always_left.7" lane="3fi_0" pos="27.90" x="501.65" y="27.90" speed="4.75"/>
+        <vehicle id="always_right.0" lane="4o_0" pos="244.98" x="501.65" y="756.33" speed="10.88"/>
+        <vehicle id="always_right.1" lane="4o_0" pos="174.99" x="501.65" y="686.34" speed="10.71"/>
+        <vehicle id="always_right.2" lane="4o_0" pos="84.77" x="501.65" y="596.12" speed="10.93"/>
+        <vehicle id="always_right.3" lane="1si_2" pos="233.58" x="485.08" y="498.35" speed="3.48"/>
+        <vehicle id="always_right.4" lane="1si_2" pos="112.33" x="363.83" y="498.35" speed="13.60"/>
+        <vehicle id="always_right.5" lane="1fi_0" pos="237.57" x="237.57" y="498.35" speed="10.76"/>
+        <vehicle id="always_right.6" lane="1fi_0" pos="137.19" x="137.19" y="498.35" speed="11.03"/>
+        <vehicle id="always_right.7" lane="1fi_0" pos="35.93" x="35.93" y="498.35" speed="6.07"/>
         <vehicle id="always_right.8" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="1o_0" pos="316.88" x="171.77" y="501.65" speed="10.81"/>
-        <vehicle id="horizontal.1" lane="1o_0" pos="203.28" x="285.37" y="501.65" speed="10.99"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="235.14" x="513.36" y="504.95" speed="0.00"/>
-        <vehicle id="horizontal.3" lane="2si_1" pos="227.45" x="521.05" y="504.95" speed="4.74"/>
-        <vehicle id="horizontal.4" lane="2si_1" pos="111.08" x="637.42" y="504.95" speed="13.52"/>
-        <vehicle id="horizontal.5" lane="2fi_0" pos="243.43" x="756.57" y="501.65" speed="11.02"/>
-        <vehicle id="horizontal.6" lane="2fi_0" pos="129.09" x="870.91" y="501.65" speed="10.88"/>
-        <vehicle id="horizontal.7" lane="2fi_0" pos="33.70" x="966.30" y="501.65" speed="5.58"/>
+        <vehicle id="horizontal.0" lane="1o_0" pos="318.60" x="170.05" y="501.65" speed="10.85"/>
+        <vehicle id="horizontal.1" lane="1o_0" pos="203.17" x="285.48" y="501.65" speed="11.08"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="235.15" x="513.35" y="504.95" speed="0.00"/>
+        <vehicle id="horizontal.3" lane="2si_1" pos="227.28" x="521.22" y="504.95" speed="4.69"/>
+        <vehicle id="horizontal.4" lane="2si_1" pos="106.62" x="641.88" y="504.95" speed="13.87"/>
+        <vehicle id="horizontal.5" lane="2fi_0" pos="234.80" x="765.20" y="501.65" speed="10.92"/>
+        <vehicle id="horizontal.6" lane="2fi_0" pos="128.99" x="871.01" y="501.65" speed="11.00"/>
+        <vehicle id="horizontal.7" lane="2fi_0" pos="33.25" x="966.75" y="501.65" speed="5.76"/>
         <vehicle id="horizontal.8" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="3si_1" pos="235.87" x="504.95" y="487.37" speed="0.72"/>
+        <vehicle id="vertical.0" lane="3si_1" pos="235.92" x="504.95" y="487.42" speed="0.77"/>
         <vehicle id="vertical.1" lane="3si_1" pos="230.14" x="504.95" y="481.64" speed="0.00"/>
-        <vehicle id="vertical.2" lane="3si_1" pos="225.14" x="504.95" y="476.64" speed="0.00"/>
-        <vehicle id="vertical.3" lane="3si_1" pos="192.59" x="504.95" y="444.09" speed="13.63"/>
-        <vehicle id="vertical.4" lane="3si_1" pos="49.53" x="504.95" y="301.03" speed="13.73"/>
-        <vehicle id="vertical.5" lane="3fi_0" pos="190.70" x="501.65" y="190.70" speed="11.10"/>
-        <vehicle id="vertical.6" lane="3fi_0" pos="71.35" x="501.65" y="71.35" speed="8.18"/>
-        <vehicle id="vertical.7" lane="3fi_0" pos="12.47" x="501.65" y="12.47" speed="3.29"/>
+        <vehicle id="vertical.2" lane="3si_1" pos="225.14" x="504.95" y="476.64" speed="0.01"/>
+        <vehicle id="vertical.3" lane="3si_1" pos="188.93" x="504.95" y="440.43" speed="13.78"/>
+        <vehicle id="vertical.4" lane="3si_1" pos="28.48" x="504.95" y="279.98" speed="12.31"/>
+        <vehicle id="vertical.5" lane="3fi_0" pos="166.21" x="501.65" y="166.21" speed="11.09"/>
+        <vehicle id="vertical.6" lane="3fi_0" pos="64.45" x="501.65" y="64.45" speed="8.47"/>
+        <vehicle id="vertical.7" lane="3fi_0" pos="8.75" x="501.65" y="8.75" speed="2.47"/>
     </timestep>
     <timestep time="190.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="2o_0" pos="30.96" x="542.31" y="498.35" speed="6.92"/>
-        <vehicle id="always_left.1" lane="2o_0" pos="14.86" x="526.21" y="498.35" speed="6.04"/>
-        <vehicle id="always_left.2" lane="2o_0" pos="1.22" x="512.57" y="498.35" speed="4.74"/>
-        <vehicle id="always_left.3" lane=":0_8_0" pos="0.33" x="508.26" y="488.98" speed="3.79"/>
-        <vehicle id="always_left.4" lane="3si_0" pos="226.13" x="508.25" y="477.63" speed="4.58"/>
-        <vehicle id="always_left.5" lane="3si_0" pos="97.70" x="508.25" y="349.20" speed="13.55"/>
-        <vehicle id="always_left.6" lane="3fi_0" pos="247.50" x="501.65" y="247.50" speed="10.92"/>
-        <vehicle id="always_left.7" lane="3fi_0" pos="122.21" x="501.65" y="122.21" speed="10.72"/>
-        <vehicle id="always_left.8" lane="3fi_0" pos="33.16" x="501.65" y="33.16" speed="5.65"/>
-        <vehicle id="always_left.9" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_right.0" lane="4o_0" pos="356.62" x="501.65" y="867.97" speed="11.08"/>
-        <vehicle id="always_right.1" lane="4o_0" pos="277.20" x="501.65" y="788.55" speed="10.81"/>
-        <vehicle id="always_right.2" lane="4o_0" pos="194.20" x="501.65" y="705.55" speed="10.85"/>
-        <vehicle id="always_right.3" lane="1si_2" pos="235.15" x="486.65" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.4" lane="1si_2" pos="228.07" x="479.57" y="498.35" speed="3.81"/>
-        <vehicle id="always_right.5" lane="1si_2" pos="102.51" x="354.01" y="498.35" speed="13.52"/>
-        <vehicle id="always_right.6" lane="1fi_0" pos="234.32" x="234.32" y="498.35" speed="10.94"/>
-        <vehicle id="always_right.7" lane="1fi_0" pos="123.51" x="123.51" y="498.35" speed="10.87"/>
-        <vehicle id="always_right.8" lane="1fi_0" pos="37.33" x="37.33" y="498.35" speed="6.26"/>
+        <vehicle id="always_left.0" lane="2o_0" pos="32.96" x="544.31" y="498.35" speed="7.61"/>
+        <vehicle id="always_left.1" lane="2o_0" pos="11.16" x="522.51" y="498.35" speed="5.42"/>
+        <vehicle id="always_left.2" lane=":0_8_0" pos="9.15" x="509.88" y="497.52" speed="4.78"/>
+        <vehicle id="always_left.3" lane="3si_0" pos="232.86" x="508.25" y="484.36" speed="3.43"/>
+        <vehicle id="always_left.4" lane="3si_0" pos="219.17" x="508.25" y="470.67" speed="6.45"/>
+        <vehicle id="always_left.5" lane="3si_0" pos="89.22" x="508.25" y="340.72" speed="13.83"/>
+        <vehicle id="always_left.6" lane="3fi_0" pos="218.60" x="501.65" y="218.60" speed="11.02"/>
+        <vehicle id="always_left.7" lane="3fi_0" pos="106.73" x="501.65" y="106.73" speed="10.58"/>
+        <vehicle id="always_left.8" lane="3fi_0" pos="29.56" x="501.65" y="29.56" speed="5.38"/>
+        <vehicle id="always_right.0" lane="4o_0" pos="354.39" x="501.65" y="865.74" speed="10.94"/>
+        <vehicle id="always_right.1" lane="4o_0" pos="284.54" x="501.65" y="795.89" speed="10.87"/>
+        <vehicle id="always_right.2" lane="4o_0" pos="193.94" x="501.65" y="705.29" speed="10.89"/>
+        <vehicle id="always_right.3" lane="1si_2" pos="235.14" x="486.64" y="498.35" speed="0.00"/>
+        <vehicle id="always_right.4" lane="1si_2" pos="228.27" x="479.77" y="498.35" speed="3.26"/>
+        <vehicle id="always_right.5" lane="1si_2" pos="114.77" x="366.27" y="498.35" speed="13.73"/>
+        <vehicle id="always_right.6" lane="1fi_0" pos="246.63" x="246.63" y="498.35" speed="10.99"/>
+        <vehicle id="always_right.7" lane="1fi_0" pos="126.84" x="126.84" y="498.35" speed="11.07"/>
+        <vehicle id="always_right.8" lane="1fi_0" pos="33.29" x="33.29" y="498.35" speed="5.48"/>
         <vehicle id="always_right.9" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="horizontal.0" lane="1o_0" pos="425.38" x="63.27" y="501.65" speed="10.79"/>
-        <vehicle id="horizontal.1" lane="1o_0" pos="312.46" x="176.19" y="501.65" speed="11.11"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="235.14" x="513.36" y="504.95" speed="0.00"/>
+        <vehicle id="horizontal.0" lane="1o_0" pos="428.05" x="60.60" y="501.65" speed="10.86"/>
+        <vehicle id="horizontal.1" lane="1o_0" pos="311.91" x="176.74" y="501.65" speed="10.74"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="235.15" x="513.35" y="504.95" speed="0.00"/>
         <vehicle id="horizontal.3" lane="2si_1" pos="230.14" x="518.36" y="504.95" speed="0.00"/>
-        <vehicle id="horizontal.4" lane="2si_1" pos="223.99" x="524.51" y="504.95" speed="3.12"/>
-        <vehicle id="horizontal.5" lane="2si_1" pos="119.46" x="629.04" y="504.95" speed="13.80"/>
-        <vehicle id="horizontal.6" lane="2fi_0" pos="237.89" x="762.11" y="501.65" speed="10.75"/>
-        <vehicle id="horizontal.7" lane="2fi_0" pos="123.71" x="876.29" y="501.65" speed="11.06"/>
-        <vehicle id="horizontal.8" lane="2fi_0" pos="38.03" x="961.97" y="501.65" speed="6.30"/>
+        <vehicle id="horizontal.4" lane="2si_1" pos="223.48" x="525.02" y="504.95" speed="3.79"/>
+        <vehicle id="horizontal.5" lane="2si_1" pos="109.99" x="638.51" y="504.95" speed="13.87"/>
+        <vehicle id="horizontal.6" lane="2fi_0" pos="237.97" x="762.03" y="501.65" speed="10.77"/>
+        <vehicle id="horizontal.7" lane="2fi_0" pos="126.61" x="873.39" y="501.65" speed="11.09"/>
+        <vehicle id="horizontal.8" lane="2fi_0" pos="36.79" x="963.21" y="501.65" speed="5.86"/>
         <vehicle id="horizontal.9" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="14.15" x="501.65" y="525.50" speed="6.17"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="0.04" x="501.65" y="511.39" speed="5.34"/>
-        <vehicle id="vertical.2" lane=":0_9_0" pos="9.25" x="504.15" y="497.85" speed="4.84"/>
-        <vehicle id="vertical.3" lane="3si_1" pos="234.89" x="504.95" y="486.39" speed="3.83"/>
-        <vehicle id="vertical.4" lane="3si_1" pos="186.17" x="504.95" y="437.67" speed="13.62"/>
-        <vehicle id="vertical.5" lane="3si_1" pos="53.66" x="504.95" y="305.16" speed="13.57"/>
-        <vehicle id="vertical.6" lane="3fi_0" pos="175.26" x="501.65" y="175.26" speed="11.08"/>
-        <vehicle id="vertical.7" lane="3fi_0" pos="74.89" x="501.65" y="74.89" speed="9.09"/>
-        <vehicle id="vertical.8" lane="3fi_0" pos="13.36" x="501.65" y="13.36" speed="3.30"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="16.84" x="501.65" y="528.19" speed="7.08"/>
+        <vehicle id="vertical.1" lane=":0_9_0" pos="22.76" x="501.68" y="511.13" speed="5.51"/>
+        <vehicle id="vertical.2" lane=":0_9_0" pos="9.05" x="504.18" y="497.66" speed="4.40"/>
+        <vehicle id="vertical.3" lane="3si_1" pos="234.93" x="504.95" y="486.43" speed="3.49"/>
+        <vehicle id="vertical.4" lane="3si_1" pos="164.31" x="504.95" y="415.81" speed="13.87"/>
+        <vehicle id="vertical.5" lane="3si_1" pos="23.80" x="504.95" y="275.30" speed="12.08"/>
+        <vehicle id="vertical.6" lane="3fi_0" pos="170.97" x="501.65" y="170.97" speed="11.10"/>
+        <vehicle id="vertical.7" lane="3fi_0" pos="66.82" x="501.65" y="66.82" speed="8.61"/>
+        <vehicle id="vertical.8" lane="3fi_0" pos="8.92" x="501.65" y="8.92" speed="2.53"/>
     </timestep>
     <timestep time="200.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="2o_0" pos="130.92" x="642.27" y="498.35" speed="11.10"/>
-        <vehicle id="always_left.1" lane="2o_0" pos="105.94" x="617.29" y="498.35" speed="10.91"/>
-        <vehicle id="always_left.10" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_left.2" lane="2o_0" pos="79.26" x="590.61" y="498.35" speed="10.03"/>
-        <vehicle id="always_left.3" lane="2o_0" pos="59.05" x="570.40" y="498.35" speed="9.35"/>
-        <vehicle id="always_left.4" lane="2o_0" pos="40.23" x="551.58" y="498.35" speed="8.22"/>
-        <vehicle id="always_left.5" lane="3si_0" pos="233.25" x="508.25" y="484.75" speed="12.80"/>
-        <vehicle id="always_left.6" lane="3si_0" pos="119.89" x="508.25" y="371.39" speed="13.71"/>
-        <vehicle id="always_left.7" lane="3fi_0" pos="231.61" x="501.65" y="231.61" speed="11.06"/>
-        <vehicle id="always_left.8" lane="3fi_0" pos="120.46" x="501.65" y="120.46" speed="10.88"/>
-        <vehicle id="always_left.9" lane="3fi_0" pos="34.33" x="501.65" y="34.33" speed="5.86"/>
-        <vehicle id="always_right.0" lane="4o_0" pos="465.77" x="501.65" y="977.12" speed="10.93"/>
-        <vehicle id="always_right.1" lane="4o_0" pos="386.60" x="501.65" y="897.95" speed="11.09"/>
+        <vehicle id="always_left.0" lane="2o_0" pos="134.27" x="645.62" y="498.35" speed="10.98"/>
+        <vehicle id="always_left.1" lane="2o_0" pos="97.43" x="608.78" y="498.35" speed="10.98"/>
+        <vehicle id="always_left.2" lane="2o_0" pos="75.68" x="587.03" y="498.35" speed="10.28"/>
+        <vehicle id="always_left.3" lane="2o_0" pos="54.02" x="565.37" y="498.35" speed="9.43"/>
+        <vehicle id="always_left.4" lane="2o_0" pos="35.09" x="546.44" y="498.35" speed="8.69"/>
+        <vehicle id="always_left.5" lane="3si_0" pos="226.29" x="508.25" y="477.79" speed="13.65"/>
+        <vehicle id="always_left.6" lane="3si_0" pos="86.09" x="508.25" y="337.59" speed="13.66"/>
+        <vehicle id="always_left.7" lane="3fi_0" pos="216.43" x="501.65" y="216.43" speed="10.75"/>
+        <vehicle id="always_left.8" lane="3fi_0" pos="119.06" x="501.65" y="119.06" speed="10.90"/>
+        <vehicle id="always_left.9" lane="3fi_0" pos="27.24" x="501.65" y="27.24" speed="4.92"/>
+        <vehicle id="always_right.0" lane="4o_0" pos="464.37" x="501.65" y="975.72" speed="11.10"/>
+        <vehicle id="always_right.1" lane="4o_0" pos="393.68" x="501.65" y="905.03" speed="10.98"/>
         <vehicle id="always_right.10" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.2" lane="4o_0" pos="302.91" x="501.65" y="814.26" speed="10.75"/>
-        <vehicle id="always_right.3" lane="1si_2" pos="235.15" x="486.65" y="498.35" speed="0.00"/>
+        <vehicle id="always_right.2" lane="4o_0" pos="303.02" x="501.65" y="814.37" speed="10.79"/>
+        <vehicle id="always_right.3" lane="1si_2" pos="235.14" x="486.64" y="498.35" speed="0.00"/>
         <vehicle id="always_right.4" lane="1si_2" pos="230.14" x="481.64" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.5" lane="1si_2" pos="222.31" x="473.81" y="498.35" speed="4.63"/>
-        <vehicle id="always_right.6" lane="1si_2" pos="108.89" x="360.39" y="498.35" speed="13.80"/>
-        <vehicle id="always_right.7" lane="1fi_0" pos="233.12" x="233.12" y="498.35" speed="11.10"/>
-        <vehicle id="always_right.8" lane="1fi_0" pos="131.54" x="131.54" y="498.35" speed="10.98"/>
-        <vehicle id="always_right.9" lane="1fi_0" pos="37.56" x="37.56" y="498.35" speed="6.16"/>
-        <vehicle id="horizontal.0" lane="1fi_0" pos="22.82" x="22.82" y="498.35" speed="6.08"/>
-        <vehicle id="horizontal.1" lane="1o_0" pos="422.09" x="66.56" y="501.65" speed="10.74"/>
+        <vehicle id="always_right.5" lane="1si_2" pos="224.21" x="475.71" y="498.35" speed="2.14"/>
+        <vehicle id="always_right.6" lane="1si_2" pos="123.89" x="375.39" y="498.35" speed="13.87"/>
+        <vehicle id="always_right.7" lane="1fi_0" pos="235.88" x="235.88" y="498.35" speed="10.84"/>
+        <vehicle id="always_right.8" lane="1fi_0" pos="120.96" x="120.96" y="498.35" speed="11.03"/>
+        <vehicle id="always_right.9" lane="1fi_0" pos="35.08" x="35.08" y="498.35" speed="5.34"/>
+        <vehicle id="horizontal.0" lane="1fi_0" pos="21.63" x="21.63" y="498.35" speed="5.49"/>
+        <vehicle id="horizontal.1" lane="1o_0" pos="420.91" x="67.74" y="501.65" speed="10.95"/>
         <vehicle id="horizontal.10" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="235.14" x="513.36" y="504.95" speed="0.00"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="235.15" x="513.35" y="504.95" speed="0.00"/>
         <vehicle id="horizontal.3" lane="2si_1" pos="230.14" x="518.36" y="504.95" speed="0.00"/>
         <vehicle id="horizontal.4" lane="2si_1" pos="225.14" x="523.36" y="504.95" speed="0.00"/>
-        <vehicle id="horizontal.5" lane="2si_1" pos="219.82" x="528.68" y="504.95" speed="0.81"/>
-        <vehicle id="horizontal.6" lane="2si_1" pos="113.88" x="634.62" y="504.95" speed="13.86"/>
-        <vehicle id="horizontal.7" lane="2fi_0" pos="233.03" x="766.97" y="501.65" speed="10.82"/>
-        <vehicle id="horizontal.8" lane="2fi_0" pos="133.40" x="866.60" y="501.65" speed="10.71"/>
-        <vehicle id="horizontal.9" lane="2fi_0" pos="35.89" x="964.11" y="501.65" speed="5.91"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="106.76" x="501.65" y="618.11" speed="10.75"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="84.39" x="501.65" y="595.74" speed="10.91"/>
-        <vehicle id="vertical.2" lane="4o_0" pos="62.89" x="501.65" y="574.24" speed="10.16"/>
-        <vehicle id="vertical.3" lane="4o_0" pos="42.56" x="501.65" y="553.91" speed="9.22"/>
-        <vehicle id="vertical.4" lane="4o_0" pos="23.68" x="501.65" y="535.03" speed="8.30"/>
-        <vehicle id="vertical.5" lane="3si_1" pos="190.32" x="504.95" y="441.82" speed="13.78"/>
-        <vehicle id="vertical.6" lane="3si_1" pos="34.06" x="504.95" y="285.56" speed="12.51"/>
-        <vehicle id="vertical.7" lane="3fi_0" pos="181.89" x="501.65" y="181.89" speed="10.93"/>
-        <vehicle id="vertical.8" lane="3fi_0" pos="78.63" x="501.65" y="78.63" speed="9.01"/>
-        <vehicle id="vertical.9" lane="3fi_0" pos="16.35" x="501.65" y="16.35" speed="3.98"/>
+        <vehicle id="horizontal.5" lane="2si_1" pos="219.35" x="529.15" y="504.95" speed="2.28"/>
+        <vehicle id="horizontal.6" lane="2si_1" pos="114.33" x="634.17" y="504.95" speed="13.59"/>
+        <vehicle id="horizontal.7" lane="2fi_0" pos="235.67" x="764.33" y="501.65" speed="11.00"/>
+        <vehicle id="horizontal.8" lane="2fi_0" pos="127.99" x="872.01" y="501.65" speed="10.84"/>
+        <vehicle id="horizontal.9" lane="2fi_0" pos="34.57" x="965.43" y="501.65" speed="5.87"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="116.45" x="501.65" y="627.80" speed="10.84"/>
+        <vehicle id="vertical.1" lane="4o_0" pos="85.02" x="501.65" y="596.37" speed="10.82"/>
+        <vehicle id="vertical.2" lane="4o_0" pos="63.71" x="501.65" y="575.06" speed="10.49"/>
+        <vehicle id="vertical.3" lane="4o_0" pos="43.30" x="501.65" y="554.65" speed="9.37"/>
+        <vehicle id="vertical.4" lane="4o_0" pos="22.71" x="501.65" y="534.06" speed="9.59"/>
+        <vehicle id="vertical.5" lane="3si_1" pos="159.39" x="504.95" y="410.89" speed="13.65"/>
+        <vehicle id="vertical.6" lane="3si_1" pos="29.52" x="504.95" y="281.02" speed="12.25"/>
+        <vehicle id="vertical.7" lane="3fi_0" pos="172.21" x="501.65" y="172.21" speed="10.85"/>
+        <vehicle id="vertical.8" lane="3fi_0" pos="67.62" x="501.65" y="67.62" speed="8.84"/>
+        <vehicle id="vertical.9" lane="3fi_0" pos="8.84" x="501.65" y="8.84" speed="2.37"/>
     </timestep>
     <timestep time="210.00" id="test1" vType="SUMO_DEFAULT_TYPE">
-        <vehicle id="always_left.0" lane="2o_0" pos="240.24" x="751.59" y="498.35" speed="11.04"/>
-        <vehicle id="always_left.1" lane="2o_0" pos="214.62" x="725.97" y="498.35" speed="10.84"/>
-        <vehicle id="always_left.10" lane="3fi_0" pos="38.63" x="501.65" y="38.63" speed="6.45"/>
-        <vehicle id="always_left.11" lane="3fi_0" pos="3.10" x="501.65" y="3.10" speed="0.00"/>
-        <vehicle id="always_left.2" lane="2o_0" pos="187.54" x="698.89" y="498.35" speed="10.91"/>
-        <vehicle id="always_left.3" lane="2o_0" pos="166.01" x="677.36" y="498.35" speed="10.87"/>
-        <vehicle id="always_left.4" lane="2o_0" pos="143.82" x="655.17" y="498.35" speed="10.92"/>
-        <vehicle id="always_left.5" lane="2o_0" pos="95.16" x="606.51" y="498.35" speed="10.91"/>
-        <vehicle id="always_left.6" lane="2o_0" pos="5.36" x="516.71" y="498.35" speed="10.87"/>
-        <vehicle id="always_left.7" lane="3si_0" pos="101.57" x="508.25" y="353.07" speed="13.70"/>
-        <vehicle id="always_left.8" lane="3fi_0" pos="229.88" x="501.65" y="229.88" speed="10.90"/>
-        <vehicle id="always_left.9" lane="3fi_0" pos="121.68" x="501.65" y="121.68" speed="11.06"/>
-        <vehicle id="always_right.0" lane="4fi_0" pos="81.46" x="498.35" y="918.54" speed="10.86"/>
-        <vehicle id="always_right.1" lane="4fi_0" pos="1.76" x="498.35" y="998.24" speed="10.96"/>
-        <vehicle id="always_right.10" lane="1fi_0" pos="36.43" x="36.43" y="498.35" speed="6.08"/>
+        <vehicle id="always_left.0" lane="2o_0" pos="242.99" x="754.34" y="498.35" speed="10.79"/>
+        <vehicle id="always_left.1" lane="2o_0" pos="206.73" x="718.08" y="498.35" speed="10.71"/>
+        <vehicle id="always_left.10" lane="3fi_0" pos="30.61" x="501.65" y="30.61" speed="5.41"/>
+        <vehicle id="always_left.2" lane="2o_0" pos="184.59" x="695.94" y="498.35" speed="10.81"/>
+        <vehicle id="always_left.3" lane="2o_0" pos="161.56" x="672.91" y="498.35" speed="10.76"/>
+        <vehicle id="always_left.4" lane="2o_0" pos="140.09" x="651.44" y="498.35" speed="10.73"/>
+        <vehicle id="always_left.5" lane="2o_0" pos="88.85" x="600.20" y="498.35" speed="10.91"/>
+        <vehicle id="always_left.6" lane="3si_0" pos="223.41" x="508.25" y="474.91" speed="13.83"/>
+        <vehicle id="always_left.7" lane="3si_0" pos="84.44" x="508.25" y="335.94" speed="13.80"/>
+        <vehicle id="always_left.8" lane="3fi_0" pos="227.81" x="501.65" y="227.81" speed="11.07"/>
+        <vehicle id="always_left.9" lane="3fi_0" pos="109.64" x="501.65" y="109.64" speed="10.98"/>
+        <vehicle id="always_right.0" lane="4fi_0" pos="79.83" x="498.35" y="920.17" speed="10.75"/>
+        <vehicle id="always_right.1" lane="4fi_0" pos="9.02" x="498.35" y="990.98" speed="10.79"/>
+        <vehicle id="always_right.10" lane="1fi_0" pos="29.61" x="29.61" y="498.35" speed="5.07"/>
         <vehicle id="always_right.11" lane="1fi_0" pos="3.10" x="3.10" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.2" lane="4o_0" pos="412.00" x="501.65" y="923.35" speed="11.05"/>
-        <vehicle id="always_right.3" lane="1si_2" pos="235.15" x="486.65" y="498.35" speed="0.00"/>
+        <vehicle id="always_right.2" lane="4o_0" pos="412.21" x="501.65" y="923.56" speed="10.84"/>
+        <vehicle id="always_right.3" lane="1si_2" pos="235.14" x="486.64" y="498.35" speed="0.00"/>
         <vehicle id="always_right.4" lane="1si_2" pos="230.14" x="481.64" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.5" lane="1si_2" pos="225.14" x="476.64" y="498.35" speed="0.00"/>
-        <vehicle id="always_right.6" lane="1si_2" pos="219.15" x="470.65" y="498.35" speed="2.44"/>
-        <vehicle id="always_right.7" lane="1si_2" pos="106.91" x="358.41" y="498.35" speed="13.78"/>
-        <vehicle id="always_right.8" lane="1fi_0" pos="240.57" x="240.57" y="498.35" speed="10.81"/>
-        <vehicle id="always_right.9" lane="1fi_0" pos="130.93" x="130.93" y="498.35" speed="10.76"/>
-        <vehicle id="horizontal.0" lane="1fi_0" pos="107.53" x="107.53" y="498.35" speed="10.78"/>
-        <vehicle id="horizontal.1" lane="1fi_0" pos="21.50" x="21.50" y="498.35" speed="6.13"/>
-        <vehicle id="horizontal.10" lane="2fi_0" pos="37.60" x="962.40" y="501.65" speed="5.92"/>
+        <vehicle id="always_right.5" lane="1si_2" pos="225.13" x="476.63" y="498.35" speed="0.00"/>
+        <vehicle id="always_right.6" lane="1si_2" pos="219.81" x="471.31" y="498.35" speed="0.48"/>
+        <vehicle id="always_right.7" lane="1si_2" pos="109.76" x="361.26" y="498.35" speed="13.82"/>
+        <vehicle id="always_right.8" lane="1fi_0" pos="229.73" x="229.73" y="498.35" speed="10.88"/>
+        <vehicle id="always_right.9" lane="1fi_0" pos="117.13" x="117.13" y="498.35" speed="10.73"/>
+        <vehicle id="horizontal.0" lane="1fi_0" pos="95.79" x="95.79" y="498.35" speed="9.44"/>
+        <vehicle id="horizontal.1" lane="1fi_0" pos="16.53" x="16.53" y="498.35" speed="5.00"/>
+        <vehicle id="horizontal.10" lane="2fi_0" pos="31.90" x="968.10" y="501.65" speed="5.64"/>
         <vehicle id="horizontal.11" lane="2fi_0" pos="3.10" x="996.90" y="501.65" speed="0.00"/>
-        <vehicle id="horizontal.2" lane="2si_1" pos="235.14" x="513.36" y="504.95" speed="0.00"/>
+        <vehicle id="horizontal.2" lane="2si_1" pos="235.15" x="513.35" y="504.95" speed="0.00"/>
         <vehicle id="horizontal.3" lane="2si_1" pos="230.14" x="518.36" y="504.95" speed="0.00"/>
         <vehicle id="horizontal.4" lane="2si_1" pos="225.14" x="523.36" y="504.95" speed="0.00"/>
-        <vehicle id="horizontal.5" lane="2si_1" pos="220.14" x="528.36" y="504.95" speed="0.00"/>
-        <vehicle id="horizontal.6" lane="2si_1" pos="214.95" x="533.55" y="504.95" speed="1.04"/>
-        <vehicle id="horizontal.7" lane="2si_1" pos="106.14" x="642.36" y="504.95" speed="13.61"/>
-        <vehicle id="horizontal.8" lane="2fi_0" pos="241.96" x="758.04" y="501.65" speed="10.75"/>
-        <vehicle id="horizontal.9" lane="2fi_0" pos="128.70" x="871.30" y="501.65" speed="10.79"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="215.60" x="501.65" y="726.95" speed="11.00"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="193.60" x="501.65" y="704.95" speed="11.02"/>
-        <vehicle id="vertical.10" lane="3fi_0" pos="16.38" x="501.65" y="16.38" speed="3.60"/>
-        <vehicle id="vertical.2" lane="4o_0" pos="171.49" x="501.65" y="682.84" speed="11.00"/>
-        <vehicle id="vertical.3" lane="4o_0" pos="149.77" x="501.65" y="661.12" speed="10.87"/>
-        <vehicle id="vertical.4" lane="4o_0" pos="128.58" x="501.65" y="639.93" speed="11.05"/>
-        <vehicle id="vertical.5" lane="4o_0" pos="49.89" x="501.65" y="561.24" speed="10.92"/>
-        <vehicle id="vertical.6" lane="3si_1" pos="170.12" x="504.95" y="421.62" speed="13.88"/>
-        <vehicle id="vertical.7" lane="3si_1" pos="40.75" x="504.95" y="292.25" speed="12.49"/>
-        <vehicle id="vertical.8" lane="3fi_0" pos="185.83" x="501.65" y="185.83" speed="10.88"/>
-        <vehicle id="vertical.9" lane="3fi_0" pos="89.19" x="501.65" y="89.19" speed="10.03"/>
+        <vehicle id="horizontal.5" lane="2si_1" pos="220.13" x="528.37" y="504.95" speed="0.00"/>
+        <vehicle id="horizontal.6" lane="2si_1" pos="214.70" x="533.80" y="504.95" speed="0.75"/>
+        <vehicle id="horizontal.7" lane="2si_1" pos="110.22" x="638.28" y="504.95" speed="13.50"/>
+        <vehicle id="horizontal.8" lane="2fi_0" pos="237.57" x="762.43" y="501.65" speed="11.10"/>
+        <vehicle id="horizontal.9" lane="2fi_0" pos="125.63" x="874.37" y="501.65" speed="10.84"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="225.67" x="501.65" y="737.02" speed="10.83"/>
+        <vehicle id="vertical.1" lane="4o_0" pos="194.78" x="501.65" y="706.13" speed="11.02"/>
+        <vehicle id="vertical.10" lane="3fi_0" pos="8.99" x="501.65" y="8.99" speed="2.31"/>
+        <vehicle id="vertical.2" lane="4o_0" pos="172.32" x="501.65" y="683.67" speed="10.90"/>
+        <vehicle id="vertical.3" lane="4o_0" pos="150.79" x="501.65" y="662.14" speed="10.90"/>
+        <vehicle id="vertical.4" lane="4o_0" pos="128.93" x="501.65" y="640.28" speed="10.97"/>
+        <vehicle id="vertical.5" lane="4o_0" pos="25.53" x="501.65" y="536.88" speed="11.05"/>
+        <vehicle id="vertical.6" lane="3si_1" pos="165.16" x="504.95" y="416.66" speed="13.83"/>
+        <vehicle id="vertical.7" lane="3si_1" pos="30.08" x="504.95" y="281.58" speed="12.13"/>
+        <vehicle id="vertical.8" lane="3fi_0" pos="173.48" x="501.65" y="173.48" speed="10.72"/>
+        <vehicle id="vertical.9" lane="3fi_0" pos="70.35" x="501.65" y="70.35" speed="9.47"/>
     </timestep>
 </vehicle-type-probes>
