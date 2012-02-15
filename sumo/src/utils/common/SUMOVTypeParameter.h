@@ -98,7 +98,15 @@ public:
 
     /** @brief Validates stored car-following parameter
      */
-    void validateCFParameter() const ;
+    void validateCFParameter() const;
+
+
+    /** @brief Returns the named value from the map, or the default if it is ot contained there
+     * @param[in] attr The corresponding xml attribute
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    SUMOReal get(const SumoXMLAttr attr, const SUMOReal defaultValue) const;
 
 
     /// @brief The vehicle type's id

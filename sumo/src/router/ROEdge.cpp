@@ -180,9 +180,11 @@ SUMOReal
 ROEdge::getCOEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computeCO(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computeCO(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computeCO(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }
@@ -192,9 +194,11 @@ SUMOReal
 ROEdge::getCO2Effort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computeCO2(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computeCO2(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computeCO2(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }
@@ -204,9 +208,11 @@ SUMOReal
 ROEdge::getPMxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computePMx(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computePMx(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computePMx(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }
@@ -216,9 +222,11 @@ SUMOReal
 ROEdge::getHCEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computeHC(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computeHC(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computeHC(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }
@@ -228,9 +236,11 @@ SUMOReal
 ROEdge::getNOxEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computeNOx(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computeNOx(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computeNOx(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }
@@ -240,9 +250,11 @@ SUMOReal
 ROEdge::getFuelEffort(const ROVehicle* const veh, SUMOReal time) const {
     SUMOReal ret = 0;
     if (!getStoredEffort(time, ret)) {
-        const SUMOReal v = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal vMax = MIN2(veh->getType()->maxSpeed, mySpeed);
+        const SUMOReal accel = veh->getType()->get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL) * veh->getType()->get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA) / 2.;
         const SUMOEmissionClass c = veh->getType()->emissionClass;
-        ret = HelpersHBEFA::computeFuel(c, v, 0) * getTravelTime(veh, time);
+        ret = HelpersHBEFA::computeFuel(c, vMax, 0) * getTravelTime(veh, time) / 2.
+            + HelpersHBEFA::computeFuel(c, vMax - accel, accel) * getTravelTime(veh, time) / 2.;
     }
     return ret;
 }

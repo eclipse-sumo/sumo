@@ -397,15 +397,6 @@ public:
      * @return The built vehicle type
      */
     static MSVehicleType* build(const std::string& id, const MSVehicleType* from) ;
-
-
-    /** @brief Returns the named value from the map, or the default if it is ot contained there
-     * @param[in] from The map to retrieve values from
-     * @param[in] attr The corresponding xml attribute
-     * @param[in] defaultValue The value to return if the given map does not contain the named variable
-     * @return The named value from the map or the default if it does not exist there
-     */
-    static SUMOReal get(const SUMOVTypeParameter::CFParams& from, SumoXMLAttr attr, SUMOReal defaultValue);
     /// @}
 
 
