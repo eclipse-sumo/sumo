@@ -540,8 +540,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (predIt != myVehicles.end()) {
         // ok, there is one (a leader)
         MSVehicle* leader = *predIt;
-        SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + aVehicle->getVehicleType().getMinGap();
-        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos+aVehicle->getVehicleType().getMinGap());
+        SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos + aVehicle->getVehicleType().getMinGap());
         if (gap < frontGapNeeded) {
             // too close to the leader on this lane
             return false;
@@ -553,7 +553,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // there is direct follower on this lane
         MSVehicle* follower = *(predIt - 1);
         SUMOReal backGapNeeded = follower->getCarFollowModel().getSecureGap(follower->getSpeed(), aVehicle->getSpeed(), cfModel.getMaxDecel());
-        SUMOReal gap = MSVehicle::gap(pos, aVehicle->getVehicleType().getLength(), follower->getPositionOnLane()+follower->getVehicleType().getMinGap());
+        SUMOReal gap = MSVehicle::gap(pos, aVehicle->getVehicleType().getLength(), follower->getPositionOnLane() + follower->getVehicleType().getMinGap());
         if (gap < backGapNeeded) {
             // too close to the follower on this lane
             return false;
@@ -578,8 +578,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // check for in-lapping vehicle
         MSVehicle* leader = getPartialOccupator();
         if (leader != 0) {
-            SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + aVehicle->getVehicleType().getMinGap();
-            SUMOReal gap = getPartialOccupatorEnd() - pos;
+            SUMOReal frontGapNeeded = cfModel.getSecureGap(speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+            SUMOReal gap = getPartialOccupatorEnd() - pos - aVehicle->getVehicleType().getMinGap();
             if (gap <= frontGapNeeded) {
                 // too close to the leader on this lane
                 return false;
