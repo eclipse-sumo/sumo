@@ -1,14 +1,2 @@
-Warning: Removing vehicle 'always_left.133'; waited too long, from '1fi:1', time=14878.15.
-Warning: Removing vehicle 'always_right.330'; waited too long, from '1si:1', time=14913.15.
-Warning: Removing vehicle 'always_right.352'; waited too long, from '1si:1', time=19170.22.
-Warning: Removing vehicle 'always_right.331'; waited too long, from '2si:1', time=36871.66.
-Warning: Removing vehicle 'always_right.333'; waited too long, from '2si:1', time=37971.36.
-Warning: Removing vehicle 'always_right.342'; waited too long, from '2si:1', time=41841.36.
-Warning: Removing vehicle 'always_right.578'; waited too long, from '1si:1', time=49958.10.
-Warning: Removing vehicle 'always_right.588'; waited too long, from '1si:1', time=52468.25.
-Warning: Removing vehicle 'always_right.625'; waited too long, from '4si:1', time=69413.90.
-Warning: Removing vehicle 'always_right.447'; waited too long, from '3si:1', time=72199.59.
-Warning: Removing vehicle 'always_right.522'; waited too long, from '3fi:1', time=73930.52.
-Warning: Removing vehicle 'always_right.452'; waited too long, from '3si:1', time=73938.48.
-Warning: Removing vehicle 'always_right.619'; waited too long, from '2si:1', time=83691.39.
-Warning: Removing vehicle 'always_right.815'; waited too long, from '1si:1', time=91128.77.
+Warning: Removing vehicle 'always_left.319'; waited too long, from '2fi:1', time=14838.95.
+Warning: Removing vehicle 'horizontal.283'; waited too long, from '2si:1', time=14849.57.
