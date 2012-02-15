@@ -1,0 +1,12 @@
+Warning: Teleporting vehicle 'flow0.2'; waited too long, from 'start0:0' to 'start2:1', time=98.81.
+Warning: Teleporting vehicle 'flow1.2'; waited too long, from 'start1:0' to 'start2:1', time=98.81.
+Warning: Teleporting vehicle 'flow3.2'; waited too long, from 'start3:0' to 'start2:1', time=126.81.
+Warning: Teleporting vehicle 'flow0.5'; waited too long, from 'start0:0' to 'start2:1', time=158.81.
+Warning: Teleporting vehicle 'flow3.4'; waited too long, from 'start3:0' to 'start2:1', time=202.81.
+Warning: Teleporting vehicle 'flow0.7'; waited too long, from 'start0:0' to 'start2:1', time=238.81.
+Warning: Teleporting vehicle 'flow3.6'; waited too long, from 'start3:0' to 'start2:1', time=272.81.
+Warning: Teleporting vehicle 'flow0.9'; waited too long, from 'start0:0' to 'start2:1', time=310.81.
+Warning: Teleporting vehicle 'flow3.8'; waited too long, from 'start3:0' to 'start2:1', time=350.81.
+Warning: Teleporting vehicle 'flow0.11'; waited too long, from 'start0:0' to 'start2:1', time=390.81.
+Warning: Teleporting vehicle 'flow3.10'; waited too long, from 'start3:0' to 'start2:1', time=428.81.
+Warning: Teleporting vehicle 'flow0.13'; waited too long, from 'start0:0' to 'start2:1', time=468.81.
