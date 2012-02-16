@@ -174,7 +174,7 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
     assert(myAlternatives.size() != 0);
     // compute the probabilities
     if (myLogitGamma >= 0) {
-        calculateLogitProbabilities();
+        calculateLogitProbabilities(veh);
     } else {
         for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end() - 1; i++) {
             RORoute* pR = *i;
@@ -268,7 +268,7 @@ RORouteDef_Alternatives::getThetaForCLogit() const {
 
 
 void
-RORouteDef_Alternatives::calculateLogitProbabilities() {
+RORouteDef_Alternatives::calculateLogitProbabilities(const ROVehicle* const veh) {
     const SUMOReal theta = getThetaForCLogit();
     if (myBeta > 0) {
         // calculate commonalities
@@ -277,7 +277,8 @@ RORouteDef_Alternatives::calculateLogitProbabilities() {
             SUMOReal lengthR = 0;
             const std::vector<const ROEdge*> &edgesR = pR->getEdgeVector();
             for (std::vector<const ROEdge*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
-                lengthR += (*edge)->getTravelTime(0, 0) / 3600.;
+                //@todo why don't we use costs here
+                lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
             }
             SUMOReal overlapSum = 0;
             for (AlternativesVector::const_iterator j = myAlternatives.begin(); j != myAlternatives.end(); j++) {
@@ -286,9 +287,9 @@ RORouteDef_Alternatives::calculateLogitProbabilities() {
                 SUMOReal lengthS = 0;
                 const std::vector<const ROEdge*> &edgesS = pS->getEdgeVector();
                 for (std::vector<const ROEdge*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
-                    lengthS += (*edge)->getTravelTime(0, 0) / 3600.;
+                    lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
                     if (std::find(edgesR.begin(), edgesR.end(), *edge) != edgesR.end()) {
-                        overlapLength += (*edge)->getTravelTime(0, 0) / 3600.;
+                        overlapLength += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
                     }
                 }
                 overlapSum += pow(overlapLength / sqrt(lengthR * lengthS), myLogitGamma);
@@ -310,7 +311,7 @@ RORouteDef_Alternatives::calculateLogitProbabilities() {
 
 SUMOReal
 RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x) {
-    if (((pdr * gawronG(myGawronA, x) + pds) == 0)) {
+    if (pdr * gawronG(myGawronA, x) + pds == 0) {
         return std::numeric_limits<SUMOReal>::max();
     }
     return (pdr * (pdr + pds) * gawronG(myGawronA, x)) /

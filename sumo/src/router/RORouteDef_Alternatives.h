@@ -95,7 +95,7 @@ private:
     SUMOReal getThetaForCLogit() const;
 
     /** @brief calculate the probabilities in the logit model */
-    void calculateLogitProbabilities();
+    void calculateLogitProbabilities(const ROVehicle* const veh);
 
     /** @brief Performs the gawron - f() function
         From "Dynamic User Equilibria..." */
