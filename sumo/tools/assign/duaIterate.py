@@ -107,7 +107,7 @@ def initOptions():
     optParser.add_option("-i", "--logitgama", type="float", dest="logitgamma",
                          default= 1., help="use the c-logit model for route choice")
     optParser.add_option("-G", "--logittheta", type="float", dest="logittheta",
-                         help="parameter to adapt the cost unit")
+                         default= 1., help="parameter to adapt the cost unit")
     return optParser
 
 def call(command, log):
@@ -155,9 +155,12 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         <max-alternatives value="%s"/>
         <logit value="%s"/>
         <logit.beta value="%s"/>
-        <logit.gamma value="%s"/>
-    </processing>""" % (options.continueOnUnbuild, bool(options.districts), 
-            options.gBeta, options.gA, options.allroutes, options.routing_algorithm, options.max_alternatives, options.logit, options.logitbeta, options.logitgamma)
+        <logit.gamma value="%s"/>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA, options.allroutes, 
+            options.routing_algorithm, options.max_alternatives, options.logit, options.logitbeta, options.logitgamma)
+    if options.logittheta:
+        print >> fd, """        <logit.theta value="%s"/>
+    </processing>""" % options.logittheta
+                
     print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
