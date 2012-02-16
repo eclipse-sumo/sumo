@@ -32,6 +32,7 @@
 
 #include "MSLink.h"
 #include "MSLane.h"
+#include "MSVehicle.h"
 #include <iostream>
 #include <cassert>
 

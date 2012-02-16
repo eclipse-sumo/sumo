@@ -34,18 +34,22 @@
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/Command.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSGlobals.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
-#include "MSTriggeredRerouter.h"
+#include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/RandHelper.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSRoute.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSGlobals.h>
+#include "MSTriggeredRerouter.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>

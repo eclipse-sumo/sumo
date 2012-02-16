@@ -35,6 +35,7 @@
 #include <algorithm>
 #include "MSE2Collector.h"
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -450,6 +451,18 @@ MSE2Collector::getCurrentStartedHalts() const {
     return myCurrentStartedHalts;
 }
 
+
+int 
+MSE2Collector::by_vehicle_position_sorter::operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) {
+    const MSVehicle* const occ = myLane->getPartialOccupator();
+    if (v1 == occ) {
+        return true;
+    }
+    if (v2 == occ) {
+        return false;
+    }
+    return v1->getPositionOnLane() > v2->getPositionOnLane();
+}
 
 /****************************************************************************/
 

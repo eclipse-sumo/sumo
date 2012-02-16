@@ -35,11 +35,12 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include "MSTrafficLightLogic.h"
-#include "MSAgentbasedTrafficLightLogic.h"
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/TplConvert.h>
+#include "MSTrafficLightLogic.h"
+#include "MSAgentbasedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

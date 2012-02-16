@@ -31,6 +31,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSDevice_Tripinfo.h"

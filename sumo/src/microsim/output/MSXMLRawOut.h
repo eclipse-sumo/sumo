@@ -43,6 +43,7 @@
 class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
+class MSBaseVehicle;
 class MSLane;
 
 

@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
+#include "MSNet.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSEdgeControl.h"
@@ -1319,6 +1320,37 @@ MSLane::getHarmonoise_NoiseEmissions() const {
 }
 
 
+bool
+MSLane::VehPosition::operator()(const MSVehicle* cmp, SUMOReal pos) const {
+    return cmp->getPositionOnLane() >= pos;
+}
+
+
+int 
+MSLane::vehicle_position_sorter::operator()(MSVehicle* v1, MSVehicle* v2) const {
+    return v1->getPositionOnLane() > v2->getPositionOnLane();
+}
+
+MSLane::by_connections_to_sorter::by_connections_to_sorter(const MSEdge* const e) : 
+    myEdge(e), 
+    myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) 
+{ }
+
+
+int 
+MSLane::by_connections_to_sorter::operator()(const MSEdge* const e1, const MSEdge* const e2) const {
+    const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
+    const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
+    SUMOReal s1 = 0;
+    if (ae1 != 0 && ae1->size() != 0) {
+        s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
+    }
+    SUMOReal s2 = 0;
+    if (ae2 != 0 && ae2->size() != 0) {
+        s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
+    }
+    return s1 < s2;
+}
 
 /****************************************************************************/
 

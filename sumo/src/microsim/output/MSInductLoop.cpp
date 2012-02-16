@@ -41,6 +41,8 @@
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSNet.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>

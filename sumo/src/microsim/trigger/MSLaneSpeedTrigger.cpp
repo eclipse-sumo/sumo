@@ -35,13 +35,15 @@
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/WrappingCommand.h>
-#include <microsim/MSLane.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
-#include "MSLaneSpeedTrigger.h"
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include "MSLaneSpeedTrigger.h"
 
 #ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>

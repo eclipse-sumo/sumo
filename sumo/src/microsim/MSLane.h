@@ -35,31 +35,32 @@
 #include <config.h>
 #endif
 
-#include "MSEdge.h"
-#include "MSLinkCont.h"
-#include "MSVehicle.h"
 #include <bitset>
 #include <deque>
 #include <vector>
 #include <utility>
+#include <cassert>
 #include <map>
 #include <string>
 #include <iostream>
-#include "MSNet.h"
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Line.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
+#include "MSMoveReminder.h"
+#include "MSLinkCont.h"
+
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class MSEdge;
+class MSVehicle;
 class MSLaneChanger;
 class MSLink;
-class MSMoveReminder;
 class GUILaneWrapper;
 class MSVehicleTransfer;
 class OutputDevice;
@@ -86,12 +87,9 @@ public:
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
-    struct VehPosition : public std::binary_function < const MSVehicle*,
-            SUMOReal, bool > {
+    struct VehPosition : public std::binary_function < const MSVehicle*, SUMOReal, bool > {
         /// compares vehicle position to the detector position
-        bool operator()(const MSVehicle* cmp, SUMOReal pos) const {
-            return cmp->getPositionOnLane() >= pos;
-        }
+        bool operator()(const MSVehicle* cmp, SUMOReal pos) const;
     };
 
 public:
@@ -732,9 +730,7 @@ private:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the first vehicle is further on the lane than the second
          */
-        int operator()(MSVehicle* v1, MSVehicle* v2) const {
-            return v1->getPositionOnLane() > v2->getPositionOnLane();
-        }
+        int operator()(MSVehicle* v1, MSVehicle* v2) const;
 
     };
 
@@ -744,23 +740,10 @@ private:
     class by_connections_to_sorter {
     public:
         /// @brief constructor
-        explicit by_connections_to_sorter(const MSEdge* const e)
-            : myEdge(e), myLaneDir(e->getLanes()[0]->getShape().getBegLine().atan2PositiveAngle()) { }
+        explicit by_connections_to_sorter(const MSEdge* const e);
 
         /// @brief comparing operator
-        int operator()(const MSEdge* const e1, const MSEdge* const e2) const {
-            const std::vector<MSLane*>* ae1 = e1->allowedLanes(*myEdge);
-            const std::vector<MSLane*>* ae2 = e2->allowedLanes(*myEdge);
-            SUMOReal s1 = 0;
-            if (ae1 != 0 && ae1->size() != 0) {
-                s1 = (SUMOReal) ae1->size() + GeomHelper::getMinAngleDiff((*ae1)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
-            }
-            SUMOReal s2 = 0;
-            if (ae2 != 0 && ae2->size() != 0) {
-                s2 = (SUMOReal) ae2->size() + GeomHelper::getMinAngleDiff((*ae2)[0]->getShape().getBegLine().atan2PositiveAngle(), myLaneDir) / PI / 2.;
-            }
-            return s1 < s2;
-        }
+        int operator()(const MSEdge* const e1, const MSEdge* const e2) const;
 
     private:
         by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning

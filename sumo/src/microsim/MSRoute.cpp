@@ -391,7 +391,7 @@ SUMOReal
 MSRoute::getLength() const {
     SUMOReal ret = 0;
     for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        ret += (*i)->getLanes()[0]->getLength();
+        ret += (*i)->getLength();
     }
     return ret;
 }

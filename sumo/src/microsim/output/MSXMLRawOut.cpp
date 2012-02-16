@@ -36,6 +36,8 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSXMLRawOut.h"

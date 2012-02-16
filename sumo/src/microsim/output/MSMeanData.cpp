@@ -35,6 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSNet.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -390,7 +391,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             }
             meanData.reset(true);
         } else {
-            MeanDataValues* sumData = createValues(0, edge->getLanes()[0]->getLength(), false);
+            MeanDataValues* sumData = createValues(0, edge->getLength(), false);
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                 MeanDataValues& meanData = **lane;
                 meanData.addTo(*sumData);

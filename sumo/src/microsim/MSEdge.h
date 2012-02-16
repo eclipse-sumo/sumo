@@ -47,12 +47,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSLane;
 class MSLaneChanger;
 class OutputDevice;
 class SUMOVehicle;
 class SUMOVehicleParameter;
 class MSVehicle;
+class MSLane;
 
 
 // ===========================================================================
@@ -387,6 +387,11 @@ public:
     SUMOReal getDistanceTo(const MSEdge* other) const {
         return 0; // XXX @todo use straight-line distance
     };
+
+
+    /// @brief return the length of the edge
+    SUMOReal getLength() const;
+
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise

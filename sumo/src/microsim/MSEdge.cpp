@@ -318,24 +318,23 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         const SUMOVehicleParameter& pars = v.getParameter();
-        const SUMOReal length = getLanes()[0]->getLength();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
             case DEPART_POS_GIVEN:
                 if (pars.departPos >= 0.) {
                     pos = pars.departPos;
                 } else {
-                    pos = pars.departPos + length;
+                    pos = pars.departPos + getLength();
                 }
-                if (pos < 0 || pos > length) {
+                if (pos < 0 || pos > getLength()) {
                     WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" + 
                             v.getID() + "'. Inserting at lane end instead.");
-                    pos = length;
+                    pos = getLength();
                 }
                 break;
             case DEPART_POS_RANDOM:
             case DEPART_POS_RANDOM_FREE:
-                pos = RandHelper::rand(getLanes()[0]->getLength());
+                pos = RandHelper::rand(getLength());
                 break;
             default:
                 break;
@@ -412,7 +411,7 @@ MSEdge::getCurrentTravelTime() const {
     }
 #endif
     if (v != 0) {
-        return (*myLanes)[0]->getLength() / v;
+        return getLength() / v;
     } else {
         return 1000000.;
     }
@@ -513,6 +512,11 @@ MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const M
     }
 }
 
+
+SUMOReal 
+MSEdge::getLength() const {
+    return getLanes()[0]->getLength();
+}
 
 /****************************************************************************/
 

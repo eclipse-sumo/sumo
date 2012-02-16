@@ -33,6 +33,8 @@
 
 #include <string>
 #include <utils/common/WrappingCommand.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/geom/GeoConvHelper.h>

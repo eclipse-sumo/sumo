@@ -309,16 +309,7 @@ protected:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
-        int operator()(const SUMOVehicle* v1, const SUMOVehicle* v2) {
-            const MSVehicle* const occ = myLane->getPartialOccupator();
-            if (v1 == occ) {
-                return true;
-            }
-            if (v2 == occ) {
-                return false;
-            }
-            return v1->getPositionOnLane() > v2->getPositionOnLane();
-        }
+        int operator()(const SUMOVehicle* v1, const SUMOVehicle* v2);
 
     private:
         by_vehicle_position_sorter& operator=(const by_vehicle_position_sorter&); // just to avoid a compiler warning

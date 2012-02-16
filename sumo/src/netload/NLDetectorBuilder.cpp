@@ -36,6 +36,7 @@
 #include <iostream>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>

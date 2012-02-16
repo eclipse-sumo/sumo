@@ -34,6 +34,7 @@
 
 #include "MSLane.h"
 #include "MSEdge.h"
+#include "MSVehicle.h"
 #include <vector>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -41,7 +42,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
 
 
 // ===========================================================================

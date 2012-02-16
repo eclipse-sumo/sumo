@@ -29,9 +29,10 @@
 #include <config.h>
 #endif
 
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include "MS_E2_ZS_CollectorOverLanes.h"
 #include "MSE2Collector.h"
-#include <microsim/MSLane.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
