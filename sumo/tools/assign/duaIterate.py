@@ -131,7 +131,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         withExitTimes = True
     addweights = ""
     if options.addweights != "":
-        addweights = "," + options.addweights
+        addweights = options.addweights + ","
     fd = open(cfgname, "w")
     print >> fd, """<configuration>
     <input>
@@ -142,9 +142,9 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
-        print >> fd, '        <weights value="dump_%03i_%s.xml%s"/>' % (step-1, options.aggregation, addweights)
+        print >> fd, '        <weights value="%sdump_%03i_%s.xml%s"/>' % (addweights, step-1, options.aggregation)
     if options.ecomeasure:
-        print >> fd, '        <weight-attribute value="%s%s"/>' % (options.ecomeasure, addweights)
+        print >> fd, '        <weight-attribute value="%s%s"/>' % (addweights, options.ecomeasure)
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
