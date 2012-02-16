@@ -104,10 +104,10 @@ def initOptions():
                          default=False, help="use the logit model for route choice")
     optParser.add_option("-g", "--logitbeta", type="float", dest="logitbeta",
                          default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
-    optParser.add_option("-i", "--logitgama", type="float", dest="logitgamma",
+    optParser.add_option("-i", "--logitgamma", type="float", dest="logitgamma",
                          default= 1., help="use the c-logit model for route choice")
     optParser.add_option("-G", "--logittheta", type="float", dest="logittheta",
-                         default= 1., help="parameter to adapt the cost unit")
+                         help="parameter to adapt the cost unit")
     optParser.add_option("-J", "--addweights", dest="addweights",
                          help="Additional weightes for duarouter")
     return optParser
@@ -142,9 +142,9 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
-        print >> fd, '        <weights value="%sdump_%03i_%s.xml%s"/>' % (addweights, step-1, options.aggregation)
+        print >> fd, '        <weights value="%sdump_%03i_%s.xml"/>' % (addweights, step-1, options.aggregation)
     if options.ecomeasure:
-        print >> fd, '        <weight-attribute value="%s%s"/>' % (addweights, options.ecomeasure)
+        print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
