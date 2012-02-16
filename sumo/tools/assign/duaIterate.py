@@ -96,8 +96,16 @@ def initOptions():
                          default = False, help="output the last routes")
     optParser.add_option("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                          default = False, help="save routes with near zero probability")
-    optParser.add_option("--routing-algorithm", default = "dijkstra", help="select the routing algorithm")
-    optParser.add_option("--max-alternatives", default = 5, help="prune the number of alternatives to INT")
+    optParser.add_option("--routing-algorithm", default="dijkstra", help="select the routing algorithm")
+    optParser.add_option("--max-alternatives", default=5, help="prune the number of alternatives to INT")
+    optParser.add_option("--skip-first-routing", action="store_true", dest="skipFirstRouting",
+                         default=False, help="run simulation with demands before first routing")
+    optParser.add_option("--logit", action="store_true", dest="logit",
+                         default=False, help="use the logit model for route choice")
+    optParser.add_option("--logitbeta", type="float", dest="logitbeta",
+                         default=0.0001, help="use the logit model for route choice")
+    optParser.add_option("--logitgama", type="float", dest="logitgamma",
+                         default=1., help="use the logit model for route choice")
     return optParser
 
 def call(command, log):
@@ -143,8 +151,11 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         <keep-all-routes value="%s"/>
         <routing-algorithm value="%s"/>
         <max-alternatives value="%s"/>
+        <logit value="%s"/>
+        <logit.beta value="%s"/>
+        <logit.gamma value="%s"/>
     </processing>""" % (options.continueOnUnbuild, bool(options.districts), 
-            options.gBeta, options.gA, options.allroutes, options.routing_algorithm, options.max_alternatives)
+            options.gBeta, options.gA, options.allroutes, options.routing_algorithm, options.max_alternatives, options.logit, options.logitbeta, options.logitgamma)
     print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
@@ -271,26 +282,31 @@ def main(args=None):
         print "> Executing step %s" % step
         
         # dua-router
-        files = []
-        for demand_file in input_demands:
-            basename = os.path.basename(demand_file)
-            basename = basename[:basename.find(".")]
-            output =  basename + "_%03i.rou.xml" % step
-            if step>0:
-                # output of previous step
-                demand_file = basename + "_%03i.rou.alt.xml" % (step-1)
-    
-            print ">> Running router"
-            btime = datetime.now()
-            print ">>> Begin time: %s" % btime
-            cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
-            log.flush()
-            call([duaBinary, "-c", cfgname], log)
-            etime = datetime.now()
-            print ">>> End time: %s" % etime
-            print ">>> Duration: %s" % (etime-btime)
-            print "<<"
-            files.append(output)
+        if options.skipFirstRouting and step == 0:
+            files = input_demands
+        else:
+            files = []
+            for demand_file in input_demands:
+                absPath = os.path.abspath(demand_file)
+                basename = os.path.basename(demand_file)
+                basename = basename[:basename.find(".")]
+                output =  basename + "_%03i.rou.xml" % step
+
+                if step > 0 and not (options.skipFirstRouting and step == 1):
+                    # output of previous step
+                    demand_file = basename + "_%03i.rou.alt.xml" % (step-1)
+        
+                print ">> Running router"
+                btime = datetime.now()
+                print ">>> Begin time: %s" % btime
+                cfgname = writeRouteConf(step, options, demand_file, output, options.routefile, initial_type)
+                log.flush()
+                call([duaBinary, "-c", cfgname], log)
+                etime = datetime.now()
+                print ">>> End time: %s" % etime
+                print ">>> Duration: %s" % (etime-btime)
+                print "<<"
+                files.append(output)
         # simulation
         print ">> Running simulation"
         btime = datetime.now()
