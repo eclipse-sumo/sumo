@@ -102,10 +102,12 @@ def initOptions():
                          default=False, help="run simulation with demands before first routing")
     optParser.add_option("--logit", action="store_true", dest="logit",
                          default=False, help="use the logit model for route choice")
-    optParser.add_option("--logitbeta", type="float", dest="logitbeta",
-                         default=0.0001, help="use the logit model for route choice")
-    optParser.add_option("--logitgama", type="float", dest="logitgamma",
-                         default=1., help="use the logit model for route choice")
+    optParser.add_option("-g", "--logitbeta", type="float", dest="logitbeta",
+                         default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
+    optParser.add_option("-i", "--logitgama", type="float", dest="logitgamma",
+                         default= 1., help="use the c-logit model for route choice")
+    optParser.add_option("-G", "--logittheta", type="float", dest="logittheta",
+                         help="parameter to adapt the cost unit")
     return optParser
 
 def call(command, log):
