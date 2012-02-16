@@ -108,6 +108,8 @@ def initOptions():
                          default= 1., help="use the c-logit model for route choice")
     optParser.add_option("-G", "--logittheta", type="float", dest="logittheta",
                          default= 1., help="parameter to adapt the cost unit")
+    optParser.add_option("-J", "--addweights", dest="addweights",
+                         help="Additional weightes for duarouter")
     return optParser
 
 def call(command, log):
@@ -127,6 +129,9 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
+    addweights = ""
+    if options.addweights != "":
+        addweights = "," + options.addweights
     fd = open(cfgname, "w")
     print >> fd, """<configuration>
     <input>
@@ -137,9 +142,9 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
-        print >> fd, '        <weights value="dump_%03i_%s.xml"/>' % (step-1, options.aggregation)
+        print >> fd, '        <weights value="dump_%03i_%s.xml%s"/>' % (step-1, options.aggregation, addweights)
     if options.ecomeasure:
-        print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
+        print >> fd, '        <weight-attribute value="%s%s"/>' % (options.ecomeasure, addweights)
     print >> fd, """    </input>
     <output>
         <output-file value="%s"/>
