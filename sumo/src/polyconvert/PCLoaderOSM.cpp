@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/StdDefs.h>
@@ -143,6 +144,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             if (oc.getBool("osm.keep-full-type")) {
                 type = e->myType;
             }
+            name = StringUtils::escapeXML(name);
+            type = StringUtils::escapeXML(type);
             Polygon* poly = new Polygon(name, type, color, vec, fill);
             if (!toFill.insert(name, poly, layer)) {
                 WRITE_ERROR("Polygon '" + name + "' could not been added.");
@@ -194,6 +197,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
             }
+            name = StringUtils::escapeXML(name);
+            type = StringUtils::escapeXML(type);
             PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 WRITE_ERROR("POI '" + name + "' could not been added.");
