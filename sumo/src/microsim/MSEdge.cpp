@@ -318,13 +318,19 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         const SUMOVehicleParameter& pars = v.getParameter();
+        const SUMOReal length = getLanes()[0]->getLength();
         SUMOReal pos = 0.0;
         switch (pars.departPosProcedure) {
             case DEPART_POS_GIVEN:
                 if (pars.departPos >= 0.) {
                     pos = pars.departPos;
                 } else {
-                    pos = pars.departPos + getLanes()[0]->getLength();
+                    pos = pars.departPos + length;
+                }
+                if (pos < 0 || pos > length) {
+                    WRITE_WARNING("Invalid departPos " + toString(pos) + " given for vehicle '" + 
+                            v.getID() + "'. Inserting at lane end instead.");
+                    pos = length;
                 }
                 break;
             case DEPART_POS_RANDOM:
