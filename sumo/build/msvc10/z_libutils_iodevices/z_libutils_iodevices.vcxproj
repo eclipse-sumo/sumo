@@ -190,6 +190,7 @@
     <ClCompile Include="..\..\..\src\utils\iodevices\BinaryFormatter.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\BinaryInputDevice.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice.cpp" />
+    <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_CERR.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_COUT.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_File.cpp" />
     <ClCompile Include="..\..\..\src\utils\iodevices\OutputDevice_Network.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\..\..\src\utils\iodevices\BinaryFormatter.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\BinaryInputDevice.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice.h" />
+    <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_CERR.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_COUT.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_File.h" />
     <ClInclude Include="..\..\..\src\utils\iodevices\OutputDevice_Network.h" />

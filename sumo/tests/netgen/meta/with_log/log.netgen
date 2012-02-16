@@ -1,48 +1,28 @@
  Generation done;
    100 nodes generated.
    360 edges generated.
-Removing self-loops... 
-done.
-Removing empty nodes... 
-done.
+Removing self-loops... done.
+Removing empty nodes... done.
    0 nodes removed.
-Joining similar edges... 
-done.
-Moving network to origin... 
-done.
-Assigning nodes to traffic lights... 
-done.
-Computing turning directions... 
-done.
-Sorting nodes' edges... 
-done.
-Computing node types... 
-done.
-Computing priorities... 
-done.
-Computing approached edges... 
-done.
-Computing approaching lanes... 
-done.
-Dividing of lanes on approached lanes... 
-done.
-Processing turnarounds... 
-done.
-Rechecking of lane endings... 
-done.
-Computing node shapes... 
-done.
-Computing edge shapes... 
-done.
-Computing traffic light control information... 
-done.
-Computing node logics... 
-done.
-Computing traffic light logics... 
-done.
+Joining similar edges... done.
+Moving network to origin... done.
+Assigning nodes to traffic lights... done.
+Computing turning directions... done.
+Sorting nodes' edges... done.
+Computing node types... done.
+Computing priorities... done.
+Computing approached edges... done.
+Computing approaching lanes... done.
+Dividing of lanes on approached lanes... done.
+Processing turnarounds... done.
+Rechecking of lane endings... done.
+Computing node shapes... done.
+Computing edge shapes... done.
+Computing traffic light control information... done.
+Computing node logics... done.
+Computing traffic light logics... done.
  0 traffic light(s) computed.
-Building inner edges... 
-done.
+Building inner edges... done.
 -----------------------------------------------------
 Summary:
  Node type statistics:

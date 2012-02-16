@@ -3,8 +3,7 @@ Parsing edges from 'input_edges.edg.xml'... done.
  Import done:
    9 nodes loaded.
    12 edges loaded.
-Removing self-loops... 
-done.
+Removing self-loops... done.
 Removing empty nodes... done.
    0 nodes removed.
 Joining similar edges... done.

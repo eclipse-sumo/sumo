@@ -1,9 +1,9 @@
 /****************************************************************************/
-/// @file    OutputDevice_COUT.cpp
+/// @file    OutputDevice_CERR.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id$
+/// @version $Id: OutputDevice_CERR.cpp 11671 2012-01-07 20:14:30Z behrisch $
 ///
 // An output device that encapsulates cout
 /****************************************************************************/
@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "OutputDevice_COUT.h"
+#include "OutputDevice_CERR.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -40,17 +40,17 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-OutputDevice* OutputDevice_COUT::myInstance = 0;
+OutputDevice* OutputDevice_CERR::myInstance = 0;
 
 
 // ===========================================================================
 // static method definitions
 // ===========================================================================
 OutputDevice*
-OutputDevice_COUT::getDevice() {
+OutputDevice_CERR::getDevice() {
     // check whether the device has already been aqcuired
     if (myInstance == 0) {
-        myInstance = new OutputDevice_COUT();
+        myInstance = new OutputDevice_CERR();
     }
     return myInstance;
 }
@@ -59,23 +59,23 @@ OutputDevice_COUT::getDevice() {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT() {}
+OutputDevice_CERR::OutputDevice_CERR() {}
 
 
-OutputDevice_COUT::~OutputDevice_COUT() {
+OutputDevice_CERR::~OutputDevice_CERR() {
     myInstance = 0;
 }
 
 
 std::ostream&
-OutputDevice_COUT::getOStream() {
-    return std::cout;
+OutputDevice_CERR::getOStream() {
+    return std::cerr;
 }
 
 
 void
-OutputDevice_COUT::postWriteHook() {
-    std::cout.flush();
+OutputDevice_CERR::postWriteHook() {
+    std::cerr.flush();
 }
 
 

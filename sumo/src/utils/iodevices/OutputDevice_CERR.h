@@ -1,11 +1,11 @@
 /****************************************************************************/
-/// @file    OutputDevice_COUT.cpp
+/// @file    OutputDevice_CERR.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id$
+/// @version $Id: OutputDevice_CERR.h 11671 2012-01-07 20:14:30Z behrisch $
 ///
-// An output device that encapsulates cout
+// An output device that encapsulates cerr
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -18,6 +18,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+#ifndef OutputDevice_CERR_h
+#define OutputDevice_CERR_h
 
 
 // ===========================================================================
@@ -29,54 +31,63 @@
 #include <config.h>
 #endif
 
-#include <iostream>
-#include "OutputDevice_COUT.h"
-
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
+#include "OutputDevice.h"
 
 
 // ===========================================================================
-// static member definitions
+// class definitions
 // ===========================================================================
-OutputDevice* OutputDevice_COUT::myInstance = 0;
+/**
+ * @class OutputDevice_CERR
+ * @brief An output device that encapsulates cerr
+ */
+class OutputDevice_CERR : public OutputDevice {
+public:
+    /** @brief Returns the single cerr instance
+     *
+     * Creates and returns the cerr device. 
+     */
+    static OutputDevice* getDevice();
 
 
-// ===========================================================================
-// static method definitions
-// ===========================================================================
-OutputDevice*
-OutputDevice_COUT::getDevice() {
-    // check whether the device has already been aqcuired
-    if (myInstance == 0) {
-        myInstance = new OutputDevice_COUT();
-    }
-    return myInstance;
-}
+protected:
+    /// @name Methods that override/implement OutputDevice-methods
+    /// @{
+
+    /** @brief Returns the associated ostream
+     * @return cerr
+     */
+    std::ostream& getOStream() ;
 
 
-// ===========================================================================
-// method definitions
-// ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT() {}
+    /** @brief Called after every write access.
+     *
+     * Calls flush on stderr.
+     */
+    virtual void postWriteHook() ;
+    /// @}
 
 
-OutputDevice_COUT::~OutputDevice_COUT() {
-    myInstance = 0;
-}
+private:
+    /** @brief Constructor
+     * @exception IOError Should not be thrown by this implementation
+     */
+    OutputDevice_CERR();
 
 
-std::ostream&
-OutputDevice_COUT::getOStream() {
-    return std::cout;
-}
+    /// @brief Destructor
+    ~OutputDevice_CERR() ;
 
 
-void
-OutputDevice_COUT::postWriteHook() {
-    std::cout.flush();
-}
+private:
+    /// @brief my singular instance
+    static OutputDevice* myInstance;
 
+
+};
+
+
+#endif
 
 /****************************************************************************/
+

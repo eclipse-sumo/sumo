@@ -275,7 +275,7 @@ public:
      *
      * @param[in] msg The msg to write to the device
      */
-    void inform(const std::string& msg);
+    void inform(const std::string& msg, const char progress=0);
 
 
     /** @brief Abstract output operator

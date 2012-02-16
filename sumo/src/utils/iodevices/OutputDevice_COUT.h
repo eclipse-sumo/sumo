@@ -43,14 +43,11 @@
  */
 class OutputDevice_COUT : public OutputDevice {
 public:
-    /** @brief Constructor
-     * @exception IOError Should not be thrown by this implementation
+    /** @brief Returns the single cout instance
+     *
+     * Creates and returns the cout device. 
      */
-    OutputDevice_COUT();
-
-
-    /// @brief Destructor
-    ~OutputDevice_COUT() ;
+    static OutputDevice* getDevice();
 
 
 protected:
@@ -61,7 +58,31 @@ protected:
      * @return cout
      */
     std::ostream& getOStream() ;
+
+
+    /** @brief Called after every write access.
+     *
+     * Calls flush on stdout.
+     */
+    virtual void postWriteHook() ;
     /// @}
+
+
+private:
+    /** @brief Constructor
+     * @exception IOError Should not be thrown by this implementation
+     */
+    OutputDevice_COUT();
+
+
+    /// @brief Destructor
+    ~OutputDevice_COUT();
+
+
+private:
+    /// @brief my singular instance
+    static OutputDevice* myInstance;
+
 
 };
 

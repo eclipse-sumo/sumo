@@ -200,12 +200,6 @@ private:
     /// information wehther an error occured at all
     bool myWasInformed;
 
-    /// Information whether stdout shall be used as output device, too
-    bool myReport2COUT;
-
-    /// Information whether stderr shall be used as output device, too
-    bool myReport2CERR;
-
     /// Definition of the list of retrievers to inform
     typedef std::vector<OutputDevice*> RetrieverVector;
 

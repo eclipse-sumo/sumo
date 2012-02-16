@@ -39,6 +39,7 @@
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
+#include "OutputDevice_CERR.h"
 #include "OutputDevice_Network.h"
 #include "PlainXMLFormatter.h"
 #include <utils/common/TplConvert.h>
@@ -64,30 +65,36 @@ std::map<std::string, OutputDevice*> OutputDevice::myOutputDevices;
 OutputDevice&
 OutputDevice::getDevice(const std::string& name,
                         const std::string& base) {
+    std::string internalName = name;
+    if (name == "-") {
+        internalName = "stdout";
+    }
     // check whether the device has already been aqcuired
-    if (myOutputDevices.find(name) != myOutputDevices.end()) {
-        return *myOutputDevices[name];
+    if (myOutputDevices.find(internalName) != myOutputDevices.end()) {
+        return *myOutputDevices[internalName];
     }
     // build the device
     OutputDevice* dev = 0;
     // check whether the device shall print to stdout
-    if (name == "stdout" || name == "-") {
-        dev = new OutputDevice_COUT();
-    } else if (FileHelpers::isSocket(name)) {
+    if (internalName == "stdout") {
+        dev = OutputDevice_COUT::getDevice();
+    } else if (internalName == "stderr") {
+        dev = OutputDevice_CERR::getDevice();
+    } else if (FileHelpers::isSocket(internalName)) {
         try {
-            int port = TplConvert<char>::_2int(name.substr(name.find(":") + 1).c_str());
-            dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
+            int port = TplConvert<char>::_2int(internalName.substr(internalName.find(":") + 1).c_str());
+            dev = new OutputDevice_Network(internalName.substr(0, internalName.find(":")), port);
         } catch (NumberFormatException&) {
-            throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
+            throw IOError("Given port number '" + internalName.substr(internalName.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
             throw IOError("No port number given.");
         }
     } else {
-        dev = new OutputDevice_File(FileHelpers::checkForRelativity(name, base), name.find(".sbx") != std::string::npos);
+        dev = new OutputDevice_File(FileHelpers::checkForRelativity(internalName, base), internalName.find(".sbx") != std::string::npos);
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
-    myOutputDevices[name] = dev;
+    myOutputDevices[internalName] = dev;
     return *dev;
 }
 
@@ -228,8 +235,12 @@ OutputDevice::postWriteHook() {}
 
 
 void
-OutputDevice::inform(const std::string& msg) {
-    getOStream() << msg << '\n';
+OutputDevice::inform(const std::string& msg, const char progress) {
+    if (progress != 0) {
+        getOStream() << msg << progress;
+    } else {
+        getOStream() << msg << '\n';
+    }
     postWriteHook();
 }
 

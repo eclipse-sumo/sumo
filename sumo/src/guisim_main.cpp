@@ -93,13 +93,6 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        // within gui-based applications, nothing is reported to the console
-        MsgHandler::getErrorInstance()->report2cout(false);
-        MsgHandler::getErrorInstance()->report2cerr(false);
-        MsgHandler::getWarningInstance()->report2cout(false);
-        MsgHandler::getWarningInstance()->report2cerr(false);
-        MsgHandler::getMessageInstance()->report2cout(false);
-        MsgHandler::getMessageInstance()->report2cerr(false);
         // Make application
         FXApp application("SUMO GUISimulation", "DLR");
         // Open display

@@ -98,12 +98,9 @@ GUILoadThread::run() {
     OptionsCont& oc = OptionsCont::getOptions();
 
     // within gui-based applications, nothing is reported to the console
-    MsgHandler::getErrorInstance()->report2cout(false);
-    MsgHandler::getErrorInstance()->report2cerr(false);
-    MsgHandler::getWarningInstance()->report2cout(false);
-    MsgHandler::getWarningInstance()->report2cerr(false);
-    MsgHandler::getMessageInstance()->report2cout(false);
-    MsgHandler::getMessageInstance()->report2cerr(false);
+    MsgHandler::getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
+    MsgHandler::getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
+    MsgHandler::getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
@@ -116,6 +113,7 @@ GUILoadThread::run() {
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
+    // do this once again to get parsed options
     MsgHandler::initOutputOptions(true);
     GUIGlobals::gRunAfterLoad = oc.getBool("start");
     GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
