@@ -59,11 +59,11 @@
 // method definitions
 // ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string& id,
-        unsigned int lastUsed,
-        const SUMOReal beta, const SUMOReal gawronA, const SUMOReal logitGamma,
+        unsigned int lastUsed, const SUMOReal beta, const SUMOReal gawronA,
+        const SUMOReal logitGamma, const SUMOReal logitTheta,
         const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation)
     : RORouteDef(id, 0), myLastUsed((int) lastUsed),
-      myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma),
+      myBeta(beta), myGawronA(gawronA), myLogitGamma(logitGamma), myLogitTheta(logitTheta),
       myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes),
       mySkipRouteCalculation(skipRouteCalculation) {
 }
@@ -109,8 +109,8 @@ RORouteDef_Alternatives::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVeh
         return;
     }
     // return the built route
-    if (myLogitGamma >= 0) {
-        opt->setCosts(costs / 3600.); //@todo need configurable scaling factor esp. for non travel time weights
+    if (myLogitGamma >= 0. && myLogitTheta < 0.) {
+        opt->setCosts(costs / 3600.);
     } else {
 	    opt->setCosts(costs);
 	}
@@ -146,13 +146,17 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
             // recompute the costs for old routes
             const SUMOReal oldCosts = alt->getCosts();
             const SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
-            if (newCosts < 0) {
+            if (newCosts < 0.) {
                 throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
             }
-            if (myLogitGamma >= 0) {
-                alt->setCosts(newCosts / 3600.); //@todo need configurable scaling factor esp. for non travel time weights
+            if (myLogitGamma >= 0.) {
+                if (myLogitTheta < 0.) {
+                    alt->setCosts(newCosts / 3600.);
+                } else {
+                    alt->setCosts(newCosts);
+                }
             } else {
-				if (oldCosts < 0) {
+				if (oldCosts < 0.) {
 					alt->setCosts(newCosts);
 				} else {
 	                alt->setCosts(myBeta * newCosts + ((SUMOReal) 1.0 - myBeta) * oldCosts);
@@ -269,7 +273,7 @@ RORouteDef_Alternatives::getThetaForCLogit() const {
 
 void
 RORouteDef_Alternatives::calculateLogitProbabilities(const ROVehicle* const veh) {
-    const SUMOReal theta = getThetaForCLogit();
+    const SUMOReal theta = myLogitTheta >= 0 ? myLogitTheta : getThetaForCLogit();
     if (myBeta > 0) {
         // calculate commonalities
         for (AlternativesVector::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
@@ -331,7 +335,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x) {
 RORouteDef*
 RORouteDef_Alternatives::copy(const std::string& id) const {
     RORouteDef_Alternatives* ret = new RORouteDef_Alternatives(id,
-            myLastUsed, myBeta, myGawronA, myLogitGamma, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
+            myLastUsed, myBeta, myGawronA, myLogitGamma, myLogitTheta, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
     for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }

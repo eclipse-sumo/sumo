@@ -129,6 +129,10 @@ RODUAFrame::addDUAOptions() {
     oc.addSynonyme("logit.gamma", "lGamma", true);
     oc.addDescription("logit.gamma", "Processing", "Use FLOAT as logit's gamma");
 
+    oc.doRegister("logit.theta", new Option_Float(SUMOReal(-1)));
+    oc.addSynonyme("logit.theta", "lTheta", true);
+    oc.addDescription("logit.theta", "Processing", "Use FLOAT as logit's theta (negative values mean auto-estimation)");
+
 }
 
 

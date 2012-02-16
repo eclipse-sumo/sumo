@@ -330,7 +330,7 @@ ROLoader::buildNamedHandler(const std::string& optionName,
                                : -1;
         return new RORDLoader_SUMOBase(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       beta, myOptions.getFloat("gawron.a"), gamma,
+                                       beta, myOptions.getFloat("gawron.a"), gamma, myOptions.getFloat("logit.theta"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"),
                                        myOptions.getBool("skip-new-routes"), file);

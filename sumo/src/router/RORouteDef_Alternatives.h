@@ -55,7 +55,8 @@ class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string& id, unsigned int lastUsed, const SUMOReal beta,
-                            const SUMOReal gawronA, const SUMOReal logitGamma, const int maxRoutes,
+                            const SUMOReal gawronA, const SUMOReal logitGamma,
+                            const SUMOReal logitTheta, const int maxRoutes,
                             const bool keepRoutes, const bool skipRouteCalculation) ;
 
     /// Destructor
@@ -133,6 +134,9 @@ private:
 
     /// @brief logit gamma - value
     const SUMOReal myLogitGamma;
+
+    /// @brief logit theta - value
+    const SUMOReal myLogitTheta;
 
     /// @brief The route commonality factors for c-logit
     std::map<const RORoute*, SUMOReal> myCommonalities;
