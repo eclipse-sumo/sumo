@@ -116,12 +116,6 @@ public:
     /// Removes the retriever from the
     void removeRetriever(OutputDevice* retriever);
 
-    /// Sets the information whether stdout shall be used as output device
-    void report2cout(bool value);
-
-    /// Sets the information whether stderr shall be used as output device
-    void report2cerr(bool value);
-
     /// Returns the information whether any messages were added
     bool wasInformed() const;
 
@@ -134,13 +128,6 @@ public:
      */
     template <class T>
     MsgHandler& operator<<(const T& t) {
-        if (myReport2COUT) {
-            std::cout << t;
-        }
-        // report to cerr if wished
-        if (myReport2CERR) {
-            std::cerr << t;
-        }
         // inform all other receivers
         for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
             (*(*i)) << t;
