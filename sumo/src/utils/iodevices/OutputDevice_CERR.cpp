@@ -3,7 +3,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004
-/// @version $Id: OutputDevice_CERR.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // An output device that encapsulates cout
 /****************************************************************************/
