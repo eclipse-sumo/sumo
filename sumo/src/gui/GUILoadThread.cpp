@@ -114,7 +114,7 @@ GUILoadThread::run() {
         return 0;
     }
     // do this once again to get parsed options
-    MsgHandler::initOutputOptions(true);
+    MsgHandler::initOutputOptions();
     GUIGlobals::gRunAfterLoad = oc.getBool("start");
     GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
     if (!MSFrame::checkOptions()) {

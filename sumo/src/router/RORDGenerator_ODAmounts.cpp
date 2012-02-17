@@ -46,7 +46,6 @@
 #include "RORDGenerator_ODAmounts.h"
 #include "ROVehicle.h"
 #include "RORouteDef_Complete.h"
-#include "ROAbstractRouteDefLoader.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -149,7 +148,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet& net,
     // read the complete file on initialisation
     myParser->parseReset(myToken);
     myParser->parse(getFileName().c_str());
-    myDepartureTime = myBegin;
+    myCurrentDepart = begin;
 }
 
 
@@ -161,26 +160,19 @@ RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() {
 
 
 bool
-RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) {
-    UNUSED_PARAMETER(skipping);
+RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until) {
     // skip routes before begin
     if (until < myBegin) {
-        myDepartureTime = until;
+        myCurrentDepart = until;
         return true;
     }
     // build route definitions for the given timestep
-    buildRoutes(until);
-    return true;
-}
-
-
-void
-RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) {
     SUMOTime t;
-    for (t = myDepartureTime; t < until + 1; t += DELTA_T) {
+    for (t = myCurrentDepart; t < until + 1; t += DELTA_T) {
         buildForTimeStep(t);
     }
-    myDepartureTime = t;
+    myCurrentDepart = t;
+    return true;
 }
 
 
@@ -211,7 +203,9 @@ RORDGenerator_ODAmounts::myStartElement(int element,
     if (element == SUMO_TAG_FLOW) {
         parseFlowAmountDef(attrs);
     } else if (element == SUMO_TAG_INTERVAL) {
-        parseInterval(attrs);
+        bool ok = true;
+        myUpperIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1); // !!!really optional ?
+        myUpperIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, 0, ok, -1); // !!!really optional ?
     }
 }
 
@@ -258,28 +252,14 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    myUpperIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok, -1); // !!!really optional ?
-    myUpperIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, 0, ok, -1); // !!!really optional ?
-}
-
-
-void
 RORDGenerator_ODAmounts::myEndElement(int element) {
     RORDLoader_TripDefs::myEndElement(element);
     if (element == SUMO_TAG_FLOW) {
         myEndFlowAmountDef();
     } else if (element == SUMO_TAG_INTERVAL) {
-        myEndInterval();
+        myUpperIntervalBegin = 0; // !!! was -1
+        myUpperIntervalEnd = 0; // !!! was: -1
     }
-}
-
-
-void
-RORDGenerator_ODAmounts::myEndInterval() {
-    myUpperIntervalBegin = 0; // !!! was -1
-    myUpperIntervalEnd = 0; // !!! was: -1
 }
 
 

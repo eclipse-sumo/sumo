@@ -45,7 +45,7 @@
 // ===========================================================================
 class OptionsCont;
 class RONet;
-class ROAbstractRouteDefLoader;
+class ROTypedXMLRoutesLoader;
 class ROAbstractEdgeBuilder;
 class GUIRouterRunThread;
 class ROVehicle;
@@ -84,7 +84,7 @@ public:
                      const std::string& measure, bool useLanes);
 
     /** @brief Builds and opens all route loaders
-        Route loaders are derived from ROAbstractRouteDefLoader */
+        Route loaders are derived from ROTypedXMLRoutesLoader */
     unsigned int openRoutes(RONet& net);
 
     /** @brief Loads routes stepwise
@@ -205,7 +205,7 @@ protected:
 
 
 protected:
-    ROAbstractRouteDefLoader* buildNamedHandler(const std::string& optionName,
+    ROTypedXMLRoutesLoader* buildNamedHandler(const std::string& optionName,
             const std::string& file, RONet& net) ;
 
 
@@ -221,7 +221,7 @@ protected:
     OptionsCont& myOptions;
 
     /// @brief Definition of route loader list
-    typedef std::vector<ROAbstractRouteDefLoader*> RouteLoaderCont;
+    typedef std::vector<ROTypedXMLRoutesLoader*> RouteLoaderCont;
 
     /// @brief List of route loaders
     RouteLoaderCont myHandler;

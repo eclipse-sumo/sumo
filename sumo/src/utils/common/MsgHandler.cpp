@@ -46,13 +46,6 @@
 
 
 // ===========================================================================
-// global variable definitions
-// ===========================================================================
-bool gSuppressWarnings = false;
-bool gSuppressMessages = false;
-
-
-// ===========================================================================
 // static member variables
 // ===========================================================================
 MsgHandler* MsgHandler::myErrorInstance = 0;
@@ -197,12 +190,6 @@ MsgHandler::addRetriever(OutputDevice* retriever) {
     if (i == myRetrievers.end()) {
         myRetrievers.push_back(retriever);
     }
-    // check whether the message shall be generated
-    if (myType == MT_WARNING) {
-        gSuppressWarnings = false;
-    } else if (myType == MT_MESSAGE) {
-        gSuppressMessages = false;
-    }
     if (myLock != 0) {
         myLock->unlock();
     }
@@ -219,12 +206,6 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
     if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
     }
-    // check whether the message shall be generated
-    if (myType == MT_WARNING) {
-        gSuppressWarnings = myRetrievers.size() == 0;
-    } else if (myType == MT_MESSAGE) {
-        gSuppressMessages = myRetrievers.size() == 0;
-    }
     if (myLock != 0) {
         myLock->unlock();
     }
@@ -232,12 +213,12 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
 
 
 void
-MsgHandler::initOutputOptions(bool gui) {
+MsgHandler::initOutputOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (gui || !oc.getBool("verbose")) {
+    if (!oc.getBool("verbose")) {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
     }
-    if (gui || oc.getBool("no-warnings")) {
+    if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }
     // build the logger if possible

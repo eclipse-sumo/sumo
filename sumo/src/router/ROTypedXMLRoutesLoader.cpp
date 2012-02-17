@@ -36,7 +36,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StdDefs.h>
-#include "ROAbstractRouteDefLoader.h"
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
 
@@ -52,9 +51,8 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet& net,
         SUMOTime begin,
         SUMOTime end,
         const std::string& file)
-    : ROAbstractRouteDefLoader(net, begin, end),
-      SUMOSAXHandler(file),
-      myParser(0), myToken(), myEnded(false) {
+    : myNet(net), myBegin(begin), myEnd(end), SUMOSAXHandler(file),
+      myParser(0), myToken(), myEnded(false), myCurrentDepart(-1), myNextRouteRead(false) {
     try {
         myParser = XMLSubSys::getSAXReader(*this);
         myParser->parseFirst(getFileName().c_str(), myToken);
@@ -70,11 +68,10 @@ ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() {
 
 
 bool
-ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) {
-    UNUSED_PARAMETER(skipping);
+ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time) {
     while (getLastReadTimeStep() < time && !ended()) {
-        beginNextRoute();
-        while (!nextRouteRead() && !ended()) {
+        myNextRouteRead = false;
+        while (!myNextRouteRead && !ended()) {
             myParser->parseNext(myToken);
         }
     }

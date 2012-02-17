@@ -44,13 +44,6 @@ class OutputDevice;
 
 
 // ===========================================================================
-// global variable definitions
-// ===========================================================================
-extern bool gSuppressWarnings;
-extern bool gSuppressMessages;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -81,7 +74,7 @@ public:
     /// Returns the instance to add errors to
     static MsgHandler* getErrorInstance();
 
-    static void initOutputOptions(bool gui = false);
+    static void initOutputOptions();
 
     /// Removes pending handler
     static void cleanupOnEnd();

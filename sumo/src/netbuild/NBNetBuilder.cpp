@@ -310,7 +310,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
     WRITE_MESSAGE("Summary:");
-    if (!gSuppressMessages) {
+    if (oc.getBool("verbose")) {
         myNodeCont.printBuiltNodesStatistics();
     }
     WRITE_MESSAGE(" Network boundaries:");

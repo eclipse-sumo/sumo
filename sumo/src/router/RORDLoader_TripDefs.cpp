@@ -41,7 +41,6 @@
 #include "RORDLoader_TripDefs.h"
 #include "ROVehicle.h"
 #include "RORouteDef_Complete.h"
-#include "ROAbstractRouteDefLoader.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -58,8 +57,7 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(RONet& net,
         const std::string& fileName)
     : ROTypedXMLRoutesLoader(net, begin, end, fileName),
       myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-      myWithTaz(withTaz),
-      myDepartureTime(-1), myCurrentVehicleType(0),
+      myWithTaz(withTaz), myCurrentVehicleType(0),
       myParameter(0), myHaveWarnedAboutDeprecatedTripDef(false) {}
 
 
@@ -79,7 +77,7 @@ RORDLoader_TripDefs::myStartElement(int element,
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         std::string id = getVehicleID(attrs);
-        myDepartureTime = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
+        myCurrentDepart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, id.c_str(), ok);
         if (myWithTaz) {
             myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM_TAZ, id, false);
             myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO_TAZ, id, myEmptyDestinationsAllowed);
@@ -93,7 +91,7 @@ RORDLoader_TripDefs::myStartElement(int element,
         if (!ok) {
             return;
         }
-        if (myDepartureTime < 0) {
+        if (myCurrentDepart < 0) {
             WRITE_ERROR("The departure time must be positive.");
             return;
         }
@@ -148,7 +146,7 @@ RORDLoader_TripDefs::myEndElement(int element) {
     if ((element == SUMO_TAG_TRIP || element == SUMO_TAG_TRIP__DEPRECATED) &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
-        if (myDepartureTime < myBegin || myDepartureTime >= myEnd) {
+        if (myCurrentDepart < myBegin || myCurrentDepart >= myEnd) {
             delete myParameter;
             return;
         }
@@ -176,12 +174,6 @@ RORDLoader_TripDefs::myEndElement(int element) {
         myNet.addVehicleType(myCurrentVehicleType);
         myCurrentVehicleType = 0;
     }
-}
-
-
-void
-RORDLoader_TripDefs::beginNextRoute() {
-    myNextRouteRead = false;
 }
 
 

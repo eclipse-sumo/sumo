@@ -35,7 +35,6 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/framework/XMLPScanToken.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
-#include "ROAbstractRouteDefLoader.h"
 
 
 // ===========================================================================
@@ -58,8 +57,7 @@ class Options;
  *
  * @todo recheck/refactor
  */
-class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
-    public SUMOSAXHandler {
+class ROTypedXMLRoutesLoader : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *
@@ -78,18 +76,23 @@ public:
     virtual ~ROTypedXMLRoutesLoader() ;
 
 
-    /// @name inherited from ROAbstractRouteDefLoader
-    //@{
-
     /** @brief Adds routes from the file until the given time is reached
      *
      * @param[in] time The time until which route definitions shall be loaded
-     * @param[in] skipping Whether routes shall not be added
      * @return Whether any errors occured
      * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) ;
+    virtual bool readRoutesAtLeastUntil(SUMOTime time);
+
+
+    /** @brief Returns the time the current (last read) route starts at
+     *
+     * @return The least time step that was read by this reader
+     */
+    SUMOTime getLastReadTimeStep() const {
+        return myCurrentDepart;
+    }
 
 
     /** @brief Returns the information whether no routes are available from this loader anymore
@@ -99,7 +102,6 @@ public:
     bool ended() const {
         return myEnded;
     }
-    /// @}
 
 
     /** @brief Called when the document has ended
@@ -109,33 +111,27 @@ public:
     void endDocument();
 
 
-
 protected:
-    /// @name Virtual methods to implement by derived classes
-    /// @{
+    /// @brief The network to add routes to
+    RONet& myNet;
 
-    /** Returns the information whether a route was read
-     *
-     * @return Whether a further route was read
-     * @todo recheck/refactor
-     */
-    virtual bool nextRouteRead() = 0;
+    /// @brief The time for which the first route shall be loaded
+    SUMOTime myBegin;
 
+    /// @brief The time for which the first route shall be loaded
+    SUMOTime myEnd;
 
-    /** @brief Returns Initialises the reading of a further route
-     *
-     * @todo recheck/refactor
-     */
-    virtual void beginNextRoute() = 0;
-    /// @}
-
-
-protected:
     /// @brief The parser used
     SAX2XMLReader* myParser;
 
     /// @brief Information about the current position within the file
     XMLPScanToken myToken;
+
+    /// @brief The currently read vehicle's depart
+    SUMOTime myCurrentDepart;
+
+    /// @brief The information whether the next route was read
+    bool myNextRouteRead;
 
     /// @brief Information whether the whole file has been parsed
     bool myEnded;

@@ -62,19 +62,14 @@ public:
     ~RORDGenerator_ODAmounts() ;
 
 
-    /// @name inherited from ROAbstractRouteDefLoader
-    //@{
-
     /** @brief Adds routes from the file until the given time is reached
      *
      * @param[in] time The time until which route definitions shall be loaded
-     * @param[in] skipping Whether routes shall not be added
      * @return Whether any errors occured
      * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) ;
-    /// @}
+    bool readRoutesAtLeastUntil(SUMOTime until);
 
 
 protected:
@@ -101,14 +96,8 @@ protected:
     void myEndElement(int element) ;
     //@}
 
-    /// Parses the interval information
-    void parseInterval(const SUMOSAXAttributes& attrs);
-
     /// Parses the trip amount definition
     void parseFlowAmountDef(const SUMOSAXAttributes& attrs) ;
-
-    /// Closes the current embedding interval
-    void myEndInterval();
 
     /// Closes the trip amount parsing
     void myEndFlowAmountDef();
@@ -170,9 +159,6 @@ protected:
     };
 
 private:
-    /// Builds the routes between the current time step and the one given
-    void buildRoutes(SUMOTime until) ;
-
     /// Builds the routes for the given time step
     void buildForTimeStep(SUMOTime time) ;
 

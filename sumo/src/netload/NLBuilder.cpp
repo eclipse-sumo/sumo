@@ -249,7 +249,7 @@ NLBuilder::load(const std::string& mmlWhat) {
     }
     std::vector<std::string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        if (!gSuppressMessages) {
+        if (OptionsCont::getOptions().getBool("verbose")) {
             PROGRESS_BEGIN_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         }
         long before = SysUtils::getCurrentMillis();
@@ -257,7 +257,7 @@ NLBuilder::load(const std::string& mmlWhat) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }
-        if (!gSuppressMessages) {
+        if (OptionsCont::getOptions().getBool("verbose")) {
             MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
         }
     }

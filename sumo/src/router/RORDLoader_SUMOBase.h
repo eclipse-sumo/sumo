@@ -77,19 +77,6 @@ public:
     ~RORDLoader_SUMOBase() ;
 
 
-    /// @name inherited from ROAbstractRouteDefLoader
-    //@{
-
-    /** @brief Returns the time the current (last read) route starts at
-     *
-     * @return The least time step that was read by this reader
-     */
-    SUMOTime getLastReadTimeStep() const {
-        return myCurrentDepart;
-    }
-    /// @}
-
-
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -134,29 +121,6 @@ protected:
     bool closeVehicle() ;
 
 
-
-    /// @name inherited from ROTypedXMLRoutesLoader
-    /// @{
-
-    /** Returns the information whether a route was read
-     *
-     * @return Whether a further route was read
-     * @see ROTypedXMLRoutesLoader::nextRouteRead
-     */
-    bool nextRouteRead() {
-        return myHaveNextRoute;
-    }
-
-
-    /** @brief Returns Initialises the reading of a further route
-     *
-     * @todo recheck/refactor
-     * @see ROTypedXMLRoutesLoader::beginNextRoute
-     */
-    void beginNextRoute() ;
-    //@}
-
-
 protected:
     /// @brief The parsed vehicle parameter
     SUMOVehicleParameter* myVehicleParameter;
@@ -169,9 +133,6 @@ protected:
 
     /// @brief Information whether the currently parsed alternatives set is valid
     bool myAltIsValid;
-
-    /// @brief Information whether a further route has been read
-    bool myHaveNextRoute;
 
     /// @brief The currently parsed route alternatives
     RORouteDef_Alternatives* myCurrentAlternatives;
@@ -214,9 +175,6 @@ protected:
 
     /// @brief The name of the currently parsed route
     std::string myCurrentRouteName;
-
-    /// @brief The currently read vehicle's depart
-    SUMOTime myCurrentDepart;
 
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;

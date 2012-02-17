@@ -61,19 +61,6 @@ public:
     ~RORDLoader_TripDefs() ;
 
 
-    /// @name inherited from ROAbstractRouteDefLoader
-    //@{
-
-    /** @brief Returns the time the current (last read) route starts at
-     *
-     * @return The least time step that was read by this reader
-     */
-    SUMOTime getLastReadTimeStep() const {
-        return myDepartureTime;
-    }
-    /// @}
-
-
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -98,28 +85,6 @@ protected:
     void myEndElement(int element) ;
     //@}
 
-
-
-    /// @name inherited from ROTypedXMLRoutesLoader
-    /// @{
-
-    /** Returns the information whether a route was read
-     *
-     * @return Whether a further route was read
-     * @see ROTypedXMLRoutesLoader::nextRouteRead
-     */
-    bool nextRouteRead() {
-        return myNextRouteRead;
-    }
-
-
-    /** @brief Returns Initialises the reading of a further route
-     *
-     * @todo recheck/refactor
-     * @see ROTypedXMLRoutesLoader::beginNextRoute
-     */
-    void beginNextRoute() ;
-    //@}
 
 
 protected:
@@ -148,14 +113,10 @@ protected:
     /// @brief Information whether zones (districts) are used as origins / destinations
     const bool myWithTaz;
 
-    /// The information whether the next route was read
-    bool myNextRouteRead;
-
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVehicleType;
 
     SUMOVehicleParameter* myParameter;
-    SUMOTime myDepartureTime;
 
     bool myHaveWarnedAboutDeprecatedTripDef;
 
