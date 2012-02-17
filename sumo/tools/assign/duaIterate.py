@@ -52,11 +52,15 @@ def addGenericOptions(optParser):
                          default = False, help="Enable mesoscopic traffic light and priority junciton handling")
     optParser.add_option("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
                          default = False, help="Enable multiple queues at edge ends")
+    optParser.add_option("--meso-recheck", dest="mesorecheck", type="int", default=0, 
+                         help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)")
     optParser.add_option("-Q", "--eco-measure", dest="ecomeasure", type="choice",
                          choices=('CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'),
                          help="define the applied eco measure, e.g. fuel, CO2, noise")
     optParser.add_option("-s", "--sloppy-insert", action="store_true",
                          default=False, help="sloppy insertion tests (may speed up the sim considerably)")
+    optParser.add_option("--time-to-teleport", dest="timetoteleport", type="int", default=300,
+                         help="Delay before blocked vehicles are teleported")
 
 def initOptions():
     optParser = OptionParser()
@@ -130,7 +134,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     if routesInfo == "detailed":
         withExitTimes = True
     addweights = ""
-    if options.addweights != "":
+    if options.addweights:
         addweights = options.addweights + ","
     fd = open(cfgname, "w")
     print >> fd, """<configuration>
@@ -163,8 +167,8 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         <logit.gamma value="%s"/>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA, options.allroutes, 
             options.routing_algorithm, options.max_alternatives, options.logit, options.logitbeta, options.logitgamma)
     if options.logittheta:
-        print >> fd, """        <logit.theta value="%s"/>
-    </processing>""" % options.logittheta
+        print >> fd, '        <logit.theta value="%s"/>' % options.logittheta
+    print >> fd, '    </processing>'
                 
     print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
     print >> fd, '    <time><begin value="%s"/>' % options.begin,
@@ -226,10 +230,12 @@ def writeSUMOConf(step, options, files):
     print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
     print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
     print >> fd, '        <sloppy-insert value="%s"/>' % options.sloppy_insert
+    print >> fd, '        <time-to-teleport value="%s"/>' % options.timetoteleport
     if hasattr(options, "incBase") and options.incBase > 0:
         print >> fd, '        <scale value="%s"/>' % get_scale(options, step)
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
+        print >> fd, '        <meso-recheck value="%s"/>' % options.mesorecheck
         if options.mesomultiqueue:
             print >> fd, '        <meso-multi-queue value="True"/>'
         if options.mesojunctioncontrol:
