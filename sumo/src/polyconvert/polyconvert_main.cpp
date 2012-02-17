@@ -45,6 +45,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
@@ -204,6 +205,7 @@ main(int argc, char** argv) {
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
+            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }
@@ -297,6 +299,7 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
+    OutputDevice::closeAll();
     SystemFrame::close();
     // report about ending
     if (ret == 0) {

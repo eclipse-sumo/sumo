@@ -208,6 +208,7 @@ main(int argc, char** argv) {
         RODUAFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
+            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }

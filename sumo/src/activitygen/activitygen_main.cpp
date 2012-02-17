@@ -104,6 +104,7 @@ int main(int argc, char* argv[]) {
         MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
         if (oc.processMetaOptions(argc < 2)) {
+            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }
