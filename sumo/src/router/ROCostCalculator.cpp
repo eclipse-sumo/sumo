@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <limits>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/SUMOTime.h>
