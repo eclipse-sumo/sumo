@@ -33,9 +33,7 @@
 
 #include <string>
 #include <vector>
-#include "RORouteDef.h"
 #include "RORoute.h"
-#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -54,9 +52,7 @@ class ROEdge;
 class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
-    RORouteDef_Alternatives(const std::string& id, unsigned int lastUsed, const SUMOReal beta,
-                            const SUMOReal gawronA, const SUMOReal logitGamma,
-                            const SUMOReal logitTheta, const int maxRoutes,
+    RORouteDef_Alternatives(const std::string& id, unsigned int lastUsed, const int maxRoutes,
                             const bool keepRoutes, const bool skipRouteCalculation) ;
 
     /// Destructor
@@ -92,20 +88,6 @@ private:
     /// Searches for the route within the list of alternatives
     int findRoute(RORoute* opt) const;
 
-    /** @brief calculate the scaling factor in the logit model */
-    SUMOReal getThetaForCLogit() const;
-
-    /** @brief calculate the probabilities in the logit model */
-    void calculateLogitProbabilities(const ROVehicle* const veh);
-
-    /** @brief Performs the gawron - f() function
-        From "Dynamic User Equilibria..." */
-    SUMOReal gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x);
-
-    /** @brief Performs the gawron - g() function
-        From "Dynamic User Equilibria..." */
-    SUMOReal gawronG(SUMOReal a, SUMOReal x);
-
     /** Function-object for sorting routes from highest to lowest probability. */
     struct ComparatorProbability {
         bool operator()(const RORoute* const a, const RORoute* const b) {
@@ -125,21 +107,6 @@ private:
 
     /// @brief The alternatives
     AlternativesVector myAlternatives;
-
-    /// @brief gawron or logit beta - value
-    const SUMOReal myBeta;
-
-    /// @brief gawron a - value
-    const SUMOReal myGawronA;
-
-    /// @brief logit gamma - value
-    const SUMOReal myLogitGamma;
-
-    /// @brief logit theta - value
-    const SUMOReal myLogitTheta;
-
-    /// @brief The route commonality factors for c-logit
-    std::map<const RORoute*, SUMOReal> myCommonalities;
 
     /// @brief The maximum route number
     const int myMaxRouteNumber;

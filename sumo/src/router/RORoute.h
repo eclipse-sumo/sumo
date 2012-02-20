@@ -41,6 +41,7 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
+class ROVehicle;
 class OutputDevice;
 
 

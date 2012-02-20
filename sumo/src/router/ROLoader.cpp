@@ -322,15 +322,8 @@ ROLoader::buildNamedHandler(const std::string& optionName,
                             const std::string& file,
                             RONet& net) {
     if (optionName == "route-files" || optionName == "alternative-files") {
-        const SUMOReal beta = myOptions.getBool("logit")
-                              ? myOptions.getFloat("logit.beta")
-                              : myOptions.getFloat("gawron.beta");
-        const SUMOReal gamma = myOptions.getBool("logit")
-                               ? myOptions.getFloat("logit.gamma")
-                               : -1;
         return new RORDLoader_SUMOBase(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       beta, myOptions.getFloat("gawron.a"), gamma, myOptions.getFloat("logit.theta"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"),
                                        myOptions.getBool("skip-new-routes"), file);

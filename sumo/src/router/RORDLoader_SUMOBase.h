@@ -67,11 +67,9 @@ public:
     /// Constructor
     RORDLoader_SUMOBase(RONet& net,
                         SUMOTime begin, SUMOTime end,
-                        const SUMOReal beta, const SUMOReal gawronA,
-                        const SUMOReal logitGamma, const SUMOReal logitTheta,
                         const int maxRouteNumber, const bool tryRepair, const bool withTaz,
                         const bool keepRoutes, const bool skipRouteCalculation,
-                        const std::string& file = "") ;
+                        const std::string& file = "");
 
     /// Destructor
     ~RORDLoader_SUMOBase() ;
@@ -142,18 +140,6 @@ protected:
 
     /// @brief The probability of the current alternative's usage
     SUMOReal myProbability;
-
-    /// @brief gawron or logit beta - value
-    const SUMOReal myBeta;
-
-    /// @brief gawron a - value
-    const SUMOReal myGawronA;
-
-    /// @brief logit gamma - value
-    const SUMOReal myLogitGamma;
-
-    /// @brief logit theta - value
-    const SUMOReal myLogitTheta;
 
     /// @brief The maximum route alternatives number
     int myMaxRouteNumber;
