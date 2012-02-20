@@ -1,0 +1,71 @@
+> Executing step 0
+>> Running router
+>>> Begin time: 2011-07-18 10:04:26.103804
+>>> End time: 2011-07-18 10:04:26.121910
+>>> Duration: 0:00:00.018106
+<<
+>> Running simulation
+>>> Begin time: 2011-07-18 10:04:26.121969
+>>> End time: 2011-07-18 10:04:26.163570
+>>> Duration: 0:00:00.041601
+<<
+< Step 0 ended (duration: 0:00:00.059893)
+------------------
+
+> Executing step 1
+>> Running router
+>>> Begin time: 2011-07-18 10:04:26.163683
+>>> End time: 2011-07-18 10:04:26.182745
+>>> Duration: 0:00:00.019062
+<<
+>> Running simulation
+>>> Begin time: 2011-07-18 10:04:26.182819
+>>> End time: 2011-07-18 10:04:26.225441
+>>> Duration: 0:00:00.042622
+<<
+< Step 1 ended (duration: 0:00:00.061846)
+------------------
+
+> Executing step 2
+>> Running router
+>>> Begin time: 2011-07-18 10:04:26.225546
+>>> End time: 2011-07-18 10:04:26.245022
+>>> Duration: 0:00:00.019476
+<<
+>> Running simulation
+>>> Begin time: 2011-07-18 10:04:26.245083
+>>> End time: 2011-07-18 10:04:26.287834
+>>> Duration: 0:00:00.042751
+<<
+< Step 2 ended (duration: 0:00:00.062379)
+------------------
+
+> Executing step 3
+>> Running router
+>>> Begin time: 2011-07-18 10:04:26.287944
+>>> End time: 2011-07-18 10:04:26.307170
+>>> Duration: 0:00:00.019226
+<<
+>> Running simulation
+>>> Begin time: 2011-07-18 10:04:26.307229
+>>> End time: 2011-07-18 10:04:26.350171
+>>> Duration: 0:00:00.042942
+<<
+< Step 3 ended (duration: 0:00:00.062316)
+------------------
+
+> Executing step 4
+>> Running router
+>>> Begin time: 2011-07-18 10:04:26.350279
+>>> End time: 2011-07-18 10:04:26.369286
+>>> Duration: 0:00:00.019007
+<<
+>> Running simulation
+>>> Begin time: 2011-07-18 10:04:26.369347
+>>> End time: 2011-07-18 10:04:26.412942
+>>> Duration: 0:00:00.043595
+<<
+< Step 4 ended (duration: 0:00:00.062755)
+------------------
+
+dua-iterate ended (duration: 0:00:00.309316)

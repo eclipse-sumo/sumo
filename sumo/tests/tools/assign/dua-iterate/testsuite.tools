@@ -1,6 +1,9 @@
 # straight call of the script
 simple
 
+# filtering tripinfo
+filtered_tripinfo
+
 # start dua-iterate with routes instead of trips
 start_with_routes
 

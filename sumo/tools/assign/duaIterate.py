@@ -82,6 +82,8 @@ def initOptions():
                          default=False, help="No summaries are written by the simulation")
     optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                          default=False, help="No tripinfos are written by the simulation")
+    optParser.add_option("--tripinfo-filter", dest="tripinfoFilter",
+                         help="filter tripinfo attributes")
     optParser.add_option("--inc-base", dest="incBase",
                          type="int", default=-1, help="Give the incrementation base")
     optParser.add_option("--incrementation", dest="incValue",
@@ -207,7 +209,7 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <summary-output value="summary_%03i.xml"/>' % step
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         print >> fd, '        <tripinfo-output value="tripinfo_%03i.xml"/>' % step
-        if hasattr(options, "ecomeasure") and options.ecomeasure:
+        if options.ecomeasure:
             print >> fd, '        <device.hbefa.probability value="1"/>'
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
@@ -255,6 +257,37 @@ def writeSUMOConf(step, options, files):
         print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
     print >> fd, "</a>"
     fd.close()
+
+def filterTripinfo(step, attrs):
+    attrs.add("id")
+    inFile = "tripinfo_%03i.xml" % step
+    if os.path.exists(inFile):
+        out = open(inFile + ".filtered", 'w')
+        print >> out, "<tripinfos>"
+        hadOutput = False
+        for line in open(inFile):
+            if "<tripinfo " in line:
+                if hadOutput:
+                    print >> out, "/>"
+                print >> out, "    <tripinfo",
+                for a in attrs:
+                    pos = line.find(a)
+                    if pos >= 0:
+                        pos += len(a)+2
+                        print >> out, '%s="%s"' % (a, line[pos:line.find('"', pos)]),
+                hadOutput = True
+            if "<emission" in line:
+                for a in attrs:
+                    pos = line.find(a)
+                    if pos >= 0:
+                        pos += len(a)+2
+                        print >> out, '%s="%s"' % (a, line[pos:line.find('"', pos)]),
+        if hadOutput:
+            print >> out, "/>"
+        print >> out, "</tripinfos>"
+        out.close()
+        os.remove(inFile)
+        os.rename(out.name, inFile)
 
 def main(args=None):
     optParser = initOptions()
@@ -330,6 +363,8 @@ def main(args=None):
         writeSUMOConf(step, options, ",".join(files))
         log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        if options.tripinfoFilter:
+            filterTripinfo(step, set(options.tripinfoFilter.split(",")))
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
