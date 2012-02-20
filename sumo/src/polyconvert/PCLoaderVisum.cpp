@@ -136,8 +136,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         } else if (what == "$TEILFLAECHENELEMENT") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("TFLAECHEID").c_str());
-            int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
-            index = 0; /// hmmmm - assume it's sorted...
+            //int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
+            //index = 0; /// hmmmm - assume it's sorted...
             long kid = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
             int dir = TplConvert<char>::_2int(lineParser.get("RICHTUNG").c_str());
             if (teilflaechen.find(id) == teilflaechen.end()) {
@@ -222,44 +222,38 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (parsingPOIs) {
             // parse the poi
             // $POI:Nr;CATID;CODE;NAME;Kommentar;XKoord;YKoord;
-            StringTokenizer st(line, ";");
-            std::string num = st.next();
-            std::string catid = st.next();
-            std::string code = st.next();
-            std::string name = st.next();
-            std::string comment = st.next();
-            std::string xpos = st.next();
-            std::string ypos = st.next();
+            lineParser.parseLine(line);
+            long idL = TplConvert<char>::_2long(lineParser.get("Nr").c_str());
+            std::string id = toString(idL);
+            std::string catid = lineParser.get("CATID");
             // process read values
-            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKoord").c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKoord").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for POI '" + num + "'.");
+                WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
             }
             std::string type = typemap[catid];
-            // check the poi
-            name = num;
             // patch the values
             bool discard = oc.getBool("discard");
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);
-                name = def.prefix + name;
+                id = def.prefix + id;
                 type = def.id;
                 color = RGBColor::parseColor(def.color);
                 discard = def.discard;
                 layer = def.layer;
             } else {
-                name = oc.getString("prefix") + name;
+                id = oc.getString("prefix") + id;
                 type = oc.getString("type");
                 color = c;
             }
             if (!discard) {
-                PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
-                if (!toFill.insert(name, poi, layer)) {
-                    WRITE_ERROR("POI '" + name + "' could not been added.");
+                PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
+                if (!toFill.insert(id, poi, layer)) {
+                    WRITE_ERROR("POI '" + id + "' could not been added.");
                     delete poi;
                 }
             }
@@ -312,49 +306,44 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         // district refering a shape
         if (parsingDistrictsDirectly) {
             //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
-            StringTokenizer st(line, ";");
-            std::string num = st.next();
-            std::string code = st.next();
-            std::string name = st.next();
-            st.next(); // typntr
-            std::string xpos = st.next();
-            std::string ypos = st.next();
-            long id = TplConvert<char>::_2long(st.next().c_str());
+            lineParser.parseLine(line);
+            long idL = TplConvert<char>::_2long(lineParser.get("NR").c_str());
+            std::string id = toString(idL);
+            long area = TplConvert<char>::_2long(lineParser.get("FLAECHEID").c_str());
+            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             // patch the values
             std::string type = "district";
-            name = num;
             bool discard = oc.getBool("discard");
             int layer = oc.getInt("layer");
             RGBColor color;
             if (tm.has(type)) {
                 const PCTypeMap::TypeDef& def = tm.get(type);
-                name = def.prefix + name;
+                id = def.prefix + id;
                 type = def.id;
                 color = RGBColor::parseColor(def.color);
                 discard = def.discard;
                 layer = def.layer;
             } else {
-                name = oc.getString("prefix") + name;
+                id = oc.getString("prefix") + id;
                 type = oc.getString("type");
                 color = c;
             }
             if (!discard) {
-                if (teilflaechen[flaechenelemente[id]].size() > 0) {
-                    Polygon* poly = new Polygon(name, type, color, teilflaechen[flaechenelemente[id]], false);
-                    if (!toFill.insert(name, poly, layer)) {
-                        WRITE_ERROR("Polygon '" + name + "' could not been added.");
+                if (teilflaechen[flaechenelemente[area]].size() > 0) {
+                    Polygon* poly = new Polygon(id, type, color, teilflaechen[flaechenelemente[area]], false);
+                    if (!toFill.insert(id, poly, layer)) {
+                        WRITE_ERROR("Polygon '" + id + "' could not been added.");
                         delete poly;
                     }
                 } else {
-                    SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-                    SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_WARNING("Unable to project coordinates for POI '" + name + "'.");
+                        WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
                     }
-                    PointOfInterest* poi = new PointOfInterest(name, type, pos, color);
-                    if (!toFill.insert(name, poi, layer)) {
-                        WRITE_ERROR("POI '" + name + "' could not been added.");
+                    PointOfInterest* poi = new PointOfInterest(id, type, pos, color);
+                    if (!toFill.insert(id, poi, layer)) {
+                        WRITE_ERROR("POI '" + id + "' could not been added.");
                         delete poi;
                     }
                 }
@@ -365,14 +354,17 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (line.find("$POIKATEGORIEDEF:") == 0 || line.find("$POIKATEGORIE:") == 0) {
             // ok, got categories, begin parsing from next line
             parsingCategories = true;
+            lineParser.reinit(line.substr(line.find(":") + 1));
         }
         if (line.find("$POI:") == 0) {
             // ok, got pois, begin parsing from next line
             parsingPOIs = true;
+            lineParser.reinit(line.substr(line.find(":") + 1));
         }
         if (line.find("$BEZIRK") == 0 && line.find("FLAECHEID") != std::string::npos) {
             // ok, have a district header, and it seems like districts would reference shapes...
             parsingDistrictsDirectly = true;
+            lineParser.reinit(line.substr(line.find(":") + 1));
         }
 
 
