@@ -37,6 +37,7 @@
 #include <iostream>
 #include "MSMessageEmitter.h"
 #include "MSLane.h"
+#include "MSEdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
