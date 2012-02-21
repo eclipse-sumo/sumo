@@ -63,6 +63,7 @@
 
 #ifdef HAVE_MESOSIM // catchall for internal stuff
 #include <internal/BulkStarRouter.h>
+#include <internal/CHRouter.h>
 #endif // have HAVE_MESOSIM
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -135,6 +136,17 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             } else {
                 router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
+            }
+        } else if (routingAlgorithm == "CH") {
+            // defaultVehicle is only in constructor and may be safely deleted
+            // it is mainly needed for its maximum speed. @todo XXX make this configurable
+            ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID));
+            if (net.hasRestrictions()) {
+                router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, 0);
+            } else {
+                router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, 0);
             }
 #endif // have HAVE_MESOSIM
         } else {

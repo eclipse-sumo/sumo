@@ -133,7 +133,7 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
 #ifndef HAVE_MESOSIM // catchall for internal stuff
                 "Select among routing algorithms ['dijkstra', 'astar']"
 #else
-                "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar']"
+                "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH']"
 #endif
                 );
     }
