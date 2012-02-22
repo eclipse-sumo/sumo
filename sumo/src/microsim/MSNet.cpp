@@ -248,6 +248,8 @@ MSNet::~MSNet() {
 
 int
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
+    // report the begin when wished
+    WRITE_MESSAGE("Simulation started with time: " + time2string(start));
     // the simulation loop
     MSNet::SimulationState state = SIMSTATE_RUNNING;
     myStep = start;
@@ -255,8 +257,9 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
 #ifdef HAVE_PYTHON
     if (OptionsCont::getOptions().isSet("python-script")) {
         traci::TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
-        WRITE_MESSAGE("Simulation End: Script ended");
         closeSimulation(start);
+        WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+        WRITE_MESSAGE("Reason: Script ended");
         return 0;
     }
 #endif
@@ -278,7 +281,9 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         }
 #endif
     }
-    WRITE_MESSAGE("Simulation End: " + getStateMessage(state));
+    // report the end when wished
+    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+    WRITE_MESSAGE("Reason: " + getStateMessage(state));
     // exit simulation loop
     closeSimulation(start);
     return 0;

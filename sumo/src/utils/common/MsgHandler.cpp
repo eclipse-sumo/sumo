@@ -226,13 +226,17 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
             getErrorInstance()->addRetriever(logFile);
-            getWarningInstance()->addRetriever(logFile);
-            getMessageInstance()->addRetriever(logFile);
+            if (!oc.getBool("no-warnings")) {
+                getWarningInstance()->addRetriever(logFile);
+            }
+            if (oc.getBool("verbose")) {
+                getMessageInstance()->addRetriever(logFile);
+            }
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
         }
     }
-    if (oc.isSet("message-log", false)) {
+    if (oc.isSet("message-log", false) && oc.getBool("verbose")) {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
             getMessageInstance()->addRetriever(logFile);
@@ -244,7 +248,9 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
             getErrorInstance()->addRetriever(logFile);
-            getWarningInstance()->addRetriever(logFile);
+            if (!oc.getBool("no-warnings")) {
+                getWarningInstance()->addRetriever(logFile);
+            }
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
         }

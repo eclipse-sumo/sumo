@@ -957,19 +957,15 @@ GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
 void
 GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
     GUIEvent_SimulationEnded* ec = static_cast<GUIEvent_SimulationEnded*>(e);
-    if (!GUIGlobals::gQuitOnEnd) {
-        // build the text
-        std::stringstream text;
-        text << "The simulation has ended at time step " << time2string(ec->getTimeStep()) << ".\n";
-        text << "Reason: " << MSNet::getStateMessage(ec->getReason());
-        onCmdStop(0, 0, 0);
-        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended", text.str().c_str());
-    } else {
-        onCmdStop(0, 0, 0);
-    }
+    onCmdStop(0, 0, 0);
     if (GUIGlobals::gQuitOnEnd) {
         closeAllWindows();
         getApp()->exit(ec->getReason() == MSNet::SIMSTATE_ERROR_IN_SIM);
+    } else {
+        // build the text
+        const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
+                                 ".\nReason: " + MSNet::getStateMessage(ec->getReason());
+        FXMessageBox::warning(this, MBOX_OK, "Simulation ended", text.c_str());
     }
 }
 

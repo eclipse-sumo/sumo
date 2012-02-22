@@ -137,14 +137,7 @@ main(int argc, char** argv) {
         // load the net
         net = load(oc);
         if (net != 0) {
-            SUMOTime begin = string2time(oc.getString("begin"));
-            SUMOTime end = string2time(oc.getString("end"));
-            // report the begin when wished
-            WRITE_MESSAGE("Simulation started with time: " + time2string(begin));
-            // simulate
-            ret = net->simulate(begin, end);
-            // report the end when wished
-            WRITE_MESSAGE("Simulation ended at time: " + time2string(net->getCurrentTimeStep()));
+            ret = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
         }
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
