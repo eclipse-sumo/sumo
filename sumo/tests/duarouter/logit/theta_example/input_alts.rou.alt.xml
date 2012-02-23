@@ -1,0 +1,10 @@
+<route-alternatives>
+    <vehicle id="0" depart="0">
+        <routeDistribution last="0">
+            <route id="path1" cost="1" probability="1" edges="oa ab bd"/>
+            <route id="path2" cost="1" probability="1" edges="oa ab by yd"/>
+            <route id="path3" cost="1" probability="1" edges="oa ax xy yd"/>
+            <route id="path4" cost="1" probability="1" edges="ox xy yd"/>
+        </routeDistribution>
+    </vehicle>
+</route-alternatives>

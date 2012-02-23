@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r11798
+SUMO duarouter Version dev-SVN-r11548
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
@@ -55,6 +55,8 @@ Processing Options:
   --logit                          Use c-logit model
   --logit.beta FLOAT               Use FLOAT as logit's beta
   --logit.gamma FLOAT              Use FLOAT as logit's gamma
+  --logit.theta FLOAT              Use FLOAT as logit's theta (negative values
+                                     mean auto-estimation)
 
 Defaults Options:
   --departlane STR                 Assigns a default depart lane

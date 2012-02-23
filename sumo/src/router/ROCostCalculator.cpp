@@ -151,11 +151,7 @@ ROLogitCalculator::~ROLogitCalculator() {}
 
 void
 ROLogitCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool isActive) const {
-    if (myTheta < 0.) {
-        route->setCosts(costs / 3600.);
-    } else {
-        route->setCosts(costs);
-    }
+    route->setCosts(costs);
 }
 
 
@@ -169,7 +165,7 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
             SUMOReal lengthR = 0;
             const std::vector<const ROEdge*> &edgesR = pR->getEdgeVector();
             for (std::vector<const ROEdge*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
-                //@todo why don't we use costs here
+                //@todo we should use costs here
                 lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(veh->getDepartureTime()));
             }
             SUMOReal overlapSum = 0;
@@ -203,11 +199,12 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
 
 SUMOReal
 ROLogitCalculator::getThetaForCLogit(const std::vector<RORoute*> alternatives) const {
+    // @todo this calculation works for travel times only
     SUMOReal sum = 0.;
     SUMOReal diff = 0.;
     SUMOReal min = std::numeric_limits<SUMOReal>::max();
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-        const SUMOReal cost = (*i)->getCosts();
+        const SUMOReal cost = (*i)->getCosts()/3600.;
         sum += cost;
         if (cost < min) {
             min = cost;
@@ -215,13 +212,13 @@ ROLogitCalculator::getThetaForCLogit(const std::vector<RORoute*> alternatives) c
     }
     const SUMOReal meanCost = sum / SUMOReal(alternatives.size());
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-        diff += pow((*i)->getCosts() - meanCost, 2);
+        diff += pow((*i)->getCosts()/3600. - meanCost, 2);
     }
     const SUMOReal sdCost = sqrt(diff / SUMOReal(alternatives.size()));
     if (sdCost > 0.04) { // Magic numbers from Lohse book
-        return PI / (sqrt(6.) * sdCost * min);
+        return PI / (sqrt(6.) * sdCost * min)/3600.;
     }
-    return 1.;
+    return 1./3600.;
 }
 
 

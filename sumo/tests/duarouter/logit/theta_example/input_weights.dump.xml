@@ -1,0 +1,12 @@
+<netstats>
+    <interval begin="0" end="3600" >
+        <edge id="oa" traveltime="300"/>
+        <edge id="ab" traveltime="180"/>
+        <edge id="bd" traveltime="60"/>
+        <edge id="ox" traveltime="720"/>
+        <edge id="xy" traveltime="120"/>
+        <edge id="yd" traveltime="60"/>
+        <edge id="ax" traveltime="240"/>
+        <edge id="by" traveltime="60"/>
+    </interval>
+</netstats>

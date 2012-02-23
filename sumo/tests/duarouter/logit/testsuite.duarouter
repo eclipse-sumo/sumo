@@ -9,3 +9,6 @@ logit_example
 
 # book example of c-logit
 clogit_example
+
+# book example of c-logit with self defined theta
+theta_example
