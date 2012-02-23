@@ -514,6 +514,12 @@ MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const M
 
 
 SUMOReal 
+MSEdge::getDistanceTo(const MSEdge* other) const {
+    return getLanes()[0]->getShape()[-1].distanceTo2D(other->getLanes()[0]->getShape()[0]);
+}
+
+
+SUMOReal 
 MSEdge::getLength() const {
     return getLanes()[0]->getLength();
 }

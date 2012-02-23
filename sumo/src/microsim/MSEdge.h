@@ -378,15 +378,13 @@ public:
 #endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
-    bool prohibits(const SUMOVehicle* const vehicle) const ;
+    bool prohibits(const SUMOVehicle* const vehicle) const;
 
-    void rebuildAllowedLanes() ;
+    void rebuildAllowedLanes();
 
 
     /// @brief optimistic distance heuristic for use in routing
-    SUMOReal getDistanceTo(const MSEdge* other) const {
-        return 0; // XXX @todo use straight-line distance
-    };
+    SUMOReal getDistanceTo(const MSEdge* other) const;
 
 
     /// @brief return the length of the edge
