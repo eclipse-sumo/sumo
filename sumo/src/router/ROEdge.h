@@ -110,11 +110,11 @@ public:
     /** @brief Adds information about a connected edge
      *
      * The edge is added to "myFollowingEdges".
-     *
-     * @param[in] lane The lane to add
+     * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
+     * @note: if HAVE_MESOSIM is defined, the backward connections is added as well
      */
-    virtual void addFollower(ROEdge* s) ;
+    virtual void addFollower(ROEdge* s);
 
 
     /** @brief Sets the type of te edge
@@ -269,6 +269,7 @@ public:
         return myFollowingEdges[pos];
     }
 
+
 #ifdef HAVE_MESOSIM // catchall for internal stuff
     /** @brief Returns the number of edges this edge is connected to
      *
@@ -287,6 +288,26 @@ public:
     ROEdge* getApproaching(unsigned int pos) const {
         return myApproachingEdges[pos];
     }
+
+
+    /** @brief removes all connections
+     * this is needed when using CHRouter
+     */
+    void removeConnections();
+
+    inline void setNormalTT(const ROVehicle* const veh, SUMOReal time) {
+        myNormalTravelTime = getTravelTime(veh, time);
+    }
+
+    /** @brief set the effort for shortcut connections
+     * this is needed when using CHRouter
+     */
+    void setShortcutTT(const ROEdge* target, SUMOReal effort);
+
+    /** @brief gets the effort for connections
+     * this is needed when using CHRouter
+     */
+    SUMOReal getShortcutTT(const ROEdge* target) const ;
 #endif
 
 
@@ -399,6 +420,11 @@ protected:
 #ifdef HAVE_MESOSIM // catchall for internal stuff
     /// @brief List of edges that approached this edge
     std::vector<ROEdge*> myApproachingEdges;
+
+    typedef std::map<const ROEdge*, SUMOReal> ShortcutTT;
+    ShortcutTT  myShortcutTT;
+
+    SUMOReal myNormalTravelTime;
 #endif
 
     /// @brief The type of the edge

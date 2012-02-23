@@ -119,6 +119,43 @@ ROEdge::addFollower(ROEdge* s) {
 }
 
 
+#ifdef HAVE_MESOSIM // catchall for internal stuff
+void
+ROEdge::removeConnections() {
+    // remove approaching connections at followers
+    for (std::vector<ROEdge*>::iterator it = myFollowingEdges.begin(); it != myFollowingEdges.end(); it++) {
+        std::vector<ROEdge*>& approaching = (*it)->myApproachingEdges;
+        approaching.erase(find(approaching.begin(), approaching.end(), this));
+    }
+    // remove following connections at approachers
+    for (std::vector<ROEdge*>::iterator it = myApproachingEdges.begin(); it != myApproachingEdges.end(); it++) {
+        std::vector<ROEdge*>& following = (*it)->myFollowingEdges;
+        following.erase(find(following.begin(), following.end(), this));
+    }
+    myFollowingEdges.clear();
+    myApproachingEdges.clear();
+}
+
+
+void 
+ROEdge::setShortcutTT(const ROEdge* target, SUMOReal effort) {
+    myShortcutTT[target] = effort;
+}
+
+
+SUMOReal 
+ROEdge::getShortcutTT(const ROEdge* target) const {
+    ShortcutTT::const_iterator it = myShortcutTT.find(target);
+    if (it != myShortcutTT.end()) {
+        return it->second;
+    } else {
+        // not a shortcut
+        return myNormalTravelTime;
+    }
+}
+#endif
+
+
 void
 ROEdge::addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) {
     myEfforts.add(timeBegin, timeEnd, value);
