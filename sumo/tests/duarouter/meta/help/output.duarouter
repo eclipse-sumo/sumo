@@ -86,6 +86,7 @@ Report Options:
   --error-log FILE                 Writes all warnings and errors to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed
+  --no-step-log                    Disable console output of route parsing step
 
 Random Number Options:
   --random                         Initialises the random number generator with

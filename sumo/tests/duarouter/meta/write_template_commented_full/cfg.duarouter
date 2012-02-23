@@ -180,6 +180,9 @@
         <!-- Defines how often statistics shall be printed -->
         <stats-period value="-1" type="INT"/>
 
+        <!-- Disable console output of route parsing step -->
+        <no-step-log value="false" type="BOOL"/>
+
     </report>
 
     <random_number>
