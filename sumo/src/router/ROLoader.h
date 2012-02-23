@@ -237,6 +237,8 @@ private:
     /// @brief Invalidated assignment operator
     ROLoader& operator=(const ROLoader& src);
 
+    /// @brief Information whether the routing steps should be logged
+    bool myLogSteps;
 };
 
 

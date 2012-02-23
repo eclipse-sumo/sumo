@@ -164,6 +164,9 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     // register report options
     oc.doRegister("stats-period", new Option_Integer(-1));
     oc.addDescription("stats-period", "Report", "Defines how often statistics shall be printed");
+
+    oc.doRegister("no-step-log", new Option_Bool(false));
+    oc.addDescription("no-step-log", "Report", "Disable console output of route parsing step");
 }
 
 

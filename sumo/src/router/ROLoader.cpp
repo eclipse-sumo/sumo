@@ -105,8 +105,11 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
-ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed)
-    : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed) {}
+ROLoader::ROLoader(OptionsCont& oc, bool emptyDestinationsAllowed) : 
+    myOptions(oc), 
+    myEmptyDestinationsAllowed(emptyDestinationsAllowed),
+    myLogSteps(!oc.getBool("no-step-log"))
+{}
 
 
 ROLoader::~ROLoader() {
@@ -205,7 +208,9 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
         }
         errorOccured = MsgHandler::getErrorInstance()->wasInformed() && !myOptions.getBool("ignore-errors");
     }
-    WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
+    if (myLogSteps) {
+        WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
+    }
 }
 
 
@@ -387,7 +392,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
 
 void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
-    if (myOptions.getBool("verbose")) {
+    if (myLogSteps && myOptions.getBool("verbose")) {
         const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
