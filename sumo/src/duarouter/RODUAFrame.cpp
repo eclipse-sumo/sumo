@@ -121,7 +121,7 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("logit", new Option_Bool(false));
     oc.addDescription("logit", "Processing", "Use c-logit model");
 
-    oc.doRegister("logit.beta", new Option_Float(SUMOReal(0.15)));
+    oc.doRegister("logit.beta", new Option_Float(SUMOReal(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
     oc.addDescription("logit.beta", "Processing", "Use FLOAT as logit's beta");
 

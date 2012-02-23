@@ -127,6 +127,9 @@ public:
 
 private:
     /** @brief calculate the scaling factor in the logit model */
+    SUMOReal getBetaForCLogit(const std::vector<RORoute*> alternatives) const;
+
+    /** @brief calculate the scaling factor in the logit model */
     SUMOReal getThetaForCLogit(const std::vector<RORoute*> alternatives) const;
 
 private:

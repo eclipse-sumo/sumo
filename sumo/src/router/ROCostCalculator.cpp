@@ -158,7 +158,8 @@ ROLogitCalculator::setCosts(RORoute* route, const SUMOReal costs, const bool isA
 void
 ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) {
     const SUMOReal theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
-    if (myBeta > 0) {
+    const SUMOReal beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
+    if (beta > 0) {
         // calculate commonalities
         for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
             const RORoute* pR = *i;
@@ -182,7 +183,7 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
                 }
                 overlapSum += pow(overlapLength / sqrt(lengthR * lengthS), myGamma);
             }
-            myCommonalities[pR] = myBeta * log(overlapSum);
+            myCommonalities[pR] = beta * log(overlapSum);
         }
     }
     for (std::vector<RORoute*>::iterator i = alternatives.begin(); i != alternatives.end(); i++) {
@@ -194,6 +195,19 @@ ROLogitCalculator::calculateProbabilities(const ROVehicle* const veh, std::vecto
         }
         pR->setProbability(1. / weightedSum);
     }
+}
+
+
+SUMOReal
+ROLogitCalculator::getBetaForCLogit(const std::vector<RORoute*> alternatives) const {
+    SUMOReal min = std::numeric_limits<SUMOReal>::max();
+    for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
+        const SUMOReal cost = (*i)->getCosts()/3600.;
+        if (cost < min) {
+            min = cost;
+        }
+    }
+    return min;
 }
 
 
@@ -214,11 +228,12 @@ ROLogitCalculator::getThetaForCLogit(const std::vector<RORoute*> alternatives) c
     for (std::vector<RORoute*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
         diff += pow((*i)->getCosts()/3600. - meanCost, 2);
     }
-    const SUMOReal sdCost = sqrt(diff / SUMOReal(alternatives.size()));
-    if (sdCost > 0.04) { // Magic numbers from Lohse book
-        return PI / (sqrt(6.) * sdCost * min)/3600.;
-    }
-    return 1./3600.;
+    const SUMOReal cvCost = sqrt(diff / SUMOReal(alternatives.size())) / meanCost;
+    // @todo re-evaluate function
+//    if (cvCost > 0.04) { // Magic numbers from Lohse book
+        return PI / (sqrt(6.) * cvCost * (min + 1.1))/3600.;
+//    }
+//    return 1./3600.;
 }
 
 
