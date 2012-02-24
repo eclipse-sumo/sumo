@@ -66,15 +66,22 @@ template<class E, class V, class PF>
 class AStarRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
-    AStarRouterTTBase(size_t noE, bool unbuildIsWarning) :
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+    AStarRouterTTBase(size_t noE, bool unbuildIsWarning):
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        myQueryVisits(0),
+        myNumQueries(0)
+    {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
         }
     }
 
     /// Destructor
-    virtual ~AStarRouterTTBase() { }
+    virtual ~AStarRouterTTBase() { 
+        if (myNumQueries > 0) {
+            WRITE_MESSAGE("AStarRouter answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
+        }
+    }
 
     /**
      * @struct EdgeInfo
@@ -84,8 +91,13 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), traveltime(0), prev(0), visited(false) {}
+        EdgeInfo(size_t id) :
+            edge(E::dictionary(id)), 
+            traveltime(std::numeric_limits<SUMOReal>::max()), 
+            heuristicTime(std::numeric_limits<SUMOReal>::max()), 
+            prev(0), 
+            visited(false) 
+        {}
 
         /// The current edge
         const E* edge;
@@ -101,6 +113,12 @@ public:
 
         /// The previous edge
         bool visited;
+
+        inline void reset() {
+            // heuristicTime is set before adding to the frontier, thus no reset is needed
+            traveltime = std::numeric_limits<SUMOReal>::max();
+            visited = false;
+        }
 
     };
 
@@ -122,31 +140,47 @@ public:
     virtual SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const = 0;
 
 
+    void init() {
+        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
+        for (typename std::vector<EdgeInfo*>::iterator i = myFrontierList.begin(); i != myFrontierList.end(); i++) {
+            (*i)->reset();
+        }
+        myFrontierList.clear();
+        for (typename std::vector<EdgeInfo*>::iterator i = myFound.begin(); i != myFound.end(); i++) {
+            (*i)->reset();
+        }
+        myFound.clear();
+    }
+
+
     /** @brief Builds the route between the given edges using the minimum travel time */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
-        const SUMOReal time = STEPS2TIME(msTime);
-        for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
-            (*i).traveltime = std::numeric_limits<SUMOReal>::max();
-            (*i).visited = false;
-        }
         assert(from != 0 && to != 0);
-        myFrontierList.clear();
+        myNumQueries++;
+        const SUMOReal time = STEPS2TIME(msTime);
+        init();
         // add begin node
         EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
         fromInfo->traveltime = 0;
         fromInfo->prev = 0;
         myFrontierList.push_back(fromInfo);
         // loop
+        int num_visited = 0;
         while (!myFrontierList.empty()) {
+            num_visited += 1;
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
+            myFound.push_back(minimumInfo);
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
+                myQueryVisits += num_visited;
+                // DEBUG
+                //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
                 return;
             }
             minimumInfo->visited = true;
@@ -179,6 +213,7 @@ public:
                 }
             }
         }
+        myQueryVisits += num_visited;
         myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 
@@ -212,12 +247,17 @@ protected:
 
     /// A container for reusage of the min edge heap
     std::vector<EdgeInfo*> myFrontierList;
+    /// @brief list of visited Edges (for resetting)
+    std::vector<EdgeInfo*> myFound;
 
     EdgeInfoComparator myComparator;
 
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
 
+    /// @brief counters for performance logging
+    int myQueryVisits;
+    int myNumQueries;
 };
 
 
