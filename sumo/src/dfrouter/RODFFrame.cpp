@@ -225,6 +225,10 @@ RODFFrame::fillOptions() {
     oc.doRegister("print-absolute-flows", new Option_Bool(false));
     oc.addDescription("print-absolute-flows", "Report", "Prints aggregated detector flows");
 
+    // register report options
+    oc.doRegister("no-step-log", new Option_Bool(false));
+    oc.addDescription("no-step-log", "Report", "Disable console output of route parsing step");
+
     RandHelper::insertRandOptions();
 }
 
