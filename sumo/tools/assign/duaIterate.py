@@ -116,6 +116,8 @@ def initOptions():
                          help="parameter to adapt the cost unit")
     optParser.add_option("-J", "--addweights", dest="addweights",
                          help="Additional weightes for duarouter")
+    optParser.add_option("--router-verbose", action="store_true",
+                         default=False, help="let duarouter print some statistics")
     return optParser
 
 def call(command, log):
@@ -178,10 +180,11 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '<end value="%s"/>' % options.end,
     print >> fd, """</time>
     <report>
-        <verbose value="False"/>
+        <verbose value="%s"/>
+        <no-step-log value="true"/>
         <no-warnings value="%s"/>
     </report>
-</configuration>""" % options.noWarnings
+</configuration>""" % (options.router_verbose, options.noWarnings)
     fd.close()
     return cfgname
 
