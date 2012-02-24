@@ -109,7 +109,7 @@
         <logit value="false" type="BOOL"/>
 
         <!-- Use FLOAT as logit's beta -->
-        <logit.beta value="0.15" synonymes="lBeta" type="FLOAT"/>
+        <logit.beta value="-1" synonymes="lBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as logit's gamma -->
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT"/>
@@ -168,10 +168,10 @@
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
 
-        <!-- Writes all messages to FILE -->
+        <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>
 
-        <!-- Writes all non-error messages to FILE -->
+        <!-- Writes all non-error messages to FILE (implies verbose) -->
         <message-log value="" type="FILE"/>
 
         <!-- Writes all warnings and errors to FILE -->
