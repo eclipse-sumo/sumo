@@ -843,7 +843,9 @@ GUIApplicationWindow::eventOccured() {
                 handleEvent_SimulationLoaded(e);
                 break;
             case EVENT_SIMULATION_STEP:
-                handleEvent_SimulationStep(e);
+                if (myRunThread->simulationAvailable()) { // avoid race-condition related crash if reload was pressed
+                    handleEvent_SimulationStep(e);
+                }
                 break;
             case EVENT_MESSAGE_OCCURED:
             case EVENT_WARNING_OCCURED:
