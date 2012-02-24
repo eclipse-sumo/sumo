@@ -95,4 +95,5 @@ Reading time step: 89.00  (89.00/86400.00 = 0.10% done)
 Reading time step: 90.00  (90.00/86400.00 = 0.10% done)       
 Reading time step: 91.00  (91.00/86400.00 = 0.11% done)       
 Routes found between time steps 0.00 and 91.00.
+DijkstraRouterTT answered 10 queries and explored 7.00 edges on average.
 Success.

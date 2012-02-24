@@ -4,4 +4,5 @@ Skipped until: 0.00
 Reading time step: 0.00  (0.00/2147483.00 = 0.00% done)       
 Reading time step: 1.00  (1.00/2147483.00 = 0.00% done)       
 Routes found between time steps 0.00 and 1.00.
+DijkstraRouterTT answered 2 queries and explored 7.00 edges on average.
 Success.
