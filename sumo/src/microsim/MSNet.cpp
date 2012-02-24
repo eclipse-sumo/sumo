@@ -232,15 +232,15 @@ MSNet::~MSNet() {
     myMsgEmitter.clear();
     msgEmitVec.clear();
 #endif
+    delete myBeginOfTimestepEvents;
+    delete myEndOfTimestepEvents;
+    delete myInsertionEvents;
+    delete myEdgeWeights;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
 #endif
-    delete myBeginOfTimestepEvents;
-    delete myEndOfTimestepEvents;
-    delete myInsertionEvents;
-    delete myEdgeWeights;
     clearAll();
     myInstance = 0;
 }
