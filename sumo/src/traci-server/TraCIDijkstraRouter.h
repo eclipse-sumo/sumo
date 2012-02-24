@@ -62,8 +62,9 @@ template<class E>
 class TraCIDijkstraRouter : public SUMOAbstractRouter<E, MSVehicle> {
 public:
     /// Constructor
-    TraCIDijkstraRouter(size_t noE/*, bool unbuildIsWarningOnly*/)
-        : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true) { }
+    TraCIDijkstraRouter(size_t noE/*, bool unbuildIsWarningOnly*/) : 
+        SUMOAbstractRouter<E, MSVehicle>("TraciDijkstraRouter"),
+        myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true) { }
 
     /// Destructor
     virtual ~TraCIDijkstraRouter() { }

@@ -35,7 +35,9 @@
 #include <vector>
 #include <algorithm>
 #include <assert.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
 
 
 // ===========================================================================
@@ -49,10 +51,18 @@ template<class E, class V>
 class SUMOAbstractRouter {
 public:
     /// Constructor
-    SUMOAbstractRouter() { }
+    SUMOAbstractRouter(const std::string& type):
+        myType(type),
+        myQueryVisits(0),
+        myNumQueries(0)
+    { }
 
     /// Destructor
-    virtual ~SUMOAbstractRouter() { }
+    virtual ~SUMOAbstractRouter() { 
+        if (myNumQueries > 0) {
+            WRITE_MESSAGE(myType + " answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
+        }
+    }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
@@ -66,6 +76,21 @@ public:
     virtual void prepare(const E*, const V*, bool) {
         assert(false);
     }
+
+    inline void countQuery() {
+        myNumQueries++;
+    }
+
+    inline void countVisits(int visits) {
+        myQueryVisits += visits;
+    }
+
+private:
+    /// @brief the type of this router
+    const std::string myType;
+    /// @brief counters for performance logging
+    int myQueryVisits;
+    int myNumQueries;
 };
 
 

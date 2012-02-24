@@ -39,6 +39,7 @@
 #include <limits>
 #include <algorithm>
 #include <iterator>
+#include <utils/common/ToString.h>
 #include <utils/common/InstancePool.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -65,10 +66,15 @@
  */
 template<class E, class V, class PF>
 class DijkstraRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
+    using SUMOAbstractRouter<E, V>::countQuery;
+    using SUMOAbstractRouter<E, V>::countVisits;
+
 public:
     /// Constructor
     DijkstraRouterTTBase(size_t noE, bool unbuildIsWarning) :
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+        SUMOAbstractRouter<E, V>("DijkstraRouterTT"),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) 
+    {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
         }
@@ -124,12 +130,13 @@ public:
         The definition of the effort depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
+        assert(from != 0 && to != 0);
+        countQuery();
         const SUMOReal time = STEPS2TIME(msTime);
         for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
             (*i).traveltime = std::numeric_limits<SUMOReal>::max();
             (*i).visited = false;
         }
-        assert(from != 0 && to != 0);
         myFrontierList.clear();
         // add begin node
         EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
@@ -137,7 +144,9 @@ public:
         fromInfo->prev = 0;
         myFrontierList.push_back(fromInfo);
         // loop
+        int num_visited = 0;
         while (!myFrontierList.empty()) {
+            num_visited += 1;
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
@@ -146,6 +155,9 @@ public:
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
+                countVisits(num_visited);
+                // DEBUG
+                //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
                 return;
             }
             minimumInfo->visited = true;
@@ -175,6 +187,7 @@ public:
                 }
             }
         }
+        countVisits(num_visited);
         myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 
@@ -213,7 +226,6 @@ protected:
 
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
-
 };
 
 

@@ -64,12 +64,14 @@
  */
 template<class E, class V, class PF>
 class AStarRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
+    using SUMOAbstractRouter<E, V>::countQuery;
+    using SUMOAbstractRouter<E, V>::countVisits;
+
 public:
     /// Constructor
     AStarRouterTTBase(size_t noE, bool unbuildIsWarning):
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
-        myQueryVisits(0),
-        myNumQueries(0)
+        SUMOAbstractRouter<E, V>("AStarRouter"),
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance())
     {
         for (size_t i = 0; i < noE; i++) {
             myEdgeInfos.push_back(EdgeInfo(i));
@@ -77,11 +79,7 @@ public:
     }
 
     /// Destructor
-    virtual ~AStarRouterTTBase() { 
-        if (myNumQueries > 0) {
-            WRITE_MESSAGE("AStarRouter answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
-        }
-    }
+    virtual ~AStarRouterTTBase() {}
 
     /**
      * @struct EdgeInfo
@@ -157,7 +155,7 @@ public:
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
         assert(from != 0 && to != 0);
-        myNumQueries++;
+        countQuery();
         const SUMOReal time = STEPS2TIME(msTime);
         init();
         // add begin node
@@ -178,7 +176,7 @@ public:
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
-                myQueryVisits += num_visited;
+                countVisits(num_visited);
                 // DEBUG
                 //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
                 return;
@@ -213,7 +211,7 @@ public:
                 }
             }
         }
-        myQueryVisits += num_visited;
+        countVisits(num_visited);
         myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 
@@ -255,9 +253,6 @@ protected:
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
 
-    /// @brief counters for performance logging
-    int myQueryVisits;
-    int myNumQueries;
 };
 
 
