@@ -89,11 +89,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo() : edge(0), effort(0), leaveTime(0), prev(0), visited(false) {}
-
-        /// Constructor
         EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), effort(0), leaveTime(0), prev(0), visited(false) {}
+            : edge(E::dictionary(id)), effort(std::numeric_limits<SUMOReal>::max()), leaveTime(0), prev(0), visited(false) {}
 
         /// The current edge
         const E* edge;
@@ -110,6 +107,10 @@ public:
         /// The previous edge
         bool visited;
 
+        inline void reset() {
+            effort = std::numeric_limits<SUMOReal>::max();
+            visited = false;
+        }
     };
 
     /**
@@ -131,17 +132,26 @@ public:
     virtual SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) const = 0;
 
 
+    void init() {
+        // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
+        for (typename std::vector<EdgeInfo*>::iterator i = myFrontierList.begin(); i != myFrontierList.end(); i++) {
+            (*i)->reset();
+        }
+        myFrontierList.clear();
+        for (typename std::vector<EdgeInfo*>::iterator i = myFound.begin(); i != myFound.end(); i++) {
+            (*i)->reset();
+        }
+        myFound.clear();
+    }
+
+
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
         assert(from != 0 && to != 0);
         countQuery();
-        for (typename std::vector<EdgeInfo>::iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); i++) {
-            (*i).effort = std::numeric_limits<SUMOReal>::max();
-            (*i).visited = false;
-        }
-        myFrontierList.clear();
+        init();
         // add begin node
         EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
         fromInfo->effort = 0;
@@ -157,6 +167,7 @@ public:
             const E* const minEdge = minimumInfo->edge;
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
+            myFound.push_back(minimumInfo);
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
@@ -227,6 +238,8 @@ protected:
 
     /// A container for reusage of the min edge heap
     std::vector<EdgeInfo*> myFrontierList;
+    /// @brief list of visited Edges (for resetting)
+    std::vector<EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
 
