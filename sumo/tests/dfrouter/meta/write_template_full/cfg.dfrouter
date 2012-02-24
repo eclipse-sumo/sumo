@@ -70,6 +70,7 @@
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
         <report-empty-detectors value="false" type="BOOL" help="Lists detectors with no flow (enable -v)"/>
         <print-absolute-flows value="false" type="BOOL" help="Prints aggregated detector flows"/>
+        <no-step-log value="false" type="BOOL" help="Disable console output of route parsing step"/>
     </report>
 
     <random_number>

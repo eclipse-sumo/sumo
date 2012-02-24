@@ -66,6 +66,7 @@
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
         <stats-period value="-1" type="INT" help="Defines how often statistics shall be printed"/>
+        <no-step-log value="false" type="BOOL" help="Disable console output of route parsing step"/>
     </report>
 
     <random_number>

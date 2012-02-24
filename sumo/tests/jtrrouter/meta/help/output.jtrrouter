@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r11548
+SUMO jtrrouter Version dev-SVN-r11948
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -75,6 +75,7 @@ Report Options:
   --error-log FILE                 Writes all warnings and errors to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed
+  --no-step-log                    Disable console output of route parsing step
 
 Random Number Options:
   --random                         Initialises the random number generator with

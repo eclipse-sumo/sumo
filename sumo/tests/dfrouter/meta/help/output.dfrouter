@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r11548
+SUMO dfrouter Version dev-SVN-r11948
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Builds vehicle routes for SUMO using detector values.
 
@@ -83,6 +83,8 @@ Report Options:
   --error-log FILE                     Writes all warnings and errors to FILE
   --report-empty-detectors             Lists detectors with no flow (enable -v)
   --print-absolute-flows               Prints aggregated detector flows
+  --no-step-log                        Disable console output of route parsing
+                                         step
 
 Random Number Options:
   --random                             Initialises the random number generator
