@@ -226,20 +226,22 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
             getErrorInstance()->addRetriever(logFile);
+            getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             if (!oc.getBool("no-warnings")) {
                 getWarningInstance()->addRetriever(logFile);
+                getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             }
-            if (oc.getBool("verbose")) {
-                getMessageInstance()->addRetriever(logFile);
-            }
+            getMessageInstance()->addRetriever(logFile);
+            getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
         }
     }
-    if (oc.isSet("message-log", false) && oc.getBool("verbose")) {
+    if (oc.isSet("message-log", false)) {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
             getMessageInstance()->addRetriever(logFile);
+            getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
         }
@@ -248,8 +250,10 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
             getErrorInstance()->addRetriever(logFile);
+            getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             if (!oc.getBool("no-warnings")) {
                 getWarningInstance()->addRetriever(logFile);
+                getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             }
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");

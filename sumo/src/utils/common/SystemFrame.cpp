@@ -91,10 +91,10 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
     oc.doRegister("log", 'l', new Option_FileName());
     oc.addSynonyme("log", "log-file");
-    oc.addDescription("log", "Report", "Writes all messages to FILE");
+    oc.addDescription("log", "Report", "Writes all messages to FILE (implies verbose)");
 
     oc.doRegister("message-log", new Option_FileName());
-    oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");
+    oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE (implies verbose)");
 
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");

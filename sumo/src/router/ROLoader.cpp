@@ -392,7 +392,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
 
 void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
-    if (myLogSteps && myOptions.getBool("verbose")) {
+    if (myLogSteps) {
         const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }

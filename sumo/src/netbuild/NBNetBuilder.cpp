@@ -310,9 +310,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
     WRITE_MESSAGE("Summary:");
-    if (oc.getBool("verbose")) {
-        myNodeCont.printBuiltNodesStatistics();
-    }
+    myNodeCont.printBuiltNodesStatistics();
     WRITE_MESSAGE(" Network boundaries:");
     WRITE_MESSAGE("  Original boundary  : " + toString(geoConvHelper.getOrigBoundary()));
     WRITE_MESSAGE("  Applied offset     : " + toString(geoConvHelper.getOffsetBase()));
