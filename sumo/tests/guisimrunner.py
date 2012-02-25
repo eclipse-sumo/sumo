@@ -22,10 +22,11 @@ subprocess.call(sumoBinary + " --message-log guisim.stdout --error-log guisim.st
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
 ret = subprocess.call(guisimBinary + " -S -Q -c guisim.sumocfg", 
                       shell=True, stdout=sys.stdout, stderr=sys.stderr)
-if os.path.exists("guisim.stdout"):
-    f = open("guisim.stdout")
-    shutil.copyfileobj(f, sys.stdout)
-    f.close()
+if '<verbose' in open("guisim.sumocfg").read():
+    if os.path.exists("guisim.stdout"):
+        f = open("guisim.stdout")
+        shutil.copyfileobj(f, sys.stdout)
+        f.close()
 if os.path.exists("guisim.stderr"):
     f = open("guisim.stderr")
     shutil.copyfileobj(f, sys.stderr)
