@@ -498,8 +498,8 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
             NBNode* n = *j;
             if (n->getIncomingEdges().size() == 1 &&
                     n->getOutgoingEdges().size() == 1 &&
-                    (!cluster.count(n->getIncomingEdges()[0]->getFromNode()) ||
-                     !cluster.count(n->getOutgoingEdges()[0]->getToNode()))) {
+                    (candCluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0 ||
+                     candCluster.count(n->getOutgoingEdges()[0]->getToNode())   == 0)) {
                 continue;
             } else if (myJoinExclusions.count(n->getID()) > 0) {
                 continue;
