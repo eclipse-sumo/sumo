@@ -141,12 +141,16 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // defaultVehicle is only in constructor and may be safely deleted
             // it is mainly needed for its maximum speed. @todo XXX make this configurable
             ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID));
+            const SUMOTime begin = string2time(oc.getString("begin"));
+            const SUMOTime weightPeriod = (oc.isSet("weight-files") ? 
+                    string2time(oc.getString("weight-period")) : 
+                    std::numeric_limits<int>::max());
             if (net.hasRestrictions()) {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, 0);
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod);
             } else {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, 0);
+                    net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod);
             }
 #endif // have HAVE_MESOSIM
         } else {
