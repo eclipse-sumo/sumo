@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 13:00:28 by SUMO netconvert Version dev-SVN-r11865
+<!-- generated on 02/28/12 13:59:33 by SUMO netconvert Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -214,16 +214,16 @@
         <phase duration="4" state="rrrryyyggrrrryyygg"/>
         <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
-        <phase duration="31" state="GgggrrrrrGgggrrrrr"/>
-        <phase duration="4" state="ygggrrrrrygggrrrrr"/>
-        <phase duration="6" state="rGGGrrrrrrGGGrrrrr"/>
-        <phase duration="4" state="ryyyrrrrrryyyrrrrr"/>
+        <phase duration="31" state="GGggrrrrrGGggrrrrr"/>
+        <phase duration="4" state="yyggrrrrryyggrrrrr"/>
+        <phase duration="6" state="rrGGrrrrrrrGGrrrrr"/>
+        <phase duration="4" state="rryyrrrrrrryyrrrrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_18_0 :0_19_0 :0_4_0 :0_5_0 :0_6_0 :0_20_0 :0_21_0 :0_9_0 :0_10_0 :0_22_0 :0_23_0 :0_13_0 :0_14_0 :0_15_0 :0_24_0 :0_25_0" shape="490.15,511.35 506.55,511.35 511.35,509.85 511.35,493.45 509.85,488.65 493.45,488.65 488.65,490.15 488.65,506.55">
         <request index="0" response="000000000000000000" foes="100000100001100000" cont="0"/>
-        <request index="1" response="000000100000000000" foes="011111100011100000" cont="0"/>
-        <request index="2" response="000000001000000000" foes="011100011111100000" cont="1"/>
+        <request index="1" response="000000000000000000" foes="011111100011100000" cont="0"/>
+        <request index="2" response="000000011000000000" foes="011100011111100000" cont="1"/>
         <request index="3" response="010000010000010000" foes="010000010000010000" cont="1"/>
         <request index="4" response="000000010000000000" foes="010000010000001000" cont="0"/>
         <request index="5" response="000000110000000111" foes="110000110000000111" cont="0"/>
@@ -231,8 +231,8 @@
         <request index="7" response="001110110000000110" foes="001111110000000110" cont="1"/>
         <request index="8" response="001100001000000100" foes="001100001000000100" cont="1"/>
         <request index="9" response="000000000000000000" foes="001100000100000100" cont="0"/>
-        <request index="10" response="000000000000000100" foes="011100000011111100" cont="0"/>
-        <request index="11" response="000000000000000001" foes="111100000011100011" cont="1"/>
+        <request index="10" response="000000000000000000" foes="011100000011111100" cont="0"/>
+        <request index="11" response="000000000000000011" foes="111100000011100011" cont="1"/>
         <request index="12" response="000010000010000010" foes="000010000010000010" cont="1"/>
         <request index="13" response="000000000000000010" foes="000001000010000010" cont="0"/>
         <request index="14" response="000000111000000110" foes="000000111110000110" cont="0"/>
