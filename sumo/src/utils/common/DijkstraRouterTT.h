@@ -45,6 +45,8 @@
 #include <utils/common/StdDefs.h>
 #include "SUMOAbstractRouter.h"
 
+//#define DijkstraRouterTT_DEBUG_QUERY
+//#define DijkstraRouterTT_DEBUG_QUERY_PERF
 
 // ===========================================================================
 // class definitions
@@ -166,12 +168,20 @@ public:
             pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
+#ifdef DijkstraRouterTT_DEBUG_QUERY
+            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Q: ";
+            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
+                std::cout << (*it)->traveltime << "," << (*it)->edge->getID() << " ";
+            }
+            std::cout << "\n";
+#endif
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
                 countVisits(num_visited);
-                // DEBUG
-                //std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
+#ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
+                std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
+#endif
                 return;
             }
             minimumInfo->visited = true;
@@ -202,6 +212,9 @@ public:
             }
         }
         countVisits(num_visited);
+#ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
+        std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
+#endif
         myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 
