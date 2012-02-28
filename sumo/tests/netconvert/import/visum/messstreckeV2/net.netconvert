@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 14:57:24 by SUMO netconvert Version dev-SVN-r11872
+<!-- generated on 02/28/12 13:56:54 by SUMO netconvert Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -38,10 +38,7 @@
         <lane id=":15_2_0" index="0" speed="13.89" length="4.13" shape="1055.74,554.35 1056.38,553.51 1056.82,552.60 1057.05,551.61 1057.08,550.56"/>
     </edge>
     <edge id=":15_3" function="internal">
-        <lane id=":15_3_0" index="0" speed="13.89" length="5.97" shape="1055.74,554.35 1056.84,553.92 1059.04,553.85 1061.62,554.07"/>
-    </edge>
-    <edge id=":15_4" function="internal">
-        <lane id=":15_4_0" index="0" speed="13.89" length="5.13" shape="1061.62,554.07 1062.32,554.14 1066.70,554.78"/>
+        <lane id=":15_3_0" index="0" speed="13.89" length="11.10" shape="1055.74,554.35 1056.84,553.92 1059.04,553.85 1062.32,554.14 1066.70,554.78"/>
     </edge>
     <edge id=":16_0" function="internal">
         <lane id=":16_0_0" index="0" speed="13.89" length="6.42" shape="1092.81,552.91 1090.99,551.75 1089.53,551.42 1088.41,551.92 1087.66,553.25"/>
@@ -604,17 +601,17 @@
     <junction id="12" type="dead_end" x="425.00" y="813.00" incLanes="-25_0" intLanes="" shape="424.95,813.00 421.76,812.81 428.24,813.19 425.05,813.00"/>
     <junction id="13" type="dead_end" x="377.00" y="168.00" incLanes="-28_0" intLanes="" shape="377.05,167.99 380.21,167.46 373.79,168.54 376.95,168.01"/>
     <junction id="14" type="dead_end" x="832.00" y="806.00" incLanes="13_0" intLanes="" shape="831.97,806.04 829.90,808.48 834.10,803.52 832.03,805.96"/>
-    <junction id="15" type="priority" x="1062.00" y="550.00" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_4_0" shape="1061.13,557.67 1069.06,553.55 1061.97,550.23 1055.48,550.67 1054.56,553.26 1059.34,557.67">
+    <junction id="15" type="priority" x="1062.00" y="550.00" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0" shape="1061.13,557.67 1069.06,553.55 1061.97,550.23 1055.48,550.67 1054.56,553.26 1059.34,557.67">
         <request index="0" response="0000" foes="0000" cont="0"/>
-        <request index="1" response="0100" foes="1100" cont="0"/>
+        <request index="1" response="1100" foes="1100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
-        <request index="3" response="0010" foes="0010" cont="1"/>
+        <request index="3" response="0000" foes="0010" cont="0"/>
     </junction>
     <junction id="16" type="priority" x="1088.00" y="547.00" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_1_0 :16_2_0 :16_4_0" shape="1091.82,554.16 1095.85,549.06 1093.67,536.68 1087.19,537.25 1082.21,551.09 1089.14,553.85">
         <request index="0" response="0100" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1000" cont="0"/>
-        <request index="2" response="1000" foes="1001" cont="0"/>
-        <request index="3" response="0010" foes="0110" cont="1"/>
+        <request index="2" response="0000" foes="1001" cont="0"/>
+        <request index="3" response="0110" foes="0110" cont="1"/>
     </junction>
     <junction id="17" type="dead_end" x="1261.00" y="700.00" incLanes="15_0" intLanes="" shape="1260.97,700.04 1258.81,702.40 1263.19,697.60 1261.03,699.96"/>
     <junction id="18" type="dead_end" x="942.00" y="680.00" incLanes="14_0" intLanes="" shape="941.96,679.97 939.61,677.80 944.39,682.20 942.04,680.03"/>
@@ -744,7 +741,6 @@
         <request index="7" response="00111110" foes="00111110" cont="1"/>
     </junction>
 
-    <junction id=":15_4_0" type="internal" x="1061.62" y="554.07" incLanes=":15_3_0 -16_0" intLanes=":15_1_0"/>
     <junction id=":16_4_0" type="internal" x="1088.45" y="550.41" incLanes=":16_3_0 18_0 18_1" intLanes=":16_1_0 :16_2_0"/>
     <junction id=":3_14_0" type="internal" x="423.27" y="555.26" incLanes=":3_2_0 -27_0" intLanes=":3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0 :3_11_0 :3_12_0 :3_13_0"/>
     <junction id=":3_15_0" type="internal" x="425.71" y="548.23" incLanes=":3_6_0 -21_0 -21_1" intLanes=":3_1_0 :3_2_0 :3_8_0 :3_9_0 :3_10_0 :3_11_0 :3_12_0"/>
@@ -761,7 +757,7 @@
     <connection from="-13" to="23" fromLane="0" toLane="0" via=":4_0_0" dir="r" state="m"/>
     <connection from="-13" to="33" fromLane="0" toLane="1" via=":4_1_0" dir="l" state="m"/>
     <connection from="-14" to="17" fromLane="0" toLane="0" via=":15_2_0" dir="r" state="M"/>
-    <connection from="-14" to="16" fromLane="0" toLane="0" via=":15_3_0" dir="l" state="m"/>
+    <connection from="-14" to="16" fromLane="0" toLane="0" via=":15_3_0" dir="l" state="M"/>
     <connection from="-15" to="-16" fromLane="0" toLane="0" via=":16_0_0" dir="r" state="m"/>
     <connection from="-16" to="14" fromLane="0" toLane="0" via=":15_0_0" dir="r" state="M"/>
     <connection from="-16" to="17" fromLane="0" toLane="1" via=":15_1_0" dir="s" state="m"/>
@@ -819,7 +815,7 @@
     <connection from="17" to="5" fromLane="1" toLane="1" via=":5_1_0" dir="l" state="m"/>
     <connection from="17" to="5" fromLane="1" toLane="2" via=":5_2_0" dir="l" state="m"/>
     <connection from="18" to="15" fromLane="0" toLane="0" via=":16_1_0" dir="r" state="M"/>
-    <connection from="18" to="-16" fromLane="1" toLane="0" via=":16_2_0" dir="s" state="m"/>
+    <connection from="18" to="-16" fromLane="1" toLane="0" via=":16_2_0" dir="s" state="M"/>
     <connection from="21" to="-22" fromLane="0" toLane="0" via=":22_0_0" dir="s" state="M"/>
     <connection from="21" to="-22" fromLane="1" toLane="1" via=":22_1_0" dir="s" state="M"/>
     <connection from="22" to="-21" fromLane="0" toLane="0" via=":22_2_0" dir="s" state="M"/>
@@ -863,8 +859,7 @@
     <connection from=":15_0" to="14" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":15_1" to="17" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":15_2" to="17" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":15_3" to="16" fromLane="0" toLane="0" via=":15_4_0" dir="s" state="M"/>
-    <connection from=":15_4" to="16" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15_3" to="16" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":16_0" to="-16" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":16_1" to="15" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":16_2" to="-16" fromLane="0" toLane="0" dir="s" state="M"/>

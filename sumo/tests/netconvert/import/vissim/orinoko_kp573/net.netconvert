@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/12/11 11:24:53 by SUMO netconvert Version dev-SVN-r11600
+<!-- generated on 02/28/12 13:56:54 by SUMO netconvert Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -558,11 +558,11 @@
         <request index="3" response="00000000000000000" foes="11000001000000000"/>
         <request index="4" response="11000010000000111" foes="11000011000000111"/>
         <request index="5" response="11000010000000111" foes="11000011000000111"/>
-        <request index="6" response="00000010000000000" foes="00111111000000011"/>
+        <request index="6" response="00000000000000000" foes="00111111000000011"/>
         <request index="7" response="00110000000000001" foes="00110000000000001"/>
         <request index="8" response="00110000000000001" foes="00110000000000001"/>
         <request index="9" response="11110000001111001" foes="11110000001111001"/>
-        <request index="10" response="00000000000000010" foes="11110000001110110"/>
+        <request index="10" response="00000000001000010" foes="11110000001110110"/>
         <request index="11" response="00001000001000010" foes="00001000001000010"/>
         <request index="12" response="00000000001000000" foes="00000100001000010"/>
         <request index="13" response="00000010001000000" foes="00000011111000011"/>

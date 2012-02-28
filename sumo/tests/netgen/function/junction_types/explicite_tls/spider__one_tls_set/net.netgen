@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:34:05 by SUMO netgen Version dev-SVN-r11865
+<!-- generated on 02/28/12 13:56:51 by SUMO netgen Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -338,7 +338,7 @@
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
-    <junction id=":1/1_9_0" type="internal" x="198.27" y="100.69" incLanes=":1/1_0_0 2/1to1/1_0" intLanes=":1/1_4_0 :1/1_8_0"/>
+    <junction id=":1/1_9_0" type="internal" x="198.27" y="100.69" incLanes=":1/1_0_0" intLanes=":1/1_4_0 :1/1_8_0"/>
     <junction id=":1/1_10_0" type="internal" x="194.65" y="101.20" incLanes=":1/1_1_0 2/1to1/1_0" intLanes=":1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0"/>
     <junction id=":1/1_11_0" type="internal" x="194.56" y="94.56" incLanes=":1/1_2_0 2/1to1/1_0" intLanes=":1/1_3_0 :1/1_7_0"/>
     <junction id=":1/1_12_0" type="internal" x="194.65" y="98.80" incLanes=":1/1_4_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0 :1/1_7_0 :1/1_8_0"/>

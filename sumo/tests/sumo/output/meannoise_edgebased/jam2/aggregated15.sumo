@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/13/12 14:21:19 by SUMO sumo Version dev-SVN-r11881
+<!-- generated on 02/28/12 14:04:11 by SUMO sumo Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -29,19 +29,19 @@
 
 <netstats>
     <interval begin="600.00" end="615.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="780.00" noise="73.10" traveltime="100000.00"/>
-        <edge id="4/1to3/1" sampledSeconds="390.00" noise="70.09" traveltime="100000.00"/>
+        <edge id="3/1to2/1" sampledSeconds="765.00" noise="73.02" traveltime="100000.00"/>
+        <edge id="4/1to3/1" sampledSeconds="405.00" noise="70.25" traveltime="100000.00"/>
     </interval>
     <interval begin="615.00" end="630.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="780.00" noise="73.10" traveltime="100000.00"/>
-        <edge id="4/1to3/1" sampledSeconds="390.00" noise="70.09" traveltime="100000.00"/>
+        <edge id="3/1to2/1" sampledSeconds="765.00" noise="73.02" traveltime="100000.00"/>
+        <edge id="4/1to3/1" sampledSeconds="405.00" noise="70.25" traveltime="100000.00"/>
     </interval>
     <interval begin="630.00" end="645.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="780.00" noise="73.10" traveltime="100000.00"/>
-        <edge id="4/1to3/1" sampledSeconds="390.00" noise="70.09" traveltime="100000.00"/>
+        <edge id="3/1to2/1" sampledSeconds="765.00" noise="73.02" traveltime="100000.00"/>
+        <edge id="4/1to3/1" sampledSeconds="405.00" noise="70.25" traveltime="100000.00"/>
     </interval>
     <interval begin="645.00" end="660.00" id="dump_15">
-        <edge id="3/1to2/1" sampledSeconds="780.00" noise="73.10" traveltime="100000.00"/>
-        <edge id="4/1to3/1" sampledSeconds="390.00" noise="70.09" traveltime="100000.00"/>
+        <edge id="3/1to2/1" sampledSeconds="765.00" noise="73.02" traveltime="100000.00"/>
+        <edge id="4/1to3/1" sampledSeconds="405.00" noise="70.25" traveltime="100000.00"/>
     </interval>
 </netstats>

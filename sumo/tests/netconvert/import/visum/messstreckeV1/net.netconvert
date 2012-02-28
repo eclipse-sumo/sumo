@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 14:55:23 by SUMO netconvert Version dev-SVN-r11872
+<!-- generated on 02/28/12 13:56:54 by SUMO netconvert Version dev-SVN-r11963
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
@@ -705,10 +705,10 @@
     </junction>
     <junction id="15" type="priority" x="1532.00" y="553.00" incLanes="-16_0 -14_0" intLanes=":15_0_0 :15_6_0 :15_7_0 :15_3_0 :15_4_0 :15_8_0" shape="1535.01,555.98 1534.40,549.51 1531.95,548.24 1525.45,548.24 1528.07,552.41 1532.78,556.89">
         <request index="0" response="000000" foes="100000" cont="0"/>
-        <request index="1" response="001000" foes="011000" cont="1"/>
+        <request index="1" response="011000" foes="011000" cont="1"/>
         <request index="2" response="010000" foes="010000" cont="1"/>
         <request index="3" response="000000" foes="000010" cont="0"/>
-        <request index="4" response="000010" foes="000110" cont="0"/>
+        <request index="4" response="000000" foes="000110" cont="0"/>
         <request index="5" response="000001" foes="000001" cont="1"/>
     </junction>
     <junction id="16" type="priority" x="1564.00" y="550.00" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_6_0 :16_2_0 :16_3_0 :16_4_0 :16_5_0" shape="1567.80,557.42 1571.97,552.44 1569.82,544.38 1563.39,545.29 1560.85,547.03 1561.46,553.50">
@@ -907,7 +907,7 @@
     <connection from="-13" to="4" fromLane="0" toLane="1" via=":4_9_0" dir="l" state="m"/>
     <connection from="-13" to="13" fromLane="0" toLane="0" via=":4_10_0" dir="t" state="m"/>
     <connection from="-14" to="17" fromLane="0" toLane="0" via=":15_3_0" dir="s" state="M"/>
-    <connection from="-14" to="16" fromLane="0" toLane="0" via=":15_4_0" dir="s" state="m"/>
+    <connection from="-14" to="16" fromLane="0" toLane="0" via=":15_4_0" dir="s" state="M"/>
     <connection from="-14" to="14" fromLane="0" toLane="0" via=":15_5_0" dir="t" state="m"/>
     <connection from="-15" to="-16" fromLane="0" toLane="0" via=":16_0_0" dir="r" state="M"/>
     <connection from="-15" to="15" fromLane="0" toLane="0" via=":16_1_0" dir="t" state="m"/>
