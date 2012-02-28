@@ -942,7 +942,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         }
                         // compute foe incoming lanes
                         NBEdge* e = getToNode()->getOppositeIncoming(this);
-                        if (e == *i2 && needsCont) {
+                        if (e == *i2 && needsCont && !n.forbids(this, (*i).toEdge, *i2, (*k2).toEdge, true) ) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;

@@ -712,7 +712,8 @@ MSVehicle::moveChecked() {
             const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
             const bool yellow = ls == LINKSTATE_TL_YELLOW_MAJOR || ls == LINKSTATE_TL_YELLOW_MINOR;
-            if (yellow && (*i).myDistance > getCarFollowModel().getSpeedAfterMaxDecel(myState.mySpeed)) {
+            const SUMOReal brakeGap = getCarFollowModel().brakeGap(myState.mySpeed) - getCarFollowModel().getHeadwayTime() * myState.mySpeed;
+            if (yellow && (*i).myDistance > brakeGap) {
                 vSafe = (*i).myVLinkWait;
                 braking = true;
                 lastWasGreenCont = false;
@@ -720,7 +721,7 @@ MSVehicle::moveChecked() {
                 break;
             }
             //
-            const bool opened = link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, getVehicleType().getLengthWithGap());
+            const bool opened = yellow || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, getVehicleType().getLengthWithGap());
             // vehicles should decelerate when approaching a minor link
             if (opened && !lastWasGreenCont && !link->havePriority() && (*i).myDistance > getCarFollowModel().getMaxDecel()) {
                 vSafe = (*i).myVLinkWait;
@@ -986,7 +987,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         for (int i = (int)(myLFLinkLanes.size() - 1); i > 0; --i) {
             DriveProcessItem& item = myLFLinkLanes[i - 1];
-            bool opened = item.myLink != 0 && (/*item.myLink->havePriority() || */item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,/*t, .1,*/ getVehicleType().getLengthWithGap()));
+            bool opened = item.myLink != 0 && (item.myLink->havePriority() || item.myLink->opened(item.myArrivalTime, item.myArrivalSpeed,/*t, .1,*/ getVehicleType().getLengthWithGap()));
             bool check1 = item.myLink == 0 || item.myLink->isCont() || !hadVehicles[i];
             bool allowsContinuation = check1 || opened;
             if (!opened && item.myLink != 0) {
@@ -1031,8 +1032,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) {
         }
         if (removalBegin != -1 && !(removalBegin == 0 && myLane->getEdge().getPurpose() == MSEdge::EDGEFUNCTION_INTERNAL)) {
             while (removalBegin < (int)(myLFLinkLanes.size())) {
-                if(myLFLinkLanes[removalBegin].myDistance>=getCarFollowModel().brakeGap(myState.mySpeed)) {
-                    myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
+                const SUMOReal brakeGap = getCarFollowModel().brakeGap(myState.mySpeed) - getCarFollowModel().getHeadwayTime() * myState.mySpeed;
+                myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
+                if(myLFLinkLanes[removalBegin].myDistance>=brakeGap||(myLFLinkLanes[removalBegin].myDistance>0&&myState.mySpeed<ACCEL2SPEED(getCarFollowModel().getMaxDecel()))) {
                     myLFLinkLanes[removalBegin].mySetRequest = false;
                 }
                 ++removalBegin;
@@ -1190,11 +1192,11 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
             }
         }
 
-        setRequest |= ((*link)->getState() != LINKSTATE_TL_RED && (vLinkPass > 0 && dist - seen > 0));
+        setRequest |= ((*link)->getState() != LINKSTATE_TL_RED && vLinkPass > 0);
 //        setRequest |= (seen < cfModel.brakeGap(myState.mySpeed) + SPEED2DIST(myState.mySpeed)*cfModel.getHeadwayTime());
         bool yellow = (*link)->getState() == LINKSTATE_TL_YELLOW_MAJOR || (*link)->getState() == LINKSTATE_TL_YELLOW_MINOR;
         bool red = (*link)->getState() == LINKSTATE_TL_RED;
-        if ((yellow || red) && seen - myState.mySpeed*cfModel.getHeadwayTime() > cfModel.brakeGap(myState.mySpeed)) { // !!! we should reuse brakeGap with no reaction time...
+        if ((yellow || red) && seen > cfModel.brakeGap(myState.mySpeed) - myState.mySpeed*cfModel.getHeadwayTime()) {
             vLinkPass = vLinkWait;
             setRequest = false;
             assert(vLinkWait >= cfModel.getSpeedAfterMaxDecel(myState.mySpeed));

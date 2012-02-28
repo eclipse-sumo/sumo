@@ -256,6 +256,7 @@ NBRequest::setBlocking(bool leftHanded,
     //  the outgoing edge when both roads are high priorised
     //  the connection with the lower priorised outgoing edge will lead
     // should be valid for priority junctions only
+    /*
     if (from1p > 0 && from2p > 0) {
         assert(myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT);
         int to1p = to1->getJunctionPriority(myJunction);
@@ -269,6 +270,7 @@ NBRequest::setBlocking(bool leftHanded,
             return;
         }
     }
+    */
 
     // compute the yielding due to the right-before-left rule
     // get the position of the incoming lanes in the junction-wheel
