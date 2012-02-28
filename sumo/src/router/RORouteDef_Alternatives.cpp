@@ -169,7 +169,7 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
             newSum += (*i)->getProbability();
         }
         assert(newSum > 0);
-        assert(newSum <= 1);
+        // @note newSum may be larger than 1 for numerical reasons
         for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
             (*i)->setProbability((*i)->getProbability() / newSum);
         }
