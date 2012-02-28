@@ -215,6 +215,10 @@ MSNet::closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
 
 
 MSNet::~MSNet() {
+    // delete events first maybe they do some cleanup
+    delete myBeginOfTimestepEvents;
+    delete myEndOfTimestepEvents;
+    delete myInsertionEvents;
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -232,9 +236,6 @@ MSNet::~MSNet() {
     myMsgEmitter.clear();
     msgEmitVec.clear();
 #endif
-    delete myBeginOfTimestepEvents;
-    delete myEndOfTimestepEvents;
-    delete myInsertionEvents;
     delete myEdgeWeights;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
