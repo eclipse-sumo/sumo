@@ -131,7 +131,7 @@ ODMatrix::computeDeparts(ODCell* cell,
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
                 OutputDevice& dev, bool uniform, bool noVtype,
-                const std::string& prefix) {
+                const std::string& prefix, bool stepLog) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -146,7 +146,9 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     std::vector<ODVehicle> vehicles;
     // go through the time steps
     for (SUMOTime t = begin; t != end; t++) {
-        MsgHandler::getMessageInstance()->progressMsg("Parsing time " + toString(t));
+        if (stepLog) {
+            std::cout << "Parsing time " + toString(t) << '\r';
+        }
         // recheck whether a new cell got valid
         bool changed = false;
         while (next != myContainer.end() && (*next)->begin <= t && (*next)->end > t) {

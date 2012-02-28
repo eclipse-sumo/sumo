@@ -130,10 +130,11 @@ public:
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
+     * @param[in] stepLog Whether processed time shall be written
      */
     void write(SUMOTime begin, SUMOTime end,
                OutputDevice& dev, bool uniform, bool noVtype,
-               const std::string& prefix) ;
+               const std::string& prefix, bool stepLog) ;
 
 
     /** @brief Returns the number of loaded vehicles
