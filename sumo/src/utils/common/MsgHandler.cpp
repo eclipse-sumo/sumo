@@ -109,29 +109,6 @@ MsgHandler::inform(std::string msg, bool addType) {
 
 
 void
-MsgHandler::progressMsg(std::string msg, bool addType) {
-    if (myLock != 0) {
-        myLock->lock();
-    }
-    msg = build(msg, addType);
-    // inform all other receivers
-    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-        // beautify progress output
-        if (myAmProcessingProcess) {
-            (*i)->inform("", '\n');
-        }
-        (*i)->inform(msg, '\r');
-    }
-    // set the information that something occured
-    myWasInformed = true;
-    myAmProcessingProcess = false;
-    if (myLock != 0) {
-        myLock->unlock();
-    }
-}
-
-
-void
 MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     if (myLock != 0) {
         myLock->lock();
@@ -214,6 +191,9 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
 
 void
 MsgHandler::initOutputOptions() {
+    // initialize console properly
+    OutputDevice::getDevice("stdout");
+    OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
     if (!oc.getBool("verbose")) {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
@@ -226,13 +206,10 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
             getErrorInstance()->addRetriever(logFile);
-            getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             if (!oc.getBool("no-warnings")) {
                 getWarningInstance()->addRetriever(logFile);
-                getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
             }
             getMessageInstance()->addRetriever(logFile);
-            getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
         }
@@ -241,7 +218,6 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
             getMessageInstance()->addRetriever(logFile);
-            getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
         }
@@ -250,11 +226,7 @@ MsgHandler::initOutputOptions() {
         try {
             OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
             getErrorInstance()->addRetriever(logFile);
-            getErrorInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-            if (!oc.getBool("no-warnings")) {
-                getWarningInstance()->addRetriever(logFile);
-                getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
-            }
+            getWarningInstance()->addRetriever(logFile);
         } catch (IOError&) {
             throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
         }

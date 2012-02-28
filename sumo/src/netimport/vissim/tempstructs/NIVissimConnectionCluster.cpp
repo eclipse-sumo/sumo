@@ -254,7 +254,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
             joinAble.clear();
         } else {
             i++;
-            MsgHandler::getMessageInstance()->progressMsg("Checked(1): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
             pos++;
         }
     }
@@ -288,7 +287,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
         } else {
             i++;
             pos++;
-            MsgHandler::getMessageInstance()->progressMsg("Checked(2): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
         }
     }
     // check for weak district connections
@@ -323,7 +321,6 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
         } else {
             i++;
             pos++;
-            MsgHandler::getMessageInstance()->progressMsg("Checked(3): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
         }
     }
 }

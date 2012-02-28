@@ -578,7 +578,6 @@ MSNet::getWeightsStorage() {
 
 void
 MSNet::preSimStepOutput() const {
-    std::cout << std::setprecision(OUTPUT_ACCURACY);
     std::cout << "Step #" << time2string(myStep);
 }
 
@@ -586,7 +585,6 @@ MSNet::preSimStepOutput() const {
 void
 MSNet::postSimStepOutput() const {
     if (myLogExecutionTime) {
-        std::string msg;
         std::ostringstream oss;
         oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
@@ -602,12 +600,10 @@ MSNet::postSimStepOutput() const {
             << " TOT " << myVehicleControl->getDepartedVehicleNo()
             << " ACT " << myVehicleControl->getRunningVehicleNo()
             << ")                                              ";
-        msg = oss.str();
         std::string prev = "Step #" + time2string(myStep - DELTA_T);
-        msg = msg.substr(0, 78 - prev.length());
-        std::cout << msg;
+        std::cout << oss.str().substr(0, 78 - prev.length());
     }
-    std::cout << (char) 13;
+    std::cout << '\r';
 }
 
 

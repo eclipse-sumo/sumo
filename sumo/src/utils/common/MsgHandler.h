@@ -94,12 +94,6 @@ public:
     /// Ends a process information
     void endProcessMsg(std::string msg);
 
-    /** @brief Writes a progress message
-     *
-     * Writes the message and closes it with a (char) 13
-     */
-    void progressMsg(std::string msg, bool addType = true);
-
     /// Clears information whether an error occured previously
     void clear();
 

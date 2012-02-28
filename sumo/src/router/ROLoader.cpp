@@ -394,7 +394,7 @@ void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) {
     if (myLogSteps) {
         const SUMOReal perc = (SUMOReal)(time - start) / (SUMOReal) absNo;
-        MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       ");
+        std::cout << "Reading time step: " + time2string(time) + "  (" + time2string(time - start) + "/" + time2string(absNo) + " = " + toString(perc * 100) + "% done)       \r";
     }
 }
 
