@@ -53,6 +53,8 @@ class ROCostCalculator {
 public:
     static ROCostCalculator& getCalculator();
 
+    static void cleanup();
+
     virtual void setCosts(RORoute* route, const SUMOReal costs, const bool isActive=false) const = 0;
 
     /** @brief calculate the probabilities in the logit model */

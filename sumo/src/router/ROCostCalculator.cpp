@@ -73,6 +73,11 @@ ROCostCalculator::getCalculator() {
 }
 
 
+void
+ROCostCalculator::cleanup() {
+    delete myInstance;
+    myInstance = 0;
+}
 
 
 ROGawronCalculator::ROGawronCalculator(const SUMOReal beta, const SUMOReal a)
