@@ -64,8 +64,8 @@
  */
 template<class E, class V, class PF>
 class DijkstraRouterEffortBase : public SUMOAbstractRouter<E, V>, public PF {
-    using SUMOAbstractRouter<E, V>::countQuery;
-    using SUMOAbstractRouter<E, V>::countVisits;
+    using SUMOAbstractRouter<E, V>::startQuery;
+    using SUMOAbstractRouter<E, V>::endQuery;
 
 public:
     /// Constructor
@@ -150,7 +150,7 @@ public:
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
         assert(from != 0 && to != 0);
-        countQuery();
+        startQuery();
         init();
         // add begin node
         EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
@@ -171,7 +171,7 @@ public:
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
-                countVisits(num_visited);
+                endQuery(num_visited);
                 return;
             }
             minimumInfo->visited = true;
@@ -203,7 +203,7 @@ public:
                 }
             }
         }
-        countVisits(num_visited);
+        endQuery(num_visited);
         myErrorMsgHandler->inform("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
     }
 

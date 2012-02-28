@@ -68,8 +68,8 @@
  */
 template<class E, class V, class PF>
 class DijkstraRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
-    using SUMOAbstractRouter<E, V>::countQuery;
-    using SUMOAbstractRouter<E, V>::countVisits;
+    using SUMOAbstractRouter<E, V>::startQuery;
+    using SUMOAbstractRouter<E, V>::endQuery;
 
 public:
     /// Constructor
@@ -150,7 +150,7 @@ public:
     virtual void compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*> &into) {
         assert(from != 0 && to != 0);
-        countQuery();
+        startQuery();
         const SUMOReal time = STEPS2TIME(msTime);
         init();
         // add begin node
@@ -178,7 +178,7 @@ public:
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
-                countVisits(num_visited);
+                endQuery(num_visited);
 #ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
                 std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
 #endif
@@ -211,7 +211,7 @@ public:
                 }
             }
         }
-        countVisits(num_visited);
+        endQuery(num_visited);
 #ifdef DijkstraRouterTT_DEBUG_QUERY_PERF
         std::cout << "visited " + toString(num_visited) + " edges (final path length: " + toString(into.size()) + ")\n";
 #endif

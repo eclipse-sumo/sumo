@@ -35,6 +35,7 @@
 #include <vector>
 #include <algorithm>
 #include <assert.h>
+#include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
@@ -54,13 +55,16 @@ public:
     SUMOAbstractRouter(const std::string& type):
         myType(type),
         myQueryVisits(0),
-        myNumQueries(0)
+        myNumQueries(0),
+        myQueryStartTime(0),
+        myQueryTimeSum(0)
     { }
 
     /// Destructor
     virtual ~SUMOAbstractRouter() { 
         if (myNumQueries > 0) {
             WRITE_MESSAGE(myType + " answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
+            WRITE_MESSAGE(myType + " spent " + toString(myQueryTimeSum) + " ms answering queries (" + toString(double(myQueryTimeSum) / myNumQueries) +  " ms on average).");
         }
     }
 
@@ -77,12 +81,14 @@ public:
         assert(false);
     }
 
-    inline void countQuery() {
+    inline void startQuery() {
         myNumQueries++;
+        myQueryStartTime = SysUtils::getCurrentMillis();
     }
 
-    inline void countVisits(int visits) {
+    inline void endQuery(int visits) {
         myQueryVisits += visits;
+        myQueryTimeSum += (SysUtils::getCurrentMillis() - myQueryStartTime);
     }
 
 private:
@@ -91,6 +97,9 @@ private:
     /// @brief counters for performance logging
     int myQueryVisits;
     int myNumQueries;
+    /// @brief the time spent querying in milliseconds
+    long myQueryStartTime;
+    long myQueryTimeSum;
 };
 
 
