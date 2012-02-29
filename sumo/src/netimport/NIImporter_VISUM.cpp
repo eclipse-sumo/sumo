@@ -590,7 +590,7 @@ NIImporter_VISUM::parse_Turns() {
         }
         // both edges found
         //  set them into the edge
-        src->setTurningDestination(dest);
+        src->addEdge2EdgeConnection(dest);
     }
 }
 
