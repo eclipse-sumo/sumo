@@ -361,6 +361,9 @@ GUIEdge::getMeanSpeed() const {
         v += vehNo * segment->getMeanSpeed();
         no += vehNo;
     }
+    if (no == 0) {
+        return getMaxSpeed();
+    }
     return v / no;
 }
 

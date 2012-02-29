@@ -390,6 +390,8 @@ public:
     /// @brief return the length of the edge
     SUMOReal getLength() const;
 
+    /// @brief return the maximum speed the edge
+    SUMOReal getMaxSpeed() const;
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise

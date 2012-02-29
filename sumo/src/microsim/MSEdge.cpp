@@ -524,5 +524,12 @@ MSEdge::getLength() const {
     return getLanes()[0]->getLength();
 }
 
+
+SUMOReal 
+MSEdge::getMaxSpeed() const {
+    // @note lanes might have different maximum speeds in theory
+    return getLanes()[0]->getMaxSpeed();
+}
+
 /****************************************************************************/
 
