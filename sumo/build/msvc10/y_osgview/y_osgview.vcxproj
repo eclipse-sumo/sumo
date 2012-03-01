@@ -116,13 +116,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\osgview\GUIOSGBuilder.cpp" />
     <ClCompile Include="..\..\..\src\osgview\GUIOSGView.cpp" />
-    <ClCompile Include="..\..\..\src\osgview\GUIOSGViewBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\osgview\GUIOSGBoundingBoxCalculator.h" />
     <ClInclude Include="..\..\..\src\osgview\GUIOSGBuilder.h" />
     <ClInclude Include="..\..\..\src\osgview\GUIOSGView.h" />
-    <ClInclude Include="..\..\..\src\osgview\GUIOSGViewBuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

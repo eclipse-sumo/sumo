@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\src\osgview\GUIOSGView.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\osgview\GUIOSGViewBuilder.cpp">
-      <Filter>Quellcodedateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\osgview\GUIOSGBoundingBoxCalculator.h">
@@ -29,9 +26,6 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\osgview\GUIOSGView.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\osgview\GUIOSGViewBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
