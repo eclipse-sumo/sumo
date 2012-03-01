@@ -37,3 +37,6 @@ max_segment_length
 
 # tests whether removing self-loop edges works
 self_loop_edges
+
+# test speed factor and offset
+speed_modification
