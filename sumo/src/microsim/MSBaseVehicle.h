@@ -188,11 +188,6 @@ public:
      */
     virtual void addPerson(MSPerson* person) ;
 
-    /** @brief Returns whether the vehicle is at a stop
-     * @return Whether it has stopped
-     */
-    virtual bool isStopped() const;
-
     /** @brief Validates the current route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @return Whether the vehicle's current route is valid

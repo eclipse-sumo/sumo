@@ -35,6 +35,7 @@
 #include <vector>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -45,7 +46,6 @@ class MSRoute;
 class MSEdge;
 class MSLane;
 class MSDevice;
-class SUMOVehicleParameter;
 class MSPerson;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
@@ -174,6 +174,14 @@ public:
      * @param[in] person The person to add
      */
     virtual void addPerson(MSPerson* person) = 0;
+
+    /** @brief Adds a stop
+     *
+     * The stop is put into the sorted list.
+     * @param[in] stop The stop to add
+     * @return Whether the stop could be added
+     */
+    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, SUMOTime untilOffset=0) = 0;
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the has stopped

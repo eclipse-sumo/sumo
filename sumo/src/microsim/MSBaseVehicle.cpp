@@ -225,11 +225,6 @@ void
 MSBaseVehicle::addPerson(MSPerson* /*person*/) {
 }
 
-bool
-MSBaseVehicle::isStopped() const {
-    return false;
-}
-
 
 bool
 MSBaseVehicle::hasValidRoute(std::string& msg) const {
