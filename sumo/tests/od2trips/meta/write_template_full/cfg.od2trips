@@ -33,6 +33,7 @@
         <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
         <dismiss-loading-errors value="false" type="BOOL" help="Continue on broken input"/>
+        <no-step-log value="false" type="BOOL" help="Disable console output of current time step"/>
     </processing>
 
     <defaults>

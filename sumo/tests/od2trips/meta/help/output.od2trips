@@ -37,6 +37,7 @@ Processing Options:
   --timeline STR                   Uses STR as a timeline definition
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
   --dismiss-loading-errors         Continue on broken input
+  --no-step-log                    Disable console output of current time step
 
 Defaults Options:
   --departlane STR                 Assigns a default depart lane
