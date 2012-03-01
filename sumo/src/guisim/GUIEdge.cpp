@@ -54,6 +54,7 @@
 #ifdef HAVE_MESOSIM
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
 #include <microsim/MSGlobals.h>
 #endif
 

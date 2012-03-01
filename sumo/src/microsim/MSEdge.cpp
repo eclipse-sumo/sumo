@@ -49,6 +49,7 @@
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS

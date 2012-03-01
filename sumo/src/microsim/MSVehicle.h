@@ -38,25 +38,13 @@
 #include <config.h>
 #endif
 
-#include "MSBaseVehicle.h"
-#include "MSEdge.h"
-#include "MSRoute.h"
-#include "MSGlobals.h"
 #include <list>
 #include <deque>
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/ToString.h>
-#include <utils/common/SUMOVehicle.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
-#include <utils/common/SUMOAbstractRouter.h>
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MEVehicle.h>
-#endif
+#include "MSBaseVehicle.h"
 
 
 // ===========================================================================

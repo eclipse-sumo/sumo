@@ -40,6 +40,7 @@
 #include <iostream>
 #include <utility>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSNet.h>

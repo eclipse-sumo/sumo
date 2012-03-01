@@ -48,10 +48,17 @@ class StringBijection {
 
 public:
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4510 4512 4610) // no default constructor and no assignment operator; conflicts with initializer
+#endif
     struct Entry {
         const char* str;
         const T key;
     };
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
     StringBijection() {}

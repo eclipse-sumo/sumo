@@ -33,8 +33,9 @@
 
 #ifndef NO_TRACI
 
-#include "TraCIConstants.h"
+#include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
 
 #ifdef CHECK_MEMORY_LEAKS

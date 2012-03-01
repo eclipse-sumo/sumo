@@ -246,9 +246,9 @@ private:
      * @param[in] type The attribute type
      */
     static inline void writeAttrHeader(std::ostream& into, const SumoXMLAttr attr, const DataType type) {
-        FileHelpers::writeByte(into, BF_XML_ATTRIBUTE);
+        FileHelpers::writeByte(into, static_cast<unsigned char>(BF_XML_ATTRIBUTE));
         FileHelpers::writeInt(into, attr);
-        FileHelpers::writeByte(into, type);
+        FileHelpers::writeByte(into, static_cast<unsigned char>(type));
     }
 
 

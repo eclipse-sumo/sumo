@@ -31,9 +31,10 @@
 #include <config.h>
 #endif
 
-#include "MSLCM_DK2004.h"
-#include <utils/common/RandHelper.h>
 #include <iostream>
+#include <utils/common/RandHelper.h>
+#include "MSEdge.h"
+#include "MSLCM_DK2004.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

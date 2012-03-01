@@ -38,6 +38,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include "TraCIConstants.h"

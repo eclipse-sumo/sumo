@@ -135,6 +135,10 @@ public:
     private:
         NIImporter_Vissim& myVissimParent;
 
+    private:
+        /// @brief Invalidated assignment operator.
+        VissimSingleTypeParser& operator=(const VissimSingleTypeParser&);
+
     };
 
 

@@ -283,6 +283,13 @@ private:
 
     static StringBijection<GUIGlObjectType>::Entry GUIGlObjectTypeNamesInitializer[];
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIGlObject(const GUIGlObject&);
+
+    /// @brief Invalidated assignment operator.
+    GUIGlObject& operator=(const GUIGlObject&);
+
 };
 #endif
 

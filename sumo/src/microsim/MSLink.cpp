@@ -30,11 +30,12 @@
 #include <config.h>
 #endif
 
-#include "MSLink.h"
-#include "MSLane.h"
-#include "MSVehicle.h"
 #include <iostream>
 #include <cassert>
+#include "MSLink.h"
+#include "MSLane.h"
+#include "MSGlobals.h"
+#include "MSVehicle.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

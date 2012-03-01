@@ -33,6 +33,7 @@
 #include "MSDevice_Person.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSPerson.h>
 #include <utils/iodevices/OutputDevice.h>
 

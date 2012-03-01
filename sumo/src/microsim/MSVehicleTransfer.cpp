@@ -35,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include "MSNet.h"
 #include "MSLane.h"
+#include "MSEdge.h"
 #include "MSVehicle.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
