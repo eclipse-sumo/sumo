@@ -86,7 +86,7 @@ NIXMLTypesHandler::myStartElement(int element,
     std::string disallowS = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     bool oneway = attrs.getOptBoolReporting(SUMO_ATTR_ONEWAY, id.c_str(), ok, false);
     bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, (SUMOReal) - 1);
+    SUMOReal width = attrs.getOptSUMORealReporting(SUMO_ATTR_WIDTH, id.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH);
     if (!ok) {
         return;
     }
