@@ -54,6 +54,13 @@ public:
      * @param[in] nc The container of nodes to loop along
      */
     static void compute(NBNodeCont &nc);
+
+    /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
+     * @param[in] node The node for which to compute turnaround destinations
+     * @note: This is needed by NETEDIT
+     */
+    static void computeForNode(NBNode* node);
+
 private:
     /** @struct Combination
      * @brief Stores the information about the angle between an incoming ("from") and an outgoing ("to") edge
