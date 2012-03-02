@@ -159,10 +159,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\marouter\marouter_main.cpp" />
+    <ClCompile Include="..\..\..\src\marouter\ROMAEdge.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAEdgeBuilder.cpp" />
     <ClCompile Include="..\..\..\src\marouter\ROMAFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\marouter\ROMAEdge.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h" />
     <ClInclude Include="..\..\..\src\marouter\ROMAFrame.h" />
   </ItemGroup>

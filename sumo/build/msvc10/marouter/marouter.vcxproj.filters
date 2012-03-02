@@ -20,12 +20,18 @@
     <ClCompile Include="..\..\..\src\marouter\ROMAFrame.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\marouter\ROMAEdge.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\marouter\ROMAEdgeBuilder.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\marouter\ROMAFrame.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\marouter\ROMAEdge.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>
