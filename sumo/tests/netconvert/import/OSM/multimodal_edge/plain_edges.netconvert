@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 11 12:09:24 2011 by SUMO netconvert Version dev-SVN-r11490
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on Fri Mar  2 10:38:27 2012 by SUMO netconvert Version dev-SVN-r11993
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -23,6 +23,6 @@
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
-    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="7" type="highway.secondary" numLanes="2" speed="27.78"/>
+    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="7" type="highway.secondary|railway.tram" numLanes="2" speed="27.78"/>
+    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="7" type="highway.secondary|railway.tram" numLanes="2" speed="27.78"/>
 </edges>

@@ -361,23 +361,34 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (tc.knows(t)) {
                     types.insert(t);
                 } else {
-                    WRITE_WARNING("Discarding edge " + id + " with type \"" + type + "\" (unknown compound \"" + t + "\").");
-                    return newIndex;
+                    WRITE_WARNING("Discarding unknown compound \"" + t + "\" for edge " + id + " with type \"" + type + "\".");
                 }
             }
-
-            if (types.size() == 2 &&
-                    types.count("railway.tram") == 1) {
-                // compound types concern mostly the special case of tram tracks on a normal road.
-                // in this case we simply discard the tram information since the default for road is to allow all vclasses
-                types.erase("railway.tram");
-                std::string otherCompound = *(types.begin());
-                // XXX if otherCompound does not allow all vehicles (e.g. SVC_DELIVERY), tram will still not be allowed
-                type = otherCompound;
-            } else {
-                // other cases not implemented yet
-                WRITE_WARNING("Discarding edge " + id + " with unknown type \"" + type + "\".");
-                return newIndex;
+            switch (types.size()) {
+                case 0:
+                    WRITE_WARNING("Discarding edge " + id + " with type unknown compound type \"" + type + "\".");
+                    return newIndex;
+                    break;
+                case 1: {
+                    type = *(types.begin());
+                    break;
+                }
+                default:
+                    // build a new type by merging all values
+                    int noLanes = 0;
+                    SUMOReal maxSpeed = 0;
+                    int prio = 0;
+                    SUMOReal width = NBEdge::UNSPECIFIED_WIDTH;
+                    bool defaultIsOneWay = false;
+                    for (std::set<std::string>::iterator it = types.begin(); it != types.end(); it++) {
+                        noLanes = MAX2(noLanes, tc.getNumLanes(*it));
+                        maxSpeed = MAX2(maxSpeed, tc.getSpeed(*it));
+                        prio = MAX2(prio, tc.getPriority(*it));
+                        defaultIsOneWay |= tc.getIsOneWay(*it);
+                    }
+                    WRITE_MESSAGE("Adding new compound type \"" + type + "\" for edge " + id + ".");
+                    // @todo use the propper bitsets instead of SVC_UNKNOWN (see #675)
+                    tc.insert(type, noLanes, maxSpeed, prio, width, SVC_UNKNOWN, defaultIsOneWay);
             }
         } else {
             // we do not know the type -> something else, ignore
