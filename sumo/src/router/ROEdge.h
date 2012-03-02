@@ -114,7 +114,7 @@ public:
      * @todo What about vehicle-type aware connections?
      * @note: if HAVE_MESOSIM is defined, the backward connections is added as well
      */
-    virtual void addFollower(ROEdge* s);
+    virtual void addFollower(ROEdge* s, std::string dir="");
 
 
     /** @brief Sets the type of te edge

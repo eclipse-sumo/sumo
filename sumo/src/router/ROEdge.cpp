@@ -109,7 +109,7 @@ ROEdge::addLane(ROLane* lane) {
 
 
 void
-ROEdge::addFollower(ROEdge* s) {
+ROEdge::addFollower(ROEdge* s, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
 #ifdef HAVE_MESOSIM // catchall for internal stuff
