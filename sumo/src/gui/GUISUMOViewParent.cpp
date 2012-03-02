@@ -60,7 +60,7 @@
 #include "GUISUMOViewParent.h"
 
 #ifdef HAVE_OSG
-#include <osgview/GUIOSGViewBuilder.h>
+#include <osgview/GUIOSGView.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -110,7 +110,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
         break;
 #ifdef HAVE_OSG
     case VIEW_3D_OSG:
-        myView = GUIOSGViewBuilder::build(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+        myView = new GUIOSGView(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
         break;
 #endif
     }
