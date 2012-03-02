@@ -338,6 +338,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\netbuild\NBAlgorithms.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netbuild\NBConnection.cpp"
 				>
 			</File>
@@ -434,6 +438,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\netbuild\NBAlgorithms.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBCapacity2Lanes.h"
 				>

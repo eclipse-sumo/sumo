@@ -519,14 +519,6 @@ NBEdgeCont::splitGeometry(NBNodeCont& nc) {
 
 // ----- processing methods
 void
-NBEdgeCont::computeTurningDirections() {
-    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->computeTurningDirections();
-    }
-}
-
-
-void
 NBEdgeCont::clearControllingTLInformation() const {
     for (EdgeCont::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         (*i).second->clearControllingTLInformation();

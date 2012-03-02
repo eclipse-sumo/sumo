@@ -773,11 +773,7 @@ public:
     /// @}
 
 
-
-
-    /// computes which edge shall be the turn-around one, if any
-    void computeTurningDirections();
-
+ 
 
     /** @brief Sets the junction priority of the edge
      * @param[in] node The node for which the edge's priority is given
@@ -1050,8 +1046,6 @@ private:
 
     void computeLaneShapes() ;
 
-protected:
-    bool acceptBeingTurning(NBEdge* e);
 
 
 private:
@@ -1166,15 +1160,6 @@ private:
     /// @brief Whether this edge is a left-hand edge
     bool myAmLeftHand;
 
-
-    /// @name Temporary variables for turning edge computation
-    /// @{
-
-    /// @brief Was assigned as a turn with this angle
-    SUMOReal myAmTurningWithAngle;
-    /// @brief Was assigned as a turning edge of this one
-    NBEdge* myAmTurningOf;
-    /// @}
 
     /// @brief Information whether this is a junction-inner edge
     bool myAmInnerEdge;

@@ -306,16 +306,6 @@ public:
     /// @name processing methods
     /// @{
 
-    /** @brief Computes the turn-around directions for all edges
-     *
-     * Calls "NBEdge::computeTurningDirections" for all edges within the container.
-     *
-     * @todo Recheck whether a visitor-pattern should be used herefor
-     * @see NBEdge::computeTurningDirections
-     */
-    void computeTurningDirections() ;
-
-
     /** @brief Sorts all lanes of all edges within the container by their direction
      *
      * Calls "NBEdge::sortOutgoingLanesConnections" for all edges within the container.

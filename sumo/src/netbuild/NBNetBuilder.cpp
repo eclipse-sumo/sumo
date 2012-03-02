@@ -51,6 +51,8 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 
+#include "NBAlgorithms.h"
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -228,7 +230,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // CONNECTIONS COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
-    myEdgeCont.computeTurningDirections();
+    NBTurningDirectionsComputer::compute(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");

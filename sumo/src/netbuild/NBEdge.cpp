@@ -172,7 +172,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName) {
     init(nolanes, false);
@@ -193,7 +193,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
     myGeom(geom), myLaneSpreadFunction(spread), myOffset(offset), myWidth(width),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName) {
     init(nolanes, tryIgnoreNodePositions);
@@ -211,7 +211,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
     myOffset(tpl->getOffset()),
     myWidth(tpl->getWidth()),
-    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH), myAmLeftHand(false),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()) {
     init(tpl->getNumLanes(), false);
@@ -1023,25 +1023,6 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 }
 
 
-void
-NBEdge::computeTurningDirections() {
-    myTurnDestination = 0;
-    EdgeVector outgoing = myTo->getOutgoingEdges();
-    for (EdgeVector::iterator i = outgoing.begin(); i != outgoing.end(); i++) {
-        NBEdge* outedge = *i;
-        if (myConnections.size() != 0 && !isConnectedTo(outedge)) {
-            continue;
-        }
-        SUMOReal relAngle =
-            NBHelpers::relAngle(getAngle(*myTo), outedge->getAngle(*myTo));
-        // do not append the turnaround
-        if (fabs(relAngle) > 160) {
-            setTurningDestination(outedge);
-        }
-    }
-}
-
-
 SUMOReal
 NBEdge::getAngle(const NBNode& atNode) const {
     if (&atNode == myFrom) {
@@ -1055,39 +1036,7 @@ NBEdge::getAngle(const NBNode& atNode) const {
 
 void
 NBEdge::setTurningDestination(NBEdge* e) {
-    SUMOReal cur = fabs(NBHelpers::relAngle(getAngle(), e->getAngle()));
-    SUMOReal old =
-        myTurnDestination == 0
-        ? 0
-        : fabs(NBHelpers::relAngle(getAngle(), myTurnDestination->getAngle()));
-    if (cur > old
-            &&
-            e->acceptBeingTurning(this)) {
-
-        myTurnDestination = e;
-    }
-}
-
-
-bool
-NBEdge::acceptBeingTurning(NBEdge* e) {
-    if (e == myAmTurningOf) {
-        return true;
-    }
-    SUMOReal angle = fabs(NBHelpers::relAngle(getAngle(), e->getAngle()));
-    if (myAmTurningWithAngle > angle) {
-        return false;
-    }
-    if (myAmTurningWithAngle == angle) {
-        return false; // !!! ok, this happens only within a cell-network (backgrnd), we have to take a further look sometime
-    }
-    NBEdge* previous = myAmTurningOf;
-    myAmTurningWithAngle = angle;
-    myAmTurningOf = e;
-    if (previous != 0) {
-        previous->computeTurningDirections();
-    }
-    return true;
+    myTurnDestination = e;
 }
 
 
