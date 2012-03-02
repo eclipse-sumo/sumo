@@ -190,14 +190,16 @@ NBNetBuilder::compute(OptionsCont& oc,
     myEdgeCont.recomputeLaneShapes();
 
     // APPLY SPEED MODIFICATIONS
-    const SUMOReal speedOffset = oc.getFloat("speed.offset");
-    const SUMOReal speedFactor = oc.getFloat("speed.factor");
-    if (speedOffset != 0 || speedFactor != 1) {
-        PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
-        for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
-            (*i).second->setSpeed(-1, (*i).second->getSpeed() * speedFactor + speedOffset);
+    if (oc.exists("speed.offset")) {
+        const SUMOReal speedOffset = oc.getFloat("speed.offset");
+        const SUMOReal speedFactor = oc.getFloat("speed.factor");
+        if (speedOffset != 0 || speedFactor != 1) {
+            PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
+            for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
+                (*i).second->setSpeed(-1, (*i).second->getSpeed() * speedFactor + speedOffset);
+            }
+            PROGRESS_DONE_MESSAGE();
         }
-        PROGRESS_DONE_MESSAGE();
     }
 
     // GUESS TLS POSITIONS
