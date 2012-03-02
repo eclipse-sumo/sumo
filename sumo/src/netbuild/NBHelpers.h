@@ -55,12 +55,6 @@ public:
         coordinates */
     static SUMOReal angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
-    /** computes the angle between the first angle and the straigth which
-        is described by her coordinates (parameter 2-5) */
-    static SUMOReal relAngle(SUMOReal angle,
-                             SUMOReal x1, SUMOReal y1,
-                             SUMOReal x2, SUMOReal y2);
-
     /** computes the relative angle between the two angles */
     static SUMOReal relAngle(SUMOReal angle1, SUMOReal angle2);
 

@@ -59,13 +59,6 @@ NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
 
 
 SUMOReal
-NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal sec_angle = NBHelpers::angle(x1, y1, x2, y2);
-    return relAngle(angle, sec_angle);
-}
-
-
-SUMOReal
 NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
     angle2 -= angle1;
     if (angle2 > 180) {
