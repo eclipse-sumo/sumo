@@ -58,6 +58,11 @@ class GUIGLObjectPopupMenu;
 class GUISUMOAbstractView;
 class GUIVisualizationSettings;
 struct GUIVisualizationTextSettings;
+#ifdef HAVE_OSG
+namespace osg {
+class Node;
+}
+#endif
 
 
 // ===========================================================================
@@ -179,7 +184,15 @@ public:
         UNUSED_PARAMETER(parent);
     };
 
-
+#ifdef HAVE_OSG
+    void setNode(osg::Node* node) {
+        myOSGNode = node;
+    }
+    
+    osg::Node* getNode() const {
+        return myOSGNode;
+    }
+#endif
 
     /// @name Parameter table window I/O
     /// @{
@@ -278,6 +291,9 @@ private:
 
     std::string createFullName() const;
 
+#ifdef HAVE_OSG
+    osg::Node* myOSGNode;
+#endif
 
     // static StringBijection<SumoXMLLinkStateValue> LinkStates;
 

@@ -456,6 +456,14 @@ PositionVector::sortAsPolyCWByAngle() {
 
 
 void
+PositionVector::add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff) {
+    for (size_t i = 0; i < size(); i++) {
+        myCont[i].add(xoff, yoff, zoff);
+    }
+}
+
+
+void
 PositionVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
     for (size_t i = 0; i < size(); i++) {
         myCont[i].reshiftRotate(xoff, yoff, rot);
@@ -822,78 +830,38 @@ PositionVector::reverse() const {
 
 
 void
-PositionVector::move2side(SUMOReal amount, int index) {
-    if (index < 0) {
-        index = (int) myCont.size() + index;
-    }
-    if (/*i==myGeom.size()-2||*/index == 0) {
-        Position from = myCont[index];
-        Position to = myCont[index + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, amount);
-        myCont[index] = Position(from.x() - offsets.first, from.y() - offsets.second);
-    } else if (index == (int) myCont.size() - 1) {
-        Position from = myCont[index - 1];
-        Position to = myCont[index];
-        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, amount);
-        myCont[index] = Position(to.x() - offsets.first, to.y() - offsets.second);
-    } else {
-        Position from = myCont[index - 1];
-        Position me = myCont[index];
-        Position to = myCont[index + 1];
-        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, me, amount);
-        std::pair<SUMOReal, SUMOReal> offsets2 = GeomHelper::getNormal90D_CW(me, to, amount);
-        Line l1(
-            Position(from.x() - offsets.first, from.y() - offsets.second),
-            Position(me.x() - offsets.first, me.y() - offsets.second));
-        l1.extrapolateBy(100);
-        Line l2(
-            Position(me.x() - offsets2.first, me.y() - offsets2.second),
-            Position(to.x() - offsets2.first, to.y() - offsets2.second));
-        l2.extrapolateBy(100);
-        if (l1.intersects(l2)) {
-            myCont[index] = l1.intersectsAt(l2);
-        } else {
-            throw InvalidArgument("no line intersection");
-        }
-    }
-
-}
-
-void
 PositionVector::move2side(SUMOReal amount) {
     if (myCont.size() < 2) {
         return;
     }
     PositionVector shape;
     for (size_t i = 0; i < myCont.size(); i++) {
-        if (/*i==myGeom.size()-2||*/i == 0) {
+        if (i == 0) {
             Position from = myCont[i];
             Position to = myCont[i + 1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, to, amount);
-            shape.push_back(//.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(from.x() - offsets.first, from.y() - offsets.second));
+            shape.push_back(Position(from.x() - offsets.first,
+                                     from.y() - offsets.second, from.z()));
         } else if (i == myCont.size() - 1) {
             Position from = myCont[i - 1];
             Position to = myCont[i];
             std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, to, amount);
-            shape.push_back(//.push_back(
-                // (methode umbenennen; was heisst hier "-")
-                Position(to.x() - offsets.first, to.y() - offsets.second));
+            shape.push_back(Position(to.x() - offsets.first,
+                                     to.y() - offsets.second, to.z()));
         } else {
             Position from = myCont[i - 1];
             Position me = myCont[i];
             Position to = myCont[i + 1];
-            double sinAngle = sin(GeomHelper::Angle2D(from.x() - me.x(), from.y() - me.y(),
-                                  me.x() - to.x(), me.y() - to.y()) / 2);
-            double maxDev = 2 * (from.distanceTo(me) + me.distanceTo(to)) * sinAngle;
+            const double sinAngle = sin(GeomHelper::Angle2D(from.x() - me.x(), from.y() - me.y(),
+                                        me.x() - to.x(), me.y() - to.y()) / 2);
+            const double maxDev = 2 * (from.distanceTo2D(me) + me.distanceTo2D(to)) * sinAngle;
             if (fabs(maxDev) < POSITION_EPS) {
                 // parallel case, just shift the middle point
                 std::pair<SUMOReal, SUMOReal> off =
                     GeomHelper::getNormal90D_CW(from, to, amount);
-                shape.push_back(Position(me.x() - off.first, me.y() - off.second));
+                shape.push_back(Position(me.x() - off.first, me.y() - off.second, me.z()));
                 continue;
             }
             std::pair<SUMOReal, SUMOReal> offsets =
@@ -909,9 +877,7 @@ PositionVector::move2side(SUMOReal amount) {
                 Position(to.x() - offsets2.first, to.y() - offsets2.second));
             l2.extrapolateBy(100);
             if (l1.intersects(l2)) {
-                shape.push_back(//.push_back(
-                    // (methode umbenennen; was heisst hier "-")
-                    l1.intersectsAt(l2));
+                shape.push_back(l1.intersectsAt(l2) + Position(0,0,me.z()));
             } else {
                 throw InvalidArgument("no line intersection");
             }

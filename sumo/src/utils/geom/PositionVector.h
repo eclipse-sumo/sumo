@@ -191,6 +191,8 @@ public:
 
     bool crosses(const Position& p1, const Position& p2) const;
 
+    void add(SUMOReal xoff, SUMOReal yoff, SUMOReal zoff);
+
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     PositionVector convexHull() const;
@@ -216,7 +218,6 @@ public:
     PositionVector reverse() const;
 
     void move2side(SUMOReal amount);
-    void move2side(SUMOReal amount, int index);
 
     Line lineAt(size_t pos) const;
 
