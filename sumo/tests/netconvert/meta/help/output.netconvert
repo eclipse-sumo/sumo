@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r11985
+SUMO netconvert Version dev-SVN-r12007
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -36,6 +36,9 @@ Output Options:
   -o, --output-file FILE              The generated net will be written to FILE
   --plain-output-prefix FILE          Prefix of files to write plain xml nodes,
                                         edges and connections to
+  --junctions.join-output FILE        Writes information about joined junctions
+                                        to FILE (can be loaded as additional
+                                        node-file to reproduce joins
   -M, --map-output FILE               Writes joined edges information to FILE
   --matsim-output FILE                The generated net will be written to FILE
                                         using MATsim format.
