@@ -391,6 +391,7 @@ enum {
     MID_GNE_SAVE_NETWORK,
     MID_GNE_SAVE_AS_NETWORK,
     MID_GNE_SAVE_PLAIN_XML,
+    MID_GNE_SAVE_JOINED,
     /** insert contents of another network */
     MID_GNE_INSERT_NETWORK,
     /** attribute edited */
