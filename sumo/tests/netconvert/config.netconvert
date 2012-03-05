@@ -29,6 +29,7 @@ plain_tllogic:plain.tll.xml
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
+joined_nodes:joined.nod.xml
 
 [run_dependent_text]
 output:\r{REPLACE \n}
