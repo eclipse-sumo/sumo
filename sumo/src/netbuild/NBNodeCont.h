@@ -323,6 +323,8 @@ public:
      */
     void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS);
 
+    /// @brief gets all joined clusters (see doc for myClusters2Join)
+    void registerJoinedCluster(const std::set<NBNode*>& cluster);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     const std::vector<std::set<std::string> >& getJoinedClusters() const {

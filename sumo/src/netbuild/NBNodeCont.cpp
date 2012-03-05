@@ -508,13 +508,8 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
         }
         if (cluster.size() > 1) {
+            registerJoinedCluster(cluster);
             clusters.push_back(cluster);
-            // register as joined cluster
-            std::set<std::string> ids;
-            for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
-                ids.insert((*j)->getID());
-            }
-            myClusters2Join.push_back(ids);
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc);
@@ -588,6 +583,17 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             }
         }
     }
+}
+
+
+void 
+NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
+    // register as joined cluster
+    std::set<std::string> ids;
+    for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
+        ids.insert((*j)->getID());
+    }
+    myClusters2Join.push_back(ids);
 }
 
 
