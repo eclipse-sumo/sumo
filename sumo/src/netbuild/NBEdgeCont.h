@@ -442,6 +442,10 @@ public:
         return myExtractedEdges.count(id) != 0;
     }
 
+    /** @brief Renames the edge. Throws exception if newID already exists
+     */
+    void rename(NBEdge* edge, const std::string& newID);
+
 
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id

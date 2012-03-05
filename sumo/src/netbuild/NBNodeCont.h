@@ -263,7 +263,9 @@ public:
     /// @}
 
 
-
+    /** @brief Renames the node. Throws exception if newID already exists
+     */
+    void rename(NBNode* node, const std::string& newID);
 
 
     /// divides the incoming lanes on outgoing lanes

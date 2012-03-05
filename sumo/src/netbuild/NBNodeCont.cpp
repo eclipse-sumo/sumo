@@ -1296,6 +1296,16 @@ NBNodeCont::getAllNames() const {
 }
 
 
+void 
+NBNodeCont::rename(NBNode* node, const std::string& newID) {
+    if (myNodes.count(newID) != 0) {
+        throw ProcessError("Attempt to rename node using existing id '" + newID + "'");
+    }
+    myNodes.erase(node->getID());
+    node->setID(newID);
+    myNodes[newID] = node;
+}
+
 
 /****************************************************************************/
 
