@@ -510,7 +510,7 @@ NBNode::setPriorityJunctionPriorities() {
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
             NBEdge *s = counterIncomingEdges.find(best1)->second;
-            if(GeomHelper::getMinAngleDiff(best1->getAngle(*this), s->getAngle(*this))>180-45) {
+            if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(this), s->getAngleAtNode(this))>180-45) {
                 s->setJunctionPriority(this, 1);
             }
         }
@@ -520,7 +520,7 @@ NBNode::setPriorityJunctionPriorities() {
             best1 = extractAndMarkFirst(bestOutgoing);
             if(counterOutgoingEdges.find(best1)!=counterOutgoingEdges.end()) {
                 NBEdge *s = counterOutgoingEdges.find(best1)->second;
-                if(GeomHelper::getMinAngleDiff(best1->getAngle(*this), s->getAngle(*this))>180-45) {
+                if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(this), s->getAngleAtNode(this))>180-45) {
                     s->setJunctionPriority(this, 1);
                 }
             }
@@ -841,8 +841,8 @@ NBNode::computeLanes2Lanes() {
         NBEdge* inc1 = myIncomingEdges[0];
         NBEdge* inc2 = myIncomingEdges[1];
         // for internal: check which one is the rightmost
-        SUMOReal a1 = inc1->getAngle(*this);
-        SUMOReal a2 = inc2->getAngle(*this);
+        SUMOReal a1 = inc1->getAngleAtNode(this);
+        SUMOReal a2 = inc2->getAngleAtNode(this);
         SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
         SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
         if (ccw < cw) {
@@ -1238,8 +1238,8 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     if (myIncomingEdges.size() == 1 || myOutgoingEdges.size() == 1) {
         return false;
     }
-    SUMOReal fromAngle = from->getAngle(*this);
-    SUMOReal toAngle = to->getAngle(*this);
+    SUMOReal fromAngle = from->getAngleAtNode(this);
+    SUMOReal toAngle = to->getAngleAtNode(this);
     SUMOReal cw = GeomHelper::getCWAngleDiff(fromAngle, toAngle);
     SUMOReal ccw = GeomHelper::getCCWAngleDiff(fromAngle, toAngle);
     std::vector<NBEdge*>::const_iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), from);
@@ -1360,7 +1360,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing)
     }
     // get the angle between incoming/outgoing at the junction
     SUMOReal angle =
-        NBHelpers::normRelAngle(incoming->getAngle(*this), outgoing->getAngle(*this));
+        NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
     // ok, should be a straight connection
     if (abs((int) angle) + 1 < 45) {
         return LINKDIR_STRAIGHT;

@@ -877,7 +877,6 @@ public:
 
     bool expandableBy(NBEdge* possContinuation) const;
     void append(NBEdge* continuation);
-    SUMOReal getNormedAngle() const;
 
     bool hasSignalisedConnectionTo(const NBEdge* const e) const ;
 
@@ -892,9 +891,15 @@ public:
 
     bool isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const;
 
-    SUMOReal getAngle(const NBNode& atNode) const;
 
-    SUMOReal getNormedAngle(const NBNode& atNode) const;
+    /** @brief Returns the angle of the edge's geometry at the given node
+     * 
+     * The angle is signed, regards direction, and starts at 12 o'clock 
+     *  (north->south), proceeds positive clockwise.
+     * @param[in] node The node for which the edge's angle shall be returned
+     * @return This edge's angle at the given node
+     */
+    SUMOReal getAngleAtNode(const NBNode * const node) const;
 
 
     void incLaneNo(unsigned int by);

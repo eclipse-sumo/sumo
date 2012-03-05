@@ -74,7 +74,9 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
                 //  no connection is specified.
                 continue;
             }
-            SUMOReal angle = fabs(NBHelpers::relAngle(e->getAngle(*node), outedge->getAngle(*node)));
+
+            // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
+            SUMOReal angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)));
             if(angle<160) {
                 continue;
             }

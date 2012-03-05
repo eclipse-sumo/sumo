@@ -85,9 +85,9 @@ NBNodeShapeComputer::compute(bool leftHand) {
         const EdgeVector& outgoing = myNode.getOutgoingEdges();
         SUMOReal maxAngle = SUMOReal(0);
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
-            SUMOReal ia = (*i)->getAngle(myNode);
+            SUMOReal ia = (*i)->getAngleAtNode(&myNode);
             for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-                SUMOReal oa = (*j)->getAngle(myNode);
+                SUMOReal oa = (*j)->getAngleAtNode(&myNode);
                 SUMOReal ad = GeomHelper::getMinAngleDiff(ia, oa);
                 if (22.5 >= ad) {
                     maxAngle = MAX2(ad, maxAngle);

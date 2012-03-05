@@ -128,8 +128,8 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
                 bestValue = value;
                 bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
             } else if (value == bestValue) {
-                SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngle(*(*i)->getToNode()), (*j)->getAngle(*(*j)->getToNode()));
-                SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngle(*bestPair.first->getToNode()), bestPair.second->getAngle(*bestPair.second->getToNode()));
+                SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngleAtNode((*i)->getToNode()), (*j)->getAngleAtNode((*j)->getToNode()));
+                SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngleAtNode(bestPair.first->getToNode()), bestPair.second->getAngleAtNode(bestPair.second->getToNode()));
                 if (oa < ca) {
                     bestPair = std::pair<NBEdge*, NBEdge*>(*i, *j);
                 }

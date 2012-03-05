@@ -1024,11 +1024,11 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 
 
 SUMOReal
-NBEdge::getAngle(const NBNode& atNode) const {
-    if (&atNode == myFrom) {
+NBEdge::getAngleAtNode(const NBNode * const atNode) const {
+    if (atNode == myFrom) {
         return myGeom.getBegLine().atan2DegreeAngle();
     } else {
-        assert(&atNode == myTo);
+        assert(atNode == myTo);
         return myGeom.getEndLine().atan2DegreeAngle();
     }
 }
@@ -1465,10 +1465,10 @@ NBEdge::isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const {
     if (myFrom == edge->myTo && myTo == edge->myFrom) {
         return true;
     }
-    // we have to checke whether the connection between the nodes is
+    // we have to check whether the connection between the nodes is
     //  geometrically similar
-    SUMOReal thisFromAngle2 = getAngle(*n);
-    SUMOReal otherToAngle2 = edge->getAngle(*n);
+    SUMOReal thisFromAngle2 = getAngleAtNode(n);
+    SUMOReal otherToAngle2 = edge->getAngleAtNode(n);
     if (thisFromAngle2 < otherToAngle2) {
         std::swap(thisFromAngle2, otherToAngle2);
     }
@@ -1801,28 +1801,6 @@ NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
     DoubleVector distances = myGeom.distances(e->getGeometry());
     assert(distances.size() > 0);
     return VectorHelper<SUMOReal>::maxValue(distances) < threshold;
-}
-
-
-SUMOReal
-NBEdge::getNormedAngle(const NBNode& atNode) const {
-    SUMOReal angle = getAngle(atNode);
-    if (angle < 0) {
-        angle = 360 + angle;
-    }
-    assert(angle >= 0 && angle <= 360);
-    return angle;
-}
-
-
-SUMOReal
-NBEdge::getNormedAngle() const {
-    SUMOReal angle = myAngle;
-    if (angle < 0) {
-        angle = 360 + angle;
-    }
-    assert(angle >= 0 && angle < 360);
-    return angle;
 }
 
 

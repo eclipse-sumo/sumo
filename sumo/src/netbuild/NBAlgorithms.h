@@ -133,16 +133,16 @@ private:
     private:
         /// @brief Converts the angle of the edge if it is an incoming edge
         SUMOReal getConvAngle(NBEdge* e) const {
-            SUMOReal angle;
+            SUMOReal angle = e->getAngleAtNode(myNode);
+            if (angle < 0.) {
+                angle = 360. + angle;
+            }
             // convert angle if the edge is an outgoing edge
             if (e->getFromNode() == myNode) {
-                angle = e->getNormedAngle(*myNode);
                 angle += (SUMOReal) 180.;
                 if (angle >= (SUMOReal) 360.) {
                     angle -= (SUMOReal) 360.;
                 }
-            } else {
-                angle = e->getNormedAngle(*myNode);
             }
             if (angle < 0.1 || angle > 359.9) {
                 angle = (SUMOReal) 0.;
