@@ -37,6 +37,7 @@ plain_nodes:<!--{[->]}-->
 plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
+joined_nodes:<!--{[->]}-->
 net:<!--{[->]}-->
 errors:Leaked object at 
 errors:*** 9 leaks found
