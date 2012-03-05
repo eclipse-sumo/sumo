@@ -91,6 +91,11 @@ private:
      */
     static void writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec);
 
+    /** @brief Writes the joined-juncionts to file
+     * @param[in] oc The options to use
+     * @param[in] nc The node-container from which to read data
+     */
+    static void writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc);
 };
 
 

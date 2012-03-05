@@ -324,6 +324,12 @@ public:
     void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS);
 
 
+    /// @brief gets all joined clusters (see doc for myClusters2Join)
+    const std::vector<std::set<std::string> >& getJoinedClusters() const {
+        return myClusters2Join;
+    }
+
+
 private:
     bool mayNeedOnRamp(OptionsCont& oc, NBNode* cur) const;
     bool mayNeedOffRamp(OptionsCont& oc, NBNode* cur) const;
@@ -389,12 +395,12 @@ private:
     // @brief set of node ids which should not be joined
     std::set<std::string> myJoinExclusions;
 
-    // @brief loaded sets of node ids to join
+    // @brief loaded sets of node ids to join, after joinJunctions is called it
+    // contains all joined clusters
     std::vector<std::set<std::string> > myClusters2Join;
 
     /// @brief ids found in loaded join clusters used for error checking
     std::set<std::string> myJoined;
-
 
 private:
     /// @brief invalidated copy constructor

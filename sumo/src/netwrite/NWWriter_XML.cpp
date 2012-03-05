@@ -59,12 +59,14 @@
 void
 NWWriter_XML::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // check whether a matsim-file shall be generated
-    if (!oc.isSet("plain-output-prefix")) {
-        return;
+    if (oc.isSet("plain-output-prefix")) {
+        writeNodes(oc, nb.getNodeCont());
+        writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
+        writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
     }
-    writeNodes(oc, nb.getNodeCont());
-    writeEdgesAndConnections(oc, nb.getNodeCont(), nb.getEdgeCont());
-    writeTrafficLights(oc, nb.getTLLogicCont(), nb.getEdgeCont());
+    if (oc.isSet("junctions.join-output")) {
+        writeJoinedJunctions(oc, nb.getNodeCont());
+    }
 }
 
 
@@ -251,6 +253,28 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
                 NWWriter_SUMO::writeConnection(device, *e, *c, false, NWWriter_SUMO::TLL);
             }
         }
+    }
+    device.close();
+}
+
+
+void
+NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("junctions.join-output"));
+    device.writeXMLHeader("nodes", SUMOSAXAttributes::ENCODING, NWFrame::MAJOR_VERSION + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/nodes_file.xsd\"");
+    const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();
+    for (std::vector<std::set<std::string> >::const_iterator it = clusters.begin(); it != clusters.end(); it++) {
+        assert((*it).size() > 0);
+        device.openTag(SUMO_TAG_JOIN);
+        // prepare string
+        std::ostringstream oss;
+        for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
+            oss << *it_id << " ";
+        }
+        // remove final space
+        std::string ids = oss.str();
+        device.writeAttr(SUMO_ATTR_NODES, ids.substr(0, ids.size() - 1));
+        device.closeTag(true);
     }
     device.close();
 }
