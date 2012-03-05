@@ -481,6 +481,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc);
+    myClusters2Join.clear(); // make save for recompute
     return (int)clusters.size();
 }
 
@@ -508,7 +509,6 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
             }
         }
         if (cluster.size() > 1) {
-            registerJoinedCluster(cluster);
             clusters.push_back(cluster);
         }
     }
@@ -582,18 +582,18 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
                 e->addLane2LaneConnection((*k).fromLane, (*k).toEdge, (*k).toLane, NBEdge::L2L_USER, false, (*k).mayDefinitelyPass);
             }
         }
+        registerJoinedCluster(cluster);
     }
 }
 
 
 void 
 NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
-    // register as joined cluster
     std::set<std::string> ids;
     for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
         ids.insert((*j)->getID());
     }
-    myClusters2Join.push_back(ids);
+    myJoinedClusters.push_back(ids);
 }
 
 

@@ -328,7 +328,7 @@ public:
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     const std::vector<std::set<std::string> >& getJoinedClusters() const {
-        return myClusters2Join;
+        return myJoinedClusters;
     }
 
 
@@ -397,9 +397,10 @@ private:
     // @brief set of node ids which should not be joined
     std::set<std::string> myJoinExclusions;
 
-    // @brief loaded sets of node ids to join, after joinJunctions is called it
-    // contains all joined clusters
+    // @brief loaded sets of node ids to join (cleared after use)
     std::vector<std::set<std::string> > myClusters2Join;
+    // @brief sets of node ids which were joined
+    std::vector<std::set<std::string> > myJoinedClusters;
 
     /// @brief ids found in loaded join clusters used for error checking
     std::set<std::string> myJoined;
