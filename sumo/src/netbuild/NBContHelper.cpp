@@ -103,39 +103,6 @@ NBContHelper::maxSpeed(const EdgeVector& ev) {
 
 
 /* -------------------------------------------------------------------------
- * methods from edge_by_junction_angle_sorter
- * ----------------------------------------------------------------------- */
-int
-NBContHelper::edge_by_junction_angle_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
-    return getConvAngle(e1) < getConvAngle(e2);
-}
-
-
-
-SUMOReal
-NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge* e) const {
-
-    SUMOReal angle;
-    // convert angle if the edge is an outgoing edge
-    if (e->getFromNode() == myNode) {
-        angle = e->getNormedAngle(*myNode);
-        angle += (SUMOReal) 180.;
-        if (angle >= (SUMOReal) 360.) {
-            angle -= (SUMOReal) 360.;
-        }
-    } else {
-        angle = e->getNormedAngle(*myNode);
-    }
-    if (angle < 0.1 || angle > 359.9) {
-        angle = (SUMOReal) 0.;
-    }
-    assert(angle >= (SUMOReal)0 && angle < (SUMOReal)360);
-    return angle;
-}
-
-
-
-/* -------------------------------------------------------------------------
  * methods from node_with_incoming_finder
  * ----------------------------------------------------------------------- */
 NBContHelper::node_with_incoming_finder::node_with_incoming_finder(const NBEdge* const e)

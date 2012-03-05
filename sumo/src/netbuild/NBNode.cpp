@@ -353,26 +353,6 @@ NBNode::addOutgoingEdge(NBEdge* edge) {
 }
 
 
-bool
-NBNode::swapWhenReversed(bool leftHand,
-                         const EdgeVector::iterator& i1,
-                         const EdgeVector::iterator& i2) {
-    NBEdge* e1 = *i1;
-    NBEdge* e2 = *i2;
-    if (leftHand) {
-        if (e1->getToNode() == this && e1->isTurningDirectionAt(this, e2)) {
-            std::swap(*i1, *i2);
-            return true;
-        }
-    } else {
-        if (e2->getToNode() == this && e2->isTurningDirectionAt(this, e1)) {
-            std::swap(*i1, *i2);
-            return true;
-        }
-    }
-    return false;
-}
-
 void
 NBNode::computePriorities() {
     // reset all priorities
@@ -805,25 +785,6 @@ NBNode::writeLogic(OutputDevice& into) const {
         return true;
     }
     return false;
-}
-
-
-void
-NBNode::sortNodesEdges(bool leftHand) {
-    // sort the edges
-    sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(myIncomingEdges.begin(), myIncomingEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(myOutgoingEdges.begin(), myOutgoingEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    if (myAllEdges.size() == 0) {
-        return;
-    }
-    EdgeVector::iterator i;
-    for (i = myAllEdges.begin(); i != myAllEdges.end() - 1 && i != myAllEdges.end(); i++) {
-        swapWhenReversed(leftHand , i, i + 1);
-    }
-    if (myAllEdges.size() > 1 && i != myAllEdges.end()) {
-        swapWhenReversed(leftHand, myAllEdges.end() - 1, myAllEdges.begin());
-    }
 }
 
 

@@ -772,7 +772,6 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) {
                 noLoop = true;
                 break;
             }
-            sort(edges.begin(), edges.end(), NBContHelper::edge_by_junction_angle_sorter(e->getToNode()));
             EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(edges, me);
             NBEdge* left = *me;

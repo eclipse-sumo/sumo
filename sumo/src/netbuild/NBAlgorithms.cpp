@@ -4,7 +4,7 @@
 /// @date    02. March 2012
 /// @version $Id$
 ///
-// 
+// Algorithms for network computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -50,14 +50,14 @@
 // NBTurningDirectionsComputer
 // ---------------------------------------------------------------------------
 void 
-NBTurningDirectionsComputer::compute(NBNodeCont &nc) {
+NBTurningDirectionsComputer::computeTurnDirections(NBNodeCont &nc) {
     for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
-        computeForNode(i->second);
+        computeTurnDirectionsForNode(i->second);
     }
 }
 
 void 
-NBTurningDirectionsComputer::computeForNode(NBNode *node) {
+NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
     const std::vector<NBEdge*> &incoming = node->getIncomingEdges();
     const std::vector<NBEdge*> &outgoing = node->getOutgoingEdges();
     std::vector<Combination> combinations;
@@ -118,6 +118,50 @@ NBTurningDirectionsComputer::computeForNode(NBNode *node) {
         (*j).from->setTurningDestination((*j).to);
     }
 }
+
+
+// ---------------------------------------------------------------------------
+// NBTurningDirectionsComputer
+// ---------------------------------------------------------------------------
+void 
+NBNodesEdgesSorter::sortNodesEdges(NBNodeCont &nc, bool leftHand) {
+    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+        NBNode *n = (*i).second;
+        if (n->myAllEdges.size() == 0) {
+            continue;
+        }
+        std::vector<NBEdge*> &allEdges = (*i).second->myAllEdges;
+        std::vector<NBEdge*> &incoming = (*i).second->myIncomingEdges;
+        std::vector<NBEdge*> &outgoing = (*i).second->myOutgoingEdges;
+        // sort the edges
+        std::sort(allEdges.begin(), allEdges.end(), edge_by_junction_angle_sorter(n));
+        std::sort(incoming.begin(), incoming.end(), edge_by_junction_angle_sorter(n));
+        std::sort(outgoing.begin(), outgoing.end(), edge_by_junction_angle_sorter(n));
+        std::vector<NBEdge*>::iterator j;
+        for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
+            swapWhenReversed(n, leftHand, j, j + 1);
+        }
+        if (allEdges.size() > 1 && j != allEdges.end()) {
+            swapWhenReversed(n, leftHand, allEdges.end() - 1, allEdges.begin());
+        }
+    }
+}
+
+
+void
+NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
+                                     const std::vector<NBEdge*>::iterator& i1,
+                                     const std::vector<NBEdge*>::iterator& i2) {
+    NBEdge* e1 = *i1;
+    NBEdge* e2 = *i2;
+    if (leftHand) {
+        std::swap(e1, e2);
+    }
+    if (e2->getToNode() == n && e2->isTurningDirectionAt(n, e1)) {
+        std::swap(*i1, *i2);
+    }
+}
+
 
 /****************************************************************************/
 

@@ -4,7 +4,7 @@
 /// @date    02. March 2012
 /// @version $Id$
 ///
-// 
+// Algorithms for network computation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -53,13 +53,13 @@ public:
     /** @brief Computes turnaround destinations for all edges (if exist)
      * @param[in] nc The container of nodes to loop along
      */
-    static void compute(NBNodeCont &nc);
+    static void computeTurnDirections(NBNodeCont &nc);
 
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
      * @note: This is needed by NETEDIT
      */
-    static void computeForNode(NBNode* node);
+    static void computeTurnDirectionsForNode(NBNode* node);
 
 private:
     /** @struct Combination
@@ -90,6 +90,71 @@ private:
             }
             return c1.to->getID() < c2.to->getID();
         }
+    };
+};
+
+
+
+// ---------------------------------------------------------------------------
+// NBNodesEdgesSorter
+// ---------------------------------------------------------------------------
+/* @class NBNodesEdgesSorter
+ * @brief Sorts a node's edges clockwise regarding driving direction
+ */
+class NBNodesEdgesSorter {
+public:
+    /** @brief Sorts a node's edges clockwise regarding driving direction
+     * @param[in] nc The container of nodes to loop along
+     */
+    static void sortNodesEdges(NBNodeCont &nc, bool leftHand);
+
+private:
+    /** @brief Assures correct order for same-angle opposite-direction edges
+     * @param[in] n The currently processed node
+     * @param[in] leftHand Whether the network is left-handed
+     * @param[in] i1 Pointer to first edge
+     * @param[in] i2 Pointer to second edge
+     */
+    static void swapWhenReversed(const NBNode * const n, bool leftHand,
+                          const std::vector<NBEdge*>::iterator& i1,
+                          const std::vector<NBEdge*>::iterator& i2);
+
+
+    /** @class edge_by_junction_angle_sorter
+     * @brief Sorts incoming and outgoing edges clockwise around the given node
+     */
+    class edge_by_junction_angle_sorter {
+    public:
+        explicit edge_by_junction_angle_sorter(NBNode* n) : myNode(n) {}
+        int operator()(NBEdge* e1, NBEdge* e2) const {
+            return getConvAngle(e1) < getConvAngle(e2);
+        }
+
+    private:
+        /// @brief Converts the angle of the edge if it is an incoming edge
+        SUMOReal getConvAngle(NBEdge* e) const {
+            SUMOReal angle;
+            // convert angle if the edge is an outgoing edge
+            if (e->getFromNode() == myNode) {
+                angle = e->getNormedAngle(*myNode);
+                angle += (SUMOReal) 180.;
+                if (angle >= (SUMOReal) 360.) {
+                    angle -= (SUMOReal) 360.;
+                }
+            } else {
+                angle = e->getNormedAngle(*myNode);
+            }
+            if (angle < 0.1 || angle > 359.9) {
+                angle = (SUMOReal) 0.;
+            }
+            assert(angle >= (SUMOReal)0 && angle < (SUMOReal)360);
+            return angle;
+        }
+
+    private:
+        /// @brief The node to compute the relative angle of
+        NBNode* myNode;
+
     };
 };
 

@@ -274,9 +274,6 @@ public:
     /// build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
 
-    /// sorts the nodes' edges
-    void sortNodesEdges(bool leftHand);
-
     /// computes the nodes' types
     void computeNodeTypes(const NBTypeCont& tc);
 

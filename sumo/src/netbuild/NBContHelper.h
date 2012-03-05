@@ -72,27 +72,6 @@ public:
     /** writes the vector of bools to the given stream */
     static std::ostream& out(std::ostream& os, const std::vector<bool> &v);
 
-    /**
-     * edge_by_angle_sorter
-     * Class to sort edges by their angle
-     */
-    class edge_by_junction_angle_sorter {
-    public:
-        /// constructor
-        explicit edge_by_junction_angle_sorter(NBNode* n) : myNode(n) {}
-
-        /// comparing operation
-        int operator()(NBEdge* e1, NBEdge* e2) const;
-
-    private:
-        /// Converts the angle of the edge if it is an incoming edge
-        SUMOReal getConvAngle(NBEdge* e) const;
-
-    private:
-        /// the edge to compute the relative angle of
-        NBNode* myNode;
-
-    };
 
     /**
      * relative_edge_sorter

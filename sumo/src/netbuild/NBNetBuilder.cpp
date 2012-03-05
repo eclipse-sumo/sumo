@@ -230,11 +230,11 @@ NBNetBuilder::compute(OptionsCont& oc,
     // CONNECTIONS COMPUTATION
     //
     PROGRESS_BEGIN_MESSAGE("Computing turning directions");
-    NBTurningDirectionsComputer::compute(myNodeCont);
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Sorting nodes' edges");
-    myNodeCont.sortNodesEdges(oc.getBool("lefthand"));
+    NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node types");

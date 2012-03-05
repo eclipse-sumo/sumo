@@ -74,6 +74,7 @@ class OutputDevice;
 class NBNode : public Named {
     friend class NBNodeCont;
     friend class GNEJunction; // used for visualization (NETEDIT)
+    friend class NBNodesEdgesSorter; // sorts the edges
 
 public:
     /**
@@ -287,9 +288,6 @@ public:
         XML representation */
     bool writeLogic(OutputDevice& into) const;
 
-    /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(bool leftHand);
-
     /** computes the junction type */
     void computeType(const NBTypeCont& tc);
 
@@ -463,13 +461,6 @@ private:
 
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
-
-    /** used while fine sorting the incoming and outgoing edges, this method
-        performs the swapping of two edges in the myAllEdges-list when the
-        outgoing is in clockwise direction to the incoming */
-    bool swapWhenReversed(bool leftHand,
-                          const EdgeVector::iterator& i1,
-                          const EdgeVector::iterator& i2);
 
     /** removes the first edge from the list, marks it as higher priorised and
         returns it */

@@ -823,14 +823,6 @@ NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
 
 
 void
-NBNodeCont::sortNodesEdges(bool leftHand) {
-    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(leftHand);
-    }
-}
-
-
-void
 NBNodeCont::computeNodeTypes(const NBTypeCont& tc) {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         (*i).second->computeType(tc);
