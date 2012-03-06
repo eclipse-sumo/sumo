@@ -492,20 +492,34 @@ NBNodeCont::joinJunctions(SUMOReal maxdist, NBDistrictCont& dc, NBEdgeCont& ec, 
     NodeClusters clusters;
     generateNodeClusters(maxdist, cands);
     for (NodeClusters::iterator i = cands.begin(); i != cands.end(); ++i) {
-        const std::set<NBNode*> &candCluster = (*i);
-        std::set<NBNode*> cluster;
-        // remove nodes with degree = 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
-        for (std::set<NBNode*>::const_iterator j = candCluster.begin(); j != candCluster.end(); j++) {
-            NBNode* n = *j;
-            if (n->getIncomingEdges().size() == 1 &&
-                    n->getOutgoingEdges().size() == 1 &&
-                    (candCluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0 ||
-                     candCluster.count(n->getOutgoingEdges()[0]->getToNode())   == 0)) {
-                continue;
-            } else if (myJoinExclusions.count(n->getID()) > 0) {
-                continue;
-            } else {
-                cluster.insert(n);
+        std::set<NBNode*> cluster = (*i);
+        // remove join exclusions
+        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
+            std::set<NBNode*>::iterator check = j;
+            ++j;
+            if (myJoinExclusions.count((*check)->getID()) > 0) {
+                cluster.erase(check);
+            }
+        }
+        // iteratively remove the fringe
+        bool pruneFringe = true;
+        while(pruneFringe) {
+            pruneFringe = false;
+            for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
+                std::set<NBNode*>::iterator check = j;
+                NBNode* n = *check;
+                ++j;
+                // remove nodes with degree <= 2 at fringe of the cluster (at least one edge leads to a non-cluster node)
+                if (
+                        (n->getIncomingEdges().size() <= 1 && n->getOutgoingEdges().size() <= 1 ) &&
+                        ((n->getIncomingEdges().size() == 0 ||
+                          (n->getIncomingEdges().size() == 1) && cluster.count(n->getIncomingEdges()[0]->getFromNode()) == 0) || 
+                         (n->getOutgoingEdges().size() == 0 ||
+                          (n->getOutgoingEdges().size() == 1) && cluster.count(n->getOutgoingEdges()[0]->getToNode()) == 0))
+                   ) {
+                    cluster.erase(check);
+                    pruneFringe = true; // other nodes could belong to the fringe now
+                }
             }
         }
         if (cluster.size() > 1) {
