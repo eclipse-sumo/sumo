@@ -116,7 +116,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="SaveTLSStates"></xsd:enumeration>
-                    <xsd:enumeration value="SaveTLSSwitches"></xsd:enumeration>
+                    <xsd:enumeration value="SaveTLSSwitchTimes"></xsd:enumeration>
                     <xsd:enumeration value="SaveTLSSwitchStates"></xsd:enumeration>
                 </xsd:restriction>
             </xsd:simpleType>
@@ -198,10 +198,37 @@
     </xsd:complexType>
 
     <xsd:complexType name="rerouterType">
+        <xsd:sequence minOccurs="0">
+            <xsd:element name="interval" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:choice maxOccurs="unbounded">
+                        <xsd:element name="closingReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="destProbReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+                                <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="routeProbReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+                                <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                    <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"></xsd:attribute>
+                    <xsd:attribute name="end" type="nonNegativeFloatType" use="required"></xsd:attribute>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
         <xsd:attribute name="edges" type="xsd:string" use="optional"></xsd:attribute>
         <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="file" type="xsd:string" use="optional"></xsd:attribute>
     </xsd:complexType>
 
 </xsd:schema>

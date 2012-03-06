@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/12/11 13:07:29 by SUMO netconvert Version dev-SVN-r9534
+<!-- generated on Tue Mar  6 22:40:53 2012 by SUMO netconvert Version dev-SVN-r12003
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="./duarouter/dua/../../sumo/three_split.nod.xml"/>
-        <xml-edge-files value="./duarouter/dua/../../sumo/three_split.edg.xml"/>
+        <node-files value="../../sumo/three_split.nod.xml"/>
+        <edge-files value="../../sumo/three_split.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="./duarouter/dua/input_net.net.xml"/>
+        <output-file value="input_net.net.xml"/>
     </output>
 
     <processing>
@@ -59,7 +60,8 @@
         <lane id="right2end_0" index="0" speed="13.90" length="495.30" shape="1501.65,-0.05 1501.65,495.25"/>
     </edge>
 
-    <junction id="absBeg" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75"/>
+    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,496.75">
+    </junction>
     <junction id="absEnd" type="priority" x="2000.00" y="500.00" incLanes="end_0" intLanes="" shape="2000.00,499.95 2000.00,496.75 2000.00,499.95">
         <request index="0" response="0" foes="0"/>
     </junction>
@@ -85,39 +87,19 @@
     <junction id="endright" type="priority" x="1500.00" y="0.00" incLanes="right_0" intLanes="" shape="1500.05,-0.05 1503.25,-0.05 1500.05,-3.25 1500.05,-0.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="rabsEnd" type="dead_end" x="2500.00" y="500.00" incLanes="rend_0" intLanes="" shape="2500.00,496.75 2500.00,499.95"/>
+    <junction id="rabsEnd" type="unregulated" x="2500.00" y="500.00" incLanes="rend_0" intLanes="" shape="2500.00,496.75 2500.00,499.95">
+    </junction>
 
-    <succ edge="beg" lane="beg_0" junction="beg">
-        <succlane lane="beg2right_0" dir="r" state="M"/>
-        <succlane lane="middle_0" dir="s" state="M"/>
-        <succlane lane="beg2left_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="beg2left" lane="beg2left_0" junction="begleft">
-        <succlane lane="left_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="beg2right" lane="beg2right_0" junction="begright">
-        <succlane lane="right_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="end" lane="end_0" junction="absEnd">
-        <succlane lane="rend_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="left" lane="left_0" junction="endleft">
-        <succlane lane="left2end_0" dir="r" state="M"/>
-    </succ>
-    <succ edge="left2end" lane="left2end_0" junction="end">
-        <succlane lane="end_0" dir="l" state="m"/>
-    </succ>
-    <succ edge="middle" lane="middle_0" junction="end">
-        <succlane lane="end_0" dir="s" state="M"/>
-    </succ>
-    <succ edge="rend" lane="rend_0" junction="rabsEnd">
-        <succlane lane="SUMO_NO_DESTINATION" dir="s" state="O"/>
-    </succ>
-    <succ edge="right" lane="right_0" junction="endright">
-        <succlane lane="right2end_0" dir="l" state="M"/>
-    </succ>
-    <succ edge="right2end" lane="right2end_0" junction="end">
-        <succlane lane="end_0" dir="r" state="m"/>
-    </succ>
+    <connection from="beg" to="beg2right" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="beg2left" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="beg2left" to="left" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="beg2right" to="right" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="end" to="rend" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="left" to="left2end" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="left2end" to="end" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="right" to="right2end" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="right2end" to="end" fromLane="0" toLane="0" dir="r" state="m"/>
 
 </net>

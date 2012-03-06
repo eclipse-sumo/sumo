@@ -22,7 +22,8 @@
         <xsd:attribute name="vClass" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="emissionClass" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="guiShape" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="guiWidth" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="width" type="positiveFloatType"></xsd:attribute>
+        <xsd:attribute name="height" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="color" type="colorType"></xsd:attribute>
         <xsd:attribute name="accel" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="decel" type="positiveFloatType"></xsd:attribute>
@@ -37,6 +38,7 @@
         <xsd:attribute name="tau" type="positiveFloatType"></xsd:attribute>
         <xsd:attribute name="carFollowModel" type="xsd:string"></xsd:attribute>
         <xsd:attribute name="laneChangeModel" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="osgFile" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="cfKraussType">
