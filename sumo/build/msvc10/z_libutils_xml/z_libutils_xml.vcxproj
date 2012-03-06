@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\utils\xml\GenericSAXHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SAXWeightsHandler.cpp" />
+    <ClCompile Include="..\..\..\src\utils\xml\SUMORouteHandler.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.cpp" />
     <ClCompile Include="..\..\..\src\utils\xml\SUMOSAXHandler.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\xml\GenericSAXHandler.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SAXWeightsHandler.h" />
+    <ClInclude Include="..\..\..\src\utils\xml\SUMORouteHandler.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributes.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.h" />
     <ClInclude Include="..\..\..\src\utils\xml\SUMOSAXHandler.h" />

@@ -1,12 +1,12 @@
 /****************************************************************************/
-/// @file    MSRouteHandler.h
+/// @file    SUMORouteHandler.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Parser and container for routes during their loading
+// Parser for routes during their loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -19,8 +19,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSRouteHandler_h
-#define MSRouteHandler_h
+#ifndef SUMORouteHandler_h
+#define SUMORouteHandler_h
 
 
 // ===========================================================================
@@ -33,38 +33,34 @@
 #endif
 
 #include <string>
-#include "MSPerson.h"
-#include "MSVehicle.h"
-#include <utils/xml/SUMORouteHandler.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOTime.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MSEdge;
-class MSVehicleType;
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSRouteHandler
- * @brief Parser and container for routes during their loading
+ * @class SUMORouteHandler
+ * @brief Parser for routes during their loading
  *
- * MSRouteHandler is the container for routes while they are build until
- * their transfering to the MSNet::RouteDict
- * The result of the operations are single MSNet::Route-instances
+ * SUMORouteHandler is the abstract super class for routers
+ * and simulation loading routes.
  */
-class MSRouteHandler : public SUMORouteHandler {
+class SUMORouteHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    MSRouteHandler(const std::string& file,
-                   bool addVehiclesDirectly);
+    SUMORouteHandler(const std::string& file);
 
     /// standard destructor
-    virtual ~MSRouteHandler() ;
+    virtual ~SUMORouteHandler() ;
+
+    /// Returns the last loaded depart time
+    SUMOTime getLastDepart() const;
+
+    /// check start and end position of a stop
+    bool checkStopPos(SUMOReal& startPos, SUMOReal& endPos, const SUMOReal laneLength,
+                      const SUMOReal minLength, const bool friendlyPos);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -92,70 +88,76 @@ protected:
 
 
     /** opens a type distribution for reading */
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
+    virtual void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) = 0;
 
     /** closes (ends) the building of a distribution */
-    void closeVehicleTypeDistribution();
+    virtual void closeVehicleTypeDistribution() = 0;
 
     /** opens a route for reading */
-    void openRoute(const SUMOSAXAttributes& attrs);
+    virtual void openRoute(const SUMOSAXAttributes& attrs) = 0;
 
     /** closes (ends) the building of a route.
         Afterwards no edges may be added to it;
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    void closeRoute() ;
+    virtual void closeRoute() = 0;
 
     /** opens a route distribution for reading */
-    void openRouteDistribution(const SUMOSAXAttributes& attrs);
+    virtual void openRouteDistribution(const SUMOSAXAttributes& attrs) = 0;
 
     /** closes (ends) the building of a distribution */
-    void closeRouteDistribution();
+    virtual void closeRouteDistribution() = 0;
 
     /// Ends the processing of a vehicle
-    void closeVehicle() ;
+    virtual void closeVehicle() = 0;
 
     /// Ends the processing of a person
-    void closePerson() ;
+    virtual void closePerson() = 0;
 
     /// Ends the processing of a flow
-    void closeFlow() ;
+    virtual void closeFlow() = 0;
 
     /// Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs) ;
+    virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
+
+    /// Checks whether the route file is sorted by departure time if needed
+    bool checkLastDepart();
+
+    /// save last depart (only to be used if vehicle is not discarded)
+    void registerLastDepart();
 
 protected:
-    /// @brief The current route
-    MSEdgeVector myActiveRoute;
+    /// @brief Parameter of the current vehicle, trip, person, or flow
+    SUMOVehicleParameter* myVehicleParameter;
 
-    /// @brief The plan of the current person
-    MSPerson::MSPersonPlan* myActivePlan;
+    /// @brief The insertion time of the vehicle read last
+    SUMOTime myLastDepart;
 
-    /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
-    bool myAddVehiclesDirectly;
+    /// @brief The id of the current route
+    std::string myActiveRouteID;
 
-    /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
-    RandomDistributor<MSVehicleType*> *myCurrentVTypeDistribution;
+    /// @brief The id of the route the current route references to
+    std::string myActiveRouteRefID;
 
-    /// @brief The id of the currently parsed vehicle type distribution
-    std::string myCurrentVTypeDistributionID;
+    /// @brief The id of the current route
+    SUMOReal myActiveRouteProbability;
 
-    /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;
+    /// @brief The currently parsed route's color
+    RGBColor myActiveRouteColor;
 
-    /// @brief The id of the currently parsed route distribution
-    std::string myCurrentRouteDistributionID;
+    /// @brief List of the stops on the parsed route
+    std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
 
-    /// @brief The scaling factor (especially for inc-dua)
-    SUMOReal myScale;
+    /// @brief The currently parsed vehicle type
+    SUMOVTypeParameter* myCurrentVType;
 
 private:
     /// @brief Invalidated copy constructor
-    MSRouteHandler(const MSRouteHandler& s);
+    SUMORouteHandler(const SUMORouteHandler& s);
 
     /// @brief Invalidated assignment operator
-    MSRouteHandler& operator=(const MSRouteHandler& s);
+    SUMORouteHandler& operator=(const SUMORouteHandler& s);
 
 };
 
@@ -163,4 +165,3 @@ private:
 #endif
 
 /****************************************************************************/
-
