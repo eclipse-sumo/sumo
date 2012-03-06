@@ -375,6 +375,12 @@ GUIEdge::getAllowedSpeed() const {
 }
 
 
+SUMOReal
+GUIEdge::getRelativeSpeed() const {
+    return getMeanSpeed() / getAllowedSpeed();
+}
+
+
 void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(s.edgeColorer.getScheme().getColor(getColorValue(s.edgeColorer.getActive())));
@@ -396,6 +402,8 @@ GUIEdge::getColorValue(size_t activeScheme) const {
             return getMeanSpeed();
         case 6:
             return getFlow();
+        case 7:
+            return getRelativeSpeed();
     }
     return 0;
 }

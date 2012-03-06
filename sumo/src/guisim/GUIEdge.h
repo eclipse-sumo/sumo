@@ -144,6 +144,8 @@ public:
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;
+    /// @brief return meanSpead divided by allowedSpeed
+    SUMOReal getRelativeSpeed() const;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;

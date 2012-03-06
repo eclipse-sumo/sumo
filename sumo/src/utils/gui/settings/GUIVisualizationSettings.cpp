@@ -197,6 +197,9 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     scheme = GUIColorScheme("by current flow (streetwise)", RGBColor(0, 0, 1));
     scheme.addColor(RGBColor(1, 0, 0), (SUMOReal)5000);
     edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by relative speed (streetwise)", RGBColor(1, 0, 0));
+    scheme.addColor(RGBColor(0, 0, 1), (SUMOReal)1);
+    edgeColorer.addScheme(scheme);
 #endif
 }
 
