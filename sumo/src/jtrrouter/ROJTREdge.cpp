@@ -57,7 +57,7 @@ ROJTREdge::~ROJTREdge() {
 
 
 void
-ROJTREdge::addFollower(ROEdge* s) {
+ROJTREdge::addFollower(ROEdge* s, std::string) {
     ROEdge::addFollower(s);
     ROJTREdge* js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js) == myFollowingDefs.end()) {
