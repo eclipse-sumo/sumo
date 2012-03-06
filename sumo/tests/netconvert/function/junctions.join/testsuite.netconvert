@@ -12,3 +12,6 @@ exclude_cmdline
 
 # specify which nodes to join via input file
 join_loaded
+
+# make sure that a sequence of short edges does not lead to a giant cluster
+long_tail
