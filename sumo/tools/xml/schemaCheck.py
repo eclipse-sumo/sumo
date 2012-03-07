@@ -43,8 +43,11 @@ def validate(f):
         traceback.print_exc()
 
 def main(srcRoot, err):
-    toCheck = [ "*.edg.xml", "*.nod.xml", "*.con.xml", "*.typ.xml", "*.net.xml", "*.rou.xml", "*.add.xml", "*.????cfg",
-                "net.netgen", "net.netconvert", "routes.duarouter", "alts.duarouter", "routes.jtrrouter" ]
+    toCheck = [ "*.edg.xml", "*.nod.xml", "*.con.xml", "*.typ.xml",
+                "*.net.xml", "*.rou.xml", "*.add.xml", "*.????cfg",
+                "net.netgen", "net.netconvert",
+                "net.scenario", "tls.scenario",
+                "routes.duarouter", "alts.duarouter", "routes.jtrrouter" ]
     sax2count = "SAX2Count.exe"
     if 'XERCES_64' in os.environ:
         sax2count = os.path.join(os.environ['XERCES_64'], "bin", sax2count)
