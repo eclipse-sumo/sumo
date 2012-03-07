@@ -14,7 +14,8 @@ Removing empty nodes... done.
 Joining similar edges... done.
 Moving network to origin... done.
 Assigning nodes to traffic lights... done.
-Computing turning directions... done.
+Computing turning directions... 
+done.
 Sorting nodes' edges... done.
 Computing node types... done.
 Computing priorities... done.
