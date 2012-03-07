@@ -174,10 +174,10 @@ elif sys.argv[1]=="dfrouter":
     call = [checkBinary('dfrouter'),
             "--detector-files", "input_additional.add.xml"]
 elif sys.argv[1]=="duarouter":
-    call = [checkBinary('duarouter'),
+    call = [checkBinary('duarouter'), "--no-step-log",
             "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 elif sys.argv[1]=="jtrrouter":
-    call = [checkBinary('jtrrouter'),
+    call = [checkBinary('jtrrouter'), "--no-step-log",
             "-o", "dummy.xml", "-t", "input_additional.add.xml"]
 else:
     print >> sys.stderr, "Unsupported application defined"

@@ -24,7 +24,8 @@ Lane '85[1][1][0]' has calculated shape length near zero. Revert it back to old 
 done.
 Computing traffic light control information... done.
 Computing node logics... done.
-Computing traffic light logics... done.
+Computing traffic light logics... 
+done.
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:

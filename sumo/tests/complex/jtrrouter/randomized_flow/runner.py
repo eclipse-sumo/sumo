@@ -22,6 +22,7 @@ args = [jtrrouter,
         '--output-file', output_file1,
         '--sinks=end',
         '--seed', None,
+        '--no-step-log',
         '--randomize-flows']
 
 args[11] = str(random.randint(0, 2 ** 31))
