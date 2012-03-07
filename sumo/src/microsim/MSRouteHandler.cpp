@@ -389,7 +389,7 @@ MSRouteHandler::closeVehicle() {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
-        if (!checkLastDepart() || myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
+        if (!(myAddVehiclesDirectly || checkLastDepart()) || myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
             if (route != 0) {
                 route->addReference();
                 route->release();
@@ -473,7 +473,7 @@ MSRouteHandler::closePerson() {
     }
     MSPerson* person = new MSPerson(myVehicleParameter, myActivePlan);
     // @todo: consider myScale?
-    if (checkLastDepart() && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
+    if ((myAddVehiclesDirectly || checkLastDepart()) && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
         MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
         registerLastDepart();
     } else {
@@ -515,7 +515,7 @@ MSRouteHandler::closeFlow() {
 
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
-    if (checkLastDepart()) {
+    if (myAddVehiclesDirectly || checkLastDepart()) {
         MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
         registerLastDepart();
     }
