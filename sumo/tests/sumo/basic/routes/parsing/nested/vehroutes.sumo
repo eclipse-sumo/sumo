@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/15/12 13:50:36 by SUMO sumo Version dev-SVN-r11894
+<!-- generated on 03/07/12 10:10:55 by SUMO sumo Version dev-SVN-r12024
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="2" type="KRAUSS_DEFAULT" depart="5.00" arrival="145.00">
+    <vehicle id="2" type="KRAUSS_DEFAULT" depart="5.00" arrival="146.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
