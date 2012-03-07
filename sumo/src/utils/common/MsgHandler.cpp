@@ -90,8 +90,9 @@ MsgHandler::inform(std::string msg, bool addType) {
     if (myLock != 0) {
         myLock->lock();
     }
-    // beautify progress output if not message
-    if (myAmProcessingProcess && myType != MT_MESSAGE) {
+    // beautify progress output
+    if (myAmProcessingProcess) {
+        myAmProcessingProcess = false;
         MsgHandler::getMessageInstance()->inform("");
     }
     msg = build(msg, addType);
@@ -101,7 +102,6 @@ MsgHandler::inform(std::string msg, bool addType) {
     }
     // set the information that something occured
     myWasInformed = true;
-    myAmProcessingProcess = false;
     if (myLock != 0) {
         myLock->unlock();
     }
