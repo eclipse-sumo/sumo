@@ -90,13 +90,13 @@ MsgHandler::inform(std::string msg, bool addType) {
     if (myLock != 0) {
         myLock->lock();
     }
+    // beautify progress output if not message
+    if (myAmProcessingProcess && myType != MT_MESSAGE) {
+        MsgHandler::getMessageInstance()->inform("");
+    }
     msg = build(msg, addType);
-    // inform all other receivers
+    // inform all receivers
     for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-        // beautify progress output
-        if (myAmProcessingProcess) {
-            (*i)->inform("", '\n');
-        }
         (*i)->inform(msg);
     }
     // set the information that something occured
