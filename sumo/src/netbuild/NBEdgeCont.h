@@ -497,10 +497,10 @@ private:
     std::set<std::string> myEdges2Remove;
 
     /// @brief Set of vehicle types which must be allowed on edges in order to keep them
-    SUMOVehicleClasses myVehicleClasses2Keep;
+    SVCPermissions myVehicleClasses2Keep;
 
-    /// @brief Set of vehicle types which must not be disallowed on edges in order to keep them
-    SUMOVehicleClasses myVehicleClasses2Remove;
+    /// @brief Set of vehicle types which need not be supported (edges which allow ONLY these are removed)
+    SVCPermissions myVehicleClasses2Remove;
 
     /// @brief Set of edges types which shall be kept
     std::set<std::string> myTypes2Keep;

@@ -401,8 +401,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int noLanes = tc.getNumLanes(type);
     SUMOReal speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
-    SUMOVehicleClasses allowedClasses = tc.getAllowedClasses(type);
-    SUMOVehicleClasses disallowedClasses = tc.getDisallowedClasses(type);
+    SVCPermissions permissions = tc.getPermissions(type);
     // check directions
     bool addSecond = true;
     if (e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1" || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0")) {
@@ -429,7 +428,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (e->myIsOneWay != "-1") {
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), from, to, type, speed, noLanes, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape, StringUtils::escapeXML(e->streetName), lsf);
-            nbe->setVehicleClasses(allowedClasses, disallowedClasses);
+            nbe->setPermissions(permissions);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -441,7 +440,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             NBEdge* nbe = new NBEdge(StringUtils::escapeXML(id), to, from, type, speed, noLanes, tc.getPriority(type),
                                      tc.getWidth(type), NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), StringUtils::escapeXML(e->streetName), lsf);
-            nbe->setVehicleClasses(allowedClasses, disallowedClasses);
+            nbe->setPermissions(permissions);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");

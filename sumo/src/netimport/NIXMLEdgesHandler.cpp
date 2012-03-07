@@ -125,8 +125,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentSpeed = myTypeCont.getSpeed("");
     myCurrentPriority = myTypeCont.getPriority("");
     myCurrentLaneNo = myTypeCont.getNumLanes("");
-    myAllowed = myTypeCont.getAllowedClasses("");
-    myNotAllowed = myTypeCont.getDisallowedClasses("");
+    myPermissions = myTypeCont.getPermissions("");
     myCurrentWidth = myTypeCont.getWidth("");
     myCurrentOffset = NBEdge::UNSPECIFIED_OFFSET;
     myCurrentType = "";
@@ -147,8 +146,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
         myCurrentPriority = myTypeCont.getPriority(myCurrentType);
         myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
-        myAllowed = myTypeCont.getAllowedClasses(myCurrentType);
-        myNotAllowed = myTypeCont.getDisallowedClasses(myCurrentType);
+        myPermissions = myTypeCont.getPermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
@@ -167,8 +165,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentPriority = myCurrentEdge->getPriority();
         myCurrentLaneNo = myCurrentEdge->getNumLanes();
         myCurrentType = myCurrentEdge->getTypeID();
-        myAllowed = myCurrentEdge->getAllowedVehicleClasses();
-        myNotAllowed = myCurrentEdge->getDisallowedVehicleClasses();
+        myPermissions = myCurrentEdge->getPermissions();
         if (!myCurrentEdge->hasDefaultGeometry()) {
             myShape = myCurrentEdge->getGeometry();
         }
@@ -216,11 +213,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
 
     // try to get the allowed/disallowed classes
     if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
-        std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : getVehicleClassNames(myAllowed);
-        std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : getVehicleClassNames(myNotAllowed);
-        myAllowed.clear();
-        myNotAllowed.clear();
-        parseVehicleClasses(allowS, disallowS, myAllowed, myNotAllowed);
+        std::string allowS = attrs.hasAttribute(SUMO_ATTR_ALLOW) ? attrs.getStringSecure(SUMO_ATTR_ALLOW, "") : "";
+        std::string disallowS = attrs.hasAttribute(SUMO_ATTR_DISALLOW) ? attrs.getStringSecure(SUMO_ATTR_DISALLOW, "") : "";
+        // XXX matter of interpretation: should updated permissions replace or extend previously set permissions?
+        myPermissions = parseVehicleClasses(allowS, disallowS);
     }
     // try to set the nodes
     if (!setNodes(attrs)) {
@@ -258,7 +254,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         }
     }
     myCurrentEdge->setLoadedLength(myLength);
-    myCurrentEdge->setVehicleClasses(myAllowed, myNotAllowed);
+    myCurrentEdge->setPermissions(myPermissions);
 }
 
 
@@ -281,10 +277,10 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     } else {
         lane = attrs.getIntReporting(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
     }
-    std::vector<std::string> disallowed, allowed, preferred;
-    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, ""), disallowed);
-    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, ""), allowed);
-    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_PREFER, 0, ok, ""), preferred);
+    std::string allowed, disallowed, preferred;
+    allowed    = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, 0, ok, "");
+    disallowed = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, 0, ok, "");
+    preferred  = attrs.getOptStringReporting(SUMO_ATTR_PREFER, 0, ok, "");
     if (!ok) {
         return;
     }
@@ -294,15 +290,8 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     // set information about allowed / disallowed vehicle classes
-    for (std::vector<std::string>::iterator i = disallowed.begin(); i != disallowed.end(); ++i) {
-        myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
-    }
-    for (std::vector<std::string>::iterator i = allowed.begin(); i != allowed.end(); ++i) {
-        myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
-    }
-    for (std::vector<std::string>::iterator i = preferred.begin(); i != preferred.end(); ++i) {
-        myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
-    }
+    myCurrentEdge->setPermissions(parseVehicleClasses(allowed, disallowed), lane);
+    myCurrentEdge->setPreferredVehicleClass(parseVehicleClasses(preferred), lane);
     // try to get the width
     if (attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
         myCurrentEdge->setWidth(lane, attrs.getSUMORealReporting(SUMO_ATTR_WIDTH, myCurrentID.c_str(), ok));

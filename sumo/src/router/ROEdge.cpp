@@ -92,19 +92,7 @@ ROEdge::addLane(ROLane* lane) {
     myLanes.push_back(lane);
 
     // integrate new allowed classes
-    const SUMOVehicleClasses& allowed = lane->getAllowedClasses();
-    myAllowedClasses.insert(allowed.begin(), allowed.end());
-    for (SUMOVehicleClasses::const_iterator it = allowed.begin(); it != allowed.end(); it++) {
-        myNotAllowedClasses.erase(*it);
-    }
-    // integrate new disallowed classes
-    const SUMOVehicleClasses& disallowed = lane->getNotAllowedClasses();
-    for (SUMOVehicleClasses::const_iterator it = disallowed.begin(); it != disallowed.end(); it++) {
-        // only add to myNotAllowedClasses if not explicitly allowed by other lanes
-        if (myAllowedClasses.count(*it) == 0) {
-            myNotAllowedClasses.insert(*it);
-        }
-    }
+    myCombinedPermissions |= lane->getPermissions();
 }
 
 
@@ -319,31 +307,6 @@ ROEdge::getNumApproaching() const {
 void
 ROEdge::setType(ROEdge::EdgeType type) {
     myType = type;
-}
-
-
-bool
-ROEdge::prohibits(const ROVehicle* const vehicle) const {
-    if (myAllowedClasses.size() == 0 && myNotAllowedClasses.size() == 0) {
-        return false;
-    }
-    // ok, vehicles with an unknown class may be only prohibited
-    //  if the edge is limited to a set of classes
-    SUMOVehicleClass vclass = vehicle->getType() != 0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
-    if (vclass == SVC_UNKNOWN) {
-        return false;
-    }
-    // check whether it is explicitly disallowed
-    if (find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass) != myNotAllowedClasses.end()) {
-        return true;
-    }
-    // check whether it is within the allowed classes
-    if (myAllowedClasses.size() == 0 || find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass) != myAllowedClasses.end()) {
-        return false;
-    }
-    // ok, we have a set of allowed vehicle classes, but this vehicle's class
-    //  is not among them
-    return true;
 }
 
 

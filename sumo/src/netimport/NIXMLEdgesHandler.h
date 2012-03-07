@@ -190,11 +190,8 @@ private:
     /// @brief Information about how to spread the lanes
     LaneSpreadFunction myLanesSpread;
 
-    /// @brief Information about how to spread the lanes
-    SUMOVehicleClasses myAllowed;
-
-    /// @brief Information about how to spread the lanes
-    SUMOVehicleClasses myNotAllowed;
+    /// @brief Information about lane permissions
+    SVCPermissions myPermissions;
 
     /// @}
 

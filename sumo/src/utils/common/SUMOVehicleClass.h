@@ -35,6 +35,7 @@
 
 #include <string>
 #include <set>
+#include <limits>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringBijection.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -177,11 +178,17 @@ enum SUMOVehicleClass {
     /// @brief is a pedestrian
     SVC_PEDESTRIAN = 1048576
                      //@}
-
 };
 
+extern const int SUMOVehicleClass_MAX;
 extern StringBijection<SUMOVehicleClass> SumoVehicleClassStrings;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
+
+/* @brief bitset where each bit declares whether a certain SVC may use this edge/lane
+ */
+typedef int SVCPermissions;
+extern const SVCPermissions SVCFreeForAll;
+
 
 /**
  * @enum SUMOEmissionClass
@@ -291,8 +298,6 @@ enum SUMOEmissionClass {
 };
 
 
-typedef std::set<SUMOVehicleClass> SUMOVehicleClasses;
-
 
 // ===========================================================================
 // method declarations
@@ -310,10 +315,23 @@ extern std::string getVehicleClassCompoundName(int id);
 
 
 /** @brief Returns the ids of the given classes, divided using a ' '
- * @param[in] ids The ids to encode
+ * @param[in] the permissions to encode
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(const SUMOVehicleClasses& ids);
+extern std::string getAllowedVehicleClassNames(SVCPermissions permissions);
+
+
+/** @brief Returns the ids of the given classes, divided using a ' '
+ * @param[in] the permissions to encode
+ * @return The string representation of these classes as a vector
+ */
+extern std::vector<std::string> getAllowedVehicleClassNamesList(SVCPermissions permissions);
+
+/** @brief returns the shorter encoding of the given permissions
+ * (selects automatically wether to use allow or disallow attribute)
+ * @return the string and true for allow, false for disallow
+ */
+extern std::pair<std::string, bool> getPermissionEncoding(SVCPermissions permissions);
 
 
 /** @brief Returns the class id of the abstract class given by its name
@@ -329,33 +347,35 @@ extern SUMOVehicleClass getVehicleClassID(const std::string& name);
  */
 extern int getVehicleClassCompoundID(const std::string& name);
 
-/** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
+/** @brief Parses the given definition of allowed vehicle classes into the given containers
  *
  * @param[in] classNames Space separated class names
  * @param[out] container The set of vehicle classes to fill
+ * throws ProcessErrorr if parsing fails
  */
-extern void parseVehicleClasses(const std::string& classNames,
-                                SUMOVehicleClasses& container);
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS);
+
+
+/** @brief Checks whether the given string contains only known vehicle classes
+ */
+extern bool canParseVehicleClasses(const std::string& classes);
 
 /** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
  *
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
- * @param[out] allowed The set of allowed vehicle classes to fill
- * @param[out] disallowed The set of disallowed vehicle classes to fill
  */
-extern void parseVehicleClasses(const std::string& allowedS,
-                                const std::string& disallowedS,
-                                SUMOVehicleClasses& allowed,
-                                SUMOVehicleClasses& disallowed);
+/** @brief Encodes the given vector of allowed and disallowed classs into a bitset
+ * @param[in] allowedS Definition which classes are allowed
+ * @param[in] disallowedS Definition which classes are not allowed
+ */
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS);
 
 
-/** @brief Parses the given vector of class names into their enum-representation
+/** @brief Encodes the given vector of allowed classs into a bitset
  * @param[in] classesS The names vector to parse
- * @param[out] classes The parsed classes
  */
-extern void parseVehicleClasses(const std::vector<std::string> &classesS,
-                                SUMOVehicleClasses& classes);
+extern SVCPermissions parseVehicleClasses(const std::vector<std::string> &allowedS);
 
 
 // ---------------------------------------------------------------------------

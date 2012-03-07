@@ -76,8 +76,7 @@ public:
      * @param[in] length The lane's length
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
-     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
-     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
+     * @param[in] permissions encoding of vehicle classes that may drive on this lane
      * @see SUMOVehicleClass
      * @see MSLane
      * @see MSInternalLane
@@ -85,8 +84,7 @@ public:
     virtual MSLane* addLane(const std::string& id,
                             SUMOReal maxSpeed, SUMOReal length,
                             const PositionVector& shape, SUMOReal width,
-                            const SUMOVehicleClasses& allowed,
-                            const SUMOVehicleClasses& disallowed);
+                            SVCPermissions permissions);
 
 
     MSEdge* closeEdge();

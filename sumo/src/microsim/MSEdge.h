@@ -39,9 +39,11 @@
 #include <string>
 #include <iostream>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/UtilExceptions.h>
+#include "MSVehicleType.h"
 
 
 // ===========================================================================
@@ -378,7 +380,10 @@ public:
 #endif
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
-    bool prohibits(const SUMOVehicle* const vehicle) const;
+    inline bool prohibits(const SUMOVehicle* const vehicle) const {
+        const SUMOVehicleClass svc = vehicle->getVehicleType().getVehicleClass();
+        return (myCombinedPermissions & svc) != svc;
+    }
 
     void rebuildAllowedLanes();
 
@@ -469,6 +474,10 @@ protected:
     const std::vector<MSLane*>* allowedLanes(const MSEdge* destination,
             SUMOVehicleClass vclass = SVC_UNKNOWN) const ;
 
+
+    /// @brief lookup in map and return 0 if not found
+    const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
+
 protected:
     /// @brief Unique ID.
     std::string myID;
@@ -506,10 +515,13 @@ protected:
     AllowedLanesCont myAllowed;
 
     /// @brief From vehicle class to lanes allowed to be used by it
-    ClassedAllowedLanesCont myClassedAllowed;
+    // @note: this map is filled on demand
+    mutable ClassedAllowedLanesCont myClassedAllowed;
 
-    /// @brief Whether any class constraints exist for this edge
-    bool myHaveClassConstraints;
+    /// @brief The intersection of lane permissions for this edge
+    SVCPermissions myMinimumPermissions;
+    /// @brief The union of lane permissions for this edge
+    SVCPermissions myCombinedPermissions;
 
     std::string myStreetName;
     /// @}

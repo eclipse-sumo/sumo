@@ -248,15 +248,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     // the first lane of an edge will be the depart lane
     into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
-    if (lane.allowed.size() > 0) {
-        into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(lane.allowed));
-    }
-    if (lane.notAllowed.size() > 0) {
-        into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(lane.notAllowed));
-    }
-    if (lane.preferred.size() > 0) {
-        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(lane.preferred));
-    }
+    writePermissions(into, lane.permissions);
+    writePreferences(into, lane.preferred);
     // some further information
     if (lane.speed == 0) {
         WRITE_WARNING("Lane #" + toString(index) + " of edge '" + eID + "' has a maximum velocity of 0.");
@@ -572,5 +565,33 @@ NWWriter_SUMO::writeLocation(OutputDevice& into) {
     into.lf();
 }
 
+
+void 
+NWWriter_SUMO::writePermissions(OutputDevice& into, SVCPermissions permissions) {
+    if (permissions == SVCFreeForAll) {
+        return;
+    } else if (permissions == 0) {
+        // special case: since all-empty encodes FreeForAll we must list all disallowed
+        into.writeAttr(SUMO_ATTR_DISALLOW, getAllowedVehicleClassNames(SVCFreeForAll));
+        return;
+    } else {
+        std::pair<std::string, bool> encoding = getPermissionEncoding(permissions);
+        if (encoding.second) {
+            into.writeAttr(SUMO_ATTR_ALLOW, encoding.first);
+        } else {
+            into.writeAttr(SUMO_ATTR_DISALLOW, encoding.first);
+        }
+    }
+}
+
+
+void 
+NWWriter_SUMO::writePreferences(OutputDevice& into, SVCPermissions preferred) {
+    if (preferred == SVCFreeForAll || preferred == 0) {
+        return;
+    } else {
+        into.writeAttr(SUMO_ATTR_PREFER, getAllowedVehicleClassNames(preferred));
+    }
+}
 /****************************************************************************/
 

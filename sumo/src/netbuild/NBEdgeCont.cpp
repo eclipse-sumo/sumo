@@ -65,8 +65,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBEdgeCont::NBEdgeCont(NBTypeCont& tc)
-    : myEdgesSplit(0), myTypeCont(tc) {}
+NBEdgeCont::NBEdgeCont(NBTypeCont& tc) : 
+    myEdgesSplit(0), 
+    myTypeCont(tc),
+    myVehicleClasses2Keep(0),
+    myVehicleClasses2Remove(0)
+{}
 
 
 NBEdgeCont::~NBEdgeCont() {
@@ -91,15 +95,13 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     if (oc.exists("keep-edges.by-vclass") && oc.isSet("keep-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("keep-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i = classes.begin(); i != classes.end(); ++i) {
-            SUMOVehicleClass svc = getVehicleClassID(*i);
-            myVehicleClasses2Keep.insert(svc);
+            myVehicleClasses2Keep |= getVehicleClassID(*i);
         }
     }
     if (oc.exists("remove-edges.by-vclass") && oc.isSet("remove-edges.by-vclass")) {
         const std::vector<std::string> classes = oc.getStringVector("remove-edges.by-vclass");
         for (std::vector<std::string>::const_iterator i = classes.begin(); i != classes.end(); ++i) {
-            SUMOVehicleClass svc = getVehicleClassID(*i);
-            myVehicleClasses2Remove.insert(svc);
+            myVehicleClasses2Remove |= getVehicleClassID(*i);
         }
     }
     if (oc.exists("keep-edges.by-type") && oc.isSet("keep-edges.by-type")) {
@@ -197,36 +199,12 @@ NBEdgeCont::ignoreFilterMatch(NBEdge *edge) {
         }
     }
     // check whether the edge shall be removed because it does not allow any of the wished classes
-    if (myVehicleClasses2Keep.size() != 0) {
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        // @todo also check disallowed
-        if (allowed.size() > 0) {
-            int matching = 0;
-            for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Keep.begin(); i != myVehicleClasses2Keep.end(); ++i) {
-                if (allowed.count(*i)) {
-                    allowed.erase(*i);
-                    matching++;
-                }
-            }
-            if (matching == 0) {
-                return true;
-            }
-        }
+    if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+        return true;
     }
     // check whether the edge shall be removed due to allowing unwished classes only
-    if (myVehicleClasses2Remove.size() != 0) {
-        int matching = 0;
-        SUMOVehicleClasses allowed = edge->getAllowedVehicleClasses();
-        for (SUMOVehicleClasses::const_iterator i = myVehicleClasses2Remove.begin(); i != myVehicleClasses2Remove.end(); ++i) {
-            if (allowed.count(*i)) {
-                allowed.erase(*i);
-                matching++;
-            }
-        }
-        // remove the edge if all allowed
-        if (allowed.size() == 0 && matching != 0) {
-            return true;
-        }
+    if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+        return true;
     }
     // check whether the edge shall be removed because it does not have one of the requested types
     if (myTypes2Keep.size() != 0) {

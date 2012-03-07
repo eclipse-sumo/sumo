@@ -79,12 +79,11 @@ MSLane::DictType MSLane::myDict;
 // ===========================================================================
 MSLane::MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
                unsigned int numericalID, const PositionVector& shape, SUMOReal width,
-               const SUMOVehicleClasses& allowed,
-               const SUMOVehicleClasses& disallowed) :
+               SVCPermissions permissions) :
     Named(id),
     myShape(shape), myNumericalID(numericalID),
     myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
-    myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
+    myPermissions(permissions),
     myLogicalPredecessorLane(0),
     myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
 }
@@ -981,27 +980,6 @@ MSLane::getLeftLane() const {
 MSLane*
 MSLane::getRightLane() const {
     return myEdge->rightLane(this);
-}
-
-
-bool
-MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const {
-    if (vclass == SVC_UNKNOWN) {
-        return true;
-    }
-    if (myAllowedClasses.size() == 0 && myNotAllowedClasses.size() == 0) {
-        return true;
-    }
-    if (find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass) != myAllowedClasses.end()) {
-        return true;
-    }
-    if (myAllowedClasses.size() != 0) {
-        return false;
-    }
-    if (find(myNotAllowedClasses.begin(), myNotAllowedClasses.end(), vclass) != myNotAllowedClasses.end()) {
-        return false;
-    }
-    return true;
 }
 
 

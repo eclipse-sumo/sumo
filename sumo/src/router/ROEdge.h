@@ -39,7 +39,9 @@
 #include <algorithm>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include "RONode.h"
+#include "ROVehicle.h"
 
 
 // ===========================================================================
@@ -218,7 +220,10 @@ public:
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle must not enter this edge
      */
-    bool prohibits(const ROVehicle* const vehicle) const ;
+    inline bool prohibits(const ROVehicle* const vehicle) const {
+        const SUMOVehicleClass vclass = vehicle->getType() != 0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
+        return (myCombinedPermissions & vclass) != vclass;
+    }
 
 
     /** @brief Returns whether this edge succeding edges prohibit the given vehicle to pass them
@@ -408,11 +413,8 @@ protected:
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;
 
-    /// @brief The list of allowed vehicle classes
-    SUMOVehicleClasses myAllowedClasses;
-
-    /// @brief The list of disallowed vehicle classes
-    SUMOVehicleClasses myNotAllowedClasses;
+    /// @brief The list of allowed vehicle classes combined across lanes
+    SVCPermissions myCombinedPermissions;
 
     /// @brief The nodes this edge is connecting
     RONode* myFromNode, *myToNode;

@@ -162,22 +162,12 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             break;
             case LANE_ALLOWED: {
-                const SUMOVehicleClasses& allowed = lane->getAllowedClasses();
-                std::vector<std::string> allowedS;
-                for (SUMOVehicleClasses::const_iterator i = allowed.begin(); i != allowed.end(); ++i) {
-                    allowedS.push_back(toString(*i));
-                }
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(allowedS);
+                tempMsg.writeStringList(getAllowedVehicleClassNamesList(lane->getPermissions()));
             }
             case LANE_DISALLOWED: {
-                const SUMOVehicleClasses& disallowed = lane->getNotAllowedClasses();
-                std::vector<std::string> disallowedS;
-                for (SUMOVehicleClasses::const_iterator i = disallowed.begin(); i != disallowed.end(); ++i) {
-                    disallowedS.push_back(toString(*i));
-                }
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(disallowedS);
+                tempMsg.writeStringList(getAllowedVehicleClassNamesList(~(lane->getPermissions()))); // negation yields disallowed
             }
             break;
             case VAR_SHAPE:
@@ -336,9 +326,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
                 return false;
             }
-            SUMOVehicleClasses allowed;
-            parseVehicleClasses(inputStorage.readStringList(), allowed);
-            l->setAllowedClasses(allowed);
+            l->setPermissions(parseVehicleClasses(inputStorage.readStringList()));
             l->getEdge().rebuildAllowedLanes();
         }
         break;
@@ -347,9 +335,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
                 return false;
             }
-            SUMOVehicleClasses disallowed;
-            parseVehicleClasses(inputStorage.readStringList(), disallowed);
-            l->setNotAllowedClasses(disallowed);
+            l->setPermissions(~parseVehicleClasses(inputStorage.readStringList())); // negation yields allowed
             l->getEdge().rebuildAllowedLanes();
         }
         break;

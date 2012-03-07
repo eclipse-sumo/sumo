@@ -110,8 +110,7 @@ public:
      */
     virtual MSLane* addLane(const std::string& id, SUMOReal maxSpeed,
                             SUMOReal length, const PositionVector& shape,
-                            SUMOReal width, const SUMOVehicleClasses& allowed,
-                            const SUMOVehicleClasses& disallowed);
+                            SUMOReal width, SVCPermissions permissions);
 
 
     /** @brief Closes the building of an edge;

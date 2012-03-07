@@ -195,15 +195,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, i);
                 // write allowed lanes
-                if (lane.allowed.size() != 0) {
-                    edevice.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(lane.allowed));
-                }
-                if (lane.notAllowed.size() != 0) {
-                    edevice.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(lane.notAllowed));
-                }
-                if (lane.preferred.size() != 0) {
-                    edevice.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(lane.preferred));
-                }
+                NWWriter_SUMO::writePermissions(edevice, lane.permissions);
+                NWWriter_SUMO::writePreferences(edevice, lane.preferred);
+                // write other attributes
                 if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }

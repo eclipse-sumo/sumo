@@ -115,6 +115,8 @@ NINavTeqHelper::addVehicleClasses(NBEdge& e, const std::string& oclassS) {
     if (classS[0] == '1') {
         return;
     }
+    // we have some restrictions. disallow all and then add classes indiviually
+    e.setPermissions(0);
     // Passenger cars -- becomes SVC_PASSENGER
     if (classS[1] == '1') {
         e.allowVehicleClass(-1, SVC_PASSENGER);

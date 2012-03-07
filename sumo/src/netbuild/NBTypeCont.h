@@ -92,15 +92,14 @@ public:
      * @param[in] noLanes The number of lanes an edge of this type has
      * @param[in] maxSpeed The speed allowed on an edge of this type
      * @param[in] prio The priority of an edge of this type
-     * @param[in] allow The list of vehicle classes allowed on an edge of this type
-     * @param[in] disallow The list of vehicle classes disallowed on an edge of this type
+     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this type
      * @param[in] width The width of lanes of edgesof this type
      * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string& id, int noLanes,
                 SUMOReal maxSpeed, int prio,
-                const SUMOVehicleClasses& allow, const SUMOVehicleClasses& disallow,
+                SVCPermissions permissions,
                 SUMOReal width, bool oneWayIsDefault) ;
 
     /** @brief Returns the number of known types
@@ -184,16 +183,7 @@ public:
      * @param[in] type The name of the type to return the list of allowed vehicles classes for
      * @return List of vehicles class which may use edges of the given type
      */
-    const SUMOVehicleClasses& getAllowedClasses(const std::string& type) const ;
-
-
-    /** @brief Returns not allowed vehicle classes for the given type
-     *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the list of not allowed vehicles classes for
-     * @return List of vehicles class which may not use edges of the given type
-     */
-    const SUMOVehicleClasses& getDisallowedClasses(const std::string& type) const ;
+    SVCPermissions getPermissions(const std::string& type) const ;
 
 
     /** @brief Returns the lane width for the given type [m/s]
@@ -209,14 +199,17 @@ public:
 private:
     struct TypeDefinition {
         /// @brief Constructor
-        TypeDefinition()
-            : noLanes(1), speed((SUMOReal) 13.9), priority(-1),
-              oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
+        TypeDefinition() : 
+            noLanes(1), speed((SUMOReal) 13.9), priority(-1),
+            permissions(SVCFreeForAll),
+            oneWay(true), discard(false), width(NBEdge::UNSPECIFIED_WIDTH) { }
 
         /// @brief Constructor
-        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, SUMOReal _width)
-            : noLanes(_noLanes), speed(_speed), priority(_priority),
-              oneWay(true), discard(false), width(_width) { }
+        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority, 
+                SUMOReal _width, SVCPermissions _permissions, bool _oneWay) : 
+            noLanes(_noLanes), speed(_speed), priority(_priority),
+            permissions(_permissions),
+            oneWay(_oneWay), discard(false), width(_width) { }
 
         /// @brief The number of lanes of an edge
         int noLanes;
@@ -225,9 +218,7 @@ private:
         /// @brief The priority of an edge
         int priority;
         /// @brief List of vehicle types that are allowed on this edge
-        SUMOVehicleClasses allowed;
-        /// @brief List of vehicle types that are not allowed on this edge
-        SUMOVehicleClasses notAllowed;
+        SVCPermissions permissions;
         /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
         bool oneWay;
         /// @brief Whether edges of this type shall be discarded

@@ -91,10 +91,8 @@ NIXMLTypesHandler::myStartElement(int element,
         return;
     }
     // build the type
-    SUMOVehicleClasses allow;
-    SUMOVehicleClasses disallow;
-    parseVehicleClasses(allowS, disallowS, allow, disallow);
-    if (!myTypeCont.insert(id, noLanes, speed, priority, allow, disallow, width, oneway)) {
+    SVCPermissions permissions = parseVehicleClasses(allowS, disallowS);
+    if (!myTypeCont.insert(id, noLanes, speed, priority, permissions, width, oneway)) {
         WRITE_ERROR("Duplicate type occured. ID='" + id + "'");
     } else {
         if (discard) {

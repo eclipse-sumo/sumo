@@ -34,16 +34,16 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
+#include <iostream>
+#include <cassert>
+#include <utils/common/StringTokenizer.h>
+#include <utils/options/OptionsCont.h>
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSLaneChanger.h"
 #include "MSGlobals.h"
-#include <algorithm>
-#include <iostream>
-#include <cassert>
 #include "MSVehicle.h"
-#include <utils/common/StringTokenizer.h>
-#include <utils/options/OptionsCont.h>
 #include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_MESOSIM
@@ -132,42 +132,20 @@ MSEdge::closeBuilding() {
 
 void
 MSEdge::rebuildAllowedLanes() {
-    // build the classed allowed lanes
-    myHaveClassConstraints = false;
-    // build list of vehicle classes that are constrained
-    // ... all others will be not regarded (allowed) ...
-    SUMOVehicleClasses vclasses;
-    for (std::vector<MSLane*>::const_iterator i2 = myLanes->begin(); i2 != myLanes->end(); ++i2) {
-        const SUMOVehicleClasses& allowed = (*i2)->getAllowedClasses();
-        for (SUMOVehicleClasses::const_iterator j = allowed.begin(); j != allowed.end(); j++) {
-            vclasses.insert(*j);
-        }
-        const SUMOVehicleClasses& disallowed = (*i2)->getNotAllowedClasses();
-        for (SUMOVehicleClasses::const_iterator j = disallowed.begin(); j != disallowed.end(); j++) {
-            vclasses.insert(*j);
+    // clear myClassedAllowed. 
+    // it will be rebuilt on demand
+    for (ClassedAllowedLanesCont::iterator i2 = myClassedAllowed.begin(); i2 != myClassedAllowed.end(); i2++) {
+        for (AllowedLanesCont::iterator i1 = (*i2).second.begin(); i1 != (*i2).second.end(); i1++) {
+            delete(*i1).second;
         }
     }
-    // go through these classes
-    for (SUMOVehicleClasses::const_iterator j = vclasses.begin(); j != vclasses.end(); ++j) {
-        // go through connected edges
-        for (AllowedLanesCont::iterator i1 = myAllowed.begin(); i1 != myAllowed.end(); ++i1) {
-            delete myClassedAllowed[*j][(*i1).first];
-            myClassedAllowed[*j][(*i1).first] = new std::vector<MSLane*>();
-            // go through lanes approaching current edge
-            for (std::vector<MSLane*>::iterator i2 = (*i1).second->begin(); i2 != (*i1).second->end(); ++i2) {
-                // allows the current vehicle class?
-                if ((*i2)->allowsVehicleClass(*j)) {
-                    // -> may be used
-                    myClassedAllowed[*j][(*i1).first]->push_back(*i2);
-                }
-            }
-            // assert that 0 is returned if no connection is allowed for a class
-            if (myClassedAllowed[*j][(*i1).first]->size() == 0) {
-                delete myClassedAllowed[*j][(*i1).first];
-                myClassedAllowed[*j][(*i1).first] = 0;
-            }
-        }
-        myHaveClassConstraints = true;
+    myClassedAllowed.clear();
+    // rebuild myMinimumPermissions and myCombinedPermissions
+    myMinimumPermissions = SVCFreeForAll;
+    myCombinedPermissions = 0;
+    for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
+        myMinimumPermissions &= (*i)->getPermissions();
+        myCombinedPermissions |= (*i)->getPermissions();
     }
 }
 
@@ -205,26 +183,50 @@ MSEdge::allowedLanes(SUMOVehicleClass vclass) const {
 }
 
 
+const std::vector<MSLane*>* 
+MSEdge::getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const {
+    AllowedLanesCont::const_iterator it = c.find(dest);
+    if (it == c.end()) {
+        return 0;
+    }
+    return it->second;
+}
+
+
 const std::vector<MSLane*>*
 MSEdge::allowedLanes(const MSEdge* destination, SUMOVehicleClass vclass) const {
-    if (myHaveClassConstraints && vclass != SVC_UNKNOWN) {
-        ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
-        if (i != myClassedAllowed.end()) {
-            const AllowedLanesCont& c = (*i).second;
-            AllowedLanesCont::const_iterator j = (*i).second.find(destination);
-            if (j == c.end()) {
-                // Destination-edge not found.
-                return 0;
-            }
-            return (*j).second;
-        }
+    if ((myMinimumPermissions & vclass) == vclass) {
+        // all lanes allow vclass
+        return getAllowedLanesWithDefault(myAllowed, destination);
     }
-    AllowedLanesCont::const_iterator it = myAllowed.find(destination);
-    if (it != myAllowed.end()) {
-        return it->second;
+    // look up cached result in myClassedAllowed
+    ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
+    if (i != myClassedAllowed.end()) {
+        // can use cached value
+        const AllowedLanesCont& c = (*i).second;
+        return getAllowedLanesWithDefault(c, destination);
     } else {
-        // Destination-edge not found.
-        return 0;
+        // this vclass is requested for the first time. rebuild all destinations
+        // go through connected edges
+        for (AllowedLanesCont::const_iterator i1 = myAllowed.begin(); i1 != myAllowed.end(); ++i1) {
+            const MSEdge* edge = i1->first;
+            const std::vector<MSLane*>* lanes = i1->second;
+            myClassedAllowed[vclass][edge] = new std::vector<MSLane*>();
+            // go through lanes approaching current edge
+            for (std::vector<MSLane*>::const_iterator i2 = lanes->begin(); i2 != lanes->end(); ++i2) {
+                // allows the current vehicle class?
+                if ((*i2)->allowsVehicleClass(vclass)) {
+                    // -> may be used
+                    myClassedAllowed[vclass][edge]->push_back(*i2);
+                }
+            }
+            // assert that 0 is returned if no connection is allowed for a class
+            if (myClassedAllowed[vclass][edge]->size() == 0) {
+                delete myClassedAllowed[vclass][edge];
+                myClassedAllowed[vclass][edge] = 0;
+            }
+        }
+        return myClassedAllowed[vclass][destination];
     }
 }
 
@@ -416,21 +418,6 @@ MSEdge::getCurrentTravelTime() const {
     } else {
         return 1000000.;
     }
-}
-
-
-bool
-MSEdge::prohibits(const SUMOVehicle* const vehicle) const {
-    if (myFunction == EDGEFUNCTION_DISTRICT || !myHaveClassConstraints) {
-        return false;
-    }
-    SUMOVehicleClass vclass = vehicle->getVehicleType().getVehicleClass();
-    for (std::vector<MSLane*>::iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        if ((*i)->allowsVehicleClass(vclass)) {
-            return false;
-        }
-    }
-    return true;
 }
 
 

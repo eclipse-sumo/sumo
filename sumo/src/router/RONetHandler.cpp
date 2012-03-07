@@ -183,7 +183,6 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     bool ok = true;
-    SUMOVehicleClasses allowed, disallowed;
     // get the id, report an error if not given or empty...
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     if (!ok) {
@@ -201,13 +200,13 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     }
     // get the length
     // get the vehicle classes
-    parseVehicleClasses(allow, disallow, allowed, disallowed);
-    if (allowed.size() != 0 || disallowed.size() != 0) {
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    if (permissions != SVCFreeForAll) {
         myNet.setRestrictionFound();
     }
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
-        myCurrentEdge->addLane(new ROLane(id, length, maxSpeed, allowed, disallowed));
+        myCurrentEdge->addLane(new ROLane(id, length, maxSpeed, permissions));
     }
 }
 

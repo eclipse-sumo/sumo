@@ -95,6 +95,12 @@ public:
     /// @brief writes the location element
     static void writeLocation(OutputDevice& into);
 
+    /// @brief writes allowed disallowed attributes if needed;
+    static void writePermissions(OutputDevice& into, SVCPermissions permissions);
+
+    /// @brief writes allowed disallowed attributes if needed;
+    static void writePreferences(OutputDevice& into, SVCPermissions preferred);
+
 protected:
     /// @name Methods for writing network parts
     /// @{

@@ -86,15 +86,13 @@ public:
      * @param[in] numericalID The numerical id of the lane
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
-     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
-     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
+     * @param[in] permissions Vehicle classes that may drive on this lane
      * @see SUMOVehicleClass
      * @see MSLane
      */
     MSInternalLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
                    unsigned int numericalID, const PositionVector& shape, SUMOReal width,
-                   const SUMOVehicleClasses& allowed,
-                   const SUMOVehicleClasses& disallowed) ;
+                   SVCPermissions permissions);
 
 
     /// @brief Destructor

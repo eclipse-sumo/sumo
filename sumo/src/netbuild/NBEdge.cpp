@@ -217,7 +217,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl) :
     init(tpl->getNumLanes(), false);
     for (unsigned int i = 0; i < getNumLanes(); i++) {
         setSpeed(i, tpl->getLaneSpeed(i));
-        setVehicleClasses(tpl->getAllowedVehicleClasses(i), tpl->getDisallowedVehicleClasses(i), i);
+        setPermissions(tpl->getPermissions(i), i);
     }
 }
 
@@ -297,11 +297,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) {
     assert(myGeom.size() >= 2);
     myLanes.clear();
     for (unsigned int i = 0; i < noLanes; i++) {
-        Lane l;
-        l.speed = mySpeed;
-        l.offset = myOffset;
-        l.width = myWidth;
-        myLanes.push_back(l);
+        myLanes.push_back(Lane(this));
     }
     computeLaneShapes();
 }
@@ -1153,7 +1149,7 @@ NBEdge::laneOffset(const Position& from, const Position& to,
 bool
 NBEdge::hasRestrictions() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if ((*i).allowed.size() != 0 || (*i).notAllowed.size() != 0) {
+        if ((*i).permissions != SVCFreeForAll) {
             return true;
         }
     }
@@ -1162,26 +1158,12 @@ NBEdge::hasRestrictions() const {
 
 
 bool
-NBEdge::hasLaneSpecificAllow() const {
+NBEdge::hasLaneSpecificPermissions() const {
     std::vector<Lane>::const_iterator i = myLanes.begin();
-    const SUMOVehicleClasses& allowed = i->allowed;
+    SVCPermissions firstLanePermissions = i->permissions;
     i++;
     for (; i != myLanes.end(); ++i) {
-        if (i->allowed != allowed) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-NBEdge::hasLaneSpecificDisallow() const {
-    std::vector<Lane>::const_iterator i = myLanes.begin();
-    const SUMOVehicleClasses& notAllowed = i->notAllowed;
-    i++;
-    for (; i != myLanes.end(); ++i) {
-        if (i->notAllowed != notAllowed) {
+        if (i->permissions != firstLanePermissions) {
             return true;
         }
     }
@@ -1808,11 +1790,7 @@ void
 NBEdge::incLaneNo(unsigned int by) {
     unsigned int newLaneNo = (unsigned int) myLanes.size() + by;
     while (myLanes.size() < newLaneNo) {
-        Lane l;
-        l.speed = mySpeed;
-        l.offset = myOffset;
-        l.width = myWidth;
-        myLanes.push_back(l);
+        myLanes.push_back(Lane(this));
     }
     computeLaneShapes();
     const EdgeVector& incs = myFrom->getIncomingEdges();
@@ -1858,58 +1836,40 @@ NBEdge::markAsInLane2LaneState() {
 
 void
 NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
-    if (lane < 0) {
-        // if all lanes are meant...
+    if (lane < 0) { // all lanes are meant...
         for (unsigned int i = 0; i < myLanes.size(); i++) {
-            // ... do it for each lane
             allowVehicleClass((int) i, vclass);
         }
-        return;
-    }
-    assert(lane < (int) myLanes.size());
-    myLanes[lane].allowed.insert(vclass);
-    if (myLanes[lane].notAllowed.count(vclass) > 0) {
-        // overrride earlier disallow
-        myLanes[lane].notAllowed.erase(vclass);
-        WRITE_WARNING("Overriding previous '" + toString(SUMO_ATTR_DISALLOW) + "=" +
-                      toString(vclass) + "' for lane '" + getLaneID(lane) + "'.")
+    } else {
+        assert(lane < (int) myLanes.size());
+        myLanes[lane].permissions |= vclass;
     }
 }
 
 
 void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
-    if (lane < 0) {
-        // if all lanes are meant...
+    if (lane < 0) { // all lanes are meant...
         for (unsigned int i = 0; i < myLanes.size(); i++) {
-            // ... do it for each lane
-            disallowVehicleClass((int) i, vclass);
+            allowVehicleClass((int) i, vclass);
         }
-        return;
-    }
-    assert(lane < (int) myLanes.size());
-    myLanes[lane].notAllowed.insert(vclass);
-    if (myLanes[lane].allowed.count(vclass) > 0) {
-        // overrride earlier allow
-        myLanes[lane].allowed.erase(vclass);
-        WRITE_WARNING("Overriding previous '" + toString(SUMO_ATTR_ALLOW) + "=" +
-                      toString(vclass) + "' for lane '" + getLaneID(lane) + "'.")
+    } else {
+        assert(lane < (int) myLanes.size());
+        myLanes[lane].permissions &= ~vclass;
     }
 }
 
 
 void
 NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
-    if (lane < 0) {
-        // if all lanes are meant...
+    if (lane < 0) { // all lanes are meant...
         for (unsigned int i = 0; i < myLanes.size(); i++) {
-            // ... do it for each lane
-            preferVehicleClass((int) i, vclass);
+            allowVehicleClass((int) i, vclass);
         }
-        return;
+    } else {
+        assert(lane < (int) myLanes.size());
+        myLanes[lane].preferred |= vclass;
     }
-    assert(lane < (int) myLanes.size());
-    myLanes[lane].preferred.insert(vclass);
 }
 
 
@@ -1961,50 +1921,46 @@ NBEdge::setSpeed(int lane, SUMOReal speed) {
 }
 
 
-void
-NBEdge::setVehicleClasses(const SUMOVehicleClasses& allowed, const SUMOVehicleClasses& disallowed, int lane) {
-    for (SUMOVehicleClasses::const_iterator i = allowed.begin(); i != allowed.end(); ++i) {
-        allowVehicleClass(lane, *i);
-    }
-    for (SUMOVehicleClasses::const_iterator i = disallowed.begin(); i != disallowed.end(); ++i) {
-        disallowVehicleClass(lane, *i);
+void 
+NBEdge::setPermissions(SVCPermissions permissions, int lane) {
+    if (lane < 0) {
+        for (unsigned int i = 0; i < myLanes.size(); i++) {
+            // ... do it for each lane
+            setPermissions(permissions, i);
+        }
+    } else {
+        assert(lane < (int) myLanes.size());
+        myLanes[lane].permissions = permissions;
     }
 }
 
 
-SUMOVehicleClasses
-NBEdge::getAllowedVehicleClasses() const {
-    SUMOVehicleClasses ret;
-    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        const SUMOVehicleClasses& allowed = (*i).allowed;
-        ret.insert(allowed.begin(), allowed.end());
+void 
+NBEdge::setPreferredVehicleClass(SVCPermissions permissions, int lane) {
+    if (lane < 0) {
+        for (unsigned int i = 0; i < myLanes.size(); i++) {
+            // ... do it for each lane
+            setPreferredVehicleClass(permissions, i);
+        }
+    } else {
+        assert(lane < (int) myLanes.size());
+        myLanes[lane].preferred = permissions;
     }
-    return ret;
 }
 
 
-SUMOVehicleClasses
-NBEdge::getDisallowedVehicleClasses() const {
-    SUMOVehicleClasses ret;
-    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        const SUMOVehicleClasses& notAllowed = (*i).notAllowed;
-        ret.insert(notAllowed.begin(), notAllowed.end());
+SVCPermissions 
+NBEdge::getPermissions(int lane) const {
+    if (lane < 0) {
+        SVCPermissions result = 0;
+        for (unsigned int i = 0; i < myLanes.size(); i++) {
+            result |= getPermissions(i);
+        }
+        return result;
+    } else {
+        assert(lane < (int) myLanes.size());
+        return myLanes[lane].permissions;
     }
-    return ret;
-}
-
-
-SUMOVehicleClasses
-NBEdge::getAllowedVehicleClasses(unsigned int lane) const {
-    assert(lane < myLanes.size());
-    return myLanes[lane].allowed;
-}
-
-
-SUMOVehicleClasses
-NBEdge::getDisallowedVehicleClasses(unsigned int lane) const {
-    assert(lane < myLanes.size());
-    return myLanes[lane].notAllowed;
 }
 
 
@@ -2017,9 +1973,8 @@ NBEdge::setLoadedLength(SUMOReal val) {
 void
 NBEdge::dismissVehicleClassInformation() {
     for (std::vector<Lane>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        (*i).allowed.clear();
-        (*i).notAllowed.clear();
-        (*i).preferred.clear();
+        (*i).permissions = SVCFreeForAll;
+        (*i).preferred = 0;
     }
 }
 

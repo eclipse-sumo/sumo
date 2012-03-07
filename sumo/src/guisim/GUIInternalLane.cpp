@@ -55,9 +55,8 @@ GUIInternalLane::GUIInternalLane(const std::string& id,
                                  SUMOReal maxSpeed, SUMOReal length,
                                  MSEdge* const edge, unsigned int numericalID,
                                  const PositionVector& shape, SUMOReal width,
-                                 const SUMOVehicleClasses& allowed,
-                                 const SUMOVehicleClasses& disallowed)
-    : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed) {}
+                                 SVCPermissions permissions) :
+    MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions) {}
 
 
 GUIInternalLane::~GUIInternalLane() {

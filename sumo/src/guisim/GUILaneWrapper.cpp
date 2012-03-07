@@ -624,9 +624,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
         case 1:
             return gSelected.isSelected(getType(), getGlID());
         case 2: {
-            const SUMOVehicleClasses& allowed = getLane().getAllowedClasses();
-            const SUMOVehicleClasses& disallowed = getLane().getNotAllowedClasses();
-            if ((allowed.size() == 0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER) != allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER) == disallowed.end()) {
+            if (getLane().allowsVehicleClass(SVC_PASSENGER)) {
                 return 0;
             } else {
                 return 1;

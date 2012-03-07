@@ -60,10 +60,10 @@
 MSInternalLane::MSInternalLane(const std::string& id, SUMOReal maxSpeed,
                                SUMOReal length, MSEdge* const edge, unsigned int numericalID,
                                const PositionVector& shape, SUMOReal width,
-                               const SUMOVehicleClasses& allowed,
-                               const SUMOVehicleClasses& disallowed)
-    : MSLane(id, maxSpeed, length, edge, numericalID, shape, width, allowed, disallowed),
-      myFoesIndex(-1) {}
+                               SVCPermissions permissions):
+    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions),
+    myFoesIndex(-1) 
+{}
 
 
 MSInternalLane::~MSInternalLane() {}

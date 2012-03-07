@@ -119,16 +119,17 @@ public:
      * @brief An (internal) definition of a single lane of an edge
      */
     struct Lane {
+        Lane(NBEdge* e) : 
+            speed(e->getSpeed()), permissions(SVCFreeForAll), preferred(0), 
+            offset(e->getOffset()), width(e->getWidth()) {}
         /// @brief The lane's shape
         PositionVector shape;
         /// @brief The speed allowed on this lane
         SUMOReal speed;
         /// @brief List of vehicle types that are allowed on this lane
-        SUMOVehicleClasses allowed;
-        /// @brief List of vehicle types that are not allowed on this lane
-        SUMOVehicleClasses notAllowed;
+        SVCPermissions permissions;
         /// @brief List of vehicle types that are preferred on this lane
-        SUMOVehicleClasses preferred;
+        SVCPermissions preferred;
         /// @brief This lane's offset to the intersection begin
         SUMOReal offset;
         /// @brief This lane's width
@@ -809,10 +810,7 @@ public:
     bool hasRestrictions() const;
 
     /// @brief whether lanes differ in allowed vehicle classes
-    bool hasLaneSpecificAllow() const;
-
-    /// @brief whether lanes differ in disallowed vehicle classes
-    bool hasLaneSpecificDisallow() const;
+    bool hasLaneSpecificPermissions() const;
 
     /// @brief whether lanes differ in speed
     bool hasLaneSpecificSpeed() const;
@@ -909,15 +907,18 @@ public:
     void markAsInLane2LaneState();
 
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
-    void setVehicleClasses(const SUMOVehicleClasses& allowed, const SUMOVehicleClasses& disallowed, int lane = -1);
+    void setPermissions(SVCPermissions permissions, int lane = -1);
+
+    void setPreferredVehicleClass(SVCPermissions permissions, int lane = -1);
 
     /// @brief set allowed class for the given lane or for all lanes if -1 is given
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
-
     /// @brief set disallowed class for the given lane or for all lanes if -1 is given
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
     void preferVehicleClass(int lane, SUMOVehicleClass vclass);
+
+
 
     /// @brief set lane specific width (negative lane implies set for all lanes)
     void setWidth(int lane, SUMOReal width);
@@ -928,17 +929,8 @@ public:
     /// @brief set lane specific speed (negative lane implies set for all lanes)
     void setSpeed(int lane, SUMOReal offset);
 
-    /// @brief get the union of allowed classes over all lanes
-    SUMOVehicleClasses getAllowedVehicleClasses() const;
-
-    /// @brief get the union of disallowed classes over all lanes
-    SUMOVehicleClasses getDisallowedVehicleClasses() const;
-
-    /// @brief get allowed classed for the given lane
-    SUMOVehicleClasses getAllowedVehicleClasses(unsigned int lane) const;
-
-    /// @brief get disallowed classed for the given lane
-    SUMOVehicleClasses getDisallowedVehicleClasses(unsigned int lane) const;
+    /// @brief get the union of allowed classes over all lanes or for a specific lane
+    SVCPermissions getPermissions(int lane = -1) const;
 
     void disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane);
 

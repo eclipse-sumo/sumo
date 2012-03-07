@@ -470,13 +470,11 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    SUMOVehicleClasses allowedClasses;
-    SUMOVehicleClasses disallowedClasses;
-    parseVehicleClasses(allow, disallow, allowedClasses, disallowedClasses);
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow);
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, allowedClasses, disallowedClasses);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;

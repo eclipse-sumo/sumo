@@ -202,11 +202,8 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
                     }
                 }
             }
-            // allow/disallow
-            SUMOVehicleClasses allowed;
-            SUMOVehicleClasses disallowed;
-            parseVehicleClasses(lane->allow, lane->disallow, allowed, disallowed);
-            nbe->setVehicleClasses(allowed, disallowed, fromLaneIndex);
+            // allow/disallow XXX preferred
+            nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
             // width, offset
             nbe->setWidth(fromLaneIndex, lane->width);
             nbe->setOffset(fromLaneIndex, lane->offset);

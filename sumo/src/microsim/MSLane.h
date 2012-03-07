@@ -102,14 +102,12 @@ public:
      * @param[in] numericalID The numerical id of the lane
      * @param[in] shape The shape of the lane
      * @param[in] width The width of the lane
-     * @param[in] allowed Vehicle classes that explicitly may drive on this lane
-     * @param[in] disallowed Vehicle classes that are explicitly forbidden on this lane
+     * @param[in] permissions Encoding of the Vehicle classes that may drive on this lane
      * @see SUMOVehicleClass
      */
     MSLane(const std::string& id, SUMOReal maxSpeed, SUMOReal length, MSEdge* const edge,
            unsigned int numericalID, const PositionVector& shape, SUMOReal width,
-           const SUMOVehicleClasses& allowed,
-           const SUMOVehicleClasses& disallowed) ;
+           SVCPermissions permissions);
 
 
     /// @brief Destructor
@@ -350,19 +348,11 @@ public:
     }
 
 
-    /** @brief Returns vehicle classes explicitly allowed on this lane
+    /** @brief Returns the vehicle class permissions for this lane
      * @return This lane's allowed vehicle classes
      */
-    const SUMOVehicleClasses& getAllowedClasses() const {
-        return myAllowedClasses;
-    }
-
-
-    /** @brief Returns vehicle classes explicitly disallowed on this lane
-     * @return This lane's disallowed vehicle classes
-     */
-    const SUMOVehicleClasses& getNotAllowedClasses() const {
-        return myNotAllowedClasses;
+    inline SVCPermissions getPermissions() {
+        return myPermissions;
     }
 
 
@@ -489,17 +479,14 @@ public:
     MSLane* getLeftLane() const;
     MSLane* getRightLane() const;
 
-    void setAllowedClasses(const SUMOVehicleClasses& classes) {
-        myAllowedClasses = classes;
+    inline void setPermissions(SVCPermissions permissions) {
+        myPermissions = permissions;
     }
 
 
-    void setNotAllowedClasses(const SUMOVehicleClasses& classes) {
-        myNotAllowedClasses = classes;
+    inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
+        return (myPermissions & vclass) == vclass;
     }
-
-
-    bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane* lane, MSLink* viaLink);
 
@@ -673,11 +660,8 @@ protected:
         Junction::moveFirst() */
     std::vector<MSVehicle*> myVehBuffer;
 
-    /// The list of allowed vehicle classes
-    SUMOVehicleClasses myAllowedClasses;
-
-    /// The list of disallowed vehicle classes
-    SUMOVehicleClasses myNotAllowedClasses;
+    /// The vClass permissions for this lane
+    SVCPermissions myPermissions;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
     mutable MSLane* myLogicalPredecessorLane;

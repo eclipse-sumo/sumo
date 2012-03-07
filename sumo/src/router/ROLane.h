@@ -55,15 +55,11 @@ public:
      * @param[in] id The id of the lane
      * @param[in] length The length of the lane
      * @param[in] maxSpeed The maximum speed allowed on the lane
-     * @param[in] allowed Vehicle classes that may pass this lane
-     * @param[in] disallowed Vehicle classes that may not pass this lane
+     * @param[in] permissions Vehicle classes that may pass this lane
      */
-    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed,
-           const SUMOVehicleClasses& allowed,
-           const SUMOVehicleClasses& disallowed)
-        : Named(id), myLength(length), myMaxSpeed(maxSpeed),
-          myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
-    }
+    ROLane(const std::string& id, SUMOReal length, SUMOReal maxSpeed, SVCPermissions permissions) : 
+        Named(id), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions)
+    {}
 
 
     /// @brief Destructor
@@ -89,16 +85,8 @@ public:
     /** @brief Returns the list of allowed vehicle classes
      * @return The list of vehicle classes allowed on this lane
      */
-    const SUMOVehicleClasses& getAllowedClasses() const {
-        return myAllowedClasses;
-    }
-
-
-    /** @brief Returns the list of not allowed vehicle classes
-     * @return The list of vehicle classes not allowed on this lane
-     */
-    const SUMOVehicleClasses& getNotAllowedClasses() const {
-        return myNotAllowedClasses;
+    inline SVCPermissions getPermissions() {
+        return myPermissions;
     }
 
 
@@ -109,11 +97,8 @@ private:
     /// @brief The maximum speed allowed on the lane
     SUMOReal myMaxSpeed;
 
-    /// @brief The list of allowed vehicle classes
-    SUMOVehicleClasses myAllowedClasses;
-
-    /// @brief The list of disallowed vehicle classes
-    SUMOVehicleClasses myNotAllowedClasses;
+    /// @brief The encoding of allowed vehicle classes
+    SVCPermissions myPermissions;
 
 
 private:
