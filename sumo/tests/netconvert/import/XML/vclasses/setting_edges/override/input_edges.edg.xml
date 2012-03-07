@@ -21,7 +21,7 @@
 
    <edge id="4fi" from="4" to="m4" priority="2" numLanes="2" speed="40" />
    <edge id="4si" from="m4" to="0" priority="3" numLanes="3" speed="50" disallow="pedestrian" allow="bicycle">
-      <lane index="1" allow="bus"/>
+      <lane index="1" allow="bus bicycle"/>
    </edge>
 
    <edge id="4o" from="0" to="4" priority="1" numLanes="1" speed="40" />
