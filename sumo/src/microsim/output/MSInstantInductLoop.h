@@ -143,7 +143,11 @@ public:
      * @exception IOError If an error on writing occurs
      */
     void writeXMLOutput(OutputDevice& dev,
-                        SUMOTime startTime, SUMOTime stopTime) { }
+                        SUMOTime startTime, SUMOTime stopTime) {
+        UNUSED_PARAMETER(dev);
+        UNUSED_PARAMETER(startTime);
+        UNUSED_PARAMETER(stopTime);
+    }
 
 
     /** @brief Open the XML-output

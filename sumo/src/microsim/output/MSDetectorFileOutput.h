@@ -110,7 +110,9 @@ public:
      *
      * @param[in] step The current time step
      */
-    virtual void detectorUpdate(const SUMOTime step) { }
+    virtual void detectorUpdate(const SUMOTime step) {
+        UNUSED_PARAMETER(step);
+    }
 
 
     /** @brief Builds the graphical representation
