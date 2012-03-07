@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/13/12 14:21:36 by SUMO sumo Version dev-SVN-r11881
+<!-- generated on 03/07/12 10:15:24 by SUMO sumo Version dev-SVN-r12024
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -23,28 +23,28 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0.00" arrival="168.00">
+    <vehicle id="0" depart="0.00" arrival="167.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="1" depart="20.00" arrival="188.00">
+    <vehicle id="1" depart="20.00" arrival="187.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="2" depart="40.00" arrival="208.00">
+    <vehicle id="2" depart="40.00" arrival="207.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="40.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="3" depart="60.00" arrival="228.00">
+    <vehicle id="3" depart="60.00" arrival="227.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="60.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
@@ -86,7 +86,7 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="9" depart="180.00" arrival="348.00">
+    <vehicle id="9" depart="180.00" arrival="347.00">
         <routeDistribution>
             <route replacedOnEdge="" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end"/>
