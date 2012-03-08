@@ -221,8 +221,12 @@ public:
      * @return Whether the vehicle must not enter this edge
      */
     inline bool prohibits(const ROVehicle* const vehicle) const {
-        const SUMOVehicleClass vclass = vehicle->getType() != 0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
+        const SUMOVehicleClass vclass = vehicle->getVClass();
         return (myCombinedPermissions & vclass) != vclass;
+    }
+
+    inline SVCPermissions getPermissions() const {
+        return myCombinedPermissions;
     }
 
 

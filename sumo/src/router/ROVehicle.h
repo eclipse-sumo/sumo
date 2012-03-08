@@ -36,6 +36,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SUMOAbstractRouter.h>
 
@@ -116,6 +117,11 @@ public:
 
     /// @brief Returns the vehicle's maximum speed
     SUMOReal getMaxSpeed() const;
+
+
+    inline SUMOVehicleClass getVClass() const {
+        return getType() != 0 ? getType()->vehicleClass : DEFAULT_VEH_CLASS;
+    }
 
 
     /** @brief Saves the complete vehicle description.
