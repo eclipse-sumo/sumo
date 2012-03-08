@@ -1074,7 +1074,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
     //
     if (this != myLane->getFirstVehicle() && seen - cfModel.brakeGap(myState.mySpeed) > 0 && seen - SPEED2DIST(boundVSafe) - ACCEL2DIST(cfModel.getMaxAccel()) > 0) {
         // not "reaching critical"
-        SUMOReal place = MIN2(myLane->getLength() - POSITION_EPS, getVehicleType().getMinGap());
+        SUMOReal place = MIN2(myLane->getLength() - (SUMOReal)POSITION_EPS, getVehicleType().getMinGap());
         myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false, 0, 0, seen - place));
         return;
     }
@@ -1111,7 +1111,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
-        SUMOReal place = MIN2(nextLane->getLength() - POSITION_EPS, getVehicleType().getMinGap());
+        SUMOReal place = MIN2(nextLane->getLength() - (SUMOReal)POSITION_EPS, getVehicleType().getMinGap());
         if (nextLane->isLinkEnd(link)) {
             SUMOReal laneEndVSafe = cfModel.stopSpeed(this, seen - place);
             if (myCurrEdge + view == myRoute->end()) {
