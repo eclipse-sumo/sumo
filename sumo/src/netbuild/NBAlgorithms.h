@@ -105,6 +105,7 @@ class NBNodesEdgesSorter {
 public:
     /** @brief Sorts a node's edges clockwise regarding driving direction
      * @param[in] nc The container of nodes to loop along
+     * @param[in] leftHand Whether the network is left-handed
      */
     static void sortNodesEdges(NBNodeCont &nc, bool leftHand);
 

@@ -123,7 +123,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode *node) {
 
 
 // ---------------------------------------------------------------------------
-// NBTurningDirectionsComputer
+// NBNodesEdgesSorter
 // ---------------------------------------------------------------------------
 void 
 NBNodesEdgesSorter::sortNodesEdges(NBNodeCont &nc, bool leftHand) {
@@ -157,8 +157,13 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
     NBEdge* e1 = *i1;
     NBEdge* e2 = *i2;
     if (leftHand) {
+        // @todo: check this; shouldn't it be "swap(*e1, *e2)"?
         std::swap(e1, e2);
     }
+    // @todo: The difference between "isTurningDirectionAt" and "isTurnaround"
+    //  is not nice. Maybe we could get rid of it if we would always mark edges
+    //  as turnarounds, even if they do not have to be added, as mentioned in
+    //  notes on NBTurningDirectionsComputer::computeTurnDirectionsForNode
     if (e2->getToNode() == n && e2->isTurningDirectionAt(n, e1)) {
         std::swap(*i1, *i2);
     }
