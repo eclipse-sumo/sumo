@@ -345,6 +345,10 @@ public:
     /** @brief Returns the ROEdge at the index */
     static ROEdge* dictionary(size_t index) ;
 
+    /// @brief Returns the number of edges
+    static size_t dictSize() {
+        return myEdges.size();
+    };
 
     static void setTimeLineOptions(
             bool useBoundariesOnOverrideTT,
