@@ -65,6 +65,7 @@
 #ifdef HAVE_MESOSIM // catchall for internal stuff
 #include <internal/BulkStarRouter.h>
 #include <internal/CHRouter.h>
+#include <internal/CHRouterWrapper.h>
 #endif // have HAVE_MESOSIM
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -138,6 +139,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &ROEdge::getMinimumTravelTime);
             }
+
         } else if (routingAlgorithm == "CH") {
             // defaultVehicle is only in constructor and may be safely deleted
             // it is mainly needed for its maximum speed. @todo XXX make this configurable
@@ -153,6 +155,19 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 router = new CHRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime, &defaultVehicle, begin, weightPeriod);
             }
+
+        } else if (routingAlgorithm == "CHWrapper") {
+            const SUMOTime begin = string2time(oc.getString("begin"));
+            const SUMOTime weightPeriod = (oc.isSet("weight-files") ? 
+                    string2time(oc.getString("weight-period")) : 
+                    std::numeric_limits<int>::max());
+
+            if (!net.hasRestrictions()) {
+                WRITE_WARNING("CHWrapper is only needed for a restricted network");
+            }
+            router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                    oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
+
 #endif // have HAVE_MESOSIM
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
