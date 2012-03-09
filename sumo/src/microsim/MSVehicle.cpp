@@ -633,7 +633,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     bool onAppropriateLane = myLane->appropriate(this);
     if (!onAppropriateLane) {
         // decelerate to lane end when yes
-        SUMOReal place = MIN2(myLane->getLength() - POSITION_EPS, getVehicleType().getMinGap());
+        SUMOReal place = MIN2(myLane->getLength() - (SUMOReal)POSITION_EPS, getVehicleType().getMinGap());
         vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos - place), myLane->getMaxSpeed());
     }
     if (myCurrEdge == myRoute->end() - 1) {
