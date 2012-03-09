@@ -16,10 +16,11 @@ SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 Copyright (C) 2008-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
-import os, sys, subprocess, types
+import os, sys, subprocess, types, shutil
 import StringIO
 from datetime import datetime
 from optparse import OptionParser
+from routeChoices import getRouteChoices
 
 
 def addGenericOptions(optParser):
@@ -60,7 +61,7 @@ def addGenericOptions(optParser):
     optParser.add_option("-s", "--sloppy-insert", action="store_true",
                          default=False, help="sloppy insertion tests (may speed up the sim considerably)")
     optParser.add_option("--time-to-teleport", dest="timetoteleport", type="int", default=300,
-                         help="Delay before blocked vehicles are teleported")
+                         help="Delay before blocked vehicles are teleported where -1 means no teleporting")
 
 def initOptions():
     optParser = OptionParser()
@@ -118,6 +119,8 @@ def initOptions():
                          help="Additional weightes for duarouter")
     optParser.add_option("--router-verbose", action="store_true",
                          default=False, help="let duarouter print some statistics")
+    optParser.add_option("-M", "--external-gawron", action="store_true", dest="externalgawron",
+                         default=False, help="use the external gawron calculation")    
     return optParser
 
 def call(command, log):
@@ -181,7 +184,6 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     print >> fd, """</time>
     <report>
         <verbose value="%s"/>
-        <no-step-log value="true"/>
         <no-warnings value="%s"/>
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings)
@@ -328,7 +330,9 @@ def main(args=None):
     else:
         input_demands = options.routes.split(",")
         initial_type = "route"
-    
+    if options.externalgawron:#debug
+        print 'use externalgawron'
+        edgesMap = {}
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
         print "> Executing step %s" % step
@@ -358,12 +362,26 @@ def main(args=None):
                 print ">>> End time: %s" % etime
                 print ">>> Duration: %s" % (etime-btime)
                 print "<<"
+                # use the external gawron
+                if options.externalgawron:
+                    if step == 0:
+                        shutil.copy(basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
+                        shutil.copy(basename + "_000.rou.xml", basename + "_000.grou.xml")
+                    else:
+                        print 'step:', step
+                        print 'get externalgawron'
+                        dumpfile = "dump_%03i_%s.xml" % (step-1, options.aggregation)
+                        ecomeasure = None
+                        if options.ecomeasure:
+                            ecomeasure = options.ecomeasure    
+                        output, edgesMap = getRouteChoices(edgesMap,dumpfile,basename + "_%03i.rou.alt.xml" % step,options.net,options.addweights, options.gA, options.gBeta,step,ecomeasure)
                 files.append(output)
+                
         # simulation
         print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeSUMOConf(step, options, ",".join(files))
+        writeSUMOConf(step, options, ",".join(files))   #  todo: change 'grou.xml'
         log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         if options.tripinfoFilter:
