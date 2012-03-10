@@ -917,10 +917,10 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
-                            PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
-                            if (shape.intersects(otherShape)) {
-                                DoubleVector dv = shape.intersectsAtLengths2D(otherShape);
-                                SUMOReal minDV = dv[0];
+                            const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
+                            const DoubleVector dv = shape.intersectsAtLengths2D(otherShape);
+                            if (dv.size() > 0) {
+                                const SUMOReal minDV = dv[0];
                                 if (minDV < shape.length() - .1 && minDV > .1) { // !!!?
                                     assert(minDV >= 0);
                                     if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
