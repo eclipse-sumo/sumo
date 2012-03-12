@@ -183,9 +183,9 @@ public:
     void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep,
                                unsigned int step, SUMOTime stepDuration);
 
-    /** @brief Replaces the phases
+    /** @brief Replaces the phases and set the phase index
      */
-    void setPhases(const Phases& phases);
+    void setPhases(const Phases& phases, unsigned int index);
     /// @}
 
 

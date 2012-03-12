@@ -373,7 +373,8 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
                 vars.addLogic(subid, logic, true, true);
             } else {
-                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases);
+                // the initial phase of the new program is arbitrary. Only the user can decide on an appropriate phase
+                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, 0);
             }
             vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
             vars.executeOnSwitchActions();

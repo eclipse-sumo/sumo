@@ -78,7 +78,7 @@ MSSimpleTrafficLightLogic::trySwitch(bool) {
     // increment the index
     myStep++;
     // if the last phase was reached ...
-    if (myStep == myPhases.size()) {
+    if (myStep >= myPhases.size()) {
         // ... set the index to the first phase
         myStep = 0;
     }
@@ -200,9 +200,10 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 
 void 
-MSSimpleTrafficLightLogic::setPhases(const Phases& phases) {
+MSSimpleTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
     deletePhases();
     myPhases = phases;
+    myStep = step;
 }
 
 
