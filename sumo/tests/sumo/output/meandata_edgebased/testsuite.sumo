@@ -1,6 +1,12 @@
 # no traffic, just plain output
 no_vehicles
 
+# no traffic, just plain output without empty edges
+no_empty
+
+# no traffic, just plain output with defaults for empty edges
+print_defaults
+
 # one vehicle is moving
 one_vehicle
 
@@ -48,4 +54,3 @@ internal
 
 # Tests for deprecated markup
 _deprecated_
-

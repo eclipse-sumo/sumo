@@ -1,3 +1,9 @@
+# no traffic, just plain output without empty edges
+no_empty
+
+# no traffic, just plain output with defaults for empty edges
+print_defaults
+
 # no traffic, just plain output
 no_vehicles
 
@@ -51,4 +57,3 @@ internal
 
 # Tests for deprecated markup
 _deprecated_
-
