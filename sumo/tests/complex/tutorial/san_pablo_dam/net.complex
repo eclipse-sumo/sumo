@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/15/11 10:05:57 by SUMO netconvert Version dev-SVN-r11508
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/12/12 14:59:43 by SUMO netconvert Version dev-SVN-r12059
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -30,13 +30,13 @@
     </edge>
 
     <edge id="1to7" from="obs1" to="obs7" priority="-1">
-        <lane id="1to7_0" index="0" speed="40.00" length="5713.17" shape="0.00,-1.65 5713.17,-1.65"/>
+        <lane id="1to7_0" index="0" speed="40.00" length="5713.17" shape="-0.00,-1.65 5713.17,-1.65"/>
     </edge>
     <edge id="7to8" from="obs7" to="obs8" priority="-1">
         <lane id="7to8_0" index="0" speed="40.00" length="325.83" shape="5713.17,-1.65 6039.00,-1.65"/>
     </edge>
 
-    <junction id="obs1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25">
+    <junction id="obs1" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25">
     </junction>
     <junction id="obs7" type="priority" x="5713.17" y="0.00" incLanes="1to7_0" intLanes=":obs7_0_0" shape="5713.17,-0.05 5713.17,-3.25 5713.17,-0.05">
         <request index="0" response="0" foes="0" cont="0"/>
