@@ -73,9 +73,10 @@ class OutputDevice;
  */
 class NBNode : public Named {
     friend class NBNodeCont;
-    friend class GNEJunction; // used for visualization (NETEDIT)
-    friend class NBNodesEdgesSorter; // sorts the edges
-    friend class NBNodeTypeComputer; // computes type
+    friend class GNEJunction; // < used for visualization (NETEDIT)
+    friend class NBNodesEdgesSorter; // < sorts the edges
+    friend class NBNodeTypeComputer; // < computes type
+    friend class NBEdgePriorityComputer; // < computes priorities of edges per intersection
 
 public:
     /**
@@ -289,10 +290,6 @@ public:
         XML representation */
     bool writeLogic(OutputDevice& into) const;
 
-    /** computes the priorities of participating edges within this junction
-     * @note this depends on node types */
-    void computePriorities();
-
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
     Position getEmptyDir() const;
@@ -459,10 +456,6 @@ private:
 
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
-
-    /** removes the first edge from the list, marks it as higher priorised and
-        returns it */
-    NBEdge* extractAndMarkFirst(EdgeVector& s);
 
     /** returns a list of edges which are connected to the given
         outgoing edge */

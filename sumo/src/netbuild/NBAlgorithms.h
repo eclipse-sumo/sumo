@@ -241,6 +241,42 @@ private:
 };
 
 
+
+// ---------------------------------------------------------------------------
+// NBEdgePriorityComputer
+// ---------------------------------------------------------------------------
+/* @class NBEdgePriorityComputer
+ * @brief Computes edge priorities within a node
+ */
+class NBEdgePriorityComputer {
+public:
+    /** @brief Computes edge priorities within a node
+     * @param[in] nc The container of nodes to loop along
+     */
+    static void computeEdgePriorities(NBNodeCont &nc);
+
+private:
+    /** @brief Sets the priorites in case of a priority junction
+     * @param[in] n The node to set edges' priorities
+     */
+    static void setPriorityJunctionPriorities(NBNode &n);
+
+    /** @brief Sets the priorites in case of a priority junction
+     * @param[in] n The node to set edges' priorities
+     * @param[in] s The vector of edges to get and mark the first from
+     * @return The vector's first edge
+     */
+    static NBEdge* extractAndMarkFirst(NBNode &n, std::vector<NBEdge*>& s);
+
+    /** @brief Returns whether both edges have the same priority
+     * @param[in] e1 The first edge
+     * @param[in] e2 The second edge
+     * Whether both edges have the same priority
+     */
+    static bool samePriority(const NBEdge*const e1, const NBEdge*const e2);
+
+};
+
 #endif
 
 /****************************************************************************/

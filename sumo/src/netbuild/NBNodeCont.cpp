@@ -837,14 +837,6 @@ NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
 
 
 void
-NBNodeCont::computePriorities() {
-    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computePriorities();
-    }
-}
-
-
-void
 NBNodeCont::clear() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         delete((*i).second);

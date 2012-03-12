@@ -242,7 +242,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");
-    myNodeCont.computePriorities();
+    NBEdgePriorityComputer::computeEdgePriorities(myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
     if (oc.getBool("roundabouts.guess")) {

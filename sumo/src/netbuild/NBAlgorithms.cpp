@@ -246,10 +246,6 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
                 if (n->getOppositeIncoming(*j) == *i && n->myIncomingEdges.size() > 2) {
                     isOpposite = true;
                 }
-
-                // This usage of defaults is not very well, still we do not have any
-                //  methods for the conversion of foreign, sometimes not supplied
-                //  road types into an own format
                 SumoXMLNodeType tmptype = type;
                 if (!isOpposite) {
                     tmptype = m.getType((*i)->getSpeed(), (*j)->getSpeed());
@@ -261,6 +257,172 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
         }
         n->myType = type;
     }
+}
+
+
+// ---------------------------------------------------------------------------
+// NBEdgePriorityComputer
+// ---------------------------------------------------------------------------
+void
+NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont &nc) {
+    for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
+        NBNode *n = (*i).second;
+        // reset all priorities
+        EdgeVector::iterator j;
+        // check if the junction is not a real junction
+        if (n->myIncomingEdges.size() == 1 && n->myOutgoingEdges.size() == 1) {
+            for (j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
+                (*j)->setJunctionPriority(n, 1);
+            }
+            continue;
+        }
+        // preset all junction's edge priorities to zero
+        for (j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
+            (*j)->setJunctionPriority(n, 0);
+        }
+        // compute the priorities on junction when needed
+        if (n->myType != NODETYPE_RIGHT_BEFORE_LEFT) {
+            setPriorityJunctionPriorities(*n);
+        }
+    }
+}
+
+
+void
+NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode &n) {
+    if (n.myIncomingEdges.size() == 0 || n.myOutgoingEdges.size() == 0) {
+        return;
+    }
+    EdgeVector incoming = n.myIncomingEdges;
+    EdgeVector outgoing = n.myOutgoingEdges;
+    // what we do want to have is to extract the pair of roads that are
+    //  the major roads for this junction
+    // let's get the list of incoming edges with the highest priority
+    std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
+    EdgeVector bestIncoming;
+    NBEdge* best = incoming[0];
+    while (incoming.size() > 0 && samePriority(best, incoming[0])) {
+        bestIncoming.push_back(*incoming.begin());
+        incoming.erase(incoming.begin());
+    }
+    // now, let's get the list of best outgoing
+    assert(outgoing.size() != 0);
+    sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
+    EdgeVector bestOutgoing;
+    best = outgoing[0];
+    while (outgoing.size() > 0 && samePriority(best, outgoing[0])) { //->getPriority()==best->getPriority()) {
+        bestOutgoing.push_back(*outgoing.begin());
+        outgoing.erase(outgoing.begin());
+    }
+    // now, let's compute for each of the best incoming edges
+    //  the incoming which is most opposite
+    //  the outgoing which is most opposite
+    EdgeVector::iterator i;
+    std::map<NBEdge*, NBEdge*> counterIncomingEdges;
+    std::map<NBEdge*, NBEdge*> counterOutgoingEdges;
+    incoming = n.myIncomingEdges;
+    outgoing = n.myOutgoingEdges;
+    for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
+        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n));
+        counterIncomingEdges[*i] = *incoming.begin();
+        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n));
+        counterOutgoingEdges[*i] = *outgoing.begin();
+    }
+    // ok, let's try
+    // 1) there is one best incoming road
+    if (bestIncoming.size() == 1) {
+        // let's mark this road as the best
+        NBEdge* best1 = extractAndMarkFirst(n, bestIncoming);
+        if(counterIncomingEdges.find(best1)!=counterIncomingEdges.end()) {
+            // ok, look, what we want is the opposit of the straight continuation edge
+            // but, what if such an edge does not exist? By now, we'll determine it
+            // geometrically
+            NBEdge *s = counterIncomingEdges.find(best1)->second;
+            if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n))>180-45) {
+                s->setJunctionPriority(&n, 1);
+            }
+        }
+        if (bestOutgoing.size() != 0) {
+            // mark the best outgoing as the continuation
+            sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
+            best1 = extractAndMarkFirst(n, bestOutgoing);
+            if(counterOutgoingEdges.find(best1)!=counterOutgoingEdges.end()) {
+                NBEdge *s = counterOutgoingEdges.find(best1)->second;
+                if(GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n))>180-45) {
+                    s->setJunctionPriority(&n, 1);
+                }
+            }
+        }
+        return;
+    }
+
+    // ok, what we want to do in this case is to determine which incoming
+    //  has the best continuation...
+    // This means, when several incoming roads have the same priority,
+    //  we want a (any) straight connection to be more priorised than a turning
+    SUMOReal bestAngle = 0;
+    NBEdge* bestFirst = 0;
+    NBEdge* bestSecond = 0;
+    bool hadBest = false;
+    for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
+        EdgeVector::iterator j;
+        NBEdge* t1 = *i;
+        SUMOReal angle1 = t1->getAngle() + 180;
+        if (angle1 >= 360) {
+            angle1 -= 360;
+        }
+        for (j = i + 1; j != bestIncoming.end(); ++j) {
+            NBEdge* t2 = *j;
+            SUMOReal angle2 = t2->getAngle() + 180;
+            if (angle2 >= 360) {
+                angle2 -= 360;
+            }
+            SUMOReal angle = GeomHelper::getMinAngleDiff(angle1, angle2);
+            if (!hadBest || angle > bestAngle) {
+                bestAngle = angle;
+                bestFirst = *i;
+                bestSecond = *j;
+                hadBest = true;
+            }
+        }
+    }
+    bestFirst->setJunctionPriority(&n, 1);
+    sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestFirst));
+    if (bestOutgoing.size() != 0) {
+        extractAndMarkFirst(n, bestOutgoing);
+    }
+    bestSecond->setJunctionPriority(&n, 1);
+    sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestSecond));
+    if (bestOutgoing.size() != 0) {
+        extractAndMarkFirst(n, bestOutgoing);
+    }
+}
+
+
+NBEdge*
+NBEdgePriorityComputer::extractAndMarkFirst(NBNode &n, std::vector<NBEdge*>& s) {
+    if (s.size() == 0) {
+        return 0;
+    }
+    NBEdge* ret = s.front();
+    s.erase(s.begin());
+    ret->setJunctionPriority(&n, 1);
+    return ret;
+}
+
+
+bool
+NBEdgePriorityComputer::samePriority(const NBEdge*const e1, const NBEdge*const e2) {
+    if (e1 == e2) {
+        return true;
+    }
+    if (e1->getPriority() != e2->getPriority()) {
+        return false;
+    }
+    if ((int) e1->getSpeed() != (int) e2->getSpeed()) {
+        return false;
+    }
+    return (int) e1->getNumLanes() == (int) e2->getNumLanes();
 }
 
 

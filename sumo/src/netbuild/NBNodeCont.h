@@ -274,9 +274,6 @@ public:
     /// build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
 
-    /// computes priorities of edges based on junction types
-    void computePriorities();
-
     /** @brief Returns the number of known nodes
      * @return The number of nodes stored in this container
      */
