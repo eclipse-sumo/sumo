@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/08/11 13:17:26 by SUMO netconvert Version dev-SVN-r10899
+<!-- generated on 03/12/12 09:02:46 by SUMO netconvert Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -33,9 +34,9 @@
         <lane id="s1_2" index="2" speed="30.00" length="483.82" shape="2000.00,1.65 1516.18,1.65"/>
     </edge>
     <edge id="s2" from="4" to="3" priority="-1">
-        <lane id="s2_0" index="0" speed="30.00" length="507.42" shape="1507.42,8.25 1000.00,8.25"/>
-        <lane id="s2_1" index="1" speed="30.00" length="507.42" shape="1507.42,4.95 1000.00,4.95"/>
-        <lane id="s2_2" index="2" speed="30.00" length="507.42" shape="1507.42,1.65 1000.00,1.65"/>
+        <lane id="s2_0" index="0" speed="30.00" length="511.18" shape="1511.18,8.25 1000.00,8.25"/>
+        <lane id="s2_1" index="1" speed="30.00" length="511.18" shape="1511.18,4.95 1000.00,4.95"/>
+        <lane id="s2_2" index="2" speed="30.00" length="511.18" shape="1511.18,1.65 1000.00,1.65"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="500.00" shape="1000.00,8.25 500.00,8.25"/>
@@ -48,7 +49,7 @@
         <lane id="s4_2" index="2" speed="30.00" length="500.00" shape="500.00,1.65 0.00,1.65"/>
     </edge>
 
-    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.85 -0.00,0.05">
+    <junction id="1" type="unregulated" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05">
     </junction>
     <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="500.00,9.85 500.00,0.05 500.00,9.85">
         <request index="0" response="000" foes="000"/>
@@ -60,7 +61,7 @@
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1514.16,13.34 1515.93,10.68 1516.18,9.85 1516.18,0.05 1507.42,0.05 1507.42,9.85">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1514.16,13.34 1515.93,10.68 1516.18,9.85 1516.18,0.05 1511.18,0.05 1511.18,9.85">
         <request index="0" response="1110" foes="1110"/>
         <request index="1" response="0000" foes="0001"/>
         <request index="2" response="0000" foes="0001"/>

@@ -19,6 +19,7 @@ Processing turnarounds... done.
 Rechecking of lane endings... done.
 Computing node shapes... done.
 Computing edge shapes... 
+Lane '30007[1][1][0]' has calculated shape length near zero. Revert it back to old shape.
 Lane '82[1]' has calculated shape length near zero. Revert it back to old shape.
 Lane '85[1][1][0]' has calculated shape length near zero. Revert it back to old shape.
 done.
