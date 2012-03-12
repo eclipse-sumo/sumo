@@ -29,8 +29,11 @@ def parse(xmlfile, element_name):
             if event == pulldom.START_ELEMENT and parsenode.localName == element_name]
 
 def get_attrs(node, elementType, element_name):
+    # get all attributes defined in elementType from the parsed node
+    # if elementType is not yet defined create it as a a named tuple named element_name
     if not elementType:
-        # why NamedNodeMap does not support iteration is a mystery
+        # initialized the named tuple type (only once)
+        # note: for unfathomable reasons NamedNodeMap does not support pythonic iteration
         attrnames = [node.attributes.item(i).localName for i in range(node.attributes.length)]
         attrnames = [prefix_keyword(a) for a in attrnames]
         elementType.append(namedtuple(element_name, attrnames))
