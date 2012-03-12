@@ -196,6 +196,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     print >> fd, """</time>
     <report>
         <verbose value="%s"/>
+        <no-step-log value="True"/>
         <no-warnings value="%s"/>
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings)
