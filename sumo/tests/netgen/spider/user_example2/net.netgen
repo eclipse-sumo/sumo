@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/10/12 09:33:42 by SUMO netgen Version dev-SVN-r11865
+<!-- generated on 03/12/12 10:55:42 by SUMO netgen Version dev-SVN-r11548
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netgenConfiguration.xsd">
@@ -24,7 +24,7 @@
     <location netOffset="300.00,300.00" convBoundary="0.00,0.00,600.00,600.00" origBoundary="-300.00,-300.00,300.00,300.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" speed="13.90" length="5.00" shape="298.35,304.75 298.16,303.39 297.57,302.43 296.61,301.84 295.25,301.65"/>
+        <lane id=":1_0_0" index="0" speed="13.90" length="5.00" shape="298.35,304.75 298.16,303.39 297.58,302.42 296.61,301.84 295.25,301.65"/>
     </edge>
     <edge id=":1_1" function="internal">
         <lane id=":1_1_0" index="0" speed="13.90" length="9.50" shape="298.35,304.75 298.35,295.25"/>
@@ -36,7 +36,7 @@
         <lane id=":1_3_0" index="0" speed="13.90" length="4.82" shape="298.35,304.75 299.17,303.51 300.00,303.10 300.82,303.51 301.65,304.75"/>
     </edge>
     <edge id=":1_4" function="internal">
-        <lane id=":1_4_0" index="0" speed="13.90" length="5.00" shape="304.75,301.65 303.39,301.84 302.43,302.43 301.84,303.39 301.65,304.75"/>
+        <lane id=":1_4_0" index="0" speed="13.90" length="5.00" shape="304.75,301.65 303.39,301.84 302.42,302.42 301.84,303.39 301.65,304.75"/>
     </edge>
     <edge id=":1_5" function="internal">
         <lane id=":1_5_0" index="0" speed="13.90" length="9.50" shape="304.75,301.65 295.25,301.65"/>
@@ -48,7 +48,7 @@
         <lane id=":1_7_0" index="0" speed="13.90" length="4.82" shape="304.75,301.65 303.51,300.83 303.10,300.00 303.51,299.18 304.75,298.35"/>
     </edge>
     <edge id=":1_8" function="internal">
-        <lane id=":1_8_0" index="0" speed="13.90" length="5.00" shape="301.65,295.25 301.84,296.61 302.43,297.58 303.39,298.16 304.75,298.35"/>
+        <lane id=":1_8_0" index="0" speed="13.90" length="5.00" shape="301.65,295.25 301.84,296.61 302.42,297.58 303.39,298.16 304.75,298.35"/>
     </edge>
     <edge id=":1_9" function="internal">
         <lane id=":1_9_0" index="0" speed="13.90" length="9.50" shape="301.65,295.25 301.65,304.75"/>
@@ -60,7 +60,7 @@
         <lane id=":1_11_0" index="0" speed="13.90" length="4.82" shape="301.65,295.25 300.83,296.49 300.00,296.90 299.18,296.49 298.35,295.25"/>
     </edge>
     <edge id=":1_12" function="internal">
-        <lane id=":1_12_0" index="0" speed="13.90" length="5.00" shape="295.25,298.35 296.61,298.16 297.57,297.58 298.16,296.61 298.35,295.25"/>
+        <lane id=":1_12_0" index="0" speed="13.90" length="5.00" shape="295.25,298.35 296.61,298.16 297.58,297.58 298.16,296.61 298.35,295.25"/>
     </edge>
     <edge id=":1_13" function="internal">
         <lane id=":1_13_0" index="0" speed="13.90" length="9.50" shape="295.25,298.35 304.75,298.35"/>
@@ -342,7 +342,7 @@
         <lane id=":2/2_13_0" index="0" speed="13.90" length="12.41" shape="294.56,492.22 297.28,494.27 300.00,494.95 302.72,494.27 305.44,492.22"/>
     </edge>
     <edge id=":2/2_14" function="internal">
-        <lane id=":2/2_14_0" index="0" speed="13.90" length="13.19" shape="294.56,492.22 297.16,494.67 299.43,496.99 301.04,499.57 301.65,502.85"/>
+        <lane id=":2/2_14_0" index="0" speed="13.90" length="12.99" shape="294.56,492.22 297.66,495.55 299.88,498.43 301.21,500.86 301.65,502.85"/>
     </edge>
     <edge id=":2/2_15" function="internal">
         <lane id=":2/2_15_0" index="0" speed="13.90" length="4.82" shape="294.56,492.22 294.85,493.68 294.56,494.56 293.68,494.85 292.22,494.56"/>
