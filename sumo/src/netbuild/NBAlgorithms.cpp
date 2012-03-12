@@ -172,10 +172,53 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
 
 
 // ---------------------------------------------------------------------------
-// NBTurningDirectionsComputer
+// NBNodeTypeComputer
 // ---------------------------------------------------------------------------
+NBNodeTypeComputer::JunctionTypesMatrix::JunctionTypesMatrix() {
+    myMap['t'] = NODETYPE_TRAFFIC_LIGHT;
+    myMap['x'] = NODETYPE_NOJUNCTION;
+    myMap['p'] = NODETYPE_PRIORITY_JUNCTION;
+    myMap['r'] = NODETYPE_RIGHT_BEFORE_LEFT;
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(0. / 3.6), (SUMOReal)(10. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(10. / 3.6), (SUMOReal)(30. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(30. / 3.6), (SUMOReal)(50. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(50. / 3.6), (SUMOReal)(70. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(70. / 3.6), (SUMOReal)(100. / 3.6)));
+    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(100. / 3.6), (SUMOReal)(999999. / 3.6)));
+    myValues.push_back("rppppp"); // 000 - 010
+    myValues.push_back(" rpppp"); // 010 - 030
+    myValues.push_back("  rppp"); // 030 - 050
+    myValues.push_back("   ppp"); // 050 - 070
+    myValues.push_back("    pp"); // 070 - 100
+    myValues.push_back("     p"); // 100 -
+}
+
+
+NBNodeTypeComputer::JunctionTypesMatrix::~JunctionTypesMatrix() {}
+
+
+SumoXMLNodeType
+NBNodeTypeComputer::JunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const {
+    std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator p1 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed1));
+    std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator p2 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed2));
+    char name = getNameAt(distance(myRanges.begin(), p1), distance(myRanges.begin(), p2));
+    return myMap.find(name)->second;
+}
+
+
+char
+NBNodeTypeComputer::JunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const {
+    std::string str = myValues[pos1];
+    if (str[pos2] == ' ') {
+        return getNameAt(pos2, pos1);
+    }
+    return str[pos2];
+}
+
+
 void 
-NBNodesTypeComputer::computeNodeTypes(NBTypeCont &tc, NBNodeCont &nc) {
+NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
+    JunctionTypesMatrix m;
     for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
         // the type may already be set from the data
@@ -209,7 +252,7 @@ NBNodesTypeComputer::computeNodeTypes(NBTypeCont &tc, NBNodeCont &nc) {
                 //  road types into an own format
                 SumoXMLNodeType tmptype = type;
                 if (!isOpposite) {
-                    tmptype = tc.getJunctionType((*i)->getSpeed(), (*j)->getSpeed());
+                    tmptype = m.getType((*i)->getSpeed(), (*j)->getSpeed());
                     if (tmptype < type && tmptype != NODETYPE_UNKNOWN && tmptype != NODETYPE_NOJUNCTION) {
                         type = tmptype;
                     }

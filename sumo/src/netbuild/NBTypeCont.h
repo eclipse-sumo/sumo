@@ -37,7 +37,6 @@
 #include <string>
 #include <map>
 #include "NBNode.h"
-#include "NBJunctionTypesMatrix.h"
 #include <utils/common/SUMOVehicleClass.h>
 
 
@@ -108,12 +107,6 @@ public:
     unsigned int size() const {
         return (unsigned int) myTypes.size();
     }
-
-
-    /** @brief Returns the type of the junction between two edges of the given types
-     * @return The node type for two edges havnig the given speeds
-     */
-    SumoXMLNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const ;
 
 
     /** @brief Returns whether the named type is in the container
@@ -247,9 +240,6 @@ private:
 
     /// @brief The container of types
     TypesCont myTypes;
-
-    /// @brief The matrix of roads to junction type mappings
-    NBJunctionTypesMatrix myJunctionTypes;
 
 
 private:

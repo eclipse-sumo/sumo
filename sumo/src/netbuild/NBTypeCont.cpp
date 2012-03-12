@@ -37,7 +37,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NBTypeCont.h"
-#include "NBJunctionTypesMatrix.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -81,12 +80,6 @@ NBTypeCont::insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int pr
 bool
 NBTypeCont::knows(const std::string& type) const {
     return myTypes.find(type) != myTypes.end();
-}
-
-
-SumoXMLNodeType
-NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const {
-    return myJunctionTypes.getType(speed1, speed2);
 }
 
 

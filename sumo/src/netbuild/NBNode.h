@@ -75,7 +75,7 @@ class NBNode : public Named {
     friend class NBNodeCont;
     friend class GNEJunction; // used for visualization (NETEDIT)
     friend class NBNodesEdgesSorter; // sorts the edges
-    friend class NBNodesTypeComputer; // computes type
+    friend class NBNodeTypeComputer; // computes type
 
 public:
     /**

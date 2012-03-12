@@ -383,10 +383,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBJunctionTypesMatrix.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBLoadedSUMOTLDef.cpp"
 				>
 			</File>
@@ -493,10 +489,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBJoinedEdgesMap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NBJunctionTypesMatrix.h"
 				>
 			</File>
 			<File
