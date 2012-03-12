@@ -267,18 +267,13 @@ void
 NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont &nc) {
     for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
-        // reset all priorities
-        EdgeVector::iterator j;
+        // preset all junction's edge priorities to zero
+        for (EdgeVector::iterator j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
+            (*j)->setJunctionPriority(n, 0);
+        }
         // check if the junction is not a real junction
         if (n->myIncomingEdges.size() == 1 && n->myOutgoingEdges.size() == 1) {
-            for (j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
-                (*j)->setJunctionPriority(n, 1);
-            }
             continue;
-        }
-        // preset all junction's edge priorities to zero
-        for (j = n->myAllEdges.begin(); j != n->myAllEdges.end(); ++j) {
-            (*j)->setJunctionPriority(n, 0);
         }
         // compute the priorities on junction when needed
         if (n->myType != NODETYPE_RIGHT_BEFORE_LEFT) {
