@@ -13,6 +13,7 @@ Copyright (C) 2011-2012 DLR (http://www.dlr.de/) and contributors
 All rights reserved
 """
 import dump, inductionloop
+import re
 
 from xml.dom import pulldom
 from collections import namedtuple
@@ -25,22 +26,22 @@ def parse(xmlfile, element_name):
     # @note attribute names which are also python keywords will be prefixed with 'attr_' 
     elementType = [] # mutable, will be [namedtuple]
     xml_doc = pulldom.parse(xmlfile)
-    return [get_attrs(parsenode, elementType, element_name) for event, parsenode in xml_doc 
+    return [_get_attrs(parsenode, elementType, element_name) for event, parsenode in xml_doc 
             if event == pulldom.START_ELEMENT and parsenode.localName == element_name]
 
-def get_attrs(node, elementType, element_name):
+def _get_attrs(node, elementType, element_name):
     # get all attributes defined in elementType from the parsed node
     # if elementType is not yet defined create it as a a named tuple named element_name
     if not elementType:
         # initialized the named tuple type (only once)
         # note: for unfathomable reasons NamedNodeMap does not support pythonic iteration
         attrnames = [node.attributes.item(i).localName for i in range(node.attributes.length)]
-        attrnames = [prefix_keyword(a) for a in attrnames]
+        attrnames = [_prefix_keyword(a) for a in attrnames]
         elementType.append(namedtuple(element_name, attrnames))
     return elementType[0](*[node.getAttribute(a) for a in elementType[0]._fields])
 
 
-def prefix_keyword(name):
+def _prefix_keyword(name):
     return 'attr_' + name if iskeyword(name) else name
 
 
@@ -57,4 +58,19 @@ def average(elements, attrname):
         return sum(elements, attrname) / len(elements)
     else:
         raise "average of 0 elements is not defined"
+
+
+def parse_fast(xmlfile, element_name, attrnames):
+    # parses the given attribute from all elements with element_name
+    # note that the element must be on its own line and 
+    # the attributes must appear in the given order
+    Record = namedtuple(element_name, attrnames)
+    pattern = '.*'.join(['<%s' % element_name] +
+        ['%s="([^"]*)"' % attr for attr in attrnames])
+    reprog = re.compile(pattern)
+    for line in open(xmlfile):
+        m = reprog.search(line)
+        if m:
+            yield Record(*m.groups())
+
 
