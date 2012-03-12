@@ -163,7 +163,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal numLanes, const int numVehicles) const {
+        const SUMOReal numLanes, const SUMOReal defaultTravelTime, const int numVehicles) const {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
             dev << "\" density=\"" << sampleSeconds / STEPS2TIME(period) *(SUMOReal) 1000 / myLaneLength <<
@@ -194,6 +194,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 "\" waitingTime=\"" << waitSeconds <<
                 "\" speed=\"" << travelledDistance / sampleSeconds;
         }
+    } else if (defaultTravelTime >= 0.) {
+        dev << "\" traveltime=\"" << defaultTravelTime <<
+            "\" speed=\"" << myLaneLength / defaultTravelTime;
     }
     dev << "\" departed=\"" << nVehDeparted <<
         "\" arrived=\"" << nVehArrived <<
@@ -208,12 +211,17 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
 // MSMeanData_Net - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSMeanData_Net(const std::string& id,
-                               const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                               const bool useLanes, const bool withEmpty, const bool withInternal,
+                               const SUMOTime dumpBegin,
+                               const SUMOTime dumpEnd, const bool useLanes,
+                               const bool withEmpty, const bool printDefaults,
+                               const bool withInternal,
                                const bool trackVehicles,
-                               const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                               const SUMOReal haltSpeed, const std::set<std::string> vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
+                               const SUMOReal maxTravelTime,
+                               const SUMOReal minSamples,
+                               const SUMOReal haltSpeed,
+                               const std::set<std::string> vTypes)
+      : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+                   withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
       myHaltSpeed(haltSpeed) {
 }
 

@@ -209,9 +209,14 @@ MSMeanData::MeanDataValueTracker::isEmpty() const {
 
 
 void
-MSMeanData::MeanDataValueTracker::write(OutputDevice& dev, const SUMOTime period,
-                                        const SUMOReal numLanes, const int /*numVehicles*/) const {
-    myCurrentData.front()->myValues->write(dev, period, numLanes, myCurrentData.front()->myNumVehicleEntered);
+MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
+                                        const SUMOTime period,
+                                        const SUMOReal numLanes,
+                                        const SUMOReal defaultTravelTime,
+                                        const int /*numVehicles*/) const {
+    myCurrentData.front()->myValues->write(dev, period, numLanes,
+                                           defaultTravelTime,
+                                           myCurrentData.front()->myNumVehicleEntered);
 }
 
 
@@ -240,9 +245,10 @@ MSMeanData::MeanDataValueTracker::getSamples() const {
 // ---------------------------------------------------------------------------
 MSMeanData::MSMeanData(const std::string& id,
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                       const bool useLanes, const bool withEmpty, const bool withInternal,
-                       const bool trackVehicles,
-                       const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                       const bool useLanes, const bool withEmpty,
+                       const bool printDefaults, const bool withInternal, const bool trackVehicles,
+                       const SUMOReal maxTravelTime,
+                       const SUMOReal minSamples,
                        const std::set<std::string> vTypes) :
     MSDetectorFileOutput(id),
     myMinSamples(minSamples),
@@ -252,6 +258,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myDumpBegin(dumpBegin),
     myDumpEnd(dumpEnd),
     myDumpEmpty(withEmpty),
+    myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
     myTrackVehicles(trackVehicles) {
 }
@@ -353,7 +360,8 @@ MSMeanData::writeEdge(OutputDevice& dev,
         }
         if (writePrefix(dev, *data, "edge", edge->getID())) {
             data->write(dev, stopTime - startTime,
-                        (SUMOReal)edge->getLanes().size());
+                        (SUMOReal)edge->getLanes().size(),
+                        myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
         }
         data->reset(true);
         return;
@@ -376,7 +384,8 @@ MSMeanData::writeEdge(OutputDevice& dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, "lane", meanData.getLane()->getID())) {
-                meanData.write(dev, stopTime - startTime, 1.f);
+                meanData.write(dev, stopTime - startTime, 1.f,
+                               myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getMaxSpeed() : -1.);
             }
             meanData.reset(true);
         }
@@ -387,7 +396,8 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, "edge", edge->getID())) {
-                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
+                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(),
+                               myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
             }
             meanData.reset(true);
         } else {
@@ -398,7 +408,8 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.reset();
             }
             if (writePrefix(dev, *sumData, "edge", edge->getID())) {
-                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size());
+                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(),
+                               myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
             }
             delete sumData;
         }

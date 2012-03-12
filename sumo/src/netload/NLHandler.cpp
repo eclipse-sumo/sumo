@@ -1066,7 +1066,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const SUMOReal maxTravelTime = attrs.getOptSUMORealReporting(SUMO_ATTR_MAX_TRAVELTIME, id.c_str(), ok, 100000);
     const SUMOReal minSamples = attrs.getOptSUMORealReporting(SUMO_ATTR_MIN_SAMPLES, id.c_str(), ok, 0);
     const SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, POSITION_EPS);
-    const bool excludeEmpty = attrs.getOptBoolReporting(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), ok, false);
+    const std::string excludeEmpty = attrs.getOptStringReporting(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), ok, "false");
     const bool withInternal = attrs.getOptBoolReporting(SUMO_ATTR_WITH_INTERNAL, id.c_str(), ok, false);
     const bool trackVehicles = attrs.getOptBoolReporting(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), ok, false);
     const std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1087,7 +1087,8 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, objecttype == SUMO_TAG_MEANDATA_LANE, !excludeEmpty, withInternal, trackVehicles,
+                type, objecttype == SUMO_TAG_MEANDATA_LANE, excludeEmpty != "true",
+                excludeEmpty == "defaults", withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument& e) {

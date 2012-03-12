@@ -76,10 +76,10 @@ public:
     class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0) ;
+        MeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd, const std::set<std::string>* const vTypes = 0);
 
         /** @brief Destructor */
-        virtual ~MeanDataValues() ;
+        virtual ~MeanDataValues();
 
 
         /** @brief Resets values so they may be used for the next interval
@@ -160,7 +160,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, const SUMOTime period,
-                           const SUMOReal numLanes,
+                           const SUMOReal numLanes, const SUMOReal defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
@@ -264,7 +264,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes,
+                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
                    const int numVehicles = -1) const;
 
         size_t getNumReady() const ;
@@ -313,15 +313,17 @@ public:
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
      * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
+     * @param[in] defaultEffort the value to use when calculating defaults
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] vTypes the set of vehicle types to consider
      */
     MSMeanData(const std::string& id,
                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-               const bool useLanes, const bool withEmpty, const bool withInternal,
-               const bool trackVehicles,
-               const SUMOReal minSamples, const SUMOReal maxTravelTime,
-               const std::set<std::string> vTypes) ;
+               const bool useLanes, const bool withEmpty,
+               const bool printDefaults, const bool withInternal,
+               const bool trackVehicles, const SUMOReal minSamples,
+               const SUMOReal maxTravelTime,
+               const std::set<std::string> vTypes);
 
 
     /// @brief Destructor
@@ -433,6 +435,9 @@ private:
 
     /// @brief Whether empty lanes/edges shall be written
     const bool myDumpEmpty;
+
+    /// @brief Whether empty lanes/edges shall be written
+    const bool myPrintDefaults;
 
     /// @brief Whether internal lanes/edges shall be written
     const bool myDumpInternal;

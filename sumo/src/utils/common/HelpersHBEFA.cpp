@@ -195,5 +195,41 @@ HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) {
 }
 
 
+SUMOReal
+HelpersHBEFA::computeDefaultCO(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, CO_OFFSET, v, 0) + compute(c, CO_OFFSET, v - a, a)) * tt / 2.;
+}
+
+
+SUMOReal
+HelpersHBEFA::computeDefaultCO2(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, CO2_OFFSET, v, 0) + compute(c, CO2_OFFSET, v - a, a)) * tt / 2.;
+}
+
+
+SUMOReal
+HelpersHBEFA::computeDefaultHC(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, HC_OFFSET, v, 0) + compute(c, HC_OFFSET, v - a, a)) * tt / 2.;
+}
+
+
+SUMOReal
+HelpersHBEFA::computeDefaultNOx(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, NOx_OFFSET, v, 0) + compute(c, NOx_OFFSET, v - a, a)) * tt / 2.;
+}
+
+
+SUMOReal
+HelpersHBEFA::computeDefaultPMx(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, PMx_OFFSET, v, 0) + compute(c, PMx_OFFSET, v - a, a)) * tt / 2.;
+}
+
+
+SUMOReal
+HelpersHBEFA::computeDefaultFuel(SUMOEmissionClass c, double v, double a, SUMOReal tt) {
+	return (compute(c, FUEL_OFFSET, v, 0) + compute(c, FUEL_OFFSET, v - a, a)) * tt / 2. / 790.;
+}
+
+
 /****************************************************************************/
 

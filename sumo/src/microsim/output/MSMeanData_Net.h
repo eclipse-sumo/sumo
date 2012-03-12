@@ -134,7 +134,8 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, const SUMOTime period,
-                   const SUMOReal numLanes, const int numVehicles = -1) const;
+                   const SUMOReal numLanes, const SUMOReal defaultTravelTime,
+                   const int numVehicles = -1) const;
 
     protected:
         /** @brief Internal notification about the vehicle moves
@@ -193,6 +194,7 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] printDefaults Information whether defaults for empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
      * @param[in] maxTravelTime the maximum travel time to output
@@ -202,10 +204,10 @@ public:
      */
     MSMeanData_Net(const std::string& id,
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                   const bool useLanes, const bool withEmpty, const bool withInternal,
-                   const bool trackVehicles,
+                   const bool useLanes, const bool withEmpty, const bool printDefaults,
+                   const bool withInternal, const bool trackVehicles,
                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::set<std::string> vTypes) ;
+                   const SUMOReal haltSpeed, const std::set<std::string> vTypes);
 
 
     /// @brief Destructor

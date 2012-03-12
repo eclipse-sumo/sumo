@@ -103,7 +103,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMov
 
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const {
+        const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
     dev << "\" noise=\"" << (meanNTemp != 0 ? (SUMOReal)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (SUMOReal) 0.);
     if (sampleSeconds > myParent->myMinSamples) {
         SUMOReal traveltime = myParent->myMaxTravelTime;
@@ -111,6 +111,9 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMO
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         dev << "\" traveltime=\"" << traveltime;
+    } else if (defaultTravelTime >= 0.) {
+        // @todo default value for noise
+        dev << "\" traveltime=\"" << defaultTravelTime;
     }
     dev << "\"";
 	dev.closeTag(true);
@@ -123,11 +126,13 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMO
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-        const bool useLanes, const bool withEmpty, const bool withInternal,
+        const bool useLanes, const bool withEmpty,
+        const bool printDefaults, const bool withInternal,
         const bool trackVehicles,
         const SUMOReal maxTravelTime, const SUMOReal minSamples,
         const std::set<std::string> vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
+    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 

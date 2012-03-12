@@ -441,7 +441,8 @@ public:
      */
     void createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
                                 SUMOTime begin, SUMOTime end, const std::string& type,
-                                const bool useLanes, const bool withEmpty, const bool withInternal, const bool trackVehicles,
+                                const bool useLanes, const bool withEmpty, const bool printDefaults,
+                                const bool withInternal, const bool trackVehicles,
                                 const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                 const SUMOReal haltSpeed, const std::string& vTypes,
                                 OutputDevice& device) throw(InvalidArgument);

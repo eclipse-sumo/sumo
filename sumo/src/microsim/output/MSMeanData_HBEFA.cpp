@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <utils/common/SUMOTime.h>
@@ -102,7 +103,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUM
 
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
-        const SUMOReal /*numLanes*/, const int /*numVehicles*/) const {
+        const SUMOReal /*numLanes*/, const SUMOReal defaultTravelTime, const int /*numVehicles*/) const {
     const SUMOReal normFactor = SUMOReal(3600. / STEPS2TIME(period) / myLaneLength);
     dev << "\" CO_abs=\"" << OutputDevice::realString(CO, 6) <<
         "\" CO2_abs=\"" << OutputDevice::realString(CO2, 6) <<
@@ -130,6 +131,16 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
             "\" PMx_perVeh=\"" << OutputDevice::realString(PMx * vehFactor, 6) <<
             "\" NOx_perVeh=\"" << OutputDevice::realString(NOx * vehFactor, 6) <<
             "\" fuel_perVeh=\"" << OutputDevice::realString(fuel * vehFactor, 6);
+    } else if (defaultTravelTime >= 0.) {
+        const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
+        const SUMOReal speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
+        dev << "\"\n            traveltime=\"" << OutputDevice::realString(defaultTravelTime) <<
+            "\" CO_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultCO(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6) <<
+            "\" CO2_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultCO2(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6) <<
+            "\" HC_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultHC(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6) <<
+            "\" PMx_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultPMx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6) <<
+            "\" NOx_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultNOx(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6) <<
+            "\" fuel_perVeh=\"" << OutputDevice::realString(HelpersHBEFA::computeDefaultFuel(t->getEmissionClass(), speed, t->getCarFollowModel().getMaxAccel(), defaultTravelTime), 6);
     }
     dev << "\"";
 	dev.closeTag(true);
@@ -141,12 +152,17 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime 
 // MSMeanData_HBEFA - methods
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string& id,
-                                   const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                                   const bool useLanes, const bool withEmpty, const bool withInternal,
+                                   const SUMOTime dumpBegin,
+                                   const SUMOTime dumpEnd,
+                                   const bool useLanes, const bool withEmpty,
+                                   const bool printDefaults,
+                                   const bool withInternal,
                                    const bool trackVehicles,
-                                   const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                                   const SUMOReal maxTravelTime,
+                                   const SUMOReal minSamples,
                                    const std::set<std::string> vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
+    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
 }
 
 
@@ -160,4 +176,3 @@ MSMeanData_HBEFA::createValues(MSLane* const lane, const SUMOReal length, const 
 
 
 /****************************************************************************/
-
