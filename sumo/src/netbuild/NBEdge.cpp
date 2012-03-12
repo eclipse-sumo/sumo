@@ -395,18 +395,18 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, u
     lb.extrapolateBy(100.0); 
     if (nodeShape.intersects(laneShape)) {
         // shape intersects directly
-        DoubleVector pbv = laneShape.intersectsAtLengths2D(nodeShape);
+        std::vector<SUMOReal> pbv = laneShape.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
         if (pb <= laneShape.length()) {
-            return laneShape.getSubpart(pb, laneShape.length());
+            return laneShape.getSubpart2D(pb, laneShape.length());
         } else {
             return laneShape; // @todo do not ignore this error silently
         }
     } else if (nodeShape.intersects(lb.p1(), lb.p2())) {
         // extension of first segment intersects
-        DoubleVector pbv = lb.intersectsAtLengths2D(nodeShape);
+        std::vector<SUMOReal> pbv = lb.intersectsAtLengths2D(nodeShape);
         assert(pbv.size() > 0);
         SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
         assert(pb >= 0);
@@ -918,7 +918,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(*i2, (*k2).fromLane, (*k2).toEdge, (*k2).toLane);
-                            const DoubleVector dv = shape.intersectsAtLengths2D(otherShape);
+                            const std::vector<SUMOReal> dv = shape.intersectsAtLengths2D(otherShape);
                             if (dv.size() > 0) {
                                 const SUMOReal minDV = dv[0];
                                 if (minDV < shape.length() - .1 && minDV > .1) { // !!!?
@@ -1780,7 +1780,7 @@ NBEdge::getLaneID(unsigned int lane) const {
 
 bool
 NBEdge::isNearEnough2BeJoined2(NBEdge* e, SUMOReal threshold) const {
-    DoubleVector distances = myGeom.distances(e->getGeometry());
+    std::vector<SUMOReal> distances = myGeom.distances(e->getGeometry());
     assert(distances.size() > 0);
     return VectorHelper<SUMOReal>::maxValue(distances) < threshold;
 }

@@ -82,7 +82,7 @@ public:
          * @param[in] cycleDuration The duration of the complete cycle
          * @return The switch times of this signal
          */
-        DoubleVector getTimes(SUMOTime cycleDuration) const ;
+        std::vector<SUMOReal> getTimes(SUMOTime cycleDuration) const ;
 
         /** @brief Sorts the phases */
         void sortPhases() ;

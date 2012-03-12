@@ -705,7 +705,6 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, int fromL,
         beg.appendWithCrossingPoint(ret);
         ret = beg;
     }
-    ret.add(0,0,myPosition.z());
     return ret;
 }
 
@@ -796,7 +795,6 @@ NBNode::computeNodeShape(bool leftHand) {
     try {
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute(leftHand);
-        myPoly.add(0,0,myPosition.z());
     } catch (InvalidArgument&) {
         WRITE_WARNING("For node '" + getID() + "': could not compute shape.");
     }

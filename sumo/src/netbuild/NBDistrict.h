@@ -241,7 +241,7 @@ public:
 
 private:
     /// @brief Definition of a vector of connection weights
-    typedef DoubleVector WeightsCont;
+    typedef std::vector<SUMOReal> WeightsCont;
 
     /// @brief The sources (connection from district to network)
     EdgeVector mySources;

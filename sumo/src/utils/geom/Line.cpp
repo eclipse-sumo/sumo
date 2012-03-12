@@ -104,16 +104,14 @@ Line::getPositionAtDistance(SUMOReal offset) const {
 
 Position
 Line::getPositionAtDistance2D(SUMOReal offset) const {
-    const Position p1(myP1.x(), myP1.y());
-    const Position p2(myP2.x(), myP2.y());
-    const SUMOReal length = p1.distanceTo(p2);
+    const SUMOReal length = myP1.distanceTo2D(myP2);
     if (length == 0) {
         if (offset != 0) {
             throw InvalidArgument("Invalid offset " + toString(offset) + " for Line with length " + toString(length));;
         }
         return myP1;
     }
-    return p1 + (p2 - p1) * (offset / length) + Position(0, 0, myP1.z() + (myP2.z() - myP1.z()) * (offset / length));
+    return myP1 + (myP2 - myP1) * (offset / length);
 }
 
 
@@ -125,10 +123,10 @@ Line::move2side(SUMOReal amount) {
 }
 
 
-DoubleVector
+std::vector<SUMOReal>
 Line::intersectsAtLengths2D(const PositionVector& v) {
     PositionVector p = v.intersectionPoints2D(*this);
-    DoubleVector ret;
+    std::vector<SUMOReal> ret;
     for (size_t i = 0; i < p.size(); i++) {
         ret.push_back(myP1.distanceTo2D(p[int(i)]));
     }
@@ -159,7 +157,7 @@ Line::atan2PositiveAngle() const {
 
 Position
 Line::intersectsAt(const Line& l) const {
-    return GeomHelper::intersection_position(myP1, myP2, l.myP1, l.myP2);
+    return GeomHelper::intersection_position2D(myP1, myP2, l.myP1, l.myP2);
 }
 
 
@@ -190,8 +188,8 @@ Line::add(SUMOReal x, SUMOReal y) {
 
 void
 Line::add(const Position& p) {
-    myP1.add(p.x(), p.y());
-    myP2.add(p.x(), p.y());
+    myP1.add(p.x(), p.y(), p.z());
+    myP2.add(p.x(), p.y(), p.z());
 }
 
 
@@ -215,7 +213,7 @@ Line::reverse() {
 SUMOReal
 Line::intersectsAtLength2D(const Line& v) {
     Position pos =
-        GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
+        GeomHelper::intersection_position2D(myP1, myP2, v.myP1, v.myP2);
     return GeomHelper::nearest_position_on_line_to_point2D(myP1, myP2, pos);
 }
 
@@ -230,24 +228,4 @@ Line::rotateAtP1(SUMOReal rot) {
 }
 
 
-void
-Line::rotateAround(const Position& at, SUMOReal rot) {
-    myP1.add(-at.x(), -at.y());
-    myP2.add(-at.x(), -at.y());
-    {
-        SUMOReal x = myP1.x() * cos(rot) + myP1.y() * sin(rot);
-        SUMOReal y = myP1.y() * cos(rot) - myP1.x() * sin(rot);
-        myP1 = Position(x, y);
-    }
-    {
-        SUMOReal x = myP2.x() * cos(rot) + myP2.y() * sin(rot);
-        SUMOReal y = myP2.y() * cos(rot) - myP2.x() * sin(rot);
-        myP2 = Position(x, y);
-    }
-    myP1.add(at.x(), at.y());
-    myP2.add(at.x(), at.y());
-}
-
-
 /****************************************************************************/
-

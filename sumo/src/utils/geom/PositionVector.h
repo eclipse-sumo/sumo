@@ -6,7 +6,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A list of 2D-positions
+// A list of positions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -32,22 +32,23 @@
 #include <config.h>
 #endif
 
-#include <queue>
-#include <iostream>
-#include <utils/common/VectorHelper.h>
+#include <vector>
 #include "AbstractPoly.h"
-#include "Boundary.h"
-#include "Position.h"
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Line;
+class Boundary;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class PositionVector
- * @brief A list of 2D-positions
+ * @brief A list of positions
  */
 class PositionVector
         : public AbstractPoly {
@@ -116,11 +117,11 @@ public:
 
     /** @brief For all intersections between this vector and other, 
      * return the 2D-length of the subvector from this vectors start to the intersection */
-    DoubleVector intersectsAtLengths2D(const PositionVector& other) const; // !!!
+    std::vector<SUMOReal> intersectsAtLengths2D(const PositionVector& other) const; // !!!
 
     /** @brief For all intersections between this vector and line, 
      * return the 2D-length of the subvector from this vectors start to the intersection */
-    DoubleVector intersectsAtLengths2D(const Line& line) const; // !!!
+    std::vector<SUMOReal> intersectsAtLengths2D(const Line& line) const; // !!!
 
     /** Returns the position of the intersection */
     Position intersectsAtPoint(const PositionVector& v1) const; // !!!
@@ -142,10 +143,17 @@ public:
     Position positionAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position at the given length
+    Position positionAtLengthPosition2D(SUMOReal pos) const;
+
+    /// Returns the position at the given length
     SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtLengthPosition(const Position& p1,
+            const Position& p2, SUMOReal pos);
+
+    /// Returns the position between the two given point at the specified position */
+    static Position positionAtLengthPosition2D(const Position& p1,
             const Position& p2, SUMOReal pos);
 
     /// Returns a boundary enclosing this list of lines
@@ -209,6 +217,8 @@ public:
 
     PositionVector getSubpart(SUMOReal begin, SUMOReal end) const;
 
+    PositionVector getSubpart2D(SUMOReal begin, SUMOReal end) const;
+
     void sortAsPolyCWByAngle();
 
     void sortByIncreasingXY();
@@ -268,14 +278,14 @@ public:
 
     void eraseAt(int i);
 
-    SUMOReal nearest_position_on_line_to_point(const Position& p, bool perpendicular = true) const;
+    SUMOReal nearest_position_on_line_to_point2D(const Position& p, bool perpendicular = true) const;
 
     /* @brief index of the closest position to p
      * @note: may only be called for a non-empty vector */
     int indexOfClosest(const Position& p) const;
 
     // distances of all my points to s and all of s points to myself
-    DoubleVector distances(const PositionVector& s) const;
+    std::vector<SUMOReal> distances(const PositionVector& s) const;
 
     SUMOReal distance(const Position& p) const;
 

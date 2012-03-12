@@ -95,11 +95,11 @@ NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow) {
 }
 
 
-DoubleVector
+std::vector<SUMOReal>
 NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
     // within the phase container, we should have the green and red phases
     //  add their times
-    DoubleVector ret; // !!! time vector
+    std::vector<SUMOReal> ret; // !!! time vector
     for (std::vector<PhaseDef>::const_iterator i = myPhases.begin(); i != myPhases.end(); i++) {
         ret.push_back((SUMOReal)(*i).myTime);
     }
@@ -302,8 +302,8 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
         // copy the now valid times into the container
         //  both the given red and green phases are added and also the
         //  yellow times
-        DoubleVector gtimes = group->getTimes(myCycleDuration);
-        for (DoubleVector::const_iterator k = gtimes.begin(); k != gtimes.end(); k++) {
+        std::vector<SUMOReal> gtimes = group->getTimes(myCycleDuration);
+        for (std::vector<SUMOReal>::const_iterator k = gtimes.begin(); k != gtimes.end(); k++) {
             tmpSwitchTimes.insert(*k);
         }
     }

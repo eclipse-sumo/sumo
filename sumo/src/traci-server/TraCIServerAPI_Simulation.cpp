@@ -224,7 +224,8 @@ TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
             }
         }
     }
-    result.second = result.first->getShape().nearest_position_on_line_to_point(pos, false);
+    // @todo this may be a place where 3D is required but 2D is delivered
+    result.second = result.first->getShape().nearest_position_on_line_to_point2D(pos, false);
     return result;
 }
 

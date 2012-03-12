@@ -38,6 +38,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -373,7 +374,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                     const std::string& secondEdgeName,
                     unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) {
     SUMOReal pos;
-    pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
+    pos = edge->getGeometry().nearest_position_on_line_to_point2D(node->getPosition());
     if (pos <= 0) {
         pos = GeomHelper::nearest_position_on_line_to_point2D(
                   edge->myFrom->getPosition(), edge->myTo->getPosition(),
