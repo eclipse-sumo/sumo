@@ -238,7 +238,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing node types");
-    myNodeCont.computeNodeTypes(myTypeCont);
+    NBNodesTypeComputer::computeNodeTypes(myTypeCont, myNodeCont);
     PROGRESS_DONE_MESSAGE();
     //
     PROGRESS_BEGIN_MESSAGE("Computing priorities");

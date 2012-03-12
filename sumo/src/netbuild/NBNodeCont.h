@@ -274,9 +274,6 @@ public:
     /// build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
 
-    /// computes the nodes' types
-    void computeNodeTypes(const NBTypeCont& tc);
-
     /// computes priorities of edges based on junction types
     void computePriorities();
 

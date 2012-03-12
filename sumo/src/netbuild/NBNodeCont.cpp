@@ -837,14 +837,6 @@ NBNodeCont::computeLogics(const NBEdgeCont& ec, OptionsCont& oc) {
 
 
 void
-NBNodeCont::computeNodeTypes(const NBTypeCont& tc) {
-    for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        (*i).second->computeType(tc);
-    }
-}
-
-
-void
 NBNodeCont::computePriorities() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         (*i).second->computePriorities();

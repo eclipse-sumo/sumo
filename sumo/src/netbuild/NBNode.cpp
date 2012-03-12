@@ -375,47 +375,6 @@ NBNode::computePriorities() {
 }
 
 
-void
-NBNode::computeType(const NBTypeCont& tc) {
-    // the type may already be set from the data
-    if (myType != NODETYPE_UNKNOWN) {
-        return;
-    }
-    // check whether the junction is not a real junction
-    if (myIncomingEdges.size() == 1) {
-        myType = NODETYPE_PRIORITY_JUNCTION;
-        return;
-    }
-    if (isSimpleContinuation()) {
-        myType = NODETYPE_PRIORITY_JUNCTION;
-        return;
-    }
-    // choose the uppermost type as default
-    SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
-    // determine the type
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        for (EdgeVector::const_iterator j = i + 1; j != myIncomingEdges.end(); j++) {
-            bool isOpposite = false;
-            if (getOppositeIncoming(*j) == *i && myIncomingEdges.size() > 2) {
-                isOpposite = true;
-            }
-
-            // This usage of defaults is not very well, still we do not have any
-            //  methods for the conversion of foreign, sometimes not supplied
-            //  road types into an own format
-            SumoXMLNodeType tmptype = type;
-            if (!isOpposite) {
-                tmptype = tc.getJunctionType((*i)->getSpeed(), (*j)->getSpeed());
-                if (tmptype < type && tmptype != NODETYPE_UNKNOWN && tmptype != NODETYPE_NOJUNCTION) {
-                    type = tmptype;
-                }
-            }
-        }
-    }
-    myType = type;
-}
-
-
 bool
 NBNode::isSimpleContinuation() const {
     // one in, one out->continuation

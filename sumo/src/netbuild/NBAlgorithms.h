@@ -38,6 +38,7 @@
 // ===========================================================================
 class NBEdge;
 class NBNodeCont;
+class NBTypeCont;
 
 // ===========================================================================
 // class definitions
@@ -157,6 +158,25 @@ private:
         NBNode* myNode;
 
     };
+};
+
+
+
+// ---------------------------------------------------------------------------
+// NBNodesTypeComputer
+// ---------------------------------------------------------------------------
+/* @class NBNodesTypeComputer
+ * @brief Computes node types
+ */
+class NBNodesTypeComputer {
+public:
+    /** @brief Computes node types
+     * @param[in] nc The container of nodes to loop along
+     */
+    static void computeNodeTypes(NBTypeCont &tc, NBNodeCont &nc);
+
+private:
+
 };
 
 

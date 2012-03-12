@@ -75,6 +75,7 @@ class NBNode : public Named {
     friend class NBNodeCont;
     friend class GNEJunction; // used for visualization (NETEDIT)
     friend class NBNodesEdgesSorter; // sorts the edges
+    friend class NBNodesTypeComputer; // computes type
 
 public:
     /**
@@ -287,9 +288,6 @@ public:
     /** writes the XML-representation of the logic as a bitset-logic
         XML representation */
     bool writeLogic(OutputDevice& into) const;
-
-    /** computes the junction type */
-    void computeType(const NBTypeCont& tc);
 
     /** computes the priorities of participating edges within this junction
      * @note this depends on node types */
