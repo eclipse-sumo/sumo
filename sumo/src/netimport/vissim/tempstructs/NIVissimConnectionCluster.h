@@ -36,7 +36,6 @@
 #include <vector>
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
-#include <utils/common/VectorHelper.h>
 #include "NIVissimConnection.h"
 
 
@@ -62,11 +61,11 @@ class NIVissimConnectionCluster {
 public:
     /** @brief Constructor
         Build the boundary; The boundary includes both incoming and outgoing nodes */
-    NIVissimConnectionCluster(const IntVector& connections, int nodeCluster,
+    NIVissimConnectionCluster(const std::vector<int>& connections, int nodeCluster,
                               int edgeid);
 
-    NIVissimConnectionCluster(const IntVector& connections,
-                              const Boundary& boundary, int nodeCluster, const IntVector& edges);
+    NIVissimConnectionCluster(const std::vector<int>& connections,
+                              const Boundary& boundary, int nodeCluster, const std::vector<int>& edges);
 
     /// Destructor
     ~NIVissimConnectionCluster();
@@ -84,7 +83,7 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
-    const IntVector& getConnections() const {
+    const std::vector<int>& getConnections() const {
         return myConnections;
     }
 
@@ -123,7 +122,7 @@ private:
         void add(const NodeSubCluster& c);
         size_t size() const;
         bool overlapsWith(const NodeSubCluster& c, SUMOReal offset = 0);
-        IntVector getConnectionIDs() const;
+        std::vector<int> getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
         Boundary myBoundary;
@@ -165,10 +164,10 @@ private:
     bool joinable(NIVissimConnectionCluster* c2, SUMOReal offset);
 
 
-    IntVector getDisturbanceParticipators();
+    std::vector<int> getDisturbanceParticipators();
 
-    IntVector extendByToTreatAsSame(const IntVector& iv1,
-                                    const IntVector& iv2) const;
+    std::vector<int> extendByToTreatAsSame(const std::vector<int>& iv1,
+                                    const std::vector<int>& iv2) const;
 
     bool isWeakDistrictConnRealisation(NIVissimConnectionCluster* c2);
 
@@ -178,7 +177,7 @@ private:
 
 private:
     /// List of connection-ids which participate within this cluster
-    IntVector myConnections;
+    std::vector<int> myConnections;
 
     /// The boundary of the cluster
     Boundary myBoundary;
@@ -187,13 +186,13 @@ private:
     int myNodeCluster;
 
     // The edge which holds the cluster
-    IntVector myEdges;
+    std::vector<int> myEdges;
 
-    IntVector myNodes;
+    std::vector<int> myNodes;
 
-    IntVector myTLs;
+    std::vector<int> myTLs;
 
-    IntVector myOutgoingEdges, myIncomingEdges;
+    std::vector<int> myOutgoingEdges, myIncomingEdges;
 
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;

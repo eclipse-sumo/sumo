@@ -96,9 +96,9 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream& fro
     NIVissimEdge* e = NIVissimEdge::dictionary(numid);
     if (e == 0) {
         NIVissimConnection* c = NIVissimConnection::dictionary(numid);
-        const IntVector& lanes = c->getToLanes();
+        const std::vector<int>& lanes = c->getToLanes();
         e = NIVissimEdge::dictionary(c->getToEdgeID());
-        for (IntVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
+        for (std::vector<int>::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
             e->setSpeed((*j), numv);
         }
         assert(e != 0);

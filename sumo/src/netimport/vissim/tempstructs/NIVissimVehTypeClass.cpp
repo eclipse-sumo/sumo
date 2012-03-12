@@ -43,7 +43,7 @@ NIVissimVehTypeClass::DictType NIVissimVehTypeClass::myDict;
 NIVissimVehTypeClass::NIVissimVehTypeClass(int id,
         const std::string& name,
         const RGBColor& color,
-        IntVector& types)
+        std::vector<int>& types)
     : myID(id), myName(name), myColor(color), myTypes(types) {}
 
 NIVissimVehTypeClass::~NIVissimVehTypeClass() {}
@@ -52,7 +52,7 @@ NIVissimVehTypeClass::~NIVissimVehTypeClass() {}
 bool
 NIVissimVehTypeClass::dictionary(int id, const std::string& name,
                                  const RGBColor& color,
-                                 IntVector& types) {
+                                 std::vector<int>& types) {
     NIVissimVehTypeClass* o = new NIVissimVehTypeClass(id, name, color, types);
     if (!dictionary(id, o)) {
         delete o;

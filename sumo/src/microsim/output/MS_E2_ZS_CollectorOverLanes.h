@@ -216,11 +216,8 @@ protected:
     /// @brief Definition of a storage for detector vectors
     typedef std::vector<DetectorVector> DetectorVectorVector;
 
-    /// @brief Definition of a SUMOReal storage
-    typedef std::vector<SUMOReal> DoubleVector;
-
     /// @brief Definition of a storage for SUMOReal vectors
-    typedef DoubleVector LengthVector;
+    typedef std::vector<SUMOReal> LengthVector;
 
 
     /** @brief Storage for lane combinations

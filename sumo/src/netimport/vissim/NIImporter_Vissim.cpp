@@ -230,11 +230,11 @@ NIImporter_Vissim::VissimSingleTypeParser::getPosition(std::istream& from) {
 }
 
 
-IntVector
+std::vector<int>
 NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
     std::istream& from, const std::string& next) {
     std::string tmp = readEndSecure(from);
-    IntVector ret;
+    std::vector<int> ret;
     if (tmp == "alle") {
         ret.push_back(-1);
         return ret;
@@ -255,7 +255,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
     int edgeid;
     from >> edgeid; // type-checking is missing!
     from >> tag; // "Spuren"
-    IntVector lanes;
+    std::vector<int> lanes;
     while (tag != "bei") {
         tag = readEndSecure(from);
         if (tag != "bei") {
@@ -265,7 +265,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
     }
     SUMOReal position;
     from >> position;
-    IntVector dummy;
+    std::vector<int> dummy;
     return NIVissimExtendedEdgePoint(edgeid, lanes, position, dummy);
 }
 

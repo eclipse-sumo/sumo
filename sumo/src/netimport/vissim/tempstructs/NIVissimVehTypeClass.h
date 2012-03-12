@@ -33,7 +33,6 @@
 #include <string>
 #include <map>
 #include <utils/common/RGBColor.h>
-#include <utils/common/VectorHelper.h>
 
 
 // ===========================================================================
@@ -45,10 +44,10 @@
 class NIVissimVehTypeClass {
 public:
     NIVissimVehTypeClass(int id, const std::string& name,
-                         const RGBColor& color, IntVector& types);
+                         const RGBColor& color, std::vector<int>& types);
     ~NIVissimVehTypeClass();
     static bool dictionary(int id, const std::string& name,
-                           const RGBColor& color, IntVector& types);
+                           const RGBColor& color, std::vector<int>& types);
     static bool dictionary(int id, NIVissimVehTypeClass* o);
     static NIVissimVehTypeClass* dictionary(int name);
     static void clearDict();
@@ -57,7 +56,7 @@ private:
     int myID;
     std::string myName;
     RGBColor myColor;
-    IntVector myTypes;
+    std::vector<int> myTypes;
 private:
     typedef std::map<int, NIVissimVehTypeClass*> DictType;
     static DictType myDict;

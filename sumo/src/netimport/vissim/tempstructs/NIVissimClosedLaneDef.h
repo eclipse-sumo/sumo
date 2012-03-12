@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include <utils/common/VectorHelper.h>
 
 
 // ===========================================================================
@@ -41,11 +40,11 @@
  */
 class NIVissimClosedLaneDef {
 public:
-    NIVissimClosedLaneDef(int lane, const IntVector& assignedVehicles);
+    NIVissimClosedLaneDef(int lane, const std::vector<int>& assignedVehicles);
     ~NIVissimClosedLaneDef();
 private:
     int myLaneNo;
-    IntVector myAssignedVehicles;
+    std::vector<int> myAssignedVehicles;
 };
 
 

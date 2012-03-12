@@ -114,9 +114,9 @@ NIVissimDisturbance::dictionary(int id) {
     return (*i).second;
 }
 
-IntVector
+std::vector<int>
 NIVissimDisturbance::getWithin(const AbstractPoly& poly) {
-    IntVector ret;
+    std::vector<int> ret;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         if ((*i).second->crosses(poly)) {
             ret.push_back((*i).second->myID);

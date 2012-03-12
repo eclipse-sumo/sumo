@@ -70,7 +70,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     tag = overrideOptionalLabel(from, tag);
     //
     int lsaid;
-    IntVector groupids;
+    std::vector<int> groupids;
     if (tag == "lsa") {
         int groupid;
         from >> lsaid; // type-checking is missing!
@@ -107,7 +107,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream& from) {
     while (tag != "fahrzeugklassen") {
         tag = myRead(from);
     }
-    IntVector assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
+    std::vector<int> assignedVehicleTypes = parseAssignedVehicleTypes(from, "N/A");
     //
     NIVissimTL::dictionary(lsaid); // !!! check whether someting is really done here
     NIVissimTL::NIVissimTLSignal* signal =

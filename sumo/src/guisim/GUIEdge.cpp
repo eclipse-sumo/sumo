@@ -228,8 +228,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         size_t idx = 0;
         for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++idx) {
             const PositionVector& shape = (*l)->getShape();
-            const DoubleVector& shapeRotations = (*l)->getShapeRotations();
-            const DoubleVector& shapeLengths = (*l)->getShapeLengths();
+            const std::vector<SUMOReal>& shapeRotations = (*l)->getShapeRotations();
+            const std::vector<SUMOReal>& shapeLengths = (*l)->getShapeLengths();
             const Position& laneBeg = shape[0];
 
             glColor3d(1, 1, 0);

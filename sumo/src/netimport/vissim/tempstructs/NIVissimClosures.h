@@ -32,7 +32,6 @@
 
 #include <string>
 #include <map>
-#include <utils/common/VectorHelper.h>
 
 
 // ===========================================================================
@@ -45,10 +44,10 @@ class NIVissimClosures {
 public:
     NIVissimClosures(const std::string& id,
                      int from_node, int to_node,
-                     IntVector& overEdges);
+                     std::vector<int>& overEdges);
     ~NIVissimClosures();
     static bool dictionary(const std::string& id,
-                           int from_node, int to_node, IntVector& overEdges);
+                           int from_node, int to_node, std::vector<int>& overEdges);
     static bool dictionary(const std::string& name, NIVissimClosures* o);
     static NIVissimClosures* dictionary(const std::string& name);
     static void clearDict();
@@ -57,7 +56,7 @@ private:
     static DictType myDict;
     const std::string myID;
     int myFromNode, myToNode;
-    IntVector myOverEdges;
+    std::vector<int> myOverEdges;
 };
 
 

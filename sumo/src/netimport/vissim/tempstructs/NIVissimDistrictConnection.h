@@ -34,7 +34,6 @@
 #include <map>
 #include <string>
 #include <utils/geom/Position.h>
-#include <utils/common/VectorHelper.h>
 
 
 class NBDistrictCont;
@@ -48,7 +47,7 @@ class NIVissimDistrictConnection {
 public:
     /// Contructor
     NIVissimDistrictConnection(int id, const std::string& name,
-                               const IntVector& districts, const DoubleVector& percentages,
+                               const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                                int edgeid, SUMOReal position,
                                const std::vector<std::pair<int, int> > &assignedVehicles);
 
@@ -74,7 +73,7 @@ public:
 public:
     /// Inserts the connection into the dictionary after building it
     static bool dictionary(int id, const std::string& name,
-                           const IntVector& districts, const DoubleVector& percentages,
+                           const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                            int edgeid, SUMOReal position,
                            const std::vector<std::pair<int, int> > &assignedVehicles);
 
@@ -116,7 +115,7 @@ private:
     std::string myName;
 
     /// The connected districts
-    IntVector myDistricts;
+    std::vector<int> myDistricts;
 
     /// Definition of a map of how many vehicles should leave to a certain district
     typedef std::map<int, SUMOReal> DistrictPercentages;
@@ -141,7 +140,7 @@ private:
     static DictType myDict;
 
     /// Map from ditricts to connections
-    static std::map<int, IntVector> myDistrictsConnections;
+    static std::map<int, std::vector<int> > myDistrictsConnections;
 
 };
 

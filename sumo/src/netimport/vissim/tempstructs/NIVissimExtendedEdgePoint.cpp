@@ -43,8 +43,8 @@
 // method definitions
 // ===========================================================================
 NIVissimExtendedEdgePoint::NIVissimExtendedEdgePoint(
-    int edgeid, const IntVector& lanes, SUMOReal position,
-    const IntVector& assignedVehicles)
+    int edgeid, const std::vector<int>& lanes, SUMOReal position,
+    const std::vector<int>& assignedVehicles)
     : myEdgeID(edgeid), myLanes(lanes), myPosition(position),
       myAssignedVehicles(assignedVehicles) {}
 
@@ -71,7 +71,7 @@ NIVissimExtendedEdgePoint::getGeomPosition() const {
 }
 
 
-const IntVector&
+const std::vector<int>&
 NIVissimExtendedEdgePoint::getLanes() const {
     return myLanes;
 }
@@ -81,7 +81,7 @@ void
 NIVissimExtendedEdgePoint::recheckLanes(const NBEdge* const edge) {
     // check whether an "all" indicator is there
     bool hadAll = false;
-    for (IntVector::const_iterator i = myLanes.begin(); !hadAll && i != myLanes.end(); ++i) {
+    for (std::vector<int>::const_iterator i = myLanes.begin(); !hadAll && i != myLanes.end(); ++i) {
         if ((*i) == -1) {
             hadAll = true;
         }

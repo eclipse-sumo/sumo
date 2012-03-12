@@ -78,8 +78,8 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string& name,
 
 void
 NIVissimNodeDef_Edges::searchAndSetConnections() {
-    IntVector connections;
-    IntVector edges;
+    std::vector<int> connections;
+    std::vector<int> edges;
     Boundary boundary;
     for (NIVissimNodeParticipatingEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge* edge = *i;
@@ -101,7 +101,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections() {
     }
     NIVissimConnectionCluster* c =
         new NIVissimConnectionCluster(connections, boundary, myID, edges);
-    for (IntVector::iterator j = edges.begin(); j != edges.end(); j++) {
+    for (std::vector<int>::iterator j = edges.begin(); j != edges.end(); j++) {
         NIVissimEdge* edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
     }

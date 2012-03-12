@@ -37,7 +37,7 @@
 
 
 NIVissimClosedLaneDef::NIVissimClosedLaneDef(int lane,
-        const IntVector& assignedVehicles)
+        const std::vector<int>& assignedVehicles)
     : myLaneNo(lane), myAssignedVehicles(assignedVehicles) {}
 
 

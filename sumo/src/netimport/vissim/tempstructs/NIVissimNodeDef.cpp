@@ -92,10 +92,10 @@ NIVissimNodeDef::buildNodeClusters()
 
 /*
 
-IntVector
+std::vector<int>
 NIVissimNodeDef::getWithin(const AbstractPoly &p, SUMOReal off)
 {
-    IntVector ret;
+    std::vector<int> ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimNodeDef *d = (*i).second;
         if(d->partialWithin(p, off)) {

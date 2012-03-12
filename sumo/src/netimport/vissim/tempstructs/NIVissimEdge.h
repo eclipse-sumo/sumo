@@ -37,7 +37,6 @@
 #include <map>
 #include <netbuild/NBEdge.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/common/VectorHelper.h>
 #include <utils/common/UtilExceptions.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
@@ -198,7 +197,7 @@ private:
 
     std::vector<NIVissimConnection*> getOutgoingConnected(int lane) const;
 
-    void propagateSpeed(/* NBDistribution &dc */SUMOReal speed, IntVector forLanes);
+    void propagateSpeed(/* NBDistribution &dc */SUMOReal speed, std::vector<int> forLanes);
 
 
     void setDistrictSpeed(/* NBDistribution &dc */);
@@ -276,14 +275,14 @@ private:
     ConnectionClusters myConnectionClusters;
 
     /// List of connections incoming to this edge
-    IntVector myIncomingConnections;
+    std::vector<int> myIncomingConnections;
 
     /// List of connections outgoing from this edge
-    IntVector myOutgoingConnections;
+    std::vector<int> myOutgoingConnections;
 
-    DoubleVector myDistrictConnections;
+    std::vector<SUMOReal> myDistrictConnections;
 
-    IntVector myPatchedSpeeds;
+    std::vector<int> myPatchedSpeeds;
 
     std::vector<SUMOReal> myLaneSpeeds;
 

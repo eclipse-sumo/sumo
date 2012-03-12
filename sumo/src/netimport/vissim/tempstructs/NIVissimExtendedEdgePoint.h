@@ -31,14 +31,14 @@
 #include <config.h>
 #endif
 
-#include <utils/common/VectorHelper.h>
-#include <utils/geom/Position.h>
+#include <vector>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class NBEdge;
+class Position;
 
 
 // ===========================================================================
@@ -55,13 +55,13 @@ public:
      * @param[in] position The position of this point at the edge
      * @param[in] assignedVehicles Vehicle (type) indices which should be regarded by this point
      */
-    NIVissimExtendedEdgePoint(int edgeid, const IntVector& lanes,
-                              SUMOReal position, const IntVector& assignedVehicles) ;
+    NIVissimExtendedEdgePoint(int edgeid, const std::vector<int>& lanes,
+                              SUMOReal position, const std::vector<int>& assignedVehicles) ;
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
     SUMOReal getPosition() const;
     Position getGeomPosition() const;
-    const IntVector& getLanes() const;
+    const std::vector<int>& getLanes() const;
 
 
     /** @brief Resets lane numbers if all lanes shall be used
@@ -75,9 +75,9 @@ public:
 
 private:
     int myEdgeID;
-    IntVector myLanes;
+    std::vector<int> myLanes;
     SUMOReal myPosition;
-    IntVector myAssignedVehicles;
+    std::vector<int> myAssignedVehicles;
 };
 
 

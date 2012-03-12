@@ -150,10 +150,10 @@ public:
         PositionVector myFullGeometry;
 
         /// @brief A sequence of lengths in full-geometry mode
-        DoubleVector myShapeLengths;
+        std::vector<SUMOReal> myShapeLengths;
 
         /// @brief A sequence of rotations in full-geometry mode
-        DoubleVector myShapeRotations;
+        std::vector<SUMOReal> myShapeRotations;
 
     private:
         /// @brief Invalidated copy constructor.

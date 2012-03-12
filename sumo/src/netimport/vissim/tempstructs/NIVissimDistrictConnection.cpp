@@ -62,7 +62,7 @@
 // static member definitions
 // ===========================================================================
 NIVissimDistrictConnection::DictType NIVissimDistrictConnection::myDict;
-std::map<int, IntVector> NIVissimDistrictConnection::myDistrictsConnections;
+std::map<int, std::vector<int> > NIVissimDistrictConnection::myDistrictsConnections;
 
 
 // ===========================================================================
@@ -70,14 +70,14 @@ std::map<int, IntVector> NIVissimDistrictConnection::myDistrictsConnections;
 // ===========================================================================
 NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
         const std::string& name,
-        const IntVector& districts, const DoubleVector& percentages,
+        const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
         int edgeid, SUMOReal position,
         const std::vector<std::pair<int, int> > &assignedVehicles)
     : myID(id), myName(name), myDistricts(districts),
       myEdgeID(edgeid), myPosition(position),
       myAssignedVehicles(assignedVehicles) {
-    IntVector::iterator i = myDistricts.begin();
-    DoubleVector::const_iterator j = percentages.begin();
+    std::vector<int>::iterator i = myDistricts.begin();
+    std::vector<SUMOReal>::const_iterator j = percentages.begin();
     while (i != myDistricts.end()) {
         myPercentages[*i] = *j;
         i++;
@@ -92,7 +92,7 @@ NIVissimDistrictConnection::~NIVissimDistrictConnection() {}
 
 bool
 NIVissimDistrictConnection::dictionary(int id, const std::string& name,
-                                       const IntVector& districts, const DoubleVector& percentages,
+                                       const std::vector<int>& districts, const std::vector<SUMOReal>& percentages,
                                        int edgeid, SUMOReal position,
                                        const std::vector<std::pair<int, int> > &assignedVehicles) {
     NIVissimDistrictConnection* o =
@@ -131,8 +131,8 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections() {
     //  pre-assign connections to districts
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimDistrictConnection* c = (*i).second;
-        const IntVector& districts = c->myDistricts;
-        for (IntVector::const_iterator j = districts.begin(); j != districts.end(); j++) {
+        const std::vector<int>& districts = c->myDistricts;
+        for (std::vector<int>::const_iterator j = districts.begin(); j != districts.end(); j++) {
             // assign connection to district
             myDistrictsConnections[*j].push_back((*i).first);
         }
@@ -142,9 +142,9 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections() {
 
 void
 NIVissimDistrictConnection::dict_CheckEdgeEnds() {
-    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
-        const IntVector& connections = (*k).second;
-        for (IntVector::const_iterator j = connections.begin(); j != connections.end(); j++) {
+    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
+        const std::vector<int>& connections = (*k).second;
+        for (std::vector<int>::const_iterator j = connections.begin(); j != connections.end(); j++) {
             NIVissimDistrictConnection* c = dictionary(*j);
             c->checkEdgeEnd();
         }
@@ -163,16 +163,16 @@ NIVissimDistrictConnection::checkEdgeEnd() {
 void
 NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont& dc,
         NBNodeCont& nc) {
-    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
+    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
         // get the connections
-        const IntVector& connections = (*k).second;
+        const std::vector<int>& connections = (*k).second;
         // retrieve the current district
         std::string dsid = toString<int>((*k).first);
         NBDistrict* district = new NBDistrict(dsid);
         dc.insert(district);
         // compute the middle of the district
         PositionVector pos;
-        for (IntVector::const_iterator j = connections.begin(); j != connections.end(); j++) {
+        for (std::vector<int>::const_iterator j = connections.begin(); j != connections.end(); j++) {
             NIVissimDistrictConnection* c = dictionary(*j);
             pos.push_back(c->geomPosition());
         }
@@ -200,16 +200,16 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
     //  their normalised probability is computed within NBDistrict
     //   to avoid SUMOReal code writing and more securty within the converter
     //  go through the district table
-    for (std::map<int, IntVector>::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
+    for (std::map<int, std::vector<int> >::iterator k = myDistrictsConnections.begin(); k != myDistrictsConnections.end(); k++) {
         // get the connections
-        const IntVector& connections = (*k).second;
+        const std::vector<int>& connections = (*k).second;
         // retrieve the current district
         NBDistrict* district =
             dc.retrieve(toString<int>((*k).first));
         NBNode* districtNode = nc.retrieve("District" + district->getID());
         assert(district != 0 && districtNode != 0);
 
-        for (IntVector::const_iterator l = connections.begin(); l != connections.end(); l++) {
+        for (std::vector<int>::const_iterator l = connections.begin(); l != connections.end(); l++) {
             NIVissimDistrictConnection* c = dictionary(*l);
             // get the edge to connect the parking place to
             NBEdge* e = ec.retrieve(toString<int>(c->myEdgeID));
@@ -285,7 +285,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
 
         /*
         // add them as sources and sinks to the current district
-        for(IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
+        for(std::vector<int>::const_iterator l=connections.begin(); l!=connections.end(); l++) {
             // get the current connections
             NIVissimDistrictConnection *c = dictionary(*l);
             // get the edge to connect the parking place to

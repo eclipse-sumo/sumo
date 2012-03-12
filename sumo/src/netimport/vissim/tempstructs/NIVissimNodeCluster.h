@@ -32,7 +32,6 @@
 #endif
 
 #include <map>
-#include <utils/common/VectorHelper.h>
 #include <utils/geom/Position.h>
 
 
@@ -54,8 +53,8 @@ class NBDistrictCont;
 class NIVissimNodeCluster {
 public:
     NIVissimNodeCluster(int id, int nodeid, int tlid,
-                        const IntVector& connectors,
-                        const IntVector& disturbances,
+                        const std::vector<int>& connectors,
+                        const std::vector<int>& disturbances,
                         bool amEdgeSplitOnly);
     ~NIVissimNodeCluster();
     int getID() const {
@@ -70,8 +69,8 @@ public:
 
 public:
     static bool dictionary(int id, NIVissimNodeCluster* o);
-    static int dictionary(int nodeid, int tlid, const IntVector& connectors,
-                          const IntVector& disturbances, bool amEdgeSplitOnly);
+    static int dictionary(int nodeid, int tlid, const std::vector<int>& connectors,
+                          const std::vector<int>& disturbances, bool amEdgeSplitOnly);
     static NIVissimNodeCluster* dictionary(int id);
     static size_t contSize();
     static void assignToEdges();
@@ -91,8 +90,8 @@ private:
     int myID;
     int myNodeID;
     int myTLID;
-    IntVector myConnectors;
-    IntVector myDisturbances;
+    std::vector<int> myConnectors;
+    std::vector<int> myDisturbances;
     Position myPosition;
     typedef std::map<int, NIVissimNodeCluster*> DictType;
     static DictType myDict;

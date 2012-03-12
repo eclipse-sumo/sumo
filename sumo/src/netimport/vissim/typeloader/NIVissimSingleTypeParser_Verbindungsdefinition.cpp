@@ -122,7 +122,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
         }
     }
     // read in allowed vehicle classes
-    IntVector assignedVehicles;
+    std::vector<int> assignedVehicles;
     if (tag == "fahrzeugklassen") {
         tag = readEndSecure(from);
         while (tag != "DATAEND" && tag != "sperrung" && tag != "auswertung") {
@@ -147,7 +147,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
                 int laneNo;
                 from >> laneNo; // type-checking is missing!
                 // get the list of assigned car classes
-                IntVector assignedVehicles;
+                std::vector<int> assignedVehicles;
                 tag = myRead(from);
                 if (tag == "fahrzeugklassen") {
                     tag = myRead(from);

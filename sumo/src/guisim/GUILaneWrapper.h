@@ -126,8 +126,8 @@ public:
 
 
     const PositionVector& getShape() const;
-    const DoubleVector& getShapeRotations() const;
-    const DoubleVector& getShapeLengths() const;
+    const std::vector<SUMOReal>& getShapeRotations() const;
+    const std::vector<SUMOReal>& getShapeLengths() const;
 
     SUMOReal firstWaitingTime() const;
 
@@ -199,10 +199,10 @@ protected:
     const PositionVector& myShape;
 
     /// The rotations of the shape parts
-    DoubleVector myShapeRotations;
+    std::vector<SUMOReal> myShapeRotations;
 
     /// The lengths of the shape parts
-    DoubleVector myShapeLengths;
+    std::vector<SUMOReal> myShapeLengths;
 
     /// @brief Half of lane width, for speed-up
     SUMOReal myHalfLaneWidth;

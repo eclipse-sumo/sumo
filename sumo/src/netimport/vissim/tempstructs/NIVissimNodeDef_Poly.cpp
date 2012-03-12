@@ -96,11 +96,11 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 
 void
 NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
-    IntVector within = NIVissimAbstractEdge::getWithin(myPoly, offset);
-    IntVector connections;
-    IntVector edges;
+    std::vector<int> within = NIVissimAbstractEdge::getWithin(myPoly, offset);
+    std::vector<int> connections;
+    std::vector<int> edges;
     Boundary boundary(myPoly.getBoxBoundary());
-    for (IntVector::const_iterator i = within.begin(); i != within.end(); i++) {
+    for (std::vector<int>::const_iterator i = within.begin(); i != within.end(); i++) {
         NIVissimConnection* c =
             NIVissimConnection::dictionary(*i);
         NIVissimEdge* e =
@@ -115,7 +115,7 @@ NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
     }
     NIVissimConnectionCluster* c =
         new NIVissimConnectionCluster(connections, boundary, myID, edges);
-    for (IntVector::iterator j = edges.begin(); j != edges.end(); j++) {
+    for (std::vector<int>::iterator j = edges.begin(); j != edges.end(); j++) {
         NIVissimEdge* edge = NIVissimEdge::dictionary(*j);
         edge->myConnectionClusters.push_back(c);
     }

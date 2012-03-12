@@ -35,23 +35,14 @@
 #include <config.h>
 #endif
 
-#include <bitset>
-#include <deque>
 #include <vector>
-#include <utility>
+#include <deque>
 #include <cassert>
-#include <map>
-#include <string>
-#include <iostream>
-#include <utils/geom/PositionVector.h>
-#include <utils/geom/Line.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
-#include "MSMoveReminder.h"
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/geom/PositionVector.h>
 #include "MSLinkCont.h"
-
+#include "MSMoveReminder.h"
 
 
 // ===========================================================================

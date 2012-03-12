@@ -33,7 +33,6 @@
 
 #include <string>
 #include <map>
-#include <utils/common/VectorHelper.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include <utils/geom/Position.h>
 #include <utils/geom/AbstractPoly.h>
@@ -67,7 +66,7 @@ public:
                        const PositionVector& geom,
                        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-                       const IntVector& assignedVehicles,
+                       const std::vector<int>& assignedVehicles,
                        const NIVissimClosedLanesVector& clv);
     virtual ~NIVissimConnection();
     void computeBounding();
@@ -96,8 +95,8 @@ public:
     void recheckLanes(const NBEdge* const fromEdge, const NBEdge* const toEdge) ;
 
 public:
-    const IntVector& getFromLanes() const;
-    const IntVector& getToLanes() const;
+    const std::vector<int>& getFromLanes() const;
+    const std::vector<int>& getToLanes() const;
 
 
 
@@ -107,13 +106,13 @@ public:
                            const PositionVector& geom,
                            Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
                            SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
-                           const IntVector& assignedVehicles,
+                           const std::vector<int>& assignedVehicles,
                            const NIVissimClosedLanesVector& clv);
     static bool dictionary(int id, NIVissimConnection* o);
     static NIVissimConnection* dictionary(int id);
-    static IntVector getWithin(const AbstractPoly& poly);
+    static std::vector<int> getWithin(const AbstractPoly& poly);
     static void buildNodeClusters();
-    static IntVector getForEdge(int edgeid, bool omitNodeAssigned = true);
+    static std::vector<int> getForEdge(int edgeid, bool omitNodeAssigned = true);
     static void dict_buildNBEdgeConnections(NBEdgeCont& ec);
     static void dict_assignToEdges();
     static int getMaxID();
@@ -124,7 +123,7 @@ private:
     Direction myDirection;
     SUMOReal myDXNothalt, myDXEinordnen;
     SUMOReal myZuschlag1, myZuschlag2;
-    IntVector myAssignedVehicles;
+    std::vector<int> myAssignedVehicles;
     NIVissimClosedLanesVector myClosedLanes;
 private:
     typedef std::map<int, NIVissimConnection*> DictType;

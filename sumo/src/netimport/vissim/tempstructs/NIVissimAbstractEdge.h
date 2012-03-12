@@ -32,7 +32,6 @@
 #endif
 
 #include <map>
-#include <utils/common/VectorHelper.h>
 #include <utils/geom/PositionVector.h>
 
 
@@ -62,20 +61,20 @@ public:
 
     void addDisturbance(int disturbance);
 
-    const IntVector& getDisturbances() const;
+    const std::vector<int>& getDisturbances() const;
 
 public:
     static bool dictionary(int id, NIVissimAbstractEdge* e);
     static NIVissimAbstractEdge* dictionary(int id);
     static void splitAndAssignToNodes();
-    static IntVector getWithin(const AbstractPoly& p, SUMOReal offset = 0.0);
+    static std::vector<int> getWithin(const AbstractPoly& p, SUMOReal offset = 0.0);
     static void clearDict();
 
 
 protected:
     int myID;
     PositionVector myGeom;
-    IntVector myDisturbances;
+    std::vector<int> myDisturbances;
     int myNode;
 
 private:

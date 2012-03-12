@@ -118,7 +118,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
             int laneNo;
             from >> laneNo; // type-checking is missing!
             // get the list of assigned car classes
-            IntVector assignedVehicles;
+            std::vector<int> assignedVehicles;
             tag = myRead(from);
             tag = myRead(from);
             while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {

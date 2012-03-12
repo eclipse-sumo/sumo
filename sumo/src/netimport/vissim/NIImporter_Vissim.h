@@ -33,7 +33,7 @@
 
 #include <string>
 #include <map>
-#include <utils/common/VectorHelper.h>
+#include <vector>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/Position.h>
 #include "tempstructs/NIVissimExtendedEdgePoint.h"
@@ -115,7 +115,7 @@ public:
 
         /** @brief parses a listof vehicle types assigned to the current data field
             One should remeber, that -1 means "all" vehicle types */
-        IntVector parseAssignedVehicleTypes(std::istream& from,
+        std::vector<int> parseAssignedVehicleTypes(std::istream& from,
                                             const std::string& next);
 
         NIVissimExtendedEdgePoint readExtEdgePointDef(std::istream& from);

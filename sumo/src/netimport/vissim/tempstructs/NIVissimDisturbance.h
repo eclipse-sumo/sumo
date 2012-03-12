@@ -32,7 +32,6 @@
 
 #include <map>
 #include <string>
-#include <utils/common/VectorHelper.h>
 #include <utils/geom/AbstractPoly.h>
 #include <netbuild/NBConnection.h>
 #include "NIVissimExtendedEdgePoint.h"
@@ -73,7 +72,7 @@ public:
                            SUMOReal timegap, SUMOReal waygap, SUMOReal vmax);
     static bool dictionary(int id, NIVissimDisturbance* o);
     static NIVissimDisturbance* dictionary(int id);
-    static IntVector getWithin(const AbstractPoly& poly);
+    static std::vector<int> getWithin(const AbstractPoly& poly);
     static void clearDict();
     static void dict_SetDisturbances();
     static void reportRefused();

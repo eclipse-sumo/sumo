@@ -41,7 +41,7 @@ NIVissimClosures::DictType NIVissimClosures::myDict;
 
 NIVissimClosures::NIVissimClosures(const std::string& id,
                                    int from_node, int to_node,
-                                   IntVector& overEdges)
+                                   std::vector<int>& overEdges)
     : myID(id), myFromNode(from_node), myToNode(to_node),
       myOverEdges(overEdges) {}
 
@@ -52,7 +52,7 @@ NIVissimClosures::~NIVissimClosures() {}
 bool
 NIVissimClosures::dictionary(const std::string& id,
                              int from_node, int to_node,
-                             IntVector& overEdges) {
+                             std::vector<int>& overEdges) {
     NIVissimClosures* o = new NIVissimClosures(id, from_node, to_node,
             overEdges);
     if (!dictionary(id, o)) {

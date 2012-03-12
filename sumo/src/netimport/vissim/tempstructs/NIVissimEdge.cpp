@@ -192,7 +192,7 @@ NIVissimEdge::buildConnectionClusters() {
         int edgeid = (*i).first;
         NIVissimEdge* edge = (*i).second;
         // get all connectors using this edge
-        IntVector connectors = edge->myIncomingConnections;
+        std::vector<int> connectors = edge->myIncomingConnections;
         copy(edge->myOutgoingConnections.begin(), edge->myOutgoingConnections.end(), back_inserter(connectors));
         if (connectors.size() == 0) {
             continue;
@@ -200,8 +200,8 @@ NIVissimEdge::buildConnectionClusters() {
         // sort the connectors by the place on the edge
         sort(connectors.begin(), connectors.end(), connection_position_sorter(edgeid));
         // try to cluster the connections participating within the current edge
-        IntVector currentCluster;
-        IntVector::iterator j = connectors.begin();
+        std::vector<int> currentCluster;
+        std::vector<int>::iterator j = connectors.begin();
         bool outgoing = NIVissimConnection::dictionary(*j)->getFromEdgeID() == (*i).first;
         SUMOReal position = outgoing
                             ? NIVissimConnection::dictionary(*j)->getFromPosition()
@@ -265,7 +265,7 @@ NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */) {
     }
     for (i = myDict.begin(); i != myDict.end(); i++) {
         NIVissimEdge* edge = (*i).second;
-        edge->propagateSpeed(/* dc */ -1, IntVector());
+        edge->propagateSpeed(/* dc */ -1, std::vector<int>());
     }
     for (int j = 0; j < 3; j++) {
         for (i = myDict.begin(); i != myDict.end(); i++) {
@@ -335,7 +335,7 @@ NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
 
 
 void
-NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector forLanes) {
+NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, std::vector<int> forLanes) {
     // if no lane is given, all set be set
     if (forLanes.size() == 0) {
         for (size_t i = 0; i < myNoLanes; i++) {
@@ -344,7 +344,7 @@ NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector 
     }
     // for the case of a first call
     // go through the lanes
-    for (IntVector::const_iterator i = forLanes.begin(); i < forLanes.end(); i++) {
+    for (std::vector<int>::const_iterator i = forLanes.begin(); i < forLanes.end(); i++) {
         // check whether a speed was set before
         if (myLaneSpeeds[*i] != -1) {
             // do not reset it from incoming
@@ -411,9 +411,9 @@ NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
 std::vector<NIVissimConnection*>
 NIVissimEdge::getOutgoingConnected(int lane) const {
     std::vector<NIVissimConnection*> ret;
-    for (IntVector::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); i++) {
+    for (std::vector<int>::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
-        const IntVector& lanes = c->getFromLanes();
+        const std::vector<int>& lanes = c->getFromLanes();
         if (find(lanes.begin(), lanes.end(), lane) != lanes.end()) {
             NIVissimEdge* e = NIVissimEdge::dictionary(c->getToEdgeID());
             if (e != 0) {
@@ -550,18 +550,18 @@ NIVissimEdge::recheckSpeedPatches()
 //    size_t speed_idx = -1;
     // check set speeds
     if(myPatchedSpeeds.size()!=0) {
-        DoubleVector::iterator i =
+        std::vector<SUMOReal>::iterator i =
             find(myPatchedSpeeds.begin(), myPatchedSpeeds.end(), -1);
         if(myPatchedSpeeds.size()!=myNoLanes||i!=myPatchedSpeeds.end()) {
             cot << "Warning! Not all lanes are patched! (edge:" << myID << ")." << endl;
         }
         //
-        if(DoubleVectorHelper::maxValue(myPatchedSpeeds)!=DoubleVectorHelper::minValue(myPatchedSpeeds)) {
+        if(std::vector<SUMOReal>Helper::maxValue(myPatchedSpeeds)!=std::vector<SUMOReal>Helper::minValue(myPatchedSpeeds)) {
             cot << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
         }
         //
 /        // !!! ist natuerlich Quatsch - erst recht, wenn Edges zusammengefasst werden
-        speed = DoubleVectorHelper::sum(myPatchedSpeeds);
+        speed = std::vector<SUMOReal>Helper::sum(myPatchedSpeeds);
         speed /= (SUMOReal) myPatchedSpeeds.size();*/
 /*        return true;
     }
@@ -853,7 +853,7 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos) {
     if (find(myDistrictConnections.begin(), myDistrictConnections.end(), pos) == myDistrictConnections.end()) {
         myDistrictConnections.push_back(pos);
         /*        int id = NIVissimConnection::getMaxID() + 1;
-                IntVector currentCluster;
+                std::vector<int> currentCluster;
                 currentCluster.push_back(id);
                 myConnectionClusters.push_back(
                     new NIVissimConnectionCluster(currentCluster, -1, myID));*/
@@ -955,7 +955,7 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
 
 NIVissimConnection*
 NIVissimEdge::getConnectionTo(NIVissimEdge* e) {
-    IntVector::iterator i;
+    std::vector<int>::iterator i;
     for (i = myIncomingConnections.begin(); i != myIncomingConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         if (c->getFromEdgeID() == e->getID()) {
@@ -997,7 +997,7 @@ NIVissimEdge::reportUnsetSpeeds() {
 
 NIVissimEdge*
 NIVissimEdge::getBestIncoming() const {
-    for (IntVector::const_iterator i = myIncomingConnections.begin(); i != myIncomingConnections.end(); ++i) {
+    for (std::vector<int>::const_iterator i = myIncomingConnections.begin(); i != myIncomingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getFromEdgeID());
     }
@@ -1007,7 +1007,7 @@ NIVissimEdge::getBestIncoming() const {
 
 NIVissimEdge*
 NIVissimEdge::getBestOutgoing() const {
-    for (IntVector::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); ++i) {
+    for (std::vector<int>::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getToEdgeID());
     }

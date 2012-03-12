@@ -32,7 +32,6 @@
 
 #include <string>
 #include <map>
-#include <utils/common/VectorHelper.h>
 #include <utils/geom/Boundary.h>
 #include "NIVissimExtendedEdgePointVector.h"
 #include "NIVissimNodeCluster.h"
@@ -51,7 +50,7 @@ public:
 public:
     static bool dictionary(int id, NIVissimNodeDef* o);
     static NIVissimNodeDef* dictionary(int id);
-//    static IntVector getWithin(const AbstractPoly &p, SUMOReal off=0.0);
+//    static std::vector<int> getWithin(const AbstractPoly &p, SUMOReal off=0.0);
 //    static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();
     static size_t dictSize();

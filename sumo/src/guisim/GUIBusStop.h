@@ -133,10 +133,10 @@ public:
 
 private:
     /// @brief The rotations of the shape parts
-    DoubleVector myFGShapeRotations;
+    std::vector<SUMOReal> myFGShapeRotations;
 
     /// @brief The lengths of the shape parts
-    DoubleVector myFGShapeLengths;
+    std::vector<SUMOReal> myFGShapeLengths;
 
     /// @brief The shape
     PositionVector myFGShape;

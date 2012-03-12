@@ -86,7 +86,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
         readName(from);
         from >> tag;
     }
-    IntVector types;
+    std::vector<int> types;
     from >> tag;
     do {
         types.push_back(TplConvert<char>::_2int(tag.c_str()));

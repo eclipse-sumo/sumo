@@ -113,7 +113,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     int id, const std::string& name, int lsaid, std::istream& from) {
     //
     bool isGreenBegin;
-    DoubleVector times;
+    std::vector<SUMOReal> times;
     std::string tag = myRead(from);
     if (tag == "dauergruen") {
         isGreenBegin = true;

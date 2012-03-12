@@ -73,7 +73,7 @@ NIVissimConnection::NIVissimConnection(int id,
                                        const PositionVector& geom, Direction direction,
                                        SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal /*seglength*/,
-                                       const IntVector& assignedVehicles, const NIVissimClosedLanesVector& clv)
+                                       const std::vector<int>& assignedVehicles, const NIVissimClosedLanesVector& clv)
     : NIVissimAbstractEdge(id, geom),
       myName(name), myFromDef(from_def), myToDef(to_def),
       myDirection(direction),
@@ -99,7 +99,7 @@ NIVissimConnection::dictionary(int id, const std::string& name,
                                SUMOReal dxnothalt, SUMOReal dxeinordnen,
                                SUMOReal zuschlag1, SUMOReal zuschlag2,
                                SUMOReal seglength,
-                               const IntVector& assignedVehicles,
+                               const std::vector<int>& assignedVehicles,
                                const NIVissimClosedLanesVector& clv) {
     NIVissimConnection* o = new NIVissimConnection(id, name, from_def, to_def,
             geom, direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2,
@@ -144,10 +144,10 @@ NIVissimConnection::buildNodeClusters() {
         NIVissimConnection* e = (*i).second;
         if (!e->clustered()) {
             assert(e->myBoundary != 0 && e->myBoundary->xmax() > e->myBoundary->xmin());
-            IntVector connections =
+            std::vector<int> connections =
                 NIVissimConnection::getWithin(*(e->myBoundary));
             NIVissimNodeCluster::dictionary(-1, -1, connections,
-                                            IntVector(), true); // 19.5.!!! should be on a single edge
+                                            std::vector<int>(), true); // 19.5.!!! should be on a single edge
         }
     }
 }
@@ -156,9 +156,9 @@ NIVissimConnection::buildNodeClusters() {
 
 
 
-IntVector
+std::vector<int>
 NIVissimConnection::getWithin(const AbstractPoly& poly) {
-    IntVector ret;
+    std::vector<int> ret;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         if ((*i).second->crosses(poly)) {
             ret.push_back((*i).second->myID);
@@ -178,9 +178,9 @@ NIVissimConnection::computeBounding() {
 }
 
 
-IntVector
+std::vector<int>
 NIVissimConnection::getForEdge(int edgeid, bool /*omitNodeAssigned*/) {
-    IntVector ret;
+    std::vector<int> ret;
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); i++) {
         int connID = (*i).first;
         if ((*i).second->myFromDef.getEdgeID() == edgeid
@@ -286,8 +286,8 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
         return 1; // !!! actually not 1
     }
     recheckLanes(fromEdge, toEdge);
-    const IntVector& fromLanes = getFromLanes();
-    const IntVector& toLanes = getToLanes();
+    const std::vector<int>& fromLanes = getFromLanes();
+    const std::vector<int>& toLanes = getToLanes();
     if (fromLanes.size() != toLanes.size()) {
         WRITE_WARNING("Lane sizes differ for connection '" + toString(getID()) + "'.");
     } else {
@@ -318,13 +318,13 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont& ec) {
 }
 
 
-const IntVector&
+const std::vector<int>&
 NIVissimConnection::getFromLanes() const {
     return myFromDef.getLanes();
 }
 
 
-const IntVector&
+const std::vector<int>&
 NIVissimConnection::getToLanes() const {
     return myToDef.getLanes();
 }

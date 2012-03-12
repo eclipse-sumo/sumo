@@ -164,7 +164,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     std::string tag;
     from >> tag;
     from >> tag;
-    IntVector lanes;
+    std::vector<int> lanes;
     if (tag == "ALLE") {
         //lanes.push_back(1); // !!!
     } else {
@@ -175,7 +175,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     from >> tag;
     from >> position;
     // assigned vehicle types
-    IntVector types;
+    std::vector<int> types;
     from >> tag;
     while (tag != "zeitluecke" && tag != "durch" && tag != "DATAEND" && tag != "alle") {
         tag = readEndSecure(from);

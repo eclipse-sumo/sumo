@@ -62,6 +62,8 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/HelpersHarmonoise.h>
+#include <utils/geom/Line.h>
+#include <utils/geom/GeomHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
