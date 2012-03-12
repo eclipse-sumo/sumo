@@ -659,7 +659,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
                 return -1;
             } else {
                 SUMOReal value(0);
-                ews.retrieveExistingTravelTime(&e, 0, 0, value);
+                ews.retrieveExistingTravelTime(&e, 0, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
                 return value;
             }
         }
