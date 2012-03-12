@@ -151,13 +151,20 @@ protected:
     };
 
 private:
+    /// @brief comparator for maps using edges as key, used only in myDetectorsOnEdges to make tests comparable
+    struct idComp {
+        bool operator() (ROEdge* const lhs, ROEdge* const rhs) {
+            return lhs->getID() < rhs->getID();
+        }
+    };
+
     /// @brief Map of edge name->list of names of this edge approaching edges
     std::map<ROEdge*, std::vector<ROEdge*> > myApproachingEdges;
 
     /// @brief Map of edge name->list of names of edges approached by this edge
     std::map<ROEdge*, std::vector<ROEdge*> > myApproachedEdges;
 
-    mutable std::map<ROEdge*, std::vector<std::string> > myDetectorsOnEdges;
+    mutable std::map<ROEdge*, std::vector<std::string>, idComp> myDetectorsOnEdges;
     mutable std::map<std::string, ROEdge*> myDetectorEdges;
 
     bool myAmInHighwayMode;

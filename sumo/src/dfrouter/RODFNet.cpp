@@ -101,17 +101,10 @@ RODFNet::buildDetectorEdgeDependencies(RODFDetectorCon& detcont) const {
     myDetectorsOnEdges.clear();
     myDetectorEdges.clear();
     const std::vector<RODFDetector*> &dets = detcont.getDetectors();
-    {
-        for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
-            ROEdge* e = getDetectorEdge(**i);
-
-            if (myDetectorsOnEdges.find(e) == myDetectorsOnEdges.end()) {
-                myDetectorsOnEdges[e] = std::vector<std::string>();
-            }
-            myDetectorsOnEdges[e].push_back((*i)->getID());
-
-            myDetectorEdges[(*i)->getID()] = e;
-        }
+    for (std::vector<RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
+        ROEdge* e = getDetectorEdge(**i);
+        myDetectorsOnEdges[e].push_back((*i)->getID());
+        myDetectorEdges[(*i)->getID()] = e;
     }
 }
 
@@ -124,30 +117,26 @@ RODFNet::computeTypes(RODFDetectorCon& detcont,
     // build needed information. first
     buildDetectorEdgeDependencies(detcont);
     // compute detector types then
-    {
-        for (std::vector< RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
-            if (isSource(**i, detcont, sourcesStrict)) {
-                (*i)->setType(SOURCE_DETECTOR);
-                mySourceNumber++;
-            }
-            if (isDestination(**i, detcont)) {
-                (*i)->setType(SINK_DETECTOR);
-                mySinkNumber++;
-            }
-            if ((*i)->getType() == TYPE_NOT_DEFINED) {
-                (*i)->setType(BETWEEN_DETECTOR);
-                myInBetweenNumber++;
-            }
+    for (std::vector< RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
+        if (isSource(**i, detcont, sourcesStrict)) {
+            (*i)->setType(SOURCE_DETECTOR);
+            mySourceNumber++;
+        }
+        if (isDestination(**i, detcont)) {
+            (*i)->setType(SINK_DETECTOR);
+            mySinkNumber++;
+        }
+        if ((*i)->getType() == TYPE_NOT_DEFINED) {
+            (*i)->setType(BETWEEN_DETECTOR);
+            myInBetweenNumber++;
         }
     }
     // recheck sources
-    {
-        for (std::vector< RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
-            if ((*i)->getType() == SOURCE_DETECTOR && isFalseSource(**i, detcont)) {
-                (*i)->setType(DISCARDED_DETECTOR);
-                myInvalidNumber++;
-                mySourceNumber--;
-            }
+    for (std::vector< RODFDetector*>::const_iterator i = dets.begin(); i != dets.end(); ++i) {
+        if ((*i)->getType() == SOURCE_DETECTOR && isFalseSource(**i, detcont)) {
+            (*i)->setType(DISCARDED_DETECTOR);
+            myInvalidNumber++;
+            mySourceNumber--;
         }
     }
     // print results
@@ -952,12 +941,12 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                           const RODFDetectorCon& detectors,
                           SUMOTime startTime, SUMOTime endTime,
                           SUMOTime stepOffset) {
-    std::map<ROEdge*, std::vector<std::string> >::iterator i;
+    std::map<ROEdge*, std::vector<std::string>, idComp>::iterator i;
     for (i = myDetectorsOnEdges.begin(); i != myDetectorsOnEdges.end(); ++i) {
         ROEdge* into = (*i).first;
         const std::vector<std::string> &dets = (*i).second;
         std::map<SUMOReal, std::vector<std::string> > cliques;
-        size_t maxCliqueSize = 0;
+        std::vector<std::string>* maxClique = 0;
         for (std::vector<std::string>::const_iterator j = dets.begin(); j != dets.end(); ++j) {
             if (!flows.knows(*j)) {
                 continue;
@@ -967,21 +956,19 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
             for (std::map<SUMOReal, std::vector<std::string> >::iterator k = cliques.begin(); !found && k != cliques.end(); ++k) {
                 if (fabs((*k).first - det.getPos()) < 1) {
                     (*k).second.push_back(*j);
-                    maxCliqueSize = MAX2(maxCliqueSize, (*k).second.size());
+                    if ((*k).second.size() > maxClique->size()) {
+                        maxClique = &(*k).second;
+                    }
                     found = true;
                 }
             }
             if (!found) {
-                cliques[det.getPos()] = std::vector<std::string>();
                 cliques[det.getPos()].push_back(*j);
-                maxCliqueSize = MAX2(maxCliqueSize, (size_t) 1);
+                maxClique = &cliques[det.getPos()];
             }
         }
-        std::vector<std::string> firstClique;
-        for (std::map<SUMOReal, std::vector<std::string> >::iterator m = cliques.begin(); firstClique.size() == 0 && m != cliques.end(); ++m) {
-            if ((*m).second.size() == maxCliqueSize) {
-                firstClique = (*m).second;
-            }
+        if (maxClique == 0) {
+            continue;
         }
         std::vector<FlowDef> mflows; // !!! reserve
         for (SUMOTime t = startTime; t < endTime; t += stepOffset) {
@@ -994,7 +981,7 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
             fd.isLKW = 0;
             mflows.push_back(fd);
         }
-        for (std::vector<std::string>::iterator l = firstClique.begin(); l != firstClique.end(); ++l) {
+        for (std::vector<std::string>::iterator l = maxClique->begin(); l != maxClique->end(); ++l) {
             bool didWarn = false;
             const std::vector<FlowDef> &dflows = flows.getFlowDefs(*l);
             int index = 0;
@@ -1003,10 +990,10 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
                 FlowDef& fd = mflows[index];
                 fd.qPKW += srcFD.qPKW;
                 fd.qLKW += srcFD.qLKW;
-                fd.vLKW += (srcFD.vLKW / (SUMOReal) firstClique.size());
-                fd.vPKW += (srcFD.vPKW / (SUMOReal) firstClique.size());
-                fd.fLKW += (srcFD.fLKW / (SUMOReal) firstClique.size());
-                fd.isLKW += (srcFD.isLKW / (SUMOReal) firstClique.size());
+                fd.vLKW += (srcFD.vLKW / (SUMOReal) maxClique->size());
+                fd.vPKW += (srcFD.vPKW / (SUMOReal) maxClique->size());
+                fd.fLKW += (srcFD.fLKW / (SUMOReal) maxClique->size());
+                fd.isLKW += (srcFD.isLKW / (SUMOReal) maxClique->size());
                 if (!didWarn && srcFD.vPKW > 0 && srcFD.vPKW < 255 && srcFD.vPKW / 3.6 > into->getSpeed()) {
                     WRITE_MESSAGE("Detected PKW speed higher than allowed speed at '" + (*l) + "' on '" + into->getID() + "'.");
                     didWarn = true;
@@ -1072,9 +1059,8 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon& detectors) {
 void
 RODFNet::mesoJoin(RODFDetectorCon& detectors, RODFDetectorFlows& flows) {
     buildDetectorEdgeDependencies(detectors);
-    std::map<ROEdge*, std::vector<std::string> >::iterator i;
+    std::map<ROEdge*, std::vector<std::string>, idComp>::iterator i;
     for (i = myDetectorsOnEdges.begin(); i != myDetectorsOnEdges.end(); ++i) {
-        ROEdge* into = (*i).first;
         const std::vector<std::string> &dets = (*i).second;
         std::map<SUMOReal, std::vector<std::string> > cliques;
         // compute detector cliques
