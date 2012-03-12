@@ -31,9 +31,9 @@ TEST(GeomHelper, test_method_intersects) {
 }
 
 
-TEST(GeomHelper, test_method_intersection_position) {
+TEST(GeomHelper, test_method_intersection_position2D) {
     Position expected(1,0);
-    Position pos = GeomHelper::intersection_position(
+    Position pos = GeomHelper::intersection_position2D(
             Position(0,0), Position(2,0),
             Position(1,3), Position(1,-1));
 	EXPECT_FLOAT_EQ(expected.x(), pos.x());

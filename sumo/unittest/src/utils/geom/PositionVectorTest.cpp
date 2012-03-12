@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/geom/Boundary.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
