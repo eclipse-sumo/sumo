@@ -143,7 +143,10 @@ public:
     SUMOReal getOccupancy() const;
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
+    /// @brief return flow based on meanSpead @note: may produced incorrect results when jammed
     SUMOReal getFlow() const;
+    /// @brief return flow based on headWay
+    SUMOReal getFlowAlternative() const;
     /// @brief return meanSpead divided by allowedSpeed
     SUMOReal getRelativeSpeed() const;
 
