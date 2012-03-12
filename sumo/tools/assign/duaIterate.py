@@ -85,6 +85,8 @@ def initOptions():
                          default=False, help="No tripinfos are written by the simulation")
     optParser.add_option("--tripinfo-filter", dest="tripinfoFilter",
                          help="filter tripinfo attributes")
+    optParser.add_option("--inc-start", dest="incStart",
+                         type="float", default=0, help="Start for incrementing scale")
     optParser.add_option("--inc-base", dest="incBase",
                          type="int", default=-1, help="Give the incrementation base")
     optParser.add_option("--incrementation", dest="incValue",
@@ -167,12 +169,22 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         <gawron.beta value="%s"/>
         <gawron.a value="%s"/>
         <keep-all-routes value="%s"/>
-        <routing-algorithm value="%s"/>
+        <routing-algorithm value="%s"/>%s
         <max-alternatives value="%s"/>
         <logit value="%s"/>
         <logit.beta value="%s"/>
-        <logit.gamma value="%s"/>""" % (options.continueOnUnbuild, bool(options.districts), options.gBeta, options.gA, options.allroutes, 
-            options.routing_algorithm, options.max_alternatives, options.logit, options.logitbeta, options.logitgamma)
+        <logit.gamma value="%s"/>""" % (
+                options.continueOnUnbuild, 
+                bool(options.districts), 
+                options.gBeta, 
+                options.gA, 
+                options.allroutes, 
+                options.routing_algorithm, 
+                ("" if options.routing_algorithm != 'CH' else '\n<weight-period value="%s"/>\n' % options.aggregation),
+                options.max_alternatives, 
+                options.logit, 
+                options.logitbeta, 
+                options.logitgamma)
     if options.logittheta:
         print >> fd, '        <logit.theta value="%s"/>' % options.logittheta
     print >> fd, '    </processing>'
@@ -194,7 +206,7 @@ def get_scale(options, step):
     # compute scaling factor for simulation
     # using incValue = 1 (default) and incBase = 10 would produce 
     # iterations with increasing scale 0.1, 0.2, ... 0.9, 1, 1, 1, ...
-    return min(options.incValue * float(step + 1) / options.incBase, 1)
+    return min(options.incStart + options.incValue * float(step + 1) / options.incBase, 1)
 
 
 def writeSUMOConf(step, options, files):
