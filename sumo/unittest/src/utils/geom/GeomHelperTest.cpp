@@ -9,9 +9,19 @@ Tests the class GeomHelper
 */
 
 TEST(GeomHelper, test_method_intersects) {
-    // overlapping line segments
+    // on the same line but non-overlapping segments
 	EXPECT_FALSE(GeomHelper::intersects(
+                Position(0,0), Position(1,0),
+                Position(2,0), Position(3,0)));
+
+    // overlapping line segments
+	EXPECT_TRUE(GeomHelper::intersects(
                 Position(0,0), Position(2,0),
+                Position(1,0), Position(3,0)));
+
+    // identical line segments
+	EXPECT_TRUE(GeomHelper::intersects(
+                Position(1,0), Position(3,0),
                 Position(1,0), Position(3,0)));
 
     // parallel line segments
@@ -38,6 +48,20 @@ TEST(GeomHelper, test_method_intersection_position2D) {
             Position(1,3), Position(1,-1));
 	EXPECT_FLOAT_EQ(expected.x(), pos.x());
 	EXPECT_FLOAT_EQ(expected.y(), pos.y());
+    // overlapping line segments
+    Position expected2(1.5,0);
+    Position pos2 = GeomHelper::intersection_position2D(
+            Position(0,0), Position(2,0),
+            Position(1,0), Position(3,0));
+	EXPECT_FLOAT_EQ(expected2.x(), pos2.x());
+	EXPECT_FLOAT_EQ(expected2.y(), pos2.y());
+    // identical line segments
+    Position expected3(1,0);
+    Position pos3 = GeomHelper::intersection_position2D(
+            Position(0,0), Position(2,0),
+            Position(0,0), Position(2,0));
+	EXPECT_FLOAT_EQ(expected3.x(), pos3.x());
+	EXPECT_FLOAT_EQ(expected3.y(), pos3.y());
 }
 
 
