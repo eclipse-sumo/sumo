@@ -1,6 +1,6 @@
 Format: 1.0
 Source: sumo
-Version: svn-1
+Version: 0.15.0-1
 Binary: sumo
 Maintainer: Michael Behrisch <behrisch@users.sourceforge.net>
 Architecture: any
