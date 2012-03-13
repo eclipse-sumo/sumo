@@ -57,8 +57,6 @@ public:
         TimePeriod(SUMOTime StartTime, SUMOTime EndTime);
         // destructor
         ~TimePeriod();
-        void SetStartTime(SUMOTime StartTime);
-        void SetEndTime(SUMOTime EndTime);
         SUMOTime GetStartTime();
         SUMOTime GetEndTime();
     private:
@@ -109,10 +107,6 @@ public:
     NodeVector* GetNodes();
     PhaseMap* GetPhases();
     SignalGroupMap* GetSignalGroups();
-    // set
-    void SetPhaseDefined(bool PhaseDefined);
-    void SetCycleTime(SUMOTime CylcleTime);
-    void SetIntermediateTime(SUMOTime IntermediateTime);
     // get
     bool GetPhaseDefined();
     SUMOTime GetCycleTime();

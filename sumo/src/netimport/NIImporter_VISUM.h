@@ -458,13 +458,13 @@ private:
 
 
 private:
-    /** @brief the network builder to fill with loaded values */
+    /// @brief The network builder to fill with loaded values
     NBNetBuilder& myNetBuilder;
 
     /// @brief The name of the parsed file, for error reporting
     std::string myFileName;
 
-    /// the line reader to use to read from the file
+    /// @brief The line reader to use to read from the file
     LineReader myLineReader;
 
     /** @brief the parser to parse the information from the data lines
@@ -472,47 +472,47 @@ private:
      * the order of columns within the visum format seems to vary, so a named parser is needed */
     NamedColumnsParser myLineParser;
 
-    /// the converter to compute the lane number of edges from their capacity
+    /// @brief The converter to compute the lane number of edges from their capacity
     NBCapacity2Lanes myCapacity2Lanes;
 
-    /// Definition of a storage for vsystypes
+    /// @brief Definition of a storage for vsystypes
     typedef std::map<std::string, std::string> VSysTypeNames;
-    /// the used vsystypes
+    /// @brief The used vsystypes
     VSysTypeNames myVSysTypes;
 
-    /** @brief definition of the list of known parsers */
+    /// @brief Definition of the list of known parsers
     typedef std::vector<TypeParser> ParserVector;
-    /// list of known parsers
+    /// @brief List of known parsers
     ParserVector mySingleDataParsers;
 
-    /// Definition of a map for loaded traffic lights (id->tls)
+    /// @brief Definition of a map for loaded traffic lights (id->tls)
     typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
-    // list of visum traffic lights
+    /// @brief List of visum traffic lights
     NIVisumTL_Map myNIVisumTLs;
 
-    /// Already read edges
+    /// @brief Already read edges
     std::vector<std::string > myTouchedEdges;
 
-    /// Information whether VISUM priority information shall be used
+    /// @brief Information whether VISUM priority information shall be used
     bool myUseVisumPrio;
 
-    /** @brief The name of the currently parsed item used for error reporting */
+    /// @brief The name of the currently parsed item used for error reporting
     std::string myCurrentID;
 
 
-    /// A map of point ids to positions
+    /// @brief A map of point ids to positions
     std::map<long, Position> myPoints;
 
-    /// A map of edge (not road, but "edge" in this case) ids to from/to-points
+    /// @brief A map of edge (not road, but "edge" in this case) ids to from/to-points
     std::map<long, std::pair<long, long> > myEdges;
 
-    /// A map from district shape definition name to the district
+    /// @brief A map from district shape definition name to the district
     std::map<long, NBDistrict*> myShapeDistrictMap;
 
-    /// A map from area parts to area ids
+    /// @brief A map from area parts to area ids
     std::map<long, std::vector<long> > mySubPartsAreas;
 
-    /// A temporary storage for district shapes as they are filled incrementally
+    /// @brief A temporary storage for district shapes as they are filled incrementally
     std::map<NBDistrict*, PositionVector> myDistrictShapes;
 
 

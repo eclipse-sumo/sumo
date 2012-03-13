@@ -70,16 +70,6 @@ NIVisumTL::TimePeriod::GetStartTime() {
     return myStartTime;
 }
 
-void
-NIVisumTL::TimePeriod::SetEndTime(SUMOTime EndTime) {
-    myEndTime = EndTime;
-}
-
-void
-NIVisumTL::TimePeriod::SetStartTime(SUMOTime StartTime) {
-    myStartTime = StartTime;
-}
-
 /* -------------------------------------------------------------------------
  * methods from NIVisumTL::TimePeriod
  * ----------------------------------------------------------------------- */
@@ -169,18 +159,6 @@ NIVisumTL::GetPhases() {
 
 NIVisumTL::SignalGroupMap* NIVisumTL::GetSignalGroups() {
     return &mySignalGroups;
-}
-
-void NIVisumTL::SetCycleTime(SUMOTime CycleTime) {
-    myCycleTime = CycleTime;
-}
-
-void NIVisumTL::SetIntermediateTime(SUMOTime IntermediateTime) {
-    myIntermediateTime = IntermediateTime;
-}
-
-void NIVisumTL::SetPhaseDefined(bool PhaseDefined) {
-    myPhaseDefined = PhaseDefined;
 }
 
 void NIVisumTL::AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime) {

@@ -87,13 +87,11 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser("BEZIRK", &NIImporter_VISUM::parse_Districts);
     addParser("PUNKT", &NIImporter_VISUM::parse_Point);
 
-
     // set2
     // two types of "strecke"
     addParser("STRECKE", &NIImporter_VISUM::parse_Edges);
     addParser("STRECKEN", &NIImporter_VISUM::parse_Edges);
     addParser("KANTE", &NIImporter_VISUM::parse_Kante);
-
 
     // set3
     addParser("ANBINDUNG", &NIImporter_VISUM::parse_Connectors);
@@ -104,7 +102,6 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser("STRECKENPOLY", &NIImporter_VISUM::parse_EdgePolys);
     addParser("FAHRSTREIFEN", &NIImporter_VISUM::parse_Lanes);
     addParser("FLAECHENELEMENT", &NIImporter_VISUM::parse_PartOfArea);
-
 
     // set4
     // two types of lsa
@@ -117,7 +114,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     // two types of signalgruppe
     addParser("LSASIGNALGRUPPE", &NIImporter_VISUM::parse_SignalGroups);
     addParser("SIGNALGRUPPE", &NIImporter_VISUM::parse_SignalGroups);
-    // two types of ABBZULSASIGNALGRUPPE
+    // three types of ABBZULSASIGNALGRUPPE
     addParser("ABBZULSASIGNALGRUPPE", &NIImporter_VISUM::parse_TurnsToSignalGroups);
     addParser("SIGNALGRUPPEZUABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
     addParser("SIGNALGRUPPEZUFSABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
