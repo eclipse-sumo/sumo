@@ -127,28 +127,41 @@ public:
 
 
 
-    // SignalGroupVector
-    typedef std::map<std::string, SignalGroup*> SignalGroupMap;
 public:
-    // constructor
-    NIVisumTL(const std::string& Name, SUMOTime CycleTime, SUMOTime IntermediateTime,
-              bool PhaseDefined);
-    // destructor
+    /** @brief Constructor
+     * @param[in] name The name of the TLS
+     * @param[in] cycleTime The cycle time of the TLS
+     * @param[in] intermediateTime The name of the TLS
+     * @param[in] phaseDefined Whether phases are defined
+     */
+    NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime intermediateTime,
+              bool phaseDefined);
+
+    /// @brief Destructor
     ~NIVisumTL();
-    // nodes and phases
-    std::vector<NBNode*>* GetNodes();
-    std::map<std::string, Phase*>* GetPhases();
-    // get
-    bool GetPhaseDefined();
-    SUMOTime GetCycleTime();
-    SUMOTime GetIntermediateTime();
-    SUMOTime GetName();
-    SignalGroup* GetSignalGroup(const std::string Name);
-    // add
-    void AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
-    void AddPhase(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
-    // build the trafficlight
+
+    /// @brief Adds a node to control
+    void addNode(NBNode *n) {
+        myNodes.push_back(n);
+    }
+
+    /// @brief Adds a signal group
+    void addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime);
+
+    /// @brief Adds a phase
+    void addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime);
+
+    /// @brief Returns the map of named phases
+    std::map<std::string, Phase*>& getPhases() {
+        return myPhases;
+    }
+
+    /// @brief Returns the named signal group
+    SignalGroup& getSignalGroup(const std::string &name);
+
+    /// @brief build the traffic light and add it to the given container
     void build(NBTrafficLightLogicCont& tlc);
+
 private:
     // name of traffic light
     std::string myName;
@@ -169,7 +182,7 @@ private:
     std::map<std::string, Phase*> myPhases;
 
     // vector of used Signalgroups
-    SignalGroupMap mySignalGroups;
+    std::map<std::string, SignalGroup*> mySignalGroups;
 
 };
 

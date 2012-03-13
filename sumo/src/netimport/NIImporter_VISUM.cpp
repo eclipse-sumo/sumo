@@ -794,10 +794,10 @@ NIImporter_VISUM::parse_TrafficLights() {
 
 void
 NIImporter_VISUM::parse_NodesToTrafficLights() {
-    std::string Node = myLineParser.get("KnotNr").c_str();
-    std::string TrafficLight = myLineParser.get("LsaNr").c_str();
+    std::string node = myLineParser.get("KnotNr").c_str();
+    std::string trafficLight = myLineParser.get("LsaNr").c_str();
     // add to the list
-    myTLS[TrafficLight]->GetNodes()->push_back(myNetBuilder.getNodeCont().retrieve(Node));
+    myTLS[trafficLight]->addNode(myNetBuilder.getNodeCont().retrieve(node));
 }
 
 
@@ -807,15 +807,15 @@ NIImporter_VISUM::parse_SignalGroups() {
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
     // StartTime
-    SUMOReal StartTime = getNamedFloat("GzStart", "GRUENANF");
+    SUMOReal startTime = getNamedFloat("GzStart", "GRUENANF");
     // EndTime
-    SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
+    SUMOReal endTime = getNamedFloat("GzEnd", "GRUENENDE");
     // add to the list
     if (myTLS.find(LSAid) == myTLS.end()) {
         WRITE_ERROR("Could not find TLS '" + LSAid + "' for setting the signal group.");
         return;
     }
-    myTLS.find(LSAid)->second->AddSignalGroup(myCurrentID, (SUMOTime) StartTime, (SUMOTime) EndTime);
+    myTLS.find(LSAid)->second->addSignalGroup(myCurrentID, (SUMOTime) startTime, (SUMOTime) endTime);
 }
 
 
@@ -841,7 +841,7 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
         edg2 = getEdge(via, to);
     }
     // add to the list
-    NIVisumTL::SignalGroup* SG = myTLS.find(LSAid)->second->GetSignalGroup(SGid);
+    NIVisumTL::SignalGroup& SG = myTLS.find(LSAid)->second->getSignalGroup(SGid);
     if (edg1 != 0 && edg2 != 0) {
         if (!via->hasIncoming(edg1)) {
             std::string sid;
@@ -867,7 +867,7 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
             }
             edg2 = getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  via);
         }
-        SG->connections().push_back(NBConnection(edg1, edg2));
+        SG.connections().push_back(NBConnection(edg1, edg2));
     }
 }
 
@@ -930,7 +930,7 @@ NIImporter_VISUM::parse_Phases() {
     // EndTime
     SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
     // add to the list
-    myTLS.find(LSAid)->second->AddPhase(Phaseid, (SUMOTime) StartTime, (SUMOTime) EndTime);
+    myTLS.find(LSAid)->second->addPhase(Phaseid, (SUMOTime) StartTime, (SUMOTime) EndTime);
 }
 
 
@@ -941,9 +941,9 @@ void NIImporter_VISUM::parse_SignalGroupsToPhases() {
     std::string SGid = NBHelpers::normalIDRepresentation(myLineParser.get("SGNR"));
     // insert
     NIVisumTL* LSA = myTLS.find(LSAid)->second;
-    NIVisumTL::SignalGroup* SG = LSA->GetSignalGroup(SGid);
-    NIVisumTL::Phase* PH = (*LSA->GetPhases()->find(Phaseid)).second;
-    SG->phases()[Phaseid] = PH;
+    NIVisumTL::SignalGroup& SG = LSA->getSignalGroup(SGid);
+    NIVisumTL::Phase* PH = LSA->getPhases().find(Phaseid)->second;
+    SG.phases()[Phaseid] = PH;
 }
 
 
