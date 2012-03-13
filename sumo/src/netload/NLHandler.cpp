@@ -1087,7 +1087,9 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
-                type, objecttype == SUMO_TAG_MEANDATA_LANE, excludeEmpty != "true",
+                type, objecttype == SUMO_TAG_MEANDATA_LANE,
+                // equivalent to TplConvert::_2bool used in SUMOSAXAttributes::getBool
+                excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
                 excludeEmpty == "defaults", withInternal, trackVehicles,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
