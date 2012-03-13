@@ -174,51 +174,8 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode * const n, bool leftHand,
 // ---------------------------------------------------------------------------
 // NBNodeTypeComputer
 // ---------------------------------------------------------------------------
-NBNodeTypeComputer::JunctionTypesMatrix::JunctionTypesMatrix() {
-    myMap['t'] = NODETYPE_TRAFFIC_LIGHT;
-    myMap['x'] = NODETYPE_NOJUNCTION;
-    myMap['p'] = NODETYPE_PRIORITY_JUNCTION;
-    myMap['r'] = NODETYPE_RIGHT_BEFORE_LEFT;
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(0. / 3.6), (SUMOReal)(10. / 3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(10. / 3.6), (SUMOReal)(30. / 3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(30. / 3.6), (SUMOReal)(50. / 3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(50. / 3.6), (SUMOReal)(70. / 3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(70. / 3.6), (SUMOReal)(100. / 3.6)));
-    myRanges.push_back(std::pair<SUMOReal, SUMOReal>((SUMOReal)(100. / 3.6), (SUMOReal)(999999. / 3.6)));
-    myValues.push_back("rppppp"); // 000 - 010
-    myValues.push_back(" rpppp"); // 010 - 030
-    myValues.push_back("  rppp"); // 030 - 050
-    myValues.push_back("   ppp"); // 050 - 070
-    myValues.push_back("    pp"); // 070 - 100
-    myValues.push_back("     p"); // 100 -
-}
-
-
-NBNodeTypeComputer::JunctionTypesMatrix::~JunctionTypesMatrix() {}
-
-
-SumoXMLNodeType
-NBNodeTypeComputer::JunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const {
-    std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator p1 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed1));
-    std::vector<std::pair<SUMOReal, SUMOReal> >::const_iterator p2 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed2));
-    char name = getNameAt(distance(myRanges.begin(), p1), distance(myRanges.begin(), p2));
-    return myMap.find(name)->second;
-}
-
-
-char
-NBNodeTypeComputer::JunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const {
-    std::string str = myValues[pos1];
-    if (str[pos2] == ' ') {
-        return getNameAt(pos2, pos1);
-    }
-    return str[pos2];
-}
-
-
 void 
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
-    JunctionTypesMatrix m;
     for(std::map<std::string, NBNode*>::const_iterator i=nc.begin(); i!=nc.end(); ++i) {
         NBNode *n = (*i).second;
         // the type may already be set from the data
@@ -230,31 +187,29 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont &nc) {
             n->myType = NODETYPE_PRIORITY_JUNCTION;
             continue;
         }
-        // !!!
+        // @todo "isSimpleContinuation" should be revalidated
         if (n->isSimpleContinuation()) {
             n->myType = NODETYPE_PRIORITY_JUNCTION;
             continue;
         }
-        // choose the uppermost type as default
-        SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
         // determine the type
+        SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
         for (EdgeVector::const_iterator i = n->myIncomingEdges.begin(); i != n->myIncomingEdges.end(); i++) {
             for (EdgeVector::const_iterator j = i + 1; j != n->myIncomingEdges.end(); j++) {
-                bool isOpposite = false;
-                // @todo "getOppositeIncoming" should probably be refactored into something the edge
-                //  knows
+                // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
                 if (n->getOppositeIncoming(*j) == *i && n->myIncomingEdges.size() > 2) {
-                    isOpposite = true;
+                    continue;
                 }
-                SumoXMLNodeType tmptype = type;
-                if (!isOpposite) {
-                    tmptype = m.getType((*i)->getSpeed(), (*j)->getSpeed());
-                    if (tmptype < type && tmptype != NODETYPE_UNKNOWN && tmptype != NODETYPE_NOJUNCTION) {
-                        type = tmptype;
-                    }
+                // @todo check against a legal document
+                SUMOReal s1 = (*i)->getSpeed() * (SUMOReal) 3.6;
+                SUMOReal s2 = (*j)->getSpeed() * (SUMOReal) 3.6;
+                if(fabs(s1-s2)>(SUMOReal) 9.5 || s1>=(SUMOReal) 49. || s2>=(SUMOReal) 49.) {
+                    type = NODETYPE_PRIORITY_JUNCTION;
+                    break;
                 }
             }
         }
+        // save type
         n->myType = type;
     }
 }

@@ -175,69 +175,6 @@ public:
      */
     static void computeNodeTypes(NBNodeCont &nc);
 
-private:
-    /**
-     * @class JunctionTypesMatrix
-     * @brief A class that stores the relationship between incoming edges and the junction type resulting from their types.
-     */
-    class JunctionTypesMatrix {
-    public:
-        /// @brief Constructor
-        JunctionTypesMatrix();
-
-        /// @brief Destructor
-        ~JunctionTypesMatrix();
-
-        /** @brief returns the type of the junction on the crossing of edges of the given types
-         * @param[in] speed1 The first edge's speed
-         * @param[in] speed2 The second edge's speed
-         * @return The resulting intersection type
-         */
-        SumoXMLNodeType getType(SUMOReal speed1, SUMOReal speed2) const;
-
-
-private:
-        /** @brief returns the one-char name of the junction type between the two given ranges */
-        char getNameAt(size_t pos1, size_t pos2) const;
-
-        /** @class priority_finder
-         * @brief Searches for the named priority in the range container
-         */
-        class range_finder {
-        public:
-            explicit range_finder(SUMOReal speed) : mySpeed(speed) { }
-
-            bool operator()(const std::pair<SUMOReal, SUMOReal> &range) {
-                return mySpeed >= range.first && mySpeed < range.second;
-            }
-
-        private:
-            SUMOReal mySpeed;
-        };
-
-    private:
-        /// @brief A container type for the resulting junction types (cross matrix)
-        typedef std::vector<std::string> StringCont;
-
-        /// @brief A map of chars to ints
-        typedef std::map<char, SumoXMLNodeType> CharToVal;
-
-        /// @brief A container for edge priority ranges
-        std::vector<std::pair<SUMOReal, SUMOReal> > myRanges;
-
-        /** @brief A container for the resulting junction types (cross matrix)
-         *
-         * The informations are stored as chars:
-         * 't': Traffic Light Junction
-         * 'r': Right-before-Left Junction
-         * 'p': Priority Junction
-         * 'x': no Junction */
-        StringCont myValues;
-
-        /// @brief A map of chars to their NBNode-representation
-        CharToVal  myMap;
-
-    };
 };
 
 
