@@ -53,24 +53,28 @@ public:
     class TimePeriod {
     public:
         // constructor
-        TimePeriod();
-        TimePeriod(SUMOTime StartTime, SUMOTime EndTime);
+        TimePeriod(SUMOTime StartTime, SUMOTime EndTime) : myStartTime(StartTime), myEndTime(EndTime) {}
         // destructor
-        ~TimePeriod();
-        SUMOTime GetStartTime();
-        SUMOTime GetEndTime();
+        ~TimePeriod() {}
+        SUMOTime GetStartTime() {
+            return myStartTime;
+        }
+        SUMOTime GetEndTime() {
+            return myEndTime;
+        }
     private:
         SUMOTime myStartTime;
         SUMOTime myEndTime;
     };
 
+
     // phase
     class Phase : public TimePeriod {
     public:
-        Phase();
-        Phase(SUMOTime StartTime, SUMOTime EndTime);
-        ~Phase();
+        Phase(SUMOTime StartTime, SUMOTime EndTime) : NIVisumTL::TimePeriod(StartTime, EndTime) {}
+        ~Phase() {}
     };
+
 
     // Vectors
     typedef std::vector<NBNode*> NodeVector;
@@ -81,24 +85,30 @@ public:
     class SignalGroup : public TimePeriod {
     public:
         // constructor
-        SignalGroup(const std::string& Name, SUMOTime StartTime, SUMOTime EndTime);
+        SignalGroup(const std::string& Name, SUMOTime StartTime, SUMOTime EndTime)
+            : NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name) {}
         // destructor
-        ~SignalGroup();
+        ~SignalGroup() {}
     private:
         NBConnectionVector myConnections;
         PhaseMap myPhases;
         std::string myName;
     public:
-        NBConnectionVector* GetConnections();
-        PhaseMap* GetPhases();
-        std::string GetName();
+        NBConnectionVector* GetConnections() {
+            return &myConnections;
+        }
+        PhaseMap* GetPhases() {
+            return &myPhases;
+        }
+        std::string GetName() {
+            return myName;
+        }
     };
 
     // SignalGroupVector
     typedef std::map<std::string, SignalGroup*> SignalGroupMap;
 public:
     // constructor
-    NIVisumTL();
     NIVisumTL(const std::string& Name, SUMOTime CycleTime, SUMOTime IntermediateTime,
               bool PhaseDefined);
     // destructor
@@ -106,7 +116,6 @@ public:
     // nodes and phases
     NodeVector* GetNodes();
     PhaseMap* GetPhases();
-    SignalGroupMap* GetSignalGroups();
     // get
     bool GetPhaseDefined();
     SUMOTime GetCycleTime();

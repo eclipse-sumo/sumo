@@ -385,71 +385,72 @@ private:
 
     };
 
-    /** @brief Parses VSYS */
+
+
+    /// @brief Parses VSYS
     void parse_VSysTypes();
 
-    /** @brief Parses STRECKENTYP */
+    /// @brief Parses STRECKENTYP
     void parse_Types();
 
-    /** @brief Parses KNOTEN */
+    /// @brief Parses KNOTEN
     void parse_Nodes();
 
-    /** @brief Parses BEZIRK */
+    /// @brief Parses BEZIRK
     void parse_Districts();
 
-    /** @brief Parses PUNKT */
+    /// @brief Parses PUNKT
     void parse_Point();
 
 
-    /** @brief Parses STRECKE/STRECKEN */
+    /// @brief Parses STRECKE/STRECKEN
     void parse_Edges();
 
-    /** @brief Parses FLAECHENELEMENT */
+    /// @brief Parses FLAECHENELEMENT
     void parse_PartOfArea();
 
-    /** @brief Parses FLAECHENELEMENT */
+    /// @brief Parses FLAECHENELEMENT
     void parse_Kante();
 
 
-    /** @brief Parses ANBINDUNG */
+    /// @brief Parses ANBINDUNG
     void parse_Connectors();
 
-    /** @brief Parses ABBIEGEBEZIEHUNG/ABBIEGER */
+    /// @brief Parses ABBIEGEBEZIEHUNG/ABBIEGER
     void parse_Turns();
 
-    /** @brief Parses STRECKENPOLY */
+    /// @brief Parses STRECKENPOLY
     void parse_EdgePolys();
 
-    /** @brief Parses FAHRSTREIFEN */
+    /// @brief Parses FAHRSTREIFEN
     void parse_Lanes();
 
-    /** @brief Parses LSA/SIGNALANLAGE */
+    /// @brief Parses LSA/SIGNALANLAGE
     void parse_TrafficLights();
 
-    /** @brief Parses KNOTENZULSA/SIGNALANLAGEZUKNOTEN */
+    /// @brief Parses KNOTENZULSA/SIGNALANLAGEZUKNOTEN
     void parse_NodesToTrafficLights();
 
-    /** @brief Parses LSASIGNALGRUPPE/SIGNALGRUPPE */
+    /// @brief Parses LSASIGNALGRUPPE/SIGNALGRUPPE
     void parse_SignalGroups();
 
-    /** @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER */
+    /// @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER
     void parse_TurnsToSignalGroups();
 
-    /** @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER */
+    /// @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER
     void parse_AreaSubPartElement();
 
-    /** @brief Parses LSAPHASE/PHASE */
+    /// @brief Parses LSAPHASE/PHASE
     void parse_Phases();
 
-    /** @brief Parses LSASIGNALGRUPPEZULSAPHASE */
+    /// @brief Parses LSASIGNALGRUPPEZULSAPHASE
     void parse_SignalGroupsToPhases();
 
-    /** @brief Parses FAHRSTREIFENABBIEGER */
+    /// @brief Parses FAHRSTREIFENABBIEGER
     void parse_LanesConnections();
 
 
-    /**
-     * @brief Adds a parser into the sorted list of parsers to use
+    /** @brief Adds a parser into the sorted list of parsers to use
      *
      * @param[in] name db name to assign the parser to
      * @param[in] function The function to use for parsing the named db
@@ -488,7 +489,7 @@ private:
     /// @brief Definition of a map for loaded traffic lights (id->tls)
     typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
     /// @brief List of visum traffic lights
-    NIVisumTL_Map myNIVisumTLs;
+    NIVisumTL_Map myTLS;
 
     /// @brief Already read edges
     std::vector<std::string > myTouchedEdges;

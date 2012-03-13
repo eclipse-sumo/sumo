@@ -45,76 +45,6 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * methods from NIVisumTL::TimePeriod
- * ----------------------------------------------------------------------- */
-NIVisumTL::TimePeriod::TimePeriod() {
-    myEndTime = 0;
-    myStartTime = 0;
-}
-
-NIVisumTL::TimePeriod::TimePeriod(SUMOTime StartTime, SUMOTime EndTime) {
-    myStartTime = StartTime;
-    myEndTime = EndTime;
-}
-
-NIVisumTL::TimePeriod::~TimePeriod() {}
-
-SUMOTime
-NIVisumTL::TimePeriod::GetEndTime() {
-    return myEndTime;
-}
-
-SUMOTime
-NIVisumTL::TimePeriod::GetStartTime() {
-    return myStartTime;
-}
-
-/* -------------------------------------------------------------------------
- * methods from NIVisumTL::TimePeriod
- * ----------------------------------------------------------------------- */
-
-NIVisumTL::Phase::Phase()
-    : NIVisumTL::TimePeriod() {}
-
-NIVisumTL::Phase::Phase(SUMOTime StartTime, SUMOTime EndTime)
-    : NIVisumTL::TimePeriod(StartTime, EndTime) {}
-
-NIVisumTL::Phase::~Phase() {}
-
-/* -------------------------------------------------------------------------
- * methods from NIVisumTL::SignalGroup
- * ----------------------------------------------------------------------- */
-NIVisumTL::SignalGroup::SignalGroup(const std::string& Name,
-                                    SUMOTime StartTime, SUMOTime EndTime)
-    : NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name) {}
-
-
-NIVisumTL::SignalGroup::~SignalGroup() {}
-
-std::string NIVisumTL::SignalGroup::GetName() {
-    return myName;
-}
-
-
-NBConnectionVector*
-NIVisumTL::SignalGroup::GetConnections() {
-    return &myConnections;
-}
-
-
-NIVisumTL::PhaseMap*
-NIVisumTL::SignalGroup::GetPhases() {
-    return &myPhases;
-}
-
-
-/* -------------------------------------------------------------------------
-* methods from NIVisumTL
-* ----------------------------------------------------------------------- */
-NIVisumTL::NIVisumTL() {}
-
-
 NIVisumTL::NIVisumTL(const std::string& Name, SUMOTime CycleTime,
                      SUMOTime IntermediateTime, bool PhaseDefined)
     : myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
@@ -155,10 +85,6 @@ NIVisumTL::GetNodes() {
 NIVisumTL::PhaseMap*
 NIVisumTL::GetPhases() {
     return &myPhases;
-}
-
-NIVisumTL::SignalGroupMap* NIVisumTL::GetSignalGroups() {
-    return &mySignalGroups;
 }
 
 void NIVisumTL::AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime) {
