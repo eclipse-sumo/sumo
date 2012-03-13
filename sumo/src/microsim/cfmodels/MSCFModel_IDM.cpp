@@ -107,7 +107,6 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
 
 SUMOReal
 MSCFModel_IDM::_v(const MSVehicle* const veh, SUMOReal gap2pred, SUMOReal egoSpeed, SUMOReal predSpeed, SUMOReal desSpeed) const {
-    gap2pred += myType->getMinGap();
     SUMOReal headwayTime = myHeadwayTime;
     if (myExpFactor > 0.) {
         const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
