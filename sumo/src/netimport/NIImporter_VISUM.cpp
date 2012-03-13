@@ -867,7 +867,7 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
             }
             edg2 = getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  via);
         }
-        SG->GetConnections()->push_back(NBConnection(edg1, edg2));
+        SG->connections().push_back(NBConnection(edg1, edg2));
     }
 }
 
@@ -943,7 +943,7 @@ void NIImporter_VISUM::parse_SignalGroupsToPhases() {
     NIVisumTL* LSA = myTLS.find(LSAid)->second;
     NIVisumTL::SignalGroup* SG = LSA->GetSignalGroup(SGid);
     NIVisumTL::Phase* PH = (*LSA->GetPhases()->find(Phaseid)).second;
-    (*SG->GetPhases())[Phaseid] = PH;
+    SG->phases()[Phaseid] = PH;
 }
 
 

@@ -51,8 +51,7 @@ NIVisumTL::NIVisumTL(const std::string& Name, SUMOTime CycleTime,
       myPhaseDefined(PhaseDefined) {}
 
 NIVisumTL::~NIVisumTL() {
-    for (NIVisumTL::PhaseMap::iterator i = myPhases.begin();
-            i != myPhases.end(); i++) {
+    for (std::map<std::string, Phase*>::iterator i = myPhases.begin(); i != myPhases.end(); i++) {
         delete(i->second);
     }
     for (NIVisumTL::SignalGroupMap::iterator k = mySignalGroups.begin();
@@ -76,13 +75,13 @@ NIVisumTL::GetPhaseDefined() {
     return myPhaseDefined;
 }
 
-NIVisumTL::NodeVector*
+std::vector<NBNode*>*
 NIVisumTL::GetNodes() {
     return &myNodes;
 }
 
 
-NIVisumTL::PhaseMap*
+std::map<std::string, NIVisumTL::Phase*>*
 NIVisumTL::GetPhases() {
     return &myPhases;
 }
@@ -101,7 +100,7 @@ NIVisumTL::SignalGroup* NIVisumTL::GetSignalGroup(const std::string Name) {
 
 void
 NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
-    for (NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
+    for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* Node = (*ni);
         NBLoadedTLDef* def = new NBLoadedTLDef(Node->getID(), Node);
         tlc.insert(def);
@@ -111,18 +110,18 @@ NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
             std::string GroupName = (*gi).first;
             NIVisumTL::SignalGroup& SG = *(*gi).second;
             def->addSignalGroup(GroupName);
-            def->addToSignalGroup(GroupName, *SG.GetConnections());
+            def->addToSignalGroup(GroupName, SG.connections());
             def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
             // phases
             if (myPhaseDefined) {
-                for (PhaseMap::iterator pi = SG.GetPhases()->begin(); pi != SG.GetPhases()->end(); pi++) {
+                for (std::map<std::string, Phase*>::iterator pi = SG.phases().begin(); pi != SG.phases().end(); pi++) {
                     NIVisumTL::Phase& PH = *(*pi).second;
-                    def->addSignalGroupPhaseBegin(GroupName, PH.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
-                    def->addSignalGroupPhaseBegin(GroupName, PH.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
+                    def->addSignalGroupPhaseBegin(GroupName, PH.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
+                    def->addSignalGroupPhaseBegin(GroupName, PH.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
                 };
             } else {
-                def->addSignalGroupPhaseBegin(GroupName, SG.GetStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
-                def->addSignalGroupPhaseBegin(GroupName, SG.GetEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
+                def->addSignalGroupPhaseBegin(GroupName, SG.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
+                def->addSignalGroupPhaseBegin(GroupName, SG.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
             }
         }
     }
