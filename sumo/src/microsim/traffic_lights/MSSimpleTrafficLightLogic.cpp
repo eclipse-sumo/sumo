@@ -201,6 +201,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 void 
 MSSimpleTrafficLightLogic::setPhases(const Phases& phases, unsigned int step) {
+    assert(step < phases.size());
     deletePhases();
     myPhases = phases;
     myStep = step;
