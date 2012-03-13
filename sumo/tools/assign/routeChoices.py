@@ -74,8 +74,8 @@ pathNum = 0
         
 class Route:
     def __init__(self, edges):
-        self.label = "%s" % pathNum
         global pathNum
+        self.label = "%s" % pathNum
         pathNum += 1
         self.edges = edges
         self.ex_probability = None
