@@ -1,0 +1,22 @@
+TraCITestClient output file. Date: Tue Mar 13 10:01:42 2012
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=194 varID=44 objID=1/1
+.. Command acknowledged (194), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=194 varID=44 objID=1/1
+.. Answered with error to command (194), [description: set program: 4/5. parameter (index) must be less than parameter (phase number).]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
