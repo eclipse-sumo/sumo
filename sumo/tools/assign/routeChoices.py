@@ -21,7 +21,7 @@ from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
 from xml.sax import parse
 from numpy import *
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from math import *
 
 
