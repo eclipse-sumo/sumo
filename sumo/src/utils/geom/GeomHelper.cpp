@@ -77,21 +77,21 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
             a3 = y3 < y4 ? y3 : y4;
             a4 = y3 < y4 ? y4 : y3;
         }
-        if (a1 < a3 && a3 < a2) {
+        if (a1 <= a3 && a3 <= a2) {
             if (a4 < a2) {
                 a = (a3+a4) / 2;
             } else {
                 a = (a2+a3) / 2;
             }
         }
-        if (a3 < a1 && a1 < a4) {
+        if (a3 <= a1 && a1 <= a4) {
             if (a2 < a4) {
                 a = (a1+a2) / 2;
             } else {
                 a = (a1+a4) / 2;
             }
         }
-        if (a != 1e-12) {
+        if (a != -1e12) {
             if (x != 0) {
                 if (x1 != x2) {
                     *mu = (a - x1) / (x2 - x1);
