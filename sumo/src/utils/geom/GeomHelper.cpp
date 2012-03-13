@@ -61,12 +61,51 @@ GeomHelper::intersects(const SUMOReal x1, const SUMOReal y1,
     const double numerb = (x2-x1) * (y1-y3) - (y2-y1) * (x1-x3);
     /* Are the lines coincident? */
     if (fabs(numera) < eps && fabs(numerb) < eps && fabs(denominator) < eps) {
-        if (x != 0) {
-            *x = (x1 + x2) / 2;
-            *y = (y1 + y2) / 2;
-            *mu = .5;
+        SUMOReal a1;
+        SUMOReal a2;
+        SUMOReal a3;
+        SUMOReal a4;
+        SUMOReal a = -1e12;
+        if (x1 != x2) {
+            a1 = x1 < x2 ? x1 : x2;
+            a2 = x1 < x2 ? x2 : x1;
+            a3 = x3 < x4 ? x3 : x4;
+            a4 = x3 < x4 ? x4 : x3;
+        } else {
+            a1 = y1 < y2 ? y1 : y2;
+            a2 = y1 < y2 ? y2 : y1;
+            a3 = y3 < y4 ? y3 : y4;
+            a4 = y3 < y4 ? y4 : y3;
         }
-        return true;
+        if (a1 < a3 && a3 < a2) {
+            if (a4 < a2) {
+                a = (a3+a4) / 2;
+            } else {
+                a = (a2+a3) / 2;
+            }
+        }
+        if (a3 < a1 && a1 < a4) {
+            if (a2 < a4) {
+                a = (a1+a2) / 2;
+            } else {
+                a = (a1+a4) / 2;
+            }
+        }
+        if (a != 1e-12) {
+            if (x != 0) {
+                if (x1 != x2) {
+                    *mu = (a - x1) / (x2 - x1);
+                    *x = a;
+                    *y = y1 + (*mu) * (y2 - y1);
+                } else {
+                    *x = x1;
+                    *y = a;
+                    *mu = (a - y1) / (y2 - y1);
+                }
+            }
+            return true;
+        }
+        return false;
     }
     /* Are the lines parallel */
     if (fabs(denominator) < eps) {
