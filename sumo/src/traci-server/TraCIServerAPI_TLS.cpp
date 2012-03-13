@@ -344,6 +344,12 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 return false;
             }
             int phaseNo = inputStorage.readInt();
+            // make sure index and phaseNo are consistent
+            if (index >= phaseNo) {
+                server.writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4/5. parameter (index) must be less than parameter (phase number).", outputStorage);
+                return false;
+            }
+
             std::vector<MSPhaseDefinition*> phases;
             for (int j = 0; j < phaseNo; ++j) {
                 if (inputStorage.readUnsignedByte() != TYPE_INTEGER) {
@@ -373,8 +379,7 @@ TraCIServerAPI_TLS::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 MSTrafficLightLogic* logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
                 vars.addLogic(subid, logic, true, true);
             } else {
-                // the initial phase of the new program is arbitrary. Only the user can decide on an appropriate phase
-                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, 0);
+                static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->setPhases(phases, index);
             }
             vars.getActive()->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
             vars.executeOnSwitchActions();
