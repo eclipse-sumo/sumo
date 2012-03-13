@@ -3,7 +3,7 @@
 @file    binary2plain.py
 @author  Michael Behrisch
 @date    2012-03-11
-@version $Id: __init__.py 11671 2012-01-07 20:14:30Z behrisch $
+@version $Id$
 
 Converter between SUMO's binary XML and plain XML
 

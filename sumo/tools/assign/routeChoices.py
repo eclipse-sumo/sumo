@@ -4,7 +4,7 @@
 @author  Evamarie Wiessner
 @author  Yun-Pang Floetteroed
 @date    2007-02-27
-@version $Id: routeChoices.py 11671 2012-03-05 20:14:30Z floettered $
+@version $Id$
 
 This script is to calculate the route choice probabilities based on different methods.
 - Gawron
