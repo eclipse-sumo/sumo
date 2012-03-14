@@ -87,8 +87,11 @@ NBLoadedTLDef::SignalGroup::sortPhases() {
 
 
 void
-NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow) {
-    if (myTYellow < tyellow) {
+NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
+    if(myTYellow<0) {
+        // was not set before (was not loaded)
+        myTYellow = tyellow;
+    } else if (forced && myTYellow < tyellow) {
         WRITE_WARNING("TYellow of signal group '" + getID() + "' was less than the computed one; patched (was:" + toString<SUMOTime>(myTYellow) + ", is:" + toString<int>(tyellow) + ")");
         myTYellow = tyellow;
     }

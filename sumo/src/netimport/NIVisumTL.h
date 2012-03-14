@@ -55,7 +55,8 @@ public:
     class TimePeriod {
     public:
         /// @brief Constructor
-        TimePeriod(SUMOTime startTime, SUMOTime endTime) : myStartTime(startTime), myEndTime(endTime) {}
+        TimePeriod(SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) 
+            : myStartTime(startTime), myEndTime(endTime), myYellowTime(yellowTime) {}
 
         /// @brief Destructor
         ~TimePeriod() {}
@@ -70,11 +71,18 @@ public:
             return myEndTime;
         }
 
+        /// @brief Returns the stored yellow time
+        SUMOTime getYellowTime() {
+            return myYellowTime;
+        }
+
     private:
         /// @brief Start time
         SUMOTime myStartTime;
         /// @brief End time
         SUMOTime myEndTime;
+        /// @brief Yellow time
+        SUMOTime myYellowTime;
     };
 
 
@@ -85,7 +93,7 @@ public:
     class Phase : public TimePeriod {
     public:
         /// @brief Constructor
-        Phase(SUMOTime startTime, SUMOTime endTime) : NIVisumTL::TimePeriod(startTime, endTime) {}
+        Phase(SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) : NIVisumTL::TimePeriod(startTime, endTime, yellowTime) {}
 
         /// @brief Destructor
         ~Phase() {}
@@ -100,8 +108,8 @@ public:
     class SignalGroup : public TimePeriod {
     public:
         /// @brief constructor
-        SignalGroup(const std::string& name, SUMOTime startTime, SUMOTime endTime)
-            : NIVisumTL::TimePeriod(startTime, endTime), myName(name) {}
+        SignalGroup(const std::string& name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime)
+            : NIVisumTL::TimePeriod(startTime, endTime, yellowTime), myName(name) {}
         
         /// @brief destructor
         ~SignalGroup() {}
@@ -146,10 +154,10 @@ public:
     }
 
     /// @brief Adds a signal group
-    void addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime);
+    void addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
 
     /// @brief Adds a phase
-    void addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime);
+    void addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime);
 
     /// @brief Returns the map of named phases
     std::map<std::string, Phase*>& getPhases() {

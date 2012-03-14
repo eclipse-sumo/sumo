@@ -777,18 +777,14 @@ NIImporter_VISUM::parse_Lanes() {
 
 void
 NIImporter_VISUM::parse_TrafficLights() {
-    // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    // cycle time
-    SUMOReal CycleTime = getNamedFloat("Umlaufzeit", "UMLZEIT");
-    // IntermediateTime
-    SUMOReal IntermediateTime = getNamedFloat("StdZwischenzeit", "STDZWZEIT");
-    // PhaseBased
-    bool PhaseBased = myLineParser.know("PhasenBasiert")
+    SUMOReal cycleTime = getNamedFloat("Umlaufzeit", "UMLZEIT");
+    SUMOReal intermediateTime = getNamedFloat("StdZwischenzeit", "STDZWZEIT");
+    bool phaseBased = myLineParser.know("PhasenBasiert")
                       ? TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str())
                       : false;
     // add to the list
-    myTLS[myCurrentID] = new NIVisumTL(myCurrentID, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
+    myTLS[myCurrentID] = new NIVisumTL(myCurrentID, (SUMOTime) cycleTime, (SUMOTime) intermediateTime, phaseBased);
 }
 
 
@@ -803,19 +799,17 @@ NIImporter_VISUM::parse_NodesToTrafficLights() {
 
 void
 NIImporter_VISUM::parse_SignalGroups() {
-    // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
-    // StartTime
     SUMOReal startTime = getNamedFloat("GzStart", "GRUENANF");
-    // EndTime
     SUMOReal endTime = getNamedFloat("GzEnd", "GRUENENDE");
+    SUMOReal yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
     // add to the list
     if (myTLS.find(LSAid) == myTLS.end()) {
         WRITE_ERROR("Could not find TLS '" + LSAid + "' for setting the signal group.");
         return;
     }
-    myTLS.find(LSAid)->second->addSignalGroup(myCurrentID, (SUMOTime) startTime, (SUMOTime) endTime);
+    myTLS.find(LSAid)->second->addSignalGroup(myCurrentID, (SUMOTime) startTime, (SUMOTime) endTime, (SUMOTime) yellowTime);
 }
 
 
@@ -923,14 +917,12 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
 void
 NIImporter_VISUM::parse_Phases() {
     // get the id
-    std::string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    std::string phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
-    // StartTime
-    SUMOReal StartTime = getNamedFloat("GzStart", "GRUENANF");
-    // EndTime
-    SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
-    // add to the list
-    myTLS.find(LSAid)->second->addPhase(Phaseid, (SUMOTime) StartTime, (SUMOTime) EndTime);
+    SUMOReal startTime = getNamedFloat("GzStart", "GRUENANF");
+    SUMOReal endTime = getNamedFloat("GzEnd", "GRUENENDE");
+    SUMOReal yellowTime = myLineParser.know("GELB") ? getNamedFloat("GELB") : -1;
+    myTLS.find(LSAid)->second->addPhase(phaseid, (SUMOTime) startTime, (SUMOTime) endTime, (SUMOTime) yellowTime);
 }
 
 

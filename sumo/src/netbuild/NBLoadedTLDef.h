@@ -143,8 +143,9 @@ public:
 
         /** @brief Sets the yellow time
          * @param[in] tyellow The yellow time to set
+         * @param[in] forced Whether resetting tyellow was forced by the user by setting "tls.yellow.patch-small"
          */
-        void patchTYellow(SUMOTime tyellow) ;
+        void patchTYellow(SUMOTime tyellow, bool forced) ;
 
         /** @brief Replaces a removed edge/lane
          * @param[in] removed The edge to replace

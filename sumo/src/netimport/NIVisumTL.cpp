@@ -64,14 +64,14 @@ NIVisumTL::~NIVisumTL() {
 
 
 void 
-NIVisumTL::addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime) {
-    mySignalGroups[name] = new NIVisumTL::SignalGroup(name, startTime, endTime);
+NIVisumTL::addSignalGroup(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
+    mySignalGroups[name] = new NIVisumTL::SignalGroup(name, startTime, endTime, yellowTime);
 }
 
 
 void 
-NIVisumTL::addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime) {
-    myPhases[name] = new NIVisumTL::Phase(startTime, endTime);
+NIVisumTL::addPhase(const std::string &name, SUMOTime startTime, SUMOTime endTime, SUMOTime yellowTime) {
+    myPhases[name] = new NIVisumTL::Phase(startTime, endTime, yellowTime);
 }
 
 
@@ -94,18 +94,22 @@ NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
             NIVisumTL::SignalGroup& SG = *(*gi).second;
             def->addSignalGroup(groupName);
             def->addToSignalGroup(groupName, SG.connections());
-            def->setSignalYellowTimes(groupName, myIntermediateTime, myIntermediateTime);
             // phases
+            SUMOTime yellowTime = -1;
             if (myPhaseDefined) {
                 for (std::map<std::string, Phase*>::iterator pi = SG.phases().begin(); pi != SG.phases().end(); pi++) {
                     NIVisumTL::Phase& PH = *(*pi).second;
                     def->addSignalGroupPhaseBegin(groupName, PH.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(groupName, PH.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
+                    yellowTime = MAX2(PH.getYellowTime(), yellowTime);
                 };
             } else {
                 def->addSignalGroupPhaseBegin(groupName, SG.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                 def->addSignalGroupPhaseBegin(groupName, SG.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
+                yellowTime = MAX2(SG.getYellowTime(), yellowTime);
             }
+            // yellowTime can be -1 if not given in the input; it will be "patched" later
+            def->setSignalYellowTimes(groupName, myIntermediateTime, yellowTime);
         }
     }
 }
