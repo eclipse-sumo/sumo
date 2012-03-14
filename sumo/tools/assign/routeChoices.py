@@ -281,7 +281,7 @@ class vehrouteReader(handler.ContentHandler):
             self._fout.write('        <routeDistribution last="%s">\n' % self._selected)
                         
             for route in self._vehObj.routesList:
-                self._fout.write('            <route cost="%s" probability="%s" edges="%s"/>\n' % (route.act_cost, route.act_probability, route.edges))
+                self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' % (route.act_cost, route.act_probability, route.edges))
             self._fout.write('        </routeDistribution>\n')
             self._fout.write('    </vehicle> \n')
             
@@ -417,8 +417,87 @@ def gawron(r1, r2, alpha, beta,selectedRouteEdges):
     if r2.edges != selectedRouteEdges:
         r2.act_cost = beta * r2.act_cost + (1. - beta) * r2.ex_cost
 
-    delta = (r1.act_cost - r2.act_cost)/(r1.act_cost + r2.act_cost)
+    delta = (r2.act_cost - r1.act_cost)/(r1.act_cost + r2.act_cost)
     g = math.exp(a*delta/(1-delta*delta))
 
     r1.act_probability = (r1.ex_probability*(r1.ex_probability + r2.ex_probability)*g)/(r1.ex_probability*g + r2.ex_probability)  # check together with Eva
     r2.act_probability = r1.ex_probability + r2.ex_probability - r1.act_probability
+
+def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
+    basename = sumoAltFile.split('_')[0]
+    outputAltFile = basename + "_001.rou.galt.xml"
+    outputRouFile = basename + "_001.rou.alt.xml"
+    edgesList = []
+    edgesMap = {}
+    vehList = []
+    vehMap = {}
+    parse(netfile, netReader(edgesList, edgesMap))
+    parse(addweights, addweightsReader(edgesList,edgesMap))
+    parse(dumpfile, dumpsReader(edgesList, edgesMap))
+    parse(sumoAltFile, routeReader(vehList, vehMap))
+    
+    fout = open(outputAltFile, 'w')
+    foutrout = open(outputRouFile, 'w')
+    fout.write('<?xml version="1.0"?>\n')
+    fout.write('<!--\n')
+    fout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
+    fout.write('-->\n')    
+    fout.write('<route-alternatives>\n')
+    foutrout.write('<?xml version="1.0"?>\n')
+    foutrout.write('<!--\n')
+    foutrout.write('route choices are generated with use of %s' % os.path.join(os.getcwd(), 'routeChoices.py'))
+    foutrout.write('-->\n')
+    foutrout.write('<routes>')
+    
+    for v in vehMap:
+        vehObj = vehMap[v]
+        for r in vehObj.routesList:
+            for e in r.edges.split(' '):
+                eObj = edgesMap[e]
+                if ecoMeasure != 'fuel' and eObj.traveltime == 0.:
+                    r.act_cost += eObj.freetraveltime
+                    r.ex_cost += eObj.freetraveltime
+                elif ecoMeasure != 'fuel' and eObj.traveltime > 0.:
+                    r.act_cost += eObj.traveltime
+                    r.ex_cost += eObj.freetraveltime
+                elif ecoMeasure == 'fuel' and eObj.fuel_perVeh == 0.:
+                    r.act_cost += eObj.fuel_perVeh_default
+                    r.ex_cost += eObj.fuel_perVeh_default
+                elif ecoMeasure == 'fuel' and eObj.fuel_perVeh > 0.:
+                    r.act_cost += eObj.fuel_perVeh
+                    r.ex_cost += eObj.fuel_perVeh
+        costSum = 0.
+        for r in vehObj.routesList:
+            costSum += r.ex_cost
+        for r in vehObj.routesList:
+            r.ex_probability = r.ex_cost/costSum
+            
+        randProb = random.random()
+        selected = 0
+        if len(vehObj.routesList) > 1:
+            cumulatedProbs = 0.
+            for i, r in enumerate(vehObj.routesList):
+                cumulatedProbs += r.ex_probability
+                if cumulatedProbs >= randProb:
+                    selected = i
+                    break
+        
+        # generate the *.rou.xml
+        foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
+                          % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
+        self._foutrout.write('        <route edges="%s"/>\n'% vehObj.routesList[selected].edges)
+        self._foutrout.write('    </vehicle> \n')
+        
+        #generate the *.rou.alt.xml
+        self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n' 
+                          % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))    
+        self._fout.write('        <routeDistribution last="%s">\n' % selected)
+                    
+        for route in self._vehObj.routesList:
+            self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' % (route.act_cost, route.ex_probability, route.edges))
+        self._fout.write('        </routeDistribution>\n')
+        self._fout.write('    </vehicle> \n')
+    self._fout.write('</route-alternatives>\n')
+    self._fout.close()
+    self._foutrout.write('</routes>\n')
+    self._foutrout.close()
