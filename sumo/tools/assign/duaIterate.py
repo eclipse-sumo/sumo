@@ -20,7 +20,7 @@ import os, sys, subprocess, types, shutil
 import StringIO
 from datetime import datetime
 from optparse import OptionParser
-from routeChoices import getRouteChoices
+from routeChoices import getRouteChoices, calFirstRouteProbs
 
 
 def addGenericOptions(optParser):
@@ -122,7 +122,9 @@ def initOptions():
     optParser.add_option("--router-verbose", action="store_true",
                          default=False, help="let duarouter print some statistics")
     optParser.add_option("-M", "--external-gawron", action="store_true", dest="externalgawron",
-                         default=False, help="use the external gawron calculation")    
+                         default=False, help="use the external gawron calculation")
+    optParser.add_option("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
+                         default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")   
     return optParser
 
 def call(command, log):
@@ -196,6 +198,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     print >> fd, """</time>
     <report>
         <verbose value="%s"/>
+        <no-step-log vaule ="True"/>
         <no-warnings value="%s"/>
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings)
@@ -361,7 +364,8 @@ def main(args=None):
                     basename = basename[:-12]
                 elif 'trips' in basename:
                     basename = basename[:-10]
-                #basename = basename[:basename.find(".")]
+                else:
+                    basename = basename[:basename.find(".")]
                 output =  basename + "_%03i.rou.xml" % step
 
                 if step > 0 and not (options.skipFirstRouting and step == 1):
@@ -380,9 +384,15 @@ def main(args=None):
                 print "<<"
                 # use the external gawron
                 if options.externalgawron:
+                    ecomeasure = None
+                    if options.ecomeasure:
+                        ecomeasure = options.ecomeasure
                     if step == 1 and options.skipFirstRouting:
-                        shutil.copy(basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
-                        shutil.copy(basename + "_001.rou.xml", basename + "_001.grou.xml")
+                        if options.caloldprob:
+                            calFirstRouteProbs("dump_000_%s.xml" % (options.aggregation), basename + "_001.rou.alt.xml",options.addweights,ecomeasure)
+                        else:
+                            shutil.copy(basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
+                            shutil.copy(basename + "_001.rou.xml", basename + "_001.grou.xml")
                     if step == 0 and not options.skipFirstRouting:
                         shutil.copy(basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
                         shutil.copy(basename + "_000.rou.xml", basename + "_000.grou.xml")
@@ -390,13 +400,10 @@ def main(args=None):
                         print 'step:', step
                         print 'get externalgawron'
                         dumpfile = "dump_%03i_%s.xml" % (step-1, options.aggregation)
-                        ecomeasure = None
-                        if options.ecomeasure:
-                            ecomeasure = options.ecomeasure
                         if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
                             output, edgesMap = getRouteChoices(edgesMap,dumpfile,basename + "_%03i.rou.alt.xml" % step,options.net,options.addweights, options.gA, options.gBeta,step,ecomeasure)
                 files.append(output)
-                
+
         # simulation
         print ">> Running simulation"
         btime = datetime.now()
