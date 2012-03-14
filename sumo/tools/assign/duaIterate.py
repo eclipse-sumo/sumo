@@ -196,7 +196,6 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     print >> fd, """</time>
     <report>
         <verbose value="%s"/>
-        <no-step-log value="True"/>
         <no-warnings value="%s"/>
     </report>
 </configuration>""" % (options.router_verbose, options.noWarnings)
@@ -358,7 +357,11 @@ def main(args=None):
             for demand_file in input_demands:
                 absPath = os.path.abspath(demand_file)
                 basename = os.path.basename(demand_file)
-                basename = basename[:basename.find(".")]
+                if 'alt' in basename:
+                    basename = basename[:-12]
+                elif 'trips' in basename:
+                    basename = basename[:-10]
+                #basename = basename[:basename.find(".")]
                 output =  basename + "_%03i.rou.xml" % step
 
                 if step > 0 and not (options.skipFirstRouting and step == 1):
@@ -377,7 +380,10 @@ def main(args=None):
                 print "<<"
                 # use the external gawron
                 if options.externalgawron:
-                    if step == 0:
+                    if step == 1 and options.skipFirstRouting:
+                        shutil.copy(basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
+                        shutil.copy(basename + "_001.rou.xml", basename + "_001.grou.xml")
+                    if step == 0 and not options.skipFirstRouting:
                         shutil.copy(basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
                         shutil.copy(basename + "_000.rou.xml", basename + "_000.grou.xml")
                     else:
@@ -386,8 +392,9 @@ def main(args=None):
                         dumpfile = "dump_%03i_%s.xml" % (step-1, options.aggregation)
                         ecomeasure = None
                         if options.ecomeasure:
-                            ecomeasure = options.ecomeasure    
-                        output, edgesMap = getRouteChoices(edgesMap,dumpfile,basename + "_%03i.rou.alt.xml" % step,options.net,options.addweights, options.gA, options.gBeta,step,ecomeasure)
+                            ecomeasure = options.ecomeasure
+                        if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
+                            output, edgesMap = getRouteChoices(edgesMap,dumpfile,basename + "_%03i.rou.alt.xml" % step,options.net,options.addweights, options.gA, options.gBeta,step,ecomeasure)
                 files.append(output)
                 
         # simulation
