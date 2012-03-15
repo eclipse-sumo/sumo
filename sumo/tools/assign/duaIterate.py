@@ -226,72 +226,70 @@ def get_weightfilename(options, step, prefix):
     return get_dumpfilename(options, step, prefix)
 
 
-def writeSUMOConf(step, options, files):
-    fd = open("iteration_%03i.sumocfg" % step, "w")
-    add = ""
-    if options.additional != "":
-        add = "," + options.additional
-    print >> fd, """<configuration>
-    <input>
-        <net-file value="%s"/>
-        <route-files value="%s"/>
-        <additional-files value="dua_dump_%03i.add.xml%s"/>
-    </input>
-    <output>""" % (options.net, files, step, add)
-    print >> fd, '        <no-step-log value="True"/>'
+def writeSUMOConf(sumoBinary, step, options, remaining_args, files):
+    detectorfile = "dua_dump_%03i.add.xml" % step
+    comma = (',' if options.additional != "" else '')
+    sumoCmd = [sumoBinary,
+        '--save-configuration', "iteration_%03i.sumocfg" % step,
+        '--net-file', options.net,
+        '--route-files', files,
+        '--additional-files', "%s%s%s" % (detectorfile, comma, options.additional),
+        '--no-step-log',
+        '--random', options.absrand,
+        '--begin', options.begin,
+        '--route-steps', options.routeSteps,
+        '--no-internal-links', options.internallink,
+        '--lanechange.allow-swap', options.lanechangeallowed,
+        '--sloppy-insert', options.sloppy_insert,
+        '--time-to-teleport', options.timetoteleport,
+        '--verbose',
+        '--no-warnings', options.noWarnings,
+        ]
+
     if hasattr(options, "noSummary") and not options.noSummary:
-        print >> fd, '        <summary-output value="summary_%03i.xml"/>' % step
+        sumoCmd += ['--summary-output', "summary_%03i.xml" % step]
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
-        print >> fd, '        <tripinfo-output value="tripinfo_%03i.xml"/>' % step
+        sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
         if options.ecomeasure:
-            print >> fd, '        <device.hbefa.probability value="1"/>'
+            sumoCmd += ['--device.hbefa.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
-            print >> fd, '        <vehroute-output value="vehroute_%03i.xml"/>' % step
+            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step]
         elif options.routefile == "detailed":
-            print >> fd, '        <vehroute-output value="vehroute_%03i.xml"/>' % step
-            print >> fd, '        <vehroute-output.exit-times value="True"/>'
+            sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
+                    '--vehroute-output.exit-times']
     if hasattr(options, "lastroute") and options.lastroute:
-        print >> fd, '          <vehroute-output.last-route value="%s"/>' % options.lastroute
-    print >> fd, "    </output>"
-    print >> fd, '    <random_number><random value="%s"/></random_number>' % options.absrand
-    print >> fd, '    <time><begin value="%s"/>' % options.begin,
+        sumoCmd += ['--vehroute-output.last-route', options.lastroute]
     if hasattr(options, "timeInc") and options.timeInc:
-        print >> fd, '<end value="%s"/>' % int(options.timeInc * (step + 1)),
+        sumoCmd += ['--end', int(options.timeInc * (step + 1))]
     elif options.end:
-        print >> fd, '<end value="%s"/>' % options.end,
-    print >> fd, """</time>
-    <processing>
-        <route-steps value="%s"/>""" % options.routeSteps
-    print >> fd, '        <no-internal-links value="%s"/>' % options.internallink
-    print >> fd, '        <lanechange.allow-swap value="%s"/>' % options.lanechangeallowed
-    print >> fd, '        <sloppy-insert value="%s"/>' % options.sloppy_insert
-    print >> fd, '        <time-to-teleport value="%s"/>' % options.timetoteleport
+        sumoCmd += ['--end', options.end]
+
     if hasattr(options, "incBase") and options.incBase > 0:
-        print >> fd, '        <scale value="%s"/>' % get_scale(options, step)
+        sumoCmd += ['--scale', get_scale(options, step)]
     if options.mesosim:
-        print >> fd, '        <mesosim value="True"/>'
-        print >> fd, '        <meso-recheck value="%s"/>' % options.mesorecheck
+        sumoCmd += ['--mesosim', 
+                '--meso-recheck', options.mesorecheck]
         if options.mesomultiqueue:
-            print >> fd, '        <meso-multi-queue value="True"/>'
+            sumoCmd += ['--meso-multi-queue']
         if options.mesojunctioncontrol:
-            print >> fd, '        <meso-junction-control value="True"/>'
-    print >> fd, """    </processing>
-    <report>
-        <verbose value="True"/>
-        <no-warnings value="%s"/>
-    </report>
-</configuration>""" % options.noWarnings
-    fd.close()
-    suffix = "_%03i_%s" % (step, options.aggregation)
-    fd = open("dua_dump_%03i.add.xml" % step, "w")
-    print >> fd, "<a>"
-    print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
-            suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
-    if options.ecomeasure:
-        print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
-    print >> fd, "</a>"
-    fd.close()
+            sumoCmd += ['--meso-junction-control']
+
+    # make sure all arguments are strings
+    sumoCmd = map(str, sumoCmd)
+    # use sumoBinary to write a config file
+    subprocess.call(sumoCmd, stdout=subprocess.PIPE)
+
+    # write detectorfile
+    with open(detectorfile, 'w') as fd:
+        suffix = "_%03i_%s" % (step, options.aggregation)
+        print >> fd, "<a>"
+        print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
+                suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
+        if options.ecomeasure:
+            print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
+        print >> fd, "</a>"
+
 
 def filterTripinfo(step, attrs):
     attrs.add("id")
@@ -327,7 +325,7 @@ def filterTripinfo(step, attrs):
 def main(args=None):
     optParser = initOptions()
     
-    (options, args) = optParser.parse_args(args=args)
+    options, remaining_args = optParser.parse_args(args=args)
     if not options.net:
         optParser.error("Option --net-file is mandatory")
     if (not options.trips and not options.routes and not options.flows) or (options.trips and options.routes):
@@ -428,7 +426,7 @@ def main(args=None):
         print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeSUMOConf(step, options, ",".join(files))   #  todo: change 'grou.xml'
+        writeSUMOConf(sumoBinary, step, options, remaining_args, ",".join(files))   #  todo: change 'grou.xml'
         log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         if options.tripinfoFilter:
