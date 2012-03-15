@@ -23,6 +23,8 @@ from optparse import OptionParser
 from routeChoices import getRouteChoices, calFirstRouteProbs
 from costMemory import CostMemory
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from sumolib.options import get_long_option_names
 
 def addGenericOptions(optParser):
     # add options which are used by duaIterate and cadytsIterate
@@ -226,7 +228,7 @@ def get_weightfilename(options, step, prefix):
     return get_dumpfilename(options, step, prefix)
 
 
-def writeSUMOConf(sumoBinary, step, options, remaining_args, files):
+def writeSUMOConf(sumoBinary, step, options, additional_args, files):
     detectorfile = "dua_dump_%03i.add.xml" % step
     comma = (',' if options.additional != "" else '')
     sumoCmd = [sumoBinary,
@@ -244,7 +246,7 @@ def writeSUMOConf(sumoBinary, step, options, remaining_args, files):
         '--time-to-teleport', options.timetoteleport,
         '--verbose',
         '--no-warnings', options.noWarnings,
-        ]
+        ] + additional_args
 
     if hasattr(options, "noSummary") and not options.noSummary:
         sumoCmd += ['--summary-output', "summary_%03i.xml" % step]
@@ -322,6 +324,41 @@ def filterTripinfo(step, attrs):
         os.remove(inFile)
         os.rename(out.name, inFile)
 
+def assign_remaining_args(application, prefix, args):
+    # assign remaining args [ prefix--o1 a1 prefix--o2 prefix--o3 a3  ...]
+    # only handles long options!
+    assigned = []
+    ## split into options and arguments
+    items = []
+    item = None
+    for arg in args:
+        if "--" in arg:
+            if item != None:
+                items.append(item)
+            item = [arg]
+        else:
+            if item == None:
+                sys.exit('Encounted argument "%s" without a preceeding option' % arg)
+            item.append(arg)
+    if item != None:
+        items.append(item)
+
+    # assign to programs 
+    valid_options = set(get_long_option_names(application))
+    for item in items:
+        prefixed = item[0]
+        if prefixed[0:len(prefix)] == prefix:
+            option = prefixed[len(prefix):]
+            if option in valid_options:
+                assigned.append(option)
+                assigned += item[1:]
+            else:
+                sys.exit('"%s" is not a valid option for "%s"' % (option, application))
+                unassigned += item
+
+    return assigned
+
+
 def main(args=None):
     optParser = initOptions()
     
@@ -348,6 +385,7 @@ def main(args=None):
     except OSError:
         sys.exit("Error: Could not locate sumo.\nMake sure its on the search path or set environment variable SUMO_BINARY\n")
 
+    sumo_args = assign_remaining_args(sumoBinary, 'sumo', remaining_args)
     
     log = open("dua-log.txt", "w+")
     starttime = datetime.now()
@@ -426,7 +464,7 @@ def main(args=None):
         print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeSUMOConf(sumoBinary, step, options, remaining_args, ",".join(files))   #  todo: change 'grou.xml'
+        writeSUMOConf(sumoBinary, step, options, sumo_args, ",".join(files))   #  todo: change 'grou.xml'
         log.flush()
         call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         if options.tripinfoFilter:
