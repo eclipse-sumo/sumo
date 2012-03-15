@@ -21,6 +21,7 @@ import StringIO
 from datetime import datetime
 from optparse import OptionParser
 from routeChoices import getRouteChoices, calFirstRouteProbs
+from costMemory import CostMemory
 
 
 def addGenericOptions(optParser):
@@ -125,6 +126,8 @@ def initOptions():
                          default=False, help="use the external gawron calculation")
     optParser.add_option("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
                          default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")   
+    optParser.add_option("--weight-memory", action="store_true", default=False, dest="weightmemory",
+                         help="smoothe edge weights across iterations")    
     return optParser
 
 def call(command, log):
@@ -144,9 +147,6 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
     withExitTimes = False
     if routesInfo == "detailed":
         withExitTimes = True
-    addweights = ""
-    if options.addweights:
-        addweights = options.addweights + ","
     fd = open(cfgname, "w")
     print >> fd, """<configuration>
     <input>
@@ -157,7 +157,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
         print >> fd, '        <%s-files value="%s"/>' % (initial_type, file)
     else:
         print >> fd, '        <alternative-files value="%s"/>' % file
-        print >> fd, '        <weights value="%sdump_%03i_%s.xml"/>' % (addweights, step-1, options.aggregation)
+        print >> fd, '        <weights value="%s"/>' % get_weightfilename(options, step-1, "dump")
     if options.ecomeasure:
         print >> fd, '        <weight-attribute value="%s"/>' % options.ecomeasure
     print >> fd, """    </input>
@@ -182,7 +182,7 @@ def writeRouteConf(step, options, file, output, routesInfo, initial_type):
                 options.gA, 
                 options.allroutes, 
                 options.routing_algorithm, 
-                ("" if options.routing_algorithm != 'CH' else '\n<weight-period value="%s"/>\n' % options.aggregation),
+                ("" if 'CH' not in options.routing_algorithm else '\n<weight-period value="%s"/>\n' % options.aggregation),
                 options.max_alternatives, 
                 options.logit, 
                 options.logitbeta, 
@@ -210,6 +210,20 @@ def get_scale(options, step):
     # using incValue = 1 (default) and incBase = 10 would produce 
     # iterations with increasing scale 0.1, 0.2, ... 0.9, 1, 1, 1, ...
     return min(options.incStart + options.incValue * float(step + 1) / options.incBase, 1)
+
+def get_dumpfilename(options, step, prefix):
+    # the file to which edge costs (traveltimes) are written
+        return "%s_%03i_%s.xml" % (prefix, step, options.aggregation)
+
+def get_weightfilename(options, step, prefix):
+    # the file from which edge costs are loaded
+    # this defaults to the dumpfile writen by the simulation but may be
+    # different if one of the options --addweights or --memory-weights are used
+    if options.addweights:
+        prefix = "%s,%s" % (options.addweights, prefix)
+    if options.weightmemory:
+        prefix = "memory_" + prefix
+    return get_dumpfilename(options, step, prefix)
 
 
 def writeSUMOConf(step, options, files):
@@ -272,7 +286,8 @@ def writeSUMOConf(step, options, files):
     suffix = "_%03i_%s" % (step, options.aggregation)
     fd = open("dua_dump_%03i.add.xml" % step, "w")
     print >> fd, "<a>"
-    print >> fd, '    <edgeData id="dump%s" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
+    print >> fd, '    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
+            suffix, options.aggregation, get_dumpfilename(options, step, "dump"))
     if options.ecomeasure:
         print >> fd, '    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" excludeEmpty="true" minSamples="1"/>' % (suffix, options.aggregation, suffix)
     print >> fd, "</a>"
@@ -322,6 +337,8 @@ def main(args=None):
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "meso"))
     else:
         sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(options.path, "sumo"))
+    if options.addweights and options.weightmemory:
+        optParser.error("Options --addweights and --weight-memory are mutually exclusive.")
 
     # make sure BOTH binaries are callable before we start
     try:
@@ -348,6 +365,9 @@ def main(args=None):
     if options.externalgawron:#debug
         print 'use externalgawron'
         edgesMap = {}
+    if options.weightmemory:
+        costmemory = CostMemory('traveltime')
+        
     for step in range(options.firstStep, options.lastStep):
         btimeA = datetime.now()
         print "> Executing step %s" % step
@@ -417,9 +437,20 @@ def main(args=None):
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
         print "<<"
+
+        if options.weightmemory:
+            print ">> Smoothing edge weights"
+            costmemory.load_costs(
+                    get_dumpfilename(options, step,"dump"), step, get_scale(options, step))
+            costmemory.write_costs(get_weightfilename(options, step, "dump"))
+            print ">>> Updated %s edges" % costmemory.loaded()
+            print ">>> Decayed %s unseen edges" % costmemory.decayed()
+            print ">>> Error avg:%s mean:%s" % (costmemory.avg_error(), costmemory.mean_error())
+            print ">>> Absolute Error avg:%s mean:%s" % (costmemory.avg_abs_error(), costmemory.mean_abs_error())
     
         print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
         print "------------------\n"
+
         log.flush()
     print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
     
