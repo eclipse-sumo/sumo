@@ -69,6 +69,7 @@ public:
     SUMOReal atan2Angle() const;
     SUMOReal atan2DegreeAngle() const;
     SUMOReal atan2PositiveAngle() const;
+    SUMOReal atan2TiltDegree() const;
     bool intersects(const Line& l) const;
     Position intersectsAt(const Line& l) const;
     SUMOReal length() const;

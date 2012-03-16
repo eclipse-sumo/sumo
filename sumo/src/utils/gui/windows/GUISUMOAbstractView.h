@@ -86,7 +86,7 @@ public:
     virtual void buildViewToolBars(GUIGlChildWindow&) { }
 
     /// recenters the view
-    void recenterView();
+    virtual void recenterView();
 
     /** @brief centers to the chosen artifact
      * @param[in] id The id of the artifact to center to

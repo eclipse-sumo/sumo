@@ -145,8 +145,11 @@ public:
     /// Returns the position at the given length
     Position positionAtLengthPosition2D(SUMOReal pos) const;
 
-    /// Returns the position at the given length
+    /// Returns the rotation at the given length
     SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
+
+    /// Returns the tilt at the given length
+    SUMOReal tiltDegreeAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position between the two given point at the specified position */
     static Position positionAtLengthPosition(const Position& p1,
