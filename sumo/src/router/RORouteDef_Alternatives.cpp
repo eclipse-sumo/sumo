@@ -49,7 +49,7 @@
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string& id,
         unsigned int lastUsed, 
         const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation)
-    : RORouteDef(id, 0), myLastUsed((int) lastUsed),
+    : RORouteDef(id, 0), myLastUsed((int) lastUsed), myNewRoute(false),
       myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes),
       mySkipRouteCalculation(skipRouteCalculation) {
 }
@@ -71,39 +71,29 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute* alt) {
 void
 RORouteDef_Alternatives::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
         SUMOTime begin, const ROVehicle& veh) const {
+    myNewRoute = false;
     if (mySkipRouteCalculation) {
-        myLastUsed = 0;
-        myNewRoute = false;
         myPrecomputed = myAlternatives[myLastUsed];
-        return;
+    } else {
+        // build a new route to test whether it is better
+        std::vector<const ROEdge*> edges;
+        router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
+        // check whether the same route was already used
+        int cheapest = findRoute(edges);
+        if (cheapest >= 0) {
+            myPrecomputed = myAlternatives[cheapest];
+        } else {
+            myPrecomputed = new RORoute(myID, 0, 1, edges, copyColorIfGiven());
+            myNewRoute = true;
+        }
     }
-    // recompute duration of the last route used
-    // build a new route to test whether it is better
-    std::vector<const ROEdge*> edges;
-    router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
-    RORoute* opt = new RORoute(myID, 0, 1, edges, copyColorIfGiven());
-    const SUMOReal costs = router.recomputeCosts(edges, &veh, begin);
-    // check whether the same route was already used
-    myLastUsed = findRoute(opt);
-    myNewRoute = true;
-    // delete the route when it already existed
-    if (myLastUsed >= 0) {
-        delete opt;
-        myNewRoute = false;
-        myAlternatives[myLastUsed]->setCosts(costs);
-        myPrecomputed = myAlternatives[myLastUsed];
-        return;
-    }
-    // return the built route
-    ROCostCalculator::getCalculator().setCosts(opt, costs, true);
-    myPrecomputed = opt;
 }
 
 
 int
-RORouteDef_Alternatives::findRoute(RORoute* opt) const {
+RORouteDef_Alternatives::findRoute(const std::vector<const ROEdge*>& edges) const {
     for (unsigned int i = 0; i < myAlternatives.size(); i++) {
-        if (opt->getEdgeVector() == myAlternatives[i]->getEdgeVector()) {
+        if (edges == myAlternatives[i]->getEdgeVector()) {
             return (int) i;
         }
     }
@@ -115,34 +105,30 @@ void
 RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                         const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
     // add the route when it's new
-    if (myLastUsed < 0) {
+    if (myNewRoute) {
         myAlternatives.push_back(current);
-        myLastUsed = (int) myAlternatives.size() - 1;
     }
-    // recompute the costs and (when a new route was added) the probabilities
+    // recompute the costs and (when a new route was added) scale the probabilities
+    const SUMOReal scale = SUMOReal(myAlternatives.size() - 1) / SUMOReal(myAlternatives.size());
     for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
         RORoute* alt = *i;
-        // apply changes for old routes only
-        //  (the costs for the current were computed already)
-        if ((*i) != current || !myNewRoute) {
-            // recompute the costs for old routes
-            const SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
-            if (newCosts < 0.) {
-                throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
-            }
-            ROCostCalculator::getCalculator().setCosts(alt, newCosts);
+        // recompute the costs for all routes
+        const SUMOReal newCosts = router.recomputeCosts(alt->getEdgeVector(), veh, begin);
+        if (newCosts < 0.) {
+            throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
         assert(myAlternatives.size() != 0);
         if (myNewRoute) {
-            if ((*i) != current) {
-                alt->setProbability(
-                    alt->getProbability()
-                    * SUMOReal(myAlternatives.size() - 1)
-                    / SUMOReal(myAlternatives.size()));
-            } else {
+            if (*i == current) {
+                // set initial probability and costs
                 alt->setProbability((SUMOReal)(1.0 / (SUMOReal) myAlternatives.size()));
+                alt->setCosts(newCosts);
+            } else {
+                // rescale probs for all others
+                alt->setProbability(alt->getProbability() * scale);
             }
         }
+        ROCostCalculator::getCalculator().setCosts(alt, newCosts, *i == myAlternatives[myLastUsed]);
     }
     assert(myAlternatives.size() != 0);
     ROCostCalculator::getCalculator().calculateProbabilities(veh, myAlternatives);
@@ -150,6 +136,7 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
         // remove with probability of 0 (not mentioned in Gawron)
         for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end();) {
             if ((*i)->getProbability() == 0) {
+                delete *i;
                 i = myAlternatives.erase(i);
             } else {
                 i++;
@@ -179,39 +166,13 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
     SUMOReal chosen = RandHelper::rand();
     int pos = 0;
     for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end() - 1; i++, pos++) {
-        chosen = chosen - (*i)->getProbability();
+        chosen -= (*i)->getProbability();
         if (chosen <= 0) {
             myLastUsed = pos;
             return;
         }
     }
     myLastUsed = pos;
-}
-
-
-RORouteDef*
-RORouteDef_Alternatives::copy(const std::string& id) const {
-    RORouteDef_Alternatives* ret = new RORouteDef_Alternatives(id,
-            myLastUsed, myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
-    for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        ret->addLoadedAlternative(new RORoute(*(*i)));
-    }
-    return ret;
-}
-
-
-void
-RORouteDef_Alternatives::invalidateLast() {
-    myLastUsed = -1;
-}
-
-
-void
-RORouteDef_Alternatives::removeLast() {
-    assert(myAlternatives.size() >= 2);
-    myAlternatives.erase(myAlternatives.end() - 1);
-    myLastUsed = (int) myAlternatives.size() - 1;
-    // !!! recompute probabilities
 }
 
 
@@ -254,13 +215,6 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle
         return myAlternatives[myLastUsed]->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
     }
 }
-
-
-const ROEdge*
-RORouteDef_Alternatives::getDestination() const {
-    return myAlternatives[0]->getLast();
-}
-
 
 
 /****************************************************************************/
