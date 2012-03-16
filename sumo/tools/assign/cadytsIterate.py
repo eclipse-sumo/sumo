@@ -116,7 +116,7 @@ def main():
         print ">> Running simulation"
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
-        writeSUMOConf(step, options, ",".join(files))
+        writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
         retCode = call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
