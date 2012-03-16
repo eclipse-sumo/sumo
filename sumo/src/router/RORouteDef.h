@@ -96,6 +96,8 @@ public:
         return myColor;
     }
 
+    const ROEdge* getDestination() { return 0; }
+
     /** @brief Saves the built route / route alternatives
      *
      * Writes the route into the given stream.
