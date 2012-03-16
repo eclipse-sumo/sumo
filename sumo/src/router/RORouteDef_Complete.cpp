@@ -110,12 +110,6 @@ RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &,
 }
 
 
-RORouteDef*
-RORouteDef_Complete::copy(const std::string& id) const {
-    return new RORouteDef_Complete(id, copyColorIfGiven(), myEdges, myTryRepair);
-}
-
-
 OutputDevice&
 RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                         OutputDevice& dev, const ROVehicle* const veh,
@@ -155,11 +149,4 @@ RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &r
 }
 
 
-const ROEdge*
-RORouteDef_Complete::getDestination() const {
-    return myEdges.back();
-}
-
-
 /****************************************************************************/
-

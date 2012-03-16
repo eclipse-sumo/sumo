@@ -91,15 +91,10 @@ public:
     virtual void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                 const ROVehicle* const, RORoute* current, SUMOTime begin) = 0;
 
-    /** @brief Returns a copy of the route definition */
-    virtual RORouteDef* copy(const std::string& id) const = 0;
-
     /// Returns the color of the route
     const RGBColor* getColor() const {
         return myColor;
     }
-
-    virtual const ROEdge* getDestination() const = 0;
 
     /** @brief Saves the built route / route alternatives
      *

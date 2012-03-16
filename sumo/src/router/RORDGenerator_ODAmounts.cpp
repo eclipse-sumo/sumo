@@ -61,7 +61,7 @@
  * ----------------------------------------------------------------------- */
 RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle* vehicle,
         SUMOVTypeParameter* type,
-        RORouteDef* route,
+        RORouteDef_OrigDest* route,
         SUMOTime intBegin,
         SUMOTime intEnd,
         unsigned int vehicles2insert,
@@ -272,7 +272,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
         }
         // add the vehicle type, the vehicle and the route to the net
         RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef* route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
+        RORouteDef_OrigDest* route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
         SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {

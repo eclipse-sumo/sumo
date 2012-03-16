@@ -53,7 +53,7 @@
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
-                     RORouteDef* route, SUMOVTypeParameter* type)
+                     RORouteDef* route, const SUMOVTypeParameter* type)
     : myParameter(pars), myType(type), myRoute(route) {}
 
 
@@ -105,7 +105,7 @@ ROVehicle::getMaxSpeed() const {
 
 ROVehicle*
 ROVehicle::copy(const std::string& id, unsigned int depTime,
-                RORouteDef* newRoute) {
+                RORouteDef* newRoute) const {
     SUMOVehicleParameter pars(myParameter);
     pars.id = id;
     pars.depart = depTime;

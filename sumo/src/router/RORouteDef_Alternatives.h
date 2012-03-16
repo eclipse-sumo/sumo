@@ -70,23 +70,13 @@ public:
     void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
-    /** @brief Returns a copy of the route definition */
-    RORouteDef* copy(const std::string& id) const;
-
-    void invalidateLast();
-
-    void removeLast();
-
     virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             OutputDevice& dev, const ROVehicle* const veh,
             bool asAlternatives, bool withExitTimes) const;
 
-    /* @brief Returns destination of this route definition */
-    const ROEdge* getDestination() const;
-
 private:
     /// Searches for the route within the list of alternatives
-    int findRoute(RORoute* opt) const;
+    int findRoute(const std::vector<const ROEdge*>& edges) const;
 
     /** Function-object for sorting routes from highest to lowest probability. */
     struct ComparatorProbability {

@@ -77,9 +77,6 @@ public:
             OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
 
 
-    /* @brief Returns destination of this route definition */
-    const ROEdge* getDestination() const;
-
 protected:
     /// The origin and the destination edge of the route
     const ROEdge* myFrom, *myTo;

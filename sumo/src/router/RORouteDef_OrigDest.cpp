@@ -100,11 +100,4 @@ RORouteDef_OrigDest::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &r
 }
 
 
-const ROEdge*
-RORouteDef_OrigDest::getDestination() const {
-    return myTo;
-}
-
-
 /****************************************************************************/
-

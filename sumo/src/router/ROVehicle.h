@@ -68,7 +68,7 @@ public:
      * @todo Why is the vehicle builder given?
      */
     ROVehicle(const SUMOVehicleParameter& pars,
-              RORouteDef* route, SUMOVTypeParameter* type) ;
+              RORouteDef* route, const SUMOVTypeParameter* type);
 
 
     /// @brief Destructor
@@ -151,7 +151,7 @@ public:
      *
      * @todo Is this used? What for if everything is replaced?
      */
-    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) ;
+    virtual ROVehicle* copy(const std::string& id, unsigned int depTime, RORouteDef* newRoute) const;
 
 
 protected:
@@ -159,10 +159,10 @@ protected:
     SUMOVehicleParameter myParameter;
 
     /// @brief The type of the vehicle
-    SUMOVTypeParameter* myType;
+    const SUMOVTypeParameter* const myType;
 
     /// @brief The route the vehicle takes
-    RORouteDef* myRoute;
+    RORouteDef* const myRoute;
 
 
 private:

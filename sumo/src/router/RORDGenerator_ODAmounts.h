@@ -43,6 +43,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class RORouteDef_OrigDest;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -109,7 +115,7 @@ protected:
     class FlowDef {
     public:
         /// Constructor
-        FlowDef(ROVehicle* vehicle, SUMOVTypeParameter* type, RORouteDef* route,
+        FlowDef(ROVehicle* vehicle, SUMOVTypeParameter* type, RORouteDef_OrigDest* route,
                 SUMOTime intBegin, SUMOTime intEnd,
                 unsigned int vehicles2insert, bool randomize);
 
@@ -130,22 +136,22 @@ protected:
 
     private:
         /// (description of) the vehicle to insert
-        ROVehicle* myVehicle;
+        const ROVehicle* const myVehicle;
 
         /// (description of) the vehicle type to use
-        SUMOVTypeParameter* myVehicleType;
+        const SUMOVTypeParameter* const myVehicleType;
 
         /// (description of) the route to use
-        RORouteDef* myRoute;
+        const RORouteDef_OrigDest* const myRoute;
 
         /// The begin of the described interval
-        SUMOTime myIntervalBegin;
+        const SUMOTime myIntervalBegin;
 
         /// The end of the described interval
-        SUMOTime myIntervalEnd;
+        const SUMOTime myIntervalEnd;
 
         /// The number of vehicles to insert within the described interval
-        unsigned int myVehicle2InsertNumber;
+        const unsigned int myVehicle2InsertNumber;
 
         /// The number of vehicles already inserted
         unsigned int myInserted;
