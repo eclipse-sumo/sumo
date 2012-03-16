@@ -2,7 +2,7 @@
 @file    options.py
 @author  Jakob Erdmann
 @date    2012-03-15
-@version $Id:$
+@version $Id$
 
 Provides utility functions for dealing with program options
 

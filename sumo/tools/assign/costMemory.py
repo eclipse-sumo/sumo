@@ -4,7 +4,7 @@
 @file    duaIterate.py
 @author  Jakob Erdmann
 @date    2012-03-14
-@version $Id:$
+@version $Id$
 
 Perform smoothing of edge costs across successive iterations of duaIterate
 
