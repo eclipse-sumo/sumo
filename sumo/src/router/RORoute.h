@@ -173,7 +173,8 @@ public:
     void recheckForLoops() ;
 
     OutputDevice&
-    writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
+    writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
+                       const bool withCosts, const bool withExitTimes) const;
 
 
 private:

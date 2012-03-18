@@ -85,9 +85,9 @@ ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge, ROVehicle> &router, OutputDev
 
     // check whether the route shall be saved
     if (!myRoute->isSaved()) {
-        myRoute->writeXMLDefinition(router, os, this, false, withExitTimes);
+        myRoute->writeXMLDefinition(os, this, false, withExitTimes);
         if (altos != 0) {
-            myRoute->writeXMLDefinition(router, *altos, this, true, withExitTimes);
+            myRoute->writeXMLDefinition(*altos, this, true, withExitTimes);
         }
     }
     os.closeTag();

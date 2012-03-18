@@ -74,16 +74,7 @@ public:
     void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-            OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
-
 protected:
-    /// The list of edges the driver passes
-    mutable std::vector<const ROEdge*> myEdges;
-
-    /// The begin of the route
-    SUMOTime myStartTime;
-
     bool myTryRepair;
 
 

@@ -70,10 +70,6 @@ public:
     void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin);
 
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-            OutputDevice& dev, const ROVehicle* const veh,
-            bool asAlternatives, bool withExitTimes) const;
-
 private:
     /// Searches for the route within the list of alternatives
     int findRoute(const std::vector<const ROEdge*>& edges) const;
@@ -88,15 +84,6 @@ private:
 private:
     /// @brief Information whether a new route was generated
     mutable bool myNewRoute;
-
-    /// @brief Index of the route used within the last step
-    mutable int myLastUsed;
-
-    /// @brief Definition of the storage for alternatives
-    typedef std::vector<RORoute*> AlternativesVector;
-
-    /// @brief The alternatives
-    AlternativesVector myAlternatives;
 
     /// @brief The maximum route number
     const int myMaxRouteNumber;

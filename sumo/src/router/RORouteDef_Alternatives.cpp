@@ -30,7 +30,6 @@
 #endif
 
 #include <utils/common/RandHelper.h>
-#include <utils/iodevices/OutputDevice.h>
 #include "ROHelper.h"
 #include "ROEdge.h"
 #include "RORouteDef.h"
@@ -49,16 +48,14 @@
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string& id,
         unsigned int lastUsed, 
         const int maxRoutes, const bool keepRoutes, const bool skipRouteCalculation)
-    : RORouteDef(id, 0), myLastUsed((int) lastUsed), myNewRoute(false),
+    : RORouteDef(id, 0), myNewRoute(false),
       myMaxRouteNumber(maxRoutes), myKeepRoutes(keepRoutes),
       mySkipRouteCalculation(skipRouteCalculation) {
+    myLastUsed = (int)lastUsed;
 }
 
 
 RORouteDef_Alternatives::~RORouteDef_Alternatives() {
-    for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
-        delete *i;
-    }
 }
 
 
@@ -173,47 +170,6 @@ RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &r
         }
     }
     myLastUsed = pos;
-}
-
-
-OutputDevice&
-RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-        OutputDevice& dev, const ROVehicle* const veh,
-        bool asAlternatives, bool withExitTimes) const {
-    // (optional) alternatives header
-    if (asAlternatives) {
-        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed).closeOpener();
-        for (size_t i = 0; i != myAlternatives.size(); i++) {
-            const RORoute& alt = *(myAlternatives[i]);
-            dev.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_COST, alt.getCosts());
-            dev.setPrecision(8);
-            dev.writeAttr(SUMO_ATTR_PROB, alt.getProbability());
-            dev.setPrecision();
-            if (alt.getColor() != 0) {
-                dev.writeAttr(SUMO_ATTR_COLOR, *alt.getColor());
-            } else if (myColor != 0) {
-                dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
-            }
-            dev.writeAttr(SUMO_ATTR_EDGES, alt.getEdgeVector());
-            if (withExitTimes) {
-                std::string exitTimes;
-                SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-                for (std::vector<const ROEdge*>::const_iterator i = alt.getEdgeVector().begin(); i != alt.getEdgeVector().end(); ++i) {
-                    if (i != alt.getEdgeVector().begin()) {
-                        exitTimes += " ";
-                    }
-                    time += (*i)->getTravelTime(veh, time);
-                    exitTimes += toString(time);
-                }
-                dev.writeAttr("exitTimes", exitTimes);
-            }
-            dev.closeTag(true);
-        }
-        dev.closeTag();
-        return dev;
-    } else {
-        return myAlternatives[myLastUsed]->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
-    }
 }
 
 

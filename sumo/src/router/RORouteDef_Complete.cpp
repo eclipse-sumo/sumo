@@ -56,25 +56,27 @@ RORouteDef_Complete::RORouteDef_Complete(const std::string& id,
         const RGBColor* const color,
         const std::vector<const ROEdge*> &edges,
         bool tryRepair)
-    : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair) {
+    : RORouteDef(id, color), myTryRepair(tryRepair) {
+    myAlternatives.push_back(new RORoute(id, 0, 1, edges, copyColorIfGiven()));
 }
 
 
-RORouteDef_Complete::~RORouteDef_Complete() {}
+RORouteDef_Complete::~RORouteDef_Complete() {
+}
 
 
 void
 RORouteDef_Complete::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle& veh) const {
+    std::vector<const ROEdge*> newEdges;
     if (myTryRepair) {
-        const std::vector<const ROEdge*> &oldEdges = myEdges;
+        const std::vector<const ROEdge*> &oldEdges = myAlternatives[0]->getEdgeVector();
         if (oldEdges.size() == 0) {
             MsgHandler* m = OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
             m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
             myPrecomputed =  new RORoute(myID, 0, 1, std::vector<const ROEdge*>(), copyColorIfGiven());
             return;
         }
-        std::vector<const ROEdge*> newEdges;
         newEdges.push_back(*(oldEdges.begin()));
         for (std::vector<const ROEdge*>::const_iterator i = oldEdges.begin() + 1; i != oldEdges.end(); ++i) {
             if ((*(i - 1))->isConnectedTo(*i)) {
@@ -88,64 +90,27 @@ RORouteDef_Complete::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle
                 std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
             }
         }
-        if (myEdges != newEdges) {
+        if (myAlternatives[0]->getEdgeVector() != newEdges) {
             WRITE_WARNING("Repaired route of vehicle '" + veh.getID() + "'.");
         }
-        myEdges = newEdges;
+    } else {
+        newEdges = myAlternatives[0]->getEdgeVector();
     }
-    SUMOReal costs = router.recomputeCosts(myEdges, &veh, begin);
+    SUMOReal costs = router.recomputeCosts(newEdges, &veh, begin);
     if (costs < 0) {
         throw ProcessError("Route '" + getID() + "' (vehicle '" + veh.getID() + "') is not valid.");
     }
-    myPrecomputed = new RORoute(myID, 0, 1, myEdges, copyColorIfGiven());
+    myPrecomputed = new RORoute(myID, costs, 1, newEdges, copyColorIfGiven());
 }
 
 
 void
-RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &,
-                                    const ROVehicle* const, RORoute* current, SUMOTime begin) {
-    myStartTime = begin;
-    myEdges = current->getEdgeVector();
-    delete current;
-}
-
-
-OutputDevice&
-RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                                        OutputDevice& dev, const ROVehicle* const veh,
-                                        bool asAlternatives, bool withExitTimes) const {
-    // (optional) alternatives header
-    if (asAlternatives) {
-        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, 0).closeOpener();
-    }
-    // the route
-    dev.openTag(SUMO_TAG_ROUTE);
-    if (asAlternatives) {
-        dev.writeAttr(SUMO_ATTR_COST, router.recomputeCosts(myEdges, veh, veh->getDepartureTime()));
-        dev.writeAttr(SUMO_ATTR_PROB, 1.);
-    }
-    if (myColor != 0) {
-        dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
-    }
-    dev.writeAttr(SUMO_ATTR_EDGES, myEdges);
-    if (withExitTimes) {
-        std::string exitTimes;
-        SUMOReal time = STEPS2TIME(veh->getDepartureTime());
-        for (std::vector<const ROEdge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-            if (i != myEdges.begin()) {
-                exitTimes += " ";
-            }
-            time += (*i)->getTravelTime(veh, time);
-            exitTimes += toString(time);
-        }
-        dev.writeAttr("exitTimes", exitTimes);
-    }
-    dev.closeTag(true);
-    // (optional) alternatives end
-    if (asAlternatives) {
-        dev.closeTag();
-    }
-    return dev;
+RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+                                    const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
+    delete myAlternatives[0];
+    myAlternatives.pop_back();
+    current->setCosts(router.recomputeCosts(current->getEdgeVector(), veh, begin));
+    myAlternatives.push_back(current);
 }
 
 

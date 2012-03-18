@@ -73,25 +73,6 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef* copy(const std::string& id) const;
 
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-            OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const;
-
-
-protected:
-    /// The origin and the destination edge of the route
-    const ROEdge* myFrom, *myTo;
-
-    /// The complete route (after building)
-    RORoute* myCurrent;
-
-    /// The begin of the trip
-    SUMOTime myStartTime;
-
-    /** @brief Information whether the first edge shall be removed
-        */
-    bool myRemoveFirst;
-
-
 private:
     /// @brief Invalidated copy constructor
     RORouteDef_OrigDest(const RORouteDef_OrigDest& src);

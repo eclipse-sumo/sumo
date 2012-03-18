@@ -36,6 +36,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "ROEdge.h"
 #include "RORoute.h"
 #include <utils/common/SUMOAbstractRouter.h>
@@ -55,11 +56,14 @@ RORouteDef::RORouteDef(const std::string& id, const RGBColor* const color) :
     ReferencedItem(), 
     Named(StringUtils::convertUmlaute(id)),
     myColor(color),
-    myPrecomputed(0)
+    myPrecomputed(0), myLastUsed(0)
 {}
 
 
 RORouteDef::~RORouteDef() {
+    for (AlternativesVector::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
+        delete *i;
+    }
     delete myColor;
 }
 
@@ -82,5 +86,27 @@ RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
     return myPrecomputed;
 }
 
-/****************************************************************************/
 
+const ROEdge*
+RORouteDef::getDestination() const {
+    return myAlternatives[0]->getLast();
+}
+
+
+OutputDevice&
+RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
+                               bool asAlternatives, bool withExitTimes) const {
+    if (asAlternatives) {
+        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed).closeOpener();
+        for (size_t i = 0; i != myAlternatives.size(); i++) {
+            myAlternatives[i]->writeXMLDefinition(dev, veh, true, withExitTimes);
+        }
+        dev.closeTag();
+        return dev;
+    } else {
+        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, veh, false, withExitTimes);
+    }
+}
+
+
+/****************************************************************************/

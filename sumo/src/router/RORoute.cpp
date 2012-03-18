@@ -93,16 +93,11 @@ RORoute::recheckForLoops() {
 
 
 OutputDevice&
-RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                            OutputDevice& dev, const ROVehicle* const veh, bool asAlternatives, bool withExitTimes) const {
-    UNUSED_PARAMETER(router);
-    // (optional) alternatives header
-    if (asAlternatives) {
-        dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, 0).closeOpener();
-    }
-    // the route
+RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
+                            const bool withCosts,
+                            const bool withExitTimes) const {
     dev.openTag(SUMO_TAG_ROUTE);
-    if (asAlternatives) {
+    if (withCosts) {
         dev.writeAttr(SUMO_ATTR_COST, myCosts);
         dev.setPrecision(8);
         dev.writeAttr(SUMO_ATTR_PROB, myProbability);
@@ -125,10 +120,6 @@ RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
         dev.writeAttr("exitTimes", exitTimes);
     }
     dev.closeTag(true);
-    // (optional) alternatives end
-    if (asAlternatives) {
-        dev.closeTag();
-    }
     return dev;
 }
 

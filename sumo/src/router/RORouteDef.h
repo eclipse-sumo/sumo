@@ -96,7 +96,7 @@ public:
         return myColor;
     }
 
-    const ROEdge* getDestination() { return 0; }
+    const ROEdge* getDestination() const;
 
     /** @brief Saves the built route / route alternatives
      *
@@ -106,9 +106,8 @@ public:
      * @param[in] asAlternatives Whether the route shall be saved as route alternatives
      * @return The same device for further usage
      */
-    virtual OutputDevice& writeXMLDefinition(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-            OutputDevice& dev, const ROVehicle* const veh,
-            bool asAlternatives, bool withExitTimes) const = 0;
+    OutputDevice& writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
+                                     bool asAlternatives, bool withExitTimes) const;
 
 protected:
     const RGBColor* copyColorIfGiven() const ;
@@ -119,6 +118,15 @@ protected:
 
     /// @brief precomputed route for out-of-order computation
     mutable RORoute* myPrecomputed;
+
+    /// @brief Index of the route used within the last step
+    mutable int myLastUsed;
+
+    /// @brief Definition of the storage for alternatives
+    typedef std::vector<RORoute*> AlternativesVector;
+
+    /// @brief The alternatives
+    AlternativesVector myAlternatives;
 
 private:
     /// @brief Invalidated copy constructor
