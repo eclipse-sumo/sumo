@@ -149,7 +149,10 @@ NIFrame::fillOptions() {
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
+    oc.doRegister("tls.discard-loaded", new Option_Bool(false));
+    oc.addDescription("tls.discard-loaded", "Processing", "Does not instatiate traffic lights loaded from other formats than XML");
 
+    
     // register xml options
     oc.doRegister("plain.keep-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.keep-edge-shape", "xml.keep-shape", true);
@@ -241,9 +244,6 @@ NIFrame::fillOptions() {
     // register osm options
     oc.doRegister("osm.skip-duplicates-check", new Option_Bool(false));
     oc.addDescription("osm.skip-duplicates-check", "Processing", "Skips the check for duplicate nodes and edges.");
-
-    oc.doRegister("osm.discard-tls", new Option_Bool(false));
-    oc.addDescription("osm.discard-tls", "Processing", "Discards all traffic lights.");
 }
 
 

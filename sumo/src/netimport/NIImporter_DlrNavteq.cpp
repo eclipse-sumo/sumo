@@ -82,13 +82,15 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     lr.readAll(handler1);
     PROGRESS_DONE_MESSAGE();
 
-    // load traffic lights
-    file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
-    if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
-        TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
-        lr.readAll(handler3);
-        PROGRESS_DONE_MESSAGE();
+    // load traffic lights if given and not explicitly unwished
+    if(!oc.getBool("tls.discard-loaded")) {
+        file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
+        if (lr.setFile(file)) {
+            PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
+            TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
+            lr.readAll(handler3);
+            PROGRESS_DONE_MESSAGE();
+        }
     }
 
     // load edges

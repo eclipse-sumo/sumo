@@ -468,20 +468,16 @@ NIImporter_Vissim::postLoadBuild(SUMOReal offset) {
     NIVissimDistrictConnection::dict_BuildDistrictNodes(
         myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont());
     NIVissimEdge::dict_propagateSpeeds();
-    NIVissimEdge::dict_buildNBEdges(myNetBuilder.getDistrictCont(),
-                                    myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                                    offset);
+    NIVissimEdge::dict_buildNBEdges(myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), offset);
     if (OptionsCont::getOptions().getBool("vissim.report-unset-speeds")) {
         NIVissimEdge::reportUnsetSpeeds();
     }
-    NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(),
-            myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
+    NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
     NIVissimConnection::dict_buildNBEdgeConnections(myNetBuilder.getEdgeCont());
-    NIVissimNodeCluster::dict_addDisturbances(myNetBuilder.getDistrictCont(),
-            myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
-    NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(),
-                                myNetBuilder.getEdgeCont());
-
+    NIVissimNodeCluster::dict_addDisturbances(myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
+    if (!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+        NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont());
+    }
 }
 
 

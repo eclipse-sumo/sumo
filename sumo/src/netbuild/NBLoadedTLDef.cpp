@@ -72,8 +72,7 @@ NBLoadedTLDef::SignalGroup::addPhaseBegin(SUMOTime time, TLColor color) {
 
 
 void
-NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow,
-        SUMOTime tYellow) {
+NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow, SUMOTime tYellow) {
     myTRedYellow = tRedYellow;
     myTYellow = tYellow;
 }
@@ -81,8 +80,7 @@ NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow,
 
 void
 NBLoadedTLDef::SignalGroup::sortPhases() {
-    sort(myPhases.begin(), myPhases.end(),
-         phase_by_time_sorter());
+    sort(myPhases.begin(), myPhases.end(), phase_by_time_sorter());
 }
 
 
@@ -100,8 +98,7 @@ NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow, bool forced) {
 
 std::vector<SUMOReal>
 NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
-    // within the phase container, we should have the green and red phases
-    //  add their times
+    // within the phase container, we should have the green and red phases add their times
     std::vector<SUMOReal> ret; // !!! time vector
     for (std::vector<PhaseDef>::const_iterator i = myPhases.begin(); i != myPhases.end(); i++) {
         ret.push_back((SUMOReal)(*i).myTime);

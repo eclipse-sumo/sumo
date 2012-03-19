@@ -184,7 +184,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
                     false, c.mayDefinitelyPass);
 
                 // maybe we have a tls-controlled connection
-                if (c.tlID != "") {
+                if (c.tlID != "" && !OptionsCont::getOptions().getBool("tls.discard-loaded")) {
                     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(c.tlID);
                     if (programs.size() > 0) {
                         std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
@@ -193,8 +193,7 @@ NIImporter_SUMO::_loadNetwork(const OptionsCont& oc) {
                             if (tlDef) {
                                 tlDef->addConnection(nbe, toEdge, fromLaneIndex, c.toLaneIdx, c.tlLinkNo);
                             } else {
-                                throw ProcessError("Corrupt traffic light definition '"
-                                                   + c.tlID + "' (program '" + it->first + "')");
+                                throw ProcessError("Corrupt traffic light definition '" + c.tlID + "' (program '" + it->first + "')");
                             }
                         }
                     } else {
@@ -271,10 +270,14 @@ NIImporter_SUMO::myStartElement(int element,
             break;
         case SUMO_TAG_TLLOGIC__DEPRECATED:
         case SUMO_TAG_TLLOGIC:
-            myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
+            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+                myCurrentTL = initTrafficLightLogic(attrs, myCurrentTL);
+            }
             break;
         case SUMO_TAG_PHASE:
-            addPhase(attrs, myCurrentTL);
+            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+                addPhase(attrs, myCurrentTL);
+            }
             break;
         case SUMO_TAG_LOCATION:
             myLocation = loadLocation(attrs);
@@ -316,15 +319,16 @@ NIImporter_SUMO::myEndElement(int element) {
             break;
         case SUMO_TAG_TLLOGIC__DEPRECATED:
         case SUMO_TAG_TLLOGIC:
-            if (!myCurrentTL) {
-                WRITE_ERROR("Unmatched closing tag for tl-logic.");
-            } else {
-                if (!myTLLCont.insert(myCurrentTL)) {
-                    WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() +
-                                  "' for traffic light '" + myCurrentTL->getID() + "'");
-                    delete myCurrentTL;
+            if(!OptionsCont::getOptions().getBool("tls.discard-loaded")) {
+                if (!myCurrentTL) {
+                    WRITE_ERROR("Unmatched closing tag for tl-logic.");
+                } else {
+                    if (!myTLLCont.insert(myCurrentTL)) {
+                        WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
+                        delete myCurrentTL;
+                    }
+                    myCurrentTL = 0;
                 }
-                myCurrentTL = 0;
             }
             break;
         default:
