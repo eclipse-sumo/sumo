@@ -74,6 +74,7 @@ ATTRIBUTE_NAMES = {
 # default values for the given attribute (needed when attributes appear in source but do not appear in dest)
 DEFAULT_VALUES = defaultdict(lambda: "")
 DEFAULT_VALUES['width'] = "-1"
+DEFAULT_VALUES['offset'] = "0"
 RESET = 0
 
 
