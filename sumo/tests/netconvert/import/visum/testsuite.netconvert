@@ -1,4 +1,3 @@
-
 # Conversion of KP573 from ORINOKO project
 orinoko_kp573
 
@@ -11,5 +10,8 @@ messstreckeV1
 # Messstrecke by JR/v2
 messstreckeV2
 
-# Messstrecke by JR/v2 with additional offset
+# Messstrecke by JR/v2 with additional traffic lights offset
 messstreckeV2_tlsoffset
+
+# Messstrecke by JR/v2 with discarded traffic lights
+messstreckeV2-discard.tls

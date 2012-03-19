@@ -10,6 +10,9 @@ traffic_lights
 # load network where one linkIndex is used to control multiple connections
 traffic_lights_resused_linkIndex
 
+# whether discarding traffic lights works
+traffic_lights-discard
+
 # handle shape, allow, disallow, type
 attributes
 

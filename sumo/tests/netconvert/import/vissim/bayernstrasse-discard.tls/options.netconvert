@@ -1,0 +1,1 @@
+--tls.discard-loaded --no-internal-links -v --vissim-file vissim.inp --output=net.net.xml

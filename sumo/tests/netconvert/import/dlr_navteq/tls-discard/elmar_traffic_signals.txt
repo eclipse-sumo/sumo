@@ -1,0 +1,6 @@
+# Net version: NavTeq-2005-Q1 ; Extraction version: V2.8 ; Creator: Elmar Brockfeld (Sten Ruppe), DLR-TS, Berlin ; Extraction date: 2009-05-07, 10:21:53 o'clock
+#Traffic signal related to LINK-ID and NODE-ID with location relative to driving direction.
+#column format like pointcollection.
+#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK
+#ID	POICOL-TYPE	DESCRIPTION	LONGITUDE	LATITUDE	NAVTEQ_LINK_ID	NODEID
+3	12	LSA;NODEIDS#0#;LOCATION#3#;	692494	5093358	1	0

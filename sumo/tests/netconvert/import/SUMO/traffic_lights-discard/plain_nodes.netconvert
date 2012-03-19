@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03/19/12 16:24:12 by SUMO netconvert Version dev-SVN-r12130
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <tls.discard-loaded value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-30.00,0.00,30.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
+
+    <node id="node_centertl" x="0.00" y="0.00" type="priority"/>
+    <node id="node_left" x="-30.00" y="0.00" type="priority"/>
+    <node id="node_right" x="30.00" y="0.00" type="priority"/>
+    <node id="node_up" x="0.00" y="30.00" type="priority"/>
+</nodes>

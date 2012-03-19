@@ -3,3 +3,6 @@ vclass
 
 # testing traffic lights
 tls
+
+# whether discarding traffic lights works
+tls-discard

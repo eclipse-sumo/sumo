@@ -14,5 +14,8 @@ orinoko_kp573_report_unset_v
 # as bayernstrasse, but the yellow times are "patched"
 bayernstrasse_patch_small_tyellow
 
+# whether discarding traffic lights works
+bayernstrasse-discard.tls
+
 # network supplied by Matthew Fullerton on 06.07.2011
 tuMuenchen1
