@@ -77,7 +77,7 @@ NGEdge::buildNBEdge(NBNetBuilder& nb) const {
                nb.getNodeCont().retrieve(myStartNode->getID()), // from
                nb.getNodeCont().retrieve(myEndNode->getID()), // to
                "", nb.getTypeCont().getSpeed(""), nb.getTypeCont().getNumLanes(""),
-               nb.getTypeCont().getPriority(""), nb.getTypeCont().getWidth(""), -1
+               nb.getTypeCont().getPriority(""), nb.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET
            );
 }
 
