@@ -6,3 +6,6 @@ duplicate_phases
 
 # diff for a complex network change
 join_junctions
+
+# use netdiff to compare dump files
+direct

@@ -36,11 +36,13 @@ copy_test_path:source.nod.xml
 copy_test_path:source.edg.xml
 copy_test_path:source.con.xml
 copy_test_path:source.tll.xml
+copy_test_path:source.xml
 copy_test_path:dest.net.xml
 copy_test_path:dest.nod.xml
 copy_test_path:dest.edg.xml
 copy_test_path:dest.con.xml
 copy_test_path:dest.tll.xml
+copy_test_path:dest.xml
 
 [collate_file]
 detectors:e1.add.xml
@@ -66,6 +68,7 @@ diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
 diff_con:diff.con.xml
 diff_tll:diff.tll.xml
+diff_xml:diff.xml
 
 [run_dependent_text]
 output:Begin time
