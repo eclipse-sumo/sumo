@@ -289,7 +289,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             WRITE_WARNING("Edge '" + e.id + "' has no lanes.");
         }
         if (noLanesRight > 0) {
-            NBEdge* nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, noLanesRight, priority, -1, -1, e.geom, "", lsf, true);
+            NBEdge* nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, noLanesRight, priority, 
+                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, e.geom, "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
@@ -297,7 +298,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             toLaneMap[nbe] = e.laneSections[0].buildLaneMapping(OPENDRIVE_TAG_RIGHT);
         }
         if (noLanesLeft > 0) {
-            NBEdge* nbe = new NBEdge(e.id, e.to, e.from, "", speed, noLanesLeft, priority, -1, -1, e.geom.reverse(), "", lsf, true);
+            NBEdge* nbe = new NBEdge(e.id, e.to, e.from, "", speed, noLanesLeft, priority, 
+                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, e.geom.reverse(), "", lsf, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + e.id + "'.");
             }

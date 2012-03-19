@@ -261,7 +261,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& eID, const std::
     }
     into.writeAttr(SUMO_ATTR_SPEED, lane.speed);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
-    if (lane.offset > 0) {
+    if (lane.offset != NBEdge::UNSPECIFIED_OFFSET) {
         into.writeAttr(SUMO_ATTR_ENDOFFSET, lane.offset);
     }
     if (lane.width != NBEdge::UNSPECIFIED_WIDTH) {

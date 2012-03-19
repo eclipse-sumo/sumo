@@ -242,7 +242,8 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 id = "VissimFromParkingplace" + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* source =
                     new NBEdge(id, districtNode, parkingPlace,
-                               "Connection", c->getMeanSpeed(/*distc*/) / (SUMOReal) 3.6, 3, -1, -1, LANESPREAD_RIGHT);
+                               "Connection", c->getMeanSpeed(/*distc*/) / (SUMOReal) 3.6, 3, 
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LANESPREAD_RIGHT);
                 if (!ec.insert(source)) { // !!! in den Konstruktor
                     throw 1; // !!!
                 }
@@ -258,7 +259,8 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 id = "VissimToParkingplace"  + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge* destination =
                     new NBEdge(id, parkingPlace, districtNode,
-                               "Connection", (SUMOReal) 100 / (SUMOReal) 3.6, 2, -1, -1, LANESPREAD_RIGHT);
+                               "Connection", (SUMOReal) 100 / (SUMOReal) 3.6, 2,
+                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LANESPREAD_RIGHT);
                 if (!ec.insert(destination)) { // !!! (in den Konstruktor)
                     throw 1; // !!!
                 }
