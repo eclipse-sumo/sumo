@@ -190,6 +190,9 @@ public:
 
     SUMOReal getEdgeLaneNumber() const;
 
+    /** @brief Returns the stored traveltime for the edge of this lane
+     */
+    SUMOReal getStoredEdgeTravelTime() const;
 
 protected:
     /// The assigned lane

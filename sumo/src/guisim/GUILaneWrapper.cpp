@@ -42,6 +42,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/logging/FunctionBinding.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSNet.h>
 #include <gui/GUIGlobals.h>
@@ -519,6 +520,8 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("maxspeed [m/s]", false, myLane.getMaxSpeed());
     ret->mkItem("length [m]", false, myLane.getLength());
+    ret->mkItem("stored traveltime [s]", true,
+                new FunctionBinding<GUILaneWrapper, SUMOReal>(this, &GUILaneWrapper::getStoredEdgeTravelTime));
     // close building
     ret->closeBuilding();
     return ret;
@@ -618,6 +621,19 @@ GUILaneWrapper::setColor(const GUIVisualizationSettings& s) const {
 }
 
 
+SUMOReal 
+GUILaneWrapper::getStoredEdgeTravelTime() const {
+    MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
+    MSEdge& e = getLane().getEdge();
+    if (!ews.knowsTravelTime(&e)) {
+        return -1;
+    } else {
+        SUMOReal value(0);
+        ews.retrieveExistingTravelTime(&e, 0, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
+        return value;
+    }
+}
+
 SUMOReal
 GUILaneWrapper::getColorValue(size_t activeScheme) const {
     switch (activeScheme) {
@@ -653,15 +669,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
         case 13:
             return getLane().getHarmonoise_NoiseEmissions();
         case 14: {
-            MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
-            MSEdge& e = getLane().getEdge();
-            if (!ews.knowsTravelTime(&e)) {
-                return -1;
-            } else {
-                SUMOReal value(0);
-                ews.retrieveExistingTravelTime(&e, 0, STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()), value);
-                return value;
-            }
+            return getStoredEdgeTravelTime();
         }
         case 15: {
             MSEdgeWeightsStorage& ews = MSNet::getInstance()->getWeightsStorage();
