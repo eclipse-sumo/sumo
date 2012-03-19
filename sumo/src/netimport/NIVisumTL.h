@@ -139,10 +139,11 @@ public:
     /** @brief Constructor
      * @param[in] name The name of the TLS
      * @param[in] cycleTime The cycle time of the TLS
+     * @param[in] offset Seconds to skip
      * @param[in] intermediateTime The name of the TLS
      * @param[in] phaseDefined Whether phases are defined
      */
-    NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime intermediateTime,
+    NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offset, SUMOTime intermediateTime,
               bool phaseDefined);
 
     /// @brief Destructor
@@ -171,26 +172,30 @@ public:
     void build(NBTrafficLightLogicCont& tlc);
 
 private:
-    // name of traffic light
+    /// @brief The name of traffic light
     std::string myName;
 
-    // cycle time of traffic light in seconds
+    /// @brief The cycle time of traffic light in seconds
     SUMOTime myCycleTime;
 
-    // length of yellow and red-yellow phases
+    /// @brief The offset in the plan
+    SUMOTime myOffset;
+
+    /// @brief The all-red time (unused here)
     SUMOTime myIntermediateTime;
 
-    // toogles the usage either of phases or of timeperiods in signalgroups
+    /// @brief Toogles the usage either of phases or of time periods in signal groups
     bool myPhaseDefined;
 
-    // vector of nodes belonging to this traffic light
+    /// @brief Vector of nodes belonging to this traffic light
     std::vector<NBNode*> myNodes;
 
-    // vector of used phases if phasedefined
+    /// @brief Map of used phases if phases defined
     std::map<std::string, Phase*> myPhases;
 
-    // vector of used Signalgroups
+    /// @brief Map of used signal groups
     std::map<std::string, SignalGroup*> mySignalGroups;
+
 
 };
 

@@ -208,22 +208,25 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] junctions Junctions controlled by this tls
+     * @param[in] offset The offset of the plan
      */
     NBLoadedTLDef(const std::string& id,
-                  const std::vector<NBNode*> &junctions) ;
+                  const std::vector<NBNode*> &junctions, SUMOTime offset);
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] junction The junction controlled by this tls
+     * @param[in] offset The offset of the plan
      */
-    NBLoadedTLDef(const std::string& id, NBNode* junction) ;
+    NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset);
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
+     * @param[in] offset The offset of the plan
      */
-    NBLoadedTLDef(const std::string& id) ;
+    NBLoadedTLDef(const std::string& id, SUMOTime offset);
 
 
     /// @brief Destructor

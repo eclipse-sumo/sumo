@@ -269,16 +269,19 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge* removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string& id,
-                             const std::vector<NBNode*> &junctions)
-    : NBTrafficLightDefinition(id, junctions, DefaultProgramID) {}
+                             const std::vector<NBNode*> &junctions, SUMOTime offset)
+    : NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset) 
+{}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction)
-    : NBTrafficLightDefinition(id, junction, DefaultProgramID) {}
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, NBNode* junction, SUMOTime offset)
+    : NBTrafficLightDefinition(id, junction, DefaultProgramID, offset) 
+{}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string& id)
-    : NBTrafficLightDefinition(id, DefaultProgramID) {}
+NBLoadedTLDef::NBLoadedTLDef(const std::string& id, SUMOTime offset)
+    : NBTrafficLightDefinition(id, DefaultProgramID, offset) 
+{}
 
 
 NBLoadedTLDef::~NBLoadedTLDef() {
@@ -337,6 +340,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
     if (MsgHandler::getWarningInstance()->wasInformed()) {
         WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
     }
+    logic->setOffset(myOffset);
     logic->closeBuilding();
     return logic;
 }

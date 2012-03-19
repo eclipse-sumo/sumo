@@ -300,7 +300,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long id, NBNodeCont& nc, NBTrafficL
         if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
-            NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), from);
+            NBOwnTLDef* tlDef = new NBOwnTLDef(toString(id), from, 0);
             if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;

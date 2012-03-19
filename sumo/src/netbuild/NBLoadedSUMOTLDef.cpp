@@ -49,18 +49,18 @@
 // ===========================================================================
 
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset) :
-    NBTrafficLightDefinition(id, programID),
+    NBTrafficLightDefinition(id, programID, offset),
     myTLLogic(0) {
-    myTLLogic = new NBTrafficLightLogic(id, programID, 0);
-    myTLLogic->setOffset(offset);
+    myTLLogic = new NBTrafficLightLogic(id, programID, offset);
 }
 
 
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
-    NBTrafficLightDefinition(def->getID(), def->getProgramID()),
+    NBTrafficLightDefinition(def->getID(), def->getProgramID(), def->getOffset()),
     myTLLogic(new NBTrafficLightLogic(logic)),
     myOriginalNodes(def->getNodes().begin(), def->getNodes().end()) {
     myControlledLinks = def->getControlledLinks();
+    myTLLogic->setOffset(def->getOffset());
 }
 
 

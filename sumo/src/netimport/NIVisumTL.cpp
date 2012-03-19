@@ -46,10 +46,10 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime,
+NIVisumTL::NIVisumTL(const std::string& name, SUMOTime cycleTime, SUMOTime offset, 
                      SUMOTime intermediateTime, bool phaseDefined)
-    : myName(name), myCycleTime(cycleTime), myIntermediateTime(intermediateTime),
-      myPhaseDefined(phaseDefined) 
+    : myName(name), myCycleTime(cycleTime), myOffset(offset),
+    myIntermediateTime(intermediateTime), myPhaseDefined(phaseDefined) 
 {}
 
 
@@ -85,7 +85,7 @@ void
 NIVisumTL::build(NBTrafficLightLogicCont& tlc) {
     for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* node = (*ni);
-        NBLoadedTLDef* def = new NBLoadedTLDef(node->getID(), node);
+        NBLoadedTLDef* def = new NBLoadedTLDef(node->getID(), node, myOffset);
         tlc.insert(def);
         def->setCycleDuration((unsigned int) myCycleTime);
         // signalgroups

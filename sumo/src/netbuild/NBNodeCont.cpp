@@ -548,7 +548,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         }
         NBNode* newNode = retrieve(id);
         if (setTL) {
-            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, newNode);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, newNode, 0);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
@@ -731,7 +731,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 nodes.push_back(*j);
             }
             std::string id = "joinedG_" + toString(index++);
-            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
                 WRITE_WARNING("Could not build guessed, joined tls");
@@ -792,7 +792,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc) {
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end(); j++) {
             nodes.push_back(*j);
         }
-        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes);
+        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             WRITE_WARNING("Could not build a joined tls.");
@@ -808,7 +808,7 @@ NBNodeCont::setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, std::s
     if (id == "") {
         id = node->getID();
     }
-    NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node);
+    NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, node, 0);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
         WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");

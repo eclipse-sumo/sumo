@@ -95,25 +95,33 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] junctions List of junctions controlled by this tls
+     * @param[in] programID The id of the added program ("subID")
+     * @param[in] offset The offset of the plan
      */
     NBTrafficLightDefinition(const std::string& id,
                              const std::vector<NBNode*> &junctions,
-                             const std::string& programID) ;
+                             const std::string& programID,
+                             SUMOTime offset) ;
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
      * @param[in] junction The (single) junction controlled by this tls
+     * @param[in] programID The id of the added program ("subID")
+     * @param[in] offset The offset of the plan
      */
     NBTrafficLightDefinition(const std::string& id,
                              NBNode* junction,
-                             const std::string& programID) ;
+                             const std::string& programID,
+                             SUMOTime offset) ;
 
 
     /** @brief Constructor
      * @param[in] id The id of the tls
+     * @param[in] programID The id of the added program ("subID")
+     * @param[in] offset The offset of the plan
      */
-    NBTrafficLightDefinition(const std::string& id, const std::string& programID) ;
+    NBTrafficLightDefinition(const std::string& id, const std::string& programID, SUMOTime offset) ;
 
 
     /// @brief Destructor
@@ -290,8 +298,19 @@ public:
     };
 
 
+    /** @brief Sets the programID
+     * @param[in] programID The new ID of the program (subID)
+     */
     void setProgramID(const std::string& programID) {
         mySubID = programID;
+    }
+
+
+    /** @brief Returns the offset
+     * @return Offset
+     */
+    SUMOTime getOffset() {
+        return myOffset;
     }
 
 
@@ -346,6 +365,9 @@ protected:
 
     /// @brief The tls program's subid
     std::string mySubID;
+
+    /// @brief The offset in the program
+    SUMOTime myOffset;
 
 };
 

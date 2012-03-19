@@ -778,13 +778,14 @@ NIImporter_VISUM::parse_Lanes() {
 void
 NIImporter_VISUM::parse_TrafficLights() {
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    SUMOReal cycleTime = getNamedFloat("Umlaufzeit", "UMLZEIT");
-    SUMOReal intermediateTime = getNamedFloat("StdZwischenzeit", "STDZWZEIT");
+    SUMOTime cycleTime = (SUMOTime) getNamedFloat("Umlaufzeit", "UMLZEIT");
+    SUMOTime intermediateTime = (SUMOTime) getNamedFloat("StdZwischenzeit", "STDZWZEIT");
     bool phaseBased = myLineParser.know("PhasenBasiert")
                       ? TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str())
                       : false;
+    SUMOTime offset = myLineParser.know("ZEITVERSATZ") ? TIME2STEPS(getNamedFloat("ZEITVERSATZ")) : 0;
     // add to the list
-    myTLS[myCurrentID] = new NIVisumTL(myCurrentID, (SUMOTime) cycleTime, (SUMOTime) intermediateTime, phaseBased);
+    myTLS[myCurrentID] = new NIVisumTL(myCurrentID, cycleTime, offset, intermediateTime, phaseBased);
 }
 
 

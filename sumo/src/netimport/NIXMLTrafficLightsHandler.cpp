@@ -128,6 +128,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     bool ok = true;
     std::string id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
     std::string programID = attrs.getOptStringReporting(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+    SUMOTime offset = attrs.hasAttribute(SUMO_ATTR_OFFSET) ? TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok)) : 0;
 
     // there are two scenarios to consider
     // 1) the tll.xml is loaded to update traffic lights defined in a net.xml:
@@ -140,7 +141,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         NBOwnTLDef* newDef = dynamic_cast<NBOwnTLDef*>(myTLLCont.getDefinition(
                                  id, NBTrafficLightDefinition::DefaultProgramID));
         assert(newDef != 0);
-        loadedDef = new NBLoadedSUMOTLDef(id, programID, 0);
+        loadedDef = new NBLoadedSUMOTLDef(id, programID, offset);
         std::vector<NBNode*> nodes = newDef->getControlledNodes();
         for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
             (*it)->removeTrafficLight(newDef);
@@ -151,13 +152,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
 
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, 0, ok, toString(TLTYPE_STATIC));
         if (type != toString(TLTYPE_STATIC)) {
-            WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" +
-                          toString(TLTYPE_STATIC) + "'");
+            WRITE_WARNING("Traffic light '" + id + "' has unsupported type '" + type + "' and will be converted to '" + toString(TLTYPE_STATIC) + "'");
         }
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_OFFSET)) {
-        SUMOTime offset = TIME2STEPS(attrs.getSUMORealReporting(SUMO_ATTR_OFFSET, id.c_str(), ok));
-        loadedDef->getLogic()->setOffset(offset);
     }
     if (ok) {
         myResetPhases = true;

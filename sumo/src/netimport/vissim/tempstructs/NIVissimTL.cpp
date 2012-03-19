@@ -39,7 +39,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NIVissimConnection.h"
-#include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -393,7 +392,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         			continue;
         		}*/
         std::string id = toString<int>(tl->myID);
-        NBLoadedTLDef* def = new NBLoadedTLDef(id);
+        NBLoadedTLDef* def = new NBLoadedTLDef(id, 0);
         if (!tlc.insert(def)) {
             WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
