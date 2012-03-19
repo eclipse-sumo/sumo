@@ -49,6 +49,7 @@
     </projection>
 
     <tls_building>
+        <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than XML"/>
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
@@ -119,7 +120,6 @@
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges' capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges."/>
-        <osm.discard-tls value="false" type="BOOL" help="Discards all traffic lights."/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges."/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
