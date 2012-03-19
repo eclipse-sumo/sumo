@@ -54,13 +54,10 @@ TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 
 # see CAVEAT1
-def get_id_attrs(tag): 
-    if tag == TAG_TLL:
-        return ('id', 'programID')
-    elif tag == TAG_CONNECTION:
-        return ('from', 'to', 'fromLane', 'toLane')
-    else:
-        return ('id',)
+IDATTRS = defaultdict(lambda: ('id',))
+IDATTRS[TAG_TLL] = ('id', 'programID')
+IDATTRS[TAG_CONNECTION] = ('from', 'to', 'fromLane', 'toLane')
+IDATTRS['interval'] = ('begin', 'end')
 
 DELETE_ELEMENT = 'delete' # the xml element for signifying deletes
 
@@ -91,7 +88,7 @@ class AttributeStore:
         # sets of (tag, id) preserve order to avoid dangling references during loading
         self.ids_deleted = OrderedMultiSet()
         self.ids_created = OrderedMultiSet()
-        # dict from (tag, id) to (names, values)
+        # dict from (tag, id) to (names, values, children)
         self.id_attrs = {}
         # dict from tag to (names, values)-sets, need to preserve order (CAVEAT5)
         self.idless_deleted = defaultdict(lambda:OrderedMultiSet())
@@ -107,7 +104,7 @@ class AttributeStore:
 
 
     def getNames(self, xmlnode):
-        idattrs = get_id_attrs(xmlnode.localName)
+        idattrs = IDATTRS[xmlnode.localName]
         a = xmlnode.attributes
         all = [a.item(i).localName for i in range(a.length)]
         instance = tuple([n for n in all if n not in idattrs])
@@ -124,7 +121,7 @@ class AttributeStore:
         if any([c.nodeType == Node.ELEMENT_NODE for c in xmlnode.childNodes]):
             children = AttributeStore(self.type, self.level + 1)
         tag = xmlnode.localName
-        id = tuple([xmlnode.getAttribute(a) for a in get_id_attrs(tag) if xmlnode.hasAttribute(a)])
+        id = tuple([xmlnode.getAttribute(a) for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
         return tag, id, children, (names, values, children)
 
 
@@ -183,7 +180,7 @@ class AttributeStore:
 
     def no_children_supported(self, children, tag):
         if children:
-            print("WARNING: Handling of children only supported for elements without id. Ignored for element '%s'" % tag)
+            print("WARNING: Handling of children only supported for elements with id. Ignored for element '%s'" % tag)
 
 
     def compareAttrs(self, sourceAttrs, destAttrs, tag):
@@ -284,7 +281,7 @@ class AttributeStore:
         return ' '.join(['%s="%s"' % (n,v) for n,v in zip(names, values) if v != None])
 
     def id_string(self, tag, id):
-        idattrs = get_id_attrs(tag)
+        idattrs = IDATTRS[tag]
         return ' '.join(['%s="%s"' % (n,v) for n,v in zip(idattrs, id)])
 
 
@@ -295,11 +292,15 @@ def parse_args():
             default=False, help="Give more output")
     optParser.add_option("-p", "--use-prefix", action="store_true",
             default=False, help="interpret source and dest as plain-xml prefix instead of network names")
+    optParser.add_option("-d", "--direct", action="store_true",
+            default=False, help="compare source and dest files directly")
     optParser.add_option("--path", dest="path",
             default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
     options, args = optParser.parse_args()
     if len(args) != 3:
         sys.exit(USAGE)
+    if options.use_prefix and options.direct:
+        optParser.error("Options --use-prefix and --direct are mutually exclusive")
     options.source, options.dest, options.outprefix = args
     return options 
 
@@ -371,15 +372,22 @@ def handle_children(xmlfile, handle_parsenode):
 # run
 def main():
     options = parse_args()
-    if not options.use_prefix:
-        netconvert = checkBinary("netconvert", options.path)        
-        options.source = create_plain(options.source, netconvert)
-        options.dest = create_plain(options.dest, netconvert)
-    for type in PLAIN_TYPES:
-        xmldiff(options.source + type, 
-                options.dest + type, 
+    if options.direct:
+        type = '.xml'
+        xmldiff(options.source, 
+                options.dest, 
                 options.outprefix + type, 
                 type)
+    else:
+        if not options.use_prefix:
+            netconvert = checkBinary("netconvert", options.path)        
+            options.source = create_plain(options.source, netconvert)
+            options.dest = create_plain(options.dest, netconvert)
+        for type in PLAIN_TYPES:
+            xmldiff(options.source + type, 
+                    options.dest + type, 
+                    options.outprefix + type, 
+                    type)
 
 if __name__ == "__main__":
     main()
