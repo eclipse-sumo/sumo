@@ -59,11 +59,9 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/FileHelpers.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/common/SUMOTime.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

@@ -43,7 +43,6 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBLoadedTLDef.h>
-#include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimEdge.h"

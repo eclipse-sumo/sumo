@@ -64,7 +64,6 @@
 #include "RODFRouteCont.h"
 #include "RODFDetectorFlow.h"
 #include "RODFDetFlowLoader.h"
-#include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/OutputDevice.h>
 

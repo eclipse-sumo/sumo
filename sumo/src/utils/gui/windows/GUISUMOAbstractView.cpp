@@ -59,7 +59,6 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon.h>
@@ -74,7 +73,6 @@
 #include "GUIDialog_EditViewport.h"
 
 #ifdef WIN32
-#include <windows.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS

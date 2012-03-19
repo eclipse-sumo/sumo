@@ -59,7 +59,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/GeomHelper.h>
-#include <gui/GUIApplicationWindow.h>
 #include <guisim/GUIBusStop.h>
 
 #ifdef CHECK_MEMORY_LEAKS

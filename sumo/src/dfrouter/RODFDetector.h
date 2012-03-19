@@ -35,7 +35,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
 #include "RODFRouteCont.h"

@@ -58,7 +58,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <gui/GUIApplicationWindow.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 
 #ifdef CHECK_MEMORY_LEAKS

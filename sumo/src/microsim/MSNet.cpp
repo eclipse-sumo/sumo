@@ -43,7 +43,6 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
-#include <sstream>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSPersonControl.h"

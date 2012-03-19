@@ -39,7 +39,6 @@
 #include <utils/common/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
-#include "NBTrafficLightDefinition.h"
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
 #include "NBContHelper.h"

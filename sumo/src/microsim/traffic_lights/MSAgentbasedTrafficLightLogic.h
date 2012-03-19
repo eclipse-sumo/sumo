@@ -39,7 +39,6 @@
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
-#include "MSSimpleTrafficLightLogic.h"
 
 
 // ===========================================================================

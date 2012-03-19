@@ -53,7 +53,6 @@
 #include "NBDistrictCont.h"
 #include <cmath>
 #include "NBTypeCont.h"
-#include <iostream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
