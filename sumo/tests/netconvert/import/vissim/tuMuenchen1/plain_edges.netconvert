@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 11 12:09:14 2011 by SUMO netconvert Version dev-SVN-r11490
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on Mon Mar 19 10:35:08 2012 by SUMO netconvert Version dev-SVN-r12106
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
@@ -23,14 +23,14 @@
 -->
 
 <edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-    <edge id="1" from="0" to="1" name="-70#0" priority="-1" numLanes="3" speed="13.89" shape="390.37,1095.39 337.10,971.86 320.89,934.29 304.13,897.49 245.33,752.26" spreadType="center" offset="-1.00"/>
-    <edge id="10" from="10-begin" to="6" priority="-1" numLanes="1" speed="13.89" shape="442.24,1182.40 408.32,1088.30" spreadType="center" offset="-1.00"/>
-    <edge id="2" from="1" to="2" name="-70#1" priority="-1" numLanes="2" speed="13.89" shape="241.66,748.59 232.87,726.83 218.02,690.55 188.46,601.69 149.19,465.04 98.07,281.18" spreadType="center" offset="-1.00"/>
-    <edge id="3" from="3" to="4" name="-72" priority="-1" numLanes="3" speed="13.89" shape="279.78,771.89 277.15,765.31 258.32,724.66 219.91,633.89 196.70,573.65" spreadType="center" offset="-1.00"/>
-    <edge id="4" from="1" to="4" name="-74" priority="-1" numLanes="1" speed="13.89" shape="247.93,749.48 224.59,693.12 207.44,623.57 189.22,574.97" spreadType="center" offset="-1.00"/>
-    <edge id="5" from="5" to="5-end" name="-76" priority="-1" numLanes="3" speed="13.89" shape="152.36,424.43 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 0.00,0.00" spreadType="center" offset="-1.00"/>
-    <edge id="6" from="4" to="5" name="-78" priority="-1" numLanes="4" speed="13.89" shape="193.55,570.90 151.24,426.75" spreadType="center" offset="-1.00"/>
-    <edge id="7" from="6" to="3" name="-80" priority="-1" numLanes="3" speed="13.89" shape="411.11,1086.07 282.05,776.20" spreadType="center" offset="-1.00"/>
-    <edge id="8" from="2" to="8-end" name="-82" priority="-1" numLanes="3" speed="13.89" shape="95.91,279.77 51.12,141.32 31.83,91.11 17.50,59.06" spreadType="center" offset="-1.00"/>
-    <edge id="9" from="9-begin" to="0" name="Linz Red Input" priority="-1" numLanes="1" speed="13.89" shape="418.94,1165.16 393.74,1094.52" spreadType="center" offset="-1.00"/>
+    <edge id="1" from="0" to="1" name="-70#0" priority="-1" numLanes="3" speed="13.89" shape="390.37,1095.39 337.10,971.86 320.89,934.29 304.13,897.49 245.33,752.26" spreadType="center"/>
+    <edge id="10" from="10-begin" to="6" priority="-1" numLanes="1" speed="13.89" shape="442.24,1182.40 408.32,1088.30" spreadType="center"/>
+    <edge id="2" from="1" to="2" name="-70#1" priority="-1" numLanes="2" speed="13.89" shape="241.66,748.59 232.87,726.83 218.02,690.55 188.46,601.69 149.19,465.04 98.07,281.18" spreadType="center"/>
+    <edge id="3" from="3" to="4" name="-72" priority="-1" numLanes="3" speed="13.89" shape="279.78,771.89 277.15,765.31 258.32,724.66 219.91,633.89 196.70,573.65" spreadType="center"/>
+    <edge id="4" from="1" to="4" name="-74" priority="-1" numLanes="1" speed="13.89" shape="247.93,749.48 224.59,693.12 207.44,623.57 189.22,574.97" spreadType="center"/>
+    <edge id="5" from="5" to="5-end" name="-76" priority="-1" numLanes="3" speed="13.89" shape="152.36,424.43 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 0.00,0.00" spreadType="center"/>
+    <edge id="6" from="4" to="5" name="-78" priority="-1" numLanes="4" speed="13.89" shape="193.55,570.90 151.24,426.75" spreadType="center"/>
+    <edge id="7" from="6" to="3" name="-80" priority="-1" numLanes="3" speed="13.89" shape="411.11,1086.07 282.05,776.20" spreadType="center"/>
+    <edge id="8" from="2" to="8-end" name="-82" priority="-1" numLanes="3" speed="13.89" shape="95.91,279.77 51.12,141.32 31.83,91.11 17.50,59.06" spreadType="center"/>
+    <edge id="9" from="9-begin" to="0" name="Linz Red Input" priority="-1" numLanes="1" speed="13.89" shape="418.94,1165.16 393.74,1094.52" spreadType="center"/>
 </edges>
