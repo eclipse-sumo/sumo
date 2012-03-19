@@ -73,7 +73,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E* const data) {
+    static SUMOLong _2long(const E* const data) {
         return _2long(data, INT_MAX);
     }
 
@@ -172,11 +172,11 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E* const data, unsigned length) {
+    static SUMOLong _2long(const E* const data, unsigned length) {
         if (data == 0 || length == 0 || data[0] == 0) {
             throw EmptyData();
         }
-        long sgn = 1;
+        SUMOLong sgn = 1;
         unsigned i = 0;
         if (data[0] == '+') {
             i++;
@@ -185,7 +185,7 @@ public:
             i++;
             sgn = -1;
         }
-        long ret = 0;
+        SUMOLong ret = 0;
         for (; i < length && data[i] != 0; i++) {
             ret = ret * 10;
             char akt = (char) data[i];

@@ -81,7 +81,7 @@ protected:
      */
     struct NIOSMNode {
         /// @brief The node's id
-        long id;
+        SUMOLong id;
         /// @brief The longitude the node is located at
         double lon;
         /// @brief The latitude the node is located at
@@ -107,7 +107,7 @@ protected:
         /// @brief Information whether this is an one-way road
         std::string  myIsOneWay;
         /// @brief The list of nodes this edge is made of
-        std::vector<long> myCurrentNodes;
+        std::vector<SUMOLong> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
     };
@@ -139,7 +139,7 @@ private:
     /** @brief the map from OSM node ids to actual nodes
      * @note: NIOSMNodes may appear multiple times due to substition
      */
-    std::map<long, NIOSMNode*> myOSMNodes;
+    std::map<SUMOLong, NIOSMNode*> myOSMNodes;
 
     /// @brief the set of unique nodes used in NodesHandler, used when freeing memory
     std::set<NIOSMNode*, CompareNodes> myUniqueNodes;
@@ -161,7 +161,7 @@ private:
      * @return The built/found node
      * @exception ProcessError If the tls could not be added to the container
      */
-    NBNode* insertNodeChecking(long id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc);
+    NBNode* insertNodeChecking(SUMOLong id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc);
 
 
     /** @brief Builds an NBEdge
@@ -177,7 +177,7 @@ private:
      * @exception ProcessError If the edge could not be added to the container
      */
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                    const std::vector<long> &passed, NBNetBuilder& nb);
+                    const std::vector<SUMOLong> &passed, NBNetBuilder& nb);
 
 
     protected:
@@ -195,7 +195,7 @@ private:
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use
          */
-        NodesHandler(std::map<long, NIOSMNode*> &toFill, 
+        NodesHandler(std::map<SUMOLong, NIOSMNode*> &toFill, 
                 std::set<NIOSMNode*, CompareNodes> &uniqueNodes);
 
 
@@ -230,10 +230,10 @@ private:
     private:
 
         /// @brief The nodes container to fill
-        std::map<long, NIOSMNode*> &myToFill;
+        std::map<SUMOLong, NIOSMNode*> &myToFill;
 
         /// @brief ID of the currently parsed node, for reporting mainly
-        long myLastNodeID;
+        SUMOLong myLastNodeID;
 
         /// @brief Hierarchy helper for parsing a node's tags
         bool myIsInValidNodeTag;
@@ -267,7 +267,7 @@ private:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in, out] toFill The edges container to fill with read edges
          */
-        EdgesHandler(const std::map<long, NIOSMNode*> &osmNodes,
+        EdgesHandler(const std::map<SUMOLong, NIOSMNode*> &osmNodes,
                      std::map<std::string, Edge*> &toFill) ;
 
 
@@ -301,7 +301,7 @@ private:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<long, NIOSMNode*> &myOSMNodes;
+        const std::map<SUMOLong, NIOSMNode*> &myOSMNodes;
 
         /// @brief A map of built edges
         std::map<std::string, Edge*> &myEdgeMap;

@@ -104,7 +104,7 @@ SUMOSAXAttributes::getOptIntReporting(int attr, const char* objectid,
 }
 
 
-long
+SUMOLong
 SUMOSAXAttributes::getLongReporting(int attr, const char* objectid,
                                    bool& ok, bool report) const {
     if (!hasAttribute(attr)) {

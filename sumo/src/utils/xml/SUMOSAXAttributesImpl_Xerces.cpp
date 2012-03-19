@@ -96,7 +96,7 @@ SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
 }
 
 
-long
+SUMOLong
 SUMOSAXAttributesImpl_Xerces::getLong(int id) const throw(EmptyData, NumberFormatException) {
     return TplConvert<XMLCh>::_2long(getAttributeValueSecure(id));
 }

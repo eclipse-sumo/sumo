@@ -111,7 +111,7 @@ public:
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @return The read value if given and correct; -1 if an error occured
      */
-    long getLongReporting(int attr, const char* objectid, bool& ok,
+    SUMOLong getLongReporting(int attr, const char* objectid, bool& ok,
         bool report = true) const ;
 
 
@@ -365,7 +365,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual long getLong(int id) const throw(EmptyData, NumberFormatException) = 0;
+    virtual SUMOLong getLong(int id) const throw(EmptyData, NumberFormatException) = 0;
 
 
     /**

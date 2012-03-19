@@ -71,7 +71,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("osm-files");
     // load nodes, first
-    std::map<long, PCOSMNode*> nodes;
+    std::map<SUMOLong, PCOSMNode*> nodes;
     NodesHandler nodesHandler(nodes);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
@@ -104,7 +104,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         }
         // compute shape
         PositionVector vec;
-        for (std::vector<long>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
+        for (std::vector<SUMOLong>::iterator j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
@@ -154,7 +154,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         }
     }
     // instantiate pois
-    for (std::map<long, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
+    for (std::map<SUMOLong, PCOSMNode*>::iterator i = nodes.begin(); i != nodes.end(); ++i) {
         PCOSMNode* n = (*i).second;
         if (!n->myIsAdditional) {
             continue;
@@ -209,7 +209,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
 
     // delete nodes
-    for (std::map<long, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
+    for (std::map<SUMOLong, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         delete(*i).second;
     }
     // delete edges
@@ -223,7 +223,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 // ---------------------------------------------------------------------------
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
-PCLoaderOSM::NodesHandler::NodesHandler(std::map<long, PCOSMNode*> &toFill)
+PCLoaderOSM::NodesHandler::NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill)
     : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
@@ -235,7 +235,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     myParentElements.push_back(element);
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
-        long id = attrs.getLongReporting(SUMO_ATTR_ID, 0, ok);
+        SUMOLong id = attrs.getLongReporting(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
@@ -292,7 +292,7 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // definitions of PCLoaderOSM::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::EdgesHandler::EdgesHandler(
-    const std::map<long, PCOSMNode*> &osmNodes,
+    const std::map<SUMOLong, PCOSMNode*> &osmNodes,
     std::map<std::string, PCOSMEdge*> &toFill)
     : SUMOSAXHandler("osm - file"),
       myOSMNodes(osmNodes), myEdgeMap(toFill) {
@@ -321,7 +321,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND) {
         bool ok = true;
-        long ref = attrs.getLongReporting(SUMO_ATTR_REF, 0, ok);
+        SUMOLong ref = attrs.getLongReporting(SUMO_ATTR_REF, 0, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");

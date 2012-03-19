@@ -502,16 +502,16 @@ private:
 
 
     /// @brief A map of point ids to positions
-    std::map<long, Position> myPoints;
+    std::map<SUMOLong, Position> myPoints;
 
     /// @brief A map of edge (not road, but "edge" in this case) ids to from/to-points
-    std::map<long, std::pair<long, long> > myEdges;
+    std::map<SUMOLong, std::pair<SUMOLong, SUMOLong> > myEdges;
 
     /// @brief A map from district shape definition name to the district
-    std::map<long, NBDistrict*> myShapeDistrictMap;
+    std::map<SUMOLong, NBDistrict*> myShapeDistrictMap;
 
     /// @brief A map from area parts to area ids
-    std::map<long, std::vector<long> > mySubPartsAreas;
+    std::map<SUMOLong, std::vector<SUMOLong> > mySubPartsAreas;
 
     /// @brief A temporary storage for district shapes as they are filled incrementally
     std::map<NBDistrict*, PositionVector> myDistrictShapes;

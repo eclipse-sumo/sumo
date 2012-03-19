@@ -68,7 +68,7 @@ public:
     /** converts a 0-terminated char-type array into the long value
             described by it
         returns the default value if the data is empty */
-    static long _2longSec(const E* const data, long def) {
+    static SUMOLong _2longSec(const E* const data, long def) {
         return _2longSec(data, INT_MAX, def);
     }
 
@@ -125,7 +125,7 @@ public:
     /** converts a char-type array into the long value described
             by it considering the given length
         returns the default value if the data is empty */
-    static long _2longSec(const E* const data, int length, long def) {
+    static SUMOLong _2longSec(const E* const data, int length, long def) {
         if (data == 0 || length == 0 || data[0] == 0) {
             return def;
         }

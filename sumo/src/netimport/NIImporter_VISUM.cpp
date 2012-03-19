@@ -285,7 +285,7 @@ NIImporter_VISUM::parse_Districts() {
         return;
     }
     if (myLineParser.know("FLAECHEID")) {
-        long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
+        SUMOLong flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
         myShapeDistrictMap[flaecheID] = district;
     }
 }
@@ -293,7 +293,7 @@ NIImporter_VISUM::parse_Districts() {
 
 void
 NIImporter_VISUM::parse_Point() {
-    long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
+    SUMOLong id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
     SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
     Position pos(x, y);
@@ -411,19 +411,19 @@ NIImporter_VISUM::parse_Edges() {
 
 void
 NIImporter_VISUM::parse_Kante() {
-    long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
-    long from = TplConvert<char>::_2long(myLineParser.get("VONPUNKTID").c_str());
-    long to = TplConvert<char>::_2long(myLineParser.get("NACHPUNKTID").c_str());
+    SUMOLong id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
+    SUMOLong from = TplConvert<char>::_2long(myLineParser.get("VONPUNKTID").c_str());
+    SUMOLong to = TplConvert<char>::_2long(myLineParser.get("NACHPUNKTID").c_str());
     myEdges[id] = std::make_pair(from, to);
 }
 
 
 void
 NIImporter_VISUM::parse_PartOfArea() {
-    long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
-    long flaechePartID = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
+    SUMOLong flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
+    SUMOLong flaechePartID = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     if (mySubPartsAreas.find(flaechePartID) == mySubPartsAreas.end()) {
-        mySubPartsAreas[flaechePartID] = std::vector<long>();
+        mySubPartsAreas[flaechePartID] = std::vector<SUMOLong>();
     }
     mySubPartsAreas[flaechePartID].push_back(flaecheID);
 }
@@ -869,8 +869,8 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
 
 void
 NIImporter_VISUM::parse_AreaSubPartElement() {
-    long id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
-    long edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
+    SUMOLong id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
+    SUMOLong edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
     if (myEdges.find(edgeid) == myEdges.end()) {
         WRITE_ERROR("Unknown edge in TEILFLAECHENELEMENT");
         return;
@@ -895,8 +895,8 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         return;
     }
 
-    const std::vector<long> &areas = mySubPartsAreas.find(id)->second;
-    for (std::vector<long>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
+    const std::vector<SUMOLong> &areas = mySubPartsAreas.find(id)->second;
+    for (std::vector<SUMOLong>::const_iterator i = areas.begin(); i != areas.end(); ++i) {
         NBDistrict* d = myShapeDistrictMap[*i];
         if (d == 0) {
             continue;

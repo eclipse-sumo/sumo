@@ -75,7 +75,7 @@ protected:
      */
     struct PCOSMNode {
         /// @brief The node's id
-        long id;
+        SUMOLong id;
         /// @brief The longitude the node is located at
         SUMOReal lon;
         /// @brief The latitude the node is located at
@@ -99,7 +99,7 @@ protected:
         /// @brief Information whether this area is closed
         bool myIsClosed;
         /// @brief The list of nodes this edge is made of
-        std::vector<long> myCurrentNodes;
+        std::vector<SUMOLong> myCurrentNodes;
         /// @brief Information whether this shall be parsed
         bool myIsAdditional;
     };
@@ -115,7 +115,7 @@ protected:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
          */
-        NodesHandler(std::map<long, PCOSMNode*> &toFill) ;
+        NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill) ;
 
 
         /// @brief Destructor
@@ -148,13 +148,13 @@ protected:
 
     private:
         /// @brief The nodes container to fill
-        std::map<long, PCOSMNode*> &myToFill;
+        std::map<SUMOLong, PCOSMNode*> &myToFill;
 
         /// @brief Current path in order to know to what occuring values belong
         std::vector<int> myParentElements;
 
         /// @brief The id of the last parsed node
-        long myLastNodeID;
+        SUMOLong myLastNodeID;
 
 
     private:
@@ -179,7 +179,7 @@ protected:
          * @param[in] osmNodes The previously parsed (osm-)nodes
          * @param[in] toFill The edges container to fill with read edges
          */
-        EdgesHandler(const std::map<long, PCOSMNode*> &osmNodes,
+        EdgesHandler(const std::map<SUMOLong, PCOSMNode*> &osmNodes,
                      std::map<std::string, PCOSMEdge*> &toFill) ;
 
 
@@ -213,7 +213,7 @@ protected:
 
     private:
         /// @brief The previously parsed nodes
-        const std::map<long, PCOSMNode*> &myOSMNodes;
+        const std::map<SUMOLong, PCOSMNode*> &myOSMNodes;
 
         /// @brief A map of built edges
         std::map<std::string, PCOSMEdge*> &myEdgeMap;
