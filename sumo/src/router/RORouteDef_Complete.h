@@ -58,10 +58,10 @@ public:
     /// Constructor
     RORouteDef_Complete(const std::string& id, const RGBColor* const color,
                         const std::vector<const ROEdge*> &edges,
-                        bool tryRepair) ;
+                        bool tryRepair);
 
     /// Destructor
-    virtual ~RORouteDef_Complete() ;
+    virtual ~RORouteDef_Complete();
 
     /// Builds the route
     void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,

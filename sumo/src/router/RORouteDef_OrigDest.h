@@ -55,10 +55,10 @@ class RORouteDef_OrigDest
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string& id, const RGBColor* const color,
-                        const ROEdge* from, const ROEdge* to, bool removeFirst = false) ;
+                        const ROEdge* from, const ROEdge* to, bool removeFirst = false);
 
     /// Destructor
-    virtual ~RORouteDef_OrigDest() ;
+    virtual ~RORouteDef_OrigDest();
 
     /// Builds the current route from the given information (perform routing, here)
     void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,

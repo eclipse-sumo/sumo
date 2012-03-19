@@ -101,7 +101,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
 
         /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -118,7 +118,7 @@ public:
          * @return True if vehicle hasn't passed the reminder completely.
          */
         bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                        SUMOReal newPos, SUMOReal newSpeed) ;
+                        SUMOReal newPos, SUMOReal newSpeed);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -130,7 +130,7 @@ public:
          * @see MSMoveReminder::notifyLeave
          */
         virtual bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                                 MSMoveReminder::Notification reason) ;
+                                 MSMoveReminder::Notification reason);
 
 
         /** @brief Tests whether the vehicles type is to be regarded
@@ -138,19 +138,19 @@ public:
          * @param[in] veh The regarded vehicle
          * @return whether the type of the vehicle is in the set of regarded types
          */
-        bool vehicleApplies(const SUMOVehicle& veh) const ;
+        bool vehicleApplies(const SUMOVehicle& veh) const;
 
 
         /** @brief Returns whether any data was collected.
          *
          * @return whether no data was collected
          */
-        virtual bool isEmpty() const ;
+        virtual bool isEmpty() const;
 
 
         /** @brief Called if a per timestep update is needed. Default does nothing.
          */
-        virtual void update() ;
+        virtual void update();
 
         /** @brief Writes output values into the given stream
          *
@@ -166,7 +166,7 @@ public:
         /** @brief Returns the number of collected sample seconds.
          * @return the number of collected sample seconds
          */
-        virtual SUMOReal getSamples() const ;
+        virtual SUMOReal getSamples() const;
 
     protected:
         /// @brief The length of the lane / edge the data collector is on
@@ -197,20 +197,20 @@ public:
         /** @brief Constructor */
         MeanDataValueTracker(MSLane* const lane, const SUMOReal length,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData* const parent = 0) ;
+                             const MSMeanData* const parent = 0);
 
         /** @brief Destructor */
-        virtual ~MeanDataValueTracker() ;
+        virtual ~MeanDataValueTracker();
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite) ;
+        void reset(bool afterWrite);
 
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
-        void addTo(MSMeanData::MeanDataValues& val) const ;
+        void addTo(MSMeanData::MeanDataValues& val) const;
 
         /// @name Methods inherited from MSMoveReminder
         /// @{
@@ -225,7 +225,7 @@ public:
          * @param[in] timeOnLane time the vehicle spent on the lane.
          * @param[in] speed Moving speed.
          */
-        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed) ;
+        void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane, SUMOReal speed);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -237,7 +237,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -251,10 +251,10 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
         //@}
 
-        bool isEmpty() const ;
+        bool isEmpty() const;
 
         /** @brief Writes output values into the given stream
          *
@@ -267,11 +267,11 @@ public:
                    const SUMOReal numLanes, const SUMOReal defaultTravelTime,
                    const int numVehicles = -1) const;
 
-        size_t getNumReady() const ;
+        size_t getNumReady() const;
 
-        void clearFirst() ;
+        void clearFirst();
 
-        SUMOReal getSamples() const ;
+        SUMOReal getSamples() const;
 
     private:
         class TrackerEntry {
@@ -327,11 +327,11 @@ public:
 
 
     /// @brief Destructor
-    virtual ~MSMeanData() ;
+    virtual ~MSMeanData();
 
     /** @brief Adds the value collectors to all relevant edges.
      */
-    void init() ;
+    void init();
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -363,7 +363,7 @@ public:
 
     /** @brief Updates the detector
      */
-    virtual void detectorUpdate(const SUMOTime step) ;
+    virtual void detectorUpdate(const SUMOTime step);
 
 
 protected:
@@ -379,7 +379,7 @@ protected:
      * Goes through the lists of edges and starts "resetOnly" for each edge.
      * @param [in] edge The last time step that is reported
      */
-    void resetOnly(SUMOTime stopTime) ;
+    void resetOnly(SUMOTime stopTime);
 
     /** @brief Writes edge values into the given stream
      *

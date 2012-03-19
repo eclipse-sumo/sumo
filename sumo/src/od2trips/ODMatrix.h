@@ -75,11 +75,11 @@ public:
      *
      * @param[in] dc The district container to obtain referenced distrivts from
      */
-    ODMatrix(const ODDistrictCont& dc) ;
+    ODMatrix(const ODDistrictCont& dc);
 
 
     /// Destructor
-    ~ODMatrix() ;
+    ~ODMatrix();
 
 
     /** @brief Builds a single cell from the given values, verifying them
@@ -105,7 +105,7 @@ public:
      */
     void add(SUMOReal vehicleNumber, SUMOTime begin,
              SUMOTime end, const std::string& origin, const std::string& destination,
-             const std::string& vehicleType) ;
+             const std::string& vehicleType);
 
 
     /** @brief Writes the vehicles stored in the matrix assigning the sources and sinks
@@ -134,7 +134,7 @@ public:
      */
     void write(SUMOTime begin, SUMOTime end,
                OutputDevice& dev, bool uniform, bool noVtype,
-               const std::string& prefix, bool stepLog) ;
+               const std::string& prefix, bool stepLog);
 
 
     /** @brief Returns the number of loaded vehicles
@@ -143,7 +143,7 @@ public:
      *
      * @return The number of loaded vehicles
      */
-    SUMOReal getNoLoaded() const ;
+    SUMOReal getNoLoaded() const;
 
 
     /** @brief Returns the number of written vehicles
@@ -152,7 +152,7 @@ public:
      *
      * @return The number of written vehicles
      */
-    SUMOReal getNoWritten() const ;
+    SUMOReal getNoWritten() const;
 
 
     /** @brief Returns the number of discarded vehicles
@@ -161,13 +161,13 @@ public:
      *
      * @return The number of discarded vehicles
      */
-    SUMOReal getNoDiscarded() const ;
+    SUMOReal getNoDiscarded() const;
 
 
     /** @brief Splits the stored cells dividing them on the given time line
      * @todo Describe
      */
-    void applyCurve(const Distribution_Points& ps) ;
+    void applyCurve(const Distribution_Points& ps);
 
 
 protected:
@@ -220,7 +220,7 @@ protected:
      */
     SUMOReal computeDeparts(ODCell* cell,
                             size_t& vehName, std::vector<ODVehicle> &into, bool uniform,
-                            const std::string& prefix) ;
+                            const std::string& prefix);
 
 
     /** @brief Splits the given cell dividing it on the given time line and
@@ -239,7 +239,7 @@ protected:
      * @todo describe better!!!
      */
     void applyCurve(const Distribution_Points& ps, ODCell* cell,
-                    CellVector& newCells) ;
+                    CellVector& newCells);
 
 
 protected:

@@ -52,11 +52,11 @@ class SUMOVehicle;
 class MSEdgeWeightsStorage {
 public:
     /// @brief Constructor
-    MSEdgeWeightsStorage() ;
+    MSEdgeWeightsStorage();
 
 
     /// @brief Destructor
-    ~MSEdgeWeightsStorage() ;
+    ~MSEdgeWeightsStorage();
 
 
     /** @brief Returns a travel time for an edge and time if stored
@@ -67,7 +67,7 @@ public:
      * @return Whether the requested edge/time is described
      */
     bool retrieveExistingTravelTime(const MSEdge* const e, const SUMOVehicle* const v,
-                                    SUMOReal t, SUMOReal& value) const ;
+                                    SUMOReal t, SUMOReal& value) const;
 
 
     /** @brief Returns an effort for an edge and time if stored
@@ -78,7 +78,7 @@ public:
      * @return Whether the requested edge/time is described
      */
     bool retrieveExistingEffort(const MSEdge* const e, const SUMOVehicle* const v,
-                                SUMOReal t, SUMOReal& value) const ;
+                                SUMOReal t, SUMOReal& value) const;
 
 
     /** @brief Adds a travel time information for an edge and a time span
@@ -87,7 +87,7 @@ public:
      * @param[in] end The end of the described time span
      * @param[in] value The travel time value for this edge and time span
      */
-    void addTravelTime(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value) ;
+    void addTravelTime(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value);
 
 
     /** @brief Adds an effort information for an edge and a time span
@@ -96,33 +96,33 @@ public:
      * @param[in] end The end of the described time span
      * @param[in] value Theeffort value for this edge and time span
      */
-    void addEffort(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value) ;
+    void addEffort(const MSEdge* const e, SUMOReal begin, SUMOReal end, SUMOReal value);
 
 
     /** @brief Removes the travel time information for an edge
      * @param[in] e The described edge
      */
-    void removeTravelTime(const MSEdge* const e) ;
+    void removeTravelTime(const MSEdge* const e);
 
 
     /** @brief Removes the effort information for an edge
      * @param[in] e The described edge
      */
-    void removeEffort(const MSEdge* const e) ;
+    void removeEffort(const MSEdge* const e);
 
 
     /** @brief Returns the information whether any travel time is known for the given edge
      * @param[in] e The investigated edge
      * @return Whether any travel time information about this edge is stored
      */
-    bool knowsTravelTime(const MSEdge* const e) const ;
+    bool knowsTravelTime(const MSEdge* const e) const;
 
 
     /** @brief Returns the information whether any effort is known for the given edge
      * @param[in] e The investigated edge
      * @return Whether any travel time information about this edge is stored
      */
-    bool knowsEffort(const MSEdge* const e) const ;
+    bool knowsEffort(const MSEdge* const e) const;
 
 
 private:

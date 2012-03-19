@@ -67,19 +67,19 @@ public:
      * @param[in] str The storage of object selections to use
      */
     GUIDialog_GLChosenEditor(GUIMainWindow* parent,
-                             GUISelectedStorage* str) ;
+                             GUISelectedStorage* str);
 
 
     /** @brief Destructor
      *
      * Notifies both the parent and the storage about being destroyed.
      */
-    ~GUIDialog_GLChosenEditor() ;
+    ~GUIDialog_GLChosenEditor();
 
 
     /** @brief Rebuilds the entire list
      */
-    void rebuildList() ;
+    void rebuildList();
 
 
     /// @name FOX-callbacks

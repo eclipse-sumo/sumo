@@ -587,7 +587,7 @@ public:
      * @return Whether the application shall stop
      * @exception ProcessError If the configuration file could not be saved
      */
-    bool processMetaOptions(bool missingOptions) ;
+    bool processMetaOptions(bool missingOptions);
 
 
     /// @brief return the list of subtopics

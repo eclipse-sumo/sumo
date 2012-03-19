@@ -164,11 +164,11 @@ AGBusLine::printBuses() {
     std::list<AGBus>::iterator it;
     std::cout << "\n ----------- BUS LINE " << lineNumber << " PRINTING -------------\n" << std::endl;
     std::cout << "\n -------------------------- First way ---------------------------\n" << std::endl;
-    for (it = buses.begin() ; it != buses.end() ; ++it) {
+    for (it = buses.begin(); it != buses.end(); ++it) {
         it->print();
     }
     std::cout << "\n -------------------------- Second way --------------------------\n" << std::endl;
-    for (it = revBuses.begin() ; it != revBuses.end() ; ++it) {
+    for (it = revBuses.begin(); it != revBuses.end(); ++it) {
         it->print();
     }
     std::cout << "\n ----------------------------------------------------------------\n" << std::endl;

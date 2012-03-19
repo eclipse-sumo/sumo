@@ -79,7 +79,7 @@ public:
      * @param[in] length The length of this link
      */
     MSLink(MSLane* succLane,
-           LinkDirection dir, LinkState state, SUMOReal length) ;
+           LinkDirection dir, LinkState state, SUMOReal length);
 #else
     /** @brief Constructor for simulation which uses internal lanes
      *
@@ -91,11 +91,11 @@ public:
      */
     MSLink(MSLane* succLane, MSLane* via,
            LinkDirection dir, LinkState state,
-           SUMOReal length) ;
+           SUMOReal length);
 #endif
 
     /// @brief Destructor
-    ~MSLink() ;
+    ~MSLink();
 
 
     /** @brief Sets the request information
@@ -110,7 +110,7 @@ public:
      * @todo Unsecure!
      */
     void setRequestInformation(unsigned int requestIdx, unsigned int respondIdx, bool isCrossing, bool isCont,
-                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes) ;
+                               const std::vector<MSLink*> &foeLinks, const std::vector<MSLane*> &foeLanes);
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -119,9 +119,9 @@ public:
      *
      * @param[in] approaching The approaching vehicle
      */
-    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest) ;
+    void setApproaching(SUMOVehicle* approaching, SUMOTime arrivalTime, SUMOReal speed, bool setRequest);
 
-    void addBlockedLink(MSLink* link) ;
+    void addBlockedLink(MSLink* link);
 
 
 
@@ -135,14 +135,14 @@ public:
      *
      * @return Whether this link may be passed.
      */
-    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const ;
+    bool opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLength) const;
 
-    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const ;
+    bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime) const;
     bool isBlockingAnyone() const {
         return myApproachingVehicles.size() != 0;
     }
 
-    bool willHaveBlockedFoe() const ;
+    bool willHaveBlockedFoe() const;
 
 
 
@@ -152,7 +152,7 @@ public:
      *
      * @return Whether a foe of this link is approaching
      */
-    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const ;
+    bool hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime) const;
 
 
     /** @brief Returns the current state of the link
@@ -168,28 +168,28 @@ public:
      *
      * @return The direction of this link
      */
-    LinkDirection getDirection() const ;
+    LinkDirection getDirection() const;
 
 
     /** @brief Sets the current tl-state
      *
      * @param[in] state The current state of the link
      */
-    void setTLState(LinkState state, SUMOTime t) ;
+    void setTLState(LinkState state, SUMOTime t);
 
 
     /** @brief Returns the connected lane
      *
      * @return The lane approached by this link
      */
-    MSLane* getLane() const ;
+    MSLane* getLane() const;
 
 
     /** @brief Returns the respond index (for visualization)
      *
      * @return The respond index for this link
      */
-    unsigned int getRespondIndex() const ;
+    unsigned int getRespondIndex() const;
 
 
     /** @brief Returns whether this link is a major link
@@ -226,7 +226,7 @@ public:
      *
      * @return The inner lane to use to cross the junction
      */
-    MSLane* getViaLane() const ;
+    MSLane* getViaLane() const;
 #endif
 
 private:

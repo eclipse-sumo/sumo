@@ -104,13 +104,13 @@ public:
          * @param[in] currentOutgoing The outgoing edge
          */
         ApproachingDivider(EdgeVector* approaching,
-                           NBEdge* currentOutgoing) ;
+                           NBEdge* currentOutgoing);
 
         /// @brief Destructor
-        ~ApproachingDivider() ;
+        ~ApproachingDivider();
 
         /** the bresenham-callback */
-        void execute(const unsigned int src, const unsigned int dest) ;
+        void execute(const unsigned int src, const unsigned int dest);
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
@@ -123,7 +123,7 @@ public:
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      */
-    NBNode(const std::string& id, const Position& position) ;
+    NBNode(const std::string& id, const Position& position);
 
 
     /** @brief Constructor
@@ -131,7 +131,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    NBNode(const std::string& id, const Position& position, SumoXMLNodeType type) ;
+    NBNode(const std::string& id, const Position& position, SumoXMLNodeType type);
 
 
     /** @brief Constructor
@@ -139,11 +139,11 @@ public:
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents
      */
-    NBNode(const std::string& id, const Position& position, NBDistrict* district) ;
+    NBNode(const std::string& id, const Position& position, NBDistrict* district);
 
 
     /// @brief Destructor
-    ~NBNode() ;
+    ~NBNode();
 
 
     /** @brief Resets initial values
@@ -208,14 +208,14 @@ public:
     /** @brief Adds a traffic light to the list of traffic lights that control this node
      * @param[in] tld The traffic light that controls this node
      */
-    void addTrafficLight(NBTrafficLightDefinition* tlDef) ;
+    void addTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /** @brief Removes the given traffic light from this node */
-    void removeTrafficLight(NBTrafficLightDefinition* tlDef) ;
+    void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /** @brief Removes all references to traffic lights that control this tls
      */
-    void removeTrafficLights() ;
+    void removeTrafficLights();
 
 
     /** @brief Returns whether this node is controlled by any tls
@@ -229,7 +229,7 @@ public:
     /** @brief Returns whether this node is controlled by a tls that spans over more than one node
      * @return Whether a "joined" traffic light was assigned to this node
      */
-    bool isJoinedTLSControlled() const ;
+    bool isJoinedTLSControlled() const;
 
 
     /** @brief Returns the traffic lights that were assigned to this node
@@ -299,14 +299,14 @@ public:
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's incoming edges
      */
-    bool hasIncoming(const NBEdge* const e) const ;
+    bool hasIncoming(const NBEdge* const e) const;
 
 
     /** @brief Returns whether the given edge starts at this node
      * @param[in] e The edge
      * @return Whether the given edge is one of this node's outgoing edges
      */
-    bool hasOutgoing(const NBEdge* const e) const ;
+    bool hasOutgoing(const NBEdge* const e) const;
 
 
     NBEdge* getOppositeIncoming(NBEdge* e) const;
@@ -336,7 +336,7 @@ public:
      * @param[in] from The outgoing edge (the end of the connection)
      * @return Whether the described connection is a left-mover
      */
-    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const ;
+    bool isLeftMover(const NBEdge* const from, const NBEdge* const to) const;
 
 
     /** @brief Returns the information whether the described flow must let any other flow pass
@@ -345,7 +345,7 @@ public:
      * @param[in] toLane The lane the connection ends at
      * @return Whether the described connection must brake (has higher priorised foes)
      */
-    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const ;
+    bool mustBrake(const NBEdge* const from, const NBEdge* const to, int toLane) const;
 
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -358,7 +358,7 @@ public:
      */
     bool forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const possProhibitorTo,
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const ;
+                 bool regardNonSignalisedLowerPriority) const;
 
 
     /** @brief Returns the information whether the given flows cross
@@ -369,7 +369,7 @@ public:
      * @return Whether both stream are foes (cross)
      */
     bool foes(const NBEdge* const from1, const NBEdge* const to1,
-              const NBEdge* const from2, const NBEdge* const to2) const ;
+              const NBEdge* const from2, const NBEdge* const to2) const;
 
 
     /** @brief Returns the representation of the described stream's direction
@@ -377,9 +377,9 @@ public:
      * @param[in] outgoing The edge the stream ends at
      * @return The direction of the stream
      */
-    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const ;
+    LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing) const;
 
-    std::string stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromLane, bool mayDefinitelyPass) const ;
+    std::string stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromLane, bool mayDefinitelyPass) const;
 
     void computeNodeShape(bool leftHand);
 

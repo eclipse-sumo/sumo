@@ -67,7 +67,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont& oc, Position& netOffset, Boundary& origNetBoundary,
-                          Boundary& convNetBoundary, std::string& projParameter) ;
+                          Boundary& convNetBoundary, std::string& projParameter);
 
 
 protected:
@@ -78,17 +78,17 @@ protected:
      * @param[out] projParameter The projection parameter to fill from values read from the network
      */
     PCNetProjectionLoader(Position& netOffset,
-                          Boundary& origNetBoundary, Boundary& convNetBoundary, std::string& projParameter) ;
+                          Boundary& origNetBoundary, Boundary& convNetBoundary, std::string& projParameter);
 
 
     /// @brief Destructor
-    ~PCNetProjectionLoader() ;
+    ~PCNetProjectionLoader();
 
 
     /** @brief Returns whether all needed values were read
      * @return Whether all needed values were read
      */
-    bool hasReadAll() const ;
+    bool hasReadAll() const;
 
 
 protected:
@@ -103,7 +103,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when characters occure
@@ -114,7 +114,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) ;
+                      const std::string& chars);
     //@}
 
 

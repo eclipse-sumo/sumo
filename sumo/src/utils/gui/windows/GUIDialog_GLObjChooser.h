@@ -75,7 +75,7 @@ public:
 
 
     /// @brief Destructor
-    ~GUIDialog_GLObjChooser() ;
+    ~GUIDialog_GLObjChooser();
 
 
     /** @brief Returns the chosen (selected) object

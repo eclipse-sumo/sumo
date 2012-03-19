@@ -416,7 +416,7 @@ MSLaneChanger::updateChanger(bool vehHasChanged) {
     if (myCandi->veh + 1 == myCandi->lane->myVehicles.rend()) {
         myCandi->follow = 0;
     } else {
-        myCandi->follow = *(myCandi->veh + 1) ;
+        myCandi->follow = *(myCandi->veh + 1);
     }
     return;
 }

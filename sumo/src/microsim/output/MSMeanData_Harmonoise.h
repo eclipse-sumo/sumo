@@ -72,19 +72,19 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_Harmonoise* parent = 0) ;
+                             const MSMeanData_Harmonoise* parent = 0);
 
         /** @brief Destructor */
-        virtual ~MSLaneMeanDataValues() ;
+        virtual ~MSLaneMeanDataValues();
 
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite = false) ;
+        void reset(bool afterWrite = false);
 
         /** @brief Add the values to this meanData
          */
-        void addTo(MSMeanData::MeanDataValues& val) const ;
+        void addTo(MSMeanData::MeanDataValues& val) const;
 
 
         /// @name Methods inherited from MSMoveReminder.
@@ -102,7 +102,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
         //@}
 
 
@@ -111,7 +111,7 @@ public:
          * The sum of noises collected so far (in the last seen step)
          *  is built, and added to meanNTemp; currentTimeN is resetted.
          */
-        void update() ;
+        void update();
 
         /** @brief Writes output values into the given stream
          *
@@ -138,7 +138,7 @@ public:
          * @param[in] speed Moving speed.
          */
         void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed) ;
+                                SUMOReal speed);
 
     private:
         /// @name Collected values
@@ -178,15 +178,15 @@ public:
                           const bool printDefaults, const bool withInternal,
                           const bool trackVehicles,
                           const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                          const std::set<std::string> vTypes) ;
+                          const std::set<std::string> vTypes);
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_Harmonoise() ;
+    virtual ~MSMeanData_Harmonoise();
 
     /** @brief Updates the detector
      */
-    virtual void detectorUpdate(const SUMOTime step) ;
+    virtual void detectorUpdate(const SUMOTime step);
 
 
 protected:

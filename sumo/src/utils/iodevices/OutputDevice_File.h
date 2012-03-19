@@ -55,7 +55,7 @@ public:
 
 
     /// @brief Destructor
-    ~OutputDevice_File() ;
+    ~OutputDevice_File();
 
 
 protected:
@@ -65,7 +65,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream() ;
+    std::ostream& getOStream();
     /// @}
 
 

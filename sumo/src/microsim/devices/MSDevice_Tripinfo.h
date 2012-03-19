@@ -62,7 +62,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) ;
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into);
 
 
 public:
@@ -79,7 +79,7 @@ public:
      * @return True (always).
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos,
-                    SUMOReal newPos, SUMOReal newSpeed) ;
+                    SUMOReal newPos, SUMOReal newSpeed);
 
 
     /** @brief Saves departure info on insertion
@@ -90,7 +90,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
 
     /** @brief Saves arrival info
@@ -102,7 +102,7 @@ public:
      * @return True if it did not leave the net.
      */
     bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos,
-                     MSMoveReminder::Notification reason) ;
+                     MSMoveReminder::Notification reason);
     /// @}
 
 
@@ -116,7 +116,7 @@ public:
 
 
     /// @brief Destructor.
-    ~MSDevice_Tripinfo() ;
+    ~MSDevice_Tripinfo();
 
 
 private:
@@ -125,7 +125,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) ;
+    MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id);
 
 
 private:

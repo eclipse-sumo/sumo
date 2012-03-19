@@ -91,11 +91,11 @@ public:
     MSE2Collector(const std::string& id, DetectorUsage usage,
                   MSLane* const lane, SUMOReal startPos, SUMOReal detLength,
                   SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                  SUMOReal jamDistThreshold) ;
+                  SUMOReal jamDistThreshold);
 
 
     /// @brief Destructor
-    virtual ~MSE2Collector() ;
+    virtual ~MSE2Collector();
 
 
     /** @brief Returns the detector's usage type
@@ -128,7 +128,7 @@ public:
      * @see MSMoveReminder::notifyMove
      */
     bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                    SUMOReal newSpeed) ;
+                    SUMOReal newSpeed);
 
 
     /** @brief Removes a known vehicle due to its lane-change
@@ -142,7 +142,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -157,7 +157,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     /// @}
 
 
@@ -170,7 +170,7 @@ public:
      *
      * @param[in] currentTime The current simulation time
      */
-    void detectorUpdate(const SUMOTime step) ;
+    void detectorUpdate(const SUMOTime step);
 
 
 
@@ -222,41 +222,41 @@ public:
      *  were written. Values for the next interval may be collected, then.
      * The list of known vehicles stays untouched.
      */
-    void reset() ;
+    void reset();
 
 
     /// @name Methods returning current values
     /// @{
 
     /** @brief Returns the number of vehicles currently on the detector */
-    unsigned getCurrentVehicleNumber() const ;
+    unsigned getCurrentVehicleNumber() const;
 
     /** @brief Returns the curent detector occupancy */
-    SUMOReal getCurrentOccupancy() const ;
+    SUMOReal getCurrentOccupancy() const;
 
     /** @brief Returns the mean vehicle speed of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanSpeed() const ;
+    SUMOReal getCurrentMeanSpeed() const;
 
     /** @brief Returns the mean vehicle length of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanLength() const ;
+    SUMOReal getCurrentMeanLength() const;
 
     /** @brief Returns the current number of jams */
-    unsigned getCurrentJamNumber() const ;
+    unsigned getCurrentJamNumber() const;
 
     /** @brief Returns the length in vehicles of the currently largest jam */
-    unsigned getCurrentMaxJamLengthInVehicles() const ;
+    unsigned getCurrentMaxJamLengthInVehicles() const;
 
     /** @brief Returns the length in meters of the currently largest jam */
-    SUMOReal getCurrentMaxJamLengthInMeters() const ;
+    SUMOReal getCurrentMaxJamLengthInMeters() const;
 
     /** @brief Returns the length of all jams in vehicles */
-    unsigned getCurrentJamLengthInVehicles() const ;
+    unsigned getCurrentJamLengthInVehicles() const;
 
     /** @brief Returns the length of all jams in meters */
-    SUMOReal getCurrentJamLengthInMeters() const ;
+    SUMOReal getCurrentJamLengthInMeters() const;
 
     /** @brief Returns the length of all jams in meters */
-    unsigned getCurrentStartedHalts() const ;
+    unsigned getCurrentStartedHalts() const;
     /// @}
 
 

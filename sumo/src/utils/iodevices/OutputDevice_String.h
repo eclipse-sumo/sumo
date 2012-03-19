@@ -53,13 +53,13 @@ public:
 
 
     /// @brief Destructor
-    ~OutputDevice_String() ;
+    ~OutputDevice_String();
 
 
     /** @brief Returns the current content as a string
      * @return The content as string
      */
-    std::string getString() ;
+    std::string getString();
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods
@@ -68,7 +68,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream() ;
+    std::ostream& getOStream();
     /// @}
 
 

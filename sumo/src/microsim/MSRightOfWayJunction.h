@@ -72,12 +72,12 @@ public:
 #ifdef HAVE_INTERNAL_LANES
                          std::vector<MSLane*> internal,
 #endif
-                         MSJunctionLogic* logic) ;
+                         MSJunctionLogic* logic);
 
     /// Destructor.
     virtual ~MSRightOfWayJunction();
 
-    void postloadInit() ;
+    void postloadInit();
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const {
         return myLinkFoeLinks.find((MSLink*) srcLink)->second;

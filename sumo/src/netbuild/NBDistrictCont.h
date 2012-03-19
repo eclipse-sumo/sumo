@@ -60,11 +60,11 @@ class OutputDevice;
 class NBDistrictCont {
 public:
     /// @brief Constructor
-    NBDistrictCont() ;
+    NBDistrictCont();
 
 
     /// @brief Destructor
-    ~NBDistrictCont() ;
+    ~NBDistrictCont();
 
 
     /** @brief Adds a district to the dictionary
@@ -72,7 +72,7 @@ public:
      * @param[in] district The district to add
      * @return false if the districts already was in the dictionary
      */
-    bool insert(NBDistrict* const district) ;
+    bool insert(NBDistrict* const district);
 
 
     /** @brief Returns the districts with the given id
@@ -80,7 +80,7 @@ public:
      * @param[in] id The id of the district to retrieve
      * @return The district with the given id if there was one having it, 0 otherwise
      */
-    NBDistrict* retrieve(const std::string& id) const ;
+    NBDistrict* retrieve(const std::string& id) const;
 
 
     /** @brief Returns the pointer to the begin of the stored districts
@@ -100,7 +100,7 @@ public:
 
 
     /** @brief Returns the number of districts inside the container */
-    size_t size() const ;
+    size_t size() const;
 
 
     /** @brief Adds a source to the named district
@@ -116,7 +116,7 @@ public:
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
     bool addSource(const std::string& dist, NBEdge* const source,
-                   SUMOReal weight) ;
+                   SUMOReal weight);
 
 
     /** @brief Adds a sink to the named district
@@ -132,7 +132,7 @@ public:
      * @return Whether the source could be added (the district exists and the suorce was not added to it before)
      */
     bool addSink(const std::string& dist, NBEdge* const destination,
-                 SUMOReal weight) ;
+                 SUMOReal weight);
 
 
     /** @brief Removes the given edge from the lists of sources and sinks in all stored districts
@@ -143,7 +143,7 @@ public:
      * @see NBDistrict::removeFromSinksAndSources
      * @param[in] e The edge to remove from sinks/sources
      */
-    void removeFromSinksAndSources(NBEdge* const e) ;
+    void removeFromSinksAndSources(NBEdge* const e);
 
 
 private:

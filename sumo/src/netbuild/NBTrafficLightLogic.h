@@ -95,7 +95,7 @@ public:
      * @param[in] subid The id of the program
      * @param[in] noLinks Number of links that are controlled by this tls. 0 means the value is not known beforehand
      */
-    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks) ;
+    NBTrafficLightLogic(const std::string& id, const std::string& subid, unsigned int noLinks);
 
 
     /** @brief Copy Constructor
@@ -105,7 +105,7 @@ public:
 
 
     /// @brief Destructor
-    ~NBTrafficLightLogic() ;
+    ~NBTrafficLightLogic();
 
 
     /** @brief Adds a phase to the logic
@@ -145,13 +145,13 @@ public:
      *
      * Joins equal steps.
      */
-    void closeBuilding() ;
+    void closeBuilding();
 
 
     /** @brief Returns the duration of the complete cycle
      * @return The duration of this logic's cycle
      */
-    SUMOTime getDuration() const ;
+    SUMOTime getDuration() const;
 
 
     /** @brief Sets the offset of this tls

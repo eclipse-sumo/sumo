@@ -55,11 +55,11 @@ class MSTriggerControl;
 class GUITriggerBuilder : public NLTriggerBuilder {
 public:
     /// @brief Constructor
-    GUITriggerBuilder() ;
+    GUITriggerBuilder();
 
 
     /// @brief Destructor
-    ~GUITriggerBuilder() ;
+    ~GUITriggerBuilder();
 
 
 protected:
@@ -82,7 +82,7 @@ protected:
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet& net,
             const std::string& id, const std::vector<MSLane*> &destLanes,
-            const std::string& file) ;
+            const std::string& file);
 
 
     /** @brief builds an rerouter
@@ -97,7 +97,7 @@ protected:
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
                                const std::string& id, std::vector<MSEdge*> &edges,
-                               SUMOReal prob, const std::string& file, bool off) ;
+                               SUMOReal prob, const std::string& file, bool off);
 
 
     /** @brief Builds a bus stop

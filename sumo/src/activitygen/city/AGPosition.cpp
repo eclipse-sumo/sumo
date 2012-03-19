@@ -78,7 +78,7 @@ AGPosition::minDistanceTo(const std::list<AGPosition>& positions) const {
     SUMOReal tempDist;
     std::list<AGPosition>::const_iterator itt;
 
-    for (itt = positions.begin() ; itt != positions.end() ; ++itt) {
+    for (itt = positions.begin(); itt != positions.end(); ++itt) {
         tempDist = this->distanceTo(*itt);
         if (tempDist < minDist) {
             minDist = tempDist;
@@ -94,7 +94,7 @@ AGPosition::minDistanceTo(const std::map<int, AGPosition>& positions) const {
     SUMOReal tempDist;
     std::map<int, AGPosition>::const_iterator itt;
 
-    for (itt = positions.begin() ; itt != positions.end() ; ++itt) {
+    for (itt = positions.begin(); itt != positions.end(); ++itt) {
         tempDist = this->distanceTo(itt->second);
         if (tempDist < minDist) {
             minDist = tempDist;

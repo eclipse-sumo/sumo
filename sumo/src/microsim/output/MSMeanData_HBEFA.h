@@ -73,21 +73,21 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane* const lane, const SUMOReal length, const bool doAdd,
                              const std::set<std::string>* const vTypes = 0,
-                             const MSMeanData_HBEFA* parent = 0) ;
+                             const MSMeanData_HBEFA* parent = 0);
 
         /** @brief Destructor */
-        virtual ~MSLaneMeanDataValues() ;
+        virtual ~MSLaneMeanDataValues();
 
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset(bool afterWrite = false) ;
+        void reset(bool afterWrite = false);
 
         /** @brief Add the values of this to the given one and store them there
          *
          * @param[in] val The meandata to add to
          */
-        void addTo(MSMeanData::MeanDataValues& val) const ;
+        void addTo(MSMeanData::MeanDataValues& val) const;
 
         /** @brief Writes output values into the given stream
          *
@@ -113,7 +113,7 @@ public:
          * @param[in] speed Moving speed.
          */
         void notifyMoveInternal(SUMOVehicle& veh, SUMOReal timeOnLane,
-                                SUMOReal speed) ;
+                                SUMOReal speed);
 
     private:
         /// @name Collected values
@@ -158,11 +158,11 @@ public:
                      const bool printDefaults, const bool withInternal,
                      const bool trackVehicles,
                      const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                     const std::set<std::string> vTypes) ;
+                     const std::set<std::string> vTypes);
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_HBEFA() ;
+    virtual ~MSMeanData_HBEFA();
 
 protected:
     /** @brief Create an instance of MeanDataValues

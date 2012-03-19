@@ -72,7 +72,7 @@ public:
                         const std::string& file = "");
 
     /// Destructor
-    ~RORDLoader_SUMOBase() ;
+    ~RORDLoader_SUMOBase();
 
 
 protected:
@@ -87,7 +87,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when characters occure
@@ -98,7 +98,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) ;
+                      const std::string& chars);
 
 
     /** @brief Called when a closing tag occurs
@@ -107,7 +107,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(int element) ;
+    virtual void myEndElement(int element);
     //@}
 
     /// Begins the parsing of the next route alternative in the file
@@ -116,7 +116,7 @@ protected:
     /// Begins the parsing of a route alternative of the opened route
     void startRoute(const SUMOSAXAttributes& attrs);
 
-    bool closeVehicle() ;
+    bool closeVehicle();
 
 
 protected:

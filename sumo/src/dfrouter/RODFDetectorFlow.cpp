@@ -80,7 +80,7 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
         ofd.vPKW = ofd.vPKW + fd.vPKW; //!!! mean value?
     }
     if (ofd.qLKW != 0 && ofd.qPKW != 0) {
-        ofd.fLKW = ofd.qLKW / ofd.qPKW ;
+        ofd.fLKW = ofd.qLKW / ofd.qPKW;
     } else if (ofd.qPKW != 0) {
         ofd.fLKW = 0;
     } else {
@@ -98,7 +98,7 @@ RODFDetectorFlows::setFlows(const std::string& detector_id,
     for (std::vector<FlowDef>::iterator i = flows.begin(); i < flows.end(); ++i) {
         FlowDef& ofd = *i;
         if (ofd.qLKW != 0 && ofd.qPKW != 0) {
-            ofd.fLKW = ofd.qLKW / ofd.qPKW ;
+            ofd.fLKW = ofd.qLKW / ofd.qPKW;
         } else {
             ofd.fLKW = 0;
         }

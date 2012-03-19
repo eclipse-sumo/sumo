@@ -53,10 +53,10 @@ class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string& id, unsigned int lastUsed, const int maxRoutes,
-                            const bool keepRoutes, const bool skipRouteCalculation) ;
+                            const bool keepRoutes, const bool skipRouteCalculation);
 
     /// Destructor
-    virtual ~RORouteDef_Alternatives() ;
+    virtual ~RORouteDef_Alternatives();
 
     /** @brief Adds an alternative loaded from the file
         An alternative may also be generated whicle DUA */

@@ -604,11 +604,11 @@ long FXRealSpinDial::onChgDial(FXObject* /*p*/, FXSelector /*sel*/, void* /*ptr*
         if (options & SPINDIAL_LOG) {
             if (options & SPINDIAL_CYCLIC && newpos > range[1]) {
                 FXdouble lr0 = log(range[0]), lr1 = log(range[1]), lnp = log(newpos);
-                newpos = exp(lr0 + fmod(lnp - lr0, lr1 - lr0)) ;
+                newpos = exp(lr0 + fmod(lnp - lr0, lr1 - lr0));
             }
         } else {
             if (options & SPINDIAL_CYCLIC) {
-                newpos = range[0] + fmod(newpos - range[0], range[1] - range[0] + 1) ;
+                newpos = range[0] + fmod(newpos - range[0], range[1] - range[0] + 1);
             }
         }
     } else {
@@ -912,12 +912,12 @@ void FXRealSpinDial::increment(FXint incMode) {
             if (options & SPINDIAL_CYCLIC && newpos > range[1]) {
                 // can have a huge magnitude disparity here, so better to work in log space
                 FXdouble lr0 = log(range[0]), lr1 = log(range[1]), lnp = log(newpos);
-                newpos = exp(lr0 + fmod(lnp - lr0, lr1 - lr0)) ;
+                newpos = exp(lr0 + fmod(lnp - lr0, lr1 - lr0));
             }
         } else {
             newpos = pos + inc;
             if (options & SPINDIAL_CYCLIC) {
-                newpos = range[0] + fmod(newpos - range[0], range[1] - range[0] + 1) ;
+                newpos = range[0] + fmod(newpos - range[0], range[1] - range[0] + 1);
             }
         }
         setValue(newpos);

@@ -78,11 +78,11 @@ public:
 
 public:
     /// @brief Constructor
-    MSVehicleControl() ;
+    MSVehicleControl();
 
 
     /// @brief Destructor
-    virtual ~MSVehicleControl() ;
+    virtual ~MSVehicleControl();
 
 
     /// @name Vehicle creation
@@ -102,7 +102,7 @@ public:
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
-                                      const MSVehicleType* type) ;
+                                      const MSVehicleType* type);
     /// @}
 
 
@@ -122,7 +122,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    virtual bool addVehicle(const std::string& id, SUMOVehicle* v) ;
+    virtual bool addVehicle(const std::string& id, SUMOVehicle* v);
 
 
     /** @brief Returns the vehicle with the given id
@@ -133,7 +133,7 @@ public:
      * @param[in] id The id of the vehicle to retrieve
      * @return The vehicle with the given id, 0 if no such vehicle exists
      */
-    SUMOVehicle* getVehicle(const std::string& id) const ;
+    SUMOVehicle* getVehicle(const std::string& id) const;
 
 
     /** @brief Deletes the vehicle
@@ -142,7 +142,7 @@ public:
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      * @todo Isn't this quite insecure?
      */
-    virtual void deleteVehicle(SUMOVehicle* v, bool discard=false) ;
+    virtual void deleteVehicle(SUMOVehicle* v, bool discard=false);
 
 
     /** @brief Removes a vehicle after it has ended
@@ -156,21 +156,21 @@ public:
      *
      * @param[in] veh The vehicle to remove
      */
-    void scheduleVehicleRemoval(SUMOVehicle* veh) ;
+    void scheduleVehicleRemoval(SUMOVehicle* veh);
 
 
     /** @brief Returns the begin of the internal vehicle map
      *
      * @return The begin of the internal vehicle map
      */
-    constVehIt loadedVehBegin() const ;
+    constVehIt loadedVehBegin() const;
 
 
     /** @brief Returns the end of the internal vehicle map
      *
      * @return The end of the internal vehicle map
      */
-    constVehIt loadedVehEnd() const ;
+    constVehIt loadedVehEnd() const;
     /// @}
 
 
@@ -185,7 +185,7 @@ public:
      *  vehicle.
      * @param[in] v The inserted vehicle
      */
-    void vehicleDeparted(const SUMOVehicle& v) ;
+    void vehicleDeparted(const SUMOVehicle& v);
     /// @}
 
 
@@ -249,14 +249,14 @@ public:
      *  The mean time vehicles had to wait for being inserted (-1 if no vehicle was inserted, yet)
      * @todo Enable this for guisim?
      */
-    void printMeanWaitingTime(OutputDevice& od) const ;
+    void printMeanWaitingTime(OutputDevice& od) const;
 
 
     /** @brief Returns the mean travel time of vehicles
      * The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
      * @todo Enable this for guisim?
      */
-    void printMeanTravelTime(OutputDevice& od) const ;
+    void printMeanTravelTime(OutputDevice& od) const;
     /// @}
 
 
@@ -277,7 +277,7 @@ public:
      * @param[in] vehType The vehicle type to add
      * @return Whether the vehicle type could be added
      */
-    bool addVType(MSVehicleType* vehType) ;
+    bool addVType(MSVehicleType* vehType);
 
 
     /** @brief Adds a vehicle type distribution
@@ -293,7 +293,7 @@ public:
      * @param[in] vehTypeDistribution The vehicle type distribution to add
      * @return Whether the vehicle type could be added
      */
-    bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) ;
+    bool addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*> *vehTypeDistribution);
 
 
     /** @brief Asks for a vehicle type distribution
@@ -303,27 +303,27 @@ public:
      * @param[in] id The id of the distribution
      * @return Whether the vehicle type distribution exists
      */
-    bool hasVTypeDistribution(const std::string& id) const ;
+    bool hasVTypeDistribution(const std::string& id) const;
 
 
     /** @brief Returns the named vehicle type or a sample from the named distribution
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or 0 if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID) ;
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
      * @param[in] into The vector to fill with ids
      */
-    void insertVTypeIDs(std::vector<std::string> &into) const ;
+    void insertVTypeIDs(std::vector<std::string> &into) const;
     /// @}
 
-    void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) ;
+    void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
-    void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) ;
+    void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
-    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines) ;
+    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string> &lines);
 
     /** @brief increases the count of vehicles waiting for a person to allow recogniztion of person related deadlocks
      */
@@ -343,18 +343,18 @@ public:
     /** @brief Loads the state of this control from the given stream
      * @todo Does not work for microsim
      */
-    virtual void saveState(std::ostream& os) ;
+    virtual void saveState(std::ostream& os);
 
     /** @brief Saves the current state into the given stream
      * @todo Does not work for microsim
      */
-    virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset) ;
+    virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset);
     /// @}
     //
 
     /** @brief removes any vehicles that are still waiting
      */
-    void abortWaiting() ;
+    void abortWaiting();
 
 
 private:
@@ -364,7 +364,7 @@ private:
      * @param[in] id The id of the vehicle type (distribution) to add
      * @return Whether the type (distribution) may be added
      */
-    bool checkVType(const std::string& id) ;
+    bool checkVType(const std::string& id);
 
 
 protected:

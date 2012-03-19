@@ -59,18 +59,18 @@ public:
      *
      * @param[in] name The name of the file to open for reading
      */
-    BinaryInputDevice(const std::string& name) ;
+    BinaryInputDevice(const std::string& name);
 
 
     /// @brief Destructor
-    ~BinaryInputDevice() ;
+    ~BinaryInputDevice();
 
 
     /** @brief Returns whether the file can be used (is good())
      *
      * @return Whether the file is good
      */
-    bool good() const ;
+    bool good() const;
 
 
     /** @brief Reads an int from the file (input operator)
@@ -79,7 +79,7 @@ public:
      * @param[in] i The int to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, int& i) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, int& i);
 
 
     /** @brief Reads an unsigned int from the file (input operator)
@@ -88,7 +88,7 @@ public:
      * @param[in] i The unsigned int to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, unsigned int& i) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, unsigned int& i);
 
 
     /** @brief Reads a SUMOReal from the file (input operator)
@@ -97,7 +97,7 @@ public:
      * @param[in] i The SUMOReal to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, SUMOReal& f) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, SUMOReal& f);
 
 
     /** @brief Reads a bool from the file (input operator)
@@ -106,7 +106,7 @@ public:
      * @param[in] i The bool to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, bool& b) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, bool& b);
 
 
     /** @brief Reads a string from the file (input operator)
@@ -121,7 +121,7 @@ public:
      * @return The used BinaryInputDevice for further processing
      * @todo Use either a buffer with a flexible size or report an error if the buffer is too small!
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::string& s) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, std::string& s);
 
 
     /** @brief Reads a long from the file (input operator)
@@ -130,7 +130,7 @@ public:
      * @param[in] i The int to store the read value into
      * @return The used BinaryInputDevice for further processing
      */
-    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, long& l) ;
+    friend BinaryInputDevice& operator>>(BinaryInputDevice& os, long& l);
 
 
 private:

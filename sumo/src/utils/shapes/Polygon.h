@@ -56,11 +56,11 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      */
     Polygon(const std::string& name, const std::string& type,
-            const RGBColor& color, const PositionVector& shape, bool fill) ;
+            const RGBColor& color, const PositionVector& shape, bool fill);
 
 
     /// @brief Destructor
-    virtual ~Polygon() ;
+    virtual ~Polygon();
 
 
 

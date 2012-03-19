@@ -222,7 +222,7 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + time2string(*i) + ".bin");
             }
         } else {
-            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector() ;
+            stateDumpFiles = StringTokenizer(myOptions.getString("save-state.files")).getVector();
         }
 #endif
         myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);

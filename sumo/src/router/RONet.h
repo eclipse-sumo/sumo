@@ -70,11 +70,11 @@ class RONet {
 
 public:
     /// @brief Constructor
-    RONet() ;
+    RONet();
 
 
     /// @brief Destructor
-    virtual ~RONet() ;
+    virtual ~RONet();
 
 
     /// @name Insertion and retrieval of graph parts
@@ -89,7 +89,7 @@ public:
      * @param[in] edge The edge to add
      * @return Whether the edge was added (if not, it was deleted, too)
      */
-    virtual bool addEdge(ROEdge* edge) ;
+    virtual bool addEdge(ROEdge* edge);
 
 
     /** @brief Retrieves an edge from the network
@@ -114,7 +114,7 @@ public:
      *
      * @param[in] node The node to add
      */
-    void addNode(RONode* node) ;
+    void addNode(RONode* node);
 
 
     /** @brief Retrieves an node from the network
@@ -142,7 +142,7 @@ public:
      * @param[in] def The vehicle type to add
      * @return Whether the vehicle type could be added
      */
-    virtual bool addVehicleType(SUMOVTypeParameter* type) ;
+    virtual bool addVehicleType(SUMOVTypeParameter* type);
 
 
     /** @brief Retrieves the named vehicle type
@@ -157,7 +157,7 @@ public:
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id) ;
+    SUMOVTypeParameter* getVehicleTypeSecure(const std::string& id);
 
 
     /* @brief Adds a route definition to the network
@@ -170,7 +170,7 @@ public:
      * @return Whether the route definition could be added
      * @todo Rename myRoutes to myRouteDefinitions
      */
-    bool addRouteDef(RORouteDef* def) ;
+    bool addRouteDef(RORouteDef* def);
 
 
     /** @brief Returns the named route definition
@@ -196,7 +196,7 @@ public:
      * @param[in] veh The vehicle to add
      * @return Whether the vehicle could be added
      */
-    virtual bool addVehicle(const std::string& id, ROVehicle* veh) ;
+    virtual bool addVehicle(const std::string& id, ROVehicle* veh);
     // @}
 
 
@@ -242,7 +242,7 @@ public:
 
 
     /** @brief closes the file output for computed routes */
-    void closeOutput() ;
+    void closeOutput();
 
 
 
@@ -253,7 +253,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
-    ROEdge* getRandomSource() ;
+    ROEdge* getRandomSource();
 
 
     /** @brief Returns a random edge which may be used as a starting point
@@ -262,7 +262,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
-    const ROEdge* getRandomSource() const ;
+    const ROEdge* getRandomSource() const;
 
 
     /** @brief Returns a random edge which may be used as an ending point
@@ -271,7 +271,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
-    ROEdge* getRandomDestination() ;
+    ROEdge* getRandomDestination();
 
 
     /** @brief Returns a random edge which may be used as an ending point
@@ -280,7 +280,7 @@ public:
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
-    const ROEdge* getRandomDestination() const ;
+    const ROEdge* getRandomDestination() const;
 
 
     /// Returns the number of edges thenetwork contains

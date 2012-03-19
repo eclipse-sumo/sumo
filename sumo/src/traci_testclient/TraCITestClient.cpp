@@ -420,7 +420,7 @@ TraCITestClient::commandPositionConversion(testclient::Position* pos2D,
     std::stringstream msg;
 
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -463,11 +463,11 @@ TraCITestClient::commandPositionConversion(testclient::Position* pos2D,
 
     answerLog << std::endl << "-> Command sent: <PositionConversion>:" << std::endl;
     if (pos2D != NULL) {
-        answerLog << " DestPosition-2D: x=" << pos2D->x << " y=" << pos2D->y ;
+        answerLog << " DestPosition-2D: x=" << pos2D->x << " y=" << pos2D->y;
     } else if (pos3D != NULL) {
         answerLog << " DestPosition-3D: x=" << pos3D->x << " y=" << pos3D->y << " z=" << pos3D->z;
     } else if (posRoad != NULL) {
-        answerLog << " DestPosition-RoadMap: roadId=" << posRoad->roadId << " pos=" << posRoad->pos << " laneId=" << (int)posRoad->laneId ;
+        answerLog << " DestPosition-RoadMap: roadId=" << posRoad->roadId << " pos=" << posRoad->pos << " laneId=" << (int)posRoad->laneId;
     }
     answerLog << " posId=" << posId << std::endl;
 
@@ -559,7 +559,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position* pos1_2D,
     std::stringstream msg;
 
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -621,18 +621,18 @@ TraCITestClient::commandDistanceRequest(testclient::Position* pos1_2D,
 
     answerLog << std::endl << "-> Command sent: <DistanceRequest>:" << std::endl;
     if (pos1_2D != NULL) {
-        answerLog << " FirstPosition-2D: x=" << pos1_2D->x << " y=" << pos1_2D->y ;
+        answerLog << " FirstPosition-2D: x=" << pos1_2D->x << " y=" << pos1_2D->y;
     } else if (pos1_3D != NULL) {
         answerLog << " FirstPosition-3D: x=" << pos1_3D->x << " y=" << pos1_3D->y << " z=" << pos1_3D->z;
     } else if (pos1_Road != NULL) {
-        answerLog << " FirstPosition-RoadMap: roadId=" << pos1_Road->roadId << " pos=" << pos1_Road->pos << " laneId=" << (int)pos1_Road->laneId ;
+        answerLog << " FirstPosition-RoadMap: roadId=" << pos1_Road->roadId << " pos=" << pos1_Road->pos << " laneId=" << (int)pos1_Road->laneId;
     }
     if (pos2_2D != NULL) {
-        answerLog << " SecondPosition-2D: x=" << pos2_2D->x << " y=" << pos2_2D->y ;
+        answerLog << " SecondPosition-2D: x=" << pos2_2D->x << " y=" << pos2_2D->y;
     } else if (pos2_3D != NULL) {
         answerLog << " SecondPosition-3D: x=" << pos2_3D->x << " y=" << pos2_3D->y << " z=" << pos2_3D->z;
     } else if (pos2_Road != NULL) {
-        answerLog << " SecondPosition-RoadMap: roadId=" << pos2_Road->roadId << " pos=" << pos2_Road->pos << " laneId=" << (int)pos2_Road->laneId ;
+        answerLog << " SecondPosition-RoadMap: roadId=" << pos2_Road->roadId << " pos=" << pos2_Road->pos << " laneId=" << (int)pos2_Road->laneId;
     }
     answerLog << " Flag=" << flag << std::endl;
 
@@ -660,7 +660,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
     tcpip::Storage outMsg, inMsg;
     std::stringstream msg;
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -727,7 +727,7 @@ void
 TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string& objID, std::ifstream& defFile) {
     std::stringstream msg;
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -801,7 +801,7 @@ void
 TraCITestClient::commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile) {
     std::stringstream msg;
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -973,7 +973,7 @@ void
 TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID, std::ifstream& defFile) {
     std::stringstream msg;
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }
@@ -1028,7 +1028,7 @@ TraCITestClient::commandClose() {
     std::stringstream msg;
 
     if (socket == NULL) {
-        msg << "#Error while sending command: no connection to server" ;
+        msg << "#Error while sending command: no connection to server";
         errorMsg(msg);
         return;
     }

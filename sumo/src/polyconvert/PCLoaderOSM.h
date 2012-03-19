@@ -67,7 +67,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                          PCTypeMap& tm) ;
+                          PCTypeMap& tm);
 
 
 protected:
@@ -115,11 +115,11 @@ protected:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
          */
-        NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill) ;
+        NodesHandler(std::map<SUMOLong, PCOSMNode*> &toFill);
 
 
         /// @brief Destructor
-        ~NodesHandler() ;
+        ~NodesHandler();
 
 
     protected:
@@ -133,7 +133,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
         /** @brief Called when a closing tag occurs
@@ -142,7 +142,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) ;
+        void myEndElement(int element);
         //@}
 
 
@@ -180,11 +180,11 @@ protected:
          * @param[in] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<SUMOLong, PCOSMNode*> &osmNodes,
-                     std::map<std::string, PCOSMEdge*> &toFill) ;
+                     std::map<std::string, PCOSMEdge*> &toFill);
 
 
         /// @brief Destructor
-        ~EdgesHandler() ;
+        ~EdgesHandler();
 
 
     protected:
@@ -198,7 +198,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
         /** @brief Called when a closing tag occurs
@@ -207,7 +207,7 @@ protected:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) ;
+        void myEndElement(int element);
         //@}
 
 

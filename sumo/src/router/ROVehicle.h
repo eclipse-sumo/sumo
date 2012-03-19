@@ -72,7 +72,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~ROVehicle() ;
+    virtual ~ROVehicle();
 
 
     /** @brief Returns the definition of the route the vehicle takes

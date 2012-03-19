@@ -64,11 +64,11 @@ public:
      * @param[in] shape The shape of the junction
      */
     MSJunction(const std::string& id, const Position& position,
-               const PositionVector& shape) ;
+               const PositionVector& shape);
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
-    virtual void postloadInit() ;
+    virtual void postloadInit();
 
 
     /** returns the junction's position */

@@ -77,7 +77,7 @@ public:
     void checkArrivedPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
-    void addWaiting(const MSEdge* edge, MSPerson* person) ;
+    void addWaiting(const MSEdge* edge, MSPerson* person);
 
     /** @brief board any applicable persons
      * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
@@ -85,16 +85,16 @@ public:
      * @param[in] the vehicle which is taking on passengers
      * @return Whether any persons have been boarded
      */
-    bool boardAnyWaiting(const MSEdge* edge, MSVehicle* vehicle) ;
+    bool boardAnyWaiting(const MSEdge* edge, MSVehicle* vehicle);
 
     /// checks whether any person waits to finish her plan
-    bool hasPersons() const ;
+    bool hasPersons() const;
 
     /// checks whether any person is still engaged in walking / stopping
-    bool hasPedestrians() const ;
+    bool hasPedestrians() const;
 
     /// aborts the plan for any person that is still waiting for a ride
-    void abortWaiting() ;
+    void abortWaiting();
 
 private:
     /// all persons by id

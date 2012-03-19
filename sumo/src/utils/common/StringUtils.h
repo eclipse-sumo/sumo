@@ -69,7 +69,7 @@ public:
      * @param[in] orig The original string
      * @return the string with the escaped sequences
      */
-    static std::string escapeXML(const std::string& orig) ;
+    static std::string escapeXML(const std::string& orig);
 
     /// An empty string
     static std::string emptyString;

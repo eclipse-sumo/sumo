@@ -218,7 +218,7 @@ public:
            SUMOReal speed, unsigned int nolanes, int priority,
            SUMOReal width, SUMOReal offset,
            const std::string& streetName = "",
-           LaneSpreadFunction spread = LANESPREAD_RIGHT) ;
+           LaneSpreadFunction spread = LANESPREAD_RIGHT);
 
 
     /** @brief Constructor
@@ -248,7 +248,7 @@ public:
            PositionVector geom,
            const std::string& streetName = "",
            LaneSpreadFunction spread = LANESPREAD_RIGHT,
-           bool tryIgnoreNodePositions = false) ;
+           bool tryIgnoreNodePositions = false);
 
     /** @brief Constructor
      *
@@ -266,7 +266,7 @@ public:
 
     /** @brief Destructor
      */
-    ~NBEdge() ;
+    ~NBEdge();
 
 
     /** @brief Resets initial values
@@ -289,7 +289,7 @@ public:
                 PositionVector geom, SUMOReal width, SUMOReal offset,
                 const std::string& streetName,
                 LaneSpreadFunction spread = LANESPREAD_RIGHT,
-                bool tryIgnoreNodePositions = false) ;
+                bool tryIgnoreNodePositions = false);
 
 
 
@@ -300,7 +300,7 @@ public:
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
      */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) ;
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
     /// @}
 
 
@@ -486,7 +486,7 @@ public:
      * @todo Recheck usage, disallow access
      * @see computeLaneShapes
      */
-    void setGeometry(const PositionVector& g, bool inner = false) ;
+    void setGeometry(const PositionVector& g, bool inner = false);
 
 
     /** @brief Adds a further geometry point
@@ -498,7 +498,7 @@ public:
      * @param[in] index The position at which the point shall be added
      * @param[in] p The point to add
      */
-    void addGeometryPoint(int index, const Position& p) ;
+    void addGeometryPoint(int index, const Position& p);
 
 
     /** @brief Recomputeds the lane shapes to terminate at the node shape
@@ -510,20 +510,20 @@ public:
      *  but may differ in actual geomtric length.
      * @note Depends on previous call to NBNodeCont::computeNodeShapes 
      */
-    void computeEdgeShape() ;
+    void computeEdgeShape();
 
 
     /** @brief Returns the shape of the nth lane
      * @return The shape of the lane given by its index (counter from right)
      */
-    const PositionVector& getLaneShape(unsigned int i) const ;
+    const PositionVector& getLaneShape(unsigned int i) const;
 
 
     /** @brief (Re)sets how the lanes lateral offset shall be computed
      * @param[in] spread The type of lateral offset to apply
      * @see LaneSpreadFunction
      */
-    void setLaneSpreadFunction(LaneSpreadFunction spread) ;
+    void setLaneSpreadFunction(LaneSpreadFunction spread);
 
 
     /** @brief Returns how this edge's lanes' lateral offset is computed
@@ -735,7 +735,7 @@ public:
      * @param[in] edge The edge which may be the turnaround direction
      * @return Whether the given edge is this edge's turnaround direction
      */
-    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const ;
+    bool isTurningDirectionAt(const NBNode* n, const NBEdge* const edge) const;
     void setTurningDestination(NBEdge* e);
 
 
@@ -839,7 +839,7 @@ public:
      *  of this edge to the leftmost lane of myTurnDestination).
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if this edge is controlled by a tls
      */
-    void appendTurnaround(bool noTLSControlled) ;
+    void appendTurnaround(bool noTLSControlled);
 
 
 
@@ -857,7 +857,7 @@ public:
 
     bool lanesWereAssigned() const;
 
-    bool mayBeTLSControlled(int fromLane, NBEdge* toEdge, int toLane) const ;
+    bool mayBeTLSControlled(int fromLane, NBEdge* toEdge, int toLane) const;
 
     /// Returns if the link could be set as to be controlled
     bool setControllingTLInformation(const NBConnection& c, const std::string& tlID);
@@ -876,7 +876,7 @@ public:
     bool expandableBy(NBEdge* possContinuation) const;
     void append(NBEdge* continuation);
 
-    bool hasSignalisedConnectionTo(const NBEdge* const e) const ;
+    bool hasSignalisedConnectionTo(const NBEdge* const e) const;
 
 
     void moveOutgoingConnectionsFrom(NBEdge* e, unsigned int laneOff);
@@ -977,7 +977,7 @@ private:
         ~ToEdgeConnectionsAdder() { }
 
         /// executes a bresenham - step
-        void execute(const unsigned int lane, const unsigned int virtEdge) ;
+        void execute(const unsigned int lane, const unsigned int virtEdge);
 
         const std::map<NBEdge*, std::vector<unsigned int> > &getBuiltConnections() const {
             return myConnections;
@@ -1041,7 +1041,7 @@ private:
     std::pair<SUMOReal, SUMOReal> laneOffset(const Position& from,
             const Position& to, SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument);
 
-    void computeLaneShapes() ;
+    void computeLaneShapes();
 
 
 
@@ -1061,7 +1061,7 @@ private:
      * @param[in] noLanes The number of lanes this edge has
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
-    void init(unsigned int noLanes, bool tryIgnoreNodePositions) ;
+    void init(unsigned int noLanes, bool tryIgnoreNodePositions);
 
 
     /** divides the lanes on the outgoing edges */

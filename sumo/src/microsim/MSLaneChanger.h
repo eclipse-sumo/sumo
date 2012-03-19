@@ -143,13 +143,13 @@ protected:
         const std::pair<MSVehicle* const, SUMOReal> &leader,
         const std::pair<MSVehicle* const, SUMOReal> &rLead,
         const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const ;
+        const std::vector<MSVehicle::LaneQ> &preb) const;
 
     int change2left(
         const std::pair<MSVehicle* const, SUMOReal> &leader,
         const std::pair<MSVehicle* const, SUMOReal> &rLead,
         const std::pair<MSVehicle* const, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb) const ;
+        const std::vector<MSVehicle::LaneQ> &preb) const;
 
 
 
@@ -165,11 +165,11 @@ protected:
         return false;
     }
 
-    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const ;
+    std::pair<MSVehicle* const, SUMOReal> getRealThisLeader(const ChangerIt& target) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const ;
+    std::pair<MSVehicle* const, SUMOReal> getRealFollower(const ChangerIt& target) const;
 
-    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const ;
+    std::pair<MSVehicle* const, SUMOReal> getRealLeader(const ChangerIt& target) const;
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

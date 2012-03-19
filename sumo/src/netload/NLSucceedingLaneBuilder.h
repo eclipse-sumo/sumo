@@ -57,11 +57,11 @@ public:
      *
      * @param[in] jb The junction control builder to obtain referenced tls from
      */
-    NLSucceedingLaneBuilder(NLJunctionControlBuilder& jb) ;
+    NLSucceedingLaneBuilder(NLJunctionControlBuilder& jb);
 
 
     /// @brief Destructor
-    ~NLSucceedingLaneBuilder() ;
+    ~NLSucceedingLaneBuilder();
 
 
     /** @brief Begins the computation of a container holding the succeeding lanes of a lane
@@ -69,7 +69,7 @@ public:
      * @param[in] laneId The id of the lane from which connections will be built
      * @todo Why is the ID kept, not already the lane itself?
      */
-    void openSuccLane(const std::string& laneId) ;
+    void openSuccLane(const std::string& laneId);
 
 
     /** @brief Adds a succeeding lane
@@ -112,7 +112,7 @@ public:
     /** @brief Returns the name of the lane the succeeding lanes are added to
      * @return The ID of the currently opened lane
      */
-    const std::string& getCurrentLaneName() const ;
+    const std::string& getCurrentLaneName() const;
 
 
 private:

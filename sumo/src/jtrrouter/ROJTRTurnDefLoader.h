@@ -65,11 +65,11 @@ public:
      *
      * @param[in] net The net to add loaded turning percentages into
      */
-    ROJTRTurnDefLoader(RONet& net) ;
+    ROJTRTurnDefLoader(RONet& net);
 
 
     /// @brief Destructor
-    ~ROJTRTurnDefLoader() ;
+    ~ROJTRTurnDefLoader();
 
 
 protected:
@@ -84,7 +84,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when characters occure
@@ -95,7 +95,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) ;
+                      const std::string& chars);
     //@}
 
 
@@ -110,7 +110,7 @@ private:
      *
      * @param[in] attrs The SAX-attributes to parse incoming edge from
      */
-    void beginFromEdge(const SUMOSAXAttributes& attrs) ;
+    void beginFromEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses the probability to use a certain outgoing edge
@@ -126,7 +126,7 @@ private:
      *
      * @param[in] attrs The SAX-attributes to parse the destination edge and the probability to use it from
      */
-    void addToEdge(const SUMOSAXAttributes& attrs) ;
+    void addToEdge(const SUMOSAXAttributes& attrs);
 
 
 private:

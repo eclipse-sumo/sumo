@@ -98,11 +98,11 @@ public:
                   const SUMOReal width, const SUMOReal height,
                   const SUMOVehicleShape shape, const std::string osgFile,
                   const std::string& lcModel,
-                  const RGBColor& c) ;
+                  const RGBColor& c);
 
 
     /// @brief Destructor
-    virtual ~MSVehicleType() ;
+    virtual ~MSVehicleType();
 
 
 
@@ -291,7 +291,7 @@ public:
      *
      * @param[in] length The new length of this type
      */
-    void setLength(const SUMOReal& length) ;
+    void setLength(const SUMOReal& length);
 
 
     /** @brief Set a new value for this type's minimum gap
@@ -301,7 +301,7 @@ public:
      *
      * @param[in] offset The new minimum gap of this type
      */
-    void setMinGap(const SUMOReal& minGap) ;
+    void setMinGap(const SUMOReal& minGap);
 
 
     /** @brief Set a new value for this type's maximum speed
@@ -311,13 +311,13 @@ public:
      *
      * @param[in] maxSpeed The new maximum speed of this type
      */
-    void setMaxSpeed(const SUMOReal& maxSpeed) ;
+    void setMaxSpeed(const SUMOReal& maxSpeed);
 
 
     /** @brief Set a new value for this type's vehicle class
      * @param[in] vclass The new vehicle class of this type
      */
-    void setVClass(SUMOVehicleClass vclass) ;
+    void setVClass(SUMOVehicleClass vclass);
 
 
     /** @brief Set a new value for this type's default probability
@@ -327,7 +327,7 @@ public:
      *
      * @param[in] prob The new default probability of this type
      */
-    void setDefaultProbability(const SUMOReal& prob) ;
+    void setDefaultProbability(const SUMOReal& prob);
 
 
     /** @brief Set a new value for this type's speed factor
@@ -337,7 +337,7 @@ public:
      *
      * @param[in] factor The new speed factor of this type
      */
-    void setSpeedFactor(const SUMOReal& factor) ;
+    void setSpeedFactor(const SUMOReal& factor);
 
 
     /** @brief Set a new value for this type's speed deviation
@@ -347,19 +347,19 @@ public:
      *
      * @param[in] dev The new speed deviation of this type
      */
-    void setSpeedDeviation(const SUMOReal& dev) ;
+    void setSpeedDeviation(const SUMOReal& dev);
 
 
     /** @brief Set a new value for this type's emission class
      * @param[in] eclass The new emission class of this type
      */
-    void setEmissionClass(SUMOEmissionClass eclass) ;
+    void setEmissionClass(SUMOEmissionClass eclass);
 
 
     /** @brief Set a new value for this type's color
      * @param[in] color The new color of this type
      */
-    void setColor(const RGBColor& color) ;
+    void setColor(const RGBColor& color);
 
 
     /** @brief Set a new value for this type's width
@@ -369,13 +369,13 @@ public:
      *
      * @param[in] width The new width of this type
      */
-    void setWidth(const SUMOReal& width) ;
+    void setWidth(const SUMOReal& width);
 
 
     /** @brief Set a new value for this type's shape
      * @param[in] shape The new shape of this type
      */
-    void setShape(SUMOVehicleShape shape) ;
+    void setShape(SUMOVehicleShape shape);
     /// @}
 
 
@@ -388,7 +388,7 @@ public:
      * @return The built vehicle type
      * @exception ProcessError on false values (not et used)
      */
-    static MSVehicleType* build(SUMOVTypeParameter& from) ;
+    static MSVehicleType* build(SUMOVTypeParameter& from);
 
 
     /** @brief Duplicates the microsim vehicle type giving it a the given id
@@ -396,7 +396,7 @@ public:
      * @param[in] from The vehicle type
      * @return The built vehicle type
      */
-    static MSVehicleType* build(const std::string& id, const MSVehicleType* from) ;
+    static MSVehicleType* build(const std::string& id, const MSVehicleType* from);
     /// @}
 
 

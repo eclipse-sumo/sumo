@@ -81,7 +81,7 @@ public:
 
 
     /** @brief Destructor */
-    virtual ~MSTriggeredRerouter() ;
+    virtual ~MSTriggeredRerouter();
 
 
     /**
@@ -115,7 +115,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
     bool hasCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;
@@ -156,7 +156,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -165,7 +165,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
 protected:

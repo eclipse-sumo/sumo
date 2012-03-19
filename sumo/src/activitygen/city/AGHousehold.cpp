@@ -126,7 +126,7 @@ AGHousehold::regenerate() {
     //only allocation of work or school to people will change
     std::list<AGChild>::iterator itC;
     std::list<AGAdult>::iterator itA;
-    for (itC = children.begin() ; itC != children.end() ; ++itC) {
+    for (itC = children.begin(); itC != children.end(); ++itC) {
         if (itC->haveASchool()) {
             if (itC->leaveSchool()) {
                 itC->alocateASchool(&(myCity->schools), getPosition());
@@ -135,7 +135,7 @@ AGHousehold::regenerate() {
             itC->alocateASchool(&(myCity->schools), getPosition());
         }
     }
-    for (itA = adults.begin() ; itA != adults.end() ; ++itA) {
+    for (itA = adults.begin(); itA != adults.end(); ++itA) {
         if (itA->isWorking()) {
             itA->resignFromWorkPosition();
         }
@@ -154,7 +154,7 @@ AGHousehold::allocateChildrenSchool() {
     std::list<AGChild>::iterator it;
     bool oneRemainsAtHome = false;
 
-    for (it = children.begin() ; it != children.end() ; ++it) {
+    for (it = children.begin(); it != children.end(); ++it) {
         if (!it->alocateASchool(&(myCity->schools), location)) {
             oneRemainsAtHome = true;
         }
@@ -165,7 +165,7 @@ AGHousehold::allocateChildrenSchool() {
 bool
 AGHousehold::allocateAdultsWork() {
     std::list<AGAdult>::iterator it;
-    for (it = adults.begin() ; it != adults.end() ; ++it) {
+    for (it = adults.begin(); it != adults.end(); ++it) {
         if (myCity->statData.workPositions <= 0) {
             std::cout << "Not enough free work positions in AGHousehold::allocateAdultsWork. Should not happen." << std::endl;
             return false;

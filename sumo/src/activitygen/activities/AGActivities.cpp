@@ -54,7 +54,7 @@ AGActivities::addTrip(AGTrip t, std::list<AGTrip> *tripSet) {
 void
 AGActivities::addTrips(std::list<AGTrip> t, std::list<AGTrip> *tripSet) {
     std::list<AGTrip>::iterator it;
-    for (it = t.begin() ; it != t.end() ; ++it) {
+    for (it = t.begin(); it != t.end(); ++it) {
         tripSet->push_back(*it);
     }
 }
@@ -67,7 +67,7 @@ AGActivities::generateActivityTrips() {
      */
     numbErr = 0;
     std::list<AGBusLine>::iterator itBL;
-    for (itBL = myCity->busLines.begin() ; itBL != myCity->busLines.end() ; ++itBL) {
+    for (itBL = myCity->busLines.begin(); itBL != myCity->busLines.end(); ++itBL) {
         if (! generateBusTraffic(*itBL)) {
             ++numbErr;
         }
@@ -85,7 +85,7 @@ AGActivities::generateActivityTrips() {
      */
     numbErr = 0;
     std::list<AGHousehold>::iterator itHH;
-    for (itHH = myCity->households.begin() ; itHH != myCity->households.end() ; ++itHH) {
+    for (itHH = myCity->households.begin(); itHH != myCity->households.end(); ++itHH) {
         if (! generateTrips(*itHH)) {
             ++numbErr;
         }
@@ -163,12 +163,12 @@ AGActivities::generateBusTraffic(AGBusLine bl) {
     /**
      * Buses in the first direction
      */
-    for (itB = bl.buses.begin() ; itB != bl.buses.end() ; ++itB) {
+    for (itB = bl.buses.begin(); itB != bl.buses.end(); ++itB) {
         if (bl.stations.size() < 1) {
             return false;
         }
         AGTrip t(bl.stations.front(), bl.stations.back(), *itB, itB->getDeparture());
-        for (itS = bl.stations.begin() ; itS != bl.stations.end() ; ++itS) {
+        for (itS = bl.stations.begin(); itS != bl.stations.end(); ++itS) {
             if (*itS == t.getDep() || *itS == t.getArr()) {
                 continue;
             }
@@ -183,12 +183,12 @@ AGActivities::generateBusTraffic(AGBusLine bl) {
     if (bl.revStations.empty()) {
         return true;    //in this case, no return way: everything is ok.
     }
-    for (itB = bl.revBuses.begin() ; itB != bl.revBuses.end() ; ++itB) {
+    for (itB = bl.revBuses.begin(); itB != bl.revBuses.end(); ++itB) {
         if (bl.revStations.size() < 1) {
             return false;
         }
         AGTrip t(bl.revStations.front(), bl.revStations.back(), *itB, itB->getDeparture());
-        for (itS = bl.revStations.begin() ; itS != bl.revStations.end() ; ++itS) {
+        for (itS = bl.revStations.begin(); itS != bl.revStations.end(); ++itS) {
             if (*itS == t.getDep() || *itS == t.getArr()) {
                 continue;
             }
@@ -215,7 +215,7 @@ AGActivities::generateInOutTraffic() {
     int num = 1;
     std::list<AGAdult>::iterator itA;
 
-    for (itA = myCity->peopleIncoming.begin() ; itA != myCity->peopleIncoming.end() ; ++itA) {
+    for (itA = myCity->peopleIncoming.begin(); itA != myCity->peopleIncoming.end(); ++itA) {
         int posi = myCity->statData.getRandomCityGateByIncoming();
         std::string nom(generateName(num, "carIn"));
         AGTrip wayTrip(myCity->cityGates[posi], itA->getWorkPosition().getPosition(), nom, itA->getWorkPosition().getOpening());
@@ -241,7 +241,7 @@ AGActivities::generateRandomTraffic() {
     //total number of trips during the whole simulation
     int totalTrips = 0, ttOneDayTrips = 0, ttDailyTrips = 0;
     std::list<AGTrip>::iterator it;
-    for (it = trips.begin() ; it != trips.end() ; ++it) {
+    for (it = trips.begin(); it != trips.end(); ++it) {
         if (it->isDaily()) {
             ++ttDailyTrips;
         } else {
@@ -261,7 +261,7 @@ AGActivities::generateRandomTraffic() {
     //TESTS
     std::cout << "added uniform random trips: " << nbrRandUni << std::endl;
     //END OF TESTS
-    for (int i = 0 ; i < nbrRandUni ; ++i) {
+    for (int i = 0; i < nbrRandUni; ++i) {
         AGPosition dep(myCity->getRandomStreet());
         AGPosition arr(myCity->getRandomStreet());
         AGTime depTime(RandHelper::rand(nbrDays * 86400));

@@ -59,11 +59,11 @@ public:
      */
     RODFDetFlowLoader(const RODFDetectorCon& dets, RODFDetectorFlows& into,
                       SUMOTime startTime, SUMOTime endTime,
-                      SUMOTime timeOffset, int timeScale) ;
+                      SUMOTime timeOffset, int timeScale);
 
 
     /// @brief Destructor
-    ~RODFDetFlowLoader() ;
+    ~RODFDetFlowLoader();
 
 
     /** @brief Reads the given file assuming it contains detector values

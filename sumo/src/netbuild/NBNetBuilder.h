@@ -114,10 +114,10 @@ class NBNetBuilder {
 
 public:
     /// @brief Constructor
-    NBNetBuilder() ;
+    NBNetBuilder();
 
     /// @brief Destructor
-    ~NBNetBuilder() ;
+    ~NBNetBuilder();
 
 
     /** @brief Initialises the storage by applying given options
@@ -128,7 +128,7 @@ public:
      * @param[in] oc The options container to read options from
      * @exception ProcessError If something fails (message is included)
      */
-    void applyOptions(OptionsCont& oc) ;
+    void applyOptions(OptionsCont& oc);
 
 
     /** @brief Performs the network building steps

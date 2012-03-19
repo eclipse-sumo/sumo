@@ -112,7 +112,7 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
             if ((*i).myColor == TLCOLOR_RED) {
                 SUMOTime time = (SUMOTime)(*i).myTime + myTYellow;
                 if (time > cycleDuration) {
-                    time = time - cycleDuration ;
+                    time = time - cycleDuration;
                 }
                 ret.push_back((SUMOReal) time);
             }
@@ -330,7 +330,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont& ec, unsigned int brakingTime) {
             duration = (unsigned int)((*(l + 1)) - (*l));
         } else {
             // get from the differenc to the first switching time
-            duration = (unsigned int)(myCycleDuration - (*l) + * (switchTimes.begin())) ;
+            duration = (unsigned int)(myCycleDuration - (*l) + * (switchTimes.begin()));
         }
         // no information about yellow times will be generated
         assert((*l) >= 0);

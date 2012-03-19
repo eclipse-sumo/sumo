@@ -64,11 +64,11 @@ public:
      * @param[in] app The main application window
      * @param[in] name The title of the tracker
      */
-    GUIParameterTracker(GUIMainWindow& app, const std::string& name) ;
+    GUIParameterTracker(GUIMainWindow& app, const std::string& name);
 
 
     /// @brief Destructor
-    ~GUIParameterTracker() ;
+    ~GUIParameterTracker();
 
 
     /// @brief Creates the window
@@ -81,7 +81,7 @@ public:
      * @param[in] newTracked The description of the tracked value
      */
     void addTracked(GUIGlObject& o, ValueSource<SUMOReal> *src,
-                    TrackerValueDesc* newTracked) ;
+                    TrackerValueDesc* newTracked);
 
 
     /// @name FOX-callbacks
@@ -120,10 +120,10 @@ public:
          * @param[in] parent The parent tracker window this view belongs to
          */
         GUIParameterTrackerPanel(FXComposite* c, GUIMainWindow& app,
-                                 GUIParameterTracker& parent) ;
+                                 GUIParameterTracker& parent);
 
         /// @brief Destructor
-        ~GUIParameterTrackerPanel() ;
+        ~GUIParameterTrackerPanel();
 
         /// @brief needed to update
         friend class GUIParameterTracker;
@@ -146,13 +146,13 @@ public:
     private:
         /** @brief Draws all values
          */
-        void drawValues() ;
+        void drawValues();
 
         /** @brief Draws a single value
          * @param[in] desc The tracked values to draw
          * @param[in] namePos Position to display the name at (currently unused)
          */
-        void drawValue(TrackerValueDesc& desc, SUMOReal namePos) ;
+        void drawValue(TrackerValueDesc& desc, SUMOReal namePos);
 
 
     private:
@@ -176,7 +176,7 @@ public:
 
 private:
     /// @brief Builds the tool bar
-    void buildToolBar() ;
+    void buildToolBar();
 
 
 protected:

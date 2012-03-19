@@ -75,11 +75,11 @@ public:
      */
     MSRouteProbe(const std::string& id,
                  const MSEdge* edge,
-                 SUMOTime begin) ;
+                 SUMOTime begin);
 
 
     /// @brief Destructor
-    virtual ~MSRouteProbe() ;
+    virtual ~MSRouteProbe();
 
 
     /// @name Methods inherited from MSMoveReminder
@@ -96,7 +96,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     /// @}
 
 

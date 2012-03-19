@@ -56,96 +56,96 @@ public:
         /** @brief Constructor
          * @param[in] id The id of the signal group
          */
-        SignalGroup(const std::string& id) ;
+        SignalGroup(const std::string& id);
 
         /// @brief Destructor
-        ~SignalGroup() ;
+        ~SignalGroup();
 
         /** @brief Inserts a controlled connection
          * @param[in] c The connection to be controlled by this signal group
          */
-        void addConnection(const NBConnection& c) ;
+        void addConnection(const NBConnection& c);
 
         /** @brief Sets the begin of a phase
          * @param[in] time The time at which the phase starts
          * @param[in] color The color of this signal starting at the given time
          */
-        void addPhaseBegin(SUMOTime time, TLColor color) ;
+        void addPhaseBegin(SUMOTime time, TLColor color);
 
         /** @brief Sets the times for redyellow and yellow
          * @param[in] tRedYellowe The duration of the redyellow phase
          * @param[in] tYellow The duration of the yellow phase
          */
-        void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow) ;
+        void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow);
 
         /** @brief Returns the times at which the signal switches
          * @param[in] cycleDuration The duration of the complete cycle
          * @return The switch times of this signal
          */
-        std::vector<SUMOReal> getTimes(SUMOTime cycleDuration) const ;
+        std::vector<SUMOReal> getTimes(SUMOTime cycleDuration) const;
 
         /** @brief Sorts the phases */
-        void sortPhases() ;
+        void sortPhases();
 
         /** @brief Returns the number of links (connection) controlled by this signal
          * @return The number of links controlled by this signal
          */
-        unsigned int getLinkNo() const ;
+        unsigned int getLinkNo() const;
 
         /** @brief Returns whether vehicles on controlled links may drive at the given time
          * @param[in] time The regarded time
          * @return Whether vehicles may drive at this time
          */
-        bool mayDrive(SUMOTime time) const ;
+        bool mayDrive(SUMOTime time) const;
 
         /** @brief Returns whether controlled links have yellow at the given time
          * @param[in] time The regarded time
          * @return Whether controlled links are yellow at this time
          */
-        bool hasYellow(SUMOTime time) const ;
+        bool hasYellow(SUMOTime time) const;
 
         /** @brief Returns whether the given connection is controlled by this signal
          * @param[in] from The connection's start edge
          * @param[in] from The connection's end edge
          * @return Whether the connection is controlled by this signal
          */
-        bool containsConnection(NBEdge* from, NBEdge* to) const ;
+        bool containsConnection(NBEdge* from, NBEdge* to) const;
 
         /** @brief Returns whether this signal controls the given edge
          * @param[in] from The incoming edge
          * @return Whether this edge is controlled by this signal
          */
-        bool containsIncoming(NBEdge* from) const ;
+        bool containsIncoming(NBEdge* from) const;
 
         /** @brief Replaces the given incoming edge by the others given
          * @param[in] which The edge to replace
          * @param[in] by The replacements
          */
-        void remapIncoming(NBEdge* which, const EdgeVector& by) ;
+        void remapIncoming(NBEdge* which, const EdgeVector& by);
 
         /** @brief Returns whether this signal controls a connection where the given edge is the destination
          * @param[in] from The outgoing edge
          * @return Whether this edge's predecessing edge is controlled by this signal
          */
-        bool containsOutgoing(NBEdge* to) const ;
+        bool containsOutgoing(NBEdge* to) const;
 
         /** @brief Replaces the given outgoing edge by the others given
          * @param[in] which The edge to replace
          * @param[in] by The replacements
          */
-        void remapOutgoing(NBEdge* which, const EdgeVector& by) ;
+        void remapOutgoing(NBEdge* which, const EdgeVector& by);
 
         /** @brief Returns the connection at the given index
          * @param[in] pos The position within this signal
          * @return The connection at the given index
          */
-        const NBConnection& getConnection(unsigned int pos) const ;
+        const NBConnection& getConnection(unsigned int pos) const;
 
         /** @brief Sets the yellow time
          * @param[in] tyellow The yellow time to set
          * @param[in] forced Whether resetting tyellow was forced by the user by setting "tls.yellow.patch-small"
          */
-        void patchTYellow(SUMOTime tyellow, bool forced) ;
+        void patchTYellow(SUMOTime tyellow, bool forced);
 
         /** @brief Replaces a removed edge/lane
          * @param[in] removed The edge to replace
@@ -153,7 +153,7 @@ public:
          * @param[in] by The edge to insert instead
          * @param[in] byLane This edge's lane to insert instead
          */
-        void remap(NBEdge* removed, int removedLane, NBEdge* by, int byLane) ;
+        void remap(NBEdge* removed, int removedLane, NBEdge* by, int byLane);
 
         /** @class PhaseDef
          * @brief Definition of a single, loaded phase
@@ -230,7 +230,7 @@ public:
 
 
     /// @brief Destructor
-    ~NBLoadedTLDef() ;
+    ~NBLoadedTLDef();
 
 
     /** @brief Returns the signal group which is responsible for the given connection
@@ -238,19 +238,19 @@ public:
      * @param[in] to The connection's end edge
      * @return The signal group which controls the given connection
      */
-    SignalGroup* findGroup(NBEdge* from, NBEdge* to) const ;
+    SignalGroup* findGroup(NBEdge* from, NBEdge* to) const;
 
 
     /** @brief Sets the duration of a cycle
      * @param[in] cycleDur The duration of the cycle
      */
-    void setCycleDuration(unsigned int cycleDur) ;
+    void setCycleDuration(unsigned int cycleDur);
 
 
     /** @brief Adds a signal group
      * @param[in] id The id of the signal group
      */
-    void addSignalGroup(const std::string& id) ;
+    void addSignalGroup(const std::string& id);
 
 
     /** @brief Adds a connection to a signal group
@@ -258,7 +258,7 @@ public:
      * @param[in] connection The connection to add
      */
     bool addToSignalGroup(const std::string& groupid,
-                          const NBConnection& connection) ;
+                          const NBConnection& connection);
 
 
     /** @brief Adds a list of connections to a signal group
@@ -266,7 +266,7 @@ public:
      * @param[in] connections The connections to add
      */
     bool addToSignalGroup(const std::string& groupid,
-                          const NBConnectionVector& connections) ;
+                          const NBConnectionVector& connections);
 
 
     /** @brief Sets the information about the begin of a phase
@@ -275,7 +275,7 @@ public:
      * @param[in] color The color of the signal during this phase
      */
     void addSignalGroupPhaseBegin(const std::string& groupid,
-                                  SUMOTime time, TLColor color) ;
+                                  SUMOTime time, TLColor color);
 
 
     /** @brief Sets the times the light is yellow or red/yellow
@@ -284,7 +284,7 @@ public:
      * @param[in] tYellow The duration of yellow
      */
     void setSignalYellowTimes(const std::string& groupid,
-                              SUMOTime tRedYellow, SUMOTime tYellow) ;
+                              SUMOTime tRedYellow, SUMOTime tYellow);
 
 
     /// @name Public methods from NBTrafficLightDefinition-interface
@@ -294,7 +294,7 @@ public:
      * @param[in] ec The container of edges
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec) const ;
+    void setTLControllingInformation(const NBEdgeCont& ec) const;
 
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
@@ -304,7 +304,7 @@ public:
      * @see NBTrafficLightDefinition::remapRemoved
      */
     void remapRemoved(NBEdge* removed,
-                      const EdgeVector& incoming, const EdgeVector& outgoing) ;
+                      const EdgeVector& incoming, const EdgeVector& outgoing);
     /// @}
 
 
@@ -319,20 +319,20 @@ protected:
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic* myCompute(const NBEdgeCont& ec,
-                                   unsigned int brakingTime) ;
+                                   unsigned int brakingTime);
 
 
     /** @brief Collects the nodes participating in this traffic light
      * @see NBTrafficLightDefinition::collectNodes
      */
-    void collectNodes() ;
+    void collectNodes();
 
 
     /** @brief Collects the links participating in this traffic light
      * @exception ProcessError If a link could not be found
      * @see NBTrafficLightDefinition::collectLinks
      */
-    void collectLinks() ;
+    void collectLinks();
 
 
     /** @brief Returns the information whether a connection must brake, given a phase
@@ -345,7 +345,7 @@ protected:
     bool mustBrake(const NBEdgeCont& ec,
                    const NBConnection& possProhibited,
                    const std::string& state,
-                   unsigned int strmpos) const ;
+                   unsigned int strmpos) const;
 
 
     /** @brief Replaces a removed edge/lane
@@ -356,7 +356,7 @@ protected:
      * @see NBTrafficLightDefinition::replaceRemoved
      */
     void replaceRemoved(NBEdge* removed, int removedLane,
-                        NBEdge* by, int byLane) ;
+                        NBEdge* by, int byLane);
     /// @}
 
 private:
@@ -365,7 +365,7 @@ private:
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    std::string buildPhaseState(const NBEdgeCont& ec, unsigned int time) const ;
+    std::string buildPhaseState(const NBEdgeCont& ec, unsigned int time) const;
 
 
 private:

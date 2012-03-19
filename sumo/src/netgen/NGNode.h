@@ -57,14 +57,14 @@ class NBNetBuilder;
 class NGNode {
 public:
     /// @brief Constructor
-    NGNode() ;
+    NGNode();
 
 
     /** @brief Constructor
      *
      * @param[in] id The id of the node
      */
-    NGNode(const std::string& id) ;
+    NGNode(const std::string& id);
 
 
     /** @brief Constructor
@@ -73,7 +73,7 @@ public:
      * @param[in] xPos The x-position of the node
      * @param[in] yPos The y-position of the node
      */
-    NGNode(const std::string& id, int xPos, int yPos) ;
+    NGNode(const std::string& id, int xPos, int yPos);
 
 
     /** @brief Constructor
@@ -83,11 +83,11 @@ public:
      * @param[in] yPos The y-position of the node
      * @param[in] amCenter Information whether this is the center-node of a spider-net
      */
-    NGNode(const std::string& id, int xID, int yID, bool amCenter) ;
+    NGNode(const std::string& id, int xID, int yID, bool amCenter);
 
 
     /// @brief Destructor
-    ~NGNode() ;
+    ~NGNode();
 
 
     /** @brief Returns this node's id
@@ -159,14 +159,14 @@ public:
      * @todo There is no interaction with explicit node setting options? Where is this done?
      * @todo Check whether throwing an exception is really necessary, here
      */
-    NBNode* buildNBNode(NBNetBuilder& nb) const ;
+    NBNode* buildNBNode(NBNetBuilder& nb) const;
 
 
     /** @brief Adds the given link to the internal list
      *
      * @param[in] link The link to add
      */
-    void addLink(NGEdge* link) ;
+    void addLink(NGEdge* link);
 
 
     /** @brief Removes the given link
@@ -176,7 +176,7 @@ public:
      *
      * @param[in] link The link to remove
      */
-    void removeLink(NGEdge* link) ;
+    void removeLink(NGEdge* link);
 
 
     /** @brief Returns whether the other node is connected
@@ -184,7 +184,7 @@ public:
      * @param[in] node The link to check whether it is connected
      * @return Whether the given node is connected
      */
-    bool connected(NGNode* node) const ;
+    bool connected(NGNode* node) const;
 
 
     /** @brief Returns whether the node has the given position

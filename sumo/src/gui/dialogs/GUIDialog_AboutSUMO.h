@@ -50,11 +50,11 @@ public:
      * @param[in] x x-position of the window to use
      * @param[in] y y-position of the window to use
      */
-    GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, int x, int y) ;
+    GUIDialog_AboutSUMO(FXWindow* parent,  const char* name, int x, int y);
 
 
     /// @brief Destructor
-    ~GUIDialog_AboutSUMO() ;
+    ~GUIDialog_AboutSUMO();
 
 
     /** @brief Creates the widget (and the icons)

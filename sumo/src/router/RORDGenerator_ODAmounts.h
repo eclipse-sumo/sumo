@@ -62,10 +62,10 @@ public:
     /// Constructor
     RORDGenerator_ODAmounts(RONet& net,
                             SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-                            bool randomize, const std::string& file = "") ;
+                            bool randomize, const std::string& file = "");
 
     /// Destructor
-    ~RORDGenerator_ODAmounts() ;
+    ~RORDGenerator_ODAmounts();
 
 
     /** @brief Adds routes from the file until the given time is reached
@@ -90,7 +90,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -99,11 +99,11 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
     /// Parses the trip amount definition
-    void parseFlowAmountDef(const SUMOSAXAttributes& attrs) ;
+    void parseFlowAmountDef(const SUMOSAXAttributes& attrs);
 
     /// Closes the trip amount parsing
     void myEndFlowAmountDef();
@@ -166,7 +166,7 @@ protected:
 
 private:
     /// Builds the routes for the given time step
-    void buildForTimeStep(SUMOTime time) ;
+    void buildForTimeStep(SUMOTime time);
 
 private:
     /// The begin of the interval current read

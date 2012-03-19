@@ -90,11 +90,11 @@ protected:
          * @param[in, geoms] geoms Storage for read edge geometries
          */
         NodesHandler(NBNodeCont& nc, const std::string& file,
-                     std::map<std::string, PositionVector> &geoms) ;
+                     std::map<std::string, PositionVector> &geoms);
 
 
         /// @brief Destructor
-        ~NodesHandler() ;
+        ~NodesHandler();
 
 
         /** @brief Parsing method
@@ -108,7 +108,7 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string& result) ;
+        bool report(const std::string& result);
 
 
     protected:
@@ -146,11 +146,11 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont& nc, NBEdgeCont& ec,
-                     const std::string& file, std::map<std::string, PositionVector> &geoms) ;
+                     const std::string& file, std::map<std::string, PositionVector> &geoms);
 
 
         /// @brief Destructor
-        ~EdgesHandler() ;
+        ~EdgesHandler();
 
 
         /** @brief Parsing method
@@ -162,7 +162,7 @@ protected:
              * @exception ProcessError if something fails
              * @see LineHandler::report
          */
-        bool report(const std::string& result) ;
+        bool report(const std::string& result);
 
 
     protected:
@@ -205,11 +205,11 @@ protected:
          * @param[in] file The name of the parsed file
          */
         TrafficlightsHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
-                             const std::string& file) ;
+                             const std::string& file);
 
 
         /// @brief Destructor
-        ~TrafficlightsHandler() ;
+        ~TrafficlightsHandler();
 
 
         /** @brief Parsing method
@@ -221,7 +221,7 @@ protected:
          * @exception ProcessError if something fails
          * @see LineHandler::report
          */
-        bool report(const std::string& result) ;
+        bool report(const std::string& result);
 
 
     protected:

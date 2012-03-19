@@ -74,7 +74,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                          PCTypeMap& tm) ;
+                          PCTypeMap& tm);
 
 
 protected:
@@ -89,7 +89,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
-                             PCTypeMap& tm) ;
+                             PCTypeMap& tm);
 
 
     /** @brief Loads polygons assumed to be stored as according DLR-Navteq (Elmar)-files
@@ -103,7 +103,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
-                              PCTypeMap& tm) ;
+                              PCTypeMap& tm);
 
 
     /** @brief Loads DLR-Navteq (Elmar)-pois from the given file
@@ -115,7 +115,7 @@ protected:
      */
     static void loadPOIFile(const std::string& file,
                             OptionsCont& oc, PCPolyContainer& toFill,
-                            PCTypeMap& tm) ;
+                            PCTypeMap& tm);
 
 
     /** @brief Loads DLR-Navteq (Elmar)-polygons from the given file
@@ -127,7 +127,7 @@ protected:
      */
     static void loadPolyFile(const std::string& file,
                              OptionsCont& oc, PCPolyContainer& toFill,
-                             PCTypeMap& tm) ;
+                             PCTypeMap& tm);
 
 
 };

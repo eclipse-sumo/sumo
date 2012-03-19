@@ -125,7 +125,7 @@ public:
 
     /**  Closes all registered devices
      */
-    static void closeAll() ;
+    static void closeAll();
     /// @}
 
 
@@ -153,12 +153,12 @@ public:
     /** @brief returns the information whether one can write into the device
      * @return Whether the device can be used (stream is good)
      */
-    virtual bool ok() ;
+    virtual bool ok();
 
 
     /** @brief Closes the device and removes it from the dictionary
      */
-    void close() ;
+    void close();
 
 
     /** @brief Sets the precison or resets it to default
@@ -297,7 +297,7 @@ protected:
      *
      * Default implementation does nothing.
      */
-    virtual void postWriteHook() ;
+    virtual void postWriteHook();
 
 
 private:

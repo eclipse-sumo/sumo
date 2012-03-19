@@ -162,7 +162,7 @@ public:
 
 
     /// Destructor
-    ~SAXWeightsHandler() ;
+    ~SAXWeightsHandler();
 
 
 protected:
@@ -177,7 +177,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -186,7 +186,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int elemente) ;
+    void myEndElement(int elemente);
     //@}
 
 

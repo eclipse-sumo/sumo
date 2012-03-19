@@ -71,7 +71,7 @@ class MSDevice_Routing : public MSDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
      */
-    static void insertOptions() ;
+    static void insertOptions();
 
 
     /** @brief Build devices for the given vehicle, if needed
@@ -91,7 +91,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into) ;
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into);
 
 
 public:
@@ -116,12 +116,12 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     /// @}
 
 
     /// @brief Destructor.
-    ~MSDevice_Routing() ;
+    ~MSDevice_Routing();
 
 
 private:
@@ -133,7 +133,7 @@ private:
      * @param[in] preInsertionPeriod The route search period before insertion
      */
     MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period,
-                     SUMOTime preInsertionPeriod) ;
+                     SUMOTime preInsertionPeriod);
 
 
     /** @brief Performs rerouting at insertion into the network
@@ -147,7 +147,7 @@ private:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime preInsertionReroute(SUMOTime currentTime) ;
+    SUMOTime preInsertionReroute(SUMOTime currentTime);
 
 
     /** @brief Performs rerouting after a period
@@ -164,7 +164,7 @@ private:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime) ;
+    SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime);
 
 
     /** @brief Returns the effort to pass an edge
@@ -198,7 +198,7 @@ private:
      * @see MSEventHandler
      * @see StaticCommand
      */
-    static SUMOTime adaptEdgeEfforts(SUMOTime currentTime) ;
+    static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
     /// @}
 
 

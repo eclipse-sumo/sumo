@@ -83,7 +83,7 @@ public:
 
 
     /// @brief Destructor
-    ~GUILane() ;
+    ~GUILane();
 
 
 
@@ -99,7 +99,7 @@ public:
      * @return The vehicles on this lane
      * @see MSLane::getVehiclesSecure
      */
-    const VehCont& getVehiclesSecure() const ;
+    const VehCont& getVehiclesSecure() const;
 
 
     /** @brief Allows to use the container for microsimulation again
@@ -107,7 +107,7 @@ public:
      * Unlocks "myLock" preventing usage by microsimulation.
      * @see MSLane::releaseVehicles
      */
-    void releaseVehicles() const ;
+    void releaseVehicles() const;
     /// @}
 
 
@@ -153,7 +153,7 @@ protected:
      */
     virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) ;
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
 private:

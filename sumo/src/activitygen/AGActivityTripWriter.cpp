@@ -76,7 +76,7 @@ AGActivityTripWriter::addTrip(AGTrip trip) {
 
     //the route
     routes << "        <route edges=\"" << trip.getDep().getStreet().getName();
-    for (it = trip.getPassed()->begin() ; it != trip.getPassed()->end() ; ++it) {
+    for (it = trip.getPassed()->begin(); it != trip.getPassed()->end(); ++it) {
         routes << " " << it->getStreet().getName();
     }
     routes << " " << trip.getArr().getStreet().getName();

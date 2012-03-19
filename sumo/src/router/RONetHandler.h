@@ -68,7 +68,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~RONetHandler() ;
+    virtual ~RONetHandler();
 
 
 protected:
@@ -83,7 +83,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
     //@}
 
 protected:
@@ -136,7 +136,7 @@ protected:
      * @param[in] attrs The attributes (of the "succ"-element) to parse
      * @exception ProcessError If the edge given in cedge@edge is not known
      */
-    void parseConnectingEdge(const SUMOSAXAttributes& attrs) ;
+    void parseConnectingEdge(const SUMOSAXAttributes& attrs);
 
 
     /** @begin (deprecated) Parses an approached edge and lets the approaching know about the connection
@@ -168,7 +168,7 @@ protected:
      * @param[in] attrs The attributes (of the "district"-element) to parse
      * @exception ProcessError If an edge given in district@edges is not known
      */
-    void parseDistrict(const SUMOSAXAttributes& attrs) ;
+    void parseDistrict(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a district edge and connects it to the district

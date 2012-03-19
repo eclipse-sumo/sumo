@@ -891,7 +891,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     MSLinkCont::const_iterator link;
     if (nRouteSuccs > 0 && conts.size() >= nRouteSuccs && nRouteSuccs > 0) {
         // we go through the links in our list and return the matching one
-        for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end() ; ++link) {
+        for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end(); ++link) {
             if ((*link)->getLane() != 0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                 // we should use the link if it connects us to the best lane
                 if ((*link)->getLane() == conts[nRouteSuccs - 1]) {
@@ -905,7 +905,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
     //  we will now collect allowed links, at first
     // collect allowed links
     std::vector<MSLinkCont::const_iterator> valid;
-    for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end() ; ++link) {
+    for (link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end(); ++link) {
         if ((*link)->getLane() != 0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
             valid.push_back(link);
         }

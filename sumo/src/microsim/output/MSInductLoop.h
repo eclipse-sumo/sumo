@@ -81,16 +81,16 @@ public:
      * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
-                 SUMOReal positionInMeters, bool splitByType) ;
+                 SUMOReal positionInMeters, bool splitByType);
 
 
     /// @brief Destructor
-    ~MSInductLoop() ;
+    ~MSInductLoop();
 
 
     /** @brief Resets all generated values to allow computation of next interval
      */
-    virtual void reset() ;
+    virtual void reset();
 
 
     /** @brief Returns the position of the detector on the lane
@@ -120,7 +120,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) ;
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -137,7 +137,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -153,7 +153,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     //@}
 
 
@@ -168,7 +168,7 @@ public:
      *
      * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentSpeed() const ;
+    SUMOReal getCurrentSpeed() const;
 
 
     /** @brief Returns the length of the vehicle on the detector
@@ -178,7 +178,7 @@ public:
      *
      * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentLength() const ;
+    SUMOReal getCurrentLength() const;
 
 
     /** @brief Returns the current occupancy
@@ -190,7 +190,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    SUMOReal getCurrentOccupancy() const ;
+    SUMOReal getCurrentOccupancy() const;
 
 
     /** @brief Returns the number of vehicles that have passed the detector
@@ -202,7 +202,7 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    unsigned int getCurrentPassedNumber() const ;
+    unsigned int getCurrentPassedNumber() const;
 
 
     /** @brief Returns the ids of vehicles that have passed the detector
@@ -210,14 +210,14 @@ public:
      * @return The ids of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    std::vector<std::string> getCurrentVehicleIDs() const ;
+    std::vector<std::string> getCurrentVehicleIDs() const;
 
 
     /** @brief Returns the time since the last vehicle left the detector
      *
      * @return Timesteps from last leaving (detection) of the detector
      */
-    SUMOReal getTimestepsSinceLastDetection() const ;
+    SUMOReal getTimestepsSinceLastDetection() const;
     //@}
 
 
@@ -287,7 +287,7 @@ public:
      * @param[in] t The time from which vehicles shall be counted
      * @return The list of vehicles
      */
-    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const ;
+    virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const;
 
 
 protected:
@@ -298,7 +298,7 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    virtual void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) ;
+    virtual void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -309,13 +309,13 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    virtual void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) ;
+    virtual void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      */
-    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh) ;
+    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh);
     /// @}
 
 

@@ -64,7 +64,7 @@ public:
                    bool addVehiclesDirectly);
 
     /// standard destructor
-    virtual ~RORouteHandler() ;
+    virtual ~RORouteHandler();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -78,7 +78,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -87,7 +87,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(int element) ;
+    virtual void myEndElement(int element);
     //@}
 
 
@@ -105,7 +105,7 @@ protected:
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    void closeRoute() ;
+    void closeRoute();
 
     /** opens a route distribution for reading */
     void openRouteDistribution(const SUMOSAXAttributes& attrs);
@@ -114,16 +114,16 @@ protected:
     void closeRouteDistribution();
 
     /// Ends the processing of a vehicle
-    void closeVehicle() ;
+    void closeVehicle();
 
     /// Ends the processing of a person
-    void closePerson() ;
+    void closePerson();
 
     /// Ends the processing of a flow
-    void closeFlow() ;
+    void closeFlow();
 
     /// Processing of a stop
-    void addStop(const SUMOSAXAttributes& attrs) ;
+    void addStop(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief The current route

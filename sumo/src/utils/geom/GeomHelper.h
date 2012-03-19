@@ -110,7 +110,7 @@ public:
      * @param[in] angle2 The second angle
      * @return Angle (counter-clockwise) starting from first to second angle
      */
-    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) ;
+    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
     /** @brief Returns the distance of second angle from first angle clockwise
@@ -118,7 +118,7 @@ public:
      * @param[in] angle2 The second angle
      * @return Angle (clockwise) starting from first to second angle
      */
-    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) ;
+    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
     /** @brief Returns the minimum distance (clockwise/counter-clockwise) between both angles
@@ -126,7 +126,7 @@ public:
      * @param[in] angle2 The second angle
      * @return The minimum distance between both angles
      */
-    static SUMOReal getMinAngleDiff(SUMOReal angle1, SUMOReal angle2) ;
+    static SUMOReal getMinAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
     /** @brief Returns the maximum distance (clockwise/counter-clockwise) between both angles
@@ -134,7 +134,7 @@ public:
      * @param[in] angle2 The second angle
      * @return The maximum distance between both angles
      */
-    static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) ;
+    static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2);
 
 
 private:

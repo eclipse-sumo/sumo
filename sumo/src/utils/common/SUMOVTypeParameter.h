@@ -77,7 +77,7 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVTypeParameter() ;
+    SUMOVTypeParameter();
 
 
     /** @brief Returns whether the given parameter was set

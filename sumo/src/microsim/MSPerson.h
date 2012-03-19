@@ -247,13 +247,13 @@ public:
     ~MSPerson();
 
     /// returns the person id
-    const std::string& getID() const ;
+    const std::string& getID() const;
 
     /// proceeds to the next step of the route
     void proceed(MSNet* net, SUMOTime time);
 
     /// Returns the desired departure time.
-    SUMOTime getDesiredDepart() const ;
+    SUMOTime getDesiredDepart() const;
 
     /// logs end of the step
     void setDeparted(SUMOTime now);

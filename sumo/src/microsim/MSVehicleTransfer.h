@@ -64,7 +64,7 @@ class MSEdge;
 class MSVehicleTransfer {
 public:
     /// @brief Destructor
-    virtual ~MSVehicleTransfer() ;
+    virtual ~MSVehicleTransfer();
 
 
     /** @brief Adds a vehicle to this transfer object
@@ -75,7 +75,7 @@ public:
      *
      * @param[in] veh The vehicle to add
      */
-    void addVeh(const SUMOTime t, MSVehicle* veh) ;
+    void addVeh(const SUMOTime t, MSVehicle* veh);
 
 
     /** @brief Checks "movement" of stored vehicles
@@ -86,25 +86,25 @@ public:
      *
      * @param[in] time The current simulation time
      */
-    void checkInsertions(SUMOTime time) ;
+    void checkInsertions(SUMOTime time);
 
 
     /** @brief Checks whether stored vehicles are present
      *
      * @return whether any vehicles wait for transfer
      */
-    bool hasPending() const ;
+    bool hasPending() const;
 
 
     /** @brief Returns the instance of this object
      * @return The singleton instance
      */
-    static MSVehicleTransfer* getInstance() ;
+    static MSVehicleTransfer* getInstance();
 
 
 private:
     /// @brief Constructor
-    MSVehicleTransfer() ;
+    MSVehicleTransfer();
 
 
 protected:

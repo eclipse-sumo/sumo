@@ -62,11 +62,11 @@ public:
      * @param[in] cont The container of districts to fill
      * @param[in] file The file that will be processed
      */
-    ODDistrictHandler(ODDistrictCont& cont, const std::string& file) ;
+    ODDistrictHandler(ODDistrictCont& cont, const std::string& file);
 
 
     /// @brief Destructor
-    ~ODDistrictHandler() ;
+    ~ODDistrictHandler();
 
 
 protected:
@@ -84,7 +84,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -94,7 +94,7 @@ protected:
      * @param[in] element ID of the currently opened element
      * @exception ProcessError If an error within the parsed file occurs
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
 
@@ -107,7 +107,7 @@ private:
      *
      * @param[in] attrs Attributes of the currently opened element
      */
-    void openDistrict(const SUMOSAXAttributes& attrs) ;
+    void openDistrict(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Adds a read source to the current district
@@ -121,7 +121,7 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSource(const SUMOSAXAttributes& attrs) ;
+    void addSource(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Adds a read sink to the current district
@@ -135,14 +135,14 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSink(const SUMOSAXAttributes& attrs) ;
+    void addSink(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Closes the processing of the current district
      *
      * Adds myCurrentDistrict to myContainer.
      */
-    void closeDistrict() ;
+    void closeDistrict();
 
 
     /** @brief Returns the id and weight for a sink/source
@@ -160,7 +160,7 @@ private:
      * @param[in] type The type of the currntly processed connection (sink/source)
      * @return The id and the weight of a connection
      */
-    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes& attrs) ;
+    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes& attrs);
 
 private:
     /// The container to add read districts to

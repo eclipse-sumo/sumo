@@ -92,7 +92,7 @@ public:
 
 
     /// Destructor
-    virtual ~ROEdge() ;
+    virtual ~ROEdge();
 
 
     /// @name Set-up methods
@@ -106,7 +106,7 @@ public:
      * @param[in] lane The lane to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addLane(ROLane* lane) ;
+    virtual void addLane(ROLane* lane);
 
 
     /** @brief Adds information about a connected edge
@@ -122,7 +122,7 @@ public:
     /** @brief Sets the type of te edge
      * @param[in] type The new type for the edge
      */
-    void setType(EdgeType type) ;
+    void setType(EdgeType type);
 
 
     /** @brief Builds the internal representation of the travel time/effort
@@ -134,7 +134,7 @@ public:
      *
      * @param[in] measure The name of the measure to use.
      */
-    void buildTimeLines(const std::string& measure) ;
+    void buildTimeLines(const std::string& measure);
     //@}
 
 
@@ -234,7 +234,7 @@ public:
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle may continue its route on any of the following edges
      */
-    bool allFollowersProhibit(const ROVehicle* const vehicle) const ;
+    bool allFollowersProhibit(const ROVehicle* const vehicle) const;
     //@}
 
 
@@ -248,7 +248,7 @@ public:
      * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
      * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) ;
+    void addEffort(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd);
 
 
     /** @brief Adds a travel time value
@@ -257,7 +257,7 @@ public:
      * @param[in] timeBegin The begin time of the interval the given value is valid for [s]
      * @param[in] timeEnd The end time of the interval the given value is valid for [s]
      */
-    void addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd) ;
+    void addTravelTime(SUMOReal value, SUMOReal timeBegin, SUMOReal timeEnd);
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -267,7 +267,7 @@ public:
      *
      * @return The number of edges following this edge
      */
-    unsigned int getNoFollowing() const ;
+    unsigned int getNoFollowing() const;
 
 
     /** @brief Returns the edge at the given position from the list of reachable edges
@@ -287,7 +287,7 @@ public:
      *
      * @return The number of edges following this edge
      */
-    unsigned int getNumApproaching() const ;
+    unsigned int getNumApproaching() const;
 
 
     /** @brief Returns the edge at the given position from the list of reachable edges
@@ -307,7 +307,7 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const ;
+    SUMOReal getEffort(const ROVehicle* const veh, SUMOReal time) const;
 
 
     /** @brief Returns the travel time for this edge
@@ -317,7 +317,7 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const ;
+    SUMOReal getTravelTime(const ROVehicle* const veh, SUMOReal time) const;
 
 
     /** @brief Returns the travel time for this edge without using any stored timeLine
@@ -325,16 +325,16 @@ public:
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
      * @param[in] time The time for which the effort shall be returned [s]
      */
-    SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const ;
+    SUMOReal getMinimumTravelTime(const ROVehicle* const veh) const;
 
 
-    SUMOReal getCOEffort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getCO2Effort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getPMxEffort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getHCEffort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getNOxEffort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getFuelEffort(const ROVehicle* const veh, SUMOReal time) const ;
-    SUMOReal getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const ;
+    SUMOReal getCOEffort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getCO2Effort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getPMxEffort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getHCEffort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getNOxEffort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getFuelEffort(const ROVehicle* const veh, SUMOReal time) const;
+    SUMOReal getNoiseEffort(const ROVehicle* const veh, SUMOReal time) const;
     //@}
 
 
@@ -343,7 +343,7 @@ public:
 
 
     /** @brief Returns the ROEdge at the index */
-    static ROEdge* dictionary(size_t index) ;
+    static ROEdge* dictionary(size_t index);
 
     /// @brief Returns the number of edges
     static size_t dictSize() {
@@ -367,7 +367,7 @@ protected:
      * @param[in] time The tim for which the effort shall be returned
      * @return Whether the effort is given
      */
-    bool getStoredEffort(SUMOReal time, SUMOReal& ret) const ;
+    bool getStoredEffort(SUMOReal time, SUMOReal& ret) const;
 
 
 

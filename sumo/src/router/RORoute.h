@@ -68,18 +68,18 @@ public:
      * @todo Are costs/prob really mandatory?
      */
     RORoute(const std::string& id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route, const RGBColor* const color) ;
+            const std::vector<const ROEdge*> &route, const RGBColor* const color);
 
 
     /** @brief Copy constructor
      *
      * @param[in] src The route to copy
      */
-    RORoute(const RORoute& src) ;
+    RORoute(const RORoute& src);
 
 
     /// @brief Destructor
-    ~RORoute() ;
+    ~RORoute();
 
 
     /** @brief Adds an edge to the end of the route
@@ -87,7 +87,7 @@ public:
      * @param[in] edge The edge to add
      * @todo What for? Isn't the route already complete?
      */
-    void add(ROEdge* edge) ;
+    void add(ROEdge* edge);
 
 
     /** @brief Returns the first edge in the route
@@ -132,14 +132,14 @@ public:
      *
      * @todo Recheck why the costs are stored in a route
      */
-    void setCosts(SUMOReal costs) ;
+    void setCosts(SUMOReal costs);
 
 
     /** @brief Sets the probability of the route
      *
      * @todo Recheck why the probability is stored in a route
      */
-    void setProbability(SUMOReal prob) ;
+    void setProbability(SUMOReal prob);
 
 
     /** @brief Returns the number of edges in this route
@@ -170,7 +170,7 @@ public:
 
     /** @brief Checks whether this route contains loops and removes such
      */
-    void recheckForLoops() ;
+    void recheckForLoops();
 
     OutputDevice&
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,

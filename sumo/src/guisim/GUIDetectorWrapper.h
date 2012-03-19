@@ -54,7 +54,7 @@ public:
     GUIDetectorWrapper(const std::string& prefix, const std::string& id);
 
     /// Destructor
-    ~GUIDetectorWrapper() ;
+    ~GUIDetectorWrapper();
 
 
 
@@ -69,7 +69,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) ;
+                                       GUISUMOAbstractView& parent);
 
 
     /// @}

@@ -67,11 +67,11 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] splitByType Whether additional information split by vehicle classes shall be generated
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, bool splitByType) ;
+    GUIInductLoop(const std::string& id, MSLane* const lane, SUMOReal position, bool splitByType);
 
 
     /// @brief Destructor
-    ~GUIInductLoop() ;
+    ~GUIInductLoop();
 
 
     /** @brief Resets all generated values to allow computation of next interval
@@ -79,7 +79,7 @@ public:
      * Locks the internal mutex before calling MSInductLoop::reset()
      * @see MSInductLoop::reset()
      */
-    void reset() ;
+    void reset();
 
 
     /** @brief Returns this detector's visualisation-wrapper
@@ -96,7 +96,7 @@ public:
      * @return The list of vehicles
      * @see MSInductLoop::collectVehiclesOnDet()
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const ;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const;
 
 
 protected:
@@ -111,7 +111,7 @@ protected:
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      * @see MSInductLoop::enterDetectorByMove()
      */
-    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep) ;
+    void enterDetectorByMove(SUMOVehicle& veh, SUMOReal entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -122,7 +122,7 @@ protected:
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      * @see MSInductLoop::leaveDetectorByMove()
      */
-    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep) ;
+    void leaveDetectorByMove(SUMOVehicle& veh, SUMOReal leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
@@ -131,7 +131,7 @@ protected:
      * @see MSInductLoop::leaveDetectorByLaneChange()
      * @param veh The leaving vehicle.
      */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh) ;
+    void leaveDetectorByLaneChange(SUMOVehicle& veh);
     /// @}
 
 
@@ -147,10 +147,10 @@ public:
         /// @brief Constructor
         MyWrapper(GUIInductLoop& detector,
                   GUILaneWrapper& wrapper,
-                  SUMOReal pos) ;
+                  SUMOReal pos);
 
         /// @brief Destructor
-        ~MyWrapper() ;
+        ~MyWrapper();
 
 
         /// @name inherited from GUIGlObject
@@ -164,7 +164,7 @@ public:
          * @see GUIGlObject::getParameterWindow
          */
         GUIParameterTableWindow* getParameterWindow(
-            GUIMainWindow& app, GUISUMOAbstractView& parent) ;
+            GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -172,14 +172,14 @@ public:
          * @return The boundary the object is within
          * @see GUIGlObject::getCenteringBoundary
          */
-        Boundary getCenteringBoundary() const ;
+        Boundary getCenteringBoundary() const;
 
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const ;
+        void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
 

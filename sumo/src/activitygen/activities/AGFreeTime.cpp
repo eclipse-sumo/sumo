@@ -113,7 +113,7 @@ AGFreeTime::possibleTypeOfTrip() {
 
         std::list<AGAdult>::iterator itA;
         bool noBodyWorks = true;
-        for (itA = hh->adults.begin() ; itA != hh->adults.end() ; ++itA) {
+        for (itA = hh->adults.begin(); itA != hh->adults.end(); ++itA) {
             if (itA->isWorking()) {
                 noBodyWorks = false;
             }
@@ -211,7 +211,7 @@ AGFreeTime::generateTrips() {
     possibleType = possibleTypeOfTrip();
     int type;
 
-    for (int day = 1 ; day <= nbrDays ; ++day) {
+    for (int day = 1; day <= nbrDays; ++day) {
         type = decideTypeOfTrip();
         if (type == 0) {
             continue;
@@ -238,7 +238,7 @@ AGFreeTime::whenBackHome() {
     int timeBack = 0;
     if (!this->previousTrips->empty()) {
         std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin() ; itT != previousTrips->end() ; ++itT) {
+        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
             if (timeBack < itT->getArrTime(this->timePerKm) && itT->isDaily()) {
                 timeBack = itT->getArrTime(this->timePerKm);
             }
@@ -252,7 +252,7 @@ AGFreeTime::whenBackHomeThisDay(int day) {
     int timeBack = 0;
     if (!this->previousTrips->empty()) {
         std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin() ; itT != previousTrips->end() ; ++itT) {
+        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
             if (timeBack < itT->getArrTime(this->timePerKm) && (itT->getDay() == day || itT->isDaily())) {
                 timeBack = itT->getArrTime(this->timePerKm);
             }
@@ -266,7 +266,7 @@ AGFreeTime::whenBeginActivityNextDay(int day) {
     AGTime timeBack(1, 0, 0);
     if (!this->previousTrips->empty()) {
         std::list<AGTrip>::iterator itT;
-        for (itT = previousTrips->begin() ; itT != previousTrips->end() ; ++itT) {
+        for (itT = previousTrips->begin(); itT != previousTrips->end(); ++itT) {
             if (timeBack.getTime() > itT->getTime() && (itT->getDay() == (day + 1) || itT->isDaily())) {
                 timeBack.setTime(itT->getTime());
             }

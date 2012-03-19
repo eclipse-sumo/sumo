@@ -70,7 +70,7 @@ AGTrip::addLayOver(AGPosition by) {
 void
 AGTrip::addLayOver(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
-    for (it = trip.passBy.begin() ; it != trip.passBy.end() ; ++it) {
+    for (it = trip.passBy.begin(); it != trip.passBy.end(); ++it) {
         passBy.push_back(*it);
     }
     passBy.push_back(trip.to);
@@ -79,7 +79,7 @@ AGTrip::addLayOver(AGTrip& trip) {
 void
 AGTrip::addLayOverWithoutDestination(AGTrip& trip) {
     std::list<AGPosition>::iterator it;
-    for (it = trip.passBy.begin() ; it != trip.passBy.end() ; ++it) {
+    for (it = trip.passBy.begin(); it != trip.passBy.end(); ++it) {
         passBy.push_back(*it);
     }
 }
@@ -120,14 +120,14 @@ AGTrip::getTimeTrip(SUMOReal secPerKm) {
     std::list<AGPosition> positions;
     positions.push_back(from);
     std::list<AGPosition>::iterator it;
-    for (it = passBy.begin() ; it != passBy.end() ; ++it) {
+    for (it = passBy.begin(); it != passBy.end(); ++it) {
         positions.push_back(*it);
     }
     positions.push_back(to);
 
     bool firstPass = true;
     AGPosition* temp;
-    for (it = positions.begin() ; it != positions.end() ; ++it) {
+    for (it = positions.begin(); it != positions.end(); ++it) {
         if (firstPass) {
             temp = &*it;
             continue;

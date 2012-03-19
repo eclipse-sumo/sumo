@@ -68,11 +68,11 @@ public:
      * @param[in] position Position of the detector within the lane.
      */
     MSInstantInductLoop(const std::string& id, OutputDevice& od,
-                        MSLane* const lane, SUMOReal positionInMeters) ;
+                        MSLane* const lane, SUMOReal positionInMeters);
 
 
     /// @brief Destructor
-    ~MSInstantInductLoop() ;
+    ~MSInstantInductLoop();
 
 
 
@@ -95,7 +95,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) ;
+    bool notifyMove(SUMOVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -112,7 +112,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -128,7 +128,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
     //@}
 
 

@@ -67,7 +67,7 @@ public:
 
 
     /// @brief Destructor
-    ~OutputDevice_Network() ;
+    ~OutputDevice_Network();
 
 
 protected:
@@ -82,7 +82,7 @@ protected:
      * @return The used stream
      * @see postWriteHook
      */
-    std::ostream& getOStream() ;
+    std::ostream& getOStream();
 
 
     /** @brief Sends the data which was written to the string stream over the socket.
@@ -90,7 +90,7 @@ protected:
      * Converts the stored message into a vector of chars and sends them via to
      *  the socket implementation. Resets the message, afterwards.
      */
-    virtual void postWriteHook() ;
+    virtual void postWriteHook();
     /// @}
 
 private:

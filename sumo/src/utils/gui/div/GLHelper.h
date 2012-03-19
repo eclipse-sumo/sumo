@@ -55,7 +55,7 @@ public:
      * @param[in] v The polygon to draw
      * @param[in] close Whether the first point shall be appended
      */
-    static void drawFilledPoly(const PositionVector& v, bool close) ;
+    static void drawFilledPoly(const PositionVector& v, bool close);
 
 
     /** @brief Draws a thick line
@@ -68,7 +68,7 @@ public:
      * @param[in] width The width of the line
      */
     static void drawBoxLine(const Position& beg, SUMOReal rot,
-                            SUMOReal visLength, SUMOReal width) ;
+                            SUMOReal visLength, SUMOReal width);
 
 
     /** @brief Draws a thick line using the mean of both given points as begin position
@@ -82,7 +82,7 @@ public:
      * @param[in] width The width of the line
      */
     static void drawBoxLine(const Position& beg1, const Position& beg2,
-                            SUMOReal rot, SUMOReal visLength, SUMOReal width) ;
+                            SUMOReal rot, SUMOReal visLength, SUMOReal width);
 
 
     /** @brief Draws thick lines
@@ -97,7 +97,7 @@ public:
      */
     static void drawBoxLines(const PositionVector& geom,
                              const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
-                             SUMOReal width) ;
+                             SUMOReal width);
 
 
     /** @brief Draws thick lines using the mean of the points given in the point lists as begin positions
@@ -114,7 +114,7 @@ public:
     static void drawBoxLines(const PositionVector& geom1,
                              const PositionVector& geom2,
                              const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
-                             SUMOReal width) ;
+                             SUMOReal width);
 
 
     /** @brief Draws thick lines
@@ -126,7 +126,7 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const PositionVector& geom, SUMOReal width) ;
+    static void drawBoxLines(const PositionVector& geom, SUMOReal width);
 
 
     /** @brief Draws a thin line
@@ -138,7 +138,7 @@ public:
      * @param[in] visLength The length of the line
      */
     static void drawLine(const Position& beg, SUMOReal rot,
-                         SUMOReal visLength) ;
+                         SUMOReal visLength);
 
 
     /** @brief Draws a thin line using the mean of both given points as begin position
@@ -151,7 +151,7 @@ public:
      * @param[in] visLength The length of the line
      */
     static void drawLine(const Position& beg1, const Position& beg2,
-                         SUMOReal rot, SUMOReal visLength) ;
+                         SUMOReal rot, SUMOReal visLength);
 
 
     /** @brief Draws a thin line along the given position vector
@@ -160,7 +160,7 @@ public:
      *
      * @param[in] v The positions vector to use
      */
-    static void drawLine(const PositionVector& v) ;
+    static void drawLine(const PositionVector& v);
 
 
     /** @brief Draws a thin line between the two points
@@ -170,7 +170,7 @@ public:
      * @param[in] beg Begin of the line
      * @param[in] end End of the line
      */
-    static void drawLine(const Position& beg, const Position& end) ;
+    static void drawLine(const Position& beg, const Position& end);
 
 
     /** @brief Draws a filled circle around (0,0)
@@ -180,7 +180,7 @@ public:
      * @param[in] width The width of the circle
      * @param[in] steps The number of steps to divide the circle into
      */
-    static void drawFilledCircle(SUMOReal width, int steps = 8) ;
+    static void drawFilledCircle(SUMOReal width, int steps = 8);
 
 
     /** @brief Draws a filled circle around (0,0)
@@ -193,7 +193,7 @@ public:
      * @param[in] end The end angle in degress
      */
     static void drawFilledCircle(SUMOReal width, int steps,
-                                 SUMOReal beg, SUMOReal end) ;
+                                 SUMOReal beg, SUMOReal end);
 
 
     /** @brief Draws an unfilled circle around (0,0)
@@ -205,7 +205,7 @@ public:
      * @param[in] steps The number of steps to divide the circle into
      */
     static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
-                                  int steps = 8) ;
+                                  int steps = 8);
 
 
     /** @brief Draws an unfilled circle around (0,0)
@@ -219,7 +219,7 @@ public:
      * @param[in] end The end angle in degress
      */
     static void drawOutlineCircle(SUMOReal width, SUMOReal iwidth,
-                                  int steps, SUMOReal beg, SUMOReal end) ;
+                                  int steps, SUMOReal beg, SUMOReal end);
 
 
     /** @brief Draws a triangle at the end of the given line
@@ -229,7 +229,7 @@ public:
      * @param[in] tWidth The width of the triangle
      */
     static void drawTriangleAtEnd(const Line& l, SUMOReal tLength,
-                                  SUMOReal tWidth) ;
+                                  SUMOReal tWidth);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);

@@ -65,7 +65,7 @@ public:
 
 
     /// @brief Destructor
-    ~GUITriggeredRerouter() ;
+    ~GUITriggeredRerouter();
 
 
 
@@ -80,7 +80,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent) ;
+                                       GUISUMOAbstractView& parent);
 
 
     /** @brief Returns an own parameter window
@@ -91,7 +91,7 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) ;
+            GUISUMOAbstractView& parent);
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -99,14 +99,14 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const ;
+    Boundary getCenteringBoundary() const;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const ;
+    void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
 
@@ -122,7 +122,7 @@ public:
         GUITriggeredRerouterPopupMenu(GUIMainWindow& app,
                                       GUISUMOAbstractView& parent, GUIGlObject& o);
 
-        ~GUITriggeredRerouterPopupMenu() ;
+        ~GUITriggeredRerouterPopupMenu();
 
         /** @brief Called if the object's manipulator shall be shown */
         long onCmdOpenManip(FXObject*, FXSelector, void*);

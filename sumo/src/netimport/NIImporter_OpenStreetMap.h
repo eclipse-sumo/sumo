@@ -200,7 +200,7 @@ private:
 
 
         /// @brief Destructor
-        ~NodesHandler() ;
+        ~NodesHandler();
 
 
     protected:
@@ -214,7 +214,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
         /** @brief Called when a closing tag occurs
@@ -223,7 +223,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) ;
+        void myEndElement(int element);
         //@}
 
 
@@ -268,11 +268,11 @@ private:
          * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<SUMOLong, NIOSMNode*> &osmNodes,
-                     std::map<std::string, Edge*> &toFill) ;
+                     std::map<std::string, Edge*> &toFill);
 
 
         /// @brief Destructor
-        ~EdgesHandler() ;
+        ~EdgesHandler();
 
 
     protected:
@@ -286,7 +286,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
         /** @brief Called when a closing tag occurs
@@ -295,7 +295,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myEndElement
          */
-        void myEndElement(int element) ;
+        void myEndElement(int element);
         //@}
 
 

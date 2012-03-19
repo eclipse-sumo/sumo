@@ -58,11 +58,11 @@ class MFXMutex;
 class GUIVehicleControl : public MSVehicleControl {
 public:
     /// @brief Constructor
-    GUIVehicleControl() ;
+    GUIVehicleControl();
 
 
     /// @brief Destructor
-    ~GUIVehicleControl() ;
+    ~GUIVehicleControl();
 
 
     /// @name Vehicle creation
@@ -82,7 +82,7 @@ public:
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
-                              const MSRoute* route, const MSVehicleType* type) ;
+                              const MSRoute* route, const MSVehicleType* type);
     /// @}
 
 
@@ -94,7 +94,7 @@ public:
      * @param[in] v The vehicle
      * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
      */
-    bool addVehicle(const std::string& id, SUMOVehicle* v) ;
+    bool addVehicle(const std::string& id, SUMOVehicle* v);
 
 
     /** @brief Deletes the vehicle
@@ -111,7 +111,7 @@ public:
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
-    void insertVehicleIDs(std::vector<GUIGlID> &into) ;
+    void insertVehicleIDs(std::vector<GUIGlID> &into);
 
 
 private:

@@ -55,11 +55,11 @@ class ROEdge;
 class ROJTREdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /// @brief Constructor
-    ROJTREdgeBuilder() ;
+    ROJTREdgeBuilder();
 
 
     /// @brief Destructor
-    ~ROJTREdgeBuilder() ;
+    ~ROJTREdgeBuilder();
 
 
     /// @name Methods inherited from ROAbstractEdgeBuilder
@@ -75,7 +75,7 @@ public:
      * @return A proper instance of the named edge
      * @see ROJTREdge
      */
-    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to) ;
+    ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to);
     /// @}
 
 

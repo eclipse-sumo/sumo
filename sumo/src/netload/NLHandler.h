@@ -86,11 +86,11 @@ public:
     NLHandler(const std::string& file, MSNet& net,
               NLDetectorBuilder& detBuilder, NLTriggerBuilder& triggerBuilder,
               NLEdgeControlBuilder& edgeBuilder,
-              NLJunctionControlBuilder& junctionBuilder) ;
+              NLJunctionControlBuilder& junctionBuilder);
 
 
     /// @brief Destructor
-    virtual ~NLHandler() ;
+    virtual ~NLHandler();
 
 
 protected:
@@ -106,7 +106,7 @@ protected:
      * @todo Refactor/describe
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -116,7 +116,7 @@ protected:
      * @see GenericSAXHandler::myEndElement
      * @todo Refactor/describe
      */
-    virtual void myEndElement(int element) ;
+    virtual void myEndElement(int element);
     //@}
 
 
@@ -245,7 +245,7 @@ private:
      * @param[in] attrs The attributes (of the "district"-element) to parse
      * @exception ProcessError If an edge given in district@edges is not known
      */
-    void addDistrict(const SUMOSAXAttributes& attrs) ;
+    void addDistrict(const SUMOSAXAttributes& attrs);
 
 
     /** @begin Parses a district edge and connects it to the district

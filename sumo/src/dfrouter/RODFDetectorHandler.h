@@ -53,7 +53,7 @@ public:
                         const std::string& file);
 
     /// Destructor
-    virtual ~RODFDetectorHandler() ;
+    virtual ~RODFDetectorHandler();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -67,7 +67,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
     //@}
 
 private:

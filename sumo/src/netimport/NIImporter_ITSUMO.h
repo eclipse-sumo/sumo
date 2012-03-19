@@ -84,11 +84,11 @@ private:
         /** @brief Contructor
          * @param[in] toFill The container to fill
          */
-        Handler(NBNetBuilder& toFill) ;
+        Handler(NBNetBuilder& toFill);
 
 
         /// @brief Destructor
-        ~Handler() ;
+        ~Handler();
 
 
     protected:
@@ -102,7 +102,7 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
         /**

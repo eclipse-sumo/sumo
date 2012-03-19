@@ -56,10 +56,10 @@ public:
     GUIE3Collector(const std::string& id,
                    const CrossSectionVector& entries, const CrossSectionVector& exits,
                    SUMOReal haltingSpeedThreshold,
-                   SUMOTime haltingTimeThreshold) ;
+                   SUMOTime haltingTimeThreshold);
 
     /// @brief Destructor
-    ~GUIE3Collector() ;
+    ~GUIE3Collector();
 
 
     /** @brief Returns the list of entry points
@@ -89,10 +89,10 @@ public:
     class MyWrapper : public GUIDetectorWrapper {
     public:
         /// @brief Constructor
-        MyWrapper(GUIE3Collector& detector) ;
+        MyWrapper(GUIE3Collector& detector);
 
         /// @brief Destrutor
-        ~MyWrapper() ;
+        ~MyWrapper();
 
 
         /// @name inherited from GUIGlObject
@@ -106,7 +106,7 @@ public:
          * @see GUIGlObject::getParameterWindow
          */
         GUIParameterTableWindow* getParameterWindow(
-            GUIMainWindow& app, GUISUMOAbstractView& parent) ;
+            GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -114,14 +114,14 @@ public:
          * @return The boundary the object is within
          * @see GUIGlObject::getCenteringBoundary
          */
-        Boundary getCenteringBoundary() const ;
+        Boundary getCenteringBoundary() const;
 
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const ;
+        void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
 

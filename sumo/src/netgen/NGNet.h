@@ -56,11 +56,11 @@ class NBNetBuilder;
 class NGNet {
 public:
     /// @brief Constructor
-    NGNet(NBNetBuilder& nb) ;
+    NGNet(NBNetBuilder& nb);
 
 
     /// @brief Destructor
-    ~NGNet() ;
+    ~NGNet();
 
 
     /** @brief Returns the node at the given position
@@ -72,7 +72,7 @@ public:
      * @param[in] yPos The y-position of the searched node
      * @return The node with the given position, or 0 if no such node exists
      */
-    NGNode* findNode(int xPos, int yPos) ;
+    NGNode* findNode(int xPos, int yPos);
 
 
     /** @brief Returns the next free id
@@ -82,7 +82,7 @@ public:
      *
      * @return A new, unique numerical id
      */
-    std::string getNextFreeID() ;
+    std::string getNextFreeID();
 
 
     /** @brief Returns the x-position resulting from the given radius and angle
@@ -91,7 +91,7 @@ public:
      * @param[in] phi The angle the position is located at
      * @return The x-position at the described circle at angle phi
      */
-    SUMOReal radialToX(SUMOReal radius, SUMOReal phi) ;
+    SUMOReal radialToX(SUMOReal radius, SUMOReal phi);
 
 
     /** @brief Returns the y-position resulting from the given radius and angle
@@ -100,7 +100,7 @@ public:
      * @param[in] phi The angle the position is located at
      * @return The y-position at the described circle at angle phi
      */
-    SUMOReal radialToY(SUMOReal radius, SUMOReal phi) ;
+    SUMOReal radialToY(SUMOReal radius, SUMOReal phi);
 
 
     /** @brief Creates a grid network
@@ -119,7 +119,7 @@ public:
      * @param[in] attachLength The length of streets attached at the border
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) ;
+    void createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength);
 
 
     /** @brief Creates a spider network
@@ -139,7 +139,7 @@ public:
      * @see NGNet::connect
      * @todo consolidate the name of the center node
      */
-    void createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) ;
+    void createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter);
 
 
     /** @brief Converts the stored network into its netbuilder-representation
@@ -159,7 +159,7 @@ public:
      * @exception ProcessError If a built tls logic could not be added (should never happen)
      * @todo Check whether throwing an exception is really necessary, here
      */
-    void toNB() const ;
+    void toNB() const;
 
 
     /** @brief Adds the given node to the network
@@ -168,7 +168,7 @@ public:
      *
      * @param[in] node The node to add
      */
-    void add(NGNode* node) ;
+    void add(NGNode* node);
 
 
     /** @brief Adds the given edge to the network
@@ -177,14 +177,14 @@ public:
      *
      * @param[in] edge The edge to add
      */
-    void add(NGEdge* edge) ;
+    void add(NGEdge* edge);
 
 
     /** @brief Returns the number of stored nodes
      *
      * @return The number of stored nodes
      */
-    size_t nodeNo() const ;
+    size_t nodeNo() const;
 
 
 private:
@@ -196,7 +196,7 @@ private:
      * @param[in] node1 The first node to connect
      * @param[in] node2 The second node to connect
      */
-    void connect(NGNode* node1, NGNode* node2) ;
+    void connect(NGNode* node1, NGNode* node2);
 
 
 private:

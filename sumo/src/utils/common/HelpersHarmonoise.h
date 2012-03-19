@@ -58,7 +58,7 @@ public:
      * @param[in] a The vehicle's current acceleration
      * @return The noise produced by the vehicle of the given class running with v and a
      */
-    static SUMOReal computeNoise(SUMOEmissionClass c, double v, double a) ;
+    static SUMOReal computeNoise(SUMOEmissionClass c, double v, double a);
 
 
     /** @brief Computes the resulting noise

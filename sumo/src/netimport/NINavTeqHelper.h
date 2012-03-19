@@ -69,7 +69,7 @@ public:
      * @exception ProcessError If the given speed class definition is not a number or if it is not known
      */
     static SUMOReal getSpeed(const std::string& id,
-                             const std::string& speedClassS) ;
+                             const std::string& speedClassS);
 
 
     /** @brief Returns the lane number evaluating the given Navteq-description
@@ -81,7 +81,7 @@ public:
      * @exception ProcessError If the given lane number definition is not a number or if it is not known
      */
     static unsigned int getLaneNumber(const std::string& id,
-                                      const std::string& laneNoS, SUMOReal speed) ;
+                                      const std::string& laneNoS, SUMOReal speed);
 
 
     /** @brief Adds vehicle classes parsing the given list of allowed vehicles

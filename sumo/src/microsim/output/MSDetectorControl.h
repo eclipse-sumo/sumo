@@ -70,14 +70,14 @@ public:
 
     /** @brief Constructor
      */
-    MSDetectorControl() ;
+    MSDetectorControl();
 
 
     /** @brief Destructor
      *
      * Deletes all stored detectors.
      */
-    ~MSDetectorControl() ;
+    ~MSDetectorControl();
 
 
     /** @brief Closes the detector outputs
@@ -106,7 +106,7 @@ public:
      * @param[in] splInterval The sample interval of the detector
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin = -1) ;
+    void add(SumoXMLTag type, MSDetectorFileOutput* d, OutputDevice& device, int splInterval, SUMOTime begin = -1);
 
 
 
@@ -122,7 +122,7 @@ public:
      * @param[in] d The detector to add
      * @exception ProcessError If the detector is already known
      */
-    void add(SumoXMLTag type, MSDetectorFileOutput* d) ;
+    void add(SumoXMLTag type, MSDetectorFileOutput* d);
 
 
     /** @brief Adds a mean data object
@@ -137,7 +137,7 @@ public:
      * @param[in] begin The begin of the first interval
      */
     void add(MSMeanData* mn, OutputDevice& device,
-             SUMOTime frequency, SUMOTime begin) ;
+             SUMOTime frequency, SUMOTime begin);
 
 
 
@@ -150,7 +150,7 @@ public:
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
                                 OutputDevice* device,
-                                SUMOTime interval, SUMOTime begin = -1) ;
+                                SUMOTime interval, SUMOTime begin = -1);
 
 
 
@@ -159,7 +159,7 @@ public:
      * @param[in] type The type of detectors to be retrieved
      * @return The container of detectors
      */
-    const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const ;
+    const NamedObjectCont<MSDetectorFileOutput*> &getTypedDetectors(SumoXMLTag type) const;
 
 
 
@@ -171,7 +171,7 @@ public:
      *  the values.
      * @param[in] step The current time step
      */
-    void updateDetectors(const SUMOTime step) ;
+    void updateDetectors(const SUMOTime step);
 
 
     /** @brief Writes the output to be generated within the given time step

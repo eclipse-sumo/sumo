@@ -110,7 +110,7 @@ public:
      * @return Pointer to the unique MSNet-instance
      * @exception ProcessError If a network was not yet constructed
      */
-    static MSNet* getInstance() ;
+    static MSNet* getInstance();
 
 
     /** @brief Constructor
@@ -129,11 +129,11 @@ public:
      */
     MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
           MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
-          ShapeContainer* shapeCont = 0) ;
+          ShapeContainer* shapeCont = 0);
 
 
     /// @brief Destructor
-    virtual ~MSNet() ;
+    virtual ~MSNet();
 
 
     /** @brief Closes the network's building process
@@ -149,7 +149,7 @@ public:
      */
     void closeBuilding(MSEdgeControl* edges, MSJunctionControl* junctions,
                        MSRouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
-                       std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles) ;
+                       std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles);
 
 
     /** @brief Clears all dictionaries
@@ -189,13 +189,13 @@ public:
      * @return The current simulation state
      * @see SimulationState
      */
-    SimulationState simulationState(SUMOTime stopTime) const ;
+    SimulationState simulationState(SUMOTime stopTime) const;
 
 
     /** @brief Returns the message to show if a certain state occurs
      * @return Readable description of the state
      */
-    static std::string getStateMessage(SimulationState state) ;
+    static std::string getStateMessage(SimulationState state);
 
 
     /** @brief Returns the current simulation step (in s)
@@ -213,7 +213,7 @@ public:
     /** @brief Returns whether duration shall be logged
      * @return Whether duration shall be logged
      */
-    bool logSimulationDuration() const ;
+    bool logSimulationDuration() const;
 
 
     /// @name Output during the simulation
@@ -223,14 +223,14 @@ public:
      *
      * Called on the begin of a simulation step
      */
-    void preSimStepOutput() const ;
+    void preSimStepOutput() const;
 
 
     /** @brief Prints the statistics of the step at its end
      *
      * Called on the end of a simulation step
      */
-    void postSimStepOutput() const ;
+    void postSimStepOutput() const;
     //}
 
 
@@ -243,14 +243,14 @@ public:
      *
      * @param[in] os The stream to write the state into (binary)
      */
-    void saveState(std::ostream& os) ;
+    void saveState(std::ostream& os);
 
 
     /** @brief Loads the network state
      *
      * @param[in] bis The input to read the state from (binary)
      */
-    unsigned int loadState(BinaryInputDevice& bis) ;
+    unsigned int loadState(BinaryInputDevice& bis);
     /// @}
 #endif
 
@@ -275,7 +275,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSPersonControl& getPersonControl() ;
+    MSPersonControl& getPersonControl();
 
 
     /** @brief Returns the edge control
@@ -373,7 +373,7 @@ public:
      * If the net does not have such a container, it is built.
      * @return The net's knowledge about edge weights
      */
-    MSEdgeWeightsStorage& getWeightsStorage() ;
+    MSEdgeWeightsStorage& getWeightsStorage();
     /// @}
 
 
@@ -458,13 +458,13 @@ public:
     /** @brief Adds a vehicle states listener
      * @param[in] listener The listener to add
      */
-    void addVehicleStateListener(VehicleStateListener* listener) ;
+    void addVehicleStateListener(VehicleStateListener* listener);
 
 
     /** @brief Removes a vehicle states listener
      * @param[in] listener The listener to remove
      */
-    void removeVehicleStateListener(VehicleStateListener* listener) ;
+    void removeVehicleStateListener(VehicleStateListener* listener);
 
 
     /** @brief Informs all added listeners about a vehicle's state change
@@ -472,7 +472,7 @@ public:
      * @param[in] to The state the vehicle has changed to
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) ;
+    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to);
     /// @}
 
 

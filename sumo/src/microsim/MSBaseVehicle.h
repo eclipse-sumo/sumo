@@ -58,33 +58,33 @@ class MSBaseVehicle : public SUMOVehicle {
 public:
     /** @brief Constructor
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) ;
+    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type);
 
 
     /// @brief Destructor
-    virtual ~MSBaseVehicle() ;
+    virtual ~MSBaseVehicle();
 
 
     /// Returns the name of the vehicle
-    const std::string& getID() const ;
+    const std::string& getID() const;
 
     /** @brief Returns the vehicle's parameter (including departure definition)
      *
      * @return The vehicle's parameter
      */
-    const SUMOVehicleParameter& getParameter() const ;
+    const SUMOVehicleParameter& getParameter() const;
 
 
     /** @brief Returns the current route
      * @return The route the vehicle uses
      */
-    const MSRoute& getRoute() const ;
+    const MSRoute& getRoute() const;
 
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    const MSVehicleType& getVehicleType() const ;
+    const MSVehicleType& getVehicleType() const;
 
 
     /** @brief Returns the current maximum speed
@@ -106,7 +106,7 @@ public:
      * @param[in] nSuccs The number of edge to look forward
      * @return The nSuccs'th following edge in the vehicle's route
      */
-    const MSEdge* succEdge(unsigned int nSuccs) const ;
+    const MSEdge* succEdge(unsigned int nSuccs) const;
 
     /** @brief Returns the edge the vehicle is currently at
      *
@@ -132,7 +132,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false) ;
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router, bool withTaz = false);
 
 
     /** @brief Replaces the current route by the given edges
@@ -145,7 +145,7 @@ public:
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false) ;
+    bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false);
 
 
     /** @brief Returns the vehicle's acceleration before dawdling
@@ -154,24 +154,24 @@ public:
      *
      * @return The acceleration before dawdling
      */
-    virtual SUMOReal getPreDawdleAcceleration() const ;
+    virtual SUMOReal getPreDawdleAcceleration() const;
 
     /** @brief Called when the vehicle is inserted into the network
      *
      * Sets optional information about departure time, informs the vehicle
      *  control about a further running vehicle.
      */
-    void onDepart() ;
+    void onDepart();
 
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */
-    SUMOTime getDeparture() const ;
+    SUMOTime getDeparture() const;
 
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
-    unsigned int getNumberReroutes() const ;
+    unsigned int getNumberReroutes() const;
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -186,27 +186,27 @@ public:
      *
      * @param[in] person The person to add
      */
-    virtual void addPerson(MSPerson* person) ;
+    virtual void addPerson(MSPerson* person);
 
     /** @brief Validates the current route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string& msg) const ;
+    bool hasValidRoute(std::string& msg) const;
 
     /** @brief Adds a MoveReminder dynamically
      *
      * @param[in] rem the reminder to add
      * @see MSMoveReminder
      */
-    void addReminder(MSMoveReminder* rem) ;
+    void addReminder(MSMoveReminder* rem);
 
     /** @brief Removes a MoveReminder dynamically
      *
      * @param[in] rem the reminder to remove
      * @see MSMoveReminder
      */
-    void removeReminder(MSMoveReminder* rem) ;
+    void removeReminder(MSMoveReminder* rem);
 
     /** @brief "Activates" all current move reminder
      *
@@ -218,12 +218,12 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    virtual void activateReminders(const MSMoveReminder::Notification reason) ;
+    virtual void activateReminders(const MSMoveReminder::Notification reason);
 
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters
      */
-    void calculateArrivalPos() ;
+    void calculateArrivalPos();
 
 protected:
     /// @brief This Vehicle's parameter.

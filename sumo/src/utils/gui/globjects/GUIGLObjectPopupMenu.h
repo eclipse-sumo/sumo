@@ -63,11 +63,11 @@ public:
      * @param[in] o The object of interest
      */
     GUIGLObjectPopupMenu(GUIMainWindow& app,
-                         GUISUMOAbstractView& parent, GUIGlObject& o) ;
+                         GUISUMOAbstractView& parent, GUIGlObject& o);
 
 
     /// @brief Destructor
-    virtual ~GUIGLObjectPopupMenu() ;
+    virtual ~GUIGLObjectPopupMenu();
 
 
 public:

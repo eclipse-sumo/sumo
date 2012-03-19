@@ -59,11 +59,11 @@ public:
     /** @brief Constructor
      * @param[in] ec The edge container which includes the edges to change connections of
      */
-    NIXMLConnectionsHandler(NBEdgeCont& ec) ;
+    NIXMLConnectionsHandler(NBEdgeCont& ec);
 
 
     /// @brief Destructor
-    ~NIXMLConnectionsHandler() ;
+    ~NIXMLConnectionsHandler();
 
 
 protected:
@@ -78,7 +78,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
     //@}
 
 private:
@@ -90,7 +90,7 @@ private:
      * @param[in] def The definition of the connection
      * @return The parsed connection
      */
-    NBConnection parseConnection(const std::string& defRole, const std::string& def) ;
+    NBConnection parseConnection(const std::string& defRole, const std::string& def);
 
 
     /** @brief Parses a connection when it describes a lane-2-lane relationship
@@ -98,7 +98,7 @@ private:
      * @param[in] from The edge at which the connection starts (the on incoming into a node)
      * @param[in] to The edge at which the connection ends (the on outgoing from a node)
      */
-    void parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) ;
+    void parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to);
 
 
     /** @brief Parses information about lane-2-lane connection when it describes a lane-2-lane relationship

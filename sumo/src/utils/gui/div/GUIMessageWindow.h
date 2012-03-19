@@ -56,15 +56,15 @@ public:
      *
      * @param[in] parent The parent window
      */
-    GUIMessageWindow(FXComposite* parent) ;
+    GUIMessageWindow(FXComposite* parent);
 
 
     /// @brief Destructor
-    ~GUIMessageWindow() ;
+    ~GUIMessageWindow();
 
 
     /// @brief Adds a a separator to this log window
-    void addSeparator() ;
+    void addSeparator();
 
 
     /** @brief Adds new text to the window
@@ -75,11 +75,11 @@ public:
      * @param[in] msg The message
      * @see GUIEventType
      */
-    void appendText(GUIEventType eType, const std::string& msg) ;
+    void appendText(GUIEventType eType, const std::string& msg);
 
 
     /// @brief Clears the window
-    void clear() ;
+    void clear();
 
 
 private:

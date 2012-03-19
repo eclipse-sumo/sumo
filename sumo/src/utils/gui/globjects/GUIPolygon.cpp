@@ -176,7 +176,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
             glvert[3] = 1;
             glvert[4] = 1;
             glvert[5] = 1;
-            gluTessVertex(tobj, points + 3 * i, points + 3 * i) ;
+            gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
         gluTessEndContour(tobj);
 

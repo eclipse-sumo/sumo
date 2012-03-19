@@ -85,7 +85,7 @@ class GUIVisualizationSettings {
 public:
 
     /// @brief constructor
-    GUIVisualizationSettings() ;
+    GUIVisualizationSettings();
 
     /// @brief The name of this setting
     std::string name;

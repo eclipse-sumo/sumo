@@ -61,17 +61,17 @@ public:
      *
      * Creates an empty position vector
      */
-    PositionVector() ;
+    PositionVector();
 
 
     /** @brief Constructor
      * @param[in] v The vector to copy
      */
-    PositionVector(const std::vector<Position> &v) ;
+    PositionVector(const std::vector<Position> &v);
 
 
     /// @brief Destructor
-    ~PositionVector() ;
+    ~PositionVector();
 
 
     /// @name Adding items to the container
@@ -80,13 +80,13 @@ public:
     /** @brief Appends the given position to the list
      * @param[in] p The position to append
      */
-    void push_back(const Position& p) ;
+    void push_back(const Position& p);
 
 
     /** @brief Appends all positions from the given vector
      * @param[in] p The vector from which values shall be appended
      */
-    void push_back(const PositionVector& p) ;
+    void push_back(const PositionVector& p);
     /// @}
 
 

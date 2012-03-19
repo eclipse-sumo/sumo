@@ -48,17 +48,17 @@ public:
     /** @brief Constructor
      * @param[in] id The id of the node
      */
-    RONode(const std::string& id) ;
+    RONode(const std::string& id);
 
 
     /// @brief Destructor
-    ~RONode() ;
+    ~RONode();
 
 
     /** @brief Sets the position of the node
      * @param[in] p The node's position
      */
-    void setPosition(const Position& p) ;
+    void setPosition(const Position& p);
 
 
     /** @brief Returns the position of the node

@@ -97,7 +97,7 @@ public:
      * @see RODFDetectorType
      */
     RODFDetector(const std::string& id, const std::string& laneID,
-                 SUMOReal pos, const RODFDetectorType type) ;
+                 SUMOReal pos, const RODFDetectorType type);
 
 
     /** @brief Constructor
@@ -107,11 +107,11 @@ public:
      * @param[in] id The id of the detector
      * @param[in] f A detector from which routes shall be copied
      */
-    RODFDetector(const std::string& id, const RODFDetector& f) ;
+    RODFDetector(const std::string& id, const RODFDetector& f);
 
 
     /// @brief Destructor
-    ~RODFDetector() ;
+    ~RODFDetector();
 
 
 
@@ -282,7 +282,7 @@ protected:
     /** @brief Clears the given distributions map, deleting the timed distributions
      * @param[in] dists The distribution map to clear
      */
-    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const ;
+    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const;
 
 
 protected:

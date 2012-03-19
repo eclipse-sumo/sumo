@@ -69,10 +69,10 @@ public:
                                  MSLane* lane, SUMOReal startPos,
                                  SUMOTime haltingTimeThreshold,
                                  SUMOReal haltingSpeedThreshold,
-                                 SUMOReal jamDistThreshold) ;
+                                 SUMOReal jamDistThreshold);
 
     /// Destructor
-    ~GUI_E2_ZS_CollectorOverLanes() ;
+    ~GUI_E2_ZS_CollectorOverLanes();
 
     // invalid in fact, as collectors do not need a lane
     virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
@@ -80,7 +80,7 @@ public:
 
 protected:
     MSE2Collector* buildCollector(size_t c, size_t r,
-                                  MSLane* l, SUMOReal start, SUMOReal end) ;
+                                  MSLane* l, SUMOReal start, SUMOReal end);
 
 
 public:
@@ -92,10 +92,10 @@ public:
     public:
         /// Constructor
         MyWrapper(GUI_E2_ZS_CollectorOverLanes& detector,
-                  const LaneDetMap& detectors) ;
+                  const LaneDetMap& detectors);
 
         /// Destrutor
-        ~MyWrapper() ;
+        ~MyWrapper();
 
 
         /// @name inherited from GUIGlObject
@@ -109,7 +109,7 @@ public:
          * @see GUIGlObject::getParameterWindow
          */
         GUIParameterTableWindow* getParameterWindow(
-            GUIMainWindow& app, GUISUMOAbstractView& parent) ;
+            GUIMainWindow& app, GUISUMOAbstractView& parent);
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -117,14 +117,14 @@ public:
          * @return The boundary the object is within
          * @see GUIGlObject::getCenteringBoundary
          */
-        Boundary getCenteringBoundary() const ;
+        Boundary getCenteringBoundary() const;
 
 
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
-        void drawGL(const GUIVisualizationSettings& s) const ;
+        void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
 

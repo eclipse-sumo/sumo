@@ -53,7 +53,7 @@ public:
     SUMORouteHandler(const std::string& file);
 
     /// standard destructor
-    virtual ~SUMORouteHandler() ;
+    virtual ~SUMORouteHandler();
 
     /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;
@@ -74,7 +74,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -83,7 +83,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    virtual void myEndElement(int element) ;
+    virtual void myEndElement(int element);
     //@}
 
 

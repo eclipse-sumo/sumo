@@ -69,7 +69,7 @@ public:
      * @param[in] defaultPriority The default priority of an edge
      */
     void setDefaults(int defaultNoLanes,
-                     SUMOReal defaultSpeed, int defaultPriority) ;
+                     SUMOReal defaultSpeed, int defaultPriority);
 
 
     /** @brief Adds a type into the list. This is a simplified convenience form
@@ -84,7 +84,7 @@ public:
      * @return Whether the type could be added (no type with the same id existed)
      */
     bool insert(const std::string& id, int noLanes, SUMOReal maxSpeed, int prio,
-                SUMOReal width, SUMOVehicleClass vClasses = SVC_UNKNOWN, bool oneWayIsDefault = false) ;
+                SUMOReal width, SUMOVehicleClass vClasses = SVC_UNKNOWN, bool oneWayIsDefault = false);
 
     /** @brief Adds a type into the list
      * @param[in] id The id of the type
@@ -99,7 +99,7 @@ public:
     bool insert(const std::string& id, int noLanes,
                 SUMOReal maxSpeed, int prio,
                 SVCPermissions permissions,
-                SUMOReal width, bool oneWayIsDefault) ;
+                SUMOReal width, bool oneWayIsDefault);
 
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
@@ -112,13 +112,13 @@ public:
     /** @brief Returns whether the named type is in the container
      * @return Whether the named type is known
      */
-    bool knows(const std::string& type) const ;
+    bool knows(const std::string& type) const;
 
 
     /** @brief Marks a type as to be discarded
      * @param[in] id The id of the type
      */
-    bool markAsToDiscard(const std::string& id) ;
+    bool markAsToDiscard(const std::string& id);
 
 
 
@@ -131,7 +131,7 @@ public:
      * @param[in] type The name of the type to return the lane number for
      * @return The number of lanes an edge of this type has
      */
-    int getNumLanes(const std::string& type) const ;
+    int getNumLanes(const std::string& type) const;
 
 
     /** @brief Returns the maximal velocity for the given type [m/s]
@@ -140,7 +140,7 @@ public:
      * @param[in] type The name of the type to return the speed for
      * @return The allowed speed on edges of this type
      */
-    SUMOReal getSpeed(const std::string& type) const ;
+    SUMOReal getSpeed(const std::string& type) const;
 
 
     /** @brief Returns the priority for the given type
@@ -149,7 +149,7 @@ public:
      * @param[in] type The name of the type to return the priority for
      * @return The priority of edges of this type
      */
-    int getPriority(const std::string& type) const ;
+    int getPriority(const std::string& type) const;
 
 
     /** @brief Returns whether edges are one-way per default for the given type
@@ -159,7 +159,7 @@ public:
      * @return Whether edges of this type are one-way per default
      * @todo There is no default for one-way!?
      */
-    bool getIsOneWay(const std::string& type) const ;
+    bool getIsOneWay(const std::string& type) const;
 
 
     /** @brief Returns the information whether edges of this type shall be discarded.
@@ -167,7 +167,7 @@ public:
      * Returns false if the type is not known.
      * @return Whether edges of this type shall be discarded.
      */
-    bool getShallBeDiscarded(const std::string& type) const ;
+    bool getShallBeDiscarded(const std::string& type) const;
 
 
     /** @brief Returns allowed vehicle classes for the given type
@@ -176,7 +176,7 @@ public:
      * @param[in] type The name of the type to return the list of allowed vehicles classes for
      * @return List of vehicles class which may use edges of the given type
      */
-    SVCPermissions getPermissions(const std::string& type) const ;
+    SVCPermissions getPermissions(const std::string& type) const;
 
 
     /** @brief Returns the lane width for the given type [m/s]
@@ -185,7 +185,7 @@ public:
      * @param[in] type The name of the type to return the width for
      * @return The width of lanes of edges of this type
      */
-    SUMOReal getWidth(const std::string& type) const ;
+    SUMOReal getWidth(const std::string& type) const;
     /// @}
 
 

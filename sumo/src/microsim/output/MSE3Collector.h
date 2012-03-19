@@ -75,7 +75,7 @@ public:
          * @param[in] crossSection The position at which the entry lies
          * @param[in] collector The detector the entry belongs to
          */
-        MSE3EntryReminder(const MSCrossSection& crossSection, MSE3Collector& collector) ;
+        MSE3EntryReminder(const MSCrossSection& crossSection, MSE3Collector& collector);
 
 
         /// @name Methods inherited from MSMoveReminder.
@@ -96,7 +96,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) ;
+        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
 
 
         /** @brief Processes state changes of a vehicle
@@ -109,7 +109,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason) ;
+        bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, MSMoveReminder::Notification reason);
         /// @}
 
 
@@ -142,7 +142,7 @@ public:
          * @param[in] crossSection The position at which the exit lies
          * @param[in] collector The detector the exit belongs to
          */
-        MSE3LeaveReminder(const MSCrossSection& crossSection, MSE3Collector& collector) ;
+        MSE3LeaveReminder(const MSCrossSection& crossSection, MSE3Collector& collector);
 
 
         /// @name methods from MSMoveReminder
@@ -163,7 +163,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::leave
          */
-        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) ;
+        bool notifyMove(SUMOVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
         //@}
 
 
@@ -197,16 +197,16 @@ public:
     MSE3Collector(const std::string& id,
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   SUMOReal haltingSpeedThreshold,
-                  SUMOTime haltingTimeThreshold) ;
+                  SUMOTime haltingTimeThreshold);
 
 
     /// @brief Destructor
-    virtual ~MSE3Collector() ;
+    virtual ~MSE3Collector();
 
 
     /** @brief Resets all generated values to allow computation of next interval
      */
-    void reset() ;
+    void reset();
 
 
     /** @brief Called if a vehicle touches an entry-cross-section.
@@ -216,7 +216,7 @@ public:
      *  @param[in] veh The vehicle that entered the area
      *  @param[in] entryTimestep The time step the vehicle entered the area
      */
-    void enter(SUMOVehicle& veh, SUMOReal entryTimestep) ;
+    void enter(SUMOVehicle& veh, SUMOReal entryTimestep);
 
 
     /** @brief Called if a vehicle passes a leave-cross-section.
@@ -226,7 +226,7 @@ public:
      *  @param[in] veh The vehicle that left the area
      *  @param[in] entryTimestep The time step the vehicle left the area
      */
-    void leave(SUMOVehicle& veh, SUMOReal leaveTimestep) ;
+    void leave(SUMOVehicle& veh, SUMOReal leaveTimestep);
 
 
     /// @name Methods returning current values
@@ -238,7 +238,7 @@ public:
      *
      * @return The mean speed [m/s] of all vehicles within the area, -1 if there is none
      */
-    SUMOReal getCurrentMeanSpeed() const ;
+    SUMOReal getCurrentMeanSpeed() const;
 
 
     /** @brief Returns the number of current haltings within the area
@@ -247,20 +247,20 @@ public:
      *
      * @return The mean number of haltings within the area
      */
-    SUMOReal getCurrentHaltingNumber() const ;
+    SUMOReal getCurrentHaltingNumber() const;
 
 
     /** @brief Returns the number of vehicles within the area
      * @return The number of vehicles that passed the entry collector
      */
-    SUMOReal getVehiclesWithin() const ;
+    SUMOReal getVehiclesWithin() const;
 
 
     /** @brief Returns the number of vehicles within the area
      *
      * @return The number of vehicles that have passed the entry, but not yet an exit point
      */
-    std::vector<std::string> getCurrentVehicleIDs() const ;
+    std::vector<std::string> getCurrentVehicleIDs() const;
     /// @}
 
 
@@ -299,7 +299,7 @@ public:
      *
      * @param[in] currentTime The current simulation time (unused)
      */
-    void detectorUpdate(const SUMOTime step) ;
+    void detectorUpdate(const SUMOTime step);
 
 
 protected:

@@ -55,19 +55,19 @@ class AGDataAndStatistics;
 class AGWorkPosition {
 public:
     // TODO: Change order: ds, inStreet [, pos]
-    AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds) ;
-    AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds) ;
-    ~AGWorkPosition() ;
+    AGWorkPosition(const AGStreet& inStreet, AGDataAndStatistics* ds);
+    AGWorkPosition(const AGStreet& inStreet, SUMOReal pos, AGDataAndStatistics* ds);
+    ~AGWorkPosition();
 
     void take(AGAdult* ad) throw(std::runtime_error);
-    void let() ;
-    bool isTaken() const ;
+    void let();
+    bool isTaken() const;
 
-    AGPosition getPosition() const ;
-    int getOpening() const ;
-    int getClosing() const ;
+    AGPosition getPosition() const;
+    int getOpening() const;
+    int getClosing() const;
 
-    void print() const ;
+    void print() const;
 
 private:
     AGDataAndStatistics* ds;
@@ -76,8 +76,8 @@ private:
     int openingTime;
     int closingTime;
 
-    static int generateOpeningTime(const AGDataAndStatistics& ds) ;
-    static int generateClosingTime(const AGDataAndStatistics& ds) ;
+    static int generateOpeningTime(const AGDataAndStatistics& ds);
+    static int generateClosingTime(const AGDataAndStatistics& ds);
 };
 
 #endif

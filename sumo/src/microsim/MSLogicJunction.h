@@ -69,7 +69,7 @@ public:
     typedef std::bitset<64> InnerState;
 
     /// initialises the junction after the whole net has been loaded
-    virtual void postloadInit() ;
+    virtual void postloadInit();
 
 protected:
     /** @brief Constructor
@@ -85,7 +85,7 @@ protected:
 #ifdef HAVE_INTERNAL_LANES
                     , std::vector<MSLane*> internal
 #endif
-                   ) ;
+                   );
 
 protected:
     /// list of incoming lanes

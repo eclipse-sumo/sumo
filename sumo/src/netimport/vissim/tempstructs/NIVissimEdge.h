@@ -114,8 +114,8 @@ public:
         return myAmWithinJunction;
     }
 
-    NIVissimEdge* getBestIncoming() const ;
-    NIVissimEdge* getBestOutgoing() const ;
+    NIVissimEdge* getBestIncoming() const;
+    NIVissimEdge* getBestOutgoing() const;
 
     friend class NIVissimNodeDef_Edges;
     friend class NIVissimNodeDef_Poly;
@@ -143,7 +143,7 @@ public:
      *
      * @todo Probably the distance (MAX_CLUSTER_DISTANCE=10m) should be made variable
      */
-    static void buildConnectionClusters() ;
+    static void buildConnectionClusters();
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont& dc, NBNodeCont& nc,
@@ -162,7 +162,7 @@ public:
      * If the option "vissim.report-unset-speeds" is set, all lane ids stored within
      *  this container are written.
      */
-    static void reportUnsetSpeeds() ;
+    static void reportUnsetSpeeds();
 
 
 private:
@@ -179,7 +179,7 @@ private:
      * @exception ProcessError If one of the built nodes or edges could not be added to the according container
      */
     void buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc,
-                     NBEdgeCont& ec, SUMOReal sameNodesOffset) ;
+                     NBEdgeCont& ec, SUMOReal sameNodesOffset);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>

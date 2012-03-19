@@ -77,7 +77,7 @@ AGWorkAndSchool::generateTrips() {
 void
 AGWorkAndSchool::buildChildrenAccompaniment() {
     std::list<AGChild>::iterator itC;
-    for (itC = hh->children.begin() ; itC != hh->children.end() ; ++itC) {
+    for (itC = hh->children.begin(); itC != hh->children.end(); ++itC) {
         if (itC->haveASchool()) {
             if (this->availableTranspMeans(hh->getPosition(), itC->getSchoolLocation()) == 0) {
                 //in this case the school is far from home and bus stations too
@@ -90,7 +90,7 @@ AGWorkAndSchool::buildChildrenAccompaniment() {
 void
 AGWorkAndSchool::buildWorkDestinations() {
     std::list<AGAdult>::iterator itA;
-    for (itA = hh->adults.begin() ; itA != hh->adults.end() ; ++itA) {
+    for (itA = hh->adults.begin(); itA != hh->adults.end(); ++itA) {
         if (itA->isWorking()) {
             if (this->possibleTranspMean(itA->getWorkPosition().getPosition()) % 2 == 0) {
                 //not too close, to not being able to go by foot
@@ -111,7 +111,7 @@ AGWorkAndSchool::buildWorkDestinations() {
 
     // sometimes, people still have choice: when vehicles are available and their car take a bus.
     std::list<AGAdult>::iterator it;
-    for (it = workingPeoplePossCar.begin() ; it != workingPeoplePossCar.end() ; ++it) {
+    for (it = workingPeoplePossCar.begin(); it != workingPeoplePossCar.end(); ++it) {
         if (possibleTranspMean(it->getWorkPosition().getPosition()) == 6 && hh->getCarNbr() > (int)personsDrivingCars.size()) {
             //car or bus (always because of workDestinations' construction) AND at least one car not used
             if (hh->adults.front().decide(this->carPreference)) {
@@ -139,7 +139,7 @@ AGWorkAndSchool::carAllocation() {
         //at least one adult exists because no household contains less than one adult
         if (workingPeoplePossCar.size() != hh->getAdultNbr()) { //personsDrivingCars.size() + adultNeedingCarAccompaniment.size() is equal to 0
             std::list<AGAdult>::iterator itUA;
-            for (itUA = hh->adults.begin() ; itUA != hh->adults.end() ; ++itUA) {
+            for (itUA = hh->adults.begin(); itUA != hh->adults.end(); ++itUA) {
                 if (! itUA->isWorking()) {
                     notNeedingDrivers.push_back(*itUA);
                     break;
@@ -156,7 +156,7 @@ bool
 AGWorkAndSchool::carsToTrips() {
     std::list<AGAdult>::iterator itDriA;
     std::list<AGCar>::iterator itCar = hh->cars.begin();
-    for (itDriA = personsDrivingCars.begin() ; itDriA != personsDrivingCars.end() ; ++itDriA) {
+    for (itDriA = personsDrivingCars.begin(); itDriA != personsDrivingCars.end(); ++itDriA) {
         //check if the number of cars is lower than the number of drivers
         if (itCar == hh->cars.end()) {
             return false;
@@ -167,13 +167,13 @@ AGWorkAndSchool::carsToTrips() {
     }
 
     std::list<AGAdult>::iterator itAccA;
-    for (itAccA = adultNeedingCarAccompaniment.begin() ; itAccA != adultNeedingCarAccompaniment.end() ; ++itAccA) {
+    for (itAccA = adultNeedingCarAccompaniment.begin(); itAccA != adultNeedingCarAccompaniment.end(); ++itAccA) {
         AGTrip trip(hh->getPosition(), itAccA->getWorkPosition().getPosition(), depHour(hh->getPosition(), itAccA->getWorkPosition().getPosition(), itAccA->getWorkPosition().getOpening()));
         tempAccTrip.push_back(trip);
     }
 
     std::list<AGChild>::iterator itAccC;
-    for (itAccC = childrenNeedingCarAccompaniment.begin() ; itAccC != childrenNeedingCarAccompaniment.end() ; ++itAccC) {
+    for (itAccC = childrenNeedingCarAccompaniment.begin(); itAccC != childrenNeedingCarAccompaniment.end(); ++itAccC) {
         AGTrip trip(hh->getPosition(), itAccC->getSchoolLocation(), depHour(hh->getPosition(), itAccC->getSchoolLocation(), itAccC->getSchoolOpeining()));
         tempAccTrip.push_back(trip);
     }
@@ -201,8 +201,8 @@ AGWorkAndSchool::checkAndBuildTripConsistancy() {
 
     while (!finish) {
         finish = true;
-        for (it1 = tempAccTrip.begin() ; it1 != tempAccTrip.end() ; ++it1) {
-            for (it2 = tempAccTrip.begin() ; it2 != tempAccTrip.end() ; ++it2) {
+        for (it1 = tempAccTrip.begin(); it1 != tempAccTrip.end(); ++it1) {
+            for (it2 = tempAccTrip.begin(); it2 != tempAccTrip.end(); ++it2) {
                 if (it1 == it2) {
                     continue;
                 }
@@ -239,13 +239,13 @@ AGWorkAndSchool::checkDriversScheduleMatching() {
     std::list<AGTrip>::iterator itAccT;
     std::list<AGTrip>::iterator itDriT;
     std::list<AGAdult>::iterator itA;
-    for (itAccT = tempAccTrip.begin() ; itAccT != tempAccTrip.end() ; ++itAccT) {
-        for (itDriT = tempTrip.begin() ; itDriT != tempTrip.end() ; ++itDriT) {
+    for (itAccT = tempAccTrip.begin(); itAccT != tempAccTrip.end(); ++itAccT) {
+        for (itDriT = tempTrip.begin(); itDriT != tempTrip.end(); ++itDriT) {
             if (itAccT->getArrTime(this->timePerKm) < itDriT->getArrTime(this->timePerKm)) {
                 check = true;
             }
         }
-        for (itA = notNeedingDrivers.begin() ; itA != notNeedingDrivers.end() ; ++itA) {
+        for (itA = notNeedingDrivers.begin(); itA != notNeedingDrivers.end(); ++itA) {
             if (!itA->isWorking()) {
                 check = true;
             } else if (itAccT->getRideBackArrTime(this->timePerKm) < itA->getWorkPosition().getOpening()) {
@@ -271,9 +271,9 @@ AGWorkAndSchool::generateListTrips() {
     /**
      * 1 / 3 : Accompaniment
      */
-    for (itAccT = tempAccTrip.begin() ; itAccT != tempAccTrip.end() ; ++itAccT) {
+    for (itAccT = tempAccTrip.begin(); itAccT != tempAccTrip.end(); ++itAccT) {
         alreadyDone = false;
-        for (itDriT = tempTrip.begin() ; itDriT != tempTrip.end() ; ++itDriT) {
+        for (itDriT = tempTrip.begin(); itDriT != tempTrip.end(); ++itDriT) {
             if (!alreadyDone) {
                 if (itAccT->getArrTime(this->timePerKm) < itDriT->getArrTime(this->timePerKm) && !alreadyDone) {
                     //Add the accompaniment trip to the driver's trip OR new trip
@@ -297,7 +297,7 @@ AGWorkAndSchool::generateListTrips() {
             }
         }
 
-        for (itA = notNeedingDrivers.begin() ; itA != notNeedingDrivers.end() ; ++itA) {
+        for (itA = notNeedingDrivers.begin(); itA != notNeedingDrivers.end(); ++itA) {
             if (!itA->isWorking() && !alreadyDone) {
                 std::string nameC = getUnusedCar();
                 if (nameC.size() != 0) {
@@ -323,15 +323,15 @@ AGWorkAndSchool::generateListTrips() {
     /**
      * 2/3 : drivers way
      */
-    for (itDriT = tempTrip.begin() ; itDriT != tempTrip.end() ; ++itDriT) {
+    for (itDriT = tempTrip.begin(); itDriT != tempTrip.end(); ++itDriT) {
         partialActivityTrips.push_back(*itDriT);
     }
 
     /**
      * 3/3: way return
      */
-    for (itA = personsDrivingCars.begin() ; itA != personsDrivingCars.end() ; ++itA) {
-        for (itDriT = tempTrip.begin() ; itDriT != tempTrip.end() ; ++itDriT) {
+    for (itA = personsDrivingCars.begin(); itA != personsDrivingCars.end(); ++itA) {
+        for (itDriT = tempTrip.begin(); itDriT != tempTrip.end(); ++itDriT) {
             if (itA->getWorkPosition().getPosition() == itDriT->getArr()) {
                 AGTrip trip(itA->getWorkPosition().getPosition(), hh->getPosition(), itDriT->getVehicleName(), itA->getWorkPosition().getClosing());
                 partialActivityTrips.push_back(trip);
@@ -368,7 +368,7 @@ AGWorkAndSchool::makePossibleDriversDrive() {
     //give to a non working adult the ability to drive children or someone else.
     if (workingPeoplePossCar.size() + personsDrivingCars.size() + adultNeedingCarAccompaniment.size() != hh->getAdultNbr()) {
         std::list<AGAdult>::iterator itUA;
-        for (itUA = hh->adults.begin() ; itUA != hh->adults.end() ; ++itUA) {
+        for (itUA = hh->adults.begin(); itUA != hh->adults.end(); ++itUA) {
             if (! itUA->isWorking()) {
                 notNeedingDrivers.push_back(*itUA);
                 break;

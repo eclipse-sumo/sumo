@@ -84,11 +84,11 @@ public:
      * @param[in] edges The loaded edges
      * @todo Assure both containers are not 0
      */
-    MSEdgeControl(const std::vector< MSEdge* > &edges) ;
+    MSEdgeControl(const std::vector< MSEdge* > &edges);
 
 
     /// @brief Destructor.
-    ~MSEdgeControl() ;
+    ~MSEdgeControl();
 
 
     /** @brief Resets information whether a lane is active for all lanes
@@ -97,7 +97,7 @@ public:
      *  and is not marked as being active, it is added to the list og active lanes
      *  and marked as being active.
      */
-    void patchActiveLanes() ;
+    void patchActiveLanes();
 
 
     /// @name Interfaces for longitudinal vehicle movement
@@ -115,7 +115,7 @@ public:
      *
      * @see MSLane::moveCritical
      */
-    void moveCritical(SUMOTime t) ;
+    void moveCritical(SUMOTime t);
 
 
     /** @brief Really moves critical vehicles
@@ -136,7 +136,7 @@ public:
      * @see MSLane::integrateNewVehicle
      * @todo When moving to parallel processing, the usage of myWithVehicles2Integrate would get insecure!!
      */
-    void moveFirst(SUMOTime t) ;
+    void moveFirst(SUMOTime t);
     /// @}
 
 
@@ -148,7 +148,7 @@ public:
      *
      * @see MSEdge::changeLanes
      */
-    void changeLanes(SUMOTime t) ;
+    void changeLanes(SUMOTime t);
 
 
     /** @brief Detect collisions
@@ -159,7 +159,7 @@ public:
      *
      * @param[in] timestep The current time step
      */
-    void detectCollisions(SUMOTime timestep) ;
+    void detectCollisions(SUMOTime timestep);
 
 
     /** @brief Returns loaded edges
@@ -176,7 +176,7 @@ public:
      *
      * @return a vector of names of all known edges
      */
-    std::vector<std::string> getEdgeNames() const ;
+    std::vector<std::string> getEdgeNames() const;
 
 
     /** @brief Informs the control that the given lane got active
@@ -184,7 +184,7 @@ public:
      * @param[in] l The activated lane
      * @todo Check for l==0?
      */
-    void gotActive(MSLane* l) ;
+    void gotActive(MSLane* l);
 
 
 public:

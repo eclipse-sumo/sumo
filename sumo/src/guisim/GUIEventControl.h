@@ -53,11 +53,11 @@ class MFXMutex;
 class GUIEventControl : public MSEventControl {
 public:
     /// @brief Default constructor.
-    GUIEventControl() ;
+    GUIEventControl();
 
 
     /// @brief Destructor.
-    ~GUIEventControl() ;
+    ~GUIEventControl();
 
 
     /** @brief Adds an Event.
@@ -71,7 +71,7 @@ public:
      * @see MSEventControl::addEvent
      */
     SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-                      AdaptType type) ;
+                      AdaptType type);
 
 
     /** @brief Executes time-dependant commands
@@ -83,7 +83,7 @@ public:
      * @exception ProcessError From an executed Command
      * @see MSEventControl::execute
      */
-    void execute(SUMOTime time) ;
+    void execute(SUMOTime time);
 
 
 private:

@@ -71,7 +71,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[in, filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes = INT_MAX) ;
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into, unsigned int maxRoutes = INT_MAX);
 
 
 public:
@@ -86,7 +86,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason) ;
+    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason);
 
 
     /** @brief Saves exit times if needed
@@ -100,7 +100,7 @@ public:
      *
      * @return True, if exit times are to be collected.
      */
-    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason) ;
+    bool notifyLeave(SUMOVehicle& veh, SUMOReal lastPos, Notification reason);
     /// @}
 
 
@@ -122,7 +122,7 @@ public:
 
 
     /// @brief Destructor.
-    ~MSDevice_Vehroutes() ;
+    ~MSDevice_Vehroutes();
 
 
 private:
@@ -131,7 +131,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes) ;
+    MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& id, unsigned int maxRoutes);
 
 
     /** @brief Called on route output

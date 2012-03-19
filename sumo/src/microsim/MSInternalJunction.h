@@ -68,13 +68,13 @@ public:
      */
     MSInternalJunction(const std::string& id, const Position& position,
                        const PositionVector& shape,
-                       std::vector<MSLane*> incoming, std::vector<MSLane*> internal) ;
+                       std::vector<MSLane*> incoming, std::vector<MSLane*> internal);
 
     /// Destructor.
     virtual ~MSInternalJunction();
 
 
-    void postloadInit() ;
+    void postloadInit();
 
     const std::vector<MSLink*> &getFoeLinks(const MSLink* const srcLink) const {
         UNUSED_PARAMETER(srcLink);

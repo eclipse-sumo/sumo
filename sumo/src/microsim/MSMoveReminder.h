@@ -72,7 +72,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true) ;
+    MSMoveReminder(MSLane* const lane = 0, const bool doAdd = true);
 
 
     /** @brief Destructor
@@ -181,7 +181,7 @@ public:
 
 #ifdef HAVE_MESOSIM
     void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
-                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) ;
+                        SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime);
 #endif
 
     /// @}

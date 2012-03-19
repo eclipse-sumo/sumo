@@ -63,10 +63,10 @@ class OutputDevice;
 class RODFRouteCont {
 public:
     /// @brief Constructor
-    RODFRouteCont() ;
+    RODFRouteCont();
 
     /// @brief Destructor
-    ~RODFRouteCont() ;
+    ~RODFRouteCont();
 
 
     /** @brief Adds a route to the container
@@ -80,7 +80,7 @@ public:
      * @param[in] desc The route description to add
      * @see setID
      */
-    void addRouteDesc(RODFRouteDesc& desc) ;
+    void addRouteDesc(RODFRouteDesc& desc);
 
 
     /** @brief Removes the given route description from the container
@@ -92,7 +92,7 @@ public:
      * @return Whether the route was removed (a similar was found)
      * @see RODFRouteCont::route_finder
      */
-    bool removeRouteDesc(RODFRouteDesc& desc) ;
+    bool removeRouteDesc(RODFRouteDesc& desc);
 
 
     /** @brief Saves routes
@@ -120,7 +120,7 @@ public:
      * Done using by_distance_sorter.
      * @see RODFRouteCont::by_distance_sorter
      */
-    void sortByDistance() ;
+    void sortByDistance();
 
 
     /** @brief Removes "illegal" routes
@@ -130,12 +130,12 @@ public:
      * @param[in] illegals List of edge combinations that shall not be passed
      * @todo Not used, yet
      */
-    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) ;
+    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals);
 
 
     /** @brief All routes are replaced by their versions extended by follower edges
     */
-    void addAllEndFollower() ;
+    void addAllEndFollower();
 
 
 protected:
@@ -146,7 +146,7 @@ protected:
      *
      * @param[in] desc The route description to add
      */
-    void setID(RODFRouteDesc& desc) const ;
+    void setID(RODFRouteDesc& desc) const;
 
 
     /** @brief A class for sorting route descriptions by their length */

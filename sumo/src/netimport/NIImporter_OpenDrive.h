@@ -311,7 +311,7 @@ protected:
 
 
     /// @brief Destructor
-    ~NIImporter_OpenDrive() ;
+    ~NIImporter_OpenDrive();
 
 
 
@@ -329,7 +329,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when characters occure
@@ -340,7 +340,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) ;
+                      const std::string& chars);
 
 
     /** @brief Called when a closing tag occurs
@@ -349,16 +349,16 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
 
 
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
-                 const std::string& contactPoint) ;
+                 const std::string& contactPoint);
 
-    void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) ;
+    void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals);
 
     OpenDriveEdge myCurrentEdge;
 
@@ -382,25 +382,25 @@ protected:
      * @return The retrieved/built node
      * @exception ProcessError If the node could not be built/retrieved
      */
-    static NBNode* getOrBuildNode(const std::string& id, Position& pos, NBNodeCont& nc) ;
+    static NBNode* getOrBuildNode(const std::string& id, Position& pos, NBNodeCont& nc);
 
 
-    static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
-    static std::vector<Position> geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
-    static std::vector<Position> geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
-    static std::vector<Position> geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g) ;
-    static Position calculateStraightEndPoint(double hdg, double length, const Position& start) ;
-    static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) ;
+    static std::vector<Position> geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static std::vector<Position> geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static std::vector<Position> geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static std::vector<Position> geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static Position calculateStraightEndPoint(double hdg, double length, const Position& start);
+    static void calculateCurveCenter(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_radius, SUMOReal ad_hdg);
     static void calcPointOnCurve(SUMOReal* ad_x, SUMOReal* ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
-                                 SUMOReal ad_r, SUMOReal ad_length) ;
+                                 SUMOReal ad_r, SUMOReal ad_length);
     static NBEdge* getOutgoingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
-            const std::string& edgeID, const std::string& nodeID) ;
+            const std::string& edgeID, const std::string& nodeID);
     static NBEdge* getIncomingDirectionalEdge(const NBEdgeCont& ec, const NBNodeCont& nc,
-            const std::string& edgeID, const std::string& nodeID) ;
+            const std::string& edgeID, const std::string& nodeID);
 
-    static void computeShapes(std::vector<OpenDriveEdge> &edges) ;
+    static void computeShapes(std::vector<OpenDriveEdge> &edges);
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
-                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt) ;
+                              const std::string& nodeID, NIImporter_OpenDrive::LinkType lt);
 
     static void addE2EConnectionsSecure(const NBEdgeCont& ec, const NBNode* const node,
                                         const OpenDriveEdge& from, const OpenDriveEdge& to,

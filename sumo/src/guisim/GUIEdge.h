@@ -56,16 +56,16 @@ public:
      * @param[in] numericalID The numerical id (index) of the edge
      * @see MSEdge
      */
-    GUIEdge(const std::string& id, unsigned int numericalID, const std::string& streetName) ;
+    GUIEdge(const std::string& id, unsigned int numericalID, const std::string& streetName);
 
 
     /// @brief Destructor.
-    ~GUIEdge() ;
+    ~GUIEdge();
 
 
     /** @brief Builds lane wrappers for this edge's lanes
      */
-    void initGeometry() ;
+    void initGeometry();
 
 
     /* @brief Returns the gl-ids of all known edges
@@ -107,7 +107,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) ;
+            GUISUMOAbstractView& parent);
 
 
     /** @brief Returns an own parameter window
@@ -118,7 +118,7 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent) ;
+            GUISUMOAbstractView& parent);
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -126,14 +126,14 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const ;
+    Boundary getCenteringBoundary() const;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const ;
+    void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
 

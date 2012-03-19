@@ -59,11 +59,11 @@ public:
     /** @brief Constructor
      * @param[in] ec The traffic light container into which to load logics
      */
-    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec) ;
+    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec);
 
 
     /// @brief Destructor
-    ~NIXMLTrafficLightsHandler() ;
+    ~NIXMLTrafficLightsHandler();
 
 
 protected:
@@ -77,7 +77,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
      */
-    void myStartElement(int element, const SUMOSAXAttributes& attrs) ;
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -86,7 +86,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
 

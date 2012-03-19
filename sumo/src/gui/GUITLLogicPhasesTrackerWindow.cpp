@@ -344,7 +344,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // disable value addition while drawing
     myLock.lock();
     // determine the initial offset
-    SUMOReal x = ((SUMOReal) 31. / width) ;
+    SUMOReal x = ((SUMOReal) 31. / width);
     SUMOReal ta = (SUMOReal) leftOffset / width;
     ta *= (SUMOReal)(((width - 31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
     x += ta;

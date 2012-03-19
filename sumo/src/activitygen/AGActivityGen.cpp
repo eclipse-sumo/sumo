@@ -150,11 +150,11 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     int firstTrip = trips.front().getTime() + trips.front().getDay() * 86400;
     int lastTrip = trips.front().getTime() + trips.front().getDay() * 86400;
     std::map<int, int> histogram;
-    for (int i = 0 ; i < 100 ; ++i) {
+    for (int i = 0; i < 100; ++i) {
         histogram[i] = 0;
     }
     //END var TESTS
-    for (it = trips.begin() ; it != trips.end() ; ++it) {
+    for (it = trips.begin(); it != trips.end(); ++it) {
         atw.addTrip(*it);
         //TEST
         if (it->getTime() + 86400 * it->getDay() > lastTrip) {
@@ -172,7 +172,7 @@ AGActivityGen::generateOutputFile(std::list<AGTrip>& trips) {
     AGTime last(lastTrip);
     std::cout << "first real trip: " << first.getDay() << ", " << first.getHour() << ":" << first.getMinute() << ":" << first.getSecond() << std::endl;
     std::cout << "last real trip: " << last.getDay() << ", " << last.getHour() << ":" << last.getMinute() << ":" << last.getSecond() << std::endl;
-    for (int i = 0 ; i < 100 ; ++i) {
+    for (int i = 0; i < 100; ++i) {
         if (histogram[i] > 0) {
             std::cout << "histogram[ hour " << i << " ] = " << histogram[i] << std::endl;
         }
@@ -200,9 +200,9 @@ AGActivityGen::makeActivityTrips(int days, int beginSec, int endSec) {
     std::map<std::string, int> carUsed;
     std::list<AGTrip>::iterator it;
     //multiplication of days
-    for (it = acts.trips.begin() ; it != acts.trips.end() ; ++it) {
+    for (it = acts.trips.begin(); it != acts.trips.end(); ++it) {
         if (it->isDaily()) {
-            for (int currday = 1 ; currday < durationInDays + 2 ; ++currday) {
+            for (int currday = 1; currday < durationInDays + 2; ++currday) {
                 AGTrip tr(it->getDep(), it->getArr(), it->getVehicleName(), it->getTime(), currday);
                 tr.setType(it->getType());
                 if (carUsed.find(tr.getVehicleName()) != carUsed.end()) {

@@ -62,11 +62,11 @@ public:
     /** @brief Constructor
      * @param[in] nb The network builder to fill with loaded data
      */
-    NILoader(NBNetBuilder& nb) ;
+    NILoader(NBNetBuilder& nb);
 
 
     /// @brief Destructor
-    ~NILoader() ;
+    ~NILoader();
 
 
     /** loads data from the files specified in the given option container */

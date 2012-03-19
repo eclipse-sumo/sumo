@@ -95,7 +95,7 @@ public:
     bool gapControl();
 
     // Checkes wheter the tested phase is a neither a yellow nor a allred phase
-    bool isGreenPhase() const ;
+    bool isGreenPhase() const;
 
 protected:
     /// Returns the definition of the current phase

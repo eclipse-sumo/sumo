@@ -60,17 +60,17 @@ public:
      *
      * @param[in] the age of the AGPerson
      */
-    AGAdult(int age) ;
+    AGAdult(int age);
 
     /** @brief Puts out a summary of the attributes.
      */
-    void print() const ;
+    void print() const;
 
     /** @brief States whether this person occupies a work position at present.
      *
      * @return true if she has a work position
      */
-    bool isWorking() const ;
+    bool isWorking() const;
 
     /** @brief Tries to get a new work position.
      *
@@ -84,7 +84,7 @@ public:
      * @param[in]: employmentRate (1 - unemploymentRate)
      * @param[in]: wps the list of work positions (open or not) in the city
      */
-    void tryToWork(SUMOReal employmentRate, std::vector<AGWorkPosition>* wps) ;
+    void tryToWork(SUMOReal employmentRate, std::vector<AGWorkPosition>* wps);
 
     /** @brief Called when the adult has lost her job.
      *
@@ -92,14 +92,14 @@ public:
      * her job, be it because it got fired or because its resignation has
      * been accepted.
      */
-    void lostWorkPosition() ;
+    void lostWorkPosition();
 
     /** @brief Called when the adult should resign her job.
      *
      * This method asks the WorkPosition to quit the job. The WorkPosition in
      * turn calls AGAdult::lostWorkPosition.
      */
-    void resignFromWorkPosition() ;
+    void resignFromWorkPosition();
 
     /** @brief Provides the work position of the adult.
      *
@@ -123,7 +123,7 @@ private:
      * @param[in] the list of work positions (free or not)
      * @return the chosen free work position
      */
-    static AGWorkPosition* randomFreeWorkPosition(std::vector<AGWorkPosition>* wps) ;
+    static AGWorkPosition* randomFreeWorkPosition(std::vector<AGWorkPosition>* wps);
 };
 
 #endif /* AGADULT_H */

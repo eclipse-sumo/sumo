@@ -65,10 +65,10 @@ class OutputDevice;
 class NBTrafficLightLogicCont {
 public:
     /// @brief Constructor
-    NBTrafficLightLogicCont() ;
+    NBTrafficLightLogicCont();
 
     /// @brief Destructor
-    ~NBTrafficLightLogicCont() ;
+    ~NBTrafficLightLogicCont();
 
     /** @brief Initialises the storage by applying given options
      *
@@ -78,7 +78,7 @@ public:
      * @param[in] oc The options container to read options from
      * @todo Recheck exceptions
      */
-    void applyOptions(OptionsCont& oc) ;
+    void applyOptions(OptionsCont& oc);
 
 
     /** @brief Adds a logic definition to the dictionary
@@ -90,7 +90,7 @@ public:
      * @param[in] renameProgram If true, rename the program to make insertion succeed
      * @return Whether the logic was valid (no logic with the same id and programID is already known)
      */
-    bool insert(NBTrafficLightDefinition* logic, bool forceInsert = false) ;
+    bool insert(NBTrafficLightDefinition* logic, bool forceInsert = false);
 
 
     /** @brief Removes a logic definition (and all programs) from the dictionary
@@ -158,7 +158,7 @@ public:
      * @todo Recheck usage
      */
     void remapRemoved(NBEdge* removed,
-                      const EdgeVector& incoming, const EdgeVector& outgoing) ;
+                      const EdgeVector& incoming, const EdgeVector& outgoing);
 
 
     /** @brief Replaces occurences of the removed edge/lane in all definitions by the given edge
@@ -170,7 +170,7 @@ public:
      * @todo Recheck usage
      */
     void replaceRemoved(NBEdge* removed, int removedLane,
-                        NBEdge* by, int byLane) ;
+                        NBEdge* by, int byLane);
 
 
     /** @brief Returns the named definition
@@ -208,7 +208,7 @@ public:
      * @see NBTrafficLightDefinition::setParticipantsInformation
      * @see NBTrafficLightDefinition::setTLControllingInformation
      */
-    void setTLControllingInformation(const NBEdgeCont& ec) ;
+    void setTLControllingInformation(const NBEdgeCont& ec);
 
 
 private:
@@ -243,7 +243,7 @@ private:
 
     /** @brief Destroys all stored definitions and logics
      */
-    void clear() ;
+    void clear();
 
 
 };

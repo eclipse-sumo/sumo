@@ -76,7 +76,7 @@ public:
      */
     GUITLLogicPhasesTrackerWindow(GUIMainWindow& app,
                                   MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-                                  ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src) ;
+                                  ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src);
 
 
     /** @brief Constructor to show the complete phase diagram
@@ -88,11 +88,11 @@ public:
     GUITLLogicPhasesTrackerWindow(
         GUIMainWindow& app,
         MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-        const MSSimpleTrafficLightLogic::Phases& phases) ;
+        const MSSimpleTrafficLightLogic::Phases& phases);
 
 
     /// @brief Destructor
-    ~GUITLLogicPhasesTrackerWindow() ;
+    ~GUITLLogicPhasesTrackerWindow();
 
 
     /// @brief Creates the window (FOX-Toolkit)
@@ -102,13 +102,13 @@ public:
     /** @brief Adds a further phase definition
      * @param[in] def The definition to add
      */
-    void addValue(std::pair<SUMOTime, MSPhaseDefinition> def) ;
+    void addValue(std::pair<SUMOTime, MSPhaseDefinition> def);
 
 
     /** @brief Sets the time the display shall be shown as beginning at
      * @param[in] time The time to start to show the phases from
      */
-    void setBeginTime(SUMOTime time) ;
+    void setBeginTime(SUMOTime time);
 
 
     /// @name FOX-callbacks
@@ -148,10 +148,10 @@ public:
          * @param[in] parent This panel's logial parent
          */
         GUITLLogicPhasesTrackerPanel(FXComposite* c,
-                                     GUIMainWindow& app, GUITLLogicPhasesTrackerWindow& parent) ;
+                                     GUIMainWindow& app, GUITLLogicPhasesTrackerWindow& parent);
 
         /// @brief Destructor
-        ~GUITLLogicPhasesTrackerPanel() ;
+        ~GUITLLogicPhasesTrackerPanel();
 
         /// needed to update
         friend class GUITLLogicPhasesTrackerWindow;
@@ -185,7 +185,7 @@ public:
     /** @brief Draws all values
      * @param[in] The target panel
      */
-    void drawValues(GUITLLogicPhasesTrackerPanel& caller) ;
+    void drawValues(GUITLLogicPhasesTrackerPanel& caller);
 
 
 private:

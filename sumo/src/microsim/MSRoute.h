@@ -66,10 +66,10 @@ public:
     /// Constructor
     MSRoute(const std::string& id, const MSEdgeVector& edges,
             unsigned int references, const RGBColor& c,
-            const std::vector<SUMOVehicleParameter::Stop> &stops) ;
+            const std::vector<SUMOVehicleParameter::Stop> &stops);
 
     /// Destructor
-    virtual ~MSRoute() ;
+    virtual ~MSRoute();
 
     /// Returns the begin of the list of edges to pass
     MSRouteIterator begin() const;
@@ -108,14 +108,14 @@ public:
      *
      * @param[in] os The stream to write the routes into (binary)
      */
-    static void dict_saveState(std::ostream& os) ;
+    static void dict_saveState(std::ostream& os);
 
 
     /** @brief Loads routes from the state.
      *
      * @param[in] bis The input to read the routes from (binary)
      */
-    static void dict_loadState(BinaryInputDevice& bis) ;
+    static void dict_loadState(BinaryInputDevice& bis);
     /// @}
 #endif
 

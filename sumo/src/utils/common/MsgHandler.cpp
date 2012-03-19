@@ -274,7 +274,7 @@ MsgHandler::wasInformed() const {
 void
 MsgHandler::assignLock(AbstractMutex* lock) {
     assert(myLock == 0);
-    myLock = lock ;
+    myLock = lock;
 }
 
 

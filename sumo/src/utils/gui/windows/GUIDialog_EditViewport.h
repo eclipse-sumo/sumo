@@ -72,11 +72,11 @@ public:
      * @param[in] y y-position to show the dialog at
      */
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-                           SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y) ;
+                           SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
 
 
     /// @brief Destructor
-    ~GUIDialog_EditViewport() ;
+    ~GUIDialog_EditViewport();
 
 
 
@@ -106,7 +106,7 @@ public:
      * @param[in] xoff Current view's x-offset
      * @param[in] yoff Current view's y-offset
      */
-    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) ;
+    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 
     /** @brief Resets old values
@@ -114,13 +114,13 @@ public:
      * @param[in] xoff Current view's x-offset
      * @param[in] yoff Current view's y-offset
      */
-    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) ;
+    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
      * @return Whether the spin dialers are currently used
      */
-    bool haveGrabbed() const ;
+    bool haveGrabbed() const;
 
 
 protected:

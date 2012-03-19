@@ -64,7 +64,7 @@ public:
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs) ;
+    static SUMOVehicleParameter* parseFlowAttributes(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses a vehicle's attributes
@@ -80,7 +80,7 @@ public:
      * @note: the caller is responsible for deleting the returned pointer
      */
     static SUMOVehicleParameter* parseVehicleAttributes(const SUMOSAXAttributes& attrs,
-            bool skipID = false, bool skipDepart = false) ;
+            bool skipID = false, bool skipDepart = false);
 
 
     /** @brief Starts to parse a vehicle type
@@ -90,7 +90,7 @@ public:
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs) ;
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs);
 
 
     /** @brief Parses an element embedded in vtype definition
@@ -104,7 +104,7 @@ public:
      */
     static void parseVTypeEmbedded(SUMOVTypeParameter& into,
                                    int element, const SUMOSAXAttributes& attrs,
-                                   bool fromVType = false) ;
+                                   bool fromVType = false);
 
 
     /** @brief Closes parsing of the vehicle type
@@ -179,7 +179,7 @@ private:
      * @exception ProcessError If an attribute's value is invalid
      */
     static void parseCommonAttributes(const SUMOSAXAttributes& attrs,
-                                      SUMOVehicleParameter* ret, std::string element) ;
+                                      SUMOVehicleParameter* ret, std::string element);
 
 
     typedef std::map<SumoXMLTag, std::set<SumoXMLAttr> > CFAttrMap;

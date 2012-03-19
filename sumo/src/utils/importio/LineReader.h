@@ -58,7 +58,7 @@ class LineHandler;
 class LineReader {
 public:
     /// @brief Constructor
-    LineReader() ;
+    LineReader();
 
 
     /** @brief Constructor
@@ -68,17 +68,17 @@ public:
      * @param[in] file The name of the file to open
      * @see setFile
      */
-    LineReader(const std::string& file) ;
+    LineReader(const std::string& file);
 
 
     /// @brief Destructor
-    ~LineReader() ;
+    ~LineReader();
 
 
     /** @brief Returns whether another line may be read (the file was not read completely)
      * @return Whether further reading is possible
      */
-    bool hasMore() const ;
+    bool hasMore() const;
 
 
     /** @brief Reads the whole file linewise, reporting every line to the given LineHandler
@@ -87,7 +87,7 @@ public:
      *
      * @param[in] lh The LineHandler to report read lines to
      */
-    void readAll(LineHandler& lh) ;
+    void readAll(LineHandler& lh);
 
 
     /** @brief Reads a single (the next) line from the file and reports it to the given LineHandler
@@ -97,24 +97,24 @@ public:
      * @param[in] lh The LineHandler to report read lines to
      * @return Whether a further line exists
      */
-    bool readLine(LineHandler& lh) ;
+    bool readLine(LineHandler& lh);
 
 
     /** @brief Reads a single (the next) line from the file and returns it
      *
      * @return The next line in the file
      */
-    std::string readLine() ;
+    std::string readLine();
 
 
     /// @brief Closes the reading
-    void close() ;
+    void close();
 
 
     /** @brief Returns the name of the used file
      * @return The name of the opened file
      */
-    std::string getFileName() const ;
+    std::string getFileName() const;
 
 
     /** @brief Reinitialises the reader for reading from the given file
@@ -124,30 +124,30 @@ public:
      * @param[in] file The name of the file to open
      * @return Whether the file could be opened
      */
-    bool setFile(const std::string& file) ;
+    bool setFile(const std::string& file);
 
 
     /** @brief Returns the current position within the file
      * @return The current position within the opened file
      */
-    unsigned long getPosition() ;
+    unsigned long getPosition();
 
 
     /// @brief Reinitialises the reading (of the previous file)
-    void reinit() ;
+    void reinit();
 
 
     /** @brief Sets the current position within the file to the given value
      *
      * @param[in] pos The new position within the file
      */
-    void setPos(unsigned long pos) ;
+    void setPos(unsigned long pos);
 
 
     /** @brief Returns the information whether the stream is readable
      * @return Whether the file is usable (good())
      */
-    bool good() const ;
+    bool good() const;
 
 
 private:

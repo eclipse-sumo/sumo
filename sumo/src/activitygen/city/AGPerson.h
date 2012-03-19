@@ -52,7 +52,7 @@ public:
      *
      * @return the age in years
      */
-    virtual int getAge() const ;
+    virtual int getAge() const;
 
     /** @brief Lets the person make a decision.
      *
@@ -62,11 +62,11 @@ public:
      * @param[in] degreeOfBelief how strong the person beliefs the proposition
      * @return whether the person agrees with the proposition
      */
-    virtual bool decide(SUMOReal probability) const ;
+    virtual bool decide(SUMOReal probability) const;
 
     /** @brief Puts out a summary of the class properties.
      */
-    virtual void print() const ;
+    virtual void print() const;
 
 protected:
     int age;
@@ -75,11 +75,11 @@ protected:
      *
      * @param[in] age the age of the person
      */
-    AGPerson(int age) ;
+    AGPerson(int age);
 
     /** @brief Cleans up everything.
      */
-    virtual ~AGPerson() ;
+    virtual ~AGPerson();
 };
 
 #endif /* AGPerson */

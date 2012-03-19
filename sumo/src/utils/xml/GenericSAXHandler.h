@@ -168,7 +168,7 @@ public:
      *
      * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
      */
-    void setFileName(const std::string& name) ;
+    void setFileName(const std::string& name);
 
 
     /**
@@ -176,7 +176,7 @@ public:
      *
      * @return The name of the currently processed file
      */
-    const std::string& getFileName() const ;
+    const std::string& getFileName() const;
 
 
     /// @name SAX ErrorHandler callbacks
@@ -190,7 +190,7 @@ public:
      *
      * @param[in] exception The occured exception to process
      */
-    void warning(const SAXParseException& exception) ;
+    void warning(const SAXParseException& exception);
 
 
     /**
@@ -201,7 +201,7 @@ public:
      * @param[in] exception The occured exception to process
      * @exception ProcessError On any call
      */
-    void error(const SAXParseException& exception) ;
+    void error(const SAXParseException& exception);
 
 
     /**
@@ -212,7 +212,7 @@ public:
      * @exception ProcessError On any call
      * @param[in] exception The occured exception to process
      */
-    void fatalError(const SAXParseException& exception) ;
+    void fatalError(const SAXParseException& exception);
     //@}
 
 
@@ -227,7 +227,7 @@ protected:
      * @param[in] exception The name of the currently processed file
      * @return A string describing the given exception
      */
-    std::string buildErrorMessage(const SAXParseException& exception) ;
+    std::string buildErrorMessage(const SAXParseException& exception);
 
 
     /**
@@ -271,7 +271,7 @@ private:
      * @param[in] name The string to convert
      * @return The string converted into a XMLCh-string
      */
-    XMLCh* convert(const std::string& name) const ;
+    XMLCh* convert(const std::string& name) const;
 
 
     /**
@@ -282,7 +282,7 @@ private:
      * @param[in] tag The string to convert
      * @return The int-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
      */
-    int convertTag(const std::string& tag) const ;
+    int convertTag(const std::string& tag) const;
 
 
 private:

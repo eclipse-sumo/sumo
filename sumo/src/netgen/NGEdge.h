@@ -68,14 +68,14 @@ public:
      * @param[in] StarNGNode The begin node
      * @param[in] EndNode The end node
      */
-    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode) ;
+    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode);
 
 
     /** @brief Destructor
      *
      * Removes itself from the start and the end node's lists of connections.
      */
-    ~NGEdge() ;
+    ~NGEdge();
 
 
     /** @brief Returns this link's id
@@ -114,7 +114,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */
-    NBEdge* buildNBEdge(NBNetBuilder& nb) const ;
+    NBEdge* buildNBEdge(NBNetBuilder& nb) const;
 
 
 private:

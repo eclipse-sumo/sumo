@@ -55,10 +55,10 @@ public:
     /// Constructor
     RORDLoader_TripDefs(RONet& net, SUMOTime begin, SUMOTime end,
                         bool emptyDestinationsAllowed, bool withTaz,
-                        const std::string& file = "") ;
+                        const std::string& file = "");
 
     /// Destructor
-    ~RORDLoader_TripDefs() ;
+    ~RORDLoader_TripDefs();
 
 
 protected:
@@ -73,7 +73,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs) ;
+                        const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when a closing tag occurs
@@ -82,7 +82,7 @@ protected:
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
      */
-    void myEndElement(int element) ;
+    void myEndElement(int element);
     //@}
 
 

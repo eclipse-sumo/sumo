@@ -69,7 +69,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                          PCTypeMap& tm) ;
+                          PCTypeMap& tm);
 
 
 protected:
@@ -79,11 +79,11 @@ protected:
      * @param[in] oc The options container to get further options from
      */
     PCLoaderXML(PCPolyContainer& toFill,
-                PCTypeMap& tm, OptionsCont& oc) ;
+                PCTypeMap& tm, OptionsCont& oc);
 
 
     /// @brief Destructor
-    ~PCLoaderXML() ;
+    ~PCLoaderXML();
 
 
 protected:
@@ -98,7 +98,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs) ;
+                                const SUMOSAXAttributes& attrs);
 
 
     /** @brief Called when characters occure
@@ -109,7 +109,7 @@ protected:
      * @see GenericSAXHandler::myCharacters
      */
     void myCharacters(int element,
-                      const std::string& chars) ;
+                      const std::string& chars);
     //@}
 
 

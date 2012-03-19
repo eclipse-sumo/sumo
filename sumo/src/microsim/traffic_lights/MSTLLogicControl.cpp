@@ -379,7 +379,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
     int areasNo = getStretchAreaNo(myTo);
     for (int i = 0; i < areasNo; i++) {
         StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
-        assert(def.end >= def.begin) ;
+        assert(def.end >= def.begin);
         deltaPossible += TIME2STEPS(def.end - def.begin);
     }
     int stretchUmlaufAnz = (int) TplConvert<char>::_2SUMOReal(myTo->getParameterValue("StretchUmlaufAnz").c_str());

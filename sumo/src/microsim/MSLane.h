@@ -102,7 +102,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~MSLane() ;
+    virtual ~MSLane();
 
 
 
@@ -140,7 +140,7 @@ public:
      *
      * @param[in] rem The move reminder to add
      */
-    virtual void addMoveReminder(MSMoveReminder* rem) ;
+    virtual void addMoveReminder(MSMoveReminder* rem);
 
 
     /** @brief Return the list of this lane's move reminders
@@ -171,7 +171,7 @@ public:
      * @see MSVehicle::getDepartureDefinition
      * @see MSVehicle::DepartArrivalDefinition
      */
-    bool insertVehicle(MSVehicle& v) ;
+    bool insertVehicle(MSVehicle& v);
 
 
     /** @brief Tries to insert the given vehicle with the given state (speed and pos)
@@ -193,11 +193,11 @@ public:
      */
     virtual bool isInsertionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
                                     bool recheckNextLanes,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) ;
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
-    bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) ;
-    bool pWagSimpleInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos) ;
-    bool maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed) ;
+    bool pWagGenericInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos);
+    bool pWagSimpleInsertion(MSVehicle& veh, SUMOReal speed, SUMOReal maxPos, SUMOReal minPos);
+    bool maxSpeedGapInsertion(MSVehicle& veh, SUMOReal mspeed);
 
     /** @brief Tries to insert the given vehicle on any place
      *
@@ -207,7 +207,7 @@ public:
      * @return Whether the vehicle could be inserted
      */
     bool freeInsertion(MSVehicle& veh, SUMOReal speed,
-                       MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) ;
+                       MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
     /** @brief Inserts the given vehicle at the given position
@@ -217,7 +217,7 @@ public:
      * @param[in] veh The vehicle to insert
      * @param[in] pos The position at which the vehicle shall be inserted
      */
-    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos) ;
+    void forceVehicleInsertion(MSVehicle* veh, SUMOReal pos);
     /// @}
 
 
@@ -236,13 +236,13 @@ public:
      * @param[in] leftVehicleLength The distance the vehicle laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength) ;
+    SUMOReal setPartialOccupation(MSVehicle* v, SUMOReal leftVehicleLength);
 
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
      */
-    void resetPartialOccupation(MSVehicle* v) ;
+    void resetPartialOccupation(MSVehicle* v);
 
 
     /** @brief Returns the vehicle which laps into this lane
@@ -269,7 +269,7 @@ public:
      *  returned member is 0.
      * @return Information about the last vehicle and it's back position
      */
-    std::pair<MSVehicle*, SUMOReal> getLastVehicleInformation() const ;
+    std::pair<MSVehicle*, SUMOReal> getLastVehicleInformation() const;
     /// @}
 
 
@@ -423,7 +423,7 @@ public:
         return myDict.size();
     }
 
-    static void insertIDs(std::vector<std::string> &into) ;
+    static void insertIDs(std::vector<std::string> &into);
 
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
@@ -526,10 +526,10 @@ public:
      * @return
      */
     std::pair<MSVehicle* const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
-            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*> &bestLaneConts) const ;
+            SUMOReal speed, const MSVehicle& veh, const std::vector<MSLane*> &bestLaneConts) const;
 
 
-    MSLane* getLogicalPredecessorLane() const ;
+    MSLane* getLogicalPredecessorLane() const;
 
 
     /// @name Current state retrieval
@@ -538,61 +538,61 @@ public:
     /** @brief Returns the mean speed on this lane
      * @return The average speed of vehicles during the last step; default speed if no vehicle was on this lane
      */
-    SUMOReal getMeanSpeed() const ;
+    SUMOReal getMeanSpeed() const;
 
 
     /** @brief Returns the occupancy of this lane during the last step
      * @return The occupancy during the last step
      */
-    SUMOReal getOccupancy() const ;
+    SUMOReal getOccupancy() const;
 
 
     /** @brief Returns the sum of lengths of vehicles which were on the lane during the last step
      * @return The sum of vehicle lengths of vehicles in the last step
      */
-    SUMOReal getVehLenSum() const ;
+    SUMOReal getVehLenSum() const;
 
 
     /** @brief Returns the sum of last step CO2 emissions
      * @return CO2 emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_CO2Emissions() const ;
+    SUMOReal getHBEFA_CO2Emissions() const;
 
 
     /** @brief Returns the sum of last step CO emissions
      * @return CO emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_COEmissions() const ;
+    SUMOReal getHBEFA_COEmissions() const;
 
 
     /** @brief Returns the sum of last step PMx emissions
      * @return PMx emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_PMxEmissions() const ;
+    SUMOReal getHBEFA_PMxEmissions() const;
 
 
     /** @brief Returns the sum of last step NOx emissions
      * @return NOx emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_NOxEmissions() const ;
+    SUMOReal getHBEFA_NOxEmissions() const;
 
 
     /** @brief Returns the sum of last step HC emissions
      * @return HC emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_HCEmissions() const ;
+    SUMOReal getHBEFA_HCEmissions() const;
 
 
     /** @brief Returns the sum of last step fuel consumption
      * @return fuel consumption of vehicles on this lane during the last step
      */
-    SUMOReal getHBEFA_FuelConsumption() const ;
+    SUMOReal getHBEFA_FuelConsumption() const;
 
 
     /** @brief Returns the sum of last step noise emissions
      * @return noise emissions of vehicles on this lane during the last step
      */
-    SUMOReal getHarmonoise_NoiseEmissions() const ;
+    SUMOReal getHarmonoise_NoiseEmissions() const;
     /// @}
 
 
@@ -612,7 +612,7 @@ protected:
      */
     virtual void incorporateVehicle(MSVehicle* veh, SUMOReal pos, SUMOReal speed,
                                     const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) ;
+                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
 
 
 protected:

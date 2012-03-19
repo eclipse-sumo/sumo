@@ -96,7 +96,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~MSInternalLane() ;
+    virtual ~MSInternalLane();
 
 
     /// @name Additional initialisation
@@ -112,13 +112,13 @@ public:
      * @param[in] foesIdx This lane's index within this state
      */
     void setParentJunctionInformation(MSLogicJunction::InnerState* const foescont,
-                                      unsigned int foesIdx) ;
+                                      unsigned int foesIdx);
 
 
     /** @brief Sets the position that must be free so that vehicles can pass
      * @todo !!! incomplete usage; check
      */
-    void setPassPosition(SUMOReal passPos) ;
+    void setPassPosition(SUMOReal passPos);
     /// @}
 
 

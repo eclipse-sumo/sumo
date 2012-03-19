@@ -86,7 +86,7 @@ public:
      * @exception ProcessError If the initialisation fails
      * @see getSAXReader()
      */
-    static void init(bool enableValidation) ;
+    static void init(bool enableValidation);
 
 
     /**
@@ -94,7 +94,7 @@ public:
      *
      * Deletes the built reader and calls XMLPlatformUtils::Terminate();
      */
-    static void close() ;
+    static void close();
 
 
     /**
@@ -108,7 +108,7 @@ public:
      * @return The built Xerces-SAX-reader, 0 if something failed
      * @see getSAXReader()
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader(SUMOSAXHandler& handler) ;
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader(SUMOSAXHandler& handler);
 
 
     /**
@@ -139,7 +139,7 @@ public:
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(GenericSAXHandler& handler,
-                          const std::string& file) ;
+                          const std::string& file);
 
 
 protected:
@@ -153,7 +153,7 @@ protected:
      *
      * @return The built Xerces-SAX-reader, 0 if something failed
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader() ;
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader* getSAXReader();
 
 
     /**
@@ -166,7 +166,7 @@ protected:
      * @param[in] value Value of the feature to set
      */
     static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader& reader,
-                           const std::string& feature, bool value) ;
+                           const std::string& feature, bool value);
 
 
 private:

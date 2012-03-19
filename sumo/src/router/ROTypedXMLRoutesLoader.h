@@ -69,11 +69,11 @@ public:
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
     ROTypedXMLRoutesLoader(RONet& net,
-                           SUMOTime begin, SUMOTime end, const std::string& file = "") ;
+                           SUMOTime begin, SUMOTime end, const std::string& file = "");
 
 
     /// @brief Destructor
-    virtual ~ROTypedXMLRoutesLoader() ;
+    virtual ~ROTypedXMLRoutesLoader();
 
 
     /** @brief Adds routes from the file until the given time is reached

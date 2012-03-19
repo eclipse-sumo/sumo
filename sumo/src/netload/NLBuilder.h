@@ -80,11 +80,11 @@ public:
     NLBuilder(OptionsCont& oc, MSNet& net,
               NLEdgeControlBuilder& eb, NLJunctionControlBuilder& jb,
               NLDetectorBuilder& db,
-              NLHandler& xmlHandler) ;
+              NLHandler& xmlHandler);
 
 
     /// @brief Destructor
-    virtual ~NLBuilder() ;
+    virtual ~NLBuilder();
 
 
     /** @brief Builds and initialises the simulation
@@ -98,7 +98,7 @@ public:
      * @exception ProcessError If something fails on network building
      * @todo Again, both returning a bool and throwing an exception; quite inconsistent
      */
-    virtual bool build() ;
+    virtual bool build();
 
 
 protected:
@@ -120,7 +120,7 @@ protected:
      * If an error occurs, all built structures are deleted and a ProcessError is thrown.
      * @exception ProcessError If the loaded structures could not be built
      */
-    void buildNet() ;
+    void buildNet();
 
 
     /** @brief Builds the route loader control
@@ -131,7 +131,7 @@ protected:
      * @return The built route loader control
      * @exception ProcessError If an error occured
      */
-    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc) ;
+    MSRouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc);
 
 
 
@@ -158,7 +158,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const;
 
     private:
         /// @brief The network edges shall be obtained from
@@ -189,7 +189,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id,
-                           SUMOReal val, SUMOReal beg, SUMOReal end) const ;
+                           SUMOReal val, SUMOReal beg, SUMOReal end) const;
 
     private:
         /// @brief The network edges shall be obtained from

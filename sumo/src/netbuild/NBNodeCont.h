@@ -63,11 +63,11 @@ class NBJoinedEdgesMap;
 class NBNodeCont {
 public:
     /// @brief Constructor
-    NBNodeCont() ;
+    NBNodeCont();
 
 
     /// @brief Destructor
-    ~NBNodeCont() ;
+    ~NBNodeCont();
 
 
 
@@ -81,7 +81,7 @@ public:
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
     bool insert(const std::string& id, const Position& position,
-                NBDistrict* district) ;
+                NBDistrict* district);
 
 
     /** @brief Inserts a node into the map
@@ -89,28 +89,28 @@ public:
      * @param[in] position The node's position
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(const std::string& id, const Position& position) ;
+    bool insert(const std::string& id, const Position& position);
 
 
     /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @return Whether the node could be added (no other with the same id is stored)
      */
-    Position insert(const std::string& id) ;
+    Position insert(const std::string& id);
 
 
     /** @brief Inserts a node into the map
      * @param[in] node The node to insert
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
-    bool insert(NBNode* node) ;
+    bool insert(NBNode* node);
 
 
     /** @brief Removes the given node, deleting it
      * @param[in] node The node to delete and remove
      * @return Whether the node could be removed (existed)
      */
-    bool erase(NBNode* node) ;
+    bool erase(NBNode* node);
 
 
     /** @brief Removes the given node but does not delete it
@@ -118,13 +118,13 @@ public:
      * @param[in] remember Whether to keep the node for future reference
      * @return Whether the node could be removed (existed)
      */
-    bool extract(NBNode* node, bool remember = false) ;
+    bool extract(NBNode* node, bool remember = false);
 
     /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
      * @return The node with the given id, or 0 if no such node exists
      */
-    NBNode* retrieve(const std::string& id) const ;
+    NBNode* retrieve(const std::string& id) const;
 
 
     /** @brief Returns the node with the given coordinates
@@ -132,7 +132,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode* retrieve(const Position& position, SUMOReal offset = 0.) const ;
+    NBNode* retrieve(const Position& position, SUMOReal offset = 0.) const;
 
 
     /** @brief Returns the pointer to the begin of the stored nodes
@@ -299,11 +299,11 @@ public:
      * Goes through stored nodes, computes the numbers of unregulated, priority and right-before-left
      *  junctions and prints them.
      */
-    void printBuiltNodesStatistics() const ;
+    void printBuiltNodesStatistics() const;
 
 
     /// @brief get all node names
-    std::vector<std::string> getAllNames() const ;
+    std::vector<std::string> getAllNames() const;
 
 
     /* @brief analyzes a cluster of nodes which shall be joined
