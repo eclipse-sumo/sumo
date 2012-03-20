@@ -37,7 +37,7 @@
 </configuration>
 -->
 
-<route-alternatives>
+<routes>
     <vehicle id="386" depart="25216.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution last="1">
             <route cost="134.88" probability="0.82626828" edges="91to1 1to21 out" exitTimes="25248.19 25324.60 25350.88"/>
@@ -1916,4 +1916,4 @@
             <route cost="147.66" probability="0.21762339" edges="91to1 1to22 out" exitTimes="26726.18 26814.64 26841.56"/>
         </routeDistribution>
     </vehicle>
-</route-alternatives>
+</routes>

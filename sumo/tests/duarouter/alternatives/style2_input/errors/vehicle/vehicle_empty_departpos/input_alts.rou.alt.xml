@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
 
    <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="0" departPos="">
    <routeDistribution last="0">
@@ -6,4 +6,4 @@
    </routeDistribution>
    </vehicle>
 
-</route-alternatives>
+</routes>

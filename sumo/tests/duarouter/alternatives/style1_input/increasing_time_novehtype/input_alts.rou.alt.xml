@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
    <routeDistribution id="0" last="0">
       <route cost="125.126" probability="1" edges="beg middle end rend"/>
    </routeDistribution>
@@ -19,4 +19,4 @@
    </routeDistribution>
    <vehicle id="3" route="3" depart="30" color="1,1,0"/>
 
-</route-alternatives>
+</routes>

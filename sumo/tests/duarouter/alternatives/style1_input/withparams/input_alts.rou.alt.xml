@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
    <vType id="0" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
 
       <routeDistribution id="0" last="0">
@@ -147,4 +147,4 @@
    </vehicle>
 
 
-</route-alternatives>
+</routes>

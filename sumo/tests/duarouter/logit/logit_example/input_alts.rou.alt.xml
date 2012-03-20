@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
     <vehicle id="0" depart="0">
         <routeDistribution last="0">
             <route id="path1" cost="1" probability="1" edges="oa ab bd"/>
@@ -7,4 +7,4 @@
             <route id="path4" cost="1" probability="1" edges="ox xy yd"/>
         </routeDistribution>
     </vehicle>
-</route-alternatives>
+</routes>

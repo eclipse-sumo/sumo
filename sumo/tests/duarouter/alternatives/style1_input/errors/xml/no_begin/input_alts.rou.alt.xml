@@ -10,4 +10,4 @@
    </routeDistribution>
    <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="10"/>
 
-</route-alternatives>
+</routes>

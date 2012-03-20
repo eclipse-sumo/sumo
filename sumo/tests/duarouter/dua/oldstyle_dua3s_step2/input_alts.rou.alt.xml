@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
    <routeDistribution id="0" last="0">
       <route cost="21.5278" probability="1" edges="beg middle end"/>
    </routeDistribution>
@@ -640,4 +640,4 @@
    </routeDistribution>
    <vehicle id="3" type="KRAUSS_DEFAULT" route="3" depart="0"/>
 
-</route-alternatives>
+</routes>

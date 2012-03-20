@@ -1,4 +1,4 @@
-<route-alternatives>
+<routes>
    <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0">
       <routeDistribution last="1">
@@ -896,4 +896,4 @@
          <route cost="49.6106" probability="0.339601" edges="beg beg2right right right2end end"/>
       </routeDistribution>
    </vehicle>
-</route-alternatives>
+</routes>
