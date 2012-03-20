@@ -17,7 +17,7 @@
 </configuration>
 -->
 
-<route-alternatives xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vehicle id="1679972_1477" depart="88620.00">
         <routeDistribution last="0">
             <route cost="107.13" probability="1.00000000" edges="beg middle end"/>

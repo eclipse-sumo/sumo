@@ -18,7 +18,7 @@
 </configuration>
 -->
 
-<route-alternatives xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
     <vType id="slow_car" length="5.00" minGap="2.50" maxSpeed="5.00" guiShape="passenger">
         <carFollowing-Krauss accel="3.00" decel="6.00" sigma="0.50"/>
     </vType>
