@@ -46,6 +46,7 @@
 // ===========================================================================
 
 StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
+    { "net",              SUMO_TAG_NET },
     { "edge",             SUMO_TAG_EDGE },
     { "lane",             SUMO_TAG_LANE },
     { "poi",              SUMO_TAG_POI },
@@ -82,6 +83,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "vTypeProbe",       SUMO_TAG_VTYPEPROBE },
     { "routeprobe",       SUMO_TAG_ROUTEPROBE__DEPRECATED },
     { "routeProbe",       SUMO_TAG_ROUTEPROBE },
+    { "routes",           SUMO_TAG_ROUTES },
     { "vehicle",          SUMO_TAG_VEHICLE },
     { "vtype",            SUMO_TAG_VTYPE__DEPRECATED },
     { "vType",            SUMO_TAG_VTYPE },

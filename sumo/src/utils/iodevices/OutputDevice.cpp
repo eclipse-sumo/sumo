@@ -90,7 +90,9 @@ OutputDevice::getDevice(const std::string& name,
             throw IOError("No port number given.");
         }
     } else {
-        dev = new OutputDevice_File(FileHelpers::checkForRelativity(internalName, base), internalName.find(".sbx") != std::string::npos);
+        const size_t len = internalName.length();
+        dev = new OutputDevice_File(FileHelpers::checkForRelativity(internalName, base),
+                                    len > 4 && internalName.substr(len - 4) == ".sbx");
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);

@@ -109,15 +109,21 @@ RONet::addRouteDef(RORouteDef* def) {
 void
 RONet::openOutput(const std::string& filename, bool useAlternatives, const std::string& typefilename) {
     myRoutesOutput = &OutputDevice::getDevice(filename);
-    myRoutesOutput->writeXMLHeader("routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
     if (useAlternatives) {
-        size_t len = filename.length();
+        const size_t len = filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
             myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len - 4) + ".alt.xml");
         } else {
-            myRouteAlternativesOutput = &OutputDevice::getDevice(filename + ".alt");
+            if (len > 4 && filename.substr(len - 4) == ".sbx") {
+                myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len - 4) + ".alt.sbx");
+            } else {
+                myRouteAlternativesOutput = &OutputDevice::getDevice(filename + ".alt");
+            }
         }
-        myRouteAlternativesOutput->writeXMLHeader("route-alternatives", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
+    }
+    myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+    if (useAlternatives) {
+        myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
     }
 	if (typefilename != "") {
 		myTypesOutput = &OutputDevice::getDevice(typefilename);

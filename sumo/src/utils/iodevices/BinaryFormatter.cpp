@@ -76,8 +76,11 @@ BinaryFormatter::writeXMLHeader(std::ostream& into,
         writeStringList(into, SUMOXMLDefinitions::Attrs.getStrings());
         writeStringList(into, SUMOXMLDefinitions::NodeTypes.getStrings());
         writeStringList(into, SUMOXMLDefinitions::EdgeFunctions.getStrings());
+        writeStringList(into, std::vector<std::string>());
+        writeStringList(into, std::vector<std::string>());
+
         if (SUMOXMLDefinitions::Tags.hasString(rootElement)) {
-            openTag(into, (const SumoXMLTag)(SUMOXMLDefinitions::Tags.get(rootElement)));
+            openTag(into, rootElement);
             return true;
         }
     }
@@ -192,6 +195,7 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
     FileHelpers::writeFloat(into, val.xmax());
     FileHelpers::writeFloat(into, val.ymax());
 }
+
 
 /****************************************************************************/
 

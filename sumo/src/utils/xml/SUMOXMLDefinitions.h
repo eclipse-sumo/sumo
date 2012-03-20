@@ -49,6 +49,8 @@
 enum SumoXMLTag {
     /** invalid tag */
     SUMO_TAG_NOTHING,
+    /** root element of a network file */
+    SUMO_TAG_NET,
     /** begin/end of the description of an edge */
     SUMO_TAG_EDGE,
     /** begin/end of the description of a single lane */
@@ -105,6 +107,8 @@ enum SumoXMLTag {
     /** a routeprobe detector */
     SUMO_TAG_ROUTEPROBE__DEPRECATED,
     SUMO_TAG_ROUTEPROBE,
+    /** root element of a route file */
+    SUMO_TAG_ROUTES,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */

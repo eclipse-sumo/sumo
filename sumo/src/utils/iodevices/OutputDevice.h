@@ -186,6 +186,18 @@ public:
                         const std::string& comment = "");
 
 
+    template <typename E>
+    bool writeHeader(const SumoXMLTag& rootElement) {
+        if (myAmBinary) {
+            return static_cast<BinaryFormatter*>(myFormatter)->writeHeader<E>(getOStream(), rootElement);
+        }
+        if (rootElement == SUMO_TAG_ROUTES) {
+    	    return myFormatter->writeXMLHeader(getOStream(), "routes", "", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.sf.net/xsd/routes_file.xsd\"");
+        }
+    	return myFormatter->writeXMLHeader(getOStream(), toString(rootElement));
+    }
+
+
     /** @brief Opens an XML tag
      *
      * An indentation, depending on the current xml-element-stack size, is written followed

@@ -33,6 +33,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 #include "SUMOTime.h"
 
 
@@ -178,7 +179,7 @@ public:
      * @return Reference to the stream
      */
     static std::ostream& writeString(std::ostream& strm, const std::string& value);
-    //@}
+
 
     /** @brief Writes a time description binary
      *
@@ -192,7 +193,74 @@ public:
     static std::ostream& writeTime(std::ostream& strm, SUMOTime value);
 
 
+    /** @brief Writes an edge vector binary
+     *
+     * @param[in, out] os The stream to write into
+     * @param[in] edges The edges to write
+     * @return Reference to the stream
+     */
+    template <typename E>
+    static std::ostream& writeEdgeVector(std::ostream& os, const std::vector<E>& edges);
+    //@}
+
+
 };
+
+
+template <typename E>
+std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E>& edges) {
+    FileHelpers::writeUInt(os, (unsigned int)edges.size());
+    std::vector<unsigned int> follow;
+    unsigned int maxFollow = 0;
+    E prev = edges.front();
+    for (std::vector<E>::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
+        unsigned int idx = 0;
+        for (; idx < prev->getNoFollowing(); ++idx) {
+            if (idx > 15) {
+                break;
+            }
+            if (prev->getFollower(idx) == (*i)) {
+                follow.push_back(idx);
+                if (idx > maxFollow) {
+                    maxFollow = idx;
+                }
+                break;
+            }
+        }
+        if (idx > 15 || idx == prev->getNoFollowing()) {
+            follow.clear();
+            break;
+        }
+        prev = *i;
+    }
+    if (follow.empty()) {
+        for (std::vector<E>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+            FileHelpers::writeInt(os, (*i)->getNumericalID());
+        }
+    } else {
+        const unsigned int bits = maxFollow > 3 ? 4 : 2;
+        const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
+        FileHelpers::writeInt(os, -bits);
+        FileHelpers::writeUInt(os, edges.front()->getNumericalID());
+        unsigned int data = 0;
+        unsigned int field = 0;
+        for (std::vector<unsigned int>::const_iterator i = follow.begin(); i != follow.end(); ++i) {
+            data |= *i;
+            field++;
+            if (field == numFields) {
+                FileHelpers::writeUInt(os, data);
+                data = 0;
+                field = 0;
+            } else {
+                data <<= bits;
+            }
+        }
+        if (field > 0) {
+            FileHelpers::writeUInt(os, data << ((numFields - field - 1) * bits));
+        }
+    }
+    return os;
+}
 
 
 #endif
