@@ -42,7 +42,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include "GUIEdge.h"
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

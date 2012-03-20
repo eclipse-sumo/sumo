@@ -36,7 +36,7 @@
 #include "GUITexturesHelper.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

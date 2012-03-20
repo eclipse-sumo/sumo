@@ -43,7 +43,7 @@
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include "GUIDialog_GLObjChooser.h"
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

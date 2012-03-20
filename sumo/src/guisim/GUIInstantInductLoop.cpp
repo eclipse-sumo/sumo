@@ -41,7 +41,7 @@
 #include <microsim/MSLane.h>
 #include "GUIEdge.h"
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

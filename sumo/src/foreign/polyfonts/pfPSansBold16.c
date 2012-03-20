@@ -26,7 +26,7 @@ before using this file.
 #include "polyfonttypes.h"
 //#include "../sgl.h"
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

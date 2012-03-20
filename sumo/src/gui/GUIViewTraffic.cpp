@@ -64,7 +64,7 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/div/GLHelper.h>
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

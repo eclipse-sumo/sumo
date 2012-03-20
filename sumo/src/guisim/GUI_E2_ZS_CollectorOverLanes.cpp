@@ -41,11 +41,6 @@
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_CollectorOverLanes.h"
 
-#ifdef _WIN32
-#include <windows.h>
-#include <GL/gl.h>      /* OpenGL header file */
-#endif // _WIN32
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS

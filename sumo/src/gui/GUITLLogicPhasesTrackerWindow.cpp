@@ -44,7 +44,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/polyfonts/polyfonts.h>
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 

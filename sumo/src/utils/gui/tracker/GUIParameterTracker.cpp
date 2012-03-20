@@ -45,7 +45,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include "GUIParameterTracker.h"
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 
