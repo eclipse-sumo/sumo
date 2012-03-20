@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//
+// A few system-specific functions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -34,9 +34,25 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/** @class SysUtils
+ * @brief A few system-specific functions
+ */
 class SysUtils {
 public:
+    /** @brief Returns the current time in milliseconds
+     * @return Current time
+     */
     static long getCurrentMillis();
+
+
+#ifdef _MSC_VER
+    /** @brief Returns the CPU ticks (windows only)
+     * 
+     * Used for random number initialisation, linux version
+     *  uses a different method
+     */
+    static long getWindowsTicks();
+#endif
 
 };
 

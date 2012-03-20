@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//
+// A few system-specific functions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -57,6 +57,14 @@ SysUtils::getCurrentMillis() {
     return (long)(val.QuadPart * 1000 / val2.QuadPart);
 #endif
 }
+
+
+#ifdef _MSC_VER
+long 
+SysUtils::getWindowsTicks() {
+    return (long) GetTickCount();
+}
+#endif
 
 
 

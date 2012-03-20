@@ -50,48 +50,48 @@ class OptionsCont;
  */
 class RandHelper {
 public:
-    /// Initialises the given options container with random number options
+    /// @brief Initialises the given options container with random number options
     static void insertRandOptions();
 
-    /// Reads the given random number options and initialises the random number generator in accordance
+    /// @brief Reads the given random number options and initialises the random number generator in accordance
     static void initRandGlobal();
 
-    /// Returns a random real number in [0, 1)
+    /// @brief Returns a random real number in [0, 1)
     static inline SUMOReal rand() {
         return (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
-    /// Returns a random real number in [0, maxV)
+    /// @brief Returns a random real number in [0, maxV)
     static inline SUMOReal rand(SUMOReal maxV) {
         return maxV * rand();
     }
 
-    /// Returns a random real number in [minV, maxV)
+    /// @brief Returns a random real number in [minV, maxV)
     static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV) {
         return minV + (maxV - minV) * rand();
     }
 
-    /// Returns a random integer in [0, maxV-1]
+    /// @brief Returns a random integer in [0, maxV-1]
     static inline size_t rand(size_t maxV) {
         return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
     }
 
-    /// Returns a random integer in [0, maxV-1]
+    /// @brief Returns a random integer in [0, maxV-1]
     static inline int rand(int maxV) {
         return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV - 1));
     }
 
-    /// Returns a random integer in [minV, maxV-1]
+    /// @brief Returns a random integer in [minV, maxV-1]
     static inline int rand(int minV, int maxV) {
         return minV + rand(maxV - minV);
     }
 
-    /// Access to a random number from a normal distribution
+    /// @brief Access to a random number from a normal distribution
     static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance) {
         return (SUMOReal) RandHelper::myRandomNumberGenerator.randNorm(mean, variance);
     }
 
-    /// Returns a random element from the given vector
+    /// @brief Returns a random element from the given vector
     template<class T>
     static inline T
     getRandomFrom(const std::vector<T> &v) {
@@ -99,8 +99,9 @@ public:
         return v[rand(v.size())];
     }
 
+
 protected:
-    /// the random number generator to use
+    /// @brief the random number generator to use
     static MTRand myRandomNumberGenerator;
 
 };

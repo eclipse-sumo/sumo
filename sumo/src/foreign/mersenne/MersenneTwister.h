@@ -125,6 +125,8 @@ public:
 	friend std::ostream& operator<<( std::ostream& os, const MTRand& mtrand );
 	friend std::istream& operator>>( std::istream& is, MTRand& mtrand );
 
+    static uint32 hash( time_t t, clock_t c ); // !!! dk moved to public
+
 protected:
 	void initialize( const uint32 oneSeed );
 	void reload();
@@ -135,7 +137,6 @@ protected:
 		{ return hiBit(u) | loBits(v); }
 	uint32 twist( const uint32& m, const uint32& s0, const uint32& s1 ) const
 		{ return m ^ (mixBits(s0,s1)>>1) ^ (-loBit(s1) & 0x9908b0dfUL); }
-	static uint32 hash( time_t t, clock_t c );
 };
 
 
@@ -282,7 +283,7 @@ inline void MTRand::seed()
 	}
 	
 	// Was not successful, so use time() and clock() instead
-	seed( hash( time(NULL), clock() ) );
+    seed( hash( time(NULL), clock() ) );
 }
 
 
