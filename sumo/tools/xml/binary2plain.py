@@ -25,13 +25,17 @@ EDGE = 8
 LANE = 9
 POSITION_2D = 10
 POSITION_3D = 11
-COLOR = 12
-NODE_TYPE = 13
-EDGE_FUNCTION = 14
-ROUTE = 15
+BOUNDARY = 12
+COLOR = 13
+NODE_TYPE = 14
+EDGE_FUNCTION = 15
+ROUTE = 16
 
 def read(content, format):
     return struct.unpack(format, content.read(struct.calcsize(format)))
+
+def readByte(content):
+    return read(content, "B")[0]
 
 def readInt(content):
     return read(content, "i")[0]
@@ -63,6 +67,40 @@ def readIntListList(content):
             list[-1].append(readInt(content))
     return list
 
+def typedValueStr(content):
+    valType = readByte(content)
+    if valType == BYTE:
+        return str(readByte(content))
+    elif valType == INTEGER:
+        return str(readInt(content))
+    elif valType == FLOAT:
+        return '%.2f' % readDouble(content)
+    elif valType == STRING:
+        return readString(content)
+    elif valType == LIST:
+        l = []
+        for i in range(readInt(content)):
+            l.append(typedValueStr(content))
+        return " ".join(l)
+    elif valType == EDGE:
+        return edges[readInt(content)]
+    elif valType == LANE:
+        return '%s_%s' % (edges[readInt(content)], readByte(content))
+    elif valType == POSITION_2D:
+        return '%.2f,%.2f' % (readDouble(content),readDouble(content))
+    elif valType == POSITION_3D:
+        return '%.2f,%.2f,%.2f' % (readDouble(content),readDouble(content),readDouble(content))
+    elif valType == BOUNDARY:
+        return '%.2f,%.2f,%.2f,%.2f' % (readDouble(content),readDouble(content),
+                                        readDouble(content),readDouble(content))
+    elif valType == COLOR:
+        return '%s,%s,%s' % read(content, "BBB")
+    elif valType == NODE_TYPE:
+        return nodeTypes[readByte(content)]
+    elif valType == EDGE_FUNCTION:
+        return edgeTypes[readByte(content)]
+    elif valType == ROUTE:
+        return edgeTypes[readByte(content)]
 
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
@@ -83,7 +121,7 @@ followers = readIntListList(content)
 stack = []
 startOpen = False
 while True:
-    typ = read(content, "B")[0]
+    typ = readByte(content)
     if typ == XML_TAG_START:
         if startOpen:
             out.write(">\n")
@@ -93,37 +131,14 @@ while True:
         startOpen = True
     elif typ == XML_TAG_END:
         if startOpen:
-            out.write(">\n")
+            out.write("/>\n")
+            stack.pop()
             startOpen = False
-        out.write("    " * (len(stack)-1))
-        out.write("</%s>\n" % elements[stack.pop()])
+        else:
+            out.write("    " * (len(stack)-1))
+            out.write("</%s>\n" % elements[stack.pop()])
         readInt(content)
         if len(stack) == 0:
             break
     elif typ == XML_ATTRIBUTE:
-        out.write(" %s=" % attributes[readInt(content)])
-        valType = read(content, "B")[0]
-        if valType == BYTE:
-            out.write('"%s"' % read(content, "B"))
-        elif valType == INTEGER:
-            out.write('"%s"' % readInt(content))
-        elif valType == FLOAT:
-            out.write('"%s"' % readDouble(content))
-        elif valType == STRING:
-            out.write('"%s"' % readString(content))
-        elif valType == LIST:
-            out.write('"%s"' % readInt(content))
-        elif valType == EDGE:
-            out.write('"%s"' % readInt(content))
-        elif valType == LANE:
-            out.write('"%s"' % readInt(content))
-        elif valType == POSITION_2D:
-            out.write('"%s,%s"' % (readDouble(content),readDouble(content)))
-        elif valType == POSITION_3D:
-            out.write('"%s,%s,%s"' % (readInt(content),readDouble(content),readDouble(content)))
-        elif valType == COLOR:
-            out.write('"%s,%s,%s"' % read(content, "BBB"))
-        elif valType == NODE_TYPE:
-            out.write('"%s"' % nodeTypes[readInt(content)])
-        elif valType == EDGE_FUNCTION:
-            out.write('"%s"' % edgeTypes[readInt(content)])
+        out.write(' %s="%s"' % (attributes[readInt(content)], typedValueStr(content)))
