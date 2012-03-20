@@ -87,6 +87,8 @@ public:
         /// @brief
         BF_POSITION_3D,
         /// @brief
+        BF_BOUNDARY,
+        /// @brief
         BF_COLOR,
         /// @brief
         BF_NODE_TYPE,
@@ -192,8 +194,8 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    template <typename T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val);
+    template <typename T, typename S>
+    static void writeAttr(S& into, const SumoXMLAttr attr, const T& val);
 
 
     /** @brief writes a named float attribute
@@ -265,8 +267,8 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      */
-    template <typename dummy>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<const ROEdge*>& val);
+    template <typename S>
+    static void writeAttr(S& into, const SumoXMLAttr attr, const std::vector<const ROEdge*>& val);
 
 
 private:
@@ -336,15 +338,15 @@ bool BinaryFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElem
 }
 
 
-template <typename T>
-void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+template <typename T, typename S>
+void BinaryFormatter::writeAttr(S& into, const SumoXMLAttr attr, const T& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_STRING);
     FileHelpers::writeString(into, toString(val, into.precision()));
 }
 
 
-template <typename dummy>
-void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::vector<const ROEdge*>& val) {
+template <typename S>
+void BinaryFormatter::writeAttr(S& into, const SumoXMLAttr attr, const std::vector<const ROEdge*>& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_ROUTE);
     FileHelpers::writeEdgeVector(into, val);
 }

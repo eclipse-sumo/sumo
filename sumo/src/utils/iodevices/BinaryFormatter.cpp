@@ -186,16 +186,12 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const Boundary& val) {
-    BinaryFormatter::writeAttrHeader(into, attr, BF_LIST);
-    FileHelpers::writeInt(into, 2);
-    FileHelpers::writeByte(into, BF_POSITION_2D);
+    BinaryFormatter::writeAttrHeader(into, attr, BF_BOUNDARY);
     FileHelpers::writeFloat(into, val.xmin());
     FileHelpers::writeFloat(into, val.ymin());
-    FileHelpers::writeByte(into, BF_POSITION_2D);
     FileHelpers::writeFloat(into, val.xmax());
     FileHelpers::writeFloat(into, val.ymax());
 }
 
 
 /****************************************************************************/
-
