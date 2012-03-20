@@ -28,6 +28,7 @@ POSITION_3D = 11
 COLOR = 12
 NODE_TYPE = 13
 EDGE_FUNCTION = 14
+ROUTE = 15
 
 def read(content, format):
     return struct.unpack(format, content.read(struct.calcsize(format)))
@@ -43,18 +44,30 @@ def readString(content):
     return read(content, "%ss" % length)[0]
 
 def readStringList(content):
-    n = read(content, "i")[0]
+    n = readInt(content)
     list = []
     for i in range(n):
         read(content, "B") #type
         list.append(readString(content))
     return list
 
+def readIntListList(content):
+    n = readInt(content)
+    list = []
+    for i in range(n):
+        read(content, "B") #type
+        n1 = readInt(content)
+        list.append([])
+        for j in range(n1):
+            read(content, "B") #type
+            list[-1].append(readInt(content))
+    return list
+
 
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
-print read(content, "BBB") #sbx version
-print readString(content) #sumo version
+read(content, "BBB") #type, sbx version, type
+readString(content) #sumo version
 read(content, "B") #type
 elements = readStringList(content)
 read(content, "B") #type
@@ -63,10 +76,14 @@ read(content, "B") #type
 nodeTypes = readStringList(content)
 read(content, "B") #type
 edgeTypes = readStringList(content)
+read(content, "B") #type
+edges = readStringList(content)
+read(content, "B") #type
+followers = readIntListList(content)
 stack = []
 startOpen = False
 while True:
-    typ = read(content, "B")
+    typ = read(content, "B")[0]
     if typ == XML_TAG_START:
         if startOpen:
             out.write(">\n")
@@ -76,33 +93,37 @@ while True:
         startOpen = True
     elif typ == XML_TAG_END:
         if startOpen:
-            out.write(">")
-        out.write("</%s>" % elements[stack.pop()])
+            out.write(">\n")
+            startOpen = False
+        out.write("    " * (len(stack)-1))
+        out.write("</%s>\n" % elements[stack.pop()])
         readInt(content)
+        if len(stack) == 0:
+            break
     elif typ == XML_ATTRIBUTE:
         out.write(" %s=" % attributes[readInt(content)])
-        valType = read(content, "B")
-        if typ == BYTE:
+        valType = read(content, "B")[0]
+        if valType == BYTE:
             out.write('"%s"' % read(content, "B"))
-        elif typ == INTEGER:
+        elif valType == INTEGER:
             out.write('"%s"' % readInt(content))
-        elif typ == FLOAT:
+        elif valType == FLOAT:
             out.write('"%s"' % readDouble(content))
-        elif typ == STRING:
+        elif valType == STRING:
+            out.write('"%s"' % readString(content))
+        elif valType == LIST:
             out.write('"%s"' % readInt(content))
-        elif typ == LIST:
+        elif valType == EDGE:
             out.write('"%s"' % readInt(content))
-        elif typ == EDGE:
+        elif valType == LANE:
             out.write('"%s"' % readInt(content))
-        elif typ == LANE:
-            out.write('"%s"' % readInt(content))
-        elif typ == POSITION_2D:
+        elif valType == POSITION_2D:
             out.write('"%s,%s"' % (readDouble(content),readDouble(content)))
-        elif typ == POSITION_3D:
+        elif valType == POSITION_3D:
             out.write('"%s,%s,%s"' % (readInt(content),readDouble(content),readDouble(content)))
-        elif typ == COLOR:
+        elif valType == COLOR:
             out.write('"%s,%s,%s"' % read(content, "BBB"))
-        elif typ == NODE_TYPE:
+        elif valType == NODE_TYPE:
             out.write('"%s"' % nodeTypes[readInt(content)])
-        elif typ == EDGE_FUNCTION:
+        elif valType == EDGE_FUNCTION:
             out.write('"%s"' % edgeTypes[readInt(content)])
