@@ -26,4 +26,4 @@
             <route cost="91.30" probability="1.00000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-</route-alternatives>
+</routes>
