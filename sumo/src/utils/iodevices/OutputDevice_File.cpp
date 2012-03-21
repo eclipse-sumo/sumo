@@ -50,7 +50,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
         myFileStream = new std::ofstream("/dev/null");
 #endif
     } else {
-        myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : 0);
+        myFileStream = new std::ofstream(fullName.c_str(), binary ? std::ios::binary : std::ios_base::out);
     }
     if (!myFileStream->good()) {
         delete myFileStream;

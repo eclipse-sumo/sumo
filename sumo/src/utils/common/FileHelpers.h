@@ -213,7 +213,7 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
     std::vector<unsigned int> follow;
     unsigned int maxFollow = 0;
     E prev = edges.front();
-    for (std::vector<E>::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
+    for (typename std::vector<E>::const_iterator i = edges.begin() + 1; i != edges.end(); ++i) {
         unsigned int idx = 0;
         for (; idx < prev->getNoFollowing(); ++idx) {
             if (idx > 15) {
@@ -234,7 +234,7 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
         prev = *i;
     }
     if (follow.empty()) {
-        for (std::vector<E>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
+        for (typename std::vector<E>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             FileHelpers::writeInt(os, (*i)->getNumericalID());
         }
     } else {
