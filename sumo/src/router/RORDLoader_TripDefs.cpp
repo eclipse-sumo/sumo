@@ -150,7 +150,7 @@ RORDLoader_TripDefs::myEndElement(int element) {
             return;
         }
         RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef* route = new RORouteDef(myParameter->id, 0, 1, false, true, true);
+        RORouteDef* route = new RORouteDef(myParameter->id, 0, true);
         std::vector<const ROEdge*> edges;
         edges.push_back(myBeginEdge);
         edges.push_back(myEndEdge);

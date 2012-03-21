@@ -51,14 +51,12 @@
 // method definitions
 // ===========================================================================
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet& net,
-        SUMOTime begin, SUMOTime end, const int maxRouteNumber, const bool tryRepair,
-        const bool withTaz, const bool keepRoutes,
-        const bool skipRouteCalculation, const std::string& file)
+        SUMOTime begin, SUMOTime end, const bool tryRepair,
+        const bool withTaz, const std::string& file)
     : ROTypedXMLRoutesLoader(net, begin, end, file),
       myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true),
-      myCurrentAlternatives(0), myMaxRouteNumber(maxRouteNumber),
-      myCurrentRoute(0), myTryRepair(tryRepair), myWithTaz(withTaz), myKeepRoutes(keepRoutes),
-      mySkipRouteCalculation(skipRouteCalculation), myColor(0), myCurrentVType(0),
+      myCurrentAlternatives(0), myCurrentRoute(0), myTryRepair(tryRepair),
+      myWithTaz(withTaz), myColor(0), myCurrentVType(0),
       myHaveWarnedAboutDeprecatedVType(false), myHaveWarnedAboutDeprecatedRoute(false) {
 }
 
@@ -195,8 +193,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
         return;
     }
     // build the alternative cont
-    myCurrentAlternatives = new RORouteDef(id, index, 
-        myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation, false);
+    myCurrentAlternatives = new RORouteDef(id, index, false);
 }
 
 void
@@ -256,7 +253,7 @@ RORDLoader_SUMOBase::myCharacters(int element,
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
-            myCurrentRoute = new RORouteDef(myCurrentRouteName, 0, 1, false, true, myTryRepair);
+            myCurrentRoute = new RORouteDef(myCurrentRouteName, 0, myTryRepair);
             myCurrentRoute->addLoadedAlternative(new RORoute(myCurrentRouteName, 0, 1, *list, myColor));
         }
         myColor = 0;

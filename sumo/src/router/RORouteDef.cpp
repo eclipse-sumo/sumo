@@ -56,12 +56,9 @@
 // method definitions
 // ===========================================================================
 RORouteDef::RORouteDef(const std::string& id, const unsigned int lastUsed, 
-                       const int maxRoutes, const bool keepRoutes,
-                       const bool skipRouteCalculation, const bool tryRepair) : 
+                       const bool tryRepair) : 
     ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
-    myPrecomputed(0), myLastUsed(lastUsed), myMaxRouteNumber(maxRoutes),
-    myKeepRoutes(keepRoutes), mySkipRouteCalculation(skipRouteCalculation),
-    myTryRepair(tryRepair)
+    myPrecomputed(0), myLastUsed(lastUsed), myTryRepair(tryRepair)
 {}
 
 
@@ -80,14 +77,14 @@ RORouteDef::addLoadedAlternative(RORoute* alt) {
 
 RORoute*
 RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                                       SUMOTime begin, const ROVehicle& veh) const {
+                              SUMOTime begin, const ROVehicle& veh) const {
     if (myPrecomputed == 0) {
         myNewRoute = false;
         if (myTryRepair) {
             repairCurrentRoute(router, begin, veh);
             return myPrecomputed;
         }
-        if (mySkipRouteCalculation) {
+        if (ROCostCalculator::getCalculator().skipRouteCalculation()) {
             myPrecomputed = myAlternatives[myLastUsed];
         } else {
             // build a new route to test whether it is better
@@ -150,8 +147,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
 
 void
 RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                                        const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
-    if (myTryRepair && myMaxRouteNumber == 1 && mySkipRouteCalculation) {
+                           const ROVehicle* const veh, RORoute* current, SUMOTime begin) {
+    if (myTryRepair) {
         if (myNewRoute) {
             delete myAlternatives[0];
             myAlternatives.pop_back();
@@ -192,7 +189,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
     }
     assert(myAlternatives.size() != 0);
     ROCostCalculator::getCalculator().calculateProbabilities(veh, myAlternatives);
-    if (!myKeepRoutes) {
+    if (!ROCostCalculator::getCalculator().keepRoutes()) {
         // remove with probability of 0 (not mentioned in Gawron)
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end();) {
             if ((*i)->getProbability() == 0) {
@@ -203,13 +200,13 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
             }
         }
     }
-    if (myAlternatives.size() > (unsigned)myMaxRouteNumber) {
+    if (myAlternatives.size() > ROCostCalculator::getCalculator().getMaxRouteNumber()) {
         // only keep the routes with highest probability
         sort(myAlternatives.begin(), myAlternatives.end(), ComparatorProbability());
-        for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + myMaxRouteNumber; i != myAlternatives.end(); i++) {
+        for (std::vector<RORoute*>::iterator i = myAlternatives.begin() + ROCostCalculator::getCalculator().getMaxRouteNumber(); i != myAlternatives.end(); i++) {
             delete *i;
         }
-        myAlternatives.erase(myAlternatives.begin() + myMaxRouteNumber, myAlternatives.end());
+        myAlternatives.erase(myAlternatives.begin() + ROCostCalculator::getCalculator().getMaxRouteNumber(), myAlternatives.end());
         // rescale probabilities
         SUMOReal newSum = 0;
         for (std::vector<RORoute*>::iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
@@ -260,7 +257,7 @@ RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
 
 RORouteDef*
 RORouteDef::copyOrigDest(const std::string& id) const {
-    RORouteDef* result = new RORouteDef(id, 0, 1, false, true, true);
+    RORouteDef* result = new RORouteDef(id, 0, true);
     RORoute* route = myAlternatives[0];
     RGBColor* col = route->getColor() != 0 ? new RGBColor(*route->getColor()) : 0;
     std::vector<const ROEdge*> edges;

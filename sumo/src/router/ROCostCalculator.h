@@ -60,6 +60,18 @@ public:
     /** @brief calculate the probabilities in the logit model */
     virtual void calculateProbabilities(const ROVehicle* const veh, std::vector<RORoute*> alternatives) = 0;
 
+    unsigned int getMaxRouteNumber() const {
+        return myMaxRouteNumber;
+    }
+
+    bool keepRoutes() const {
+        return myKeepRoutes;
+    }
+
+    bool skipRouteCalculation() const {
+        return mySkipRouteCalculation;
+    }
+
 protected:
     /// @brief Constructor
     ROCostCalculator();
@@ -69,6 +81,15 @@ protected:
 
 private:
     static ROCostCalculator* myInstance;
+
+    /// @brief The maximum route alternatives number
+    unsigned int myMaxRouteNumber;
+
+    /// @brief Information whether all routes should be saved
+    bool myKeepRoutes;
+
+    /// @brief Information whether new routes should be calculated
+    bool mySkipRouteCalculation;
 
 };
 

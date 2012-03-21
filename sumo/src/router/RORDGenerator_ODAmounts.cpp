@@ -42,10 +42,9 @@
 #include <utils/common/StringUtils.h>
 #include "RORoute.h"
 #include "RONet.h"
-#include "RORouteDef_OrigDest.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROVehicle.h"
-#include "RORouteDef_Complete.h"
+#include "RORouteDef.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -272,7 +271,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
         }
         // add the vehicle type, the vehicle and the route to the net
         RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef* route = new RORouteDef(myParameter->id, 0, 1, false, true, true);//!!! set double in route def and flowdef?
+        RORouteDef* route = new RORouteDef(myParameter->id, 0, true);//!!! set double in route def and flowdef?
         std::vector<const ROEdge*> edges;
         edges.push_back(myBeginEdge);
         edges.push_back(myEndEdge);

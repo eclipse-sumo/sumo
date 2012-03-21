@@ -65,10 +65,8 @@ class RORDLoader_SUMOBase :
     public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
-    RORDLoader_SUMOBase(RONet& net,
-                        SUMOTime begin, SUMOTime end,
-                        const int maxRouteNumber, const bool tryRepair, const bool withTaz,
-                        const bool keepRoutes, const bool skipRouteCalculation,
+    RORDLoader_SUMOBase(RONet& net, SUMOTime begin, SUMOTime end,
+                        const bool tryRepair, const bool withTaz,
                         const std::string& file = "");
 
     /// Destructor
@@ -141,20 +139,11 @@ protected:
     /// @brief The probability of the current alternative's usage
     SUMOReal myProbability;
 
-    /// @brief The maximum route alternatives number
-    int myMaxRouteNumber;
-
     /// @brief Information whether a read route shall be tried to be repaired
     bool myTryRepair;
 
     /// @brief Information whether zones (districts) are used as origins / destinations
     const bool myWithTaz;
-
-    /// @brief Information whether all routes should be saved
-    const bool myKeepRoutes;
-
-    /// @brief Information whether new routes should be calculated
-    const bool mySkipRouteCalculation;
 
     /// @brief The currently parsed route
     RORouteDef* myCurrentRoute;

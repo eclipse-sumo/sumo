@@ -68,8 +68,7 @@ public:
      * @param[in] color The color of the route
      */
     RORouteDef(const std::string& id, const unsigned int lastUsed, 
-               const int maxRoutes, const bool keepRoutes,
-               const bool skipRouteCalculation, const bool tryRepair);
+               const bool tryRepair);
 
 
     /// @brief Destructor
@@ -124,15 +123,6 @@ protected:
 
     /// @brief Information whether a new route was generated
     mutable bool myNewRoute;
-
-    /// @brief The maximum route number
-    const int myMaxRouteNumber;
-
-    /// @brief Information whether all routes should be saved
-    const bool myKeepRoutes;
-
-    /// @brief Information whether new routes should be calculated
-    const bool mySkipRouteCalculation;
 
     const bool myTryRepair;
 

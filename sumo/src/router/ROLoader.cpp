@@ -329,9 +329,7 @@ ROLoader::buildNamedHandler(const std::string& optionName,
     if (optionName == "route-files" || optionName == "alternative-files") {
         return new RORDLoader_SUMOBase(net,
                                        string2time(myOptions.getString("begin")), string2time(myOptions.getString("end")),
-                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
-                                       myOptions.getBool("with-taz"), myOptions.getBool("keep-all-routes"),
-                                       myOptions.getBool("skip-new-routes"), file);
+                                       myOptions.getBool("repair"), myOptions.getBool("with-taz"), file);
     }
     if (optionName == "trip-files") {
         return new RORDLoader_TripDefs(net,

@@ -53,7 +53,12 @@ ROCostCalculator* ROCostCalculator::myInstance = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROCostCalculator::ROCostCalculator() {}
+ROCostCalculator::ROCostCalculator() {
+    OptionsCont& oc = OptionsCont::getOptions();
+    myMaxRouteNumber = oc.getInt("max-alternatives");
+    myKeepRoutes = oc.getBool("keep-all-routes");
+    mySkipRouteCalculation = oc.getBool("skip-new-routes");
+}
 
 
 ROCostCalculator::~ROCostCalculator() {}
