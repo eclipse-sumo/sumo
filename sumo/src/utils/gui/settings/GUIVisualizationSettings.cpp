@@ -57,7 +57,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
       edgeName(false, 50, RGBColor(1, .5, 0)),
       internalEdgeName(false, 40, RGBColor(.5, .25, 0)),
       streetName(false, 55, RGBColor(1, 1, 0)),
-      hideConnectors(false), vehicleQuality(0),
+      hideConnectors(false), laneWidthExaggeration(1), vehicleQuality(0),
       minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
       drawLaneChangePreference(false), drawMinGap(false),
       vehicleName(false, 50, RGBColor(.8, .6, 0)),
@@ -335,7 +335,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (hideConnectors != v2.hideConnectors) {
         return false;
     }
-
+    if (laneWidthExaggeration != v2.laneWidthExaggeration) {
+        return false;
+    }
     if (!(vehicleColorer == v2.vehicleColorer)) {
         return false;
     }

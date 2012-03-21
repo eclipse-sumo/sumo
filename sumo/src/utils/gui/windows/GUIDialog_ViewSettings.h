@@ -235,6 +235,7 @@ private:
 
     FXCheckButton* myShowLaneBorders, *myShowLaneDecals, *myShowRails,
                    *myHideMacroConnectors;
+    FXRealSpinDial* myLaneWidthUpscaleDialer;
 
     FXComboBox* myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame* myVehicleColorSettingFrame;

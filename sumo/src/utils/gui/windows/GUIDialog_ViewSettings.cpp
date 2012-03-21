@@ -226,6 +226,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myHideMacroConnectors = new FXCheckButton(m22, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myHideMacroConnectors->setCheck(mySettings->hideConnectors);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m22, "Exaggerate width by", 0, LAYOUT_CENTER_Y);
+        myLaneWidthUpscaleDialer =
+            new FXRealSpinDial(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        myLaneWidthUpscaleDialer->setRange(1, 100);
+        myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+
         // edge name
         myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
@@ -497,6 +505,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myInternalEdgeNamePanel->update(mySettings->internalEdgeName);
     myStreetNamePanel->update(mySettings->streetName);
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
+    myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
     myVehicleColorMode->setCurrentItem((FXint) mySettings->vehicleColorer.getActive());
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
@@ -563,6 +572,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.internalEdgeName = myInternalEdgeNamePanel->getSettings();
     tmpSettings.streetName = myStreetNamePanel->getSettings();
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
+    tmpSettings.laneWidthExaggeration = (SUMOReal) myLaneWidthUpscaleDialer->getValue();
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();

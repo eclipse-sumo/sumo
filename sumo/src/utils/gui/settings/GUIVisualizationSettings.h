@@ -131,6 +131,8 @@ public:
     GUIVisualizationTextSettings edgeName, internalEdgeName, streetName;
 
     bool hideConnectors;
+    /// @brief The lane exaggeration (upscale thickness)
+    float laneWidthExaggeration;
     //@}
 
 

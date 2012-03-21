@@ -396,7 +396,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw lane
     // check whether it is not too small
-    if (s.scale < 1.) {
+    if (s.scale * s.laneWidthExaggeration < 1.) {
         GLHelper::drawLine(myShape);
         if (!MSGlobals::gUseMesoSim) {
             glPopName();
@@ -404,10 +404,10 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     } else {
         if (!isInternal) {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myHalfLaneWidth * s.laneWidthExaggeration);
             mustDrawMarkings = true;
         } else {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myQuarterLaneWidth * s.laneWidthExaggeration);
         }
         if (!MSGlobals::gUseMesoSim) {
             glPopName();
