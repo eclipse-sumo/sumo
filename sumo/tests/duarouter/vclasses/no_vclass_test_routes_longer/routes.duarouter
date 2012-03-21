@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Jul 12 17:11:46 2011 by SUMO duarouter Version dev-SVN-r10960
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/21/12 23:03:03 by SUMO duarouter Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/duarouterConfiguration.xsd">
 
@@ -14,6 +14,10 @@
         <output-file value="routes.rou.xml"/>
     </output>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
 -->
 
@@ -22,6 +26,6 @@
         <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50" tau="1.00"/>
     </vType>
     <vehicle id="0_0" type="0" depart="0.00">
-        <route edges="absBeg beg2left left left2end end absEnd"/>
+        <route edges="absBeg middle end absEnd"/>
     </vehicle>
 </routes>
