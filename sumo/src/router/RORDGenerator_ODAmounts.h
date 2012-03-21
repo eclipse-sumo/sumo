@@ -115,7 +115,7 @@ protected:
     class FlowDef {
     public:
         /// Constructor
-        FlowDef(ROVehicle* vehicle, SUMOVTypeParameter* type, RORouteDef_OrigDest* route,
+        FlowDef(ROVehicle* vehicle, SUMOVTypeParameter* type, RORouteDef* route,
                 SUMOTime intBegin, SUMOTime intEnd,
                 unsigned int vehicles2insert, bool randomize);
 
@@ -142,7 +142,7 @@ protected:
         const SUMOVTypeParameter* const myVehicleType;
 
         /// (description of) the route to use
-        const RORouteDef_OrigDest* const myRoute;
+        const RORouteDef* const myRoute;
 
         /// The begin of the described interval
         const SUMOTime myIntervalBegin;

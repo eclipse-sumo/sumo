@@ -40,7 +40,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
-#include "RORouteDef.h"
+#include "RORoute.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"
 #include "RORDGenerator_ODAmounts.h"
@@ -61,7 +61,7 @@
  * ----------------------------------------------------------------------- */
 RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle* vehicle,
         SUMOVTypeParameter* type,
-        RORouteDef_OrigDest* route,
+        RORouteDef* route,
         SUMOTime intBegin,
         SUMOTime intEnd,
         unsigned int vehicles2insert,
@@ -119,7 +119,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet& net, SUMOTime t) {
 void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet& net, SUMOTime t) {
     std::string id = myVehicle->getID() + "_" + toString<unsigned int>(myInserted);
-    RORouteDef* rd = myRoute->copy(id);
+    RORouteDef* rd = myRoute->copyOrigDest(id);
     net.addRouteDef(rd);
     ROVehicle* veh = myVehicle->copy(id, t, rd);
     net.addVehicle(id, veh);
@@ -272,7 +272,11 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
         }
         // add the vehicle type, the vehicle and the route to the net
         RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef_OrigDest* route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
+        RORouteDef* route = new RORouteDef(myParameter->id, 0, 1, false, true, true);//!!! set double in route def and flowdef?
+        std::vector<const ROEdge*> edges;
+        edges.push_back(myBeginEdge);
+        edges.push_back(myEndEdge);
+        route->addLoadedAlternative(new RORoute(myParameter->id, 0, 1, edges, col));
         SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {

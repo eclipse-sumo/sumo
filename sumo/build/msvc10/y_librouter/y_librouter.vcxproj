@@ -155,9 +155,6 @@
     <ClCompile Include="..\..\..\src\router\RORDLoader_TripDefs.cpp" />
     <ClCompile Include="..\..\..\src\router\RORoute.cpp" />
     <ClCompile Include="..\..\..\src\router\RORouteDef.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORouteDef_Alternatives.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORouteDef_Complete.cpp" />
-    <ClCompile Include="..\..\..\src\router\RORouteDef_OrigDest.cpp" />
     <ClCompile Include="..\..\..\src\router\ROTypedXMLRoutesLoader.cpp" />
     <ClCompile Include="..\..\..\src\router\ROVehicle.cpp" />
     <ClCompile Include="..\..\..\src\router\ROVehicleCont.cpp" />
@@ -179,9 +176,6 @@
     <ClInclude Include="..\..\..\src\router\RORDLoader_TripDefs.h" />
     <ClInclude Include="..\..\..\src\router\RORoute.h" />
     <ClInclude Include="..\..\..\src\router\RORouteDef.h" />
-    <ClInclude Include="..\..\..\src\router\RORouteDef_Alternatives.h" />
-    <ClInclude Include="..\..\..\src\router\RORouteDef_Complete.h" />
-    <ClInclude Include="..\..\..\src\router\RORouteDef_OrigDest.h" />
     <ClInclude Include="..\..\..\src\router\ROTypedXMLRoutesLoader.h" />
     <ClInclude Include="..\..\..\src\router\ROVehicle.h" />
     <ClInclude Include="..\..\..\src\router\ROVehicleCont.h" />

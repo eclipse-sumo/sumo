@@ -39,8 +39,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include "ROVehicle.h"
-#include "RORouteDef_Alternatives.h"
-#include "RORouteDef_Complete.h"
 #include "RORoute.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
@@ -197,8 +195,8 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes& attrs) {
         return;
     }
     // build the alternative cont
-    myCurrentAlternatives = new RORouteDef_Alternatives(id, index, 
-        myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation);
+    myCurrentAlternatives = new RORouteDef(id, index, 
+        myMaxRouteNumber, myKeepRoutes, mySkipRouteCalculation, false);
 }
 
 void
@@ -258,7 +256,8 @@ RORDLoader_SUMOBase::myCharacters(int element,
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
-            myCurrentRoute = new RORouteDef_Complete(myCurrentRouteName, myColor, *list, myTryRepair);
+            myCurrentRoute = new RORouteDef(myCurrentRouteName, 0, 1, false, true, myTryRepair);
+            myCurrentRoute->addLoadedAlternative(new RORoute(myCurrentRouteName, 0, 1, *list, myColor));
         }
         myColor = 0;
     }

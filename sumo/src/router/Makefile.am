@@ -12,9 +12,6 @@ RORDGenerator_ODAmounts.cpp RORDGenerator_ODAmounts.h \
 RORDLoader_SUMOBase.cpp RORDLoader_SUMOBase.h \
 RORDLoader_TripDefs.cpp RORDLoader_TripDefs.h \
 RORoute.cpp RORoute.h RORouteDef.cpp RORouteDef.h \
-RORouteDef_Alternatives.cpp RORouteDef_Alternatives.h \
-RORouteDef_Complete.cpp RORouteDef_Complete.h \
-RORouteDef_OrigDest.cpp RORouteDef_OrigDest.h \
 ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehicle.cpp ROVehicle.h \
 ROVehicleCont.cpp ROVehicleCont.h

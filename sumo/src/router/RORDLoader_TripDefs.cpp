@@ -35,12 +35,11 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "RORouteDef.h"
+#include "RORoute.h"
 #include "RONet.h"
-#include "RORouteDef_OrigDest.h"
+#include "RORouteDef.h"
 #include "RORDLoader_TripDefs.h"
 #include "ROVehicle.h"
-#include "RORouteDef_Complete.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -151,7 +150,11 @@ RORDLoader_TripDefs::myEndElement(int element) {
             return;
         }
         RGBColor* col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
-        RORouteDef* route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);
+        RORouteDef* route = new RORouteDef(myParameter->id, 0, 1, false, true, true);
+        std::vector<const ROEdge*> edges;
+        edges.push_back(myBeginEdge);
+        edges.push_back(myEndEdge);
+        route->addLoadedAlternative(new RORoute(myParameter->id, 0, 1, edges, col));
         SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {

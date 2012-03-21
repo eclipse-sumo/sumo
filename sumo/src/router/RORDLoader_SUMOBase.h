@@ -133,7 +133,7 @@ protected:
     bool myAltIsValid;
 
     /// @brief The currently parsed route alternatives
-    RORouteDef_Alternatives* myCurrentAlternatives;
+    RORouteDef* myCurrentAlternatives;
 
     /// @brief The costs of the current alternative
     SUMOReal myCost;
@@ -157,7 +157,7 @@ protected:
     const bool mySkipRouteCalculation;
 
     /// @brief The currently parsed route
-    RORouteDef_Complete* myCurrentRoute;
+    RORouteDef* myCurrentRoute;
 
     /// @brief The name of the currently parsed route
     std::string myCurrentRouteName;

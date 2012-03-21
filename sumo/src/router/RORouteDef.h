@@ -36,14 +36,13 @@
 #include <utils/common/Named.h>
 #include "ReferencedItem.h"
 #include <utils/common/SUMOAbstractRouter.h>
-#include <utils/common/RGBColor.h>
+#include "RORoute.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class ROEdge;
-class RORoute;
 class OptionsCont;
 class ROVehicle;
 class OutputDevice;
@@ -68,12 +67,18 @@ public:
      * @param[in] id The id of the route
      * @param[in] color The color of the route
      */
-    RORouteDef(const std::string& id, const RGBColor* const color);
+    RORouteDef(const std::string& id, const unsigned int lastUsed, 
+               const int maxRoutes, const bool keepRoutes,
+               const bool skipRouteCalculation, const bool tryRepair);
 
 
     /// @brief Destructor
     virtual ~RORouteDef();
 
+
+    /** @brief Adds an alternative loaded from the file
+        An alternative may also be generated during DUA */
+    void addLoadedAlternative(RORoute* alternative);
 
     /** @brief Triggers building of the complete route (via
      * preComputeCurrentRoute) or returns precomputed route */
@@ -82,19 +87,14 @@ public:
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
-    virtual void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
-                                       const ROVehicle& veh) const = 0;
+    void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+                                       const ROVehicle& veh) const;
 
     /** @brief Adds an alternative to the list of routes
     *
      * (This may be the new route) */
-    virtual void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
-                                const ROVehicle* const, RORoute* current, SUMOTime begin) = 0;
-
-    /// Returns the color of the route
-    const RGBColor* getColor() const {
-        return myColor;
-    }
+    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+                        const ROVehicle* const, RORoute* current, SUMOTime begin);
 
     const ROEdge* getDestination() const;
 
@@ -109,24 +109,40 @@ public:
     OutputDevice& writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                                      bool asAlternatives, bool withExitTimes) const;
 
-protected:
-    const RGBColor* copyColorIfGiven() const;
+    /** @brief Returns a copy of the route definition */
+    RORouteDef* copyOrigDest(const std::string& id) const;
 
 protected:
-    /// The color the route shall have
-    const RGBColor* const myColor;
-
     /// @brief precomputed route for out-of-order computation
     mutable RORoute* myPrecomputed;
 
     /// @brief Index of the route used within the last step
-    mutable int myLastUsed;
-
-    /// @brief Definition of the storage for alternatives
-    typedef std::vector<RORoute*> AlternativesVector;
+    mutable unsigned int myLastUsed;
 
     /// @brief The alternatives
-    AlternativesVector myAlternatives;
+    std::vector<RORoute*> myAlternatives;
+
+    /// @brief Information whether a new route was generated
+    mutable bool myNewRoute;
+
+    /// @brief The maximum route number
+    const int myMaxRouteNumber;
+
+    /// @brief Information whether all routes should be saved
+    const bool myKeepRoutes;
+
+    /// @brief Information whether new routes should be calculated
+    const bool mySkipRouteCalculation;
+
+    const bool myTryRepair;
+
+private:
+    /** Function-object for sorting routes from highest to lowest probability. */
+    struct ComparatorProbability {
+        bool operator()(const RORoute* const a, const RORoute* const b) {
+            return a->getProbability() > b->getProbability();
+        }
+    };
 
 private:
     /// @brief Invalidated copy constructor
