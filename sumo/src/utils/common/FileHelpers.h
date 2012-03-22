@@ -238,7 +238,7 @@ std::ostream& FileHelpers::writeEdgeVector(std::ostream& os, const std::vector<E
             FileHelpers::writeInt(os, (*i)->getNumericalID());
         }
     } else {
-        const unsigned int bits = maxFollow > 3 ? 4 : 2;
+        const int bits = maxFollow > 3 ? 4 : 2;
         const unsigned int numFields = 8 * sizeof(unsigned int) / bits;
         FileHelpers::writeInt(os, -bits);
         FileHelpers::writeUInt(os, edges.front()->getNumericalID());
