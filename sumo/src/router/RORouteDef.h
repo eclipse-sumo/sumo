@@ -86,6 +86,11 @@ public:
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
+    void preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
+                                       const ROVehicle& veh) const;
+
+    /** @brief Builds the complete route
+     * (or chooses her from the list of alternatives, when existing) */
     void repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router, SUMOTime begin,
                                        const ROVehicle& veh) const;
 

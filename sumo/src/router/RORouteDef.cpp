@@ -79,35 +79,42 @@ RORoute*
 RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                               SUMOTime begin, const ROVehicle& veh) const {
     if (myPrecomputed == 0) {
-        myNewRoute = false;
-        if (myTryRepair) {
-            repairCurrentRoute(router, begin, veh);
-            return myPrecomputed;
-        }
-        if (ROCostCalculator::getCalculator().skipRouteCalculation()) {
-            myPrecomputed = myAlternatives[myLastUsed];
-        } else {
-            // build a new route to test whether it is better
-            std::vector<const ROEdge*> edges;
-            router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
-            // check whether the same route was already used
-            int cheapest = -1;
-            for (unsigned int i = 0; i < myAlternatives.size(); i++) {
-                if (edges == myAlternatives[i]->getEdgeVector()) {
-                    cheapest = i;
-                    break;
-                }
-            }
-            if (cheapest >= 0) {
-                myPrecomputed = myAlternatives[cheapest];
-            } else {
-                RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
-                myPrecomputed = new RORoute(myID, 0, 1, edges, col);
-                myNewRoute = true;
-            }
-        }
+        preComputeCurrentRoute(router, begin, veh);
     }
     return myPrecomputed;
+}
+
+
+void
+RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
+                              SUMOTime begin, const ROVehicle& veh) const {
+    myNewRoute = false;
+    if (myTryRepair) {
+        repairCurrentRoute(router, begin, veh);
+        return;
+    }
+    if (ROCostCalculator::getCalculator().skipRouteCalculation()) {
+        myPrecomputed = myAlternatives[myLastUsed];
+    } else {
+        // build a new route to test whether it is better
+        std::vector<const ROEdge*> edges;
+        router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
+        // check whether the same route was already used
+        int cheapest = -1;
+        for (unsigned int i = 0; i < myAlternatives.size(); i++) {
+            if (edges == myAlternatives[i]->getEdgeVector()) {
+                cheapest = i;
+                break;
+            }
+        }
+        if (cheapest >= 0) {
+            myPrecomputed = myAlternatives[cheapest];
+        } else {
+            RGBColor* col = myAlternatives[0]->getColor() != 0 ? new RGBColor(*myAlternatives[0]->getColor()) : 0;
+            myPrecomputed = new RORoute(myID, 0, 1, edges, col);
+            myNewRoute = true;
+        }
+    }
 }
 
 
