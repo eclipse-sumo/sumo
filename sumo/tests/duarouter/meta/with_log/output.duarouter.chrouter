@@ -1,0 +1,13 @@
+Loading net... done.
+Skipping...
+Skipped until: 0.00
+Building Contraction Hirarchy for vClass='unknown' and time=0.00 (7 edges)
+... 
+Created 1 shortcuts.
+Recomputed priority 11 times.
+done (0 ms).
+done.
+Reading time step: 0.00  (0.00/2147483.00 = 0.00% done)       Reading time step: 1.00  (1.00/2147483.00 = 0.00% done)       Routes found between time steps 0.00 and 1.00.
+CHRouter answered 2 queries and explored 7.00 edges on average.
+CHRouter spent 0 ms answering queries (0.00 ms on average).
+Success.

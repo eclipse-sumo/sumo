@@ -1,0 +1,13 @@
+Loading net... done.
+Loading precomputed net weights from 'input_weights.dump.xml'... done.
+Skipping...
+Skipped until: 0.00
+Building Contraction Hirarchy for vClass='unknown' and time=0.00 (7 edges)
+... 
+Created 1 shortcuts.
+Recomputed priority 10 times.
+done (0 ms).
+done.
+CHRouter answered 10 queries and explored 7.00 edges on average.
+CHRouter spent 0 ms answering queries (0.00 ms on average).
+Success.
