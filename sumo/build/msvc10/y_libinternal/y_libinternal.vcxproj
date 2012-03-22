@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}</ProjectGuid>
+    <ProjectGuid>{09B71FCB-BE14-466C-A0DC-51F1E0D3CAE3}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'" Label="Configuration">
@@ -96,10 +96,15 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\mesogui\GUIMEInductLoop.cpp" />
+    <ClCompile Include="..\..\..\src\internal\HeightMapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\mesogui\GUIMEInductLoop.h" />
+    <ClInclude Include="..\..\..\src\internal\BulkStarRouter.h" />
+    <ClInclude Include="..\..\..\src\internal\RouteAggregator.h" />
+    <ClInclude Include="..\..\..\src\internal\CHRouter.h" />
+    <ClInclude Include="..\..\..\src\internal\CHRouterWrapper.h" />
+    <ClInclude Include="..\..\..\src\internal\SPTree.h" />
+    <ClInclude Include="..\..\..\src\internal\HeightMapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
