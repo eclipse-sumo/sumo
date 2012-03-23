@@ -1,0 +1,7 @@
+Loading net... done.
+Loading precomputed net weights from 'input_weights.dump.xml'... done.
+Skipping...
+Skipped until: 1.00
+AStarRouter answered 1 queries and explored 9.00 edges on average.
+AStarRouter spent 0 ms answering queries (0.00 ms on average).
+Success.
