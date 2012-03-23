@@ -161,6 +161,8 @@ for platform in ["Win32", "x64"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
         if name == "sumo":
             binary = os.path.join(options.rootDir, options.binDir, options.sumoExe + programSuffix + ".exe")
+        if name in ["duarouter", "jtrrouter", "netconvert"] and options.sumoExe == "meso":
+            binary = os.path.join(options.rootDir, options.binDir, name + "Int" + programSuffix + ".exe")
         if name == "sumo-gui":
             if options.sumoExe == "meso":
                 binary = os.path.join(options.rootDir, options.binDir, "meso-gui" + programSuffix + ".exe")
