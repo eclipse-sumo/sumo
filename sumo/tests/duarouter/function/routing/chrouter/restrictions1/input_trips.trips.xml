@@ -1,0 +1,6 @@
+<trips>
+    <vType id="restricted" vClass="vip"/>
+
+    <trip id="restricted" depart="0" from="src" to="dest" type="restricted"/>
+    <trip id="free" depart="0" from="src" to="dest"/>
+</trips>

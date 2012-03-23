@@ -1,0 +1,14 @@
+# ensure that bidirectional search does not terminate too early
+bidirectional1
+
+# ensure that bidirectional search does not terminate to early
+bidirectional2
+
+# test whether chrouter honors vClass restrictions
+restrictions1
+
+# test whether chrouter honors vClass restrictions
+restrictions2
+
+# test for rebuilding the hirarchy for a new weight interval
+weights
