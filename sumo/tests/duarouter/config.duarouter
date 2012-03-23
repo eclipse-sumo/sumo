@@ -24,6 +24,8 @@ alts:<!--{[->]}-->
 vtypes:<!--{[->]}-->
 output:ms answering queries
 log:ms answering queries
+output:done (\d+ ms).
+log:done (\d+ ms).
 
 [floating_point_tolerance]
 alts:0.0000001
