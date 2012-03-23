@@ -7,12 +7,6 @@ logit_step2
 # Book example of logit
 logit_example
 
-# Book example of logit
-logit_example_copy
-
-# Book example of logit
-logit_example_copy_2
-
 # book example of c-logit
 clogit_example
 
