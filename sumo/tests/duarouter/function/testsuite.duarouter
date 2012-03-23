@@ -14,4 +14,4 @@ endstep
 measure
 
 # shortest path finding related tests
-dijkstra
+routing
