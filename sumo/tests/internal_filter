@@ -1,1 +1,1 @@
--a sumo.internal,sumo.meso,complex.meso,duarouter.chrouter,netconvert.internal
+-a sumo.internal,sumo.meso,complex.meso,duarouter.astar,duarouter.chrouter,netconvert.internal
