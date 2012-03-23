@@ -1,0 +1,131 @@
+SUMO sumo Version dev-SVN-r11548
+ Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
+A microscopic road traffic simulation.
+
+Usage: sumo [OPTION]*
+Configuration Options:
+  -c, --configuration-file FILE       Loads the named config on startup
+  --save-configuration FILE           Saves current configuration into FILE
+  --save-template FILE                Saves a configuration template (empty)
+                                        into FILE
+  --save-schema FILE                  Saves the configuration schema into FILE
+  --save-commented                    Adds comments to saved template,
+                                        configuration, or schema
+
+Input Options:
+  -n, --net-file FILE                 Load road network description from FILE
+  -r, --route-files FILE              Load routes descriptions from FILE(s)
+  -a, --additional-files FILE         Load further descriptions from FILE(s)
+  -w, --weight-files FILE             Load edge/lane weights for online
+                                        rerouting from FILE
+  -x, --weight-attribute STR          Name of the xml attribute which gives the
+                                        edge weight
+
+Output Options:
+  --netstate-dump FILE                Save complete network states into FILE
+  --netstate-dump.empty-edges         Write also empty edges completely when
+                                        dumping
+  --summary-output FILE               Save aggregated vehicle departure info
+                                        into FILE
+  --tripinfo-output FILE              Save single vehicle trip info into FILE
+  --vehroute-output FILE              Save single vehicle route info into FILE
+  --vehroute-output.exit-times        Write the exit times for all edges
+  --vehroute-output.last-route        Write the last route only
+  --vehroute-output.sorted            Sorts the output by departure time
+
+Time Options:
+  -b, --begin TIME                    Defines the begin time;
+                                        The simulation starts at this time
+  -e, --end TIME                      Defines the end time;
+                                        The simulation ends at this time
+  --step-length TIME                  Defines the step duration
+
+Processing Options:
+  -s, --route-steps TIME              Load routes for the next number of
+                                        seconds ahead
+  --no-internal-links                 Disable (junction) internal links
+  --ignore-accidents                  Do not check whether accidents occure
+                                        more deeply
+  --ignore-route-errors               Do not check whether routes are connected
+  --max-num-vehicles INT              Quit simulation if this number of
+                                        vehicles is exceeded
+  --incremental-dua-step INT          Perform the simulation as a step in
+                                        incremental DUA
+  --incremental-dua-base INT          Base value for incremental DUA
+  --scale FLOAT                       Scale demand by the given factor (0..1)
+  --time-to-teleport TIME             Specify how long a vehicle may wait until
+                                        being teleported, defaults to 300,
+                                        non-positive values disable teleporting
+  --max-depart-delay TIME             How long vehicles wait for departure
+                                        before being skipped, defaults to -1
+                                        which means vehicles are never skipped
+  --sloppy-insert                     Whether insertion on an edge shall not be
+                                        repeated in same step once failed.
+  --lanechange.allow-swap             Whether blocking vehicles trying to
+                                        change lanes may be swapped.
+
+Report Options:
+  -v, --verbose                       Switches to verbose output
+  -p, --print-options                 Prints option values before processing
+  -?, --help                          Prints this screen
+  -V, --version                       Prints the current version
+  -W, --no-warnings                   Disables output of warnings
+  -l, --log FILE                      Writes all messages to FILE (implies
+                                        verbose)
+  --message-log FILE                  Writes all non-error messages to FILE
+                                        (implies verbose)
+  --error-log FILE                    Writes all warnings and errors to FILE
+  --no-duration-log                   Disable performance reports for
+                                        individual simulation steps
+  --no-step-log                       Disable console output of current
+                                        simulation step
+
+Routing Options:
+  --device.rerouting.probability FLOAT  The probability for a vehicle to have a
+                                        routing device
+  --device.rerouting.explicit STR     Assign a device to named vehicles
+  --device.rerouting.deterministic    The devices are set deterministic using a
+                                        fraction of 1000
+  --device.rerouting.period TIME      The period with which the vehicle shall
+                                        be rerouted
+  --device.rerouting.pre-period TIME  The rerouting period before depart
+  --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights.
+  --device.rerouting.adaptation-interval TIME  The interval for updating the
+                                        edge weights.
+  --device.rerouting.with-taz         Use zones (districts) as routing end
+                                        points
+
+Emissions Options:
+  --device.hbefa.probability FLOAT    The probability for a vehicle to have an
+                                        emission logging device
+  --device.hbefa.explicit STR         Assign a device to named vehicles
+  --device.hbefa.deterministic        The devices are set deterministic using a
+                                        fraction of 1000
+
+TraCI Server Options:
+  --remote-port INT                   Enables TraCI Server if set
+
+Random Number Options:
+  --random                            Initialises the random number generator
+                                        with the current system time
+  --seed INT                          Initialises the random number generator
+                                        with the given value
+
+GUI Only Options:
+  --gui-settings-file FILE            Load visualisation settings from FILE
+  -Q, --quit-on-end                   Quits the GUI when the simulation stops
+  -G, --game                          Start the GUI in gaming mode
+  -S, --start                         Start the simulation after loading
+  -T, --disable-textures              Do not load background pictures
+
+
+Examples:
+  sumo -b 0 -e 1000 -n net.xml -r routes.xml
+    start a simulation from time 0 to 1000 with given net and routes
+  sumo -c munich_config.cfg
+    start with a configuration file
+  sumo --help
+    print help
+
+Report bugs at <http://sourceforge.net/apps/trac/sumo/>.
+Get in contact via <sumo-user@lists.sourceforge.net>.
