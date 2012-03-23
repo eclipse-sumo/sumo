@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <configuration>
+        <!-- Loads the named config on startup -->
+        <configuration-file value="" synonymes="c configuration" type="FILE"/>
+
+        <!-- Saves current configuration into FILE -->
+        <save-configuration value="" synonymes="save-config" type="FILE"/>
+
+        <!-- Saves a configuration template (empty) into FILE -->
+        <save-template value="" type="FILE"/>
+
+        <!-- Saves the configuration schema into FILE -->
+        <save-schema value="" type="FILE"/>
+
+        <!-- Adds comments to saved template, configuration, or schema -->
+        <save-commented value="" synonymes="save-template.commented" type="BOOL"/>
+
+    </configuration>
+
+    <input>
+        <!-- Load road network description from FILE -->
+        <net-file value="" synonymes="n net" type="FILE"/>
+
+        <!-- Load routes descriptions from FILE(s) -->
+        <route-files value="" synonymes="r routes" type="FILE"/>
+
+        <!-- Load further descriptions from FILE(s) -->
+        <additional-files value="" synonymes="a additional" type="FILE"/>
+
+        <!-- Load edge/lane weights for online rerouting from FILE -->
+        <weight-files value="" synonymes="w weights" type="FILE"/>
+
+        <!-- Name of the xml attribute which gives the edge weight -->
+        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+
+        <!-- Loads a network state from FILE -->
+        <load-state value="" type="FILE"/>
+
+        <!-- Sets the time offset for vehicle segment exit times. -->
+        <load-state.offset value="0" type="TIME"/>
+
+    </input>
+
+    <output>
+        <!-- Save complete network states into FILE -->
+        <netstate-dump value="" synonymes="ndump netstate" type="FILE"/>
+
+        <!-- Write also empty edges completely when dumping -->
+        <netstate-dump.empty-edges value="false" synonymes="dump-empty-edges netstate.empty-edges" type="BOOL"/>
+
+        <!-- Save aggregated vehicle departure info into FILE -->
+        <summary-output value="" synonymes="emissions emissions-output summary" type="FILE"/>
+
+        <!-- Save single vehicle trip info into FILE -->
+        <tripinfo-output value="" synonymes="tripinfo" type="FILE"/>
+
+        <!-- Save single vehicle route info into FILE -->
+        <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
+
+        <!-- Write the exit times for all edges -->
+        <vehroute-output.exit-times value="false" synonymes="vehroutes.exit-times" type="BOOL"/>
+
+        <!-- Write the last route only -->
+        <vehroute-output.last-route value="false" synonymes="vehroutes.last-route" type="BOOL"/>
+
+        <!-- Sorts the output by departure time -->
+        <vehroute-output.sorted value="false" synonymes="vehroutes.sorted" type="BOOL"/>
+
+        <!-- Use INT[] as times at which a network state written -->
+        <save-state.times value="" type="INT[]"/>
+
+        <!-- Prefix for network states -->
+        <save-state.prefix value="" type="FILE"/>
+
+        <!-- Files for network states -->
+        <save-state.files value="" type="FILE"/>
+
+    </output>
+
+    <time>
+        <!-- Defines the begin time; The simulation starts at this time -->
+        <begin value="0" synonymes="b" type="TIME"/>
+
+        <!-- Defines the end time; The simulation ends at this time -->
+        <end value="-1" synonymes="e" type="TIME"/>
+
+        <!-- Defines the step duration -->
+        <step-length value="1" type="TIME"/>
+
+    </time>
+
+    <processing>
+        <!-- Load routes for the next number of seconds ahead -->
+        <route-steps value="200" synonymes="s" type="TIME"/>
+
+        <!-- Disable (junction) internal links -->
+        <no-internal-links value="false" type="BOOL"/>
+
+        <!-- Do not check whether accidents occure more deeply -->
+        <ignore-accidents value="false" type="BOOL"/>
+
+        <!-- Do not check whether routes are connected -->
+        <ignore-route-errors value="false" type="BOOL"/>
+
+        <!-- Quit simulation if this number of vehicles is exceeded -->
+        <max-num-vehicles value="-1" synonymes="too-many-vehicles" type="INT"/>
+
+        <!-- Perform the simulation as a step in incremental DUA -->
+        <incremental-dua-step value="" type="INT"/>
+
+        <!-- Base value for incremental DUA -->
+        <incremental-dua-base value="10" type="INT"/>
+
+        <!-- Scale demand by the given factor (0..1) -->
+        <scale value="" type="FLOAT"/>
+
+        <!-- Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting -->
+        <time-to-teleport value="300" type="TIME"/>
+
+        <!-- How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped -->
+        <max-depart-delay value="-1" type="TIME"/>
+
+        <!-- Whether insertion on an edge shall not be repeated in same step once failed. -->
+        <sloppy-insert value="false" type="BOOL"/>
+
+        <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
+        <lanechange.allow-swap value="false" type="BOOL"/>
+
+    </processing>
+
+    <report>
+        <!-- Switches to verbose output -->
+        <verbose value="false" synonymes="v" type="BOOL"/>
+
+        <!-- Prints option values before processing -->
+        <print-options value="false" synonymes="p" type="BOOL"/>
+
+        <!-- Prints this screen -->
+        <help value="false" synonymes="?" type="BOOL"/>
+
+        <!-- Prints the current version -->
+        <version value="false" synonymes="V" type="BOOL"/>
+
+        <!-- Disables output of warnings -->
+        <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Writes all messages to FILE (implies verbose) -->
+        <log value="" synonymes="l log-file" type="FILE"/>
+
+        <!-- Writes all non-error messages to FILE (implies verbose) -->
+        <message-log value="" type="FILE"/>
+
+        <!-- Writes all warnings and errors to FILE -->
+        <error-log value="" type="FILE"/>
+
+        <!-- Disable performance reports for individual simulation steps -->
+        <no-duration-log value="false" type="BOOL"/>
+
+        <!-- Disable console output of current simulation step -->
+        <no-step-log value="false" type="BOOL"/>
+
+    </report>
+
+    <routing>
+        <!-- The probability for a vehicle to have a routing device -->
+        <device.rerouting.probability value="0" synonymes="device.routing.probability" type="FLOAT"/>
+
+        <!-- Assign a device to named vehicles -->
+        <device.rerouting.explicit value="" synonymes="device.routing.knownveh" type="STR"/>
+
+        <!-- The devices are set deterministic using a fraction of 1000 -->
+        <device.rerouting.deterministic value="false" synonymes="device.routing.deterministic" type="BOOL"/>
+
+        <!-- The period with which the vehicle shall be rerouted -->
+        <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME"/>
+
+        <!-- The rerouting period before depart -->
+        <device.rerouting.pre-period value="0" synonymes="device.routing.pre-period" type="TIME"/>
+
+        <!-- The weight of prior edge weights. -->
+        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT"/>
+
+        <!-- The interval for updating the edge weights. -->
+        <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME"/>
+
+        <!-- Use zones (districts) as routing end points -->
+        <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz" type="BOOL"/>
+
+    </routing>
+
+    <emissions>
+        <!-- The probability for a vehicle to have an emission logging device -->
+        <device.hbefa.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a device to named vehicles -->
+        <device.hbefa.explicit value="" synonymes="device.hbefa.knownveh" type="STR"/>
+
+        <!-- The devices are set deterministic using a fraction of 1000 -->
+        <device.hbefa.deterministic value="false" type="BOOL"/>
+
+    </emissions>
+
+    <traci_server>
+        <!-- Enables TraCI Server if set -->
+        <remote-port value="0" type="INT"/>
+
+    </traci_server>
+
+    <mesoscopic>
+        <!-- Enables mesoscopic simulation -->
+        <mesosim value="false" type="BOOL"/>
+
+        <!-- Length of an edge segment in mesoscopic simulation -->
+        <meso-edgelength value="98" type="FLOAT"/>
+
+        <!-- Factor for calculating the free-free headway time -->
+        <meso-tauff value="1.4" type="TIME"/>
+
+        <!-- Factor for calculating the free-jam headway time -->
+        <meso-taufj value="1.4" type="TIME"/>
+
+        <!-- Factor for calculating the jam-free headway time -->
+        <meso-taujf value="2" type="TIME"/>
+
+        <!-- Factor for calculating the jam-jam headway time -->
+        <meso-taujj value="2" type="TIME"/>
+
+        <!-- Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed -->
+        <meso-jam-threshold value="0.29" type="FLOAT"/>
+
+        <!-- Enable multiple queues at edge ends -->
+        <meso-multi-queue value="false" type="BOOL"/>
+
+        <!-- Enable mesoscopic traffic light and priority junction handling -->
+        <meso-junction-control value="false" type="BOOL"/>
+
+        <!-- Time interval for rechecking insertion into the next segment after failure -->
+        <meso-recheck value="0" type="TIME"/>
+
+    </mesoscopic>
+
+    <random_number>
+        <!-- Initialises the random number generator with the current system time -->
+        <random value="false" synonymes="abs-rand" type="BOOL"/>
+
+        <!-- Initialises the random number generator with the given value -->
+        <seed value="23423" synonymes="srand" type="INT"/>
+
+    </random_number>
+
+    <gui_only>
+        <!-- Load visualisation settings from FILE -->
+        <gui-settings-file value="" type="FILE"/>
+
+        <!-- Quits the GUI when the simulation stops -->
+        <quit-on-end value="false" synonymes="Q" type="BOOL"/>
+
+        <!-- Start the GUI in gaming mode -->
+        <game value="false" synonymes="G" type="BOOL"/>
+
+        <!-- Start the simulation after loading -->
+        <start value="false" synonymes="S" type="BOOL"/>
+
+        <!-- Do not load background pictures -->
+        <disable-textures value="false" synonymes="T" type="BOOL"/>
+
+    </gui_only>
+
+</configuration>
