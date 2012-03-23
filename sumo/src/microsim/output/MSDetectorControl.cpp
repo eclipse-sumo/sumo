@@ -40,7 +40,7 @@
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MEInductLoop.h>
 #endif
 

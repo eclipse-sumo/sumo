@@ -140,7 +140,7 @@ MSLink::opened(SUMOTime arrivalTime, SUMOReal arrivalSpeed, SUMOReal vehicleLeng
 #endif
     const SUMOTime leaveTime = arrivalTime + TIME2STEPS((length + vehicleLength) / arrivalSpeed);
     for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             if ((*i)->getState() == LINKSTATE_TL_RED) {
                 continue;

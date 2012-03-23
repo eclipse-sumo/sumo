@@ -222,7 +222,7 @@ MSInsertionControl::checkFlows(SUMOTime time,
                 }
             } else {
                 // strange: another vehicle with the same id already exists
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
                 if (MSGlobals::gStateLoaded) {
                     break;
                 }

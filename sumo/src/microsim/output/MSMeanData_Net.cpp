@@ -39,7 +39,7 @@
 #include "MSMeanData_Net.h"
 #include <limits>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
@@ -115,7 +115,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(SUMOVehicle& veh, SUMOR
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*lastPos*/, MSMoveReminder::Notification reason) {
     if (vehicleApplies(veh) && (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             myLastVehicleUpdateValues.erase(&veh);
         }
@@ -128,7 +128,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
             ++nVehLeft;
         }
     }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         return false;
     }

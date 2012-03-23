@@ -235,7 +235,7 @@ public:
 
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /// @name State I/O (mesosim only)
     /// @{
 

@@ -200,13 +200,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myLaneColorSettingFrame =
             new FXVerticalFrame(genScroll, LAYOUT_FILL_X | LAYOUT_FILL_Y,  0, 0, 0, 0, 10, 10, 2, 8, 5, 2);
 //we should insert a FXScrollWindow around the frame2
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (GUIVisualizationSettings::UseMesoSim) {
             mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
         } else {
 #endif
             mySettings->laneColorer.fill(*myLaneEdgeColorMode);
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         }
 #endif
 
@@ -556,13 +556,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (GUIVisualizationSettings::UseMesoSim) {
         tmpSettings.edgeColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
     } else {
 #endif
         tmpSettings.laneColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     }
 #endif
     tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);

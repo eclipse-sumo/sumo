@@ -46,7 +46,7 @@
 #include "MSVehicle.h"
 #include "MSEdgeWeightsStorage.h"
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MEVehicle.h>
@@ -318,7 +318,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time) const {
     if (isVaporizing()) {
         return false;
     }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         const SUMOVehicleParameter& pars = v.getParameter();
         SUMOReal pos = 0.0;
@@ -394,7 +394,7 @@ MSEdge::getInternalFollowingEdge(MSEdge* followerAfterInternal) const {
 SUMOReal
 MSEdge::getCurrentTravelTime() const {
     SUMOReal v = 0;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
         unsigned segments = 0;
@@ -410,7 +410,7 @@ MSEdge::getCurrentTravelTime() const {
             v += (*i)->getMeanSpeed();
         }
         v /= (SUMOReal) myLanes->size();
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     }
 #endif
     if (v != 0) {

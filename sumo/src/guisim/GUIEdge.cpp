@@ -51,7 +51,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
@@ -175,7 +175,7 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = 0;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
@@ -215,14 +215,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw the lanes
     for (LaneWrapperVector::const_iterator i = myLaneGeoms.begin(); i != myLaneGeoms.end(); ++i) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             setColor(s);
         }
 #endif
         (*i)->drawGL(s);
     }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         size_t idx = 0;
         for (LaneWrapperVector::const_iterator l = myLaneGeoms.begin(); l != myLaneGeoms.end(); ++l, ++idx) {
@@ -306,7 +306,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
 }
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 unsigned int
 GUIEdge::getVehicleNo() const {
     size_t vehNo = 0;

@@ -125,7 +125,7 @@ NLBuilder::build() {
         return false;
     }
     buildNet();
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     // load the previous state if wished
     if (myOptions.isSet("load-state")) {
         long before = SysUtils::getCurrentMillis();
@@ -211,7 +211,7 @@ NLBuilder::buildNet() {
         MSFrame::buildStreams();
         std::vector<SUMOTime> stateDumpTimes;
         std::vector<std::string> stateDumpFiles;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         const std::vector<int> times = myOptions.getIntVector("save-state.times");
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
             stateDumpTimes.push_back(TIME2STEPS(*i));

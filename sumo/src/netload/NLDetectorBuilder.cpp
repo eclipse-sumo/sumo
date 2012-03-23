@@ -57,7 +57,7 @@
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
@@ -111,7 +111,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
         // add the file output
         myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     } else {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (pos < 0) {
             pos = clane->getLength() + pos;
         }
@@ -410,7 +410,7 @@ NLDetectorBuilder::createInstantInductLoop(const std::string& id,
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 MEInductLoop*
 NLDetectorBuilder::createMEInductLoop(const std::string& id,
                                       MESegment* s, SUMOReal pos) {

@@ -179,7 +179,7 @@ public:
     }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     void updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime);
 #endif
@@ -215,7 +215,7 @@ protected:
     MSLane* const myLane;
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     std::map<SUMOVehicle*, std::pair<SUMOTime, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 

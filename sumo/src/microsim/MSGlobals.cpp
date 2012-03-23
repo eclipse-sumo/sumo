@@ -49,7 +49,7 @@ bool MSGlobals::gCheck4Accidents;
 
 bool MSGlobals::gCheckRoutes;
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 MELoop* MSGlobals::gMesoNet;

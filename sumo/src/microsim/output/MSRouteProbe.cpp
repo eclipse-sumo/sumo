@@ -38,7 +38,7 @@
 #include <microsim/MSVehicle.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #endif
@@ -60,7 +60,7 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, SUMOTime b
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
         MSRoute::dictionary(distID, myCurrentRouteDistribution);
     }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg != 0) {

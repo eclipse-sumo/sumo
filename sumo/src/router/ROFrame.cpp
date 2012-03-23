@@ -130,14 +130,14 @@ ROFrame::fillOptions(OptionsCont& oc, bool forDuarouter) {
     if (forDuarouter) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
         oc.addDescription("routing-algorithm", "Processing", 
-#ifndef HAVE_MESOSIM // catchall for internal stuff
+#ifndef HAVE_INTERNAL // catchall for internal stuff
                 "Select among routing algorithms ['dijkstra', 'astar']"
 #else
                 "Select among routing algorithms ['dijkstra', 'astar', 'bulkstar', 'CH', 'CHWrapper']"
 #endif
                 );
 
-#ifdef HAVE_MESOSIM // catchall for internal stuff
+#ifdef HAVE_INTERNAL // catchall for internal stuff
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
     oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hirarchy"); 
 #endif

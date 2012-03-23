@@ -82,7 +82,7 @@
 #include "MSMessageEmitter.h"
 #endif
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #endif
@@ -178,7 +178,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myEndOfTimestepEvents = endOfTimestepEvents;
     myInsertionEvents = insertionEvents;
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")));
     }
@@ -236,7 +236,7 @@ MSNet::~MSNet() {
     msgEmitVec.clear();
 #endif
     delete myEdgeWeights;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
@@ -326,7 +326,7 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     // netstate output
     std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
     if (timeIt != myStateDumpTimes.end()) {
@@ -344,7 +344,7 @@ MSNet::simulationStep() {
     // set the signals
     myLogics->setTrafficLightSignals(myStep);
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
@@ -371,7 +371,7 @@ MSNet::simulationStep() {
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep);
         }
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     }
 #endif
     // load routes
@@ -510,7 +510,7 @@ MSNet::logSimulationDuration() const {
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 void
 MSNet::saveState(std::ostream& os) {
     FileHelpers::writeString(os, VERSION_STRING);

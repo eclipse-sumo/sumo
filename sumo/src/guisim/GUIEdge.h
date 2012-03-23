@@ -137,7 +137,7 @@ public:
     //@}
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     unsigned int getVehicleNo() const;
     std::string getVehicleIDs() const;
     SUMOReal getOccupancy() const;

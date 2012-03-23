@@ -64,7 +64,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <internal/HeightMapper.h>
 #endif
 
@@ -94,7 +94,7 @@ NILoader::load(OptionsCont& oc) {
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("type-files"), "types");
     // try to load height data so it is ready for use by other importers
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     HeightMapper::loadIfSet(oc);
 #endif
     // try to load using different methods
@@ -199,7 +199,7 @@ bool
 NILoader::transformCoordinates(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
     bool ok = GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (ok) {
         const HeightMapper& hm = HeightMapper::get();
         if (hm.ready()) {

@@ -97,7 +97,7 @@ public:
             MSLane* lane, SUMOReal pos, OutputDevice& od);
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /** @brief Creates an instance of a mesoscopic e1 detector using the given values
      *
      * Simply calls the MEInductLoop constructor

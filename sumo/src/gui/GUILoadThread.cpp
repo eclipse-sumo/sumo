@@ -60,7 +60,7 @@
 #include <utils/common/RandHelper.h>
 #include <ctime>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MEVehicleControl.h>
 #endif
 
@@ -128,7 +128,7 @@ GUILoadThread::run() {
     MSFrame::setMSGlobals(oc);
     gAllowTextures = !oc.getBool("disable-textures");
     MSVehicleControl* vehControl = 0;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
         vehControl = new MEVehicleControl();

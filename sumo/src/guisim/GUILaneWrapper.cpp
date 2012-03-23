@@ -459,7 +459,7 @@ GUILaneWrapper::drawMarkings(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glPushName(0);
     glTranslated(0, 0, GLO_EDGE);
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (!MSGlobals::gUseMesoSim)
 #endif
         setColor(s);

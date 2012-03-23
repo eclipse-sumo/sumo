@@ -211,7 +211,7 @@ MSRoute::operator[](unsigned index) const {
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 void
 MSRoute::dict_saveState(std::ostream& os) {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());

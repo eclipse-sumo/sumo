@@ -220,7 +220,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_VSS:
                 myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
                 break;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
             case SUMO_TAG_CALIBRATOR:
                 myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
                 break;

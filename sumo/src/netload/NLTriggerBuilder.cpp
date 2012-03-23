@@ -50,7 +50,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/METriggeredCalibrator.h>
 #endif
 
@@ -186,7 +186,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attr
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
         const std::string& base) throw(InvalidArgument) {
@@ -264,7 +264,7 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 METriggeredCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
                                   const MSEdge* edge, SUMOReal pos,

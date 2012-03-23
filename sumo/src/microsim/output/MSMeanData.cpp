@@ -42,7 +42,7 @@
 #include "MSMeanData.h"
 #include <limits>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
@@ -272,7 +272,7 @@ MSMeanData::init() {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
             const std::vector<MSLane*> &lanes = (*e)->getLanes();
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
             if (MSGlobals::gUseMesoSim) {
                 MeanDataValues* data;
                 if (myTrackVehicles) {
@@ -323,7 +323,7 @@ MSMeanData::~MSMeanData() {
 void
 MSMeanData::resetOnly(SUMOTime stopTime) {
     UNUSED_PARAMETER(stopTime);
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
@@ -350,7 +350,7 @@ void
 MSMeanData::writeEdge(OutputDevice& dev,
                       const std::vector<MeanDataValues*> &edgeValues,
                       MSEdge* edge, SUMOTime startTime, SUMOTime stopTime) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         MeanDataValues* data = edgeValues.front();

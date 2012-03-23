@@ -46,7 +46,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #endif
 
@@ -122,7 +122,7 @@ MSEdgeControl*
 NLEdgeControlBuilder::build() {
     for (EdgeCont::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(**i1, OptionsCont::getOptions());
         }

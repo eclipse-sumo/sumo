@@ -122,7 +122,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
             mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
             myCurrentColorer = element;
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
             mySettings.edgeColorer.setActive(laneEdgeMode);
 #endif
             mySettings.laneColorer.setActive(laneEdgeMode);
@@ -132,7 +132,7 @@ GUISettingsHandler::myStartElement(int element,
             myCurrentScheme = 0;
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
                 myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
                 if (myCurrentScheme == 0) {
                     myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }

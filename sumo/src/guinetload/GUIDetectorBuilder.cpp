@@ -42,7 +42,7 @@
 #include <utils/common/FileHelpers.h>
 #include "GUIDetectorBuilder.h"
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesogui/GUIMEInductLoop.h>
 #include <mesosim/MELoop.h>
 #endif
@@ -76,7 +76,7 @@ GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 MEInductLoop*
 GUIDetectorBuilder::createMEInductLoop(const std::string& id,
                                        MESegment* s, SUMOReal pos) {

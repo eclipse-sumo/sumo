@@ -62,11 +62,11 @@
 #include "RODUAFrame.h"
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef HAVE_MESOSIM // catchall for internal stuff
+#ifdef HAVE_INTERNAL // catchall for internal stuff
 #include <internal/BulkStarRouter.h>
 #include <internal/CHRouter.h>
 #include <internal/CHRouterWrapper.h>
-#endif // have HAVE_MESOSIM
+#endif // have HAVE_INTERNAL
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -130,7 +130,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 router = new AStarRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                     net.getEdgeNo(), oc.getBool("ignore-errors"), &ROEdge::getTravelTime);
             }
-#ifdef HAVE_MESOSIM // catchall for internal stuff
+#ifdef HAVE_INTERNAL // catchall for internal stuff
         } else if (routingAlgorithm == "bulkstar") {
             if (net.hasRestrictions()) {
                 router = new BulkStarRouterTT<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
@@ -168,7 +168,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             router = new CHRouterWrapper<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                     oc.getBool("ignore-errors"), &ROEdge::getTravelTime, begin, weightPeriod);
 
-#endif // have HAVE_MESOSIM
+#endif // have HAVE_INTERNAL
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }

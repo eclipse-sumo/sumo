@@ -98,7 +98,7 @@ MSFrame::fillOptions() {
     oc.addSynonyme("weight-attribute", "measure", true);
     oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
     oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
@@ -141,7 +141,7 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
     oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
@@ -226,7 +226,7 @@ MSFrame::fillOptions() {
 #endif
 #endif
     //
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
@@ -328,7 +328,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTimeToGridlock = string2time(oc.getString("time-to-teleport")) < 0 ? 0 : string2time(oc.getString("time-to-teleport"));
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
 #endif

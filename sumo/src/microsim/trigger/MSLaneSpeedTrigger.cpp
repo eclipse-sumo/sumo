@@ -45,7 +45,7 @@
 #include <microsim/MSEdge.h>
 #include "MSLaneSpeedTrigger.h"
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
@@ -112,7 +112,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
     std::vector<MSLane*>::iterator i;
     const SUMOReal speed = getCurrentSpeed();
     for (i = myDestLanes.begin(); i != myDestLanes.end(); ++i) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge((*i)->getEdge());
             while (first != 0) {

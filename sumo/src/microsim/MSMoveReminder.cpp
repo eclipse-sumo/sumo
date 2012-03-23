@@ -46,7 +46,7 @@ MSMoveReminder::MSMoveReminder(MSLane* const lane, const bool doAdd)
 }
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 void
 MSMoveReminder::updateDetector(SUMOVehicle& veh, SUMOReal entryPos, SUMOReal leavePos,
                                SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime) {

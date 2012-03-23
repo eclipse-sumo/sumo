@@ -112,7 +112,7 @@ public:
     /// @name lane visualization settings
     //@{
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /// @brief The mesoscopic edge colorer
     GUIColorer edgeColorer;
 

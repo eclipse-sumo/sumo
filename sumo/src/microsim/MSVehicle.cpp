@@ -75,7 +75,7 @@
 #include "MSMessageEmitter.h"
 #endif
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include "MSGlobals.h"

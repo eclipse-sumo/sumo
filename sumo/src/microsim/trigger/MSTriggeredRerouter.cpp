@@ -51,7 +51,7 @@
 #include <microsim/MSGlobals.h>
 #include "MSTriggeredRerouter.h"
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #endif
@@ -83,7 +83,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     }
     // build actors
     for (std::vector<MSEdge*>::const_iterator j = edges.begin(); j != edges.end(); ++j) {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
         if (MSGlobals::gUseMesoSim) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
             s->addDetector(this);

@@ -44,7 +44,7 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSRouteProbe.h>
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 #include <mesosim/MEInductLoop.h>
 #endif
 

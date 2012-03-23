@@ -42,7 +42,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 bool GUIVisualizationSettings::UseMesoSim = false;
 #endif
 
@@ -175,7 +175,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
     vehicleColorer.addScheme(scheme);
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor(0, 0, 0), "", true));
     scheme = GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true);
@@ -206,7 +206,7 @@ GUIVisualizationSettings::GUIVisualizationSettings()
 
 size_t
 GUIVisualizationSettings::getLaneEdgeMode() const {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeColorer.getActive();
     }
@@ -217,7 +217,7 @@ GUIVisualizationSettings::getLaneEdgeMode() const {
 
 GUIColorScheme&
 GUIVisualizationSettings::getLaneEdgeScheme() {
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (UseMesoSim) {
         return edgeColorer.getScheme();
     }
@@ -243,7 +243,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
         << "               " << internalEdgeName.print("internalEdgeName") << "\n"
         << "               " << streetName.print("streetName") << ">\n";
     laneColorer.save(dev);
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     edgeColorer.save(dev);
 #endif
     dev << "        </edges>\n";
@@ -306,7 +306,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     if (!(edgeColorer == v2.edgeColorer)) {
         return false;
     }

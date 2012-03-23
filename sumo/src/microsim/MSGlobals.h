@@ -39,7 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 class MELoop;
 #endif
 
@@ -72,7 +72,7 @@ public:
     /** information whether the routes shall be checked for connectivity */
     static bool gCheckRoutes;
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 

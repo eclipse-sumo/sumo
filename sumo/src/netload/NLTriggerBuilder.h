@@ -49,7 +49,7 @@ class MSLane;
 class MSEdge;
 class MSBusStop;
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
 class METriggeredCalibrator;
 #endif
 
@@ -138,7 +138,7 @@ public:
     void parseAndBuildBusStop(MSNet& net, const SUMOSAXAttributes& attrs) throw(InvalidArgument);
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -196,7 +196,7 @@ protected:
                               MSLane* lane, SUMOReal frompos, SUMOReal topos) throw(InvalidArgument);
 
 
-#ifdef HAVE_MESOSIM
+#ifdef HAVE_INTERNAL
     /** @brief builds a mesoscopic calibrator
      *
      * Simply calls the METriggeredCalibrator constructor.
