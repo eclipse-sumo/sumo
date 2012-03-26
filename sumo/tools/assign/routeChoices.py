@@ -202,6 +202,8 @@ class vehrouteReader(handler.ContentHandler):
 
             if attrs.has_key('probability'):
                 self._routObj.probability = float(attrs['probability'])
+                if self._routObj.probability == 0.0:
+                    self._routObj.probability = 1.02208127529e-16    # check with Micha if there is a better way to avoid the prob. = 0.
             if attrs.has_key('cost'):
                 self._routObj.ex_cost = float(attrs['cost'])
             for e in self._routObj.edges.split(' '):
