@@ -133,7 +133,7 @@ ROEdge::getEffort(const ROVehicle* const veh, SUMOReal time) const {
 
 SUMOReal 
 ROEdge::getDistanceTo(const ROEdge* other) const {
-    if (getToNode() != 0 and other->getFromNode() != 0) {
+    if (getToNode() != 0 && other->getFromNode() != 0) {
         return getToNode()->getPosition().distanceTo2D(other->getFromNode()->getPosition());
     } else {
         return 0; // optimism is just right for astar
