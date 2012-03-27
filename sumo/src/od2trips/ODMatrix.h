@@ -190,10 +190,6 @@ protected:
     };
 
 
-    /// Definition of a container for cells
-    typedef std::vector<ODCell*> CellVector;
-
-
     /** @brief Computes the vehicle departs stored in the given cell and saves them in "into"
      *
      * At first, the number of vehicles to insert is computed using the
@@ -239,12 +235,12 @@ protected:
      * @todo describe better!!!
      */
     void applyCurve(const Distribution_Points& ps, ODCell* cell,
-                    CellVector& newCells);
+                    std::vector<ODCell*>& newCells);
 
 
 protected:
     /// @brief The loaded cells
-    CellVector myContainer;
+    std::vector<ODCell*> myContainer;
 
     /// @brief The districts to retrieve sources/sinks from
     const ODDistrictCont& myDistricts;

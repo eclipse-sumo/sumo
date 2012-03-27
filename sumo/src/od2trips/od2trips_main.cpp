@@ -265,7 +265,7 @@ parseSingleTime(const std::string& time) {
     }
     std::string hours = time.substr(0, time.find('.'));
     std::string minutes = time.substr(time.find('.') + 1);
-    return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60;
+    return TIME2STEPS(TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60);
 }
 
 
@@ -507,8 +507,9 @@ main(int argc, char** argv) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output-file");
-        matrix.write(SUMOTime(string2time(oc.getString("begin")) / 1000.), SUMOTime(string2time(oc.getString("end")) / 1000.),
-                     dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"), oc.getString("prefix"), !oc.getBool("no-step-log"));
+        matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                     dev, oc.getBool("spread.uniform"), oc.getBool("ignore-vehicle-type"),
+                     oc.getString("prefix"), !oc.getBool("no-step-log"));
         WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError& e) {

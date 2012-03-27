@@ -55,7 +55,7 @@ ODMatrix::ODMatrix(const ODDistrictCont& dc)
 
 
 ODMatrix::~ODMatrix() {
-    for (CellVector::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
+    for (std::vector<ODCell*>::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         delete *i;
     }
     myContainer.clear();
@@ -102,21 +102,20 @@ ODMatrix::computeDeparts(ODCell* cell,
                          bool uniform, const std::string& prefix) {
     int vehicles2insert = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle insertion
-    SUMOReal mrand = RandHelper::rand();
     SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2insert;
-    if (mrand < mprob) {
+    if (RandHelper::rand() < mprob) {
         vehicles2insert++;
     }
 
-    SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
+    const SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2insert / (SUMOReal) 2.;
     for (int i = 0; i < vehicles2insert; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 
         if (uniform) {
-            veh.depart = (unsigned int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2insert));
+            veh.depart = (SUMOTime)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2insert));
         } else {
-            veh.depart = (unsigned int) RandHelper::rand((int) cell->begin, (int) cell->end);
+            veh.depart = (SUMOTime)RandHelper::rand(cell->begin, cell->end);
         }
 
         veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
@@ -140,14 +139,15 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
     // recheck begin time
-    ODCell* first = *myContainer.begin();
-    begin = MAX2(begin, first->begin);
-    CellVector::iterator next = myContainer.begin();
+    begin = MAX2(begin, myContainer.front()->begin);
+    std::vector<ODCell*>::iterator next = myContainer.begin();
     std::vector<ODVehicle> vehicles;
+    SUMOTime lastOut = -DELTA_T;
     // go through the time steps
-    for (SUMOTime t = begin; t != end; t++) {
-        if (stepLog) {
-            std::cout << "Parsing time " + toString(t) << '\r';
+    for (SUMOTime t = begin; t != end;) {
+        if (stepLog && t - lastOut >= DELTA_T) {
+            std::cout << "Parsing time " + time2string(t) << '\r';
+            lastOut = t;
         }
         // recheck whether a new cell got valid
         bool changed = false;
@@ -159,31 +159,22 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
                 fractionLeft[odID] = 0;
             }
             // get the new departures (into tmp)
-            std::vector<ODVehicle> tmp;
-            SUMOReal fraction = computeDeparts(*next, vehName, tmp, uniform, prefix);
-            // copy new departures if any
-            if (tmp.size() != 0) {
-                copy(tmp.begin(), tmp.end(), back_inserter(vehicles));
+            const size_t oldSize = vehicles.size();
+            const SUMOReal fraction = computeDeparts(*next, vehName, vehicles, uniform, prefix);
+            if (oldSize != vehicles.size()) {
                 changed = true;
             }
-            // save the fraction
             if (fraction != 0) {
-                if (fractionLeft.find(odID) == fractionLeft.end()) {
-                    fractionLeft[odID] = fraction;
-                } else {
-                    fractionLeft[odID] += fraction;
-                }
+                fractionLeft[odID] = fraction;
             }
-            //
             ++next;
         }
         if (changed) {
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
-        std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin();
-        for (; i != vehicles.rend() && (*i).depart == t; ++i) {
+        for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             myNoWritten++;
-            dev.openTag("trip") << " id=\"" << (*i).id << "\" depart=\"" << t << ".00\" "
+            dev.openTag("trip") << " id=\"" << (*i).id << "\" depart=\"" << time2string(t) << "\" "
                                 << "from=\"" << (*i).from << "\" "
                                 << "to=\"" << (*i).to << "\"";
             if (!noVtype && (*i).cell->vehicleType.length() != 0) {
@@ -211,8 +202,17 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             }
             dev.closeTag(true);
         }
-        while (vehicles.size() != 0 && (*vehicles.rbegin()).depart == t) {
+        while (vehicles.size() != 0 && vehicles.back().depart == t) {
             vehicles.pop_back();
+        }
+        if (!vehicles.empty()) {
+            t = vehicles.back().depart;
+        }
+        if (next != myContainer.end() && (t > (*next)->begin || vehicles.empty())) {
+            t = (*next)->begin;
+        }
+        if (next == myContainer.end() && vehicles.empty()) {
+            break;
         }
     }
 }
@@ -237,11 +237,11 @@ ODMatrix::getNoDiscarded() const {
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& newCells) {
+ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, std::vector<ODCell*>& newCells) {
     for (size_t i = 0; i < ps.getAreaNo(); ++i) {
         ODCell* ncell = new ODCell();
-        ncell->begin = (SUMOTime) ps.getAreaBegin(i);
-        ncell->end = (SUMOTime) ps.getAreaEnd(i);
+        ncell->begin = TIME2STEPS(ps.getAreaBegin(i));
+        ncell->end = TIME2STEPS(ps.getAreaEnd(i));
         ncell->origin = cell->origin;
         ncell->destination = cell->destination;
         ncell->vehicleType = cell->vehicleType;
@@ -253,10 +253,10 @@ ODMatrix::applyCurve(const Distribution_Points& ps, ODCell* cell, CellVector& ne
 
 void
 ODMatrix::applyCurve(const Distribution_Points& ps) {
-    CellVector oldCells = myContainer;
+    std::vector<ODCell*> oldCells = myContainer;
     myContainer.clear();
-    for (CellVector::iterator i = oldCells.begin(); i != oldCells.end(); ++i) {
-        CellVector newCells;
+    for (std::vector<ODCell*>::iterator i = oldCells.begin(); i != oldCells.end(); ++i) {
+        std::vector<ODCell*> newCells;
         applyCurve(ps, *i, newCells);
         copy(newCells.begin(), newCells.end(), back_inserter(myContainer));
         delete *i;
