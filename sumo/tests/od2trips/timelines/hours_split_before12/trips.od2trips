@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Oct 11 17:31:10 2010 by SUMO od2trips Version dev-SVN-r9246
-<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- generated on 03/27/12 11:56:00 by SUMO od2trips Version dev-SVN-r11548
+<?xml version="1.0" encoding="UTF-8"?>
 
-<configuration>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/od2tripsConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <od-files value="input_od_o.fma"/>
+        <od-matrix-files value="input_od_o.fma"/>
     </input>
 
     <output>
@@ -17,34 +17,35 @@
     <processing>
         <timeline value="1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0"/>
         <timeline.day-in-hours value="true"/>
+        <no-step-log value="true"/>
     </processing>
 
 </configuration>
 -->
 
 <trips>
-    <trip id="1" depart="1803.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="0" depart="1809.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="2" depart="5725.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="3" depart="6629.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="4" depart="9691.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="5" depart="10306.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="7" depart="11791.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="6" depart="13604.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="8" depart="15735.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="9" depart="16674.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="11" depart="20945.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="10" depart="21212.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="12" depart="21755.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="13" depart="24020.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="15" depart="25215.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="14" depart="28082.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="17" depart="29677.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="16" depart="31603.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="18" depart="35527.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="19" depart="35697.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="20" depart="38101.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="21" depart="39048.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="23" depart="41726.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
-    <trip id="22" depart="42442.00" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="1" depart="476.94" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="0" depart="2488.08" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="3" depart="4254.29" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="2" depart="5117.65" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="5" depart="7255.65" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="4" depart="10150.16" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="7" depart="11201.49" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="6" depart="13652.53" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="8" depart="14418.39" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="9" depart="16700.46" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="10" depart="20015.92" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="11" depart="20901.62" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="13" depart="22266.67" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="12" depart="22972.68" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="15" depart="25924.95" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="14" depart="26069.60" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="17" depart="30797.36" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="16" depart="32251.08" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="19" depart="32752.32" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="18" depart="34000.23" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="21" depart="36842.52" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="20" depart="39181.59" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="23" depart="40142.30" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+    <trip id="22" depart="41183.17" from="a1" to="b2" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
 </trips>
