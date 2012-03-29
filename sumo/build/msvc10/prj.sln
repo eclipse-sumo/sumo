@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcxproj", "{90205628-51D7-4194-9FC0-7D74C35A3471}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcxproj", "{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sumo-gui", "guisim\guisim.vcxproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 EndProject
@@ -120,18 +120,18 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Debug|Win32.ActiveCfg = Debug|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Debug|Win32.Build.0 = Debug|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Debug|x64.ActiveCfg = Debug|x64
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Debug|x64.Build.0 = Debug|x64
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Fastbuild|x64.Build.0 = Fastbuild|x64
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Release|Win32.ActiveCfg = Release|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Release|Win32.Build.0 = Release|Win32
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Release|x64.ActiveCfg = Release|x64
-		{90205628-51D7-4194-9FC0-7D74C35A3471}.Release|x64.Build.0 = Release|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Debug|Win32.Build.0 = Debug|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Debug|x64.ActiveCfg = Debug|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Debug|x64.Build.0 = Debug|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Fastbuild|x64.Build.0 = Fastbuild|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Release|Win32.ActiveCfg = Release|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Release|Win32.Build.0 = Release|Win32
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Release|x64.ActiveCfg = Release|x64
+		{8B23994C-79B7-4C1F-86F9-1EA2CBACE0F9}.Release|x64.Build.0 = Release|x64
 		{F1904C42-F231-4B9D-AD80-E2971969AFA0}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F1904C42-F231-4B9D-AD80-E2971969AFA0}.Debug|Win32.Build.0 = Debug|Win32
 		{F1904C42-F231-4B9D-AD80-E2971969AFA0}.Debug|x64.ActiveCfg = Debug|x64
