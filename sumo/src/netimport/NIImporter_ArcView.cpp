@@ -269,7 +269,7 @@ NIImporter_ArcView::load() {
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, -1, shape, "", spread);
+                NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -279,7 +279,7 @@ NIImporter_ArcView::load() {
             id = "-" + id;
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
-                NBEdge* edge = new NBEdge(id, to, from, type, speed, nolanes, priority, width, -1, shape.reverse(), "", spread);
+                NBEdge* edge = new NBEdge(id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), "", spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }

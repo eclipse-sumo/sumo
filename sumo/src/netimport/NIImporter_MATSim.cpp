@@ -245,8 +245,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
     }
-    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, 
-            NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
+    NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, (unsigned int) permLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
     if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }

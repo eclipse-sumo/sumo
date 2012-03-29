@@ -199,15 +199,13 @@ NIImporter_RobocupRescue::loadEdges(const std::string& file) {
         int priority = -1;
         LaneSpreadFunction spread = linesToHead > 0 && linesToTail > 0 ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
         if (linesToHead > 0) {
-            NBEdge* edge = new NBEdge(toString(id), fromNode, toNode, "",
-                                      speed, linesToHead, priority, -1, -1, "", spread);
+            NBEdge* edge = new NBEdge(toString(id), fromNode, toNode, "", speed, linesToHead, priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", spread);
             if (!myEdgeCont.insert(edge)) {
                 WRITE_ERROR("Could not insert edge '" + toString(id) + "'");
             }
         }
         if (linesToTail > 0) {
-            NBEdge* edge = new NBEdge("-" + toString(id), toNode, fromNode, "",
-                                      speed, linesToTail, priority, -1, -1, "", spread);
+            NBEdge* edge = new NBEdge("-" + toString(id), toNode, fromNode, "", speed, linesToTail, priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", spread);
             if (!myEdgeCont.insert(edge)) {
                 WRITE_ERROR("Could not insert edge '-" + toString(id) + "'");
             }
