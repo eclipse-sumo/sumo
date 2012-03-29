@@ -60,12 +60,69 @@ public:
      */
     static void computeRamps(NBNetBuilder &nb, OptionsCont& oc);
 
+
 private:
+    /** @brief Determines whether the given node may be an on-ramp begin
+     * @param[in] oc The options container
+     * @param[in] cur The node to check
+     * @return Whether the node is assumed to be an on-ramp begin
+     */
     static bool mayNeedOnRamp(OptionsCont& oc, NBNode* cur);
+
+
+    /** @brief Determines whether the given node may be an off-ramp end
+     * @param[in] oc The options container
+     * @param[in] cur The node to check
+     * @return Whether the node is assumed to be an off-ramp end
+     */
     static bool mayNeedOffRamp(OptionsCont& oc, NBNode* cur);
-    static bool buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, std::vector<NBEdge*>& incremented);
+
+
+    /** @brief Builds an on-ramp starting at the given node
+     * @param[in] oc The options container
+     * @param[in] cur The node at which the on-ramp shall begin
+     * @param[in] nc The container of nodes
+     * @param[in] ec The container of edges
+     * @param[in] dc The container of districts
+     * @param[in, filled] incremented The list of edges which lane number was already incremented
+     */
+    static void buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, std::vector<NBEdge*>& incremented);
+
+
+    /** @brief Builds an off-ramp ending at the given node
+     * @param[in] oc The options container
+     * @param[in] cur The node at which the off-ramp shall end
+     * @param[in] nc The container of nodes
+     * @param[in] ec The container of edges
+     * @param[in] dc The container of districts
+     * @param[in, filled] incremented The list of edges which lane number was already incremented
+     */
     static void buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, std::vector<NBEdge*>& incremented);
-    static void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
+
+
+    /** @brief Returns the highway and the ramp from the given list of two edges
+     *
+     * Determines which one of the two edges within the given list is a ramp and which is the highway.
+     * Returns them by assigning them to the given pointers.
+     * @param[in] edges The list of edges (must be two)
+     * @param[in] potHighway The highway will be put in here
+     * @param[in] potRamp The ramp will be put in here
+     */
+    static void getHighwayAndRamp(const std::vector<NBEdge*> &edges, NBEdge **potHighway, NBEdge **potRamp);
+
+
+    /** @brief Checks whether an on-/off-ramp can be bult here
+     *
+     * - none of the participating edges must be a macroscopic connector
+     * - ramp+highways together must have more lanes than the continuation
+     * - speeds must match the defined swells
+     * @param[in] oc The options container
+     * @param[in] potHighway The highway part to check
+     * @param[in] potRamp The ramp part to check
+     * @param[in] other The successor/predecessor edge
+     * @return Whether a ramp can be built here
+     */
+    static bool fulfillsRampConstraints(OptionsCont& oc, NBEdge *potHighway, NBEdge *potRamp, NBEdge *other);
 
 
 };

@@ -50,7 +50,6 @@
 void 
 NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
     EdgeVector incremented;
-    bool bEdgeDeleted = false;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
         NBNodeCont &nc = nb.getNodeCont();
@@ -80,7 +79,7 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
             }
             NBNode* from = e->getFromNode();
             if (from->getIncomingEdges().size() == 2 && from->getOutgoingEdges().size() == 1) {
-                bEdgeDeleted = buildOnRamp(oc, from, nc, ec, dc, incremented);
+                buildOnRamp(oc, from, nc, ec, dc, incremented);
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
@@ -99,98 +98,42 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
 
 bool
 NBRampsComputer::mayNeedOnRamp(OptionsCont& oc, NBNode* cur) {
-    if (cur->getIncomingEdges().size() == 2 && cur->getOutgoingEdges().size() == 1) {
-        // may be an on-ramp
-        NBEdge* pot_highway = cur->getIncomingEdges()[0];
-        NBEdge* pot_ramp = cur->getIncomingEdges()[1];
-        NBEdge* cont = cur->getOutgoingEdges()[0];
-        // do not build ramps on connectors
-        if (pot_highway->isMacroscopicConnector() || pot_ramp->isMacroscopicConnector() || cont->isMacroscopicConnector()) {
-            return false;
-        }
-        // check whether a lane is missing
-        if (pot_highway->getNumLanes() + pot_ramp->getNumLanes() <= cont->getNumLanes()) {
-            return false;
-        }
-        // assign highway/ramp properly
-        if (pot_highway->getSpeed() < pot_ramp->getSpeed()) {
-            std::swap(pot_highway, pot_ramp);
-        } else if (pot_highway->getSpeed() == pot_ramp->getSpeed() && pot_highway->getNumLanes() < pot_ramp->getNumLanes()) {
-
-            std::swap(pot_highway, pot_ramp);
-        }
-        // check conditions
-        // is it really a highway?
-        SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
-        if (pot_highway->getSpeed() < minHighwaySpeed || cont->getSpeed() < minHighwaySpeed) {
-            return false;
-        }
-        // is it really a ramp?
-        SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
-        if (maxRampSpeed > 0 && maxRampSpeed < pot_ramp->getSpeed()) {
-            return false;
-        }
-        // ok, may be
-        return true;
+    if (cur->getOutgoingEdges().size() != 1 || cur->getIncomingEdges().size() != 2) {
+        return false;
     }
-    return false;
+    // may be an on-ramp
+    NBEdge* potHighway;
+    NBEdge* potRamp;
+    NBEdge* cont = cur->getOutgoingEdges()[0];
+    getHighwayAndRamp(cur->getIncomingEdges(), &potHighway, &potRamp);
+    return fulfillsRampConstraints(oc, potHighway, potRamp, cont);
 }
 
 
 bool
 NBRampsComputer::mayNeedOffRamp(OptionsCont& oc, NBNode* cur) {
-    if (cur->getIncomingEdges().size() == 1 && cur->getOutgoingEdges().size() == 2) {
-        // may be an off-ramp
-        NBEdge* pot_highway = cur->getOutgoingEdges()[0];
-        NBEdge* pot_ramp = cur->getOutgoingEdges()[1];
-        NBEdge* prev = cur->getIncomingEdges()[0];
-        // do not build ramps on connectors
-        if (pot_highway->isMacroscopicConnector() || pot_ramp->isMacroscopicConnector() || prev->isMacroscopicConnector()) {
-            return false;
-        }
-        // check whether a lane is missing
-        if (pot_highway->getNumLanes() + pot_ramp->getNumLanes() <= prev->getNumLanes()) {
-            return false;
-        }
-        // assign highway/ramp properly
-        if (pot_highway->getSpeed() < pot_ramp->getSpeed()) {
-            std::swap(pot_highway, pot_ramp);
-        } else if (pot_highway->getSpeed() == pot_ramp->getSpeed() && pot_highway->getNumLanes() < pot_ramp->getNumLanes()) {
-            std::swap(pot_highway, pot_ramp);
-        }
-        // check conditions
-        // is it really a highway?
-        SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
-        if (pot_highway->getSpeed() < minHighwaySpeed || prev->getSpeed() < minHighwaySpeed) {
-            return false;
-        }
-        // is it really a ramp?
-        SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
-        if (maxRampSpeed > 0 && maxRampSpeed < pot_ramp->getSpeed()) {
-            return false;
-        }
-        return true;
+    if (cur->getIncomingEdges().size() != 1 || cur->getOutgoingEdges().size() != 2) {
+        return false;
     }
-    return false;
+    // may be an off-ramp
+    NBEdge* potHighway;
+    NBEdge* potRamp;
+    NBEdge* prev = cur->getIncomingEdges()[0];
+    getHighwayAndRamp(cur->getOutgoingEdges(), &potHighway, &potRamp);
+    return fulfillsRampConstraints(oc, potHighway, potRamp, prev);
 }
 
 
-bool
+void
 NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented) {
-    NBEdge* pot_highway = cur->getIncomingEdges()[0];
-    NBEdge* pot_ramp = cur->getIncomingEdges()[1];
+    NBEdge* potHighway;
+    NBEdge* potRamp;
     NBEdge* cont = cur->getOutgoingEdges()[0];
-    bool bEdgeDeleted = false;
-    // assign highway/ramp properly
-    if (pot_highway->getSpeed() < pot_ramp->getSpeed()) {
-        std::swap(pot_highway, pot_ramp);
-    } else if (pot_highway->getSpeed() == pot_ramp->getSpeed() && pot_highway->getNumLanes() < pot_ramp->getNumLanes()) {
-        std::swap(pot_highway, pot_ramp);
-    }
+    getHighwayAndRamp(cur->getIncomingEdges(), &potHighway, &potRamp);
     // compute the number of lanes to append
-    int toAdd = (pot_ramp->getNumLanes() + pot_highway->getNumLanes()) - cont->getNumLanes();
+    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - cont->getNumLanes();
     if (toAdd <= 0) {
-        return false;
+        return;
     }
     //
     if (cont->getGeometry().length() - POSITION_EPS <= oc.getFloat("ramps.ramp-length")) {
@@ -199,11 +142,11 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
         if (find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
             cont->incLaneNo(toAdd);
             incremented.push_back(cont);
-            if (!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNumLanes(),
-                    MIN2(cont->getNumLanes() - pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!potHighway->addLane2LaneConnections(0, cont, potRamp->getNumLanes(),
+                    MIN2(cont->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!potRamp->addLane2LaneConnections(0, cont, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
             //
@@ -223,22 +166,21 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
                 }
             }
         }
-        PositionVector p = pot_ramp->getGeometry();
+        PositionVector p = potRamp->getGeometry();
         p.pop_back();
         p.push_back(cont->getFromNode()->getPosition());
-        pot_ramp->setGeometry(p);
+        potRamp->setGeometry(p);
     } else {
-        bEdgeDeleted = true;
         // there is enough place to build a ramp; do it
         NBNode* rn = new NBNode(cont->getID() + "-AddedOnRampNode", cont->getGeometry().positionAtLengthPosition(oc.getFloat("ramps.ramp-length")));
         if (!nc.insert(rn)) {
-            throw ProcessError("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
+            throw ProcessError("Ups - could not build on-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
         }
         std::string name = cont->getID();
         bool ok = ec.splitAt(dc, cont, rn, cont->getID() + "-AddedOnRampEdge", cont->getID(), cont->getNumLanes() + toAdd, cont->getNumLanes());
         if (!ok) {
-            WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
-            return true;
+            WRITE_ERROR("Ups - could not build on-ramp for edge '" + potHighway->getID() + "'!");
+            return;
         } else {
             NBEdge* added_ramp = ec.retrieve(name + "-AddedOnRampEdge");
             NBEdge* added = ec.retrieve(name);
@@ -263,37 +205,32 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
                     throw ProcessError("Could not set connection!");
                 }
             }
-            if (!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNumLanes(),
-                    MIN2(added_ramp->getNumLanes() - pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, false, true)) {
+            if (!potHighway->addLane2LaneConnections(0, added_ramp, potRamp->getNumLanes(),
+                    MIN2(added_ramp->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, false, true)) {
                 throw ProcessError("Could not set connection!");
 
             }
-            if (!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
+            if (!potRamp->addLane2LaneConnections(0, added_ramp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            PositionVector p = pot_ramp->getGeometry();
+            PositionVector p = potRamp->getGeometry();
             p.pop_back();
             p.push_back(added_ramp->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
-            pot_ramp->setGeometry(p);
+            potRamp->setGeometry(p);
         }
     }
-    return bEdgeDeleted;
+    return;
 }
 
 
 void
 NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented) {
-    NBEdge* pot_highway = cur->getOutgoingEdges()[0];
-    NBEdge* pot_ramp = cur->getOutgoingEdges()[1];
+    NBEdge* potHighway;
+    NBEdge* potRamp;
     NBEdge* prev = cur->getIncomingEdges()[0];
-    // assign highway/ramp properly
-    if (pot_highway->getSpeed() < pot_ramp->getSpeed()) {
-        std::swap(pot_highway, pot_ramp);
-    } else if (pot_highway->getSpeed() == pot_ramp->getSpeed() && pot_highway->getNumLanes() < pot_ramp->getNumLanes()) {
-        std::swap(pot_highway, pot_ramp);
-    }
+    getHighwayAndRamp(cur->getOutgoingEdges(), &potHighway, &potRamp);
     // compute the number of lanes to append
-    int toAdd = (pot_ramp->getNumLanes() + pot_highway->getNumLanes()) - prev->getNumLanes();
+    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - prev->getNumLanes();
     if (toAdd <= 0) {
         return;
     }
@@ -305,10 +242,10 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
             incremented.push_back(prev);
             prev->incLaneNo(toAdd);
             prev->invalidateConnections(true);
-            if (!prev->addLane2LaneConnections(pot_ramp->getNumLanes(), pot_highway, 0, MIN2(prev->getNumLanes() - 1, pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
+            if (!prev->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(prev->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
+            if (!prev->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
             }
             if (prev->getLaneSpreadFunction() == LANESPREAD_CENTER) {
@@ -321,20 +258,20 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
                 }
             }
         }
-        PositionVector p = pot_ramp->getGeometry();
+        PositionVector p = potRamp->getGeometry();
         p.pop_front();
         p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
-        pot_ramp->setGeometry(p);
+        potRamp->setGeometry(p);
     } else {
         Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - oc.getFloat("ramps.ramp-length"));
         NBNode* rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if (!nc.insert(rn)) {
-            throw ProcessError("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
+            throw ProcessError("Ups - could not build off-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
         }
         std::string name = prev->getID();
         bool ok = ec.splitAt(dc, prev, rn, prev->getID(), prev->getID() + "-AddedOffRampEdge", prev->getNumLanes(), prev->getNumLanes() + toAdd);
         if (!ok) {
-            WRITE_ERROR("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
+            WRITE_ERROR("Ups - could not build on-ramp for edge '" + potHighway->getID() + "'!");
             return;
         } else {
             NBEdge* added_ramp = ec.retrieve(name + "-AddedOffRampEdge");
@@ -361,30 +298,58 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
                     throw ProcessError("Could not set connection!");
                 }
             }
-            if (!added_ramp->addLane2LaneConnections(pot_ramp->getNumLanes(), pot_highway, 0,
-                    MIN2(added_ramp->getNumLanes() - pot_ramp->getNumLanes(), pot_highway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
+            if (!added_ramp->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0,
+                    MIN2(added_ramp->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
+            if (!added_ramp->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
             }
-            PositionVector p = pot_ramp->getGeometry();
+            PositionVector p = potRamp->getGeometry();
             p.pop_front();
             p.push_front(added_ramp->getToNode()->getPosition());
-            pot_ramp->setGeometry(p);
+            potRamp->setGeometry(p);
         }
     }
 }
 
 
 void
-NBRampsComputer::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
-    if (pot_highway->getSpeed() < pot_ramp->getSpeed()) {
-        std::swap(pot_highway, pot_ramp);
-    } else if (pot_highway->getSpeed() == pot_ramp->getSpeed() && pot_highway->getNumLanes() < pot_ramp->getNumLanes()) {
-        std::swap(pot_highway, pot_ramp);
+NBRampsComputer::getHighwayAndRamp(const std::vector<NBEdge*> &edges, NBEdge **potHighway, NBEdge **potRamp) {
+    *potHighway = edges[0];
+    *potRamp = edges[1];
+    if ((*potHighway)->getSpeed() < (*potRamp)->getSpeed()) {
+        std::swap(*potHighway, *potRamp);
+    } else if ((*potHighway)->getSpeed() == (*potRamp)->getSpeed() && (*potHighway)->getNumLanes() < (*potRamp)->getNumLanes()) {
+        std::swap(*potHighway, *potRamp);
     }
 }
+
+
+bool
+NBRampsComputer::fulfillsRampConstraints(OptionsCont& oc, NBEdge *potHighway, NBEdge *potRamp, NBEdge *other) {
+    // do not build ramps on connectors
+    if (potHighway->isMacroscopicConnector() || potRamp->isMacroscopicConnector() || other->isMacroscopicConnector()) {
+        return false;
+    }
+    // check whether a lane is missing
+    if (potHighway->getNumLanes() + potRamp->getNumLanes() <= other->getNumLanes()) {
+        return false;
+    }
+    // check conditions
+    // is it really a highway?
+    SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
+    if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {
+        return false;
+    }
+    // is it really a ramp?
+    SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
+    if (maxRampSpeed > 0 && maxRampSpeed < potRamp->getSpeed()) {
+        return false;
+    }
+    return true;
+}
+
 
 /****************************************************************************/
 
