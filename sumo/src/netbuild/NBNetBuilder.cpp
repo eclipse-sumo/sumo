@@ -50,8 +50,9 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
-
 #include "NBAlgorithms.h"
+#include "NBAlgorithms_Ramps.h"
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -164,7 +165,7 @@ NBNetBuilder::compute(OptionsCont& oc,
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
-        myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
+        NBRampsComputer::computeRamps(*this, oc);
         PROGRESS_DONE_MESSAGE();
     }
 

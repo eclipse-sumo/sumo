@@ -291,7 +291,6 @@ public:
     void computeNodeShapes(bool leftHand);
 
 
-    void guessRamps(OptionsCont& oc, NBEdgeCont& ec, NBDistrictCont& dc);
 
 
     /** @brief Prints statistics about built nodes
@@ -324,18 +323,6 @@ public:
 
 
 private:
-    bool mayNeedOnRamp(OptionsCont& oc, NBNode* cur) const;
-    bool mayNeedOffRamp(OptionsCont& oc, NBNode* cur) const;
-    bool buildOnRamp(OptionsCont& oc, NBNode* cur,
-                     NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented);
-
-    void buildOffRamp(OptionsCont& oc, NBNode* cur,
-                      NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented);
-
-    void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
-
-
-
     /// @name Helper methods for for joining nodes
     /// @{
 

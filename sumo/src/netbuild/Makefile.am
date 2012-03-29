@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libnetbuild.a
 
 libnetbuild_a_SOURCES = NBAlgorithms.cpp NBAlgorithms.h \
+NBAlgorithms_Ramps.cpp NBAlgorithms_Ramps.h \
 NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \
 NBDistribution.cpp NBDistribution.h NBDistrict.cpp NBDistrict.h \
