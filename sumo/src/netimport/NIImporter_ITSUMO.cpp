@@ -221,7 +221,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
             for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
                 for (std::vector<LaneSet*>::iterator j = (*i)->myLaneSets.begin(); j != (*i)->myLaneSets.end(); ++j) {
                     LaneSet* ls = (*j);
-                    NBEdge* edge = new NBEdge(ls->myID, ls->myFrom, ls->myTo, "", ls->myV, (unsigned int)ls->myLanes.size(), -1, -1, -1);
+                    NBEdge* edge = new NBEdge(ls->myID, ls->myFrom, ls->myTo, "", ls->myV, (unsigned int)ls->myLanes.size(), -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;
                         WRITE_ERROR("Could not add edge '" + ls->myID + "'. Probably declared twice.");
