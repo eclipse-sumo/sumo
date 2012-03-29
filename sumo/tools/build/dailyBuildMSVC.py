@@ -42,6 +42,9 @@ optParser.add_option("-f", "--force", action="store_true",
                      default=False, help="force rebuild even if no source changed")
 (options, args) = optParser.parse_args()
 
+sys.path.append(os.path.join(options.rootDir, options.testsDir))
+import runInternalTests
+
 env = os.environ
 env["SMTP_SERVER"]="smtprelay.dlr.de"
 env["TEMP"]=env["TMP"]=r"D:\Delphi\texttesttmp"
@@ -159,13 +162,7 @@ for platform in ["Win32", "x64"]:
     os.mkdir(env["SUMO_REPORT"])
     for name in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "sumo", "polyconvert", "sumo-gui", "activitygen"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
-        if name == "sumo":
-            binary = os.path.join(options.rootDir, options.binDir, options.sumoExe + programSuffix + ".exe")
-        if name in ["duarouter", "jtrrouter", "netconvert"] and options.sumoExe == "meso":
-            binary = os.path.join(options.rootDir, options.binDir, name + "Int" + programSuffix + ".exe")
         if name == "sumo-gui":
-            if options.sumoExe == "meso":
-                binary = os.path.join(options.rootDir, options.binDir, "meso-gui" + programSuffix + ".exe")
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
         elif os.path.exists(binary):
@@ -173,7 +170,10 @@ for platform in ["Win32", "x64"]:
     log = open(testLog, 'w')
     # provide more information than just the date:
     nameopt = " -name %sr%s" % (date.today().strftime("%d%b%y"), svnrev)
-    subprocess.call("texttest.py -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
+    if options.sumoExe == "meso":
+        runInternalTests.runInternal(programSuffix, "-b "+env["FILEPREFIX"]+nameopt, log)
+    else:
+        subprocess.call("texttest.py -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"]+nameopt, stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+" -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(30)
