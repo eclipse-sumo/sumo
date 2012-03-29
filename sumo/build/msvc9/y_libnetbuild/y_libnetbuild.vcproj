@@ -343,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netbuild\NBAlgorithms_Ramps.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netbuild\NBConnection.cpp"
 				>
 			</File>
@@ -437,6 +441,10 @@
 			>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBAlgorithms.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netbuild\NBAlgorithms_Ramps.h"
 				>
 			</File>
 			<File

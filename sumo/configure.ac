@@ -71,6 +71,7 @@ else
     AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
     ac_disabled="$ac_disabled DoublePrecision"
 fi
+AC_DEFINE([SUMOLong], [long long int], [defines a long])
 
 AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--disable-subsecond],[Disable subsecond timesteps.])])
 if test x$enable_subsecond != xno; then

@@ -80,6 +80,9 @@
     <ClCompile Include="..\..\..\src\netbuild\NBAlgorithms.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netbuild\NBAlgorithms_Ramps.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netbuild\NBCapacity2Lanes.h">
@@ -161,6 +164,9 @@
       <Filter>Header-Dateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netbuild\NBAlgorithms.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netbuild\NBAlgorithms_Ramps.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

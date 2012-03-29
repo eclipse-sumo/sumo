@@ -49,6 +49,10 @@
 // ---------------------------------------------------------------------------
 void 
 NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
+    SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
+    SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
+    SUMOReal rampLength = oc.getFloat("ramps.ramp-length");
+    bool dontSplit = oc.getBool("ramps.no-split");
     EdgeVector incremented;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
@@ -57,11 +61,11 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
         NBDistrictCont &dc = nb.getDistrictCont();
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
-            if (mayNeedOnRamp(oc, cur)) {
-                buildOnRamp(oc, cur, nc, ec, dc, incremented);
+            if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed)) {
+                buildOnRamp(cur, nc, ec, dc, rampLength, dontSplit, incremented);
             }
-            if (mayNeedOffRamp(oc, cur)) {
-                buildOffRamp(oc, cur, nc, ec, dc, incremented);
+            if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed)) {
+                buildOffRamp(cur, nc, ec, dc, rampLength, dontSplit, incremented);
             }
         }
     }
@@ -79,7 +83,7 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
             }
             NBNode* from = e->getFromNode();
             if (from->getIncomingEdges().size() == 2 && from->getOutgoingEdges().size() == 1) {
-                buildOnRamp(oc, from, nc, ec, dc, incremented);
+                buildOnRamp(from, nc, ec, dc, rampLength, dontSplit, incremented);
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
@@ -89,7 +93,7 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
             }
             NBNode* to = e->getToNode();
             if (to->getIncomingEdges().size() == 1 && to->getOutgoingEdges().size() == 2) {
-                buildOffRamp(oc, to, nc, ec, dc, incremented);
+                buildOffRamp(to, nc, ec, dc, rampLength, dontSplit, incremented);
             }
         }
     }
@@ -97,7 +101,7 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
 
 
 bool
-NBRampsComputer::mayNeedOnRamp(OptionsCont& oc, NBNode* cur) {
+NBRampsComputer::mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
     if (cur->getOutgoingEdges().size() != 1 || cur->getIncomingEdges().size() != 2) {
         return false;
     }
@@ -106,12 +110,12 @@ NBRampsComputer::mayNeedOnRamp(OptionsCont& oc, NBNode* cur) {
     NBEdge* potRamp;
     NBEdge* cont = cur->getOutgoingEdges()[0];
     getHighwayAndRamp(cur->getIncomingEdges(), &potHighway, &potRamp);
-    return fulfillsRampConstraints(oc, potHighway, potRamp, cont);
+    return fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed);
 }
 
 
 bool
-NBRampsComputer::mayNeedOffRamp(OptionsCont& oc, NBNode* cur) {
+NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
     if (cur->getIncomingEdges().size() != 1 || cur->getOutgoingEdges().size() != 2) {
         return false;
     }
@@ -120,12 +124,12 @@ NBRampsComputer::mayNeedOffRamp(OptionsCont& oc, NBNode* cur) {
     NBEdge* potRamp;
     NBEdge* prev = cur->getIncomingEdges()[0];
     getHighwayAndRamp(cur->getOutgoingEdges(), &potHighway, &potRamp);
-    return fulfillsRampConstraints(oc, potHighway, potRamp, prev);
+    return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed);
 }
 
 
 void
-NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented) {
+NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
     NBEdge* potHighway;
     NBEdge* potRamp;
     NBEdge* cont = cur->getOutgoingEdges()[0];
@@ -136,7 +140,7 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
         return;
     }
     //
-    if (cont->getGeometry().length() - POSITION_EPS <= oc.getFloat("ramps.ramp-length")) {
+    if (cont->getGeometry().length() - POSITION_EPS <= rampLength || dontSplit) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
@@ -172,7 +176,7 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
         potRamp->setGeometry(p);
     } else {
         // there is enough place to build a ramp; do it
-        NBNode* rn = new NBNode(cont->getID() + "-AddedOnRampNode", cont->getGeometry().positionAtLengthPosition(oc.getFloat("ramps.ramp-length")));
+        NBNode* rn = new NBNode(cont->getID() + "-AddedOnRampNode", cont->getGeometry().positionAtLengthPosition(rampLength));
         if (!nc.insert(rn)) {
             throw ProcessError("Ups - could not build on-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
         }
@@ -208,7 +212,6 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
             if (!potHighway->addLane2LaneConnections(0, added_ramp, potRamp->getNumLanes(),
                     MIN2(added_ramp->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, false, true)) {
                 throw ProcessError("Could not set connection!");
-
             }
             if (!potRamp->addLane2LaneConnections(0, added_ramp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
@@ -224,7 +227,7 @@ NBRampsComputer::buildOnRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdg
 
 
 void
-NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, EdgeVector& incremented) {
+NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
     NBEdge* potHighway;
     NBEdge* potRamp;
     NBEdge* prev = cur->getIncomingEdges()[0];
@@ -235,7 +238,7 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
         return;
     }
     // append on-ramp
-    if (prev->getGeometry().length() - POSITION_EPS <= oc.getFloat("ramps.ramp-length")) {
+    if (prev->getGeometry().length() - POSITION_EPS <= rampLength || dontSplit) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if (find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
@@ -263,7 +266,7 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
         p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
         potRamp->setGeometry(p);
     } else {
-        Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - oc.getFloat("ramps.ramp-length"));
+        Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - rampLength);
         NBNode* rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if (!nc.insert(rn)) {
             throw ProcessError("Ups - could not build off-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
@@ -281,7 +284,6 @@ NBRampsComputer::buildOffRamp(OptionsCont& oc, NBNode* cur, NBNodeCont& nc, NBEd
                 int off = added_ramp->getNumLanes() - added->getNumLanes();
                 if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
-
                 }
                 if (added_ramp->getLaneSpreadFunction() == LANESPREAD_CENTER) {
                     try {
@@ -327,7 +329,7 @@ NBRampsComputer::getHighwayAndRamp(const std::vector<NBEdge*> &edges, NBEdge **p
 
 
 bool
-NBRampsComputer::fulfillsRampConstraints(OptionsCont& oc, NBEdge *potHighway, NBEdge *potRamp, NBEdge *other) {
+NBRampsComputer::fulfillsRampConstraints(NBEdge *potHighway, NBEdge *potRamp, NBEdge *other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed) {
     // do not build ramps on connectors
     if (potHighway->isMacroscopicConnector() || potRamp->isMacroscopicConnector() || other->isMacroscopicConnector()) {
         return false;
@@ -338,12 +340,10 @@ NBRampsComputer::fulfillsRampConstraints(OptionsCont& oc, NBEdge *potHighway, NB
     }
     // check conditions
     // is it really a highway?
-    SUMOReal minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
     if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {
         return false;
     }
     // is it really a ramp?
-    SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
     if (maxRampSpeed > 0 && maxRampSpeed < potRamp->getSpeed()) {
         return false;
     }

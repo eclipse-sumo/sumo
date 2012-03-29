@@ -70,6 +70,7 @@
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed < FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR" help="Tries to handle the given edges as ramps"/>
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
     <edge_removal>

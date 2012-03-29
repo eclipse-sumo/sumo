@@ -174,6 +174,9 @@
         <!-- Tries to handle the given edges as ramps -->
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR"/>
 
+        <!-- Avoids edge splitting -->
+        <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL"/>
+
     </ramp_guessing>
 
     <edge_removal>

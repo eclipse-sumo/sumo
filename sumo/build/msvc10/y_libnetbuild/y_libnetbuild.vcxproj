@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netbuild\NBAlgorithms.cpp" />
+    <ClCompile Include="..\..\..\src\netbuild\NBAlgorithms_Ramps.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBConnection.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBContHelper.cpp" />
     <ClCompile Include="..\..\..\src\netbuild\NBDistribution.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netbuild\NBAlgorithms.h" />
+    <ClInclude Include="..\..\..\src\netbuild\NBAlgorithms_Ramps.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBCapacity2Lanes.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBConnection.h" />
     <ClInclude Include="..\..\..\src\netbuild\NBConnectionDefs.h" />
