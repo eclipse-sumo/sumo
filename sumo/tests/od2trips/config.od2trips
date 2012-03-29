@@ -13,3 +13,6 @@ log:log.txt
 
 [run_dependent_text]
 trips:<!--{[->]}-->
+
+[floating_point_tolerance]
+trips:0.0101
