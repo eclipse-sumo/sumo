@@ -313,7 +313,7 @@ bool BinaryFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElem
         writeStringList(into, SUMOXMLDefinitions::NodeTypes.getStrings());
         writeStringList(into, SUMOXMLDefinitions::EdgeFunctions.getStrings());
 
-        const unsigned int numEdges = E::dictSize();
+        const unsigned int numEdges = (const unsigned int)E::dictSize();
         FileHelpers::writeByte(into, BF_LIST);
         FileHelpers::writeInt(into, numEdges);
         for (unsigned int i = 0; i < numEdges; i++) {

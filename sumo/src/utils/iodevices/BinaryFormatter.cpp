@@ -54,7 +54,7 @@ BinaryFormatter::BinaryFormatter() {
 void
 BinaryFormatter::writeStringList(std::ostream& into, const std::vector<std::string>& list) {
     FileHelpers::writeByte(into, BF_LIST);
-    FileHelpers::writeInt(into, list.size());
+    FileHelpers::writeInt(into, (int)list.size());
     for (std::vector<std::string>::const_iterator it = list.begin(); it != list.end(); ++it) {
         FileHelpers::writeByte(into, BF_STRING);
         FileHelpers::writeString(into, *it);
@@ -169,7 +169,7 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const PositionVector& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_LIST);
-    FileHelpers::writeInt(into, val.size());
+    FileHelpers::writeInt(into, (int)val.size());
     for (PositionVector::ContType::const_iterator pos = val.begin(); pos != val.end(); ++pos) {
         if (pos->z() != 0.) {
             FileHelpers::writeByte(into, BF_POSITION_3D);

@@ -194,7 +194,7 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
         }
     }
     myList->clearItems();
-    const int numSelected = selectedGlIDs.size();
+    const int numSelected = (const int)selectedGlIDs.size();
     for (int i = 0; i < numSelected; i++) {
         myList->appendItem(selectedMicrosimIDs[i], flag, (void*) & (*myIDs.find(selectedGlIDs[i])));
     }
