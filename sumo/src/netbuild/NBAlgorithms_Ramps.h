@@ -130,6 +130,11 @@ private:
     static bool fulfillsRampConstraints(NBEdge *potHighway, NBEdge *potRamp, NBEdge *other, SUMOReal minHighwaySpeed, SUMOReal maxRampSpeed);
 
 
+    /** @brief Moves the ramp to the right, as new lanes were added
+     * @param[in] ramp The ramp to move
+     * @param[in] addedLanes The number of added lanes
+     */
+    static void moveRampRight(NBEdge *ramp, int addedLanes);
 };
 
 

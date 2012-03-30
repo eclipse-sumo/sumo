@@ -159,16 +159,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             if (o1.size() == 1 && o1[0]->getNumLanes() < cont->getNumLanes()) {
                 cont->addLane2LaneConnections(cont->getNumLanes() - o1[0]->getNumLanes(), o1[0], 0, o1[0]->getNumLanes(), NBEdge::L2L_VALIDATED);
             }
-            //
-            if (cont->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                try {
-                    PositionVector g = cont->getGeometry();
-                    g.move2side(SUMO_const_laneWidthAndOffset);
-                    cont->setGeometry(g);
-                } catch (InvalidArgument&) {
-                    WRITE_WARNING("For edge '" + cont->getID() + "': could not compute shape.");
-                }
-            }
+            moveRampRight(cont, toAdd);
         }
         PositionVector p = potRamp->getGeometry();
         p.pop_back();
@@ -194,16 +185,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
-                if (added_ramp->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    try {
-                        PositionVector g = added_ramp->getGeometry();
-                        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd - 1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd % 2);
-                        g.move2side(factor);
-                        added_ramp->setGeometry(g);
-                    } catch (InvalidArgument&) {
-                        WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
-                    }
-                }
+                moveRampRight(added_ramp, toAdd);
             } else {
                 if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
@@ -218,7 +200,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
             PositionVector p = potRamp->getGeometry();
             p.pop_back();
-            p.push_back(added_ramp->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
+            p.push_back(added_ramp->getFromNode()->getPosition());
             potRamp->setGeometry(p);
         }
     }
@@ -251,19 +233,11 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             if (!prev->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
             }
-            if (prev->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                try {
-                    PositionVector g = prev->getGeometry();
-                    g.move2side(SUMO_const_laneWidthAndOffset);
-                    prev->setGeometry(g);
-                } catch (InvalidArgument&) {
-                    WRITE_WARNING("For edge '" + prev->getID() + "': could not compute shape.");
-                }
-            }
+            moveRampRight(prev, toAdd);
         }
         PositionVector p = potRamp->getGeometry();
         p.pop_front();
-        p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
+        p.push_front(prev->getToNode()->getPosition());
         potRamp->setGeometry(p);
     } else {
         Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - rampLength);
@@ -285,16 +259,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
                 }
-                if (added_ramp->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    try {
-                        PositionVector g = added_ramp->getGeometry();
-                        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd - 1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd % 2);
-                        g.move2side(factor);
-                        added_ramp->setGeometry(g);
-                    } catch (InvalidArgument&) {
-                        WRITE_WARNING("For edge '" + added_ramp->getID() + "': could not compute shape.");
-                    }
-                }
+                moveRampRight(added_ramp, toAdd);
             } else {
                 if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
@@ -312,6 +277,22 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             p.push_front(added_ramp->getToNode()->getPosition());
             potRamp->setGeometry(p);
         }
+    }
+}
+
+
+void 
+NBRampsComputer::moveRampRight(NBEdge *ramp, int addedLanes) {
+    if (ramp->getLaneSpreadFunction() != LANESPREAD_CENTER) {
+        return;
+    }
+    try {
+        PositionVector g = ramp->getGeometry();
+        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(addedLanes - 1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(addedLanes % 2);
+        g.move2side(factor);
+        ramp->setGeometry(g);
+    } catch (InvalidArgument&) {
+        WRITE_WARNING("For edge '" + ramp->getID() + "': could not compute shape.");
     }
 }
 
