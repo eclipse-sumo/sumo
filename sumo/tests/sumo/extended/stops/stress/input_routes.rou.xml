@@ -4,7 +4,7 @@
      <route edges="1to2 out"/>
      <stop lane="1to2_0" endPos="999990" duration="30000"/>
   </vehicle>
-  <flow begin="2" id="v" number="20000" period="2">
+  <flow begin="2" id="v" number="5000" period="2">
      <route edges="1to2 out"/>
   </flow>
 </routes>
