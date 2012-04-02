@@ -526,7 +526,9 @@ NBNode::needsCont(NBEdge* fromE, NBEdge* toE, NBEdge* otherFromE, NBEdge* otherT
     bool bothLeft = thisLeft && otherLeft;
     if (c.tlID != "" && !bothLeft) {
         // tls-controlled links will have space
-        return true;
+        //if(fromE->getJunctionPriority(this)<=otherFromE->getJunctionPriority(this)) {
+            return true;
+        //}
     }
     if (fromE->getJunctionPriority(this) > 0 && otherFromE->getJunctionPriority(this) > 0) {
         return mustBrake(fromE, toE, c.toLane);
@@ -1033,6 +1035,11 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     if (myIncomingEdges.size() == 1 || myOutgoingEdges.size() == 1) {
         return false;
     }
+/* !!!new
+    if(from->getTurnDestination()==to) {
+        return false;
+    }
+!!!new */
     SUMOReal fromAngle = from->getAngleAtNode(this);
     SUMOReal toAngle = to->getAngleAtNode(this);
     SUMOReal cw = GeomHelper::getCWAngleDiff(fromAngle, toAngle);
@@ -1041,6 +1048,8 @@ NBNode::isLeftMover(const NBEdge* const from, const NBEdge* const to) const {
     do {
         NBContHelper::nextCW(myAllEdges, i);
     } while ((!hasOutgoing(*i) || from->isTurningDirectionAt(this, *i)) && *i != from);
+    // note that myOutgoingEdges.size()>2 is not completely correct; 
+    //  it should be >1 if the opposite edge is removed
     return cw < ccw && (*i) == to && myOutgoingEdges.size() > 2;
 }
 

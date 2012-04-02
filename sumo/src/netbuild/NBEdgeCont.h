@@ -442,9 +442,13 @@ public:
         return myExtractedEdges.count(id) != 0;
     }
 
+    void addPostProcessConnection(const std::string &from, int fromLane, const std::string &to, int toLane, bool mayDefinitelyPass);
+    void recheckPostProcessConnections();
+
     /** @brief Renames the edge. Throws exception if newID already exists
      */
     void rename(NBEdge* edge, const std::string& newID);
+
 
 
 private:
@@ -462,6 +466,21 @@ private:
 
 
 private:
+    struct PostProcessConnection {
+    public:
+        PostProcessConnection(const std::string &from_, int fromLane_, const std::string &to_, int toLane_, bool mayDefinitelyPass_)
+            : from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_)
+        { }
+        std::string from;
+        int fromLane;
+        std::string to;
+        int toLane;
+        bool mayDefinitelyPass;
+    };
+
+    std::vector<PostProcessConnection> myConnections;
+
+
     /// @brief The type of the dictionary where an edge may be found by its id
     typedef std::map<std::string, NBEdge*> EdgeCont;
 

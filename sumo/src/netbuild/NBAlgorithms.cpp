@@ -33,6 +33,7 @@
 #include <cassert>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeomHelper.h>
 #include "NBEdge.h"
 #include "NBNodeCont.h"
 #include "NBTypeCont.h"
@@ -375,6 +376,15 @@ NBEdgePriorityComputer::samePriority(const NBEdge*const e1, const NBEdge*const e
     return (int) e1->getNumLanes() == (int) e2->getNumLanes();
 }
 
+
+
+// ---------------------------------------------------------------------------
+// NBEdgePriorityComputer
+// ---------------------------------------------------------------------------
+void
+NBNodeTopologyTypeComputer::computeTopologyType(NBNodeCont &nc) {
+    
+}
 
 /****************************************************************************/
 

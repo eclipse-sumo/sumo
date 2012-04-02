@@ -447,6 +447,13 @@ public:
     //@}
 
 
+    SUMOReal new_getAngle(Position p1, Position p2);
+
+
+    SUMOReal new_getAngle();
+    SUMOReal new_getAngleAtNode(const NBNode * const atNode);
+
+
 
     /// @name Edge geometry access and computation
     //@{
@@ -898,6 +905,7 @@ public:
      * @return This edge's angle at the given node
      */
     SUMOReal getAngleAtNode(const NBNode * const node) const;
+    SUMOReal getAngle(const NBNode * const node) const;
 
 
     void incLaneNo(unsigned int by);

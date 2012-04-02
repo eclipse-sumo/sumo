@@ -1019,6 +1019,33 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 }
 
 
+SUMOReal 
+NBEdge::new_getAngle(Position p1, Position p2) {
+    SUMOReal a = atan2(p2.x()-p1.x(), p2.y()-p1.y()) * (SUMOReal) 180.0 / (SUMOReal) PI;
+    if(a<0) {
+        return 360+a;
+    }
+    return a;
+}
+
+
+SUMOReal 
+NBEdge::new_getAngle() {
+    return new_getAngle(myGeom[0], myGeom[-1]);
+}
+
+
+SUMOReal 
+NBEdge::new_getAngleAtNode(const NBNode * const atNode) {
+    if (atNode == myFrom) {
+        return new_getAngle(myGeom[0], myGeom[1]);
+    } else {
+        assert(atNode == myTo);
+        return new_getAngle(myGeom[-2], myGeom[-1]);
+    }
+}
+
+
 SUMOReal
 NBEdge::getAngleAtNode(const NBNode * const atNode) const {
     if (atNode == myFrom) {
@@ -1030,6 +1057,19 @@ NBEdge::getAngleAtNode(const NBNode * const atNode) const {
 }
 
 
+SUMOReal
+NBEdge::getAngle(const NBNode * const node) const {
+    //if (node == myFrom) {
+        return Line(myGeom[0], myGeom[myGeom.size() - 1]).atan2DegreeAngle();
+        /*
+    } else {
+        assert(atNode == myTo);
+        return Line(myGeom[myGeom.size() - 2], myGeom[myGeom.size() - 1]).atan2DegreeAngle();
+    }
+    */
+}
+
+ 
 void
 NBEdge::setTurningDestination(NBEdge* e) {
     myTurnDestination = e;

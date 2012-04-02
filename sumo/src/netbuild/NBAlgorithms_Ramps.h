@@ -104,16 +104,10 @@ private:
     static void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented);
 
 
-    /** @brief Returns the highway and the ramp from the given list of two edges
-     *
-     * Determines which one of the two edges within the given list is a ramp and which is the highway.
-     * Returns them by assigning them to the given pointers.
-     * @param[in] edges The list of edges (must be two)
-     * @param[in] potHighway The highway will be put in here
-     * @param[in] potRamp The ramp will be put in here
-     */
-    static void getHighwayAndRamp(const std::vector<NBEdge*> &edges, NBEdge **potHighway, NBEdge **potRamp);
-
+    static void getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other);
+    static void getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other);
+    static bool determinedBySpeed(NBEdge** potHighway, NBEdge** potRamp);
+    static bool determinedByLaneNumber(NBEdge** potHighway, NBEdge** potRamp);
 
     /** @brief Checks whether an on-/off-ramp can be bult here
      *
@@ -135,6 +129,7 @@ private:
      * @param[in] addedLanes The number of added lanes
      */
     static void moveRampRight(NBEdge *ramp, int addedLanes);
+
 };
 
 

@@ -28,6 +28,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include "NBNetBuilder.h"
@@ -105,11 +106,9 @@ NBRampsComputer::mayNeedOnRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal m
     if (cur->getOutgoingEdges().size() != 1 || cur->getIncomingEdges().size() != 2) {
         return false;
     }
+    NBEdge *potHighway, *potRamp, *cont;
+    getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // may be an on-ramp
-    NBEdge* potHighway;
-    NBEdge* potRamp;
-    NBEdge* cont = cur->getOutgoingEdges()[0];
-    getHighwayAndRamp(cur->getIncomingEdges(), &potHighway, &potRamp);
     return fulfillsRampConstraints(potHighway, potRamp, cont, minHighwaySpeed, maxRampSpeed);
 }
 
@@ -120,20 +119,16 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal 
         return false;
     }
     // may be an off-ramp
-    NBEdge* potHighway;
-    NBEdge* potRamp;
-    NBEdge* prev = cur->getIncomingEdges()[0];
-    getHighwayAndRamp(cur->getOutgoingEdges(), &potHighway, &potRamp);
+    NBEdge *potHighway, *potRamp, *prev;
+    getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed);
 }
 
 
 void
 NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
-    NBEdge* potHighway;
-    NBEdge* potRamp;
-    NBEdge* cont = cur->getOutgoingEdges()[0];
-    getHighwayAndRamp(cur->getIncomingEdges(), &potHighway, &potRamp);
+    NBEdge *potHighway, *potRamp, *cont;
+    getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // compute the number of lanes to append
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - cont->getNumLanes();
     if (toAdd <= 0) {
@@ -163,7 +158,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
         }
         PositionVector p = potRamp->getGeometry();
         p.pop_back();
-        p.push_back(cont->getFromNode()->getPosition());
+        p.push_back(cont->getLaneShape(0)[0]);
         potRamp->setGeometry(p);
     } else {
         // there is enough place to build a ramp; do it
@@ -200,7 +195,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
             PositionVector p = potRamp->getGeometry();
             p.pop_back();
-            p.push_back(added_ramp->getFromNode()->getPosition());
+            p.push_back(added_ramp->getLaneShape(0)[0]);
             potRamp->setGeometry(p);
         }
     }
@@ -210,10 +205,8 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 
 void
 NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
-    NBEdge* potHighway;
-    NBEdge* potRamp;
-    NBEdge* prev = cur->getIncomingEdges()[0];
-    getHighwayAndRamp(cur->getOutgoingEdges(), &potHighway, &potRamp);
+    NBEdge *potHighway, *potRamp, *prev;
+    getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     // compute the number of lanes to append
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - prev->getNumLanes();
     if (toAdd <= 0) {
@@ -237,7 +230,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
         }
         PositionVector p = potRamp->getGeometry();
         p.pop_front();
-        p.push_front(prev->getToNode()->getPosition());
+        p.push_front(prev->getLaneShape(0)[-1]);
         potRamp->setGeometry(p);
     } else {
         Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - rampLength);
@@ -274,7 +267,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             }
             PositionVector p = potRamp->getGeometry();
             p.pop_front();
-            p.push_front(added_ramp->getToNode()->getPosition());
+            p.push_front(added_ramp->getLaneShape(0)[-1]);
             potRamp->setGeometry(p);
         }
     }
@@ -297,15 +290,121 @@ NBRampsComputer::moveRampRight(NBEdge *ramp, int addedLanes) {
 }
 
 
-void
-NBRampsComputer::getHighwayAndRamp(const std::vector<NBEdge*> &edges, NBEdge **potHighway, NBEdge **potRamp) {
-    *potHighway = edges[0];
-    *potRamp = edges[1];
+bool 
+NBRampsComputer::determinedBySpeed(NBEdge** potHighway, NBEdge** potRamp) {
+    if (fabs((*potHighway)->getSpeed() - (*potRamp)->getSpeed())<.1) {
+        return false;
+    }
     if ((*potHighway)->getSpeed() < (*potRamp)->getSpeed()) {
         std::swap(*potHighway, *potRamp);
-    } else if ((*potHighway)->getSpeed() == (*potRamp)->getSpeed() && (*potHighway)->getNumLanes() < (*potRamp)->getNumLanes()) {
+    } 
+    return true;
+}
+
+
+bool 
+NBRampsComputer::determinedByLaneNumber(NBEdge** potHighway, NBEdge** potRamp) {
+    if ((*potHighway)->getNumLanes() == (*potRamp)->getNumLanes()) {
+        return false;
+    }
+    if ((*potHighway)->getNumLanes() < (*potRamp)->getNumLanes()) {
         std::swap(*potHighway, *potRamp);
     }
+    return true;
+}
+
+
+void 
+NBRampsComputer::getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other) {
+    if(n->getID()=="61868145") {
+        int bla = 0;
+    }
+    *other = n->getOutgoingEdges()[0];
+    const std::vector<NBEdge*> &edges = n->getIncomingEdges();
+    assert(edges.size()==2);
+    *potHighway = edges[0];
+    *potRamp = edges[1];
+    // heuristic: highway is faster than ramp
+    if(determinedBySpeed(potHighway, potRamp)) {
+        return;
+    }
+    // heuristic: highway has more lanes than ramp
+    if(determinedByLaneNumber(potHighway, potRamp)) {
+        return;
+    }
+    // heuristic: ramp comes from right
+    /*
+    SUMOReal angle0 = (*potHighway)->new_getAngle(Position(0, 0), Position(0, 100));
+    SUMOReal angle45 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, 100));
+    SUMOReal angle90 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, 0));
+    SUMOReal angle135 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, -100));
+    SUMOReal angle180 = (*potHighway)->new_getAngle(Position(0, 0), Position(0, -100));
+    SUMOReal angle225 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, -100));
+    SUMOReal angle270 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, 0));
+    SUMOReal angle315 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, 100));
+
+    SUMOReal pHAngle = (*potHighway)->new_getAngle();
+    SUMOReal pRAngle = (*potRamp)->new_getAngle();
+    SUMOReal oAngle = (*other)->new_getAngleAtNode(n);
+    SUMOReal pHCCW = GeomHelper::getCCWAngleDiff(pHAngle, oAngle);
+    SUMOReal pHCW = GeomHelper::getCWAngleDiff(pHAngle, oAngle);
+    SUMOReal pRCCW = GeomHelper::getCCWAngleDiff(pRAngle, oAngle);
+    SUMOReal pRCW = GeomHelper::getCWAngleDiff(pRAngle, oAngle);
+    */
+    const std::vector<NBEdge*> &edges2 = n->getEdges();
+    std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
+    NBContHelper::nextCW(edges2, i);
+    if((*i)==*potHighway) {
+        std::swap(*potHighway, *potRamp);
+    }
+    /*
+    if(pHCW>pRCW) {
+        std::swap(*potHighway, *potRamp);
+    }
+    */
+    int bla = 0;
+}
+
+
+void 
+NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other) {
+    if(n->getID()=="28497546") {
+        int bla = 0;
+    }
+    *other = n->getIncomingEdges()[0];
+    const std::vector<NBEdge*> &edges = n->getOutgoingEdges();
+    *potHighway = edges[0];
+    *potRamp = edges[1];
+    assert(edges.size()==2);
+    // heuristic: highway is faster than ramp
+    if(determinedBySpeed(potHighway, potRamp)) {
+        return;
+    }
+    // heuristic: highway has more lanes than ramp
+    if(determinedByLaneNumber(potHighway, potRamp)) {
+        return;
+    }
+    // heuristic: ramp goes to right
+    /*
+    SUMOReal pHAngle = (*potHighway)->new_getAngle();
+    SUMOReal pRAngle = (*potRamp)->new_getAngle();
+    SUMOReal oAngle = (*other)->new_getAngleAtNode(n);
+    SUMOReal pHCCW = GeomHelper::getCCWAngleDiff(pHAngle, oAngle);
+    SUMOReal pHCW = GeomHelper::getCWAngleDiff(pHAngle, oAngle);
+    SUMOReal pRCCW = GeomHelper::getCCWAngleDiff(pRAngle, oAngle);
+    SUMOReal pRCW = GeomHelper::getCWAngleDiff(pRAngle, oAngle);
+    */
+    const std::vector<NBEdge*> &edges2 = n->getEdges();
+    std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
+    NBContHelper::nextCW(edges2, i);
+    if((*i)==*potRamp) {
+        std::swap(*potHighway, *potRamp);
+    }
+    /*
+    if(pHCCW<pRCCW) {
+        std::swap(*potHighway, *potRamp);
+    }
+    */
 }
 
 

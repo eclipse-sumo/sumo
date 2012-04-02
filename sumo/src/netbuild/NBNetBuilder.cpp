@@ -165,10 +165,12 @@ NBNetBuilder::compute(OptionsCont& oc,
     // guess ramps
     if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
         PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
+        NBNodesEdgesSorter::sortNodesEdges(myNodeCont, oc.getBool("lefthand"));
         NBRampsComputer::computeRamps(*this, oc);
         PROGRESS_DONE_MESSAGE();
     }
 
+    myEdgeCont.recheckPostProcessConnections();
 
     // MOVE TO ORIGIN
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
