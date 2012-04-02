@@ -80,7 +80,13 @@ for platform in ["Win32", "x64"]:
         else:
             open(makeLog, 'a').write("Error parsing svn revision\n")
             sys.exit()
-        update_lines = len(update_log[:update_log.index('Fetching external')].splitlines())
+        end_marker = 'Fetching external'        
+        if end_marker in update_log:
+            update_lines = len(update_log[:update_log.index('Fetching external')].splitlines())
+        else:
+            open(makeLog, 'a').write("Error parsing svn output\n")
+            sys.exit()
+
         if update_lines < 3 and not options.force:
             open(makeLog, 'a').write("No changes since last update, skipping build and test\n")
             print "No changes since last update, skipping build and test"
