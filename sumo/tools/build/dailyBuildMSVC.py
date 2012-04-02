@@ -82,7 +82,7 @@ for platform in ["Win32", "x64"]:
             sys.exit()
         end_marker = 'Fetching external'        
         if end_marker in update_log:
-            update_lines = len(update_log[:update_log.index('Fetching external')].splitlines())
+            update_lines = len(update_log[:update_log.index(end_marker)].splitlines())
         else:
             open(makeLog, 'a').write("Error parsing svn output\n")
             sys.exit()
