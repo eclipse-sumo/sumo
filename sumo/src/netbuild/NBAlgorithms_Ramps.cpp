@@ -316,9 +316,6 @@ NBRampsComputer::determinedByLaneNumber(NBEdge** potHighway, NBEdge** potRamp) {
 
 void 
 NBRampsComputer::getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other) {
-    if(n->getID()=="61868145") {
-        int bla = 0;
-    }
     *other = n->getOutgoingEdges()[0];
     const std::vector<NBEdge*> &edges = n->getIncomingEdges();
     assert(edges.size()==2);
@@ -333,44 +330,17 @@ NBRampsComputer::getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp
         return;
     }
     // heuristic: ramp comes from right
-    /*
-    SUMOReal angle0 = (*potHighway)->new_getAngle(Position(0, 0), Position(0, 100));
-    SUMOReal angle45 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, 100));
-    SUMOReal angle90 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, 0));
-    SUMOReal angle135 = (*potHighway)->new_getAngle(Position(0, 0), Position(100, -100));
-    SUMOReal angle180 = (*potHighway)->new_getAngle(Position(0, 0), Position(0, -100));
-    SUMOReal angle225 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, -100));
-    SUMOReal angle270 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, 0));
-    SUMOReal angle315 = (*potHighway)->new_getAngle(Position(0, 0), Position(-100, 100));
-
-    SUMOReal pHAngle = (*potHighway)->new_getAngle();
-    SUMOReal pRAngle = (*potRamp)->new_getAngle();
-    SUMOReal oAngle = (*other)->new_getAngleAtNode(n);
-    SUMOReal pHCCW = GeomHelper::getCCWAngleDiff(pHAngle, oAngle);
-    SUMOReal pHCW = GeomHelper::getCWAngleDiff(pHAngle, oAngle);
-    SUMOReal pRCCW = GeomHelper::getCCWAngleDiff(pRAngle, oAngle);
-    SUMOReal pRCW = GeomHelper::getCWAngleDiff(pRAngle, oAngle);
-    */
     const std::vector<NBEdge*> &edges2 = n->getEdges();
     std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
     NBContHelper::nextCW(edges2, i);
     if((*i)==*potHighway) {
         std::swap(*potHighway, *potRamp);
     }
-    /*
-    if(pHCW>pRCW) {
-        std::swap(*potHighway, *potRamp);
-    }
-    */
-    int bla = 0;
 }
 
 
 void 
 NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp, NBEdge **other) {
-    if(n->getID()=="28497546") {
-        int bla = 0;
-    }
     *other = n->getIncomingEdges()[0];
     const std::vector<NBEdge*> &edges = n->getOutgoingEdges();
     *potHighway = edges[0];
@@ -385,26 +355,12 @@ NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRam
         return;
     }
     // heuristic: ramp goes to right
-    /*
-    SUMOReal pHAngle = (*potHighway)->new_getAngle();
-    SUMOReal pRAngle = (*potRamp)->new_getAngle();
-    SUMOReal oAngle = (*other)->new_getAngleAtNode(n);
-    SUMOReal pHCCW = GeomHelper::getCCWAngleDiff(pHAngle, oAngle);
-    SUMOReal pHCW = GeomHelper::getCWAngleDiff(pHAngle, oAngle);
-    SUMOReal pRCCW = GeomHelper::getCCWAngleDiff(pRAngle, oAngle);
-    SUMOReal pRCW = GeomHelper::getCWAngleDiff(pRAngle, oAngle);
-    */
     const std::vector<NBEdge*> &edges2 = n->getEdges();
     std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
     NBContHelper::nextCW(edges2, i);
     if((*i)==*potRamp) {
         std::swap(*potHighway, *potRamp);
     }
-    /*
-    if(pHCCW<pRCCW) {
-        std::swap(*potHighway, *potRamp);
-    }
-    */
 }
 
 

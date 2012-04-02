@@ -170,7 +170,6 @@ NBNetBuilder::compute(OptionsCont& oc,
         PROGRESS_DONE_MESSAGE();
     }
 
-    myEdgeCont.recheckPostProcessConnections();
 
     // MOVE TO ORIGIN
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {

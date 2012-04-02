@@ -677,24 +677,6 @@ NBEdgeCont::recheckLaneSpread() {
 
 
 // ----- other
-void
-NBEdgeCont::addPostProcessConnection(const std::string &from, int fromLane, const std::string &to, int toLane, bool mayDefinitelyPass) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass));
-}
-
-void 
-NBEdgeCont::recheckPostProcessConnections() {
-    for(std::vector<PostProcessConnection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        NBEdge *from = retrieve((*i).from);
-        NBEdge *to = retrieve((*i).to);
-        if(from!=0&&to!=0) {
-            if(!from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, false, (*i).mayDefinitelyPass)) {
-                WRITE_WARNING("Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.");
-            }
-        }
-    }
-}
-
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string& id) const {
     size_t len = id.length();
