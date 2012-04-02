@@ -54,20 +54,28 @@ NBRampsComputer::computeRamps(NBNetBuilder &nb, OptionsCont& oc) {
     SUMOReal maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
     SUMOReal rampLength = oc.getFloat("ramps.ramp-length");
     bool dontSplit = oc.getBool("ramps.no-split");
-    EdgeVector incremented;
+    std::set<NBEdge*> incremented;
     // check whether on-off ramps shall be guessed
     if (oc.getBool("ramps.guess")) {
         NBNodeCont &nc = nb.getNodeCont();
         NBEdgeCont &ec = nb.getEdgeCont();
         NBDistrictCont &dc = nb.getDistrictCont();
+        std::set<NBNode*> potOnRamps;
+        std::set<NBNode*> potOffRamps;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed)) {
-                buildOnRamp(cur, nc, ec, dc, rampLength, dontSplit, incremented);
+                potOnRamps.insert(cur);
             }
             if (mayNeedOffRamp(cur, minHighwaySpeed, maxRampSpeed)) {
-                buildOffRamp(cur, nc, ec, dc, rampLength, dontSplit, incremented);
+                potOffRamps.insert(cur);
             }
+        }
+        for (std::set<NBNode*>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
+            buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
+        }
+        for (std::set<NBNode*>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
+            buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit, incremented);
         }
     }
     // check whether on-off ramps shall be guessed
@@ -126,149 +134,164 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, SUMOReal minHighwaySpeed, SUMOReal 
 
 
 void
-NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
+NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::set<NBEdge*>& incremented) {
     NBEdge *potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
     // compute the number of lanes to append
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - cont->getNumLanes();
-    if (toAdd <= 0) {
-        return;
-    }
-    //
-    if (cont->getGeometry().length() - POSITION_EPS <= rampLength || dontSplit) {
-        // the edge is shorter than the wished ramp
-        //  append a lane only
-        if (find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
-            cont->incLaneNo(toAdd);
-            incremented.push_back(cont);
-            if (!potHighway->addLane2LaneConnections(0, cont, potRamp->getNumLanes(),
-                    MIN2(cont->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
-                throw ProcessError("Could not set connection!");
+    int firstLaneNumber = potHighway->getNumLanes();
+    int toAdd = (potRamp->getNumLanes() + firstLaneNumber) - cont->getNumLanes();
+    int firstToAdd = toAdd;
+    NBEdge *first = cont;
+    NBEdge *last = cont;
+    NBEdge *curr = cont;
+    if (toAdd > 0 && find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
+        SUMOReal currLength = 0;
+        while(curr!=0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
+            if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+                curr->incLaneNo(toAdd);
+                curr->invalidateConnections(true);
+                incremented.insert(curr);
+                moveRampRight(curr, toAdd);
+                currLength += curr->getLength(); // !!! loaded length?
+                last = curr;
             }
-            if (!potRamp->addLane2LaneConnections(0, cont, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
-                throw ProcessError("Could not set connection!");
-            }
-            //
-            cont->invalidateConnections(true);
-            const EdgeVector& o1 = cont->getToNode()->getOutgoingEdges();
-            if (o1.size() == 1 && o1[0]->getNumLanes() < cont->getNumLanes()) {
-                cont->addLane2LaneConnections(cont->getNumLanes() - o1[0]->getNumLanes(), o1[0], 0, o1[0]->getNumLanes(), NBEdge::L2L_VALIDATED);
-            }
-            moveRampRight(cont, toAdd);
-        }
-        PositionVector p = potRamp->getGeometry();
-        p.pop_back();
-        p.push_back(cont->getLaneShape(0)[0]);
-        potRamp->setGeometry(p);
-    } else {
-        // there is enough place to build a ramp; do it
-        NBNode* rn = new NBNode(cont->getID() + "-AddedOnRampNode", cont->getGeometry().positionAtLengthPosition(rampLength));
-        if (!nc.insert(rn)) {
-            throw ProcessError("Ups - could not build on-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
-        }
-        std::string name = cont->getID();
-        bool ok = ec.splitAt(dc, cont, rn, cont->getID() + "-AddedOnRampEdge", cont->getID(), cont->getNumLanes() + toAdd, cont->getNumLanes());
-        if (!ok) {
-            WRITE_ERROR("Ups - could not build on-ramp for edge '" + potHighway->getID() + "'!");
-            return;
-        } else {
-            NBEdge* added_ramp = ec.retrieve(name + "-AddedOnRampEdge");
-            NBEdge* added = ec.retrieve(name);
-            incremented.push_back(added_ramp);
-            if (added_ramp->getNumLanes() != added->getNumLanes()) {
-                int off = added_ramp->getNumLanes() - added->getNumLanes();
-                if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
-                    throw ProcessError("Could not set connection!");
+            NBNode *nextN = curr->getToNode();
+            if(nextN->getOutgoingEdges().size()==1) {
+                curr = nextN->getOutgoingEdges()[0];
+                if(curr->getNumLanes()!=firstLaneNumber) {
+                    // the number of lanes changes along the computation; we'll stop...
+                    curr = 0;
                 }
-                moveRampRight(added_ramp, toAdd);
             } else {
-                if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
-                    throw ProcessError("Could not set connection!");
-                }
+                // ambigous; and, in fact, what should it be? ...stop
+                curr = 0;
             }
-            if (!potHighway->addLane2LaneConnections(0, added_ramp, potRamp->getNumLanes(),
-                    MIN2(added_ramp->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, false, true)) {
-                throw ProcessError("Could not set connection!");
+        }
+        // check whether a further split is necessary
+        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength) {
+            // there is enough place to build a ramp; do it
+            bool wasFirst = first==curr;
+            NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtLengthPosition(rampLength - currLength));
+            if (!nc.insert(rn)) {
+                throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
             }
-            if (!potRamp->addLane2LaneConnections(0, added_ramp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
-                throw ProcessError("Could not set connection!");
+            std::string name = curr->getID();
+            bool ok = ec.splitAt(dc, curr, rn, curr->getID() + "-AddedOnRampEdge", curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
+            if (!ok) {
+                WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
+                return;
             }
-            PositionVector p = potRamp->getGeometry();
-            p.pop_back();
-            p.push_back(added_ramp->getLaneShape(0)[0]);
-            potRamp->setGeometry(p);
+            //ec.retrieve(name)->invalidateConnections();
+            curr = ec.retrieve(name + "-AddedOnRampEdge");
+            curr->invalidateConnections(true);
+            incremented.insert(curr);
+            last = curr;
+            moveRampRight(curr, toAdd);
+            if(wasFirst) {
+                first = curr;
+            }
         }
     }
-    return;
+    // set connections from ramp/highway to added ramp
+    if (!potHighway->addLane2LaneConnections(0, first, potRamp->getNumLanes(), MIN2(first->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true, true)) {
+        throw ProcessError("Could not set connection!");
+    }
+    if (!potRamp->addLane2LaneConnections(0, first, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, true, true)) {
+        throw ProcessError("Could not set connection!");
+    }
+    // patch ramp geometry
+    PositionVector p = potRamp->getGeometry();
+    p.pop_back();
+    p.push_back(first->getLaneShape(0)[0]);
+    potRamp->setGeometry(p);
+    // set connections from added ramp to following highway
+    NBNode *nextN = last->getToNode();
+    if(nextN->getOutgoingEdges().size()==1) {
+        NBEdge *next = nextN->getOutgoingEdges()[0];//const EdgeVector& o1 = cont->getToNode()->getOutgoingEdges();
+        if (next->getNumLanes() < last->getNumLanes()) {
+            last->addLane2LaneConnections(last->getNumLanes() - next->getNumLanes(), next, 0, next->getNumLanes(), NBEdge::L2L_VALIDATED);
+        }
+    }
 }
 
 
 void
-NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::vector<NBEdge*>& incremented) {
+NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, SUMOReal rampLength, bool dontSplit, std::set<NBEdge*>& incremented) {
     NBEdge *potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
     // compute the number of lanes to append
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - prev->getNumLanes();
-    if (toAdd <= 0) {
-        return;
-    }
-    // append on-ramp
-    if (prev->getGeometry().length() - POSITION_EPS <= rampLength || dontSplit) {
-        // the edge is shorter than the wished ramp
-        //  append a lane only
-        if (find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
-            incremented.push_back(prev);
-            prev->incLaneNo(toAdd);
-            prev->invalidateConnections(true);
-            if (!prev->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(prev->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+    int firstLaneNumber = potHighway->getNumLanes();
+    int toAdd = (potRamp->getNumLanes() + firstLaneNumber) - prev->getNumLanes();
+    int firstToAdd = toAdd;
+    NBEdge *first = prev;
+    NBEdge *last = prev;
+    NBEdge *curr = prev;
+    if (toAdd > 0 && find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
+        SUMOReal currLength = 0;
+        while(curr!=0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
+            if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+                curr->incLaneNo(toAdd);
+                curr->invalidateConnections(true);
+                incremented.insert(curr);
+                moveRampRight(curr, toAdd);
+                currLength += curr->getLength(); // !!! loaded length?
+                last = curr;
             }
-            if (!prev->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
-                throw ProcessError("Could not set connection!");
-            }
-            moveRampRight(prev, toAdd);
-        }
-        PositionVector p = potRamp->getGeometry();
-        p.pop_front();
-        p.push_front(prev->getLaneShape(0)[-1]);
-        potRamp->setGeometry(p);
-    } else {
-        Position pos = prev->getGeometry().positionAtLengthPosition(prev->getGeometry().length() - rampLength);
-        NBNode* rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
-        if (!nc.insert(rn)) {
-            throw ProcessError("Ups - could not build off-ramp for edge '" + potHighway->getID() + "' (node could not be build)!");
-        }
-        std::string name = prev->getID();
-        bool ok = ec.splitAt(dc, prev, rn, prev->getID(), prev->getID() + "-AddedOffRampEdge", prev->getNumLanes(), prev->getNumLanes() + toAdd);
-        if (!ok) {
-            WRITE_ERROR("Ups - could not build on-ramp for edge '" + potHighway->getID() + "'!");
-            return;
-        } else {
-            NBEdge* added_ramp = ec.retrieve(name + "-AddedOffRampEdge");
-            NBEdge* added = ec.retrieve(name);
-            if (added_ramp->getNumLanes() != added->getNumLanes()) {
-                incremented.push_back(added_ramp);
-                int off = added_ramp->getNumLanes() - added->getNumLanes();
-                if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
-                    throw ProcessError("Could not set connection!");
+            NBNode *prevN = curr->getFromNode();
+            if(prevN->getIncomingEdges().size()==1) {
+                curr = prevN->getIncomingEdges()[0];
+                if(curr->getNumLanes()!=firstLaneNumber) {
+                    // the number of lanes changes along the computation; we'll stop...
+                    curr = 0;
                 }
-                moveRampRight(added_ramp, toAdd);
             } else {
-                if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNumLanes(), NBEdge::L2L_VALIDATED, true)) {
-                    throw ProcessError("Could not set connection!");
-                }
+                // ambigous; and, in fact, what should it be? ...stop
+                curr = 0;
             }
-            if (!added_ramp->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0,
-                    MIN2(added_ramp->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+        }
+        // check whether a further split is necessary
+        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength) {
+            // there is enough place to build a ramp; do it
+            bool wasFirst = first==curr;
+            Position pos = curr->getGeometry().positionAtLengthPosition(curr->getGeometry().length() - (rampLength  - currLength));
+            NBNode* rn = new NBNode(curr->getID() + "-AddedOffRampNode", pos);
+            if (!nc.insert(rn)) {
+                throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
             }
-            if (!added_ramp->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
-                throw ProcessError("Could not set connection!");
+            std::string name = curr->getID();
+            bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);
+            if (!ok) {
+                WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
+                return;
             }
-            PositionVector p = potRamp->getGeometry();
-            p.pop_front();
-            p.push_front(added_ramp->getLaneShape(0)[-1]);
-            potRamp->setGeometry(p);
+            curr = ec.retrieve(name + "-AddedOffRampEdge");
+            curr->invalidateConnections(true);
+            incremented.insert(curr);
+            last = curr;
+            moveRampRight(curr, toAdd);
+            if(wasFirst) {
+                first = curr;
+            }
+        }
+    }
+    // set connections from added ramp to ramp/highway
+    if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::L2L_VALIDATED, true)) {
+        throw ProcessError("Could not set connection!");
+    }
+    if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::L2L_VALIDATED, false)) {
+        throw ProcessError("Could not set connection!");
+    }
+    // patch ramp geometry
+    PositionVector p = potRamp->getGeometry();
+    p.pop_front();
+    p.push_front(first->getLaneShape(0)[-1]);
+    potRamp->setGeometry(p);
+    // set connections from previous highway to added ramp
+    NBNode *prevN = last->getFromNode();
+    if(prevN->getIncomingEdges().size()==1) {
+        NBEdge *prev = prevN->getIncomingEdges()[0];//const EdgeVector& o1 = cont->getToNode()->getOutgoingEdges();
+        if (prev->getNumLanes() < last->getNumLanes()) {
+            last->addLane2LaneConnections(last->getNumLanes() - prev->getNumLanes(), last, 0, prev->getNumLanes(), NBEdge::L2L_VALIDATED);
         }
     }
 }
