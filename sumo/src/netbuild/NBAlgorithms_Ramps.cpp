@@ -168,7 +168,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
         }
         // check whether a further split is necessary
-        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength) {
+        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes()==firstLaneNumber && find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first==curr;
             NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtLengthPosition(rampLength - currLength));
@@ -250,7 +250,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             }
         }
         // check whether a further split is necessary
-        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength) {
+        if(curr!=0 && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes()==firstLaneNumber && find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first==curr;
             Position pos = curr->getGeometry().positionAtLengthPosition(curr->getGeometry().length() - (rampLength  - currLength));
@@ -344,6 +344,7 @@ NBRampsComputer::getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp
     assert(edges.size()==2);
     *potHighway = edges[0];
     *potRamp = edges[1];
+    /*
     // heuristic: highway is faster than ramp
     if(determinedBySpeed(potHighway, potRamp)) {
         return;
@@ -352,6 +353,7 @@ NBRampsComputer::getOnRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRamp
     if(determinedByLaneNumber(potHighway, potRamp)) {
         return;
     }
+    */
     // heuristic: ramp comes from right
     const std::vector<NBEdge*> &edges2 = n->getEdges();
     std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
@@ -369,6 +371,7 @@ NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRam
     *potHighway = edges[0];
     *potRamp = edges[1];
     assert(edges.size()==2);
+    /*
     // heuristic: highway is faster than ramp
     if(determinedBySpeed(potHighway, potRamp)) {
         return;
@@ -377,6 +380,7 @@ NBRampsComputer::getOffRampEdges(NBNode *n, NBEdge **potHighway, NBEdge **potRam
     if(determinedByLaneNumber(potHighway, potRamp)) {
         return;
     }
+    */
     // heuristic: ramp goes to right
     const std::vector<NBEdge*> &edges2 = n->getEdges();
     std::vector<NBEdge*>::const_iterator i=std::find(edges2.begin(), edges2.end(), *other);
@@ -399,9 +403,15 @@ NBRampsComputer::fulfillsRampConstraints(NBEdge *potHighway, NBEdge *potRamp, NB
     }
     // check conditions
     // is it really a highway?
+    SUMOReal maxSpeed = MAX3(potHighway->getSpeed(), other->getSpeed(), potRamp->getSpeed());
+    if(maxSpeed<minHighwaySpeed) {
+        return false;
+    }
+    /*
     if (potHighway->getSpeed() < minHighwaySpeed || other->getSpeed() < minHighwaySpeed) {
         return false;
     }
+    */
     // is it really a ramp?
     if (maxRampSpeed > 0 && maxRampSpeed < potRamp->getSpeed()) {
         return false;
