@@ -152,10 +152,10 @@ for platform in ["Win32", "x64"]:
         print >> log, "I/O error(%s): %s" % (errno, strerror)
     if platform == "Win32" and options.sumoExe == "sumo":
         try:
-            setup = os.path.join(os.path.dirname(__file__), '..', game, 'setup.py')
+            setup = os.path.join(os.path.dirname(__file__), '..', 'game', 'setup.py')
             subprocess.call(['python', setup], stdout=log, stderr=subprocess.STDOUT)
-        except:
-            print >> log, "Warning: Could not create nightly sumogame.zip!"
+        except Exception as e:
+            print >> log, "Warning: Could not create nightly sumogame.zip! (%s)" % e
     log.close()
     subprocess.call(compiler+" /rebuild Debug|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeAllLog))
     if options.addConf:
