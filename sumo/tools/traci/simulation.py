@@ -57,29 +57,25 @@ def getLoadedIDList():
 
 def getDepartedNumber():
     """getDepartedNumber() -> integer
-    
-    .
+    returns the number vehicles which departed in the last time step.
     """
     return _getUniversal(tc.VAR_DEPARTED_VEHICLES_NUMBER)
 
 def getDepartedIDList():
     """getDepartedIDList() -> list(string)
-    
-    .
+    returns the list of ids of all vehicles which departed in the last time step.
     """
     return _getUniversal(tc.VAR_DEPARTED_VEHICLES_IDS)
 
 def getArrivedNumber():
     """getArrivedNumber() -> integer
-    
-    .
+    returns the number vehicles which arrived in the last time step.
     """
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
 
 def getArrivedIDList():
     """getArrivedIDList() -> list(string)
-    
-    .
+    returns the list of ids of all vehicles which arrived in the last time step.
     """
     return _getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
