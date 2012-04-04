@@ -35,7 +35,7 @@ def _TIME2STEPS(time):
 class FatalTraCIError(Exception):
     """Exception class for all TraCI errors"""
     def __init__(self, desc):
-        self._desc = desc
+        Exception.__init__(self, desc)
 
 class Message:
     """ A named tuple for internal usage.
