@@ -32,9 +32,9 @@ optParser.add_option("-t", "--trip-id-prefix", dest="tripprefix",
                      default="t", help="prefix for the trip ids")
 optParser.add_option("-a", "--trip-parameters", dest="trippar",
                      default="", help="additional trip parameters")
-optParser.add_option("-b", "--begin", type="int", default=0, help="begin time")
-optParser.add_option("-e", "--end", type="int", default=3600, help="end time")
-optParser.add_option("-p", "--period", type="int", default=1, help="repetition period")
+optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
+optParser.add_option("-e", "--end", type="float", default=3600, help="end time")
+optParser.add_option("-p", "--period", type="float", default=1, help="repetition period")
 optParser.add_option("-s", "--seed", type="int", help="random seed")
 optParser.add_option("-l", "--length", action="store_true",
                      default=False, help="weight edge probability by length")
@@ -66,13 +66,15 @@ fouttrips = file(options.tripfile, 'w')
 print >> fouttrips, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <trips>""" % datetime.datetime.now()
-for depart in range(options.begin, options.end, options.period):
+depart = options.begin
+while depart < options.end:
     label = "%s%s" % (options.tripprefix, idx)
     sourceEdge = randomEdge(net._edges, probs)
     sinkEdge = randomEdge(net._edges, probs)
-    print >> fouttrips, '    <trip id="%s" depart="%s" from="%s" to="%s" %s/>' \
+    print >> fouttrips, '    <trip id="%s" depart="%.2f" from="%s" to="%s" %s/>' \
                         % (label, depart, sourceEdge.getID(), sinkEdge.getID(), options.trippar)
     idx += 1
+    depart += options.period
 fouttrips.write("</trips>")
 fouttrips.close()
 
