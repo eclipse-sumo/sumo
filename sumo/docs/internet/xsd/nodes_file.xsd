@@ -28,10 +28,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="nodeType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="x" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="y" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="z" type="xsd:float" use="optional"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="x" type="xsd:float" use="optional"/>
+        <xsd:attribute name="y" type="xsd:float" use="optional"/>
+        <xsd:attribute name="z" type="xsd:float" use="optional"/>
         <xsd:attribute name="type" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -45,7 +45,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="deleteType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

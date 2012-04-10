@@ -17,7 +17,7 @@
             <xsd:element name="person" type="personType" minOccurs="0"></xsd:element>
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>
-                    <xsd:attribute name="href" type="xsd:string"></xsd:attribute>
+                    <xsd:attribute name="href" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>

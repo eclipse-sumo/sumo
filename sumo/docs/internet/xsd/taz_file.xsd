@@ -16,18 +16,18 @@
             <xsd:element name="tazSource" type="tazSourceType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
             <xsd:element name="tazSink" type="tazSinkType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="shape" type="shapeType" use="optional"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="tazSourceType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="weight" type="xsd:float" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="tazSinkType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="weight" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="weight" type="xsd:float" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

@@ -771,9 +771,10 @@ void
 OptionsCont::writeSchema(std::ostream& os, bool addComments) {
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
+    os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
     os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";
-    os << "        <xsd:sequence>\n";
+    os << "        <xsd:all>\n";
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
         if (subtopic == "Configuration") {
@@ -781,9 +782,9 @@ OptionsCont::writeSchema(std::ostream& os, bool addComments) {
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
-        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "Type\" minOccurs=\"0\" maxOccurs=\"1\"/>\n";
+        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "Type\" minOccurs=\"0\"/>\n";
     }
-    os << "        </xsd:sequence>\n";
+    os << "        </xsd:all>\n";
     os << "    </xsd:complexType>\n\n";
     for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
         std::string subtopic = *i;
@@ -793,34 +794,19 @@ OptionsCont::writeSchema(std::ostream& os, bool addComments) {
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         os << "    <xsd:complexType name=\"" << subtopic << "Type\">\n";
-        os << "        <xsd:sequence>\n";
+        os << "        <xsd:all>\n";
         const std::vector<std::string> &entries = mySubTopicEntries[*i];
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            os << "            <xsd:element name=\"" << *j << "\" type=\"" << *j << "Type\" minOccurs=\"0\" maxOccurs=\"1\"/>\n";
-        }
-        os << "        </xsd:sequence>\n";
-        os << "    </xsd:complexType>\n\n";
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             std::string type = o->getTypeName();
             std::transform(type.begin(), type.end(), type.begin(), tolower);
-            if (type == "bool") {
-                type = "boolean";
-            } else {
-                if (type != "int" && type != "float") {
-                    type = "string";
-                }
+            if (type == "int[]") {
+                type = "intArray";
             }
-            os << "    <xsd:complexType name=\"" << *j << "Type\">\n";
-            if (addComments) {
-                os << "        <!-- " << o->getDescription() << " -->\n";
-            }
-            os << "        <xsd:attribute name=\"value\" type=\"xsd:" << type << "\" use=\"required\"/>\n";
-            os << "        <xsd:attribute name=\"synonymes\" type=\"xsd:string\" use=\"optional\"/>\n";
-            os << "        <xsd:attribute name=\"type\" type=\"xsd:string\" use=\"optional\"/>\n";
-            os << "        <xsd:attribute name=\"help\" type=\"xsd:string\" use=\"optional\"/>\n";
-            os << "    </xsd:complexType>\n\n";
+            os << "            <xsd:element name=\"" << *j << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
+        os << "        </xsd:all>\n";
+        os << "    </xsd:complexType>\n\n";
     }
     os << "</xsd:schema>\n";
 }

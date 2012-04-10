@@ -31,7 +31,7 @@
             <xsd:element name="person" type="personType" minOccurs="0"></xsd:element>
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>
-                    <xsd:attribute name="href" type="xsd:string"></xsd:attribute>
+                    <xsd:attribute name="href" type="xsd:string"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:choice>
@@ -39,35 +39,35 @@
     </xsd:complexType>
     
     <xsd:complexType name="e1DetectorType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="splitByType" use="optional" type="xsd:boolean"></xsd:attribute>
-        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="splitByType" use="optional" type="boolType"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeProbeType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="e2DetectorType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="length" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="optional"></xsd:attribute>
-        <xsd:attribute name="tl" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="cont" type="xsd:boolean" use="optional"></xsd:attribute>
-        <xsd:attribute name="time_treshold" type="xsd:int" use="optional"></xsd:attribute>
-        <xsd:attribute name="speed_treshold" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="jam_treshold" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="length" type="xsd:float" use="required"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="tl" type="xsd:string" use="optional"/>
+        <xsd:attribute name="cont" type="boolType" use="optional"/>
+        <xsd:attribute name="time_treshold" type="xsd:int" use="optional"/>
+        <xsd:attribute name="speed_treshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="jam_treshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="e3DetectorType">
@@ -79,22 +79,22 @@
                 minOccurs="1" maxOccurs="unbounded">
             </xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="time_treshold" type="xsd:float" use="optional"></xsd:attribute>
-        <xsd:attribute name="speed_treshold" type="nonNegativeFloatType" use="optional"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="time_treshold" type="xsd:float" use="optional"/>
+        <xsd:attribute name="speed_treshold" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="detEntryExitType">
-        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType">
         </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="meandataType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -103,12 +103,12 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"></xsd:attribute>
-        <xsd:attribute name="end" type="nonNegativeFloatType" use="optional"></xsd:attribute>
-        <xsd:attribute name="maxTraveltime" type="nonNegativeFloatType" use="optional"></xsd:attribute>
-        <xsd:attribute name="excludeEmpty" type="xsd:boolean" use="optional"></xsd:attribute>
+        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="end" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="maxTraveltime" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="excludeEmpty" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">
@@ -121,15 +121,15 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="source" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="dest" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="source" type="xsd:string" use="required"/>
+        <xsd:attribute name="dest" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="tlLogicType">
         <xsd:sequence>
             <xsd:element name="phase" type="phaseType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -139,12 +139,12 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="programID" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="offset" type="xsd:float" use="required"></xsd:attribute>
+        <xsd:attribute name="programID" type="xsd:string" use="required"/>
+        <xsd:attribute name="offset" type="xsd:float" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="phaseType">
-        <xsd:attribute name="duration" type="positiveFloatType" use="required"></xsd:attribute>
+        <xsd:attribute name="duration" type="positiveFloatType" use="required"/>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -158,43 +158,43 @@
         <xsd:sequence>
             <xsd:element name="wautSwitch" type="wautSwitchType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="refTime" type="xsd:int" use="required"></xsd:attribute>
-        <xsd:attribute name="startProg" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="refTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="startProg" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="wautSwitchType">
-        <xsd:attribute name="time" type="xsd:int" use="required"></xsd:attribute>
-        <xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="time" type="xsd:int" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="wautJunctionType">
-        <xsd:attribute name="wautID" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="junctionID" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="procedure" type="xsd:string"></xsd:attribute>
-        <xsd:attribute name="synchron" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="wautID" type="xsd:string" use="required"/>
+        <xsd:attribute name="junctionID" type="xsd:string" use="required"/>
+        <xsd:attribute name="procedure" type="xsd:string"/>
+        <xsd:attribute name="synchron" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="variableSpeedSignType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="lanes" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lanes" type="xsd:string" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="instantInductionLoopType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="lane" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="friendlyPos" use="optional" type="xsd:boolean">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
+        <xsd:attribute name="friendlyPos" use="optional" type="boolType">
         </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="routeProbeType">
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="edge" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="freq" type="positiveFloatType" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="required"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+        <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="rerouterType">
@@ -204,31 +204,31 @@
                     <xsd:choice maxOccurs="unbounded">
                         <xsd:element name="closingReroute">
                             <xsd:complexType>
-                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="destProbReroute">
                             <xsd:complexType>
-                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-                                <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
+                                <xsd:attribute name="probability" type="positiveFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="routeProbReroute">
                             <xsd:complexType>
-                                <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-                                <xsd:attribute name="probability" type="positiveFloatType"></xsd:attribute>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
+                                <xsd:attribute name="probability" type="positiveFloatType"/>
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>
-                    <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"></xsd:attribute>
-                    <xsd:attribute name="end" type="nonNegativeFloatType" use="required"></xsd:attribute>
+                    <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
+                    <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="edges" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="pos" type="xsd:float" use="required"></xsd:attribute>
-        <xsd:attribute name="file" type="xsd:string" use="optional"></xsd:attribute>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
+        <xsd:attribute name="file" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

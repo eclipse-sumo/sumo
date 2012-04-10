@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:include schemaLocation="baseTypes.xsd" />
+
     <xsd:element name="connections" type="connectionsType"></xsd:element>
 
     <xsd:complexType name="connectionsType">
@@ -12,11 +14,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="connectionType">
-        <xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="to" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
-        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
-        <xsd:attribute name="uncontrolled" type="xsd:boolean" use="optional"></xsd:attribute>
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="optional"/>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="prohibitionType">
@@ -37,10 +39,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="deleteType">
-        <xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
-        <xsd:attribute name="to" type="xsd:string" use="optional"></xsd:attribute>
-        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
-        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"></xsd:attribute>
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="optional"/>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"/>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

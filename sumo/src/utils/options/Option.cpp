@@ -397,7 +397,7 @@ Option_Bool::set(const std::string& v) {
     std::transform(value.begin(), value.end(), value.begin(), tolower);
     if (value == "1" || value == "yes" || value == "true" || value == "on" || value == "x") {
         myValue = true;
-    } else if (value == "0" || value == "no" || value == "false" || value == "off") {
+    } else if (value == "0" || value == "no" || value == "false" || value == "off" || value == "-") {
         myValue = false;
     } else {
         throw ProcessError("Invalid boolean value for option.");
