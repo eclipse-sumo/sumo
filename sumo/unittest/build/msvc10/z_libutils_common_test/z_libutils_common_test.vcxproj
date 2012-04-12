@@ -89,6 +89,7 @@
     <ClCompile Include="..\..\..\src\utils\common\StringUtilsTest.cpp" />
     <ClCompile Include="..\..\..\src\unittest_main.cpp" />
     <ClCompile Include="..\..\..\src\utils\common\ValueTimeLineTest.cpp" />
+    <ClCompile Include="..\..\..\src\utils\common\TplConvertTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\utils\common\CommandMock.h" />
