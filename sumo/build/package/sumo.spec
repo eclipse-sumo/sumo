@@ -13,11 +13,7 @@ License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel unzip
-%if 0%{?suse_version} > 1110 || 0%{?centos_version} || 0%{?rhel_version}
 BuildRequires: libxerces-c-devel
-%else
-BuildRequires: libXerces-c-devel
-%endif
 %if 0%{?mandriva_version}
 BuildRequires:  XFree86-devel postgresql-devel libmesaglu1-devel
 %else
@@ -55,6 +51,6 @@ cp -a tools/* %{buildroot}%{_prefix}/lib/sumo
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/lib/sumo
-%doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/tutorial
+%doc AUTHORS COPYING README ChangeLog docs/pydoc docs/userdoc docs/tutorial docs/examples
 
 %changelog
