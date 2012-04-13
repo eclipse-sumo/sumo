@@ -91,10 +91,9 @@ public:
     }
 
 
-    /** converts a 0-terminated char-type array into the SUMOReal value
-            described by it
-        returns true when the first char is one of the following: '1',
-            'x', 't', 'T', 'y', 'Y' and for the string 'on'
+    /** converts a char-type array into the boolean value described by it
+        returns true for the following strings (case insensitive):
+        '1', 'yes', 'true', 'on', 'x'
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E* const data) {
         return _2bool(data, getLength(data));
