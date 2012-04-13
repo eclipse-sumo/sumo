@@ -217,7 +217,7 @@ Option_Integer::set(const std::string& v) {
         myValue = TplConvert<char>::_2int(v.c_str());
         return markSet();
     } catch (...) {
-        std::string s = "'" + v + "' is not a valid integer (should be).";
+        std::string s = "'" + v + "' is not a valid integer.";
         throw InvalidArgument(s);
     }
 }
@@ -334,8 +334,7 @@ Option_Float::set(const std::string& v) {
         myValue = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet();
     } catch (...) {
-        std::string s = "'" + v + "' is not a valid float (should be).";
-        throw InvalidArgument(s);
+        throw InvalidArgument("'" + v + "' is not a valid float.");
     }
 }
 
@@ -395,8 +394,8 @@ Option_Bool::set(const std::string& v) {
     try {
         myValue = TplConvert<char>::_2bool(v.c_str());
         return markSet();
-    } catch (BoolFormatException) {
-        throw ProcessError("Invalid boolean value for option.");
+    } catch (...) {
+        throw InvalidArgument("'" + v + "' is not a valid bool.");
     }
 }
 

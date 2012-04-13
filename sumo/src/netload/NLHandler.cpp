@@ -42,7 +42,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/TplConvertSec.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -1303,8 +1302,8 @@ NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& lane
         int fromLaneIdx;
         int toLaneIdx;
         try {
-            fromLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            toLaneIdx = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            fromLaneIdx = TplConvert<char>::_2intSec(st.next().c_str(), -1);
+            toLaneIdx = TplConvert<char>::_2intSec(st.next().c_str(), -1);
             if (fromLaneIdx >= 0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
                     toLaneIdx >= 0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
                 return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx], to->getLanes()[toLaneIdx]);

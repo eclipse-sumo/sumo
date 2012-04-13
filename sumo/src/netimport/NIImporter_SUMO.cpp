@@ -36,7 +36,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>

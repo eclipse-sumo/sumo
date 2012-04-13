@@ -38,7 +38,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBDistrict.h>
-#include <utils/common/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
 
 #include <netbuild/NBNetBuilder.h>
 #include "NILoader.h"
@@ -328,8 +328,8 @@ NIImporter_VISUM::parse_Edges() {
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
             speed = myLineParser.know("v0-IV")
-                    ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
-                    : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
+                    ? TplConvert<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
+                    : TplConvert<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
             speed = speed / (SUMOReal) 3.6;
         } catch (OutOfBoundsException) {}
     }
@@ -347,15 +347,15 @@ NIImporter_VISUM::parse_Edges() {
         try {
             if (!OptionsCont::getOptions().getBool("visum.use-type-laneno")) {
                 nolanes = myLineParser.know("Fahrstreifen")
-                          ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
-                          : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+                          ? TplConvert<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+                          : TplConvert<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
             }
         } catch (UnknownElement) {
         }
     } else {
         SUMOReal cap = myLineParser.know("KAPIV")
-                       ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
-                       : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
+                       ? TplConvert<char>::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
+                       : TplConvert<char>::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
         nolanes = myCapacity2Lanes.get(cap);
     }
     // check whether the id is already used

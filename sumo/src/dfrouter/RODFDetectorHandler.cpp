@@ -36,7 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -81,7 +81,7 @@ RODFDetectorHandler::myStartElement(int element,
                 throw ProcessError();
             }
             ROEdge* edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-            unsigned int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_') + 1).c_str(), INT_MAX);
+            unsigned int laneIndex = TplConvert<char>::_2intSec(lane.substr(lane.rfind('_') + 1).c_str(), INT_MAX);
             if (edge == 0 || laneIndex >= edge->getLaneNo()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }

@@ -46,7 +46,6 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/TplConvertSec.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -284,8 +283,8 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
         return false; // There was an error.
     }
 
-    *fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-    *toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+    *fromLane = TplConvert<char>::_2intSec(st.next().c_str(), -1);
+    *toLane = TplConvert<char>::_2intSec(st.next().c_str(), -1);
 
     return true; // We succeeded.
 }

@@ -39,7 +39,6 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include <utils/common/TplConvertSec.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
