@@ -1,0 +1,8 @@
+# save simulation state
+save
+
+# load simulation state
+load
+
+# test for loading state that was saved on net1 onto net2
+changed_network

@@ -1,0 +1,4 @@
+# net2 has one edge missing. loaded vehicles need to deal with it
+# 
+# option discard: vehicles on missing edges are removed from the simulation
+edge_missing_discard

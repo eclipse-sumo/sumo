@@ -8,3 +8,6 @@ tau
 junction_control
 bugs
 teleport
+
+# test saving and loading of simulation state
+state
