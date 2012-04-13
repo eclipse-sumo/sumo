@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include <algorithm>
 #include <string>
 #include <exception>
 #include <sstream>
@@ -393,16 +392,12 @@ Option_Bool::getBool() const {
 
 bool
 Option_Bool::set(const std::string& v) {
-    std::string value = v;
-    std::transform(value.begin(), value.end(), value.begin(), tolower);
-    if (value == "1" || value == "yes" || value == "true" || value == "on" || value == "x") {
-        myValue = true;
-    } else if (value == "0" || value == "no" || value == "false" || value == "off" || value == "-") {
-        myValue = false;
-    } else {
+    try {
+        myValue = TplConvert<char>::_2bool(v.c_str());
+        return markSet();
+    } catch (BoolFormatException) {
         throw ProcessError("Invalid boolean value for option.");
     }
-    return markSet();
 }
 
 

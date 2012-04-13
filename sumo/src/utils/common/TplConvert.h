@@ -34,7 +34,10 @@
 
 #include <string>
 #include <cmath>
+#include <ctype.h>
 #include <climits>
+#include <limits>
+#include <algorithm>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 
@@ -91,10 +94,10 @@ public:
     /** converts a 0-terminated char-type array into the SUMOReal value
             described by it
         returns true when the first char is one of the following: '1',
-            'x', 't', 'T'
+            'x', 't', 'T', 'y', 'Y' and for the string 'on'
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E* const data) {
-        return _2bool(data, 1);
+        return _2bool(data, getLength(data));
     }
 
 
@@ -137,33 +140,14 @@ public:
             considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
-            not contain an integer */
+            not contain an integer or exceeds the maximum representable number
+        */
     static int _2int(const E* const data, unsigned length) {
-        if (data == 0 || length == 0 || data[0] == 0) {
-            throw EmptyData();
+        SUMOLong longVal = _2long(data, length);
+        if (longVal > std::numeric_limits<int>::max()) {
+            throw NumberFormatException(); // int overflow
         }
-        int sgn = 1;
-        unsigned i = 0;
-        if (data[0] == '+') {
-            i++;
-        }
-        if (data[0] == '-') {
-            i++;
-            sgn = -1;
-        }
-        int val = 0;
-        for (; i < length && data[i] != 0; i++) {
-            val = val * 10;
-            char akt = (char) data[i];
-            if (akt < '0' || akt > '9') {
-                throw NumberFormatException();
-            }
-            val = val + akt - 48;
-        }
-        if (i == 0) {
-            throw EmptyData();
-        }
-        return val * sgn;
+        return (int)longVal;
     }
 
 
@@ -274,23 +258,21 @@ public:
     }
 
 
-    /** converts a char-type array into the SUMOReal value described by it
-            considering the given length
-        returns true when the first char is one of the following: '1',
-            'x', 't', 'T'
+    /** converts a char-type array into the boolean value described by it
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E* const data, unsigned length) {
-        if (data == 0 || length == 0 || data[0] == 0) {
+        if (length == 0) {
             throw EmptyData();
         }
-        char akt = (char) data[0];
-        if (akt == '1' || akt == 'x' || akt == 't' || akt == 'T') {
+        std::string s = _2str(data, length);
+        std::transform(s.begin(), s.end(), s.begin(), tolower);
+        if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x") {
             return true;
-        }
-        if (akt == '0' || akt == '-' || akt == 'f' || akt == 'F') {
+        } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-") {
             return false;
+        } else {
+            throw BoolFormatException();
         }
-        throw BoolFormatException();
     }
 
 
