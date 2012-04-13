@@ -89,9 +89,9 @@ TEST(TplConvert, test_2bool) {
     EXPECT_EQ(false, TplConvert<char>::_2bool("0"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("x"));
     EXPECT_EQ(false, TplConvert<char>::_2bool("-"));
+    EXPECT_EQ(true, TplConvert<char>::_2bool("ON"));
     EXPECT_THROW(TplConvert<char>::_2bool(""), EmptyData);
     EXPECT_THROW(TplConvert<char>::_2bool("1e0"), BoolFormatException);
     EXPECT_THROW(TplConvert<char>::_2bool("Trari"), BoolFormatException);
     EXPECT_THROW(TplConvert<char>::_2bool("yessir"), BoolFormatException);
-    EXPECT_THROW(TplConvert<char>::_2bool("ON"), BoolFormatException);
 }
