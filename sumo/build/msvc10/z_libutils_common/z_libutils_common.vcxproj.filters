@@ -148,9 +148,6 @@
     <ClInclude Include="..\..\..\src\utils\common\TplConvert.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\utils\common\TplConvertSec.h">
-      <Filter>Header-Dateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\utils\common\UtilExceptions.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>

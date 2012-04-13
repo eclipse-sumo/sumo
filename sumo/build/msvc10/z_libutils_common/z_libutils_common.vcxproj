@@ -187,7 +187,6 @@
     <ClInclude Include="..\..\..\src\utils\common\SysUtils.h" />
     <ClInclude Include="..\..\..\src\utils\common\ToString.h" />
     <ClInclude Include="..\..\..\src\utils\common\TplConvert.h" />
-    <ClInclude Include="..\..\..\src\utils\common\TplConvertSec.h" />
     <ClInclude Include="..\..\..\src\utils\common\UtilExceptions.h" />
     <ClInclude Include="..\..\..\src\utils\common\ValueRetriever.h" />
     <ClInclude Include="..\..\..\src\utils\common\ValueSource.h" />
