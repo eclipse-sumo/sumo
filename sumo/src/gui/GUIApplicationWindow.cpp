@@ -901,17 +901,29 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
         myWasStarted = false;
         // initialise views
         myViewNumber = 0;
-        GUISUMOAbstractView* view = openNewView();
-        if (view && ec->mySettingsFile != "") {
-            GUISettingsHandler settings(ec->mySettingsFile);
-            std::string settingsName = settings.addSettings(view);
-            view->addDecals(settings.getDecals());
-            settings.setViewport(view);
-            settings.setSnapshots(view);
-            if (settings.getDelay() > 0) {
-                mySimDelayTarget->setValue(settings.getDelay());
+
+        if (ec->mySettingsFiles.size() > 0) {
+            // open a view for each file and apply settings
+            for (std::vector<std::string>::const_iterator it = ec->mySettingsFiles.begin(); 
+                    it != ec->mySettingsFiles.end(); ++it) {
+                GUISUMOAbstractView* view = openNewView();
+                if (view == 0) {
+                    assert(view != 0);
+                    break;
+                }
+                GUISettingsHandler settings(*it);
+                std::string settingsName = settings.addSettings(view);
+                view->addDecals(settings.getDecals());
+                settings.setViewport(view);
+                settings.setSnapshots(view);
+                if (settings.getDelay() > 0) {
+                    mySimDelayTarget->setValue(settings.getDelay());
+                }
             }
+        } else {
+            openNewView();
         }
+
         if (isGaming()) {
             setTitle("SUMO Traffic Light Game");
         } else {

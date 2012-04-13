@@ -309,6 +309,11 @@ MSFrame::checkOptions() {
         WRITE_ERROR("A vehroute-output file is needed for exit times.");
         ok = false;
     }
+    if (oc.isSet("gui-settings-file") && 
+            oc.getString("gui-settings-file") != "" && 
+            !oc.isUsableFileList("gui-settings-file")) {
+        return false;
+    }
     return ok;
 }
 

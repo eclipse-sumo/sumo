@@ -95,6 +95,7 @@ GUILoadThread::run() {
     GUINet* net = 0;
     int simStartTime = 0;
     int simEndTime = 0;
+    std::vector<std::string> guiSettingsFiles;
     OptionsCont& oc = OptionsCont::getOptions();
 
     // within gui-based applications, nothing is reported to the console
@@ -117,6 +118,7 @@ GUILoadThread::run() {
     MsgHandler::initOutputOptions();
     GUIGlobals::gRunAfterLoad = oc.getBool("start");
     GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
+
     if (!MSFrame::checkOptions()) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         submitEndAndCleanup(net, simStartTime, simEndTime);
@@ -158,6 +160,7 @@ GUILoadThread::run() {
             net->initGUIStructures();
             simStartTime = string2time(oc.getString("begin"));
             simEndTime = string2time(oc.getString("end"));
+            guiSettingsFiles = oc.getStringVector("gui-settings-file");
         }
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -177,7 +180,7 @@ GUILoadThread::run() {
         MSNet::clearAll();
     }
     delete eb;
-    submitEndAndCleanup(net, simStartTime, simEndTime);
+    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles);
     return 0;
 }
 
@@ -186,14 +189,14 @@ GUILoadThread::run() {
 void
 GUILoadThread::submitEndAndCleanup(GUINet* net,
                                    SUMOTime simStartTime,
-                                   SUMOTime simEndTime) {
+                                   SUMOTime simEndTime,
+                                   const std::vector<std::string>& guiSettingsFiles) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile,
-            OptionsCont::getOptions().getString("gui-settings-file"));
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile, guiSettingsFiles);
     myEventQue.add(e);
     myEventThrow.signal();
 }
