@@ -33,9 +33,9 @@
 #endif
 
 #include <string>
-#include <iostream>
 #include <cmath>
 #include <climits>
+#include <algorithm>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 
