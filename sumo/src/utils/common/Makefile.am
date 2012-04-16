@@ -24,7 +24,7 @@ SUMOVehicleParameter.cpp SUMOVehicleParameter.h \
 SUMOVTypeParameter.cpp SUMOVTypeParameter.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-ToString.h TplConvert.h TplConvertSec.h  \
+ToString.h TplConvert.h \
 ValueTimeLine.h
 
 
