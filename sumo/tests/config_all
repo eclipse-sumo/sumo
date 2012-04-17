@@ -18,11 +18,6 @@ errors:comment or processing instruction expected{REPLACE Expected comment or pr
 errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
 
-[batch_filter_file]
-meso:$TEXTTEST_HOME/internal_filter
-msvc10mesox64:$TEXTTEST_HOME/internal_filter
-msvc10mesoWin32:$TEXTTEST_HOME/internal_filter
-
 [bug_system_location]
 trac:http://sourceforge.net/apps/trac/sumo/
 

@@ -8,7 +8,7 @@ if WITH_GDAL
 GDAL_LIBS = -l$(LIB_GDAL)
 endif
 
-if MESOSIM
+if INTERNAL
 MESO_LIBS = ./mesosim/libmesosim.a
 MESOGUI_LIBS = ./mesogui/libmesogui.a ./osgview/libosgview.a
 INTERNAL_LIBS = ./internal/libinternal.a
@@ -16,7 +16,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-gui
-GUI_DIRS = gui guinetload guisim $(MESOGUI_DIRS)
+GUI_DIRS = gui guinetload guisim $(GUI_INTERNAL_DIRS)
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -110,7 +110,7 @@ endif
 
 SUBDIRS = foreign utils microsim netbuild netwrite netgen netimport netload \
 od2trips polyconvert router dfrouter duarouter jtrrouter activitygen \
-$(MESO_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
+$(INTERNAL_DIRS) $(TRACI_DIRS) $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \

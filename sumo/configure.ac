@@ -92,18 +92,18 @@ PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
                   [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 
-AM_CONDITIONAL(MESOSIM, test -d $srcdir/src/internal)
+AM_CONDITIONAL(INTERNAL, test -d $srcdir/src/internal)
 m4_syscmd([test -d src/internal])
 m4_if(m4_sysval,[0],[
     AC_DEFINE([HAVE_INTERNAL], [1], [Define to enable internal code.])
     AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile src/netedit/Makefile src/osgview/Makefile src/marouter/Makefile src/internal/Makefile unittest/src/internal/Makefile])
-    MESO_DIRS="mesosim marouter internal"
-    AC_SUBST([MESO_DIRS])
-    MESOGUI_DIRS="mesogui netedit osgview"
-    AC_SUBST([MESOGUI_DIRS])
+    INTERNAL_DIRS="mesosim marouter internal"
+    AC_SUBST([INTERNAL_DIRS])
+    GUI_INTERNAL_DIRS="mesogui netedit osgview"
+    AC_SUBST([GUI_INTERNAL_DIRS])
     UNITTEST_INTERNAL_DIRS=internal
     AC_SUBST([UNITTEST_INTERNAL_DIRS])
-    ac_enabled="$ac_enabled Meso"
+    ac_enabled="$ac_enabled Internal"
     program_transform_name="s,\$\$,Int,; s,sumoInt,meso,; s,sumo-guiInt,meso-gui,; $program_transform_name"
 ])
 

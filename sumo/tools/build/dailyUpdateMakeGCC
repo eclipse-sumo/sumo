@@ -65,7 +65,11 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   export TEXTTEST_TMP=$PREFIX/texttesttmp
   find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
   rm -rf $SUMO_REPORT/* $TEXTTEST_TMP/*
-  tests/runTests.sh -b $FILEPREFIX &> $TESTLOG
+  if test -d "$NIGHTDIR"; then
+    tests/runTests.sh -b $FILEPREFIX &> $TESTLOG
+  else
+    tests/runInternalTests.py "b $FILEPREFIX" &> $TESTLOG
+  fi
   if which Xvfb &>/dev/null; then
     tests/runTests.sh -a sumo.gui -b $FILEPREFIX >> $TESTLOG 2>&1
   fi

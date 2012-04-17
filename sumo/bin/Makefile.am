@@ -1,6 +1,6 @@
 if WITH_GUI
 GUI_APPS = sumo-gui
-if MESOSIM
+if INTERNAL
 NETEDIT_APP = netedit
 MAROUTER_APP = marouter
 endif

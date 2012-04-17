@@ -24,4 +24,4 @@ if __name__ == "__main__":
     optParser = optparse.OptionParser()
     optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
     (options, args) = optParser.parse_args()
-    runInternal(options.suffix, " ".join(args))
+    runInternal(options.suffix, " ".join(["-" + a for a in args]))

@@ -4,7 +4,7 @@ if CHECK_MEMORY_LEAKS
 MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
 endif
 
-if MESOSIM
+if INTERNAL
 INTERNAL_LIB = ../../src/internal/libinternal.a
 INTERNAL_TESTS = ./internal/HeightMapperTest.o
 endif
