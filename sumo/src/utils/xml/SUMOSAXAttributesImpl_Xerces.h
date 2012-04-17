@@ -33,10 +33,12 @@
 #endif
 
 #include <string>
-#include <utils/common/SUMOTime.h>
-#include "SUMOSAXAttributes.h"
-#include <xercesc/sax2/Attributes.hpp>
 #include <map>
+#include <iostream>
+#include <xercesc/sax2/Attributes.hpp>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/TplConvert.h>
+#include "SUMOSAXAttributes.h"
 
 
 // ===========================================================================
@@ -289,6 +291,13 @@ public:
      * @return The name of the described attribute
      */
     std::string getName(int attr) const;
+
+
+    /** @brief Prints all attribute names and values into the given stream
+     *
+     * @param[in] os The stream to use
+     */
+    void serialize(std::ostream& os) const;
 
 
 private:

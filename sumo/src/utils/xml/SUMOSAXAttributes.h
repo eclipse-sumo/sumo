@@ -34,6 +34,7 @@
 
 #include <string>
 #include <vector>
+
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -496,6 +497,13 @@ public:
     virtual std::string getName(int attr) const = 0;
 
 
+    /** @brief Prints all attribute names and values into the given stream
+     *
+     * @param[in] os The stream to use
+     */
+    virtual void serialize(std::ostream& os) const = 0;
+
+
     /** @brief Splits the given string
      *
      * Spaces, ",", and ";" are assumed to be separator characters.
@@ -512,6 +520,8 @@ public:
         return myObjectType;
     }
 
+
+    friend std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src);
 
     /** @brief The encoding of parsed strings */
     static const std::string ENCODING;
@@ -537,6 +547,12 @@ private:
     std::string myObjectType;
 
 };
+
+
+inline std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src) {
+    src.serialize(os);
+    return os;
+}
 
 
 #endif
