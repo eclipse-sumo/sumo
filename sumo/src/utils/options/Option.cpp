@@ -218,7 +218,7 @@ Option_Integer::set(const std::string& v) {
         return markSet();
     } catch (...) {
         std::string s = "'" + v + "' is not a valid integer.";
-        throw InvalidArgument(s);
+        throw ProcessError(s);
     }
 }
 
@@ -334,7 +334,7 @@ Option_Float::set(const std::string& v) {
         myValue = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet();
     } catch (...) {
-        throw InvalidArgument("'" + v + "' is not a valid float.");
+        throw ProcessError("'" + v + "' is not a valid float.");
     }
 }
 
@@ -395,7 +395,7 @@ Option_Bool::set(const std::string& v) {
         myValue = TplConvert<char>::_2bool(v.c_str());
         return markSet();
     } catch (...) {
-        throw InvalidArgument("'" + v + "' is not a valid bool.");
+        throw ProcessError("'" + v + "' is not a valid bool.");
     }
 }
 
@@ -501,9 +501,9 @@ Option_IntVector::set(const std::string& v) {
         }
         return markSet();
     } catch (EmptyData&) {
-        throw InvalidArgument("Empty element occured in " + v);
+        throw ProcessError("Empty element occured in " + v);
     } catch (...) {
-        throw InvalidArgument("'" + v + "' is not a valid integer vector.");
+        throw ProcessError("'" + v + "' is not a valid integer vector.");
     }
 }
 
