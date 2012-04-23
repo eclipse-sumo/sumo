@@ -6,10 +6,14 @@ unknown_config_option
 
 # Tests what happens the first parameter is missing
 # disabled because the --mesosim param interferes
-#missing_first_param
+# missing_first_param
 
 # the value for --begin is not a number
 invalid_time
+# the value for --verbose is not a propper bool
+invalid_float
+# the value for --device.rerouting.probability is not a float
+invalid_bool
 
 # Tests for broken routes
 routes
