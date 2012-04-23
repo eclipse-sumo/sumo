@@ -77,18 +77,19 @@ TEST(TplConvert, test_2SUMOReal) {
 
 /* Test the method '_2bool'.*/
 TEST(TplConvert, test_2bool) {
+    // according to gtest issue 322 EXPECT_EQ(false, ...) triggers a gcc bug
     EXPECT_EQ(true, TplConvert<char>::_2bool("true"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("false"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("false"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("True"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("False"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("False"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("yes"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("no"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("no"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("on"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("off"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("off"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("1"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("0"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("0"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("x"));
-    EXPECT_EQ(false, TplConvert<char>::_2bool("-"));
+    EXPECT_FALSE(TplConvert<char>::_2bool("-"));
     EXPECT_EQ(true, TplConvert<char>::_2bool("ON"));
     EXPECT_THROW(TplConvert<char>::_2bool(""), EmptyData);
     EXPECT_THROW(TplConvert<char>::_2bool("1e0"), BoolFormatException);
