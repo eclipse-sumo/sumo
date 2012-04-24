@@ -39,6 +39,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/DijkstraRouterTT.h>
+#include <utils/common/AStarRouter.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -257,8 +258,16 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
 MSDevice_Routing::getRouter() {
     if (myRouter == 0) {
-        myRouter = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+        if (routingAlgorithm == "dijkstra") {
+            myRouter = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                    MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+        } else if (routingAlgorithm == "astar") {
+            myRouter = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                    MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+        } else {
+            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+        }
     }
     return *myRouter;
 }

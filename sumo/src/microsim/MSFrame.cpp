@@ -201,6 +201,9 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange.allow-swap", new Option_Bool(false));
     oc.addDescription("lanechange.allow-swap", "Processing", "Whether blocking vehicles trying to change lanes may be swapped.");
 
+    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
+    oc.addDescription("routing-algorithm", "Processing", 
+            "Select among routing algorithms ['dijkstra', 'astar']");
 
     // devices
     MSDevice_Routing::insertOptions();
