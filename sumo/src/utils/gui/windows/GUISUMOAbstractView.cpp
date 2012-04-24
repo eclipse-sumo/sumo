@@ -145,6 +145,10 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myChanger;
     delete myViewportChooser;
     delete myVisualizationChanger;
+    // cleanup decals
+    for (std::vector<GUISUMOAbstractView::Decal>::iterator it = myDecals.begin(); it != myDecals.end(); ++it) {
+        delete it->image;
+    }
 }
 
 
@@ -941,6 +945,7 @@ GUISUMOAbstractView::drawDecals() {
                 }
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
+                d.image = i;
             } catch (InvalidArgument& e) {
                 WRITE_ERROR("Could not load '" + d.filename + "'.\n" + e.what());
                 l = myDecals.erase(l);

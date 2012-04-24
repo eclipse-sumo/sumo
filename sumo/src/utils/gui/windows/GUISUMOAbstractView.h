@@ -248,7 +248,7 @@ public:
         Decal()
             : filename(), centerX(0), centerY(0),
               width(1000), height(1000), rot(0),
-              initialised(false), glID(-1) { }
+              initialised(false), glID(-1), image(0) { }
 
         /// @brief The path to the file the image is located at
         std::string filename;
@@ -266,6 +266,8 @@ public:
         bool initialised;
         /// @brief The gl-id of the texture that holds this image
         int glID;
+        /// @brief The image pointer for later cleanup
+        FXImage* image;
     };
 
 
