@@ -63,6 +63,7 @@
 #include <utils/common/ToString.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSVehicleTransfer.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
@@ -462,6 +463,7 @@ MSNet::clearAll() {
     MSLane::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
+    MSDevice_Routing::cleanup();
 }
 
 

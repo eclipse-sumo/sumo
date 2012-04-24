@@ -54,6 +54,7 @@ SUMOReal MSDevice_Routing::myAdaptationWeight;
 SUMOTime MSDevice_Routing::myAdaptationInterval;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
+SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
 
 
 // ===========================================================================
@@ -210,9 +211,7 @@ MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
     if (source && dest) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
-            router(MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
-            myHolder.reroute(currentTime, router, true);
+            myHolder.reroute(currentTime, getRouter(), true);
             myCachedRoutes[key] = &myHolder.getRoute();
             myHolder.getRoute().addReference();
         } else {
@@ -225,9 +224,7 @@ MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
 
 SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
-    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
-    router(MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
-    myHolder.reroute(currentTime, router);
+    myHolder.reroute(currentTime, getRouter());
     return myPeriod;
 }
 
@@ -257,6 +254,20 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime /*currentTime*/) {
 }
 
 
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+MSDevice_Routing::getRouter() {
+    if (myRouter == 0) {
+        myRouter = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
+    }
+    return *myRouter;
+}
 
+
+void
+MSDevice_Routing::cleanup() {
+    delete myRouter;
+    myRouter = 0;
+}
 /****************************************************************************/
 

@@ -34,17 +34,17 @@
 #include <set>
 #include <vector>
 #include <map>
-#include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
-#include <microsim/MSVehicle.h>
 #include <utils/common/WrappingCommand.h>
+#include <utils/common/SUMOAbstractRouter.h>
+#include <microsim/MSVehicle.h>
+#include "MSDevice.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSLane;
-
 
 // ===========================================================================
 // class definitions
@@ -93,6 +93,8 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*> &into);
 
+    /// @brief deletes the router instance
+    static void cleanup();
 
 public:
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -202,6 +204,9 @@ private:
     /// @}
 
 
+    /// @brief get the router, initialize on first use
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter();
+
 private:
     /// @brief The period with which a vehicle shall be rerouted
     SUMOTime myPeriod;
@@ -229,6 +234,9 @@ private:
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
+
+    /// @brief The router to use
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
 
 private:
