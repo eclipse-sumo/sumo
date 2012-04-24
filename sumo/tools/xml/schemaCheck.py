@@ -22,6 +22,13 @@ try:
 except ImportError:
     haveLxml = False
 
+def relative_to_sumo_home(path):
+    if "/sumo/" in path:
+        return path[path.index("/sumo/")+6:]
+    else:
+        return path
+
+
 def validate(f):
     try:
         doc = etree.parse(f)
@@ -34,12 +41,9 @@ def validate(f):
                 schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
             schemes[schemaLoc].validate(doc)
             for entry in schemes[schemaLoc].error_log:
-                s = str(entry)
-                if "/sumo/" in s:
-                    s = s[s.index("/sumo/")+6:]
-                print >> sys.stderr, s
+                print >> sys.stderr, relative_to_sumo_home(str(entry))
     except:
-        print >> sys.stderr, "Error on parsing '%s'!" %f
+        print >> sys.stderr, "Error on parsing '%s'!" % relative_to_sumo_home(f)
         traceback.print_exc()
 
 def main(srcRoot, err):

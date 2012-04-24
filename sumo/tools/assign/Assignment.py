@@ -219,9 +219,10 @@ def main():
                             D,P = dijkstraPlain(startVertex, targets)
                         elif options.dijkstra == 'extend':
                             D,P = dijkstra(startVertex, targets)
-                        vehID, smallDemand, linkChoiceMap = doIncAssign(net, vehicles, options.verbose, options.maxiteration, options.odestimation,
-                                            endVertices, start, startVertex, matrixPshort, smallDemand,
-                                            D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap)
+                        vehID, smallDemand, linkChoiceMap = doIncAssign(
+                                net, vehicles, options.verbose, options.maxiteration, options.odestimation,
+                                endVertices, start, startVertex, matrixPshort, smallDemand,
+                                D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap)
 
                 if options.dijkstra != 'extend':
                     linkMap = net._fullEdges
