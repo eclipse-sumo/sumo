@@ -476,60 +476,24 @@ public:
     /// @}
 
 
-    /** @class EdgeWeightsProxi
-     * @brief A proxi for edge weights known by a vehicle/known globally
-     *
-     * Both getter methods try to return the vehicle's knowledge about the edge/time, first.
-     *  If not existing,they try to retrieve it from the global knowledge. If not existing,
-     *  the travel time retrieval method returns the edges' length divided by the maximum speed
-     *  (information from the first lane is used). The default value for the effort is 0.
-     * @see MSEdgeWeightsStorage
+    /** @brief Returns the travel time to pass an edge
+     * @param[in] e The edge for which the travel time to be passed shall be returned
+     * @param[in] v The vehicle that is rerouted
+     * @param[in] t The time for which the travel time shall be returned [s]
+     * @return The travel time for an edge
+     * @see DijkstraRouterTT_ByProxi
      */
-    class EdgeWeightsProxi {
-    public:
-        /** @brief Constructor
-         * @param[in] vehKnowledge The vehicle's edge weights knowledge
-         * @param[in] netKnowledge The global edge weights knowledge
-         */
-        EdgeWeightsProxi(const MSEdgeWeightsStorage& vehKnowledge,
-                         const MSEdgeWeightsStorage& netKnowledge)
-            : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
+    static SUMOReal getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t);
 
 
-        /// @brief Destructor
-        ~EdgeWeightsProxi() {}
-
-
-        /** @brief Returns the travel time to pass an edge
-         * @param[in] e The edge for which the travel time to be passed shall be returned
-         * @param[in] v The vehicle that is rerouted
-         * @param[in] t The time for which the travel time shall be returned [s]
-         * @return The travel time for an edge
-         * @see DijkstraRouterTT_ByProxi
-         */
-        SUMOReal getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) const;
-
-
-        /** @brief Returns the effort to pass an edge
-         * @param[in] e The edge for which the effort to be passed shall be returned
-         * @param[in] v The vehicle that is rerouted
-         * @param[in] t The time for which the effort shall be returned [s]
-         * @return The effort (abstract) for an edge
-         * @see DijkstraRouterTT_ByProxi
-         */
-        SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) const;
-
-    private:
-        EdgeWeightsProxi& operator=(const EdgeWeightsProxi&); // just to avoid a compiler warning
-
-    private:
-        /// @brief The vehicle's knownledge
-        const MSEdgeWeightsStorage& myVehicleKnowledge;
-
-        /// @brief The global knownledge
-        const MSEdgeWeightsStorage& myNetKnowledge;
-
-    };
+    /** @brief Returns the effort to pass an edge
+     * @param[in] e The edge for which the effort to be passed shall be returned
+     * @param[in] v The vehicle that is rerouted
+     * @param[in] t The time for which the effort shall be returned [s]
+     * @return The effort (abstract) for an edge
+     * @see DijkstraRouterTT_ByProxi
+     */
+    static SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t);
 
 
 #ifdef _MESSAGES

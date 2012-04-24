@@ -384,8 +384,20 @@ MSVehicle::willPass(const MSEdge* const edge) const {
 }
 
 
+const MSEdgeWeightsStorage&
+MSVehicle::getWeightsStorage() const {
+    return _getWeightsStorage();
+}
+
+
 MSEdgeWeightsStorage&
 MSVehicle::getWeightsStorage() {
+    return _getWeightsStorage();
+}
+
+
+MSEdgeWeightsStorage&
+MSVehicle::_getWeightsStorage() const {
     if (myEdgeWeights == 0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }

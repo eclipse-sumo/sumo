@@ -525,9 +525,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             // build a new route between the vehicle's current edge and destination edge
             MSEdgeVector newRoute;
             const MSEdge* currentEdge = v->getEdge();
-            MSEdgeWeightsStorage empty;
-            MSNet::EdgeWeightsProxi proxi(empty, MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSNet::getTravelTime);
             router.compute(currentEdge, destEdge, (const MSVehicle * const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             // replace the vehicle's route by the new one
             if (!v->replaceRouteEdges(newRoute)) {
@@ -742,8 +740,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
                 return false;
             }
-            MSNet::EdgeWeightsProxi proxi(static_cast<MSVehicle*>(v)->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSNet::getTravelTime);
             v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
         }
         break;
@@ -756,8 +753,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 server.writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compound object.", outputStorage);
                 return false;
             }
-            MSNet::EdgeWeightsProxi proxi(static_cast<MSVehicle*>(v)->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getEffort, &MSNet::EdgeWeightsProxi::getTravelTime);
+            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
             v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
         }
         break;

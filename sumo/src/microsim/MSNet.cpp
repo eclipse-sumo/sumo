@@ -105,18 +105,16 @@ MSNet* MSNet::myInstance = 0;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// MSNet::EdgeWeightsProxi - methods
-// ---------------------------------------------------------------------------
 SUMOReal
-MSNet::EdgeWeightsProxi::getEffort(const MSEdge* const e,
-                                   const SUMOVehicle* const v,
-                                   SUMOReal t) const {
+MSNet::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
     SUMOReal value;
-    if (myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
-        return value;
+    const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
+    if (veh != 0) {
+        if (veh->getWeightsStorage().retrieveExistingEffort(e, v, t, value)) {
+            return value;
+        }
     }
-    if (myNetKnowledge.retrieveExistingEffort(e, v, t, value)) {
+    if (getInstance()->getWeightsStorage().retrieveExistingEffort(e, v, t, value)) {
         return value;
     }
     return 0;
@@ -124,14 +122,15 @@ MSNet::EdgeWeightsProxi::getEffort(const MSEdge* const e,
 
 
 SUMOReal
-MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge* const e,
-                                       const SUMOVehicle* const v,
-                                       SUMOReal t) const {
+MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t) {
     SUMOReal value;
-    if (myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
-        return value;
+    const MSVehicle* const veh = dynamic_cast<const MSVehicle* const>(v);
+    if (veh != 0) {
+        if (veh->getWeightsStorage().retrieveExistingTravelTime(e, v, t, value)) {
+            return value;
+        }
     }
-    if (myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+    if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
     const MSLane* const l = e->getLanes()[0];

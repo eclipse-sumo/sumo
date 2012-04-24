@@ -249,28 +249,26 @@ protected:
 };
 
 
-template<class E, class V, class PF, class EC>
+template<class E, class V, class PF>
 class DijkstraRouterEffort_ByProxi : public DijkstraRouterEffortBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(EC::* Operation)(const E* const, const V* const, SUMOReal) const;
+    typedef SUMOReal(* Operation)(const E* const, const V* const, SUMOReal);
 
-    DijkstraRouterEffort_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation effortOperation, Operation ttOperation)
-        : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
-          myReceiver(receiver), myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
+    DijkstraRouterEffort_ByProxi(size_t noE, bool unbuildIsWarningOnly, Operation effortOperation, Operation ttOperation): 
+        DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
+        myEffortOperation(effortOperation), 
+        myTTOperation(ttOperation) {}
 
     inline SUMOReal getEffort(const E* const e, const V* const v, SUMOReal t) const {
-        return (myReceiver->*myEffortOperation)(e, v, t);
+        return (*myEffortOperation)(e, v, t);
     }
 
     inline SUMOReal getTravelTime(const E* const e, const V* const v, SUMOReal t) const {
-        return (myReceiver->*myTTOperation)(e, v, t);
+        return (*myTTOperation)(e, v, t);
     }
 
 private:
-    /// @brief The object the action is directed to.
-    EC* myReceiver;
-
     /// @brief The object's operation to perform for obtaining the effort
     Operation myEffortOperation;
 

@@ -210,8 +210,8 @@ MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
     if (source && dest) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) == myCachedRoutes.end()) {
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-            router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
+            router(MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
             myHolder.reroute(currentTime, router, true);
             myCachedRoutes[key] = &myHolder.getRoute();
             myHolder.getRoute().addReference();
@@ -225,15 +225,15 @@ MSDevice_Routing::preInsertionReroute(SUMOTime currentTime) {
 
 SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
-    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
-    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
+    router(MSEdge::dictSize(), true, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
     return myPeriod;
 }
 
 
 SUMOReal
-MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) const {
+MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
     if (myEdgeEfforts.find(e) != myEdgeEfforts.end()) {
         return MAX2(myEdgeEfforts.find(e)->second, e->getLength() / v->getMaxSpeed());
     }

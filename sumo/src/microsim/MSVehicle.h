@@ -191,6 +191,7 @@ public:
      * If the vehicle does not have such a container, it is built.
      * @return The vehicle's knowledge about edge weights
      */
+    const MSEdgeWeightsStorage& getWeightsStorage() const;
     MSEdgeWeightsStorage& getWeightsStorage();
     //@}
 
@@ -980,8 +981,9 @@ protected:
 
 
 private:
-    /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
-    MSEdgeWeightsStorage* myEdgeWeights;
+    /* @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
+     * @note member is initialized on first access */
+    mutable MSEdgeWeightsStorage* myEdgeWeights;
 
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
@@ -1001,6 +1003,7 @@ private:
     /// @brief invalidated assignment operator
     MSVehicle& operator=(const MSVehicle&);
 
+    MSEdgeWeightsStorage& _getWeightsStorage() const;
 
 };
 
