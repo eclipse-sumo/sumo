@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * class for writing ns2 mobility files
  * @author Thimor Bohn <bohn@itm.uni-luebeck.de>
- * @author Matthias Röckl <matthias.roeckl@dlr.de>
+ * @author Matthias Roeckl <matthias.roeckl@dlr.de>
  *
  */
 public class MobilityWriter {
