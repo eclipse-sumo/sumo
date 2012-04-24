@@ -153,8 +153,11 @@ MSNet::getInstance(void) {
 
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-             MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
-             ShapeContainer* shapeCont) {
+        MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
+        ShapeContainer* shapeCont):
+    myRouterTT(0),
+    myRouterEffort(0)
+{
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -236,6 +239,8 @@ MSNet::~MSNet() {
     msgEmitVec.clear();
 #endif
     delete myEdgeWeights;
+    delete myRouterTT;
+    delete myRouterEffort;
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
@@ -658,6 +663,29 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
     }
     return "";
 }
+
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
+    if (myRouterTT == 0) {
+        myRouterTT = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                MSEdge::dictSize(), true, &MSNet::getTravelTime);
+    }
+    myRouterTT->prohibit(prohibited);
+    return *myRouterTT;
+}
+
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
+MSNet::getRouterEffort(const std::vector<MSEdge*>& prohibited) const {
+    if (myRouterEffort == 0) {
+        myRouterEffort = new DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                MSEdge::dictSize(), true, &MSNet::getEffort, &MSNet::getTravelTime);
+    }
+    myRouterEffort->prohibit(prohibited);
+    return *myRouterEffort;
+}
+
 
 
 #ifdef _MESSAGES

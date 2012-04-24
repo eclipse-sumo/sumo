@@ -306,10 +306,9 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
     }
 
     // we have a new destination, let's replace the vehicle route
-    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSNet::getTravelTime);
-    router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
-    router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+    MSNet::getInstance()->getRouterTT(rerouteDef.closed).compute(
+            veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRouteEdges(edges);
     return false;
 }

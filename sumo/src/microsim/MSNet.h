@@ -52,6 +52,9 @@
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
+#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
+#include <utils/common/DijkstraRouterEffort.h>
 
 // ===========================================================================
 // class declarations
@@ -496,6 +499,15 @@ public:
     static SUMOReal getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal t);
 
 
+    /* @brief get the router, initialize on first use
+     * @param[in] prohibited The vector of forbidden edges (optional)
+     */ 
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
+            const std::vector<MSEdge*>& prohibited=std::vector<MSEdge*>()) const;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
+            const std::vector<MSEdge*>& prohibited=std::vector<MSEdge*>()) const;
+
+
 #ifdef _MESSAGES
     /// @brief Map of MSMsgEmitter by ID
     typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
@@ -615,6 +627,11 @@ protected:
     /// @brief List of message emitters
     std::vector<MSMessageEmitter*> msgEmitVec;
 #endif
+
+    /* @brief The router instance for routing by trigger and by traci
+     * @note MSDevice_Routing has its own instance since it uses a different weight function */
+    mutable DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTT;
+    mutable DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterEffort;
 
 
 private:
