@@ -58,7 +58,7 @@ tests/tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERRO
 tests/tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
 tests/tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
 tests/tools/net/netcheck/broken/input_net.net.xml:94:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'succ': This element is not expected. Expected is one of ( junction, connection, prohibition, roundabout, taz ).
-Error on parsing '/home/micha/sumo/tests/sumo/meta/umlaut/sumo.sumocfg'!
+Error on parsing '/tests/sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
   File "/home/micha/sumo/tests/../tools/xml/schemaCheck.py", line 27, in validate
     doc = etree.parse(f)
