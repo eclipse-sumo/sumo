@@ -323,17 +323,17 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
     ret->mkItem("angle", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &MSVehicle::getAngle));
-    ret->mkItem("CO2 (HBEFA) [g/s]", true,
+    ret->mkItem("CO2 (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
-    ret->mkItem("CO (HBEFA) [g/s]", true,
+    ret->mkItem("CO (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_COEmissions));
-    ret->mkItem("HC (HBEFA) [g/s]", true,
+    ret->mkItem("HC (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_HCEmissions));
-    ret->mkItem("NOx (HBEFA) [g/s]", true,
+    ret->mkItem("NOx (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_NOxEmissions));
-    ret->mkItem("PMx (HBEFA) [g/s]", true,
+    ret->mkItem("PMx (HBEFA) [mg/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_PMxEmissions));
-    ret->mkItem("fuel (HBEFA) [l/s]", true,
+    ret->mkItem("fuel (HBEFA) [ml/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_FuelConsumption));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
