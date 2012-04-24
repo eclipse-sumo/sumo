@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r11548
+SUMO sumo Version dev-SVN-r12257
  Copyright (C) 2001-2012 DLR and contributors; http://sumo.sourceforge.net
 A microscopic road traffic simulation.
 
@@ -63,6 +63,8 @@ Processing Options:
                                         repeated in same step once failed.
   --lanechange.allow-swap             Whether blocking vehicles trying to
                                         change lanes may be swapped.
+  --routing-algorithm STR             Select among routing algorithms
+                                        ['dijkstra', 'astar']
 
 Report Options:
   -v, --verbose                       Switches to verbose output

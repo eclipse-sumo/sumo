@@ -114,6 +114,9 @@
         <!-- Whether blocking vehicles trying to change lanes may be swapped. -->
         <lanechange.allow-swap value="false" type="BOOL"/>
 
+        <!-- Select among routing algorithms ['dijkstra', 'astar'] -->
+        <routing-algorithm value="dijkstra" type="STR"/>
+
     </processing>
 
     <report>
