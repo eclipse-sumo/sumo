@@ -1,0 +1,5 @@
+# Tests whether rerouter works; also tests functioning of vehroutes output
+rerouter
+
+# "one shot" in-simulation vehicle routing
+simulation_routing
