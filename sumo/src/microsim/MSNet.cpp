@@ -155,7 +155,9 @@ MSNet::getInstance(void) {
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
         MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
         ShapeContainer* shapeCont):
-    myRouterTT(0),
+    myRouterTTInitialized(false),
+    myRouterTTDijkstra(0),
+    myRouterTTAStar(0),
     myRouterEffort(0)
 {
     if (myInstance != 0) {
@@ -239,7 +241,8 @@ MSNet::~MSNet() {
     msgEmitVec.clear();
 #endif
     delete myEdgeWeights;
-    delete myRouterTT;
+    delete myRouterTTDijkstra;
+    delete myRouterTTAStar;
     delete myRouterEffort;
 #ifdef HAVE_INTERNAL
     if (MSGlobals::gUseMesoSim) {
@@ -667,12 +670,26 @@ MSNet::getBusStopID(const MSLane* lane, const SUMOReal pos) const {
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>& 
 MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
-    if (myRouterTT == 0) {
-        myRouterTT = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
-                MSEdge::dictSize(), true, &MSNet::getTravelTime);
+    if (!myRouterTTInitialized) {
+        myRouterTTInitialized = true;
+        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+        if (routingAlgorithm == "dijkstra") {
+            myRouterTTDijkstra = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                    MSEdge::dictSize(), true, &MSNet::getTravelTime);
+        } else if (routingAlgorithm == "astar") {
+            myRouterTTAStar = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
+                    MSEdge::dictSize(), true, &MSNet::getTravelTime);
+        } else {
+            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+        }
     }
-    myRouterTT->prohibit(prohibited);
-    return *myRouterTT;
+    if (myRouterTTDijkstra != 0) {
+        myRouterTTDijkstra->prohibit(prohibited);
+        return *myRouterTTDijkstra;
+    } else {
+        myRouterTTAStar->prohibit(prohibited);
+        return *myRouterTTAStar;
+    }
 }
 
 

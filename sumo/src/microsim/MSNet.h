@@ -55,6 +55,7 @@
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
+#include <utils/common/AStarRouter.h>
 
 // ===========================================================================
 // class declarations
@@ -629,8 +630,12 @@ protected:
 #endif
 
     /* @brief The router instance for routing by trigger and by traci
-     * @note MSDevice_Routing has its own instance since it uses a different weight function */
-    mutable DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTT;
+     * @note MSDevice_Routing has its own instance since it uses a different weight function 
+     * @note we provide one member for every switchable router type
+     * because the class structure makes it inconvenient to use a superclass*/
+    mutable bool myRouterTTInitialized;
+    mutable DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTDijkstra;
+    mutable AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterTTAStar;
     mutable DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >* myRouterEffort;
 
 
