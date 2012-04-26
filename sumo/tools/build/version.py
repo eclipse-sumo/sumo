@@ -63,7 +63,7 @@ def parseRevision(svnFile):
             return UNKNOWN_REVISION
     else:
         # old style entries file
-        for i, l in open(svnFile):
+        for i, l in enumerate(open(svnFile)):
             if i == 3 and l.strip().isdigit():
                 svnRevision = l.strip()
             revIndex = l.find('revision="')
