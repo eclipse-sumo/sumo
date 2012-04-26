@@ -35,7 +35,7 @@
       <Command>xcopy /Y $(TargetPath) ..\..\..\bin\</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>IF EXIST .svn/entries ..\..\..\tools\build\version.py</Command>
+      <Command>..\..\..\tools\build\version.py</Command>
     </PreBuildEvent>
     <Link>
       <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
