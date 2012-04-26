@@ -50,6 +50,23 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSInstantInductLoop.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
+	
+	<ClCompile Include="..\..\..\src\microsim\output\MSFCDExport.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSVTKExport.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSFullExport.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSEmissionExport.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\output\MSQueueExport.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+	
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h">
@@ -97,5 +114,22 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+	
+	<ClInclude Include="..\..\..\src\microsim\output\MSFCDExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSFullExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSVTKExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\output\MSEmissionExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+	 <ClInclude Include="..\..\..\src\microsim\output\MSQueueExport.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    
   </ItemGroup>
 </Project>

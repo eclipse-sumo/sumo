@@ -5,6 +5,7 @@
 /// @author  Jakob Erdmann
 /// @author  Clemens Honomichl
 /// @author  Eric Nicolay
+/// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
@@ -37,6 +38,7 @@
 #include <version.h>
 #endif
 
+#include <string>
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -67,6 +69,15 @@
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon.h>
 #include <utils/shapes/ShapeContainer.h>
+
+#include <utils/iodevices/OutputDevice_File.h>
+
+#include "output/MSFCDExport.h"
+#include "output/MSEmissionExport.h"
+#include "output/MSFullExport.h"
+#include "output/MSQueueExport.h"
+#include "output/MSVTKExport.h"
+
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
@@ -485,10 +496,53 @@ void
 MSNet::writeOutput() {
     // update detector values
     myDetectorControl->updateDetectors(myStep);
+
     // check state dumps
     if (OptionsCont::getOptions().isSet("netstate-dump")) {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
     }
+    
+    
+    	// check fcd dumps
+    if (OptionsCont::getOptions().isSet("fcd-export")) {
+        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-export"), myStep);
+    }
+
+	   // check emission dumps
+    if (OptionsCont::getOptions().isSet("emission-export")) {
+        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-export"), myStep);
+    }
+
+	   // check full dumps
+    if (OptionsCont::getOptions().isSet("full-export")) {
+        MSFullExport::write(OutputDevice::getDeviceByOption("full-export"), myStep);
+    }
+
+	   // check queue dumps
+    if (OptionsCont::getOptions().isSet("queue-export")) {
+        MSQueueExport::write(OutputDevice::getDeviceByOption("queue-export"), myStep);
+    }
+
+	     // check vtk dumps
+    if (OptionsCont::getOptions().isSet("vtk-export")) {
+
+		if(MSNet::getInstance()->getVehicleControl().getRunningVehicleNo()>0){
+			std::string timestep = time2string(myStep);
+			timestep = timestep.substr(0, timestep.length()-3);
+			std::string output = OptionsCont::getOptions().getString("vtk-export");
+			std::string filename = output + "_" + timestep + ".vtp";
+
+			OutputDevice_File dev = OutputDevice_File(filename, false);
+
+			//build a huge mass of xml files
+			MSVTKExport::write(dev, myStep);
+		
+		}
+
+	}
+
+    
+    
     // emission output
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary");

@@ -6,6 +6,7 @@
 /// @author  Christoph Sommer
 /// @author  Tino Morenz
 /// @author  Michael Behrisch
+/// @author  Mario Krumnow
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
@@ -75,6 +76,9 @@ public:
     friend class GUILaneWrapper;
 
     friend class MSXMLRawOut;
+
+	friend class MSQueueExport;
+
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */

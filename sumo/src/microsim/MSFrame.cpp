@@ -5,6 +5,7 @@
 /// @author  Jakob Erdmann
 /// @author  Axel Wegener
 /// @author  Thimor Bohn
+/// @author  Mario Krumnow
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 /// @version $Id$
@@ -115,6 +116,23 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump.empty-edges", "dump-empty-edges", true);
     oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
 
+
+    oc.doRegister("emission-export", new Option_FileName());
+    oc.addDescription("emission-export", "Output", "Save the emission values of each vehicle");
+
+	oc.doRegister("fcd-export", new Option_FileName());
+    oc.addDescription("fcd-export", "Output", "Save the Floating Car Data");
+
+	oc.doRegister("full-export", new Option_FileName());
+    oc.addDescription("full-export", "Output", "Save a lot of information for each timestep (very redundant)");
+   
+	oc.doRegister("queue-export", new Option_FileName());
+    oc.addDescription("queue-export", "Output", "Save the vehicle queues at the junctions (experimental)");
+
+	oc.doRegister("vtk-export", new Option_FileName());
+    oc.addDescription("vtk-export", "Output", "Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)");
+
+	
     oc.doRegister("summary-output", new Option_FileName());
     oc.addSynonyme("summary-output", "summary");
     oc.addSynonyme("summary-output", "emissions-output", true);
@@ -283,6 +301,14 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
+   
+    //extended
+	OutputDevice::createDeviceByOption("fcd-export", "fcd-export");
+    OutputDevice::createDeviceByOption("emission-export", "emission-export");
+    OutputDevice::createDeviceByOption("full-export", "full-export");
+	OutputDevice::createDeviceByOption("queue-export", "queue-export");
+	OutputDevice::createDeviceByOption("vtk-export", "vtk-export");
+
     MSDevice_Vehroutes::init();
 }
 

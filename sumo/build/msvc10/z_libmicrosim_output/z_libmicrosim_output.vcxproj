@@ -234,6 +234,11 @@
     <ClCompile Include="..\..\..\src\microsim\output\MSRouteProbe.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSVTypeProbe.cpp" />
     <ClCompile Include="..\..\..\src\microsim\output\MSXMLRawOut.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSFCDExport.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSEmissionExport.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSFullExport.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSVTKExport.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\output\MSQueueExport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\microsim\output\MSInstantInductLoop.h" />
@@ -251,6 +256,11 @@
     <ClInclude Include="..\..\..\src\microsim\output\MSRouteProbe.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSVTypeProbe.h" />
     <ClInclude Include="..\..\..\src\microsim\output\MSXMLRawOut.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSFCDExport.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSEmissionExport.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSFullExport.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSVTKExport.h" />
+    <ClInclude Include="..\..\..\src\microsim\output\MSQueueExport.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

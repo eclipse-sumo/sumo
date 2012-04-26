@@ -323,9 +323,11 @@ private:
 
     const bool myAmBinary;
 
-private:
+public:
     /// @brief Invalidated copy constructor.
     OutputDevice(const OutputDevice&);
+	
+private:
 
     /// @brief Invalidated assignment operator.
     OutputDevice& operator=(const OutputDevice&);
