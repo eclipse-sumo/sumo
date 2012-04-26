@@ -571,10 +571,10 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.endPos = attrs.getOptSUMORealReporting(SUMO_ATTR_POSITION, 0, ok, stop.endPos);
         }
-        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, stop.endPos - 2 * POSITION_EPS);
+        stop.startPos = attrs.getOptSUMORealReporting(SUMO_ATTR_STARTPOS, 0, ok, MAX2(0., stop.endPos - 2 * POSITION_EPS));
         const bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
         if (!ok || !checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos)) {
-            WRITE_ERROR("Invalid start or end position for stop" + errorSuffix);
+            WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);
             return;
         }
     }
@@ -588,14 +588,14 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, 0, ok, -1);
         stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, 0, ok, -1);
         if (!ok || (stop.duration < 0 && stop.until < 0)) {
-            WRITE_ERROR("Invalid duration or end time is given for a stop" + errorSuffix);
+            WRITE_ERROR("Invalid duration or end time is given for a stop on lane '" + stop.lane + "'" + errorSuffix);
             return;
         }
         stop.triggered = attrs.getOptBoolReporting(SUMO_ATTR_TRIGGERED, 0, ok, false);
     }
     stop.parking = attrs.getOptBoolReporting(SUMO_ATTR_PARKING, 0, ok, stop.triggered);
     if (!ok) {
-        WRITE_ERROR("Invalid bool for 'triggered' or 'parking' for stop" + errorSuffix);
+        WRITE_ERROR("Invalid bool for 'triggered' or 'parking' for stop on lane '" + stop.lane + "'" + errorSuffix);
         return;
     }
     const std::string idx = attrs.getOptStringReporting(SUMO_ATTR_INDEX, 0, ok, "end");
@@ -606,7 +606,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else {
         stop.index = attrs.getIntReporting(SUMO_ATTR_INDEX, 0, ok);
         if (!ok || stop.index < 0) {
-            WRITE_ERROR("Invalid 'index' for stop" + errorSuffix);
+            WRITE_ERROR("Invalid 'index' for stop on lane '" + stop.lane + "'" + errorSuffix);
             return;
         }
     }
