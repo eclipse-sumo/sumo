@@ -26,6 +26,7 @@ from os.path import dirname, exists, getmtime, join, isdir
 UNKNOWN_REVISION = "UNKNOWN"
 SVNDIR = '.svn'
 SVN16FILE = 'entries'
+SVN16FILE2 = 'all-wcprops'
 SVN17FILE = 'wc.db'
 
 def find_svnDir(searchRoot):
@@ -42,7 +43,10 @@ def find_svnDir(searchRoot):
 
 
 def find_svnFile(svnDir):
-    candidates = [join(svnDir, SVN17FILE), join(svnDir, SVN16FILE)]
+    candidates = [
+            join(svnDir, SVN17FILE), 
+            join(svnDir, SVN16FILE2), 
+            join(svnDir, SVN16FILE)]
     for f in candidates:
         if exists(f):
             return f
@@ -50,7 +54,7 @@ def find_svnFile(svnDir):
 
 
 def parseRevision(svnFile):
-    if SVN17FILE in svnFile:
+    if SVN17FILE in svnFile or SVN16FILE2 in svnFile:
         # new style wc.db
         svnRevision = -1
         for l in open(svnFile, 'rb'):
