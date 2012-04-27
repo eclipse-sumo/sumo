@@ -15,9 +15,10 @@ MSMeanData_HBEFA.cpp MSMeanData_HBEFA.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
 MSRouteProbe.cpp MSRouteProbe.h \
 MSVTypeProbe.cpp MSVTypeProbe.h \
-MSFCDExport.cpp MSFCDExport.h \
-MSEmissionExport.cpp MSEmissionExport.h  \
-MSVTKExport.cpp MSVTKExport.h \
-MSFullExport.cpp MSFullExport.h \
-MSQueueExport.cpp MSQueueExport.h \
 MSXMLRawOut.cpp MSXMLRawOut.h
+
+#MSFCDExport.cpp MSFCDExport.h \
+#MSEmissionExport.cpp MSEmissionExport.h  \
+#MSVTKExport.cpp MSVTKExport.h \
+#MSFullExport.cpp MSFullExport.h \
+#MSQueueExport.cpp MSQueueExport.h

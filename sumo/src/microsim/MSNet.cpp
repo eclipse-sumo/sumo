@@ -71,13 +71,13 @@
 #include <utils/shapes/ShapeContainer.h>
 
 #include <utils/iodevices/OutputDevice_File.h>
-
+/*
 #include "output/MSFCDExport.h"
 #include "output/MSEmissionExport.h"
 #include "output/MSFullExport.h"
 #include "output/MSQueueExport.h"
 #include "output/MSVTKExport.h"
-
+*/
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
@@ -502,7 +502,7 @@ MSNet::writeOutput() {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
     }
     
-    
+/*    
     	// check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-export")) {
         MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-export"), myStep);
@@ -542,7 +542,7 @@ MSNet::writeOutput() {
 	}
 
     
-    
+*/    
     // emission output
     if (OptionsCont::getOptions().isSet("summary-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("summary");
