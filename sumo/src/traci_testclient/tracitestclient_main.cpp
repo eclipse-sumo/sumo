@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
     TraCITestClient* client;
 
     if ((argc == 1) || (argc % 2 == 0)) {
-        std::cout << "Usage: TraciTestClient -def <definition_file>  -p <remote port>"
+        std::cout << "Usage: TraCITestClient -def <definition_file>  -p <remote port>"
                   << "[-h <remote host>] [-o <outputfile name>]" << std::endl;
         return 0;
     }

@@ -21,7 +21,16 @@ wikidump:
 man:
 	rm -rf docs/man
 	mkdir docs/man
-	for exe in sumo dfrouter duarouter jtrrouter activitygen od2trips netconvert netgen polyconvert; do help2man -N bin/$$exe > docs/man/$$exe.1; done
+	help2man -N -n "A microscopic road traffic simulation" bin/sumo > docs/man/sumo.1
+	help2man -N -n "Builds vehicle routes for SUMO using detector values" bin/dfrouter > docs/man/dfrouter.1
+	help2man -N -n "Shortest path router and DUE computer for the microscopic road traffic simulation SUMO" bin/duarouter > docs/man/duarouter.1
+	help2man -N -n "Router for the microscopic road traffic simulation SUMO based on junction turning ratios" bin/jtrrouter > docs/man/jtrrouter.1
+	help2man -N -n "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO" bin/activitygen > docs/man/activitygen.1
+	help2man -N -n "Importer of O/D-matrices for the road traffic simulation SUMO" bin/od2trips > docs/man/od2trips.1
+	help2man -N -n "Road network importer / builder for the road traffic simulation SUMO" bin/netconvert > docs/man/netconvert.1
+	help2man -N -n "Road network generator for the microscopic road traffic simulation SUMO" bin/netgen > docs/man/netgen.1
+	help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
+	help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
 
 dist-hook: abs_distdir=`pwd`/$(distdir)
 dist-hook:
