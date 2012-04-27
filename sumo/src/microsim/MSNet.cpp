@@ -501,32 +501,32 @@ MSNet::writeOutput() {
     }
     
     	// check fcd dumps
-    if (OptionsCont::getOptions().isSet("fcd-export")) {
-        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-export"), myStep);
+    if (OptionsCont::getOptions().isSet("fcd-output")) {
+        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
     }
 
 	   // check emission dumps
-    if (OptionsCont::getOptions().isSet("emission-export")) {
-        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-export"), myStep);
+    if (OptionsCont::getOptions().isSet("emission-output")) {
+        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep);
     }
 
 	   // check full dumps
-    if (OptionsCont::getOptions().isSet("full-export")) {
-        MSFullExport::write(OutputDevice::getDeviceByOption("full-export"), myStep);
+    if (OptionsCont::getOptions().isSet("full-output")) {
+        MSFullExport::write(OutputDevice::getDeviceByOption("full-output"), myStep);
     }
 
 	   // check queue dumps
-    if (OptionsCont::getOptions().isSet("queue-export")) {
-        MSQueueExport::write(OutputDevice::getDeviceByOption("queue-export"), myStep);
+    if (OptionsCont::getOptions().isSet("queue-output")) {
+        MSQueueExport::write(OutputDevice::getDeviceByOption("queue-output"), myStep);
     }
 
 	     // check vtk dumps
-    if (OptionsCont::getOptions().isSet("vtk-export")) {
+    if (OptionsCont::getOptions().isSet("vtk-output")) {
 
 		if(MSNet::getInstance()->getVehicleControl().getRunningVehicleNo()>0){
 			std::string timestep = time2string(myStep);
 			timestep = timestep.substr(0, timestep.length()-3);
-			std::string output = OptionsCont::getOptions().getString("vtk-export");
+			std::string output = OptionsCont::getOptions().getString("vtk-output");
 			std::string filename = output + "_" + timestep + ".vtp";
 
 			OutputDevice_File dev = OutputDevice_File(filename, false);

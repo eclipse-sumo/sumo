@@ -117,20 +117,16 @@ MSFrame::fillOptions() {
     oc.addDescription("netstate-dump.empty-edges", "Output", "Write also empty edges completely when dumping");
 
 
-    oc.doRegister("emission-export", new Option_FileName());
-    oc.addDescription("emission-export", "Output", "Save the emission values of each vehicle");
-
-	oc.doRegister("fcd-export", new Option_FileName());
-    oc.addDescription("fcd-export", "Output", "Save the Floating Car Data");
-
-	oc.doRegister("full-export", new Option_FileName());
-    oc.addDescription("full-export", "Output", "Save a lot of information for each timestep (very redundant)");
-   
-	oc.doRegister("queue-export", new Option_FileName());
-    oc.addDescription("queue-export", "Output", "Save the vehicle queues at the junctions (experimental)");
-
-	oc.doRegister("vtk-export", new Option_FileName());
-    oc.addDescription("vtk-export", "Output", "Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)");
+    oc.doRegister("emission-output", new Option_FileName());
+    oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle");
+	oc.doRegister("fcd-output", new Option_FileName());
+    oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
+	oc.doRegister("full-output", new Option_FileName());
+    oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
+	oc.doRegister("queue-output", new Option_FileName());
+    oc.addDescription("queue-output", "Output", "Save the vehicle queues at the junctions (experimental)");
+	oc.doRegister("vtk-output", new Option_FileName());
+    oc.addDescription("vtk-output", "Output", "Save complete vehicle positions in VTK Format (usage: /file/out will produce /file/out_$NR$.vtp files)");
 
 	
     oc.doRegister("summary-output", new Option_FileName());
@@ -303,11 +299,11 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
    
     //extended
-	OutputDevice::createDeviceByOption("fcd-export", "fcd-export");
-    OutputDevice::createDeviceByOption("emission-export", "emission-export");
-    OutputDevice::createDeviceByOption("full-export", "full-export");
-	OutputDevice::createDeviceByOption("queue-export", "queue-export");
-	OutputDevice::createDeviceByOption("vtk-export", "vtk-export");
+	OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
+    OutputDevice::createDeviceByOption("emission-output", "emission-export");
+    OutputDevice::createDeviceByOption("full-output", "full-export");
+	OutputDevice::createDeviceByOption("queue-output", "queue-export");
+	OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
 
     MSDevice_Vehroutes::init();
 }
