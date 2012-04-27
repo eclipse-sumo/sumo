@@ -81,18 +81,23 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
 
 FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRAYNUMBER(GUIDialog_ViewSettingsMap))
 
+// ===========================================================================
+// static members
+// ===========================================================================
+unsigned int GUIDialog_ViewSettings::myCustomSchemes = 0;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(
-    GUISUMOAbstractView* parent,
-    GUIVisualizationSettings* settings,
-    std::vector<GUISUMOAbstractView::Decal> *decals,
-    MFXMutex* decalsLock)
-    : FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-      myParent(parent), mySettings(settings),
-      myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0) {
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
+        GUIVisualizationSettings* settings, 
+        std::vector<GUISUMOAbstractView::Decal> *decals,
+        MFXMutex* decalsLock) : 
+    FXDialogBox(parent, "View Settings", DECOR_TITLE | DECOR_BORDER, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+    myParent(parent), mySettings(settings),
+    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
+{
     myBackup = (*mySettings);
 
     FXVerticalFrame* contentFrame =
@@ -720,24 +725,25 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         return 1;
     }
 
-    if (tmpSettings.name[0] != '*') {
-        tmpSettings.name = '*' + tmpSettings.name;
-    }
-    gSchemeStorage.add(tmpSettings);
     int index = mySchemeName->getCurrentItem();
     if (index < (int) gSchemeStorage.getNumInitialSettings()) {
+        // one of the initial settings is modified
+        // every time this happens we create a new scheme
+        ++myCustomSchemes; // 1-based counting for the masses
+        tmpSettings.name = "custom_" + toString(myCustomSchemes);
+        // the newly created settings must be entered in several places:
+        // - the comboBox mySchemeName of this dialog
+        // - the comboBox of the parent view (set as active)
+        // - the comboBox of all other views (only append) XXX @todo
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
-        gSchemeStorage.add(tmpSettings);
         mySchemeName->setCurrentItem(index);
         myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
-        myParent->getColoringSchemesCombo().setCurrentItem(index);
-        myParent->setColorScheme(tmpSettings.name);
-    } else {
-        mySchemeName->setItemText(index, tmpSettings.name.c_str());
-        myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-        myParent->setColorScheme(tmpSettings.name);
-    }
+    } 
+    myParent->getColoringSchemesCombo().setCurrentItem(
+            myParent->getColoringSchemesCombo().findItem(tmpSettings.name.c_str()));
+    gSchemeStorage.add(tmpSettings); // overwrites existing
     mySettings = &gSchemeStorage.get(tmpSettings.name);
+    myParent->setColorScheme(tmpSettings.name);
 
     if (doRebuildColorMatrices) {
         rebuildColorMatrices(true);
