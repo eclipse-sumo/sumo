@@ -60,7 +60,10 @@ def parseRevision(svnFile):
         for l in open(svnFile, 'rb'):
             m = re.search('[!]svn[/]ver[/](\d*)', l)
             if m:
-                svnRevision = max(svnRevision, int(m.group(1)))
+                try:
+                    svnRevision = max(svnRevision, int(m.group(1)))
+                except ValueError:
+                    pass
         if svnRevision >= 0:
             return svnRevision
         else:
