@@ -164,35 +164,32 @@ MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
 
 void
 MSFullExport::writeTLS(OutputDevice& of, SUMOTime timestep) {
-   
-		of.openTag("tls") << ">\n";
-	
-							MSTLLogicControl& vc = MSNet::getInstance()->getTLSControl();
-							std::vector<std::string> ids = vc.getAllTLIds();
-							for(signed i=0; i<ids.size(); i++){
+    of.openTag("tls") << ">\n";
+    MSTLLogicControl& vc = MSNet::getInstance()->getTLSControl();
+    std::vector<std::string> ids = vc.getAllTLIds();
+    for(std::vector<std::string>::const_iterator id_it = ids.begin(); id_it != ids.end(); ++id_it) {
+        MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(*id_it);
+        const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
 
-								MSTLLogicControl::TLSLogicVariants& vars = MSNet::getInstance()->getTLSControl().get(ids[i]);
-								const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLanes();
-								
-								std::vector<std::string> laneIDs;
-								for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-									const MSTrafficLightLogic::LaneVector& llanes = (*i);
-									for (MSTrafficLightLogic::LaneVector::const_iterator j = llanes.begin(); j != llanes.end(); ++j) {
-										laneIDs.push_back((*j)->getID());
-									}
-								}
+        std::vector<std::string> laneIDs;
+        for (MSTrafficLightLogic::LaneVectorVector::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+            const MSTrafficLightLogic::LaneVector& llanes = (*i);
+            for (MSTrafficLightLogic::LaneVector::const_iterator j = llanes.begin(); j != llanes.end(); ++j) {
+                laneIDs.push_back((*j)->getID());
+            }
+        }
 
-								std::string lane_output = "";
-								for(signed i1=0; i1<laneIDs.size(); i1++){
-									lane_output += laneIDs[i1] + " ";
-								}
+        std::string lane_output = "";
+        for(signed i1=0; i1<laneIDs.size(); i1++){
+            lane_output += laneIDs[i1] + " ";
+        }
 
-								std::string state = vars.getActive()->getCurrentPhaseDef().getState();
-								of.openTag("trafficlight") << " id=\"" << ids[i] << "\" state=\"" << state <<"\"";
-								of.closeTag(true);
+        std::string state = vars.getActive()->getCurrentPhaseDef().getState();
+        of.openTag("trafficlight") << " id=\"" << *id_it << "\" state=\"" << state <<"\"";
+        of.closeTag(true);
 
-							}
+    }
 
-		of.closeTag();
-		
+    of.closeTag();
+
 }
