@@ -60,7 +60,7 @@ class StartDialog:
         self.name = ''
         # setup gui
         self.root = Tkinter.Tk()
-        self.root.title("Traffic Light Game")
+        self.root.title("Interactive Traffic Light")
         self.root.minsize(250, 50)
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
