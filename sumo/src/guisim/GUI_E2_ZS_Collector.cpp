@@ -41,12 +41,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
 #include "GUIEdge.h"
-
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

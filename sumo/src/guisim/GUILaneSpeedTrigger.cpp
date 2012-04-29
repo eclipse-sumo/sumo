@@ -28,12 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/PositionVector.h>
@@ -59,6 +53,7 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUILaneSpeedTrigger.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

@@ -32,17 +32,11 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
 #include <iostream>
 #include <utility>
 #include <cmath>
 #include <cassert>
 #include <fxkeys.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <foreign/gl2ps/gl2ps.h>
 #include <utils/foxtools/FXSingleEventThread.h>
@@ -65,6 +59,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"

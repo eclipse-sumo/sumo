@@ -30,12 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
 #include <cmath>
 #include <vector>
 #include <string>
@@ -59,7 +53,7 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
-
+#include <utils/gui/globjects/GLIncludes.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
