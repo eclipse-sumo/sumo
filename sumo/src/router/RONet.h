@@ -43,6 +43,7 @@
 #include "RORouteDef.h"
 #include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/RandomDistributor.h>
 
 
 // ===========================================================================
@@ -133,7 +134,16 @@ public:
     /// @name Insertion and retrieval of vehicle types, vehicles, routes, and route definitions
     //@{
 
-    /* @brief Adds a read vehicle type definition to the network
+    /** @brief Checks whether the vehicle type (distribution) may be added
+     *
+     * This method checks also whether the default type may still be replaced
+     * @param[in] id The id of the vehicle type (distribution) to add
+     * @return Whether the type (distribution) may be added
+     */
+    bool checkVType(const std::string& id);
+
+
+    /** @brief Adds a read vehicle type definition to the network
      *
      * If the vehicle type definition is already known (another one with
      *  the same id exists), false is returned, and the vehicle type
@@ -143,6 +153,22 @@ public:
      * @return Whether the vehicle type could be added
      */
     virtual bool addVehicleType(SUMOVTypeParameter* type);
+
+
+    /** @brief Adds a vehicle type distribution
+     *
+     * If another vehicle type (or distribution) with the same id exists, false is returned.
+     *  Otherwise, the vehicle type distribution is added to the internal vehicle type distribution
+     *  container "myVTypeDistDict".
+     *
+     * This control get responsible for deletion of the added vehicle
+     *  type distribution.
+     *
+     * @param[in] id The id of the distribution to add
+     * @param[in] vehTypeDistribution The vehicle type distribution to add
+     * @return Whether the vehicle type could be added
+     */
+    bool addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*> *vehTypeDistribution);
 
 
     /** @brief Retrieves the named vehicle type
@@ -318,6 +344,11 @@ protected:
 
     /// @brief Known vehicle types
     NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;
+
+    /// @brief Vehicle type distribution dictionary type
+    typedef std::map< std::string, RandomDistributor<SUMOVTypeParameter*>* > VTypeDistDictType;
+    /// @brief A distribution of vehicle types (probability->vehicle type)
+    VTypeDistDictType myVTypeDistDict;
 
     /// @brief Whether no vehicle type was loaded
     bool myDefaultVTypeMayBeDeleted;

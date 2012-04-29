@@ -360,7 +360,7 @@ public:
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
-     * Removed the vehicle from the internal dictionary
+     * This method checks also whether the default type may still be replaced
      * @param[in] id The id of the vehicle type (distribution) to add
      * @return Whether the type (distribution) may be added
      */

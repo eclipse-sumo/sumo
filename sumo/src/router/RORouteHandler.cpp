@@ -34,6 +34,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
@@ -42,6 +44,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <utils/iodevices/OutputDevice_String.h>
+#include "RONet.h"
 #include "RORouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -52,13 +55,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteHandler::RORouteHandler(const std::string& file,
+RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                bool addVehiclesDirectly) :
     SUMORouteHandler(file),
+    myNet(net),
     myActivePlan(0),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
-    myCurrentRouteDistribution(0) {
+    myCurrentAlternatives(0) {
     myActiveRoute.reserve(100);
 }
 
@@ -77,13 +81,13 @@ RORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_RIDE: {
             myActivePlan->openTag(SUMO_TAG_RIDE);
-            //myActivePlan << attrs;
+            (*myActivePlan) << attrs;
             myActivePlan->closeTag(true);
             break;
         }
         case SUMO_TAG_WALK: {
             myActivePlan->openTag(SUMO_TAG_WALK);
-            //myActivePlan << attrs;
+            (*myActivePlan) << attrs;
             myActivePlan->closeTag(true);
             break;
         }
@@ -91,10 +95,10 @@ RORouteHandler::myStartElement(int element,
             if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
                 myActiveRouteID = "!" + myVehicleParameter->id;
                 bool ok = true;
-                //MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                //                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-                //MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
-                //                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+                parseEdges(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
+                           myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+                parseEdges(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
+                           myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
                 closeRoute();
             }
             break;
@@ -102,19 +106,19 @@ RORouteHandler::myStartElement(int element,
         case SUMO_TAG_TRIP: {
             bool ok = true;
             if (attrs.hasAttribute(SUMO_ATTR_FROM) || !myVehicleParameter->wasSet(VEHPARS_TAZ_SET)) {
-                //MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
-                //                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
-                //MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
-                //                       myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+                parseEdges(attrs.getStringReporting(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok),
+                           myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
+                parseEdges(attrs.getStringReporting(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok),
+                           myActiveRoute, "for vehicle '" + myVehicleParameter->id + "'");
             } else {
-                //const MSEdge* fromTaz = MSEdge::dictionary(myVehicleParameter->fromTaz + "-source");
-                //if (fromTaz == 0) {
-                //    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
-                //} else if (fromTaz->getNoFollowing() == 0) {
-                //    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
-                //} else {
-                //    myActiveRoute.push_back(fromTaz->getFollower(0));
-                //}
+                const ROEdge* fromTaz = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
+                if (fromTaz == 0) {
+                    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' not known for '" + myVehicleParameter->id + "'!");
+                } else if (fromTaz->getNoFollowing() == 0) {
+                    WRITE_ERROR("Source district '" + myVehicleParameter->fromTaz + "' has no outgoing edges for '" + myVehicleParameter->id + "'!");
+                } else {
+                    myActiveRoute.push_back(fromTaz->getFollower(0));
+                }
             }
             closeRoute();
             closeVehicle();
@@ -141,12 +145,8 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             const std::string vTypes = attrs.getStringReporting(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
             StringTokenizer st(vTypes);
             while (st.hasNext()) {
-                std::string vtypeID = st.next();
-                //SUMOVTypeParameter* type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
-                //if (type == 0) {
-                //    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
-                //}
-                //myCurrentVTypeDistribution->add(type->getDefaultProbability(), type);
+                SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(st.next());
+                myCurrentVTypeDistribution->add(1., type);
             }
         }
     }
@@ -159,7 +159,7 @@ RORouteHandler::closeVehicleTypeDistribution() {
         if (myCurrentVTypeDistribution->getOverallProb() == 0) {
             delete myCurrentVTypeDistribution;
             WRITE_ERROR("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
-//        } else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
+        } else if (!myNet.addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
             delete myCurrentVTypeDistribution;
             WRITE_ERROR("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
         }
@@ -172,9 +172,9 @@ void
 RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
     std::string rid;
-    if (myCurrentRouteDistribution != 0) {
-        myActiveRouteID = myCurrentRouteDistributionID + "#" + toString(myCurrentRouteDistribution->getProbs().size()); // !!! document this
-        rid =  "distribution '" + myCurrentRouteDistributionID + "'";
+    if (myCurrentAlternatives != 0) {
+        myActiveRouteID = myCurrentAlternatives->getID() + "#"; // !!! document this
+        rid =  "distribution '" + myCurrentAlternatives->getID() + "'";
     } else if (myVehicleParameter != 0) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
@@ -195,12 +195,12 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-//        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid);
+        parseEdges(attrs.getStringReporting(SUMO_ATTR_EDGES, myActiveRouteID.c_str(), ok), myActiveRoute, rid);
     }
     myActiveRouteRefID = attrs.getOptStringReporting(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
-//    if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID) == 0) {
-//        WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
-//    }
+    if (myActiveRouteRefID != "" && myNet.getRouteDef(myActiveRouteRefID) == 0) {
+        WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
+    }
     myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? RGBColor::parseColorReporting(attrs.getString(SUMO_ATTR_COLOR), attrs.getObjectType(),  myActiveRouteID.c_str(), true, ok) : RGBColor::getDefaultColor();
 }
@@ -557,6 +557,22 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until));
     } else {
         myVehicleParameter->stops.push_back(stop);
+    }
+}
+
+
+void
+RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*> &into,
+                           const std::string& rid) {
+    StringTokenizer st(desc);
+    while (st.hasNext()) {
+        const ROEdge* edge = myNet.getEdge(st.next());
+        // check whether the edge exists
+        if (edge == 0) {
+            throw ProcessError("The edge '" + *i + "' within the route " + rid + " is not known."
+                               + "\n The route can not be build.");
+        }
+        into.push_back(edge);
     }
 }
 

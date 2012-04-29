@@ -177,17 +177,43 @@ RONet::getVehicleTypeSecure(const std::string& id) {
 
 
 bool
-RONet::addVehicleType(SUMOVTypeParameter* type) {
-    if (type->id == DEFAULT_VTYPE_ID && myDefaultVTypeMayBeDeleted) {
-		myVehicleTypes.remove(DEFAULT_VTYPE_ID);
-        myDefaultVTypeMayBeDeleted = false;
+RONet::checkVType(const std::string& id) {
+    if (id == DEFAULT_VTYPE_ID) {
+        if (myDefaultVTypeMayBeDeleted) {
+            myVehicleTypes.remove(id);
+            myDefaultVTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else {
+        if (myVehicleTypes.get(id) != 0 || myVTypeDistDict.find(id) != myVTypeDistDict.end()) {
+            return false;
+        }
     }
-    if (!myVehicleTypes.add(type->id, type)) {
+    return true;
+}
+
+
+bool
+RONet::addVehicleType(SUMOVTypeParameter* type) {
+    if (checkVType(type->id)) {
+        myVehicleTypes.add(type->id, type);
+    } else {
         WRITE_ERROR("The vehicle type '" + type->id + "' occurs at least twice.");
         delete type;
         return false;
     }
     return true;
+}
+
+
+bool
+RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypeParameter*> *vehTypeDistribution) {
+    if (checkVType(id)) {
+        myVTypeDistDict[id] = vehTypeDistribution;
+        return true;
+    }
+    return false;
 }
 
 

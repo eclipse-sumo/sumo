@@ -33,6 +33,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMORouteHandler.h>
@@ -43,7 +44,9 @@
 // ===========================================================================
 class OutputDevice;
 class ROEdge;
+class RONet;
 class RORoute;
+class RORouteDef;
 
 
 // ===========================================================================
@@ -60,7 +63,7 @@ class RORoute;
 class RORouteHandler : public SUMORouteHandler {
 public:
     /// standard constructor
-    RORouteHandler(const std::string& file,
+    RORouteHandler(RONet& net, const std::string& file,
                    bool addVehiclesDirectly);
 
     /// standard destructor
@@ -125,9 +128,16 @@ protected:
     /// Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 
+    /// Parse edges from strings
+    void parseEdges(const std::string& desc, std::vector<const ROEdge*> &into,
+                    const std::string& rid);
+
 protected:
     /// @brief The current route
-    std::vector<ROEdge*> myActiveRoute;
+    RONet& myNet;
+
+    /// @brief The current route
+    std::vector<const ROEdge*> myActiveRoute;
 
     /// @brief The plan of the current person
     OutputDevice* myActivePlan;
@@ -144,11 +154,8 @@ protected:
     /// @brief The id of the currently parsed vehicle type distribution
     std::string myCurrentVTypeDistributionID;
 
-    /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const RORoute*> *myCurrentRouteDistribution;
-
-    /// @brief The id of the currently parsed route distribution
-    std::string myCurrentRouteDistributionID;
+    /// @brief The currently parsed route alternatives
+    RORouteDef* myCurrentAlternatives;
 
 private:
     /// @brief Invalidated copy constructor

@@ -33,12 +33,6 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <GL/gl.h>
-
 #include <vector>
 #include <fx.h>
 #include <utils/iodevices/OutputDevice.h>

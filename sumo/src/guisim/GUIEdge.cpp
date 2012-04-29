@@ -50,6 +50,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #ifdef HAVE_INTERNAL
 #include <mesosim/MESegment.h>

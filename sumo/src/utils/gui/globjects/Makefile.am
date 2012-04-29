@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libguiutilsglobjects.a
 
-libguiutilsglobjects_a_SOURCES = \
+libguiutilsglobjects_a_SOURCES = GLIncludes.h \
 GUIGLObjectPopupMenu.cpp GUIGLObjectPopupMenu.h \
 GUIGlObject.cpp GUIGlObject.h \
 GUIGlObjectStorage.cpp GUIGlObjectStorage.h \
