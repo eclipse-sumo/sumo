@@ -56,11 +56,11 @@
 // method definitions
 // ===========================================================================
 RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
-                               bool addVehiclesDirectly) :
+                               const bool tryRepair) :
     SUMORouteHandler(file),
     myNet(net),
     myActivePlan(0),
-    myAddVehiclesDirectly(addVehiclesDirectly),
+    myTryRepair(tryRepair),
     myCurrentVTypeDistribution(0),
     myCurrentAlternatives(0) {
     myActiveRoute.reserve(100);
@@ -173,7 +173,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
     std::string rid;
     if (myCurrentAlternatives != 0) {
-        myActiveRouteID = myCurrentAlternatives->getID() + "#"; // !!! document this
+        myActiveRouteID = myCurrentAlternatives->getID();
         rid =  "distribution '" + myCurrentAlternatives->getID() + "'";
     } else if (myVehicleParameter != 0) {
         // ok, a vehicle is wrapping the route,
@@ -211,18 +211,12 @@ RORouteHandler::myEndElement(int element) {
     SUMORouteHandler::myEndElement(element);
     switch (element) {
         case SUMO_TAG_VTYPE: {
-//            MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
-            delete myCurrentVType;
-            myCurrentVType = 0;
-            if (false) {//            if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
-                const std::string id = myCurrentVType->id;
-                delete myCurrentVType;
-                throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
-            } else {
+            if (myNet.addVehicleType(myCurrentVType)) {
                 if (myCurrentVTypeDistribution != 0) {
-                    myCurrentVTypeDistribution->add(1., myCurrentVType);
+                    myCurrentVTypeDistribution->add(myCurrentVType->defaultProbability, myCurrentVType);
                 }
             }
+            myCurrentVType = 0;
         }
         break;
         default:
@@ -234,8 +228,8 @@ RORouteHandler::myEndElement(int element) {
 void
 RORouteHandler::closeRoute() {
     if (myActiveRoute.size() == 0) {
-        if (myActiveRouteRefID != "" && myCurrentRouteDistribution != 0) {
-            myCurrentRouteDistribution->add(myActiveRouteProbability, MSRoute::dictionary(myActiveRouteRefID));
+        if (myActiveRouteRefID != "" && myCurrentAlternatives != 0) {
+            myCurrentAlternatives->addAlternativeDef(myNet.getRouteDef(myActiveRouteRefID));
             myActiveRouteID = "";
             myActiveRouteRefID = "";
             return;
@@ -246,31 +240,25 @@ RORouteHandler::closeRoute() {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
     }
-    MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                 myVehicleParameter == 0 || myVehicleParameter->repetitionNumber >= 1,
-                                 myActiveRouteColor, myActiveRouteStops);
+    RORoute* route = new RORoute(myActiveRouteID, myCurrentCosts, myActiveRouteProbability, myActiveRoute,
+                                 &myActiveRouteColor);
     myActiveRoute.clear();
-    if (!MSRoute::dictionary(myActiveRouteID, route)) {
-        delete route;
-#ifdef HAVE_INTERNAL
-        if (!MSGlobals::gStateLoaded) {
-#endif
+    if (myCurrentAlternatives == 0) {
+        if (myNet.getRouteDef(myActiveRouteID) != 0) {
+            delete route;
             if (myVehicleParameter != 0) {
-                if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id) == 0) {
-                    throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
-                } else {
-                    throw ProcessError("A vehicle with id '" + myVehicleParameter->id + "' already exists.");
-                }
+                throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
             } else {
                 throw ProcessError("Another route (or distribution) with the id '" + myActiveRouteID + "' exists.");
             }
-#ifdef HAVE_INTERNAL
+        } else {
+            myCurrentAlternatives = new RORouteDef(myActiveRouteID, 0, myTryRepair);
+            myCurrentAlternatives->addLoadedAlternative(route);
+            myNet.addRouteDef(myCurrentAlternatives);
+            myCurrentAlternatives = 0;
         }
-#endif
     } else {
-        if (myCurrentRouteDistribution != 0) {
-            myCurrentRouteDistribution->add(myActiveRouteProbability, route);
-        }
+        myCurrentAlternatives->addLoadedAlternative(route);
     }
     myActiveRouteID = "";
     myActiveRouteStops.clear();
@@ -281,27 +269,35 @@ void
 RORouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
     bool ok = true;
+    std::string id;
     if (myVehicleParameter != 0) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
-        myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
+        id = "!" + myVehicleParameter->id; // !!! document this
     } else {
-        myCurrentRouteDistributionID = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
+        id = attrs.getStringReporting(SUMO_ATTR_ID, 0, ok);
         if (!ok) {
             return;
         }
     }
-    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+    // try to get the index of the last element
+    int index = attrs.getIntReporting(SUMO_ATTR_LAST, id.c_str(), ok);
+    if (ok && index < 0) {
+        WRITE_ERROR("Negative index of a route alternative (id='" + id + "').");
+        return;
+    }
+    // build the alternative cont
+    myCurrentAlternatives = new RORouteDef(id, index, false);
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
-        bool ok = true;
-        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, myCurrentRouteDistributionID.c_str(), ok));
+        ok = true;
+        StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, id.c_str(), ok));
         while (st.hasNext()) {
-            std::string routeID = st.next();
-            const MSRoute* route = MSRoute::dictionary(routeID);
+            const std::string routeID = st.next();
+            const RORouteDef* route = myNet.getRouteDef(routeID);
             if (route == 0) {
-                throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
+                throw ProcessError("Unknown route '" + routeID + "' in distribution '" + id + "'.");
             }
-            myCurrentRouteDistribution->add(1., route, false);
+            myCurrentAlternatives->addAlternativeDef(route);
         }
     }
 }
@@ -309,124 +305,57 @@ RORouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
 
 void
 RORouteHandler::closeRouteDistribution() {
-    if (myCurrentRouteDistribution != 0) {
-        if (myCurrentRouteDistribution->getOverallProb() == 0) {
-            delete myCurrentRouteDistribution;
-            WRITE_ERROR("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
-        } else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
-            delete myCurrentRouteDistribution;
-            WRITE_ERROR("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
+    if (myCurrentAlternatives != 0) {
+        if (myCurrentAlternatives->getOverallProb() == 0) {
+            WRITE_ERROR("Route distribution '" + myCurrentAlternatives->getID() + "' is empty.");
+            delete myCurrentAlternatives;
+        } else if (!myNet.addRouteDef(myCurrentAlternatives)) {
+            WRITE_ERROR("Another route (or distribution) with the id '" + myCurrentAlternatives->getID() + "' exists.");
+            delete myCurrentAlternatives;
         }
-        myCurrentRouteDistribution = 0;
+        myCurrentAlternatives = 0;
     }
 }
 
 
 void
 RORouteHandler::closeVehicle() {
-    // get nested route
-    const MSRoute* route = MSRoute::dictionary("!" + myVehicleParameter->id);
-    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
-        // let's check whether this vehicle had to depart before the simulation starts
-        if (!(myAddVehiclesDirectly || checkLastDepart()) || myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
-            if (route != 0) {
-                route->addReference();
-                route->release();
-            }
-            return;
-        }
+    // get the vehicle id
+    if (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin"))) {
+        return;
     }
-    // get the vehicle's type
-    MSVehicleType* vtype = 0;
-    if (myVehicleParameter->vtypeid != "") {
-        vtype = vehControl.getVType(myVehicleParameter->vtypeid);
-        if (vtype == 0) {
-            throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-        }
-    } else {
-        // there should be one (at least the default one)
-        vtype = vehControl.getVType();
+    // get vehicle type
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    // get the route
+    RORouteDef* route = myNet.getRouteDef(myVehicleParameter->routeid);
+    if (route == 0) {
+        route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
     if (route == 0) {
-        // if there is no nested route, try via the (hopefully) given route-id
-        route = MSRoute::dictionary(myVehicleParameter->routeid);
+        WRITE_ERROR("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
+        return;
     }
-    if (route == 0) {
-        // nothing found? -> error
-        if (myVehicleParameter->routeid != "") {
-            throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-        } else {
-            throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
-        }
-    }
-    myActiveRouteID = "";
-
-    // try to build the vehicle
-    SUMOVehicle* vehicle = 0;
-    if (vehControl.getVehicle(myVehicleParameter->id) == 0) {
-        vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype);
-        // maybe we do not want this vehicle to be inserted due to scaling
-        if (myScale < 0 || vehControl.isInQuota(myScale)) {
-            // add the vehicle to the vehicle control
-            vehControl.addVehicle(myVehicleParameter->id, vehicle);
-            if (myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
-                vehControl.addWaiting(*route->begin(), vehicle);
-                vehControl.registerOneWaitingForPerson();
-            }
-            registerLastDepart();
-            myVehicleParameter = 0;
-        } else {
-            vehControl.deleteVehicle(vehicle, true);
-            myVehicleParameter = 0;
-            vehicle = 0;
-        }
-    } else {
-        // strange: another vehicle with the same id already exists
-#ifdef HAVE_INTERNAL
-        if (!MSGlobals::gStateLoaded) {
-#endif
-            // and was not loaded while loading a simulation state
-            // -> error
-            throw ProcessError("Another vehicle with the id '" + myVehicleParameter->id + "' exists.");
-#ifdef HAVE_INTERNAL
-        } else {
-            // ok, it seems to be loaded previously while loading a simulation state
-            vehicle = 0;
-        }
-#endif
-    }
-    // check whether the vehicle shall be added directly to the network or
-    //  shall stay in the internal buffer
-    if (vehicle != 0) {
-        if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
-            MSNet::getInstance()->getInsertionControl().add(vehicle);
-        }
+    // build the vehicle
+    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type);
+        myNet.addVehicle(myVehicleParameter->id, veh);
     }
 }
 
 
 void
 RORouteHandler::closePerson() {
-    if (myActivePlan->size() == 0) {
-        throw ProcessError("Person '" + myVehicleParameter->id + "' has no plan.");
-    }
-    MSPerson* person = new MSPerson(myVehicleParameter, myActivePlan);
-    // @todo: consider myScale?
-    if ((myAddVehiclesDirectly || checkLastDepart()) && MSNet::getInstance()->getPersonControl().add(myVehicleParameter->id, person)) {
-        MSNet::getInstance()->getPersonControl().setArrival(myVehicleParameter->depart, person);
-        registerLastDepart();
-    } else {
-        delete person;
-    }
+    myPersonBuffer[myVehicleParameter->depart] = myActivePlan->getString();
+    delete myVehicleParameter;
     myVehicleParameter = 0;
+    delete myActivePlan;
     myActivePlan = 0;
 }
 
 
 void
 RORouteHandler::closeFlow() {
-    // @todo: consider myScale?
+/*    // @todo: consider myScale?
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     SUMOTime offsetToBegin = string2time(OptionsCont::getOptions().getString("begin")) - myVehicleParameter->depart;
@@ -459,13 +388,13 @@ RORouteHandler::closeFlow() {
         MSNet::getInstance()->getInsertionControl().add(myVehicleParameter);
         registerLastDepart();
     }
-    myVehicleParameter = 0;
+    myVehicleParameter = 0;*/
 }
 
 
 void
 RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
+    /*bool ok = true;
     std::string errorSuffix;
     if (myActiveRouteID != "") {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
@@ -557,7 +486,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActivePlan->push_back(new MSPerson::MSPersonStage_Waiting(MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until));
     } else {
         myVehicleParameter->stops.push_back(stop);
-    }
+    }*/
 }
 
 
@@ -566,10 +495,11 @@ RORouteHandler::parseEdges(const std::string& desc, std::vector<const ROEdge*> &
                            const std::string& rid) {
     StringTokenizer st(desc);
     while (st.hasNext()) {
-        const ROEdge* edge = myNet.getEdge(st.next());
+        const std::string id = st.next();
+        const ROEdge* edge = myNet.getEdge(id);
         // check whether the edge exists
         if (edge == 0) {
-            throw ProcessError("The edge '" + *i + "' within the route " + rid + " is not known."
+            throw ProcessError("The edge '" + id + "' within the route " + rid + " is not known."
                                + "\n The route can not be build.");
         }
         into.push_back(edge);

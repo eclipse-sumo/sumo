@@ -75,6 +75,13 @@ RORouteDef::addLoadedAlternative(RORoute* alt) {
 }
 
 
+void
+RORouteDef::addAlternativeDef(const RORouteDef* alt) {
+    copy(alt->myAlternatives.begin(), alt->myAlternatives.end(),
+         back_inserter(myAlternatives));
+}
+
+
 RORoute*
 RORouteDef::buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle> &router,
                               SUMOTime begin, const ROVehicle& veh) const {
@@ -272,6 +279,16 @@ RORouteDef::copyOrigDest(const std::string& id) const {
     edges.push_back(route->getLast());
     result->addLoadedAlternative(new RORoute(id, 0, 1, edges, col));
     return result;
+}
+
+
+SUMOReal
+RORouteDef::getOverallProb() const {
+    SUMOReal sum = 0.;
+    for (std::vector<RORoute*>::const_iterator i = myAlternatives.begin(); i != myAlternatives.end(); i++) {
+        sum += (*i)->getProbability();
+    }
+    return sum;
 }
 
 

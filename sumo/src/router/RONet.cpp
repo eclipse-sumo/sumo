@@ -160,6 +160,10 @@ RONet::getVehicleTypeSecure(const std::string& id) {
     if (type != 0) {
         return type;
     }
+    VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);
+    if (it2 != myVTypeDistDict.end()) {
+        return it2->second->get();
+    }
     if (id == "") {
         // ok, no vehicle type was given within the user input
         //  return the default type

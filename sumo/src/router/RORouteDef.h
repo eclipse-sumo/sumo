@@ -75,9 +75,12 @@ public:
     virtual ~RORouteDef();
 
 
-    /** @brief Adds an alternative loaded from the file
+    /** @brief Adds a single alternative loaded from the file
         An alternative may also be generated during DUA */
     void addLoadedAlternative(RORoute* alternative);
+
+    /** @brief Adds an alternative loaded from the file */
+    void addAlternativeDef(const RORouteDef* alternative);
 
     /** @brief Triggers building of the complete route (via
      * preComputeCurrentRoute) or returns precomputed route */
@@ -115,6 +118,9 @@ public:
 
     /** @brief Returns a copy of the route definition */
     RORouteDef* copyOrigDest(const std::string& id) const;
+
+    /** @brief Returns the sum of the probablities of the contained routes */
+    SUMOReal getOverallProb() const;
 
 protected:
     /// @brief precomputed route for out-of-order computation

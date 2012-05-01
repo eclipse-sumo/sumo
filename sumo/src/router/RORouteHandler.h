@@ -42,7 +42,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class OutputDevice;
+class OutputDevice_String;
 class ROEdge;
 class RONet;
 class RORoute;
@@ -64,7 +64,7 @@ class RORouteHandler : public SUMORouteHandler {
 public:
     /// standard constructor
     RORouteHandler(RONet& net, const std::string& file,
-                   bool addVehiclesDirectly);
+                   const bool tryRepair);
 
     /// standard destructor
     virtual ~RORouteHandler();
@@ -140,13 +140,13 @@ protected:
     std::vector<const ROEdge*> myActiveRoute;
 
     /// @brief The plan of the current person
-    OutputDevice* myActivePlan;
+    OutputDevice_String* myActivePlan;
 
     /// @brief Buffered person descriptions (with plans)
-    std::map<const SUMOTime, const std::string> myPersonBuffer;
+    std::map<const SUMOTime, std::string> myPersonBuffer;
 
-    /// @brief Information whether vehicles shall be directly added to the network or kept within the buffer
-    bool myAddVehiclesDirectly;
+    /// @brief Information whether routes shall be repaired
+    const bool myTryRepair;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*> *myCurrentVTypeDistribution;
@@ -156,6 +156,9 @@ protected:
 
     /// @brief The currently parsed route alternatives
     RORouteDef* myCurrentAlternatives;
+
+    /// @brief The currently parsed route costs
+    SUMOReal myCurrentCosts;
 
 private:
     /// @brief Invalidated copy constructor
