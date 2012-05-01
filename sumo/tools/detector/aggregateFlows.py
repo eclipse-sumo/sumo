@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # This script aggregates flows as they come from the Datenverteiler
 # into files suitable for the dfrouter.
 # It takes as an optional argument a file listing the detectors of

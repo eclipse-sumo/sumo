@@ -4,6 +4,7 @@
 @author  Laura Bieker
 @author  Michael Behrisch
 @date    2010-03-03
+@version $Id$
 
 This script reads a network as first parameter and a file with the positions
 of detectors as second parameter. As result the script writes a new file

@@ -80,7 +80,7 @@ fi
 
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
-export CXXFLAGS="-Wall -W -pedantic -Wno-long-long"
+export CXXFLAGS="-Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
 ./configure --prefix=$PREFIX/sumo --with-python \
   --disable-double-precision --disable-subsecond --disable-internal-lanes \
   --enable-debug --enable-memcheck --enable-messages &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
