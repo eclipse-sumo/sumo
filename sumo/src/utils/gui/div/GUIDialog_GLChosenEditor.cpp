@@ -156,7 +156,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         std::string msg = gSelected.load(file);
         if (msg != "") {
-            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", msg.c_str());
+            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", msg.c_str());
         }
         rebuildList();
     }
@@ -173,7 +173,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*, FXSelector, void*) {
     try {
         gSelected.save(file.text());
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
     }
     return 1;
 }

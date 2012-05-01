@@ -182,7 +182,7 @@ GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void* /*data*/) {
         dev << "</viewsettings>\n";
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
     }
     return 1;
 }

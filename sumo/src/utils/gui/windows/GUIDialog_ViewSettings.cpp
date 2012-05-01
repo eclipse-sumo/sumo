@@ -785,7 +785,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string& file) const {
         dev << "</decals>\n";
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(myParent, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(myParent, MBOX_OK, "Storing failed!", "%s", e.what());
     }
 }
 
@@ -905,7 +905,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
         mySettings->save(dev);
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
     }
     return 1;
 }
@@ -1216,7 +1216,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.centerX = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         case 2:
@@ -1224,7 +1224,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.centerY = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         case 3:
@@ -1232,7 +1232,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.width = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         case 4:
@@ -1240,7 +1240,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.height = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         case 5:
@@ -1248,7 +1248,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         default:

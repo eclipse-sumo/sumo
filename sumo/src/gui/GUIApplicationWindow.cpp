@@ -979,7 +979,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         // build the text
         const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
                                  ".\nReason: " + MSNet::getStateMessage(ec->getReason());
-        FXMessageBox::warning(this, MBOX_OK, "Simulation ended", text.c_str());
+        FXMessageBox::warning(this, MBOX_OK, "Simulation ended", "%s", text.c_str());
     }
 }
 

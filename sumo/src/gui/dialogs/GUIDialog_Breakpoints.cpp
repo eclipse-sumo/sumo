@@ -193,7 +193,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
         dev << content;
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
     }
     return 1;
 }
@@ -248,7 +248,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
                 GUIGlobals::gBreakpoints[row] = string2time(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be an int, is:" + value;
-                FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
+                FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
             }
             break;
         default:
