@@ -181,7 +181,9 @@
 # endif // _PTHREADS
 
 # ifdef _WIN32THREADS
+#   define NOMINMAX
 #   include <windows.h>
+#   undef NOMINMAX
 /**
  * Macro alias to `volatile' semantics.  Here it is truly volatile since
  * it is in a multi-threaded (Win32 threads) environment.

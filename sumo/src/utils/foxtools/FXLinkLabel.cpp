@@ -8,7 +8,9 @@
 #endif
 
 #ifdef WIN32
+#define NOMINMAX
 #include <windows.h>
+#undef NOMINMAX
 #endif
 
 #include "FXLinkLabel.h"

@@ -31,7 +31,9 @@
 #ifndef WIN32
 #include <sys/time.h>
 #else
+#define NOMINMAX
 #include <windows.h>
+#undef NOMINMAX
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
