@@ -303,6 +303,11 @@ public:
     SUMOReal getCurrentTravelTime() const;
 
 
+    /// @brief returns the minimum travel time for the given vehicle
+    inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
+        return getLength() / MIN2(veh->getMaxSpeed(), getMaxSpeed());
+    }
+
 
     /// @name Methods releated to vehicle insertion
     /// @{

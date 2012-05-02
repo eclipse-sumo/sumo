@@ -233,7 +233,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 SUMOReal
 MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal) {
     if (myEdgeEfforts.find(e) != myEdgeEfforts.end()) {
-        return MAX2(myEdgeEfforts.find(e)->second, e->getLength() / v->getMaxSpeed());
+        return MAX2(myEdgeEfforts.find(e)->second, e->getMinimumTravelTime(v));
     }
     return 0;
 }

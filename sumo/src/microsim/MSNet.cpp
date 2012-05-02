@@ -143,8 +143,7 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, SUMOReal
     if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
-    const MSLane* const l = e->getLanes()[0];
-    return l->getLength() / l->getMaxSpeed();
+    return e->getMinimumTravelTime(v);
 }
 
 
