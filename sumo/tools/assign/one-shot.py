@@ -39,6 +39,9 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <summary value="summary_%s.xml"/>' % step
     if not options.noTripinfo:
         print >> fd, '        <tripinfo value="tripinfo_%s.xml"/>' % step
+    if options.weightfiles:
+        print >> fd, '        <weight-files value="%s"/>' % options.weightfiles
+    
     add = 'dump_%s.add.xml' % step
     if options.additional:
         add += "," + options.additional
@@ -47,6 +50,7 @@ def writeSUMOConf(step, options, files):
     <process>
         <begin value="%s"/>
         <route-steps value="%s"/>""" % (add, options.begin, options.routeSteps)
+
     if options.end:
         print >> fd, '        <end value="%s"/>' % options.end
     if options.mesosim:
@@ -103,11 +107,12 @@ optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
 optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
                      default=False, help="only save the last routes in the vehroute-output")
+optParser.add_option("-F", "--weight-files", dest="weightfiles",
+                     help="Load edge/lane weights from FILE (mandatory)", metavar="FILE")
 
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
-
 
 sumo = "sumo"
 if options.mesosim:
