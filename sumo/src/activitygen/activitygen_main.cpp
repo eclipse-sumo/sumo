@@ -104,7 +104,6 @@ int main(int argc, char* argv[]) {
         MsgHandler::initOutputOptions();
         RandHelper::initRandGlobal();
         if (oc.processMetaOptions(argc < 2)) {
-            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }
@@ -152,7 +151,6 @@ int main(int argc, char* argv[]) {
         ret = 1;
 #endif
     }
-    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret == 0) {
         std::cout << "Success." << std::endl;

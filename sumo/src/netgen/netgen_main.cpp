@@ -213,7 +213,6 @@ main(int argc, char** argv) {
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
-            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }
@@ -249,7 +248,6 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
-    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret == 0) {
         std::cout << "Success." << std::endl;

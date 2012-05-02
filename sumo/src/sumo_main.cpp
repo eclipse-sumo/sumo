@@ -125,7 +125,6 @@ main(int argc, char** argv) {
         MSFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
-            OutputDevice::closeAll();
             SystemFrame::close();
             return 0;
         }
@@ -152,7 +151,6 @@ main(int argc, char** argv) {
 #endif
     }
     delete net;
-    OutputDevice::closeAll();
     SystemFrame::close();
     return ret;
 }

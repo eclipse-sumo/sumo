@@ -35,6 +35,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "RandHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -103,6 +104,8 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
 void
 SystemFrame::close() {
+    // close all output devices
+    OutputDevice::closeAll();
     // close the xml-subsystem
     XMLSubSys::close();
     // delete build program options
