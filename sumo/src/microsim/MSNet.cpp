@@ -725,17 +725,19 @@ MSNet::getRouterTT(const std::vector<MSEdge*>& prohibited) const {
         if (routingAlgorithm == "dijkstra") {
             myRouterTTDijkstra = new DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                     MSEdge::dictSize(), true, &MSNet::getTravelTime);
-        } else if (routingAlgorithm == "astar") {
+        } else {
+            if (routingAlgorithm != "astar") {
+                WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
+            }
             myRouterTTAStar = new AStarRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >(
                     MSEdge::dictSize(), true, &MSNet::getTravelTime);
-        } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
         }
     }
     if (myRouterTTDijkstra != 0) {
         myRouterTTDijkstra->prohibit(prohibited);
         return *myRouterTTDijkstra;
     } else {
+        assert(myRouterTTAStar != 0);
         myRouterTTAStar->prohibit(prohibited);
         return *myRouterTTAStar;
     }
