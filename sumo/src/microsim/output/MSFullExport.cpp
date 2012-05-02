@@ -180,7 +180,7 @@ MSFullExport::writeTLS(OutputDevice& of, SUMOTime timestep) {
         }
 
         std::string lane_output = "";
-        for(signed i1=0; i1<laneIDs.size(); i1++){
+        for(unsigned int i1 = 0; i1 < laneIDs.size(); ++i1){
             lane_output += laneIDs[i1] + " ";
         }
 
