@@ -55,6 +55,8 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <end value="%s"/>' % options.end
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
+    if options.routingalgorithm:
+        print >> fd, '        <routing-algorithm value="%s"/>' % optoins.routingalgorithm
     print >> fd, """        <device.rerouting.probability value="1"/>
         <device.rerouting.period value="%s"/>
         <device.rerouting.adaptation-interval value="%s"/>
@@ -109,7 +111,9 @@ optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes
                      default=False, help="only save the last routes in the vehroute-output")
 optParser.add_option("-F", "--weight-files", dest="weightfiles",
                      help="Load edge/lane weights from FILE (mandatory)", metavar="FILE")
-
+optParser.add_option("-A", "--routing-algorithm", dest="routingalgorithm", type="choice",
+                    choices=('dijkstra', 'astar'),
+                    default="astar", help="type of routing algorithm [default: %default]")
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
