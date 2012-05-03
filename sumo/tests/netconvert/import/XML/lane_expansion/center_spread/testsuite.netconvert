@@ -1,0 +1,62 @@
+# beginning with two lanes, the right is removed
+two_minus_right
+
+# beginning with two lanes, the left is removed
+two_minus_left
+
+# beginning with three lanes, the right is removed
+three_minus_right
+
+# beginning with three lanes, two right lanes are removed
+three_minus_two_right
+
+# beginning with three lanes, the left is removed
+three_minus_left
+
+# beginning with three lanes, two left lanes are removed
+three_minus_two_left
+
+# beginning with three lanes, at first the left lane is removed, then the right
+three_minus_left_minus_right
+
+# beginning with three lanes, at first the right lane is removed, then the left
+three_minus_right_minus_left
+
+# beginning with four lanes, the right is removed
+four_minus_right
+
+# beginning with four lanes, two right lanes are removed
+four_minus_two_right
+
+# beginning with four lanes, the left is removed
+four_minus_left
+
+# beginning with four lanes, two left lanes are removed
+four_minus_two_left
+
+# beginning with four lanes, at first the left lane is removed, then the right
+four_minus_left_minus_right
+
+# beginning with four lanes, at first the right lane is removed, then the left
+four_minus_right_minus_left
+
+# beginning with two lanes, adding one to the left
+two_plus_left
+
+# beginning with two lanes, adding one to the right
+two_plus_right
+
+# beginning with two lanes, adding two to the left
+two_plus_two_left
+
+# beginning with two lanes, adding two to the left
+two_plus_two_right
+
+# beginning with two lanes, adding one to the left and one to the right (same position)
+two_plus_left_right
+
+# beginning with two lanes, adding one to the right, later one to the left
+two_plus_right_plus_left
+
+# bug#beginning with two lanes, adding one to the left, later one to the right
+two_plus_left_plus_right
