@@ -2,3 +2,10 @@ simple
 
 # fractional depart times
 fractional
+
+# make sure that source and sink are a minimum distance appart
+minimum_distance
+
+# increase the probability for trips to start and end at the fringe of the network.
+# For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
+fringe_factor
