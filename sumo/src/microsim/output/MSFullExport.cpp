@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSFullExport.cpp
 /// @author  Mario Krumnow
-/// @version $Id: MSFullExport.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Dumping a hugh List of Parameters available in the Simulation
 /****************************************************************************/
