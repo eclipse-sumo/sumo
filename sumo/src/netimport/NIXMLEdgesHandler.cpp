@@ -626,9 +626,21 @@ NIXMLEdgesHandler::myEndElement(int element) {
             }
             for (; i != mySplits.end(); ++i) {
                 unsigned int maxLeft = (*i).lanes.back();
+                SUMOReal offset = 0;
                 if (maxLeft < noLanesMax) {
+                    if(e->getLaneSpreadFunction()==LANESPREAD_RIGHT) {
+                        offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
+                    } else {
+                        offset = SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+                    }
+                }
+                unsigned int maxRight = (*i).lanes.front();
+                if (maxRight > 0 && e->getLaneSpreadFunction()==LANESPREAD_CENTER) {
+                    offset -= SUMO_const_halfLaneAndOffset * maxRight;
+                }
+                if(offset!=0) {
                     PositionVector g = e->getGeometry();
-                    g.move2side(SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft));
+                    g.move2side(offset);
                     e->setGeometry(g);
                 }
                 if (e->getToNode()->getOutgoingEdges().size() != 0) {
