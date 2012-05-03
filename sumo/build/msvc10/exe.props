@@ -38,7 +38,6 @@
       <Command>..\..\..\tools\build\version.py</Command>
     </PreBuildEvent>
     <Link>
-      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName).exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
