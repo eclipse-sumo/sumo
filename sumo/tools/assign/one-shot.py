@@ -56,7 +56,7 @@ def writeSUMOConf(step, options, files):
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
     if options.routingalgorithm:
-        print >> fd, '        <routing-algorithm value="%s"/>' % optoins.routingalgorithm
+        print >> fd, '        <routing-algorithm value="%s"/>' % options.routingalgorithm
     print >> fd, """        <device.rerouting.probability value="1"/>
         <device.rerouting.period value="%s"/>
         <device.rerouting.adaptation-interval value="%s"/>
