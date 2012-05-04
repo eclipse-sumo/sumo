@@ -16,6 +16,7 @@ All rights reserved
 """
 
 import os, sys
+import math
 from xml.sax import saxutils, parse, handler
 from copy import copy
 from itertools import *
@@ -149,7 +150,16 @@ class Edge:
 
     def setTLS(self, tls):
          self._tls = tls
+
+    def getFromNode(self):
+        return self._from
+
+    def getToNode(self):
+        return self._to
          
+    def is_fringe(self):
+        return len(self.getIncoming()) == 0 or len(self.getOutgoing()) == 0
+
 
 class Node:
     """ Nodes from a sumo network """
@@ -204,6 +214,8 @@ class Node:
         ps = self._prohibits[possProhibitedIndex]
         return ps[-(possProhibitorIndex-1)]=='1'
 
+    def getCoord(self):
+        return self._coord
 
 class Connection:
     """edge connection for a sumo network"""
@@ -400,6 +412,13 @@ class Net:
             if not hadTLS:
                 toProc.extend(mn)
         return ret
+
+    # the diagonal of the bounding box of all nodes
+    def getBBoxDiameter(self):
+        return math.sqrt(
+                (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
+                (self._ranges[1][0] - self._ranges[1][1]) ** 2)
+
 
     
 class NetReader(handler.ContentHandler):
