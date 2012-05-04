@@ -117,13 +117,17 @@ main(int argc, char** argv) {
         // Run
         ret = application.run();
 #ifndef _DEBUG
-    } catch (...) {
+    } catch (const std::exception& e) {
+        if (std::string(e.what()) != std::string("")) {
+            WRITE_ERROR(e.what());
+        }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
-    }
-#else
-    }
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        ret = 1;
 #endif
+    }
     SystemFrame::close();
     return ret;
 }

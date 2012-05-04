@@ -139,13 +139,19 @@ int main(int argc, char* argv[]) {
             WRITE_MESSAGE("\n\t ---- end of ActivityGen ----\n");
         }
         ret = 0;
-    } catch (ProcessError& pe) {
-        if (std::string(pe.what()) != std::string("Process Error") && std::string(pe.what()) != std::string("")) {
-            WRITE_ERROR(pe.what());
+    } catch (const ProcessError& e) {
+        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+            WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
 #ifndef _DEBUG
+    } catch (const std::exception& e) {
+        if (std::string(e.what()) != std::string("")) {
+            WRITE_ERROR(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;

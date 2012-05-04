@@ -511,13 +511,19 @@ main(int argc, char** argv) {
                      oc.getString("prefix"), !oc.getBool("no-step-log"));
         WRITE_MESSAGE(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNoWritten()) + " vehicles written.");
-    } catch (ProcessError& e) {
+    } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
 #ifndef _DEBUG
+    } catch (const std::exception& e) {
+        if (std::string(e.what()) != std::string("")) {
+            WRITE_ERROR(e.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        ret = 1;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
