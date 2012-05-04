@@ -196,7 +196,7 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 
 void
 SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
-    for (int i = 0; i < myAttrs.getLength(); ++i) {
+    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
         os << " " << TplConvert<XMLCh>::_2str(myAttrs.getLocalName(i));
         os << "=\"" << TplConvert<XMLCh>::_2str(myAttrs.getValue(i)) << "\"";
     }
