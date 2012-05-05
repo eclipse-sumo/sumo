@@ -87,7 +87,7 @@ MSVTKExport::write(OutputDevice& of, SUMOTime timestep) {
 		of.closeTag();
 
 		of.openTag("Verts")  << ">\n";
-		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\" >" << getOffset(speed.size());
+		of.openTag("DataArray") << " type=\"Int64\" Name=\"connectivity\" format=\"ascii\" >" << getOffset((int) speed.size());
 		of.closeTag();
 
 		of.openTag("DataArray") << " type=\"Int64\" Name=\"offsets\" format=\"ascii\" >" << speed.size();
