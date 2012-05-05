@@ -153,7 +153,7 @@ protected:
 private:
     /// @brief comparator for maps using edges as key, used only in myDetectorsOnEdges to make tests comparable
     struct idComp {
-        bool operator() (ROEdge* const lhs, ROEdge* const rhs) {
+        bool operator() (ROEdge* const lhs, ROEdge* const rhs) const {
             return lhs->getID() < rhs->getID();
         }
     };
