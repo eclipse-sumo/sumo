@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C++ Express 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcproj", "{90205628-51D7-4194-9FC0-7D74C35A3471}"
 	ProjectSection(ProjectDependencies) = postProject
 		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
@@ -154,6 +154,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetload", "y_libnetloa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_librouter", "y_librouter\y_librouter.vcproj", "{A003A0ED-38C6-4E03-84D1-BA42D25ABC4D}"
 	ProjectSection(ProjectDependencies) = postProject
+		{2A069662-6B6F-40D7-A808-211F9C9A4AAE} = {2A069662-6B6F-40D7-A808-211F9C9A4AAE}
 		{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47} = {FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}
 	EndProjectSection
 EndProject
@@ -194,6 +195,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_importio", "z_li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_iodevices", "z_libutils_iodevices\z_libutils_iodevices.vcproj", "{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F} = {334DF447-D0B3-4CEA-9693-F755EB11C18F}
 		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
 		{FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47} = {FC5B65E0-A0B1-40D7-8687-C2FC79E3DA47}
 	EndProjectSection
