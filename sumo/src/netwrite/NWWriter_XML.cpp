@@ -262,7 +262,7 @@ NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
         device.openTag(SUMO_TAG_JOIN);
         // prepare string
         std::ostringstream oss;
-        for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
+        for (std::set<std::string>::const_iterator it_id = it->begin(); it_id != it->end(); it_id++) {
             oss << *it_id << " ";
         }
         // remove final space
