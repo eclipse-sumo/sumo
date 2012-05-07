@@ -34,6 +34,12 @@
 #include <vector>
 #include <string>
 #include <foreign/polyfonts/polyfonts.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/logging/CastingFunctionBinding.h>
+#include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -42,12 +48,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/logging/CastingFunctionBinding.h>
-#include <microsim/logging/FunctionBinding.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/MSAbstractLaneChangeModel.h>
-#include <microsim/devices/MSDevice_Vehroutes.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"

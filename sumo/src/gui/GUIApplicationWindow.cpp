@@ -35,8 +35,6 @@
 #include <version.h>
 #endif
 
-#include <fx.h>
-#include <fx3d.h>
 #include <string>
 #include <sstream>
 #include <algorithm>

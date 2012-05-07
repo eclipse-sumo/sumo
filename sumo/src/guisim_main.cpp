@@ -38,8 +38,6 @@
 #include <ctime>
 #include <signal.h>
 #include <iostream>
-#include <fx.h>
-#include <fx3d.h>
 #include <microsim/MSFrame.h>
 #include <microsim/MSNet.h>
 #include <utils/options/Option.h>
@@ -52,11 +50,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
-#include <guisim/GUIEdge.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <gui/GUIViewTraffic.h>
-#include <guisim/GUIVehicle.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
