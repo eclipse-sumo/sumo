@@ -52,5 +52,8 @@
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIPolygon.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\globjects\GLIncludes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -120,6 +120,7 @@
     <ClCompile Include="..\..\..\src\utils\gui\globjects\GUIPolygon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\gui\globjects\GLIncludes.h" />
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGlObject.h" />
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGlObject_AbstractAdd.h" />
     <ClInclude Include="..\..\..\src\utils\gui\globjects\GUIGLObjectPopupMenu.h" />
