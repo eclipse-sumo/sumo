@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSQueueExport.cpp
 /// @author  Mario Krumnow
-/// @version $Id: MSQueueExport.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Export the queueing length in front of a junction (very experimental!)
 /****************************************************************************/
