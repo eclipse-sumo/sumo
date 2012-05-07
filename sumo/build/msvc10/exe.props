@@ -30,6 +30,21 @@
       <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalRelease'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalFastbuild'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='InternalDebug'">
+    <Link>
+      <AdditionalDependencies>$(XERCES_DEBUG_LIB);ws2_32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <PostBuildEvent>
       <Command>xcopy /Y $(TargetPath) ..\..\..\bin\</Command>
