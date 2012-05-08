@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSEmissionExport.cpp
 /// @author  Mario Krumnow
-/// @version $Id: MSEmissionExport.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // Realises dumping Emission Data
 /****************************************************************************/
