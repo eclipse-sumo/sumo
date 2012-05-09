@@ -110,7 +110,7 @@ optParser.add_option("-+", "--additional", dest="additional",
 optParser.add_option("-L", "--lastRoutes", action="store_true", dest="lastRoutes",
                      default=False, help="only save the last routes in the vehroute-output")
 optParser.add_option("-F", "--weight-files", dest="weightfiles",
-                     help="Load edge/lane weights from FILE (mandatory)", metavar="FILE")
+                     help="Load edge/lane weights from FILE", metavar="FILE")
 optParser.add_option("-A", "--routing-algorithm", dest="routingalgorithm", type="choice",
                     choices=('dijkstra', 'astar'),
                     default="astar", help="type of routing algorithm [default: %default]")
