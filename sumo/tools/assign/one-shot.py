@@ -41,7 +41,10 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <tripinfo value="tripinfo_%s.xml"/>' % step
     if options.weightfiles:
         print >> fd, '        <weight-files value="%s"/>' % options.weightfiles
-    
+    if options.withexittime:
+        print >> fd, '        <vehroute-output.exit-times value="%s"/>' % options.withexittime
+    if options.sorted:
+        print >> fd, '        <vehroute-output.sorted value="%s"/>' % options.sorted
     add = 'dump_%s.add.xml' % step
     if options.additional:
         add += "," + options.additional
@@ -56,18 +59,19 @@ def writeSUMOConf(step, options, files):
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
     if options.routingalgorithm:
-        print >> fd, '        <routing-algorithm value="%s"/>' % options.routingalgorithm
+        print >> fd, '        <routing-algorithm value="%s"/>' 
     print >> fd, """        <device.rerouting.probability value="1"/>
         <device.rerouting.period value="%s"/>
         <device.rerouting.adaptation-interval value="%s"/>
         <device.rerouting.with-taz value="%s"/>
+        <device.rerouting.explicit value="%s"/>'
         <vehroute-output.last-route value="%s"/>
     </process>
     <reports>
         <verbose value="True"/>
         <no-warnings value="%s"/>
     </reports>
-</configuration>""" % (step, options.updateInterval, options.withtaz, options.lastRoutes, not options.withWarnings)
+</configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -114,6 +118,12 @@ optParser.add_option("-F", "--weight-files", dest="weightfiles",
 optParser.add_option("-A", "--routing-algorithm", dest="routingalgorithm", type="choice",
                     choices=('dijkstra', 'astar'),
                     default="astar", help="type of routing algorithm [default: %default]")
+optParser.add_option("-r", "--rerouting-explicit", dest="reroutingexplicit", type="string",
+                     default = "", help="define the ids of the vehicles that should be re-routed.")
+optParser.add_option("-x", "--with-exittime", action="store_true", dest="withexittime",
+                    default= False, help="Write the exit times for all edges")
+optParser.add_option("-s", "--route-sorted", action="store_true", dest="sorted",
+                    default= False, help="sorts the output by departure time") 
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
