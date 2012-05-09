@@ -43,8 +43,8 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        <weight-files value="%s"/>' % options.weightfiles
     if options.withexittime:
         print >> fd, '        <vehroute-output.exit-times value="%s"/>' % options.withexittime
-    if options.sorted:
-        print >> fd, '        <vehroute-output.sorted value="%s"/>' % options.sorted
+    if options.routesorted:
+        print >> fd, '        <vehroute-output.sorted value="%s"/>' % options.routesorted
     add = 'dump_%s.add.xml' % step
     if options.additional:
         add += "," + options.additional
@@ -59,12 +59,12 @@ def writeSUMOConf(step, options, files):
     if options.mesosim:
         print >> fd, '        <mesosim value="True"/>'
     if options.routingalgorithm:
-        print >> fd, '        <routing-algorithm value="%s"/>' 
+        print >> fd, '        <routing-algorithm value="%s"/>' % options.routingalgorithm
     print >> fd, """        <device.rerouting.probability value="1"/>
         <device.rerouting.period value="%s"/>
         <device.rerouting.adaptation-interval value="%s"/>
         <device.rerouting.with-taz value="%s"/>
-        <device.rerouting.explicit value="%s"/>'
+        <device.rerouting.explicit value="%s"/>
         <vehroute-output.last-route value="%s"/>
     </process>
     <reports>
@@ -101,8 +101,8 @@ optParser.add_option("-f", "--frequencies", dest="frequencies",
 optParser.add_option("-i", "--adaptation-interval", dest="updateInterval",
                      type="int", default=1, help="Set edge weight adaptation interval")
 
-optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",                    
-                     default=False, help="No summaries are written by the simulation")                                                 
+optParser.add_option("-E", "--disable-summary", "--disable-emissions", action="store_true", dest="noSummary",
+                     default=False, help="No summaries are written by the simulation")
 optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                      default=False, help="No tripinfos are written by the simulation")
 optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
@@ -122,7 +122,7 @@ optParser.add_option("-r", "--rerouting-explicit", dest="reroutingexplicit", typ
                      default = "", help="define the ids of the vehicles that should be re-routed.")
 optParser.add_option("-x", "--with-exittime", action="store_true", dest="withexittime",
                     default= False, help="Write the exit times for all edges")
-optParser.add_option("-s", "--route-sorted", action="store_true", dest="sorted",
+optParser.add_option("-s", "--route-sorted", action="store_true", dest="routesorted",
                     default= False, help="sorts the output by departure time") 
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO_BINDIR", ""), help="Path to binaries")
