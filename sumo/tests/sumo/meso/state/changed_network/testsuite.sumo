@@ -18,7 +18,6 @@ missing_egde__no_reroute_of_started_vehicles
 
 # List the vehicles that are not effected by the missing edge,
 # eventhough its a part of their route.
-# 
 # Some vehicle may have alread passed the missing edge 
 # but haven't reached their destination. So they are still in the
 # simulation, but haven't been effected by the missing edge.
@@ -29,9 +28,4 @@ missing_egde__reroute_started_effected_vehicles
 missing_egde__discard_started_effected_vehicles__no_route_found
 
 # All vehicles on the certain deleted edge will be removed from the simulation
-# 
 missing_egde__discard_started_vehicles_on_egde
-
-# net2 has one edge missing. loaded vehicles need to deal with it
-# option discard: vehicles on missing edges are removed from the simulation
-edge_missing_discard

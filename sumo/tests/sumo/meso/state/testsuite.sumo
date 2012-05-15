@@ -1,8 +1,8 @@
-# save simulation state
-save
+# simply load a state
+load_a_state
 
-# load simulation state
-load
+# simply load a state
+save_a_state
 
 # test for loading state that was saved on net1 onto net2
 changed_network
