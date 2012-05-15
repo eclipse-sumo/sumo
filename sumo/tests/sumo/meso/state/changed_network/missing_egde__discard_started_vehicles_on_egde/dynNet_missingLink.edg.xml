@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
+
+
+
+  <edge from="1"  id="1x2"   to="2" />
+  <edge from="2"  id="2x3"   to="3" />
+
+  <edge from="3"  id="3x4"   to="4" />
+  <!--edge from="4"  id="4x5"   to="5" /-->
+  <edge from="5"  id="5x6"   to="6" />
+  <edge from="6"  id="6x7"   to="7" />
+  <edge from="7"  id="7x8"   to="8" />
+
+
+  <edge from="3"  id="3x9"   to="9" />
+
+
+  <edge from="9"  id="9x10"  to="10" />
+  <edge from="11" id="11x12" to="12" />
+
+
+
+  <edge from="10" id="10x7"  to="7" />
+
+
+
+  <edge from="5"  id="5x10"  to="10" />
+
+ 
+  <edge from="3"  id="3x11"  to="11" />
+
+  <edge from="5"  id="5x12"  to="12" />
+  <edge from="12" id="12x7"  to="7" />
+
+</edges>
