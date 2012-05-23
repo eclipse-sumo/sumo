@@ -892,6 +892,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
     std::string innerID = ":" + n.getID();
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         Connection& con = *i;
+        con.haveVia = false; // reset first since this may be called multiple times
         if (con.toEdge == 0) {
             continue;
         }
