@@ -891,13 +891,14 @@ void
 NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsigned int& lno, unsigned int& splitNo) {
     std::string innerID = ":" + n.getID();
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).toEdge == 0) {
+        Connection& con = *i;
+        if (con.toEdge == 0) {
             continue;
         }
 
-        PositionVector shape = n.computeInternalLaneShape(this, (*i).fromLane, (*i).toEdge, (*i).toLane);
+        PositionVector shape = n.computeInternalLaneShape(this, con.fromLane, con.toEdge, con.toLane);
 
-        LinkDirection dir = n.getDirection(this, (*i).toEdge);
+        LinkDirection dir = n.getDirection(this, con.toEdge);
         std::pair<SUMOReal, std::vector<unsigned int> > crossingPositions(-1, std::vector<unsigned int>());
         std::string foeInternalLanes;
         std::set<std::string> tmpFoeIncomingLanes;
@@ -913,7 +914,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         if ((*k2).toEdge == 0) {
                             continue;
                         }
-                        bool needsCont = n.needsCont(this, (*i).toEdge, *i2, (*k2).toEdge, *k2);
+                        bool needsCont = n.needsCont(this, con.toEdge, *i2, (*k2).toEdge, *k2);
                         // compute the crossing point
                         if (needsCont) {
                             crossingPositions.second.push_back(index);
@@ -930,7 +931,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                             }
                         }
                         // compute foe internal lanes
-                        if (n.foes(this, (*i).toEdge, *i2, (*k2).toEdge)) {
+                        if (n.foes(this, con.toEdge, *i2, (*k2).toEdge)) {
                             if (foeInternalLanes.length() != 0) {
                                 foeInternalLanes += " ";
                             }
@@ -938,7 +939,7 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
                         }
                         // compute foe incoming lanes
                         NBEdge* e = getToNode()->getOppositeIncoming(this);
-                        if (e == *i2 && needsCont && !n.forbids(this, (*i).toEdge, *i2, (*k2).toEdge, true) ) {
+                        if (e == *i2 && needsCont && !n.forbids(this, con.toEdge, *i2, (*k2).toEdge, true) ) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         index++;
@@ -958,39 +959,39 @@ NBEdge::buildInnerEdges(const NBNode& n, unsigned int noInternalNoSplits, unsign
         // compute the maximum speed allowed
         //  see !!! for an explanation (with a_lat_mean ~0.3)
         SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
-                        getLaneShape((*i).fromLane).getEnd().distanceTo(
-                            (*i).toEdge->getLaneShape((*i).toLane).getBegin())
+                        getLaneShape(con.fromLane).getEnd().distanceTo(
+                            con.toEdge->getLaneShape(con.toLane).getBegin())
                         / (SUMOReal) 2.0 / (SUMOReal) PI;
-        vmax = MIN2(vmax, ((getSpeed() + (*i).toEdge->getSpeed()) / (SUMOReal) 2.0));
-        vmax = (getSpeed() + (*i).toEdge->getSpeed()) / (SUMOReal) 2.0;
+        vmax = MIN2(vmax, ((getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0));
+        vmax = (getSpeed() + con.toEdge->getSpeed()) / (SUMOReal) 2.0;
         //
-        Position end = (*i).toEdge->getLaneShape((*i).toLane).getBegin();
-        Position beg = getLaneShape((*i).fromLane).getEnd();
+        Position end = con.toEdge->getLaneShape(con.toLane).getBegin();
+        Position beg = getLaneShape(con.fromLane).getEnd();
 
         assert(shape.size() >= 2);
         // get internal splits if any
         if (crossingPositions.first >= 0) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
-            (*i).id = innerID + "_" + toString(lno);
-            (*i).vmax = vmax;
-            (*i).shape = split.first;
-            (*i).foeInternalLanes = foeInternalLanes;
+            con.id = innerID + "_" + toString(lno);
+            con.vmax = vmax;
+            con.shape = split.first;
+            con.foeInternalLanes = foeInternalLanes;
 
             for (std::set<std::string>::iterator q = tmpFoeIncomingLanes.begin(); q != tmpFoeIncomingLanes.end(); ++q) {
-                if ((*i).foeIncomingLanes.length() != 0) {
-                    (*i).foeIncomingLanes += " ";
+                if (con.foeIncomingLanes.length() != 0) {
+                    con.foeIncomingLanes += " ";
                 }
-                (*i).foeIncomingLanes += *q;
+                con.foeIncomingLanes += *q;
             }
-            (*i).viaID = innerID + "_" + toString(splitNo + noInternalNoSplits);
-            (*i).viaVmax = vmax;
-            (*i).viaShape = split.second;
-            (*i).haveVia = true;
+            con.viaID = innerID + "_" + toString(splitNo + noInternalNoSplits);
+            con.viaVmax = vmax;
+            con.viaShape = split.second;
+            con.haveVia = true;
             splitNo++;
         } else {
-            (*i).id = innerID + "_" + toString(lno);
-            (*i).vmax = vmax;
-            (*i).shape = shape;
+            con.id = innerID + "_" + toString(lno);
+            con.vmax = vmax;
+            con.shape = shape;
         }
 
 
