@@ -116,7 +116,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
 
 
 MSTrafficLightLogic::~MSTrafficLightLogic() {
-    mySwitchCommand->deschedule(this);
+    // no need to do something about mySwitchCommand here,
+    // it is handled by the event control
 }
 
 
