@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><umlet_diagram><help_text>// Uncomment the following line to change the fontsize:
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <help_text>// Uncomment the following line to change the fontsize:
 // fontsize=14
 
 
@@ -20,7 +22,17 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>10</zoom_level><element><type>com.umlet.element.custom.SeqObjectActive</type><coordinates><x>1760</x><y>260</y><w>20</w><h>60</h></coordinates><panel_attributes/><additional_attributes/></element><element><type>com.umlet.element.base.SequenceDiagram</type><coordinates><x>130</x><y>110</y><w>320</w><h>230</h></coordinates><panel_attributes>title: TraCI close
+// This text will be stored with each diagram;  use it for notes.</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.SequenceDiagram</type>
+    <coordinates>
+      <x>0</x>
+      <y>100</y>
+      <w>320</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>title: TraCI close
 Client~client|SUMO~sumo
 1-&gt;&gt;&gt;2:client,sumo:cmdClose()
 2-&gt;&gt;&gt;2:client,sumo:closes connection
@@ -32,4 +44,18 @@ Client~client|SUMO~sumo
 
 
 
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.custom.SeqDestroyMark</type><coordinates><x>280</x><y>310</y><w>20</w><h>20</h></coordinates><panel_attributes/><additional_attributes/></element></umlet_diagram>
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqDestroyMark</type>
+    <coordinates>
+      <x>150</x>
+      <y>300</y>
+      <w>20</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+</diagram>
