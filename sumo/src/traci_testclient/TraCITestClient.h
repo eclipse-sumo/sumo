@@ -91,20 +91,6 @@ public:
     // simulation commands
     void commandSimulationStep2(SUMOTime time);
 
-    void commandPositionConversion(testclient::Position pos, int posId);
-    void commandPositionConversion(testclient::Position3D pos, int posId);
-    void commandPositionConversion(testclient::PositionRoadMap pos, int posId);
-
-    void commandDistanceRequest(testclient::Position pos1, testclient::Position pos2, int flag);
-    void commandDistanceRequest(testclient::Position3D pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position3D pos1, testclient::Position pos2, int flag);
-    void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::PositionRoadMap pos2, int flag);
-    void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position pos2, int flag);
-    void commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position3D pos2, int flag);
-    void commandDistanceRequest(testclient::Position pos1, testclient::PositionRoadMap pos2, int flag);
-    void commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag);
-
     void commandGetVariable(int domID, int varID, const std::string& objID);
     void commandGetVariablePlus(int domID, int varID, const std::string& objID, std::ifstream& defFile);
     void commandSubscribeVariable(int domID, const std::string& objID, int beginTime, int endTime, int varNo, std::ifstream& defFile);
@@ -117,28 +103,12 @@ private:
 
     void errorMsg(std::stringstream& msg);
 
-    void commandPositionConversion(testclient::Position* pos2D,
-                                   testclient::Position3D* pos3D,
-                                   testclient::PositionRoadMap* posRoad,
-                                   int posId);
-
-    void commandDistanceRequest(testclient::Position* pos1_2D,
-                                testclient::Position3D* pos1_3D,
-                                testclient::PositionRoadMap* pos1_Road,
-                                testclient::Position* pos2_2D,
-                                testclient::Position3D* pos2_3D,
-                                testclient::PositionRoadMap* pos2_Road,
-                                int flag);
-
     // validation of received command responses
     bool reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId = false);
 
     bool validateSimulationStep2(tcpip::Storage& inMsg);
     bool validateSubscription(tcpip::Storage& inMsg);
 
-    bool validatePositionConversion(tcpip::Storage& inMsg);
-
-    bool validateDistanceRequest(tcpip::Storage& inMsg);
 
     bool readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType);
 
