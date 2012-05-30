@@ -68,7 +68,8 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
     myAmOverriding(false), 
     myDidInit(false),
     myCurrentSpeed(destLanes[0]->getMaxSpeed()),
-    myDefaultSpeed(destLanes[0]->getMaxSpeed())
+    myDefaultSpeed(destLanes[0]->getMaxSpeed()),
+    mySpeedOverrideValue(destLanes[0]->getMaxSpeed())
 {
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {

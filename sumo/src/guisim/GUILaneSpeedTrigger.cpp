@@ -278,10 +278,11 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     const std::string& id, const std::vector<MSLane*> &destLanes,
-    const std::string& aXMLFilename)
-    : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-      GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
-      myShowAsKMH(true), myLastValue(-1) {
+    const std::string& aXMLFilename) : 
+    MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
+    GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
+    myShowAsKMH(true), myLastValue(-1) 
+{
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
     std::vector<MSLane*>::const_iterator i;
@@ -289,10 +290,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
         const PositionVector& v = (*i)->getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
         myBoundary.add(v.positionAtLengthPosition(0));
-        Line l(v.getBegin(), v.getEnd());
         myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
-        myDefaultSpeed = (*i)->getMaxSpeed();
-        mySpeedOverrideValue = (*i)->getMaxSpeed();
     }
 }
 
