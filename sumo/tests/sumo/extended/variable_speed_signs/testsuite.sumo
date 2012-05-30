@@ -21,3 +21,6 @@ nested
 
 # as b0_offset_100, but one time is set twice (should be a warning)
 b0_offset_100_doubleTime
+
+# negative speeds should reset to default edge speed
+reset_to_default

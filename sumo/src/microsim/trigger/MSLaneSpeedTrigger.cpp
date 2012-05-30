@@ -61,10 +61,15 @@
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string& file)
-    : MSTrigger(id), SUMOSAXHandler(file),
-      myDestLanes(destLanes), myAmOverriding(false), myDidInit(false) {
-    myCurrentSpeed = destLanes[0]->getMaxSpeed();
+                                       const std::string& file) : 
+    MSTrigger(id), 
+    SUMOSAXHandler(file),
+    myDestLanes(destLanes), 
+    myAmOverriding(false), 
+    myDidInit(false),
+    myCurrentSpeed(destLanes[0]->getMaxSpeed()),
+    myDefaultSpeed(destLanes[0]->getMaxSpeed())
+{
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
@@ -85,8 +90,9 @@ MSLaneSpeedTrigger::init() {
     // set the process to the begin
     myCurrentEntry = myLoadedSpeeds.begin();
     // pass previous time steps
-    while ((*myCurrentEntry).first < MSNet::getInstance()->getCurrentTimeStep() && myCurrentEntry != myLoadedSpeeds.end()) {
-        processCommand(true, MSNet::getInstance()->getCurrentTimeStep());
+    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    while ((*myCurrentEntry).first < now && myCurrentEntry != myLoadedSpeeds.end()) {
+        processCommand(true, now);
     }
 
     // add the processing to the event handler
@@ -156,8 +162,7 @@ MSLaneSpeedTrigger::myStartElement(int element,
         return;
     }
     if (speed < 0) {
-        WRITE_ERROR("Wrong speed in vss '" + getID() + "'.");
-        return;
+        speed = myDefaultSpeed;
     }
     // set the values for the next step if they are valid
     if (myLoadedSpeeds.size() != 0 && myLoadedSpeeds.back().first == next) {
@@ -212,14 +217,17 @@ MSLaneSpeedTrigger::getCurrentSpeed() const {
     if (myAmOverriding) {
         return mySpeedOverrideValue;
     } else {
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
         // ok, maybe the first shall not yet be the valid one
-        if (myCurrentEntry == myLoadedSpeeds.begin() && (*myCurrentEntry).first > MSNet::getInstance()->getCurrentTimeStep()) {
+        if (myCurrentEntry == myLoadedSpeeds.begin() && (*myCurrentEntry).first > now) {
             return myDefaultSpeed;
         }
         // try the loaded
-        if (myCurrentEntry != myLoadedSpeeds.end() && (*myCurrentEntry).first <= MSNet::getInstance()->getCurrentTimeStep()) {
+        if (myCurrentEntry != myLoadedSpeeds.end() && (*myCurrentEntry).first <= now) {
             return (*myCurrentEntry).second;
         } else {
+            // we have run past the end of the loaded steps or the current step is not yet active: 
+            // -> use the value of the previous step
             return (*(myCurrentEntry - 1)).second;
         }
     }
