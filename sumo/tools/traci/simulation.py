@@ -132,20 +132,20 @@ def convert2D(edgeID, pos, laneIndex=0, toGeo=False):
     posType = tc.POSITION_2D
     if toGeo:
         posType = tc.POSITION_LAT_LON
-    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+4+len(edgeID)+8+1 + 1+8+8)
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+4+len(edgeID)+8+1 + 1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
     traci._message.string += struct.pack("!Bi", tc.POSITION_ROADMAP, len(edgeID)) + edgeID
-    traci._message.string += struct.pack("!dBBdd", pos, laneIndex, posType, 0., 0.)
+    traci._message.string += struct.pack("!dBBB", pos, laneIndex, tc.TYPE_UBYTE, posType)
     return traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!dd")
 
 def convertRoad(x, y, isGeo=False):
     posType = tc.POSITION_2D
     if isGeo:
         posType = tc.POSITION_LAT_LON
-    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+4+8+1)
+    traci._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1+4 + 1+8+8 + 1+1)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
     traci._message.string += struct.pack("!Bdd", posType, x, y)
-    traci._message.string += struct.pack("!BidB", tc.POSITION_ROADMAP, 0, 0., 0)
+    traci._message.string += struct.pack("!BB", tc.TYPE_UBYTE, tc.POSITION_ROADMAP)
     result = traci._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
     return result.readString(), result.readDouble(), result.read("!B")[0]
 
