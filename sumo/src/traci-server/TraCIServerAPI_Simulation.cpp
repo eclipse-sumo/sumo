@@ -250,7 +250,6 @@ TraCIServerAPI_Simulation::getLaneChecking(std::string roadID, int laneIndex, SU
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, int commandId) {
-    tcpip::Storage tmpResult;
     std::pair<MSLane*, SUMOReal> roadPos;
     Position cartesianPos;
     Position geoPos;
@@ -292,69 +291,48 @@ TraCIServerAPI_Simulation::commandPositionConversion(traci::TraCIServer& server,
         }
         break;
         default:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                                  "Source position type not supported");
+            server.writeStatusCmd(commandId, RTYPE_ERR, "Source position type not supported");
             return false;
     }
 
+    int type = inputStorage.readUnsignedByte();
+    if(type!=TYPE_UBYTE) {
+        server.writeStatusCmd(commandId, RTYPE_ERR, "Destination position type must be of type ubyte.");
+        return false;
+    }
     int destPosType = inputStorage.readUnsignedByte();
 
     switch (destPosType) {
         case POSITION_ROADMAP: {
-            if (commandId != CMD_POSITIONCONVERSION) {
-                // skip empty values
-                inputStorage.readString();
-                inputStorage.readDouble();
-                inputStorage.readUnsignedByte();
-            }
             // convert road map to 3D position
             roadPos = convertCartesianToRoadMap(cartesianPos);
-
             // write result that is added to response msg
-            tmpResult.writeUnsignedByte(POSITION_ROADMAP);
-            tmpResult.writeString(roadPos.first->getEdge().getID());
-            tmpResult.writeDouble(roadPos.second);
+            outputStorage.writeUnsignedByte(POSITION_ROADMAP);
+            outputStorage.writeString(roadPos.first->getEdge().getID());
+            outputStorage.writeDouble(roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            tmpResult.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
         }
         break;
         case POSITION_2D:
         case POSITION_3D:
         case POSITION_LAT_LON:
         case POSITION_LAT_LON_ALT:
-            if (commandId != CMD_POSITIONCONVERSION) {
-                // skip empty values
-                inputStorage.readDouble();
-                inputStorage.readDouble();
-                if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
-                    inputStorage.readDouble();
-                }
-            }
-            tmpResult.writeUnsignedByte(destPosType);
+            outputStorage.writeUnsignedByte(destPosType);
             if (srcPosType == POSITION_LAT_LON || srcPosType == POSITION_LAT_LON_ALT) {
-                tmpResult.writeDouble(geoPos.x());
-                tmpResult.writeDouble(geoPos.y());
+                outputStorage.writeDouble(geoPos.x());
+                outputStorage.writeDouble(geoPos.y());
             } else {
-                tmpResult.writeDouble(cartesianPos.x());
-                tmpResult.writeDouble(cartesianPos.y());
+                outputStorage.writeDouble(cartesianPos.x());
+                outputStorage.writeDouble(cartesianPos.y());
             }
             if (destPosType != POSITION_2D && destPosType != POSITION_LAT_LON) {
-                tmpResult.writeDouble(z);
+                outputStorage.writeDouble(z);
             }
             break;
         default:
-            server.writeStatusCmd(commandId, RTYPE_ERR,
-                                  "Destination position type not supported");
+            server.writeStatusCmd(commandId, RTYPE_ERR, "Destination position type not supported");
             return false;
-    }
-    if (commandId == CMD_POSITIONCONVERSION) {
-        // add converted Position to response
-        outputStorage.writeUnsignedByte(1 + 1 + (int)tmpResult.size() + 1);	// length
-        outputStorage.writeUnsignedByte(commandId);	// command id
-        outputStorage.writeStorage(tmpResult);	// position dependant part
-        outputStorage.writeUnsignedByte(destPosType);	// destination type
-    } else {
-        outputStorage.writeStorage(tmpResult);	// position dependant part
     }
     return true;
 }
@@ -442,26 +420,16 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
                 && (roadPos1.second <= roadPos2.second)) {
             distance = roadPos2.second - roadPos1.second;
         } else {
-            router.compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), NULL,
-                           MSNet::getInstance()->getCurrentTimeStep(), edges);
+            router.compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), NULL, MSNet::getInstance()->getCurrentTimeStep(), edges);
             MSRoute route("", edges, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
-            distance = route.getDistanceBetween(roadPos1.second, roadPos2.second,
-                                                &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+            distance = route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {
         // compute air distance (default)
-        // correct the distance type in case it was not valid
-        distType = REQUEST_AIRDIST;
         distance = pos1.distanceTo(pos2);
     }
     // write response command
-    if (commandId == CMD_DISTANCEREQUEST) {
-        outputStorage.writeUnsignedByte(1 + 1 + 1 + 8);	// length
-        outputStorage.writeUnsignedByte(commandId);
-        outputStorage.writeUnsignedByte(distType);
-    } else {
-        outputStorage.writeUnsignedByte(TYPE_DOUBLE);
-    }
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(distance);
     return true;
 }
