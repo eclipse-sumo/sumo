@@ -1,5 +1,3 @@
-noinst_LIBRARIES = libshapes.a
+noinst_LIBRARIES = libtraci.a
 
-libshapes_a_SOURCES = PointOfInterest.h \
-Polygon.cpp Polygon.h \
-ShapeContainer.cpp ShapeContainer.h
+libshapes_a_SOURCES = TraCIAPI.cpp TraCIAPI.h
