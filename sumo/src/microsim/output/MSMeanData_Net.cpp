@@ -124,7 +124,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
             ++nVehArrived;
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
-        } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+        } else if (reason != MSMoveReminder::NOTIFICATION_VAPORIZED 
+                && (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT)) {
             ++nVehLeft;
         }
     }

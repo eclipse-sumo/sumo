@@ -6,3 +6,6 @@ routes_same_route
 
 # tests for using plain inserted vehicles, each having an own route
 routes_explicite_routes
+
+# vaporizied vehicles should neither count as "arrivals" nor as "left"
+do_not_count_in_meanData
