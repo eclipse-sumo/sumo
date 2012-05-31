@@ -1,3 +1,4 @@
 <add>
     <calibrator id="calibtest" lane="beg_0" pos="100" file="input_definition.def.xml" output="detector.xml"/>
+    <edgeData id="dump25" begin="0" end="100" file="aggregated_25.xml"/>
 </add>

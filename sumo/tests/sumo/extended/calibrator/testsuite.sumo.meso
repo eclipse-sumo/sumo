@@ -10,7 +10,8 @@ nested
 # Tests whether calibrators run with output
 simple_output
 
-# Tests whether calibrators remove
+# Tests whether calibrators remove.
+# Also tests that removed vehicles do not count as arrivals
 simple_remove
 
 # Tests whether calibrators can reduce vehicle speed to 0
