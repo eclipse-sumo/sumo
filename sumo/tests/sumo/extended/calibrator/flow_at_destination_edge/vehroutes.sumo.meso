@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<!-- generated on Thu May 31 08:24:02 2012 by SUMO sumo Version dev-SVN-r12337
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="calibtest.3000.0" depart="3.00" arrival="7.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.7000.1" depart="7.00" arrival="11.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.10000.2" depart="10.00" arrival="14.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.14000.3" depart="14.00" arrival="18.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.18000.4" depart="18.00" arrival="22.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.21000.5" depart="21.00" arrival="25.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.25000.6" depart="25.00" arrival="29.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.28000.7" depart="28.00" arrival="32.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.32000.8" depart="32.00" arrival="36.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.36000.9" depart="36.00" arrival="40.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.39000.10" depart="39.00" arrival="43.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.43000.11" depart="43.00" arrival="47.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.46000.12" depart="46.00" arrival="50.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.50000.13" depart="50.00" arrival="54.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="veh0" depart="1.00" arrival="55.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.54000.14" depart="54.00" arrival="58.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.61000.15" depart="61.00" arrival="65.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.64000.16" depart="64.00" arrival="68.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.68000.17" depart="68.00" arrival="72.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.72000.18" depart="72.00" arrival="76.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.75000.19" depart="75.00" arrival="79.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.79000.20" depart="79.00" arrival="83.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.82000.21" depart="82.00" arrival="86.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.86000.22" depart="86.00" arrival="90.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.90000.23" depart="90.00" arrival="94.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.93000.24" depart="93.00" arrival="97.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="calibtest.97000.25" depart="97.00" arrival="101.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+</routes>

@@ -1,0 +1,6 @@
+<add>
+    <calibrator id="calibtest" lane="end_0" pos="100" output="calibrator.log.xml">
+        <route id="c1" edges="beg middle end"/>
+        <flow begin="0" end="100" route="c1" vehsPerHour="1000"/>
+    </calibrator>
+</add>

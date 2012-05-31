@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 31 May 2012 08:22:36 AM CEST by Netedit Version dev-SVN-r12334
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/delphi-extern/sumo/tests/sumo/three_split.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/delphi-extern/sumo/tests/sumo/extended/calibrator/flow_at_destination_edge/net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/net_file.xsd">
+
+    <location netOffset="0.00,500.00" convBoundary="0.00,0.00,2500.00,1000.00" origBoundary="0.00,-500.00,2500.00,500.00" projParameter="!"/>
+
+    <edge id="beg" from="absBeg" to="beg" priority="-1">
+        <lane id="beg_0" index="0" speed="27.80" length="500.00" shape="0.00,498.35 500.00,498.35"/>
+    </edge>
+    <edge id="end" from="end" to="absEnd" priority="-1">
+        <lane id="end_0" index="0" speed="27.80" length="100.00" shape="1500.00,498.35 1600.00,498.35"/>
+    </edge>
+    <edge id="middle" from="beg" to="end" priority="-1">
+        <lane id="middle_0" index="0" speed="27.80" length="1000.00" shape="500.00,498.35 1500.00,498.35"/>
+    </edge>
+
+    <junction id="absBeg" type="unregulated" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,496.75">
+    </junction>
+    <junction id="absEnd" type="unregulated" x="1600.00" y="500.00" incLanes="end_0" intLanes="" shape="1600.00,496.75 1600.00,499.95">
+    </junction>
+    <junction id="beg" type="priority" x="500.00" y="500.00" incLanes="beg_0" intLanes="" shape="500.00,499.95 500.00,496.75 500.00,499.95">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="end" type="dead_end" x="1500.00" y="500.00" incLanes="middle_0" intLanes="" shape="1500.00,499.95 1500.00,496.75 1500.00,499.95"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>
