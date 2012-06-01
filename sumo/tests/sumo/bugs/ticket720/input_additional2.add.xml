@@ -1,0 +1,6 @@
+<add>
+
+    <vaporizer id="middle" begin="0" end="86400"/>
+    <edgeData id="dump25" begin="0" end="86400" file="aggregated_25.xml"/>
+
+</add>
