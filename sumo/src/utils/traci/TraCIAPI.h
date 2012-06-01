@@ -151,6 +151,93 @@ public:
 
     };
 
+
+    class GUIScope : public TraCIScopeWrapper {
+    public:
+        GUIScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~GUIScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        SUMOReal getZoom(const std::string &viewID) const throw(tcpip::SocketException);
+        Position getOffset(const std::string &viewID) const throw(tcpip::SocketException);
+        std::string getSchema(const std::string &viewID) const throw(tcpip::SocketException);
+        Boundary getBoundary(const std::string &viewID) const throw(tcpip::SocketException);
+        void setZoom(const std::string &viewID, SUMOReal zoom) const throw(tcpip::SocketException);
+        void setOffset(const std::string &viewID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException);
+        void setSchema(const std::string &viewID, const std::string &schemeName) const throw(tcpip::SocketException);
+        void setBoundary(const std::string &viewID, SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) const throw(tcpip::SocketException);
+        void screenshot(const std::string &viewID, const std::string &filename) const throw(tcpip::SocketException);
+        void trackVehicle(const std::string &viewID, const std::string &vehID) const throw(tcpip::SocketException);
+
+    };
+
+
+    class InductionLoopScope : public TraCIScopeWrapper {
+    public:
+        InductionLoopScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~InductionLoopScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        SUMOReal  getPosition(const std::string &loopID) const throw(tcpip::SocketException);
+        std::string getLaneID(const std::string &loopID) const throw(tcpip::SocketException);
+        unsigned int getLastStepVehicleNumber(const std::string &loopID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepMeanSpeed(const std::string &loopID) const throw(tcpip::SocketException);
+        std::vector<std::string> getLastStepVehicleIDs(const std::string &loopID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepOccupancy(const std::string &loopID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepMeanLength(const std::string &loopID) const throw(tcpip::SocketException);
+        SUMOReal getTimeSinceDetection(const std::string &loopID) const throw(tcpip::SocketException);
+        unsigned int getVehicleData(const std::string &loopID) const throw(tcpip::SocketException);
+
+    };
+
+
+    class JunctionScope : public TraCIScopeWrapper {
+    public:
+        JunctionScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~JunctionScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        Position getPosition(const std::string &junctionID) const throw(tcpip::SocketException);
+
+    };
+
+
+    class LaneScope : public TraCIScopeWrapper {
+    public:
+        LaneScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~LaneScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        SUMOReal getLength(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getMaxSpeed(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getWidth(const std::string &laneID) const throw(tcpip::SocketException);
+        std::vector<std::string> getAllowed(const std::string &laneID) const throw(tcpip::SocketException);
+        std::vector<std::string> getDisallowed(const std::string &laneID) const throw(tcpip::SocketException);
+        unsigned int getLinkNumber(const std::string &laneID) const throw(tcpip::SocketException);
+        PositionVector getShape(const std::string &laneID) const throw(tcpip::SocketException);
+        std::string getEdgeID(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getCO2Emission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getCOEmission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getHCEmission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getPMxEmission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getNOxEmission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getFuelConsumption(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getNoiseEmission(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepMeanSpeed(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepOccupancy(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepLength(const std::string &laneID) const throw(tcpip::SocketException);
+        SUMOReal getTraveltime(const std::string &laneID) const throw(tcpip::SocketException);
+        unsigned int getLastStepVehicleNumber(const std::string &laneID) const throw(tcpip::SocketException);
+        unsigned int getLastStepHaltingNumber(const std::string &laneID) const throw(tcpip::SocketException);
+        std::vector<std::string> getLastStepVehicleIDs(const std::string &laneID) const throw(tcpip::SocketException);
+
+        void setAllowed(const std::string &laneID, const std::vector<std::string> &allowedClasses) const throw(tcpip::SocketException);
+        void setDisallowed(const std::string &laneID, const std::vector<std::string> &disallowedClasses) const throw(tcpip::SocketException);
+        void setMaxSpeed(const std::string &laneID, SUMOReal speed) const throw(tcpip::SocketException);
+        void setLength(const std::string &laneID, SUMOReal length) const throw(tcpip::SocketException);
+    };
+
+
 public:
     EdgeScope edge;
     VehicleScope vehicle;

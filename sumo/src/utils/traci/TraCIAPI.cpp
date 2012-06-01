@@ -279,9 +279,9 @@ TraCIAPI::getPosition(int cmd, int var, const std::string &id, tcpip::Storage* a
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, POSITION_2D);
-    int valueDataType = inMsg.readUnsignedByte();
-    throw tcpip::SocketException("Expected TYPE_INTEGER but got " + toString(valueDataType));
-    //return inMsg.readInt();
+    SUMOReal x = inMsg.readDouble();
+    SUMOReal y = inMsg.readDouble();
+    return Position(x, y);
 }
 
 
@@ -299,14 +299,18 @@ TraCIAPI::getStringVector(int cmd, int var, const std::string &id, tcpip::Storag
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_STRINGLIST);
-    throw tcpip::SocketException("Expected TYPE_INTEGER but got ");
-    //return inMsg.readInt();
+    unsigned int size = inMsg.readInt();
+    std::vector<std::string> r;
+    for(unsigned int i=0; i<size; ++i) {
+        r.push_back(inMsg.readString());
+    }
+    return r;
 }
 
 
 
 // ---------------------------------------------------------------------------
-// TraCIAPI::SimulationScope-methods
+// TraCIAPI::EdgeScope-methods
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::EdgeScope::getIDList() const throw(tcpip::SocketException) {
@@ -425,7 +429,320 @@ TraCIAPI::EdgeScope::setMaxSpeed(const std::string &edgeID, SUMOReal speed) cons
     myParent.send_commandSetValue(CMD_SET_EDGE_VARIABLE, VAR_MAXSPEED, edgeID, content);
 }
 
+
+
     
+// ---------------------------------------------------------------------------
+// TraCIAPI::GUIScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::GUIScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_GUI_VARIABLE, ID_LIST, "");
+}
+
+SUMOReal
+TraCIAPI::GUIScope::getZoom(const std::string &viewID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_GUI_VARIABLE, VAR_VIEW_ZOOM, viewID);
+}
+
+Position
+TraCIAPI::GUIScope::getOffset(const std::string &viewID) const throw(tcpip::SocketException) {
+    return myParent.getPosition(CMD_GET_GUI_VARIABLE, VAR_VIEW_OFFSET, viewID);
+}
+
+std::string
+TraCIAPI::GUIScope::getSchema(const std::string &viewID) const throw(tcpip::SocketException) {
+    return myParent.getString(CMD_GET_GUI_VARIABLE, VAR_VIEW_SCHEMA, viewID);
+}
+
+Boundary
+TraCIAPI::GUIScope::getBoundary(const std::string &viewID) const throw(tcpip::SocketException) {
+    return myParent.getBoundingBox(CMD_GET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID);
+}
+
+
+void
+TraCIAPI::GUIScope::setZoom(const std::string &viewID, SUMOReal zoom) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeDouble(zoom);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_ZOOM, viewID, content);
+}
+
+void
+TraCIAPI::GUIScope::setOffset(const std::string &viewID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_OFFSET, viewID, content);
+}
+
+void
+TraCIAPI::GUIScope::setSchema(const std::string &viewID, const std::string &schemeName) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeString(schemeName);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_SCHEMA, viewID, content);
+}
+
+void
+TraCIAPI::GUIScope::setBoundary(const std::string &viewID, SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_BOUNDINGBOX);
+    content.writeDouble(xmin);
+    content.writeDouble(ymin);
+    content.writeDouble(xmax);
+    content.writeDouble(ymax);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID, content);
+}
+
+void
+TraCIAPI::GUIScope::screenshot(const std::string &viewID, const std::string &filename) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeString(filename);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_SCREENSHOT, viewID, content);
+}
+
+void
+TraCIAPI::GUIScope::trackVehicle(const std::string &viewID, const std::string &vehID) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeString(vehID);
+    myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_TRACK_VEHICLE, viewID, content);
+}
+
+
+
+    
+// ---------------------------------------------------------------------------
+// TraCIAPI::InductionLoopScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::InductionLoopScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, ID_LIST, "");
+}
+
+SUMOReal 
+TraCIAPI::InductionLoopScope::getPosition(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, VAR_POSITION, loopID);
+}
+
+std::string 
+TraCIAPI::InductionLoopScope::getLaneID(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getString(CMD_GET_INDUCTIONLOOP_VARIABLE, VAR_LANE_ID, loopID);
+}
+
+unsigned int 
+TraCIAPI::InductionLoopScope::getLastStepVehicleNumber(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getInt(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_NUMBER, loopID);
+}
+
+SUMOReal 
+TraCIAPI::InductionLoopScope::getLastStepMeanSpeed(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_MEAN_SPEED, loopID);
+}
+
+std::vector<std::string> 
+TraCIAPI::InductionLoopScope::getLastStepVehicleIDs(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, loopID);
+}
+
+SUMOReal 
+TraCIAPI::InductionLoopScope::getLastStepOccupancy(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_OCCUPANCY, loopID);
+}
+
+SUMOReal 
+TraCIAPI::InductionLoopScope::getLastStepMeanLength(const std::string &loopID) const throw(tcpip::SocketException) {
+     return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_LENGTH, loopID);
+}
+
+SUMOReal 
+TraCIAPI::InductionLoopScope::getTimeSinceDetection(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_TIME_SINCE_DETECTION, loopID);
+}
+
+unsigned int 
+TraCIAPI::InductionLoopScope::getVehicleData(const std::string &loopID) const throw(tcpip::SocketException) {
+    return myParent.getInt(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_DATA, loopID);
+}
+
+
+
+    
+// ---------------------------------------------------------------------------
+// TraCIAPI::JunctionScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::JunctionScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_JUNCTION_VARIABLE, ID_LIST, "");
+}
+
+Position
+TraCIAPI::JunctionScope::getPosition(const std::string &junctionID) const throw(tcpip::SocketException) {
+    return myParent.getPosition(CMD_GET_JUNCTION_VARIABLE, VAR_POSITION, junctionID);
+}
+
+
+
+    
+// ---------------------------------------------------------------------------
+// TraCIAPI::LaneScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::LaneScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_LANE_VARIABLE, ID_LIST, "");
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getLength(const std::string &laneID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_LENGTH, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getMaxSpeed(const std::string &laneID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_MAXSPEED, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getWidth(const std::string &laneID) const throw(tcpip::SocketException) {
+    return myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_WIDTH, laneID);
+}
+
+std::vector<std::string>
+TraCIAPI::LaneScope::getAllowed(const std::string &laneID) const throw(tcpip::SocketException) {
+    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LANE_ALLOWED, laneID);
+}
+
+std::vector<std::string>
+TraCIAPI::LaneScope::getDisallowed(const std::string &laneID) const throw(tcpip::SocketException) {
+    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, LANE_DISALLOWED, laneID);
+}
+
+unsigned int
+TraCIAPI::LaneScope::getLinkNumber(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw tcpip::SocketException("Not implemented!");
+}
+
+PositionVector
+TraCIAPI::LaneScope::getShape(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getPolygon(CMD_GET_LANE_VARIABLE, VAR_SHAPE, laneID);
+}
+
+std::string
+TraCIAPI::LaneScope::getEdgeID(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getString(CMD_GET_LANE_VARIABLE, LANE_EDGE_ID, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getCO2Emission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_CO2EMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getCOEmission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_COEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getHCEmission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_HCEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getPMxEmission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_PMXEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getNOxEmission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_NOXEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getFuelConsumption(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_FUELCONSUMPTION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getNoiseEmission(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_NOISEEMISSION, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getLastStepMeanSpeed(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, LAST_STEP_MEAN_SPEED, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getLastStepOccupancy(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, LAST_STEP_OCCUPANCY, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getLastStepLength(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, LAST_STEP_LENGTH, laneID);
+}
+
+SUMOReal
+TraCIAPI::LaneScope::getTraveltime(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getDouble(CMD_GET_LANE_VARIABLE, VAR_CURRENT_TRAVELTIME, laneID);
+}
+
+unsigned int
+TraCIAPI::LaneScope::getLastStepVehicleNumber(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getInt(CMD_GET_LANE_VARIABLE, LAST_STEP_VEHICLE_NUMBER, laneID);
+}
+
+unsigned int
+TraCIAPI::LaneScope::getLastStepHaltingNumber(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getInt(CMD_GET_LANE_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
+}
+
+std::vector<std::string>
+TraCIAPI::LaneScope::getLastStepVehicleIDs(const std::string &laneID) const throw(tcpip::SocketException) {
+    throw myParent.getStringVector(CMD_GET_LANE_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, laneID);
+}
+
+
+void
+TraCIAPI::LaneScope::setAllowed(const std::string &laneID, const std::vector<std::string> &allowedClasses) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeInt(allowedClasses.size());
+    for(unsigned int i=0; i<allowedClasses.size(); ++i) {
+        content.writeString(allowedClasses[i]);
+    }
+    myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_ALLOWED, laneID, content);
+}
+
+void
+TraCIAPI::LaneScope::setDisallowed(const std::string &laneID, const std::vector<std::string> &disallowedClasses) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeInt(disallowedClasses.size());
+    for(unsigned int i=0; i<disallowedClasses.size(); ++i) {
+        content.writeString(disallowedClasses[i]);
+    }
+    myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, LANE_DISALLOWED, laneID, content);
+}
+
+void
+TraCIAPI::LaneScope::setMaxSpeed(const std::string &laneID, SUMOReal speed) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(speed);
+    myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, VAR_MAXSPEED, laneID, content);
+}
+
+void
+TraCIAPI::LaneScope::setLength(const std::string &laneID, SUMOReal length) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(length);
+    myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, VAR_LENGTH, laneID, content);
+}
+
+
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::SimulationScope-methods
 // ---------------------------------------------------------------------------
