@@ -166,6 +166,9 @@ public:
         /// @brief The number of vehicles that left this lane within the sample interval
         unsigned nVehLeft;
 
+        /// @brief The number of vehicles that left this lane within the sample interval
+        unsigned nVehVaporized;
+
     private:
         /// @brief The number of vehicles that changed from this lane
         unsigned nVehLaneChangeFrom;

@@ -62,7 +62,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const std::set<std::string>* const vTypes,
         const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, vTypes), myParent(parent),
-      nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
+      nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0), nVehVaporized(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
 
 
@@ -76,6 +76,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     nVehArrived = 0;
     nVehEntered = 0;
     nVehLeft = 0;
+    nVehVaporized = 0;
     nVehLaneChangeFrom = 0;
     nVehLaneChangeTo = 0;
     sampleSeconds = 0.;
@@ -92,6 +93,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.nVehArrived += nVehArrived;
     v.nVehEntered += nVehEntered;
     v.nVehLeft += nVehLeft;
+    v.nVehVaporized += nVehVaporized;
     v.nVehLaneChangeFrom += nVehLaneChangeFrom;
     v.nVehLaneChangeTo += nVehLaneChangeTo;
     v.sampleSeconds += sampleSeconds;
@@ -124,9 +126,11 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, SUMOReal /*l
             ++nVehArrived;
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
-        } else if (reason != MSMoveReminder::NOTIFICATION_VAPORIZED 
-                && (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT)) {
+        } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
+            if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
+                ++nVehVaporized;
+            }
         }
     }
 #ifdef HAVE_INTERNAL
@@ -158,7 +162,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveRemind
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
-    return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0 && nVehLeft == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
+    return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0 
+        && nVehLeft == 0 && nVehVaporized == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
 
@@ -176,6 +181,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             "\" arrived=\"" << nVehArrived <<
             "\" entered=\"" << nVehEntered <<
             "\" left=\"" << nVehLeft << "\"";
+        if (nVehVaporized > 0) {
+            dev << " vaporized=\"" << nVehVaporized << "\"";
+        }
 		dev.closeTag(true);
         return;
     }
@@ -205,6 +213,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
         "\" left=\"" << nVehLeft <<
         "\" laneChangedFrom=\"" << nVehLaneChangeFrom <<
         "\" laneChangedTo=\"" << nVehLaneChangeTo << "\"";
+        if (nVehVaporized > 0) {
+            dev << " vaporized=\"" << nVehVaporized << "\"";
+        }
 	dev.closeTag(true);
 }
 
