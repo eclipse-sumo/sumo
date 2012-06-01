@@ -47,7 +47,10 @@
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
 TraCIAPI::TraCIAPI() 
-    : edge(*this), vehicle(*this), simulation(*this), mySocket(0) {}
+    : edge(*this), gui(*this), inductionloop(*this), 
+    junction(*this), lane(*this), multientryexit(*this), poi(*this),
+    polygon(*this), route(*this), simulation(*this),
+    mySocket(0) {}
 
 
 TraCIAPI::~TraCIAPI() 
@@ -959,6 +962,31 @@ TraCIAPI::PolygonScope::remove(const std::string &polygonID, int layer) const th
     content.writeInt(layer);
     myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, REMOVE, polygonID, content);
 }
+
+
+
+// ---------------------------------------------------------------------------
+// TraCIAPI::RouteScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::RouteScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, ID_LIST, "");
+}
+
+std::vector<std::string>
+TraCIAPI::RouteScope::getEdges(const std::string &routeID) const throw(tcpip::SocketException) {
+    return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, VAR_EDGES, routeID);
+}
+
+
+void
+TraCIAPI::RouteScope::add(const std::string &routeID, const std::vector<std::string> &edges) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRINGLIST);
+    content.writeStringList(edges);
+    myParent.send_commandSetValue(CMD_SET_ROUTE_VARIABLE, VAR_POSITION, routeID, content);
+}
+
 
 
 

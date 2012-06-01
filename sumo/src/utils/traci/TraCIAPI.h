@@ -93,38 +93,9 @@ public:
 
 
 
-    class VehicleScope : public TraCIScopeWrapper {
-    public:
-        VehicleScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
-        ~VehicleScope() {}
-
-        
-    };
 
 
 
-
-    class SimulationScope : public TraCIScopeWrapper {
-    public:
-        SimulationScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
-        virtual ~SimulationScope() {}
-
-        SUMOTime getCurrentTime() const;
-        unsigned int getLoadedNumber() const;
-        std::vector<std::string> getLoadedIDList() const;
-        unsigned int getDepartedNumber() const;
-        std::vector<std::string> getDepartedIDList() const;
-        unsigned int getArrivedNumber() const;
-        std::vector<std::string> getArrivedIDList() const;
-        unsigned int getStartingTeleportNumber() const;
-        std::vector<std::string> getStartingTeleportIDList() const;
-        unsigned int getEndingTeleportNumber() const;
-        std::vector<std::string> getEndingTeleportIDList() const;
-        SUMOTime getDeltaT() const;
-        Boundary getNetBoundary() const;
-        unsigned int getMinExpectedNumber() const;
-
-    };
 
     class EdgeScope : public TraCIScopeWrapper {
     public:
@@ -291,9 +262,52 @@ public:
     };
 
 
+    class RouteScope : public TraCIScopeWrapper {
+    public:
+        RouteScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~RouteScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        std::vector<std::string> getEdges(const std::string &routeID) const throw(tcpip::SocketException);
+
+        void add(const std::string &routeID, const std::vector<std::string> &edges) const throw(tcpip::SocketException);
+
+    };
+
+
+    
+    class SimulationScope : public TraCIScopeWrapper {
+    public:
+        SimulationScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~SimulationScope() {}
+
+        SUMOTime getCurrentTime() const;
+        unsigned int getLoadedNumber() const;
+        std::vector<std::string> getLoadedIDList() const;
+        unsigned int getDepartedNumber() const;
+        std::vector<std::string> getDepartedIDList() const;
+        unsigned int getArrivedNumber() const;
+        std::vector<std::string> getArrivedIDList() const;
+        unsigned int getStartingTeleportNumber() const;
+        std::vector<std::string> getStartingTeleportIDList() const;
+        unsigned int getEndingTeleportNumber() const;
+        std::vector<std::string> getEndingTeleportIDList() const;
+        SUMOTime getDeltaT() const;
+        Boundary getNetBoundary() const;
+        unsigned int getMinExpectedNumber() const;
+
+    };
+
 public:
     EdgeScope edge;
-    VehicleScope vehicle;
+    GUIScope gui;
+    InductionLoopScope inductionloop;
+    JunctionScope junction;
+    LaneScope lane;
+    MeMeScope multientryexit;
+    POIScope poi;
+    PolygonScope polygon;
+    RouteScope route;
     SimulationScope simulation;
 
 protected:
