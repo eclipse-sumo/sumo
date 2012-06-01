@@ -31,6 +31,9 @@
 #include "TraCIAPI.h"
 #include <traci-server/TraCIConstants.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/common/RGBColor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -305,6 +308,19 @@ TraCIAPI::getStringVector(int cmd, int var, const std::string &id, tcpip::Storag
         r.push_back(inMsg.readString());
     }
     return r;
+}
+
+
+RGBColor 
+TraCIAPI::getColor(int cmd, int var, const std::string &id, tcpip::Storage* add) throw(tcpip::SocketException) {
+    tcpip::Storage inMsg;
+    send_commandGetVariable(cmd, var, id, add);
+    processGET(inMsg, cmd, TYPE_COLOR);
+    SUMOReal r = (SUMOReal) inMsg.readInt() / (SUMOReal) 255.;
+    SUMOReal g = (SUMOReal) inMsg.readInt() / (SUMOReal) 255.;
+    SUMOReal b = (SUMOReal) inMsg.readInt() / (SUMOReal) 255.;
+    SUMOReal a = (SUMOReal) inMsg.readInt() / (SUMOReal) 255.;
+    return RGBColor(r, g, b);
 }
 
 
@@ -740,6 +756,210 @@ TraCIAPI::LaneScope::setLength(const std::string &laneID, SUMOReal length) const
     content.writeDouble(length);
     myParent.send_commandSetValue(CMD_SET_LANE_VARIABLE, VAR_LENGTH, laneID, content);
 }
+
+
+
+// ---------------------------------------------------------------------------
+// TraCIAPI::MeMeScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::MeMeScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, ID_LIST, "");
+}
+
+unsigned int
+TraCIAPI::MeMeScope::getLastStepVehicleNumber(const std::string &detID) const throw(tcpip::SocketException) {
+    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_NUMBER, detID);
+}
+
+SUMOReal
+TraCIAPI::MeMeScope::getLastStepMeanSpeed(const std::string &detID) const throw(tcpip::SocketException) {
+    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_MEAN_SPEED, detID);
+}
+
+std::vector<std::string>
+TraCIAPI::MeMeScope::getLastStepVehicleIDs(const std::string &detID) const throw(tcpip::SocketException) {
+    return myParent.getStringVector(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, detID);
+}
+
+unsigned int
+TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string &detID) const throw(tcpip::SocketException) {
+    return myParent.getInt(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
+}
+
+
+
+// ---------------------------------------------------------------------------
+// TraCIAPI::POIScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::POIScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_POI_VARIABLE, ID_LIST, "");
+}
+
+std::string
+TraCIAPI::POIScope::getType(const std::string &poiID) const throw(tcpip::SocketException) {
+    return myParent.getString(CMD_GET_POI_VARIABLE, VAR_TYPE, poiID);
+}
+
+Position
+TraCIAPI::POIScope::getPosition(const std::string &poiID) const throw(tcpip::SocketException) {
+    return myParent.getPosition(CMD_GET_POI_VARIABLE, VAR_POSITION, poiID);
+}
+
+RGBColor
+TraCIAPI::POIScope::getColor(const std::string &poiID) const throw(tcpip::SocketException) {
+    return myParent.getColor(CMD_GET_POI_VARIABLE, VAR_COLOR, poiID);
+}
+
+
+void
+TraCIAPI::POIScope::setType(const std::string &poiID, const std::string &setType) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(setType);
+    myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, VAR_TYPE, poiID, content);
+}
+
+void
+TraCIAPI::POIScope::setPosition(const std::string &poiID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, VAR_POSITION, poiID, content);
+}
+
+void
+TraCIAPI::POIScope::setColor(const std::string &poiID, const RGBColor &c) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeDouble(c.red());
+    content.writeDouble(c.green());
+    content.writeDouble(c.blue());
+    content.writeDouble(255);
+    myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, VAR_COLOR, poiID, content);
+}
+
+void
+TraCIAPI::POIScope::add(const std::string &poiID, SUMOReal x, SUMOReal y, const RGBColor &c, const std::string &type, int layer) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(type);
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeDouble(c.red());
+    content.writeDouble(c.green());
+    content.writeDouble(c.blue());
+    content.writeDouble(255);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(layer);
+    content.writeUnsignedByte(POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, ADD, poiID, content);
+}
+
+void
+TraCIAPI::POIScope::remove(const std::string &poiID, int layer) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(layer);
+    myParent.send_commandSetValue(CMD_SET_POI_VARIABLE, REMOVE, poiID, content);
+}
+
+
+
+// ---------------------------------------------------------------------------
+// TraCIAPI::PolygonScope-methods
+// ---------------------------------------------------------------------------
+std::vector<std::string>
+TraCIAPI::PolygonScope::getIDList() const throw(tcpip::SocketException) {
+     return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, ID_LIST, "");
+}
+
+std::string
+TraCIAPI::PolygonScope::getType(const std::string &polygonID) const throw(tcpip::SocketException) {
+    return myParent.getString(CMD_GET_POLYGON_VARIABLE, VAR_TYPE, polygonID);
+}
+
+PositionVector
+TraCIAPI::PolygonScope::getShape(const std::string &polygonID) const throw(tcpip::SocketException) {
+    return myParent.getPolygon(CMD_GET_POLYGON_VARIABLE, VAR_SHAPE, polygonID);
+}
+
+RGBColor
+TraCIAPI::PolygonScope::getColor(const std::string &polygonID) const throw(tcpip::SocketException) {
+    return myParent.getColor(CMD_GET_POLYGON_VARIABLE, VAR_COLOR, polygonID);
+}
+
+
+void
+TraCIAPI::PolygonScope::setType(const std::string &polygonID, const std::string &setType) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(setType);
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_TYPE, polygonID, content);
+}
+
+void
+TraCIAPI::PolygonScope::setShape(const std::string &polygonID, const PositionVector &shape) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_POLYGON);
+    content.writeInt(shape.size());
+    for(unsigned int i=0; i<shape.size(); ++i) {
+        content.writeDouble(shape[i].x());
+        content.writeDouble(shape[i].y());
+    }
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_POSITION, polygonID, content);
+}
+
+void
+TraCIAPI::PolygonScope::setColor(const std::string &polygonID, const RGBColor &c) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeDouble(c.red());
+    content.writeDouble(c.green());
+    content.writeDouble(c.blue());
+    content.writeDouble(255);
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_COLOR, polygonID, content);
+}
+
+void
+TraCIAPI::PolygonScope::add(const std::string &polygonID, const PositionVector &shape, const RGBColor &c, bool fill, const std::string &type, int layer) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(4);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(type);
+    content.writeUnsignedByte(TYPE_COLOR);
+    content.writeDouble(c.red());
+    content.writeDouble(c.green());
+    content.writeDouble(c.blue());
+    content.writeDouble(255);
+    content.writeUnsignedByte(TYPE_UBYTE);
+    int f = fill ? 1 : 0;
+    content.writeUnsignedByte(fill);
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(layer);
+    content.writeUnsignedByte(TYPE_POLYGON);
+    content.writeInt(shape.size());
+    for(unsigned int i=0; i<shape.size(); ++i) {
+        content.writeDouble(shape[i].x());
+        content.writeDouble(shape[i].y());
+    }
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, ADD, polygonID, content);
+}
+
+void
+TraCIAPI::PolygonScope::remove(const std::string &polygonID, int layer) const throw(tcpip::SocketException) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(layer);
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, REMOVE, polygonID, content);
+}
+
 
 
 

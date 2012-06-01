@@ -34,8 +34,12 @@
 #include <string>
 #include <foreign/tcpip/socket.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/PositionVector.h>
+
+
+class Boundary;
+class PositionVector;
+class RGBColor;
+class Position;
 
 
 
@@ -74,6 +78,7 @@ public:
     Position getPosition(int cmd, int var, const std::string &id, tcpip::Storage* add=0) throw(tcpip::SocketException);
     std::string getString(int cmd, int var, const std::string &id, tcpip::Storage* add=0) throw(tcpip::SocketException);
     std::vector<std::string> getStringVector(int cmd, int var, const std::string &id, tcpip::Storage* add=0) throw(tcpip::SocketException);
+    RGBColor getColor(int cmd, int var, const std::string &id, tcpip::Storage* add=0) throw(tcpip::SocketException);
 
     
 
@@ -235,6 +240,54 @@ public:
         void setDisallowed(const std::string &laneID, const std::vector<std::string> &disallowedClasses) const throw(tcpip::SocketException);
         void setMaxSpeed(const std::string &laneID, SUMOReal speed) const throw(tcpip::SocketException);
         void setLength(const std::string &laneID, SUMOReal length) const throw(tcpip::SocketException);
+    };
+
+    class MeMeScope : public TraCIScopeWrapper {
+    public:
+        MeMeScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~MeMeScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        unsigned int getLastStepVehicleNumber(const std::string &detID) const throw(tcpip::SocketException);
+        SUMOReal getLastStepMeanSpeed(const std::string &detID) const throw(tcpip::SocketException);
+        std::vector<std::string> getLastStepVehicleIDs(const std::string &detID) const throw(tcpip::SocketException);
+        unsigned int getLastStepHaltingNumber(const std::string &detID) const throw(tcpip::SocketException);
+
+    };
+
+    class POIScope : public TraCIScopeWrapper {
+    public:
+        POIScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~POIScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        std::string getType(const std::string &poiID) const throw(tcpip::SocketException);
+        Position getPosition(const std::string &poiID) const throw(tcpip::SocketException);
+        RGBColor getColor(const std::string &poiID) const throw(tcpip::SocketException);
+    
+        void setType(const std::string &poiID, const std::string &setType) const throw(tcpip::SocketException);
+        void setPosition(const std::string &poiID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException);
+        void setColor(const std::string &poiID, const RGBColor &c) const throw(tcpip::SocketException);
+        void add(const std::string &poiID, SUMOReal x, SUMOReal y, const RGBColor &c, const std::string &type, int layer) const throw(tcpip::SocketException);
+        void remove(const std::string &poiID, int layer) const throw(tcpip::SocketException);
+
+    };
+
+    class PolygonScope : public TraCIScopeWrapper {
+    public:
+        PolygonScope(TraCIAPI &parent) : TraCIScopeWrapper(parent) {}
+        virtual ~PolygonScope() {}
+
+        std::vector<std::string> getIDList() const throw(tcpip::SocketException);
+        std::string getType(const std::string &polygonID) const throw(tcpip::SocketException);
+        PositionVector getShape(const std::string &polygonID) const throw(tcpip::SocketException);
+        RGBColor getColor(const std::string &polygonID) const throw(tcpip::SocketException);
+        void setType(const std::string &polygonID, const std::string &setType) const throw(tcpip::SocketException);
+        void setShape(const std::string &polygonID, const PositionVector &shape) const throw(tcpip::SocketException);
+        void setColor(const std::string &polygonID, const RGBColor &c) const throw(tcpip::SocketException);
+        void add(const std::string &polygonID, const PositionVector &shape, const RGBColor &c, bool fill, const std::string &type, int layer) const throw(tcpip::SocketException);
+        void remove(const std::string &polygonID, int layer) const throw(tcpip::SocketException);
+
     };
 
 
