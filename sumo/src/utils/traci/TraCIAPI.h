@@ -36,11 +36,19 @@
 #include <utils/common/SUMOTime.h>
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Boundary;
 class PositionVector;
 class RGBColor;
 class Position;
 
+
+// ===========================================================================
+// global definitions
+// ===========================================================================
+#define DEFAULT_VIEW "View #0"
 
 
 // ===========================================================================
@@ -134,10 +142,10 @@ public:
         virtual ~GUIScope() {}
 
         std::vector<std::string> getIDList() const throw(tcpip::SocketException);
-        SUMOReal getZoom(const std::string &viewID) const throw(tcpip::SocketException);
-        Position getOffset(const std::string &viewID) const throw(tcpip::SocketException);
-        std::string getSchema(const std::string &viewID) const throw(tcpip::SocketException);
-        Boundary getBoundary(const std::string &viewID) const throw(tcpip::SocketException);
+        SUMOReal getZoom(const std::string &viewID=DEFAULT_VIEW) const throw(tcpip::SocketException);
+        Position getOffset(const std::string &viewID=DEFAULT_VIEW) const throw(tcpip::SocketException);
+        std::string getSchema(const std::string &viewID=DEFAULT_VIEW) const throw(tcpip::SocketException);
+        Boundary getBoundary(const std::string &viewID=DEFAULT_VIEW) const throw(tcpip::SocketException);
         void setZoom(const std::string &viewID, SUMOReal zoom) const throw(tcpip::SocketException);
         void setOffset(const std::string &viewID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException);
         void setSchema(const std::string &viewID, const std::string &schemeName) const throw(tcpip::SocketException);
@@ -240,7 +248,7 @@ public:
         void setPosition(const std::string &poiID, SUMOReal x, SUMOReal y) const throw(tcpip::SocketException);
         void setColor(const std::string &poiID, const RGBColor &c) const throw(tcpip::SocketException);
         void add(const std::string &poiID, SUMOReal x, SUMOReal y, const RGBColor &c, const std::string &type, int layer) const throw(tcpip::SocketException);
-        void remove(const std::string &poiID, int layer) const throw(tcpip::SocketException);
+        void remove(const std::string &poiID, int layer=0) const throw(tcpip::SocketException);
 
     };
 
@@ -257,7 +265,7 @@ public:
         void setShape(const std::string &polygonID, const PositionVector &shape) const throw(tcpip::SocketException);
         void setColor(const std::string &polygonID, const RGBColor &c) const throw(tcpip::SocketException);
         void add(const std::string &polygonID, const PositionVector &shape, const RGBColor &c, bool fill, const std::string &type, int layer) const throw(tcpip::SocketException);
-        void remove(const std::string &polygonID, int layer) const throw(tcpip::SocketException);
+        void remove(const std::string &polygonID, int layer=0) const throw(tcpip::SocketException);
 
     };
 
