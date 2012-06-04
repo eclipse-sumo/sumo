@@ -95,23 +95,23 @@ for row in range(DOUBLE_ROWS):
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sr" type="car" depart="0" departPos="0" arrivalPos="10000">
+    <vehicle id="v%sr" type="car" depart="0" departPos="0">
         <route edges="%sr -%sr"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <flow id="p%sr" type="person" begin="0" period="1" number="%s" arrivalPos="10000">
+    <flow id="p%sr" type="person" begin="0" period="1" number="%s">
         <route edges="%sr -%sr"/>
     </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
         if random.uniform(0,1) < OCCUPATION_PROBABILITY:
             occupied += 1
             print >> routes, """\
-    <vehicle id="v%sl" type="car" depart="0" departPos="0" arrivalPos="10000">
+    <vehicle id="v%sl" type="car" depart="0" departPos="0">
         <route edges="%sl -%sl"/>
     </vehicle>""" % (vSlot, vSlot, vSlot)
         else:
             print >> routes, """\
-    <flow id="p%sl" type="person" begin="0" period="1" number="%s" arrivalPos="10000">
+    <flow id="p%sl" type="person" begin="0" period="1" number="%s">
         <route edges="%sl -%sl"/>
     </flow>""" % (slotID, CAR_CAPACITY, slotID, slotID)
 x = DOUBLE_ROWS * ROW_DIST + ROW_DIST/2
@@ -157,7 +157,7 @@ connections.close()
 os.system("%s --no-internal-links -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
-print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" number="%s" arrivalPos="10000">
+print >> routes, """    <flow id="b" type="cybercar" begin="0" period="100" number="%s">
         <route edges="cyberin"/>
     </flow>
 </routes>""" % numBusses
@@ -165,7 +165,7 @@ routes.close()
 
 routes = open("%s_cyber.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <flow id="c" type="cybercar" begin="50" period="100" number="%s" arrivalPos="10000">
+    <flow id="c" type="cybercar" begin="50" period="100" number="%s">
         <route edges="cyberin"/>
     </flow>
 </routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses)
@@ -191,13 +191,13 @@ for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print >> routes, "<routes>"
     if occupied < totalSlots:
-        print >> routes, """    <flow id="v" type="car" begin="10" period="%s" number="%s" arrivalPos="10000">
-            <route edges="mainin"/>
-        </flow>""" % (period, totalSlots-occupied)
+        print >> routes, """    <flow id="v" type="car" begin="10" period="%s" number="%s">
+        <route edges="mainin"/>
+    </flow>""" % (period, totalSlots-occupied)
     if occupied > 0:
-        print >> routes, """    <flow id="p" type="person" begin="10" period="%s" number="%s" arrivalPos="10000">
-            <route edges="footfairin"/>
-        </flow>""" % (period, occupied*CAR_CAPACITY)
+        print >> routes, """    <flow id="p" type="person" begin="10" period="%s" number="%s">
+        <route edges="footfairin"/>
+    </flow>""" % (period, occupied*CAR_CAPACITY)
     print >> routes, "</routes>"
     routes.close()
 
