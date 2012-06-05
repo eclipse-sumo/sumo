@@ -555,6 +555,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.cpp"
 				>
 			</File>
@@ -572,6 +576,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.cpp"
 				>
 			</File>
 			<File
@@ -755,6 +763,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_IDM.h"
 				>
 			</File>
@@ -774,10 +786,14 @@
 				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_PWag2009.h"
 				>
 			</File>
-		<File
-			RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h"
-			>
-		</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice.h"
 				>

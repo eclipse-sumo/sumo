@@ -247,6 +247,8 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp" />
@@ -296,6 +298,8 @@
     <ClCompile Include="..\..\..\src\microsim\MSVehicleType.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h" />
