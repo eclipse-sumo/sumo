@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSCFModel_SmartSK.h
 /// @author  Daniel Krajzewicz
-/// @date    Tue, 28 Jul 2009
-/// @version $Id: MSCFModel_SmartSK.h 11671 2012-01-07 20:14:30Z behrisch $
+/// @date    Tue, 05 Jun 2012
+/// @version $Id$
 ///
 // A smarter SK
 /****************************************************************************/

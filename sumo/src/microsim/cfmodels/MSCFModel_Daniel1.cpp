@@ -1,8 +1,8 @@
 /****************************************************************************/
 /// @file    MSCFModel_Daniel1.cpp
 /// @author  Daniel Krajzewicz
-/// @date    Mon, 04 Aug 2009
-/// @version $Id: MSCFModel_Daniel1.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @date    Tue, 05 Jun 2012
+/// @version $Id$
 ///
 // The original Krauss (1998) car-following model and parameter
 /****************************************************************************/
