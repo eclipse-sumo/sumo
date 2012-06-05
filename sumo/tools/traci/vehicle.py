@@ -473,7 +473,7 @@ def setSignals(vehID, signals):
     traci._sendIntCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SIGNALS, vehID, signals)
 
 def moveTo(vehID, laneID, pos):
-    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO, vehID, 1+4+1+4+len(laneID)+8)
+    traci._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MOVE_TO, vehID, 1+4+1+4+len(laneID)+1+8)
     traci._message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
     traci._message.string += struct.pack("!Bi", tc.TYPE_STRING, len(laneID)) + laneID
     traci._message.string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
