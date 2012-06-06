@@ -93,7 +93,7 @@ public:
      * @see MSCFModel::getModelName
      */
     virtual int getModelID() const {
-        return SUMO_TAG_CF_KRAUSS_ORIG1;
+        return SUMO_TAG_CF_SMART_SK;
     }
 
 
