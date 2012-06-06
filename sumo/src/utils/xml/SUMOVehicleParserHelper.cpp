@@ -588,6 +588,30 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = krausParams;
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS_ORIG1] = krausParams;
 
+        std::set<SumoXMLAttr> smartSKParams;
+        smartSKParams.insert(SUMO_ATTR_ACCEL);
+        smartSKParams.insert(SUMO_ATTR_DECEL);
+        smartSKParams.insert(SUMO_ATTR_SIGMA);
+        smartSKParams.insert(SUMO_ATTR_TAU);
+        smartSKParams.insert(SUMO_ATTR_TMP1);
+        smartSKParams.insert(SUMO_ATTR_TMP2);
+        smartSKParams.insert(SUMO_ATTR_TMP3);
+        smartSKParams.insert(SUMO_ATTR_TMP4);
+        smartSKParams.insert(SUMO_ATTR_TMP5);
+        allowedCFModelAttrs[SUMO_TAG_CF_SMART_SK] = smartSKParams;
+
+        std::set<SumoXMLAttr> daniel1Params;
+        daniel1Params.insert(SUMO_ATTR_ACCEL);
+        daniel1Params.insert(SUMO_ATTR_DECEL);
+        daniel1Params.insert(SUMO_ATTR_SIGMA);
+        daniel1Params.insert(SUMO_ATTR_TAU);
+        daniel1Params.insert(SUMO_ATTR_TMP1);
+        daniel1Params.insert(SUMO_ATTR_TMP2);
+        daniel1Params.insert(SUMO_ATTR_TMP3);
+        daniel1Params.insert(SUMO_ATTR_TMP4);
+        daniel1Params.insert(SUMO_ATTR_TMP5);
+        allowedCFModelAttrs[SUMO_TAG_CF_DANIEL1] = daniel1Params;
+
         std::set<SumoXMLAttr> pwagParams;
         pwagParams.insert(SUMO_ATTR_ACCEL);
         pwagParams.insert(SUMO_ATTR_DECEL);

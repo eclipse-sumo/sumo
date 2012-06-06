@@ -218,6 +218,8 @@ enum SumoXMLTag {
 
     SUMO_TAG_CF_KRAUSS,
     SUMO_TAG_CF_KRAUSS_ORIG1,
+    SUMO_TAG_CF_SMART_SK,
+    SUMO_TAG_CF_DANIEL1,
     SUMO_TAG_CF_IDM,
     SUMO_TAG_CF_IDMM,
     SUMO_TAG_CF_PWAGNER2009,
@@ -345,6 +347,11 @@ enum SumoXMLAttr {
     /* Car following model attributes */
     SUMO_ATTR_SIGMA,    // used by: Krauss
     SUMO_ATTR_TAU,      // Krauss
+    SUMO_ATTR_TMP1,
+    SUMO_ATTR_TMP2,
+    SUMO_ATTR_TMP3,
+    SUMO_ATTR_TMP4,
+    SUMO_ATTR_TMP5,
     /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,

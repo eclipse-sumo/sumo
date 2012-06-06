@@ -344,6 +344,11 @@ const SUMOReal DEFAULT_VEH_HEIGHT(1.5);
 const SumoXMLTag DEFAULT_VEH_FOLLOW_MODEL(SUMO_TAG_CF_KRAUSS);
 const std::string DEFAULT_VEH_LANE_CHANGE_MODEL("dkrajzew2008");
 const SUMOVehicleShape DEFAULT_VEH_SHAPE(SVS_UNKNOWN);
+const SUMOReal DEFAULT_VEH_TMP1(1.);
+const SUMOReal DEFAULT_VEH_TMP2(1.);
+const SUMOReal DEFAULT_VEH_TMP3(1.);
+const SUMOReal DEFAULT_VEH_TMP4(1.);
+const SUMOReal DEFAULT_VEH_TMP5(1.);
 
 /****************************************************************************/
 

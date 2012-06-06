@@ -174,6 +174,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-IDMM",        SUMO_TAG_CF_IDMM },
     { "carFollowing-Krauss",      SUMO_TAG_CF_KRAUSS },
     { "carFollowing-KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
+    { "carFollowing-SmartSK",     SUMO_TAG_CF_SMART_SK },
+    { "carFollowing-Daniel1",     SUMO_TAG_CF_DANIEL1 },
     { "carFollowing-PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
     { "carFollowing-BKerner",     SUMO_TAG_CF_BKERNER },
     { "carFollowing-Wiedemann",   SUMO_TAG_CF_WIEDEMANN },
@@ -274,6 +276,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "sigma",          SUMO_ATTR_SIGMA },
     { "tau",            SUMO_ATTR_TAU },
+    { "tmp1",           SUMO_ATTR_TMP1 },
+    { "tmp2",           SUMO_ATTR_TMP2 },
+    { "tmp3",           SUMO_ATTR_TMP3 },
+    { "tmp4",           SUMO_ATTR_TMP4 },
+    { "tmp5",           SUMO_ATTR_TMP5 },
 
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
