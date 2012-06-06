@@ -72,13 +72,13 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 
 SUMOReal
 MSCFModel_SmartSK::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
+    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed)));
 }
 
 
 SUMOReal
 MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
+    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
 }
 
 
