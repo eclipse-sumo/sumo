@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <add>
     <tlLogic id="0" type="static" programID="own1" offset="0">
         <phase duration="15" state="GGggrrrrGGggrrrr" minDur="10" maxDur="30"/>
