@@ -94,7 +94,7 @@ if __name__ == "__main__":
         components = getWeaklyConnected(net)
         if len(components) != 1:
             print "Warning! Net is not connected."
-            for idx, comp in enumerate(components):
+            for idx, comp in enumerate(sorted(components, key=lambda c: iter(c).next())):
                 print "Component", idx
                 print " ".join(comp)
                 print
