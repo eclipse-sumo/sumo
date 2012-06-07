@@ -107,7 +107,7 @@ for tlsFile in allTLS:
 
 net1 = sumolib.net.readNet(sys.argv[2])
 
-print '<?xml version="1.0" encoding="iso-8859-1"?>\n<add>'
+print '<?xml version="1.0" encoding="UTF-8"?>\n<add>'
 for keyIndex, key in enumerate(allKeys):
     minTimes = allMinTimes[keyIndex]
     maxTimes = allMaxTimes[keyIndex]
@@ -128,18 +128,18 @@ for keyIndex, key in enumerate(allKeys):
         lo = tl_c[1] # outgoing lane in our net
         for l in links:
             valid = True
-            if l[0].find('_')<0:
+            if l[0].find('_') < 0:
                 # edge only given
-                if l[0]!=li.getEdge().getID():
+                if l[0] != li.getEdge().getID():
                     valid = False
             else:
                 # lane given
-                if l[0]!=li.getID():
+                if l[0] != li.getID():
                     valid = False
             if l[1]!="":
-                if l[1].find('_')<0:
+                if l[1].find('_') < 0:
                     # edge only given
-                    if l[1]!=lo.getEdge().getID():
+                    if l[1] != lo.getEdge().getID():
                         valid = False
                 else:
                     # lane given
@@ -148,7 +148,9 @@ for keyIndex, key in enumerate(allKeys):
             if valid:
                 linkMap[tl_c[2]] = l[2]
                 laneMap[tl_c[2]] = (li, lo)
-#print linkMap
+        if laneMap[tl_c[2]] == None:
+            print >> sys.stderr, "Error: No link definition for connection (%s, %s)!" % (li.getID(), lo.getID())
+            sys.exit()
 
     nodes = set()
     for l in laneMap:
@@ -169,7 +171,7 @@ for keyIndex, key in enumerate(allKeys):
 
     for l in range(0, len(linkMap)):
         if linkMap[l] not in links2index:
-            print >> sys.stderr, "Link %s is not described (%s)" % (l, linkMap[l])
+            print >> sys.stderr, "Error: Link %s is not described (%s)!" % (l, linkMap[l])
             sys.exit()
 
     print '    <tlLogic id="' + key + '" type="static" programID="' + subkey + '" offset="' + offset + '">'

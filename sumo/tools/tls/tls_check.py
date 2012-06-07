@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    tls_csv2SUMO.py
+@file    tls_check.py
 @author  Daniel Krajzewicz
 @author  Michael Behrisch
 @date    2009-08-01
@@ -21,7 +21,7 @@ import sumolib.net
 
 
 if len(sys.argv)<2:
-    print >> sys.stderr, "Call: tls_csv2SUMO.py <NET>"
+    print >> sys.stderr, "Call: tls_check.py <NET>"
     sys.exit()
 
 net1 = sumolib.net.readNet(sys.argv[1], withPrograms=True)
@@ -34,5 +34,5 @@ for tlsID in net1._id2tls:
         print "   Checking program '%s'" % prog
         prog = tls._programs[prog]
         for i, phase in enumerate(prog._phases):
-            if len(phase[0])!=noConnections:
+            if len(phase[0]) != noConnections:
                 print "      Error: phase %s describes %s signals instead of %s." % (i, len(phase[0]), noConnections)
