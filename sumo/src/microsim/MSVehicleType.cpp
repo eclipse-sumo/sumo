@@ -42,6 +42,8 @@
 #include "cfmodels/MSCFModel_Kerner.h"
 #include "cfmodels/MSCFModel_Krauss.h"
 #include "cfmodels/MSCFModel_KraussOrig1.h"
+#include "cfmodels/MSCFModel_SmartSK.h"
+#include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include "cfmodels/MSCFModel_Wiedemann.h"
 #include "MSVehicleType.h"
@@ -246,6 +248,30 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
                                               from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
                                               from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
                                               from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU));
+            break;
+        case SUMO_TAG_CF_SMART_SK:
+            model = new MSCFModel_SmartSK(vtype,
+                                              from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                              from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                              from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                              from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                              from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
+                                              from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
+                                              from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
+                                              from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
+                                              from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
+            break;
+        case SUMO_TAG_CF_DANIEL1:
+            model = new MSCFModel_Daniel1(vtype,
+                                              from.get(SUMO_ATTR_ACCEL, DEFAULT_VEH_ACCEL),
+                                              from.get(SUMO_ATTR_DECEL, DEFAULT_VEH_DECEL),
+                                              from.get(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                              from.get(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                              from.get(SUMO_ATTR_TMP1, DEFAULT_VEH_TMP1),
+                                              from.get(SUMO_ATTR_TMP2, DEFAULT_VEH_TMP2),
+                                              from.get(SUMO_ATTR_TMP3, DEFAULT_VEH_TMP3),
+                                              from.get(SUMO_ATTR_TMP4, DEFAULT_VEH_TMP4),
+                                              from.get(SUMO_ATTR_TMP5, DEFAULT_VEH_TMP5));
             break;
         case SUMO_TAG_CF_PWAGNER2009:
             model = new MSCFModel_PWag2009(vtype,
