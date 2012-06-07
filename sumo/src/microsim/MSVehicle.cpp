@@ -303,7 +303,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (depLane == 0) {
         throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
     }
-    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getMaxSpeed()) {
+    if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > depLane->getVehicleMaxSpeed(this)) {
         throw ProcessError("Departure speed for vehicle '" + pars->id +
                            "' is too high for the departure lane '" + depLane->getID() + "'.");
     }
@@ -640,19 +640,19 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
     myLFLinkLanes.clear();
     //
     const MSCFModel& cfModel = getCarFollowModel();
-    SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());
+    SUMOReal vBeg = MIN2(cfModel.maxNextSpeed(myState.mySpeed), lane->getVehicleMaxSpeed(this));
     // check whether the vehicle is not on an appropriate lane
     bool onAppropriateLane = myLane->appropriate(this);
     if (!onAppropriateLane) {
         // decelerate to lane end when yes
         SUMOReal place = MIN2(myLane->getLength() - (SUMOReal)POSITION_EPS, getVehicleType().getMinGap());
-        vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos - place), myLane->getMaxSpeed());
+        vBeg = MIN2(cfModel.stopSpeed(this, myLane->getLength() - myState.myPos - place), myLane->getVehicleMaxSpeed(this));
     }
     if (myCurrEdge == myRoute->end() - 1) {
         if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
-            vBeg = MIN2(cfModel.freeSpeed(this, getSpeed(), myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getMaxSpeed());
+            vBeg = MIN2(cfModel.freeSpeed(this, getSpeed(), myArrivalPos - myState.myPos, myParameter->arrivalSpeed), myLane->getVehicleMaxSpeed(this));
         } else {
-            vBeg = myLane->getMaxSpeed();
+            vBeg = myLane->getVehicleMaxSpeed(this);
         }
     }
     // interaction with leader
@@ -1157,7 +1157,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe) {
 
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
-        SUMOReal vmaxNextLane = MAX2(cfModel.freeSpeed(this, getSpeed(), seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
+        SUMOReal vmaxNextLane = MAX2(cfModel.freeSpeed(this, getSpeed(), seen, nextLane->getVehicleMaxSpeed(this)), nextLane->getVehicleMaxSpeed(this));
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -1729,7 +1729,7 @@ MSVehicle::setBlinkerInformation() {
     } else {
         const MSLane* lane = getLane();
         MSLinkCont::const_iterator link = lane->succLinkSec(*this, 1, *lane, getBestLanesContinuation());
-        if (link != lane->getLinkCont().end() && lane->getLength() - getPositionOnLane() < lane->getMaxSpeed() * (SUMOReal) 7.) {
+        if (link != lane->getLinkCont().end() && lane->getLength() - getPositionOnLane() < lane->getVehicleMaxSpeed(this) * (SUMOReal) 7.) {
             switch ((*link)->getDirection()) {
                 case LINKDIR_TURN:
                 case LINKDIR_LEFT:

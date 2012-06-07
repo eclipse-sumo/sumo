@@ -153,7 +153,7 @@ MSFullExport::writeLane(OutputDevice& of, const MSLane& lane) {
 		<< "\" hc=\"" << lane.getHBEFA_HCEmissions() 
 		<< "\" noise=\"" << lane.getHarmonoise_NoiseEmissions() 
 		<< "\" fuel=\"" << lane.getHBEFA_FuelConsumption() 
-		<< "\" maxspeed=\"" << lane.getMaxSpeed()*3.6 
+		<< "\" maxspeed=\"" << lane.getSpeedLimit()*3.6 
 		<< "\" meanspeed=\"" << lane.getMeanSpeed()*3.6 
 		<< "\" occupancy=\"" << lane.getOccupancy()	
 		<< "\" vehicle_count=\"" << lane.getVehicleNumber() << "\"";

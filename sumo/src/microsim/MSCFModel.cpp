@@ -61,7 +61,7 @@ MSCFModel::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe - oldV));
     const SUMOReal vMin = MAX2((SUMOReal) 0, oldV - ACCEL2SPEED(myDecel));
-    const SUMOReal vMax = MIN3(veh->getLane()->getMaxSpeed(), maxNextSpeed(oldV), vSafe);
+    const SUMOReal vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV), vSafe);
     assert(vMin <= vMax);
     return veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
 }
@@ -72,7 +72,7 @@ MSCFModel::interactionGap(const MSVehicle* const veh, SUMOReal vL) const {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getMaxSpeed());
+    const SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane()->getVehicleMaxSpeed(veh));
     const SUMOReal gap = (vNext - vL) *
                          ((veh->getSpeed() + vL) / (2.*myDecel) + myHeadwayTime) +
                          vL * myHeadwayTime;

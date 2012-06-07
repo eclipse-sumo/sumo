@@ -512,10 +512,9 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
-    ret->mkItem("maxspeed [m/s]", false, myLane.getMaxSpeed());
+    ret->mkItem("maxspeed [m/s]", false, myLane.getSpeedLimit());
     ret->mkItem("length [m]", false, myLane.getLength());
-    ret->mkItem("stored traveltime [s]", true,
-                new FunctionBinding<GUILaneWrapper, SUMOReal>(this, &GUILaneWrapper::getStoredEdgeTravelTime));
+    ret->mkItem("stored traveltime [s]", true, new FunctionBinding<GUILaneWrapper, SUMOReal>(this, &GUILaneWrapper::getStoredEdgeTravelTime));
     // close building
     ret->closeBuilding();
     return ret;
@@ -641,7 +640,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
             }
         }
         case 3:
-            return getLane().getMaxSpeed();
+            return getLane().getSpeedLimit();
         case 4:
             return getLane().getOccupancy();
         case 5:
@@ -673,7 +672,7 @@ GUILaneWrapper::getColorValue(size_t activeScheme) const {
             } else {
                 SUMOReal value(0);
                 ews.retrieveExistingTravelTime(&e, 0, 0, value);
-                return (getLane().getLength() / getLane().getMaxSpeed()) / (getLane().getMaxSpeed() / value);
+                return (getLane().getLength() / getLane().getSpeedLimit()) / (getLane().getSpeedLimit() / value);
             }
         }
     }

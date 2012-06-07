@@ -305,7 +305,7 @@ public:
 
     /// @brief returns the minimum travel time for the given vehicle
     inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
-        return getLength() / MIN2(veh->getMaxSpeed(), getMaxSpeed());
+        return getLength() / MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
     }
 
 
@@ -393,15 +393,35 @@ public:
     void rebuildAllowedLanes();
 
 
-    /// @brief optimistic distance heuristic for use in routing
+    /** @brief optimistic air distance heuristic for use in routing
+     * @param[in] other The edge to which the distance shall be returned
+     * @return The distance to the other edge
+     */
     SUMOReal getDistanceTo(const MSEdge* other) const;
 
 
-    /// @brief return the length of the edge
+    /** @brief return the length of the edge
+     * @return The edge's length
+     */
     SUMOReal getLength() const;
 
-    /// @brief return the maximum speed the edge
-    SUMOReal getMaxSpeed() const;
+
+    /** @brief Returns the speed limit of the edge
+     * @caution The speed limit of the first lane is retured; should probably be the fastest edge
+     * @return The maximum speed allowed on this edge
+     */
+    SUMOReal getSpeedLimit() const;
+
+
+    /** @brief Returns the maximum speed the vehicle may use on this edge
+     *
+     * Note that the vehicle's max. speed is not considered herein, only the edge's speed limit and the
+     *  driver's adaptation of this speed.
+     * @caution Only the first lane is considered
+     * @return The maximum velocity on this edge for the given vehicle
+     */
+    SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
+
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise

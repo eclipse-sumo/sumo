@@ -41,6 +41,7 @@
 #include <cassert>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/SUMOVehicle.h>
 #include <utils/geom/PositionVector.h>
 #include "MSLinkCont.h"
 #include "MSMoveReminder.h"
@@ -70,7 +71,7 @@ class OutputDevice;
  */
 class MSLane : public Named {
 public:
-    /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
+    /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
 
     friend class GUILaneWrapper;
@@ -327,10 +328,19 @@ public:
     }
 
 
-    /** @brief Returns the lane's maximum speed
-     * @return This lane's maximum speed
+    /** @brief Returns the lane's maximum speed, given a vehicle's speed limit adaptation
+     * @param[in] The vehicle to return the adapted speed limit for
+     * @return This lane's resulting max. speed
      */
-    SUMOReal getMaxSpeed() const {
+    SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
+        return myMaxSpeed * veh->getChosenSpeedFactor();
+    }
+
+
+    /** @brief Returns the lane's maximum allowed speed
+     * @return This lane's maximum allowed speed
+     */
+    SUMOReal getSpeedLimit() const {
         return myMaxSpeed;
     }
 

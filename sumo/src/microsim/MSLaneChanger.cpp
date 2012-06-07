@@ -378,7 +378,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
         }
     }
     if (neighFollow == 0) {
-        SUMOReal speed = target->lane->getMaxSpeed();
+        SUMOReal speed = target->lane->getSpeedLimit();
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         // we'll assume it to be 4m/s^2
         // !!!revisit

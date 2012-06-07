@@ -54,7 +54,7 @@ public:
     static void insertRandOptions();
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
-    static void initRandGlobal();
+    static void initRandGlobal(MTRand *which=0);
 
     /// @brief Returns a random real number in [0, 1)
     static inline SUMOReal rand() {

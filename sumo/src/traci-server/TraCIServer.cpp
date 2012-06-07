@@ -561,9 +561,9 @@ TraCIServer::commandAddVehicle() {
     // calculate speed
     float clippedInsertionSpeed;
     if (insertionSpeed < 0) {
-        clippedInsertionSpeed = (float) MIN2(lane->getMaxSpeed(), vehicle->getMaxSpeed());
+        clippedInsertionSpeed = (float) MIN2(lane->getVehicleMaxSpeed(vehicle), vehicle->getMaxSpeed());
     } else {
-        clippedInsertionSpeed = (float) MIN3(lane->getMaxSpeed(), vehicle->getMaxSpeed(), insertionSpeed);
+        clippedInsertionSpeed = (float) MIN3(lane->getVehicleMaxSpeed(vehicle), vehicle->getMaxSpeed(), insertionSpeed);
     }
 
     // insert vehicle into the dictionary

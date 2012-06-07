@@ -158,7 +158,7 @@ private:
     SUMOReal _v(const MSVehicle* const veh, SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
 
     SUMOReal desiredSpeed(const MSVehicle* const veh) const {
-        return MIN2(myType->getMaxSpeed(), veh->getLane()->getMaxSpeed());
+        return MIN2(myType->getMaxSpeed(), veh->getLane()->getVehicleMaxSpeed(veh));
     }
 
 

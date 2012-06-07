@@ -348,11 +348,11 @@ MSLane::insertVehicle(MSVehicle& veh) {
             patchSpeed = false;
             break;
         case DEPART_SPEED_RANDOM:
-            speed = RandHelper::rand(MIN2(veh.getMaxSpeed(), getMaxSpeed()));
+            speed = RandHelper::rand(MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh)));
             patchSpeed = true; // !!!(?)
             break;
         case DEPART_SPEED_MAX:
-            speed = MIN2(veh.getMaxSpeed(), getMaxSpeed());
+            speed = MIN2(veh.getMaxSpeed(), getVehicleMaxSpeed(&veh));
             patchSpeed = true; // !!!(?)
             break;
         case DEPART_SPEED_DEFAULT:
@@ -474,7 +474,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check next lane's maximum velocity
-            const SUMOReal nspeed = nextLane->getMaxSpeed();
+            const SUMOReal nspeed = nextLane->getVehicleMaxSpeed(aVehicle);
             if (nspeed < speed) {
                 // patch speed if needed
                 if (patchSpeed) {
@@ -562,7 +562,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
     } else {
         // check approaching vehicle (consecutive follower)
-        SUMOReal lspeed = getMaxSpeed();
+        SUMOReal lspeed = getVehicleMaxSpeed(aVehicle);
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         //  we'll assume it to be 4m/s^2
         //   !!!revisit
@@ -715,7 +715,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
     while (seen < dist && next != veh.getRoute().end() - 1) {
         ++next;
         MSLane* nextLane = (*next)->getLanes()[0];
-        tspeed = MIN2(cfModel.freeSpeed(&veh, tspeed, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
+        tspeed = MIN2(cfModel.freeSpeed(&veh, tspeed, seen, nextLane->getVehicleMaxSpeed(&veh)), nextLane->getVehicleMaxSpeed(&veh));
         dist = SPEED2DIST(tspeed) + cfModel.brakeGap(tspeed);
         seen += nextLane->getMaxSpeed();
     }
@@ -1124,8 +1124,8 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
                 return std::pair<MSVehicle * const, SUMOReal>(leader, seen + nextLane->getPartialOccupatorEnd());
             }
         }
-        if (nextLane->getMaxSpeed() < speed) {
-            dist = veh.getCarFollowModel().brakeGap(nextLane->getMaxSpeed());
+        if (nextLane->getVehicleMaxSpeed(&veh) < speed) {
+            dist = veh.getCarFollowModel().brakeGap(nextLane->getVehicleMaxSpeed(&veh));
         }
         seen += nextLane->getLength();
         if (seen > dist) {

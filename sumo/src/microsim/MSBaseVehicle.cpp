@@ -61,6 +61,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myIndividualMaxSpeed(0.0),
     myHasIndividualMaxSpeed(false),
     myReferenceSpeed(-1.0),
+    myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
     myMoveReminders(0),
     myDeparture(-1),
     myArrivalPos(-1),
@@ -70,6 +71,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     MSDevice_Tripinfo::buildVehicleDevices(*this, myDevices);
     MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
+    //
     for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
         myMoveReminders.push_back(std::make_pair(*dev, 0.));
     }

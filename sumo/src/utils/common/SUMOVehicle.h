@@ -189,6 +189,7 @@ public:
     virtual bool isStopped() const = 0;
 
 
+    virtual SUMOReal getChosenSpeedFactor() const = 0;
 };
 
 

@@ -518,9 +518,16 @@ MSEdge::getLength() const {
 
 
 SUMOReal 
-MSEdge::getMaxSpeed() const {
+MSEdge::getSpeedLimit() const {
     // @note lanes might have different maximum speeds in theory
-    return getLanes()[0]->getMaxSpeed();
+    return getLanes()[0]->getSpeedLimit();
+}
+
+
+SUMOReal 
+MSEdge::getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
+    // @note lanes might have different maximum speeds in theory
+    return getLanes()[0]->getVehicleMaxSpeed(veh);
 }
 
 /****************************************************************************/

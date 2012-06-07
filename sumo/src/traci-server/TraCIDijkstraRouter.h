@@ -127,7 +127,7 @@ public:
             return value;
         }
         const MSLane* const l = e->getLanes()[0];
-        return l->getLength() / l->getMaxSpeed();
+        return l->getLength() / l->getSpeedLimit();
     }
 
 

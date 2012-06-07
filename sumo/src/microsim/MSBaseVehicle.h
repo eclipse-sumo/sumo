@@ -220,6 +220,13 @@ public:
      */
     virtual void activateReminders(const MSMoveReminder::Notification reason);
 
+    /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
+     * @return Speed limit factor
+     */
+    SUMOReal getChosenSpeedFactor() const {
+        return myChosenSpeedFactor;
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position from the vehicle parameters
      */
@@ -249,6 +256,10 @@ protected:
 
     /// the speed which served as reference when calculating the individual maxspeed
     SUMOReal myReferenceSpeed;
+
+    /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
+    SUMOReal myChosenSpeedFactor;
+
 
     /// @name Move reminder structures
     /// @{

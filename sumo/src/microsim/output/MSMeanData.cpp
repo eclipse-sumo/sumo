@@ -361,7 +361,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (writePrefix(dev, *data, "edge", edge->getID())) {
             data->write(dev, stopTime - startTime,
                         (SUMOReal)edge->getLanes().size(),
-                        myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
+                        myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
         }
         data->reset(true);
         return;
@@ -384,8 +384,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, "lane", meanData.getLane()->getID())) {
-                meanData.write(dev, stopTime - startTime, 1.f,
-                               myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getMaxSpeed() : -1.);
+                meanData.write(dev, stopTime - startTime, 1.f, myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getSpeedLimit() : -1.);
             }
             meanData.reset(true);
         }
@@ -396,8 +395,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, "edge", edge->getID())) {
-                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(),
-                               myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
+                meanData.write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             meanData.reset(true);
         } else {
@@ -408,8 +406,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 meanData.reset();
             }
             if (writePrefix(dev, *sumData, "edge", edge->getID())) {
-                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(),
-                               myPrintDefaults ? edge->getLength() / edge->getMaxSpeed() : -1.);
+                sumData->write(dev, stopTime - startTime, (SUMOReal)edge->getLanes().size(), myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;
         }

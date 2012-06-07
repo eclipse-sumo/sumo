@@ -43,6 +43,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
+#include <foreign/mersenne/MersenneTwister.h>
 
 
 // ===========================================================================
@@ -184,6 +185,9 @@ public:
         SUMOReal speed = MIN3(RandHelper::randNorm(meanSpeed, speedDev), meanSpeed + 2 * speedDev, myMaxSpeed);
         return MAX3((SUMOReal)0.0, speed, meanSpeed - 2 * speedDev);
     }
+
+
+    SUMOReal computeChosenSpeedDeviation() const;
 
 
     /** @brief Get the default probability of this vehicle type
@@ -406,6 +410,11 @@ public:
     bool amVehicleSpecific() const {
         return myOriginalType != 0;
     }
+
+
+public:
+    /// @brief the random number generator to use
+    static MTRand mySpeedDevRND;
 
 
 private:

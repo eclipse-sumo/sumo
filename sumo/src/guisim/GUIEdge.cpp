@@ -370,7 +370,7 @@ GUIEdge::getMeanSpeed() const {
         no += vehNo;
     }
     if (no == 0) {
-        return getMaxSpeed();
+        return getSpeedLimit();
     }
     return v / no;
 }
@@ -378,7 +378,7 @@ GUIEdge::getMeanSpeed() const {
 
 SUMOReal
 GUIEdge::getAllowedSpeed() const {
-    return (*myLanes)[0]->getMaxSpeed();
+    return (*myLanes)[0]->getSpeedLimit();
 }
 
 

@@ -108,7 +108,7 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                 break;
             case VAR_MAXSPEED:
                 tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(lane->getMaxSpeed());
+                tempMsg.writeDouble(lane->getSpeedLimit());
                 break;
             case LANE_LINKS: {
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
