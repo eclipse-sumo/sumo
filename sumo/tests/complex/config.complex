@@ -43,6 +43,7 @@ errors:delete: freed
 
 [floating_point_tolerance]
 output:0.0001
+net:0.0101
 vss:0.0001
 
 [batch_extra_version]
