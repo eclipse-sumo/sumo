@@ -717,7 +717,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
         MSLane* nextLane = (*next)->getLanes()[0];
         tspeed = MIN2(cfModel.freeSpeed(&veh, tspeed, seen, nextLane->getVehicleMaxSpeed(&veh)), nextLane->getVehicleMaxSpeed(&veh));
         dist = SPEED2DIST(tspeed) + cfModel.brakeGap(tspeed);
-        seen += nextLane->getMaxSpeed();
+        seen += nextLane->getLength();
     }
     return tspeed;
 }
