@@ -322,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h" />
-    <ClInclude Include="..\..\..\src\traci-server\TraCIDijkstraRouter.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_Edge.h" />
     <ClInclude Include="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h" />

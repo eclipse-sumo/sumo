@@ -42,7 +42,6 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include "TraCIConstants.h"
-#include "TraCIDijkstraRouter.h"
 #include "TraCIServerAPI_Simulation.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -413,15 +412,14 @@ TraCIServerAPI_Simulation::commandDistanceRequest(traci::TraCIServer& server, tc
     SUMOReal distance = 0.0;
     if (distType == REQUEST_DRIVINGDIST) {
         // compute driving distance
-        std::vector<const MSEdge*> edges;
-        TraCIDijkstraRouter<MSEdge> router(MSEdge::dictSize());
-
-        if ((roadPos1.first == roadPos2.first)
-                && (roadPos1.second <= roadPos2.second)) {
+        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
+            // same edge
             distance = roadPos2.second - roadPos1.second;
         } else {
-            router.compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), NULL, MSNet::getInstance()->getCurrentTimeStep(), edges);
-            MSRoute route("", edges, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
+            MSEdgeVector newRoute;
+            MSNet::getInstance()->getRouterTT().compute(
+                    &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
             distance = route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {

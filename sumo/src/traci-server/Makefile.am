@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libtraciserver.a
 
-libtraciserver_a_SOURCES = TraCIConstants.h TraCIDijkstraRouter.h \
+libtraciserver_a_SOURCES = TraCIConstants.h \
 TraCIException.h \
 TraCIServer.h TraCIServer.cpp \
 TraCIServerAPI_Edge.h TraCIServerAPI_Edge.cpp \

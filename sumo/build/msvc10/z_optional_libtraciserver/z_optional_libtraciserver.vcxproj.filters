@@ -59,9 +59,6 @@
     <ClInclude Include="..\..\..\src\traci-server\TraCIConstants.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\traci-server\TraCIDijkstraRouter.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\traci-server\TraCIServer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
