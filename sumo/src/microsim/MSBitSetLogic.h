@@ -35,7 +35,6 @@
 
 #include <bitset>
 #include <vector>
-#include <cassert>
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
 

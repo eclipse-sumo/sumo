@@ -32,7 +32,6 @@
 #endif
 
 #include <vector>
-#include <cassert>
 #include <limits>
 #include "MSMeanData.h"
 

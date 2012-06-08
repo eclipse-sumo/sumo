@@ -33,7 +33,6 @@
 
 #include <vector>
 #include <set>
-#include <cassert>
 #include "MSMeanData.h"
 #include <limits>
 

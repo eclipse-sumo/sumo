@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <cassert>
 #include <iostream>
 #include <fx.h>
 #include <fx3d.h>

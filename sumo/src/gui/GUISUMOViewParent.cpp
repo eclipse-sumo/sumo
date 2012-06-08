@@ -228,7 +228,10 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
         return true;
     } else if (type == GLO_EDGE) {
         GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
-        assert(edge);
+        if(edge==0) {
+            // hmph, just some security stuff
+            return false;
+        }
         size_t noLanes = edge->getLanes().size();
         for (size_t j = 0; j < noLanes; ++j) {
             const GUILaneWrapper& l = edge->getLaneGeometry(j);

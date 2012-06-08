@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <iostream>
 #include <map>
 #include <vector>

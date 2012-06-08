@@ -32,7 +32,6 @@
 
 #include <map>
 #include <cmath>
-#include <cassert>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>

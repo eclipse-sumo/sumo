@@ -33,6 +33,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include "RODFDetector.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>

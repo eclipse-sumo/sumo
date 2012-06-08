@@ -27,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include <cassert>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
 

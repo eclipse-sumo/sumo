@@ -36,7 +36,6 @@
 #include "Line.h"
 #include "GeomHelper.h"
 #include <utils/common/ToString.h>
-#include <cassert>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

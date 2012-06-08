@@ -31,7 +31,6 @@
 #endif
 
 #include <iostream>
-#include <cassert>
 #include "MSLink.h"
 #include "MSLane.h"
 #include "MSGlobals.h"

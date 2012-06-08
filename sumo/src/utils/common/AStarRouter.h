@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <string>
 #include <functional>
 #include <vector>

@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include "MS_E2_ZS_CollectorOverLanes.h"

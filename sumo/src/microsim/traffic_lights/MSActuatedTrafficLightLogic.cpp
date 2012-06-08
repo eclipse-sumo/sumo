@@ -32,6 +32,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <utility>
 #include <vector>
 #include <bitset>

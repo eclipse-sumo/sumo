@@ -29,7 +29,6 @@
 #endif
 
 #include <string>
-#include <cassert>
 #include "MSLane.h"
 #include "MSMoveReminder.h"
 

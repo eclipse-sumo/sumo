@@ -35,7 +35,6 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-#include <cassert>
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"

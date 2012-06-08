@@ -32,7 +32,6 @@
 #endif
 
 #include <vector>
-#include <cassert>
 #include "StdDefs.h"
 #include "SUMOVehicleClass.h"
 #include <limits>

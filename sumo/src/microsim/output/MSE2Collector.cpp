@@ -32,6 +32,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <algorithm>
 #include "MSE2Collector.h"
 #include <microsim/MSLane.h>

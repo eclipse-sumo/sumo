@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include <cassert>
 #include <vector>
 #include <iostream>
 #include <utils/gui/windows/GUIMainWindow.h>

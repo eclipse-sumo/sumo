@@ -31,7 +31,6 @@
 #endif
 
 #include <iostream>
-#include <cassert>
 #include <utils/common/MsgHandler.h>
 #include "MSNet.h"
 #include "MSLane.h"

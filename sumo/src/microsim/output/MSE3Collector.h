@@ -33,7 +33,6 @@
 #endif
 
 #include <string>
-#include <cassert>
 #include <vector>
 #include <limits>
 #include <microsim/MSMoveReminder.h>

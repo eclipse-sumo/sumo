@@ -26,7 +26,6 @@
 #include <config.h>
 #endif
 
-#include <cassert>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>

@@ -34,7 +34,6 @@
 #include <vector>
 #include <set>
 #include <list>
-#include <cassert>
 #include <limits>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>

@@ -32,7 +32,6 @@
 #endif
 
 #include <iostream>
-#include <cassert>
 #include <vector>
 #include <utils/common/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>

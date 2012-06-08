@@ -28,7 +28,6 @@
 #endif
 
 #include <string>
-#include <cassert>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>

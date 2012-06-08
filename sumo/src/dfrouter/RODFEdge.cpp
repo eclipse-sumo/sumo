@@ -30,7 +30,6 @@
 #endif
 
 #include <algorithm>
-#include <cassert>
 #include <utils/common/MsgHandler.h>
 #include "RODFEdge.h"
 

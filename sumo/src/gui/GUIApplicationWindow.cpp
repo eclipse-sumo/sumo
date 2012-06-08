@@ -906,7 +906,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     it != ec->mySettingsFiles.end(); ++it) {
                 GUISUMOAbstractView* view = openNewView();
                 if (view == 0) {
-                    assert(view != 0);
                     break;
                 }
                 GUISettingsHandler settings(*it);

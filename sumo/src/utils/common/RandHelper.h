@@ -31,6 +31,7 @@
 #include <config.h>
 #endif
 
+#include <cassert>
 #include <vector>
 #include <foreign/mersenne/MersenneTwister.h>
 
