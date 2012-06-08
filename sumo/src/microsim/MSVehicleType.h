@@ -172,9 +172,6 @@ public:
     SUMOReal computeChosenSpeedDeviation() const;
 
 
-    SUMOReal computeChosenSpeedDeviation() const;
-
-
     /** @brief Get the default probability of this vehicle type
      * @return The probability to use this type
      */

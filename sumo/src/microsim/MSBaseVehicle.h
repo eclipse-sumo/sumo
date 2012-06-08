@@ -243,10 +243,6 @@ protected:
     SUMOReal myChosenSpeedFactor;
 
 
-    /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
-    SUMOReal myChosenSpeedFactor;
-
-
     /// @name Move reminder structures
     /// @{
 
