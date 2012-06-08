@@ -87,16 +87,10 @@ public:
     const MSVehicleType& getVehicleType() const;
 
 
-    /** @brief Returns the current maximum speed
+    /** @brief Returns the maximum speed
      * @return The vehicle's maximum speed
      */
     SUMOReal getMaxSpeed() const;
-
-
-    /** @brief Adapts the current maximum speed using the distribution given in the type
-     * @return The vehicle's new maximum speed
-     */
-    SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed);
 
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
@@ -245,17 +239,9 @@ protected:
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;
 
-    /// An individual speed for an vehicle that is used (iff set) instead of
-    /// the maximal speed of the vehicle class.
-    /// NOTE: This is just a little workaround for allowing an external
-    ///       influence on the actual speed
-    SUMOReal myIndividualMaxSpeed;
+    /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
+    SUMOReal myChosenSpeedFactor;
 
-    /// is true if there has an individual speed been set
-    bool myHasIndividualMaxSpeed;
-
-    /// the speed which served as reference when calculating the individual maxspeed
-    SUMOReal myReferenceSpeed;
 
     /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
     SUMOReal myChosenSpeedFactor;

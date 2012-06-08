@@ -58,9 +58,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myRoute(route),
     myType(type),
     myCurrEdge(route->begin()),
-    myIndividualMaxSpeed(0.0),
-    myHasIndividualMaxSpeed(false),
-    myReferenceSpeed(-1.0),
+    myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
     myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
     myMoveReminders(0),
     myDeparture(-1),
@@ -114,24 +112,7 @@ MSBaseVehicle::getVehicleType() const {
 
 SUMOReal
 MSBaseVehicle::getMaxSpeed() const {
-    if (myHasIndividualMaxSpeed) {
-        return myIndividualMaxSpeed;
-    }
     return myType->getMaxSpeed();
-}
-
-
-SUMOReal
-MSBaseVehicle::adaptMaxSpeed(SUMOReal referenceSpeed) {
-    if (myType->hasSpeedDeviation() && referenceSpeed != myReferenceSpeed) {
-        myHasIndividualMaxSpeed = true;
-        myIndividualMaxSpeed = myType->getMaxSpeedWithDeviation(referenceSpeed);
-        myReferenceSpeed = referenceSpeed;
-    }
-    if (myHasIndividualMaxSpeed) {
-        return myIndividualMaxSpeed;
-    }
-    return MIN2(myType->getMaxSpeed(), referenceSpeed);
 }
 
 

@@ -165,26 +165,11 @@ public:
         return myMaxSpeed;
     }
 
-    /** @brief Get vehicle's maximum speed [m/s].
-     * @return The maximum speed (in m/s) of vehicles of this class
-     */
-    SUMOReal hasSpeedDeviation() const {
-        return mySpeedDev != 0.0 || mySpeedFactor != 1.0;
-    }
 
-
-    /** @brief Get vehicle's maximum speed [m/s] drawn from a normal distribution.
-     *
-     * The speed is calculated relative to the reference speed (which is usually
-     *  the maximum allowed speed on a lane or edge).
-     * @return The maximum speed (in m/s) of vehicles of this class
+    /** @brief Computes and returns the speed deviation
+     * @return A new, random speed deviation
      */
-    SUMOReal getMaxSpeedWithDeviation(SUMOReal referenceSpeed) const {
-        SUMOReal meanSpeed = mySpeedFactor * referenceSpeed;
-        SUMOReal speedDev = mySpeedDev * meanSpeed;
-        SUMOReal speed = MIN3(RandHelper::randNorm(meanSpeed, speedDev), meanSpeed + 2 * speedDev, myMaxSpeed);
-        return MAX3((SUMOReal)0.0, speed, meanSpeed - 2 * speedDev);
-    }
+    SUMOReal computeChosenSpeedDeviation() const;
 
 
     SUMOReal computeChosenSpeedDeviation() const;

@@ -371,15 +371,6 @@ public:
 
     class Influencer;
 
-    void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
-        myHasIndividualMaxSpeed = true;
-        myIndividualMaxSpeed = individualMaxSpeed;
-    }
-
-    void unsetIndividualMaxSpeed(void) {
-        myHasIndividualMaxSpeed = false;
-    }
-
     void setPreDawdleAcceleration(SUMOReal accel) {
         myPreDawdleAcceleration = accel;
     }

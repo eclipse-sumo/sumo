@@ -100,12 +100,6 @@ public:
      */
     virtual const MSEdge* succEdge(unsigned int nSuccs) const = 0;
 
-    /** @brief Adapt the vehicle's maximum speed depending on the reference speed
-     * @param[in] the maximum speed on the edge
-     * @return The vehicle's new maximum speed
-     */
-    virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
-
     /// Replaces the current route by the given edges
     virtual bool replaceRouteEdges(const MSEdgeVector& edges, bool onInit = false) = 0;
 
