@@ -59,7 +59,6 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myType(type),
     myCurrEdge(route->begin()),
     myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
-    myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
     myMoveReminders(0),
     myDeparture(-1),
     myArrivalPos(-1),
