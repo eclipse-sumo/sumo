@@ -114,7 +114,7 @@ MSFullExport::writeVehicles(OutputDevice& of) {
 void
 MSFullExport::writeEdge(OutputDevice& of) {
 
-	of.openTag("edges");
+	of.openTag("edges")  << ">\n";
 
 	MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
 
