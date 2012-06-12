@@ -305,7 +305,11 @@ public:
 
     /// @brief returns the minimum travel time for the given vehicle
     inline SUMOReal getMinimumTravelTime(const SUMOVehicle* const veh) const {
-        return getLength() / MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
+        if(veh!=0) {
+            return getLength() / MIN2(veh->getMaxSpeed(), getVehicleMaxSpeed(veh));
+        } else {
+            return getLength() / getSpeedLimit();
+        }
     }
 
 
@@ -386,6 +390,9 @@ public:
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
+        if(vehicle==0) {
+            return false;
+        }
         const SUMOVehicleClass svc = vehicle->getVehicleType().getVehicleClass();
         return (myCombinedPermissions & svc) != svc;
     }
