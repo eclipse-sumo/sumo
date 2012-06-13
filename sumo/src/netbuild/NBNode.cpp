@@ -1200,7 +1200,7 @@ NBNode::stateCode(const NBEdge* incoming, NBEdge* outgoing, int fromlane, bool m
     if ((!incoming->isInnerEdge() && mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
         return toString(LINKSTATE_MINOR); // minor road
     }
-    // traffic lights are not regardedm here
+    // traffic lights are not regarded here
     return toString(LINKSTATE_MAJOR);
 }
 
