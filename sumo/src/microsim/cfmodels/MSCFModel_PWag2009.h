@@ -116,7 +116,9 @@ public:
 
 
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
-        return new VehicleVariables();
+        VehicleVariables *ret = new VehicleVariables();
+		ret->aOld = 0.0;  
+		return ret;
     }
 
 

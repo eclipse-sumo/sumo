@@ -52,57 +52,88 @@ MSCFModel_PWag2009::~MSCFModel_PWag2009() {}
 
 SUMOReal
 MSCFModel_PWag2009::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
-    const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
-    const SUMOReal speed = veh->getSpeed();
+	const SUMOReal vNext = MSCFModel::moveHelper(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    // model should re-use acceleration from previous time-step:
-    SUMOReal apref = vars->aOld;
-    const SUMOReal asafe = SPEED2ACCEL(vNext - speed);
-    if (apref <= asafe && RandHelper::rand() > myActionPointProbability * TS) {
-        std::pair<MSVehicle* const, SUMOReal> l = veh->getLane()->getLeaderOnConsecutive(100., 0., speed, *veh, veh->getBestLanesContinuation(veh->getLane()));
-        if (l.first) {
-            apref = myDecelDivTau * (l.second + (l.first->getSpeed() - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
-            apref += myDawdle * RandHelper::rand((SUMOReal) - 1., (SUMOReal)1.);
-        }
-    }
-    if (apref > asafe) {
-        apref = asafe;
-    }
-    vars->aOld = apref;  // save this value for the next time-step
-    return MAX2((SUMOReal)0, speed + ACCEL2SPEED(apref));
-}
-
-
-SUMOReal
-MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return _v(veh, speed, gap, predSpeed);
-}
-
-
-SUMOReal
-MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return _v(veh, veh->getSpeed(), gap, 0);
-}
-
-
-SUMOReal
-MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
-    return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
+	SUMOReal apref = SPEED2ACCEL(vNext - veh->getSpeed());
+	vars->aOld = apref; 
+    return vNext;
 }
 
 // in addition, the parameters myTauLast, probAP, and sigmaAcc are needed; sigmaAcc can use myDawdle
 // myTauLast might use the current time-step size, but this yields eventually an extreme model, I would be
 // more careful and set it to something around 0.3 or 0.4, which are among the shortest headways I have
 // seen so far in data ...
+
 SUMOReal
-MSCFModel_PWag2009::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
+MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {   
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
-    const SUMOReal vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
-    return MAX2((SUMOReal)0, vsafe);
+	const SUMOReal vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);   
+	const SUMOReal asafe = SPEED2ACCEL(vsafe - speed);
+    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+	SUMOReal apref = vars->aOld;
+	if (apref <= asafe && RandHelper::rand() <= myActionPointProbability * TS) {    
+		apref = myDecelDivTau * (gap + (predSpeed - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
+		apref = MIN2(apref,myAccel);
+		apref = MAX2(apref,-myDecel);
+		apref += myDawdle * RandHelper::rand((SUMOReal) - 1., (SUMOReal)1.);
+	}
+	if (apref > asafe)
+		apref = asafe;
+	return MAX2((SUMOReal)0, speed + ACCEL2SPEED(apref));
 }
 
+// uses the safe speed and preferred acceleration with the same NORMAL tau to compute stopSpeed 
+SUMOReal
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
+    if (gap < 0.01) {
+        return 0;
+    }
+    const SUMOReal vsafe = -myTauDecel + sqrt(myTauDecel * myTauDecel +  2.0 * myDecel * gap);  
+	const SUMOReal speed = veh->getSpeed();
+	const SUMOReal asafe = SPEED2ACCEL(vsafe - speed);
+//    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+	SUMOReal apref = myDecelDivTau * (gap  - 2 * speed * myHeadwayTime) / (speed + myTauDecel);
+	if (apref <= asafe) {    
+		apref = MIN2(apref,myAccel);
+		apref = MAX2(apref,-myDecel);
+	}
+	else
+		apref = asafe;
+    return MAX2((SUMOReal)0, vsafe+ACCEL2SPEED(apref));
+}
+
+// this method should not do anything, since followSpeed() has taken care of dawdling already...
+SUMOReal
+MSCFModel_PWag2009::dawdle(SUMOReal speed) const {
+	return speed;
+//    return MAX2(SUMOReal(0), speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
+}
+
+// eventually, this method isn't needed anymore
+//SUMOReal
+//MSCFModel_PWag2009::_v(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const {
+//    if (predSpeed == 0 && gap < 0.01) {
+//        return 0;
+//    }
+//    const SUMOReal vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);   
+//	const SUMOReal asafe = SPEED2ACCEL(vsafe - speed);
+//    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
+//	SUMOReal apref = vars->aOld;
+//	if (apref <= asafe && RandHelper::rand() <= myActionPointProbability * TS) {    
+//		apref = myDecelDivTau * (gap + (predSpeed - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
+//		if (apref>myAccel)
+//			apref = myAccel;
+//		if (apref<-myDecel)
+//			apref = -myDecel;
+//		apref += myDawdle * RandHelper::rand((SUMOReal) - 1., (SUMOReal)1.);
+//	}
+//	if (apref > asafe)
+//		apref = asafe;
+//    return MAX2((SUMOReal)0, vsafe+ACCEL2SPEED(apref));
+//}
+//
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {
