@@ -42,6 +42,7 @@
 // ===========================================================================
 typedef int SUMOTime;
 #define SUMOTime_MAX INT_MAX
+#define SUMOTime_MIN INT_MIN
 #define SUMOTIME_MAXSTRING "2147483" // INT_MAX / 1000
 
 #ifndef HAVE_SUBSECOND_TIMESTEPS
