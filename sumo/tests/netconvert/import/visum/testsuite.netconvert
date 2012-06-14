@@ -15,3 +15,6 @@ messstreckeV2_tlsoffset
 
 # Messstrecke by JR/v2 with discarded traffic lights
 messstreckeV2-discard.tls
+
+# Whether importing speed definitions with km/h appendix works
+messstreckeV2_kmhspeed
