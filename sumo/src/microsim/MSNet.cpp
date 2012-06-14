@@ -570,7 +570,7 @@ MSNet::saveState(std::ostream& os) {
     FileHelpers::writeUInt(os, sizeof(size_t));
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
     FileHelpers::writeUInt(os, MSEdge::dictSize());
-    FileHelpers::writeUInt(os, myStep);
+    FileHelpers::writeTime(os, myStep);
     MSRoute::dict_saveState(os);
     myVehicleControl->saveState(os);
     if (MSGlobals::gUseMesoSim) {
@@ -579,10 +579,11 @@ MSNet::saveState(std::ostream& os) {
 }
 
 
-unsigned int
+SUMOTime
 MSNet::loadState(BinaryInputDevice& bis) {
     std::string version;
-    unsigned int sizeT, fpSize, numEdges, step;
+    unsigned int sizeT, fpSize, numEdges;
+    SUMOTime step;
     bis >> version;
     bis >> sizeT;
     bis >> fpSize;

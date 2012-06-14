@@ -254,7 +254,7 @@ public:
      *
      * @param[in] bis The input to read the state from (binary)
      */
-    unsigned int loadState(BinaryInputDevice& bis);
+    SUMOTime loadState(BinaryInputDevice& bis);
     /// @}
 #endif
 
