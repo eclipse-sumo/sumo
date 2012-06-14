@@ -134,7 +134,7 @@ NLBuilder::build() {
             WRITE_ERROR("Could not read state from '" + myOptions.getString("load-state") + "'!");
         } else {
             PROGRESS_BEGIN_MESSAGE("Loading state from '" + myOptions.getString("load-state") + "'");
-            unsigned int step = myNet.loadState(strm);
+            SUMOTime step = myNet.loadState(strm);
             if (myOptions.isDefault("begin")) {
                 myOptions.set("begin", time2string(step));
             }
