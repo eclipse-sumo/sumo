@@ -327,9 +327,11 @@ NIImporter_VISUM::parse_Edges() {
     SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
-            speed = myLineParser.know("v0-IV")
-                    ? TplConvert<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
-                    : TplConvert<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
+            std::string speedS = myLineParser.know("v0-IV") ? myLineParser.get("v0-IV") : myLineParser.get("V0IV");
+            if(speedS.find("km/h")!=std::string::npos) {
+                speedS = speedS.substr(0, speedS.find("km/h"));
+            }
+            speed = TplConvert<char>::_2SUMORealSec(speedS.c_str(), -1);
             speed = speed / (SUMOReal) 3.6;
         } catch (OutOfBoundsException) {}
     }
