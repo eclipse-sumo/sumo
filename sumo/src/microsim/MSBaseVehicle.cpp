@@ -49,6 +49,10 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+// ===========================================================================
+// static members
+// ===========================================================================
+const SUMOTime MSBaseVehicle::NOT_YET_DEPARTED = SUMOTime_MAX;
 
 // ===========================================================================
 // method definitions
@@ -60,7 +64,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, c
     myCurrEdge(route->begin()),
     myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
     myMoveReminders(0),
-    myDeparture(-1),
+    myDeparture(NOT_YET_DEPARTED),
     myArrivalPos(-1),
     myNumberReroutes(0) {
     // init devices
@@ -191,15 +195,9 @@ MSBaseVehicle::onDepart() {
 }
 
 
-SUMOTime
-MSBaseVehicle::getDeparture() const {
-    return myDeparture;
-}
-
-
-unsigned int
-MSBaseVehicle::getNumberReroutes() const {
-    return myNumberReroutes;
+bool
+MSBaseVehicle::hasDeparted() const {
+    return myDeparture != NOT_YET_DEPARTED;
 }
 
 

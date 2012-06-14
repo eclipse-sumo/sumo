@@ -248,7 +248,7 @@ MSDevice_Vehroutes::getRoute(int index) const {
 void
 MSDevice_Vehroutes::addRoute() {
     if (myMaxRoutes > 0) {
-        if (myHolder.getDeparture() >= 0) {
+        if (myHolder.hasDeparted()) {
             myReplacedRoutes.push_back(RouteReplaceInfo(myHolder.getEdge(), MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));
         } else {
             myReplacedRoutes.push_back(RouteReplaceInfo(0, MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute));

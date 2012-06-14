@@ -159,17 +159,25 @@ public:
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */
-    SUMOTime getDeparture() const;
+    inline SUMOTime getDeparture() const {
+        return myDeparture;
+    }
+
+    /** @brief Returns whether this vehicle has already departed
+     */
+    bool hasDeparted() const;
 
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
-    unsigned int getNumberReroutes() const;
+    inline unsigned int getNumberReroutes() const {
+        return myNumberReroutes;
+    }
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    const std::vector<MSDevice*> &getDevices() const {
+    inline const std::vector<MSDevice*> &getDevices() const {
         return myDevices;
     }
 
@@ -263,6 +271,12 @@ protected:
 
     /// @brief The number of reroutings
     unsigned int myNumberReroutes;
+
+private:
+    /* @brief magic value for undeparted vehicles
+     * @note: in previous versions this was -1
+     */
+    static const SUMOTime NOT_YET_DEPARTED;
 
 };
 
