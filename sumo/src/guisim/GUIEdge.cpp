@@ -40,6 +40,7 @@
 #include "GUIEdge.h"
 #include "GUINet.h"
 #include "GUILane.h"
+#include "GUIPerson.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
@@ -304,6 +305,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(getStreetName(), p, GLO_MAX,
                                s.streetName.size / s.scale, s.streetName.color, angle);
         }
+    }
+    for(std::set<MSPerson*>::const_iterator i=myPersons.begin(); i!=myPersons.end(); ++i) {
+        static_cast<GUIPerson*>(*i)->drawGL(s);
     }
 }
 

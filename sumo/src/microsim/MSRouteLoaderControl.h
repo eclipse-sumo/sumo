@@ -33,7 +33,6 @@
 #endif
 
 #include <vector>
-#include "MSVehicleContainer.h"
 #include "MSNet.h"
 
 

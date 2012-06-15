@@ -62,6 +62,8 @@ const int VEHPARS_ARRIVALSPEED_SET = 2 << 10;
 const int VEHPARS_LINE_SET = 2 << 11;
 const int VEHPARS_TAZ_SET = 2 << 12;
 const int VEHPARS_FORCE_REROUTE = 2 << 13;
+const int VEHPARS_PERSON_CAPACITY_SET = 2 << 14;
+const int VEHPARS_PERSON_NUMBER_SET = 2 << 15;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -404,6 +406,12 @@ public:
 
     /// @brief List of the stops the vehicle will make
     std::vector<Stop> stops;
+
+    /// @brief The vehicle's capacity (persons)
+    unsigned int personCapacity;
+
+    /// @brief The number of persons in the vehicle
+    unsigned int personNumber;
 
     /// @brief Information for the router which parameter were set
     int setParameter;

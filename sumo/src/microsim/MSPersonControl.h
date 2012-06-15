@@ -34,13 +34,15 @@
 #endif
 
 #include <vector>
+#include <map>
+#include "MSPerson.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSPerson;
 class MSNet;
+class MSVehicle;
 
 
 // ===========================================================================
@@ -62,7 +64,7 @@ public:
     MSPersonControl();
 
     /// destructor
-    ~MSPersonControl();
+    virtual ~MSPersonControl();
 
     /// adds a single person, returns false iff an id clash occured
     bool add(const std::string& id, MSPerson* person);
@@ -96,9 +98,19 @@ public:
     /// aborts the plan for any person that is still waiting for a ride
     void abortWaiting();
 
+
+    /** @brief Builds a new person
+     * @param[in] pars The parameter
+     * @param[in] plan This person's plan
+     */
+    virtual MSPerson *buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const;
+
 private:
     /// all persons by id
     std::map<std::string, MSPerson*> myPersons;
+
+    /// @brief Persons waiting for departure
+    std::map<SUMOTime, PersonVector> myWaiting4Departure;
 
     /// the lists of walking / stopping persons
     std::map<SUMOTime, PersonVector> myArrivals;

@@ -306,7 +306,11 @@
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h" />
-    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Daniel1.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -449,6 +449,16 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
+    // parse person number
+    if (attrs.hasAttribute(SUMO_ATTR_PERSON_NUMBER)) {
+        ret->setParameter |= VEHPARS_PERSON_NUMBER_SET;
+        ret->personNumber = attrs.getIntReporting(SUMO_ATTR_PERSON_NUMBER, 0, ok);
+    }
+    // parse person capacity
+    if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
+        ret->setParameter |= VEHPARS_PERSON_CAPACITY_SET;
+        ret->personCapacity = attrs.getIntReporting(SUMO_ATTR_PERSON_CAPACITY, 0, ok);
+    }
 }
 
 

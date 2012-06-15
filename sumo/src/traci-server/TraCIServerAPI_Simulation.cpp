@@ -197,6 +197,21 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 return false;
             }
             break;
+        case VAR_BUS_STOP_WAITING: {
+            if (inputStorage.readUnsignedByte() != TYPE_STRING) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Retrieval of persons at busstop requires a string.", outputStorage);
+                return false;
+            }
+            std::string id = inputStorage.readString();
+            MSBusStop *s = MSNet::getInstance()->getBusStop(id);
+            if (s==0) {
+                server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Unknown bus stop '" + id + "'.", outputStorage);
+                return false;
+            }
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(s->getPersonNumber());
+            break;
+                                   }
         default:
             break;
     }

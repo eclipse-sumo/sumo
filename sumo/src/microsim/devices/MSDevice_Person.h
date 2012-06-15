@@ -115,6 +115,18 @@ public:
     void addPerson(MSPerson* person);
 
 
+    /** @brief Return the number of passengers
+     * @return The number of stored persons
+     */
+    unsigned int size() const {
+        return myPersons.size();
+    }
+
+    const std::vector<MSPerson*> &getPersons() const {
+        return myPersons;
+    }
+
+
     /// @brief Destructor.
     ~MSDevice_Person();
 
@@ -131,7 +143,7 @@ private:
     /// @brief The passengers of the vehicle
     std::vector<MSPerson*> myPersons;
 
-    /// @brief whether the vehicle is at a stop
+    /// @brief Whether the vehicle is at a stop
     bool myStopped;
 
 

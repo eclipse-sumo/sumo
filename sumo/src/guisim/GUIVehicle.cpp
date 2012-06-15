@@ -51,9 +51,11 @@
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
+#include "GUIPerson.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include <utils/gui/globjects/GLIncludes.h>
+#include <microsim/devices/MSDevice_Person.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -965,6 +967,12 @@ GUIVehicle::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     drawName(myLane->getShape().positionAtLengthPosition(myState.pos() - getVehicleType().getLength() / 2),
              s.scale, s.vehicleName);
+    if(myPersonDevice!=0) {
+        const std::vector<MSPerson*> &ps = myPersonDevice->getPersons();
+        for(std::vector<MSPerson*>::const_iterator i=ps.begin(); i!=ps.end(); ++i) {
+            static_cast<GUIPerson*>(*i)->drawGL(s);
+        }
+    }
     glPopName();
 }
 

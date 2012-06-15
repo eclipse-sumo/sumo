@@ -96,6 +96,7 @@ MSPersonControl::erase(MSPerson* person) {
     }
 }
 
+
 void
 MSPersonControl::setArrival(const SUMOTime time, MSPerson* person) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
@@ -137,6 +138,7 @@ MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) {
             const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
             if ((*i)->isWaitingFor(line)) {
                 vehicle->addPerson(*i);
+                static_cast<MSPerson::MSPersonStage_Driving*>((*i)->getCurrentStage())->setVehicle(vehicle);
                 i = waitPersons.erase(i);
                 ret = true;
             } else {
@@ -167,6 +169,12 @@ MSPersonControl::abortWaiting() {
         WRITE_WARNING("Person " + i->first + " aborted waiting for a ride that will never come.");
         erase(i->second);
     }
+}
+
+
+MSPerson *
+MSPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const {
+    return new MSPerson(pars, plan);
 }
 
 /****************************************************************************/

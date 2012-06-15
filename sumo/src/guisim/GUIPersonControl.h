@@ -1,11 +1,10 @@
 /****************************************************************************/
-/// @file    MSRouteLoader.h
+/// @file    GUIPersonControl.h
 /// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    Wed, 6 Nov 2002
-/// @version $Id$
+/// @date    Wed, 13.06.2012
+/// @version $Id: MSPersonControl.h 12128 2012-03-19 11:54:26Z dkrajzew $
 ///
-// A class that performs the loading of routes
+// GUI-version of the person control for building gui persons
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSRouteLoader_h
-#define MSRouteLoader_h
+#ifndef GUIPersonControl_h
+#define GUIPersonControl_h
 
 
 // ===========================================================================
@@ -31,47 +30,32 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <string>
-#include <microsim/MSNet.h>
-#include "MSRouteHandler.h"
+#include <vector>
+#include <microsim/MSPersonControl.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class MSRouteLoader
+/** @class GUIPersonControl
+ * @brief GUI-version of the person control for building gui persons
  */
-class MSRouteLoader {
+class GUIPersonControl : public MSPersonControl {
 public:
     /// constructor
-    MSRouteLoader(MSNet& net,
-                  MSRouteHandler* handler);
+    GUIPersonControl();
+
 
     /// destructor
-    ~MSRouteLoader();
+    virtual ~GUIPersonControl();
 
-    /** loads vehicles until a vehicle is read that starts after
-        the specified time */
-    void loadUntil(SUMOTime time);
 
-    /// resets the reader
-    void init();
+    /** @brief Builds a new person
+     * @param[in] pars The parameter
+     * @param[in] plan This person's plan
+     */
+    MSPerson *buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const;
 
-    /// returns the information whether new data is available
-    bool moreAvailable() const;
-private:
-    /// the used SAX2XMLReader
-    SAX2XMLReader* myParser;
-
-    /// the token for saving the current position
-    XMLPScanToken  myToken;
-
-    /// information whether more vehicles should be available
-    bool myMoreAvailable;
-
-    MSRouteHandler* myHandler;
 
 };
 
@@ -79,4 +63,3 @@ private:
 #endif
 
 /****************************************************************************/
-

@@ -55,6 +55,7 @@ class SUMOVehicle;
 class SUMOVehicleParameter;
 class MSVehicle;
 class MSLane;
+class MSPerson;
 
 
 // ===========================================================================
@@ -429,6 +430,17 @@ public:
      */
     SUMOReal getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
+    void addPerson(MSPerson *p) {
+        myPersons.insert(p);
+    }
+
+    void removePerson(MSPerson *p) {
+        std::set<MSPerson*>::iterator i=myPersons.find(p);
+        if(i!=myPersons.end()) {
+            myPersons.erase(i);
+        }
+    }
+
 
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
@@ -538,7 +550,8 @@ protected:
     /// @brief The preceeding edges
     std::vector<MSEdge*> myPredeccesors;
 
-
+    /// @brief Persons on the edge
+    std::set<MSPerson*> myPersons;
 
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{

@@ -543,6 +543,12 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) {
         // any waiting persons may board now
         bool boarded = MSNet::getInstance()->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this);
         if (boarded) {
+            if(stop.busstop!=0) {
+                const std::vector<MSPerson*> &persons = myPersonDevice->getPersons();
+                for(std::vector<MSPerson*>::const_iterator i=persons.begin(); i!=persons.end(); ++i) {
+                    stop.busstop->removePerson(*i);
+                }
+            }
             // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
             stop.triggered = false;
             if (myAmRegisteredAsWaitingForPerson) {
@@ -1708,6 +1714,13 @@ MSVehicle::addPerson(MSPerson* person) {
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered) {
         myStops.front().duration = 0;
     }
+}
+
+
+unsigned int 
+MSVehicle::getPersonNumber() const {
+    unsigned int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
+    return boarded + myParameter->personNumber;
 }
 
 

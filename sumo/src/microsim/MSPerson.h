@@ -36,6 +36,9 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/Command.h>
+#include <utils/geom/Position.h>
 
 
 // ===========================================================================
@@ -45,6 +48,8 @@ class MSNet;
 class MSEdge;
 class OutputDevice;
 class SUMOVehicleParameter;
+class MSBusStop;
+class SUMOVehicle;
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
 
@@ -59,6 +64,13 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
   */
 class MSPerson {
 public:
+    enum StageType {
+        WALKING,
+        DRIVING,
+        WAITING
+    };
+
+
     /**
      * The "abstract" class for a single stage of a persons movement
      * Contains the destination of the current movement step
@@ -66,7 +78,7 @@ public:
     class MSPersonStage {
     public:
         /// constructor
-        MSPersonStage(const MSEdge& destination);
+        MSPersonStage(const MSEdge& destination, StageType type);
 
         /// destructor
         virtual ~MSPersonStage();
@@ -74,8 +86,19 @@ public:
         /// returns the destination edge
         const MSEdge& getDestination() const;
 
+        /// Returns the current edge
+        virtual const MSEdge *getEdge(SUMOTime now) const = 0;
+
+        /// 
+        virtual Position getPosition(SUMOTime now) const = 0;
+    
+        /// 
+        StageType getStageType() const {
+            return myType;
+        }
+
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge) = 0;
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos) = 0;
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -87,11 +110,22 @@ public:
         virtual bool isWaitingFor(const std::string& line) const;
 
         /** @brief Called on writing tripinfo output
-         *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
         virtual void tripInfoOutput(OutputDevice& os) const = 0;
+
+        /** @brief Called for writing the events output (begin of an action)
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void beginEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const = 0;
+
+        /** @brief Called for writing the events output (end of an action)
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void endEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const = 0;
 
 
     protected:
@@ -103,6 +137,9 @@ public:
 
         /// the time at which this stage ended
         SUMOTime myArrived;
+
+        /// The type of this stage
+        StageType myType;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -121,24 +158,92 @@ public:
     class MSPersonStage_Walking : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Walking(MSEdgeVector route, SUMOTime walkingTime, SUMOReal speed);
+        MSPersonStage_Walking(const std::vector<const MSEdge*> &route, MSBusStop *toBS, SUMOTime walkingTime, SUMOReal speed, SUMOReal departPos, SUMOReal arrivalPos);
 
         /// destructor
         ~MSPersonStage_Walking();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
 
+        /// Returns the current edge
+        const MSEdge *getEdge(SUMOTime now) const;
+
+        /// 
+        Position getPosition(SUMOTime now) const;
+    
         /** @brief Called on writing tripinfo output
-         *
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
 
+        /** @brief Called for writing the events output
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void beginEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
+        /** @brief Called for writing the events output (end of an action)
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void endEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
+        SUMOTime moveToNextEdge(MSPerson *person, SUMOTime currentTime);
+
+
+        class MoveToNextEdge : public Command {
+        public:
+            MoveToNextEdge(MSPerson *person, MSPersonStage_Walking &walk) : myParent(walk), myPerson(person) {}
+            ~MoveToNextEdge() {}
+            SUMOTime execute(SUMOTime currentTime) {
+                return myParent.moveToNextEdge(myPerson, currentTime);
+            }
+        private:
+            MSPersonStage_Walking &myParent;
+            MSPerson *myPerson;
+        };
+
+
+    private:
+        void computeWalkingTime(const MSEdge * const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop *bs, SUMOReal speed);
+
+
     private:
         /// the time the person is walking
         SUMOTime myWalkingTime;
+
+        /// @brief The route of the person
+        std::vector<const MSEdge*> myRoute;
+
+        
+        std::vector<const MSEdge*>::iterator myRouteStep;
+
+        /// @brief A vector of computed times an edge is reached
+        //std::vector<SUMOTime> myArrivalTimes;
+
+        SUMOReal myDepartPos;
+        SUMOReal myArrivalPos;
+        MSBusStop *myDestinationBusStop;
+        SUMOTime myLastEntryTime;
+
+        SUMOReal myCurrentBeginPos, myCurrentLength, myCurrentDuration;
+
+        class arrival_finder {
+        public:
+            /// constructor
+            explicit arrival_finder(SUMOTime time) : myTime(time) {}
+
+            /// comparison operator
+            bool operator()(SUMOReal t) const {
+                return myTime>t;
+            }
+
+        private:
+            /// the searched arrival time
+            SUMOTime myTime;
+        };
 
     private:
         /// @brief Invalidated copy constructor.
@@ -156,17 +261,27 @@ public:
     class MSPersonStage_Driving : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge& destination,
+        MSPersonStage_Driving(const MSEdge& destination, MSBusStop *toBS, 
                               const std::vector<std::string> &lines);
 
         /// destructor
         ~MSPersonStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
+
+        /// Returns the current edge
+        const MSEdge *getEdge(SUMOTime now) const;
+
+        /// 
+        Position getPosition(SUMOTime now) const;
 
         /// Whether the person waits for a vehicle of the line specified.
         bool isWaitingFor(const std::string& line) const;
+
+        void setVehicle(SUMOVehicle *v) {
+            myVehicle = v;
+        }
 
         /** @brief Called on writing tripinfo output
          *
@@ -175,9 +290,27 @@ public:
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
 
+        /** @brief Called for writing the events output
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void beginEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
+        /** @brief Called for writing the events output (end of an action)
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void endEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
     private:
         /// the lines  to choose from
         const std::set<std::string> myLines;
+
+        /// @brief The taken vehicle
+        SUMOVehicle *myVehicle;
+
+        MSBusStop *myDestinationBusStop;
+        Position myWaitingPos;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -194,13 +327,19 @@ public:
     class MSPersonStage_Waiting : public MSPersonStage {
     public:
         /// constructor
-        MSPersonStage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until);
+        MSPersonStage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until, const std::string &actType);
 
         /// destructor
         ~MSPersonStage_Waiting();
 
+        /// Returns the current edge
+        const MSEdge *getEdge(SUMOTime now) const;
+
+        /// 
+        Position getPosition(SUMOTime now) const;
+    
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
 
         /** @brief Called on writing tripinfo output
          *
@@ -209,12 +348,28 @@ public:
          */
         virtual void tripInfoOutput(OutputDevice& os) const;
 
+        /** @brief Called for writing the events output
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void beginEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
+        /** @brief Called for writing the events output (end of an action)
+         * @param[in] os The stream to write the information into
+         * @exception IOError not yet implemented
+         */
+        virtual void endEventOutput(const MSPerson &p, SUMOTime t, OutputDevice& os) const;
+
     private:
         /// the time the person is waiting
         SUMOTime myWaitingDuration;
 
         /// the time until the person is waiting
         SUMOTime myWaitingUntil;
+
+        /// @brief The type of activity
+        std::string myActType;
+
 
     private:
         /// @brief Invalidated copy constructor.
@@ -239,12 +394,15 @@ private:
     /// the iterator over the route
     MSPersonPlan::iterator myStep;
 
+    /// @brief Whether events shall be written
+    bool myWriteEvents;
+
 public:
     /// constructor
     MSPerson(const SUMOVehicleParameter* pars, MSPersonPlan* plan);
 
     /// destructor
-    ~MSPerson();
+    virtual ~MSPerson();
 
     /// returns the person id
     const std::string& getID() const;
@@ -259,7 +417,29 @@ public:
     void setDeparted(SUMOTime now);
 
     /// Returns the current destination.
-    const MSEdge& getDestination() const;
+    const MSEdge& getDestination() const {
+        return (*myStep)->getDestination();
+    }
+
+    /// Returns the current edge
+    const MSEdge *getEdge(SUMOTime now) const {
+        return (*myStep)->getEdge(now);
+    }
+
+    /// 
+    Position getPosition(SUMOTime now) const {
+        return (*myStep)->getPosition(now);
+    }
+
+    /// 
+    StageType getCurrentStageType() const {
+        return (*myStep)->getStageType();
+    }
+
+    MSPersonStage *getCurrentStage() const {
+        return *myStep;
+    }
+
 
     /** @brief Called on writing tripinfo output
      *

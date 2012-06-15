@@ -53,6 +53,7 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSRouteLoader.h>
 #include <guisim/GUIEdge.h>
+#include <guisim/GUIPersonControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
@@ -115,6 +116,14 @@ GUINet::getBoundary() const {
     return myBoundary;
 }
 
+
+MSPersonControl&
+GUINet::getPersonControl() {
+    if (myPersonControl == 0) {
+        myPersonControl = new GUIPersonControl();
+    }
+    return *myPersonControl;
+}
 
 
 void

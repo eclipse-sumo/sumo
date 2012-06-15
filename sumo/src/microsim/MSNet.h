@@ -279,7 +279,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSPersonControl& getPersonControl();
+    virtual MSPersonControl& getPersonControl();
 
 
     /** @brief Returns the edge control

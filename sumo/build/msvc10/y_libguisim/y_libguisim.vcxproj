@@ -260,6 +260,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\guisim\GUIInstantInductLoop.cpp" />
+    <ClCompile Include="..\..\..\src\guisim\GUIPerson.cpp" />
+    <ClCompile Include="..\..\..\src\guisim\GUIPersonControl.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.cpp" />
     <ClCompile Include="..\..\..\src\guisim\GUIBusStop.cpp" />
@@ -282,6 +284,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\guisim\GUIInstantInductLoop.h" />
+    <ClInclude Include="..\..\..\src\guisim\GUIPerson.h" />
+    <ClInclude Include="..\..\..\src\guisim\GUIPersonControl.h" />
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_Collector.h" />
     <ClInclude Include="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h" />
     <ClInclude Include="..\..\..\src\guisim\GUIBusStop.h" />

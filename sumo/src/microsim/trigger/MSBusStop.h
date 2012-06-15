@@ -31,6 +31,7 @@
 #endif
 
 #include <vector>
+#include <algorithm>
 #include <map>
 #include <string>
 #include "MSTrigger.h"
@@ -41,6 +42,7 @@
 // ===========================================================================
 class MSLane;
 class SUMOVehicle;
+class MSPerson;
 
 
 // ===========================================================================
@@ -132,6 +134,23 @@ public:
     SUMOReal getLastFreePos(SUMOVehicle &forVehicle) const;
 
 
+    /** @brief Returns the number of persons waiting on this stop
+    */
+    unsigned int getPersonNumber() const {
+       return myWaitingPersons.size();
+    }
+
+    void addPerson(MSPerson *p) {
+        myWaitingPersons.push_back(p);
+    }
+
+    void removePerson(MSPerson *p) {
+        std::vector<MSPerson*>::iterator i=std::find(myWaitingPersons.begin(), myWaitingPersons.end(), p);
+        if(i!=myWaitingPersons.end()) {
+            myWaitingPersons.erase(i);
+        }
+    }
+
 protected:
     /** @brief Computes the last free position on this stop
      *
@@ -160,6 +179,9 @@ protected:
 
     /// @brief The last free position at this stop (variable)
     SUMOReal myLastFreePos;
+
+    /// @brief Persons waiting at this stop
+    std::vector<MSPerson*> myWaitingPersons;
 
 
 private:

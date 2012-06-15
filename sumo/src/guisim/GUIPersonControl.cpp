@@ -1,11 +1,10 @@
 /****************************************************************************/
-/// @file    MSRouteLoader.h
+/// @file    GUIPersonControl.cpp
 /// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    Wed, 6 Nov 2002
-/// @version $Id$
+/// @date    Wed, 13.06.2012
+/// @version $Id: MSPersonControl.cpp 11671 2012-01-07 20:14:30Z behrisch $
 ///
-// A class that performs the loading of routes
+// GUI-version of the person control for building gui persons
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright (C) 2001-2012 DLR (http://www.dlr.de/) and contributors
@@ -18,8 +17,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSRouteLoader_h
-#define MSRouteLoader_h
 
 
 // ===========================================================================
@@ -31,52 +28,29 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <string>
-#include <microsim/MSNet.h>
-#include "MSRouteHandler.h"
+#include <vector>
+#include <algorithm>
+#include "GUIPersonControl.h"
+#include "GUIPerson.h"
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================
-// class definitions
+// method definitions
 // ===========================================================================
-/**
- * @class MSRouteLoader
- */
-class MSRouteLoader {
-public:
-    /// constructor
-    MSRouteLoader(MSNet& net,
-                  MSRouteHandler* handler);
-
-    /// destructor
-    ~MSRouteLoader();
-
-    /** loads vehicles until a vehicle is read that starts after
-        the specified time */
-    void loadUntil(SUMOTime time);
-
-    /// resets the reader
-    void init();
-
-    /// returns the information whether new data is available
-    bool moreAvailable() const;
-private:
-    /// the used SAX2XMLReader
-    SAX2XMLReader* myParser;
-
-    /// the token for saving the current position
-    XMLPScanToken  myToken;
-
-    /// information whether more vehicles should be available
-    bool myMoreAvailable;
-
-    MSRouteHandler* myHandler;
-
-};
+GUIPersonControl::GUIPersonControl() {}
 
 
-#endif
+GUIPersonControl::~GUIPersonControl() {
+}
+
+
+MSPerson *
+GUIPersonControl::buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const {
+    return new GUIPerson(pars, plan);
+}
 
 /****************************************************************************/
-

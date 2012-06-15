@@ -299,6 +299,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "totaz",          SUMO_ATTR_TO_TAZ__DEPRECATED },
     { "toTaz",          SUMO_ATTR_TO_TAZ },
     { "reroute",        SUMO_ATTR_REROUTE },
+    { "personCapacity", SUMO_ATTR_PERSON_CAPACITY },
+    { "personNumber",   SUMO_ATTR_PERSON_NUMBER },
 
     { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },
@@ -428,6 +430,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "estimation",     SUMO_ATTR_CF_WIEDEMANN_ESTIMATION },
 
     { "generateWalks",  SUMO_ATTR_GENERATE_WALKS },
+    { "actType",        SUMO_ATTR_ACTTYPE },
 
     // ActivityGen statistics file
     { "inhabitants",    AGEN_ATTR_INHABITANTS },

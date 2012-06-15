@@ -204,6 +204,17 @@ public:
     //}
 
 
+    /** @brief Returns the person control
+     *
+     * If the person control does not exist, yet, it is created.
+     *
+     * @return The person control
+     * @see MSPersonControl
+     * @see myPersonControl
+     */
+    MSPersonControl& getPersonControl();
+
+
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
     unsigned int getLinkTLID(MSLink* link) const;

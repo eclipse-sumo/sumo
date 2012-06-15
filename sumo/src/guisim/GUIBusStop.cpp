@@ -40,8 +40,9 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <guisim/GUINet.h>
-#include <guisim/GUIEdge.h>
+#include "GUINet.h"
+#include "GUIEdge.h"
+#include "GUIPerson.h"
 #include "GUIBusStop.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -102,15 +103,24 @@ GUIBusStop::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
 
 
 GUIParameterTableWindow*
-GUIBusStop::getParameterWindow(GUIMainWindow&,
+GUIBusStop::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
-    return 0;
+    GUIParameterTableWindow* ret =
+        new GUIParameterTableWindow(app, *this, 4);
+    // add items
+    ret->mkItem("begin position [m]", false, myBegPos);
+    ret->mkItem("end position [m]", false, myEndPos);
+    ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, unsigned int>(this, &MSBusStop::getPersonNumber));
+    // close building
+    ret->closeBuilding();
+    return ret;
 }
 
 
@@ -158,6 +168,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        for(std::vector<MSPerson*>::const_iterator i=myWaitingPersons.begin(); i!=myWaitingPersons.end(); ++i) {
+            static_cast<GUIPerson*>(*i)->drawGL(s);
+        }
     glPopName();
 }
 

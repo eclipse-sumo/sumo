@@ -54,12 +54,6 @@
 // command: change target
 #define CMD_CHANGETARGET 0x31
 
-// command: Position Conversion
-#define CMD_POSITIONCONVERSION 0x71
-
-// command: Distance Request
-#define CMD_DISTANCEREQUEST 0x72
-
 // command: add vehicle
 #define CMD_ADDVEHICLE 0x74
 
@@ -517,6 +511,10 @@
 
 // current noise emission of a node (get: vehicle, lane, edge)
 #define VAR_NOISEEMISSION 0x66
+
+// current person number (get: vehicle)
+#define VAR_PERSON_NUMBER 0x67
+#define VAR_BUS_STOP_WAITING 0x67
 
 
 

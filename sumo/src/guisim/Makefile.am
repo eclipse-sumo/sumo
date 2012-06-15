@@ -11,6 +11,7 @@ GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUILaneWrapper.cpp GUILaneWrapper.h \
+GUIPerson.cpp GUIPerson.h GUIPersonControl.cpp GUIPersonControl.h \
 GUINet.cpp GUINet.h \
 GUIShapeContainer.cpp GUIShapeContainer.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \

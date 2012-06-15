@@ -620,6 +620,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIPerson.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIPersonControl.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIShapeContainer.cpp"
 				>
 			</File>
@@ -698,6 +706,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUILaneWrapper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIPerson.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIPersonControl.h"
 				>
 			</File>
 			<File

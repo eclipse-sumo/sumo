@@ -659,8 +659,21 @@ public:
     SUMOReal getHarmonoise_NoiseEmissions() const;
     //@}
 
+
+
+    /// @name Interaction with persons
+    //@{
+
+    /** @brief Adds a passenger
+     * @param[in] person The person to add
+     */
     void addPerson(MSPerson* person);
 
+
+    /** @brief Returns the number of persons
+     * @return The number of passengers on-board
+     */
+    unsigned int getPersonNumber() const;
 
 
     /// @name Access to bool signals

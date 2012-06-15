@@ -155,6 +155,12 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output.sorted", "vehroutes.sorted");
     oc.addDescription("vehroute-output.sorted", "Output", "Sorts the output by departure time");
 
+    oc.doRegister("person-event-output", new Option_FileName());
+    oc.addSynonyme("person-event-output", "events");
+    oc.addDescription("person-event-output", "Output", "Save person-based events into FILE");
+
+    
+
 #ifdef HAVE_INTERNAL
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
@@ -297,6 +303,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("summary-output", "summary");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
+    OutputDevice::createDeviceByOption("person-event-output", "events");
    
     //extended
 	OutputDevice::createDeviceByOption("fcd-output", "fcd-export");
