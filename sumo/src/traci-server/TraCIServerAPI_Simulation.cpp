@@ -75,6 +75,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             && variable != VAR_DELTA_T && variable != VAR_NET_BOUNDING_BOX
             && variable != VAR_MIN_EXPECTED_VEHICLES
             && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
+            && variable != VAR_BUS_STOP_WAITING
        ) {
         server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_ERR, "Get Simulation Variable: unsupported variable specified", outputStorage);
         return false;
