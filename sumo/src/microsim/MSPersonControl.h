@@ -66,17 +66,20 @@ public:
     /// destructor
     virtual ~MSPersonControl();
 
-    /// adds a single person, returns false iff an id clash occured
+    /// adds a single person, returns false if an id clash occured
     bool add(const std::string& id, MSPerson* person);
 
     /// removes a single person
     void erase(MSPerson* person);
 
     /// sets the arrival time for a waiting or walking person
-    void setArrival(SUMOTime time, MSPerson* person);
+    void setDeparture(SUMOTime time, MSPerson* person);
+
+    /// sets the arrival time for a waiting or walking person
+    void setWaitEnd(SUMOTime time, MSPerson* person);
 
     /// checks whether any persons waiting or walking time is over
-    void checkArrivedPersons(MSNet* net, const SUMOTime time);
+    void checkWaitingPersons(MSNet* net, const SUMOTime time);
 
     /// adds a person to the list of persons waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSPerson* person);
@@ -93,7 +96,7 @@ public:
     bool hasPersons() const;
 
     /// checks whether any person is still engaged in walking / stopping
-    bool hasPedestrians() const;
+    bool hasNonWaiting() const;
 
     /// aborts the plan for any person that is still waiting for a ride
     void abortWaiting();
@@ -105,18 +108,24 @@ public:
      */
     virtual MSPerson *buildPerson(const SUMOVehicleParameter* pars, MSPerson::MSPersonPlan* plan) const;
 
+    void setWalking(MSPerson *p);
+    void unsetWalking(MSPerson *p);
+
 private:
     /// all persons by id
     std::map<std::string, MSPerson*> myPersons;
+
+    /// all persons by id
+    std::map<std::string, MSPerson*> myWalking;
 
     /// @brief Persons waiting for departure
     std::map<SUMOTime, PersonVector> myWaiting4Departure;
 
     /// the lists of walking / stopping persons
-    std::map<SUMOTime, PersonVector> myArrivals;
+    std::map<SUMOTime, PersonVector> myWaitingUntil;
 
     /// the lists of waiting persons
-    std::map<const MSEdge*, PersonVector> myWaiting;
+    std::map<const MSEdge*, PersonVector> myWaiting4Vehicle;
 
 };
 

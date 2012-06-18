@@ -438,6 +438,8 @@ extern const SUMOReal DEFAULT_VEH_TMP3;
 extern const SUMOReal DEFAULT_VEH_TMP4;
 extern const SUMOReal DEFAULT_VEH_TMP5;
 
+extern const SUMOReal DEFAULT_PERSON_SPEED;
+
 #endif
 
 /****************************************************************************/

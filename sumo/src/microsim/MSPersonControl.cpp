@@ -56,7 +56,7 @@ MSPersonControl::~MSPersonControl() {
         delete(*i).second;
     }
     myPersons.clear();
-    myWaiting.clear();
+    myWaiting4Vehicle.clear();
 }
 
 
@@ -98,42 +98,60 @@ MSPersonControl::erase(MSPerson* person) {
 
 
 void
-MSPersonControl::setArrival(const SUMOTime time, MSPerson* person) {
+MSPersonControl::setDeparture(const SUMOTime time, MSPerson* person) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
-    if (myArrivals.find(step) == myArrivals.end()) {
-        myArrivals[step] = PersonVector();
+    if (myWaiting4Departure.find(step) == myWaiting4Departure.end()) {
+        myWaiting4Departure[step] = PersonVector();
     }
-    myArrivals[step].push_back(person);
+    myWaiting4Departure[step].push_back(person);
 }
 
 
 void
-MSPersonControl::checkArrivedPersons(MSNet* net, const SUMOTime time) {
-    while (myArrivals.find(time) != myArrivals.end()) {
-        const PersonVector& persons = myArrivals[time];
+MSPersonControl::setWaitEnd(const SUMOTime time, MSPerson* person) {
+    const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
+    if (myWaitingUntil.find(step) == myWaitingUntil.end()) {
+        myWaitingUntil[step] = PersonVector();
+    }
+    myWaitingUntil[step].push_back(person);
+}
+
+
+void
+MSPersonControl::checkWaitingPersons(MSNet* net, const SUMOTime time) {
+    while (myWaiting4Departure.find(time) != myWaiting4Departure.end()) {
+        const PersonVector& persons = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (size_t i = 0; i < persons.size(); ++i) {
             persons[i]->proceed(net, time);
         }
-        myArrivals.erase(time);
+        myWaiting4Departure.erase(time);
+    }
+    while (myWaitingUntil.find(time) != myWaitingUntil.end()) {
+        const PersonVector& persons = myWaitingUntil[time];
+        // we cannot use an iterator here because there might be additions to the vector while proceeding
+        for (size_t i = 0; i < persons.size(); ++i) {
+            persons[i]->proceed(net, time);
+        }
+        myWaitingUntil.erase(time);
     }
 }
 
 
 void
 MSPersonControl::addWaiting(const MSEdge* const edge, MSPerson* person) {
-    if (myWaiting.find(edge) == myWaiting.end()) {
-        myWaiting[edge] = std::vector<MSPerson*>();
+    if (myWaiting4Vehicle.find(edge) == myWaiting4Vehicle.end()) {
+        myWaiting4Vehicle[edge] = std::vector<MSPerson*>();
     }
-    myWaiting[edge].push_back(person);
+    myWaiting4Vehicle[edge].push_back(person);
 }
 
 
 bool
 MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) {
     bool ret = false;
-    if (myWaiting.find(edge) != myWaiting.end()) {
-        PersonVector& waitPersons = myWaiting[edge];
+    if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
+        PersonVector& waitPersons = myWaiting4Vehicle[edge];
         for (PersonVector::iterator i = waitPersons.begin(); i != waitPersons.end();) {
             const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
             if ((*i)->isWaitingFor(line)) {
@@ -144,6 +162,9 @@ MSPersonControl::boardAnyWaiting(const MSEdge* const edge, MSVehicle* vehicle) {
             } else {
                 ++i;
             }
+        }
+        if(waitPersons.size()==0) {
+            myWaiting4Vehicle.erase(myWaiting4Vehicle.find(edge));
         }
     }
     return ret;
@@ -157,17 +178,35 @@ MSPersonControl::hasPersons() const {
 
 
 bool
-MSPersonControl::hasPedestrians() const {
-    return !myArrivals.empty();
+MSPersonControl::hasNonWaiting() const {
+    return !myWaiting4Departure.empty() || !myWaitingUntil.empty() || !myWalking.empty();
+}
+
+
+void 
+MSPersonControl::setWalking(MSPerson *p) {
+    myWalking[p->getID()] = p;
+}
+
+
+void 
+MSPersonControl::unsetWalking(MSPerson *p) {
+    std::map<std::string, MSPerson*>::iterator i=myWalking.find(p->getID());
+    if(i!=myWalking.end()) {
+        myWalking.erase(i);
+    }
 }
 
 
 void
 MSPersonControl::abortWaiting() {
-    while (!myPersons.empty()) {
-        std::map<std::string, MSPerson*>::iterator i = myPersons.begin();
-        WRITE_WARNING("Person " + i->first + " aborted waiting for a ride that will never come.");
-        erase(i->second);
+    for (std::map<const MSEdge*, PersonVector>::const_iterator i=myWaiting4Vehicle.begin(); i!=myWaiting4Vehicle.end(); ++i) {
+        const PersonVector &pv = (*i).second;
+        for (PersonVector::const_iterator j=pv.begin(); j!=pv.end(); ++j) {
+            MSPerson *p = (*j);
+            WRITE_WARNING("Person " + p->getID() + " aborted waiting for a ride that will never come.");
+            erase(p);
+        }
     }
 }
 

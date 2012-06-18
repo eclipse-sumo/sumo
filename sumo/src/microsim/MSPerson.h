@@ -88,6 +88,7 @@ public:
 
         /// Returns the current edge
         virtual const MSEdge *getEdge(SUMOTime now) const = 0;
+        virtual SUMOReal getEdgePos(SUMOTime now) const = 0;
 
         /// 
         virtual Position getPosition(SUMOTime now) const = 0;
@@ -98,7 +99,7 @@ public:
         }
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos) = 0;
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at) = 0;
 
         /// logs end of the step
         void setDeparted(SUMOTime now);
@@ -108,6 +109,8 @@ public:
 
         /// Whether the person waits for a vehicle of the line specified.
         virtual bool isWaitingFor(const std::string& line) const;
+
+        Position getEdgePosition(const MSEdge *e, SUMOReal at) const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -164,10 +167,11 @@ public:
         ~MSPersonStage_Walking();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
         Position getPosition(SUMOTime now) const;
@@ -207,7 +211,8 @@ public:
 
 
     private:
-        void computeWalkingTime(const MSEdge * const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop *bs, SUMOReal speed);
+        void computeWalkingTime(const MSEdge * const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop *bs);
+        bool checkNoDuration(MSNet *net, MSPerson *person, SUMOTime duration, SUMOTime now);
 
 
     private:
@@ -227,8 +232,11 @@ public:
         SUMOReal myArrivalPos;
         MSBusStop *myDestinationBusStop;
         SUMOTime myLastEntryTime;
+        SUMOReal mySpeed;
 
         SUMOReal myCurrentBeginPos, myCurrentLength, myCurrentDuration;
+        //bool myDurationWasGiven;
+        //SUMOReal myOverallLength;
 
         class arrival_finder {
         public:
@@ -268,10 +276,11 @@ public:
         ~MSPersonStage_Driving();
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
         Position getPosition(SUMOTime now) const;
@@ -310,7 +319,9 @@ public:
         SUMOVehicle *myVehicle;
 
         MSBusStop *myDestinationBusStop;
-        Position myWaitingPos;
+        //Position myWaitingPos;
+        SUMOReal myWaitingPos;
+        const MSEdge *myWaitingEdge;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -334,12 +345,13 @@ public:
 
         /// Returns the current edge
         const MSEdge *getEdge(SUMOTime now) const;
+        SUMOReal getEdgePos(SUMOTime now) const;
 
         /// 
         Position getPosition(SUMOTime now) const;
     
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const Position &pos);
+        virtual void proceed(MSNet* net, MSPerson* person, SUMOTime now, const MSEdge& previousEdge, const SUMOReal at);
 
         /** @brief Called on writing tripinfo output
          *
@@ -369,6 +381,8 @@ public:
 
         /// @brief The type of activity
         std::string myActType;
+
+        SUMOReal myStartPos;
 
 
     private:
@@ -426,6 +440,10 @@ public:
         return (*myStep)->getEdge(now);
     }
 
+    SUMOReal getEdgePos(SUMOTime now) const {
+        return (*myStep)->getEdgePos(now);
+    }
+
     /// 
     Position getPosition(SUMOTime now) const {
         return (*myStep)->getPosition(now);
@@ -439,6 +457,8 @@ public:
     MSPersonStage *getCurrentStage() const {
         return *myStep;
     }
+
+    
 
 
     /** @brief Called on writing tripinfo output

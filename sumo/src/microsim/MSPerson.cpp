@@ -87,6 +87,16 @@ MSPerson::MSPersonStage::isWaitingFor(const std::string& /*line*/) const {
 }
 
 
+Position 
+MSPerson::MSPersonStage::getEdgePosition(const MSEdge *e, SUMOReal at) const {
+    // @todo: well, definitely not the nicest way... Should be precomputed
+    PositionVector shp = e->getLanes()[0]->getShape();
+    shp.move2side(3);
+    return shp.positionAtLengthPosition(at);
+}
+
+
+
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
@@ -95,40 +105,16 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::vector<const M
     SUMOTime walkingTime, SUMOReal speed,
     SUMOReal departPos, SUMOReal arrivalPos)
     : MSPersonStage(*route.back(), WALKING), myWalkingTime(walkingTime), myRoute(route),
-    myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS)
+    myDepartPos(departPos), myArrivalPos(arrivalPos), myDestinationBusStop(toBS),
+    mySpeed(speed)
 {
-    /*
-    if (speed > 0) {
-        SUMOReal time = 0;
-        for (MSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
-            time += ((*it)->getLanes())[0]->getLength() / speed;
+    if(walkingTime>0) {
+        SUMOReal length = 0;
+        for(std::vector<const MSEdge*>::const_iterator i=route.begin(); i!=route.end(); ++i) {
+            length += (*i)->getLength();
         }
-        myWalkingTime = MAX2(walkingTime, TIME2STEPS(time));
+        mySpeed = length / STEPS2TIME(walkingTime);
     }
-    */
-    if(toBS!=0) {
-        myArrivalPos = toBS->getEndLanePosition();
-    }
-    /*
-    speed = 5./3.6;
-    if (speed > 0) {
-        SUMOReal off = myDepartPos;
-        SUMOTime time = 0;
-        std::vector<const MSEdge*>::const_iterator it = route.begin();
-        for (; it != route.end()-1; ++it) {
-            myRoute.push_back((MSEdge*) *it);
-            SUMOTime dur = TIME2STEPS((((*it)->getLanes())[0]->getLength() - off) / speed);
-            time += dur;
-            myArrivalTimes.push_back(dur);
-            off = 0;
-        }
-        myRoute.push_back((MSEdge*) *it);
-        SUMOTime dur = TIME2STEPS((myArrivalPos - off) / speed);
-        time += dur;
-        myArrivalTimes.push_back(dur);
-        myWalkingTime = MAX2(walkingTime, time);
-    }
-    */
 }
 
 
@@ -141,31 +127,54 @@ MSPerson::MSPersonStage_Walking::getEdge(SUMOTime now) const {
 }
 
 
+SUMOReal 
+MSPerson::MSPersonStage_Walking::getEdgePos(SUMOTime now) const {
+    SUMOReal off = STEPS2TIME(now - myLastEntryTime);
+    return myCurrentBeginPos+myCurrentLength/myCurrentDuration*off;
+}
+
+
 Position 
 MSPerson::MSPersonStage_Walking::getPosition(SUMOTime now) const {
     const MSEdge *e = getEdge(now);
     SUMOReal off = STEPS2TIME(now - myLastEntryTime);
-    return e->getLanes()[0]->getShape().positionAtLengthPosition(myCurrentBeginPos+myCurrentLength/myCurrentDuration*off);
+    return getEdgePosition(e, myCurrentBeginPos+myCurrentLength/myCurrentDuration*off);
 }
 
+
+bool
+MSPerson::MSPersonStage_Walking::checkNoDuration(MSNet *net, MSPerson *person, SUMOTime duration, SUMOTime now) {
+    if(duration==0) {                                                
         
+        return true;
+    }
+    return false;
+}
+
+
 void
-MSPerson::MSPersonStage_Walking::proceed(MSNet* net,
-        MSPerson* person, SUMOTime now,
-        const MSEdge& /*previousEdge*/, const Position &pos) {
+MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSPerson* person, SUMOTime now,
+                                         const MSEdge& /*previousEdge*/, const SUMOReal at) {
     myRouteStep = myRoute.begin();
     myLastEntryTime = now;
+    if(myWalkingTime==0) {
+        person->proceed(net, now);
+        return;
+    }
+    MSNet::getInstance()->getPersonControl().setWalking(person);
+    if(at>=0) {
+        myDepartPos = at;
+    }
     ((MSEdge*) *myRouteStep)->addPerson(person);
     myRoute.size()==1
-        ? computeWalkingTime(*myRouteStep, myDepartPos, myArrivalPos, myDestinationBusStop, 5.0/3.6)
-        : computeWalkingTime(*myRouteStep, myDepartPos, -1, 0, 5.0/3.6);
+        ? computeWalkingTime(*myRouteStep, myDepartPos, myArrivalPos, myDestinationBusStop)
+        : computeWalkingTime(*myRouteStep, myDepartPos, -1, 0);
     net->getBeginOfTimestepEvents().addEvent(new MoveToNextEdge(person, *this), now + TIME2STEPS(myCurrentDuration), MSEventControl::ADAPT_AFTER_EXECUTION);
-    //net->getPersonControl().setArrival(MAX2(now, now + myWalkingTime), person);
 }
 
 
 void
-MSPerson::MSPersonStage_Walking::computeWalkingTime(const MSEdge * const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop *bs, SUMOReal speed) {
+MSPerson::MSPersonStage_Walking::computeWalkingTime(const MSEdge * const e, SUMOReal fromPos, SUMOReal toPos, MSBusStop *bs) {
     if(bs!=0) {
         toPos = bs->getEndLanePosition();
     } else if(toPos<0) {
@@ -176,8 +185,9 @@ MSPerson::MSPersonStage_Walking::computeWalkingTime(const MSEdge * const e, SUMO
     }
     myCurrentBeginPos = fromPos;
     myCurrentLength = toPos-fromPos;
-    myCurrentDuration = myCurrentLength / speed;
+    myCurrentDuration = myCurrentLength / mySpeed;
 }
+
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os) const {
@@ -213,16 +223,17 @@ SUMOTime
 MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson *person, SUMOTime currentTime) {
     ((MSEdge*) *myRouteStep)->removePerson(person);
     if(myRouteStep==myRoute.end()-1) {
+        MSNet::getInstance()->getPersonControl().unsetWalking(person);
         if(myDestinationBusStop!=0) {
             myDestinationBusStop->addPerson(person);
         }
-        person->proceed(MSNet::getInstance(), currentTime);//net->getPersonControl().setArrival(MAX2(now, now + myWalkingTime), person);
+        person->proceed(MSNet::getInstance(), currentTime);
         return 0;
     } else {
         ++myRouteStep;
         myRouteStep==myRoute.end()-1
-            ? computeWalkingTime(*myRouteStep, -1, myArrivalPos, myDestinationBusStop, 5.0/3.6)
-            : computeWalkingTime(*myRouteStep, -1, -1, 0, 5.0/3.6);
+            ? computeWalkingTime(*myRouteStep, -1, myArrivalPos, myDestinationBusStop)
+            : computeWalkingTime(*myRouteStep, -1, -1, 0);
         ((MSEdge*) *myRouteStep)->addPerson(person);
         myLastEntryTime = currentTime;
         return TIME2STEPS(myCurrentDuration);
@@ -245,7 +256,19 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 const MSEdge *
 MSPerson::MSPersonStage_Driving::getEdge(SUMOTime now) const {
-    return myVehicle->getEdge();
+    if(myVehicle!=0) {
+        return myVehicle->getEdge();
+    }
+    return myWaitingEdge;
+}
+
+
+SUMOReal 
+MSPerson::MSPersonStage_Driving::getEdgePos(SUMOTime now) const {
+    if(myVehicle!=0) {
+        return myVehicle->getPositionOnLane();
+    }
+    return myWaitingPos;
 }
 
 
@@ -254,15 +277,15 @@ MSPerson::MSPersonStage_Driving::getPosition(SUMOTime now) const {
     if(myVehicle!=0) {
         return myVehicle->getEdge()->getLanes()[0]->getShape().positionAtLengthPosition(myVehicle->getPositionOnLane());
     }
-    return myWaitingPos;
+    return getEdgePosition(myWaitingEdge, myWaitingPos);
 }
 
         
 void
-MSPerson::MSPersonStage_Driving::proceed(MSNet* net,
-        MSPerson* person, SUMOTime now,
-        const MSEdge& previousEdge, const Position &pos) {
-    myWaitingPos = pos;
+MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSPerson* person, SUMOTime now, 
+                                         const MSEdge& previousEdge, const SUMOReal at) {
+    myWaitingEdge = &previousEdge;
+    myWaitingPos = at;
     myVehicle = net->getVehicleControl().getWaitingVehicle(&previousEdge, myLines);
     if (myVehicle != 0 && myVehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
         myVehicle->addPerson(person);
@@ -318,7 +341,7 @@ MSPerson::MSPersonStage_Driving::endEventOutput(const MSPerson &p, SUMOTime t, O
 MSPerson::MSPersonStage_Waiting::MSPersonStage_Waiting(const MSEdge& destination,
         SUMOTime duration, SUMOTime until, const std::string &actType)
     : MSPersonStage(destination, WAITING), myWaitingDuration(duration), myWaitingUntil(until),
-    myActType(actType) {}
+    myActType(actType), myStartPos(-1) {}
 
 
 MSPerson::MSPersonStage_Waiting::~MSPersonStage_Waiting() {}
@@ -330,6 +353,11 @@ MSPerson::MSPersonStage_Waiting::getEdge(SUMOTime now) const {
 }
 
 
+SUMOReal 
+MSPerson::MSPersonStage_Waiting::getEdgePos(SUMOTime now) const {
+    return myStartPos;
+}
+
 Position 
 MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime now) const {
     return myDestination.getLanes()[0]->getShape().positionAtLengthPosition(myDestination.getLanes()[0]->getLength()/2.);
@@ -337,10 +365,10 @@ MSPerson::MSPersonStage_Waiting::getPosition(SUMOTime now) const {
 
 
 void
-MSPerson::MSPersonStage_Waiting::proceed(MSNet* net,
-        MSPerson* person, SUMOTime now, const MSEdge& /*previousEdge*/, const Position &pos) {
+MSPerson::MSPersonStage_Waiting::proceed(MSNet* net, MSPerson* person, SUMOTime now, const 
+                                         MSEdge& /*previousEdge*/, const SUMOReal /* at */) {
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
-    net->getPersonControl().setArrival(until, person);
+    net->getPersonControl().setWaitEnd(until, person);
 }
 
 
@@ -399,7 +427,9 @@ MSPerson::getID() const {
 
 void
 MSPerson::proceed(MSNet* net, SUMOTime time) {
-    const MSEdge& arrivedAt = (*myStep)->getDestination();
+    const MSEdge& arrivedAt = *(*myStep)->getEdge(time);
+    SUMOReal atPos = (*myStep)->getEdgePos(time);
+    //MSPersonPlan::iterator prior = myStep;
     (*myStep)->setArrived(time);
     /*
     if(myWriteEvents) {
@@ -409,7 +439,7 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
     Position pos = (*myStep)->getPosition(time);
     myStep++;
     if (myStep != myPlan->end()) {
-        (*myStep)->proceed(net, this, time, arrivedAt, pos);
+        (*myStep)->proceed(net, this, time, arrivedAt, atPos);
         /*
         if(myWriteEvents) {
             (*myStep)->beginEventOutput(*this, time, OutputDevice::getDeviceByOption("person-event-output"));

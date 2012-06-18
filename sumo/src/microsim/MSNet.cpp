@@ -391,7 +391,7 @@ MSNet::simulationStep() {
 
     // persons
     if (myPersonControl != 0) {
-        myPersonControl->checkArrivedPersons(this, myStep);
+        myPersonControl->checkWaitingPersons(this, myStep);
     }
     // emit Vehicles
     myInsertionEvents->execute(myStep);
@@ -432,7 +432,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
         if (myInsertionEvents->isEmpty()
                 && (myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
-                && (myPersonControl == 0 || !myPersonControl->hasPedestrians())) {
+                && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())) {
             if (myPersonControl) {
                 myPersonControl->abortWaiting();
             }

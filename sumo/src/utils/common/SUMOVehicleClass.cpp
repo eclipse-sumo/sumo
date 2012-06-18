@@ -350,5 +350,7 @@ const SUMOReal DEFAULT_VEH_TMP3(1.);
 const SUMOReal DEFAULT_VEH_TMP4(1.);
 const SUMOReal DEFAULT_VEH_TMP5(1.);
 
+const SUMOReal DEFAULT_PERSON_SPEED(5./3.6);
+
 /****************************************************************************/
 
