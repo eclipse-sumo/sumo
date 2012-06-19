@@ -22,3 +22,6 @@ flow_at_destination_edge
 
 # hit the exact  numbers for successive intervals
 calibrate_exact
+
+# removal from short edges is tricky because vehicles may skip across it in one step
+remove_from_short_edge

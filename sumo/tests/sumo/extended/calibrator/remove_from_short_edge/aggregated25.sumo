@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue Jun 19 15:44:10 2012 by SUMO sumo Version dev-SVN-r12396
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+    <interval begin="0.00" end="300.00" id="expect10vehs">
+        <edge id="beg" sampledSeconds="2923.45" traveltime="18.07" density="19.49" occupancy="9.74" waitingTime="0.00" speed="27.67" departed="167" arrived="0" entered="0" left="157" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="384.89" traveltime="38.49" density="1.20" occupancy="0.60" waitingTime="0.00" speed="27.80" departed="0" arrived="10" entered="10" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="middle" sampledSeconds="31.00" traveltime="1.08" density="3.44" occupancy="1.72" waitingTime="0.00" speed="27.80" departed="0" arrived="0" entered="157" left="157" laneChangedFrom="0" laneChangedTo="0" vaporized="147"/>
+    </interval>
+</netstats>
