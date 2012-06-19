@@ -140,12 +140,34 @@ bool
 RODUAFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = ROFrame::checkOptions(oc);
-    ok &= (!oc.isSet("departlane") || SUMOVehicleParameter::departlaneValidate(oc.getString("departlane")));
-    ok &= (!oc.isSet("departpos") || SUMOVehicleParameter::departposValidate(oc.getString("departpos")));
-    ok &= (!oc.isSet("departspeed") || SUMOVehicleParameter::departspeedValidate(oc.getString("departspeed")));
-    ok &= (!oc.isSet("arrivallane") || SUMOVehicleParameter::arrivallaneValidate(oc.getString("arrivallane")));
-    ok &= (!oc.isSet("arrivalpos") || SUMOVehicleParameter::arrivalposValidate(oc.getString("arrivalpos")));
-    ok &= (!oc.isSet("arrivalspeed") || SUMOVehicleParameter::arrivalspeedValidate(oc.getString("arrivalspeed")));
+
+    SUMOVehicleParameter p;
+    std::string error;
+    if(oc.isSet("departlane") && !SUMOVehicleParameter::parseDepartLane(oc.getString("departlane"), "option", "departlane", p.departLane, p.departLaneProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+    if(oc.isSet("departpos") && !SUMOVehicleParameter::parseDepartPos(oc.getString("departpos"), "option", "departpos", p.departPos, p.departPosProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+    if(oc.isSet("departspeed") && !SUMOVehicleParameter::parseDepartSpeed(oc.getString("departspeed"), "option", "departspeed", p.departSpeed, p.departSpeedProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+    if(oc.isSet("arrivallane") && !SUMOVehicleParameter::parseArrivalLane(oc.getString("arrivallane"), "option", "arrivallane", p.arrivalLane, p.arrivalLaneProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+    if(oc.isSet("arrivalpos") && !SUMOVehicleParameter::parseArrivalPos(oc.getString("arrivalpos"), "option", "arrivalpos", p.arrivalPos, p.arrivalPosProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+    if(oc.isSet("arrivalspeed") && !SUMOVehicleParameter::parseArrivalSpeed(oc.getString("arrivalspeed"), "option", "arrivalspeed", p.arrivalSpeed, p.arrivalSpeedProcedure, error)) {
+        WRITE_ERROR(error);
+        ok = false;
+    }
+
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
         WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support weight-attribute '" + oc.getString("weight-attribute") + "'.");
         return false;

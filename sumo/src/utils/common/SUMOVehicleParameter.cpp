@@ -249,99 +249,160 @@ SUMOVehicleParameter::writeAs(const std::string& xmlElem, OutputDevice& dev,
 }
 
 
-bool
-SUMOVehicleParameter::departlaneValidate(const std::string& val) {
-    if (val == "random" || val == "free" || val == "departlane" || val == "allowed" || val == "best") {
-        return true;
+bool 
+SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string &element, const std::string &id, 
+                                      int &lane, DepartLaneDefinition &dld, std::string &error) {
+    bool ok = true;
+    if (val == "random") {
+        dld = DEPART_LANE_RANDOM;
+    } else if (val == "free") {
+        dld = DEPART_LANE_FREE;
+    } else if (val == "allowed") {
+        dld = DEPART_LANE_ALLOWED_FREE;
+    } else if (val == "best") {
+        dld = DEPART_LANE_BEST_FREE;
+    } else {
+        try {
+            lane = TplConvert<char>::_2int(val.c_str());
+            dld = DEPART_LANE_GIVEN;
+            if (lane < 0) {
+                ok = false;
+            }
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2int(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid departLane definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", \"allowed\", \"best\", or an int>0)";
     }
-    WRITE_ERROR("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", \"allowed\", \"best\", or an int>0)");
-    return false;
+    return ok;
 }
 
 
 bool
-SUMOVehicleParameter::departposValidate(const std::string& val) {
-    if (val == "random" || val == "free" || val == "random_free" || val == "base" || val == "pwagSimple" || val == "pwagGeneric" || val == "maxSpeedGap") {
-        return true;
+SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string &element, const std::string &id, 
+                                     SUMOReal &pos, DepartPosDefinition &dpd, std::string &error) {
+    bool ok = true;
+    if (val == "random") {
+        dpd = DEPART_POS_RANDOM;
+    } else if (val == "random_free") {
+        dpd = DEPART_POS_RANDOM_FREE;
+    } else if (val == "free") {
+        dpd = DEPART_POS_FREE;
+    } else if (val == "base") {
+        dpd = DEPART_POS_BASE;
+    } else if (val == "pwagSimple") {
+        dpd = DEPART_POS_PWAG_SIMPLE;
+    } else if (val == "pwagGeneric") {
+        dpd = DEPART_POS_PWAG_GENERIC;
+    } else if (val == "maxSpeedGap") {
+        dpd = DEPART_POS_MAX_SPEED_GAP;
+    } else {
+        try {
+            pos = TplConvert<char>::_2SUMOReal(val.c_str());
+            dpd = DEPART_POS_GIVEN;
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2SUMOReal(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid departPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)";
     }
-    WRITE_ERROR("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", \"base\", \"pwagSimple\", \"pwagGeneric\", \"maxSpeedGap\", or a float)");
-    return false;
+    return ok;
 }
 
 
 bool
-SUMOVehicleParameter::departspeedValidate(const std::string& val) {
-    if (val == "random" || val == "max") {
-        return true;
+SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string &element, const std::string &id, 
+                                       SUMOReal &speed, DepartSpeedDefinition &dsd, std::string &error) {
+    bool ok = true;
+    if (val == "random") {
+        dsd = DEPART_SPEED_RANDOM;
+    } else if (val == "max") {
+        dsd = DEPART_SPEED_MAX;
+    } else {
+        try {
+            speed = TplConvert<char>::_2SUMOReal(val.c_str());
+            dsd = DEPART_SPEED_GIVEN;
+            if (speed < 0) {
+                ok = false;
+            }
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2SUMOReal(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>0)";
     }
-    WRITE_ERROR("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
-    return false;
+    return ok;
 }
 
 
 bool
-SUMOVehicleParameter::arrivallaneValidate(const std::string& val) {
+SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string &element, const std::string &id, 
+                                       int &lane, ArrivalLaneDefinition &ald, std::string &error) {
+    bool ok = true;
     if (val == "current") {
-        return true;
+        ald = ARRIVAL_LANE_CURRENT;
+    } else {
+        try {
+            lane = TplConvert<char>::_2int(val.c_str());
+            ald = ARRIVAL_LANE_GIVEN;
+            if (lane < 0) {
+                ok = false;
+            }
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2int(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid arrivalLane definition for " + element + " '" + id + "';\n must be one of (\"current\", or int>0)";
     }
-    WRITE_ERROR("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
-    return false;
+    return ok;
 }
 
 
 bool
-SUMOVehicleParameter::arrivalposValidate(const std::string& val) {
-    if (val == "random" || val == "max") {
-        return true;
+SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string &element, const std::string &id, 
+                                      SUMOReal &pos, ArrivalPosDefinition &apd, std::string &error) {
+    bool ok = true;
+    if (val == "random") {
+        apd = ARRIVAL_POS_RANDOM;
+    } else if (val == "max") {
+        apd = ARRIVAL_POS_MAX;
+    } else {
+        try {
+            pos = TplConvert<char>::_2SUMOReal(val.c_str());
+            apd = ARRIVAL_POS_GIVEN;
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2SUMOReal(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid arrivalPos definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float)";
     }
-    WRITE_ERROR("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
-    return false;
+    return ok;
 }
 
 
 bool
-SUMOVehicleParameter::arrivalspeedValidate(const std::string& val) {
+SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::string &element, const std::string &id, 
+                                        SUMOReal &speed, ArrivalSpeedDefinition &asd, std::string &error) {
+    bool ok = true;
     if (val == "current") {
-        return true;
+        asd = ARRIVAL_SPEED_CURRENT;
+    } else {
+        try {
+            speed = TplConvert<char>::_2SUMOReal(val.c_str());
+            asd = ARRIVAL_SPEED_GIVEN;
+        } catch (...) {
+            ok = false;
+        }
     }
-    try {
-        TplConvert<char>::_2SUMOReal(val.c_str());
-        return true;
-    } catch (NumberFormatException&) {
-    } catch (EmptyData&) {
+    if(!ok) {
+        error = "Invalid arrivalSpeed definition for " + element + " '" + id + "';\n must be one of (\"current\", or a float>0)";
     }
-    WRITE_ERROR("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
-    return false;
+    return ok;
 }
 
 

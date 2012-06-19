@@ -271,36 +271,19 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         ret->setParameter |= VEHPARS_FORCE_REROUTE;
     }
 
+    std::string error;
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE) || attrs.hasAttribute(SUMO_ATTR_DEPARTLANE__DEPRECATED)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
         const std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)
                                    ? attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, 0, ok)
                                    : attrs.getStringReporting(SUMO_ATTR_DEPARTLANE__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseDepartLane(helper, element, ret->id, ret->departLane, ret->departLaneProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedDepartLane && attrs.hasAttribute(SUMO_ATTR_DEPARTLANE__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedDepartLane = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTLANE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTLANE) + "' instead.");
-        }
-        if (helper == "random") {
-            ret->departLaneProcedure = DEPART_LANE_RANDOM;
-        } else if (helper == "free") {
-            ret->departLaneProcedure = DEPART_LANE_FREE;
-        } else if (helper == "allowed") {
-            ret->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
-        } else if (helper == "best") {
-            ret->departLaneProcedure = DEPART_LANE_BEST_FREE;
-        } else {
-            try {
-                ret->departLane = TplConvert<char>::_2int(helper.c_str());
-                ret->departLaneProcedure = DEPART_LANE_GIVEN;
-                if (ret->departLane < 0) {
-                    throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
-                }
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid departLane definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
     // parse depart position information
@@ -309,33 +292,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         const std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)
                                    ? attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, 0, ok)
                                    : attrs.getStringReporting(SUMO_ATTR_DEPARTPOS__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseDepartPos(helper, element, ret->id, ret->departPos, ret->departPosProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedDepartPos && attrs.hasAttribute(SUMO_ATTR_DEPARTPOS__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedDepartPos = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTPOS__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTPOS) + "' instead.");
-        }
-        if (helper == "random") {
-            ret->departPosProcedure = DEPART_POS_RANDOM;
-        } else if (helper == "random_free") {
-            ret->departPosProcedure = DEPART_POS_RANDOM_FREE;
-        } else if (helper == "free") {
-            ret->departPosProcedure = DEPART_POS_FREE;
-        } else if (helper == "base") {
-            ret->departPosProcedure = DEPART_POS_BASE;
-        } else if (helper == "pwagSimple") {
-            ret->departPosProcedure = DEPART_POS_PWAG_SIMPLE;
-        } else if (helper == "pwagGeneric") {
-            ret->departPosProcedure = DEPART_POS_PWAG_GENERIC;
-        } else if (helper == "maxSpeedGap") {
-            ret->departPosProcedure = DEPART_POS_MAX_SPEED_GAP;
-        } else {
-            try {
-                ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());
-                ret->departPosProcedure = DEPART_POS_GIVEN;
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid departPos definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid departPos definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
     // parse depart speed information
@@ -344,23 +306,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         std::string helper = attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)
                              ? attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, 0, ok)
                              : attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseDepartSpeed(helper, element, ret->id, ret->departSpeed, ret->departSpeedProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedDepartSpeed && attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedDepartSpeed = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_DEPARTSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_DEPARTSPEED) + "' instead.");
-        }
-        if (helper == "random") {
-            ret->departSpeedProcedure = DEPART_SPEED_RANDOM;
-        } else if (helper == "max") {
-            ret->departSpeedProcedure = DEPART_SPEED_MAX;
-        } else {
-            try {
-                ret->departSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
-                ret->departSpeedProcedure = DEPART_SPEED_GIVEN;
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid departSpeed definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid departSpeed definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
 
@@ -370,21 +321,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)
                              ? attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE, 0, ok)
                              : attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseArrivalLane(helper, element, ret->id, ret->arrivalLane, ret->arrivalLaneProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedArrivalLane && attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedArrivalLane = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALLANE__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALLANE) + "' instead.");
-        }
-        if (helper == "current") {
-            ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
-        } else {
-            try {
-                ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());
-                ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid arrivalLane definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid arrivalLane definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
     // parse arrival position information
@@ -393,23 +335,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)
                              ? attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS, 0, ok)
                              : attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseArrivalPos(helper, element, ret->id, ret->arrivalPos, ret->arrivalPosProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedArrivalPos && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedArrivalPos = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALPOS__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALPOS) + "' instead.");
-        }
-        if (helper == "random") {
-            ret->arrivalPosProcedure = ARRIVAL_POS_RANDOM;
-        } else if (helper == "max") {
-            ret->arrivalPosProcedure = ARRIVAL_POS_MAX;
-        } else {
-            try {
-                ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
-                ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid arrivalPos definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid arrivalPos definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
     // parse arrival speed information
@@ -418,21 +349,12 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs,
         std::string helper = attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)
                              ? attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, 0, ok)
                              : attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED__DEPRECATED, 0, ok);
+        if(!SUMOVehicleParameter::parseArrivalSpeed(helper, element, ret->id, ret->arrivalSpeed, ret->arrivalSpeedProcedure, error)) {
+            throw ProcessError(error);
+        }
         if (!gHaveWarnedAboutDeprecatedArrivalSpeed && attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED__DEPRECATED)) {
             gHaveWarnedAboutDeprecatedArrivalSpeed = true;
             WRITE_WARNING("'" + toString(SUMO_ATTR_ARRIVALSPEED__DEPRECATED) + "' is deprecated, please use '" + toString(SUMO_ATTR_ARRIVALSPEED) + "' instead.");
-        }
-        if (helper == "current") {
-            ret->arrivalSpeedProcedure = ARRIVAL_SPEED_CURRENT;
-        } else {
-            try {
-                ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
-                ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
-            } catch (NumberFormatException&) {
-                throw ProcessError("Invalid arrivalSpeed definition for " + element + " '" + ret->id + "'");
-            } catch (EmptyData&) {
-                throw ProcessError("Invalid arrivalSpeed definition for " + element + " '" + ret->id + "'");
-            }
         }
     }
 
