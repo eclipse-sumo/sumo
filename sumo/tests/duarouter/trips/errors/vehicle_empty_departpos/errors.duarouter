@@ -1,3 +1,4 @@
 Error: Attribute 'departPos' in definition of a trip is empty.
-Error: Invalid departPos definition for vehicle ''
+Error: Invalid departPos definition for vehicle '';
+ must be one of ("random", "random_free", "free", "base", "pwagSimple", "pwagGeneric", "maxSpeedGap", or a float)
 Quitting (on error).

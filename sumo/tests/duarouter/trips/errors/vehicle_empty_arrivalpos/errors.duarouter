@@ -1,3 +1,4 @@
 Error: Attribute 'arrivalPos' in definition of a trip is empty.
-Error: Invalid arrivalPos definition for vehicle ''
+Error: Invalid arrivalPos definition for vehicle '';
+ must be one of ("random", "max", or a float)
 Quitting (on error).

@@ -1,3 +1,4 @@
 Error: Attribute 'arrivalSpeed' in definition of a trip is empty.
-Error: Invalid arrivalSpeed definition for vehicle ''
+Error: Invalid arrivalSpeed definition for vehicle '';
+ must be one of ("current", or a float>0)
 Quitting (on error).
