@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/24/12 16:43:45 by SUMO sumo Version dev-SVN-r11548
+<!-- generated on Tue Jun 19 14:08:16 2012 by SUMO sumo Version dev-SVN-r12393
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -32,19 +32,23 @@
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.36000.0" depart="36.00" arrival="122.00">
+    <vehicle id="calibtest.81000.0" depart="81.00" arrival="167.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.54000.1" depart="54.00" arrival="140.00">
+    <vehicle id="calibtest.86000.1" depart="86.00" arrival="172.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.72000.2" depart="72.00" arrival="158.00">
+    <vehicle id="calibtest.91000.2" depart="91.00" arrival="177.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="calibtest.90000.3" depart="90.00" arrival="176.00">
+    <vehicle id="calibtest.96000.3" depart="96.00" arrival="182.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="calibtest.98000.4" depart="98.00" arrival="184.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
