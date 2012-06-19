@@ -148,7 +148,7 @@ private:
      * @param[in] predSpeed The LEADER's speed
      * @return the safe velocity
      */
-    virtual SUMOReal _vsafe(SUMOReal gap, SUMOReal predSpeed) const;
+    virtual SUMOReal _vsafe(const MSVehicle* const veh, SUMOReal gap, SUMOReal predSpeed) const;
 
 
     /** @brief Applies driver imperfection (dawdling / sigma)
@@ -156,6 +156,32 @@ private:
      * @return The speed after dawdling
      */
     virtual SUMOReal dawdle(SUMOReal speed) const;
+
+	virtual void updateMyHeadway(const MSVehicle* const veh) const {
+			// this is the point were the preferred headway changes slowly:
+		SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
+		SUMOReal tTau = vars->myHeadway;
+		tTau = tTau + (myHeadwayTime - tTau)*myTmp2 + myTmp3*tTau*RandHelper::rand(-1.0,1.0);
+		if (tTau<TS)  // this ensures the SK safety condition
+			tTau = TS;
+		vars->myHeadway = tTau;
+	}
+
+    virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
+        SSKVehicleVariables *ret = new SSKVehicleVariables();
+		ret->gOld = 0.0;
+		ret->myHeadway = myHeadwayTime;
+		return ret;
+    }
+
+#include <map>
+
+private:
+    class SSKVehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        SUMOReal gOld, myHeadway;
+		std::map<int, SUMOReal> ggOld;
+    };
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
@@ -166,7 +192,11 @@ protected:
 
     /// @brief temporary (testing) parameter
     SUMOReal myTmp1, myTmp2, myTmp3, myTmp4, myTmp5;
-
+   
+	/** @brief new variables needed in this model; myS2Sspeed is the speed below which the vehicle does not move when stopped
+	 * @brief maxDeltaGap is the theoretical maximum change in gap that can happen in one time step
+	*/
+    SUMOReal myS2Sspeed, maxDeltaGap;
 
 };
 

@@ -41,20 +41,37 @@
 MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  SUMOReal accel, SUMOReal decel,
         SUMOReal dawdle, SUMOReal headwayTime, 
         SUMOReal tmp1, SUMOReal tmp2, SUMOReal tmp3, SUMOReal tmp4, SUMOReal tmp5)
+// check whether setting these variables here with default values is ''good'' SUMO design
+//        SUMOReal tmp1=0.0, SUMOReal tmp2=5.0, SUMOReal tmp3=0.0, SUMOReal tmp4, SUMOReal tmp5)
     : MSCFModel(vtype, accel, decel, headwayTime), myDawdle(dawdle), myTauDecel(decel* headwayTime),
     myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5)
 {
+	// the variable tmp1 is the acceleration delay time, e.g. two seconds (or something like this). 
+	// for use in the upate process, a rule like if (v<myTmp1) vsafe = 0; is needed. 
+	// To have this, we have to transform myTmp1 (which is a time) into an equivalent speed. This is done by the 
+	// using the vsafe formula and computing:
+	// v(t=myTmp1) = -myTauDecel + sqrt(myTauDecel*myTauDecel + accel*(accel + decel)*t*t + accel*decel*t*TS); 
+	SUMOReal t = myTmp1;
+	myS2Sspeed = -myTauDecel + sqrt(myTauDecel*myTauDecel + accel*(accel + decel)*t*t + accel*decel*t*TS); 
+	std::cout << "# s2s-speed: " << myS2Sspeed << std::endl;
+	if (myS2Sspeed>5.0)
+		myS2Sspeed = 5.0;
+//	SUMOReal maxDeltaGap = -0.5*ACCEL2DIST(myDecel + myAccel);
+	maxDeltaGap = -0.5*(myDecel + myAccel)*TS*TS; 
+	std::cout << "# maxDeltaGap = " << maxDeltaGap << std::endl;
+	myTmp2 = TS/myTmp2;
+	myTmp3 = sqrt(TS)*myTmp3;
 }
-
 
 MSCFModel_SmartSK::~MSCFModel_SmartSK() {}
 
+#include <map>
 
 SUMOReal
 MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
     const SUMOReal oldV = veh->getSpeed(); // save old v for optional acceleration computation
     const SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops
-    // we need the acceleration for emission computation;
+	// we need the acceleration for emission computation;
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
@@ -66,19 +83,58 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
         WRITE_WARNING("Vehicle's '" + veh->getID() + "' maximum speed is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     }
 #endif
+	updateMyHeadway(veh);
+#ifdef _DEBUG
+	if (vars->ggOld.size()>1) {
+		std::cout << "# more than one entry in ggOld list. Speed is " << vPos << ", corresponding dist is " << vars->ggOld[(int) vPos] << "\n";
+		for (std::map<int,SUMOReal>::iterator I=vars->ggOld.begin(); I!=vars->ggOld.end(); I++) 
+			std::cout << "# " <<(*I).first<< ' ' << (*I).second << std::endl;
+	}
+#endif
+	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
+
+	vars->gOld = vars->ggOld[(int) vPos]; 
+	vars->ggOld.clear();
     return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
 }
 
-
 SUMOReal
-MSCFModel_SmartSK::followSpeed(const MSVehicle* const /*veh*/, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
-    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed)));
+MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal /*predMaxDecel*/) const {
+	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
+
+//	if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
+	if ((gap - vars->gOld) < maxDeltaGap) {
+		SUMOReal tTauTest = gap/speed;
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+		if ((tTauTest<vars->myHeadway)&&(tTauTest>TS)) 
+			vars->myHeadway = tTauTest;
+	}
+
+	SUMOReal vsafe = _vsafe(veh, gap, predSpeed);
+	if ((speed<=0.0) && (vsafe<myS2Sspeed))
+		vsafe = 0;
+
+	SUMOReal vNew = MAX2(getSpeedAfterMaxDecel(speed), MIN2(vsafe, maxNextSpeed(speed)));
+	// there must be a better place to do the following assignment!!!
+	vars->gOld = gap;
+	vars->ggOld[(int)vNew] = gap;
+    return vNew;
 }
 
-
 SUMOReal
-MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {
-    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed())));
+MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, SUMOReal gap) const {	
+	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
+	SUMOReal speed = veh->getSpeed();
+
+//	if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
+	if ((gap - vars->gOld) < maxDeltaGap) {
+		SUMOReal tTauTest = gap/speed;
+// allow  headway only to decrease only, never to increase. Increase is handled automatically by the headway dynamics in moveHelper()!!!
+		if ((tTauTest<vars->myHeadway)&&(tTauTest>TS)) 
+			vars->myHeadway = tTauTest;
+	}
+
+    return MAX2(getSpeedAfterMaxDecel(veh->getSpeed()), MIN2(_vsafe(veh, gap, 0), maxNextSpeed(veh->getSpeed())));
 }
 
 
@@ -89,13 +145,17 @@ MSCFModel_SmartSK::dawdle(SUMOReal speed) const {
 
 
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_SmartSK::_vsafe(SUMOReal gap, SUMOReal predSpeed) const {
+SUMOReal MSCFModel_SmartSK::_vsafe(const MSVehicle* const veh, SUMOReal gap, SUMOReal predSpeed) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
-    SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
+	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
+	// this is the most obvious change to the normal SK: the model uses the variable vars->myHeadway instead of the constant
+	// myHeadwayTime as the "reaction time" tau
+	SUMOReal bTau = myDecel*(vars->myHeadway);
+    SUMOReal vsafe = (SUMOReal)(-1. * bTau
                                 + sqrt(
-                                    myTauDecel * myTauDecel
+                                    bTau * bTau
                                     + (predSpeed * predSpeed)
                                     + (2. * myDecel * gap)
                                 ));
