@@ -85,13 +85,13 @@ MSCFModel_SmartSK::moveHelper(MSVehicle* const veh, SUMOReal vPos) const {
 #endif
 	updateMyHeadway(veh);
 #ifdef _DEBUG
+	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 	if (vars->ggOld.size()>1) {
 		std::cout << "# more than one entry in ggOld list. Speed is " << vPos << ", corresponding dist is " << vars->ggOld[(int) vPos] << "\n";
 		for (std::map<int,SUMOReal>::iterator I=vars->ggOld.begin(); I!=vars->ggOld.end(); I++) 
 			std::cout << "# " <<(*I).first<< ' ' << (*I).second << std::endl;
 	}
 #endif
-	SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
 	vars->gOld = vars->ggOld[(int) vPos]; 
 	vars->ggOld.clear();
