@@ -85,8 +85,8 @@ MSVehicleType::~MSVehicleType() {
 
 SUMOReal 
 MSVehicleType::computeChosenSpeedDeviation(MTRand &rng) const {
-    SUMOReal devA = MIN2(+2.*mySpeedDev, MAX2(-2.*mySpeedDev,rng.randNorm(0, mySpeedDev)));
-    return devA + mySpeedFactor;
+    const SUMOReal devA = MIN2(SUMOReal(2.), MAX2(SUMOReal(-2.), rng.randNorm(0, 1.)));
+    return (devA*mySpeedDev + 1.) * mySpeedFactor;
 }
 
 
