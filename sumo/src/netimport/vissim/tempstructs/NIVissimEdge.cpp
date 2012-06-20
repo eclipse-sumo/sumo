@@ -940,6 +940,7 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
     } else {
         return false; // !!! check this
     }
+    /*
     //
     std::vector<NIVissimEdge*>::iterator i;
     // add to all other that shall be treated as same
@@ -953,6 +954,7 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge* e) {
             changed |= e->addToTreatAsSame(*i);
         }
     }
+    */
 }
 
 NIVissimConnection*
@@ -999,9 +1001,16 @@ NIVissimEdge::reportUnsetSpeeds() {
 
 NIVissimEdge*
 NIVissimEdge::getBestIncoming() const {
+    // @todo seems as this would have been a hard hack!
+    /*
     for (std::vector<int>::const_iterator i = myIncomingConnections.begin(); i != myIncomingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getFromEdgeID());
+    }
+    return 0;
+    */
+    if(myIncomingConnections.size()!=0) {
+        return NIVissimEdge::dictionary(NIVissimConnection::dictionary(myIncomingConnections.front())->getFromEdgeID());
     }
     return 0;
 }
@@ -1009,9 +1018,16 @@ NIVissimEdge::getBestIncoming() const {
 
 NIVissimEdge*
 NIVissimEdge::getBestOutgoing() const {
+    // @todo seems as this would have been a hard hack!
+    /*
     for (std::vector<int>::const_iterator i = myOutgoingConnections.begin(); i != myOutgoingConnections.end(); ++i) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
         return NIVissimEdge::dictionary(c->getToEdgeID());
+    }
+    return 0;
+    */
+    if(myOutgoingConnections.size()!=0) {
+        return NIVissimEdge::dictionary(NIVissimConnection::dictionary(myOutgoingConnections.front())->getToEdgeID());
     }
     return 0;
 }

@@ -190,6 +190,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
     }
     // add to the group
     assert(myGroupIDs.size() != 0);
+    // @todo just another hack?!
+    /*
     if (myGroupIDs.size() == 1) {
         return tl->addToSignalGroup(toString<int>(*(myGroupIDs.begin())),
                                     assignedConnections);
@@ -198,7 +200,8 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         return tl->addToSignalGroup(toString<int>(*(myGroupIDs.begin())),
                                     assignedConnections);
     }
-    return true;
+    */
+    return tl->addToSignalGroup(toString<int>(myGroupIDs.front()), assignedConnections);
 }
 
 

@@ -529,21 +529,6 @@ NIVissimConnectionCluster::buildNodeClusters() {
 
 
 void
-NIVissimConnectionCluster::searchForConnection(int id) {
-    int pos = 0;
-    for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
-        std::vector<int> connections = (*i)->myConnections;
-        if (find(connections.begin(), connections.end(), id) != connections.end()) {
-            for (std::vector<int>::iterator j = connections.begin(); j != connections.end(); j++) {
-                int checkdummy = *j;
-            }
-        }
-        pos++;
-    }
-}
-
-
-void
 NIVissimConnectionCluster::_debugOut(std::ostream& into) {
     for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
         std::vector<int> connections = (*i)->myConnections;

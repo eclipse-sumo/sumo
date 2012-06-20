@@ -57,6 +57,15 @@ private:
     const std::string myID;
     int myFromNode, myToNode;
     std::vector<int> myOverEdges;
+
+private:
+    /// @brief invalidated copy constructor
+    NIVissimClosures(const NIVissimClosures& s);
+
+    /// @brief invalidated assignment operator
+    NIVissimClosures& operator=(const NIVissimClosures& s);
+
+
 };
 
 

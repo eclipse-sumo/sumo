@@ -102,8 +102,6 @@ public:
 
     static void buildNodeClusters();
 
-    static void searchForConnection(int id);
-
     static void _debugOut(std::ostream& into);
 
     static size_t dictSize();
