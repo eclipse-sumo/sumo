@@ -25,3 +25,6 @@ calibrate_exact
 
 # removal from short edges is tricky because vehicles may skip across it in one step
 remove_from_short_edge
+
+# make sure that the maximum flow can be reached (3600 / tauff ~ 2500)
+high_flow

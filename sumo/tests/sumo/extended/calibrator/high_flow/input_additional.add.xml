@@ -1,0 +1,9 @@
+<add>
+    <calibrator id="calibtest" lane="beg_0" pos="0" output="detector.xml">
+        <route id="c1" edges="beg middle end rend"/>
+        <!-- 2500 vehs in 3600s -->
+        <flow begin="0"   end="3600" route="c1" vehsPerHour="2500" speed="27.8"/>
+    </calibrator>
+
+    <edgeData id="expect2500vehs"  begin="0"    end="3600"  file="aggregated_25.xml"/>
+</add>
