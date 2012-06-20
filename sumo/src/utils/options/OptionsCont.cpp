@@ -768,7 +768,7 @@ OptionsCont::writeConfiguration(std::ostream& os, bool filled,
 
 
 void
-OptionsCont::writeSchema(std::ostream& os, bool addComments) {
+OptionsCont::writeSchema(std::ostream& os, bool /* addComments */) {
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";

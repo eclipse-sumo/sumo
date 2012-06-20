@@ -82,11 +82,13 @@ GUIDanielPerspectiveChanger::zoom(SUMOReal factor) {
 
 
 void
-GUIDanielPerspectiveChanger::rotate(int diff) {
-    if (false) {//myCallback.allowRotation()) {
+GUIDanielPerspectiveChanger::rotate(int /* diff */) {
+    /*
+    if (myCallback.allowRotation()) {
         myRotation += (SUMOReal) diff / (SUMOReal) 10.0;
         myCallback.update();
     }
+    */
 }
 
 

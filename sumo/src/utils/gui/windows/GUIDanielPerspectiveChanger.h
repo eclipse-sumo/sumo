@@ -139,6 +139,15 @@ private:
     /// avoid flicker
     FXTime myDragDelay;
     FXTime myMouseDownTime;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    GUIDanielPerspectiveChanger(const GUIDanielPerspectiveChanger&);
+
+    /// @brief Invalidated assignment operator.
+    GUIDanielPerspectiveChanger& operator=(const GUIDanielPerspectiveChanger&);
+
 };
 
 

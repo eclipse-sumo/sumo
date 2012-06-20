@@ -163,6 +163,14 @@ protected:
     static std::vector< GLObjectValuePassConnector<T>* > myContainer;
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    GLObjectValuePassConnector<T>(const GLObjectValuePassConnector<T>&);
+
+    /// @brief Invalidated assignment operator.
+    GLObjectValuePassConnector<T>& operator=(const GLObjectValuePassConnector<T>&);
+
+
 };
 
 

@@ -65,8 +65,8 @@ bool
 BinaryFormatter::writeXMLHeader(std::ostream& into,
                                 const std::string& rootElement,
                                 const std::string xmlParams,
-                                const std::string& attrs,
-                                const std::string& comment) {
+                                const std::string& /* attrs */,
+                                const std::string& /* comment */) {
     if (myXMLStack.empty()) {
         FileHelpers::writeByte(into, BF_BYTE);
         FileHelpers::writeByte(into, 1);
@@ -105,12 +105,12 @@ BinaryFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
 
 
 void
-BinaryFormatter::closeOpener(std::ostream& into) {
+BinaryFormatter::closeOpener(std::ostream& /* into */) {
 }
 
 
 bool
-BinaryFormatter::closeTag(std::ostream& into, bool abbreviated) {
+BinaryFormatter::closeTag(std::ostream& into, bool /* abbreviated */) {
     if (!myXMLStack.empty()) {
         FileHelpers::writeByte(into, BF_XML_TAG_END);
         FileHelpers::writeInt(into, myXMLStack.back());
@@ -143,13 +143,13 @@ void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, cons
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLNodeType& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_NODE_TYPE);
-    FileHelpers::writeByte(into, val);
+    FileHelpers::writeByte(into, (unsigned char) val);
 }
 
 
 void BinaryFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const SumoXMLEdgeFunc& val) {
     BinaryFormatter::writeAttrHeader(into, attr, BF_EDGE_FUNCTION);
-    FileHelpers::writeByte(into, val);
+    FileHelpers::writeByte(into, (unsigned char) val);
 }
 
 

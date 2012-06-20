@@ -139,9 +139,20 @@ protected:
     /// @brief the intended viewport
     Boundary myViewPort;
 
+
 private:
     // patched viewPort with the same aspect ratio as the canvas
     Boundary patchedViewPort();
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    GUIPerspectiveChanger(const GUIPerspectiveChanger&);
+
+    /// @brief Invalidated assignment operator.
+    GUIPerspectiveChanger& operator=(const GUIPerspectiveChanger&);
+
+
 };
 
 

@@ -112,7 +112,6 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
-            bool ok = true;
             int laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
             mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
             mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
