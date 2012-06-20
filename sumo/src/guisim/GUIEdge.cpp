@@ -343,7 +343,7 @@ GUIEdge::getFlow() const {
     for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
         flow += (SUMOReal) segment->getCarNumber() * segment->getMeanSpeed();
     }
-    return flow * (SUMOReal) 1000. / (*myLanes)[0]->getLength() / (SUMOReal) 3.6;
+    return 3600 * flow / (*myLanes)[0]->getLength();
 }
 
 
