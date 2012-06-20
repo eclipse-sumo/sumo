@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Tue Jun 19 14:08:17 2012 by SUMO sumo Version dev-SVN-r12393
+<!-- generated on Wed Jun 20 13:16:55 2012 by SUMO sumo Version dev-SVN-r12396
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
@@ -32,5 +32,5 @@
 -->
 
 <calibratorstats>
-   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" flow="1008.00" aspiredFlow="1000.00" speed="26.36" aspiredSpeed="-1.00"/>
+   <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="28" removed="0" inserted="27" flow="1008.00" aspiredFlow="1000.00" speed="27.00" aspiredSpeed="-1.00"/>
 </calibratorstats>
