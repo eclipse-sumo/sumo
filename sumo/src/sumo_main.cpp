@@ -133,7 +133,7 @@ main(int argc, char** argv) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();
-        RandHelper::initRandGlobal(&MSVehicleType::mySpeedDevRND);
+        RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
         // load the net
         net = load(oc);
         if (net != 0) {

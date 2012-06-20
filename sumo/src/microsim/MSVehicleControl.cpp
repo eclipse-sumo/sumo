@@ -48,6 +48,12 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+MTRand MSVehicleControl::myVehicleParamsRNG;
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSVehicleControl::MSVehicleControl() :
@@ -88,7 +94,7 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
                                const MSVehicleType* type) {
     myLoadedVehNo++;
-    MSVehicle* built = new MSVehicle(defs, route, type, myLoadedVehNo - 1);
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(myVehicleParamsRNG), myLoadedVehNo - 1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
 }
@@ -245,7 +251,7 @@ MSVehicleControl::getVType(const std::string& id) {
         if (it2 == myVTypeDistDict.end()) {
             return 0;
         }
-        return it2->second->get();
+        return it2->second->get(&myVehicleParamsRNG);
     }
     if (id == DEFAULT_VTYPE_ID) {
         myDefaultVTypeMayBeDeleted = false;

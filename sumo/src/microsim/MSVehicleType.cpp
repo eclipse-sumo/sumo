@@ -54,12 +54,6 @@
 
 
 // ===========================================================================
-// static members
-// ===========================================================================
-MTRand MSVehicleType::mySpeedDevRND;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSVehicleType::MSVehicleType(const std::string& id, const SUMOReal length,
@@ -90,8 +84,8 @@ MSVehicleType::~MSVehicleType() {
 
 
 SUMOReal 
-MSVehicleType::computeChosenSpeedDeviation() const {
-    SUMOReal devA = MIN2(+2.*mySpeedDev, MAX2(-2.*mySpeedDev, mySpeedDevRND.randNorm(0, mySpeedDev)));
+MSVehicleType::computeChosenSpeedDeviation(MTRand &rng) const {
+    SUMOReal devA = MIN2(+2.*mySpeedDev, MAX2(-2.*mySpeedDev,rng.randNorm(0, mySpeedDev)));
     return devA + mySpeedFactor;
 }
 

@@ -169,7 +169,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    SUMOReal computeChosenSpeedDeviation() const;
+    SUMOReal computeChosenSpeedDeviation(MTRand &rng) const;
 
 
     /** @brief Get the default probability of this vehicle type
@@ -392,11 +392,6 @@ public:
     bool amVehicleSpecific() const {
         return myOriginalType != 0;
     }
-
-
-public:
-    /// @brief the random number generator to use
-    static MTRand mySpeedDevRND;
 
 
 private:

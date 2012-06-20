@@ -127,6 +127,7 @@ GUILoadThread::run() {
 
     // initialise global settings
     RandHelper::initRandGlobal();
+    RandHelper::initRandGlobal(&MSVehicleControl::myVehicleParamsRNG);
     MSFrame::setMSGlobals(oc);
     gAllowTextures = !oc.getBool("disable-textures");
     MSVehicleControl* vehControl = 0;

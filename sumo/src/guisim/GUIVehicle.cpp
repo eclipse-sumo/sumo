@@ -231,8 +231,8 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideLFLinkItems(FXObject*, FXSelector, voi
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       int vehicleIndex)
-    : MSVehicle(pars, route, type, vehicleIndex),
+                       SUMOReal speedFactor, int vehicleIndex)
+    : MSVehicle(pars, route, type, speedFactor, vehicleIndex),
       GUIGlObject(GLO_VEHICLE, pars->id) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(*this, myDevices, 5);

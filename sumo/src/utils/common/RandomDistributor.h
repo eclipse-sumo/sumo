@@ -88,13 +88,14 @@ public:
      *
      * A random sample is drawn according to the assigned probabilities.
      *
+     * @param[in] which The random number generator to use; the static one will be used if 0 is passed
      * @return the drawn member
      */
-    T get() const {
+    T get(MTRand *which=0) const {
         if (myProb == 0) {
             throw OutOfBoundsException();
         }
-        SUMOReal prob = RandHelper::rand(myProb);
+        SUMOReal prob = which==0 ? RandHelper::rand(myProb) : which->rand(myProb);
         for (size_t i = 0; i < myVals.size(); i++) {
             if (prob < myProbs[i]) {
                 return myVals[i];

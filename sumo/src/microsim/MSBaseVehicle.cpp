@@ -57,12 +57,12 @@ const SUMOTime MSBaseVehicle::NOT_YET_DEPARTED = SUMOTime_MAX;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type) :
+MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route, const MSVehicleType* type, SUMOReal speedFactor) :
     myParameter(pars),
     myRoute(route),
     myType(type),
     myCurrEdge(route->begin()),
-    myChosenSpeedFactor(type->computeChosenSpeedDeviation()),
+    myChosenSpeedFactor(speedFactor),
     myMoveReminders(0),
     myDeparture(NOT_YET_DEPARTED),
     myArrivalPos(-1),

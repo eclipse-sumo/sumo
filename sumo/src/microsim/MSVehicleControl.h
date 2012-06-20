@@ -37,6 +37,7 @@
 #include <map>
 #include <set>
 #include "MSGlobals.h"
+#include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/SUMOVehicleParameter.h>
@@ -93,12 +94,9 @@ public:
      * Builds a MSVehicle instance using the given parameter.
      *  Increases the number of loaded vehicles ("myLoadedVehNo").
      *
-     * @param[in] id The id of the vehicle to build
+     * @param[in] defs The parameter defining the vehicle
      * @param[in] route The route of this vehicle
-     * @param[in] departTime The departure time of this vehicle
      * @param[in] type The type of this vehicle
-     * @param[in] repNo The number of repetitions
-     * @param[in] repOffset The repetition offset
      * @return The built vehicle (MSVehicle instance)
      */
     virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
@@ -350,11 +348,16 @@ public:
      */
     virtual void loadState(BinaryInputDevice& bis, const SUMOTime offset);
     /// @}
-    //
+    
 
     /** @brief removes any vehicles that are still waiting
      */
     void abortWaiting();
+
+
+public:
+    /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
+    static MTRand myVehicleParamsRNG;
 
 
 private:

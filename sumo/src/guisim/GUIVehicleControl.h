@@ -72,13 +72,10 @@ public:
      *
      * Instead of a MSVehicle, a GUIVehicle is built
      *
-     * @param[in] id The id of the vehicle to build
+     * @param[in] defs The parameter defining the vehicle
      * @param[in] route The route of this vehicle
-     * @param[in] departTime The departure time of this vehicle
      * @param[in] type The type of this vehicle
-     * @param[in] repNo The number of repetitions
-     * @param[in] repOffset The repetition offset
-     * @return The built vehicle (GUIVehicle instance)
+     * @return The built vehicle (MSVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
