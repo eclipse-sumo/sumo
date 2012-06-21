@@ -161,7 +161,7 @@ private:
 			// this is the point were the preferred headway changes slowly:
 		SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 		SUMOReal tTau = vars->myHeadway;
-		tTau = tTau + (myHeadwayTime - tTau)*myTmp2 + myTmp3*tTau*RandHelper::rand(-1.0,1.0);
+		tTau = tTau + (myHeadwayTime - tTau)*myTmp2 + myTmp3*tTau*RandHelper::rand(SUMOReal(-1.0),SUMOReal(1.0));
 		if (tTau<TS)  // this ensures the SK safety condition
 			tTau = TS;
 		vars->myHeadway = tTau;
