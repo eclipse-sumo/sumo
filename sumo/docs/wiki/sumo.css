@@ -61,9 +61,23 @@ h5 { font-size: 16px; }
 h6 { font-size: 14px; }
 
 ul, ol {
-	padding: 10px 30px;
 	line-height: 1.5em;
+	padding-left: 20px;
+	margin-left: 0px;
+	padding-right: 0px;
+	padding-top: -.5em;
+	margin-top: -.5em;
 }
+li { margin: 0em; padding: 0em; }
+
+ul ul
+{
+	padding-left: 10px;
+	font-weight: normal;
+	padding-top: 0;
+	margin-top: 0;
+}
+ul ul li { margin: 0em; padding: 0em; }
 
 ul {
 	list-style-type: square;
@@ -223,19 +237,6 @@ del { color: #555555; }
  padding-right: 0px;
  margin-top: -10px;
 }
-#nav ul
-{
-	margin-top: -1em;
-	padding-top: -1em;
-	margin-bottom: -.4em;
-	padding-left: 2em;
-	padding-right: 0px;
-}
-#nav ul ul
-{
-	padding-left: 1em;
-	font-weight: normal;
-}
 
 #nav a
 {
@@ -257,14 +258,6 @@ del { color: #555555; }
  margin-left: 320px;
  text-align: left;
 } 
-#content ul
-{
-	margin-top: -1em;
-	padding-top: -1em;
-	margin-bottom: -.4em;
-	padding-left: 2em;
-	padding-right: 0px;
-}
 #content table
 {
 	font: normal 12px Tahoma, Verdana, "Lucida Grande", Georgia, Sans-Serif;
