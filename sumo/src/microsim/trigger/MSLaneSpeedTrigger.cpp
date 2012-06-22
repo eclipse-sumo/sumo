@@ -123,7 +123,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
         if (MSGlobals::gUseMesoSim) {
             MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge((*i)->getEdge());
             while (first != 0) {
-                first->setSpeed(speed, currentTime);
+                first->setSpeed(speed, currentTime, -1);
                 first = first->getNextSegment();
             }
             continue;
