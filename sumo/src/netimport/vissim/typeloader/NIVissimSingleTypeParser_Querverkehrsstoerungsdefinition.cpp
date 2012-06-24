@@ -168,7 +168,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     if (tag == "ALLE") {
         //lanes.push_back(1); // !!!
     } else {
-        lanes.push_back(TplConvert<char>::_2int(tag.c_str()));
+        lanes.push_back(TplConvert::_2int(tag.c_str()));
     }
     //
     SUMOReal position;
@@ -185,7 +185,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
                 from >> tag;
                 tag = "alle";
             } else if (tag != "zeitluecke" && tag != "durch" && tag != "DATAEND") {
-                int tmp = TplConvert<char>::_2int(tag.c_str());
+                int tmp = TplConvert::_2int(tag.c_str());
                 types.push_back(tmp);
             }
         }

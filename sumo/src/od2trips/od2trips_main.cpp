@@ -175,7 +175,7 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            prob = TplConvert<char>::_2SUMOReal(def[chour].c_str());
+            prob = TplConvert::_2SUMOReal(def[chour].c_str());
             points.push_back(Position((SUMOReal)(chour * 3600), prob));
         }
         points.push_back(Position((SUMOReal)(24 * 3600), prob));
@@ -186,8 +186,8 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
             if (st2.size() != 2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i - 1] + "'.");
             }
-            int time = TplConvert<char>::_2int(st2.next().c_str());
-            prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
+            int time = TplConvert::_2int(st2.next().c_str());
+            prob = TplConvert::_2SUMOReal(st2.next().c_str());
             points.push_back(Position((SUMOReal) time, prob));
         }
     }
@@ -285,7 +285,7 @@ parseSingleTime(const std::string& time) {
     }
     std::string hours = time.substr(0, time.find('.'));
     std::string minutes = time.substr(time.find('.') + 1);
-    return TIME2STEPS(TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60);
+    return TIME2STEPS(TplConvert::_2int(hours.c_str()) * 3600 + TplConvert::_2int(minutes.c_str()) * 60);
 }
 
 
@@ -313,7 +313,7 @@ readFactor(LineReader& lr, SUMOReal scale) {
     std::string line = getNextNonCommentLine(lr);
     SUMOReal factor = -1;
     try {
-        factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+        factor = TplConvert::_2SUMOReal(line.c_str()) * scale;
     } catch (NumberFormatException&) {
         throw ProcessError("Broken factor: '" + line + "'.");
     }
@@ -345,7 +345,7 @@ readV(LineReader& lr, ODMatrix& into, SUMOReal scale,
 
     // districts
     line = getNextNonCommentLine(lr);
-    int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
+    int districtNo = TplConvert::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
     std::vector<std::string> names;
     do {
@@ -369,7 +369,7 @@ readV(LineReader& lr, ODMatrix& into, SUMOReal scale,
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
                     assert(di != names.end());
-                    SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+                    SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
                     if (vehNumber != 0) {
                         into.add(vehNumber, begin, end, *si, *di, vehType);
                     }
@@ -398,7 +398,7 @@ readO(LineReader& lr, ODMatrix& into, SUMOReal scale,
     std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
+        int type = TplConvert::_2int(StringUtils::prune(line).c_str());
         if (vehType == "") {
             vehType = toString(type);
         }
@@ -425,7 +425,7 @@ readO(LineReader& lr, ODMatrix& into, SUMOReal scale,
         try {
             std::string sourceD = st2.next();
             std::string destD = st2.next();
-            SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+            SUMOReal vehNumber = TplConvert::_2SUMOReal(st2.next().c_str()) * factor;
             if (vehNumber != 0) {
                 into.add(vehNumber, begin, end, sourceD, destD, vehType);
             }

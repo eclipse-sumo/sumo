@@ -90,9 +90,9 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream& fro
         from >> tag;
         from >> tag;
     }
-    int numid = TplConvert<char>::_2int(edgeid.c_str());
-    int numlane = TplConvert<char>::_2int(lane.c_str()) - 1;
-    int numv = TplConvert<char>::_2int(vwunsch.c_str());
+    int numid = TplConvert::_2int(edgeid.c_str());
+    int numlane = TplConvert::_2int(lane.c_str()) - 1;
+    int numv = TplConvert::_2int(vwunsch.c_str());
     NIVissimEdge* e = NIVissimEdge::dictionary(numid);
     if (e == 0) {
         NIVissimConnection* c = NIVissimConnection::dictionary(numid);

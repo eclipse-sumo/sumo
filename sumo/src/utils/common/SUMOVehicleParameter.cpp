@@ -263,7 +263,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string 
         dld = DEPART_LANE_BEST_FREE;
     } else {
         try {
-            lane = TplConvert<char>::_2int(val.c_str());
+            lane = TplConvert::_2int(val.c_str());
             dld = DEPART_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
@@ -299,7 +299,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string &
         dpd = DEPART_POS_MAX_SPEED_GAP;
     } else {
         try {
-            pos = TplConvert<char>::_2SUMOReal(val.c_str());
+            pos = TplConvert::_2SUMOReal(val.c_str());
             dpd = DEPART_POS_GIVEN;
         } catch (...) {
             ok = false;
@@ -322,7 +322,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         dsd = DEPART_SPEED_MAX;
     } else {
         try {
-            speed = TplConvert<char>::_2SUMOReal(val.c_str());
+            speed = TplConvert::_2SUMOReal(val.c_str());
             dsd = DEPART_SPEED_GIVEN;
             if (speed < 0) {
                 ok = false;
@@ -346,7 +346,7 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
         ald = ARRIVAL_LANE_CURRENT;
     } else {
         try {
-            lane = TplConvert<char>::_2int(val.c_str());
+            lane = TplConvert::_2int(val.c_str());
             ald = ARRIVAL_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
@@ -372,7 +372,7 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string 
         apd = ARRIVAL_POS_MAX;
     } else {
         try {
-            pos = TplConvert<char>::_2SUMOReal(val.c_str());
+            pos = TplConvert::_2SUMOReal(val.c_str());
             apd = ARRIVAL_POS_GIVEN;
         } catch (...) {
             ok = false;
@@ -393,7 +393,7 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
         asd = ARRIVAL_SPEED_CURRENT;
     } else {
         try {
-            speed = TplConvert<char>::_2SUMOReal(val.c_str());
+            speed = TplConvert::_2SUMOReal(val.c_str());
             asd = ARRIVAL_SPEED_GIVEN;
         } catch (...) {
             ok = false;

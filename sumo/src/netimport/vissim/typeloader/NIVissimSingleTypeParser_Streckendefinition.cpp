@@ -99,7 +99,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
         geom.push_back_noDoublePos(getPosition(from));
         tag = myRead(from);
         try {
-            TplConvert<char>::_2SUMOReal(tag.c_str());
+            TplConvert::_2SUMOReal(tag.c_str());
             tag = myRead(from);
         } catch (NumberFormatException&) {}
     }
@@ -122,7 +122,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
             tag = myRead(from);
             tag = myRead(from);
             while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {
-                int classes = TplConvert<char>::_2int(tag.c_str());
+                int classes = TplConvert::_2int(tag.c_str());
                 assignedVehicles.push_back(classes);
                 tag = readEndSecure(from);
             }

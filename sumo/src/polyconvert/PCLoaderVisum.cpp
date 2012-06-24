@@ -102,9 +102,9 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         // read items
         if (what == "$PUNKT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
-            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            SUMOLong id = TplConvert::_2long(lineParser.get("ID").c_str());
+            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
@@ -113,9 +113,9 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$KANTE") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
-            SUMOLong fromID = TplConvert<char>::_2long(lineParser.get("VONPUNKTID").c_str());
-            SUMOLong toID = TplConvert<char>::_2long(lineParser.get("NACHPUNKTID").c_str());
+            SUMOLong id = TplConvert::_2long(lineParser.get("ID").c_str());
+            SUMOLong fromID = TplConvert::_2long(lineParser.get("VONPUNKTID").c_str());
+            SUMOLong toID = TplConvert::_2long(lineParser.get("NACHPUNKTID").c_str());
             PositionVector vec;
             vec.push_back(punkte[fromID]);
             vec.push_back(punkte[toID]);
@@ -123,10 +123,10 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$ZWISCHENPUNKT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
-            int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
-            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            SUMOLong id = TplConvert::_2long(lineParser.get("KANTEID").c_str());
+            int index = TplConvert::_2int(lineParser.get("INDEX").c_str());
+            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
@@ -135,11 +135,11 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$TEILFLAECHENELEMENT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert<char>::_2long(lineParser.get("TFLAECHEID").c_str());
-            //int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
+            SUMOLong id = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
+            //int index = TplConvert::_2int(lineParser.get("INDEX").c_str());
             //index = 0; /// hmmmm - assume it's sorted...
-            SUMOLong kid = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
-            int dir = TplConvert<char>::_2int(lineParser.get("RICHTUNG").c_str());
+            SUMOLong kid = TplConvert::_2long(lineParser.get("KANTEID").c_str());
+            int dir = TplConvert::_2int(lineParser.get("RICHTUNG").c_str());
             if (teilflaechen.find(id) == teilflaechen.end()) {
                 teilflaechen[id] = PositionVector();
             }
@@ -155,9 +155,9 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             continue;
         } else if (what == "$FLAECHENELEMENT") {
             lineParser.parseLine(line);
-            SUMOLong id = TplConvert<char>::_2long(lineParser.get("FLAECHEID").c_str());
-            SUMOLong tid = TplConvert<char>::_2long(lineParser.get("TFLAECHEID").c_str());
-            int enklave = TplConvert<char>::_2int(lineParser.get("ENKLAVE").c_str()); // !!! unused
+            SUMOLong id = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
+            SUMOLong tid = TplConvert::_2long(lineParser.get("TFLAECHEID").c_str());
+            int enklave = TplConvert::_2int(lineParser.get("ENKLAVE").c_str()); // !!! unused
             enklave = 0;
             flaechenelemente[id] = tid;
             continue;
@@ -223,12 +223,12 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             // parse the poi
             // $POI:Nr;CATID;CODE;NAME;Kommentar;XKoord;YKoord;
             lineParser.parseLine(line);
-            SUMOLong idL = TplConvert<char>::_2long(lineParser.get("Nr").c_str());
+            SUMOLong idL = TplConvert::_2long(lineParser.get("Nr").c_str());
             std::string id = toString(idL);
             std::string catid = lineParser.get("CATID");
             // process read values
-            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKoord").c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKoord").c_str());
+            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKoord").c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKoord").c_str());
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
@@ -307,11 +307,11 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
         if (parsingDistrictsDirectly) {
             //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
             lineParser.parseLine(line);
-            SUMOLong idL = TplConvert<char>::_2long(lineParser.get("NR").c_str());
+            SUMOLong idL = TplConvert::_2long(lineParser.get("NR").c_str());
             std::string id = toString(idL);
-            SUMOLong area = TplConvert<char>::_2long(lineParser.get("FLAECHEID").c_str());
-            SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
+            SUMOLong area = TplConvert::_2long(lineParser.get("FLAECHEID").c_str());
+            SUMOReal x = TplConvert::_2SUMOReal(lineParser.get("XKOORD").c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(lineParser.get("YKOORD").c_str());
             // patch the values
             std::string type = "district";
             bool discard = oc.getBool("discard");

@@ -221,8 +221,8 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             std::string xpos = values[index];
             std::string ypos = values[index + 1];
             index += 2;
-            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+            SUMOReal x = TplConvert::_2SUMOReal(xpos.c_str());
+            SUMOReal y = TplConvert::_2SUMOReal(ypos.c_str());
             Position pos(x, y);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
                 WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");

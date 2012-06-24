@@ -118,7 +118,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         // !!! throw something if length<4 || length%2!=0?
         std::vector<SUMOReal> poly;
         for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
-            poly.push_back(TplConvert<char>::_2SUMOReal((*i).c_str())); // !!! may throw something anyhow...
+            poly.push_back(TplConvert::_2SUMOReal((*i).c_str())); // !!! may throw something anyhow...
         }
         if (poly.size() < 4) {
             throw ProcessError("Invalid boundary: need at least 2 coordinates");

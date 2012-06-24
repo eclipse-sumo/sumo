@@ -280,25 +280,25 @@ getVehicleEmissionTypeID(const std::string& name) {
         } else if (name == "zero") {
             return SVE_ZERO_EMISSIONS;
         } else if (name.find("HDV_3_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_3_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_3_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("HDV_6_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_6_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_6_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("HDV_12_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_12_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_12_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("P_7_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_7_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_7_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("P_14_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("HDV_A0_3_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_3_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_A0_3_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("HDV_A0_6_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_6_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_A0_6_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("HDV_A0_12_") == 0) {
-            return (SUMOEmissionClass)(SVE_HDV_A0_12_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_A0_12_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("P_A0_7_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_A0_7_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_A0_7_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         } else if (name.find("P_A0_14_") == 0) {
-            return (SUMOEmissionClass)(SVE_P_LDV_A0_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_") + 1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_A0_14_1 - 1 + TplConvert::_2int(name.substr(name.rfind("_") + 1).c_str()));
         }
     } catch (NumberFormatException&) {
     }

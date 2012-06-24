@@ -74,12 +74,12 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
         if (y != "nach") {
             geom.push_back_noDoublePos(
                 Position(
-                    TplConvert<char>::_2SUMOReal(x.c_str()),
-                    TplConvert<char>::_2SUMOReal(y.c_str())
+                    TplConvert::_2SUMOReal(x.c_str()),
+                    TplConvert::_2SUMOReal(y.c_str())
                 ));
             tag = myRead(from);
             try {
-                TplConvert<char>::_2SUMOReal(tag.c_str());
+                TplConvert::_2SUMOReal(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException&) {}
         } else {
@@ -126,7 +126,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
     if (tag == "fahrzeugklassen") {
         tag = readEndSecure(from);
         while (tag != "DATAEND" && tag != "sperrung" && tag != "auswertung") {
-            int classes = TplConvert<char>::_2int(tag.c_str());
+            int classes = TplConvert::_2int(tag.c_str());
             assignedVehicles.push_back(classes);
             tag = readEndSecure(from, "auswertung");
         }
@@ -153,7 +153,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream& from) {
                     tag = myRead(from);
                 }
                 while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {
-                    int classes = TplConvert<char>::_2int(tag.c_str());
+                    int classes = TplConvert::_2int(tag.c_str());
                     assignedVehicles.push_back(classes);
                     tag = readEndSecure(from);
                 }

@@ -207,9 +207,9 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             return;
         }
         try {
-            int hours = TplConvert<char>::_2int(st.next().c_str());
-            int minutes = TplConvert<char>::_2int(st.next().c_str());
-            int seconds = TplConvert<char>::_2int(st.next().c_str());
+            int hours = TplConvert::_2int(st.next().c_str());
+            int minutes = TplConvert::_2int(st.next().c_str());
+            int seconds = TplConvert::_2int(st.next().c_str());
             myCapacityNorm = (SUMOReal)(hours * 3600 + minutes * 60 + seconds);
         } catch (NumberFormatException&) {
         } catch (EmptyData&) {

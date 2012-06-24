@@ -180,7 +180,7 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string> &f
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XMLException& toCatch) {
-        exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
+        exceptMsg = TplConvert::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (const ProcessError& toCatch) {
         exceptMsg = std::string(toCatch.what()) + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";

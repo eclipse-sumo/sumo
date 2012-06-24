@@ -643,7 +643,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->myCurrentIsRoad = true;
         } else if (key == "lanes") {
             try {
-                myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
+                myCurrentEdge->myNoLanes = TplConvert::_2int(value.c_str());
             } catch (NumberFormatException&) {
                 // might be a list of values
                 StringTokenizer st(value, ";", true);
@@ -652,7 +652,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     int minLanes = std::numeric_limits<int>::max();
                     try {
                         for (std::vector<std::string>::iterator i = list.begin(); i != list.end(); ++i) {
-                            int numLanes = TplConvert<char>::_2int(StringUtils::prune(*i).c_str());
+                            int numLanes = TplConvert::_2int(StringUtils::prune(*i).c_str());
                             minLanes = MIN2(minLanes, numLanes);
                         }
                         myCurrentEdge->myNoLanes = minLanes;
@@ -674,7 +674,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     conversion = 1.609344; // kilometers per mile
                 }
                 try {
-                    myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str()) * conversion;
+                    myCurrentEdge->myMaxSpeed = TplConvert::_2SUMOReal(value.c_str()) * conversion;
                 } catch (NumberFormatException&) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
                 }

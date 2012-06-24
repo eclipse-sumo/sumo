@@ -72,7 +72,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
         exact = true;
         tag = myRead(from);
     }
-    q = TplConvert<char>::_2SUMOReal(tag.c_str());
+    q = TplConvert::_2SUMOReal(tag.c_str());
     // read the vehicle types
     from >> tag;
     int vehicle_combination;

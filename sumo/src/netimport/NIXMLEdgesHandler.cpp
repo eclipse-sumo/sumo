@@ -339,7 +339,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, 0, ok, ""), lanes);
         for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
             try {
-                int lane = TplConvert<char>::_2int((*i).c_str());
+                int lane = TplConvert::_2int((*i).c_str());
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");

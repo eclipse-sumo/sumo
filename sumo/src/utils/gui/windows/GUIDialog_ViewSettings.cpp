@@ -1213,7 +1213,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 1:
             try {
-                d.centerX = TplConvert<char>::_2SUMOReal(value.c_str());
+                d.centerX = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1221,7 +1221,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 2:
             try {
-                d.centerY = TplConvert<char>::_2SUMOReal(value.c_str());
+                d.centerY = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1229,7 +1229,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 3:
             try {
-                d.width = TplConvert<char>::_2SUMOReal(value.c_str());
+                d.width = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1237,7 +1237,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 4:
             try {
-                d.height = TplConvert<char>::_2SUMOReal(value.c_str());
+                d.height = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1245,7 +1245,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 5:
             try {
-                d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
+                d.rot = TplConvert::_2SUMOReal(value.c_str());
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());

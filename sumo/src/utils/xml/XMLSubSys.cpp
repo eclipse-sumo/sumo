@@ -62,7 +62,7 @@ XMLSubSys::init(bool enableValidation) {
         myReaders.push_back(getSAXReader());
         myNextFreeReader = 0;
     } catch (const XMLException& e) {
-        throw ProcessError("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError("Error during XML-initialization:\n " + TplConvert::_2str(e.getMessage()));
     }
 }
 

@@ -576,7 +576,7 @@ NIImporter_SUMO::interpretLaneID(const std::string& lane_id, std::string& edge_i
     edge_id = lane_id.substr(0, sep_index);
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
-        index = (unsigned int)TplConvert<char>::_2int(index_string.c_str());
+        index = (unsigned int)TplConvert::_2int(index_string.c_str());
     } catch (NumberFormatException) {
         WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }

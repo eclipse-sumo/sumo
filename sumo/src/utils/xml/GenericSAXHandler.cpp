@@ -106,7 +106,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
                                 const Attributes& attrs) {
-    std::string name = TplConvert<XMLCh>::_2str(qname);
+    std::string name = TplConvert::_2str(qname);
     int element = convertTag(name);
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
@@ -126,7 +126,7 @@ void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname) {
-    std::string name = TplConvert<XMLCh>::_2str(qname);
+    std::string name = TplConvert::_2str(qname);
     int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size() != 0) {
@@ -175,7 +175,7 @@ GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
-    myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, static_cast<unsigned int>(length)));
+    myCharactersVector.push_back(TplConvert::_2str(chars, static_cast<unsigned int>(length)));
 }
 
 

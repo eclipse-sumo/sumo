@@ -111,7 +111,7 @@ OptionsIO::loadConfiguration() {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
     } catch (const XMLException& e) {
-        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert::_2str(e.getMessage()));
     }
     oc.relocateFiles(path);
     PROGRESS_DONE_MESSAGE();

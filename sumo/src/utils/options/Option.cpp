@@ -214,7 +214,7 @@ Option_Integer::getInt() const {
 bool
 Option_Integer::set(const std::string& v) {
     try {
-        myValue = TplConvert<char>::_2int(v.c_str());
+        myValue = TplConvert::_2int(v.c_str());
         return markSet();
     } catch (...) {
         std::string s = "'" + v + "' is not a valid integer.";
@@ -331,7 +331,7 @@ Option_Float::getFloat() const {
 bool
 Option_Float::set(const std::string& v) {
     try {
-        myValue = TplConvert<char>::_2SUMOReal(v.c_str());
+        myValue = TplConvert::_2SUMOReal(v.c_str());
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid float.");
@@ -392,7 +392,7 @@ Option_Bool::getBool() const {
 bool
 Option_Bool::set(const std::string& v) {
     try {
-        myValue = TplConvert<char>::_2bool(v.c_str());
+        myValue = TplConvert::_2bool(v.c_str());
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid bool.");
@@ -497,7 +497,7 @@ Option_IntVector::set(const std::string& v) {
         }
         StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
-            myValue.push_back(TplConvert<char>::_2int(st.next().c_str()));
+            myValue.push_back(TplConvert::_2int(st.next().c_str()));
         }
         return markSet();
     } catch (EmptyData&) {

@@ -48,20 +48,31 @@
  * Some methods that convert 0-terminated char-arrays of any type into
  * other values (numerical/boolean) or into std::strings
  */
-template<class E>
 class TplConvert {
 public:
     /** converts a 0-terminated char-type array into std::string
         throws an EmptyData - exception if the given pointer is 0 */
-    static std::string _2str(const E* const data) {
+    template<class E>
+    static inline std::string _2str(const E* const data) {
         return _2str(data, getLength(data));
+    }
+
+
+    /** converts a 0-terminated char array into std::string
+        throws an EmptyData - exception if the given pointer is 0 */
+    static inline std::string _2str(const char* const data) {
+        if (data == 0) {
+            throw EmptyData();
+        }
+        return std::string(data);
     }
 
 
     /** converts a char-type array into std::string considering the given
             length
         throws an EmptyData - exception if the given pointer is 0 */
-    static std::string _2str(const E* const data, unsigned length) {
+    template<class E>
+    static inline std::string _2str(const E* const data, unsigned length) {
         if (data == 0) {
             throw EmptyData();
         }
@@ -84,10 +95,22 @@ public:
     }
 
 
+    /** converts a char array into std::string considering the given
+            length
+        throws an EmptyData - exception if the given pointer is 0 */
+    static inline std::string _2str(const char* const data, unsigned length) {
+        if (data == 0) {
+            throw EmptyData();
+        }
+        return std::string(data, length);
+    }
+
+
     /** converts a char-type array into the integer value described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
+    template<class E>
     static int _2int(const E* const data) {
         SUMOLong result = _2long(data);
         if (result > INT_MAX || result < INT_MIN) {
@@ -101,6 +124,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
+    template<class E>
     static SUMOLong _2long(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
@@ -134,6 +158,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a SUMOReal */
+    template<class E>
     static SUMOReal _2SUMOReal(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
@@ -204,6 +229,7 @@ public:
         throws an EmptyData - exception if the given string is empty or 0 pointer
         throws a BoolFormatException in any other case
     */
+    template<class E>
     static bool _2bool(const E* const data) {
         if (data == 0 || data[0] == 0) {
             throw EmptyData();
@@ -223,15 +249,17 @@ public:
     // conversion methods not throwing an exception
     /** converts a 0-terminated char-type array into std::string
         returns the default value if the data is empty */
+    template<class E>
     static std::string _2strSec(const E* const data,
                                 const std::string& def) {
-        return _2strSec(data, TplConvert<E>::getLength(data), def);
+        return _2strSec(data, getLength(data), def);
     }
 
 
     /** converts a 0-terminated char-type array into the integer value
             described by it
         returns the default value if the data is empty */
+    template<class E>
     static int _2intSec(const E* const data, int def) {
         if (data == 0 || data[0] == 0) {
             return def;
@@ -243,6 +271,7 @@ public:
     /** converts a 0-terminated char-type array into the long value
             described by it
         returns the default value if the data is empty */
+    template<class E>
     static SUMOLong _2longSec(const E* const data, long def) {
         if (data == 0 || data[0] == 0) {
             return def;
@@ -254,6 +283,7 @@ public:
     /** converts a 0-terminated char-type array into the SUMOReal value
             described by it
         returns the default value if the data is empty */
+    template<class E>
     static SUMOReal _2SUMORealSec(const E* const data, SUMOReal def) {
         if (data == 0 || data[0] == 0) {
             return def;
@@ -269,6 +299,7 @@ public:
         returns false if the data* is one of the following (case insensitive):
             '0', '-', 'false', 'no', 'off'
         returns the default value if the data is empty */
+    template<class E>
     static bool _2boolSec(const E* const data, bool def) {
         if (data == 0 || data[0] == 0) {
             return def;
@@ -280,6 +311,7 @@ public:
     /** converts a char-type array into std::string considering
             the given length
         returns the default value if the data is empty */
+    template<class E>
     static std::string _2strSec(const E* const data, int length,
                                 const std::string& def) {
         if (data == 0 || length == 0) {
@@ -290,6 +322,7 @@ public:
 
 
     /** returns the length of the string (the position of the 0-character) */
+    template<class E>
     static unsigned getLength(const E* const data) {
         if (data == 0) {
             return 0;

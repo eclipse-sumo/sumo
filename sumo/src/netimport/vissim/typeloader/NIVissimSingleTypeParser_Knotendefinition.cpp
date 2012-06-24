@@ -91,7 +91,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream& from) {
         }
         NIVissimNodeDef_Edges::dictionary(id, name, edges);
     } else {
-        int no = TplConvert<char>::_2int(tag.c_str());
+        int no = TplConvert::_2int(tag.c_str());
         PositionVector poly;
         for (int i = 0; i < no; i++) {
             poly.push_back(getPosition(from));

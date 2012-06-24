@@ -261,7 +261,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (SAXException& e) {
-            WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
+            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed() || ret != 0) {

@@ -81,7 +81,7 @@ OutputDevice::getDevice(const std::string& name,
         dev = OutputDevice_CERR::getDevice();
     } else if (FileHelpers::isSocket(internalName)) {
         try {
-            int port = TplConvert<char>::_2int(internalName.substr(internalName.find(":") + 1).c_str());
+            int port = TplConvert::_2int(internalName.substr(internalName.find(":") + 1).c_str());
             dev = new OutputDevice_Network(internalName.substr(0, internalName.find(":")), port);
         } catch (NumberFormatException&) {
             throw IOError("Given port number '" + internalName.substr(internalName.find(":") + 1) + "' is not numeric.");

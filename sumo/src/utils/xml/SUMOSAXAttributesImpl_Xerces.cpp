@@ -72,32 +72,32 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
 
 bool
 SUMOSAXAttributesImpl_Xerces::getBool(int id) const throw(EmptyData, BoolFormatException) {
-    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(id));
+    return TplConvert::_2bool(getAttributeValueSecure(id));
 }
 
 
 bool
 SUMOSAXAttributesImpl_Xerces::getBoolSecure(int id, bool val) const throw(EmptyData) {
-    return TplConvert<XMLCh>::_2boolSec(getAttributeValueSecure(id), val);
+    return TplConvert::_2boolSec(getAttributeValueSecure(id), val);
 }
 
 
 int
 SUMOSAXAttributesImpl_Xerces::getInt(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert<XMLCh>::_2int(getAttributeValueSecure(id));
+    return TplConvert::_2int(getAttributeValueSecure(id));
 }
 
 
 int
 SUMOSAXAttributesImpl_Xerces::getIntSecure(int id,
         int def) const throw(EmptyData, NumberFormatException) {
-    return TplConvert<XMLCh>::_2intSec(getAttributeValueSecure(id), def);
+    return TplConvert::_2intSec(getAttributeValueSecure(id), def);
 }
 
 
 SUMOLong
 SUMOSAXAttributesImpl_Xerces::getLong(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert<XMLCh>::_2long(getAttributeValueSecure(id));
+    return TplConvert::_2long(getAttributeValueSecure(id));
 }
 
 
@@ -112,7 +112,7 @@ SUMOSAXAttributesImpl_Xerces::getString(int id) const throw(EmptyData) {
         return "";
     } else {
         TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert<XMLByte>::_2str(utf8.str(), (unsigned)utf8.length());
+        return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
     }
 #endif
 }
@@ -130,7 +130,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         return "";
     } else {
         TranscodeToStr utf8(utf16, "UTF-8");
-        return TplConvert<XMLByte>::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
+        return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
     }
 #endif
 }
@@ -138,14 +138,14 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
 
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloat(int id) const throw(EmptyData, NumberFormatException) {
-    return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(id));
+    return TplConvert::_2SUMOReal(getAttributeValueSecure(id));
 }
 
 
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloatSecure(int id,
         SUMOReal def) const throw(EmptyData, NumberFormatException) {
-    return TplConvert<XMLCh>::_2SUMORealSec(getAttributeValueSecure(id), def);
+    return TplConvert::_2SUMORealSec(getAttributeValueSecure(id), def);
 }
 
 
@@ -160,7 +160,7 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const throw(EmptyData, NumberFormatException) {
     XMLCh* t = XMLString::transcode(id.c_str());
-    SUMOReal result = TplConvert<XMLCh>::_2SUMOReal(myAttrs.getValue(t));
+    SUMOReal result = TplConvert::_2SUMOReal(myAttrs.getValue(t));
     XMLString::release(&t);
     return result;
 }
@@ -179,7 +179,7 @@ std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
         const std::string& str) const {
     XMLCh* t = XMLString::transcode(id.c_str());
-    std::string result = TplConvert<XMLCh>::_2strSec(myAttrs.getValue(t), str);
+    std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
     XMLString::release(&t);
     return result;
 }
@@ -197,8 +197,8 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 void
 SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << TplConvert<XMLCh>::_2str(myAttrs.getLocalName(i));
-        os << "=\"" << TplConvert<XMLCh>::_2str(myAttrs.getValue(i)) << "\"";
+        os << " " << TplConvert::_2str(myAttrs.getLocalName(i));
+        os << "=\"" << TplConvert::_2str(myAttrs.getValue(i)) << "\"";
     }
 }
 

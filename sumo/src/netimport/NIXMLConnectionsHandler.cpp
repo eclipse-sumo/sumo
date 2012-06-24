@@ -283,8 +283,8 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
         return false; // There was an error.
     }
 
-    *fromLane = TplConvert<char>::_2intSec(st.next().c_str(), -1);
-    *toLane = TplConvert<char>::_2intSec(st.next().c_str(), -1);
+    *fromLane = TplConvert::_2intSec(st.next().c_str(), -1);
+    *toLane = TplConvert::_2intSec(st.next().c_str(), -1);
 
     return true; // We succeeded.
 }

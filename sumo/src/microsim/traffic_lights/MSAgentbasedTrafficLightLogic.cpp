@@ -61,26 +61,26 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 
     tDecide = 1;
     if (parameter.find("decision-horizon") != parameter.end()) {
-        tDecide = (unsigned int) TplConvert<char>::_2int(parameter.find("decision-horizon")->second.c_str());
+        tDecide = (unsigned int) TplConvert::_2int(parameter.find("decision-horizon")->second.c_str());
     }
     numberOfValues = 3;
     if (parameter.find("learn-horizon") != parameter.end()) {
-        numberOfValues = (unsigned int) TplConvert<char>::_2int(parameter.find("learn-horizon")->second.c_str());
+        numberOfValues = (unsigned int) TplConvert::_2int(parameter.find("learn-horizon")->second.c_str());
     }
     tCycle = 90;
     if (parameter.find("tcycle") != parameter.end()) {
-        tCycle = (unsigned int) TplConvert<char>::_2SUMOReal(parameter.find("tcycle")->second.c_str());
+        tCycle = (unsigned int) TplConvert::_2SUMOReal(parameter.find("tcycle")->second.c_str());
     }
     deltaLimit = 1;
     if (parameter.find("min-diff") != parameter.end()) {
-        deltaLimit = TplConvert<char>::_2int(parameter.find("min-diff")->second.c_str());
+        deltaLimit = TplConvert::_2int(parameter.find("min-diff")->second.c_str());
     }
 }
 
 
 void
 MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
-    SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
+    SUMOReal det_offset = TplConvert::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the detectors

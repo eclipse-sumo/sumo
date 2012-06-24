@@ -61,14 +61,14 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myProjection(0),
 #endif
     myOffset(offset),
-    myProjectionMethod(NONE),
-    myOrigBoundary(orig),
-    myConvBoundary(conv),
     myGeoScale(pow(10, (double) - shift)),
+    myProjectionMethod(NONE),
     myUseInverseProjection(inverse),
     myBaseFound(baseFound),
     myBaseX(0),
-    myBaseY(0) {
+    myBaseY(0),
+    myOrigBoundary(orig),
+    myConvBoundary(conv) {
     if (proj == "!") {
         myProjectionMethod = NONE;
     } else if (proj == "-") {

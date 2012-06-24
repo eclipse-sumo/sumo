@@ -100,7 +100,7 @@ getTurningDefaults(OptionsCont& oc) {
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
-            SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
+            SUMOReal val = TplConvert::_2SUMOReal((*i).c_str());
             ret.push_back(val);
         } catch (NumberFormatException&) {
             throw ProcessError("A turn default is not numeric.");
@@ -203,7 +203,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (SAXException& e) {
-            WRITE_ERROR(TplConvert<XMLCh>::_2str(e.getMessage()));
+            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {

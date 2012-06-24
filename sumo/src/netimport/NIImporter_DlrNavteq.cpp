@@ -225,7 +225,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     interID = st.next();
     // length
     try {
-        length = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        length = TplConvert::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
     }
@@ -246,7 +246,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         // post 05/2009 network
         if (theRest[11] != "-1") {
             try {
-                nolanes = TplConvert<char>::_2int(theRest[11].c_str());
+                nolanes = TplConvert::_2int(theRest[11].c_str());
             } catch (NumberFormatException&) {
                 throw ProcessError("Non-numerical value for the extended number of lanes (edge '" + id + "'.");
             }

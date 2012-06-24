@@ -118,9 +118,9 @@ RGBColor::parseColor(const std::string& coldef) throw(EmptyData, NumberFormatExc
     if (st.size() < 3) {
         throw EmptyData();
     }
-    SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    const SUMOReal r = TplConvert::_2SUMOReal(st.next().c_str());
+    const SUMOReal g = TplConvert::_2SUMOReal(st.next().c_str());
+    const SUMOReal b = TplConvert::_2SUMOReal(st.next().c_str());
     return RGBColor(r, g, b);
 }
 

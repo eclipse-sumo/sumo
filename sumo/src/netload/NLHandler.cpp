@@ -1302,8 +1302,8 @@ NLHandler::getLanesFromIndices(MSEdge* from, MSEdge* to, const std::string& lane
         int fromLaneIdx;
         int toLaneIdx;
         try {
-            fromLaneIdx = TplConvert<char>::_2intSec(st.next().c_str(), -1);
-            toLaneIdx = TplConvert<char>::_2intSec(st.next().c_str(), -1);
+            fromLaneIdx = TplConvert::_2intSec(st.next().c_str(), -1);
+            toLaneIdx = TplConvert::_2intSec(st.next().c_str(), -1);
             if (fromLaneIdx >= 0 && static_cast<unsigned int>(fromLaneIdx) < from->getLanes().size() &&
                     toLaneIdx >= 0 && static_cast<unsigned int>(toLaneIdx) < to->getLanes().size()) {
                 return std::pair<MSLane*, MSLane*>(from->getLanes()[fromLaneIdx], to->getLanes()[toLaneIdx]);

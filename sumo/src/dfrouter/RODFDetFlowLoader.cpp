@@ -80,7 +80,7 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
-            const SUMOTime time = TplConvert<char>::_2int((myLineHandler.get("time").c_str())) * myTimeScale - myTimeOffset;
+            const SUMOTime time = TplConvert::_2int((myLineHandler.get("time").c_str())) * myTimeScale - myTimeOffset;
             if (time < myStartTime || time > myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
@@ -90,15 +90,15 @@ RODFDetFlowLoader::read(const std::string& file) throw(IOError, ProcessError) {
             }
             FlowDef fd;
             fd.isLKW = 0;
-            fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qpkw").c_str());
-            fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vpkw").c_str());
+            fd.qPKW = TplConvert::_2SUMOReal(myLineHandler.get("qpkw").c_str());
+            fd.vPKW = TplConvert::_2SUMOReal(myLineHandler.get("vpkw").c_str());
             fd.qLKW = 0;
             if (myLineHandler.know("qLKW")) {
-                fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qlkw").c_str());
+                fd.qLKW = TplConvert::_2SUMOReal(myLineHandler.get("qlkw").c_str());
             }
             fd.vLKW = 0;
             if (myLineHandler.know("vLKW")) {
-                fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vlkw").c_str());
+                fd.vLKW = TplConvert::_2SUMOReal(myLineHandler.get("vlkw").c_str());
             }
             if (fd.qLKW < 0) {
                 fd.qLKW = 0;

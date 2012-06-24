@@ -63,9 +63,9 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream& from)
     do {
         tag = readEndSecure(from);
         if (tag != "DATAEND") {
-            SUMOReal p1 = TplConvert<char>::_2SUMOReal(tag.c_str());
+            SUMOReal p1 = TplConvert::_2SUMOReal(tag.c_str());
             from >> tag;
-            SUMOReal p2 = TplConvert<char>::_2SUMOReal(tag.c_str());
+            SUMOReal p2 = TplConvert::_2SUMOReal(tag.c_str());
             points.push_back(Position(p1, p2));
         }
     } while (tag != "DATAEND");

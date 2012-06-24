@@ -59,10 +59,10 @@ OptionsLoader::~OptionsLoader() {}
 
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& attributes) {
-    myItem = TplConvert<XMLCh>::_2str(name);
+    myItem = TplConvert::_2str(name);
     for (int i = 0; i < (int) attributes.getLength(); i++) {
-        std::string key = TplConvert<XMLCh>::_2str(attributes.getName(i));
-        std::string value = TplConvert<XMLCh>::_2str(attributes.getValue(i));
+        std::string key = TplConvert::_2str(attributes.getName(i));
+        std::string value = TplConvert::_2str(attributes.getValue(i));
         if (key == "value" || key == "v") {
             setValue(myItem, value);
         }
@@ -90,7 +90,7 @@ void OptionsLoader::setValue(const std::string& key,
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const XERCES3_SIZE_t length) {
-    myValue = myValue + TplConvert<XMLCh>::_2str(chars, (unsigned int) length);
+    myValue = myValue + TplConvert::_2str(chars, (unsigned int) length);
 }
 
 
@@ -121,7 +121,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/) {
 
 void
 OptionsLoader::warning(const SAXParseException& exception) {
-    WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
+    WRITE_WARNING(TplConvert::_2str(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
                   + toString(exception.getLineNumber() + 1) + '/' \
                   + toString(exception.getColumnNumber()) + ").");
@@ -132,7 +132,7 @@ OptionsLoader::warning(const SAXParseException& exception) {
 void
 OptionsLoader::error(const SAXParseException& exception) {
     WRITE_ERROR(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert::_2str(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber() + 1) + '/'
@@ -144,7 +144,7 @@ OptionsLoader::error(const SAXParseException& exception) {
 void
 OptionsLoader::fatalError(const SAXParseException& exception) {
     WRITE_ERROR(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert::_2str(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber() + 1) + '/'

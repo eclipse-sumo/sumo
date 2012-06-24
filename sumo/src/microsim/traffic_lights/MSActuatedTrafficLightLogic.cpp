@@ -61,22 +61,22 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
       myContinue(false) {
     myMaxGap = SUMOReal(3.1);
     if (parameter.find("max-gap") != parameter.end()) {
-        myMaxGap = TplConvert<char>::_2SUMOReal(parameter.find("max-gap")->second.c_str());
+        myMaxGap = TplConvert::_2SUMOReal(parameter.find("max-gap")->second.c_str());
     }
     myPassingTime = SUMOReal(1.9);
     if (parameter.find("passing-time") != parameter.end()) {
-        myPassingTime = TplConvert<char>::_2SUMOReal(parameter.find("passing-time")->second.c_str());
+        myPassingTime = TplConvert::_2SUMOReal(parameter.find("passing-time")->second.c_str());
     }
     myDetectorGap = SUMOReal(3.0);
     if (parameter.find("detector-gap") != parameter.end()) {
-        myDetectorGap = TplConvert<char>::_2SUMOReal(parameter.find("detector-gap")->second.c_str());
+        myDetectorGap = TplConvert::_2SUMOReal(parameter.find("detector-gap")->second.c_str());
     }
 }
 
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
-    SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
+    SUMOReal det_offset = TplConvert::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
     LaneVectorVector::const_iterator i2;

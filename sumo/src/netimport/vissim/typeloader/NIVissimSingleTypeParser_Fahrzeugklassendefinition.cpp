@@ -72,7 +72,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
         color = (*i).second;
     } else {
         int r, g, b;
-        r = TplConvert<char>::_2int(colorName.c_str());
+        r = TplConvert::_2int(colorName.c_str());
         from >> g; // type-checking is missing!
         from >> b; // type-checking is missing!
         color = RGBColor(
@@ -89,7 +89,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
     std::vector<int> types;
     from >> tag;
     do {
-        types.push_back(TplConvert<char>::_2int(tag.c_str()));
+        types.push_back(TplConvert::_2int(tag.c_str()));
         tag = readEndSecure(from);
     } while (tag != "DATAEND");
     return NIVissimVehTypeClass::dictionary(id, name, color, types);
