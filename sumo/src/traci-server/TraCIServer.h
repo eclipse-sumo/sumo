@@ -186,6 +186,10 @@ private:
 
     std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
+private:
+    /// @brief Invalidated assignment operator
+    TraCIServer& operator=(const TraCIServer& s);
+
 };
 
 }

@@ -100,6 +100,9 @@ private:
     /// @brief the time spent querying in milliseconds
     long myQueryStartTime;
     long myQueryTimeSum;
+private:
+    /// @brief Invalidated assignment operator
+    SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
 };
 
 
