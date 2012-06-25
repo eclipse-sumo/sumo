@@ -137,7 +137,7 @@ public:
     /** @brief Returns the number of persons waiting on this stop
     */
     unsigned int getPersonNumber() const {
-       return myWaitingPersons.size();
+       return static_cast<unsigned int>(myWaitingPersons.size());
     }
 
     void addPerson(MSPerson *p) {
