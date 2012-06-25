@@ -2,7 +2,7 @@
 /// @file    GUIPersonControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 13.06.2012
-/// @version $Id: MSPersonControl.cpp 11671 2012-01-07 20:14:30Z behrisch $
+/// @version $Id$
 ///
 // GUI-version of the person control for building gui persons
 /****************************************************************************/

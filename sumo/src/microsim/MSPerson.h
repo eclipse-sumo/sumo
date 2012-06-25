@@ -207,6 +207,10 @@ public:
         private:
             MSPersonStage_Walking &myParent;
             MSPerson *myPerson;
+        private:
+            /// @brief Invalidated assignment operator.
+            MoveToNextEdge& operator=(const MoveToNextEdge&);
+
         };
 
 

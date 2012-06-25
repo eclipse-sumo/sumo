@@ -306,6 +306,9 @@ protected:
     /// @brief The vehicle's car following model
     const MSCFModel& myCarFollowModel;
 
+    private:
+        /// @brief Invalidated assignment operator
+        MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
 };
 
 

@@ -2,7 +2,7 @@
 /// @file    GUIPersonControl.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 13.06.2012
-/// @version $Id: MSPersonControl.h 12128 2012-03-19 11:54:26Z dkrajzew $
+/// @version $Id$
 ///
 // GUI-version of the person control for building gui persons
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    TraCIAPI.h
 /// @author  Daniel Krajzewicz
 /// @date    30.05.2012
-/// @version $Id:$
+/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSCFModel_SmartSK.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 05 Jun 2012
-/// @version $Id:$
+/// @version $Id$
 ///
 // A smarter SK
 /****************************************************************************/
